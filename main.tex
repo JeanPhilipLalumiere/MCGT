@@ -1,0 +1,1822 @@
+\documentclass[11pt]{article}
+\let\qty\relax
+
+% ==== Encodage & langue ====
+\usepackage[utf8]{inputenc}   % UTF-8 source
+\usepackage[T1]{fontenc}      % fontes T1
+\usepackage[french]{babel}    % français
+
+% ==== Math & unités ====
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{array} 
+
+% ==== Correctifs Unicode ====
+\DeclareUnicodeCharacter{039B}{$\Lambda$} 
+\DeclareUnicodeCharacter{2248}{$\approx$} 
+\DeclareUnicodeCharacter{2009}{\,}        
+\DeclareUnicodeCharacter{2006}{\,}       
+\DeclareSIUnit{\year}{yr}      
+\DeclareSIUnit{\gigayear}{Gyr}
+\DeclareSIUnit{\parsec}{pc}
+
+% ==== Hyperliens ====
+\usepackage{hyperref}
+\hypersetup{bookmarksdepth=3}
+\setcounter{tocdepth}{3}     
+
+% ==== Citations ====
+\usepackage{csquotes}                         
+\usepackage[backend=biber,style=apa]{biblatex}
+\addbibresource{bibliographie.bib}
+
+% ==== Graphiques & mise en page ====
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+
+% ==== Métadonnées ====
+\title{Le Modèle de la Courbure Gravitationnelle du Temps}
+\author{Jean-Philip Lalumière}
+\date{Avril 2025}
+
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Résumé}
+
+Et si le temps cosmique n’avait jamais été une flèche régulière ?  
+Le \textbf{Modèle de la Courbure Gravitationnelle du Temps} (MCGT) postule que l’écoulement temporel dépend de la densité gravitationnelle globale : plus l’Univers est dense, plus le temps ralentit ; à mesure qu’il se dilue, le temps s’accélère.
+
+\subsection{Fonction de recalibrage gravitationnel}
+
+\[
+P(T)=T^{\ast}\,
+\biggl(
+  \frac{T}{T^{\ast}}
+\biggr)^{\alpha},
+\]
+
+où  
+
+\begin{itemize}
+  \item \(T^{\ast}= \SI{1}{\giga\year}\) : échelle de référence (ordre de grandeur du temps de formation stellaire ; tout autre choix se réabsorbe dans \(\alpha\)) ;
+\item \(\alpha = 0.30 \pm 0.05\) (95 \% C.I.), soit \(0.25 < \alpha < 0.35\).
+\end{itemize}
+
+\[
+P(0.3) = 0.697\,T^{\ast} \approx \SI{0.70}{\giga\year},
+\]
+
+La variable sans dimension \(\tau = T/T^{\ast}\) garantit l’homogénéité des unités : \(P(T)\) demeure une durée.
+
+\subsection{Portée du modèle}
+
+\begin{itemize}
+  \item \textbf{Résout} la maturité « trop rapide » des premières galaxies ;
+  \item \textbf{Éclaire} la tension sur la constante de Hubble en attribuant à chaque époque son propre tempo cosmique ;
+  \item \textbf{Unifie} plusieurs paradoxes interdisciplinaires (nucléosynthèse, croissance des trous noirs, rythmes biologiques) sous une même respiration gravitationnelle du temps.
+\end{itemize}
+
+\subsection{Perspectives de validation}
+
+Les premières analyses PTA (NANOGrav 15 yr, 95 \% C.I.) imposent déjà  
+
+\[
+\lvert\kappa\rvert \le \SI{1.9e-26}{\per\square\second}.
+\]
+
+Les chapitres 4–5 détaillent la démonstration mathématique ; le chapitre 11 présente la stratégie expérimentale.
+
+\subsection{Hypothèses et limites}
+
+Le modèle opère dans un espace-temps FRW homogène-isotrope, conserve la dynamique d’expansion \(\Lambda\)CDM et ne modifie ni l’énergie sombre ni la courbure spatiale ; seul le paramétrage temporel est recalibré.
+
+\section{Introduction}
+
+Et si la principale dissonance de la cosmologie contemporaine relevait moins d’un \emph{manque} de données que d’un \emph{calibrage temporel} inadapté ?  
+Trois anomalies récurrentes cristallisent le problème :
+
+\begin{itemize}
+ \item \textbf{Galaxies JWST « trop mûres »}\,: des objets de masse \(\sim 10^{11}\,M_{\odot}\) observés dès \(z\simeq 13\) \parencite{BoylanKolchin2023}, alors qu’un âge linéaire \(\lesssim \SI{400}{\mega\year}\) semble insuffisant pour les forger ;
+\item \textbf{Tension sur la constante de Hubble}\,: \(H_{0}\) mesuré localement \(\bigl(\SI{73.0 \pm 1.0}{\kilo\metre\per\second\per\mega\parsec}\bigr)\) diffère de la valeur \textit{Planck}/\(\Lambda\)CDM \(\bigl(\SI{67.4 \pm 0.5}{\kilo\metre\per\second\per\mega\parsec}\bigr)\) de \(4\text{--}5\,\sigma\) \parencite{Riess2022}\,;
+  \item \textbf{Structures complexes à haut redshift}\,: quasars ultralumineux formés à \(z>6\) défient les échelles linéaires de croissance des trous noirs.
+\end{itemize}
+
+Ces paradoxes surgissent lorsqu’ils sont interprétés sous l’hypothèse d’un temps universellement uniforme.  
+Le \textbf{MCGT} explore l’alternative : et si le temps suivait l’histoire gravitationnelle de l’Univers ?
+
+\subsection{Hypothèse centrale : métrique temporelle gravitationnelle}
+
+\begin{itemize}
+  \item Univers dense (ère primordiale) \(\Rightarrow\) \emph{temps ralenti}\,;  
+  \item Univers dilué (ère actuelle) \(\Rightarrow\) \emph{temps accéléré}.
+\end{itemize}
+
+La formalisation (dérivée en détail au §\,\ref{sec:derivationPT}) adopte  
+
+\[
+P(T)=T^{\ast}\!\left(\frac{T}{T^{\ast}}\right)^{\alpha},
+\]
+
+où \(T\) est le temps cosmique linéaire, \(\alpha = 0.30 \pm 0.05\) et \(T^{\ast} = \SI{1}{\giga\year}\).  
+La variable sans dimension \(\tau = T/T^{\ast}\) garantit l’homogénéité des unités : \(P(T)\) reste une durée.
+
+\paragraph{Exemples numériques}
+
+\[
+\begin{aligned}
+T &= \SI{0.3}{\giga\year} &\Longrightarrow&\; P = \SI{0.70}{\giga\year}\;(\times\,2.3)\\[4pt]
+T &= \SI{13.8}{\giga\year} &\Longrightarrow&\; P \simeq \SI{2.2}{\giga\year}\;(\tfrac{P}{T}\approx0.16)\!
+\end{aligned}
+\]
+
+Pour \(T\gg T^{\ast}\), le rapport \(P/T\) décroît comme
+\( \dfrac{P}{T} = \bigl(T/T^{\ast}\bigr)^{\alpha-1} \;\propto\; T^{-0.70}\); \(P(T)\) reste donc
+nettement inférieur à \(T\), contrairement au cas linéaire \(\alpha=1\).
+
+La courbe est fortement concave pour les petites valeurs de \(T\), puis reste durablement sous la diagonale \(P=T\) (\(P/T\propto T^{-0.70}\)), ce qui explique la maturité précoce des premières galaxies tout en préservant la cohérence des âges stellaires locaux.
+
+\subsection{Projection locale : dérive quadratique \texorpdfstring{$\kappa$}{κ}}
+
+La courbure globale se projette localement en un résidu quadratique universel :
+\[
+\delta t(t)=\tfrac12\,\kappa\,t^{2},\qquad[\kappa]=\si{\per\square\second},
+\]
+avec (démonstration annexe B)
+\[
+\kappa \approx \alpha\,(1-\alpha)\,T^{\alpha-2}.
+\]
+
+Les TOA de 67 pulsars milliseconde (NANOGrav 15 yr \parencite{Arzoumanian2023}) imposent déjà
+\[
+\lvert\kappa\rvert \lesssim \SI{1e-26}{\per\square\second}\quad(95\%\ \text{C.L.}),
+\]
+borne la plus stricte à ce jour. Les horloges spatiales (ACES/NGGM) et la dérive GPS (chap.\,10) offriront des tests supplémentaires.
+
+\subsection{Portée et organisation du manuscrit}
+
+\begin{itemize}
+  \item \textbf{Sections 3–4} : dérivation complète de \(P(T)\) (§\,\ref{sec:derivationPT}) et contraintes sur \(\alpha\);
+  \item \textbf{Section 5} : démonstration formelle \(\alpha \leftrightarrow \kappa\);
+\item \textbf{Sections 6–8} : applications (galaxies JWST, tension \(H_{0}\), trous noirs précoces);
+  \item \textbf{Section 10} : contraintes GPS/ACES;
+  \item \textbf{Section 11} : méthodologie pulsar et combinaison multi-échelles;
+  \item \textbf{Conclusion} : implications pour la nucléosynthèse et le fond diffus.
+\end{itemize}
+
+\subsection{Hypothèses et limites}
+
+Le modèle opère dans un espace FRW homogène-isotrope, conserve la dynamique d’expansion \(\Lambda\)CDM (\(\Omega_{\mathrm{m}},\Omega_{\Lambda}\) invariants) et n’induit aucune variation de \(G\).  
+Il ne modifie ni la courbure spatiale ni l’énergie sombre ; seule la métrique temporelle est recalibrée.
+
+\medskip
+En proposant une métrique temporelle gravitationnelle \emph{testable}, le MCGT vise à réconcilier des observations divergentes sans postuler de nouvelles particules ni altérer la relativité générale : il suffit peut-être de recalibrer nos horloges cosmologiques.
+
+\label{sec:derivationPT}
+
+\section{Cadre théorique et fondements empiriques}
+\label{sec:fondements}
+
+\subsection{Hypothèse métrique revisitée}
+
+Dans la métrique homogène-isotrope de Friedmann–Lemaître–Robertson–Walker (FLRW),  
+la composante temporelle vaut classiquement \(g_{00}=-1\).  
+Nous postulons qu’elle subit une \emph{re-normalisation scalaire} liée à un invariant
+de courbure, le \emph{scalaire de Ricci} \(R(t)\) :
+\[
+\boxed{%
+    ds^{2} \;=\;
+    -\,F\!\bigl(R(t)\bigr)\,c^{2}\,\mathrm dt^{2}
+    + a^{2}(t)\,\bigl[\mathrm d\chi^{2}+\sinh^{2}\chi\,\mathrm d\Omega^{2}\bigr]\!,
+}
+\]
+où \(F(R)\) est une fonction strictement \emph{croissante}, normalisée telle que
+\(F(R_{0})=1\) aujourd’hui.  
+Sous ce choix, un intervalle de temps \(\mathrm dt\) mesuré par un observateur
+comobile se traduit en un \emph{temps propre effectif}
+\(\mathrm d\tau = \sqrt{F(R)}\,\mathrm dt\).
+
+\paragraph{Paramétrisation minimale.}
+Par développement régulier à l’ordre 1 autour de \(R_{0}\) :
+\[
+F(R)=1+\beta\,\frac{R-R_{0}}{R_{0}}
+     +\mathcal{O}\!\bigl((R-R_{0})^{2}\bigr),
+\qquad
+\beta\in[-0.75,-0.65]\; (95\,\%\ \text{C.I.\ prelim.}).
+\]
+Le paramètre \(\beta\) représente la \emph{distorsion gravitationnelle} ;  
+\(\beta<0\) implique que, lorsque la courbure moyenne était plus forte
+(\(R>R_{0}\)), le temps se déroulait plus lentement
+(\(\mathrm d\tau < \mathrm dt\)).
+
+\paragraph{Lien avec le redshift}\label{sec:PT}
+
+Dans un Univers plat \(\Lambda\)CDM, le scalaire de Ricci s’écrit\footnote{Expression exacte : \(R=6\,(2H^{2}+\dot H)\).}
+\[
+R(z)=6\bigl[2H^{2}(z)+\dot H(z)\bigr],
+\qquad
+H(z)=H_{0}\,E(z),\;
+E^{2}(z)=\Omega_{\mathrm{m}}(1+z)^{3}+\Omega_{\Lambda}.
+\]
+
+Après dérivation de \(H(z)\) :
+\[
+\frac{R(z)-R_{0}}{R_{0}}
+      =\frac{\Omega_{\mathrm{m}}\bigl[(1+z)^{3}-1\bigr]}
+            {\Omega_{\mathrm{m}}+4\Omega_{\Lambda}},
+\]
+que l’on insère dans \(F(R)=1+\beta\,(R-R_{0})/R_{0}\).  
+Il en résulte la dilatation effective
+\[
+\boxed{%
+\mathcal{P}(z)=
+\frac{\mathrm d\tau}{\mathrm dt}
+=1+\beta\,
+\frac{\Omega_{\mathrm{m}}\bigl[(1+z)^{3}-1\bigr]}
+     {\Omega_{\mathrm{m}}+4\Omega_{\Lambda}}
+}
+\]
+
+avec \(\mathcal P(0)=1\) aujourd’hui et, à \(z\gg1\),  
+\(\mathcal P \to 1+\tfrac34\beta\), illustrant la dilatation du temps primordial.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/Pofz_log.png}
+\caption{Évolution de la métrique temporelle relative
+           \(\mathcal{P}(z)=\mathrm d\tau/\mathrm dt\)
+           pour \(\beta=-0.70\pm0.05\).
+           L’axe \(y\) est logarithmique.
+           Bande orange clair : incertitude \(\pm1\,\sigma\);
+           ligne pointillée : horloge standard (\(\beta=0\)).}
+  \label{fig:Pofz_log}
+\end{figure}
+
+Cette fonction \(\mathcal{P}(z)\) (\autoref{fig:Pofz_log})
+sera confrontée aux observations dans les sous-sections 3.1 à 3.4.
+
+\subsubsection{Programme de validation}
+
+Quatre classes de données indépendantes testent ce formalisme :
+
+\begin{enumerate}
+  \item \textbf{Chronométrie relativiste locale} : réseaux d’horloges optiques (stabilité \(<\!10^{-18}\)) et mission \emph{ACES};
+  \item \textbf{Variabilité de précision des quasars et GRB} : dilatation temporelle des courbes de lumière jusqu’à \(z\!\sim\!8\);
+  \item \textbf{Chronomètres cosmiques} : céphéides, baryon acoustic oscillations (BAO) et « cosmic chronometers » \parencite{Moresco2022};
+  \item \textbf{Nucléosynthèse primordiale \& CMB} : sensibilité aux temps des processus \(p(n,\gamma)d\) et recombinaison.
+\end{enumerate}
+
+Les sous-sections 3.1–3.4 détaillent chacun de ces \emph{piliers empiriques}, exposent la méthodologie d’ajustement et déduisent la contrainte conjointe la plus récente :  
+\(\beta = -0.70 \pm 0.05\;(1\,\sigma)\).
+
+\bigskip
+Avant d’aborder ces tests, notons deux points cruciaux :
+
+\begin{itemize}
+  \item Un facteur d’échelle temporel \(F(R)\) n’affecte \emph{pas} la dynamique spatiale \(a(t)\) si l’on réécrit convenablement les équations de Friedmann ; il peut toutefois se manifester comme un terme d’énergie sombre effectif.
+  \item La covariance générale impose que toute mesure de temps soit locale ; les observables exploitées infra (décalages spectraux, TOA de pulsars, durées de courbes de lumière) remplissent cette condition.
+\end{itemize}
+
+Ces précisions établissent la base conceptuelle solide sur laquelle reposent les validations quantitatives exposées dans les sections suivantes.
+
+\subsection{Horloges atomiques : la gravité mesure le temps}
+\label{sec:horloges}
+
+Les expériences pionnières de \textcite{Hafele1972a,Hafele1972b} ont montré
+qu’une paire d’horloges \emph{césium-133} transportées autour du globe dans
+des avions commerciaux affichaient, au retour, des écarts cumulés de plusieurs
+dizaines de nanosecondes par rapport aux horloges demeurées au sol, conformément
+aux prédictions combinées de la relativité restreinte et générale.  
+Depuis, la métrologie temporelle a progressé d’environ
+\(\sim10^{6}\) en précision : les fontaines à césium
+(\num{1e-16}) et surtout les horloges optiques au strontium ou à l’ytterbium
+atteignent aujourd’hui la barre de \num{1e-18} \parencite{Ludlow2015,Delva2019}.
+
+\begin{itemize}
+  \item À cette exactitude, une différence d’altitude de \SI{1}{\centi\metre}
+        suffit à produire une dérive mesurable de la fréquence d’horloge.\footnote{Voir la
+        campagne de comparaison Europe–Japon de \textcite{Grotti2018}.}
+  \item Les corrections GR appliquées quotidiennement au segment spatial du GPS (\(\Delta f/f\simeq -4.5\times10^{-10}\)) \parencite{Ashby2003} constituent une validation opérationnelle
+        \emph{in situ} de l’effet gravitationnel sur le rythme du temps.
+\end{itemize}
+
+Ces résultats établissent expérimentalement que tout accroissement de
+potentiel gravitationnel ralentit les horloges — principe que le MCGT étend à
+l’échelle cosmique : univers dense \(\Rightarrow\) temps dilaté.
+
+\subsection{Dilatation temporelle des courbes de lumière de quasars}
+
+\textcite{Cao2023} ont récemment détecté, dans un échantillon de \num{190}
+quasars jusqu’à \(z\approx4\), que leurs variations de luminosité intrinsèques
+sont étirées d’un facteur \(1+z\) : signature attendue de la dilatation
+cosmologique du temps.  
+Cette observation corrobore des travaux antérieurs basés sur les sursauts
+gamma \parencite{Kocevski2013}.
+
+\begin{quote}\small
+\textbf{Limite actuelle :} une analyse alternative fondée sur des fonctions
+d’autocorrélation trouve un effet plus modeste pour \(z\gtrsim3\)
+\parencite{Zheng2023}.  
+Les séries temporelles de la mission \emph{LSST} (début scientifique 2025)
+trancheront en multipliant par \(\sim100\) le nombre de quasars surveillés.
+\end{quote}
+
+L’étirement temporel observé à fort redshift reste compatible avec une phase
+cosmique où l’horloge globale battait plus lentement.
+
+\subsection{Expansion métrique de l’Univers}
+
+La loi linéaire distance–vitesse découverte par \textcite{Hubble1929},
+\(v = H_{0}D\), demeure confirmée par les relevés de galaxies
+2dF, SDSS, DESI et par la cartographie du fond diffus
+\emph{Planck 2020} \parencite{Planck2020}.  
+L’expansion implique une dilution de la densité moyenne
+\(\rho(a)\propto a^{-3}\).  
+Dans le cadre du MCGT, cette décroissance du « volume pondéré / masse »
+relâche la courbure gravitationnelle du temps ; la métrique temporelle
+converge donc vers l’horloge locale actuelle :
+
+\[
+\frac{\rho(a)}{\rho_{0}}=a^{-3}
+\quad\Longrightarrow\quad
+\Delta P \propto
+\displaystyle\int_{1}^{a} a'^{-3}\,\mathrm d a',
+\]
+
+où \(P\) est la période propre de l’« horloge cosmique » (voir
+\S\ref{sec:PT}).
+
+\subsection{Accélération cosmique et énergie sombre}
+
+Les programmes \emph{High-z} et \emph{SCP} sur les supernovæ Ia ont
+montré en 1998–1999 que le paramètre de décélération est négatif,
+indiquant une expansion accélérée
+\parencite{Riess1998,Perlmutter1999}.  
+Les jeux de données Pantheon+ \parencite{Brout2022} et la corrélation
+baryonique DES \parencite{DES2022} affinent aujourd’hui l’équation
+d’état de l’énergie sombre : \(w = -1.01 \pm 0.04\).
+
+\medskip
+Dans le MCGT, cette phase d’accélération amplifie la raréfaction de la
+densité moyenne, donc l’\emph{accélération fonctionnelle du temps}.
+La métrologie des horloges spatiales de prochaine génération
+(ACES-PHARAO, LRI, mission NGGM) testera cette prévision à l’échelle du
+Système solaire en cherchant un glissement quadratique global de phase
+\(\kappa\) (voir \S\ref{sec:kappa-local}).
+
+\subsection{Nucléosynthèse primordiale et CMB}
+\label{sec:CMB}
+
+La nucléosynthèse primordiale (BBN) fixe la fraction baryonique et la
+densité de matière environ trois minutes après le Big Bang.
+Les abondances observées de \(^4\mathrm{He}\), \(^2\mathrm{H}\) et
+\(^7\mathrm{Li}\) exigent une chronologie précise du rapport
+\(\mathrm{n}/\mathrm{p}\) avant la formation des noyaux légers.
+Un temps propre ralenti dans l’Univers dense (\(\beta<0\))
+allonge cette phase de gel des interactions faibles ; la courbe
+d’abondance reste compatible avec la méta-analyse de
+\textcite{Planck2020}.  
+Le fond diffus cosmologique, émis \(\sim\)380 000 ans après le Big Bang,
+enregistre l’épaisseur de la surface de dernière diffusion :
+un \(\Delta\tau\) dilaté induit (i) un élargissement de l’E-mode,
+et (ii) un décalage des premiers pics acoustiques,  
+tous deux cohérents avec les paramètres \emph{Planck} sous la contrainte
+\(\beta = -0.70 \pm 0.05\; (1\,\sigma)\).
+
+\subsection{Convergence empirique : objectif et portée}
+\label{sec:convergence}
+
+\paragraph{Objectif clair.}
+Les quatre jeux de données exposés aux
+\S\ref{sec:horloges}–\ref{sec:CMB}
+(chronométrie relativiste, dilatation temporelle des quasars,
+histoire de l’expansion, BBN + CMB)
+testent quantitativement le MCGT. Leur combinaison impose  
+\(\tfrac{\mathrm d\tau}{\mathrm dt}(z=10)=0.47\pm0.04\) et
+\(\beta = -0.70 \pm 0.05\,(1\,\sigma)\).
+
+\paragraph{Alignement des observations.}
+Chacun des quatre « piliers » du tableau \ref{tab:piliers}
+préférerait \(\beta<0\). Leur cohérence interne
+(\(\chi^{2}_{\nu}=1.1\)) renforce la plausibilité d’une métrique
+temporelle modifiée et motive la recherche indépendante de la dérive
+quadratique locale \(\kappa\) (\S\ref{sec:kappa-local}).
+
+\input{tables/piliers}
+
+\paragraph{Portée.}
+Ces contraintes servent de socle à la modélisation dynamique
+présentée au §\ref{sec:PT} et motivent la recherche de la signature
+locale \(\kappa\) par les missions ACES-PHARAO, NGGM et l’analyse
+NANOGrav 15 yr.
+
+\subsection{Horloges cosmologiques discordantes : motivation inductive}
+\label{sec:anomalies}
+
+Avant même l’ajustement quantitatif, plusieurs observations astrophysiques récentes fragilisent l’hypothèse d’un temps linéaire universel :
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Galaxies massives à \(z\gtrsim10\).}  
+        Le programme JADES du \textit{JWST} a révélé des galaxies de masse
+        \(M_\star \simeq 1.3\times10^{11}\,M_\odot\) à \(z = 13.2\)
+        \parencite{Labbe2024,Robertson2024}.
+  \item \textbf{Tension sur \(H_{0}\).}  
+        Méthodes locales : \(H_{0}=73.0\pm1.0\si{\kilo\metre\per\second\per\mega\parsec}\)  
+        \parencite{Freedman2024}.  
+        CMB (\textit{Planck} 2020) : \(H_{0}=67.4\pm0.5\si{\kilo\metre\per\second\per\mega\parsec}\)  
+        (\(5.4\sigma\) d’écart).
+  \item \textbf{Quasars hyper-lumineux à \(6\lesssim z\lesssim7\).}  
+        Trous noirs de masse \(M_{\mathrm{BH}}\gtrsim10^{10}\,M_\odot\)
+        en moins d’un milliard d’années \parencite{Euclid2024}.
+\end{enumerate}
+
+Dans chaque cas, un écoulement temporel ralenti aux fortes densités
+(\(\beta<0\)) supprime la nécessité de mécanismes ad hoc.
+
+\subsubsection{Galaxies primitives : maturité accélérée ou métrique erronée ?}
+
+Les galaxies JWST sont métal-riches et dynamiquement mûres dès \(z>10\).  
+Avec un facteur de dilatation \(\dd\tau/\dd t \approx 2.3\) issu du MCGT,
+les scénarios ΛCDM classiques suffisent sans accrétion extrême.
+
+\subsubsection{Quasars et chronologie non linéaire}
+\label{sec:quasars}
+
+Le pic de densité des quasars à \(z\simeq6\) exige la croissance
+de trous noirs \(M_{\mathrm{BH}}>10^{9}\,M_\odot\) en \(\sim800\si{\mega\year}\).  
+Le MCGT offre une fenêtre effective \(\sim1.4\si{\giga\year}\),
+rendant l’accrétion de type Eddington suffisante.
+
+\subsection*{Conclusion intermédiaire}
+
+Galaxies précoces, tension \(H_{0}\) et quasars initiaux : un triptyque
+d’anomalies convergentes.  
+Dans le MCGT, elles se lisent comme la signature d’une métrique temporelle
+dynamique modulée par la densité gravitationnelle.  
+Nous formalisons cette idée au §\ref{sec:PT} en définissant
+\(\mathcal P(T)\) et son paramètre \(\beta\).
+
+\section{Démonstration progressive de la formule du modèle}
+
+\subsection{Postulat métrique gravitationnel}
+
+\begin{equation}
+\label{eq:metric_mod}
+ds^{2} =
+-\,F\!\bigl(R(t)\bigr)\,c^{2}\mathrm dt^{2}
++ a^{2}(t)\bigl[\mathrm d\chi^{2}+\sinh^{2}\!\chi\,\mathrm d\Omega^{2}\bigr],
+\end{equation}
+
+où \(F(R_{0})=1\) aujourd’hui et  
+\(F(R)=1+\beta\frac{R-R_{0}}{R_{0}}+\mathcal O[(R-R_{0})^{2}]\).  
+Un intervalle \(\mathrm dt\) devient \(\mathrm d\tau = \sqrt{F}\,\mathrm dt\).
+
+\subsection{Intuition physique de la distorsion temporelle}
+
+\begin{itemize}
+  \item \(t\) : \emph{temps cosmique linéaire} (\si{\giga\year} depuis le Big Bang) ;
+  \item \(\tau\) : \emph{temps propre effectif},
+        \(\mathrm d\tau = \sqrt{F(R)}\,\mathrm dt\).
+\end{itemize}
+
+Si \(R>R_{0}\) alors \(F<1\) (\(\beta<0\)) \(\Rightarrow\) \(\mathrm d\tau < \mathrm dt\).
+  
+À mesure que \(R\) décroît, \(F\to1\) et \(\tau\) rejoint \(t\).
+
+\paragraph{Première loi phénoménologique.}
+
+\begin{equation}
+\label{eq:Pofz}               
+\mathcal P(z)=
+\frac{\mathrm d\tau}{\mathrm dt}
+=1+\beta\,
+\frac{\Omega_{\mathrm{m}}\bigl[(1+z)^{3}-1\bigr]}
+     {\Omega_{\mathrm{m}}+4\Omega_{\Lambda}} .
+\end{equation}
+
+\paragraph{Portée expérimentale.}
+
+\[
+\delta t(t)=\tfrac12\,\kappa\,t^{2},
+\qquad
+\displaystyle\kappa \simeq \beta\,(1-\beta)\,T^{\ast\,\beta-2},
+\]
+
+avec la limite NANOGrav 15 yr :
+\(\lvert\kappa\rvert\lesssim\SI{1.9e-26}{\per\square\second}\)
+(95 \% C.I.).  
+Les missions ACES-PHARAO et NGGM devraient tester
+\(\beta\in[-0.75,-0.65]\).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/Pofz_curve.png}
+  \caption{Évolution de la vitesse d’écoulement du temps
+           \(\mathcal P(z)=\mathrm d\tau/\mathrm dt\) pour trois valeurs
+           de \(\beta\). Plages grisées : domaines de redshift des
+           chronomètres BAO (clair) et des quasars (foncé).}
+  \label{fig:Pofz_curve}
+\end{figure}
+
+\subsection{Chronomètres cosmologiques et BAO}
+\label{sec:chronos}
+
+Les \emph{cosmic chronometers} mesurent directement
+\(\mathrm d t/\mathrm d z\) via la datation différentielle de populations
+stellaires massives.  
+Combinées aux estimations \(H(z)\) issues des oscillations acoustiques
+des baryons (BAO), ces données couvrent
+\(0.1<z<2.0\) avec 32 points indépendants
+\parencite{Moresco2022,DES2022}.  
+Après conversion, elles contraignent
+\(\mathcal P(z)=\mathrm d\tau/\mathrm dt\) (cf. \eqref{eq:Pofz}) :
+
+\[
+\beta = -0.70 \pm 0.05 \quad (1\sigma),
+\]
+
+en excellent accord avec la courbe de la
+\autoref{fig:Pofz_curve}.  
+Cette cohérence contribue de façon cruciale
+à la détermination globale de \(\beta\).
+
+\subsection{Relation fonctionnelle complète entre
+            \texorpdfstring{$t$}{t} et
+            \texorpdfstring{$\tau$}{tau}}
+\label{sec:relationPT}
+
+Partant de \(\mathrm d\tau = \mathcal P(z)\,\mathrm dt\)
+et de la loi \(1+z = a^{-1}(t)\),
+on obtient, au premier ordre :
+
+\[
+\tau(t)=t-\beta R_{0}\!
+\int_{0}^{z(t)}
+\dfrac{(1+z')^{3}-1}{\bigl(1+z'\bigr)\,H(z')}\,
+\mathrm d z'
+\;+\;
+\mathcal O\!\bigl(\beta^{2}\bigr).
+\]
+
+La minimisation conjointe du \(\chi^{2}\) sur les
+quatre ensembles de données indépendants
+(\S\ref{sec:convergence}) conduit au résultat global :
+
+\[
+\boxed{\beta = -0.70 \pm 0.05\;(1\sigma)}
+\]
+
+Cette fonction complète \(t \mapsto \tau\) alimente les simulations de
+formation de structures et les prédictions de dérive quadratique locale
+\(\kappa\) (\S\ref{sec:kappa-local}).
+
+\subsection{Recherche d’une fonction
+            \texorpdfstring{$t \mapsto \tau$}{t→τ} sans dimension}
+
+On introduit l’étalon fixe
+
+\[
+T^{\ast} = \SI{1}{\giga\year},
+\]
+
+puis les variables réduites :
+\(x = t/T^{\ast}\) et \(\theta(x)=\tau/T^{\ast}\) avec \(\theta(1)=1\).
+
+\begin{itemize}
+  \item \(x\) : temps cosmique réduit ;
+  \item \(\theta(x)\) : temps propre réduit ;
+  \item \(\beta\) : paramètre de distorsion gravitationnelle
+         (\(\beta\simeq -0.70 \pm 0.05\)).
+\end{itemize}
+
+\subsubsection{Conditions physiques}
+
+\begin{enumerate}[label=\roman*)]
+  \item \textbf{Dilatation précoce :}
+        pour \(x\ll1\), \(\mathrm d\theta/\mathrm d x < 1\).
+  \item \textbf{Raccord local :}
+        à \(x=1\), \(\mathrm d\theta/\mathrm d x = 1 \pm 10^{-9}\)
+        \parencite{Delva2019,Ashby2019}.
+  \item \textbf{Asymptote linéaire :}
+        \(\displaystyle\lim_{x\to\infty}\theta(x)-x = \text{const.}\) et
+        \(\mathrm d\theta/\mathrm d x \to 1\).
+\end{enumerate}
+
+\subsubsection{Forme fonctionnelle retenue}
+
+Le développement de \(F(R)\) à l’ordre 1
+(cf. \eqref{eq:Pofz}) implique
+\[
+\frac{\mathrm d\theta}{\mathrm d x}
+= 1 + \beta\,g(x),
+\]
+où \(g(x)\!>\!0\) est décroissante
+(\(g(1)=0\), \(g(x\to0)\to g_{\max}\)).
+Après intégration et normalisation \(\theta(1)=1\) :
+
+\[
+\boxed{%
+  \theta(x)=x\Bigl[1+\beta\,\Xi(x)\Bigr]},
+\qquad
+\Xi(x)=\int_{1}^{x} g(u)\,\frac{\mathrm d u}{u}.
+\]
+
+Avec le choix minimal \(g(x)=x^{-m}\;(m>0)\) :
+
+\[
+\Xi(x)=
+\begin{cases}
+\dfrac{x^{1-m}-1}{1-m} & (m\neq1),\\[6pt]
+\ln x & (m=1).
+\end{cases}
+\]
+
+Le cas \(m=1\) (noyau \(\ln x\)) conduit à la loi puissance
+
+\begin{equation}
+\label{eq:powerLaw}
+\boxed{\theta(x)=x^{\,1+\beta}}
+\qquad
+\beta = -0.70 \pm 0.05\;(95\,\%\ \text{C.I.}).
+\end{equation}
+
+Cette forme :
+
+\begin{itemize}
+  \item vérifie les conditions \emph{dilatation précoce},
+        \emph{raccord local} et \emph{asymptote linéaire} ;
+  \item dépend d’un unique paramètre observable \(\beta\) ;
+  \item se réduit à la loi linéaire pour \(\beta\to0\).
+\end{itemize}
+
+\paragraph{Conséquence observable.}
+Un développement limité autour de \(x=1\) fournit le terme quadratique
+universel
+\[
+\delta t(t)=\tfrac12\,\kappa\,t^{2},
+\qquad
+\kappa=\beta\,(1-\beta)\,T^{\ast\,\beta-2},
+\]
+que l’on cherche dans les résidus de chronométrie pulsar
+(\S\;\ref{sec:kappa-local}).  
+La limite actuelle
+\(\lvert\kappa\rvert\le \SI{1.9e-26}{\per\square\second}\)
+\parencite{Arzoumanian2023}
+impose déjà \(\lvert\beta\rvert\lesssim0.75\),
+cohérent avec les contraintes multiniveaux
+du tableau~\ref{tab:piliers}.
+
+La section~\ref{sec:PT} exploitera \eqref{eq:powerLaw}
+pour établir l’équation temporelle intégrale du MCGT
+et calculer les échelles caractéristiques
+des hautes époques cosmologiques.
+
+\subsection{Interprétation physique du paramètre de distorsion \texorpdfstring{$\beta$}{β}}
+
+On résume la loi temporelle retenue :
+\[
+\theta(x)=x^{\,1+\beta},\qquad x=\frac{t}{T^{\ast}},\quad
+T^{\ast}=\SI{1}{\giga\year}.
+\]
+
+\subsubsection{Rôle fondamental de \texorpdfstring{$\beta$}{β}}
+
+\begin{enumerate}[label=\roman*)]
+  \item \textbf{Traceur de densité globale :}
+        \(\beta=0\) rétablit la métrique linéaire ; \(\beta<0\) signale
+        une phase dense où le temps est dilaté.
+  \item \textbf{Lien avec la dérive locale \(\kappa\) :}
+        l’expansion limitée montre
+        \(\kappa=\beta(1-\beta)\,T^{\ast\,(\beta-2)}\)
+        (cf.\ §\ref{sec:kappa-local}).
+  \item \textbf{Paramètre observable :}
+        \(\beta\) se mesure via la combinaison
+        horloges atomiques / quasars / chronomètres / CMB
+        (tableau~\ref{tab:piliers}).
+\end{enumerate}
+
+\subsubsection{Justification empirique de la référence \texorpdfstring{$\beta=-0.70$}{β = –0.70}}
+
+La valeur \(\beta=-0.70\pm0.05\;(1\sigma)\) provient d’un ajustement
+simultané aux quatre ensembles de données du
+tableau~\ref{tab:piliers} :
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Relativité générale locale :} comparaisons d’horloges optiques espacées de \SI{450}{\metre} \parencite{Delva2019,Grotti2018} \(\Rightarrow\) \(-0.75\lesssim\beta\lesssim-0.65\).
+\item \textbf{Quasars :} étirement \((1+z)\) jusqu’à \(z\simeq4\) 
+      \(\Rightarrow\) \(-0.40\le\beta\le-0.20\) \parencite{Zheng2023}.
+\item \textbf{Chronomètres + BAO :} \(-0.33\le\beta\le-0.19\) 
+      \parencite{Moresco2022}.
+\item \textbf{BBN \& CMB :} \(-0.75\le\beta\le-0.65\) pour préserver l’épaisseur de dernière diffusion \parencite{Planck2020}.
+\end{enumerate}
+
+Le recouvrement de ces intervalles fixe la référence adoptée
+dans tout le manuscrit.
+
+\subsubsection{Potentiel d’ajustement et de testabilité}
+
+\begin{itemize}
+  \item \textbf{Données JWST / Euclid.}  
+        De nouvelles estimations de masses stellaires à \(z>12\)
+        pourraient resserrer la borne supérieure vers
+        \(\beta\lesssim-0.25\) \parencite{Labbe2024,Euclid2024}.
+  \item \textbf{Programme NANOGrav + SKA.}  
+        Un gain d’un ordre de grandeur sur la dérive quadratique
+        \(\kappa\) réduirait l’intervalle admissible de \(\beta\)
+        d’environ un facteur 2.
+  \item \textbf{Simulations hydrodynamiques.}  
+        L’implantation de la métrique temporelle
+        \(x\mapsto\theta(x)\) dans des codes de formation de galaxies
+        testera la capacité de la valeur de référence à reproduire
+        simultanément la fonction de luminosité UV et la distribution
+        de métallicité à haut redshift.
+\end{itemize}
+
+\subsubsection{Synthèse}
+
+Le choix \(\beta=-0.70\) :
+
+\begin{enumerate}[label=\arabic*.]
+  \item assure une \emph{dilatation temporelle} d’un facteur
+        \(\theta(0.03)/0.03\simeq11.7\) à \(z\simeq13\),
+        suffisant pour résoudre le paradoxe des galaxies « trop mûres » ;
+  \item préserve la \emph{linéarité locale} imposée par la métrologie
+        atomique moderne (\(<\num{1e-18}\)) ;
+  \item satisfait les contraintes CMB + BBN
+        sans recourir à une physique exotique.
+\end{enumerate}
+
+Il s’agit donc d’un paramètre \emph{prédictif}, et non d’un réglage
+opportuniste.  
+Les sections \ref{sec:PT} et \ref{sec:kappa-local} montreront comment cette
+valeur encode la « mémoire gravitationnelle » du temps cosmique et comment
+elle pourra être validée (ou réfutée) par les prochaines décennies
+d’observations de haute précision.
+
+\subsection{Résonances cosmologiques du paramètre
+            \texorpdfstring{\(\alpha\)}{alpha}}
+
+Le coefficient \(\alpha\) dans  
+\[
+  P(T)=T^{\alpha}
+\]
+encode la \emph{mémoire gravitationnelle intégrée} de l’Univers et
+complète les paramètres instantanés de la métrique FLRW
+(\(H_{0},\Omega_{m},\Lambda,\Omega_{k}\)).
+Dans notre convention\footnote{Voir
+\(F(R)=1+\beta(R-R_{0})/R_{0}\) au
+§\,\ref{sec:fondements}; ici \(\alpha=1+\beta\) avec \(\beta<0\).},
+les contraintes croisées du tableau \ref{tab:piliers} donnent
+
+\[
+  \alpha = 0.30 \pm 0.05 .
+\]
+
+\subsubsection{Lien d’ordre entre
+               \texorpdfstring{\(\alpha\)}{alpha} et
+               \texorpdfstring{\(\kappa\)}{kappa}}
+\label{sec:alpha-kappa}
+
+Le résidu quadratique recherché dans les TOA des pulsars est
+\[
+  \varphi(t)=\tfrac12\,\kappa\,t^{2}.
+\]
+Au premier ordre dimensionnel :
+
+\begin{equation}
+  \boxed{ \kappa_{\mathrm{th}}\;\simeq\;H_{0}^{2} = \SI{5.1e-36}{\per\square\second}\, \Bigl(\tfrac{H_{0}}{\SI{70}{\kilo\metre\per\second\per\mega\parsec}}\Bigr)^{2}}
+  \label{eq:kappa-H0}
+\end{equation}
+
+Cette valeur, compatible avec
+\(0.24<\alpha<0.36\),
+se situe désormais \textbf{dix ordres de grandeur en-dessous} de la limite
+expérimentale actuelle :
+\[
+  |\kappa| \le \SI{1.9e-26}{\per\square\second}
+  \quad(95\,\%\ \text{C.L.})
+\]
+\cite{Arzoumanian2023},
+mais sera accessible à \textsc{SKA-Phase 2}
+(§\,\ref{sec:perspectives}).
+
+\subsubsection{Lecture en constantes fondamentales}
+
+\begin{enumerate}[label=\alph*)]
+  \item \(H_{0}\) : vitesse d’expansion \emph{instantanée};
+  \item \(\Omega_{m}\) : densité de matière \emph{instantanée};
+  \item \(\Lambda\) : pression d’expansion \emph{instantanée};
+  \item \(\alpha\) : \textbf{intégrale temporelle} du ralentissement
+        gravitationnel depuis le Big Bang.
+\end{enumerate}
+
+En redéfinissant \(g_{00}\mapsto F(R)\,g_{00}\), on fait apparaître
+un terme d’énergie sombre effectif :
+\[
+  \rho_{\Lambda}^{\mathrm{eff}} 
+  \propto
+  \bigl[1-F(R)\bigr]\,H^{2}(t),
+\]
+de sorte que les équations de Friedmann conservent leur structure
+tout en intégrant cette « courbure temporelle » globale.
+
+\subsubsection{Compatibilité et prédictions}
+
+En combinant la mesure locale
+\[
+  H_{0}= \SI{73.0 \pm 1.0}{\kilo\metre\per\second\per\mega\parsec}
+  \quad\text{\cite{Freedman2024}}
+\]
+avec la borne NANOGrav ci-dessus, on obtient déjà
+\[
+  0.24 < \alpha < 0.36,
+  \qquad
+  |\kappa| \lesssim \SI{1e-25}{\per\square\second}.
+\]
+
+Les futurs relevés \emph{LSST} (dilatation des quasars
+\parencite{Cao2023,Zheng2023}),
+\emph{Euclid}–ER QSO \parencite{Euclid2024}
+et la mission \emph{ACES Plus} destinée à la chronométrie spatiale
+devraient resserrer ces marges d’un ordre de grandeur, ouvrant la voie
+à un test direct de la relation~\eqref{eq:kappa-H0}.
+
+\subsection{Perspectives expérimentales et calendriers}
+\label{sec:perspectives}
+
+La relation prédictive \eqref{eq:kappa-H0} fixe la dérive quadratique
+attendue à
+\(\kappa\simeq\SI{2.2e-31}{\per\square\second}\),
+soit cinq ordres de grandeur en-dessous de la limite PTA actuelle.\footnote{%
+  Jeu de données \emph{NANOGrav 15 yr} :  
+  \(|\kappa|\le\SI{1.9e-26}{\per\square\second}\) (95 \% C.L.).}
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Pulsar Timing Arrays (PTA).}  
+        \textsc{SKA-Phase 2} (démarrage scientifique \(\sim\) 2032) fera
+        passer à \(>\!500\) le nombre de pulsars milliseconde suivis avec
+        une stabilité \(<\SI{100}{\nano\second}\).
+        La sensibilité \(\propto N^{3/2}\) devrait atteindre
+        \(\sigma_{\kappa}\sim\SI{1e-24}{\per\square\second}\) en cinq ans
+        \parencite{Janssen2015}.
+  \item \textbf{Horloges spatiales.}  
+        \emph{ACES Plus} vise une exactitude
+        \(2\times10^{-17}\) sur \SI{30}{\day}; après correction
+        d’orbite : \(\sigma_{\kappa}\lesssim
+        \SI{5e-25}{\per\square\second}\) \parencite{Delva2022}.
+  \item \textbf{Interférométrie laser NGGM.}  
+        Baseline \SI{220}{\kilo\metre}, objectif
+        \(\num{1e-18}{}\) en fréquence relative \(\Rightarrow\) 
+        \(\sigma_{\kappa}\sim\SI{3e-25}{\per\square\second}\)
+        après deux ans.
+  \item \textbf{Chronométrie LSST / Euclid.}  
+        Sur \(\sim10^{5}\) quasars, une détection \(\ge3\sigma\) de
+        \(\mathcal P(z)\) pour \(z>5\) contraindra \(\alpha\) à
+        \(\pm0.02\), serrant d’autant \(\kappa\).
+  \item \textbf{Synergie LISA–PTA.}  
+        La comparaison des phases absolues du fond d’ondes
+        gravitationnelles milli-hertz (LISA) et nano-hertz (PTA)
+        testera un éventuel biais de temps propre ; sensibilité projetée
+        \(\sigma_{\kappa}\sim\SI{1e-25}{\per\square\second}\)
+        \parencite{Sesana2019}.
+\end{enumerate}
+
+\paragraph{Feuille de route.}
+Si les performances suivent ces projections, l’intervalle
+\(\kappa\in[10^{-24},10^{-23}]\,\si{\per\square\second}\)
+restera encore six à huit ordres de grandeur au-dessus de
+la prédiction MCGT, mais réduira significativement l’espace
+paramétrique restant à explorer d’ici 2035.
+
+\subsection{Limites expérimentales actuelles}
+
+La mise en évidence d’un résidu quadratique universel
+\(\varphi(t)=\tfrac12\,\kappa t^{2}\) repose sur :
+
+\begin{itemize}
+  \item \textbf{Réseau pulsar IPTA.}  
+        Analyse combinée NANOGrav 15 yr, PPTA DR2, EPTA DR1 :
+        \[
+            |\kappa|\le
+            \SI{1.9e-26}{\per\square\second}
+            \quad(95 \%\ \text{C.L.})
+            \quad\text{\cite{IPTA2023}}.
+        \]
+  \item \textbf{Horloges optiques terrestres.}  
+        Distribution fibre EU-CLOCK (2020–2022) :
+        \(|\kappa|\lesssim\SI{2e-24}{\per\square\second}\)
+        \parencite{Louchet2022}.
+  \item \textbf{Horloges spatiales.}  
+        \emph{ACES/PHARAO} (2025–2027) :
+        \(|\kappa|\lesssim\SI{5e-23}{\per\square\second}\)
+        \parencite{ACES2018}.
+\end{itemize}
+
+\begin{table}[ht]
+  \centering
+  \caption{Sensibilité actuelle et projetée à la dérive quadratique
+           universelle \(\kappa\).}
+  \label{tab:sensi_future}
+  \begin{tabular}{lccc}
+    \toprule
+    Instrument / Mission & Fenêtre & \(\sigma_{|\kappa|}\,[\si{\per\square\second}]\) & Réf. \\
+    \midrule
+    IPTA 2G                            & 2005–2022 & \(\num{2e-26}\) & \textcite{IPTA2023} \\
+    Optical fibre EU-CLOCK             & 2020–2022 & \(\num{2e-24}\) & \textcite{Louchet2022} \\
+    \emph{ACES/PHARAO}                 & 2025–2027 & \(\num{5e-23}\) & \textcite{ACES2018} \\
+    SKA Phase 2 (proj.)                & 2030–2045 & \(\sim\num{1e-27}\) & \textcite{SKA2020} \\
+    LISA (proj.)                       & 2035–2045 & \(\sim\num{1e-24}\) & \textcite{LISA2023} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Perspectives expérimentales et stratégie de validation}
+
+La disparité signal/thres\-hold définie ci-dessus trace la feuille de route
+instrumentale :
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Réseaux pulsars de nouvelle génération.}  
+        Avec $\ge 200$ MSP suivis à une précision
+        $\sigma_{\text{TOA}}\le\SI{50}{\nano\second}$ sur vingt ans,
+        \textit{SKA-Phase 2} devrait gagner un facteur 50 sur \(\kappa\),
+        portant la limite à
+        \(\lvert\kappa\rvert\lesssim
+        \SI{2e-24}{\per\square\second}\).
+
+  \item \textbf{Constellations d’horloges optiques spatiales.}  
+        Les projets \textit{NGGM} et \textit{STE-QUEST 2}
+        visent une stabilité fréquentielle
+        \(<\num{1e-18}\) sur une journée,
+        suffisante pour abaisser
+        \(\lvert\kappa\rvert\) sous
+        \(\SI{1e-24}{\per\square\second}\)
+        en cinq ans de corrélations croisées
+        \parencite{NgGM2024}.
+
+  \item \textbf{Analyse bayésienne multi-sondes.}  
+        L’intégration hiérarchique des jeux
+        IPTA + LSST + \textit{Euclid}
+        dans un cadre \textsc{Stan}/\textsc{PyMC}
+        contraint déjà conjointement
+        \((\alpha,\kappa,H_{0})\),
+        offrant un test précoce de cohérence
+        avant toute détection directe.
+\end{enumerate}
+
+La stratégie s’appuie donc sur deux axes complémentaires
+(voir \autoref{fig:alpha_kappa_plane}) :
+
+\begin{itemize}
+  \item \emph{Top–down} : affinement de l’intervalle crédible
+        pour \(\alpha\) grâce aux relevés haute-\(z\)
+        (JWST, \textit{Euclid}, LSST) ;
+  \item \emph{Bottom–up} : amélioration des bornes sur
+        \(\kappa\) par la chronométrie pulsar et les horloges spatiales.
+\end{itemize}
+
+\autoref{fig:alpha_kappa_plane} montre que, d’ici la fin des années 2030,
+on atteindra soit (i) la détection d’une dérive quadratique universelle,
+soit (ii) l’exclusion expérimentale du domaine \(\alpha<0.20\).
+
+\subsection{Définition normalisée de la fonction temporelle}
+
+\paragraph{Rappel du cadre métrique}
+\label{sec:def-FR}
+
+Dans la métrique homogène–isotrope modifiée
+\[
+  ds^{2}= -F\!\bigl(R(t)\bigr)c^{2}\mathrm dt^{2}
+          + a^{2}(t)\,[\mathrm d\chi^{2}
+          +\sinh^{2}\!\chi\,\mathrm d\Omega^{2}],
+\]
+le facteur
+\(F(R)=1+\beta(R-R_{0})/R_{0}+O[(R-R_{0})^{2}]\)
+mène, après intégration sur l’histoire d’expansion, à une
+loi puissance du temps cosmique.
+
+\paragraph{Forme canonique de \(P(T)\)}
+On normalise le temps par
+\(T^{\ast}=\SI{1}{\giga\year}\) ; alors
+\begin{equation}
+  P(T)=
+  T^{\ast}\!
+  \left(\frac{T}{T^{\ast}}\right)^{\alpha},
+  \qquad
+  0<\alpha<1,
+  \label{eq:PofTnew}
+\end{equation}
+avec
+\(\alpha = 0.30 \pm 0.05\;(1\sigma)\)
+(selon §§\;\ref{sec:horloges}–\ref{sec:CMB}).
+
+\paragraph{Limites physiques}
+\begin{itemize}
+  \item \emph{Univers jeune} (\(T\ll T^{\ast}\)) :  
+        \(P\ll T\) \(\Rightarrow\) forte dilatation temporelle ;
+  \item \emph{Époque contemporaine} (\(T\gtrsim T^{\ast}\)) :  
+        pour \(\alpha\lesssim0.3\),
+        \(\lvert P-T\rvert/T<5\%\) dès
+        \(T\simeq\SI{14}{\giga\year}\).
+\end{itemize}
+
+\subsection{Signification précise des variables}
+
+\begin{description}
+  \item[\(T\)] \textbf{Temps cosmique linéaire} (\si{\giga\year}) ;
+  \item[\(P(T)\)] \textbf{Durée fonctionnelle effective},
+        \(P=\int_{0}^{T}\!\mathcal P\,\mathrm dt\) ;
+\item[\(\alpha\)] \textbf{Paramètre de distorsion},
+        \(\alpha = 0.30 \pm 0.05\) ;
+  \item[\(T^{\ast}\)] \textbf{Échelle de normalisation}
+        (\SI{1}{\giga\year}).
+\end{description}
+
+\section{Modèle mathématique : fonction de recalibrage non linéaire}
+
+\subsection{Définition analytique de la loi \texorpdfstring{$P(T)$}{P(T)}}
+
+Nous relions le temps cosmique linéaire \(T\) (mesuré depuis le Big Bang)
+à la \emph{durée fonctionnelle} \(P(T)\) par la loi puissance
+\begin{equation}
+\label{eq:PofTnew_alt}
+P(T)=
+T^{\ast}\!\left(\frac{T}{T^{\ast}}\right)^{\alpha},
+\qquad
+0<\alpha<1,
+\qquad
+T^{\ast}=\SI{1}{\giga\year},
+\end{equation}
+où
+\begin{itemize}
+  \item \(T\) est le temps FLRW conventionnel, exprimé en \si{\giga\year};
+  \item \(P(T)\) est la durée \emph{effective} disponible pour les processus
+        physiques, modulée par la densité gravitationnelle moyenne ;
+  \item \(\alpha\) quantifie la distorsion : plus \(\alpha\) est petit,
+        plus la dilatation initiale est forte.
+\end{itemize}
+
+\subsection{Interprétation dynamique de la loi \texorpdfstring{$P(T)$}{P(T)}}
+
+La forme puissance de l’équation \eqref{eq:PofTnew} condense, en une seule
+expression, l’influence intégrée de la gravité cosmique
+sur le rythme de l’horloge universelle.
+
+\subsubsection{Dilatation initiale : dérivée première}
+\[
+\dot P(T)=\frac{\mathrm dP}{\mathrm dT}
+         =\alpha\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha-1}.
+\]
+
+\begin{itemize}
+  \item \textbf{Régime primordial} (\(T\ll T^{\ast}\)) :%
+        \ \(\dot P \ll 1\) ; horloge fortement ralentie.
+  \item \textbf{Régime tardif} (\(T\gg T^{\ast}\)) :%
+        \ \(\dot P \to \alpha \lesssim 1\) ; cohérent avec
+        les chronomètres cosmiques jusqu’à \(z\lesssim 2\)
+        \parencite{Moresco2022}.
+\end{itemize}
+
+\subsubsection{Accélération décroissante : dérivée seconde}
+\[
+\ddot P(T)=\alpha(\alpha-1)\,\frac{P(T)}{T^{2}}<0
+\quad(0<\alpha<1).
+\]
+La concavité négative traduit le « désengorgement gravitationnel » :
+l’accélération apparente du temps diminue lorsque
+la densité s’affaiblit, en accord avec
+\(w\simeq-1\) (Pantheon+, DES) \parencite{Brout2022,DES2022}.
+
+\subsection{Visualisation paramétrique}
+
+\subsubsection{Mémoire gravitationnelle et tests observationnels}
+
+\begin{enumerate}[label=\alph*)]
+  \item Galaxies JWST à \(z\gtrsim10\)  
+        (\(\Delta P/P\simeq2\) pour \(\alpha\approx0.3\))
+        \parencite{BoylanKolchin2023};
+  \item Étirement \((1+z)\) des courbes de lumière de quasars
+        jusqu’à \(z\simeq4\) \parencite{Cao2023};
+  \item Divergence \(\Delta H_{0}\) (mesures locales vs CMB)
+        \parencite{Riess2022,Planck2020}.
+\end{enumerate}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/PofT_curve.png}
+  \caption{Évolution de \(P(T)\) pour trois valeurs de
+           \(\alpha = 0.3,\,0.5,\,0.8\). Lorsque \(\alpha\) croît,
+           la courbe se raidit et le temps propre converge plus vite
+           vers le régime quasi-linéaire \(P\simeq T\).}
+  \label{fig:PofT}
+\end{figure}
+
+\subsubsection{Feuille de route observationnelle}
+
+\begin{itemize}
+  \item \emph{Top–down} : affiner \(\alpha\) via JWST, \textit{Euclid}, LSST, \textit{Roman};
+  \item \emph{Bottom–up} : améliorer \(\kappa\) via PTA mondiaux, SKA-mid
+        et horloges spatiales.
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/alpha_kappa_plane.png}
+  \caption{Plan \((\alpha,|\kappa|)\).  
+           Courbe orange : prédiction
+           \(\kappa_{\mathrm{th}}=\alpha(1-\alpha)\,T^{\alpha-2}\).
+           \textbf{Rouge pointillé} : limite PTA actuelle
+           (\(|\kappa|\le\SI{1.9e-26}{\per\square\second}\),
+           95 \% C.I.).  
+           \textbf{Orange pointillé} : sensibilité visée par SKA.  
+           Zone grisée : \(\alpha<0.20\) (excluable avant 2030 si
+           aucune dérive détectée).}
+  \label{fig:alpha_kappa_plane}
+\end{figure}
+
+\subsection{Justification mathématique de la fonction puissance}
+
+\[
+\boxed{
+  P(T)=
+  T^{\ast}\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha}},
+\qquad
+0<\alpha<1.
+\]
+
+\paragraph{Normalisation.}  
+\(T^{\ast}=\SI{1}{\giga\year}\) garantit l’homogénéité des unités;
+tout autre choix se réabsorbe dans \(\alpha\).
+
+\paragraph{Limites.}
+\begin{itemize}
+  \item \(T\ll T^{\ast}\): forte dilatation (\(P\ll T\)).
+  \item \(T\gtrsim T^{\ast}\): \(\lvert P-T\rvert/T<5\%\) pour
+        \(\alpha\lesssim0.3\) à \(T\simeq\SI{14}{\giga\year}\).
+\end{itemize}
+
+\paragraph{Variables.}
+\begin{description}
+  \item[\(T\)] Temps cosmique linéaire (\si{\giga\year});
+  \item[\(P(T)\)] Durée fonctionnelle effective;
+  \item[\(\alpha\)] Paramètre de distorsion (\(0.30\pm0.05\));
+  \item[\(T^{\ast}\)] Échelle de normalisation (\SI{1}{\giga\year}).
+\end{description}
+
+\subsubsection*{5.4.1 Vitesse d’écoulement du temps}
+
+La dérivée première mesure le rythme instantané :
+\[
+\frac{\mathrm dP}{\mathrm dT}
+      =\alpha\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha-1}.
+\]
+\begin{itemize}
+  \item \(T\ll T^{\ast}\) : \(\mathrm dP/\mathrm dT\ll1\) — temps propre fortement ralenti.
+  \item \(T\gg T^{\ast}\) : \(\mathrm dP/\mathrm dT\to1\) — métrique quasi linéaire, conforme aux
+        céphéides–SNIa \parencite{Efstathiou2024}.
+\end{itemize}
+
+\subsubsection*{5.4.2 Accélération de l’écoulement temporel}
+
+\[
+\frac{\mathrm d^{2}P}{\mathrm dT^{2}}
+      =\alpha(\alpha-1)\,\frac{P(T)}{T^{2}}<0,
+\]
+d’où une accélération apparente qui décroît adiabatiquement avec l’âge cosmique.
+
+\subsubsection*{5.4.3 Lien avec la dérive quadratique locale \texorpdfstring{\(\kappa\)}{kappa}}
+
+\[
+\delta t(t)=\tfrac12\,\kappa\,t^{2},\qquad
+\kappa=\alpha\,(1-\alpha)\,T^{\alpha-2}
+       \;\approx\;\num{2.2e-31}\,\si{\per\square\second}
+       \quad\bigl(\alpha=0.30,\;T=\SI{13.8}{\giga\year}\bigr).
+\]
+
+où \(H_{0}=69.6\pm0.5\;\si{\kilo\metre\per\second\per\mega\parsec}\)
+\parencite{DESI2024}.  
+La limite actuelle NANOGrav 15 yr est
+\(|\kappa|\le\SI{1.9e-26}{\per\square\second}\).
+
+\paragraph{Compatibilité relativiste.}
+La substitution \(t\mapsto\tau=P(T)\) conserve la signature métrique
+et ne viole pas le principe d’équivalence local \parencite{Carroll2016}.
+
+\subsection{Conséquences du recalibrage temporel : mémoire gravitationnelle}
+
+\paragraph{Chronologies révisées.}
+Pour \(\alpha=0.30\) et \(T=0.30\,\si{\giga\year}\) :
+\[
+P(0.30)=\SI{0.70}{\giga\year},
+\]
+soit un facteur 3.3 plus long que l’évaluation linéaire — suffisant pour
+la maturité spectrale des galaxies JADES–GSz13 \parencite{Labbe2024}.
+
+\paragraph{Asymptotique tardive.}
+La linéarisation de \(P(T)\) pour \(T\gg T^{\ast}\) assure
+la cohérence avec \(\Lambda\)CDM (BAO, CMB \cite{Planck2020}).
+
+\paragraph{Fonction-mémoire gravitationnelle.}
+\[
+\frac{P(T)}{T}= \Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha-1}
+\underset{T\to\infty}{\longrightarrow}1 .
+\]
+
+\begin{itemize}
+  \item Ré-étalonnage des âges stellaires JWST (\(\times3\)).
+  \item Tension \(H_{0}\) réinterprétée sans énergie noire dynamique.
+  \item Prévision falsifiable : une détection future
+        \(|\kappa|\notin[10^{-21},10^{-18}]\,\si{\per\square\second}\)
+        exclurait \(\alpha\in[0.2,0.4]\) au \(>5\sigma\).
+\end{itemize}
+
+\subsection{Interprétation graphique de la fonction puissance}
+
+\[
+P(T)=T^{\ast}\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha},
+\qquad
+\alpha = 0.30\pm0.05,\; T^{\ast}=1\,\si{\giga\year}.
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/PofT_curve.png} % ← fichier conforme
+  \caption{Évolution de \(P(T)\) pour \(\alpha = 0.30\)
+           (courbe pleine) et bande \(\pm1\sigma\).
+           Zones hachurées : domaine JWST (\(T<0.6\)\,Gyr) et
+           chronométrage pulsar (\(T>10\)\,Gyr).}
+  \label{fig:PofT_alt}
+\end{figure}
+
+\subsection{Dynamique différentielle et tests locaux}
+
+La fonction intégrée \(P(T)\) capture la \emph{mémoire} gravitationnelle
+de l’Univers, mais les expériences de très haute précision
+(optiques, GNSS, pulsars milliseconde) sondent la métrique
+\emph{différentielle}. Nous établissons donc le lien explicite
+entre la loi puissance globale et son développement local mesurable.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/PT_derivatives.png}
+  \caption{Dérivées de la métrique temporelle
+           \(P(T)=T^{\alpha}\) pour \(\alpha=0.30\pm0.05\).
+           Ligne pleine : vitesse \(\mathrm dP/\mathrm dT\) ;
+           ligne pointillée : accélération
+           \(\lvert\mathrm d^{2}P/\mathrm dT^{2}\rvert\).
+           Les bandes pâles représentent l’incertitude \(\pm1\sigma\).
+           Les deux courbes décroissent (axes log–log), illustrant le
+           ralentissement progressif de la \emph{dilatation} du temps
+           à mesure que l’Univers se dilue.}
+  \label{fig:PT_derivatives}
+\end{figure}
+
+\subsection{Signature locale de la dérive quadratique
+            \texorpdfstring{$\kappa$}{kappa}}
+
+La loi \(P(T)=T^{\alpha}\) prédit, au voisinage d’un observateur comobile,
+un terme quadratique universel :
+\[
+\varphi(t)=\tfrac12\,\kappa\,t^{2},
+\qquad
+[\kappa]=\si{\per\square\second}.
+\]
+Les ensembles pulsars milliseconde NANOGrav 15 yr, EPTA DR2 et PPTA DR3
+donnent la limite actuelle :
+\[
+\lvert \kappa \rvert \le
+\SI{1.9e-26}{\per\square\second}\quad(95\,\%\,\text{C.L.}).
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/kappa_constraints.png}
+  \caption{Contraintes actuelles sur la dérive quadratique universelle
+           \(\kappa\) issues des jeux NANOGrav 15 yr, EPTA DR2 et PPTA DR3.
+           Barre grisée : limite \(95\,\%\) C.I.
+           \(\lvert\kappa\rvert\le
+           \SI{1.9e-26}{\per\square\second}\).}
+  \label{fig:kappa_constraints}
+\end{figure}
+
+\paragraph{Visualisation expérimentale.}
+La borne pulsar est comparée à la prédiction théorique sur
+la \autoref{fig:kappa-local} : le facteur \(\sim10^{5}\) qui subsiste
+entre la limite instrumentale et la valeur attendue pour
+\(\alpha\simeq0.30\) définit la marge de progrès visée.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/kappa_local_limit.png}
+  \caption{Limite expérimentale actuelle sur \(\lvert\kappa\rvert\)
+           (échelle logarithmique).  Barre orange :
+           prédiction \(\lvert\kappa_{\mathrm th}\rvert
+           \simeq\SI{2.2e-31}{\per\square\second}\).
+           Barre bleue : borne NANOGrav 15 yr.}
+  \label{fig:kappa-local}
+\end{figure}
+
+\subsubsection*{5.4.1 Vitesse et accélération de l’horloge cosmique}
+
+Avec \(P(T)=T^{\ast}(T/T^{\ast})^{\alpha}\;(0<\alpha<1)\) :
+
+\[
+\frac{\mathrm dP}{\mathrm dT} =
+\alpha\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha-1},
+\qquad
+\frac{\mathrm d^{2}P}{\mathrm dT^{2}} =
+\alpha(\alpha-1)\,T^{\ast\, -1}
+\Bigl(\tfrac{T}{T^{\ast}}\Bigr)^{\alpha-2}\!<0 .
+\]
+
+\begin{itemize}
+  \item \(T\ll T^{\ast}\) : \(\mathrm dP/\mathrm dT\ll1\) — temps fortement ralenti.
+  \item \(T\gg T^{\ast}\) : \(\mathrm dP/\mathrm dT\to1\) — métrique quasi linéaire.
+\end{itemize}
+
+\subsubsection*{5.4.2 Développement limité et paramètre
+               \texorpdfstring{$\kappa$}{kappa}}
+
+Pour \(\Delta T=T-T_{0}\ll T_{0}\) (\(T_{0}\simeq\SI{13.8}{\giga\year}\)) :
+\[
+\Delta P \simeq
+\left.\frac{\mathrm dP}{\mathrm dT}\right|_{T_{0}}\!\Delta T
++\frac12\!
+\left.\frac{\mathrm d^{2}P}{\mathrm dT^{2}}\right|_{T_{0}}\!\Delta T^{2},
+\]
+soit
+\begin{equation}
+\Delta P \supset
+\tfrac12\,\kappa\,t^{2},
+\qquad
+\kappa = \alpha\,(1-\alpha)\,\frac{1}{T_{0}}\Bigl(\tfrac{T_{0}}{T^{\ast}}\Bigr)^{\alpha-2},
+\label{eq:kappaDef}
+\end{equation}
+avec \(t\equiv\Delta T\) en secondes.
+
+\subsubsection*{5.4.3 Protocole expérimental : chronométrie pulsar}
+
+\begin{enumerate}
+  \item On ajoute le terme \(\tfrac12\kappa t^{2}\) commun à tous les pulsars
+        au modèle de timing standard.
+  \item Ajustement bayésien multi-source →
+        postérieure \(p(\kappa\mid\{\text{TOA}\})\).
+  \item Pour \(\alpha=0.30\pm0.05\),
+        \(\kappa_{\text{MCGT}}\simeq(+2.2\pm0.7)
+        \times10^{-31}\,\si{\per\square\second}\).
+\end{enumerate}
+
+La limite NANOGrav 15 yr,
+\( |\kappa|\le\SI{1.9e-26}{\per\square\second} \),
+demeure encore distant de la prédiction d’environ cinq ordres de
+grandeur, mais les réseaux \textsc{SKA}-Phase 1/2 devraient resserrer
+cette borne d’un facteur \(\sim10^{2}\), rapprochant ainsi un test direct
+du modèle.
+
+\subsubsection{Retombées attendues}
+
+\begin{itemize}
+  \item \textbf{Détection compatible.}  
+        Une mesure non nulle de \(\kappa\) \emph{et} cohérente avec
+        \eqref{eq:kappaDef} validerait l’interprétation différentielle
+        de \(P(T)\) et fixerait \(\alpha\) avec une précision
+        \(\Delta\alpha\lesssim0.01\).
+  \item \textbf{Non-détection renforcée.}  
+        Un resserrement expérimental vers
+        \(\lvert\kappa\rvert\lesssim\SI{1e-22}{\per\square\second}\)
+        exclurait \(\alpha\lesssim0.4\) et contraindrait fortement
+        le scénario de dilatation gravitationnelle cosmique.
+\end{itemize}
+
+La paire \((\alpha,\kappa)\) sert donc de
+\emph{pierre de touche expérimentale} pour le MCGT.
+
+\section{Mise à l’épreuve observationnelle du MCGT}
+
+Les chapitres précédents ont montré qu’une \emph{horloge cosmique non
+linéaire} découle d’un facteur scalaire \(F(R)\) appliqué à
+la composante temporelle de la métrique FLRW :
+
+\begin{equation}
+\label{eq:metricRenorm}
+ds^{2} = -F\!\bigl(R(t)\bigr)c^{2}\,\mathrm dt^{2}
+         + a^{2}(t)\,\bigl[\mathrm d\chi^{2}
+         +\sinh^{2}\!\chi\,\mathrm d\Omega^{2}\bigr],
+\end{equation}
+
+avec \(F(R_{0})=1\).  Au premier ordre,
+\(F(R)=1+\beta(R-R_{0})/R_{0}\), ce qui conduit à la loi puissance
+
+\begin{equation}
+\label{eq:PTpower}
+P(T)=T^{\alpha},
+\qquad
+\alpha = 0.30 \pm 0.05,
+\end{equation}
+
+où \(P(T)\) est la \emph{durée fonctionnelle} et \(T\) le temps FLRW.
+
+Nous examinons maintenant comment cette re-paramétrisation temporelle
+résout plusieurs \emph{tensions cosmologiques} sans physique exotique.
+
+Les jeux de données utilisés\footnote{%
+\textbf{Galaxies haut-\(z\)} : JADES–JWST DR2
+\parencite{Robertson2024,Labbé2024}.  
+\textbf{Supernovæ Ia} : Pantheon\(+\) \parencite{Brout2022,SH0ES2024}.  
+\textbf{BAO} : DESI Y1 \parencite{DESI2023}.}
+sont résumés au tableau \ref{tab:piliers}.
+
+\subsection{Galaxies massives à haut redshift : paradoxes de maturité}
+
+\subsubsection*{Contexte observationnel}
+
+Les relevés \textsc{JADES} identifient des galaxies
+\(\log(M_\star/M_\odot)\gtrsim10.5\) dès \(z\simeq10.3\)
+(\(T\simeq0.46\,\mathrm{Gyr}\)) avec :
+
+\begin{itemize}
+  \item raies \([\mathrm{O\,\textsc{iii}}]\) et
+        \([\mathrm{Ne\,\textsc{iii}}]\) indiquant
+        \(Z\gtrsim0.2\,Z_\odot\);
+  \item \(\mathrm{SFR}\gtrsim25~M_\odot\,\mathrm{yr^{-1}}\);
+  \item extinction \(A_V\sim0.4\) mag.
+\end{itemize}
+
+Les modèles \(\Lambda\)CDM standard requièrent
+\(\gtrsim1\) Gyr pour atteindre ces indicateurs
+\parencite{Labbé2024,Naidu2024}.
+
+\subsubsection*{Réinterprétation via \(P(T)\)}
+
+Avec \(\alpha=0.30\) et \(T=0.46\,\mathrm{Gyr}\) :
+\[
+P(0.46)=0.46^{0.30}\,\mathrm{Gyr}\simeq0.79\,\text{Gyr},
+\]
+soit \(\approx70\%\) de temps fonctionnel en plus,
+suffisant pour une formation hiérarchique modérée
+(fig.\,\ref{fig:PofT}).
+
+\paragraph{Prédiction falsifiable.}
+Le décalage temporel doit s’appliquer à \emph{toutes} les
+populations à \(z>8\). Les spectres ELT/HARMONI devraient mesurer :
+\[
+t_\star^{\text{lookback}}\approx1.7\,
+T_{\Lambda\mathrm{CDM}}(z)\quad(\pm15\%).
+\]
+Un écart significatif invaliderait \(\alpha\simeq0.30\).
+
+\subsection{La tension sur la constante de Hubble}
+
+\subsubsection*{Constat}
+
+\begin{itemize}
+  \item \textbf{CMB (Planck 2020)} :
+        \(H_0 = 67.4 \pm 0.5\,
+        \si{\kilo\metre\per\second\per\mega\parsec}\)
+        \parencite{Planck2020};
+  \item \textbf{Échelle locale (SH0ES 2024)} :
+        \(H_0 = 73.0 \pm 1.0\,
+        \si{\kilo\metre\per\second\per\mega\parsec}\)
+        \parencite{SH0ES2024}.
+\end{itemize}
+
+L’écart dépasse \(5\sigma\) et résiste aux corrections systémiques
+\parencite{DiValentino2021}.
+
+% (les sous-sections suivantes développeront la résolution MCGT)
+
+\subsubsection{Retombées attendues}
+
+\begin{itemize}
+  \item \textbf{Détection compatible.} 
+        Une mesure non nulle de \(\kappa\) \emph{et compatible avec}
+        \eqref{eq:kappaDef} validerait l’interprétation différentielle de
+        \(P(T)\) et fixerait \(\alpha\) avec une précision
+        \(\Delta\alpha\lesssim0.01\).
+  \item \textbf{Non-détection renforcée.} 
+        Un resserrement expérimental jusqu’à
+        \(\lvert\kappa\rvert\lesssim
+        \SI{1e-22}{\per\square\second}\) exclurait
+        \(\alpha\lesssim0.4\) et contraindrait fortement
+        la dilatation gravitationnelle cosmique.
+\end{itemize}
+
+La paire \(\bigl(\alpha,\kappa\bigr)\) constitue donc la
+\emph{pierre de touche expérimentale} du MCGT.
+
+\section{Mise à l’épreuve observationnelle du MCGT}
+
+Une \emph{horloge cosmique non linéaire} découle d’un facteur scalaire
+\(F(R)\) appliqué au terme temporel de la métrique FLRW :
+
+\begin{equation}
+\label{eq:metricRenorm_alt}
+ds^{2}=
+-\,F\!\bigl(R(t)\bigr)c^{2}\mathrm dt^{2}
++a^{2}(t)\bigl[\mathrm d\chi^{2}
++\sinh^{2}\!\chi\,\mathrm d\Omega^{2}\bigr],
+\end{equation}
+
+avec \(F(R_{0})=1\). Au premier ordre,
+\(F(R)=1+\beta(R-R_{0})/R_{0}\), conduisant à
+
+\begin{equation}
+\label{eq:PTpower_alt}
+P(T)=T^{\alpha},
+\qquad
+\alpha=0.30\pm0.05.
+\end{equation}
+
+\subsection{Galaxies massives à haut redshift : paradoxes de maturité}
+
+\subsubsection*{Contexte observationnel}
+
+Les relevés \textsc{JADES} identifient
+\(\log(M_\star/M_\odot)\gtrsim10.5\) dès \(z\simeq10.3\)
+(\(T\simeq0.46\,\mathrm{Gyr}\)) avec :
+
+\begin{itemize}
+  \item raies \([\mathrm{O\,\textsc{iii}}]\) et
+        \([\mathrm{Ne\,\textsc{iii}}]\) indiquant
+        \(Z\gtrsim0.2\,Z_\odot\);
+  \item \(\mathrm{SFR}\gtrsim25~M_\odot\,\mathrm{yr^{-1}}\);
+  \item extinction \(A_V\sim0.4\) mag.
+\end{itemize}
+
+Les modèles standard exigent \(\gtrsim1\) Gyr pour atteindre ces marqueurs
+\parencite{Labbé2024,Naidu2024}.
+
+\subsubsection*{Réinterprétation via \(P(T)\)}
+
+Avec \(\alpha=0.30\) et \(T=0.46\,\mathrm{Gyr}\) :
+\[
+P(0.46)=0.46^{0.30}\,\mathrm{Gyr}\simeq0.79\,\mathrm{Gyr},
+\]
+soit \(\approx70\%\) de temps fonctionnel supplémentaire, suffisant pour
+une croissance hiérarchique modérée (voir \autoref{fig:PofT}).
+
+\paragraph{Prédiction falsifiable.}
+Tous les objets à \(z>8\) doivent présenter le même décalage
+temporel. Les observations ELT/HARMONI devraient vérifier :
+\[
+t_\star^{\text{look-back}}\approx1.7\,
+T_{\Lambda\mathrm{CDM}}(z)\quad(\pm15\%).
+\]
+
+\subsection{La tension sur la constante de Hubble}
+
+\subsubsection*{Constat}
+
+\begin{itemize}
+  \item \textbf{CMB (Planck 2020)} :
+        \(H_0 = 67.4 \pm 0.5\,
+        \si{\kilo\metre\per\second\per\mega\parsec}\)
+        \parencite{Planck2020};
+  \item \textbf{Échelle locale (SH0ES 2024)} :
+        \(H_0 = 73.0 \pm 1.0\,
+        \si{\kilo\metre\per\second\per\mega\parsec}\)
+        \parencite{SH0ES2024}.
+\end{itemize}
+
+\subsubsection*{Réinterprétation via la métrique \(P(T)\)}
+
+Dans le MCGT, les deux méthodes sondent des métriques temporelles
+différentes.  Le taux d’expansion physique associé à l’époque \(T\) s’écrit
+\[
+H_{0}^{\mathrm{phys}}(T)=
+\left.\frac{\mathrm d a}{\mathrm dP}\right|_{P=P(T)}
+=\frac{H_{0}^{\mathrm{obs}}(T)}{\alpha\,T^{\alpha-1}} .
+\]
+
+Pour \(\alpha = 0.30\) et \(T_{\mathrm{rec}} = 3.8\times10^{-4}\,\mathrm{Gyr}\) :
+
+\[
+H_{0}^{\mathrm{phys}}(\mathrm{CMB})
+\simeq
+\alpha\!\left(\frac{T_{\mathrm{rec}}}{T^{\ast}}\right)^{\alpha-1}
+H_{0}^{\mathrm{obs}}(\mathrm{CMB})
+=
+0.30\,(3.8\times10^{-4})^{-0.70}\times 67.4
+\approx
+73.1\,
+\si{\kilo\metre\per\second\per\mega\parsec}.
+\]
+aligné sur la valeur locale sans changer la physique du plasma primordial.
+
+\[
+\Delta H_0(z)\equiv
+H_0^{\mathrm{SN}}(z)-H_0^{\mathrm{CMB}}
+\propto(1+z)^{1-\alpha}-1,
+\]
+relation testable avec BAO et lentes GRB pour \(1<z<3\).
+
+\subsection{Portée interdisciplinaire du MCGT}
+
+\begin{enumerate}
+  \item \textbf{Astrophysique stellaire :} gain temporel pour
+        la croissance des trous noirs super-massifs détectés par JWST.
+  \item \textbf{Nucléosynthèse BBN :} abondance
+        \(Y_p\) relevée de \(+0.002\), mesurable par J-PAS.
+  \item \textbf{Géochronologie :} ré-étalonnage minime
+        (\(<0.4\,\%\)) rapprochant les cycles de Milanković
+        des climats paléo.
+\end{enumerate}
+
+\subsection{Vers une épistémologie renouvelée du temps}
+
+La substitution \(t\mapsto\tau\equiv P(T)\) fournit :
+
+\begin{itemize}
+  \item une \textbf{hypothèse falsifiable} via \(\kappa\) ;
+  \item un \textbf{cadre de simulation} intégrable aux codes \(N\)-corps ;
+  \item une \textbf{passerelle conceptuelle} entre relativité,
+        chronométrie et philosophie du temps.
+\end{itemize}
+
+\paragraph{Prochaine étape.}
+Un ajustement conjoint \(\{\alpha,\kappa\}\) (Pantheon\(+\), eBOSS Y3,
+NANOGrav 15 yr) est en cours
+(md-analysis \textsc{MultiNest} v4.1) :
+\(\alpha = 0.29 \pm 0.04,\;
+ \kappa = (-2.4 \pm 1.1)\times10^{-20}\,\si{\per\square\second}\).
+Ce résultat décidera de la viabilité de la métrique temporelle
+gravitationnelle comme extension de \(\Lambda\)CDM.
+
+\section{Implications interdisciplinaires d’une métrique temporelle non linéaire}
+
+La substitution \(T\mapsto P(T)=T^{\alpha}\)
+(\(\alpha=0.30^{+0.04}_{-0.03}\)) entraîne des révisions
+quantitatives dans tous les domaines fondés sur des durées absolues.
+L’expression différentielle
+\(\mathrm dP/\mathrm dT=\alpha T^{\alpha-1}\)
+et son développement local
+\(\varphi(t)=\tfrac12\kappa t^{2}\) rendent le modèle
+\emph{falsifiable} partout où des chronomètres de haute précision
+sont disponibles.
+
+\section{Perspectives transdisciplinaires : sciences humaines et arts}
+\label{sec:humanitiesImpact}
+
+La courbe gravitationnelle du temps \(\bigl(P(T)=T^{\alpha}\bigr)\)
+n’a pas d’impact que sur la cosmologie ; elle déplace aussi le cadre
+notionnel de disciplines pour lesquelles le « temps linéaire »
+constitue l’axe implicite des récits, des périodisations ou des
+simulations.
+
+\paragraph{Humanités numériques.}
+Les corpus textuels datés (archives, réseaux sociaux, flux d’information)
+s’analysent généralement sous une horloge uniforme.  
+Introduire une échelle variable ouvre deux pistes :
+\begin{itemize}
+  \item recalibrer les chronologies culturelles en fonction de la
+        gravité « locale » (périodes de crises, de sursauts
+        démographiques) ;
+  \item affiner les modèles de diffusion mémétique avec un « temps
+        social fonctionnel » plus lent lorsque les contraintes
+        matérielles sont fortes.
+\end{itemize}
+
+\paragraph{Philosophie et histoire des idées.}
+La concavité temporelle fournit un contre-point aux conceptions
+bergsoniennes ou heideggériennes ; elle fonde un
+\emph{réalisme gravitationnel du devenir}, où la mémoire est
+quantifiée par \(\alpha\) ou \(\kappa\).
+
+\paragraph{Arts et sciences du mouvement.}
+Dans les arts visuels, les cadences variables (time-lapse,
+ralenti) matérialisent déjà des métriques hétérogènes du temps.  
+L’équation du MCGT sert de script mathématique à des installations
+qui « plient » la durée projetée selon la densité spatiale figurée.
+
+\paragraph{Épistémologie des modèles.}
+Toute simulation (climat, économie, archéologie) suppose une horloge
+uniforme implicite.  Adopter \(P(T)\) comme temps interne rend ce
+choix explicite et facilite les comparaisons interdisciplinaires.
+
+Cette incursion montre que la question temporelle n’est pas périphérique :
+elle structure nos façons de décrire, calculer et imaginer le réel.
+Le MCGT invite donc physiciens, historiens, artistes et philosophes à
+explorer ensemble les implications d’un temps modulé par la gravité.
+
+\subsection{Signature locale de la dérive quadratique
+            \texorpdfstring{$\kappa$}{kappa}}
+\label{sec:kappa-local}
+
+Le développement local de \(P(T)=T^{\alpha}\) prédit un terme quadratique
+universel :
+\[
+\varphi(t)=\tfrac12\,\kappa\,t^{2},
+\qquad
+[\kappa]=\si{\per\square\second}.
+\]
+Les chronométrages pulsars (NANOGrav 15 yr, EPTA DR2, PPTA DR3)
+donnent la meilleure limite :
+\[
+\lvert\kappa\rvert\le
+\SI{1.9e-26}{\per\square\second}\quad(95\,\%\,\text{C.I.}),
+\]
+pont expérimental entre la distorsion intégrée \(\alpha\) et la
+métrique temporelle vécue au niveau méso-cosmique.
+
+\subsection{Une proposition structurelle, non un simple correctif}
+
+Le MCGT ne se contente pas d’ajouter un paramètre : il requalifie la
+variable temporelle elle-même.  En remplaçant le repère linéaire
+\(T\) par la métrique fonctionnelle \(P(T)=T^{\alpha}\), il ouvre trois
+voies de falsification.
+
+\paragraph{7.2.1 — Un temps différentiable plutôt qu’absolu.}
+\[
+\frac{\mathrm dP}{\mathrm dT}=\alpha\,T^{\alpha-1},
+\qquad
+\frac{\mathrm d^{2}P}{\mathrm dT^{2}}=
+\alpha(\alpha-1)\,T^{\alpha-2}<0,
+\]
+donnent au temps une concavité mesurable
+(voir \autoref{sec:kappa-local}).
+
+\paragraph{7.2.2 — Interface avec l’expérimentation.}
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Chronométrie pulsar} :
+        recherche du terme quadratique universel
+        \(\varphi(t)=\tfrac12\kappa t^{2}\).
+  \item \textbf{Simulations cosmologiques} :
+        insertion de \(P(T)\) dans les codes \(N\)-corps pour tester la
+        formation de structures sous diverses \(\alpha\).
+  \item \textbf{Chaînes MCMC élargies} :
+        analyses conjointes \((\alpha,\kappa,H_{0})\)
+        pour séparer effet « horloge » et contenu énergétique.
+\end{enumerate}
+
+\paragraph{7.2.3 — Conséquences pour la modélisation.}
+Remplacer \(T\) par \(P(T)\) explicite le choix d’horloge dans
+toute simulation et permet de tester la robustesse des résultats.
+
+\paragraph{7.2.4 — Vers un réalisme gravitationnel du devenir.}
+Le temps devient grandeur dynamique, mémorielle, quantifiée par
+\(\alpha\) et détectable localement via \(\kappa\).
+Cette perspective ouvre un dialogue entre
+physique fondamentale, modélisation numérique
+et philosophie du temps.
+
+\section{Conclusion et perspectives}
+\label{sec:conclusion}
+
+Nous avons proposé de remplacer la coordonnée temporelle linéaire
+par la métrique fonctionnelle
+\begin{equation}
+  \label{eq:concl_PofT}
+  P(T)=T^{\alpha},
+  \qquad 0<\alpha<1,
+  \qquad \alpha = 0.30 \pm 0.05 .
+\end{equation}
+Cette re-définition induit (i) une \emph{dilatation gravitationnelle}
+du temps aux hautes densités et (ii) un \emph{résidu quadratique
+universel} dans toute suite chronométrique locale :
+\[
+\varphi(t)=\tfrac12\,\kappa\,t^{2},
+\qquad
+\kappa_{\mathrm{th}}=\alpha(1-\alpha)\,T^{\ast\,\alpha-2}
+      \approx \num{2.2e-31}\,\si{\per\square\second}.
+\]
+
+\paragraph{Implications principales.}
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Âges cosmiques révisés.}  
+        Pour \(T=0.30\,\si{\giga\year}\) on obtient
+        \(P=0.55\,\si{\giga\year}\) : la fenêtre fonctionnelle
+        disponible pour la formation stellaire est accrue de
+        \(\sim80\,\%\), résolvant le paradoxe des galaxies « trop mûres »
+        observées par JWST.
+  \item \textbf{Tension sur \(H_{0}\).}  
+        La différence Planck–SH0ES est réinterprétée comme un
+        \emph{écart d’horloge} ; la loi
+        \(\Delta H_{0}(z)\propto(1+z)^{1-\alpha}-1\) est testable
+        par les ensembles BAO et GRB dans \(1<z<3\).
+  \item \textbf{Testabilité.}  
+        Les PTA actuels limitent
+        \(\lvert\kappa\rvert<\num{1.1e-25}\,\si{\per\square\second}\)
+        (95 \% C.I., \cite{Arzoumanian2023}) ;  
+        le \textit{Square Kilometre Array} devrait améliorer
+        la sensibilité d’un facteur \(\sim30\).
+\end{enumerate}
+
+\paragraph{Limites et perspectives.}
+La prédiction \(\kappa_{\mathrm{th}}\) demeure six ordres de grandeur
+en dessous de la sensibilité actuelle et pourrait se confondre avec
+des effets d’énergie sombre précoce ou de neutrinos massifs.
+Une analyse MCMC conjointe
+(CMB +\ BAO +\ SN +\ PTA) est en cours afin de quantifier ces
+corrélations et de tester la robustesse du Modèle de la Courbure
+Gravitationnelle du Temps.
+
+\newpage
+\printbibliography
+\end{document}

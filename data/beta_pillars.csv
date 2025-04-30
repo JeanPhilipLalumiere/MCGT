@@ -1,0 +1,5 @@
+pillar,z_range,beta,sigma,reference
+Horloges atomiques,z≈0,-0.70,0.15,"Delva2019;Grotti2018"
+Variabilité quasars,1<z<4,-0.68,0.12,"Cao2023;Zheng2023"
+Chronomètres + BAO,0.1<z<2,-0.71,0.08,"Moresco2022;DES2022"
+BBN & CMB,z>10^4,-0.72,0.07,Planck2020

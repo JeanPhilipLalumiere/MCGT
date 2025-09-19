@@ -1,0 +1,208 @@
+CHAPITRE 8 – GUIDE D’UTILISATION
+Couplage sombre (BAO + Supernovae Pantheon+)
+
+Objectif :
+  Décrire la génération des données, la production des figures et la compilation LaTeX
+  pour le Chapitre 8 (Couplage sombre) du projet MCGT.
+
+Dépendances logicielles minimales :
+  - Python ≥ 3.9 (numpy, pandas, scipy, matplotlib)
+  - LaTeX – pdflatex (packages : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox)
+
+0. Sources des données (références externes)
+  • BAO (ex. BOSS DR12 / eBOSS) : tables publiques D_V(z) et incertitudes.
+  • Pantheon+ : distances modulaires μ(z) et erreurs σ_μ.
+  • Les scripts d’extraction (utils/) standardisent z, valeurs observées et barres d’erreur.
+
+1. Sources LaTeX (dossier 08-couplage-sombre/)
+  - 08_couplage_sombre_conceptuel.tex
+  - 08_couplage_sombre_details.tex
+
+2. Données d’entrée (dossier zz-data/chapter08/)
+  2.1 08_coupling_milestones.csv
+      | Colonne   | Description                             | Unité | Remarque                         |
+      |:----------|:----------------------------------------|:------|:---------------------------------|
+      | milestone | Identifiant jalon (BAO_z=..., SN...)    | —     | Clé lisible et unique            |
+      | z         | Redshift                                | —     | Maille BAO/SN agrégée            |
+      | obs       | Valeur observée (D_V ou μ)              | Mpc / mag | BAO: D_V ; SN: μ              |
+      | sigma_obs | Incertitude observée                    | Mpc / mag | σ_DV ; σ_μ                    |
+      | class     | primary / order2                        | —     | Seuils : 1% (primary), 10% (order2) |
+
+  2.2 08_bao_data.csv
+      | Colonne  | Description              | Unité | Remarque                          |
+      |:---------|:-------------------------|:------|:----------------------------------|
+      | z        | Redshift                 | —     | Doit recouvrir milestones BAO     |
+      | DV_obs   | Distance D_V observée    | Mpc   | Données BAO agrégées              |
+      | sigma_DV | Incertitude sur D_V      | Mpc   |                                    |
+      | class    | primary / order2         | —     | Repris de 08_coupling_milestones  |
+
+  2.3 08_pantheon_data.csv
+      | Colonne | Description                | Unité | Remarque                           |
+      |:--------|:---------------------------|:------|:-----------------------------------|
+      | z       | Redshift                   | —     | Doit recouvrir milestones SNe Ia   |
+      | mu_obs  | Distance modulaire μ       | mag   | Données Pantheon+                   |
+      | sigma_mu| Incertitude sur μ          | mag   |                                     |
+      | class   | primary / order2           | —     | Repris de 08_coupling_milestones    |
+
+  2.4 08_chi2_total_vs_q0.csv
+      | Colonne    | Description                        | Unité | Remarque                     |
+      |:-----------|:-----------------------------------|:------|:-----------------------------|
+      | q0star     | Paramètre q0⋆ (balayage 1D)        | —     | Intervalle et pas configurables |
+      | chi2_total | χ² total (BAO + Pantheon)          | —     | Somme pondérée des contributions |
+      | chi2_err   | Erreur estimative sur χ² (opt.)    | —     | Optionnel (p.ex. 10% de χ²)   |
+
+  2.5 08_chi2_derivative.csv  (si --export-derivative)
+      | Colonne       | Description                 | Unité | Remarque                                |
+      |:--------------|:----------------------------|:------|:----------------------------------------|
+      | q0star        | Paramètre du scan           | —     | Même grille que 2.4                     |
+      | dchi2_smooth  | dχ²/dq0⋆ lissée             | —     | Savitzky–Golay (window=7, polyorder=3)  |
+
+  2.6 08_chi2_scan2D.csv  (si --export-heatmap)
+      | Colonne | Description                     | Unité | Remarque                    |
+      |:--------|:--------------------------------|:------|:----------------------------|
+      | q0star  | Paramètre q0⋆                   | —     | Axe 1 de la grille          |
+      | param2  | Second paramètre (ex. α)        | —     | Axe 2 de la grille          |
+      | chi2    | χ² total (BAO + Pantheon)       | —     | Pour carte de chaleur       |
+
+  2.7 08_dv_theory_z.csv
+      | Colonne | Description                 | Unité | Remarque                         |
+      |:--------|:----------------------------|:------|:---------------------------------|
+      | z       | Redshift                    | —     | Grille BAO (issue de 2.2)        |
+      | DV_calc | D_V théorique (à q0⋆ opt.)  | Mpc   | Modèle MCGT au meilleur q0⋆      |
+
+  2.8 08_mu_theory_z.csv
+      | Colonne | Description                 | Unité | Remarque                           |
+      |:--------|:----------------------------|:------|:-----------------------------------|
+      | z       | Redshift                    | —     | Grille SN (issue de 2.3)           |
+      | mu_calc | μ théorique (à q0⋆ opt.)    | mag   | Modèle MCGT au meilleur q0⋆        |
+
+  2.9 08_mu_theory_q0star.csv (optionnel)
+      | Colonne | Description                  | Unité | Remarque             |
+      |:--------|:-----------------------------|:------|:---------------------|
+      | q0star  | Paramètre balayé             | —     | Profil μ vs q0⋆      |
+      | mu_calc | μ théorique à z de référence | mag   | Pour diagnostics     |
+
+  2.10 08_coupling_params.json
+       {
+         "thresholds": { "primary": 0.01, "order2": 0.10 },
+         "max_epsilon_primary": <float>,
+         "max_epsilon_order2": <float>,
+         "param2_min": -1.0,
+         "param2_max":  1.0,
+         "n_param2":    101
+       }
+
+3. Scripts d’exécution (dossier zz-scripts/chapter08/)
+  3.1 generate_data_chapter08.py
+      - Lit 08_coupling_params.json et les jeux BAO/SN.
+      - Calcule μ_theory(z), D_V_theory(z) selon q0⋆ (et param2 si 2D).
+      - Construit χ² total, exporte profils et dérivées optionnelles.
+      - Écrit 08_chi2_total_vs_q0.csv, 08_chi2_derivative.csv (opt.), 08_chi2_scan2D.csv (opt.),
+        08_dv_theory_z.csv, 08_mu_theory_z.csv, 08_coupling_params.json (mis à jour).
+
+  3.2 plot_fig01_chi2_total_vs_q0.py
+      - Trace χ²(q0⋆) avec min global et bandes 1σ/2σ/3σ (Δχ²).
+
+  3.3 plot_fig02_dv_vs_z.py
+      - Compare D_V(z) observé vs théorique (résumé par panneau / style).
+
+  3.4 plot_fig03_mu_vs_z.py
+      - Compare μ(z) Pantheon+ observé vs théorique (avec résidus).
+
+  3.5 plot_fig04_chi2_heatmap.py  (si carte 2D)
+      - Carte de chaleur χ²(q0⋆, param2) + iso-Δχ².
+
+  3.6 plot_fig05_residuals.py
+      - Résidus (a) BAO : D_V_obs − D_V_calc ; (b) SNe : μ_obs − μ_calc.
+      - Axe x semi-log (z), ligne 0 pleine, ±1σ pointillés.
+
+  3.7 plot_fig06_normalized_residuals_distribution.py
+      - BAO : rug-plot + KDE ; SNe : histogramme + N(0,1).
+      - Annotations : moyenne, écart-type, N.
+
+  3.8 plot_fig07_chi2_profile.py
+      - Δχ²(q0⋆) = χ² − χ²_min ; lignes 1σ/2σ/3σ ; marqueur q0⋆*.
+
+  3.9 utils/
+      - extract_bao_data.py, extract_pantheon_plus_data.py, verify_z_grid.py, coupling_example_model.py.
+
+4. Fichiers produits et emplacements
+  4.1 zz-data/chapter08/
+      - 08_coupling_milestones.csv
+      - 08_bao_data.csv
+      - 08_pantheon_data.csv
+      - 08_chi2_total_vs_q0.csv
+      - 08_chi2_derivative.csv            (si --export-derivative)
+      - 08_chi2_scan2D.csv               (si --export-heatmap)
+      - 08_dv_theory_z.csv
+      - 08_mu_theory_z.csv
+      - 08_mu_theory_q0star.csv          (optionnel)
+      - 08_coupling_params.json
+
+  4.2 zz-figures/chapter08/
+      - fig_01_chi2_total_vs_q0.png
+      - fig_02_dv_vs_z.png
+      - fig_03_mu_vs_z.png
+      - fig_04_chi2_heatmap.png          (si applicable)
+      - fig_05_residuals.png
+      - fig_06_normalized_residuals.png
+      - fig_07_chi2_profile.png
+
+5. Paramètres et configuration
+  - JSON : zz-data/chapter08/08_coupling_params.json
+    • thresholds.primary = 0.01 ; thresholds.order2 = 0.10
+    • max_epsilon_primary / order2 : bornes de contrôle (remplies par pipeline)
+    • Grilles :
+      – q0⋆ : bornes et pas (ex. [-0.1, 0.1], N=201)
+      – param2 : bornes et pas (ex. [-1.0, 1.0], N=101) pour scan 2D
+  - Constantes cosmologiques : zz-scripts/chapter08/utils/cosmo.py
+
+6. Fichier(s) de dérivée brute intermédiaire
+  - 08_chi2_derivative.csv : dχ²/dq0⋆ lissée (Savitzky–Golay).
+  - (Optionnel) 08_chi2_derivative_raw.csv : dérivée brute (np.gradient) pour diagnostic.
+
+7. Vérifications fin de pipeline
+  - Intégrité fichiers : existence et taille > 0 pour tous les CSV/JSON.
+  - Sanity-checks :
+    • Absence de NaN/Inf (pandas.notna, numpy.isfinite).
+    • χ² ≥ 0 et fini ; detection de χ²_min correcte.
+    • |résidus normalisés| ~ O(1) ; distribution SN proche N(0,1).
+  - Seuils :
+    • max_epsilon_primary < 0.01
+    • max_epsilon_order2  < 0.10
+  - Cohérence grilles : z des théories couvre z des observations (tolérance stricte).
+
+8. Paramètres de lissage et interpolation
+  - Interpolation (si nécessaire) : PCHIP sur (log10(x), y) ou (log10(x), log10(y)) selon variable.
+  - Lissage Savitzky–Golay :
+    • window_length = 7
+    • polyorder    = 3
+    • mode         = "interp"
+  - Dérivée : np.gradient(y, x) sur grille régulière (log-lin pour q0⋆).
+
+9. Commandes d’exécution (exemples)
+  # Générer les données (profils + dérivée + carte 2D)
+  python zz-scripts/chapter08/generate_data_chapter08.py \
+      --q0star_min -0.1 --q0star_max 0.1 --n_points 201 \
+      --export-derivative \
+      --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
+
+  # Tracer les figures
+  python zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py
+  python zz-scripts/chapter08/plot_fig02_dv_vs_z.py
+  python zz-scripts/chapter08/plot_fig03_mu_vs_z.py
+  python zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
+  python zz-scripts/chapter08/plot_fig05_residuals.py
+  python zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py
+  python zz-scripts/chapter08/plot_fig07_chi2_profile.py
+
+10. Compilation LaTeX
+  cd 08-couplage-sombre/
+  pdflatex -interaction=nonstopmode 08_couplage_sombre_conceptuel.tex
+  pdflatex -interaction=nonstopmode 08_couplage_sombre_details.tex
+
+11. Versioning & tags
+  - Mettre à jour VERSION → v8.0
+  - Entrée dans CHANGELOG.md : “Chapitre 8 – Couplage sombre”
+  - Tag :
+    git tag -a v8.0 -m "Chapitre 8 – Couplage sombre"

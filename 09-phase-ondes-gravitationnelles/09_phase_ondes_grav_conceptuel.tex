@@ -1,0 +1,247 @@
+\section{Chapitre 9 – Phase ondes gravitationnelles }
+
+\subsection{Contexte et définitions}
+La modification de la dérivée propre du temps \(\dot P(T)\) dans le modèle MCGT induit un décalage temporel et de phase sur la propagation des ondes gravitationnelles, comparé au scénario \(\Lambda\)CDM. Pour chaque fréquence
+\[
+  f \in [10^{-4},\,1]\;\mathrm{Hz},
+\]
+on introduit
+\[
+  \Delta\tau(f)
+  \;\equiv\;
+  \tau_{\mathrm{MCGT}}(f)\;-\;\tau_{\Lambda\mathrm{CDM}}(f),
+  \qquad
+  \Delta\varphi(f)
+  \;\equiv\;
+  2\pi\,f\,\Delta\tau(f).
+\]
+La phase standard de l’onde IMRPhenomD étant notée \(\varphi_{\Lambda\mathrm{CDM}}(f)\), la phase corrigée s’écrit simplement :
+\[
+  \varphi_{\mathrm{MCGT}}(f)
+  \;=\;
+  \varphi_{\Lambda\mathrm{CDM}}(f)
+  \;+\;\Delta\varphi(f).
+\]
+Pour relier la fréquence \(f\) à l’âge chirp \(T\), on utilise l’inversion numérique de la relation de phasing quadratique IMRPhenomD :
+\[
+  \varphi_{\Lambda\mathrm{CDM}}(f)
+  = 2\pi \int_{f_{\min}}^{f}
+    \frac{f'}{\dot F(f')}\,\mathrm{d}f'
+  \quad\Longrightarrow\quad
+  T = T(f)\,,
+\]
+où \(\dot F(f)\) provient de la modélisation IMRPhenomD.  
+
+\subsection{Paramètres astrophysiques et instrumentaux}
+\begin{itemize}
+  \item \textbf{Source :} binaire de trous noirs, masse chirp 
+        \(\mathcal{M}=30\,M_{\odot}\), rapport de masses \(\eta=0.25\), à 
+        \(d = 1\,\mathrm{Gpc}\).
+  \item \textbf{Plage fréquentielle :}
+        \[
+          f_{\min} = 10^{-4}\,\mathrm{Hz}, 
+          \quad
+          f_{\max} = 1\,\mathrm{Hz}.
+        \]
+  \item \textbf{Détecteur :} configuration LISA-like (voir § “Détails opérationnels” pour les spécifications PSD, SNR et grille).
+\end{itemize}
+
+\subsection{Schéma conceptuel du phasing modifié}
+Le phasing corrigé s’obtient en deux étapes conceptuelles :
+\begin{enumerate}
+  \item Inversion numérique phase \(\to\) âge chirp \(T(f)\)  
+        (cf. § « Contexte et définitions »).
+  \item Calcul du retard \(\Delta\tau(f)\) et déphasage  
+        \(\Delta\varphi(f)=2\pi\,f\,\Delta\tau(f)\)  
+        (cf. § « Contexte et définitions »).
+\end{enumerate}
+
+\subsection{Pipeline conceptuel de génération des fichiers}
+La chaîne conceptuelle se décline en sept étapes principales :
+
+\begin{enumerate}
+  \item \textbf{Génération de la grille fréquentielle}  
+    Création d’une grille log-linéaire de fréquences $f\in[10^{-4},1]\,$Hz
+    pour assurer la reproductibilité du calcul.
+
+  \item \textbf{Simulation de la PSD brute}  
+    Calcul de la densité spectrale de bruit (PSD) de LISA sur cette grille.
+
+  \item \textbf{Construction de la PSD simplifiée}  
+    Nettoyage et interpolation spline de la PSD brute, en garantissant
+    $S_n(f)>0$ sur toute la bande.
+
+  \item \textbf{Calcul des retards et des phases}  
+    Pour chaque fréquence, inversion $f\to T$ puis évaluation de
+    \(\Delta\tau(f)\) et \(\Delta\varphi(f)=2\pi f\,\Delta\tau(f)\).
+
+  \item \textbf{Évaluation de la matrice de Fisher}  
+    Construction et inversion de la matrice de Fisher pour extraire les
+    incertitudes sur \(\mathcal{M}\) et \(\eta\).
+
+  \item \textbf{Vérification et journalisation des anomalies}  
+    Contrôle systématique de :
+    \begin{itemize}
+      \item \(S_n(f)>0\),  
+      \item \(0 \le \Delta\tau(f)\le 10^{-1}\,\mathrm{s}\),  
+      \item \(\det C \neq 0\) (matrice de covariance).
+    \end{itemize}
+    Toutes les violations sont consignées dans un journal d’anomalies.
+
+  \item \textbf{Extraction et visualisation des résultats}  
+    \begin{itemize}
+      \item Extraction du déphasage optimal pour la valeur choisie de \(Q_0\).  
+      \item Tracé des ellipses de confiance (68 % & 95 %).  
+      \item (Optionnel) Validation comparative de la différence de phase.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Rôle des scripts}
+Chaque étape du pipeline conceptuel est prise en charge automatiquement par un script dédié :
+
+\begin{itemize}
+  \item Génération de la grille fréquentielle.
+  \item Simulation et nettoyage de la PSD LISA.
+  \item Calcul des retards \(\Delta\tau(f)\) et des déphasages \(\Delta\varphi(f)\).
+  \item Construction et inversion de la matrice de Fisher pour évaluer les incertitudes.
+  \item Vérification des anomalies (PSD, retards, Fisher) et journalisation.
+  \item Extraction du déphasage optimal pour la valeur choisie de \(Q_0\).
+  \item Tracé des ellipses de confiance et validation de la différence de phase.
+\end{itemize}
+
+\subsection{Format des fichiers de sortie}
+Les principaux fichiers produits par la chaîne de traitement sont :
+
+\begin{itemize}
+  \item \texttt{12\_grille\_frequentielle.csv} : grille de fréquences utilisée pour tous les calculs.
+  \item \texttt{12\_psd\_lisa\_brute.csv} : densité spectrale de bruit brute simulée.
+  \item \texttt{12\_psd\_lisa\_simplifiee.dat} : densité spectrale de bruit simplifiée (strictement positive).
+  \item \texttt{09\_gw\_resultats.csv} : retards \(\Delta\tau(f)\) et déphasages \(\Delta\varphi(f)\) calculés.
+  \item \texttt{09\_matrice\_fisher.csv} : coefficients de la matrice de Fisher pour l’estimation des incertitudes.
+  \item \texttt{09\_anomalies.log} : journal des anomalies détectées (PSD, retards, Fisher).
+  \item \texttt{13\_phases\_gw\_complet.csv} : jeu complet de phases \(\varphi_{\Lambda\mathrm{CDM}}\) et \(\varphi_{\mathrm{MCGT}}\).
+  \item \texttt{09\_phase\_diff\_q0star.csv} : déphasage optimal \(\Delta\varphi\) pour la valeur choisie de \(Q_{0}^{\star}\).
+  \item \texttt{fig\_03\_fisher\_contour.png} : ellipses de confiance (68 % & 95 %) pour \(\mathcal{M}\) et \(\eta\).
+  \item \texttt{fig\_04\_validation\_delta\_phase.png} : validation de \(\Delta\varphi(f)\) sur la bande complète LISA.
+\end{itemize}
+
+Pour le format exact des colonnes, les tolérances et les exemples de commandes, voir la section « Détails opérationnels ».  
+
+\subsection{Résultats numériques clés}
+Les ordres de grandeur obtenus pour la configuration considérée sont :
+\[
+  \Delta\tau \sim 10^{-4}\!-\!10^{-2}\,\mathrm{s},
+  \qquad
+  \Delta\varphi \sim 10^{-3}\,\mathrm{rad},
+  \qquad
+  \frac{\Delta\mathcal{M}}{\mathcal{M}} \sim 10^{-3},
+  \quad
+  \frac{\Delta\eta}{\eta} \sim 2 \times 10^{-3}.
+\]
+Ces résultats indiquent que, même pour un binaire de masse chirp 
+\(\mathcal{M}=30\,M_{\odot}\) et \(\eta=0.25\), l’effet du MCGT sur la phase 
+des ondes gravitationnelles reste potentiellement détectable par un instrument 
+de type LISA (voir § « Détails opérationnels » pour les valeurs exactes et 
+leurs tableaux associés).
+
+\subsection{Figures principales}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{09-phase-ondes-gravitationnelles/fig_01_delta_tau_vs_f.png}
+  \caption{Décroissance de \(\Delta\tau(f)\) : effet maximal à basse fréquence, atténuation vers \(1\) Hz.}
+  \label{fig:delta_tau_vs_f}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{09-phase-ondes-gravitationnelles/fig_02_phase_modulation_vs_f.png}
+  \caption{\(\Delta\varphi(f)=2\pi f\,\Delta\tau(f)\) : amplitude \(\mathcal{O}(10^{-3})\) rad près de \(1\) Hz.}
+  \label{fig:delta_phi_vs_f}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{09-phase-ondes-gravitationnelles/fig_03_fisher_contour.png}
+  \caption{Contours de confiance (68 % et 95 %) sur \((\mathcal{M},\eta)\) montrant des marges \(\sim10^{-3}\) à SNR = 20.}
+  \label{fig:fisher_contour}
+\end{figure}
+
+\subsection{Validation du déphasage sur la bande complète}
+La figure ci-dessous présente la validation du déphasage \(\Delta\varphi(f)\) obtenu sur l’intégralité de la bande de LISA (\(10^{-4}\)–1 Hz) : on y constate une croissance régulière de l’écart de phase, conforme aux prédictions du modèle MCGT, et une amplitude maximale de l’ordre de \(10^{-2}\) rad vers \(1\) Hz.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{09-phase-ondes-gravitationnelles/fig_04_validation_delta_phase.png}
+  \caption{Validation de la différence de phase \(\Delta\varphi(f)\) sur la bande \(10^{-4}\)–1 Hz. La pente positive met en évidence l’augmentation de l’effet aux fréquences élevées.}
+  \label{fig:validation_delta_phase_full}
+\end{figure}
+
+Ce tracé confirme que, même si le retard \(\Delta\tau(f)\) diminue à haute fréquence, le produit \(f\,\Delta\tau(f)\) croît suffisamment pour rendre le déphasage plus marqué près de \(1\) Hz.  
+
+\subsection{Matrice de Fisher et incertitudes}
+La matrice de Fisher pour les paramètres 
+\(\theta = (\mathcal{M},\,\eta)\) se définit formellement par :
+\[
+  F_{ij}
+  = 4\,\mathrm{SNR}^{2}\,
+    \Re\!\int_{f_{\min}}^{f_{\max}}
+      \frac{1}{S_{n}(f)}
+      \frac{\partial\varphi_{\mathrm{MCGT}}(f)}{\partial \theta_{i}}
+      \frac{\partial\varphi_{\mathrm{MCGT}}(f)}{\partial \theta_{j}}
+    \,\mathrm{d}f.
+\]
+Les incertitudes s’extraient via l’inversion de \(\mathbf{F}\) :
+\[
+  \Delta\mathcal{M}
+  = \sqrt{\bigl(\mathbf{F}^{-1}\bigr)_{11}},
+  \qquad
+  \Delta\eta
+  = \sqrt{\bigl(\mathbf{F}^{-1}\bigr)_{22}}.
+\]
+Pour la configuration considérée, on obtient 
+\(\Delta\mathcal{M}/\mathcal{M}\sim10^{-3}\) et 
+\(\Delta\eta/\eta\sim2\times10^{-3}\) 
+(voir § « Détails opérationnels » pour la procédure numérique complète).
+
+\subsection{Références}
+\begin{itemize}
+  \item Khan, S., \emph{et al.}, \emph{IMRPhenomD: A next‐generation phenomenological waveform for coalescing black‐hole binaries}, Phys. Rev. D \textbf{93}, 044007 (2016).
+  \item Robson, T., Cornish, N. \& Liu, C., \emph{The construction and use of LISA sensitivity curves}, Class. Quantum Grav. \textbf{36}, 105011 (2019).
+  \item LALSuite (v6.10), Library of LIGO Algorithms, \url{https://git.ligo.org/lscsoft/lalsuite}.
+\end{itemize}
+
+\subsection{Limites et perspectives}
+\begin{itemize}
+  \item \textbf{Principales hypothèses}  
+    Phasing quadratique (IMRPhenomD), PSD simplifiée, absence de bruit de confusion galactique.
+  \item \textbf{Axes d’amélioration}  
+    \begin{itemize}
+      \item Tester des phasings plus précis (PhenomX, calibrations numériquement ajustées).  
+      \item Intégrer le bruit de confusion galactique et des contributions astrophysiques additionnelles.  
+      \item Étendre l’analyse à d’autres infrastructures (Einstein Telescope, Cosmic Explorer).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Sensibilité minimale}
+Le seuil de détection de LISA est de l’ordre  
+\[
+  \Delta\varphi_{\min}\sim10^{-3}\,\mathrm{rad}.
+\]
+Nos déphasages calculés \(\mathcal{O}(10^{-3})\) rad se situent donc juste au seuil de détectabilité ;  
+tout effet plus faible exigerait un rapport signal-à-bruit plus élevé ou un réseau conjoint de détecteurs.
+
+\subsection{Conclusion conceptuelle}
+Pour un binaire de masse chirp \(\mathcal{M}=30\,M_{\odot}\), \(\eta=0.25\), à 1 Gpc et SNR = 20, on obtient :
+\[
+  \Delta\tau \sim 10^{-4}\!-\!10^{-2}\,\mathrm{s}, 
+  \quad
+  \Delta\varphi \sim 10^{-3}\,\mathrm{rad},
+  \quad
+  \frac{\Delta\mathcal{M}}{\mathcal{M}} \sim 10^{-3},
+  \quad
+  \frac{\Delta\eta}{\eta} \sim 2\times10^{-3}.
+\]
+Ces ordres de grandeur placent l’effet MCGT au seuil de ce qu’un instrument LISA-like peut mesurer, confirmant la faisabilité expérimentale de ce test cosmologique.
+
+\noindent\emph{Fin du volet conceptuel du Chapitre 9. La partie opérationnelle détaillée commence ci-dessous.}

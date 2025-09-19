@@ -1,0 +1,122 @@
+\section{Chapitre 7 – Perturbations scalaires : Synthèse conceptuelle}
+
+\subsection{Rappel succinct des résultats du Chapitre 3}
+Les fonctions \(f_{R}(R)\) et \(f_{RR}(R)\) ont été extraites en Chapitre 3 via interpolation des données de Ricci (cf. Fig.~\ref{fig:fR_fRR_vs_R}) et l’analyse de stabilité (cf. Fig.~\ref{fig:ms2_vs_z}).  
+On y constate que \(f_{R}(R)>0\) et \(f_{RR}(R)>0\) sur tout l’intervalle \(0\le z\le1000\), garantissant ainsi la positivité de la masse scalaire \(m_{s}^{2}(R)\).
+
+\subsection{Objectif et portée}
+Ce chapitre établit la stabilité linéaire des perturbations scalaires dans l’extension \(f(R)\) du MCGT. L’approche conceptuelle consiste à :
+\begin{itemize}
+  \item Formuler l’action quadratique en jauge comobile pour la variable de perturbation \(\zeta\).
+  \item Définir les quantités clés \(c_{s}^{2}(k,a)\) (vitesse de propagation) et \(m_{s}^{2}(R)\) (masse scalaire).
+  \item Construire une grille \((k,a)\) couvrant les intervalles physiquement pertinents.
+  \item Utiliser les valeurs de \(f_{R}(R)\) et \(f_{RR}(R)\) issues du Chapitre 3 pour vérifier les conditions de stabilité.
+  \item Présenter le schéma conceptuel de calcul étape par étape, du calcul de \(c_{s}^{2}\) et \(m_{s}^{2}\) à la résolution de l’équation de Mukhanov–Sasaki modifiée.
+  \item Indiquer succinctement les scripts et dépendances nécessaires pour reproduire l’ensemble du scan numérique.
+\end{itemize}
+
+\subsection{Action quadratique en jauge comobile et conditions de stabilité}
+En adoptant la **jauge comobile**, où la perturbation de la métrique se réduit à la variable de courbure comobile \(\zeta(\eta,\mathbf{x})\), on simplifie l’interprétation physique des modes scalaires. La deuxième variation de l’action dans le cadre \(f(R)\) s’écrit alors :
+\[
+  S^{(2)} \;=\; \frac{1}{2}\int d\eta\,d^{3}x\;z^{2}(a)\,
+    \Bigl[(\zeta')^{2} \;-\; c_{s}^{2}(k,a)\,(\nabla\zeta)^{2}\Bigr],
+\]
+avec
+\[
+  z^{2}(a)
+  = 
+  \frac{3\,a^{2}\,f_{R}(R)}{\kappa\,H^{2}}\,
+  \bigl(\dot f_{R} + 2\,f_{R}\,H\bigr)^{2},
+  \quad
+  m_{s}^{2}(R)
+  =
+  \frac{f_{R}(R) - R\,f_{RR}(R)}{3\,f_{RR}(R)},
+\]
+et
+\[
+  c_{s}^{2}(k,a)
+  =
+  \frac{f_{R}(R)}{3\,f_{RR}(R)}
+  \,\frac{(k/a)^{2}}{(k/a)^{2} + m_{s}^{2}(R)}.
+\]
+Les conditions de **stabilité linéaire** exigent pour tout \((k,a)\) du domaine pertinent :
+\[
+  c_{s}^{2}(k,a) > 0,
+  \qquad
+  m_{s}^{2}(R) > 0.
+\]
+
+\subsection{Interprétation physique}
+Physiquement, \(c_{s}^{2}(k,a)\) représente la vitesse de propagation des ondes scalaires dans le milieu, qui doit rester sub-luminale (\(<1\)) pour préserver la causalité, tandis que \(m_{s}^{2}(R)>0\) assure l’absence de modes fantômes (« ghosts ») et garantit la positivité de l’énergie cinétique des perturbations.
+
+\subsection{Conditions initiales}
+Les perturbations scalaires sont initialisées en état de Bunch–Davies dans le régime sous-horizon (\(k/a \gg H\)), garantissant un vide quantique minimal.  
+Cette condition impose les amplitudes de \(\zeta\) et de ses dérivées premières au début de l’intégration de l’équation de Mukhanov–Sasaki.
+
+\subsection{Domaines et critères de validité}
+L’analyse linéaire des perturbations scalaires reste valide dans le domaine suivant :
+\[
+  k \in [\,10^{-4},\,1\,]\,h\,\mathrm{Mpc}^{-1},
+  \quad
+  a \in [\,0.1,\,1\,]
+  \quad(\Leftrightarrow z \le 9).
+\]
+Ces bornes garantissent :
+\begin{itemize}
+  \item \(k_{\max}=1\,h\,\mathrm{Mpc}^{-1}\) : on évite les régimes non linéaires de croissance des structures.  
+  \item \(a_{\min}=0.1\) (soit \(z_{\max}=9\)) : on reste en phase matière-dominée, où l’équation de perturbations scalaires étudiée est applicable.  
+\end{itemize}
+
+\paragraph*{Renvois aux détails opérationnels}
+\begin{itemize}
+  \item \textbf{Construction de la grille \((k,a)\)}  
+        Voir la description complète dans \texttt{07\_perturbations\_scalaires\_details.tex}.
+  \item \textbf{Procédure d’interpolation de \(f_{R}(R)\) et \(f_{RR}(R)\)}  
+        Reportez-vous à \texttt{07\_perturbations\_scalaires\_details.tex}.
+  \item \textbf{Workflow pas-à-pas}  
+        Interpolation, calcul des coefficients, résolution de Mukhanov–Sasaki et génération des résultats : voir \texttt{07\_perturbations\_scalaires\_details.tex}.
+  \item \textbf{Scripts Python et dépendances}  
+        Liste complète dans \texttt{07\_perturbations\_scalaires\_details.tex}.
+\end{itemize}
+
+\subsection{Résultats numériques globaux}
+Après exécution du scan complet sur la grille \((k,a)\), on obtient :
+\[
+  \min_{(k,a)}\,c_{s}^{2}(k,a)\;\approx\;0.50\;>\;0,
+  \qquad
+  \max_{(k,a)}\,\frac{\delta\varphi}{\varphi}(k,a)\;\approx\;10^{-4}\;\ll\;10^{-2}.
+\]
+
+Pour la visualisation détaillée :  
+— carte de chaleur de \(c_{s}^{2}(k,a)\) (Fig.~\ref{fig_01_carte_chaleur_cs2_k_a}, Chapitre 7 – Détails),  
+— carte de chaleur de \(\delta\varphi/\varphi\) (Fig.~\ref{fig_02_carte_chaleur_delta_phi_k_a}, Chapitre 7 – Détails).
+
+Ces résultats confirment l’absence de modes de gradient instables (« ghosts ») et attestent de la validité de l’approximation linéaire sur tout le domaine considéré.  
+
+\subsection{Discussion des résultats}
+La valeur minimale \(c_{s}^{2}\approx0.5\) reste largement sub-luminale, confirmant que la propagation des ondes scalaires respecte la causalité. De plus, l’amplitude maximale \(\delta\varphi/\varphi\lesssim10^{-4}\) est négligeable par rapport à l’échelle de fond, ce qui indique que les perturbations n’injectent pas de rétroaction significative sur la dynamique cosmologique. Ces résultats soulignent la robustesse de la stabilité linéaire du MCGT sur toute la grille considérée.
+
+\subsection*{Limites et perspectives conceptuelles}
+Cette analyse se concentre strictement sur la stabilité linéaire des perturbations scalaires pour \(k\le1\,h\,\mathrm{Mpc}^{-1}\) et \(z\le9\).  
+Au-delà de ces bornes, les effets non linéaires de croissance des structures deviennent significatifs et nécessitent une extension de la méthode, notamment :
+\begin{itemize}
+  \item étude non linéaire via simulations N-body ou codes Boltzmann étendus ;  
+  \item inclusion des rétroactions couplage matière-énergie sombre à haut redshift ;  
+  \item exploration du régime radiation-dominée (\(a<0.1\)), où la physique des perturbations diffère sensiblement.
+\end{itemize}
+Ces pistes permettront de tester la robustesse du MCGT au-delà de l’approximation linéaire.  
+Ces résultats conceptuels, validés numériquement, constituent la base pour étudier l’incidence des couplages non linéaires dans les prochains chapitres. 
+
+\subsection{Conclusion conceptuelle}
+Le MCGT est linéairement stable pour toutes les perturbations scalaires \((k,a)\in[10^{-4},1]\times[0.1,1]\), car :
+\[
+  c_{s}^{2}(k,a) > 0,
+  \qquad
+  \frac{\delta\varphi}{\varphi}(k,a) \ll 10^{-2}.
+\]
+Pour consulter la structure détaillée des fichiers de sortie, les implémentations pas à pas et les contrôles de cohérence, se reporter à :
+\begin{center}
+  \texttt{07\_perturbations\_scalaires\_details.tex}
+\end{center}
+
+\noindent\emph{Fin du volet conceptuel du Chapitre 7. La partie opérationnelle détaillée commence ci-dessous.}

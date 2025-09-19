@@ -1,0 +1,92 @@
+% main.tex — document principal MCGT
+\documentclass\[11pt,a4paper]{book}
+
+% --- Préambule commun (packages, styles, commandes) ---
+\input{preambule.tex}
+
+% --- Métadonnées du document ---
+\title{Modèle de Courbure Gravitationnelle Temporelle (MCGT)}
+\author{Jean-Philip Lalumière}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% --- Front matter ---
+\frontmatter
+\tableofcontents
+\listoffigures
+\listoftables
+
+% --- Corps principal ---
+\mainmatter
+
+% Chapitre 1 – Introduction conceptuelle
+\chapter{Introduction conceptuelle}
+\input{01-introduction-applications/01\_introduction\_conceptuel}
+\input{01-introduction-applications/01\_applications\_calibration\_conceptuel}
+
+% Chapitre 2 – Validation chronologique
+\chapter{Validation chronologique}
+\input{02-validation-chronologique/02\_validation\_chronologique\_conceptuel}
+\input{02-validation-chronologique/02\_validation\_chronologique\_details}
+
+% Chapitre 3 – Stabilité linéaire et extension f(R)
+\chapter{Stabilité linéaire et extension f(R)}
+\input{03-stabilite-fR/03\_stabilite\_fR\_conceptuel}
+\input{03-stabilite-fR/03\_stabilite\_fR\_details}
+
+% Chapitre 4 – Invariants adimensionnels
+\chapter{Invariants adimensionnels}
+\input{04-invariants-adimensionnels/04\_invariants\_adimensionnels\_conceptuel}
+\input{04-invariants-adimensionnels/04\_invariants\_adimensionnels\_details}
+
+% Chapitre 5 – Nucléosynthèse primordiale
+\chapter{Nucléosynthèse primordiale}
+\input{05-nucleosynthese-primordiale/05\_nucleosynthese\_primordiale\_conceptuel}
+\input{05-nucleosynthese-primordiale/05\_nucleosynthese\_primordiale\_details}
+
+% Chapitre 6 – Rayonnement fossile (CMB)
+\chapter{Rayonnement fossile (CMB)}
+\input{06-rayonnement-cmb/06\_cmb\_conceptuel}
+\input{06-rayonnement-cmb/06\_cmb\_details}
+
+% Chapitre 7 – Perturbations scalaires
+\chapter{Perturbations scalaires}
+\input{07-perturbations-scalaires/07\_perturbations\_scalaires\_conceptuel}
+\input{07-perturbations-scalaires/07\_perturbations\_scalaires\_details}
+
+% Chapitre 8 – Couplage sombre modéré
+\chapter{Couplage sombre modéré}
+\input{08-couplage-sombre/08\_couplage\_sombre\_conceptuel}
+\input{08-couplage-sombre/08\_couplage\_sombre\_details}
+
+% Chapitre 9 – Phasage des ondes gravitationnelles
+\chapter{Phasage des ondes gravitationnelles}
+\input{09-phase-ondes-gravitationnelles/09\_phase\_ondes\_grav\_conceptuel}
+\input{09-phase-ondes-gravitationnelles/09\_phase\_ondes\_grav\_details}
+
+% Chapitre 10 – Monte Carlo global 8 dimensions
+\chapter{Monte Carlo global 8,dimensions}
+\input{10-monte-carlo-global-8d/10\_monte\_carlo\_global\_conceptuel}
+\input{10-monte-carlo-global-8d/10\_monte\_carlo\_global\_details}
+
+% --- Annexes (références techniques, données, figures, scripts) ---
+\appendix
+\chapter{Annexes : Ressources techniques (données, figures, scripts)}
+\begin{itemize}
+\item Convention et styles (\emph{référence projet}) : \texttt{convention.md}
+\item Reproductibilité : \texttt{README-REPRO.md}, procédures : \texttt{RUNBOOK.md}
+\item Manifests (publication & diagnostic) : \texttt{zz-manifests/}
+\item Schémas de validation JSON/CSV : \texttt{zz-schemas/}
+\item Données par chapitre : \texttt{zz-data/chapterX/} (X=01…10)
+\item Figures par chapitre : \texttt{zz-figures/chapterX/} (X=01…10)
+\item Scripts d’analyse et de tracé : \texttt{zz-scripts/chapterX/} (X=01…10)
+\end{itemize}
+
+% --- Back matter ---
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,209 @@
+CHECKLIST — CHAPITRE 10 (Monte-Carlo global 8D : échantillonnage, p95, bootstrap)
+
+[OBJECTIF & PORTÉE]
+- [ ] Générer les données Monte-Carlo 8D, recalculer les métriques p95 (définition circulaire), produire les figures et compiler LaTeX.
+- [ ] Harmoniser colonnes, formats (CSV/JSON), chemins relatifs et conventions avec les chapitres 1–9.
+- [ ] Assurer traçabilité via JSON de paramètres, manifests et rapports.
+
+[PRÉ-REQUIS LOGICIELS]
+- [ ] Python ≥ 3.10 : numpy, pandas, matplotlib (scipy optionnel).
+- [ ] LaTeX/pdflatex : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox.
+- [ ] OS : Linux/macOS/WSL ; environnement reproductible (requirements.txt/environment.yml si disponible).
+
+[CONVENTIONS GÉNÉRALES]
+- [ ] Fenêtre métriques par défaut : [20, 300] Hz (alignée chapitre 9).
+- [ ] Métrique de référence : p95 **circulaire** des résidus de phase.
+- [ ] Colonnes standardisées :
+      • p95_20_300 (historique linéaire, si présent)
+      • p95_20_300_recalc (**référence circulaire**)
+- [ ] Dimensions 8D : m1, m2, m3, m4, m5, m6, m7, m8.
+- [ ] CSV encodés UTF-8, séparateur « , », point décimal « . ».
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (10-monte-carlo-global-8d/):
+      • 10_monte_carlo_global_conceptuel.tex
+      • 10_monte_carlo_global_details.tex
+- [ ] Données (zz-data/chapter10/):
+      • 10_mc_config.json
+      • 10_mc_samples.csv
+      • 10_mc_results.csv
+      • 10_mc_results.agg.csv
+      • 10_mc_results.circ.csv
+      • 10_mc_results.circ.agg.csv
+      • 10_mc_results.circ.with_fpeak.csv
+      • 10_mc_best.json
+      • 10_mc_best_bootstrap.json
+      • 10_mc_milestones_eval.csv
+- [ ] Figures (zz-figures/chapter10/):
+      • fig_01_iso_p95_maps.png
+      • fig_02_scatter_phi_at_fpeak.png
+      • fig_03_convergence_p95_vs_n.png
+      • fig_03b_coverage_bootstrap_vs_n_hires.png
+      • fig_04_scatter_p95_recalc_vs_orig.png
+      • fig_05_hist_cdf_metrics.png
+      • fig_06_heatmap_absdp95_m1m2.png
+      • fig_07_summary_comparison.png
+- [ ] Scripts (zz-scripts/chapter10/):
+      • generate_data_chapter10.py
+      • recompute_p95_circular.py
+      • add_phi_at_fpeak.py / diag_phi_fpeak.py
+      • bootstrap_topk_p95.py
+      • eval_primary_metrics_20_300.py
+      • check_metrics_consistency.py / qc_wrapped_vs_unwrapped.py / inspect_topk_residuals.py
+      • plot_fig01_iso_p95_maps.py … plot_fig07_synthesis.py
+      • update_manifest_with_hashes.py
+      • requirements.txt
+
+[SPÉCIFICATIONS DES TABLES — ENTRÉES]
+- [ ] 10_mc_config.json (exemples de clés) :
+      rng_seed, metrics_window_Hz, bootstrap.{outer,inner,alpha},
+      grid.m1…m8 {min,max,n}, outputs.with_fpeak (bool)
+- [ ] 10_mc_samples.csv :
+      | m1…m8 | (option) seed |
+
+[SPÉCIFICATIONS DES TABLES — SORTIES]
+- [ ] 10_mc_results.csv (linéaire) :
+      | m1…m8 | p95_20_300 | autres stats selon config |
+- [ ] 10_mc_results.circ.csv (référence) :
+      | m1…m8 | p95_20_300 | p95_20_300_recalc |
+- [ ] 10_mc_results.agg.csv / 10_mc_results.circ.agg.csv :
+      | m1,m2(…) | count | (mean/median)_p95 (_recalc) | …
+- [ ] 10_mc_results.circ.with_fpeak.csv (si activé) :
+      | m1…m8 | p95_20_300_recalc | f_peak_Hz | phi_ref_at_fpeak | phi_mcgt_at_fpeak |
+- [ ] 10_mc_best.json :
+      best.m1…m8, best.p95_recalc, meta.criteria
+- [ ] 10_mc_best_bootstrap.json :
+      topk, stats.{mean,std,(ci)}, meta (B, seed, …)
+- [ ] 10_mc_milestones_eval.csv :
+      label, m1…m8, métriques
+
+[SCHÉMAS & VALIDATION]
+- [ ] JSON : mc_config_schema.json ↔ 10_mc_config.json ; mc_best_schema.json ↔ 10_mc_best.json.
+- [ ] CSV : mc_results_table_schema.json ↔ 10_mc_results*.csv (linéaire & circulaire).
+- [ ] Lancer les validateurs après génération (cf. section COMMANDES RAPIDES).
+
+[PIPELINE — SÉQUENCE CONSEILLÉE]
+- [ ] 1) Génération base (résultats linéaires) :
+      python zz-scripts/chapter10/generate_data_chapter10.py \
+        --config  zz-data/chapter10/10_mc_config.json \
+        --samples zz-data/chapter10/10_mc_samples.csv \
+        --out     zz-data/chapter10/10_mc_results.csv
+- [ ] 2) Recalcul « circular mean » (colonne de référence) :
+      python zz-scripts/chapter10/recompute_p95_circular.py \
+        --in  zz-data/chapter10/10_mc_results.csv \
+        --out zz-data/chapter10/10_mc_results.circ.csv
+- [ ] 3) Ajouter f_peak (option) :
+      python zz-scripts/chapter10/add_phi_at_fpeak.py \
+        --in  zz-data/chapter10/10_mc_results.circ.csv \
+        --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
+- [ ] 4) Agrégations / diagnostics :
+      python zz-scripts/chapter10/eval_primary_metrics_20_300.py \
+        --in  zz-data/chapter10/10_mc_results.circ.csv \
+        --out zz-data/chapter10/10_mc_results.circ.agg.csv
+      python zz-scripts/chapter10/check_metrics_consistency.py \
+        --csv zz-data/chapter10/10_mc_results.circ.csv --window 20 300
+- [ ] 5) Bootstrap top-k & incertitudes :
+      python zz-scripts/chapter10/bootstrap_topk_p95.py \
+        --in  zz-data/chapter10/10_mc_results.circ.csv \
+        --out zz-data/chapter10/10_mc_best_bootstrap.json \
+        --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
+- [ ] 6) Figures (voir bloc FIGURES).
+
+[FIGURES — COMMANDES]
+- [ ] Cartes iso p95 :
+      python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --p95-col p95_20_300_recalc --m1-col m1 --m2-col m2 \
+        --levels 16 --dpi 300 \
+        --out zz-figures/chapter10/fig_01_iso_p95_maps.png
+- [ ] Scatter φ_ref vs φ_mcgt @ f_peak :
+      python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
+        --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
+        --x-col phi_ref_at_fpeak --y-col phi_mcgt_at_fpeak \
+        --clip-pi --dpi 300 \
+        --out zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png
+- [ ] Convergence p95 vs N :
+      python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --p95-col p95_20_300_recalc --B 2000 --seed 12345 --dpi 300 \
+        --out zz-figures/chapter10/fig_03_convergence_p95_vs_n.png
+- [ ] Couverture bootstrap (hires) :
+      python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --p95-col p95_20_300_recalc --outer 2000 --inner 2000 --M 2000 \
+        --alpha 0.05 --minN 100 --npoints 10 --dpi 300 \
+        --out zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.png
+- [ ] p95(recalc) vs p95(orig) :
+      python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
+        --bins 50 --dpi 300 \
+        --out zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png
+- [ ] Histogrammes/CDF :
+      python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --dpi 150 \
+        --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png
+- [ ] Carte |Δp95| (m1,m2) :
+      python zz-scripts/chapter10/plot_fig06_residual_map.py \
+        --results zz-data/chapter10/10_mc_results.circ.csv \
+        --metric dp95 --abs --m1-col m1 --m2-col m2 \
+        --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
+        --gridsize 36 --mincnt 3 --dpi 300 \
+        --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
+- [ ] Synthèse :
+      python zz-scripts/chapter10/plot_fig07_synthesis.py \
+        --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json \
+        --label-a "Percentile (outer=2000,inner=2000)" \
+        --manifest-b zz-figures/chapter10/fig_03_convergence_p95_vs_n.manifest.json \
+        --label-b "Convergence p95 vs N" \
+        --dpi 300 \
+        --out zz-figures/chapter10/fig_07_summary_comparison.png
+
+[PARAMÈTRES & RECOMMANDATIONS]
+- [ ] p95 circulaire = **colonne de référence** pour toutes les analyses/figures.
+- [ ] Bootstrap : outer=400, inner=2000 (standard) ; outer=2000 (hires).
+- [ ] Échantillonnage 8D : grille/modèles Sobol/LH si disponible ; contrôler la couverture (m1,m2).
+- [ ] Variables d’environnement (option) :
+      MCGT_CONFIG=zz-configuration/mcgt-global-config.ini
+      MCGT_RULES=zz-manifests/migration_map.json
+
+[QC — CONTRÔLES RAPIDES]
+- [ ] Intégrité base :
+      python - << 'PY'
+import pandas as pd
+df=pd.read_csv("zz-data/chapter10/10_mc_results.circ.csv")
+print("n:",len(df)); print("has p95_recalc:", "p95_20_300_recalc" in df.columns)
+print("NaNs top:", df.isna().sum().sort_values(ascending=False).head())
+PY
+- [ ] Comptes par cellule (m1,m2) :
+      python - << 'PY'
+import pandas as pd
+df=pd.read_csv("zz-data/chapter10/10_mc_results.circ.csv")
+print(df.groupby(["m1","m2"]).size().describe())
+PY
+- [ ] Validation schémas :
+      python zz-schemas/validate_json.py zz-schemas/mc_config_schema.json zz-data/chapter10/10_mc_config.json
+      python zz-schemas/validate_json.py zz-schemas/mc_best_schema.json   zz-data/chapter10/10_mc_best.json
+      python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json zz-data/chapter10/10_mc_results.csv
+      python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json zz-data/chapter10/10_mc_results.circ.csv
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] Mettre à jour zz-manifests/figure_manifest.csv (path, chapter, figure_id, title, hash, bytes, updated_at).
+- [ ] Diagnostic centralisé :
+      python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
+        --report json --normalize-paths --content-check > zz-manifests/reports/diag_ch10.json
+- [ ] Empreintes :
+      python zz-scripts/chapter10/update_manifest_with_hashes.py \
+        --manifest zz-manifests/manifest_master.json --write
+
+[COMPILATION LaTeX]
+- [ ] cd 10-monte-carlo-global-8d
+- [ ] pdflatex -interaction=nonstopmode 10_monte_carlo_global_conceptuel.tex
+- [ ] pdflatex -interaction=nonstopmode 10_monte_carlo_global_details.tex
+
+[VERSIONNAGE & TAGS]
+- [ ] Mise à jour CHANGELOG.md (“Chapitre 10 – Monte-Carlo global 8D”).
+- [ ] Tag Git : git tag -a v10.0 -m "Chapitre 10 – Monte-Carlo global 8D" ; git push --tags
+
+[FIN DE CHECKLIST]

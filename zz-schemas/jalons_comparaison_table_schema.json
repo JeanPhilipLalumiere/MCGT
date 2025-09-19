@@ -1,0 +1,35 @@
+{
+  "$schema": "https://mcgt.schemas.local/csv-table/v1",
+  "$id": "zz-schemas/comparison_milestones_table_schema.json",
+  "title": "Schéma – jalons de comparaison de phase au pic (Chapitre 9)",
+  "description": "Valide 09_comparison_milestones.csv : mesures au pic de fréquence pour chaque événement GW (référence vs MCGT), avec incertitude et classification.",
+  "version": 1,
+  "delimiter": ",",
+  "header": true,
+  "allow_extra_columns": true,
+
+  "columns": [
+    { "name": "event",                 "type": "string",  "required": true,  "nullable": false, "description": "Identifiant GWOSC (ex: GW191103_012549-v1)", "pattern": "^GW.*$" },
+    { "name": "f_Hz",                  "type": "number",  "required": true,  "nullable": false, "description": "Fréquence de pic",                         "unit": "Hz",   "min": 0.0 },
+
+    { "name": "phi_ref_at_fpeak",      "type": "number",  "required": true,  "nullable": false, "description": "Phase de référence au pic",               "unit": "deg" },
+    { "name": "phi_mcgt_at_fpeak",     "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (courante)",            "unit": "deg" },
+    { "name": "phi_mcgt_at_fpeak_raw", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (brute)",               "unit": "deg" },
+    { "name": "phi_mcgt_at_fpeak_cal", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (après calibration)",   "unit": "deg" },
+
+    { "name": "obs_phase",             "type": "number",  "required": true,  "nullable": false, "description": "Phase observée / proxy catalogue",        "unit": "deg" },
+    { "name": "sigma_phase",           "type": "number",  "required": true,  "nullable": false, "description": "Incertitude (écart-type) sur la phase",   "unit": "deg",   "min": 0.0 },
+
+    { "name": "epsilon_rel",           "type": "number",  "required": true,  "nullable": false, "description": "Écart relatif (déf. interne)",            "unit": "" },
+
+    { "name": "classe",                "type": "string",  "required": true,  "nullable": false, "description": "Catégorie du jalon",                       "enum": ["primaire", "ordre2"] },
+    { "name": "variant",               "type": "string",  "required": true,  "nullable": false, "description": "Variante de traitement",                   "enum": ["calibrated", "raw", "poly", "prepoly", "postpoly"] }
+  ],
+
+  "primary_key": ["event", "variant"],
+
+  "constraints": [
+    { "type": "compare", "left": "f_Hz",        "op": ">",  "right_value": 0.0 },
+    { "type": "compare", "left": "sigma_phase", "op": ">=", "right_value": 0.0 }
+  ]
+}

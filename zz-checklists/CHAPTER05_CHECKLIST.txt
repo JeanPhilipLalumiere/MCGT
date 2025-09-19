@@ -1,0 +1,117 @@
+```text
+CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
+
+[OBJECTIF & PORTÉE]
+- [ ] Ce checklist couvre la génération des données/figures BBN, la validation et l’intégration LaTeX du Chapitre 5.
+- [ ] Conserver texte FR, noms de fichiers/commandes EN. Harmoniser formats/grilles/seuils avec chapitres 1–4.
+
+[PRÉ-REQUIS LOGICIELS]
+- [ ] Python ≥ 3.9 avec numpy, pandas, scipy, matplotlib.
+- [ ] LaTeX/pdflatex (amsmath, graphicx, siunitx, booktabs, hyperref).
+
+[CONSTANTES & CONVENTIONS]
+- [ ] Grille T_Gyr log-uniforme : domaine [1e−6, 14], pas Δlog10T ≈ 0.01.
+- [ ] Lissage dérivées (Savitzky–Golay) : window_length = 7, polyorder = 3.
+- [ ] Tolérances jalons : primary ≤ 1 %, order2 ≤ 10 % (suivi dans params JSON).
+- [ ] CSV : séparateur « , », point décimal « . », encodage UTF-8, en-tête présent.
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (05-nucleosynthese-primordiale/):
+      • 05_primordial_nucleosynthesis_conceptual.tex
+      • 05_primordial_nucleosynthesis_details.tex
+- [ ] Données (zz-data/chapter05/):
+      • 05_bbn_milestones.csv
+      • 05_bbn_grid.csv
+      • 05_bbn_data.csv
+      • 05_bbn_invariants.csv
+      • 05_chi2_bbn_vs_T.csv
+      • 05_dchi2_vs_T.csv
+      • 05_bbn_params.json
+- [ ] Figures (zz-figures/chapter05/):
+      • fig_01_bbn_reaction_network.png
+      • fig_02_dh_model_vs_obs.png
+      • fig_03_yp_model_vs_obs.png
+      • fig_04_chi2_vs_T.png
+- [ ] Scripts (zz-scripts/chapter05/):
+      • generate_data_chapter05.py
+      • plot_fig01_bbn_reaction_network.py
+      • plot_fig02_dh_model_vs_obs.py
+      • plot_fig03_yp_model_vs_obs.py
+      • plot_fig04_chi2_vs_T.py
+      • requirements.txt
+
+[ENTRÉES NORMALISÉES]
+- [ ] 05_bbn_milestones.csv (colonnes obligatoires) :
+      | label | z | value | sigma | source | classe |
+      Règles : label unique, z facultatif (NaN permis), value/sigma en float, UTF-8.
+- [ ] (Option) Références externes/constantes modèle documentées dans 05_bbn_params.json.
+
+[SORTIES ATTENDUES & COLONNES]
+- [ ] 05_bbn_grid.csv :
+      • T_Gyr [Gyr] — grille log-uniforme (1e−6 → 14)
+- [ ] 05_bbn_data.csv :
+      • T_Gyr [Gyr], DH_calc [–], Yp_calc [–]
+- [ ] 05_bbn_invariants.csv :
+      • T_Gyr [Gyr], I_DH [–], I_Yp [–]  (définitions adimensionnées cohérentes chap. 1–4)
+- [ ] 05_chi2_bbn_vs_T.csv :
+      • T_Gyr [Gyr], chi2_nucleosynthese [–]
+- [ ] 05_dchi2_vs_T.csv :
+      • T_Gyr [Gyr], dchi2_smooth [–/Gyr]  (SG : window=7, polyorder=3)
+- [ ] 05_bbn_params.json (clés recommandées) :
+      • T_min, T_max, n_points
+      • window_length, polyorder
+      • tol_primary, tol_order2
+      • max_epsilon_primary, max_epsilon_order2
+
+[PARAMÈTRES & MÉTHODES]
+- [ ] Grille T_Gyr : log-uniforme ; vérifier monotonie stricte & pas régulier (tolérance ~1e−12).
+- [ ] Interpolation P/T : PCHIP en log–log si nécessaire pour stabilité numérique.
+- [ ] Dérivées/χ² :
+      • χ²(T) à partir de (value, sigma) des jalons (pondérations correctes).
+      • dχ²/dT lissée via SG (7/3) ; pas de NaN/Inf en sortie.
+
+[GÉNÉRATION DES DONNÉES]
+- [ ] Exécuter (racine du dépôt) :
+      python zz-scripts/chapter05/generate_data_chapter05.py
+- [ ] Vérifier que tous les fichiers de sortie ont été écrits, tailles non nulles.
+
+[PRODUCTION DES FIGURES]
+- [ ] Générer :
+      python zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py
+      python zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py
+      python zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py
+      python zz-scripts/chapter05/plot_fig04_chi2_vs_T.py
+- [ ] Contrôles : DPI ≥ 300, axes/échelles appropriés (log si pertinent), légendes & unités cohérentes multi-chapitres.
+
+[CONTRÔLES QUALITÉ (POST-RUN)]
+- [ ] Fichiers CSV : encodage UTF-8, en-têtes exacts, aucune colonne vide, pas de NaN/Inf.
+- [ ] 05_bbn_milestones.csv : aucune duplication de label ; sigma > 0 ; classes ∈ {primary, order2}.
+- [ ] 05_bbn_grid.csv : T_Gyr croissant, bornes [1e−6, 14] incluses, pas log uniforme.
+- [ ] 05_bbn_data.csv : DH_calc, Yp_calc bornés/positifs ; continuité ; pas d’oscillations numériques.
+- [ ] 05_bbn_invariants.csv : valeurs finies ; statistiques min/med/max plausibles.
+- [ ] 05_chi2_bbn_vs_T.csv / 05_dchi2_vs_T.csv :
+      • χ² non négative, croissante si cumulée ; dχ² lissée sans artefact (pas de dents).
+- [ ] Tolérances : écarts relatifs vs jalons respectent primary (≤1 %) / order2 (≤10 %)
+      • Mettre à jour max_epsilon_* dans 05_bbn_params.json.
+
+[VALIDATION AUTOMATISÉE]
+- [ ] JSON :  validate_json.py  zz-schemas/05_nucleosynthesis_parameters.schema.json  zz-data/chapter05/05_bbn_params.json
+- [ ] CSV  :  validate_csv_table.py (schéma tabulaire si disponible) pour milestones & sorties clefs.
+- [ ] CI   :  zz-workflows/ci.yml exécute pytest + validateurs + diag manif.
+
+[INTÉGRATION LATEX]
+- [ ] pdflatex -jobname=chap5_conceptual  05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_conceptual.tex
+- [ ] pdflatex -jobname=chap5_details     05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_details.tex
+- [ ] Chemins images vers zz-figures/chapter05/ (relatifs, sensibles à la casse).
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] Ajouter/mettre à jour zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.
+- [ ] Synchroniser zz-manifests/chapters/chapter_manifest_05.json (données & figures).
+- [ ] Documenter les changements dans mcgt/CHANGELOG.md (impact scientifique, versions, dates).
+
+[COMMANDES RAPIDES]
+- [ ] Données   :  python zz-scripts/chapter05/generate_data_chapter05.py
+- [ ] Figures   :  exécuter les 4 scripts plot_fig**
+- [ ] Validation:  validate_json.py / validate_csv_table.py (schémas BBN)
+- [ ] LaTeX     :  deux commandes pdflatex ci-dessus
+```

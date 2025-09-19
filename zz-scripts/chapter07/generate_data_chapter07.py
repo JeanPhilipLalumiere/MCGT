@@ -1,16 +1,6 @@
 from datetime import datetime, timezone
 import subprocess, shutil
 
-def safe_git_hash(root: 'Path') -> str | None:
-    import shutil, subprocess
-    try:
-        if not (root/".git").exists() or not shutil.which("git"):
-            return None
-        return subprocess.check_output(["git","rev-parse","HEAD"], cwd=root, text=True).strip()
-    except Exception:
-        return None
-
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -363,7 +353,6 @@ def main():
     # -- renseigner meta['git']['hash'] de façon robuste --
     ROOT_for_git = globals().get('ROOT', Path.cwd())
     gith = safe_git_hash(ROOT_for_git)
-    meta.setdefault('git', {})['hash'] = gith or 'unknown'
     meta_path.write_text(json.dumps(meta, indent=2), encoding='utf-8')
     logger.info("Méta-JSON écrit → %s", meta_path)
 

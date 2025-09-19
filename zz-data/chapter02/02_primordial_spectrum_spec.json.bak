@@ -1,0 +1,12 @@
+{
+  "label_eq": "P_R(k;alpha)",
+  "formula": "As * (k/k0)^(ns-1 + 0.5*alpha*ln(k/k0))",
+  "constants": {
+    "k0": 0.05
+  },
+  "coefficients": {
+    "As": 2.1e-09,
+    "ns": 0.965,
+    "alpha": 0.0
+  }
+}

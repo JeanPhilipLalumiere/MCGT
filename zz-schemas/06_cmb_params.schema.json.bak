@@ -1,0 +1,139 @@
+{
+"\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\$id": "zz-schemas/06\_cmb\_params.schema.json",
+"title": "Chapter 06 — CMB & pipeline parameters",
+"description": "Schéma des paramètres liés au CMB (ex.: 06\_params\_cmb.json). Valide paramètres cosmologiques et numériques pour générer Cℓ et scans χ².",
+"type": "object",
+"properties": {
+"generated\_at": {
+"description": "Horodatage ISO-8601 (optionnel).",
+"type": "string",
+"format": "date-time"
+},
+"producer\_script": {
+"description": "Chemin du script ayant créé ces paramètres (optionnel).",
+"type": "string"
+},
+"alpha": {
+"description": "Paramètre de modèle alpha utilisé par le pipeline MCGT.",
+"type": "number"
+},
+"q0star": {
+"description": "Paramètre de modèle q0star pour les scans CMB.",
+"type": "number"
+},
+"ell\_min": {
+"description": "Multipôle minimal inclus.",
+"type": "integer",
+"minimum": 0
+},
+"ell\_max": {
+"description": "Multipôle maximal inclus.",
+"type": "integer",
+"minimum": 2
+},
+"n\_points": {
+"description": "Longueur du vecteur Cℓ (taille de la grille en ell).",
+"type": "integer",
+"minimum": 1
+},
+"thresholds": {
+"description": "Définitions des seuils (primaire/ordre2).",
+"type": "object",
+"properties": {
+"primary": { "type": "number", "minimum": 0 },
+"order2": { "type": "number", "minimum": 0 }
+},
+"required": \["primary", "order2"],
+"additionalProperties": false
+},
+"derivative\_window": {
+"description": "Fenêtre de lissage Savitzky–Golay (entier impair).",
+"type": "integer",
+"minimum": 3,
+"not": { "multipleOf": 2 }
+},
+"derivative\_polyorder": {
+"description": "Ordre polynomial Savitzky–Golay pour l'estimation de dérivées.",
+"type": "integer",
+"minimum": 1
+},
+"H0": { "description": "Constante de Hubble (km/s/Mpc).", "type": "number" },
+"ombh2": { "description": "Ω\_b h² (densité baryonique).", "type": "number", "minimum": 0 },
+"omch2": { "description": "Ω\_c h² (densité matière noire froide).", "type": "number", "minimum": 0 },
+"tau": { "description": "Profondeur optique de réionisation.", "type": "number", "minimum": 0 },
+"mnu": { "description": "Somme des masses de neutrinos (eV).", "type": "number", "minimum": 0 },
+"As0": { "description": "Amplitude scalaire de base A\_s0.", "type": "number", "exclusiveMinimum": 0 },
+"ns0": { "description": "Indice spectral de base n\_s0.", "type": "number" },
+"c1": { "description": "Coefficient c1 du spectre primordial.", "type": "number" },
+"c2": { "description": "Coefficient c2 du spectre primordial.", "type": "number" },
+"metric\_window\_Hz": {
+"description": "Fenêtre de fréquences (Hz) pour les métriques (ex. \[20, 300]).",
+"type": "array",
+"items": { "type": "number", "minimum": 0 },
+"minItems": 2,
+"maxItems": 2
+},
+"camb\_ini": {
+"description": "Chemin relatif vers le fichier INI CAMB utilisé.",
+"type": "string",
+"examples": \["zz-configuration/camb\_plateau\_exact.ini"]
+},
+"max\_delta\_Cl\_rel": {
+"description": "Delta relatif Cℓ max permis (sanity/tolérance).",
+"type": "number",
+"minimum": 0
+},
+"notes": {
+"description": "Notes libres (instructions spéciales, provenance).",
+"type": "string"
+}
+},
+"required": \[
+"alpha",
+"q0star",
+"ell\_min",
+"ell\_max",
+"n\_points",
+"thresholds",
+"derivative\_window",
+"derivative\_polyorder",
+"H0",
+"ombh2",
+"omch2",
+"tau",
+"mnu",
+"As0",
+"ns0",
+"c1",
+"c2"
+],
+"additionalProperties": false,
+"examples": \[
+{
+"generated\_at": "2025-08-23T12:00:00Z",
+"producer\_script": "zz-scripts/chapter6/generate\_chapter6\_data.py",
+"alpha": 0.2,
+"q0star": -0.1,
+"ell\_min": 2,
+"ell\_max": 3000,
+"n\_points": 3001,
+"thresholds": { "primary": 0.01, "order2": 0.1 },
+"derivative\_window": 7,
+"derivative\_polyorder": 3,
+"H0": 67.36,
+"ombh2": 0.02237,
+"omch2": 0.12,
+"tau": 0.0544,
+"mnu": 0.06,
+"As0": 2.1e-09,
+"ns0": 0.9649,
+"c1": 0.1,
+"c2": 0.01,
+"metric\_window\_Hz": \[20, 300],
+"camb\_ini": "zz-configuration/camb\_plateau\_exact.ini",
+"max\_delta\_Cl\_rel": 0.63,
+"notes": "Vérifier la cohérence ell\_max/n\_points avec la sortie CAMB."
+}
+]
+}

@@ -1,0 +1,57 @@
+# environment.yml — Environnement conda recommandé pour MCGT
+# ---------------------
+# Usage:
+#  mamba env create -f environment.yml -n mcgt
+#  (ou) conda env create -f environment.yml -n mcgt
+#
+# Notes:
+#  - Préferez conda-forge pour CAMB / LALSuite (commentées ci-dessous).
+#  - Le bloc pip installe le package local mcgt en mode editable.
+#  - Ajustez les versions si vous avez des contraintes spécifiques sur votre machine.
+name: mcgt
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  # --- Noyau scientifique (versions choisies pour compatibilité)
+  - numpy=2.2.4            # <2.3 pour rester compatible avec scipy 1.14.x
+  - pandas=2.3.1
+  - scipy=1.14.1
+  - matplotlib=3.9.0
+  - h5py=3.11.0
+  - pyyaml=6.0.2
+
+  # --- Validation / utilitaires (conda builds quand possible)
+  - jsonschema=4.23.0
+  - tqdm=4.66.5
+  - click=8.1.7
+  - rich=13.7.1
+  - requests=2.32.3
+  - python-dateutil=2.9.0
+  - packaging=24.3         # >=24.2 pour compatibilité CAMB récents
+
+  # --- Notebooks / dev
+  - sympy=1.13.2
+  - ipykernel=6.29.5
+  - jupyterlab=4.4.5       # compatibilité avec notebook <-> jupyterlab
+  - pytest                 # pour les tests (version fournie par conda-forge)
+
+  # --- Accélération (optionnel)
+  - numba=0.60.0
+  - llvmlite=0.43.0
+
+  # --- Optionnels lourds (recommandés via conda-forge)
+  # camb and lalsuite are best installed from conda-forge:
+  # - camb=1.6.4           # décommentez si vous installez CAMB via conda-forge
+  # - lalsuite             # décommentez si vous installez LALSuite via conda-forge
+
+  # --- Installer le package local et autres dépendances pip si nécessaires
+  - pip:
+    - -e .                 # installe mcgt localement en mode editable
+    # Optionnels pip (décommenter si vraiment nécessaire)
+    # - pyarrow==17.0.0    # utile pour des CSV volumineux (optionnel)
+    # - "camb==1.6.4"      # uniquement si vous n'utilisez pas conda-forge pour camb
+
+# EOF

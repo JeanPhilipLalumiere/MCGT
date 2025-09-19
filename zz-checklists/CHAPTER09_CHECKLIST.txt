@@ -1,0 +1,189 @@
+CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPhenom)
+
+[OBJECTIF & PORTÉE]
+- [ ] Générer les données de phase GR/MCGT, calculer les résidus standardisés, produire les figures et compiler LaTeX pour le chapitre 9.
+- [ ] Aligner formats/colonnes (CSV/JSON), noms de fichiers et conventions avec les chapitres précédents.
+- [ ] Assurer la traçabilité (params/métra) via JSON, manifests et rapports.
+
+[PRÉ-REQUIS LOGICIELS]
+- [ ] Python ≥ 3.10 : numpy, pandas, matplotlib (scipy/h5py/lalsuite optionnels si régénération IMRPhenom).
+- [ ] LaTeX/pdflatex : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox.
+- [ ] OS Linux/macOS/WSL ; environnement reproductible (environment.yml / requirements.txt).
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (09-phase-ondes-gravitationnelles/):
+      • 09_phase_ondes_grav_conceptuel.tex
+      • 09_phase_ondes_grav_details.tex
+- [ ] Données (zz-data/chapter09/):
+      • 09_phases_imrphenom.csv
+      • 09_phases_imrphenom.meta.json
+      • 09_phases_mcgt_prepoly.csv
+      • 09_phases_mcgt.csv
+      • 09_phase_diff.csv
+      • 09_metrics_phase.json
+      • 09_best_params.json
+      • 09_jalons_comparaison.csv
+      • 09_jalons_comparaison.meta.json
+      • (optionnel) 09_diff_unwrap_phase.csv
+- [ ] Figures (zz-figures/chapter09/):
+      • fig_01_phase_overlay.png (± .final.png)
+      • fig_02_residual_phase.png
+      • fig_03_hist_absdphi_20_300.png
+      • fig_04_absdphi_milestones_vs_f.png
+      • fig_05_scatter_phi_at_fpeak.png
+      • p95_check_control.png
+- [ ] Scripts (zz-scripts/chapter09/):
+      • extract_phenom_phase.py
+      • generate_mcgt_raw_phase.py
+      • generate_data_chapter09.py
+      • apply_poly_unwrap_rebranch.py
+      • opt_poly_rebranch.py
+      • check_p95_methods.py
+      • plot_fig01_phase_overlay.py
+      • plot_fig02_residual_phase.py
+      • plot_fig03_hist_absdphi_20_300.py
+      • plot_fig04_absdphi_milestones_vs_f.py
+      • plot_fig05_scatter_phi_at_fpeak.py
+      • requirements.txt
+
+[SPÉCIFICATIONS DES TABLES — ENTRÉES/INTERMÉDIAIRES]
+- [ ] 09_phases_imrphenom.csv
+      | f_Hz (Hz) | phi_ref (rad) |
+      Rem.: grille f croissante, unique ; méta → 09_phases_imrphenom.meta.json.
+- [ ] 09_phases_mcgt_prepoly.csv
+      | f_Hz (Hz) | phi_ref (rad) | phi_mcgt_raw (rad) | phi_mcgt_cal (rad, opt.) |
+
+[SPÉCIFICATIONS DES TABLES — SORTIES PRINCIPALES]
+- [ ] 09_phases_mcgt.csv
+      | f_Hz (Hz) | phi_ref (rad) | phi_mcgt (rad) |  # (après poly + unwrap + rebranch)
+- [ ] 09_phase_diff.csv
+      | f_Hz (Hz) | abs_dphi (rad) |
+      Def. abs_dphi = |((φ_mcgt − k·2π − φ_ref + π) mod 2π − π)| ; k estimé sur 20–300 Hz.
+- [ ] 09_metrics_phase.json (champs essentiels)
+      metrics_active: {
+        variant, rebranch_k, metrics_window_Hz, n_20_300,
+        mean_abs_20_300, median_abs_20_300, p95_abs_20_300, max_abs_20_300,
+        computed_on, anchor_applied_for_display
+      }
+      calibration: { enabled, model, phi0_hat_rad, tc_hat_s }
+- [ ] 09_best_params.json
+      { basis, degree, coeff_desc, k_cycles, fit_window_Hz, metrics_window_Hz, scores{mean,p95,max} }
+- [ ] 09_jalons_comparaison.csv
+      | event | f_Hz | phi_ref_at_fpeak | phi_mcgt_at_fpeak | obs_phase | sigma_phase | epsilon_rel | classe |
+
+[PARAMÈTRES & CONVENTIONS (RECOMMANDATIONS)]
+- [ ] Fenêtres : fit_window ~ [30, 250] Hz ; metrics_window ~ [20, 300] Hz.
+- [ ] Bases testées : log10(f) et f (Hz) ; degrés polynomiaux 3–5 (à ajuster).
+- [ ] Rebranch k : rechercher k entier minimisant p95 sur 20–300 Hz (stabilité k±1).
+- [ ] Aucune valeur NaN/Inf ; grilles f identiques entre fichiers couplés (ref/MCGT/diff).
+- [ ] Figures : DPI ≥ 300 ; axes log-x possibles ; légendes homogènes inter-chapitres.
+
+[PIPELINE — SÉQUENCE CONSEILLÉE]
+- [ ] (Optionnel) Générer la référence GR :
+      python zz-scripts/chapter09/extract_phenom_phase.py \
+        --out zz-data/chapter09/09_phases_imrphenom.csv
+- [ ] Pré-correction + résidu “principal” :
+      python zz-scripts/chapter09/generate_data_chapter09.py \
+        --ref zz-data/chapter09/09_phases_imrphenom.csv \
+        --out-prepoly zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+        --out-diff    zz-data/chapter09/09_phase_diff.csv \
+        --log-level INFO
+- [ ] Optimisation (base, degré, k) & série finale :
+      python zz-scripts/chapter09/opt_poly_rebranch.py \
+        --csv zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+        --meta zz-data/chapter09/09_metrics_phase.json \
+        --fit-window 30 250 --metrics-window 20 300 \
+        --degrees 3 4 5 --bases log10 hz --k-range -10 10 \
+        --out-csv  zz-data/chapter09/09_phases_mcgt.csv \
+        --out-best zz-data/chapter09/09_best_params.json \
+        --backup --log-level INFO
+- [ ] Contrôle méthodologique p95 :
+      python zz-scripts/chapter09/check_p95_methods.py \
+        --csv zz-data/chapter09/09_phases_mcgt.csv \
+        --window 20 300 \
+        --out zz-figures/chapter09/p95_check_control.png
+      (option : --update-metrics-json zz-data/chapter09/09_metrics_phase.json)
+
+[PRODUCTION DES FIGURES]
+- [ ] Superposition φ_ref/φ_mcgt (+ résidu) :
+      python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
+        --csv  zz-data/chapter09/09_phases_mcgt.csv \
+        --meta zz-data/chapter09/09_metrics_phase.json \
+        --out  zz-figures/chapter09/fig_01_phase_overlay.png \
+        --shade 20 300 --show-residual --display-variant auto \
+        --anchor-policy if-not-calibrated --dpi 300 --save-pdf
+- [ ] Résidu vs f (bandes) :
+      python zz-scripts/chapter09/plot_fig02_residual_phase.py \
+        --csv  zz-data/chapter09/09_phases_mcgt.csv \
+        --meta zz-data/chapter09/09_metrics_phase.json \
+        --out  zz-figures/chapter09/fig_02_residual_phase.png \
+        --bands 20 300 300 1000 1000 2000 --dpi 300
+- [ ] Histogramme |Δφ| (20–300 Hz) :
+      python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
+        --csv  zz-data/chapter09/09_phases_mcgt.csv \
+        --meta zz-data/chapter09/09_metrics_phase.json \
+        --out  zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
+        --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
+- [ ] Jalons GWTC-3 vs f :
+      python zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py \
+        --diff   zz-data/chapter09/09_phase_diff.csv \
+        --csv    zz-data/chapter09/09_phases_mcgt.csv \
+        --meta   zz-data/chapter09/09_metrics_phase.json \
+        --jalons zz-data/chapter09/09_jalons_comparaison.csv \
+        --out    zz-figures/chapter09/fig_04_absdphi_milestones_vs_f.png \
+        --window 20 300 --with_errorbar --dpi 300
+- [ ] Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) :
+      python zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py \
+        --jalons zz-data/chapter09/09_jalons_comparaison.csv \
+        --out    zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png
+
+[CONTRÔLES QUALITÉ (QC)]
+- [ ] Intégrité CSV : présence d’en-têtes, tailles > 0, types parsables, f_Hz trié/unique.
+- [ ] Valeurs finies : aucune NaN/Inf (phi_ref, phi_mcgt, abs_dphi).
+- [ ] Cohérence grilles : mêmes f_Hz entre ref/MCGT/diff ; longueurs identiques.
+- [ ] Rebranch k : estimation robuste sur 20–300 Hz ; sensibilité k±1 documentée (p95).
+- [ ] Concordance JSON↔CSV : metrics_active reflète bien les statistiques (mean/median/p95/max).
+- [ ] Figures : DPI ≥ 300 ; échelles cohérentes ; légendes et styles homogènes.
+
+[VALIDATIONS (SNIPPETS RAPIDES)]
+- [ ] Sanity CSV :
+      python - << 'PY'
+import pandas as pd; d=pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv")
+assert d["f_Hz"].is_monotonic_increasing and d["f_Hz"].is_unique
+assert d[["phi_ref","phi_mcgt"]].applymap(pd.notna).all().all()
+print(len(d), "rows, OK")
+PY
+- [ ] k robuste & p95(k±1) :
+      python - << 'PY'
+import numpy as np,pandas as pd
+d=pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv").sort_values("f_Hz")
+f=d.f_Hz.values; m=(f>=20)&(f<=300); two_pi=2*np.pi
+vals=(d.phi_mcgt[m]-d.phi_ref[m])/two_pi; k=int(round(np.nanmedian(vals)))
+def p95(a): a=a[np.isfinite(a)]; return float(np.nanpercentile(a,95))
+for kk in [k-1,k,k+1]:
+    princ=np.abs(((d.phi_mcgt-kk*two_pi-d.phi_ref+np.pi)%(2*np.pi))-np.pi)
+    print("k=",kk," p95=",p95(princ[m]))
+PY
+
+[INTÉGRATION LaTeX]
+- [ ] cd 09-phase-ondes-gravitationnelles
+- [ ] pdflatex -interaction=nonstopmode 09_phase_ondes_grav_conceptuel.tex
+- [ ] pdflatex -interaction=nonstopmode 09_phase_ondes_grav_details.tex
+- [ ] Vérifier les chemins vers zz-figures/chapter09/ et les références de figures.
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] zz-manifests/chapters/chapter_manifest_09.json : déclarer données/figures du chapitre.
+- [ ] zz-manifests/figure_manifest.csv : ajouter figures (nom, chemin, chapitre, type, checksum).
+- [ ] zz-manifests/diag_consistency.py : exécuter un diagnostic (dry-run/strict selon CI).
+- [ ] mcgt/CHANGELOG.md : consigner toute modification impactant le chapitre 9.
+
+[COMMANDES RAPIDES — RÉCAPITULATIF]
+- [ ] Données de base :
+      python zz-scripts/chapter09/generate_data_chapter09.py --ref zz-data/chapter09/09_phases_imrphenom.csv --out-prepoly zz-data/chapter09/09_phases_mcgt_prepoly.csv --out-diff zz-data/chapter09/09_phase_diff.csv
+- [ ] Optimisation & série finale :
+      python zz-scripts/chapter09/opt_poly_rebranch.py --csv zz-data/chapter09/09_phases_mcgt_prepoly.csv --meta zz-data/chapter09/09_metrics_phase.json --fit-window 30 250 --metrics-window 20 300 --degrees 3 4 5 --bases log10 hz --k-range -10 10 --out-csv zz-data/chapter09/09_phases_mcgt.csv --out-best zz-data/chapter09/09_best_params.json
+- [ ] Figures :
+      python zz-scripts/chapter09/plot_fig01_phase_overlay.py   # etc. (02,03,04,05)
+
+[FIN DE CHECKLIST]
+

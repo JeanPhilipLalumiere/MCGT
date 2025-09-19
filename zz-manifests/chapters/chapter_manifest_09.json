@@ -1,0 +1,61 @@
+{
+"chapter": 9,
+"title": "phase-ondes-gravitationnelles",
+"paths": {
+"data_dir": "zz-data/chapter9",
+"scripts_dir": "zz-scripts/chapter9",
+"figures_dir": "zz-figures/chapter9",
+"configs": [
+"conventions.md",
+"zz-configuration/gw_phase.ini",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data_inputs": [
+"zz-data/chapter9/09_comparison_milestones.csv",
+"zz-data/chapter9/09_comparison_milestones.meta.json",
+"zz-data/chapter9/09_metrics_phase.json",
+"zz-data/chapter9/09_phase_difference.csv",
+"zz-data/chapter9/09_phases_imrphenom.csv",
+"zz-data/chapter9/09_phases_imrphenom.meta.json",
+"zz-data/chapter9/09_phases_mcgt.csv"
+],
+"data_outputs": [],
+"figures": [
+"zz-figures/chapter9/fig_01_phase_overlay.png",
+"zz-figures/chapter9/fig_02_residual_phase.png",
+"zz-figures/chapter9/fig_03_hist_abs_dphi_20_300.png",
+"zz-figures/chapter9/fig_04_milestones_abs_dphi_vs_f.png",
+"zz-figures/chapter9/fig_05_scatter_phi_at_fpeak.png",
+"zz-figures/chapter9/p95_methods/*.png"
+],
+"metas": [
+"zz-data/chapter9/09_metrics_phase.meta.json",
+"zz-figures/chapter9/fig_*.meta.json"
+],
+"others": [
+"09-phase-ondes-gravitationnelles/CHAPTER9_GUIDE.txt"
+]
+},
+"scripts": [
+"zz-scripts/chapter9/check_p95_methods.py",
+"zz-scripts/chapter9/generate_chapter9_data.py",
+"zz-scripts/chapter9/plot_fig01_phase_overlay.py",
+"zz-scripts/chapter9/plot_fig02_residual_phase.py",
+"zz-scripts/chapter9/plot_fig03_hist_abs_dphi_20_300.py",
+"zz-scripts/chapter9/plot_fig04_milestones_abs_dphi_vs_f.py",
+"zz-scripts/chapter9/plot_fig05_scatter_phi_at_fpeak.py"
+],
+"meta_expected": [
+"zz-data/chapter9/09_metrics_phase.meta.json",
+"zz-figures/chapter9/fig_*.meta.json"
+],
+"status": "ready",
+"qa_checks": [
+"Chaîne metrics: raw → cal(phi0,tc) → poly → active (p95 décroissante).",
+"Outlier `obs_phase ~ 604 rad`: vérification/traitement documenté.",
+"Fenêtres et poids (fit/metrics) conformes au global."
+],
+"notes": "Documenter la stabilité hors fenêtre de la poly-correction (base log10, degré 5)."
+}

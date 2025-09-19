@@ -1,0 +1,6 @@
+build
+twine
+pytest
+jsonschema
+ruff
+mypy

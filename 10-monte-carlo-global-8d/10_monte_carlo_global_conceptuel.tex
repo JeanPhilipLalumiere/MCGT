@@ -1,0 +1,99 @@
+\section{Chapitre 10 – Monte-Carlo global 8D (Conceptuel)}
+
+\subsection{10.1 – Définition du vecteur de paramètres \(\Theta\)}
+On considère un vecteur à huit composantes :
+\[
+  \Theta \;=\; 
+  \bigl(\alpha_{1},\,T_{c},\,\Delta,\,T_{p},\,\Delta_{p},\,\beta,\,
+           \Omega_{m},\,H_{0}\bigr).
+\]
+Les six premiers paramètres sont propres au MCGT, les deux derniers proviennent de la chaîne MCMC Planck.
+
+\subsection{10.2 – Distributions a priori des paramètres MCGT}
+Pour les tirages MCGT, chaque paramètre suit une loi normale centrée sur sa valeur optimale :
+\[
+  \begin{aligned}
+    \alpha_{1} &\sim \mathcal{N}\bigl(0.40,\;0.01^{2}\bigr), 
+    &\quad
+    T_{c} &\sim \mathcal{N}\bigl(0.25\,\text{Gyr},\;0.01^{2}\bigr), \\
+    \Delta &\sim \mathcal{N}\bigl(3.00,\;0.50^{2}\bigr), 
+    &\quad
+    T_{p} &\sim \mathcal{N}\bigl(0.05\,\text{Gyr},\;0.01^{2}\bigr), \\
+    \Delta_{p} &\sim \mathcal{N}\bigl(0.10\,\text{Gyr},\;0.02^{2}\bigr),
+    &\quad
+    \beta &\sim \mathcal{N}\bigl(5\times10^{-9},\;(2\times10^{-10})^{2}\bigr).
+  \end{aligned}
+\]
+Un total de \(N_{\rm MC}=10^{5}\) échantillons est généré, avec `np.random.seed(0)` pour assurer la reproductibilité.
+
+\subsection{10.3 – Extraction des paramètres Planck}
+Les deux paramètres \(\Omega_{m}\) et \(H_{0}\) sont obtenus à partir d’une chaîne MCMC Planck (\texttt{planck2018\_chain.csv}). Pour chaque échantillon, on calcule :
+\[
+  \Omega_{m} \;=\; \frac{\omega_{b} h^{2} \;+\;\omega_{c} h^{2}}{h^{2}},
+  \quad
+  h \;=\; \frac{H_{0}}{100}.
+\]
+Ainsi, chaque échantillon Planck fournit une paire \(\bigl(\Omega_{m},\,H_{0}\bigr)\).
+
+\subsection{10.4 – Constitution des vecteurs \(\Theta^{(i)}\)}
+Pour \(i=1,\dots,N_{\rm MC}\), on combine :
+\begin{itemize}
+  \item Le sixième tirage MCGT \(\{\alpha_{1}^{(i)},T_{c}^{(i)},\Delta^{(i)},T_{p}^{(i)},\Delta_{p}^{(i)},\beta^{(i)}\}\).
+  \item Une paire Planck \(\{\Omega_{m}^{(i)},H_{0}^{(i)}\}\), choisie cycle par cycle parmi les échantillons de la chaîne.
+\end{itemize}
+On obtient ainsi \(N_{\rm MC}\) vecteurs complets \(\Theta^{(i)} \in \mathbb{R}^{8}\).
+
+\subsection{10.5 – Formule de la covariance empirique}
+La matrice de covariance empirique \(C_{8\times8}\) de l’échantillon \(\{\Theta^{(i)}\}\) est définie par :
+\[
+  C_{jk} 
+  \;=\; 
+  \frac{1}{N_{\rm MC} - 1}
+  \sum_{i=1}^{N_{\rm MC}}
+    \Bigl(\Theta_{j}^{(i)} - \overline{\Theta}_{j}\Bigr)
+    \Bigl(\Theta_{k}^{(i)} - \overline{\Theta}_{k}\Bigr),
+  \quad
+  \overline{\Theta}_{j} 
+  \;=\; 
+  \frac{1}{N_{\rm MC}} 
+  \sum_{i=1}^{N_{\rm MC}} \Theta_{j}^{(i)}.
+\]
+Cette matrice symétrique 8 × 8 est sauvegardée au format binaire NumPy sous le nom \texttt{10\_global\_covariance\_real.npy}.
+
+\subsection{10.6 – Figures à produire}
+
+\begin{itemize}
+  \item \textbf{Heatmap de la matrice de covariance}  
+    \texttt{fig\_01\_covariance\_heatmap.png} :  
+    représentation colorée de \(C_{8\times8}\) avec annotations numériques.  
+    Permet de visualiser corrélations et anticorrélations entre les huit paramètres.
+
+  \item \textbf{Densités KDE unidimensionnelles}  
+    \texttt{fig\_02\_distributions\_unidimensionnelles.png} :  
+    pour chaque composante \(\Theta_{j}\), tracer la densité de probabilité estimée (KDE) et indiquer l’écart‐type empirique \(\sqrt{C_{jj}}\).
+
+  \item \textbf{Ellipse de confiance \((\Omega_{m},\,H_{0})\)}  
+    \texttt{fig\_03\_ellipse\_Omega\_m\_H0.png} :  
+    ellipses 68 \% (Δχ² = 2,30) et 95 \% (Δχ² = 5,99) basées sur la sous‐matrice covariante extraite de \((\Omega_{m},H_{0})\).  
+    Le centre correspond à la moyenne Planck \(\bigl(\overline{\Omega}_{m},\,\overline{H}_{0}\bigr)\).
+
+\end{itemize}
+
+\subsection{10.7 – Choix numériques et organisation}
+
+\begin{itemize}
+  \item \(\mathbf{N_{\rm MC} = 10^{5}}\) : compromis entre précision statistique et temps de calcul (quelques minutes sur CPU standard).  
+  \item \(\mathbf{np.random.seed(0)}\) : garantit la même suite de tirages MCGT à chaque exécution.  
+  \item Ordre des huit paramètres :  
+    \[
+      (\alpha_{1},\,T_{c},\,\Delta,\,T_{p},\,\Delta_{p},\,\beta,\,\Omega_{m},\,H_{0}),
+    \]
+    strictement conservé dans tous les scripts et figures pour éviter toute confusion.
+\end{itemize}
+
+\noindent\emph{(La mise en œuvre détaillée du code Python pour générer la matrice, charger les échantillons Planck, tracer les figures et effectuer les validations est reportée dans le fichier \texttt{10\_covariance\_details.tex}.)}
+
+*****Chapitre 10 (Monte-Carlo global 8D)
+Dans la discussion des contraintes combinées (section des résultats globaux), rappelez que sous MCGT, la distribution postérieure de H 0 se décale légèrement vers les valeurs locales grâce à δH0 ∼1%.****
+
+\noindent\emph{Fin du volet conceptuel du Chapitre 10. La partie opérationnelle détaillée commence ci-dessous.}

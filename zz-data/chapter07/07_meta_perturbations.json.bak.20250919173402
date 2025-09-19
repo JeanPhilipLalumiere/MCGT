@@ -11,5 +11,8 @@
     "07_perturbations_boundary.csv",
     "07_scalar_perturbations_results.csv"
   ],
-  "generated_at": "2025-09-19T14:29:21Z"
+  "generated_at": "2025-09-19T14:29:21Z",
+  "git": {
+    "hash": "unknown"
+  }
 }

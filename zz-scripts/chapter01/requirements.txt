@@ -1,0 +1,80 @@
+# Exigences pour le Chapitre 1 (Introduction conceptuelle)
+
+1. **Environnement système**
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Espace disque : ≥ 500 Mo libre  
+
+2. **Environnement Python**
+   * Python ≥ 3.9  
+   * Créer et activer un environnement virtuel spécifique :
+     ```bash
+     cd ~/MCGT
+     python3 -m venv venv1
+     source venv1/bin/activate
+     ```
+   * Installer les dépendances :
+     ```bash
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib
+     ```
+
+3. **Données brutes & scripts d’extraction**
+   * **Jalons chronologie**  
+     – Source : fichier `zz-data/chapter01/01_jalons_chronologie.csv`  
+       (colonnes T, P_ref issus de la littérature)  
+   * **Données initiales**  
+     – Fichier : `zz-data/chapter01/01_donnees_initiales_grille.dat`  
+       (colonnes T, P_init ; espace délimité)  
+   * Extraction et interpolation via :
+     `zz-scripts/chapter01/generer_donnees_chapitre1.py`  
+     → production des CSV/DAT optimisés
+
+4. **Structure du dépôt**
+```
+MCGT/
+├─ 01-introduction-applications/    # sources LaTeX et GUIDE
+├─ zz-data/chapter01/            # .csv, .dat d’entrée et produits
+├─ zz-scripts/chapter01/            # exigences.txt, generer_*.py, tracer_*.py
+├─ zz-figures/chapter01/            # .png produits
+└─ venv1/                           # environnement virtuel Python
+```
+
+5. **Exécution du pipeline**
+1. Génération des données :
+   ```bash
+   source venv1/bin/activate
+   python zz-scripts/chapter01/generer_donnees_chapitre1.py      --csv zz-data/chapter01/01_jalons_chronologie.csv      --tmin 1e-6 --tmax 14 --step 0.01 --grid log      [--window 21 --poly 3]
+   ```
+2. Tracé des figures :
+   ```bash
+   python zz-scripts/chapter01/tracer_fig01_plateau_precoce.py
+   python zz-scripts/chapter01/tracer_fig02_calibration_logistique.py
+   python zz-scripts/chapter01/tracer_fig03_ecart_rel_chronologie.py
+   python zz-scripts/chapter01/tracer_fig04_evolution_P_en_fonction_de_T.py
+   python zz-scripts/chapter01/tracer_fig05_invariant_I1_contre_T.py
+   python zz-scripts/chapter01/tracer_fig06_comparaison_deriveesP.py
+   ```
+
+6. **Compilation LaTeX**
+```bash
+cd 01-introduction-applications/
+pdflatex -interaction=nonstopmode 01_introduction_conceptuel.tex
+pdflatex -interaction=nonstopmode 01_applications_calibration_conceptuel.tex
+```
+
+7. **Tests & validations**
+   * Vérifier l’existence des fichiers dans `zz-data/chapter01/` :
+     ```
+     01_jalons_chronologie.csv
+     01_donnees_initiales_grille.dat
+     01_donnees_optimisees.csv
+     01_donnees_optimisees_grille.dat
+     01_deriveeP_initiale.csv
+     01_deriveeP_optimisee.csv
+     01_donnees_optimisees_et_derivees.csv
+     01_ecart_relatif_chronologie.csv
+     01_invariants_adimensionnels.csv
+     ```
+   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV  
+   * Vérifier que la taille de la grille (n_points) = 1401  
+   * Contrôler visuellement chaque PNG dans `zz-figures/chapter01/`

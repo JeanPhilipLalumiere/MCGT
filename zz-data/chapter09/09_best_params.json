@@ -1,0 +1,16 @@
+{
+  "basis": "log10",
+  "degree": 5,
+  "coeff_desc": [
+    0.0
+  ],
+  "k_cycles": 0,
+  "fit_window_Hz": [
+    30.0,
+    250.0
+  ],
+  "metrics_window_Hz": [
+    20.0,
+    300.0
+  ]
+}

@@ -1,0 +1,404 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/results_schema_examples.json",
+  "title": "MCGT Result Schemas (exemples regroupés)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$defs": { "type": "object" },
+    "json_schemas": { "type": "object" },
+    "csv_schemas": { "type": "object" }
+  },
+  "required": ["$defs", "json_schemas", "csv_schemas"],
+  "$defs": {
+    "window2": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "bounds_pair": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "file_path": { "type": "string", "minLength": 1 },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+
+  "json_schemas": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "mc_config_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "$id": { "const": "zz-schemas/mc_config_schema.json" },
+          "title": { "const": "10_mc_config.json schema" },
+          "type": { "const": "object" },
+          "additionalProperties": { "const": false },
+          "properties": {
+            "version": { "type": "integer", "minimum": 1 },
+            "model": { "type": "string", "minLength": 1 },
+            "bounds": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "m1": { "$ref": "#/$defs/bounds_pair" },
+                "m2": { "$ref": "#/$defs/bounds_pair" },
+                "q0star": { "$ref": "#/$defs/bounds_pair" },
+                "alpha": { "$ref": "#/$defs/bounds_pair" },
+                "phi0": { "$ref": "#/$defs/bounds_pair" },
+                "tc": { "$ref": "#/$defs/bounds_pair" },
+                "dist": { "$ref": "#/$defs/bounds_pair" },
+                "incl": { "$ref": "#/$defs/bounds_pair" }
+              },
+              "required": ["m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"]
+            },
+            "priors": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "m1": { "enum": ["uniform", "loguniform", "fixed"] },
+                "m2": { "enum": ["uniform", "loguniform", "fixed"] },
+                "q0star": { "enum": ["uniform", "loguniform", "fixed"] },
+                "alpha": { "enum": ["uniform", "loguniform", "fixed"] },
+                "phi0": { "enum": ["fixed", "uniform"] },
+                "tc": { "enum": ["fixed", "uniform"] },
+                "dist": { "enum": ["fixed", "uniform"] },
+                "incl": { "enum": ["fixed", "uniform"] }
+              },
+              "required": ["m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"]
+            },
+            "nuisance": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mode": { "enum": ["fixed", "vary"] },
+                "dist_value": { "type": "number" },
+                "incl_value": { "type": "number" },
+                "vary_phi0_tc": { "type": "boolean" }
+              },
+              "required": ["mode", "dist_value", "incl_value", "vary_phi0_tc"]
+            },
+            "sampling": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "scheme": { "enum": ["sobol", "random", "lhs"] },
+                "scramble": { "type": "boolean" },
+                "seed": { "type": "integer" },
+                "sobol_offset": { "type": "integer" },
+                "n": { "type": "integer", "minimum": 1 }
+              },
+              "required": ["scheme", "scramble", "seed", "sobol_offset", "n"]
+            },
+            "output": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": { "$ref": "#/$defs/file_path" },
+                "no_overwrite": { "type": "boolean" }
+              },
+              "required": ["path", "no_overwrite"]
+            }
+          },
+          "required": ["version", "model", "bounds", "priors", "nuisance", "sampling", "output"]
+        }
+      },
+
+      "mc_best_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "$id": { "const": "zz-schemas/mc_best_schema.json" },
+          "title": { "const": "10_mc_best.json schema" },
+          "type": { "const": "object" },
+          "additionalProperties": { "const": false },
+          "properties": {
+            "meta": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "generated_at": { "type": ["string", "null"], "format": "date-time" },
+                "window": { "$ref": "#/$defs/window2" },
+                "lambda_penalty": { "type": ["number", "null"] },
+                "n_total": { "type": ["integer", "null"] },
+                "n_ok": { "type": ["integer", "null"] },
+                "n_failed": { "type": ["integer", "null"] },
+                "pctl_method": { "type": ["string", "null"] },
+                "source_results": { "type": ["string", "null"] },
+                "source_jalons": { "type": ["string", "null"] }
+              },
+              "required": ["window"]
+            },
+            "top_k": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": { "type": "integer" },
+                  "k": { "type": ["integer", "null"] },
+                  "model": { "type": "string" },
+                  "m1": { "type": "number" },
+                  "m2": { "type": "number" },
+                  "q0star": { "type": "number" },
+                  "alpha": { "type": "number" },
+                  "phi0": { "type": "number" },
+                  "tc": { "type": "number" },
+                  "mean_20_300": { "type": "number" },
+                  "p95_20_300": { "type": "number" },
+                  "max_20_300": { "type": "number" },
+                  "n_20_300": { "type": "integer" },
+                  "score": { "type": "number" },
+                  "penalty_mean": { "type": ["number", "null"] },
+                  "p95_boot_median": { "type": ["number", "null"] },
+                  "p95_ci": {
+                    "oneOf": [
+                      { "type": "null" },
+                      { "$ref": "#/$defs/window2" }
+                    ]
+                  }
+                },
+                "required": ["id", "model", "m1", "m2", "q0star", "alpha", "phi0", "tc", "p95_20_300", "n_20_300", "score"]
+              }
+            }
+          },
+          "required": ["meta", "top_k"]
+        }
+      },
+
+      "metrics_phase_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "$id": { "const": "zz-schemas/metrics_phase_schema.json" },
+          "title": { "const": "09_metrics_phase.json schema" },
+          "type": { "const": "object" },
+          "additionalProperties": { "const": false },
+          "properties": {
+            "ini": { "$ref": "#/$defs/file_path" },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "m1": { "type": "number" },
+                "m2": { "type": "number" },
+                "q0star": { "type": "number" },
+                "alpha": { "type": "number" },
+                "phi0": { "type": "number" },
+                "tc": { "type": "number" },
+                "tol": { "type": "number" }
+              },
+              "required": ["m1", "m2", "q0star", "alpha", "phi0", "tc", "tol"]
+            },
+            "reference": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "csv": { "$ref": "#/$defs/file_path" },
+                "meta": { "type": ["string", "null"] },
+                "source_tag": { "type": ["string", "null"] }
+              },
+              "required": ["csv"]
+            },
+            "grid_used": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "fmin_Hz": { "type": "number" },
+                "fmax_Hz": { "type": "number" },
+                "dlog10": { "type": "number" },
+                "n_points_used": { "type": "integer" }
+              },
+              "required": ["fmin_Hz", "fmax_Hz", "dlog10", "n_points_used"]
+            },
+            "metrics_window_Hz": { "$ref": "#/$defs/window2" },
+
+            "metrics_active": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "variant": { "enum": ["phi_mcgt", "phi_mcgt_cal", "phi_mcgt_raw", "phi_ref"] },
+                "rebranch_k": { "type": "integer" },
+                "mean_abs_20_300": { "type": "number" },
+                "p95_abs_20_300": { "type": "number" },
+                "max_abs_20_300": { "type": "number" },
+                "n_20_300": { "type": "integer" }
+              },
+              "required": ["variant", "mean_abs_20_300", "p95_abs_20_300", "max_abs_20_300", "n_20_300"]
+            },
+
+            "metrics_raw": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "properties": {
+                "mean_abs_20_300": { "type": "number" },
+                "p95_abs_20_300": { "type": "number" },
+                "max_abs_20_300": { "type": "number" }
+              }
+            },
+            "metrics_cal": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "properties": {
+                "mean_abs_20_300": { "type": "number" },
+                "p95_abs_20_300": { "type": "number" },
+                "max_abs_20_300": { "type": "number" }
+              }
+            },
+
+            "calibration": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "mode": { "enum": ["phi0", "phi0,tc"] },
+                "model_used": { "type": "string" },
+                "phi0_hat_rad": { "type": "number" },
+                "tc_hat_s": { "type": "number" },
+                "initial_window_Hz": { "$ref": "#/$defs/window2" },
+                "used_window_Hz": { "$ref": "#/$defs/window2" },
+                "weight": { "enum": ["1/f2", "uniform"] },
+                "auto_tightened": { "type": "boolean" },
+                "tighten_threshold_p95_rad": { "type": "number" },
+                "p95_check_before_rad": { "type": "number" },
+                "p95_check_after_rad": { "type": "number" },
+                "n_points": { "type": "integer" }
+              }
+            },
+
+            "outputs": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "phases_mcgt_csv": { "type": ["string", "null"] },
+                "diff_phase_csv": { "type": ["string", "null"] },
+                "comparison_milestones_csv": { "type": ["string", "null"] },
+                "fisher_scan2D_csv": { "type": ["string", "null"] }
+              }
+            },
+
+            "repro": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {
+                "git_hash": { "type": ["string", "null"] },
+                "python": { "type": ["string", "null"] },
+                "libs": { "type": ["object", "null"], "additionalProperties": { "type": "string" } }
+              }
+            },
+
+            "poly_correction": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "properties": {
+                "applied": { "type": "boolean" },
+                "from_column": { "type": "string" },
+                "basis": { "enum": ["log10", "poly", "chebyshev"] },
+                "degree": { "type": "integer", "minimum": 1 },
+                "fit_window_Hz": { "$ref": "#/$defs/window2" },
+                "metrics_window_Hz": { "$ref": "#/$defs/window2" },
+                "coeff_desc": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 3
+                },
+                "k_cycles": { "type": "integer" }
+              }
+            },
+
+            "poly_rebranch_k_cycles": { "type": ["integer", "null"] }
+          },
+          "required": ["ini", "params", "reference", "grid_used", "metrics_window_Hz", "metrics_active"]
+        }
+      }
+    },
+    "required": ["mc_config_schema", "mc_best_schema", "metrics_phase_schema"]
+  },
+
+  "csv_schemas": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "mc_results_table_schema": {
+        "type": "object",
+        "title": "Table Schema for 10_mc_results.csv (Frictionless Table Schema)",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "type": { "type": "string" }
+              },
+              "required": ["name", "type"]
+            },
+            "default": [
+              {"name":"id","type":"integer"},
+              {"name":"m1","type":"number"},
+              {"name":"m2","type":"number"},
+              {"name":"q0star","type":"number"},
+              {"name":"alpha","type":"number"},
+              {"name":"phi0","type":"number"},
+              {"name":"tc","type":"number"},
+              {"name":"dist","type":"number"},
+              {"name":"incl","type":"number"},
+              {"name":"k","type":"integer"},
+              {"name":"mean_20_300","type":"number"},
+              {"name":"p95_20_300","type":"number"},
+              {"name":"max_20_300","type":"number"},
+              {"name":"n_20_300","type":"integer"},
+              {"name":"status","type":"string"},
+              {"name":"error_code","type":"string"},
+              {"name":"wall_time_s","type":"number"},
+              {"name":"model","type":"string"},
+              {"name":"score","type":"number"}
+            ]
+          },
+          "primaryKey": ["id"]
+        },
+        "required": ["fields"]
+      },
+
+      "comparison_milestones_table_schema": {
+        "type": "object",
+        "title": "Table Schema for 09_comparison_milestones.csv (Frictionless Table Schema)",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "type": { "type": "string" }
+              },
+              "required": ["name", "type"]
+            },
+            "default": [
+              {"name":"event","type":"string"},
+              {"name":"f_Hz","type":"number"},
+              {"name":"phi_ref_at_fpeak","type":"number"},
+              {"name":"phi_mcgt_at_fpeak","type":"number"},
+              {"name":"phi_mcgt_at_fpeak_raw","type":"number"},
+              {"name":"phi_mcgt_at_fpeak_cal","type":"number"},
+              {"name":"obs_phase","type":"number"},
+              {"name":"sigma_phase","type":"number"},
+              {"name":"epsilon_rel","type":"number"},
+              {"name":"classe","type":"string"},
+              {"name":"variant","type":"string"}
+            ]
+          },
+          "primaryKey": ["event", "variant"]
+        },
+        "required": ["fields"]
+      }
+    },
+    "required": ["mc_results_table_schema", "comparison_milestones_table_schema"]
+  }
+}

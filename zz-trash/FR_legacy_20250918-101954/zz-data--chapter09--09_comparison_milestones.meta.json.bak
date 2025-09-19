@@ -1,0 +1,21 @@
+{
+  "flagging_summary": {
+    "generated_at": "2025-09-08T00:41:11Z",
+    "n_rows_checked": 34,
+    "n_ok": 33,
+    "n_warn": 1,
+    "n_fail": 0,
+    "examples_fail": [],
+    "examples_warn": [
+      {
+        "event": "GW200115_042309-v2",
+        "f_Hz": 549.568226,
+        "flag_reason": "f_peak hors fenêtre metrics",
+        "abs_phase_diff": 2.035516955545475,
+        "sigma_phase": 16.46101135282914,
+        "z_score": 0.12365685873824712
+      }
+    ],
+    "flagged_csv": "zz-data/chapter09/09_comparison_milestones.flagged.csv"
+  }
+}

@@ -1,0 +1,102 @@
+# Exigences pour le Chapitre 7 (Perturbations scalaires)
+
+1. **Environnement système**  
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Espace disque : ≥ 500 Mo libre  
+
+2. **Environnement Python**  
+   * Python ≥ 3.9  
+   * Créer et activer un environnement virtuel spécifique :
+     ```bash
+     cd ~/MCGT
+     python3 -m venv venv7
+     source venv7/bin/activate
+     ```
+   * Installer les dépendances :
+     ```bash
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib
+     ```
+
+3. **Données brutes & scripts d’extraction**  
+   * **Solveur MCGT**  
+     – `zz-scripts/chapter07/lancer_solveur_perturbations_scalaires.py`  
+       lit `zz-configuration/perturbations_scalaires.ini` et produit :  
+       `zz-data/chapter07/07_cs2_scan.csv`  
+       `zz-data/chapter07/07_delta_phi_scan.csv`  
+   * **Pipeline de post-traitement**  
+     – `zz-scripts/chapter07/generer_donnees_chapitre7.py`  
+       génère :  
+       `zz-data/chapter07/07_scalar_perturbations_results.csv`  
+       (optionnel) `07_dcs2_dk.csv`, `07_ddelta_phi_dk.csv`  
+       (optionnel) `07_cs2_matrix.csv`, `07_delta_phi_matrix.csv`  
+       `07_scalar_invariants.csv`  
+       met à jour `07_params_perturbations.json`  
+
+4. **Structure du dépôt**
+   ```txt
+   MCGT/
+   ├─ 07-perturbations-scalaires/      # sources LaTeX, GUIDE
+   ├─ zz-data/chapter07/            # .csv, .json générés
+   ├─ zz-scripts/chapter07/            # lancer_*.py, generer_*.py, tracer_*.py
+   ├─ zz-figures/chapter07/            # fig_01_… à fig_07_….png
+   └─ venv7/                           # environnement virtuel Python
+````
+
+5. **Exécution du pipeline**
+
+   1. **Lancer le solveur** :
+
+      ```bash
+      source venv7/bin/activate
+      python zz-scripts/chapter07/lancer_solveur_perturbations_scalaires.py \
+           --ini zz-configuration/perturbations_scalaires.ini
+      ```
+   2. **Générer les données finales** :
+
+      ```bash
+      python zz-scripts/chapter07/generer_donnees_chapitre7.py \
+           [--cs2_param 1.0] [--delta_phi_param 0.05] \
+           [--export-derivative] [--export-matrix]
+      ```
+   3. **Tracer les figures** (ordre conseillé) :
+
+      ```bash
+      python zz-scripts/chapter07/tracer_fig01_carte_chaleur_cs2.py
+      python zz-scripts/chapter07/tracer_fig02_carte_chaleur_delta_phi.py
+      python zz-scripts/chapter07/tracer_fig03_invariant_I1.py
+      python zz-scripts/chapter07/tracer_fig04_dcs2_vs_k.py
+      python zz-scripts/chapter07/tracer_fig05_ddelta_phi_vs_k.py
+      python zz-scripts/chapter07/tracer_fig07_invariant_I2.py
+      python zz-scripts/chapter07/tracer_fig06_comparaison.py
+      ```
+
+6. **Compilation LaTeX**
+
+   ```bash
+   cd 07-perturbations-scalaires/
+   pdflatex -interaction=nonstopmode 07_perturbations_scalaires_conceptuel.tex
+   pdflatex -interaction=nonstopmode 07_perturbations_scalaires_details.tex
+   ```
+
+7. **Tests & validations**
+
+   * Vérifier l’existence et la non-nullité des fichiers dans `zz-data/chapter07/` :
+
+     ```
+     07_cs2_scan.csv
+     07_delta_phi_scan.csv
+     07_scalar_perturbations_results.csv
+     [07_dcs2_dk.csv]
+     [07_ddelta_phi_dk.csv]
+     [07_cs2_matrix.csv]
+     [07_delta_phi_matrix.csv]
+     07_scalar_invariants.csv
+     07_params_perturbations.json
+     ```
+   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV.
+   * Dans `07_params_perturbations.json` :
+     – `max_epsilon_primary_*` < 0.01
+     – `max_epsilon_order2_*` < 0.10
+   * Contrôle visuel des PNG dans `zz-figures/chapter07/`.
+   

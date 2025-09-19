@@ -1,0 +1,490 @@
+\subsection{Organisation générale des scripts}
+Le calcul complet s’appuie sur dix scripts principaux et un fichier de dépendances :
+
+\begin{itemize}
+  \item \texttt{13\_requirements.txt} : liste des dépendances Python (voir § « Paramètres numériques et configuration »).
+
+  \item \texttt{13\_generer\_grille\_frequentielle.py} : génère la grille log‑linéaire de fréquences et écrit \texttt{12\_grille\_frequentielle.csv}.
+
+  \item \texttt{13\_calculer\_psd\_brute.py} : lit la grille, simule la densité spectrale de bruit brute et produit \texttt{12\_psd\_lisa\_brute.csv}.
+
+  \item \texttt{13\_construire\_psd\_simplifiee.py} : nettoie et interpole la PSD brute pour générer \texttt{12\_psd\_lisa\_simplifiee.dat} (spline cubique, $S_n>0$).
+
+  \item \texttt{13\_generer\_retards\_phases.py} : calcule, pour chaque fréquence $f$, les retards $\Delta\tau(f)$ et les déphasages $\Delta\varphi(f)=2\pi f\,\Delta\tau(f)$, puis écrit \texttt{09\_gw\_resultats.csv}.
+
+  \item \texttt{13\_maj\_matrice\_fisher.py} : charge \texttt{09\_gw\_resultats.csv}, calcule directement la matrice de Fisher $F_{ij}=4\,\mathrm{SNR}^2\int\cdots$, symétrise ($F_{12}=F_{21}$) et inverse pour produire \texttt{09\_matrice\_fisher.csv}.
+
+  \item \texttt{13\_generer\_journal\_anomalies.py} : vérifie :
+    \begin{itemize}
+      \item $S_n(f)>0$,  
+      \item $0 \le \Delta\tau(f)\le10^{-1}\,\mathrm{s}$,  
+      \item $\det\mathbf{F}\neq0$,  
+    \end{itemize}
+    et consigne chaque anomalie dans \texttt{09\_anomalies.log}.
+
+  \item \texttt{13\_extraire\_dephasage\_optimal.py} : extrait la colonne \texttt{DeltaPhase} de \texttt{09\_gw\_resultats.csv} pour $Q_{0}^{\star}$ et génère \texttt{09\_phase\_diff\_q0star.csv}.
+
+  \item \texttt{13\_tracer\_ellipses\_fisher.py} : trace les ellipses de confiance (68 % & 95 %) dans le plan $(\mathcal{M},\eta)$ à partir de \texttt{09\_matrice\_fisher.csv} et sauve \texttt{fig\_03\_fisher\_contour.png}.
+
+  \item \texttt{13\_generer\_phases\_completes.py} : génère le CSV complet des phases \texttt{09\_phases\_gw.csv} (colonnes $f,\phi_{\rm LCDM},\phi_{\rm MCGT}$).
+
+  \item \texttt{13\_valider\_phase\_gw.py} (optionnel) : lit \texttt{09\_phases\_gw.csv}, calcule $\Delta\varphi(f)=\phi_{\rm MCGT}-\phi_{\rm LCDM}$ et produit \texttt{fig\_04\_validation\_delta\_phase.png}.
+\end{itemize}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Option               & Description                                                         \\
+    \midrule
+    \verb|--freq-grid|   & Grille fréquentielle (fichier CSV)                                  \\
+    \verb|--psd-file|    & PSD simplifiée (fichier DAT)                                        \\
+    \verb|--pdot-file|   & Tableau \(\dot P(T)\) (fichier DAT)                                 \\
+    \verb|--snr|         & Rap. signal/bruit pour normalisation de la matrice de Fisher        \\
+    \verb|--nf|          & Nombre de points de la grille fréquentielle                         \\
+    \verb|--out_csv|     & Fichier de sortie CSV (résultats \(\Delta\tau,\,\Delta\varphi\))    \\
+    \verb|--out_log|     & Fichier de journal des anomalies                                    \\
+    \verb|--phases_csv|  & Fichier CSV complet des phases (\(\varphi_{\Lambda\rm CDM},\varphi_{\rm MCGT}\)) \\
+    \verb|--out_png|     & Fichier de sortie PNG (figures de validation ou de contour Fisher)  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Principales options des scripts du Chapitre 9.}
+  \label{tab:flags_chap9}
+\end{table}
+
+\subsection{Paramètres numériques et configuration}\label{subsec:params-config}
+
+\paragraph{Arborescence du projet}
+\begin{verbatim}
+├── 09_phase_ondes_gravionales/
+│   ├── 09_conceptuel.tex
+│   ├── 09_details.tex
+│   ├── 12_donnees/
+│   │   ├── 12_grille_frequentielle.csv
+│   │   ├── 12_psd_lisa_brute.csv
+│   │   ├── 12_psd_lisa_simplifiee.dat
+│   │   └── 02_pdot_tableau_plateau_fine.dat
+│   ├── 13_scripts/
+│   │   ├── 13_requirements.txt
+│   │   ├── 13_generer_grille_frequentielle.py
+│   │   ├── 13_calculer_psd_brute.py
+│   │   ├── 13_construire_psd_simplifiee.py
+│   │   ├── 13_generer_retards_phases.py
+│   │   ├── 13_maj_matrice_fisher.py
+│   │   ├── 13_generer_journal_anomalies.py
+│   │   ├── 13_extraire_dephasage_optimal.py
+│   │   ├── 13_tracer_ellipses_fisher.py
+│   │   └── 13_valider_phase_gw.py
+│   └── fig_*.png, 09_gw_resultats.csv, 09_matrice_fisher.csv, 09_anomalies.log
+\end{verbatim}
+
+\begin{itemize}
+  \item \textbf{Version Python et dépendances :}  
+    Python \(\ge3.8\) (voir \texttt{13\_requirements.txt}).  
+    Packages : \texttt{numpy}, \texttt{scipy}, \texttt{pandas}, \texttt{matplotlib}, \texttt{lalsuite}, \texttt{lalsimulation}.
+
+  \item \textbf{Grille fréquentielle :}  
+    \[
+      N_{f} = 10\,000,\quad
+      f_{i} = 10^{\log_{10}(f_{\min}) + \frac{i}{N_{f}-1}\bigl(\log_{10}(f_{\max})-\log_{10}(f_{\min})\bigr)},
+      \]
+    avec \(f_{\min}=10^{-4}\,\mathrm{Hz}\), \(f_{\max}=1\,\mathrm{Hz}\).  
+    Générée par \texttt{13\_generer\_grille\_frequentielle.py} et stockée dans \texttt{12\_grille\_frequentielle.csv} (colonne unique \texttt{f} en Hz).
+
+  \item \textbf{Tolérances d’intégration :}
+    \begin{itemize}
+      \item \(\varphi\to T\) (inversion numérique) : \(\mathrm{rtol}=\mathrm{atol}=10^{-10}\).  
+      \item Calcul de \(\Delta\tau\) (trapèzes en \(\ln f\)) : pas variable en \(\ln f\).
+    \end{itemize}
+
+  \item \textbf{Fichiers PSD :}
+    \begin{itemize}
+      \item \texttt{12\_psd\_lisa\_brute.csv} (CSV, entête \texttt{f,S\_n}) :  
+        \texttt{f} [Hz], \texttt{S\_n} [Hz\(^{-1}\)].  
+      \item \texttt{12\_psd\_lisa\_simplifiee.dat} (ASCII, deux colonnes séparées par un espace) :  
+        \texttt{f} [Hz], \texttt{S\_n} [Hz\(^{-1}\)], interpolée en spline cubique et strictement positive sur la bande.
+    \end{itemize}
+
+  \item \textbf{Tableau \(\dot P(T)\) :}  
+    \texttt{02\_pdot\_tableau\_plateau\_fine.dat} (deux colonnes \texttt{T, Pdot}).  
+    Utilisé par \texttt{13\_generer\_retards\_phases.py} pour interpoler \(\dot P\).
+
+  \item \textbf{Format de \texttt{09\_gw\_resultats.csv} :}  
+    CSV, entête \texttt{f,DeltaTau,DeltaPhase} :
+    \begin{itemize}
+      \item \texttt{f} [Hz] (scientifique),  
+      \item \texttt{DeltaTau} [s] (\(\Delta\tau(f)\), \texttt{\%e}),  
+      \item \texttt{DeltaPhase} [rad] (\(\Delta\varphi(f)\), \texttt{\%e}).
+    \end{itemize}
+
+  \item \textbf{Format de \texttt{09\_matrice\_fisher.csv} :}  
+    CSV sans entête, quatre valeurs \(\{F_{11},F_{12},F_{21},F_{22}\}\) séparées par « , »,  
+    avec \(F_{12}=F_{21}\), unités \(\mathrm{Hz}^0\).
+
+  \item \textbf{Seuils de validation} (journal \texttt{09\_anomalies.log}) :  
+    Vérifications par \texttt{13\_generer\_journal\_anomalies.py} :
+    \[
+      S_{n}(f)>0,\quad
+      0\le\Delta\tau(f)\le10^{-1}\,\mathrm{s},\quad
+      \det F\neq0.
+    \]
+
+  \item \textbf{Options communes des scripts :}  
+    \verb|--freq-grid| (grille CSV),  
+    \verb|--psd-file| (PSD simplifiée),  
+    \verb|--pdot-file| (\(\dot P\) DAT),  
+    \verb|--snr| (rapport SNR, ex.~20),  
+    \verb|--nf| (points grille, ex.~10000),  
+    \verb|--out_csv| (sortie CSV),  
+    \verb|--out_log| (journal anomalies).
+\end{itemize}
+
+\subsection{Dépendances logicielles}
+Python (≥ 3.8) et les bibliothèques suivantes sont nécessaires :
+\[
+  \texttt{numpy},\;\texttt{scipy},\;\texttt{pandas},\;\texttt{matplotlib},\;\texttt{lalsuite},
+\]
+ainsi que \texttt{lalsimulation} (LALSuite v6.10+) pour IMRPhenomD.  
+Il est recommandé d’utiliser un environnement isolé (virtualenv ou Conda).
+
+\subsection{Paramètres astrophysiques et instrumentaux}
+Pour la description complète de ces paramètres, voir § « Paramètres astrophysiques et instrumentaux » du volet conceptuel.  
+Ici, on se contente de rappeler les valeurs numériques utilisées :
+
+\begin{itemize}
+  \item Masse chirp : \(\mathcal{M}=30\,M_{\odot}\)
+  \item Rapport de masses : \(\eta=0.25\)
+  \item Distance : \(d=1\ \mathrm{Gpc}\)
+  \item Bande fréquentielle : \(f\in[10^{-4},\,1]\ \mathrm{Hz}\)
+  \item SNR pour la Fisher : \(\mathrm{SNR}=20\)
+\end{itemize}
+
+\subsection{Pipeline opérationnel et appels de scripts}
+Pour automatiser l’intégralité du flux du Chapitre 9, exécutez successivement :
+
+\begin{enumerate}
+  \item \textbf{Génération de la grille fréquentielle}
+    \begin{verbatim}
+python 13_generer_grille_frequentielle.py \
+  --out_csv 12_grille_frequentielle.csv \
+  --nf       10000 \
+  --fmin     1e-4 \
+  --fmax     1.0
+    \end{verbatim}
+
+  \item \textbf{Calcul de la PSD brute}
+    \begin{verbatim}
+python 13_calculer_psd_brute.py \
+  --grid_csv 12_grille_frequentielle.csv \
+  --out_csv  12_psd_lisa_brute.csv
+    \end{verbatim}
+
+  \item \textbf{Construction de la PSD simplifiée}
+    \begin{verbatim}
+python 13_construire_psd_simplifiee.py \
+  --psd_csv  12_psd_lisa_brute.csv \
+  --out_dat  12_psd_lisa_simplifiee.dat
+    \end{verbatim}
+
+  \item \textbf{Calcul des retards et déphasages}
+    \begin{verbatim}
+python 13_generer_retards_phases.py \
+  --freq-grid 12_grille_frequentielle.csv \
+  --psd-file  12_psd_lisa_simplifiee.dat \
+  --pdot-file 02_pdot_tableau_plateau_fine.dat \
+  --out_csv   09_gw_resultats.csv
+    \end{verbatim}
+
+  \item \textbf{Mise à jour de la matrice de Fisher}
+    \begin{verbatim}
+python 13_maj_matrice_fisher.py \
+  --input     09_gw_resultats.csv \
+  --psd-dat   12_psd_lisa_simplifiee.dat \
+  --snr       20 \
+  --out_csv   09_matrice_fisher.csv
+    \end{verbatim}
+
+  \item \textbf{Génération du journal des anomalies}
+    \begin{verbatim}
+python 13_generer_journal_anomalies.py \
+  --psd-dat      12_psd_lisa_simplifiee.dat \
+  --gw-csv       09_gw_resultats.csv \
+  --fisher-csv   09_matrice_fisher.csv \
+  --out_log      09_anomalies.log
+    \end{verbatim}
+
+  \item \textbf{Extraction du déphasage optimal pour \(Q_{0}^{\star}\)}
+    \begin{verbatim}
+python 13_extraire_dephasage_optimal.py \
+  --input     09_gw_resultats.csv \
+  --Q0        0.120 \
+  --out_csv   09_phase_diff_q0star.csv
+    \end{verbatim}
+
+  \item \textbf{Tracé des ellipses de confiance}
+    \begin{verbatim}
+python 13_tracer_ellipses_fisher.py \
+  --fisher_csv 09_matrice_fisher.csv \
+  --snr        20 \
+  --out_png    fig_03_fisher_contour.png
+    \end{verbatim}
+
+  \item \textbf{(Optionnel) Validation rapide des phases}
+    \begin{verbatim}
+python 13_valider_phase_gw.py \
+  --phases_csv 09_phases_gw_complet.csv \
+  --out_png    fig_04_validation_delta_phase.png
+    \end{verbatim}
+\end{enumerate}
+
+\noindent Les options communes (\texttt{--freq-grid}, \texttt{--psd-file}, \texttt{--pdot-file}, \texttt{--snr}, \texttt{--nf}, \texttt{--out_log}, etc.) sont décrites en § \ref{subsec:params-config}.```
+
+\subsection{Génération du journal des anomalies}
+Le script \texttt{13\_generer\_journal\_anomalies.py} exécute trois séries de contrôles avant toute analyse :
+
+\begin{enumerate}
+  \item \textbf{PSD :} vérification que
+    \[
+      S_{n}(f) > 0,\quad\forall\,f\in[10^{-4},1]\;\mathrm{Hz}.
+    \]
+  \item \textbf{Retards :} contrôle que
+    \[
+      0 \;\le\;\Delta\tau(f)\;\le\;10^{-1}\,\mathrm{s},
+      \quad\forall\,f.
+    \]
+  \item \textbf{Fisher :} calcul direct de la matrice de Fisher
+    \[
+      F_{ij}
+      = 4\,\mathrm{SNR}^{2}
+        \int_{f_{\min}}^{f_{\max}}
+        \frac{1}{S_{n}(f)}
+        \frac{\partial\varphi(f)}{\partial\theta_i}
+        \frac{\partial\varphi(f)}{\partial\theta_j}
+        \,\mathrm{d}f,
+    \]
+    symétrisation \(F_{12}=F_{21}\) puis vérification que
+    \(\det\mathbf{F}\neq0\).
+\end{enumerate}
+
+Chaque anomalie détectée est consignée, ligne par ligne, dans \texttt{09\_anomalies.log} selon le format :
+
+\[
+  [\text{Type}]\quad f=\langle\text{valeur}\rangle\;\to\;\langle\text{description}\rangle.
+\]
+
+\noindent Exemples :
+\begin{verbatim}
+[PSD]      f=1.000e-04 Hz -> S_n=0.000e+00
+[DeltaTau] f=5.000e-01 Hz -> DeltaTau=1.234e-01 s > 1e-01 s
+[Fisher]   det(F)=0.000e+00 -> matrice singulière
+\end{verbatim}
+
+\subsection{Validation de phase}\label{subsec:valider_phase}
+
+Cette étape s’appuie désormais sur deux scripts complémentaires :
+
+\begin{itemize}
+  \item \textbf{Génération du CSV complet des phases}  
+    \texttt{13\_generer\_phases\_completes.py} : produit le fichier  
+    \texttt{09\_phases\_gw.csv} contenant, pour chaque fréquence, la phase  
+    IMRPhenomD (\(\varphi_{\Lambda\mathrm{CDM}}\)) et la phase MCGT  
+    (\(\varphi_{\mathrm{MCGT}}\)).  
+    \textbf{Usage :}
+    \begin{verbatim}
+python 13_generer_phases_completes.py \
+  --freq-grid 12_grille_frequentielle.csv \
+  --psd-file  12_psd_lisa_simplifiee.dat \
+  --pdot-file 02_pdot_tableau_plateau_fine.dat \
+  --out-csv   09_phases_gw.csv
+    \end{verbatim}
+
+  \item \textbf{Vérification comparative des phases}  
+    \texttt{13\_valider\_phase\_gw.py} : lit \texttt{09\_phases\_gw.csv}, calcule  
+    \(\Delta\varphi(f)=\varphi_{\mathrm{MCGT}}(f)-\varphi_{\Lambda\mathrm{CDM}}(f)\)  
+    et trace son évolution.  
+    \textbf{Usage :}
+    \begin{verbatim}
+python 13_valider_phase_gw.py \
+  --phases-csv 09_phases_gw.csv \
+  --out-png     fig_04_validation_delta_phase.png
+    \end{verbatim}
+\end{itemize}
+
+\medskip
+\noindent\textbf{Format attendu de \texttt{09\_phases\_gw.csv}} :
+
+\begin{verbatim}
+f,phi_LCDM,phi_MCGT
+1.000e-04,1.23456e+02,1.23457e+02
+2.000e-04,1.23458e+02,1.23459e+02
+...
+\end{verbatim}
+
+\begin{itemize}
+  \item \texttt{f} [Hz]         : fréquence (notation scientifique)
+  \item \texttt{phi\_LCDM} [rad] : phase IMRPhenomD (\(\varphi_{\Lambda\mathrm{CDM}}\))
+  \item \texttt{phi\_MCGT} [rad] : phase corrigée MCGT (\(\varphi_{\mathrm{MCGT}}\))
+\end{itemize}
+
+\subsection{Format du journal des anomalies}
+Le fichier \texttt{09\_anomalies.log}, produit automatiquement par \texttt{13\_generer\_journal\_anomalies.py}, débute par un en-tête informatif puis liste, une par ligne, chaque anomalie détectée selon le format suivant :
+
+\begin{verbatim}
+# 09_anomalies.log – Rapport de vérification
+[Type]      f=<valeur> Hz -> <Description>
+\end{verbatim}
+
+\noindent Plus précisément :
+\begin{itemize}
+  \item \texttt{[PSD]}      \, f=\<valeur\> Hz \(\to\) S\_n=\<valeur\>  
+        (lorsque \(S_{n}(f)\le 0\)).  
+  \item \texttt{[DeltaTau]} \, f=\<valeur\> Hz \(\to\) DeltaTau=\<valeur\> s  
+        (lorsque \(\Delta\tau(f)<0\) ou \(\Delta\tau(f)>10^{-1}\) s).  
+  \item \texttt{[Fisher]}   \, det(C)=\<valeur\>  
+        (lorsque \(\det C=0\), matrice singulière).
+\end{itemize}
+
+Chaque valeur numérique est affichée en notation scientifique, exemple :
+
+\begin{verbatim}
+# 09_anomalies.log – Rapport de vérification
+[PSD]      f=1.000e-04 Hz -> S_n=0.000e+00
+[DeltaTau] f=5.000e-01 Hz -> DeltaTau=1.234e-01 s > 1e-01 s
+[Fisher]   det(C)=0.000e+00 -> matrice singulière
+\end{verbatim}
+
+\subsection{Calcul détaillé de la matrice de Fisher}
+\label{subsec:details-fisher}
+La mise en œuvre numérique suit ces étapes :
+
+\begin{enumerate}
+  \item \textbf{Chargement de la PSD et des paramètres :}  
+  lire \texttt{12\_psd\_lisa\_simplifiee.dat} (\(f,S_{n}(f)\)), fixer la SNR (20).
+
+  \item \textbf{Intégration numérique :}  
+    calculer 
+    \[
+      F_{ij}
+      =4\,\mathrm{SNR}^{2}
+      \Re\!\int_{f_{\min}}^{f_{\max}}
+        \frac{1}{S_{n}(f)}
+        \frac{\partial\varphi_{\mathrm{MCGT}}}{\partial\theta_{i}}
+        \frac{\partial\varphi_{\mathrm{MCGT}}}{\partial\theta_{j}}
+      \,\mathrm{d}f
+    \]
+    par quadrature adaptée (trapèzes en \(\log f\) ou méthode de Simpson).
+
+  \item \textbf{Construction et inversion de la matrice de Fisher :}  
+  calculer directement 
+  \(\;F_{ij}=4\,\mathrm{SNR}^{2}\!\int\!\cdots\), imposer \(F_{12}=F_{21}\)  
+  puis inverser la matrice de Fisher \(\mathbf{F}\) pour obtenir \(\mathbf{F}^{-1}\).
+
+  \item \textbf{Extraction des incertitudes :}  
+    calculer 
+    \(\Delta\mathcal{M}=\sqrt{(\mathbf{F}^{-1})_{11}}\) et 
+    \(\Delta\eta=\sqrt{(\mathbf{F}^{-1})_{22}}\).
+
+  \item \textbf{Vérifications :}  
+  vérifier \(\det\mathbf{F}\neq0\) (matrice non singulière) et, en cas d’échec,  
+  consigner l’anomalie dans \texttt{09\_anomalies.log}.
+\end{enumerate}
+
+\subsection{Contrôles internes et cohérence}
+Pour garantir la robustesse et la cohérence de l’ensemble du pipeline, les vérifications suivantes sont effectuées et toutes anomalies consignées dans \texttt{09\_anomalies.log} :
+
+\begin{itemize}
+  \item \textbf{PSD strictement positive}  
+    Vérifier que la densité spectrale de bruit simplifiée 
+    \(\,S_{n}(f)>0\) pour tout 
+    \(f\in[10^{-4},\,1]\)\;Hz.  
+    Toute valeur \(S_{n}(f)\le0\) déclenche une entrée  
+    \verb|[PSD] f=<valeur> Hz -> S_n=<valeur>|.
+
+  \item \textbf{Cas \(\Lambda\)CDM (\(Q_{0}=0\))}  
+    En forçant \(\dot P(T)=1\) dans le script de génération des retards,  
+    s’assurer que \(\Delta\tau(f)=0\) sur toute la bande.  
+    Toute déviation est signalée comme \verb|[DeltaTau] f=<valeur> Hz -> DeltaTau≠0|.
+
+  \item \textbf{Bornes sur \(\Delta\tau\)}  
+    Contrôler que 
+    \[
+      0 \;\le\;\Delta\tau(f)\;\le\;10^{-1}\,\mathrm{s}
+      \quad\forall\,f\in[10^{-4},\,1]\;\mathrm{Hz}.
+    \]
+    Toute valeur hors plage génère une entrée  
+    \verb|[DeltaTau] f=<valeur> Hz -> DeltaTau=<valeur> s > 1e-1 s|.
+
+  \item \textbf{Invertibilité de la matrice de Fisher}  
+    Après construction de 
+    \(\mathbf{F}\) selon 
+    \(\;F_{ij}=4\,\mathrm{SNR}^{2}\int\cdots\),  
+    imposer la symétrie \(F_{12}=F_{21}\) puis vérifier 
+    \(\det\mathbf{F}\neq0\).  
+    En cas de singularité, consigner  
+    \verb|[Fisher] det(F)=0 -> matrice singulière|.
+\end{itemize}
+
+\subsection{Remarques finales}
+\begin{itemize}
+  \item Ce document « détails » se concentre sur l’implémentation ; pour les formules et figures, voir le volet conceptuel.
+  \item Pour ajuster la grille (\(N_f\)), la masse chirp (\(\mathcal{M}\)), le rapport de masses (\(\eta\)) ou la SNR, modifier les flags correspondants (cf. § « Paramètres numériques et configuration »).
+  \item Tous les formats exacts des fichiers de sortie (CSV, PNG, logs) sont rassemblés en § « Format des fichiers de sortie » de ce même document.
+\end{itemize}
+
+\subsection*{Glossaire}
+
+\begin{description}
+  \item[\texttt{12\_grille\_frequentielle.csv}]  
+    Grille log‐linéaire de fréquences $f\in[10^{-4},1]\,$Hz, générée par \texttt{13\_generer\_grille\_frequentielle.py} (colonne unique \texttt{f} en Hz).
+
+  \item[$N_{f}$]  
+    Nombre de points de la grille fréquentielle (ici $N_{f}=10\,000$).
+
+  \item[\texttt{12\_psd\_lisa\_brute.csv}]  
+    PSD brute simulée de LISA, deux colonnes \{\texttt{f},\texttt{S\_n}\}, générée par \texttt{13\_calculer\_psd\_brute.py}.
+
+  \item[\texttt{12\_psd\_lisa\_simplifiee.dat}]  
+    PSD simplifiée (strictement positive), deux colonnes \{\texttt{f},\texttt{S\_n}\}, interpolée en spline cubique par \texttt{13\_construire\_psd\_simplifiee.py}.
+
+  \item[\texttt{02\_pdot\_tableau\_plateau\_fine.dat}]  
+    Tableau $\{T_i,\dot P(T_i)\}$ utilisé pour interpoler $\dot P$ dans \texttt{13\_generer\_retards\_phases.py}.
+
+  \item[$\Delta\tau(f)$]  
+    Retard de propagation induit par MCGT :  
+    $\displaystyle \Delta\tau(f)
+      =\int_{f_{\min}}^{f}\bigl[1 - 1/\dot P(T(f'))\bigr]\,\mathrm{d}\ln f'$.
+
+  \item[$\Delta\varphi(f)$]  
+    Déphasage associé :  
+    $\Delta\varphi(f)=2\pi\,f\,\Delta\tau(f)$.
+
+  \item[\texttt{09\_gw\_resultats.csv}]  
+    Résultats des retards et déphasages, colonnes \texttt{f,DeltaTau,DeltaPhase}.
+
+  \item[\texttt{09\_matrice\_fisher.csv}]  
+    Matrice de Fisher $F_{ij}$ (sans entête), format  
+    \texttt{F11,F12,F21,F22} avec $F_{12}=F_{21}$.
+
+  \item[\texttt{09\_phases\_gw.csv}]  
+    CSV complet des phases, colonnes \texttt{f,phi\_LCDM,phi\_MCGT}, produit par \texttt{13\_generer\_phases\_completes.py}.
+
+  \item[\texttt{09\_phase\_diff\_q0star.csv}]  
+    Colonne unique \texttt{DeltaPhase} pour la valeur optimale $Q_{0}^{\star}$, extraite par \texttt{13\_extraire\_dephasage\_optimal.py}.
+
+  \item[\texttt{09\_anomalies.log}]  
+    Journal des anomalies (PSD non‐positive, retards hors bornes, Fisher singulière) consigné par \texttt{13\_generer\_journal\_anomalies.py}.
+
+  \item[\texttt{fig\_03\_fisher\_contour.png}]  
+    Ellipses de confiance (68 \% & 95 \%) dans le plan $(\mathcal{M},\eta)$, tracées par \texttt{13\_tracer\_ellipses\_fisher.py}.
+
+  \item[\texttt{fig\_04\_validation\_delta\_phase.png}]  
+    Validation du déphasage sur la bande complète LISA, générée par \texttt{13\_valider\_phase\_gw.py}.
+
+  \item[\texttt{--freq-grid}, \texttt{--psd-file}, \texttt{--pdot-file}, …]  
+    Principaux flags de ligne de commande pour les scripts du Chapitre 9 (voir § « Paramètres numériques et configuration »).
+\end{description}
+
+
+\bigskip
+\noindent\emph{Fin de la partie détaillée, Chapitre 9.}

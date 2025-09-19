@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+if grep -RIn --exclude-dir=.git --exclude-dir=tests --exclude-dir=zz-manifests \
+             --exclude='*.bak' --exclude='*.ipynb' \
+             -E 'zz-(data|figures|scripts)/chapitre' .; then
+  echo "[BLOCK] chemins FR détectés. Utiliser zz-data/chapterXX, zz-figures/chapterXX, zz-scripts/chapterXX." >&2
+  exit 1
+fi

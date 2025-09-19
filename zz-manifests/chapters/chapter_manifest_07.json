@@ -1,0 +1,63 @@
+{
+"chapter": 7,
+"title": "perturbations-scalaires",
+"paths": {
+"data_dir": "zz-data/chapter7",
+"scripts_dir": "zz-scripts/chapter7",
+"figures_dir": "zz-figures/chapter7",
+"configs": [
+"conventions.md",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data_inputs": [
+"zz-data/chapter7/07_cs2_matrix.csv",
+"zz-data/chapter7/07_delta_phi_matrix.csv",
+"zz-data/chapter7/07_main_scalar_perturbations_data.csv",
+"zz-data/chapter7/07_phase_run.csv",
+"zz-data/chapter7/07_perturbations_domain.csv",
+"zz-data/chapter7/07_scalar_invariants.csv",
+"zz-data/chapter7/07_scalar_perturbations_meta.json",
+"zz-data/chapter7/07_scalar_perturbations_params.json"
+],
+"data_outputs": [],
+"figures": [
+"zz-figures/chapter7/fig_01_heatmap_cs2_k_a.png",
+"zz-figures/chapter7/fig_02_heatmap_delta_phi_k_a.png",
+"zz-figures/chapter7/fig_03_invariant_I1.png",
+"zz-figures/chapter7/fig_04_dcs2_dk_vs_k.png",
+"zz-figures/chapter7/fig_05_ddelta_phi_dk_vs_k.png",
+"zz-figures/chapter7/fig_06_comparison.png",
+"zz-figures/chapter7/fig_07_invariant_I2.png"
+],
+"metas": [
+"zz-data/chapter7/07_perturbations_domain.meta.json",
+"zz-figures/chapter7/fig_*.meta.json"
+],
+"others": [
+"07-perturbations-scalaires/CHAPTER7_GUIDE.txt"
+]
+},
+"scripts": [
+"zz-scripts/chapter7/generate_chapter7_data.py",
+"zz-scripts/chapter7/plot_fig01_heatmap_cs2.py",
+"zz-scripts/chapter7/plot_fig02_heatmap_delta_phi.py",
+"zz-scripts/chapter7/plot_fig03_invariant_I1.py",
+"zz-scripts/chapter7/plot_fig04_dcs2_vs_k.py",
+"zz-scripts/chapter7/plot_fig05_ddelta_phi_vs_k.py",
+"zz-scripts/chapter7/plot_fig06_comparison.py"
+],
+"meta_expected": [
+"zz-data/chapter7/07_perturbations_domain.meta.json",
+"zz-figures/chapter7/fig_*.meta.json"
+],
+"status": "ready",
+"qa_checks": [
+"`a_min` du domaine = 0.05 (aligné sur params).",
+"Seuils primary/order2 raisonnables et documentés.",
+"Densité d’échantillonnage en k autour de k0=0.1.",
+"cs2 ≈ 1 mais variabilité physique vs artefacts numériques."
+],
+"notes": "Écart a_min relevé précédemment; revoir seuils cs2/δφ et segmentation low/high."
+}

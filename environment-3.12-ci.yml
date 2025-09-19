@@ -1,0 +1,16 @@
+name: mcgt-ci
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pytest
+  - ipykernel
+  - jsonschema
+  - pip:
+    - -e .
+    - tqdm
+    - click
+    - rich
+    - requests

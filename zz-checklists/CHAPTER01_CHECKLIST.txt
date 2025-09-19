@@ -1,0 +1,86 @@
+CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
+
+[OBJECTIF & PORTÉE]
+- [ ] Ce checklist couvre génération des données/figures + compilation LaTeX pour le Chapitre 1.
+- [ ] Conformité aux conventions de grille, formats, lissage (reproductibilité).
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (01-introduction-applications/):
+      • 01_introduction_conceptuel.tex
+      • 01_applications_calibration_conceptuel.tex
+      • CHAPTER01_GUIDE.txt
+- [ ] Données (zz-data/chapter01/):
+      • Entrées  : 01_timeline_milestones.csv ; 01_initial_grid_data.dat
+      • Sorties  : 01_optimized_data.csv ; 01_optimized_grid_data.dat ;
+                  01_P_derivative_initial.csv ; 01_P_derivative_optimized.csv ;
+                  01_optimized_data_and_derivatives.csv ;
+                  01_relative_error_timeline.csv ; 01_dimensionless_invariants.csv
+- [ ] Figures (zz-figures/chapter01/):
+      • fig_01_early_plateau.png ; fig_02_logistic_calibration.png ;
+        fig_03_relative_error_timeline.png ; fig_04_P_vs_T_evolution.png ;
+        fig_05_I1_vs_T.png ; fig_06_P_derivative_comparison.png
+- [ ] Scripts (zz-scripts/chapter01/):
+      • generate_data_chapter01.py
+      • plot_fig01_early_plateau.py … plot_fig06_P_derivative_comparison.py
+      • requirements.txt
+
+[CONVENTIONS D’ENTRÉE]
+- [ ] 01_timeline_milestones.csv : CSV (UTF-8, séparateur virgule, sans index)
+      Colonnes: T [Gyr], P_ref [–]
+- [ ] 01_initial_grid_data.dat : 2 colonnes (T [Gyr], P_init [–]) séparées par espace/tab.
+- [ ] Intervalle temporel : T_min = 1e-6 Gyr ; T_max = 14 Gyr
+- [ ] Grille log-uniforme : Δlog10T = 0.01 (valeur par défaut)
+- [ ] Décimale = ‘.’ ; entêtes exacts ; pas de NaN/Inf
+
+[PARAMÈTRES & MÉTHODES]
+- [ ] Interpolation P_calc : PCHIP en log–log
+- [ ] Lissage dérivées (Savitzky–Golay) : fenêtre = 21 points ; ordre = 3
+- [ ] Invariant I1 : I1 = P_calc / T (adimensionnel)
+
+[GÉNÉRATION DES DONNÉES]
+- [ ] Exécuter :  python zz-scripts/chapter01/generate_data_chapter01.py
+      Sorties attendues (zz-data/chapter01/):
+      • 01_optimized_data.csv                       (T, P_calc)
+      • 01_optimized_grid_data.dat                  (= 4.1 au format DAT)
+      • 01_P_derivative_initial.csv                 (T, dP_dT)   — SG avant opti
+      • 01_P_derivative_optimized.csv               (T, dP_dT)   — SG après opti
+      • 01_optimized_data_and_derivatives.csv       (T, P_calc, dP_dT)
+      • 01_relative_error_timeline.csv              (T, epsilon=(P_calc−P_ref)/P_ref)
+      • 01_dimensionless_invariants.csv             (T, I1)
+
+[PRODUCTION DES FIGURES]
+- [ ] Générer : 
+      python zz-scripts/chapter01/plot_fig01_early_plateau.py
+      python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
+      python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
+      python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
+      python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
+      python zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+- [ ] Vérifier axes/échelles (log si requis), légendes, unités, DPI (≥300).
+
+[CONTRÔLES DE QUALITÉ]
+- [ ] Taille de grille : N ≈ ⌊(log10(Tmax)−log10(Tmin))/Δlog10T⌋ + 1
+      (vérifier que N correspond à T_min/T_max/Δlog10T effectifs ; tolérance ±1)
+- [ ] Domaines : T ∈ [1e-6, 14] Gyr ; P_calc ~ constant au plateau précoce ; pas de discontinuité.
+- [ ] dP/dT : profils lissés, sans oscillations numériques ni valeurs extrêmes.
+- [ ] epsilon(T) : signe conservé ; cohérent aux jalons ; échelle symlog si besoin.
+- [ ] I1 = P_calc/T : monotone/cohérent sur la grille ; pas de NaN/Inf dans toutes les sorties.
+- [ ] Logs d’exécution : absence d’erreurs/tracebacks ; warnings compris et acceptés.
+
+[COMPILATION LaTeX]
+- [ ] pdflatex -jobname=chap1_conceptuel  01-introduction-applications/01_introduction_conceptuel.tex
+- [ ] pdflatex -jobname=chap1_applications 01-introduction-applications/01_applications_calibration_conceptuel.tex
+- [ ] Zéro références non définies ; figures incluses ; encodage UTF-8 OK.
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] Mettre à jour zz-manifests/figure_manifest.csv (ajouter/mettre à jour les 6 figures).
+- [ ] Synchroniser zz-manifests/chapters/chapter_manifest_01.json si fichiers nouveaux/renommés.
+- [ ] Diagnostic : python zz-manifests/diag_consistency.py --chapter 01 --strict --report md \
+                   > zz-manifests/reports/chap01.md (fichier non vide + “errors: 0” attendu).
+- [ ] Versionner : entrée dédiée dans mcgt/CHANGELOG.md ; conserver encodage/chemins relatifs.
+
+[COMMANDES RAPIDES]
+- [ ] Données   :  python zz-scripts/chapter01/generate_data_chapter01.py
+- [ ] Figures   :  exécuter les 6 scripts “plot_fig..”
+- [ ] LaTeX     :  2 commandes pdflatex ci-dessus
+- [ ] Diagnostic:  diag_consistency.py (report MD) + mise à jour manifeste des figures

@@ -1,0 +1,66 @@
+{
+"chapter": 2,
+"title": "validation-chronologique",
+"paths": {
+"data\_dir": "zz-data/chapter2",
+"scripts\_dir": "zz-scripts/chapter2",
+"figures\_dir": "zz-figures/chapter2",
+"configs": \[
+"conventions.md",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data\_inputs": \[
+"zz-data/chapter2/02\_As\_ns\_vs\_alpha.csv",
+"zz-data/chapter2/02\_P\_R\_sampling.csv",
+"zz-data/chapter2/02\_chronology\_milestones.csv",
+"zz-data/chapter2/02\_derivative\_P\_data.dat",
+"zz-data/chapter2/02\_grid\_data\_P\_vs\_T.dat",
+"zz-data/chapter2/02\_milestones\_meta.csv",
+"zz-data/chapter2/02\_optimal\_parameters.json",
+"zz-data/chapter2/02\_primordial\_spectrum.json",
+"zz-data/chapter2/02\_relative\_errors\_chronology.csv"
+],
+"data\_outputs": \[],
+"figures": \[
+"zz-figures/chapter2/fig\_00\_spectrum.png",
+"zz-figures/chapter2/fig\_01\_P\_T\_evolution.png",
+"zz-figures/chapter2/fig\_02\_calibration.png",
+"zz-figures/chapter2/fig\_03\_relative\_errors.png",
+"zz-figures/chapter2/fig\_04\_pipeline\_diagram.png",
+"zz-figures/chapter2/fig\_05\_FG\_series.png",
+"zz-figures/chapter2/fig\_06\_fit\_alpha.png"
+],
+"metas": \[
+"zz-figures/chapter2/fig\_*.meta.json",
+"zz-data/chapter2/02\_derivative\_P\_data.meta.json",
+"zz-data/chapter2/02\_chronology\_milestones.meta.json"
+],
+"others": \[
+"02-validation-chronologique/CHAPTER2\_GUIDE.txt"
+]
+},
+"scripts": \[
+"zz-scripts/chapter2/generate\_chapter2\_data.py",
+"zz-scripts/chapter2/plot\_fig01\_P\_T\_evolution.py",
+"zz-scripts/chapter2/plot\_fig02\_calibration.py",
+"zz-scripts/chapter2/plot\_fig03\_relative\_errors.py",
+"zz-scripts/chapter2/plot\_fig04\_pipeline\_diagram.py",
+"zz-scripts/chapter2/plot\_fig05\_FG\_series.py",
+"zz-scripts/chapter2/plot\_fig06\_fit\_alpha.py"
+],
+"meta\_expected": \[
+"zz-data/chapter2/02\_derivative\_P\_data.meta.json",
+"zz-data/chapter2/02\_chronology\_milestones.meta.json",
+"zz-figures/chapter2/fig\_*.meta.json"
+],
+"status": "ready",
+"qa\_checks": \[
+"Continuité P(T) et dP/dT à T\_split\_Gyr = 0.15.",
+"Aligner unités et signes des dérivées avec Chap.1.",
+"Seuils `primary/order2` = config globale, sauf dérogation documentée.",
+"Séries F/G: vérifier ordres et signes."
+],
+"notes": "Contrôler la jonction low/high autour du split; vérifier les écarts relatifs sur jalons."
+}

@@ -1,0 +1,8 @@
+{
+  "n_points": 715,
+  "files": [
+    "03_donnees_stabilite_fR.csv",
+    "03_domaine_stabilite_fR.csv",
+    "03_frontiere_stabilite_fR.csv"
+  ]
+}

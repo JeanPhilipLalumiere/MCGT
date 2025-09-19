@@ -1,0 +1,107 @@
+# Exigences pour le Chapitre 3 (Stabilité de f(R))
+
+1. **Environnement système**
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Espace disque : ≥ 200 Mo libre  
+
+2. **Environnement Python**
+   * Python ≥ 3.9  
+   * Créer et activer un environnement virtuel dédié :
+     ```
+     cd ~/MCGT
+     python3 -m venv venv3
+     source venv3/bin/activate
+     ```
+   * Installer les dépendances :
+     ```
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib configparser argparse pytest
+     ```
+
+3. **Données brutes & scripts d’extraction**
+   * **Fichiers jalons et grille**  
+     - `zz-data/chapter03/03_ricci_fR_jalons.csv`  
+       • Colonnes :  
+         • `R_over_R0` : rapport R/R₀ (—)  
+         • `f_R`        : f′(R)       (—)  
+         • `f_RR`       : f″(R)       (—)  
+     * Aucun autre fichier brut n’est requis. *
+
+4. **Structure du dépôt**
+````
+
+MCGT/
+├─ 03-stabilite-fR/               # sources LaTeX, GUIDE
+├─ zz-data/chapter03/          # CSV générés :
+│     03\_donnees\_stabilite\_fR.csv
+│     03\_domaine\_stabilite\_fR.csv
+│     03\_frontiere\_stabilite\_fR.csv
+│     03\_meta\_stabilite\_fR.json
+│     03\_ricci\_fR\_jalons.csv
+│     03\_ricci\_fR\_contre\_z.csv
+│     03\_ricci\_fR\_contre\_T.csv
+├─ zz-scripts/chapter03/          # scripts Python :
+│     generer\_donnees\_chapitre3.py
+│     tracer\_fig01\_*.py … tracer\_fig08\_*.py
+├─ zz-figures/chapter03/          # PNG produits
+└─ venv3/                         # environnement virtuel Python
+
+````
+
+5. **Exécution du pipeline**
+
+   5.1 Génération des données  
+   ```bash
+   source venv3/bin/activate
+   python zz-scripts/chapter03/generer_donnees_chapitre3.py --config gw_phase.ini [--npts N] [--dry-run]
+````
+
+5.2 Tracé des figures
+
+```bash
+source venv3/bin/activate
+python zz-scripts/chapter03/tracer_fig01_stabilite_fR_domaine.py
+python zz-scripts/chapter03/tracer_fig02_fR_fRR_contre_R.py
+python zz-scripts/chapter03/tracer_fig03_ms2_R0_contre_R.py
+python zz-scripts/chapter03/tracer_fig04_fR_fRR_contre_z.py
+python zz-scripts/chapter03/tracer_fig05_interpolation_jalons.py
+python zz-scripts/chapter03/tracer_fig06_qualite_grille.py
+python zz-scripts/chapter03/tracer_fig07_ricci_fR_contre_z.py
+python zz-scripts/chapter03/tracer_fig08_ricci_fR_contre_T.py
+```
+
+6. **Compilation LaTeX**
+
+```bash
+cd 03-stabilite-fR/
+pdflatex -interaction=nonstopmode 03_stabilite_fR_conceptuel.tex
+pdflatex -interaction=nonstopmode 03_stabilite_fR_details.tex
+```
+
+7. **Tests & validations**
+
+   * Vérifier l’existence et la non-nullité des fichiers CSV dans `zz-data/chapter03/` :
+
+     ```
+     03_donnees_stabilite_fR.csv
+     03_domaine_stabilite_fR.csv
+     03_frontiere_stabilite_fR.csv
+     03_meta_stabilite_fR.json
+     03_ricci_fR_jalons.csv
+     03_ricci_fR_contre_z.csv
+     03_ricci_fR_contre_T.csv
+     ```
+   * S’assurer qu’il n’y a pas de NaN ou Inf dans les CSV.
+   * Contrôler :
+
+     * `check_log_spacing(...)` OK pour la grille log-uniforme
+     * f\_R > 0 et f\_RR > 0 pour tous les points
+     * cohérence de la décroissance de z et T dans les sorties inverses
+   * Exécuter `pytest` pour valider les tests unitaires.
+
+8. **Reproductibilité & versioning**
+
+   * Fichier `VERSION` à la racine
+   * `CHANGELOG.md` détaillant les évolutions
+   * Tag Git pour chaque version majeure
+   * HEAD hash enregistré dans `zz-data/chapter03/03_meta_stabilite_fR.json`

@@ -1,0 +1,95 @@
+{
+"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$id": "zz-schemas/05_nucleosynthesis_parameters.schema.json",
+"title": "Chapter 05 — Nucleosynthesis parameters",
+"description": "Schéma pour les fichiers de paramètres BBN (ex.: 05_nucleosynthesis_parameters.json). Contient seuils, tolérances et métadonnées utilisées pour générer les sorties liées à la BBN.",
+"type": "object",
+"properties": {
+"generated_at": {
+"description": "Horodatage ISO-8601 de génération (optionnel).",
+"type": "string",
+"format": "date-time"
+},
+"producer_script": {
+"description": "Chemin relatif du script producteur (optionnel).",
+"type": "string",
+"minLength": 1
+},
+"git_hash": {
+"description": "Hash de commit (optionnel).",
+"anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }]
+},
+"max_epsilon_primary": {
+"description": "Erreur relative max tolérée pour le régime primaire (haute confiance).",
+"type": "number",
+"minimum": 0
+},
+"max_epsilon_order2": {
+"description": "Erreur relative max tolérée pour le régime d'ordre 2.",
+"type": "number",
+"minimum": 0
+},
+"thresholds": {
+"description": "Seuils nommés utilisés par les scripts du chapitre 05 (structure homogène inter-chapitres).",
+"type": "object",
+"properties": {
+"primary": { "type": "number", "minimum": 0 },
+"order2": { "type": "number", "minimum": 0 }
+},
+"required": ["primary", "order2"],
+"additionalProperties": false
+},
+"observational_jalons": {
+"description": "Résumé optionnel des jalons observationnels utilisés (DH, Yp, sigmas).",
+"type": "array",
+"items": {
+"type": "object",
+"properties": {
+"label": { "type": "string" },
+"T_Gyr": { "type": "number", "minimum": 0 },
+"DH_obs": { "type": "number", "exclusiveMinimum": 0 },
+"sigma_DH": { "type": "number", "minimum": 0 },
+"Yp_obs": { "type": "number", "minimum": 0, "maximum": 1 },
+"sigma_Yp": { "type": "number", "minimum": 0 },
+"source": { "type": "string" }
+},
+"required": ["label"],
+"additionalProperties": false
+}
+},
+"units": {
+"description": "Conventions d'unités (colonne → unité).",
+"type": "object",
+"additionalProperties": { "type": "string" }
+},
+"notes": {
+"description": "Notes libres (enjeux numériques, clipping, avertissements).",
+"type": "string"
+}
+},
+"required": ["max_epsilon_primary", "max_epsilon_order2", "thresholds"],
+"additionalProperties": false,
+"examples": [
+{
+"generated_at": "2025-08-23T12:00:00Z",
+"producer_script": "zz-scripts/chapter5/generate_chapter5_data.py",
+"git_hash": "REPLACE_WITH_GIT_HASH",
+"max_epsilon_primary": 0.0085,
+"max_epsilon_order2": 0.00156,
+"thresholds": { "primary": 0.01, "order2": 0.1 },
+"observational_jalons": [
+{
+"label": "BBN_theoretical",
+"T_Gyr": 1e-15,
+"DH_obs": 2.55e-05,
+"sigma_DH": 2.55e-07,
+"Yp_obs": 0.247,
+"sigma_Yp": 0.00247,
+"source": "BBN theoretical"
+}
+],
+"units": { "T_Gyr": "Gyr", "DH": "dimensionless fraction", "Yp": "mass fraction" },
+"notes": "Max epsilons choisis selon les règles de tolérance internes du chapitre 5."
+}
+]
+}

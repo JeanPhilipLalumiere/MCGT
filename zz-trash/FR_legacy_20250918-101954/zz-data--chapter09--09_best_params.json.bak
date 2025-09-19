@@ -1,0 +1,47 @@
+{
+  "timestamp": "20250816T182747Z",
+  "ini": "zz-configuration/gw_phase.ini",
+  "grid": {
+    "q0star_min": -0.5,
+    "q0star_max": 0.6,
+    "q0star_n": 21,
+    "alpha_min": 0.2,
+    "alpha_max": 2.0,
+    "alpha_n": 21,
+    "n_evals": 441
+  },
+  "optimize_metric": "p95",
+  "lambda": 0.2,
+  "calibration": {
+    "mode": "phi0,tc",
+    "window_Hz": [
+      20.0,
+      300.0
+    ],
+    "weight": "1/f2"
+  },
+  "metrics_window_Hz": [
+    20.0,
+    300.0
+  ],
+  "best": {
+    "solver_status": "OK",
+    "q0star": -0.5,
+    "alpha": 0.2,
+    "phi0_hat": -95.5486543253803,
+    "tc_hat": -0.0657059358027115,
+    "mean_abs_20_300": 37.96613623126832,
+    "max_abs_20_300": 148.16251854001098,
+    "p95_abs_20_300": 121.47377083437831
+  },
+  "repro": {
+    "git_hash": null,
+    "python": "3.12.3",
+    "numpy": "2.3.1",
+    "pandas": "2.3.1"
+  },
+  "artifacts": {
+    "scan_csv": "zz-data/chapter09/09_scan_20250816T182747Z_-0.50_0.60_21x21.csv",
+    "checkpoint_csv": "zz-data/chapter09/09_scan_20250816T182747Z_-0.50_0.60_21x21_ckpt.csv"
+  }
+}

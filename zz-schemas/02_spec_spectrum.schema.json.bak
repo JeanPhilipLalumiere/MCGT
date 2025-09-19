@@ -1,0 +1,88 @@
+{
+"\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\$id": "zz-schemas/02\_spec\_spectrum.schema.json",
+"title": "Primordial spectrum specification — Chapter 02",
+"description": "JSON Schema pour le fichier 02\_spec\_spectrum.json. Valide le label, la forme analytique, les constantes et les coefficients utilisés pour construire P\_R(k; alpha).",
+"type": "object",
+"properties": {
+"label\_eq": {
+"description": "Label utilisé dans le document tex pour référencer l'équation (ex.: eq\:spec\_prim).",
+"type": "string",
+"minLength": 1
+},
+"formula": {
+"description": "Forme analytique lisible du spectre primordial (ASCII ou LaTeX-friendly).",
+"type": "string",
+"minLength": 1
+},
+"description": {
+"description": "Description courte du modèle et de la provenance (ex.: 'Spectre primordial modifié MCGT – Paramètres Planck 2018').",
+"type": "string"
+},
+"constants": {
+"description": "Constantes canoniques utilisées comme baseline (ex.: Planck 2018).",
+"type": "object",
+"properties": {
+"A\_s0": {
+"description": "Amplitude de base A\_s (sans dimension).",
+"type": "number",
+"exclusiveMinimum": 0
+},
+"ns0": {
+"description": "Indice spectral scalaire de base n\_s.",
+"type": "number"
+}
+},
+"required": \["A\_s0", "ns0"],
+"additionalProperties": false
+},
+"coefficients": {
+"description": "Coefficients du modèle (perturbatifs/empiriques) pour paramétrer la dépendance en alpha.",
+"type": "object",
+"properties": {
+"c1": { "type": "number" },
+"c1\_2": { "type": "number" },
+"c2": { "type": "number" },
+"c2\_2": { "type": "number" }
+},
+"required": \["c1", "c1\_2", "c2", "c2\_2"],
+"additionalProperties": false
+},
+"k\_range": {
+"description": "Plage de k (en 1/Mpc) pour laquelle la spécification est valide.",
+"type": "array",
+"items": { "type": "number", "exclusiveMinimum": 0 },
+"minItems": 2,
+"maxItems": 2
+},
+"units": {
+"description": "Conventions d'unités pertinentes (clé → unité).",
+"type": "object",
+"additionalProperties": { "type": "string" }
+},
+"references": {
+"description": "Références bibliographiques ou liens.",
+"type": "array",
+"items": { "type": "string" }
+},
+"notes": {
+"description": "Notes libres, unités additionnelles, ou remarques.",
+"type": "string"
+}
+},
+"required": \["label\_eq", "formula", "constants", "coefficients"],
+"additionalProperties": false,
+"examples": \[
+{
+"label\_eq": "eq\:spec\_prim",
+"formula": "P\_R(k;alpha)=A\_s(alpha) k^{n\_s(alpha)-1}",
+"description": "Primordial spectrum modified by MCGT – baseline Planck 2018 parameters",
+"constants": { "A\_s0": 2.10e-9, "ns0": 0.9649 },
+"coefficients": { "c1": 0.10, "c1\_2": 0.00, "c2": 0.01, "c2\_2": 0.00 },
+"k\_range": \[1.0e-4, 1.0],
+"units": { "k": "1/Mpc", "P\_R": "dimensionless" },
+"references": \["Planck 2018", "MCGT internal note SP-02"],
+"notes": "c1,c2 représentent des corrections linéaires; \*\_2 réservés pour ordre supérieur."
+}
+]
+}

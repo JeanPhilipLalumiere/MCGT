@@ -1,0 +1,56 @@
+{
+"chapter": 5,
+"title": "nucleosynthese-primordiale",
+"paths": {
+"data\_dir": "zz-data/chapter5",
+"scripts\_dir": "zz-scripts/chapter5",
+"figures\_dir": "zz-figures/chapter5",
+"configs": \[
+"conventions.md",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data\_inputs": \[
+"zz-data/chapter5/05\_bbn\_chi2\_vs\_T.csv",
+"zz-data/chapter5/05\_bbn\_data.csv",
+"zz-data/chapter5/05\_bbn\_grid.csv",
+"zz-data/chapter5/05\_bbn\_invariants.csv",
+"zz-data/chapter5/05\_bbn\_milestones.csv",
+"zz-data/chapter5/05\_bbn\_parameters.json",
+"zz-data/chapter5/05\_chi2\_derivative.csv"
+],
+"data\_outputs": \[],
+"figures": \[
+"zz-figures/chapter5/fig\_01\_bbn\_reaction\_network.png",
+"zz-figures/chapter5/fig\_02\_dh\_model\_vs\_obs.png",
+"zz-figures/chapter5/fig\_03\_yp\_model\_vs\_obs.png",
+"zz-figures/chapter5/fig\_04\_chi2\_vs\_T.png"
+],
+"metas": \[
+"zz-data/chapter5/05\_bbn\_chi2\_vs\_T.meta.json",
+"zz-figures/chapter5/fig\_*.meta.json"
+],
+"others": \[
+"05-nucleosynthese-primordiale/CHAPTER5\_GUIDE.txt"
+]
+},
+"scripts": \[
+"zz-scripts/chapter5/generate\_chapter5\_data.py",
+"zz-scripts/chapter5/plot\_fig02\_dh\_model\_vs\_obs.py",
+"zz-scripts/chapter5/plot\_fig03\_yp\_model\_vs\_obs.py",
+"zz-scripts/chapter5/plot\_fig04\_chi2\_vs\_T.py"
+],
+"meta\_expected": \[
+"zz-data/chapter5/05\_bbn\_chi2\_vs\_T.meta.json",
+"zz-figures/chapter5/fig\_*.meta.json"
+],
+"status": "ready",
+"qa\_checks": \[
+"Encodage UTF-8 correct (sources SN/BBN).",
+"`05_chi2_derivative.csv` non vide après lissage SavGol.",
+"Cohérence sémantique des seuils `primary/order2` (ou renommer).",
+"Forme de χ²(T) justifiée (artefacts exclus)."
+],
+"notes": "Corriger mojibake; remplir dérivée; documenter seuils spécifiques si dérogation."
+}

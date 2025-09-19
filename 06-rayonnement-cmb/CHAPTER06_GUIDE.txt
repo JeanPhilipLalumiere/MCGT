@@ -1,0 +1,240 @@
+CHAPITRE 6 – RAYONNEMENT CMB — GUIDE D’UTILISATION
+
+Objectif :
+  Ce guide décrit de manière complète la génération des données, la production
+  des figures, l’injection MCGT dans CAMB et la compilation LaTeX pour le
+  Chapitre 6 (Rayonnement CMB) du projet MCGT. Toutes les étapes et fichiers
+  nécessaires sont référencés de façon homogène avec les autres chapitres.
+
+Dépendances logicielles minimales :
+  • Python ≥ 3.9 (numpy, pandas, scipy, matplotlib)
+  • CAMB (API Python) + dépendances système FFTW/GSL (si nécessaire)
+  • LaTeX – pdflatex (packages usuels : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox)
+
+Constantes et tolérances clés :
+  • Lissage Savitzky–Golay : fenêtre = 7 points ; ordre = 3
+  • Tolérances : ±1 % (jalons « primaires ») ; ±10 % (jalons « ordre 2 »)
+  • Dérivées tracées : échelle visuelle souvent divisée par 1×10⁴ pour la lisibilité
+
+CONTENU
+
+1. SOURCES LaTeX (dossier `06-rayonnement-cmb/`)
+   • 06_cmb_conceptuel.tex
+   • 06_cmb_details.tex
+
+2. DONNÉES (dossier `zz-data/chapter06/`)
+
+2.1 Fichier « 06_cls_spectrum_lcdm.dat »
+| Colonne | Description                                         | Unité | Source / Remarque                                                                 |
+|:-------:|:----------------------------------------------------|:-----:|:----------------------------------------------------------------------------------|
+| ell     | Multipôle (2…3000)                                  |  —    | Spectre ΛCDM brut calculé par CAMB (API Python)                                   |
+| Cl_LCDM | Spectre \(C_\ell^{\Lambda\mathrm{CDM}}\)            | µK²   | get_cmb_power_spectra(...)[“total”][:,0] ; en-tête : `# ell   Cl_LCDM`            |
+
+2.2 Fichier « 06_cls_spectrum.dat »
+| Colonne | Description                                         | Unité | Source / Remarque                                                                 |
+|:-------:|:----------------------------------------------------|:-----:|:----------------------------------------------------------------------------------|
+| ell     | Multipôle (2…3000)                                  |  —    | Simulation MCGT via CAMB + post-traitement `tweak_for_mcgt`                      |
+| Cl_MCGT | Spectre \(C_\ell^{\mathrm{MCGT}}\)                  | µK²   | En-tête : `# ell   Cl_MCGT`                                                       |
+
+2.3 Fichier « 06_delta_cls.csv »
+| Colonne  | Description                              | Unité | Source / Remarque                                         |
+|:--------:|:-----------------------------------------|:-----:|:----------------------------------------------------------|
+| ell      | Multipôle (même grille)                  |  —    |                                                           |
+| delta_Cl | \(\Delta C_\ell = C_\ell^{\rm MCGT}-C_\ell^{\Lambda\rm CDM}\) | µK² | Calcul en post-traitement ; en-tête : `ell,delta_Cl`      |
+
+2.4 Fichier « 06_delta_cls_relative.csv »
+| Colonne       | Description                                          | Unité | Source / Remarque                           |
+|:-------------:|:-----------------------------------------------------|:-----:|:--------------------------------------------|
+| ell           | Multipôle (idem)                                     |  —    |                                             |
+| delta_Cl_rel  | \((C_\ell^{\rm MCGT}-C_\ell^{\Lambda\rm CDM})/C_\ell^{\Lambda\rm CDM}\) |  —    | En-tête : `ell,delta_Cl_rel`               |
+
+2.5 Fichiers « 06_delta_rs_scan.csv » et « 06_delta_rs_scan2D.csv »
+| Colonne      | Description                                 | Unité | Source / Remarque                                        |
+|:------------:|:--------------------------------------------|:-----:|:---------------------------------------------------------|
+| q0star       | Valeur de \(q_0^\*\) testée                 |  —    | Grille linéaire (ex. −0.10 → +0.10)                      |
+| alpha        | Paramètre \(\alpha\) (si 2D)                |  —    | Grille linéaire (ex. −0.10 → +0.10)                      |
+| r_s          | \(r_{\rm drag}(q_0^\*,\alpha)\)             | Mpc   | Issu de `compute_rs(params)`                             |
+| delta_rs_rel | \((r_s - r_{\rm ref})/r_{\rm ref}\)         |  —    | Variation relative                                       |
+
+2.6 Fichier « 06_cmb_chi2_scan2D.csv »
+| Colonne | Description                                                                                  | Unité | Source / Remarque                                   |
+|:-------:|:---------------------------------------------------------------------------------------------|:-----:|:----------------------------------------------------|
+| alpha   | Paramètre \(\alpha\) testé                                                                    |  —    | Grille linéaire                                     |
+| q0star  | Paramètre \(q_0^\*\) testé                                                                    |  —    | Grille linéaire                                     |
+| chi2    | \(\sum_\ell \frac{\bigl(C_\ell^{\rm MCGT}-C_\ell^{\Lambda{\rm CDM}}\bigr)^2}{C_\ell^{\Lambda{\rm CDM}}}\) |  —    | Coût quadratique non-pondéré                         |
+
+2.7 Fichier « 06_hubble_mcgt.dat »
+| Colonne    | Description                         | Unité | Source / Remarque                                                   |
+|:----------:|:------------------------------------|:-----:|:--------------------------------------------------------------------|
+| z          | Redshift (grille adaptée)           |  —    | Généré par `generate_pdot_plateau_vs_z.py`                          |
+| H_over_H0  | \(H(z)/H_0\) normalisé              |  —    | Utilisé par CAMB via `expansion_rate_file`                          |
+En-tête type : `# z      H_model(z)/H_LCDM(z)`.
+
+2.8 Fichier « 06_delta_Tm_scan.csv » (optionnel)
+| Colonne  | Description                                       | Unité | Source / Remarque                                         |
+|:--------:|:--------------------------------------------------|:-----:|:----------------------------------------------------------|
+| k        | Vecteur d’onde (mode matter)                      | h/Mpc | `get_matter_transfer_data()`                              |
+| delta_Tm | \(\Delta T_m(k) = T_m^{\rm MCGT}(k)-T_m^{\Lambda\rm CDM}(k)\) |  —    | Export post-traitement                                    |
+
+2.9 Fichier « 06_params_cmb.json »
+  Métadonnées complètes de l’exécution (exemple) :
+  {
+    "alpha": 0.2,
+    "q0star": -0.1,
+    "ell_min": 2,
+    "ell_max": 3000,
+    "n_points": 3001,
+    "thresholds": { "primary": 0.01, "order2": 0.1 },
+    "derivative_window": 7,
+    "derivative_polyorder": 3,
+    "H0": 67.36,
+    "ombh2": 0.02237,
+    "omch2": 0.12,
+    "tau": 0.0544,
+    "mnu": 0.06,
+    "As0": 2.1e-09,
+    "ns0": 0.9649,
+    "c1": 0.10,
+    "c2": 0.01,
+    "max_delta_Cl_rel": 0.6296832401981298
+  }
+  (Champs optionnels possibles : `omk`, `As`, `ns`, `max_epsilon_primary`, `max_epsilon_order2`.)
+
+2.10 Conventions et qualité des données
+  • Grille multipôles ℓ : log-uniforme sur [2, 3000] (ex. Δlog₁₀ℓ = 0,01).
+  • Interpolation : PCHIP en (log₁₀ℓ, log₁₀Cℓ), `extrapolate=True`, puis clip aux bornes.
+  • Dérivée/χ² : dérivées lissées (Savitzky–Golay fen.=7, ordre=3, mode='interp').
+  • Seuils QC usuels : max\|ΔCℓ/Cℓ\| < 10 % ; jalons primaires < 1 %.
+  • Aucune valeur NaN/Inf ; χ² finies et ≥ 0.
+
+2.11 Paramétrisation du spectre primordial — modulation par \(\alpha\)
+  • Référence Planck 2018 : \(A_s^0 \simeq 2.10\times10^{-9}\), \(n_s^0 \simeq 0.9649\).
+  • Modèle linéaire (petites variations) :
+      \(A_s(\alpha) = A_s^0 \cdot (1 + c_1 \alpha)\), \(n_s(\alpha) = n_s^0 + c_2 \alpha\).
+    Coefficients : \(c_1 = 0.10\), \(c_2 = 0.01\).
+  • Export associé (si activé) : `06_alpha_evolution.csv` avec `alpha,A_s,n_s`.
+
+3. INJECTION MCGT DANS CAMB
+  • Transferts affectés : mode « matter » → \(\Delta T_m(k)\).
+  • Option A (post-traitement Python) :
+      — Implémenter `tweak_for_mcgt(pars, alpha, q0star)` (CAMBparams → ajuste transferts).
+      — Passer \(\alpha\), \(q_0^\*\) en CLI lors de la génération.
+  • Option B (Fortran, optionnelle) :
+      — Patch `TransferModule.f90` :
+        ```
+        if (use_mcgT) then
+          T_m(i) = T_LCDM(i) + dT_m(i)
+        endif
+        ```
+      — Ajouter `use_mcgT` et `mcgt_transfer_file` dans les objets INI, recompiler CAMB.
+
+4. IDENTIFICATION DU MODE « MATTER »
+  Extrait minimal pour lister les modes de transfert :
+  ```python
+  from camb import CAMBparams, get_results
+  pars = CAMBparams()
+  pars.set_cosmology(H0=67.36, ombh2=0.02237, omch2=0.12, tau=0.0544, mnu=0.06)
+  pars.InitPower.set_params(As=2.10e-9, ns=0.9649)
+  pars.set_matter_power(redshifts=[0], kmax=10.0)
+  results = get_results(pars)
+  for i, mode in enumerate(results.transfer_modes):
+      print(f"{i:2d} -> {mode}")
+````
+
+Noter l’indice associé au transfert de densité de matière pour l’injection.
+
+5. DONNÉES PRODUITES (récapitulatif, dossier `zz-data/chapter06/`)
+   • 06\_cls\_spectrum\_lcdm.dat — spectre ΛCDM (ℓ, Cl\_LCDM)
+   • 06\_cls\_spectrum.dat      — spectre MCGT (ℓ, Cl\_MCGT)
+   • 06\_delta\_cls.csv         — ΔCℓ
+   • 06\_delta\_cls\_relative.csv— ΔCℓ/Cℓ
+   • 06\_delta\_rs\_scan.csv     — profil 1D $q_0^\* \mapsto \Delta r_s/r_s$
+   • 06\_delta\_rs\_scan2D.csv   — carte 2D (α, $q_0^\*$)
+   • 06\_cmb\_chi2\_scan2D.csv   — χ²(α,$q_0^\*$)
+   • 06\_hubble\_mcgt.dat       — $H(z)/H_0$ normalisé (pour CAMB)
+   • 06\_delta\_Tm\_scan.csv     — (optionnel) ΔT\_m(k)
+   • 06\_params\_cmb.json       — paramètres et méta d’exécution
+
+6. FIGURES GÉNÉRÉES (dossier `zz-figures/chapter06/`)
+   • fig\_01\_cmb\_dataflow\_diagram.png  — Schéma du flux de données (expansion → CAMB → Cℓ/ΔCℓ)
+   • fig\_02\_cls\_lcdm\_vs\_mcgt.png      — ΛCDM vs MCGT (échelles adaptées), annotation α, $q_0^\*$
+   • fig\_03\_delta\_cls\_relative.png    — ΔCℓ/Cℓ en fonction de ℓ
+   • fig\_04\_delta\_rs\_vs\_params.png    — Δr\_s/r\_s vs $q_0^\*$ (lignes ±1 %)
+   • fig\_05\_delta\_chi2\_heatmap.png    — carte 2D χ²(α,$q_0^\*$)
+
+7. SCRIPTS D’EXÉCUTION (dossier `zz-scripts/chapter06/`)
+   • generate\_pdot\_plateau\_vs\_z.py
+   — Produit `zz-configuration/pdot_plateau_vs_z.dat` et/ou `zz-data/chapter06/06_hubble_mcgt.dat`.
+   • generate\_data\_chapter06.py
+   — Pipeline complet (DAT/CSV/JSON). Options :
+   \--alpha <float>   (ex. 0.20)
+   \--q0star <float>  (ex. -0.10)
+   \[--export-derivative]
+   • plot\_fig01\_cmb\_dataflow\_diagram.py
+   • plot\_fig02\_cls\_lcdm\_vs\_mcgt.py
+   • plot\_fig03\_delta\_cls\_relative.py
+   • plot\_fig04\_delta\_rs\_vs\_params.py
+   • plot\_fig05\_delta\_chi2\_heatmap.py
+   • run\_camb\_chapter06.bat (exécution CAMB en local si souhaité)
+
+8. FICHIER DE DÉRIVÉE BRUTE (OPTIONNEL)
+   • 06\_dchi2\_vs\_ell.csv
+   — colonnes : `ell,dchi2_smooth`
+   — calcul par gradient + lissage (Savitzky–Golay, fen.=7, ordre=3, mode='interp')
+   — éventuellement mis à l’échelle (÷1×10⁴) pour les figures.
+
+9. PARAMÈTRES DE LISSAGE & INTERPOLATION
+   • Grille ℓ : log-uniforme ; contrôlée par `ell_min`, `ell_max`, `n_points`.
+   • Interpolation PCHIP en log-espaces pour Cℓ ; clip aux bornes.
+   • Lissage Savitzky–Golay : `derivative_window` (7), `derivative_polyorder` (3), `mode='interp'`.
+   • Les valeurs effectives sont sauvegardées dans `06_params_cmb.json`.
+
+10. CONTRÔLES DE QUALITÉ (QC)
+    • Intégrité fichiers : non vides, sans NaN/Inf ; colonnes au bon format.
+    • Bornes relatives : max|ΔCℓ/Cℓ| < 10 % ; jalons primaires < 1 %.
+    • χ² : finies et ≥ 0 ; minimum cohérent sur la carte 2D.
+    • Dimensions cohérentes : longueurs des grilles (ℓ) identiques.
+    • Journal : messages de debug/erreur capturés ; logs archivables dans CI.
+
+11. VERSIONNAGE & REPRODUCTIBILITÉ
+    • `06_params_cmb.json` consigne les paramètres/méta d’une exécution donnée.
+    • `CHANGELOG.md` (racine du package `mcgt/`) : noter les modifications liées au Chapitre 6.
+    • Tags git recommandés lors des jalons (ex. `v1.0-ch6`).
+
+12. COMMANDES D’EXÉCUTION (exemples)
+
+# 1) Générer l’expansion plateau vs z
+
+python zz-scripts/chapter06/generate\_pdot\_plateau\_vs\_z.py
+
+# 2) Lancer CAMB avec l’expansion injectée (option local)
+
+camb zz-configuration/camb\_exact\_plateau.ini&#x20;
+output\_root=mcgt\_cmb&#x20;
+expansion\_rate\_file=zz-configuration/pdot\_plateau\_vs\_z.dat
+
+# 3) Pipeline complet (données + méta)
+
+python zz-scripts/chapter06/generate\_data\_chapter06.py&#x20;
+\--alpha 0.20&#x20;
+\--q0star -0.10&#x20;
+\--export-derivative
+
+# 4) Tracé des figures
+
+python zz-scripts/chapter06/plot\_fig01\_cmb\_dataflow\_diagram.py
+python zz-scripts/chapter06/plot\_fig02\_cls\_lcdm\_vs\_mcgt.py
+python zz-scripts/chapter06/plot\_fig03\_delta\_cls\_relative.py
+python zz-scripts/chapter06/plot\_fig04\_delta\_rs\_vs\_params.py
+python zz-scripts/chapter06/plot\_fig05\_delta\_chi2\_heatmap.py
+
+13. COMPILATION LaTeX
+
+pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06\_cmb\_conceptuel.tex
+pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06\_cmb\_conceptuel.tex
+pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06\_cmb\_details.tex
+pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06\_cmb\_details.tex
+
+Notes :
+• Tous les chemins sont relatifs à la racine du projet.
+• Vérifier l’environnement Python, CAMB et LaTeX avant exécution.

@@ -1,0 +1,23 @@
+{
+  "T_split_Gyr": 1.0,
+  "thresholds": {
+    "primary": 0.01,
+    "order2": 0.1
+  },
+  "segments": {
+    "low": {
+      "alpha0": 0.2,
+      "alpha_inf": 0.2,
+      "Tc": 0.0,
+      "Delta": 0.0,
+      "Tp": 0.0
+    },
+    "high": {
+      "alpha0": 0.2,
+      "alpha_inf": 0.2,
+      "Tc": 0.0,
+      "Delta": 0.0,
+      "Tp": 0.0
+    }
+  }
+}

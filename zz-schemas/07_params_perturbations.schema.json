@@ -1,0 +1,139 @@
+{
+"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$id": "zz-schemas/07_perturbations_parameters.schema.json",
+"title": "Chapter 07 — Perturbations parameters",
+"description": "Schéma validant les paramètres numériques et pipeline utilisés au Chapitre 7 (perturbations scalaires). Fichier cible: 07_params_perturbations.json.",
+"type": "object",
+"properties": {
+"generated_at": { "type": "string", "format": "date-time", "description": "Horodatage ISO (optionnel)." },
+"producer_script": { "type": "string", "description": "Script producteur (relatif, optionnel)." },
+"git_hash": { "anyOf": [{ "type": "string", "minLength": 7 }, { "type": "null" }], "description": "Commit (optionnel)." },
+
+"cs2_param": { "type": "number", "description": "Valeur représentative pour c_s^2." },
+"delta_phi_param": { "type": "number", "description": "Amplitude représentative pour δφ." },
+
+"k_min": { "type": "number", "minimum": 0, "description": "k minimal." },
+"k_max": { "type": "number", "exclusiveMinimum": 0, "description": "k maximal (>0)." },
+"dlog": { "type": "number", "minimum": 0, "description": "Pas logarithmique en k (d log k)." },
+"n_k": { "type": "integer", "minimum": 1, "description": "Nombre de points en k." },
+
+"a_min": { "type": "number", "minimum": 0, "maximum": 1, "description": "Facteur d’échelle minimal." },
+"a_max": { "type": "number", "minimum": 0, "maximum": 1, "description": "Facteur d’échelle maximal." },
+"n_a": { "type": "integer", "minimum": 1, "description": "Nombre de points en a." },
+
+"derivative_window": {
+  "type": "integer",
+  "minimum": 3,
+  "description": "Fenêtre Savitzky–Golay (entier impair recommandé).",
+  "not": { "multipleOf": 2 }
+},
+"derivative_polyorder": { "type": "integer", "minimum": 1, "description": "Ordre polynomial Savitzky–Golay." },
+
+"thresholds": {
+  "type": "object",
+  "description": "Seuils pour classifier primary/order2.",
+  "properties": {
+    "primary": { "type": "number", "minimum": 0 },
+    "order2": { "type": "number", "minimum": 0 }
+  },
+  "required": ["primary", "order2"],
+  "additionalProperties": false
+},
+
+"x_split": { "type": "number", "description": "Valeur de split (séparation de régimes)." },
+"k0": { "type": "number", "description": "Vague nombre de référence k0." },
+"alpha": { "type": "number", "description": "Paramètre de modèle (chapitre)." },
+
+"max_epsilon_primary_cs2": { "type": "number", "minimum": 0 },
+"max_epsilon_order2_cs2": { "type": "number", "minimum": 0 },
+"max_epsilon_primary_phi": { "type": "number", "minimum": 0 },
+"max_epsilon_order2_phi": { "type": "number", "minimum": 0 },
+
+"segments": {
+  "type": "object",
+  "description": "Segmentation optionnelle de la grille.",
+  "properties": {
+    "low": {
+      "type": "object",
+      "properties": {
+        "k_max": { "type": "number" },
+        "n_points": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["n_points"],
+      "additionalProperties": false
+    },
+    "high": {
+      "type": "object",
+      "properties": {
+        "k_min": { "type": "number" },
+        "n_points": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["n_points"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+},
+
+"metric_window_Hz": {
+  "type": "array",
+  "description": "Fenêtre de fréquences pour les métriques (ex. [20, 300]).",
+  "items": { "type": "number", "minimum": 0 },
+  "minItems": 2,
+  "maxItems": 2
+},
+
+"notes": { "type": "string", "description": "Notes opérateur (optionnel)." }
+
+},
+
+"required": [
+"cs2_param",
+"delta_phi_param",
+"k_min",
+"k_max",
+"dlog",
+"n_k",
+"a_min",
+"a_max",
+"n_a",
+"derivative_window",
+"derivative_polyorder",
+"thresholds",
+"x_split",
+"k0",
+"alpha"
+],
+
+"additionalProperties": false,
+
+"examples": [
+{
+"generated_at": "2025-08-23T12:00:00Z",
+"producer_script": "zz-scripts/chapter7/generate_chapter7_data.py",
+"git_hash": "abcdef1",
+"cs2_param": 1.0,
+"delta_phi_param": 0.05,
+"k_min": 0.0001,
+"k_max": 10.0,
+"dlog": 0.01,
+"n_k": 501,
+"a_min": 0.05,
+"a_max": 1.0,
+"n_a": 20,
+"derivative_window": 7,
+"derivative_polyorder": 3,
+"thresholds": { "primary": 0.01, "order2": 0.1 },
+"x_split": 0.02,
+"k0": 0.1,
+"alpha": 0.5,
+"max_epsilon_primary_cs2": 8.5761001246317,
+"max_epsilon_order2_cs2": 0.0,
+"max_epsilon_primary_phi": 0.0,
+"max_epsilon_order2_phi": 0.0,
+"segments": { "low": { "k_max": 0.01995, "n_points": 231 }, "high": { "k_min": 0.02042, "n_points": 270 } },
+"metric_window_Hz": [20, 300],
+"notes": "Ajuster la fenêtre SavGol si oscillations numériques."
+}
+]
+}

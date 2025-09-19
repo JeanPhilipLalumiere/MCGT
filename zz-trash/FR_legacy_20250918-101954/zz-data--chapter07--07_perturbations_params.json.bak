@@ -1,0 +1,34 @@
+{
+  "cs2_param": 1.0,
+  "delta_phi_param": 0.05,
+  "k_min": 0.0001,
+  "k_max": 10.0,
+  "dlog": 0.01,
+  "n_k": 501,
+  "a_min": 0.05,
+  "a_max": 1.0,
+  "n_a": 20,
+  "derivative_window": 7,
+  "derivative_polyorder": 3,
+  "thresholds": {
+    "primary": 0.01,
+    "order2": 0.1
+  },
+  "x_split": 0.02,
+  "k0": 0.1,
+  "alpha": 0.5,
+  "max_epsilon_primary_cs2": 8.5761001246317,
+  "max_epsilon_order2_cs2": 0.0,
+  "max_epsilon_primary_phi": 0.0,
+  "max_epsilon_order2_phi": 0.0,
+  "segments": {
+    "low": {
+      "k_max": 0.01995262314968881,
+      "n_points": 231
+    },
+    "high": {
+      "k_min": 0.020417379446695295,
+      "n_points": 270
+    }
+  }
+}

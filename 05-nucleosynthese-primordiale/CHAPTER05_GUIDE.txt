@@ -1,0 +1,154 @@
+CHAPTER 5 — GUIDE D’UTILISATION
+Nucléosynthèse primordiale (BBN) — Données, scripts, figures et compilation
+
+Objectif
+Ce guide décrit, de façon opérationnelle, la génération des données et figures ainsi que la compilation LaTeX pour le Chapitre 5 (Nucléosynthèse primordiale) du projet MCGT. Le texte est en français; les noms de fichiers et de commandes restent en anglais pour la cohérence du dépôt.
+
+Dépendances logicielles minimales
+• Python ≥ 3.9 (packages : numpy, pandas, scipy, matplotlib)
+• LaTeX (pdflatex ; packages usuels : amsmath, graphicx, siunitx, booktabs, hyperref)
+
+Constantes et conventions clés
+• Lissage Savitzky–Golay : window_length = 7 ; polyorder = 3
+• Grille en T (Gyr) log-uniforme : [1e-6, 14] avec Δlog10 T ≈ 0.01
+• Tolérances de classification des jalons : primaire ≤ 1 % ; ordre 2 ≤ 10 %
+• Échelle de dérivée pour tracés : normalisation interne (unités sans dimension)
+
+1) Périmètre et résultats attendus
+Ce chapitre compare des prédictions simplifiées de D/H et Yp à des observations représentatives, calcule χ²(T), sa dérivée lissée, et produit un ensemble de figures : réseau de réactions (schéma), D/H modèle vs obs, Yp modèle vs obs, χ² vs T.
+
+2) Organisation des fichiers
+• Sources LaTeX (répertoire : 05-nucleosynthese-primordiale/)
+  - 05_primordial_nucleosynthesis_conceptual.tex
+  - 05_primordial_nucleosynthesis_details.tex
+• Données (répertoire : zz-data/chapter05/)
+  - 05_bbn_milestones.csv
+  - 05_bbn_grid.csv
+  - 05_bbn_data.csv
+  - 05_bbn_invariants.csv
+  - 05_chi2_bbn_vs_T.csv
+  - 05_dchi2_vs_T.csv
+  - 05_bbn_params.json
+• Figures (répertoire : zz-figures/chapter05/)
+  - fig_01_bbn_reaction_network.png
+  - fig_02_dh_model_vs_obs.png
+  - fig_03_yp_model_vs_obs.png
+  - fig_04_chi2_vs_T.png
+• Scripts (répertoire : zz-scripts/chapter05/)
+  - generate_data_chapter05.py
+  - plot_fig01_bbn_reaction_network.py
+  - plot_fig02_dh_model_vs_obs.py
+  - plot_fig03_yp_model_vs_obs.py
+  - plot_fig04_chi2_vs_T.py
+  - requirements.txt
+
+3) Données d’entrée (tableau de référence)
+Fichier : zz-data/chapter05/05_bbn_milestones.csv
+
+| Colonne     | Description                                        | Unité | Remarques                                  |
+|:------------|:---------------------------------------------------|:------|:-------------------------------------------|
+| label       | Identifiant du jalon (p.ex. DH_obs, Yp_obs, …)     | —     | Unique par ligne                           |
+| z           | Redshift de référence                               | —     | Facultatif (NaN autorisé)                  |
+| value       | Valeur observée (D/H ou Yp)                         | —     | Valeur numérique (float)                   |
+| sigma       | Incertitude publiée                                 | —     | Utilisée dans le calcul de χ²              |
+| source      | Référence ou note synthétique                       | —     | Courte chaîne (sans virgules si possible)  |
+| classe      | primaire / ordre2                                   | —     | Sur base des tolérances (1 %, 10 %)        |
+
+Règles :
+• Format CSV, séparateur virgule, encodage UTF-8 ; première ligne = en-tête.
+• Aucune ligne dupliquée sur (label).
+• Valeurs numériques parsées en float ; lignes contenant NaN critiques sont ignorées.
+
+4) Données produites (tableaux et formats)
+(4.1) Grille en T
+Fichier : zz-data/chapter05/05_bbn_grid.csv
+
+| Colonne | Description                                     | Unité |
+|:--------|:------------------------------------------------|:------|
+| T_Gyr   | Grille log-uniforme (1e-6 → 14)                 | Gyr   |
+
+(4.2) Données modèle
+Fichier : zz-data/chapter05/05_bbn_data.csv
+
+| Colonne | Description                                | Unité |
+|:--------|:-------------------------------------------|:------|
+| T_Gyr   | Même grille que 05_bbn_grid.csv            | Gyr   |
+| DH_calc | Rapport D/H calculé                        | —     |
+| Yp_calc | Abondance massique ⁴He calculée            | —     |
+
+(4.3) Invariants sans dimension
+Fichier : zz-data/chapter05/05_bbn_invariants.csv
+
+| Colonne | Description                         | Unité |
+|:--------|:------------------------------------|:------|
+| T_Gyr   | Grille log-uniforme                 | Gyr   |
+| I_DH    | Invariant D/H (déf. adimensionnée)  | —     |
+| I_Yp    | Invariant Yp (déf. adimensionnée)   | —     |
+
+(4.4) Courbes χ² et dérivées
+Fichier : zz-data/chapter05/05_chi2_bbn_vs_T.csv
+
+| Colonne          | Description         | Unité |
+|:-----------------|:--------------------|:------|
+| T_Gyr            | Grille              | Gyr   |
+| chi2_nucleosynth | χ² cumulée          | —     |
+
+Fichier : zz-data/chapter05/05_dchi2_vs_T.csv
+
+| Colonne     | Description                      | Unité |
+|:------------|:---------------------------------|:------|
+| T_Gyr       | Grille                           | Gyr   |
+| dchi2_smooth| d(χ²)/dT lissée (Savitzky–Golay) | —/Gyr |
+
+(4.5) Paramètres et métriques
+Fichier : zz-data/chapter05/05_bbn_params.json
+• Clés recommandées : T_min, T_max, n_points, window_length, polyorder, tol_primary, tol_order2, max_epsilon_primary, max_epsilon_order2.
+
+5) Figures générées
+• fig_01_bbn_reaction_network.png — Schéma du réseau de réactions (illustratif)
+• fig_02_dh_model_vs_obs.png — D/H (modèle) vs observations (log–log)
+• fig_03_yp_model_vs_obs.png — Yp (modèle) vs observations (log–log)
+• fig_04_chi2_vs_T.png — χ²(T) et dχ²/dT lissée
+
+6) Scripts d’exécution (entrée / sortie)
+• generate_data_chapter05.py
+  - Lecture : 05_bbn_milestones.csv
+  - Écrit : 05_bbn_grid.csv, 05_bbn_data.csv, 05_bbn_invariants.csv, 05_chi2_bbn_vs_T.csv, 05_dchi2_vs_T.csv, 05_bbn_params.json
+• plot_fig01_bbn_reaction_network.py → fig_01_bbn_reaction_network.png
+• plot_fig02_dh_modele_contre_obs.py → fig_02_dh_model_vs_obs.png
+• plot_fig03_yp_modele_contre_obs.py → fig_03_yp_model_vs_obs.png
+• plot_fig04_chi2_contre_T.py → fig_04_chi2_vs_T.png
+
+7) Paramètres, algorithmes et normalisations
+• Grille T : log-uniforme, bornes [1e-6, 14] Gyr ; densité contrôlée par Δlog10 T.
+• Interpolation : PCHIP log–log pour stabiliser les variations à petites échelles.
+• Lissage dérivée : filtre Savitzky–Golay (window_length = 7, polyorder = 3).
+• Tolérances : primaire (≤ 1 %) ; ordre 2 (≤ 10 %) — utilisées pour la pondération et la classification des jalons.
+• Champs max_epsilon_* dans 05_bbn_params.json : consignent les écarts maximaux mesurés (suivi de cohérence inter-chapitres).
+
+8) Contrôles qualité et validations
+• Validation d’intégrité CSV : en-têtes présents, types numériques parsables, absence de doublons (label).
+• Cohérence séries : tailles identiques des colonnes T_Gyr / métriques ; dropna() si nécessaire.
+• Bornage : pas d’extrapolation non contrôlée hors [T_min, T_max].
+• Vérification tolérances : écarts relatifs conformes aux classes primaire / ordre2.
+• Journalisation : messages de diagnostic au besoin (DEBUG) ; arrêt en cas d’erreurs critiques.
+
+9) Reproductibilité et traçabilité
+• Manifests : zz-manifests/manifest_master.json et manifest_publication.json doivent référencer les fichiers du chapitre 5 (données + figures).
+• Schémas : ZZ-Schemas (p.ex. validation via validate_json.py / validate_csv_table.py).
+• Versionnage : commits atomiques ; mise à jour de CHANGELOG.md si des résultats sont modifiés.
+
+10) Commandes d’exécution (depuis la racine)
+# Générer les données
+python zz-scripts/chapter05/generate_data_chapter05.py
+
+# Tracer les figures
+python zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py
+python zz-scripts/chapter05/plot_fig02_dh_modele_contre_obs.py
+python zz-scripts/chapter05/plot_fig03_yp_modele_contre_obs.py
+python zz-scripts/chapter05/plot_fig04_chi2_contre_T.py
+
+11) Compilation LaTeX
+pdflatex -jobname=chap5_conceptual  05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_conceptual.tex
+pdflatex -jobname=chap5_details     05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_details.tex
+

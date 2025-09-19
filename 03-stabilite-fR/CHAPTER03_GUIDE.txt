@@ -1,0 +1,147 @@
+CHAPITRE 3 — GUIDE D’UTILISATION
+Stabilité de f(R)
+
+1) Objet et portée
+Ce guide décrit, pour le Chapitre 3, la génération des jeux de données, la production des figures et l’intégration LaTeX concernant l’étude de stabilité des modèles de gravité f(R). Les noms de fichiers sont normalisés en anglais pour cohérence avec l’arborescence MCGT.
+
+2) Organisation des fichiers
+- Sources LaTeX : 03-stabilite-fR/
+  • 03_stabilite_fR_conceptuel.tex
+  • 03_stabilite_fR_details.tex
+- Configuration (commune) : zz-configuration/
+  • gw_phase.ini  (section [scan] : fmin, fmax, dlog)
+  • mcgt-global-config.ini  (réglages globaux)
+- Données : zz-data/chapter03/
+  • 03_ricci_fR_milestones.csv
+  • 03_fR_stability_data.csv
+  • 03_fR_stability_domain.csv
+  • 03_fR_stability_boundary.csv
+  • 03_fR_stability_meta.json
+  • 03_ricci_fR_vs_z.csv
+  • 03_ricci_fR_vs_T.csv
+- Scripts : zz-scripts/chapter03/
+  • generate_data_chapter03.py
+  • plot_fig01_fR_stability_domain.py
+  • plot_fig02_fR_fRR_vs_f.py
+  • plot_fig03_ms2_R0_vs_f.py
+  • plot_fig04_fR_fRR_vs_f.py
+  • plot_fig05_interpolated_milestones.py
+  • plot_fig06_grid_quality.py
+  • plot_fig07_ricci_fR_vs_z.py
+  • plot_fig08_ricci_fR_vs_T.py
+- Figures : zz-figures/chapter03/
+  • fig_01_fR_stability_domain.png
+  • fig_02_fR_fRR_vs_R.png
+  • fig_03_ms2_R0_vs_R.png
+  • fig_04_fR_fRR_vs_R.png
+  • fig_05_interpolated_milestones.png
+  • fig_06_grid_quality.png
+  • fig_07_ricci_fR_vs_z.png
+  • fig_08_ricci_fR_vs_T.png
+
+3) Entrées attendues (tables & formats)
+A) Fichier : zz-data/chapter03/03_ricci_fR_milestones.csv
+| Colonne     | Description                  | Unité | Remarques                          |
+| :---------- | :--------------------------- | :---- | :--------------------------------- |
+| R_over_R0   | Rapport R/R0                 | —     | points jalons (référence)          |
+| f_R         | dérivée première f′(R)       | —     | valeurs exactes / lissées          |
+| f_RR        | dérivée seconde f″(R)        | —     | valeurs exactes / lissées          |
+
+B) Fichier : zz-configuration/gw_phase.ini (extrait)
+[scan]
+fmin = <Hz>
+fmax = <Hz>
+dlog = <pas_log10>
+Ces clés définissent la grille (log-uniforme) lue par generate_data_chapter03.py.
+
+4) Sorties produites (tables & formats)
+A) Fichier : zz-data/chapter03/03_fR_stability_data.csv
+| Colonne        | Description                                 | Unité | Remarques                                  |
+| :------------- | :------------------------------------------ | :---- | :----------------------------------------- |
+| R_over_R0      | Rapport R/R0                                | —     | grille issue des jalons                    |
+| f_R            | f′(R)                                       | —     | interpolation (PCHIP sur log10)            |
+| f_RR           | f″(R)                                       | —     | interpolation (PCHIP sur log10)            |
+| m_s2_over_R0   | masse scalaire normalisée m_s²/R0           | —     | (f_R − (R/R0)·f_RR) / (3·f_RR)             |
+
+B) Fichier : zz-data/chapter03/03_fR_stability_domain.csv
+| Colonne   | Description                    | Unité | Remarques                                  |
+| :-------- | :----------------------------- | :---- | :----------------------------------------- |
+| beta      | β (paramètre adimensionnel)    | —     | grille de stabilité                        |
+| gamma_min | γ_min                           | —     | contrainte physique (≥ 0)                  |
+| gamma_max | γ_max                           | —     | borne supérieure issue de m_s2_over_R0     |
+
+C) Fichier : zz-data/chapter03/03_fR_stability_boundary.csv
+| Colonne     | Description                  | Unité | Remarques                  |
+| :---------- | :--------------------------- | :---- | :------------------------- |
+| beta        | β                            | —     | même échantillonnage       |
+| gamma_limit | frontière γ (stabilité max.) | —     | γ_limit = γ_max sur domaine |
+
+D) Fichier : zz-data/chapter03/03_ricci_fR_vs_z.csv
+| Colonne     | Description           | Unité | Remarques                       |
+| :---------- | :-------------------- | :---- | :------------------------------ |
+| R_over_R0   | Rapport R/R0          | —     | même jalons                     |
+| f_R         | f′(R)                 | —     | interpolé                       |
+| f_RR        | f″(R)                 | —     | interpolé                       |
+| z           | décalage spectral     | —     | interpolation monotone (PCHIP)  |
+
+E) Fichier : zz-data/chapter03/03_ricci_fR_vs_T.csv
+| Colonne     | Description               | Unité | Remarques                            |
+| :---------- | :------------------------ | :---- | :----------------------------------- |
+| R_over_R0   | Rapport R/R0              | —     | mêmes jalons                         |
+| f_R         | f′(R)                     | —     | interpolé                            |
+| f_RR        | f″(R)                     | —     | interpolé                            |
+| T_Gyr       | âge de l’Univers          | Gyr   | interpolation log–log (extrap. ok)   |
+
+F) Fichier : zz-data/chapter03/03_fR_stability_meta.json
+Clés : { "n_points": <int>, "files": [ … ] } — métadonnées de l’export principal.
+
+5) Paramètres & seuils (référence)
+- Grille en R_over_R0 induite par les jalons ; densification contrôlée par [scan] (gw_phase.ini).
+- Interpolation PCHIP appliquée sur log10(f_R) et log10(f_RR) pour éviter les oscillations.
+- Contraintes de stabilité : γ_min ≥ 0 ; γ_max dérivée de m_s2_over_R0.
+- Qualité de grille : vérification du pas log-uniforme (tolérance ~1e−12).
+
+6) Scripts & commandes
+Génération des données :
+python zz-scripts/chapter03/generate_data_chapter03.py \
+  --config zz-configuration/gw_phase.ini \
+  --npts 700
+
+Figures (exemples) :
+python zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
+python zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
+python zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+
+Cible Makefile (si disponible) :
+make figs-chap3
+
+7) Figures générées
+- fig_01_fR_stability_domain.png : domaine (β, γ)
+- fig_02_fR_fRR_vs_R.png & fig_04_fR_fRR_vs_R.png : diagnostics de f′ et f″
+- fig_03_ms2_R0_vs_R.png : m_s²/R0 vs R/R0
+- fig_05_interpolated_milestones.png : jalons vs interpolation
+- fig_06_grid_quality.png : uniformité du pas (log10)
+- fig_07_ricci_fR_vs_z.png : f′, f″ vs z
+- fig_08_ricci_fR_vs_T.png : f′, f″ vs T (Gyr)
+(Export PNG, 300 dpi, style cohérent multi-chapitres.)
+
+8) Validation & tests
+- Schémas : zz-schemas/
+  • meta_schema.json → 03_fR_stability_meta.json
+  • comparison_milestones_table_schema.json (référence de structure tabulaire)
+- Validateurs :
+  python zz-schemas/validate_json.py zz-schemas/meta_schema.json zz-data/chapter03/03_fR_stability_meta.json
+  python zz-schemas/validate_csv_table.py zz-schemas/comparison_milestones_table_schema.json zz-data/chapter03/03_ricci_fR_milestones.csv
+- Tests génériques (CI) : zz-tests/test_schemas.py, zz-tests/test_manifest.py
+
+9) Intégration LaTeX
+Compilation individuelle :
+pdflatex -jobname=chap3_conceptuel 03-stabilite-fR/03_stabilite_fR_conceptuel.tex
+pdflatex -jobname=chap3_details    03-stabilite-fR/03_stabilite_fR_details.tex
+(Respect des chemins relatifs vers zz-figures/chapter03/.)
+
+10) Journalisation & traçabilité
+- Méta-export : zz-data/chapter03/03_fR_stability_meta.json (fichiers, n_points)
+- Rapports : zz-manifests/reports/ (si générés par diag)
+- Manifestes : zz-manifests/chapters/chapter_manifest_03.json (déclaration des artefacts)
+- Cohérence : zz-manifests/diag_consistency.py (vérifications inter-chapitres)

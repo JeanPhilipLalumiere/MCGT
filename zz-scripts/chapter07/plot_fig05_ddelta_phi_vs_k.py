@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+tracer_fig05_ddelta_phi_vs_k.py
+
+Figure 05 — Dérivée lissée ∂ₖ(δφ/φ)(k)
+Chapitre 7 – Perturbations scalaires MCGT
+"""
+
+from __future__ import annotations
+import json
+import logging
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.ticker import LogLocator
+
+# --- Logging et style ---
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+plt.style.use("classic")
+
+# --- Racine du projet pour importer mcgt si nécessaire ---
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+# --- Chemins ---
+DATA_DIR  = ROOT / "zz-data"  / "chapitre7"
+CSV_DDK   = DATA_DIR / "07_ddelta_phi_dk.csv"
+JSON_META = DATA_DIR / "07_params_perturbations.json"
+FIG_DIR   = ROOT / "zz-figures" / "chapitre7"
+FIG_OUT   = FIG_DIR / "fig_05_ddelta_phi_dk_vs_k.png"
+
+# --- Lecture de k_split ---
+if not JSON_META.exists():
+    raise FileNotFoundError(f"Méta-paramètres introuvables : {JSON_META}")
+meta    = json.loads(JSON_META.read_text("utf-8"))
+k_split = float(meta.get("x_split", 0.02))
+logging.info("k_split = %.2e h/Mpc", k_split)
+
+# --- Chargement des données ---
+if not CSV_DDK.exists():
+    raise FileNotFoundError(f"Données introuvables : {CSV_DDK}")
+df = pd.read_csv(CSV_DDK, comment="#")
+logging.info("Chargé %d points depuis %s", len(df), CSV_DDK.name)
+
+k_vals = df["k"].to_numpy()
+ddphi   = df.iloc[:, 1].to_numpy()
+abs_dd  = np.abs(ddphi)
+
+# --- Tracé ---
+FIG_DIR.mkdir(parents=True, exist_ok=True)
+fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
+
+# Courbe
+ax.loglog(
+    k_vals,
+    abs_dd,
+    color="C2",
+    lw=2,
+    label=r"$|\partial_k(\delta\phi/\phi)|$"
+)
+
+# Repère k_split
+ax.axvline(k_split, ls="--", color="gray", lw=1)
+# Label k_split placé juste au-dessus de ymin
+ymin, ymax = 1e-50, 1e-2
+y_text = 10 ** (np.log10(ymin) + 0.05*(np.log10(ymax)-np.log10(ymin)))
+ax.text(
+    k_split*1.05,
+    y_text,
+    r"$k_{\rm split}$",
+    ha="left",
+    va="bottom",
+    fontsize=9
+)
+
+# Limites
+ax.set_ylim(ymin, ymax)
+ax.set_xlim(k_vals.min(), k_vals.max())
+
+# Axes en log
+ax.set_xscale("log")
+ax.set_yscale("log")
+
+# Labels
+ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
+ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$")
+
+# Tick Y explicites
+yticks = [1e-50, 1e-40, 1e-30, 1e-20, 1e-10, 1e-2]
+ax.set_yticks(yticks)
+ax.set_yticklabels([f"$10^{{{int(np.log10(t))}}}$" for t in yticks])
+
+# Grilles
+ax.grid(which="major", ls=":", lw=0.5)
+ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
+
+# Locators X
+ax.xaxis.set_major_locator(LogLocator(base=10))
+ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2,5)))
+
+# Légende
+ax.legend(loc="upper right", frameon=False)
+
+# Sauvegarde
+fig.savefig(FIG_OUT, dpi=300)
+plt.close(fig)
+logging.info("Figure sauvegardée → %s", FIG_OUT)

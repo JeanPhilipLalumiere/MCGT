@@ -1,0 +1,379 @@
+CHAPITRE 9 – GUIDE D’UTILISATION
+Phase et ondes gravitationnelles (MCGT vs GR/IMRPhenom)
+
+Objectif
+--------
+Ce guide décrit la génération des données, la production des figures et la
+compilation LaTeX pour le **Chapitre 9 – Phase et ondes gravitationnelles** du projet MCGT.
+
+
+Prérequis minimaux
+------------------
+- Python ≥ 3.10
+  • numpy, pandas, matplotlib
+  • (optionnel) scipy, h5py, lalsuite (pour régénérer IMRPhenom)
+- LaTeX (pdflatex) avec amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox
+- OS : Linux / macOS / WSL
+
+
+1) SOURCES LaTeX (dossier `09-phase-ondes-gravitationnelles/`)
+----------------------------------------------------------------
+- 09_phase_ondes_grav_conceptuel.tex
+- 09_phase_ondes_grav_details.tex
+- CHAPTER09_GUIDE.txt (le présent document)
+
+
+2) DONNÉES D’ENTRÉE (dossier `zz-data/chapter09/`)
+---------------------------------------------------
+
+2.1 `09_phases_imrphenom.csv`
+| Colonne | Description                        | Unité | Remarque                                        |
+| :------ | :--------------------------------- | :---- | :---------------------------------------------- |
+| f_Hz    | Fréquence                          |  Hz   | grille croissante, sans doublons                |
+| phi_ref | Phase GR de référence (IMRPhenomD) |  rad  | spins=0, phi0=0, t_c=0 ; cadre source           |
+
+Métadonnées associées : `09_phases_imrphenom.meta.json` (grille, versions libs).
+
+(Option) Régénération :
+  python zz-scripts/chapter09/extract_phenom_phase.py \
+    --out zz-data/chapter09/09_phases_imrphenom.csv
+
+2.2 `09_phases_mcgt_prepoly.csv`  (sortie “pré-correction”)
+| Colonne       | Description                                | Unité | Remarque                                     |
+| :------------ | :----------------------------------------- | :---- | :------------------------------------------- |
+| f_Hz          | Fréquence                                   |  Hz   | identique à `09_phases_imrphenom.csv`        |
+| phi_ref       | Copie de la référence GR                    |  rad  | contrôle de cohérence                         |
+| phi_mcgt_raw  | Phase MCGT (avant correction poly/unwrap)   |  rad  | sortie pipeline “brute”                       |
+| phi_mcgt_cal  | Phase MCGT calibrée (φ₀, t_c), si activée   |  rad  | optionnel (n’influe pas les métriques “actives”) |
+
+2.3 `09_phases_mcgt.csv`  (série **finale**)
+| Colonne  | Description                                              | Unité | Remarque                                       |
+| :------- | :------------------------------------------------------- | :---- | :--------------------------------------------- |
+| f_Hz     | Fréquence                                                |  Hz   | triée, unique                                  |
+| phi_ref  | Phase GR de référence                                    |  rad  | reprise de la référence                         |
+| phi_mcgt | Phase MCGT **finale** (après poly + unwrap + rebranch)   |  rad  | variante **active** pour scripts/figures/métriques |
+
+2.4 `09_phase_diff.csv`  (résidu “principal”)
+| Colonne  | Description                                        | Unité | Remarque                                                                 |
+| :------- | :------------------------------------------------- | :---- | :----------------------------------------------------------------------- |
+| f_Hz     | Fréquence                                          |  Hz   | même grille que `09_phases_mcgt.csv`                                     |
+| abs_dphi | Résidu de phase **principal** \|Δφ\|               |  rad  | \|((φ_mcgt − k·2π − φ_ref + π) mod 2π − π)\| ; `k` estimé sur 20–300 Hz  |
+
+2.5 `09_metrics_phase.json`
+Champs essentiels (fenêtre métriques 20–300 Hz par défaut) :
+| Champ                                   | Description                                         | Unité |
+| :-------------------------------------- | :-------------------------------------------------- | :---- |
+| metrics_active.variant                  | Variante φ_mcgt utilisée (`phi_mcgt`/`phi_mcgt_cal`/`phi_mcgt_raw`) | — |
+| metrics_active.rebranch_k               | Rebranch `k` (entier) estimé sur 20–300 Hz          | cycle |
+| metrics_active.metrics_window_Hz        | Fenêtre des métriques                               |  Hz   |
+| metrics_active.n_20_300                 | Nombre de points (NaN/Inf exclus)                   |  —    |
+| metrics_active.mean_abs_20_300          | Moyenne de \|Δφ\|_principal                         |  rad  |
+| metrics_active.median_abs_20_300        | Médiane de \|Δφ\|_principal                         |  rad  |
+| metrics_active.p95_abs_20_300           | p95 de \|Δφ\|_principal                             |  rad  |
+| metrics_active.max_abs_20_300           | Maximum de \|Δφ\|_principal                         |  rad  |
+| metrics_active.computed_on              | Type de résidu utilisé (`principal`)                |  —    |
+| metrics_active.anchor_applied_for_display | Ancrage visuel appliqué aux figures               |  —    |
+| calibration.enabled                     | Calage (φ₀, t_c) activé                             |  —    |
+| calibration.model                       | Modèle de calage (`phi0,tc`)                        |  —    |
+| calibration.phi0_hat_rad                | Estimation φ₀                                       |  rad  |
+| calibration.tc_hat_s                    | Estimation t_c                                      |   s   |
+
+2.6 `09_best_params.json`
+| Champ             | Description                                      | Unité |
+| :---------------- | :----------------------------------------------- | :---- |
+| basis             | Base du fit polynomiale (`log10` ou `hz`)        |  —    |
+| degree            | Degré du polynôme                                |  —    |
+| coeff_desc        | Coefficients (avec normalisation)                |  —    |
+| k_cycles          | Rebranch `k` retenu                              | cycle |
+| fit_window_Hz     | Fenêtre du fit                                   |  Hz   |
+| metrics_window_Hz | Fenêtre d’évaluation des métriques               |  Hz   |
+| scores            | Récapitulatif (mean/p95/max) de \|Δφ\|_principal |  —    |
+
+2.7 `09_jalons_comparaison.csv`
+| Colonne            | Description                                 | Unité |
+| :----------------- | :------------------------------------------ | :---- |
+| event              | Identifiant de l’événement (GWTC-3)         |  —    |
+| f_Hz               | Fréquence caractéristique (f_peak)          |  Hz   |
+| phi_ref_at_fpeak   | φ_ref évaluée à f_peak                      |  rad  |
+| phi_mcgt_at_fpeak  | φ_mcgt (calibrée si activée) à f_peak       |  rad  |
+| obs_phase          | Phase observée                              |  rad  |
+| sigma_phase        | Incertitude de phase observée               |  rad  |
+| epsilon_rel        | Erreur relative (optionnelle)               |  —    |
+| classe             | Primaire / ordre2 / autre                   |  —    |
+
+Métadonnées : `09_jalons_comparaison.meta.json` (catalogue, règles d’incertitudes, timestamp).
+
+
+3) SCRIPTS D’EXÉCUTION (dossier `zz-scripts/chapter09/`)
+--------------------------------------------------------
+
+- extract_phenom_phase.py  
+  Extrait la phase GR de référence (IMRPhenomD) sur la grille f_Hz.  
+  Sorties : `09_phases_imrphenom.csv`, `09_phases_imrphenom.meta.json`.
+
+- generate_mcgt_raw_phase.py  (optionnel)  
+  Reconstruit φ_mcgt “brute” (avant correction) pour diagnostic.  
+  Sorties : `09_phases_mcgt_prepoly.csv` (colonnes `phi_mcgt_raw`, `phi_mcgt_cal` si calage dispo).
+
+- generate_data_chapter09.py  
+  Pipeline de base : produit la série **pré-correction** et le résidu standardisé.  
+  Entrées : `09_phases_imrphenom.csv`.  
+  Sorties : `09_phases_mcgt_prepoly.csv`, `09_phase_diff.csv` (|Δφ|_principal).
+
+- apply_poly_unwrap_rebranch.py  
+  Applique le fit polynomiale, unwrap et rebranch (k) ; écrit la série finale.  
+  Entrées : `09_phases_mcgt_prepoly.csv`.  
+  Sorties : `09_phases_mcgt.csv`, mise à jour `09_metrics_phase.json`.
+
+- opt_poly_rebranch.py  
+  Recherche (base, degré, k) minimisant p95 (20–300 Hz) ; exporte les meilleurs paramètres.  
+  Entrées : `09_phases_mcgt_prepoly.csv`.  
+  Sorties : `09_phases_mcgt.csv`, `09_best_params.json`, `09_metrics_phase.json`.
+
+- check_p95_methods.py  
+  Contrôle méthodologique : compare p95 (raw/unwrap/principal), teste k±1, vérifie l’effet d’un ancrage visuel,
+  et peut mettre à jour les métriques.  
+  Sorties : `zz-figures/chapter09/p95_check_control.png`, logs.  
+  (Peut aussi servir à **ré-écrire** `metrics_active` à partir du “principal” si demandé.)
+
+- plot_fig01_phase_overlay.py  
+  Superpose φ_ref & φ_mcgt (log-x) avec encart du résidu |Δφ| ; options d’ancrage visuel.  
+  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.  
+  Sorties : `fig_01_phase_overlay.png`.
+
+- plot_fig02_residual_phase.py  
+  Tracé |Δφ|_principal par bandes (20–300, 300–1000, 1000–2000 Hz) avec p95 par panneau.  
+  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.  
+  Sorties : `fig_02_residual_phase.png`.
+
+- plot_fig03_hist_absdphi_20_300.py  
+  Histogramme de |Δφ| (20–300 Hz), échelle log recommandée, lignes moyenne/médiane/p95/max.  
+  Entrées : `09_phase_diff.csv` (prioritaire) ou `09_phases_mcgt.csv`.  
+  Sorties : `fig_03_hist_absdphi_20_300.png`.
+
+- plot_fig04_absdphi_milestones_vs_f.py  
+  |Δφ|(f) aux jalons GWTC-3 avec barres d’erreur (±σ) et fond optionnel de résidu.  
+  Entrées : `09_jalons_comparaison.csv` (+ `09_phase_diff.csv` / `09_metrics_phase.json` facultatifs).  
+  Sorties : `fig_04_absdphi_milestones_vs_f.png`.
+
+- plot_fig05_scatter_phi_at_fpeak.py  
+  Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) coloré par classe ; barres d’erreur ±σ.  
+  Entrées : `09_jalons_comparaison.csv`.  
+  Sorties : `fig_05_scatter_phi_at_fpeak.png`.
+
+
+4) FICHIERS PRODUITS ET EMPLACEMENTS
+------------------------------------
+
+4.1 Données (`zz-data/chapter09/`) — liste complète
+- 09_phases_imrphenom.csv
+- 09_phases_imrphenom.meta.json
+- 09_phases_mcgt_prepoly.csv
+- 09_phases_mcgt.csv
+- 09_phase_diff.csv
+- 09_metrics_phase.json
+- 09_best_params.json
+- 09_jalons_comparaison.csv
+- 09_jalons_comparaison.meta.json
+- (optionnel, diagnostic) 09_diff_unwrap_phase.csv
+
+4.2 Figures (`zz-figures/chapter09/`) — liste complète
+- fig_01_phase_overlay.png
+- fig_01_phase_overlay.final.png
+- fig_02_residual_phase.png
+- fig_03_hist_absdphi_20_300.png
+- fig_04_absdphi_milestones_vs_f.png
+- fig_05_scatter_phi_at_fpeak.png
+- p95_check_control.png
+
+4.3 Diagnostics & archives (recommandé)
+- Dossier : `zz-figures/chapter09/p95_checks/` (captures k±1, logs, p95_check_control.png)
+- Archivage :
+  tar czf zz-figures/chapter09/checks_archive_$(date +%Y%m%d).tar.gz \
+      zz-figures/chapter09/p95_checks/ zz-figures/chapter09/p95_check_control.png
+
+
+5) PARAMÈTRES & CONFIGURATION (exemples)
+----------------------------------------
+Options usuelles :
+- `--fit-window 30 250`         (fenêtre du fit polynomiale en Hz)
+- `--metrics-window 20 300`     (fenêtre de calcul des métriques)
+- `--bases log10 hz`            (base x = log10(f) ou x = f)
+- `--degrees 3 4 5`             (degrés polynomiaux testés)
+- `--k-range -100 100`          (rebranch k cycles pour minimiser |unwrap(Δφ)| ; sensible pour robustesse)
+
+Les scripts lisent directement les CSV/JSON listés en §2 ; aucun INI requis.
+
+
+6) CACHE & VOLUMÉTRIE
+---------------------
+Aucun téléchargement volumineux requis pour ce chapitre tel que livré.
+Les fichiers utiles sont les CSV/JSON/Figures listés ci-dessus.
+
+
+7) VÉRIFICATIONS FIN DE PIPELINE (contrôles recommandés)
+--------------------------------------------------------
+
+#1 Structure / intégrité des données
+python - << 'PY'
+import pandas as pd
+df = pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv")
+print("len:", len(df))
+print("NaNs:", df.isna().sum().to_dict())
+print("min f,max f:", float(df.f_Hz.min()), float(df.f_Hz.max()))
+PY
+
+#2 Estimation robuste de k (médiane des cycles sur 20–300 Hz)
+python - << 'PY'
+import numpy as np, pandas as pd
+df = pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv").sort_values("f_Hz")
+f = df.f_Hz.to_numpy(float); m = (f>=20)&(f<=300)
+vals = (df.phi_mcgt[m]-df.phi_ref[m])/(2*np.pi)
+k_med = int(round(np.nanmedian(vals)))
+print("k_median:", k_med)
+print("cycles summary:", float(np.nanmin(vals)), float(np.nanmedian(vals)), float(np.nanmean(vals)), float(np.nanmax(vals)))
+PY
+
+#3 Contrôle visuel : raw/unwrap/principal (preuve)
+python zz-scripts/chapter09/check_p95_methods.py \
+  --csv zz-data/chapter09/09_phases_mcgt.csv \
+  --window 20 300 \
+  --out zz-figures/chapter09/p95_check_control.png
+
+#4 Stabilité k±1 sur p95 (20–300 Hz)
+python - << 'PY'
+import numpy as np, pandas as pd, json
+df = pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv").sort_values("f_Hz")
+f = df.f_Hz.to_numpy(float); m = (f>=20)&(f<=300)
+phi_r = df.phi_ref.to_numpy(float); phi_m = df.phi_mcgt.to_numpy(float); two_pi = 2*np.pi
+vals = (phi_m[m]-phi_r[m])/two_pi; k = int(round(np.nanmedian(vals)))
+def p95(a): a=a[np.isfinite(a)]; return float(np.nanpercentile(a,95))
+for kk in [k-1,k,k+1]:
+    princ = np.abs(((phi_m-kk*two_pi-phi_r+np.pi)%(2*np.pi))-np.pi)
+    print("k=", kk, " p95=", p95(princ[m]))
+PY
+
+#5 Bootstrap d’incertitude (p95, 20–300 Hz)
+python - << 'PY'
+import numpy as np, pandas as pd
+df = pd.read_csv("zz-data/chapter09/09_phases_mcgt.csv").sort_values("f_Hz")
+f = df.f_Hz.to_numpy(float); m = (f>=20)&(f<=300)
+phi_r = df.phi_ref.to_numpy(float); phi_m = df.phi_mcgt.to_numpy(float); two_pi = 2*np.pi; k = 0
+princ = np.abs(((phi_m - k*two_pi - phi_r + np.pi)%(2*np.pi))-np.pi)[m]
+rng = np.random.default_rng(12345)
+bs = [np.nanpercentile(rng.choice(princ,size=len(princ),replace=True),95) for _ in range(2000)]
+print("p95 bootstrap mean,std,ci95=",
+      float(np.mean(bs)), float(np.std(bs)),
+      [float(np.percentile(bs,2.5)), float(np.percentile(bs,97.5))])
+PY
+
+#6 Concordance JSON↔CSV (principal, 20–300 Hz)
+python - << 'PY'
+import json, numpy as np, pandas as pd
+C="zz-data/chapter09/09_phases_mcgt.csv"; M="zz-data/chapter09/09_metrics_phase.json"
+df=pd.read_csv(C).sort_values("f_Hz"); f=df.f_Hz.to_numpy(float); m=(f>=20)&(f<=300)
+two_pi=2*np.pi; k=json.load(open(M)).get("metrics_active",{}).get("rebranch_k",0)
+princ=np.abs(((df.phi_mcgt - k*two_pi - df.phi_ref + np.pi)%(2*np.pi))-np.pi)[m]
+print("CSV principal → mean=%.6f median=%.6f p95=%.6f max=%.6f (n=%d)"%
+      (float(np.nanmean(princ)), float(np.nanmedian(princ)), float(np.nanpercentile(princ,95)), float(np.nanmax(princ)), int(m.sum())))
+print("JSON metrics_active:", json.load(open(M)).get("metrics_active",{}))
+PY
+
+#7 Archivage des preuves
+tar czf zz-figures/chapter09/checks_archive_$(date +%Y%m%d).tar.gz \
+  zz-figures/chapter09/p95_checks/ zz-figures/chapter09/p95_check_control.png
+
+
+8) COMMANDES D’EXÉCUTION (séquence type)
+----------------------------------------
+# 1) (optionnel) Générer la référence GR
+python zz-scripts/chapter09/extract_phenom_phase.py \
+  --out zz-data/chapter09/09_phases_imrphenom.csv
+
+# 2) Pré-correction + Δφ (principal)
+python zz-scripts/chapter09/generate_data_chapter09.py \
+  --ref zz-data/chapter09/09_phases_imrphenom.csv \
+  --out-prepoly zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+  --out-diff    zz-data/chapter09/09_phase_diff.csv \
+  --log-level INFO
+
+# 3) Optimiser (base, degré, k) et écrire la série finale
+python zz-scripts/chapter09/opt_poly_rebranch.py \
+  --csv zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --fit-window 30 250 --metrics-window 20 300 \
+  --degrees 3 4 5 --bases log10 hz --k-range -10 10 \
+  --out-csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --out-best zz-data/chapter09/09_best_params.json \
+  --backup --log-level INFO
+
+# 4) Validation rapide (k & contrôle p95)
+python zz-scripts/chapter09/check_p95_methods.py \
+  --csv zz-data/chapter09/09_phases_mcgt.csv \
+  --window 20 300 \
+  --out zz-figures/chapter09/p95_check_control.png
+
+# 5) Mise à jour JSON (sur “principal”, si besoin)
+python zz-scripts/chapter09/check_p95_methods.py \
+  --csv zz-data/chapter09/09_phases_mcgt.csv \
+  --window 20 300 --update-metrics-json zz-data/chapter09/09_metrics_phase.json
+
+# 6) Figures
+python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_01_phase_overlay.png \
+  --shade 20 300 --show-residual \
+  --display-variant auto --anchor-policy if-not-calibrated \
+  --dpi 300 --save-pdf --log-level INFO
+
+python zz-scripts/chapter09/plot_fig02_residual_phase.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_02_residual_phase.png \
+  --bands 20 300 300 1000 1000 2000 \
+  --dpi 300 --marker-size 3 --line-width 0.9 \
+  --gap-thresh-log10 0.12 --log-level INFO
+
+python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
+  --mode principal --bins 50 --window 20 300 --xscale log \
+  --dpi 300 --log-level INFO
+
+python zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py \
+  --diff   zz-data/chapter09/09_phase_diff.csv \
+  --csv    zz-data/chapter09/09_phases_mcgt.csv \
+  --meta   zz-data/chapter09/09_metrics_phase.json \
+  --jalons zz-data/chapter09/09_jalons_comparaison.csv \
+  --out    zz-figures/chapter09/fig_04_absdphi_milestones_vs_f.png \
+  --window 20 300 --with_errorbar --dpi 300 --log-level INFO
+
+python zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py \
+  --jalons zz-data/chapter09/09_jalons_comparaison.csv \
+  --out    zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png
+
+
+9) FIGURES (récapitulatif)
+--------------------------
+- fig_01_phase_overlay.png / .final.png : superposition φ_ref et φ_mcgt (log-x) + inset |Δφ|.
+- fig_02_residual_phase.png : unwrap(Δφ) vs f, avec statistiques par bandes.
+- fig_03_hist_absdphi_20_300.png : histogramme de |unwrap(Δφ)| restreint à 20–300 Hz.
+- fig_04_absdphi_milestones_vs_f.png : |Δφ| mesuré aux jalons vs f.
+- fig_05_scatter_phi_at_fpeak.png : nuage de points φ_ref(f_peak) vs φ_mcgt(f_peak).
+
+
+10) COMPILATION LaTeX
+---------------------
+cd 09-phase-ondes-gravitationnelles
+pdflatex -interaction=nonstopmode 09_phase_ondes_grav_conceptuel.tex
+pdflatex -interaction=nonstopmode 09_phase_ondes_grav_details.tex
+
+
+11) VERSIONNING & TAGS
+----------------------
+- Mettre à jour `CHANGELOG.md` (entrée “Chapitre 9 – Première version”)
+- Créer un tag Git : `git tag -a v9.0 -m "Chapitre 9 – Phase et ondes gravitationnelles"`
+- Pousser le tag : `git push --tags`
+

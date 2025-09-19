@@ -1,0 +1,108 @@
+{
+"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$id": "zz-schemas/03_meta_stability_fR.schema.json",
+"title": "Chapter 03 — Meta for f(R) stability outputs",
+"description": "JSON Schema des métadonnées décrivant les jeux de données produits pour le chapitre 03 (analyse de stabilité f(R)).",
+"type": "object",
+"properties": {
+"generated_at": {
+"description": "Horodatage ISO-8601 de génération.",
+"type": "string",
+"format": "date-time"
+},
+"producer_script": {
+"description": "Chemin relatif du script producteur (optionnel).",
+"type": "string",
+"minLength": 1
+},
+"git_hash": {
+"description": "Hash de commit (optionnel).",
+"anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }]
+},
+"version": {
+"description": "Tag/version du pipeline.",
+"type": "string"
+},
+"n_points": {
+"description": "Nombre de points cumulés dans les datasets.",
+"type": "integer",
+"minimum": 0
+},
+"files": {
+"description": "Liste des fichiers produits (chemins relatifs).",
+"type": "array",
+"items": { "type": "string", "minLength": 1 },
+"minItems": 1,
+"uniqueItems": true
+},
+"units": {
+"description": "Conventions d'unités (colonne → unité).",
+"type": "object",
+"additionalProperties": { "type": "string" }
+},
+"parameters": {
+"description": "Résumé des paramètres utilisés (plages, maillage).",
+"type": "object",
+"properties": {
+"model": { "type": "string" },
+"beta_range": {
+"type": "array",
+"items": { "type": "number" },
+"minItems": 2,
+"maxItems": 2
+},
+"gamma_range": {
+"type": "array",
+"items": { "type": "number" },
+"minItems": 2,
+"maxItems": 2
+},
+"n_beta": { "type": "integer", "minimum": 0 },
+"notes": { "type": "string" }
+},
+"additionalProperties": false
+},
+"summary": {
+"description": "Résumé textuel (qualité, anomalies).",
+"type": "string"
+},
+"schema_used": {
+"description": "Chemin ou id du schéma utilisé pour valider les fichiers.",
+"type": "string"
+},
+"notes": {
+"description": "Notes diverses (ex.: 'm_s2_over_R0 clipped à 3.33e5').",
+"type": "string"
+}
+},
+"required": ["n_points", "files"],
+"additionalProperties": false,
+"examples": [
+{
+"generated_at": "2025-08-23T12:34:56Z",
+"producer_script": "zz-scripts/chapter3/generate_chapter3_data.py",
+"git_hash": "REPLACE_WITH_GIT_HASH",
+"version": "chap3-v1.0",
+"n_points": 715,
+"files": [
+"zz-data/chapter3/03_stability_fR_data.csv",
+"zz-data/chapter3/03_stability_fR_domain.csv",
+"zz-data/chapter3/03_stability_fR_boundary.csv"
+],
+"units": {
+"R_over_R0": "dimensionless",
+"f_R": "dimensionless",
+"f_RR": "1/R",
+"m_s2_over_R0": "dimensionless"
+},
+"parameters": {
+"model": "fR_example_model",
+"beta_range": [1.0, 1.5064271932375228],
+"gamma_range": [0.0, 333333.0],
+"n_beta": 20
+},
+"schema_used": "zz-schemas/03_meta_stability_fR.schema.json",
+"notes": "m_s2_over_R0 clipped pour stabilité numérique à 333333 sur cette exécution."
+}
+]
+}

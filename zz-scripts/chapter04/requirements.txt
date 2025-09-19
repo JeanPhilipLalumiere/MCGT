@@ -1,0 +1,80 @@
+# Exigences pour le Chapitre 4 (Invariants adimensionnels)
+
+1. **Environnement système**
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Espace disque : ≥ 200 Mo libre  
+
+2. **Environnement Python**
+   * Python ≥ 3.9  
+   * Créer et activer un environnement virtuel spécifique :  
+     ```
+     cd ~/MCGT
+     python3 -m venv venv4
+     source venv4/bin/activate
+     ```
+   * Installer les dépendances minimales :  
+     ```
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib
+     ```
+
+3. **Données brutes & scripts d’extraction**
+   * **P(T) brut**  
+     – Fichier : `zz-data/chapter04/04_P_vs_T.dat`  
+     – Chargement et parsing par  
+       `zz-scripts/chapter04/integration_invariants_adimensionnels.py`  
+   * **R/R₀ vs T**  
+     – Fichier : `zz-data/chapter03/03_r_sur_r0.csv`  
+     – Chargement et interpolation par le même script  
+   * **f_R exact vs R/R₀**  
+     – Fichier : `zz-data/chapter03/03_ricci_fR_exact.csv`  
+     – Chargement et interpolation lin–lin  
+
+4. **Structure du dépôt**
+````
+
+MCGT/
+├─ 04-invariants-adimensionnels/        # sources LaTeX, GUIDE
+├─ zz-data/chapter04/                # 04\_P\_vs\_T.dat, 04\_invariants\_adimensionnels\_complet.csv
+├─ zz-data/chapter03/                # 03\_r\_sur\_r0.csv, 03\_ricci\_fR\_exact.csv
+├─ zz-scripts/chapter04/                # integration\_*.py, trace\_fig*.py
+├─ zz-figures/chapter04/                # fig\_01\_…png, fig\_02\_…png, fig\_03\_…png, fig\_04\_…png
+└─ venv4/                               # environnement virtuel Python
+
+````
+
+5. **Exécution du pipeline**
+   1. Génération des données intermédiaires et finales :  
+      ```bash
+      source venv4/bin/activate
+      python zz-scripts/chapter04/integration_invariants_adimensionnels.py
+      ```
+   2. Tracé des figures :  
+      ```bash
+      python zz-scripts/chapter04/trace_fig01_schema_invariants.py
+      python zz-scripts/chapter04/trace_fig02_histogramme_invariants.py
+      python zz-scripts/chapter04/trace_fig03_invariants_vs_t.py
+      python zz-scripts/chapter04/trace_fig04_ecarts_rel.py
+      ```
+
+6. **Compilation LaTeX**
+   ```bash
+   cd 04-invariants-adimensionnels/
+   pdflatex -interaction=nonstopmode 04_invariants_adimensionnels_conceptuel.tex
+   pdflatex -interaction=nonstopmode 04_invariants_adimensionnels_details.tex
+````
+
+7. **Tests & validations**
+
+   * Vérifier l’existence et la non-nullité des fichiers dans `zz-data/chapter04/` :
+
+     ```
+     04_P_vs_T.dat
+     04_invariants_adimensionnels_complet.csv
+     ```
+   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV
+   * Contrôler dans la console `[DEBUG]` :
+
+     * formes et gammes de P, dP/dT, R/R₀, f\_R
+     * valeurs min/max de I₂ et I₃
+   * Ouvrir chaque figure PNG dans `zz-figures/chapter04/` pour un contrôle visuel

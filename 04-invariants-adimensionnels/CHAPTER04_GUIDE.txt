@@ -1,0 +1,127 @@
+CHAPITRE 4 — GUIDE D’UTILISATION
+(Invariants adimensionnels)
+
+Objectif
+────────
+Ce guide décrit la génération des données et figures du Chapitre 4 (Invariants adimensionnels) et la compilation LaTeX associée. Il harmonise les noms de fichiers (anglais) et les conventions communes aux autres chapitres.
+
+1) Dépendances logicielles minimales
+────────────────────────────────────
+• Python ≥ 3.10  (numpy, pandas, scipy, matplotlib)
+• LaTeX / pdflatex (packages usuels : amsmath, graphicx, siunitx, booktabs, hyperref)
+• (Optionnel) make pour l’automatisation
+
+2) Organisation des fichiers
+────────────────────────────
+• Sources LaTeX (dossier : 04-invariants-adimensionnels/)
+  - 04_invariants_adimensionnels_conceptuel.tex
+  - 04_invariants_adimensionnels_details.tex
+
+• Données (dossier : zz-data/chapter04/)
+  - 04_P_vs_T.dat                         (grille P(T) harmonisée)
+  - 04_dimensionless_invariants.csv       (sortie principale de ce chapitre)
+
+• Figures (dossier : zz-figures/chapter04/)
+  - fig_01_invariants_schematic.png
+  - fig_02_invariants_histogram.png
+  - fig_03_invariants_vs_T.png
+  - fig_04_relative_deviations.png
+
+• Scripts (dossier : zz-scripts/chapter04/)
+  - generate_data_chapter04.py
+  - plot_fig01_invariants_schematic.py
+  - plot_fig02_invariants_histogram.py
+  - plot_fig03_invariants_vs_T.py
+  - plot_fig04_relative_deviations.py
+  - requirements.txt
+
+3) Données d’entrée & formats (zz-data/chapter04/)
+──────────────────────────────────────────────────
+3.1 04_P_vs_T.dat
+| Colonne | Description                              | Unité | Remarques                           |
+|:--------|:-----------------------------------------|:------|:------------------------------------|
+| T_Gyr   | Âge propre du système                    | Gyr   | grille log-uniforme (Δlog10T=0,01)  |
+| P       | Quantité P (définie au Chapitre 1–2)     | —     | lissée/interpolée de façon homogène |
+
+• Domaine T : [1e−6, 14] Gyr (log-uniforme).
+• Interpolation recommandée : PCHIP sur log10 P(T).
+• Contrôle d’unités : cohérence avec les chapitres 1–2 (P adimensionné ou unifié).
+
+4) Données produites & qualité (zz-data/chapter04/)
+───────────────────────────────────────────────────
+4.1 04_dimensionless_invariants.csv
+| Colonne | Définition                                      | Dimension    |
+|:--------|:-------------------------------------------------|:-------------|
+| T_Gyr   | Grille T                                         | Gyr          |
+| I1      | I1 = P / T                                       | (unité P)/Gyr|
+| I2      | I2 = κ · T²                                      | adimensionnel|
+| I3      | I3 = f_R − 1                                     | adimensionnel|
+
+• Conventions numériques :
+  - κ (kappa) = 1e−35 (valeur de modèle) ; ajustable si révisé globalement.
+  - f_R (de Chapitre 3) interpolé linéairement en R/R0 (extrapolation contrôlée).
+• Critères qualité :
+  - max |I2| ≪ 1 (tolérance indicative ±10 % sur le domaine utile).
+  - I3 ≈ 0 (tolérance indicative ±1 %) ; tracer/inspecter les écarts résiduels.
+
+5) Figures générées (zz-figures/chapter04/)
+────────────────────────────────────────────
+• fig_01_invariants_schematic.png        — schéma conceptuel (I1, I2, I3)
+• fig_02_invariants_histogram.png        — histogrammes (log-valeurs de I2, I3)
+• fig_03_invariants_vs_T.png             — I1, I2, I3 en fonction de T
+• fig_04_relative_deviations.png         — écarts relatifs/contrôles (ε2, ε3)
+
+6) Scripts d’exécution (zz-scripts/chapter04/)
+──────────────────────────────────────────────
+• generate_data_chapter04.py
+  - Charge 04_P_vs_T.dat
+  - Applique lissages/interpolations (PCHIP log10 P, Savitzky–Golay pour dérivées si besoin)
+  - Récupère/importe f_R (Chapitre 3) sur le domaine commun
+  - Construit I1, I2, I3 et écrit 04_dimensionless_invariants.csv
+
+• plot_fig01_invariants_schematic.py     → fig_01_invariants_schematic.png
+• plot_fig02_invariants_histogram.py     → fig_02_invariants_histogram.png
+• plot_fig03_invariants_vs_T.py          → fig_03_invariants_vs_T.png
+• plot_fig04_relative_deviations.py      → fig_04_relative_deviations.png
+
+7) Paramètres & conventions numériques
+──────────────────────────────────────
+• Grille T : log-uniforme sur [1e−6, 14] Gyr, pas Δlog10T = 0,01
+• Interpolations :
+  - P(T) : PCHIP sur log10 P
+  - R/R0 : PCHIP sur log10 (R/R0) si requis
+  - f_R(R/R0) : linéaire (extrapolation courte autorisée)
+• Lissage dérivées (si utilisé) : Savitzky–Golay (fenêtre 21, ordre 3)
+• Tolérances (repères) :
+  - I2 : ±10 % sur domaine utile
+  - I3 : ±1 % (sur la majorité du domaine ; signaler tout dépassement local)
+
+8) Vérifications & diagnostics
+──────────────────────────────
+• Statistiques sur I1, I2, I3 (min/max/médiane) et présence de discontinuités
+• Contrôle I3≈0 : repérer tout écart systématique ; journaliser indices/segments en défaut
+• Rapports figure/table : vérifier légendes, unités, styles (cohérents avec chap. 1–3)
+• Export optionnel d’une dérivée lissée dP/dT (CSV auxiliaire) pour audit
+
+9) Commandes d’exécution (racine du projet)
+───────────────────────────────────────────
+# Générer les données
+python zz-scripts/chapter04/generate_data_chapter04.py
+
+# Tracer les figures
+python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
+python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
+python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
+python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+
+10) Compilation LaTeX du chapitre
+──────────────────────────────────
+pdflatex -jobname=chap4_conceptuel  04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
+pdflatex -jobname=chap4_details     04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
+
+11) Métadonnées & reproductibilité
+──────────────────────────────────
+• Config par défaut : zz-configuration/mcgt-global-config.ini
+• Intégration CI : zz-workflows/ci.yml (tests, validateurs, diagnostics)
+• Versionnage : numérotation cohérente (VERSION/CHANGELOG), hachage de données si pertinent
+• Manifeste : zz-manifests/manifest_master.json et manifest_publication.json (cohérence noms/chemins)

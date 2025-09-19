@@ -1,0 +1,66 @@
+{
+"chapter": 10,
+"title": "monte-carlo-global-8d",
+"paths": {
+"data\_dir": "zz-data/chapter10",
+"scripts\_dir": "zz-scripts/chapter10",
+"figures\_dir": "zz-figures/chapter10",
+"configs": \[
+"conventions.md",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data\_inputs": \[
+"zz-data/chapter10/10\_mc\_best.json",
+"zz-data/chapter10/10\_mc\_best\_bootstrap.json",
+"zz-data/chapter10/10\_mc\_config.json",
+"zz-data/chapter10/10\_mc\_jalons\_eval.csv",
+"zz-data/chapter10/10\_mc\_results.circ.csv",
+"zz-data/chapter10/10\_mc\_results.csv"
+],
+"data\_outputs": \[],
+"figures": \[
+"zz-figures/chapter10/fig\_01\_iso\_p95\_maps.png",
+"zz-figures/chapter10/fig\_02\_scatter\_phi\_at\_fpeak.png",
+"zz-figures/chapter10/fig\_03\_convergence\_p95\_vs\_n.png",
+"zz-figures/chapter10/fig\_03b\_bootstrap\_coverage\_vs\_n\_hires.png",
+"zz-figures/chapter10/fig\_04\_scatter\_p95\_recalc\_vs\_orig.png",
+"zz-figures/chapter10/fig\_05\_hist\_cdf\_metrics.png",
+"zz-figures/chapter10/fig\_06\_heatmap\_absdp95\_m1m2.png",
+"zz-figures/chapter10/fig\_07\_synthesis\_compare.png"
+],
+"metas": \[
+"zz-data/chapter10/10\_mc\_best.meta.json",
+"zz-data/chapter10/10\_mc\_results.meta.json",
+"zz-figures/chapter10/fig\_*.meta.json"
+],
+"others": \[
+"10-monte-carlo-global-8d/CHAPTER10\_GUIDE.txt"
+]
+},
+"scripts": \[
+"zz-scripts/chapter10/generate\_chapter10\_data.py",
+"zz-scripts/chapter10/inspect\_topk\_residuals.py",
+"zz-scripts/chapter10/plot\_fig02\_scatter\_phi\_at\_fpeak.py",
+"zz-scripts/chapter10/plot\_fig03\_convergence\_p95\_vs\_n.py",
+"zz-scripts/chapter10/plot\_fig03b\_bootstrap\_coverage\_vs\_n.py",
+"zz-scripts/chapter10/plot\_fig04\_scatter\_p95\_recalc\_vs\_orig.py",
+"zz-scripts/chapter10/plot\_fig05\_hist\_cdf\_metrics.py",
+"zz-scripts/chapter10/plot\_fig06\_residual\_map.py",
+"zz-scripts/chapter10/plot\_fig07\_synthesis.py"
+],
+"meta\_expected": \[
+"zz-data/chapter10/10\_mc\_results.meta.json",
+"zz-data/chapter10/10\_mc\_best.meta.json",
+"zz-figures/chapter10/fig\_*.meta.json"
+],
+"status": "ready",
+"qa\_checks": \[
+"Unité/référentiel `p95` unifiés (radians; pas mrad ni /π).",
+"`k` défini et documenté (index, cycles ?).",
+"Colonnes fantômes (`delta_over_sigma`, `k_20_300`) calculées ou supprimées.",
+"Bootstrap: cohérence `p95_boot` vs `p95` calc (tolérance < 2%)."
+],
+"notes": "Harmoniser `p95` entre JSON/CSV; relier `id` ↔ résultats; définir `k` ou renommer `k_cycles`."
+}

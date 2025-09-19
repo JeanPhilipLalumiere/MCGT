@@ -1,0 +1,138 @@
+CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
+
+[OBJECTIF & PORTÉE]
+- [ ] Générer données & figures CMB, injecter les effets MCGT dans CAMB, compiler LaTeX.
+- [ ] Harmoniser conventions (grilles, lissages, seuils) avec chapitres 1–5.
+
+[PRÉ-REQUIS LOGICIELS]
+- [ ] Python ≥ 3.9 : numpy, pandas, scipy, matplotlib.
+- [ ] CAMB (API Python), dépendances FFTW/GSL (si nécessaire).
+- [ ] LaTeX/pdflatex : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox.
+
+[CONSTANTES & TOLÉRANCES CLÉS]
+- [ ] Savitzky–Golay : fenêtre = 7, ordre = 3.
+- [ ] Seuils : primary ≤ 1 %, order2 ≤ 10 %.
+- [ ] Dérivées : échelles visuelles possibles (÷1e4) pour lisibilité.
+- [ ] CSV : UTF-8, séparateur « , », point décimal « . ».
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (06-rayonnement-cmb/):
+      • 06_cmb_conceptuel.tex
+      • 06_cmb_details.tex
+- [ ] Données (zz-data/chapter06/):
+      • 06_cls_spectrum_lcdm.dat
+      • 06_cls_spectrum.dat
+      • 06_delta_cls.csv
+      • 06_delta_cls_relative.csv
+      • 06_delta_rs_scan.csv
+      • 06_delta_rs_scan2D.csv
+      • 06_cmb_chi2_scan2D.csv
+      • 06_hubble_mcgt.dat
+      • 06_delta_Tm_scan.csv   (optionnel)
+      • 06_params_cmb.json
+- [ ] Figures (zz-figures/chapter06/):
+      • fig_01_cmb_dataflow_diagram.png
+      • fig_02_cls_lcdm_vs_mcgt.png
+      • fig_03_delta_cls_relative.png
+      • fig_04_delta_rs_vs_params.png
+      • fig_05_delta_chi2_heatmap.png
+- [ ] Scripts (zz-scripts/chapter06/):
+      • generate_pdot_plateau_vs_z.py
+      • generate_data_chapter06.py
+      • plot_fig01_cmb_dataflow_diagram.py
+      • plot_fig02_cls_lcdm_vs_mcgt.py
+      • plot_fig03_delta_cls_relative.py
+      • plot_fig04_delta_rs_vs_params.py
+      • plot_fig05_delta_chi2_heatmap.py
+      • run_camb_chapter06.bat  (optionnel)
+
+[SPÉCIFICATIONS DES TABLES — ENTRÉES/SORTIES]
+- [ ] 06_cls_spectrum_lcdm.dat
+      | ell | Cl_LCDM |   Unités: µK² ; entête: “# ell   Cl_LCDM”
+      Source: CAMB (get_cmb_power_spectra(...)[“total”][:,0]).
+- [ ] 06_cls_spectrum.dat
+      | ell | Cl_MCGT |   Unités: µK² ; entête: “# ell   Cl_MCGT”
+      Source: CAMB + post-traitement (tweak_for_mcgt).
+- [ ] 06_delta_cls.csv
+      | ell | delta_Cl (= Cl_MCGT − Cl_LCDM) | µK²
+- [ ] 06_delta_cls_relative.csv
+      | ell | delta_Cl_rel (= ΔCl / Cl_LCDM) | adim.
+- [ ] 06_delta_rs_scan.csv
+      | q0star | r_s | delta_rs_rel | (Mpc, adim.)
+- [ ] 06_delta_rs_scan2D.csv
+      | alpha | q0star | chi2 | (carte 2D de coût ΔCl²/Cl_LCDM)
+- [ ] 06_cmb_chi2_scan2D.csv
+      | alpha | q0star | chi2 | (définition cohérente avec ΔCl)
+- [ ] 06_hubble_mcgt.dat
+      | z | H_over_H0 (ou H_model/H_LCDM) | entête: “# z      H_model(z)/H_LCDM(z)”
+- [ ] 06_delta_Tm_scan.csv (optionnel)
+      | k (h/Mpc) | delta_Tm |
+- [ ] 06_params_cmb.json (exemple de champs):
+      { alpha, q0star, ell_min, ell_max, n_points,
+        thresholds:{primary,order2},
+        derivative_window=7, derivative_polyorder=3,
+        H0, ombh2, omch2, tau, mnu, As0, ns0, c1, c2,
+        max_delta_Cl_rel }
+      (+ éventuels: omk, As, ns, max_epsilon_*)
+
+[CONVENTIONS GRILLES & INTERPOLATIONS]
+- [ ] Grille ℓ : 2 → 3000, n_points ≈ 3001, pas log10 (Δlog10ℓ ~ 0.01).
+- [ ] Interpolation Cℓ : PCHIP en (log10ℓ, log10Cℓ), extrapolate=True, puis clip aux bornes.
+- [ ] Dérivées (SG) : fenêtre=7, ordre=3, mode='interp' (stockées si exportées).
+
+[INJECTION MCGT DANS CAMB]
+- [ ] Post-traitement Python (recommandé) :
+      • Implémenter tweak_for_mcgt(pars, alpha, q0star) (modes/transferts).
+      • Passer α, q0* via CLI dans generate_data_chapter06.py.
+- [ ] Option Fortran (si patch CAMB) :
+      • Ajouter use_mcgT & mcgt_transfer_file ; ajuster TransferModule.f90.
+      • Recompiler CAMB (documentation interne).
+
+[GÉNÉRATION DES DONNÉES]
+- [ ] Expansion plateau vs z :
+      python zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
+- [ ] Pipeline CMB (exemple) :
+      python zz-scripts/chapter06/generate_data_chapter06.py \
+        --alpha 0.20 --q0star -0.10 --export-derivative
+- [ ] (Option CAMB CLI) :
+      camb zz-configuration/camb_exact_plateau.ini \
+        output_root=mcgt_cmb \
+        expansion_rate_file=zz-configuration/pdot_plateau_vs_z.dat
+
+[PRODUCTION DES FIGURES]
+- [ ] Générer :
+      python zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+      python zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+      python zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
+      python zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
+      python zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+- [ ] Vérifs : DPI ≥ 300 ; axes/échelles corrects ; légendes/annotations (α, q0*).
+
+[CONTRÔLES QUALITÉ (QC)]
+- [ ] Intégrité : fichiers non vides ; pas de NaN/Inf ; colonnes & en-têtes corrects.
+- [ ] Cohérence grilles : mêmes ℓ pour LCDM/MCGT/Δ ; tailles identiques.
+- [ ] ΔCℓ relatives : max|ΔCℓ/Cl_LCDM| < 10 % (repère) ; jalons primary < 1 %.
+- [ ] χ² ≥ 0 ; minima cohérents sur carte 2D (α, q0*).
+- [ ] 06_params_cmb.json : valeurs lissages/paramètres effectivement utilisés.
+- [ ] Journal : logs d’exécution sans erreurs ; archiver si CI active.
+
+[VALIDATION AUTOMATISÉE]
+- [ ] JSON : validate_json.py  zz-schemas/06_cmb_params.schema.json  zz-data/chapter06/06_params_cmb.json
+- [ ] CSV  : validate_csv_table.py (schéma tabulaire approprié) pour delta_rs/chi2 si défini.
+- [ ] CI   : zz-workflows/ci.yml lance pytest + validateurs + diag manifests.
+
+[INTÉGRATION LATEX]
+- [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_conceptuel.tex
+- [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_details.tex
+- [ ] Chemins images → zz-figures/chapter06/ (casse & relativité des chemins).
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] zz-manifests/figure_manifest.csv : déclarer les 5 figures avec checksums (si activé).
+- [ ] zz-manifests/chapters/chapter_manifest_06.json : lister toutes les données/figures.
+- [ ] mcgt/CHANGELOG.md : consigner changements impactant le Chapitre 6.
+
+[COMMANDES RAPIDES]
+- [ ] Expansion :  python zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
+- [ ] Données   :  python zz-scripts/chapter06/generate_data_chapter06.py --alpha 0.20 --q0star -0.10
+- [ ] Figures   :  exécuter les 5 scripts plot_fig**
+- [ ] LaTeX     :  2× pdflatex pour chaque .tex (conceptuel, details)

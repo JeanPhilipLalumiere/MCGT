@@ -1,0 +1,184 @@
+# CHAPITRE 2 — GUIDE D’UTILISATION
+Validation chronologique (données, figures, scripts)
+
+---
+
+## 1. Objet
+Ce guide décrit la production des données, des figures et la procédure d’exécution pour la **validation chronologique** du chapitre 2. Il précise les jeux de données requis, les sorties attendues et les critères de contrôle qualité.
+
+---
+
+## 2. Organisation des fichiers
+
+### 2.1 Sources LaTeX  (`02-validation-chronologique/`)
+- `02_validation_chronologique_conceptuel.tex`
+- `02_validation_chronologique_details.tex`
+
+### 2.2 Données  (`zz-data/chapter02/`)
+- `02_milestones_meta.csv`
+- `02_timeline_milestones.csv`
+- `02_P_vs_T_grid_data.dat`
+- `02_P_derivative_data.dat`
+- `02_relative_error_timeline.csv`
+- `02_optimal_parameters.json`
+- `02_P_R_sampling.csv`
+- `02_As_ns_vs_alpha.csv`
+- `02_FG_series.csv`
+- `02_primordial_spectrum_spec.json`
+
+### 2.3 Figures  (`zz-figures/chapter02/`)
+- `fig_00_spectrum.png`
+- `fig_01_P_vs_T_evolution.png`
+- `fig_02_calibration.png`
+- `fig_03_relative_errors.png`
+- `fig_04_pipeline_diagram.png`
+- `fig_05_FG_series.png`
+- `fig_06_fit_alpha.png`
+
+### 2.4 Scripts  (`zz-scripts/chapter02/`)
+- `generate_data_chapter02.py`
+- `plot_fig00_spectrum.py`
+- `plot_fig01_P_vs_T_evolution.py`
+- `plot_fig02_calibration.py`
+- `plot_fig03_relative_errors.py`
+- `plot_fig04_pipeline_diagram.py`
+- `plot_fig05_FG_series.py`
+- `plot_fig06_alpha_fit.py`
+- `requirements.txt`
+
+---
+
+## 3. Données d’entrée
+
+### 3.1 Métadonnées des jalons — `02_milestones_meta.csv`
+| Colonne  | Description                                              | Unité |
+|---------|-----------------------------------------------------------|-------|
+| `T_Gyr` | Âge propre (points de référence)                          | Gyr   |
+| `P_ref` | Valeur de référence \(P(T)\)                              | —     |
+| `classe`| Catégorie d’exigence : `primary` (≤ 1 %) / `order2` (≤ 10 %) | —     |
+
+### 3.2 Spécification du spectre primordial — `02_primordial_spectrum_spec.json`
+Champs :  
+- `label_eq`, `formula`, `description`  
+- `constants` : `A_s0`, `ns0`  
+- `coefficients` : `c1`, `c1_2`, `c2`, `c2_2`
+
+> Règle d’homogénéisation : les noms de champs et l’usage de la notation \(P_R(k;\alpha)\) sont **alignés** sur les chapitres 1 et 6 (paramètres cosmologiques globaux dans `mcgt-global-config.ini`).
+
+---
+
+## 4. Données produites
+
+### 4.1 Chronologie des jalons — `02_timeline_milestones.csv`
+| Colonne     | Description                                                            | Unité |
+|------------|------------------------------------------------------------------------|-------|
+| `T_Gyr`    | Âge des jalons (monotone croissant)                                    | Gyr   |
+| `P_ref`    | Valeur de référence aux jalons                                          | —     |
+| `P_opt`    | Valeur calculée optimisée                                               | —     |
+| `epsilon_i`| Écart relatif \((P_{\rm calc}-P_{\rm ref})/P_{\rm ref}\)               | —     |
+| `classe`   | `primary` (≤ 1 %) / `order2` (≤ 10 %)                                   | —     |
+
+### 4.2 Courbe dense \(P(T)\) — `02_P_vs_T_grid_data.dat`
+| Colonne  | Description                              | Unité |
+|----------|------------------------------------------|-------|
+| `T_Gyr`  | Grille log-uniforme                      | Gyr   |
+| `P_calc` | Courbe dense \(P_{\rm calc}(T)\)         | —     |
+
+### 4.3 Dérivée lissée \(\dot P(T)\) — `02_P_derivative_data.dat`
+| Colonne | Description                         | Unité     |
+|---------|-------------------------------------|-----------|
+| `T_Gyr` | Grille identique à 4.2              | Gyr       |
+| `dotP`  | Dérivée lissée \( \dot P(T) \)      | adim/Gyr  |
+
+### 4.4 Écarts relatifs — `02_relative_error_timeline.csv`
+| Colonne     | Description                               |
+|-------------|-------------------------------------------|
+| `T_Gyr`     | Âge des jalons                            |
+| `epsilon_i` | Écart relatif aux jalons                  |
+
+### 4.5 Paramètres optimaux — `02_optimal_parameters.json`
+Champs :  
+- `T_split_Gyr`  
+- `segments.low|high` : `alpha0`, `alpha_inf`, `Tc`, `Delta`, `Tp`  
+- `thresholds` : `primary`, `order2`  
+- `max_epsilon_primary`, `max_epsilon_order2`
+
+### 4.6 Échantillonnage du spectre — `02_P_R_sampling.csv`
+| Colonne | Description                                 | Unité    |
+|---------|---------------------------------------------|----------|
+| `alpha` | Paramètre du modèle                         | —        |
+| `k`     | Nombre d’onde comobile                      | h Mpc⁻¹  |
+| `P_R`   | Spectre primordial \(P_R(k;\alpha)\)        | —        |
+
+### 4.7 Paramètres spectraux — `02_As_ns_vs_alpha.csv`
+| Colonne | Description              |
+|---------|--------------------------|
+| `alpha` | Paramètre du modèle      |
+| `A_s`   | Amplitude scalaire       |
+| `n_s`   | Indice spectral          |
+
+### 4.8 Séries F/G — `02_FG_series.csv`
+| Colonne | Description                    |
+|---------|--------------------------------|
+| `func`  | `F` ou `G`                     |
+| `order` | Ordre (0, 1, 2, …)             |
+| `coeff` | Coefficient de la série        |
+
+---
+
+## 5. Figures produites
+- `fig_00_spectrum.png` : spectre primordial MCGT (log–log).  
+- `fig_01_P_vs_T_evolution.png` : \(P_{\rm calc}(T)\) vs jalons \(P_{\rm ref}(T_i)\).  
+- `fig_02_calibration.png` : nuage \(P_{\rm ref}\) vs \(P_{\rm calc}\) + ligne d’identité.  
+- `fig_03_relative_errors.png` : \(\epsilon_i\) vs \(T\) (échelle adaptée).  
+- `fig_04_pipeline_diagram.png` : schéma du pipeline de calcul.  
+- `fig_05_FG_series.png` : séries \(F(\alpha)-1\) et \(G(\alpha)\).  
+- `fig_06_fit_alpha.png` : ajustements \(A_s(\alpha)\) et \(n_s(\alpha)\).
+
+---
+
+## 6. Scripts et exécution
+
+### 6.1 Génération des données
+
+python zz-scripts/chapter02/generate_data_chapter02.py --all
+
+
+Options usuelles : `--spectrum`, `--derivative`, `--milestones`.
+
+### 6.2 Tracé des figures
+
+python zz-scripts/chapter02/plot_fig00_spectrum.py
+python zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
+python zz-scripts/chapter02/plot_fig02_calibration.py
+python zz-scripts/chapter02/plot_fig03_relative_errors.py
+python zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
+python zz-scripts/chapter02/plot_fig05_FG_series.py
+python zz-scripts/chapter02/plot_fig06_alpha_fit.py
+
+---
+
+## 7. Procédure standard
+
+1. Vérifier/mettre à jour `02_primordial_spectrum_spec.json` (cohérence avec `mcgt-global-config.ini`).
+2. Lancer `generate_data_chapter02.py` pour produire **toutes** les sorties tabulaires.
+3. Générer les figures (scripts `plot_fig*.py`).
+4. Contrôler les seuils : `primary` (≤ 1 %) et `order2` (≤ 10 %) via `02_relative_error_timeline.csv`.
+5. Compiler le chapitre LaTeX.
+
+---
+
+## 8. Contrôles et critères
+
+* **Chronologie** : `T_Gyr` croissant strict dans `02_timeline_milestones.csv`.
+* **Dérivée** : `02_P_derivative_data.dat` lissée, sans oscillations parasites (fenêtre/polynôme identiques aux chapitres 1 et 5).
+* **Écarts** : respecter `max_epsilon_primary` et `max_epsilon_order2` de `02_optimal_parameters.json`.
+* **Intégrité** : CSV en UTF-8 (séparateur `,`, point décimal `.`), JSON valide (schémas ci-dessous).
+
+---
+
+## 9. Références de schéma
+
+* JSON : `zz-schemas/02_optimal_parameters.schema.json`, `zz-schemas/02_spec_spectrum.schema.json`
+* CSV : gabarit tabulaire `zz-schemas/mc_results_table_schema.json` et schémas spécifiques au chapitre
+

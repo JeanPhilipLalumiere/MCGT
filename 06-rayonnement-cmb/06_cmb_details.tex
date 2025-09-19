@@ -1,0 +1,279 @@
+\subsection{Définitions mathématiques complètes}
+
+\begin{align}
+  \frac{\Delta C_{\ell}}{C_{\ell}}
+  &= \frac{C_{\ell}^{\mathrm{MCGT}} - C_{\ell}^{\Lambda\rm CDM}}
+           {C_{\ell}^{\Lambda\rm CDM}},
+  & 2 \le \ell \le 2500, \\[6pt]
+  \frac{\Delta r_{s}}{r_{s}}
+  &= \frac{r_{s}^{\mathrm{MCGT}} - r_{s}^{\Lambda\rm CDM}}
+           {r_{s}^{\Lambda\rm CDM}}, \\[6pt]
+  \Delta\chi^{2}_{\rm Planck}
+  &= \chi^{2}_{\rm Planck}(\mathrm{MCGT})
+   - \chi^{2}_{\rm Planck}(\Lambda\mathrm{CDM}).
+\end{align}
+
+\noindent
+Où :
+\begin{itemize}
+  \item \(C_{\ell}^{X}\) est le spectre CMB calculé pour le modèle \(X\).  
+  \item \(r_{s}^{X}\) est l’échelle acoustique à recombinaison pour \(X\).  
+  \item \(\chi^{2}_{\rm Planck}(X)\) est la vraisemblance Planck évaluée pour \(X\).
+\end{itemize}
+
+\subsection{Spécifications du fichier \texttt{06\_delta\_rs\_scan\_complet.csv}}
+
+Le fichier paramétrique complet contient trois colonnes, dans l’ordre :
+\begin{center}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Colonne}     & \textbf{Type} & \textbf{Description}                               \\
+\midrule
+\texttt{param\_name} & chaîne        & Nom du paramètre varié (\texttt{alpha1}, \texttt{T\_c}, \texttt{Delta}) \\
+\texttt{param\_value}& réel          & Valeur numérique du paramètre                     \\
+\texttt{delta\_rs\_over\_rs} & réel    & Écart relatif \(\Delta r_{s}/r_{s}\)                \\
+\bottomrule
+\end{tabular}
+\end{center} 
+
+\subsection{Calcul détaillé de $H_{\mathrm{MCGT}}/H_{\Lambda\mathrm{CDM}}$}
+\[
+  \frac{H_{\mathrm{MCGT}}(z)}{H_{\Lambda\mathrm{CDM}}(z)}
+    = \frac{1}{\dot P\bigl(T(z)\bigr)},
+  \quad
+  T(z) = \int_{z}^{\infty}\frac{dz'}{(1+z')\,H_{\Lambda\mathrm{CDM}}(z')}.
+\]
+
+\subsection{Contenu de \texttt{06\_planck\_likelihood.ini}}
+Le fichier:
+\begin{verbatim}
+[CAMBparams]
+# Fichier de base des paramètres cosmologiques
+paramfile = params.ini
+
+# Fond modifié par MCGT
+background_file = 06_hubble_mcgt.dat
+
+# Paramètres de précision
+lmax_scalar        = 2500
+accuracy_level     = 1
+k_eta_max_scalar   = 10000
+
+# Planck likelihoods (TT/TE/EE/lensing)
+use_planck_likelihood = T
+planck_data_dir       = ../data/planck/plik_lite_TTTEEE/
+planck_likelihood     = plik_lite_TTTEEE.clik
+\end{verbatim}
+\noindent\emph{Remarques à vérifier avant exécution :}
+\begin{itemize}
+  \item \texttt{params.ini} doit contenir les constantes de base
+    \(\Omega_b,\;\Omega_c,\;H_0,\;\tau,\dots\).
+  \item \texttt{planck\_data\_dir} doit pointer vers le dossier local
+    contenant les fichiers \texttt{.clik} de la likelihood Planck.
+\end{itemize}
+
+\subsection{Description pas-à-pas de \texttt{13\_executer\_cmb\_complet.py}}
+
+Le script \texttt{13\_executer\_cmb\_complet.py} orchestre l’ensemble du workflow CMB selon les étapes suivantes :
+
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Chargement des données}  
+    Lit le fichier \texttt{06\_hubble\_mcgt.dat} contenant 
+    \(\{z,\;H_{\mathrm{MCGT}}(z)/H_{\Lambda\mathrm{CDM}}(z)\}\).
+  \item \textbf{Appel de CAMB}  
+    Exécute CAMB deux fois :  
+    \begin{itemize}
+      \item \verb|camb 06_planck_likelihood.ini --paramset=LCDM|  
+      \item \verb|camb 06_planck_likelihood.ini --paramset=MCGT|
+    \end{itemize}
+  \item \textbf{Calcul des écarts spectres}  
+    Calcule \(\Delta C_{\ell}/C_{\ell}\) pour chaque \(\ell\) en comparant  
+    \(\{C_{\ell}^{\Lambda\mathrm{CDM}}\}\) et \(\{C_{\ell}^{\mathrm{MCGT}}\}\).
+  \item \textbf{Extraction des pics acoustiques}  
+    Détermine les indices \(\ell_{1},\ell_{2},\ell_{3}\) par interpolation  
+    autour des maxima locaux de \(\ell(\ell+1)C_{\ell}\).
+  \item \textbf{Calcul de l’écart acoustique}  
+    Mesure \(\Delta r_{s}/r_{s}\) pour chaque configuration paramétrique.
+  \item \textbf{Évaluation de \(\Delta\chi^{2}_{\mathrm{Planck}}\)}  
+    Compare les vraisemblances Planck pour LCDM et MCGT.
+  \item \textbf{Écriture du fichier résultat}  
+    Concatène tous les résultats dans  
+    \texttt{06\_cmb\_resultats\_complets.csv}.
+\end{enumerate}
+
+\subsection{Algorithme d’extraction des pics acoustiques}
+
+Pour chaque spectre \(\{C_{\ell}^{\mathrm{MCGT}}\}\), le script procède ainsi :
+
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Définition des fenêtres de recherche}  
+    Autour des positions théoriques des trois premiers pics :
+    \(\ell \approx 220,\;545,\;800\), on fixe des intervalles \(\pm\Delta\ell\) (typiquement \(\pm10\)).
+  \item \textbf{Détection brute des maxima}  
+    Dans chaque intervalle, repérer l’indice \(\ell_{\max}^{(k)}\) où \(\ell(\ell+1)C_{\ell}\) est maximal.
+  \item \textbf{Interpolation quadratique}  
+    Considérer les points \(\ell_{\max}^{(k)} - 1,\;\ell_{\max}^{(k)},\;\ell_{\max}^{(k)} + 1\) et ajuster un polynôme du second degré pour affiner la position du pic \(\ell_{k}\) à une précision d’un demi-entier.
+  \item \textbf{Enregistrement}  
+    Stocker \(\ell_{1},\,\ell_{2},\,\ell_{3}\) dans les colonnes dédiées de \texttt{06\_cmb\_resultats\_complets.csv}.
+\end{enumerate}
+
+\subsection{Calcul de \(\Delta r_{s}/r_{s}\)}
+L’échelle acoustique à la recombinaison \(r_{s}\) est donnée par :
+\[
+  r_{s}^{X} 
+  = 
+  \int_{z_{\mathrm{rec}}}^{\infty} \frac{c_{s}(z)}{H^{X}(z)}\,dz,
+  \quad
+  z_{\mathrm{rec}}\approx1090,
+\]
+où \(X=\Lambda\mathrm{CDM}\) ou \(X=\mathrm{MCGT}\).  
+Pour chaque triple paramétrique \((\alpha_{1},\,T_{c},\,\Delta)\) :
+\begin{enumerate}
+  \item Générer \(H_{\mathrm{MCGT}}(z)\) via CAMB (utilisant \texttt{06\_hubble\_mcgt.dat})
+        ou, si disponible, via une évaluation analytique de \(\dot P[T(z)]\).
+  \item Calculer numériquement
+        \(\displaystyle r_{s}^{\mathrm{MCGT}} 
+         = \int_{1090}^{\infty} c_{s}(z)\,/\,H_{\mathrm{MCGT}}(z)\,dz.\)
+  \item Obtenir \(r_{s}^{\Lambda\mathrm{CDM}}\) à partir d’un appel CAMB en mode LCDM.
+  \item Déterminer
+        \(\displaystyle
+          \Delta r_{s}/r_{s}
+          = 
+          \bigl(r_{s}^{\mathrm{MCGT}} - r_{s}^{\Lambda\mathrm{CDM}}\bigr)
+/\,r_{s}^{\Lambda\mathrm{CDM}}.\)
+  \item Enregistrer \((\alpha_{1},\,T_{c},\,\Delta,\;\Delta r_{s}/r_{s})\) 
+        dans \texttt{06\_delta\_rs\_scan.csv}.
+\end{enumerate}
+Le fichier \texttt{06\_delta\_rs\_scan.csv} est ensuite utilisé par 
+\texttt{13\_tracer\_delta\_rs.py} pour tracer 
+\texttt{fig\_03\_delta\_rs\_vs\_params.png}.
+
+\subsection{Calcul de \(\Delta\chi^{2}_{\mathrm{Planck}}\)}
+Après exécution de CAMB en mode LCDM et MCGT avec likelihood Planck activée, on récupère :
+\[
+  \chi^{2}_{\mathrm{Planck}}(\Lambda\mathrm{CDM}), 
+  \quad
+  \chi^{2}_{\mathrm{Planck}}(\mathrm{MCGT}).
+\]
+Le script \texttt{13\_executer\_cmb\_complet.py} calcule alors :
+\[
+  \Delta\chi^{2}_{\mathrm{Planck}}
+  \;=\;
+  \chi^{2}_{\mathrm{Planck}}(\mathrm{MCGT})
+  \;-\;
+  \chi^{2}_{\mathrm{Planck}}(\Lambda\mathrm{CDM}),
+\]
+et l’ajoute à la colonne correspondante de 
+\texttt{06\_cmb\_resultats\_complets.csv}.
+
+\subsection{Structure de \texttt{06\_cmb\_resultats\_complets.csv}}
+
+Chaque ligne du fichier correspond à une configuration paramétrique \((\alpha_{1},\,T_{c},\,\Delta)\) et contient neuf colonnes, dans l’ordre :
+
+\begin{center}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Colonne}               & \textbf{Type} & \textbf{Description}                                                           \\
+\midrule
+\texttt{alpha1}                & réel          & Paramètre \(\alpha_{1}\)                                                       \\
+\texttt{T\_c}                  & réel          & Température critique \(T_{c}\) [Gyr]                                          \\
+\texttt{Delta}                 & réel          & Durée \(\Delta\) [Gyr]                                                         \\
+\texttt{delta\_rs\_over\_rs}   & réel          & Écart acoustique \(\Delta r_{s}/r_{s}\)                                        \\
+\texttt{max\_delta\_C\_over\_C} & réel         & \(\max_{\ell}|\Delta C_{\ell}/C_{\ell}|\)                                       \\
+\texttt{ell\_1}                & entier        & Premier pic acoustique \(\ell_{1}\)                                            \\
+\texttt{ell\_2}                & entier        & Deuxième pic acoustique \(\ell_{2}\)                                           \\
+\texttt{ell\_3}                & entier        & Troisième pic acoustique \(\ell_{3}\)                                          \\
+\texttt{delta\_chi2\_planck}   & réel          & \(\Delta\chi^{2}_{\mathrm{Planck}}\)                                           \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{Chaque valeur numérique est enregistrée en virgule flottante (6 chiffres significatifs), sauf les indices \(\ell_{k}\) en entier.}
+
+\subsection{Sources de données complémentaires}
+
+Pour enrichir l’analyse, deux fichiers de scan paramétrique sont désormais disponibles :
+
+\begin{itemize}
+  \item \texttt{06-rayonnement-cmb/06\_cmb\_resultats\_scan\_chi2.csv}  
+        contient les colonnes \texttt{alpha1}, \texttt{T\_c}, \texttt{Delta} et \texttt{Delta\_chi2\_Planck}.  
+        Chaque ligne donne la valeur de \(\Delta\chi^2_{\rm Planck}\) pour une configuration \((\alpha_{1},T_{c},\Delta)\),  
+        et est générée par \texttt{13\_generer\_cmb\_scan\_chi2.py}.
+  \item \texttt{06-rayonnement-cmb/06\_delta\_rs\_scan\_complet.csv}  
+        contient les colonnes \texttt{param\_name}, \texttt{param\_value} et \texttt{delta\_rs\_over\_rs}.  
+        Permet d’étudier la dépendance de \(\Delta r_{s}/r_{s}\) à la variation unidimensionnelle de chacun des paramètres \(\alpha_{1}\), \(T_{c}\) ou \(\Delta\),  
+        et est généré par \texttt{13\_generer\_delta\_rs\_scan\_complet.py}.
+\end{itemize}
+
+\subsection*{Lien vers les données Planck}
+
+Les données Planck utilisées (version 2018) sont accessibles à l’adresse suivante :  
+\url{https://pla.esac.esa.int/pla/#home}
+
+\subsection{Analyse de sensibilité}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{06-rayonnement-cmb/fig_05_carte_chaleur_delta_chi2.png}
+  \caption{Heatmap de \(\Delta\chi^2_{\rm Planck}\) selon \(\alpha_{1}\) et \(T_c\). Les zones sombres indiquent une meilleure concordance avec les données Planck.}
+  \label{fig:carte_chaleur_delta_chi2}
+\end{figure}
+
+\noindent
+La Fig.~\ref{fig:carte_chaleur_delta_chi2} met en évidence la région optimale du plan \((\alpha_{1},T_c)\) où \(\Delta\chi^2_{\rm Planck}\) est minimal (autour de \(\alpha_{1}\approx0{,}3\), \(T_c\approx0{,}3\) Gyr).  
+
+\medskip
+\noindent
+Une analyse unidimensionnelle à partir de \texttt{06\_delta\_rs\_scan\_complet.csv} montre par exemple que,  
+pour une augmentation de \(\alpha_{1}\) de +0,05 (passant de 0,30 à 0,35),  
+l’écart acoustique \(\Delta r_{s}/r_{s}\) évolue d’environ \(-1\times10^{-5}\) à \(0\),  
+soit une variation d’environ \(1\times10^{-5}\).  
+
+\subsection*{Encadré : Limitations \& Perspectives}
+
+\begin{itemize}
+  \item Dépendance à l’interpolation de la fonction \(H_{\Lambda\mathrm{CDM}}(z)\),  
+        qui peut introduire des erreurs de discrétisation aux hauts redshifts.  
+  \item Absence d’effets non-linéaires dans le calcul des spectres (petits droits de lensing non inclus),  
+        susceptibles d’affiner légèrement les positions et amplitudes des pics.  
+  \item Perspectives d’extension :
+    \begin{itemize}
+      \item Inclusion de la polarisation CMB (TE/EE) pour renforcer la contrainte sur \(\Delta\chi^2\).  
+      \item Modélisation des effets de lentilles gravitationnelles sur le spectre à haut \(\ell\).  
+      \item Exploration de couplages supplémentaires (e.g. neutrinos massifs, modifications de la recombinaison) pour tester la robustesse du MCGT.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Reproductibilité}
+
+Pour reproduire tous les résultats du test CMB, exécuter successivement :
+\begin{enumerate}
+  \item \texttt{13\_executer\_cmb\_complet.py}
+  \item \texttt{13\_valider\_resultats\_cmb.py}
+  \item \texttt{13\_tracer\_delta\_rs.py}
+\end{enumerate}
+
+\subsection*{Glossaire}
+
+\begin{description}
+  \item[\(\alpha_{1}\)] Coefficient du couplage logistique modulant la transition du modèle MCGT.
+  \item[\(T_{c}\)] Température critique (en Gyr) caractérisant le changement de régime.
+  \item[\(\Delta\)] Durée de la transition (en Gyr) autour de \(T_{c}\).
+  \item[\(\dot P(T)\)] Dérivée calibrée du paramètre \(P\) en fonction de la température \(T\), utilisée pour calculer \(\frac{H_{\mathrm{MCGT}}}{H_{\Lambda\mathrm{CDM}}}\).
+  \item[\(\tfrac{H_{\mathrm{MCGT}}(z)}{H_{\Lambda\mathrm{CDM}}(z)}\)] Ratio des taux d’expansion MCGT et \(\Lambda\)CDM en fonction du redshift \(z\).
+  \item[\(C_{\ell}\)] Spectre de puissance angulaire du fond diffus cosmologique pour le multipôle \(\ell\).
+  \item[\(\Delta C_{\ell}/C_{\ell}\)] Écart relatif entre les spectres MCGT et \(\Lambda\)CDM.
+  \item[\(r_{s}\)] Échelle acoustique à la recombinaison.
+  \item[\(\Delta r_{s}/r_{s}\)] Écart relatif de l’échelle acoustique entre MCGT et \(\Lambda\)CDM.
+  \item[\(\chi^{2}_{\mathrm{Planck}}\)] Fonction de vraisemblance Planck utilisée pour l’évaluation du modèle.
+  \item[\(\Delta\chi^{2}_{\mathrm{Planck}}\)] Différence de \(\chi^{2}_{\mathrm{Planck}}\) entre MCGT et \(\Lambda\)CDM.
+  \item[\texttt{13\_executer\_cmb\_complet.py}] Script principal orchestrant l’ensemble du pipeline CMB.
+  \item[\texttt{13\_valider\_resultats\_cmb.py}] Script calculant et visualisant \(\Delta C_{\ell}/C_{\ell}\).
+  \item[\texttt{13\_tracer\_delta\_rs.py}] Script traçant \(\Delta r_{s}/r_{s}\) en fonction des paramètres.
+  \item[\texttt{06\_cmb\_resultats\_complets.csv}] Fichier résultant regroupant tous les écarts numériques et les indices de pics acoustiques.
+  \item[\texttt{06\_delta\_rs\_scan\_complet.csv}] Fichier listant les écarts acoustiques pour chaque variation unidimensionnelle de paramètre.
+  \item[\texttt{06\_planck\_likelihood.ini}] Fichier de configuration CAMB pour l’évaluation de la likelihood Planck.
+\end{description}
+
+\bigskip
+\noindent\emph{Fin de la partie détaillée, Chapitre 6.}

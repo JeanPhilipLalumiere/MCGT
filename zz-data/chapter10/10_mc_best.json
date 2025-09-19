@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "generated_at": "2025-09-18T14:41:08Z",
+    "metrics_window_Hz": [
+      20.0,
+      300.0
+    ],
+    "notes": "placeholder minimal conforming to mc_best_schema.json"
+  },
+  "top_k": [
+    {
+      "id": 1,
+      "m1": 30.0,
+      "m2": 30.0,
+      "alpha": 0.2,
+      "q0star": -0.5,
+      "model": "phi_mcgt_cal",
+      "n_20_300": 117,
+      "p95_20_300": 0.71,
+      "score": 0.71
+    }
+  ]
+}

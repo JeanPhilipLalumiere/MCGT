@@ -1,0 +1,51 @@
+{
+"chapter": 4,
+"title": "invariants-adimensionnels",
+"paths": {
+"data_dir": "zz-data/chapter4",
+"scripts_dir": "zz-scripts/chapter4",
+"figures_dir": "zz-figures/chapter4",
+"configs": [
+"conventions.md",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data_inputs": [
+"zz-data/chapter4/04_T_reference_grid.dat",
+"zz-data/chapter4/04_dimensionless_invariants.csv"
+],
+"data_outputs": [],
+"figures": [
+"zz-figures/chapter4/fig_01_invariants_diagram.png",
+"zz-figures/chapter4/fig_02_invariants_histogram.png",
+"zz-figures/chapter4/fig_03_invariants_vs_T.png",
+"zz-figures/chapter4/fig_04_relative_errors.png"
+],
+"metas": [
+"zz-data/chapter4/04_dimensionless_invariants.meta.json",
+"zz-figures/chapter4/fig_*.meta.json"
+],
+"others": [
+"04-invariants-adimensionnels/CHAPTER4_GUIDE.txt"
+]
+},
+"scripts": [
+"zz-scripts/chapter4/generate_chapter4_data.py",
+"zz-scripts/chapter4/plot_fig01_invariants_diagram.py",
+"zz-scripts/chapter4/plot_fig02_invariants_histogram.py",
+"zz-scripts/chapter4/plot_fig03_invariants_vs_T.py",
+"zz-scripts/chapter4/plot_fig04_relative_errors.py"
+],
+"meta_expected": [
+"zz-data/chapter4/04_dimensionless_invariants.meta.json",
+"zz-figures/chapter4/fig_*.meta.json"
+],
+"status": "ready",
+"qa_checks": [
+"Expression de I3 corrigée et testée (pas constante).",
+"I2: éviter underflow (normalisation/échelle log) documentée.",
+"Ancien nom `04_donnees_T_contre_T.dat` remplacé par `04_T_reference_grid.dat`."
+],
+"notes": "Erreur I3 identifiée; prévoir recalcul et figure mise à jour."
+}

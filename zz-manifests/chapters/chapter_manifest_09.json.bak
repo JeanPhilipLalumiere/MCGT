@@ -1,0 +1,61 @@
+{
+"chapter": 9,
+"title": "phase-ondes-gravitationnelles",
+"paths": {
+"data\_dir": "zz-data/chapter9",
+"scripts\_dir": "zz-scripts/chapter9",
+"figures\_dir": "zz-figures/chapter9",
+"configs": \[
+"conventions.md",
+"zz-configuration/gw\_phase.ini",
+"zz-configuration/mcgt-global-config.ini"
+]
+},
+"files": {
+"data\_inputs": \[
+"zz-data/chapter9/09\_comparison\_milestones.csv",
+"zz-data/chapter9/09\_comparison\_milestones.meta.json",
+"zz-data/chapter9/09\_metrics\_phase.json",
+"zz-data/chapter9/09\_phase\_difference.csv",
+"zz-data/chapter9/09\_phases\_imrphenom.csv",
+"zz-data/chapter9/09\_phases\_imrphenom.meta.json",
+"zz-data/chapter9/09\_phases\_mcgt.csv"
+],
+"data\_outputs": \[],
+"figures": \[
+"zz-figures/chapter9/fig\_01\_phase\_overlay.png",
+"zz-figures/chapter9/fig\_02\_residual\_phase.png",
+"zz-figures/chapter9/fig\_03\_hist\_abs\_dphi\_20\_300.png",
+"zz-figures/chapter9/fig\_04\_milestones\_abs\_dphi\_vs\_f.png",
+"zz-figures/chapter9/fig\_05\_scatter\_phi\_at\_fpeak.png",
+"zz-figures/chapter9/p95\_methods/*.png"
+],
+"metas": \[
+"zz-data/chapter9/09\_metrics\_phase.meta.json",
+"zz-figures/chapter9/fig\_*.meta.json"
+],
+"others": \[
+"09-phase-ondes-gravitationnelles/CHAPTER9\_GUIDE.txt"
+]
+},
+"scripts": \[
+"zz-scripts/chapter9/check\_p95\_methods.py",
+"zz-scripts/chapter9/generate\_chapter9\_data.py",
+"zz-scripts/chapter9/plot\_fig01\_phase\_overlay.py",
+"zz-scripts/chapter9/plot\_fig02\_residual\_phase.py",
+"zz-scripts/chapter9/plot\_fig03\_hist\_abs\_dphi\_20\_300.py",
+"zz-scripts/chapter9/plot\_fig04\_milestones\_abs\_dphi\_vs\_f.py",
+"zz-scripts/chapter9/plot\_fig05\_scatter\_phi\_at\_fpeak.py"
+],
+"meta\_expected": \[
+"zz-data/chapter9/09\_metrics\_phase.meta.json",
+"zz-figures/chapter9/fig\_\*.meta.json"
+],
+"status": "ready",
+"qa\_checks": \[
+"Chaîne metrics: raw → cal(phi0,tc) → poly → active (p95 décroissante).",
+"Outlier `obs_phase ~ 604 rad`: vérification/traitement documenté.",
+"Fenêtres et poids (fit/metrics) conformes au global."
+],
+"notes": "Documenter la stabilité hors fenêtre de la poly-correction (base log10, degré 5)."
+}

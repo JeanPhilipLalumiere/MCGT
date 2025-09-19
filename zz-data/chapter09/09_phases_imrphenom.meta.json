@@ -1,0 +1,9 @@
+{
+  "source": "file",
+  "n_points": 1,
+  "grid": {
+    "fmin_Hz": 10.0,
+    "fmax_Hz": 20.0,
+    "monotone": true
+  }
+}

@@ -1,0 +1,89 @@
+# Exigences pour le Chapitre 8 (Couplage sombre)
+
+1. **Environnement système**
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Espace disque : ≥ 500 Mo libre  
+
+2. **Environnement Python**
+   * Python ≥ 3.9  
+   * Créer et activer un environnement virtuel spécifique :
+     ```
+     cd ~/MCGT
+     python3 -m venv venv8
+     source venv8/bin/activate
+     ```
+   * Installer les dépendances :
+     ```
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib
+     ```
+
+3. **Données brutes & scripts d’extraction**
+   * **BAO**  
+     – Source : SDSS-DR12 (BOSS) bao_distances_DR12v5.dat  
+       `https://raw.githubusercontent.com/SDSS-Science-Archive-Server/BOSS-LSS/master/lss/BAOtables/bao_distances_DR12v5.dat`  
+     – Extraction (z, D_V, σ_DV) via :
+       `zz-scripts/chapter08/utils/extraire_donnees_bao.py` → `zz-data/chapter08/08_donnees_bao.csv`
+   * **Pantheon+**  
+     – Source : Pantheon + SH0ES.dat  
+       `https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/main/Pantheon%2B_Data/4_DISTANCES_AND_COVAR/Pantheon%2BSH0ES.dat`  
+     – Extraction (z, μ, σ_μ) via :
+       `zz-scripts/chapter08/utils/extraire_donnees_pantheon_plus.py` → `zz-data/chapter08/08_donnees_pantheon.csv`
+
+4. **Structure du dépôt**
+````
+
+MCGT/
+├─ 08-couplage-sombre/          # sources LaTeX, GUIDE
+├─ zz-data/chapter08/        # .csv, .json générés
+├─ zz-scripts/chapter08/        # generer\_*.py, tracer\_*.py
+│   └─ utils/                   # extraire\_donnees\_\*.py, verifier\_grille\_z.py, modele\_exemple\_couplage.py
+├─ zz-figures/chapter08/        # .png produits
+└─ venv8/                       # environnement virtuel Python
+
+````
+
+5. **Exécution du pipeline**
+1. Génération des données :
+   ```bash
+   source venv8/bin/activate
+   python zz-scripts/chapter08/generer_donnees_chapitre8.py \
+     --q0star_min -0.1 --q0star_max 0.1 --n_points 201 \
+     [--export-derivative] [--export-heatmap --param2_min … --param2_max … --n_param2 …]
+   ```
+2. Tracé des figures :
+   ```bash
+   python zz-scripts/chapter08/tracer_fig01_chi2_total_vs_q0.py
+   python zz-scripts/chapter08/tracer_fig02_dv_vs_z.py
+   python zz-scripts/chapter08/tracer_fig03_mu_vs_z.py
+   python zz-scripts/chapter08/tracer_fig04_carte_chaleur_chi2.py   # si heatmap 2D
+   python zz-scripts/chapter08/tracer_fig05_residus.py
+   python zz-scripts/chapter08/tracer_fig06_distribution_residus_normalises.py
+   python zz-scripts/chapter08/tracer_fig07_profil_chi2.py
+   ```
+
+6. **Compilation LaTeX**
+```bash
+cd 08-couplage-sombre/
+pdflatex -interaction=nonstopmode 08_couplage_sombre_conceptuel.tex
+pdflatex -interaction=nonstopmode 08_couplage_sombre_details.tex
+````
+
+7. **Tests & validations**
+
+   * Vérifier l’existence et la non-nullité des fichiers dans `zz-data/chapter08/` :
+
+     ```
+     08_jalons_couplage.csv
+     08_donnees_bao.csv
+     08_donnees_pantheon.csv
+     08_chi2_total_vs_q0.csv
+     [08_derivee_chi2.csv]
+     [08_chi2_scan2D.csv]
+     08_dv_theorie_z.csv
+     08_mu_theorie_z.csv
+     08_params_couplage.json
+     ```
+   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV
+   * `max_epsilon_primary` < 0.01 et `max_epsilon_order2` < 0.10 dans `08_params_couplage.json`
+   * Ouvrir chaque figure PNG dans `zz-figures/chapter08/` pour un contrôle visuel

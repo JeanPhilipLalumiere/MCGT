@@ -1,0 +1,33 @@
+# Python / virtualenvs / build
+.venv/
+venv/
+env/
+.venv-wheel-test/
+build/
+dist/
+*.egg-info/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Tests / tooling
+.pytest_cache/
+.coverage
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# local editor / misc
+*.log

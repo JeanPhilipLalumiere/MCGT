@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-tracer_fig02_histogramme_invariants.py
+plot_fig02_invariants_histogram.py
 
 Script corrigé de tracé de l'histogramme des invariants I2 et I3
-– Lit 04_invariants_adimensionnels.csv
+– Lit 04_dimensionless_invariants.csv
 – Exclut les valeurs nulles de I3 pour le log
 – Trace histogramme de log10(I2) et log10(|I3|)
 – Sauvegarde la figure 800×500 px DPI 300
@@ -17,7 +17,7 @@ def main():
     # ----------------------------------------------------------------------
     # 1. Chargement des données
     # ----------------------------------------------------------------------
-    data_file = 'zz-data/chapter04/04_invariants_adimensionnels.csv'
+    data_file = 'zz-data/chapter04/04_dimensionless_invariants.csv'
     df = pd.read_csv(data_file)
     logI2 = np.log10(df['I2'].values)
     # Exclure I3 = 0 pour log10
@@ -45,14 +45,14 @@ def main():
     # ----------------------------------------------------------------------
     ax.set_xlabel(r'$\log_{10}\bigl(\mathrm{valeur\ de\ l’invariant}\bigr)$')
     ax.set_ylabel('Densité normalisée')
-    ax.set_title('Fig. 02 – Histogramme des invariants adimensionnels')
+    ax.set_title('Fig. 02 – Histogramme des invariants adimensionnels')
     ax.legend(fontsize='small')
     ax.grid(True, which='both', linestyle=':', linewidth=0.5)
 
     # ----------------------------------------------------------------------
     # 4. Sauvegarde de la figure
     # ----------------------------------------------------------------------
-    output_fig = 'zz-figures/chapter04/fig_02_histogramme_invariants.png'
+    output_fig = 'zz-figures/chapter04/fig_02_invariants_histogram.png'
     plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")

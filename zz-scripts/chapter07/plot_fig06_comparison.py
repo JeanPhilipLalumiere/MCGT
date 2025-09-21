@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig06_comparaison.py
+plot_fig06_comparison.py
 
 Figure 06 – Comparaison des invariants et dérivées
 Chapitre 7 – Perturbations scalaires (MCGT)
@@ -19,24 +19,24 @@ import matplotlib.pyplot as plt
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-# --- Racine du projet ---
+# --- Project root ---
 ROOT = Path(__file__).resolve().parents[2]
 
-# --- Chemins ---
-DATA_DIR  = ROOT / 'zz-data'  / 'chapitre7'
+# --- Paths (English names for directories and files) ---
+DATA_DIR  = ROOT / 'zz-data'  / 'chapter07'
 INV_CSV   = DATA_DIR / '07_scalar_invariants.csv'
-DCS2_CSV  = DATA_DIR / '07_dcs2_dk.csv'
-DDPHI_CSV = DATA_DIR / '07_ddelta_phi_dk.csv'
-META_JSON = DATA_DIR / '07_params_perturbations.json'
-FIG_OUT   = ROOT / 'zz-figures' / 'chapitre7' / 'fig_06_comparaison.png'
+DCS2_CSV  = DATA_DIR / '07_derivative_cs2_dk.csv'
+DDPHI_CSV = DATA_DIR / '07_derivative_ddelta_phi_dk.csv'
+META_JSON = DATA_DIR / '07_meta_perturbations.json'
+FIG_OUT   = ROOT / 'zz-figures' / 'chapter07' / 'fig_06_comparison.png'
 
-# --- Lecture de k_split ---
+# --- Read k_split ---
 with open(META_JSON, 'r', encoding='utf-8') as f:
     meta = json.load(f)
 k_split = float(meta.get('x_split', 0.02))
 logger.info("k_split = %.2e h/Mpc", k_split)
 
-# --- Chargement des données ---
+# --- Load data ---
 df_inv  = pd.read_csv(INV_CSV)
 df_dcs2 = pd.read_csv(DCS2_CSV)
 df_ddp  = pd.read_csv(DDPHI_CSV)
@@ -45,10 +45,10 @@ k1, I1   = df_inv['k'].values,  df_inv.iloc[:,1].values
 k2, dcs2 = df_dcs2['k'].values, df_dcs2.iloc[:,1].values
 k3, ddp  = df_ddp['k'].values,  df_ddp.iloc[:,1].values
 
-# Masquer les zéros pour la dérivée de δφ/φ
+# Mask zeros for derivative of delta phi/phi
 ddp_mask = np.ma.masked_where(np.abs(ddp) <= 0, np.abs(ddp))
 
-# Fonction pour annoter le plateau
+# Function to annotate the plateau region
 def zoom_plateau(ax, k, y):
     sel = k < k_split
     ysel = y[sel]
@@ -64,7 +64,7 @@ def zoom_plateau(ax, k, y):
         fontsize=7, bbox=dict(boxstyle='round', fc='white', alpha=0.7)
     )
 
-# --- Création de la figure ---
+# --- Create figure ---
 fig, axs = plt.subplots(3, 1, figsize=(8, 14), sharex=True)
 
 # 1) I₁ = c_s²/k
@@ -85,7 +85,7 @@ ax.set_ylabel(r'$|\partial_k c_s^2|$', fontsize=10)
 ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
 ax.grid(True, which='both', ls=':', linewidth=0.5)
 
-# → Ajustement de la limite haute pour bien voir le pic
+# → Adjust upper limit to emphasize the peak
 ymin, _ = ax.get_ylim()
 ax.set_ylim(ymin, 1e1)
 
@@ -100,7 +100,7 @@ ax.set_xlabel(r'$k\,[h/\mathrm{Mpc}]$', fontsize=10)
 ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
 ax.grid(True, which='both', ls=':', linewidth=0.5)
 
-# --- Titre et marges ---
+# --- Title and layout ---
 fig.suptitle('Comparaison des invariants et dérivées', fontsize=14)
 fig.subplots_adjust(
     top=0.92, bottom=0.07,
@@ -108,8 +108,8 @@ fig.subplots_adjust(
     hspace=0.30
 )
 
-# --- Sauvegarde ---
+# --- Save ---
 FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
 fig.savefig(FIG_OUT, dpi=300)
-logger.info("Figure sauvegardée → %s", FIG_OUT)
+logger.info("Figure saved → %s", FIG_OUT)
 plt.close(fig)

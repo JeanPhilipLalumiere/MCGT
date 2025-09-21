@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Flag jalons de comparaison (chapitre 9).
+Flag milestones de comparaison (chapitre 9).
 Usage:
-  python zz-scripts/chapter09/flag_jalons.py \
+  python zz-scripts/chapter09/flag_milestones.py \
     --csv zz-data/chapter09/09_comparison_milestones.csv \
     --meta zz-data/chapter09/09_comparison_milestones.meta.json \
     --out zz-data/chapter09/09_comparison_milestones.flagged.csv
@@ -24,7 +24,7 @@ def safe_float(x):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--csv", required=True, help="CSV jalons input")
+    p.add_argument("--csv", required=True, help="CSV milestones input")
     p.add_argument("--meta", required=True, help="Meta JSON to update")
     p.add_argument("--out", help="Output flagged CSV (defaults to input with .flagged.csv)", default=None)
     p.add_argument("--metrics-window", nargs=2, type=float, default=[20.0,300.0], help="metrics window (Hz)")

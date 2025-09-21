@@ -8,9 +8,9 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # --- Paths ---
 ROOT    = Path(__file__).resolve().parents[2]
-FIG_DIR = ROOT / "zz-figures" / "chapitre6"
+FIG_DIR = ROOT / "zz-figures" / "chapter06"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
-OUT_PNG = FIG_DIR / "fig_01_schema_flux_donnees_cmb.png"
+OUT_PNG = FIG_DIR / "fig_01_schema_data_flow_cmb.png"
 
 # --- Figure setup ---
 fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
@@ -28,7 +28,7 @@ DY     = 0.25             # décalage vertical standard
 # --- Blocks definitions ---
 blocks = {
     "in":   (0.05,      Ymid,       "pdot_plateau_z.dat",                     "#d7d7d7"),
-    "scr":  (0.36,      Ymid,       "generer_donnees_chapitre6.py",           "#a9dfbf"),
+    "scr":  (0.36,      Ymid,       "generate_chapter06_data.py",           "#a9dfbf"),
     "data": (0.67,      Ymid + DY,  "06_cls_*.dat\n06_delta_*.csv\n06_delta_rs_*.csv\n06_cmb_chi2_scan2D.csv\n06_params_cmb.json", "#d7d7d7"),
     "fig":  (0.67,      Ymid - DY,  "fig_02.png\nfig_03.png\nfig_04.png\nfig_05.png",               "#d7d7d7"),
 }

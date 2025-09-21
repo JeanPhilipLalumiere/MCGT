@@ -10,12 +10,12 @@ points (indices < 50) pour se focaliser sur la constance du pas, et ajoute
 une ligne de référence au pas théorique.
 
 Entrée :
-    zz-data/chapter03/03_donnees_stabilite_fR.csv
+    zz-data/chapter03/03_fR_stability_data.csv
 Colonnes requises :
     R_over_R0
 
 Sortie :
-    zz-figures/chapter03/fig_06_qualite_grille.png
+    zz-figures/chapter03/fig_06_grid_quality.png
 """
 
 from pathlib import Path
@@ -34,9 +34,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_donnees_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_06_qualite_grille.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_06_grid_quality.png"
 
 def main() -> None:
     # 1. Vérification du fichier de données
@@ -59,7 +59,7 @@ def main() -> None:
     N = len(grid)
     dlog_th = (np.log10(grid[-1]) - np.log10(grid[0])) / (N - 1)
 
- # 5. Extraction des indices à tracer (on skippe les 50 premiers)
+    # 5. Extraction des indices à tracer (on skippe les 50 premiers)
     N          = len(grid)
     idx_full   = np.arange(1, N)       # diffs[i] = logg[i+1] - logg[i]
     diffs_full = diffs
@@ -69,9 +69,10 @@ def main() -> None:
     diffs_plot = diffs_full[mask_idx]
 
     # index local du saut le plus élevé :
-    i_bad = np.argmax(diffs_plot)
-    idx_plot   = np.delete(idx_plot,   i_bad)
-    diffs_plot = np.delete(diffs_plot, i_bad)
+    if diffs_plot.size > 0:
+        i_bad = np.argmax(diffs_plot)
+        idx_plot   = np.delete(idx_plot,   i_bad)
+        diffs_plot = np.delete(diffs_plot, i_bad)
 
     # 6. Tracé
     fig, ax = plt.subplots(dpi=300, figsize=(6, 4))
@@ -101,6 +102,7 @@ def main() -> None:
     ax.legend(loc="lower right", framealpha=0.8)
 
     plt.tight_layout()
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG_PATH)
     plt.close(fig)
 

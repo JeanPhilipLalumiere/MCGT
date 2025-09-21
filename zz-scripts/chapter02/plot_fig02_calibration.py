@@ -7,12 +7,12 @@ from pathlib import Path
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data" / "chapitre2"
-FIG_DIR = ROOT / "zz-figures" / "chapitre2"
+DATA_DIR = ROOT / "zz-data" / "chapter02"
+FIG_DIR = ROOT / "zz-figures" / "chapter02"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load data
-df = pd.read_csv(DATA_DIR / "02_jalons_chronologie.csv")
+df = pd.read_csv(DATA_DIR / "02_timeline_milestones.csv")
 P_ref = df["P_ref"]
 P_calc = df["P_opt"]
 

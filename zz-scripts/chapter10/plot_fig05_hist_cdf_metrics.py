@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 """
-tracer_fig05_hist_cdf_metrics.py
+plot_fig05_hist_cdf_metrics.py
 
 Figure 05 : Histogramme + CDF des p95 recalculés en métrique circulaire.
-Produit un PNG.
 
-Exemple :
-python zz-scripts/chapter10/tracer_fig05_hist_cdf_metrics.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png \
-  --ref-p95 0.7104087123286049 --bins 50 --dpi 150 \
-  --zoom-x 3.0 --zoom-y 35 --zoom-dx 0.30 --zoom-dy 30
 """
 from __future__ import annotations
 import argparse, textwrap
@@ -38,7 +31,7 @@ def detect_p95_column(df: pd.DataFrame) -> str:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", required=True, help="CSV avec p95 circulaire recalculé")
-    ap.add_argument("--out", default="fig_05_hist_cdf_metrics.png", help="PNG de sortie")
+    ap.add_argument("--out", default="zz-figures/chapter10/fig_05_hist_cdf_metrics.png", help="PNG de sortie")
     ap.add_argument("--ref-p95", type=float, default=0.7104087123286049, help="p95 de référence [rad]")
     ap.add_argument("--bins", type=int, default=50, help="Nb de bacs histogramme")
     ap.add_argument("--dpi", type=int, default=150, help="DPI du PNG")
@@ -111,7 +104,6 @@ def main():
 
     # Petite légende (sous la boîte de stats)
     handles = []
-    # histogramme : premier patch comme handle
     if len(patches) > 0:
         handles.append(patches[0])
     else:
@@ -129,21 +121,18 @@ def main():
         ax,
         width=f"{args.zoom_w * 100:.0f}%",
         height=f"{args.zoom_h * 100:.0f}%",
-        loc="center",  # centré dans l'axe principal
+        loc="center",
         borderpad=1.0,
     )
-    # Fenêtre X/Y demandée
     x0, x1 = args.zoom_x - args.zoom_dx, args.zoom_x + args.zoom_dx
     y0_user, y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
 
-    # Histogramme restreint au domaine X du zoom pour déterminer le sommet réel
     mask_x = (p95 >= x0) & (p95 <= x1)
     data_inset = p95[mask_x] if mask_x.sum() >= 5 else p95
     inset_counts, inset_bins, _ = inset_ax.hist(
         data_inset, bins=min(args.bins, 30), alpha=0.9, edgecolor="k"
     )
 
-    # Hauteur auto : on s'assure d'englober le pic (avec marge 10%)
     ymax_auto = (np.max(inset_counts) if inset_counts.size else 1.0) * 1.10
     y0 = 0.0
     y1 = max(y1_user, ymax_auto)
@@ -153,16 +142,13 @@ def main():
     inset_ax.set_title("zoom", fontsize=10)
     inset_ax.tick_params(axis="both", which="major", labelsize=8)
 
-    # Lien visuel (best effort)
     try:
         mark_inset(ax, inset_ax, loc1=2, loc2=4, fc="none", ec="0.5", lw=0.8)
     except Exception:
         pass
 
-    # Titre (taille 15)
     ax.set_title("Distribution de p95_20_300 (MC global)", fontsize=15)
 
-    # Note de bas de figure (MathText, pas de LaTeX requis)
     foot = textwrap.fill(
         (r"Métrique : distance circulaire (mod $2\pi$). "
          r"Définition : p95 = $95^{\mathrm{e}}$ centile de $|\Delta\phi(f)|$ pour $f\in[20,300]\ \mathrm{Hz}$. "
@@ -173,7 +159,6 @@ def main():
          rf"(n = {n_below})."),
         width=180
     )
-    # réserver de l'espace en bas puis placer le texte
     plt.tight_layout(rect=[0, 0.14, 1, 0.98])
     fig.text(0.5, 0.04, foot, ha="center", va="bottom", fontsize=9)
 

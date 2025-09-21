@@ -1,0 +1,366 @@
+{
+  "generated_at": "2025-08-31T03:40:25Z",
+  "source_url": "https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events",
+  "n_events": 20,
+  "events": [
+    {
+      "name": "GW200322_091133",
+      "source_url": null,
+      "raw": {
+        "name": "GW200322_091133",
+        "shortName": "GW200322_091133-v1",
+        "gps": 1268903511.3,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200322_091133-v1"
+      }
+    },
+    {
+      "name": "GW200316_215756",
+      "source_url": null,
+      "raw": {
+        "name": "GW200316_215756",
+        "shortName": "GW200316_215756-v1",
+        "gps": 1268431094.1,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200316_215756-v1"
+      }
+    },
+    {
+      "name": "GW200311_115853",
+      "source_url": null,
+      "raw": {
+        "name": "GW200311_115853",
+        "shortName": "GW200311_115853-v1",
+        "gps": 1267963151.3,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200311_115853-v1"
+      }
+    },
+    {
+      "name": "GW200308_173609",
+      "source_url": null,
+      "raw": {
+        "name": "GW200308_173609",
+        "shortName": "GW200308_173609-v1",
+        "gps": 1267724187.7,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200308_173609-v1"
+      }
+    },
+    {
+      "name": "GW200306_093714",
+      "source_url": null,
+      "raw": {
+        "name": "GW200306_093714",
+        "shortName": "GW200306_093714-v1",
+        "gps": 1267522652.1,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200306_093714-v1"
+      }
+    },
+    {
+      "name": "GW200302_015811",
+      "source_url": null,
+      "raw": {
+        "name": "GW200302_015811",
+        "shortName": "GW200302_015811-v1",
+        "gps": 1267149509.5,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200302_015811-v1"
+      }
+    },
+    {
+      "name": "GW200225_060421",
+      "source_url": null,
+      "raw": {
+        "name": "GW200225_060421",
+        "shortName": "GW200225_060421-v1",
+        "gps": 1266645879.3,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200225_060421-v1"
+      }
+    },
+    {
+      "name": "GW200224_222234",
+      "source_url": null,
+      "raw": {
+        "name": "GW200224_222234",
+        "shortName": "GW200224_222234-v1",
+        "gps": 1266618172.4,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200224_222234-v1"
+      }
+    },
+    {
+      "name": "GW200220_124850",
+      "source_url": null,
+      "raw": {
+        "name": "GW200220_124850",
+        "shortName": "GW200220_124850-v1",
+        "gps": 1266238148.1,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200220_124850-v1"
+      }
+    },
+    {
+      "name": "GW200220_061928",
+      "source_url": null,
+      "raw": {
+        "name": "GW200220_061928",
+        "shortName": "GW200220_061928-v1",
+        "gps": 1266214786.7,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200220_061928-v1"
+      }
+    },
+    {
+      "name": "GW200219_094415",
+      "source_url": null,
+      "raw": {
+        "name": "GW200219_094415",
+        "shortName": "GW200219_094415-v1",
+        "gps": 1266140673.1,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200219_094415-v1"
+      }
+    },
+    {
+      "name": "GW200216_220804",
+      "source_url": null,
+      "raw": {
+        "name": "GW200216_220804",
+        "shortName": "GW200216_220804-v1",
+        "gps": 1265926102.8,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200216_220804-v1"
+      }
+    },
+    {
+      "name": "GW200210_092254",
+      "source_url": null,
+      "raw": {
+        "name": "GW200210_092254",
+        "shortName": "GW200210_092254-v1",
+        "gps": 1265361792.9,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200210_092254-v1"
+      }
+    },
+    {
+      "name": "GW200209_085452",
+      "source_url": null,
+      "raw": {
+        "name": "GW200209_085452",
+        "shortName": "GW200209_085452-v1",
+        "gps": 1265273710.1,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200209_085452-v1"
+      }
+    },
+    {
+      "name": "GW200208_222617",
+      "source_url": null,
+      "raw": {
+        "name": "GW200208_222617",
+        "shortName": "GW200208_222617-v1",
+        "gps": 1265235995.9,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200208_222617-v1"
+      }
+    },
+    {
+      "name": "GW200208_130117",
+      "source_url": null,
+      "raw": {
+        "name": "GW200208_130117",
+        "shortName": "GW200208_130117-v1",
+        "gps": 1265202095.9,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200208_130117-v1"
+      }
+    },
+    {
+      "name": "GW200202_154313",
+      "source_url": null,
+      "raw": {
+        "name": "GW200202_154313",
+        "shortName": "GW200202_154313-v1",
+        "gps": 1264693411.5,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200202_154313-v1"
+      }
+    },
+    {
+      "name": "GW200129_065458",
+      "source_url": null,
+      "raw": {
+        "name": "GW200129_065458",
+        "shortName": "GW200129_065458-v1",
+        "gps": 1264316116.4,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200129_065458-v1"
+      }
+    },
+    {
+      "name": "GW200128_022011",
+      "source_url": null,
+      "raw": {
+        "name": "GW200128_022011",
+        "shortName": "GW200128_022011-v1",
+        "gps": 1264213229.9,
+        "version": 1,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200128_022011-v1"
+      }
+    },
+    {
+      "name": "GW200115_042309",
+      "source_url": null,
+      "raw": {
+        "name": "GW200115_042309",
+        "shortName": "GW200115_042309-v2",
+        "gps": 1263097407.7,
+        "version": 2,
+        "catalog": "GWTC-3-confident",
+        "doi": "https://doi.org/10.7935/b024-1886",
+        "detectors": [
+          "H1",
+          "L1",
+          "V1"
+        ],
+        "detail_url": "https://gwosc.org/api/v2/event-versions/GW200115_042309-v2"
+      }
+    }
+  ]
+}

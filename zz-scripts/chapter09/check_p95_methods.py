@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# check_p95_methods.py
 """
-check_p95_methods.py
-
 Compare p95 (et autres stats) pour trois traitements du résidu de phase:
   - raw:    abs(phi_mcgt - phi_ref)
   - unwrap: abs( unwrap(phi_mcgt - phi_ref) )
@@ -149,7 +147,7 @@ def main():
     if args.plot:
         for bins in args.bins:
             for name, arr in methods:
-                out = args.out_dir / f"fig03_{name}_bins{bins}.png"
+                out = args.out_dir / f"fig_03_{name}_bins{bins}.png"
                 title = f"{name} — bins={bins} — window={int(fmin)}-{int(fmax)} Hz (k={k_med})"
                 plot_hist(arr, bins=bins, outpath=out, xscale=args.xscale, dpi=args.dpi, title=title)
         print(f"\nPlots saved in: {args.out_dir}")

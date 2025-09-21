@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-generer_phase_mcgtraw.py
+generate_phase_mcgtraw.py
 
 Génère la phase brute MCGT sur une grille log–lin de fréquences,
 exporte les résultats en CSV et crée un fichier meta-JSON compagnon.
@@ -159,7 +159,7 @@ def main():
     phi_mcgt = solve_mcgt(freqs, params, fmin)
 
     # Préparation des chemins de sortie
-    out_dir = Path("zz-data/chapter9")
+    out_dir = Path("zz-data/chapter09")
     out_dir.mkdir(parents=True, exist_ok=True)
     tag = f"q0star{q0star:.2f}_alpha{alpha:.2f}"
     output_csv = out_dir / f"09_phase_run_{tag}.dat"

@@ -8,7 +8,8 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # --- Chemins ---
 ROOT     = Path(__file__).resolve().parents[2]
-CONF_DIR = ROOT / 'zz-configuration'
+# English folder name for configuration
+CONF_DIR = ROOT / 'zz-config'
 OUT_FILE = CONF_DIR / 'pdot_plateau_z.dat'
 OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 

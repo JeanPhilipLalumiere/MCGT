@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# tracer_fig01_chi2_total_vs_q0.py
-# Trace χ² total et sa dérivée vs q0⋆ (Chapitre 8 – Couplage sombre, MCGT)
+# plot_fig01_chi2_total_vs_q0.py
+# Trace χ² total et sa dérivée vs q0⋆ (Chapter 8 – Dark coupling, MCGT)
 # Inset centré et légèrement décalé vers le haut
 
 import numpy as np
@@ -13,8 +13,8 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 def main():
     # --- Répertoires ---
     ROOT     = Path(__file__).resolve().parents[2]
-    DATA_DIR = ROOT / "zz-data"  / "chapitre8"
-    FIG_DIR  = ROOT / "zz-figures"  / "chapitre8"
+    DATA_DIR = ROOT / "zz-data"  / "chapter08"
+    FIG_DIR  = ROOT / "zz-figures"  / "chapter08"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # --- Chargement des données ---

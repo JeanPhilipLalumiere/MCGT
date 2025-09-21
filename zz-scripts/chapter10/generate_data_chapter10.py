@@ -20,14 +20,14 @@ Ce qui est volontairement laissé à d’autres scripts (indépendants) :
 Exemples d’exécution
 --------------------
 # Run global simple (comme validé)
-python zz-scripts/chapter10/generer_donnees_chapitre10.py \
+python zz-scripts/chapter10/generate_chapter10_data.py \
   --n 5000 --batch 256 --n-workers 8 --K 50 --lambda 0.2 \
   --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
   --jalons   zz-data/chapter09/09_comparison_milestones.csv \
   --log-level INFO
 
 # Même chose + raffinement global autour du top-K (ex. 10k points)
-python zz-scripts/chapter10/generer_donnees_chapitre10.py \
+python zz-scripts/chapter10/generate_chapter10_data.py \
   --n 5000 --batch 256 --n-workers 8 --K 50 --lambda 0.2 \
   --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
   --jalons   zz-data/chapter09/09_comparison_milestones.csv \
@@ -38,10 +38,10 @@ Notes
 -----
 - Si 10_mc_config.json est absent, le pipeline en **génère un template** minimal et continue.
 - Le pipeline appelle ces scripts validés :
-    • generer_echantillons_8d.py
+    • generate_8d_samples.py
     • eval_metrics_principal_20_300.py
-    • eval_jalons_fpeak.py
-    • aggreger_runs_mc.py
+    • eval_milestones_fpeak.py
+    • aggregate_mc_runs.py
 - Les fichiers sont produits dans zz-data/chapter10/ ; les journaux (logs) sont sur stdout/err.
 """
 
@@ -55,16 +55,16 @@ from datetime import datetime
 # ---------------------------------------------------------------------
 HERE = Path(__file__).resolve().parent               # .../zz-scripts/chapter10
 ROOT = HERE.parent.parent                            # racine du dépôt
-DDIR = ROOT / "zz-data" / "chapitre10"
-FDIR = ROOT / "zz-figures" / "chapitre10"
-REF_CH9 = ROOT / "zz-data" / "chapitre9"
+DDIR = ROOT / "zz-data" / "chapter10"
+FDIR = ROOT / "zz-figures" / "chapter10"
+REF_CH9 = ROOT / "zz-data" / "chapter09"
 CACHE_REF = DDIR / ".cache_ref"
 
 SCRIPTS = {
-    "samples": HERE / "generer_echantillons_8d.py",
+    "samples": HERE / "generate_8d_samples.py",
     "metrics": HERE / "eval_metrics_principal_20_300.py",
-    "jalons":  HERE / "eval_jalons_fpeak.py",
-    "agg":     HERE / "aggreger_runs_mc.py",
+    "jalons":  HERE / "eval_milestones_fpeak.py",
+    "agg":     HERE / "aggregate_mc_runs.py",
 }
 
 DEFAULTS = {
@@ -73,7 +73,7 @@ DEFAULTS = {
     "results_csv": DDIR / "10_mc_results.csv",
     "results_agg_csv": DDIR / "10_mc_results.agg.csv",
     "best_json": DDIR / "10_mc_best.json",
-    "jalons_csv": DDIR / "10_mc_jalons_eval.csv",
+    "jalons_csv": DDIR / "10_mc_milestones_eval.csv",
     "manifest": DDIR / "10_mc_run_manifest.json",
     "summary": DDIR / "10_pipeline_summary.json",
     "ref_grid": REF_CH9 / "09_phases_imrphenom.csv",

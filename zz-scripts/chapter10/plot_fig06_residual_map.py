@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig06_residual_map.py  —  Figure 6 finale
+plot_fig06_residual_map.py  —  Figure 6 finale
 
 - Carte hexbin des résidus sur (m1,m2) avec réduction par médiane.
 - Colorbar pré-scalée (affiche en ×10^exp rad ; défaut exp=-7).
-- Inserts à droite : Counts (par cellule) et Distribution globale (histogramme)
-  avec boîte de stats en 3 lignes.
-- Deux lignes de footer courtes (échelle + stats & N_active/N).
-- Espaces ajustés :
-    * plus d'espace horizontal entre carte/colorbar et inserts,
-    * moins d'espace vertical entre les graphiques et le footer.
 
 Exemple :
-python zz-scripts/chapter10/tracer_fig06_residual_map.py \
+python zz-scripts/chapter10/plot_fig06_residual_map.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --metric dp95 --abs --m1-col m1 --m2-col m2 \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
@@ -116,13 +110,10 @@ def main():
     plt.style.use("classic")
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
-    # Axes : carte principale, colorbar et inserts à droite
     # -> plus d'espace horizontal entre carte/colorbar et inserts (left=0.75)
     # -> moins d'espace vertical avec le footer (bottom abaissé)
     ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])   # left, bottom, width, height
     ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
-
-    # Inserts poussés plus à droite, avec même largeur
     right_left = 0.75
     right_w    = 0.23
     ax_cnt  = fig.add_axes([right_left, 0.60, right_w, 0.30])
@@ -177,8 +168,6 @@ def main():
                  fontsize=9, bbox=dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9))
 
     # ------------------------------- footers --------------------------------
-    # Moins d'espace vertical : on descend les axes (bottom=0.145) et on remonte
-    # légèrement les deux lignes (0.053 / 0.032).
     foot_scale = (f"Réduction par médiane (gridsize={args.gridsize}, mincnt={args.mincnt}). "
                   f"Échelle: vmin={vmin:.6g}, vmax={vmax:.6g}  (percentiles {p_lo}–{p_hi}).")
     foot_stats = (f"Stats globales: median={med:.2f}, mean={mean:.2f}, std={std:.2f}, "
@@ -197,7 +186,7 @@ def main():
     if args.manifest:
         man_path = os.path.splitext(args.out)[0] + ".manifest.json"
         manifest = {
-            "script": "tracer_fig06_residual_map.py",
+            "script": "plot_fig06_residual_map.py",
             "generated_at": pd.Timestamp.utcnow().isoformat() + "Z",
             "inputs": {
                 "csv": args.results,
@@ -216,7 +205,7 @@ def main():
                 "figsize": [fig_w, fig_h], "dpi": int(args.dpi)
             },
             "dataset": {"N": int(N), "n_active_points": int(n_active)},
-            "stats_scaled": {"median": med, "mean": mean, "std": std, "p95": p95,
+                "stats_scaled": {"median": med, "mean": mean, "std": std, "p95": p95,
                              "fraction_abs_gt_threshold": frac_over},
             "figure_path": args.out
         }

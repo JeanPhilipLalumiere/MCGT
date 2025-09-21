@@ -3,7 +3,7 @@
 """
 zz-scripts/chapter09/check_metrics_consistency.py
 
-Vérifications QC rapides pour les résultats MC (Chapitre 10).
+Vérifications QC rapides pour les résultats MC (Chapter 10).
 - Vérifie tailles (n_rows) attendues dans le manifeste
 - Vérifie n_ok / n_failed
 - Recalcule quelques statistiques clés sur p95_20_300 et les compare (si valeurs de référence présentes)
@@ -42,7 +42,7 @@ def sha256_of_file(path: pathlib.Path) -> str | None:
 
 def compare_close(a, b, rtol=1e-6, atol=1e-12) -> bool:
     try:
-        return float(np.allclose(a, b, rtol=rtol, atol=atol))
+        return bool(np.allclose(a, b, rtol=rtol, atol=atol))
     except Exception:
         return False
 
@@ -85,7 +85,10 @@ def main(argv: list[str] | None = None) -> int:
     # statistiques p95
     p95_min = float(np.nanmin(df["p95_20_300"]))
     p95_mean = float(np.nanmean(df["p95_20_300"]))
-    p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95, method="linear"))
+    try:
+        p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95, method="linear"))
+    except TypeError:
+        p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95))
     p95_max = float(np.nanmax(df["p95_20_300"]))
 
     logger.info("p95_20_300 : min=%.6f mean=%.6f p95=%.6f max=%.6f", p95_min, p95_mean, p95_p95, p95_max)

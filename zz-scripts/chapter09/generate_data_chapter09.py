@@ -47,11 +47,11 @@ except Exception as e:
     raise ImportError("Impossible d'importer mcgt.phase: %s" % e)
 
 # ----- Paths -----
-OUT_DIR = Path("zz-data/chapter9")
-FIG_DIR = Path("zz-figures/chapter9")
+OUT_DIR = Path("zz-data/chapter09")
+FIG_DIR = Path("zz-figures/chapter09")
 REF_CSV = OUT_DIR / "09_phases_imrphenom.csv"
 REF_META = OUT_DIR / "09_phases_imrphenom.meta.json"
-JALONS_CSV = OUT_DIR / "09_jalons_anomalies.csv"
+JALONS_CSV = OUT_DIR / "09_comparison_milestones.csv"
 
 # -----------------------
 # Utilities
@@ -180,7 +180,7 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional
 
 
 def _try_external_script_for_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional[np.ndarray]:
-    script = PROJECT_ROOT / "zz-scripts" / "chapitre9" / "extraire_phase_phenom.py"
+    script = PROJECT_ROOT / "zz-scripts" / "chapter09" / "extract_phenom_phase.py"
     if not script.exists():
         logger.debug("Fallback script introuvable: %s", script)
         return None
@@ -192,8 +192,8 @@ def _try_external_script_for_ref(freqs: np.ndarray, logger: logging.Logger) -> O
             if {"f_Hz", "phi_ref"}.issubset(df.columns):
                 f = np.asarray(freqs, float)
                 return np.interp(f, df["f_Hz"].to_numpy(float), df["phi_ref"].to_numpy(float))
-        logger.debug("extraire_phase_phenom stdout: %s", proc.stdout.decode(errors="ignore")[:400])
-        logger.debug("extraire_phase_phenom stderr: %s", proc.stderr.decode(errors="ignore")[:400])
+        logger.debug("extract_phenom_phase stdout: %s", proc.stdout.decode(errors="ignore")[:400])
+        logger.debug("extract_phenom_phase stderr: %s", proc.stderr.decode(errors="ignore")[:400])
     except Exception as e:
         logger.warning("Fallback script a échoué: %s", e)
     return None
@@ -613,7 +613,7 @@ def main() -> None:
         "outputs": {
             "phases_mcgt_csv": str(out_mcgt) if out_mcgt.exists() else None,
             "diff_phase_csv": str(out_diff) if args.export_diff and out_diff.exists() else None,
-            "jalons_comparaison_csv": str(out_jalons_cmp) if out_jalons_cmp else None,
+            "comparison_milestones_csv": str(out_jalons_cmp) if out_jalons_cmp else None,
             "fisher_scan2D_csv": str(out_fisher) if out_fisher else None,
         },
         "repro": {

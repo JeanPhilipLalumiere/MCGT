@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Figure 03 – Invariant scalaire I₁(k)=c_s²(k)/k (Chapitre 7, MCGT)
+Figure 03 – Invariant scalaire I₁(k)=c_s²/k (Chapitre 7, MCGT)
 """
 
 import json, logging, sys
@@ -15,9 +15,10 @@ from matplotlib.ticker import LogLocator, LogFormatterSciNotation
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-DATA_CSV  = ROOT / "zz-data/chapter07/07_scalar_invariants.csv"
-JSON_META = ROOT / "zz-data/chapter07/07_params_perturbations.json"
-FIG_OUT   = ROOT / "zz-figures/chapter07/fig_03_invariant_I1.png"
+# Paths (directory and file names in English)
+DATA_CSV  = ROOT / "zz-data" / "chapter07" / "07_scalar_invariants.csv"
+JSON_META = ROOT / "zz-data" / "chapter07" / "07_meta_perturbations.json"
+FIG_OUT   = ROOT / "zz-figures" / "chapter07" / "fig_03_invariant_I1.png"
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 

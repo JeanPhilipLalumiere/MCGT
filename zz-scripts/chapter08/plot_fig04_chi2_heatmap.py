@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-zz-scripts/chapter08/tracer_fig04_carte_chaleur_chi2.py
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
 Carte de chaleur χ²(q0⋆, p2) avec contours de confiance
 """
 
@@ -13,8 +13,8 @@ from pathlib import Path
 
 # --- chemins ---
 ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data"  / "chapitre8"
-FIG_DIR  = ROOT / "zz-figures"  / "chapitre8"
+DATA_DIR = ROOT / "zz-data"  / "chapter08"
+FIG_DIR  = ROOT / "zz-figures"  / "chapter08"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # --- importer le scan 2D ---
@@ -101,5 +101,5 @@ cbar.ax.yaxis.set_label_position("right")
 cbar.ax.tick_params(labelsize=10)
 
 fig.tight_layout()
-fig.savefig(FIG_DIR / "fig_04_carte_chaleur_chi2.png", dpi=300)
-print(f"✅ fig_04_carte_chaleur_chi2.png générée dans {FIG_DIR}")
+fig.savefig(FIG_DIR / "fig_04_chi2_heatmap.png", dpi=300)
+print(f"✅ fig_04_chi2_heatmap.png générée dans {FIG_DIR}")

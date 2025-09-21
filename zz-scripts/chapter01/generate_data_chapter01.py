@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 generate_data_chapter01.py
@@ -52,7 +51,7 @@ def main():
     parser = argparse.ArgumentParser(description='Chap1 data gen')
     parser.add_argument('--csv', type=pathlib.Path,
                         default=pathlib.Path(__file__).resolve().parents[2]/
-                                'zz-data'/'chapitre1'/'01_timeline_milestones.csv')
+                                'zz-data'/'chapter01'/'01_timeline_milestones.csv')
     parser.add_argument('--tmin', type=float, default=1e-6)
     parser.add_argument('--tmax', type=float, default=14.0)
     parser.add_argument('--step', type=float, default=0.01)
@@ -78,16 +77,16 @@ def main():
     dP_opt = savgol_filter(dP_opt_raw, window_length=args.window, polyorder=args.poly)
 
     # Exports
-    pd.DataFrame({'T': T_grid, 'P_calc': P_opt})       .to_csv(base/'01_donnees_optimisees.csv', index=False)
-    pd.DataFrame({'T': T_grid, 'dP_dT': dP_opt})       .to_csv(base/'01_deriveeP_optimisee.csv', index=False)
-    pd.DataFrame({'T': T_grid, 'P_calc': P_opt, 'dP_dT': dP_opt})       .to_csv(base/'01_donnees_optimisees_et_derivees.csv', index=False)
+    pd.DataFrame({'T': T_grid, 'P_calc': P_opt})       .to_csv(base/'01_optimized_data.csv', index=False)
+    pd.DataFrame({'T': T_grid, 'dP_dT': dP_opt})       .to_csv(base/'01_P_derivative_optimized.csv', index=False)
+    pd.DataFrame({'T': T_grid, 'P_calc': P_opt, 'dP_dT': dP_opt})       .to_csv(base/'01_optimized_data_and_derivatives.csv', index=False)
 
     # Écarts relatifs
     eps = (interp1d(T_grid, P_opt, fill_value='extrapolate')(T_j) - P_ref) / P_ref
-    pd.DataFrame({'T': T_j, 'epsilon': eps})       .to_csv(base/'01_ecart_relatif_chronologie.csv', index=False)
+    pd.DataFrame({'T': T_j, 'epsilon': eps})       .to_csv(base/'01_relative_error_timeline.csv', index=False)
 
     # Invariants
-    pd.DataFrame({'T': T_grid, 'I1': P_opt / T_grid})       .to_csv(base/'01_invariants_adimensionnels.csv', index=False)
+    pd.DataFrame({'T': T_grid, 'I1': P_opt / T_grid})       .to_csv(base/'01_dimensionless_invariants.csv', index=False)
 
     print("Chap1 data regenerated.")
 

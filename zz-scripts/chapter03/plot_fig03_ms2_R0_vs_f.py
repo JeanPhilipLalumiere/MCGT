@@ -1,15 +1,16 @@
+#!/usr/bin/env python3
 # tracer_fig03_ms2_R0_contre_R.py
 """
 Trace m_s²/R₀ en fonction de R/R₀ — Chapitre 3
 ==============================================
 
 Entrée  :
-    zz-data/chapter03/03_donnees_stabilite_fR.csv
+    zz-data/chapter03/03_fR_stability_data.csv
 Colonnes requises :
     R_over_R0, m_s2_over_R0
 
 Sortie  :
-    zz-figures/chapter03/fig_03_ms2_R0_contre_R.png
+    zz-figures/chapter03/fig_03_ms2_R0_vs_R.png
 """
 
 from pathlib import Path
@@ -30,9 +31,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_donnees_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_03_ms2_R0_contre_R.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_03_ms2_R0_vs_R.png"
 
 def main() -> None:
     # 1. Chargement

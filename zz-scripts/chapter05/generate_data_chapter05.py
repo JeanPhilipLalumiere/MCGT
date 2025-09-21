@@ -7,16 +7,16 @@ from pathlib import Path
 
 # — Répertoires —
 ROOT       = Path(__file__).resolve().parents[2]
-DATA_DIR   = ROOT / "zz-data" / "chapitre5"
+DATA_DIR   = ROOT / "zz-data" / "chapter05"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-# — Fichiers d’entrée et de sortie —
-JALONS_FILE  = DATA_DIR / "05_jalons_nucleosynthese.csv"
-GRILLE_FILE  = DATA_DIR / "05_grille_nucleosynthese.csv"
-PRED_FILE    = DATA_DIR / "05_donnees_nucleosynthese.csv"
-CHI2_FILE    = DATA_DIR / "05_chi2_nucleosynthese_contre_T.csv"
-DERIV_FILE   = DATA_DIR / "05_derivee_chi2.csv"
-PARAMS_FILE  = DATA_DIR / "05_parametres_nucleosynthese.json"
+# — Fichiers d’entrée et de sortie (noms harmonisés en anglais) —
+JALONS_FILE  = DATA_DIR / "05_bbn_milestones.csv"
+GRILLE_FILE  = DATA_DIR / "05_bbn_grid.csv"
+PRED_FILE    = DATA_DIR / "05_bbn_data.csv"
+CHI2_FILE    = DATA_DIR / "05_chi2_bbn_vs_T.csv"
+DERIV_FILE   = DATA_DIR / "05_dchi2_vs_T.csv"
+PARAMS_FILE  = DATA_DIR / "05_bbn_params.json"
 
 # Seuils de classification (relative error)
 THRESHOLDS = {"primary": 0.01, "order2": 0.10}
@@ -72,7 +72,7 @@ for dh_c, yp_c in zip(DH_calc, Yp_calc):
 
 pd.DataFrame({
     "T_Gyr":               T,
-    "chi2_nucleosynthese": chi2_vals
+    "chi2_nucleosynthesis": chi2_vals
 }).to_csv(CHI2_FILE, index=False)
 
 # 6) Dérivée et lissage de χ²
@@ -115,8 +115,8 @@ max_e2 = df_eps[(df_eps["sigma_rel"] > THRESHOLDS["primary"]) &
 # 8) Sauvegarde des paramètres
 with open(PARAMS_FILE, "w") as f:
     json.dump({
-        "max_epsilon_primary": float(max_e1),
-        "max_epsilon_order2":  float(max_e2)
+        "max_epsilon_primary": float(max_e1) if not pd.isna(max_e1) else None,
+        "max_epsilon_order2":  float(max_e2) if not pd.isna(max_e2) else None
     }, f, indent=2)
 
-print("✓ Chapitre 5 : données générées avec succès.")
+print("✓ Chapitre 05 : données générées avec succès.")

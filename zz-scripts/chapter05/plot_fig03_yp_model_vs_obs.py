@@ -3,17 +3,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def tracer_fig03_yp_modele_contre_obs(save_path="zz-figures/chapter05/fig_03_yp_modele_contre_obs.png"):
+def tracer_fig03_yp_modele_contre_obs(save_path="zz-figures/chapter05/fig_03_yp_model_vs_obs.png"):
     # Racine du projet
     ROOT = Path.cwd()
-    DATA_DIR = ROOT / "zz-data" / "chapitre5"
-    FIG_DIR = ROOT / "zz-figures" / "chapitre5"
+    DATA_DIR = ROOT / "zz-data" / "chapter05"
+    FIG_DIR = ROOT / "zz-figures" / "chapter05"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Lecture des données (ignorer les commentaires et espaces)
-    jalons = pd.read_csv(DATA_DIR / "05_jalons_nucleosynthese.csv",
+    jalons = pd.read_csv(DATA_DIR / "05_bbn_milestones.csv",
                          comment='#', skipinitialspace=True)
-    data = pd.read_csv(DATA_DIR / "05_donnees_nucleosynthese.csv")
+    data = pd.read_csv(DATA_DIR / "05_bbn_data.csv")
 
     # Conversion numérique
     jalons["Yp_obs"] = pd.to_numeric(jalons["Yp_obs"], errors="coerce")

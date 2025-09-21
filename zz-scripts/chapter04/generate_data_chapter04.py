@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-generer_donnees_chapitre4.py
+generate_data_chapter04.py
 
 Pipeline d’intégration complet et corrigé pour le Chapitre 4 — Invariants adimensionnels
 """
@@ -19,12 +19,12 @@ def main():
     # ----------------------------------------------------------------------
     kappa     = 1e-35
     Tp        = 0.087  # Gyr, transition logistique
-    data_dir  = "zz-data/chapter4"
-    chap3_dir = "zz-data/chapter3"
-    p_file    = f"{data_dir}/04_donnees_P_contre_T.dat"
-    r_file    = f"{chap3_dir}/03_r_sur_r0_contre_T.csv"
-    fr_file   = f"{chap3_dir}/03_jalons_ricci_fR.csv"
-    output_file = f"{data_dir}/04_invariants_adimensionnels.csv"
+    data_dir  = "zz-data/chapter04"
+    chap3_dir = "zz-data/chapter03"
+    p_file    = f"{data_dir}/04_P_vs_T.dat"
+    r_file    = f"{chap3_dir}/03_ricci_fR_vs_T.csv"
+    fr_file   = f"{chap3_dir}/03_fR_stability_data.csv"
+    output_file = f"{data_dir}/04_dimensionless_invariants.csv"
 
     # ----------------------------------------------------------------------
     # 1. Chargement des données P(T) brutes

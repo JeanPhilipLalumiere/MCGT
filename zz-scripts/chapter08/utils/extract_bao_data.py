@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Script   : extraire_donnees_bao.py
-# Objectif : extraire et formater les données BAO pour le Chapitre 8
+# Script   : extract_bao_data.py
+# Objectif : extraire et formater les données BAO pour le Chapitre 8
 # Source   : https://raw.githubusercontent.com/SDSS-Science-Archive-Server/BOSS-LSS/
 #            master/lss/BAOtables/bao_distances_DR12v5.dat
 
@@ -9,11 +9,11 @@ import pandas as pd
 
 # 1. Définition des chemins
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR   = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../zz-data/chapter8"))
+DATA_DIR   = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../zz-data/chapter08"))
 os.makedirs(DATA_DIR, exist_ok=True)
 
 input_file  = os.path.join(DATA_DIR, "bao_distances_DR12v5.dat")
-output_file = os.path.join(DATA_DIR, "08_donnees_bao.csv")
+output_file = os.path.join(DATA_DIR, "08_bao_data.csv")
 
 # 2. Lecture du fichier brut BAO
 df = pd.read_csv(
@@ -46,4 +46,4 @@ df_out['classe'] = df_out.apply(classify, axis=1)
 # 6. Sauvegarde au format CSV UTF-8
 df_out.to_csv(output_file, index=False, encoding='utf-8')
 
-print(f"✅ 08_donnees_bao.csv généré dans : {output_file}")
+print(f"✅ 08_bao_data.csv généré dans : {output_file}")

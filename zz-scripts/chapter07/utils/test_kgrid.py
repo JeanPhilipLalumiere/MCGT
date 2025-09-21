@@ -3,8 +3,8 @@
 """
 zz-scripts/chapter07/utils/test_kgrid.py
 
-Teste et affiche la plage et le nombre de points de la grille k pour le Chapitre 7,
-en lisant k_min, k_max et dlog depuis le JSON de méta‑paramètres.
+Teste et affiche la plage et le nombre de points de la grille k pour le Chapitre 7,
+en lisant k_min, k_max et dlog depuis le JSON de méta-paramètres.
 """
 
 import json
@@ -13,7 +13,7 @@ import numpy as np
 
 def load_params():
     root = Path(__file__).resolve().parents[3]
-    json_path = root / 'zz-data' / 'chapitre7' / '07_params_perturbations.json'
+    json_path = root / 'zz-data' / 'chapter07' / '07_params_perturbations.json'
     params = json.loads(json_path.read_text(encoding='utf-8'))
     return params
 

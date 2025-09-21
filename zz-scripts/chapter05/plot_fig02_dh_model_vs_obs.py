@@ -7,16 +7,16 @@ from pathlib import Path
 
 # Répertoires
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data" / "chapitre5"
-FIG_DIR = ROOT / "zz-figures" / "chapitre5"
+DATA_DIR = ROOT / "zz-data" / "chapter05"
+FIG_DIR = ROOT / "zz-figures" / "chapter05"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # Chargement des données
-jalons = pd.read_csv(DATA_DIR / "05_jalons_nucleosynthese.csv")
-donnees = pd.read_csv(DATA_DIR / "05_donnees_nucleosynthese.csv")
+jalons = pd.read_csv(DATA_DIR / "05_bbn_milestones.csv")
+donnees = pd.read_csv(DATA_DIR / "05_bbn_data.csv")
 
 # Chargement des métriques
-params_path = DATA_DIR / "05_parametres_nucleosynthese.json"
+params_path = DATA_DIR / "05_bbn_params.json"
 if params_path.exists():
     params = json.load(open(params_path))
     max_ep_primary = params.get("max_epsilon_primary", None)
@@ -74,5 +74,5 @@ ax.legend(framealpha=0.3, loc="upper left")
 
 # Enregistrement
 plt.tight_layout()
-plt.savefig(FIG_DIR / "fig_02_dh_modele_contre_obs.png", dpi=300)
+plt.savefig(FIG_DIR / "fig_02_dh_model_vs_obs.png", dpi=300)
 plt.close()

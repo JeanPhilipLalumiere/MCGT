@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig03_hist_absdphi_20_300.py
+plot_fig03_hist_absdphi_20_300.py
 Histogramme du résidu de phase |Δφ| sur une fenêtre (par défaut 20–300 Hz).
 
 Exemple :
-python zz-scripts/chapter09/tracer_fig03_hist_absdphi_20_300.py \
+python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
   --csv zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
   --out zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \

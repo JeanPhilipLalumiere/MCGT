@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pathlib
 
 # Lire la grille complète
-data_path = pathlib.Path(__file__).resolve().parents[2] / 'zz-data' / 'chapitre1' / '01_donnees_optimisees.csv'
+data_path = pathlib.Path(__file__).resolve().parents[2] / 'zz-data' / 'chapter01' / '01_optimized_data.csv'
 df = pd.read_csv(data_path)
 
 # Ne conserver que le plateau précoce T <= Tp
@@ -33,5 +33,5 @@ plt.legend(loc='lower right')
 plt.tight_layout()
 
 # Sauvegarde
-output_path = pathlib.Path(__file__).resolve().parents[2] / 'zz-figures' / 'chapitre1' / 'fig_01_plateau_precoce.png'
+output_path = pathlib.Path(__file__).resolve().parents[2] / 'zz-figures' / 'chapter01' / 'fig_01_early_plateau.png'
 plt.savefig(output_path, dpi=300)

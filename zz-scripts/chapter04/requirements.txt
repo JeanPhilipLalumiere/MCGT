@@ -2,18 +2,18 @@
 
 1. **Environnement système**
    * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
-   * Espace disque : ≥ 200 Mo libre  
+   * Espace disque : ≥ 200 Mo libre
 
 2. **Environnement Python**
    * Python ≥ 3.9  
-   * Créer et activer un environnement virtuel spécifique :  
-     ```
+   * Créer et activer un environnement virtuel spécifique :
+     ```bash
      cd ~/MCGT
      python3 -m venv venv4
      source venv4/bin/activate
      ```
-   * Installer les dépendances minimales :  
-     ```
+   * Installer les dépendances minimales :
+     ```bash
      pip install --upgrade pip
      pip install numpy pandas scipy matplotlib
      ```
@@ -21,48 +21,49 @@
 3. **Données brutes & scripts d’extraction**
    * **P(T) brut**  
      – Fichier : `zz-data/chapter04/04_P_vs_T.dat`  
-     – Chargement et parsing par  
-       `zz-scripts/chapter04/integration_invariants_adimensionnels.py`  
+     – Chargement et parsing par : `zz-scripts/chapter04/integrate_dimensionless_invariants.py`
    * **R/R₀ vs T**  
-     – Fichier : `zz-data/chapter03/03_r_sur_r0.csv`  
-     – Chargement et interpolation par le même script  
+     – Fichier : `zz-data/chapter03/03_r_over_r0.csv`  
+     – Chargement et interpolation par le même script d’intégration
    * **f_R exact vs R/R₀**  
      – Fichier : `zz-data/chapter03/03_ricci_fR_exact.csv`  
-     – Chargement et interpolation lin–lin  
+     – Chargement et interpolation lin–lin (ou log–log selon précision souhaitée)
 
 4. **Structure du dépôt**
-````
-
+````text
 MCGT/
-├─ 04-invariants-adimensionnels/        # sources LaTeX, GUIDE
-├─ zz-data/chapter04/                # 04\_P\_vs\_T.dat, 04\_invariants\_adimensionnels\_complet.csv
-├─ zz-data/chapter03/                # 03\_r\_sur\_r0.csv, 03\_ricci\_fR\_exact.csv
-├─ zz-scripts/chapter04/                # integration\_*.py, trace\_fig*.py
-├─ zz-figures/chapter04/                # fig\_01\_…png, fig\_02\_…png, fig\_03\_…png, fig\_04\_…png
+├─ 04-invariants-adimensionnels/        # sources LaTeX et GUIDE
+├─ zz-data/chapter04/                   # 04_P_vs_T.dat, 04_dimensionless_invariants_full.csv
+├─ zz-data/chapter03/                   # 03_r_over_r0.csv, 03_ricci_fR_exact.csv
+├─ zz-scripts/chapter04/                # integrate_dimensionless_invariants.py, plot_fig*.py
+├─ zz-figures/chapter04/                # fig_01_invariants_schema.png, fig_02_invariants_histogram.png, fig_03_invariants_vs_T.png, fig_04_relative_errors.png
 └─ venv4/                               # environnement virtuel Python
-
-````
+`````
 
 5. **Exécution du pipeline**
-   1. Génération des données intermédiaires et finales :  
+
+   1. Génération des données intermédiaires et finales :
+
       ```bash
       source venv4/bin/activate
-      python zz-scripts/chapter04/integration_invariants_adimensionnels.py
+      python zz-scripts/chapter04/integrate_dimensionless_invariants.py
       ```
-   2. Tracé des figures :  
+   2. Tracé des figures :
+
       ```bash
-      python zz-scripts/chapter04/trace_fig01_schema_invariants.py
-      python zz-scripts/chapter04/trace_fig02_histogramme_invariants.py
-      python zz-scripts/chapter04/trace_fig03_invariants_vs_t.py
-      python zz-scripts/chapter04/trace_fig04_ecarts_rel.py
+      python zz-scripts/chapter04/plot_fig01_invariants_schema.py
+      python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
+      python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
+      python zz-scripts/chapter04/plot_fig04_relative_errors.py
       ```
 
 6. **Compilation LaTeX**
+
    ```bash
    cd 04-invariants-adimensionnels/
    pdflatex -interaction=nonstopmode 04_invariants_adimensionnels_conceptuel.tex
    pdflatex -interaction=nonstopmode 04_invariants_adimensionnels_details.tex
-````
+   ```
 
 7. **Tests & validations**
 
@@ -70,11 +71,36 @@ MCGT/
 
      ```
      04_P_vs_T.dat
-     04_invariants_adimensionnels_complet.csv
+     04_dimensionless_invariants_full.csv
      ```
-   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV
-   * Contrôler dans la console `[DEBUG]` :
+   * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV.
+   * Contrôler dans la console `[DEBUG]` les sorties du script d’intégration :
 
      * formes et gammes de P, dP/dT, R/R₀, f\_R
-     * valeurs min/max de I₂ et I₃
-   * Ouvrir chaque figure PNG dans `zz-figures/chapter04/` pour un contrôle visuel
+     * valeurs min/max de I2 et I3
+   * Vérifications quantitatives recommandées :
+
+     * la grille en T couvre bien \[1e-6, 14] Gyr en pas log-uniforme (vérifier n\_points)
+     * les interpolateurs ne renvoient pas de `NaN` aux bornes
+     * conservation d’échelle numérique pour les interpolations log–log (précision \~1e-6 si requis)
+   * Ouvrir chaque figure PNG dans `zz-figures/chapter04/` pour un contrôle visuel :
+
+     * fig\_01\_invariants\_schema.png
+     * fig\_02\_invariants\_histogram.png
+     * fig\_03\_invariants\_vs\_T.png
+     * fig\_04\_relative\_errors.png
+
+8. **Reproductibilité & versioning**
+
+   * Fichier `VERSION` à la racine du dépôt
+   * `CHANGELOG.md` décrivant les modifications
+   * Tag Git pour chaque version majeure utilisée pour les figures/tables
+   * Enregistrer le hash HEAD utilisé dans `zz-data/chapter04/04_meta_run.json` (optionnel mais recommandé)
+
+9. **Notes opérationnelles**
+
+   * Les noms de fichiers et répertoires doivent rester cohérents (utiliser `chapter04` et non `chapter4`).
+   * Lorsque des CSV sont produits par des scripts antérieurs (chapitre 03), vérifier leur compatibilité de colonnes avant d’exécuter l’intégration.
+   * Si le pipeline est exécuté dans un environnement CI (GitHub Actions / GitLab CI), veiller à installer `venv4` et copier les jeux de données requis dans le workspace avant d’exécuter les scripts.
+
+

@@ -27,16 +27,16 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 # --- Chemins ---
-DATA_DIR  = ROOT / "zz-data"  / "chapitre7"
-CSV_DDK   = DATA_DIR / "07_ddelta_phi_dk.csv"
+DATA_DIR = ROOT / "zz-data" / "chapitre7"
+CSV_DDK = DATA_DIR / "07_ddelta_phi_dk.csv"
 JSON_META = DATA_DIR / "07_params_perturbations.json"
-FIG_DIR   = ROOT / "zz-figures" / "chapitre7"
-FIG_OUT   = FIG_DIR / "fig_05_ddelta_phi_dk_vs_k.png"
+FIG_DIR = ROOT / "zz-figures" / "chapitre7"
+FIG_OUT = FIG_DIR / "fig_05_ddelta_phi_dk_vs_k.png"
 
 # --- Lecture de k_split ---
 if not JSON_META.exists():
     raise FileNotFoundError(f"Méta-paramètres introuvables : {JSON_META}")
-meta    = json.loads(JSON_META.read_text("utf-8"))
+meta = json.loads(JSON_META.read_text("utf-8"))
 k_split = float(meta.get("x_split", 0.02))
 logging.info("k_split = %.2e h/Mpc", k_split)
 
@@ -47,35 +47,22 @@ df = pd.read_csv(CSV_DDK, comment="#")
 logging.info("Chargé %d points depuis %s", len(df), CSV_DDK.name)
 
 k_vals = df["k"].to_numpy()
-ddphi   = df.iloc[:, 1].to_numpy()
-abs_dd  = np.abs(ddphi)
+ddphi = df.iloc[:, 1].to_numpy()
+abs_dd = np.abs(ddphi)
 
 # --- Tracé ---
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
 
 # Courbe
-ax.loglog(
-    k_vals,
-    abs_dd,
-    color="C2",
-    lw=2,
-    label=r"$|\partial_k(\delta\phi/\phi)|$"
-)
+ax.loglog(k_vals, abs_dd, color="C2", lw=2, label=r"$|\partial_k(\delta\phi/\phi)|$")
 
 # Repère k_split
 ax.axvline(k_split, ls="--", color="gray", lw=1)
 # Label k_split placé juste au-dessus de ymin
 ymin, ymax = 1e-50, 1e-2
-y_text = 10 ** (np.log10(ymin) + 0.05*(np.log10(ymax)-np.log10(ymin)))
-ax.text(
-    k_split*1.05,
-    y_text,
-    r"$k_{\rm split}$",
-    ha="left",
-    va="bottom",
-    fontsize=9
-)
+y_text = 10 ** (np.log10(ymin) + 0.05 * (np.log10(ymax) - np.log10(ymin)))
+ax.text(k_split * 1.05, y_text, r"$k_{\rm split}$", ha="left", va="bottom", fontsize=9)
 
 # Limites
 ax.set_ylim(ymin, ymax)
@@ -100,7 +87,7 @@ ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
 
 # Locators X
 ax.xaxis.set_major_locator(LogLocator(base=10))
-ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2,5)))
+ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
 # Légende
 ax.legend(loc="upper right", frameon=False)

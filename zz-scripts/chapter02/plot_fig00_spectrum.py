@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 import sys
 from pathlib import Path
 
@@ -6,9 +7,9 @@ import matplotlib.pyplot as plt
 
 # Ajouter le module spectre_primordial au PYTHONPATH
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "zz-scripts" / "chapitre2"))
+sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
 
-from spectre_primordial import P_R
+from primordial_spectrum import P_R
 
 # Grille de k et valeurs de alpha
 k = np.logspace(-4, 2, 100)
@@ -21,7 +22,7 @@ for alpha in alphas:
     ax.loglog(k, P_R(k, alpha), label=f"α = {alpha}")
 
 ax.set_xlabel("k [h·Mpc⁻¹]")
-ax.set_ylabel("P_R(k; α)", labelpad=12)    # labelpad pour décaler plus à droite
+ax.set_ylabel("P_R(k; α)", labelpad=12)  # labelpad pour décaler plus à droite
 ax.set_title("Spectre primordial MCGT")
 ax.legend(loc="upper right")
 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
@@ -30,7 +31,7 @@ ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 plt.tight_layout()
 
 # Sauvegarde
-OUT = ROOT / "zz-figures" / "chapitre2" / "fig_00_spectre.png"
+OUT = ROOT / "zz-figures" / "chapter02" / "fig_00_spectre.png"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 plt.savefig(OUT, dpi=300)
 print(f"Figure enregistrée → {OUT}")

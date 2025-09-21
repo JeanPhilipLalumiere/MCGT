@@ -17,9 +17,6 @@ import logging
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.ticker import (
-    LogLocator, FuncFormatter, NullLocator, ScalarFormatter
-)
 
 # ----------------------------------------------------------------------
 # Logging
@@ -31,8 +28,9 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data/chapter03/03_donnees_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_03_ms2_R0_contre_R.png"
+FIG_DIR = Path("zz-figures/chapter3")
+FIG_PATH = FIG_DIR / "fig_03_ms2_R0_contre_R.png"
+
 
 def main() -> None:
     # 1. Chargement
@@ -52,7 +50,9 @@ def main() -> None:
     ax.loglog(
         df["R_over_R0"],
         df["m_s2_over_R0"],
-        color="tab:blue", lw=1.5, label=r"$m_s^2/R_0$"
+        color="tab:blue",
+        lw=1.5,
+        label=r"$m_s^2/R_0$",
     )
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$m_s^{2}/R_0$")
@@ -68,17 +68,13 @@ def main() -> None:
 
         # tracé
         ax_in.loglog(
-            df_zoom["R_over_R0"],
-            df_zoom["m_s2_over_R0"],
-            color="tab:blue",
-            lw=1.2
+            df_zoom["R_over_R0"], df_zoom["m_s2_over_R0"], color="tab:blue", lw=1.2
         )
 
         # limites
         ax_in.set_xlim(1e4, 1e6)
         ax_in.set_ylim(
-            df_zoom["m_s2_over_R0"].min() * 0.9,
-            df_zoom["m_s2_over_R0"].max() * 1.1
+            df_zoom["m_s2_over_R0"].min() * 0.9, df_zoom["m_s2_over_R0"].max() * 1.1
         )
 
         # Graduations X : 3 points fixes [1e4,1e5,1e6]
@@ -96,7 +92,7 @@ def main() -> None:
         ax_in.yaxis.set_major_locator(LogLocator(base=10, numticks=4))
         ax_in.yaxis.set_minor_locator(NullLocator())
         sf = ScalarFormatter(useMathText=True)
-        sf.set_scientific(False)      # supprime le ×10ⁿ
+        sf.set_scientific(False)  # supprime le ×10ⁿ
         ax_in.yaxis.set_major_formatter(sf)
         ax_in.tick_params(axis="y", which="major", pad=2)
 
@@ -108,6 +104,7 @@ def main() -> None:
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
+
 
 if __name__ == "__main__":
     main()

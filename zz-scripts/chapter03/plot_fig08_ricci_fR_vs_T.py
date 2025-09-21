@@ -17,7 +17,6 @@ Sortie :
 from pathlib import Path
 import logging
 
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -31,8 +30,9 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data/chapter03/03_ricci_fR_contre_T.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_08_ricci_fR_contre_T.png"
+FIG_DIR = Path("zz-figures/chapter3")
+FIG_PATH = FIG_DIR / "fig_08_ricci_fR_contre_T.png"
+
 
 def main() -> None:
     # 1. Lecture des données
@@ -57,19 +57,12 @@ def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # 4. Tracé principal avec double axe Y
-    fig, ax1 = plt.subplots(dpi=300, figsize=(6,4))
+    fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
 
     # Axe de gauche : f_R
     color1 = "tab:blue"
-    ax1.scatter(
-        df["T_Gyr"], df["f_R"],
-        c=color1, marker="o", s=40,
-        label=r"$f_R$"
-    )
-    ax1.plot(
-        df["T_Gyr"], df["f_R"],
-        c=color1, lw=1, alpha=0.6
-    )
+    ax1.scatter(df["T_Gyr"], df["f_R"], c=color1, marker="o", s=40, label=r"$f_R$")
+    ax1.plot(df["T_Gyr"], df["f_R"], c=color1, lw=1, alpha=0.6)
     ax1.set_xscale("log")
     ax1.set_yscale("log")
     ax1.set_xlabel("Âge de l’Univers $T$ (Gyr)")
@@ -80,15 +73,8 @@ def main() -> None:
     # Axe de droite : f_RR
     ax2 = ax1.twinx()
     color2 = "tab:orange"
-    ax2.scatter(
-        df["T_Gyr"], df["f_RR"],
-        c=color2, marker="s", s=50,
-        label=r"$f_{RR}$"
-    )
-    ax2.plot(
-        df["T_Gyr"], df["f_RR"],
-        c=color2, lw=1, alpha=0.6, linestyle="--"
-    )
+    ax2.scatter(df["T_Gyr"], df["f_RR"], c=color2, marker="s", s=50, label=r"$f_{RR}$")
+    ax2.plot(df["T_Gyr"], df["f_RR"], c=color2, lw=1, alpha=0.6, linestyle="--")
     ax2.set_yscale("log")
     ax2.set_ylabel(r"$f_{RR}$", color=color2)
     ax2.tick_params(axis="y", labelcolor=color2)
@@ -102,7 +88,7 @@ def main() -> None:
         labels1 + labels2,
         loc="best",
         framealpha=0.8,
-        edgecolor="black"
+        edgecolor="black",
     )
 
     # 6. Titre
@@ -116,6 +102,7 @@ def main() -> None:
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
+
 
 if __name__ == "__main__":
     main()

@@ -16,6 +16,7 @@ Usage:
       --manifest zz-data/chapter10/10_mc_run_manifest.json \
       --rtol 1e-6 --atol 1e-12
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -26,7 +27,9 @@ import pandas as pd
 import numpy as np
 import logging
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 logger = logging.getLogger("check_metrics_consistency")
 
 
@@ -48,7 +51,10 @@ def compare_close(a, b, rtol=1e-6, atol=1e-12) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="check_metrics_consistency.py", description="QC quick-check des métriques MC")
+    p = argparse.ArgumentParser(
+        prog="check_metrics_consistency.py",
+        description="QC quick-check des métriques MC",
+    )
     p.add_argument("--results", required=True, help="CSV résultats (agrégé) à vérifier")
     p.add_argument("--manifest", required=True, help="Manifest JSON du run")
     p.add_argument("--rtol", type=float, default=1e-6)
@@ -68,12 +74,21 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("Chargement results: %s", results_p)
     df = pd.read_csv(results_p)
     # normalisation noms colonnes courants (tolérance)
-    df_cols = {c: c for c in df.columns}
+    df_cols = {c: c for c in df.columns}  # noqa: F841
     # required metrics expected
-    required_cols = ["id", "p95_20_300", "mean_20_300", "max_20_300", "n_20_300", "status"]
+    required_cols = [
+        "id",
+        "p95_20_300",
+        "mean_20_300",
+        "max_20_300",
+        "n_20_300",
+        "status",
+    ]
     missing = [c for c in required_cols if c not in df.columns]
     if missing:
-        logger.error("Colonnes essentielles manquantes dans %s : %s", results_p, missing)
+        logger.error(
+            "Colonnes essentielles manquantes dans %s : %s", results_p, missing
+        )
         # c'est critique : on ne peut pas poursuivre certaines vérifs
         return 2
 
@@ -88,7 +103,13 @@ def main(argv: list[str] | None = None) -> int:
     p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95, method="linear"))
     p95_max = float(np.nanmax(df["p95_20_300"]))
 
-    logger.info("p95_20_300 : min=%.6f mean=%.6f p95=%.6f max=%.6f", p95_min, p95_mean, p95_p95, p95_max)
+    logger.info(
+        "p95_20_300 : min=%.6f mean=%.6f p95=%.6f max=%.6f",
+        p95_min,
+        p95_mean,
+        p95_p95,
+        p95_max,
+    )
 
     # lecture manifeste
     logger.info("Chargement manifeste: %s", manifest_p)
@@ -101,7 +122,9 @@ def main(argv: list[str] | None = None) -> int:
     if "n_rows_results" in sizes:
         exp = int(sizes["n_rows_results"])
         if exp != n_total:
-            errors.append(f"Mismatch n_rows_results: manifest={exp} vs detected={n_total}")
+            errors.append(
+                f"Mismatch n_rows_results: manifest={exp} vs detected={n_total}"
+            )
         else:
             logger.info("n_rows_results OK: %d", n_total)
 
@@ -123,22 +146,30 @@ def main(argv: list[str] | None = None) -> int:
             pth = pathlib.Path(path)
             actual = sha256_of_file(pth)
             if expected is None:
-                logger.warning("Pas de sha256 attendu pour %s (clé %s) dans manifest", path, key)
+                logger.warning(
+                    "Pas de sha256 attendu pour %s (clé %s) dans manifest", path, key
+                )
                 continue
             if actual is None:
                 errors.append(f"Fichier absent pour hash check: {path}")
             elif actual != expected:
-                errors.append(f"Hash mismatch pour {path}: manifest={expected} vs actual={actual}")
+                errors.append(
+                    f"Hash mismatch pour {path}: manifest={expected} vs actual={actual}"
+                )
             else:
                 logger.info("Hash OK: %s", path)
 
     # Optionnel : si le manifeste contient des métriques de référence, les comparer
-    ref_metrics = manifest.get("metrics_reference") or manifest.get("metrics_active") or {}
+    ref_metrics = (
+        manifest.get("metrics_reference") or manifest.get("metrics_active") or {}
+    )
     # exemple : p95_abs_20_300 dans anciens manifests
     if "p95_abs_20_300" in ref_metrics:
         ref_p95 = float(ref_metrics["p95_abs_20_300"])
         if not compare_close(ref_p95, p95_p95, rtol=args.rtol, atol=args.atol):
-            errors.append(f"p95_abs_20_300 mismatch: manifest={ref_p95} vs recomputed_p95={p95_p95}")
+            errors.append(
+                f"p95_abs_20_300 mismatch: manifest={ref_p95} vs recomputed_p95={p95_p95}"
+            )
 
     # verdict
     if errors:

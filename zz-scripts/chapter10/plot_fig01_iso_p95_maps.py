@@ -18,6 +18,7 @@ python zz-scripts/chapter10/tracer_fig01_cartes_iso_p95.py \
 Options notables:
   --no-clip    : disable percentiles clipping (show full vmin/vmax)
 """
+
 from __future__ import annotations
 import argparse
 import warnings
@@ -30,13 +31,18 @@ import sys
 
 # ---------- utilities ----------
 
+
 def detect_p95_column(df: pd.DataFrame, hint: str | None):
     """Try to find the p95 column using hint or sensible defaults."""
     if hint and hint in df.columns:
         return hint
     candidates = [
-        "p95_20_300_recalc", "p95_20_300_circ", "p95_20_300",
-        "p95_circ", "p95_recalc", "p95"
+        "p95_20_300_recalc",
+        "p95_20_300_circ",
+        "p95_20_300",
+        "p95_circ",
+        "p95_recalc",
+        "p95",
     ]
     for c in candidates:
         if c in df.columns:
@@ -45,6 +51,7 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None):
         if "p95" in c.lower():
             return c
     raise KeyError("Aucune colonne 'p95' détectée dans le fichier results.")
+
 
 def read_and_validate(path, m1_col, m2_col, p95_col):
     """Read CSV and validate presence of required columns. Return trimmed DataFrame."""
@@ -61,6 +68,7 @@ def read_and_validate(path, m1_col, m2_col, p95_col):
         raise ValueError("Aucune donnée valide après suppression des NaN.")
     return df
 
+
 def make_triangulation_and_mask(x, y):
     """
     Build a triangulation for scattered (x,y). Return triang and a simple
@@ -69,8 +77,12 @@ def make_triangulation_and_mask(x, y):
     triang = tri.Triangulation(x, y)
     try:
         tris = triang.triangles
-        x1 = x[tris[:, 0]]; x2 = x[tris[:, 1]]; x3 = x[tris[:, 2]]
-        y1 = y[tris[:, 0]]; y2 = y[tris[:, 1]]; y3 = y[tris[:, 2]]
+        x1 = x[tris[:, 0]]
+        x2 = x[tris[:, 1]]
+        x3 = x[tris[:, 2]]
+        y1 = y[tris[:, 0]]
+        y2 = y[tris[:, 1]]
+        y3 = y[tris[:, 2]]
         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
         mask = areas <= 0.0
         # triang.set_mask expects boolean mask with same length as triangles
@@ -80,20 +92,34 @@ def make_triangulation_and_mask(x, y):
         pass
     return triang
 
+
 # ---------- main ----------
+
 
 def main():
     ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument("--results", required=True, help="CSV results (must contain m1,m2 and p95).")
-    ap.add_argument("--p95-col", default=None, help="p95 column name (auto detect if omitted)")
+    ap.add_argument(
+        "--results", required=True, help="CSV results (must contain m1,m2 and p95)."
+    )
+    ap.add_argument(
+        "--p95-col", default=None, help="p95 column name (auto detect if omitted)"
+    )
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
-    ap.add_argument("--out", default="fig_01_cartes_iso_p95.png", help="output PNG file")
+    ap.add_argument(
+        "--out", default="fig_01_cartes_iso_p95.png", help="output PNG file"
+    )
     ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
     ap.add_argument("--cmap", default="viridis", help="colormap")
     ap.add_argument("--dpi", type=int, default=150, help="png dpi")
-    ap.add_argument("--title", default="Carte iso de p95 (m1 vs m2)", help="figure title")
-    ap.add_argument("--no-clip", action="store_true", help="do not clip color scale to percentiles (show full range)")
+    ap.add_argument(
+        "--title", default="Carte iso de p95 (m1 vs m2)", help="figure title"
+    )
+    ap.add_argument(
+        "--no-clip",
+        action="store_true",
+        help="do not clip color scale to percentiles (show full range)",
+    )
     args = ap.parse_args()
 
     # Read & detect columns
@@ -154,10 +180,12 @@ def main():
 
     # tricontourf with normalization
     cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
-    cs = ax.tricontour(triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5)
+    _ = ax.tricontour(triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5)  # noqa: F841
 
     # scatter overlay (points) - smaller, semi-transparent
-    ax.scatter(x, y, c='k', s=3, alpha=0.5, edgecolors='none', label="échantillons", zorder=5)
+    ax.scatter(
+        x, y, c="k", s=3, alpha=0.5, edgecolors="none", label="échantillons", zorder=5
+    )
 
     # colorbar (respect the norm)
     cbar = fig.colorbar(cf, ax=ax, shrink=0.8)
@@ -190,10 +218,13 @@ def main():
         fig.savefig(args.out, dpi=args.dpi)
         print(f"Wrote: {args.out}")
         if clipped:
-            print("Note: color scaling was clipped to percentiles (0.1%/99.9%). Use --no-clip to disable clipping.")
+            print(
+                "Note: color scaling was clipped to percentiles (0.1%/99.9%). Use --no-clip to disable clipping."
+            )
     except Exception as e:
         print(f"[ERROR] cannot write output file '{args.out}': {e}", file=sys.stderr)
         sys.exit(2)
+
 
 if __name__ == "__main__":
     main()

@@ -17,10 +17,8 @@ Sortie :
 from pathlib import Path
 import logging
 
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.ticker import FixedLocator, FuncFormatter
 
 # ----------------------------------------------------------------------
 # Configuration logging
@@ -32,8 +30,8 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data/chapter03/03_domaine_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_01_stabilite_fR_domaine.png"
+FIG_DIR = Path("zz-figures/chapter3")
+FIG_PATH = FIG_DIR / "fig_01_stabilite_fR_domaine.png"
 
 
 def main() -> None:
@@ -61,17 +59,11 @@ def main() -> None:
         df["gamma_max"],
         color="lightgray",
         alpha=0.5,
-        label="Domaine de stabilité"
+        label="Domaine de stabilité",
     )
 
     # Repère β = 1
-    ax.axvline(
-        1.0,
-        color="gray",
-        linestyle="--",
-        linewidth=1.0,
-        label=r"$\beta = 1$"
-    )
+    ax.axvline(1.0, color="gray", linestyle="--", linewidth=1.0, label=r"$\beta = 1$")
 
     # Échelles log-log
     ax.set_xscale("log")
@@ -90,23 +82,25 @@ def main() -> None:
     # ------------------------------------------------------------------
     mask = (df["beta"] >= 0.5) & (df["beta"] <= 2.0)
     if mask.any():
-        ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])  
+        ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])
 
         # Tracé γ_max (et γ_min si ≠0)
         ax_in.plot(
-            df.loc[mask, "beta"],
-            df.loc[mask, "gamma_max"],
-            color="black", lw=1.2
+            df.loc[mask, "beta"], df.loc[mask, "gamma_max"], color="black", lw=1.2
         )
         if (df.loc[mask, "gamma_min"] > 0).any():
             ax_in.plot(
-                df.loc[mask, "beta"],
-                df.loc[mask, "gamma_min"],
-                color="black", lw=1.2
+                df.loc[mask, "beta"], df.loc[mask, "gamma_min"], color="black", lw=1.2
             )
 
         # Échelles : X linéaire, Y log
-        from matplotlib.ticker import FixedLocator, FuncFormatter, LogLocator, ScalarFormatter, NullFormatter
+        from matplotlib.ticker import (
+            FixedLocator,
+            FuncFormatter,
+            LogLocator,
+            ScalarFormatter,
+            NullFormatter,
+        )
 
         ax_in.set_xscale("linear")
         ax_in.set_xlim(0.5, 2.0)

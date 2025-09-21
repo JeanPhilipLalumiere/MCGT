@@ -19,20 +19,38 @@
 
 from __future__ import annotations
 from pathlib import Path
-import argparse, json, hashlib, datetime, shutil, sys, tempfile, subprocess, glob, mimetypes, os
-from typing import Dict, Any, Iterable, List, Optional, Tuple
+import argparse
+import json
+import hashlib
+import datetime
+import shutil
+import sys
+import tempfile
+import subprocess
+import glob
+import mimetypes
+import os
+from typing import Dict, Any, List, Optional, Tuple
 
 UTC = datetime.timezone.utc
 REPO_ROOT = Path.cwd().resolve()
 
 # ------------------------- utilitaires horodatage / hash -------------------------
 
+
 def utc_now_iso() -> str:
-    return datetime.datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        datetime.datetime.now(UTC)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
+
 
 def iso_mtime(path: Path) -> str:
     t = datetime.datetime.fromtimestamp(path.stat().st_mtime, tz=UTC)
     return t.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
 
 def sha256_of_file(path: Path) -> str:
     h = hashlib.sha256()
@@ -41,11 +59,15 @@ def sha256_of_file(path: Path) -> str:
             h.update(b)
     return h.hexdigest()
 
+
 def git_hash_of(path: Path) -> Optional[str]:
     try:
         res = subprocess.run(
             ["git", "hash-object", str(path)],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
         )
         if res.returncode == 0:
             return res.stdout.strip()
@@ -53,7 +75,9 @@ def git_hash_of(path: Path) -> Optional[str]:
         pass
     return None
 
+
 # ------------------------- heuristiques rôle / chapitre / type -------------------
+
 
 def guess_role(p: Path) -> str:
     s = str(p).replace("\\", "/")
@@ -73,6 +97,7 @@ def guess_role(p: Path) -> str:
         return "source"
     return "artifact"
 
+
 def guess_chapter_tag(p: Path) -> Optional[str]:
     s = p.as_posix().lower()
     # supporte chapter09, chapter9, chapitre9, etc.
@@ -91,6 +116,7 @@ def guess_chapter_tag(p: Path) -> Optional[str]:
         return f"chapter{int(stem[:2]):02d}"
     return None
 
+
 def guess_media_type(p: Path) -> str:
     mt, _ = mimetypes.guess_type(p.name)
     return mt or {
@@ -99,11 +125,13 @@ def guess_media_type(p: Path) -> str:
         ".dat": "text/plain",
         ".png": "image/png",
         ".ini": "text/plain",
-        ".md":  "text/markdown",
+        ".md": "text/markdown",
         ".tex": "text/x-tex",
     }.get(p.suffix.lower(), "application/octet-stream")
 
+
 # ------------------------- I/O manifest -------------------------
+
 
 def manifest_skeleton() -> Dict[str, Any]:
     return {
@@ -113,8 +141,9 @@ def manifest_skeleton() -> Dict[str, Any]:
         "generated_at": utc_now_iso(),
         "total_entries": 0,
         "total_size_bytes": 0,
-        "entries": []  # liste d'objets {path, role, size_bytes, sha256, mtime_iso, ...}
+        "entries": [],  # liste d'objets {path, role, size_bytes, sha256, mtime_iso, ...}
     }
+
 
 def load_manifest(path_manifest: Path) -> Dict[str, Any]:
     if path_manifest.exists():
@@ -132,11 +161,16 @@ def load_manifest(path_manifest: Path) -> Dict[str, Any]:
                 obj.pop("files", None)
             return obj
         except Exception as e:
-            print(f"ERROR: cannot parse manifest: {path_manifest} -> {e}", file=sys.stderr)
+            print(
+                f"ERROR: cannot parse manifest: {path_manifest} -> {e}", file=sys.stderr
+            )
             sys.exit(2)
     return manifest_skeleton()
 
-def write_manifest_atomic(path: Path, obj: Dict[str, Any], do_backup: bool=True) -> None:
+
+def write_manifest_atomic(
+    path: Path, obj: Dict[str, Any], do_backup: bool = True
+) -> None:
     # champs agrégés
     obj["generated_at"] = utc_now_iso()
     entries = obj.get("entries", [])
@@ -149,14 +183,21 @@ def write_manifest_atomic(path: Path, obj: Dict[str, Any], do_backup: bool=True)
         f.write("\n")
 
     if do_backup and path.exists():
-        bak = path.with_suffix(path.suffix + "." + datetime.datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ") + ".bak")
+        bak = path.with_suffix(
+            path.suffix
+            + "."
+            + datetime.datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+            + ".bak"
+        )
         shutil.copy2(path, bak)
         print("Backup manifest ->", bak)
 
     Path(tmp_name).replace(path)
     print("Wrote:", path)
 
+
 # ------------------------- collecte des chemins -------------------------
+
 
 def expand_paths(arg_path: str) -> List[Path]:
     # "-" -> stdin (une voie par ligne)
@@ -164,12 +205,19 @@ def expand_paths(arg_path: str) -> List[Path]:
         items = [ln.strip() for ln in sys.stdin.read().splitlines() if ln.strip()]
         paths: List[Path] = []
         for it in items:
-            paths.extend(Path().glob(it) if any(ch in it for ch in "*?[]") else [Path(it)])
-        return [p.resolve() for sub in paths for p in ([sub] if isinstance(sub, Path) else [])]
+            paths.extend(
+                Path().glob(it) if any(ch in it for ch in "*?[]") else [Path(it)]
+            )
+        return [
+            p.resolve()
+            for sub in paths
+            for p in ([sub] if isinstance(sub, Path) else [])
+        ]
     # motif glob ?
     if any(ch in arg_path for ch in "*?[]"):
         return [Path(p).resolve() for p in glob.glob(arg_path)]
     return [Path(arg_path).expanduser().resolve()]
+
 
 def read_list_file(path: Path) -> List[Path]:
     items = []
@@ -183,6 +231,7 @@ def read_list_file(path: Path) -> List[Path]:
             items.append(Path(ln))
     return [p.resolve() for p in items]
 
+
 def to_rel_repo(p: Path) -> str:
     try:
         rel = p.relative_to(REPO_ROOT)
@@ -191,9 +240,17 @@ def to_rel_repo(p: Path) -> str:
         rel = Path(os.path.relpath(str(p), str(REPO_ROOT)))
     return rel.as_posix()
 
+
 # ------------------------- opérations sur le manifest -------------------------
 
-def upsert_entry(manifest: Dict[str, Any], path: Path, role: Optional[str], tags: List[str], set_git: bool) -> Tuple[bool, Dict[str, Any]]:
+
+def upsert_entry(
+    manifest: Dict[str, Any],
+    path: Path,
+    role: Optional[str],
+    tags: List[str],
+    set_git: bool,
+) -> Tuple[bool, Dict[str, Any]]:
     if not path.exists():
         print("WARN: file not found, skip ->", path, file=sys.stderr)
         return False, {}
@@ -246,9 +303,11 @@ def upsert_entry(manifest: Dict[str, Any], path: Path, role: Optional[str], tags
     print("ADDED    :", rel)
     return True, payload
 
+
 def remove_entries(manifest: Dict[str, Any], pattern: str) -> int:
     # pattern sur le champ "path" (glob)
     import fnmatch
+
     entries: List[Dict[str, Any]] = manifest.get("entries", [])
     keep = []
     removed = 0
@@ -262,21 +321,70 @@ def remove_entries(manifest: Dict[str, Any], pattern: str) -> int:
     manifest["entries"] = keep
     return removed
 
+
 # ------------------------- CLI -------------------------
 
+
 def parse_args(argv: List[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Register/update files in zz-manifests/manifest_master.json (repro inventory).")
+    p = argparse.ArgumentParser(
+        description="Register/update files in zz-manifests/manifest_master.json (repro inventory)."
+    )
     gsrc = p.add_mutually_exclusive_group(required=False)
-    gsrc.add_argument("path", nargs="?", default=None, help="file path or glob (use '-' to read from stdin)")
-    gsrc.add_argument("--from-list", dest="from_list", help="text file listing paths/globs (one per line)")
-    p.add_argument("--manifest", default="zz-manifests/manifest_master.json", help="manifest JSON path (default: zz-manifests/manifest_master.json)")
-    p.add_argument("--role", choices=["data", "figure", "schema", "manifest", "config", "script", "artifact", "source"], help="force role for all inputs")
-    p.add_argument("--tags", default="", help="comma-separated tags to attach (e.g., chapter09,phase)")
-    p.add_argument("--no-backup", action="store_true", help="do not create timestamped .bak before writing")
-    p.add_argument("--with-git-hash", action="store_true", help="store git blob hash (if available)")
-    p.add_argument("--remove", metavar="GLOB", help="remove entries whose path matches this glob (e.g., 'zz-data/chapter09/*.tmp')")
-    p.add_argument("--dry-run", action="store_true", help="do not write manifest (report only)")
+    gsrc.add_argument(
+        "path",
+        nargs="?",
+        default=None,
+        help="file path or glob (use '-' to read from stdin)",
+    )
+    gsrc.add_argument(
+        "--from-list",
+        dest="from_list",
+        help="text file listing paths/globs (one per line)",
+    )
+    p.add_argument(
+        "--manifest",
+        default="zz-manifests/manifest_master.json",
+        help="manifest JSON path (default: zz-manifests/manifest_master.json)",
+    )
+    p.add_argument(
+        "--role",
+        choices=[
+            "data",
+            "figure",
+            "schema",
+            "manifest",
+            "config",
+            "script",
+            "artifact",
+            "source",
+        ],
+        help="force role for all inputs",
+    )
+    p.add_argument(
+        "--tags",
+        default="",
+        help="comma-separated tags to attach (e.g., chapter09,phase)",
+    )
+    p.add_argument(
+        "--no-backup",
+        action="store_true",
+        help="do not create timestamped .bak before writing",
+    )
+    p.add_argument(
+        "--with-git-hash",
+        action="store_true",
+        help="store git blob hash (if available)",
+    )
+    p.add_argument(
+        "--remove",
+        metavar="GLOB",
+        help="remove entries whose path matches this glob (e.g., 'zz-data/chapter09/*.tmp')",
+    )
+    p.add_argument(
+        "--dry-run", action="store_true", help="do not write manifest (report only)"
+    )
     return p.parse_args(argv)
+
 
 def main(argv: List[str]) -> int:
     args = parse_args(argv)
@@ -315,11 +423,13 @@ def main(argv: List[str]) -> int:
                 if sub.is_file():
                     rp = sub.resolve()
                     if rp not in seen:
-                        input_files.append(rp); seen.add(rp)
+                        input_files.append(rp)
+                        seen.add(rp)
         elif p.is_file():
             rp = p.resolve()
             if rp not in seen:
-                input_files.append(rp); seen.add(rp)
+                input_files.append(rp)
+                seen.add(rp)
         else:
             # motif qui n'a rien trouvé ou chemin inexistant
             continue
@@ -344,6 +454,7 @@ def main(argv: List[str]) -> int:
 
     write_manifest_atomic(manifest_path, manifest, do_backup=not args.no_backup)
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

@@ -13,30 +13,34 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 
 Exemple d’usage (recommandé) à la fin du fichier.
 """
+
 from __future__ import annotations
 import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes  # (non utilisé ici, laissé si besoin futur)
 
 
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 
 TWOPI = 2.0 * np.pi
 
+
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Réduit sur l'intervalle [-π, π)."""
     return (x + np.pi) % TWOPI - np.pi
+
 
 def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ = wrap( b - a ) dans [-π, π)."""
     return wrap_pi(b - a)
 
+
 def circ_mean_rad(angles: np.ndarray) -> float:
     """Moyenne circulaire (angle) en radians [-π, π)."""
     z = np.mean(np.exp(1j * angles))
     return float(np.angle(z))
+
 
 def circ_std_rad(angles: np.ndarray) -> float:
     """Écart-type circulaire (radians). Définition basée sur R = |E[e^{iθ}]|."""
@@ -44,7 +48,10 @@ def circ_std_rad(angles: np.ndarray) -> float:
     # std circulaire : sqrt(-2 ln R)
     return float(np.sqrt(max(0.0, -2.0 * np.log(max(R, 1e-12)))))
 
-def bootstrap_circ_mean_ci(angles: np.ndarray, B: int = 1000, seed: int = 12345) -> tuple[float, float, float]:
+
+def bootstrap_circ_mean_ci(
+    angles: np.ndarray, B: int = 1000, seed: int = 12345
+) -> tuple[float, float, float]:
     """
     IC bootstrap (percentile, 95%) pour la moyenne circulaire de `angles`.
 
@@ -77,7 +84,8 @@ def bootstrap_circ_mean_ci(angles: np.ndarray, B: int = 1000, seed: int = 12345)
 
 # ------------------------- Parsing & plotting -------------------------
 
-def detect_column(df: pd.DataFrame, hint: str|None, candidates: list[str]) -> str:
+
+def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
     if hint and hint in df.columns:
         return hint
     for c in candidates:
@@ -90,41 +98,82 @@ def detect_column(df: pd.DataFrame, hint: str|None, candidates: list[str]) -> st
             return df.columns[lowcols.index(cand.lower())]
     raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (ou hint={hint})")
 
+
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    p.add_argument("--results", required=True, help="CSV contenant les colonnes de phases à f_peak")
-    p.add_argument("--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis.")
-    p.add_argument("--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis.")
-    p.add_argument("--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)")
-    p.add_argument("--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie")
+    p.add_argument(
+        "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
+    )
+    p.add_argument(
+        "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
+    )
+    p.add_argument(
+        "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
+    )
+    p.add_argument(
+        "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
+    )
+    p.add_argument(
+        "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
+    )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
-    p.add_argument("--title",
-                   default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
-                   help="Titre de la figure (fontsize=15)")
-    p.add_argument("--point-size", type=float, default=12.0, help="Taille des points du scatter")
-    p.add_argument("--alpha", type=float, default=0.7, help="Alpha des points du scatter")
+    p.add_argument(
+        "--title",
+        default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
+        help="Titre de la figure (fontsize=15)",
+    )
+    p.add_argument(
+        "--point-size", type=float, default=12.0, help="Taille des points du scatter"
+    )
+    p.add_argument(
+        "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
+    )
     p.add_argument("--cmap", default="viridis", help="Colormap pour |Δφ|")
 
     # options de clipping / échelle
-    p.add_argument("--clip_pi", action="store_true",
-                   help="Force axes X/Y dans [-π, π] (utile si phases wrapées).")
-    p.add_argument("--p95-ref", type=float, default=0.7104087123286049,
-                   help="Seuil de référence pour fraction |Δφ| < réf.")
-    p.add_argument("--annotate-top-k", type=int, default=0,
-                   help="Annote les K pires |Δφ| (0 = désactivé).")
+    p.add_argument(
+        "--clip_pi",
+        action="store_true",
+        help="Force axes X/Y dans [-π, π] (utile si phases wrapées).",
+    )
+    p.add_argument(
+        "--p95-ref",
+        type=float,
+        default=0.7104087123286049,
+        help="Seuil de référence pour fraction |Δφ| < réf.",
+    )
+    p.add_argument(
+        "--annotate-top-k",
+        type=int,
+        default=0,
+        help="Annote les K pires |Δφ| (0 = désactivé).",
+    )
 
     # HEXBIN
-    p.add_argument("--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité).")
-    p.add_argument("--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité).")
-    p.add_argument("--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond.")
+    p.add_argument(
+        "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
+    )
+    p.add_argument(
+        "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
+    )
+    p.add_argument(
+        "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
+    )
 
     # Colorbar ticks π/4
-    p.add_argument("--pi-ticks", action="store_true",
-                   help="Colorbar avec ticks à 0, π/4, π/2, 3π/4, π.")
+    p.add_argument(
+        "--pi-ticks",
+        action="store_true",
+        help="Colorbar avec ticks à 0, π/4, π/2, 3π/4, π.",
+    )
 
     # Bootstrap IC sur la moyenne circulaire
-    p.add_argument("--boot-ci", type=int, default=1000,
-                   help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.")
+    p.add_argument(
+        "--boot-ci",
+        type=int,
+        default=1000,
+        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
+    )
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
 
     args = p.parse_args()
@@ -132,8 +181,20 @@ def main():
     # lecture
     df = pd.read_csv(args.results)
 
-    x_candidates = ["phi_ref_fpeak", "phi_ref", "phi_ref_f_peak", "phi_ref_at_fpeak", "phi_reference"]
-    y_candidates = ["phi_mcgt_fpeak", "phi_mcgt", "phi_mcg", "phi_mcg_at_fpeak", "phi_MCGT"]
+    x_candidates = [
+        "phi_ref_fpeak",
+        "phi_ref",
+        "phi_ref_f_peak",
+        "phi_ref_at_fpeak",
+        "phi_reference",
+    ]
+    y_candidates = [
+        "phi_mcgt_fpeak",
+        "phi_mcgt",
+        "phi_mcg",
+        "phi_mcg_at_fpeak",
+        "phi_MCGT",
+    ]
 
     xcol = detect_column(df, args.x_col, x_candidates)
     ycol = detect_column(df, args.y_col, y_candidates)
@@ -143,7 +204,8 @@ def main():
     sub = df[cols].dropna().copy()
     x = sub[xcol].astype(float).values
     y = sub[ycol].astype(float).values
-    groups = sub[groupcol].values if groupcol else None
+    _ = sub[groupcol].values if groupcol else None
+    # noqa: F841
 
     # Δφ circulaire
     dphi = circ_diff(x, y)
@@ -161,7 +223,9 @@ def main():
     cmean = circ_mean_rad(dphi)
     cstd = circ_std_rad(dphi)
     if args.boot_ci > 0:
-        cmean_hat, ci_lo, ci_hi = bootstrap_circ_mean_ci(dphi, B=args.boot_ci, seed=args.seed)
+        cmean_hat, ci_lo, ci_hi = bootstrap_circ_mean_ci(
+            dphi, B=args.boot_ci, seed=args.seed
+        )
     else:
         cmean_hat, ci_lo, ci_hi = cmean, cmean, cmean
 
@@ -175,12 +239,28 @@ def main():
 
     # hexbin en fond
     if args.with_hexbin:
-        ax.hexbin(x, y, gridsize=args.hexbin_gridsize, mincnt=1,
-                  cmap="Greys", alpha=args.hexbin_alpha, linewidths=0, zorder=0)
+        ax.hexbin(
+            x,
+            y,
+            gridsize=args.hexbin_gridsize,
+            mincnt=1,
+            cmap="Greys",
+            alpha=args.hexbin_alpha,
+            linewidths=0,
+            zorder=0,
+        )
 
     # scatter par-dessus
-    sc = ax.scatter(x, y, c=abs_d, s=args.point_size, alpha=args.alpha,
-                    cmap=args.cmap, edgecolor='none', zorder=1)
+    sc = ax.scatter(
+        x,
+        y,
+        c=abs_d,
+        s=args.point_size,
+        alpha=args.alpha,
+        cmap=args.cmap,
+        edgecolor="none",
+        zorder=1,
+    )
 
     # limites
     xmin, xmax = np.min(x), np.max(x)
@@ -195,12 +275,12 @@ def main():
         ax.set_ylim(ymin - pad_y, ymax + pad_y)
 
     # -- NEW: même échelle en X et Y pour que y=x soit à 45° --
-    ax.set_aspect('equal', adjustable='box')
+    ax.set_aspect("equal", adjustable="box")
 
     # y = x
     lo = min(ax.get_xlim()[0], ax.get_ylim()[0])
     hi = max(ax.get_xlim()[1], ax.get_ylim()[1])
-    ax.plot([lo, hi], [lo, hi], color='gray', linestyle='--', lw=1.2, zorder=2)
+    ax.plot([lo, hi], [lo, hi], color="gray", linestyle="--", lw=1.2, zorder=2)
 
     # axes / titre
     ax.set_xlabel(f"{xcol} [rad]")
@@ -211,7 +291,7 @@ def main():
     cbar = fig.colorbar(sc, ax=ax)
     cbar.set_label(r"$|\Delta\phi|$ [rad]")
     if args.pi_ticks:
-        ticks = [0.0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi]
+        ticks = [0.0, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi]
         cbar.set_ticks(ticks)
         cbar.set_ticklabels(["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
 
@@ -222,28 +302,45 @@ def main():
         f"median = {median_abs:.3f}",
         f"p95 = {p95_abs:.3f}",
         f"max = {max_abs:.3f}",
-        f"|Δφ| < {args.p95_ref:.4f} : {100*frac_below:.2f}% (n={int(round(frac_below*N))})",
+        f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
         f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
         f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
         f"circ-std(Δφ) = {cstd:.3f} rad",
     ]
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
-    ax.text(0.02, 0.98, "\n".join(stat_lines), transform=ax.transAxes,
-            fontsize=9, va='top', ha='left', bbox=bbox, zorder=5)
+    ax.text(
+        0.02,
+        0.98,
+        "\n".join(stat_lines),
+        transform=ax.transAxes,
+        fontsize=9,
+        va="top",
+        ha="left",
+        bbox=bbox,
+        zorder=5,
+    )
 
     # annotation top-K pires |Δφ|
     if args.annotate_top_k and args.annotate_top_k > 0:
         k = int(min(args.annotate_top_k, N))
         idx = np.argsort(-abs_d)[:k]
         for i in idx:
-            ax.annotate(f"{abs_d[i]:.3f}", (x[i], y[i]),
-                        xytext=(4, 4), textcoords="offset points",
-                        fontsize=7, color="black", alpha=0.8)
+            ax.annotate(
+                f"{abs_d[i]:.3f}",
+                (x[i], y[i]),
+                xytext=(4, 4),
+                textcoords="offset points",
+                fontsize=7,
+                color="black",
+                alpha=0.8,
+            )
 
     # pied de figure
-    foot = r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "\
-           r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
-    fig.text(0.5, 0.02, foot, ha='center', fontsize=9)
+    foot = (
+        r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
+        r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
+    )
+    fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
     plt.tight_layout(rect=[0, 0.04, 1, 0.98])
     fig.savefig(args.out, dpi=args.dpi)

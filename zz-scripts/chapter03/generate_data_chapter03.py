@@ -1,3 +1,4 @@
+# ruff: noqa: E731
 #!/usr/bin/env python3
 # generer_donnees_chapitre3.py
 
@@ -5,7 +6,7 @@
 Chapitre 3 – Pipeline intégral (v3.2.0)
 --------------------------------------
 Stabilité de f(R) : génération des données numériques pour les figures
-et les tableaux du Chapitre 3. 
+et les tableaux du Chapitre 3.
 
 """
 
@@ -40,16 +41,18 @@ log = logging.getLogger(__name__)
 # 2. Cosmologie : inversion T↔z
 # ----------------------------------------------------------------------
 H0_km_s_Mpc = 67.66
-Mpc_to_km   = 3.0856775814913673e19  # km dans 1 Mpc
-sec_per_Gyr = 3.1536e16             # s dans 1 Gyr
-H0 = H0_km_s_Mpc / Mpc_to_km * sec_per_Gyr   # ≈0.069 Gyr⁻¹
+Mpc_to_km = 3.0856775814913673e19  # km dans 1 Mpc
+sec_per_Gyr = 3.1536e16  # s dans 1 Gyr
+H0 = H0_km_s_Mpc / Mpc_to_km * sec_per_Gyr  # ≈0.069 Gyr⁻¹
 Om0, Ol0 = 0.3111, 0.6889
+
 
 def T_of_z(z: float) -> float:
     """Âge de l’Univers (Gyr) à redshift z dans un ΛCDM plat."""
-    integrand = lambda zp: 1/((1+zp)*H0*np.sqrt(Om0*(1+zp)**3 + Ol0))
+    integrand = lambda zp: 1 / ((1 + zp) * H0 * np.sqrt(Om0 * (1 + zp) ** 3 + Ol0))
     T, _ = quad(integrand, z, 1e5)
     return T
+
 
 def z_of_T(T: float) -> float:
     """Inverse de T_of_z; si T≥T0 renvoie 0."""
@@ -59,13 +62,14 @@ def z_of_T(T: float) -> float:
     # approximation à petit T
     thr = 1e-2
     if T < thr:
-        return max(((2/(3*H0*np.sqrt(Om0)))/T)**(2/3) - 1, 0.0)
+        return max(((2 / (3 * H0 * np.sqrt(Om0))) / T) ** (2 / 3) - 1, 0.0)
     # sinon root-finding
     f = lambda z: T_of_z(z) - T
     zmax = 1e6
-    if f(0)*f(zmax) > 0:
+    if f(0) * f(zmax) > 0:
         zmax *= 10
     return brentq(f, 0.0, zmax)
+
 
 # ----------------------------------------------------------------------
 # 3. Outils partagés (grille log-lin)
@@ -73,17 +77,19 @@ def z_of_T(T: float) -> float:
 def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
     if fmin <= 0 or fmax <= 0 or fmax <= fmin:
         raise ValueError("fmin>0, fmax>fmin requis.")
-    n = int(np.floor((np.log10(fmax)-np.log10(fmin))/dlog)) + 1
-    return 10 ** (np.log10(fmin) + np.arange(n)*dlog)
+    n = int(np.floor((np.log10(fmax) - np.log10(fmin)) / dlog)) + 1
+    return 10 ** (np.log10(fmin) + np.arange(n) * dlog)
 
-def check_log_spacing(g: np.ndarray, atol: float=1e-12) -> bool:
+
+def check_log_spacing(g: np.ndarray, atol: float = 1e-12) -> bool:
     d = np.diff(np.log10(g))
     return np.allclose(d, d[0], atol=atol)
+
 
 # ----------------------------------------------------------------------
 # 4. Jalons : copie si besoin
 # ----------------------------------------------------------------------
-def ensure_jalons(src: Path|None) -> Path:
+def ensure_jalons(src: Path | None) -> Path:
     dst = Path("zz-data/chapter03/03_ricci_fR_jalons.csv")
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.exists():
@@ -95,20 +101,20 @@ def ensure_jalons(src: Path|None) -> Path:
     log.info("Jalons copiés → %s", dst)
     return dst
 
+
 # ----------------------------------------------------------------------
 # 5. CLI & lecture INI
 # ----------------------------------------------------------------------
 def parse_cli() -> argparse.Namespace:
-    p = argparse.ArgumentParser(
-        description="Génère les données du Chapitre 3."
-    )
+    p = argparse.ArgumentParser(description="Génère les données du Chapitre 3.")
     p.add_argument("--config", default="gw_phase.ini", help="INI avec [scan]")
     p.add_argument("--npts", type=int, help="nombre de points fixe")
     p.add_argument("--copy-jalons", help="chemin vers jalons si absent")
     p.add_argument("--dry-run", action="store_true", help="ne pas écrire")
     return p.parse_args()
 
-def read_scan_section(path: Path) -> tuple[float,float,float]:
+
+def read_scan_section(path: Path) -> tuple[float, float, float]:
     cfg = configparser.ConfigParser()
     if not cfg.read(path) or "scan" not in cfg:
         log.error("Impossible de lire la section [scan] de %s", path)
@@ -119,6 +125,7 @@ def read_scan_section(path: Path) -> tuple[float,float,float]:
     except ValueError as e:
         log.error("Valeurs invalides dans [scan] : %s", e)
         sys.exit(1)
+
 
 # ----------------------------------------------------------------------
 # 6. Construction des grilles T, z et R
@@ -146,38 +153,37 @@ def build_T_z_R_grids(fmin: float, fmax: float, dlog: float, npts: int | None):
 
     log.info(
         "Grille R/R₀ unique prête : %d points (%.3e → %.3e).",
-        R_unique.size, R_unique.min(), R_unique.max()
+        R_unique.size,
+        R_unique.min(),
+        R_unique.max(),
     )
     return freqs, T_grid, z_grid, R_unique
+
 
 # ----------------------------------------------------------------------
 # 7. Calcul de stabilité
 # ----------------------------------------------------------------------
 def calculer_stabilite(jalons: pd.DataFrame, Rgrid: np.ndarray):
     logRj = np.log10(jalons["R_over_R0"])
-    fR_i  = PchipInterpolator(logRj, np.log10(jalons["f_R"]),  extrapolate=True)
+    fR_i = PchipInterpolator(logRj, np.log10(jalons["f_R"]), extrapolate=True)
     fRR_i = PchipInterpolator(logRj, np.log10(jalons["f_RR"]), extrapolate=True)
 
     logRg = np.log10(Rgrid)
-    fRg  = 10**fR_i(logRg)
-    fRRg = 10**fRR_i(logRg)
-    ms2  = (fRg - Rgrid*fRRg) / (3*fRRg)
+    fRg = 10 ** fR_i(logRg)
+    fRRg = 10 ** fRR_i(logRg)
+    ms2 = (fRg - Rgrid * fRRg) / (3 * fRRg)
 
-    df = pd.DataFrame({
-        "R_over_R0":  Rgrid,
-        "f_R":        fRg,
-        "f_RR":       fRRg,
-        "m_s2_over_R0": ms2
-    })
-    dom = pd.DataFrame({
-        "beta":      Rgrid,
-        "gamma_min": np.zeros_like(ms2),
-        "gamma_max": ms2.clip(max=1e8)
-    })
+    df = pd.DataFrame(
+        {"R_over_R0": Rgrid, "f_R": fRg, "f_RR": fRRg, "m_s2_over_R0": ms2}
+    )
+    dom = pd.DataFrame(
+        {"beta": Rgrid, "gamma_min": np.zeros_like(ms2), "gamma_max": ms2.clip(max=1e8)}
+    )
     frt = dom.query("gamma_min==gamma_max").rename(
-        columns={"gamma_max":"gamma_limit"}
-    )[['beta','gamma_limit']]
+        columns={"gamma_max": "gamma_limit"}
+    )[["beta", "gamma_limit"]]
     return df, dom, frt
+
 
 # ----------------------------------------------------------------------
 # 8. Exports CSV & métadonnées
@@ -188,19 +194,20 @@ def exporter_csv(df: pd.DataFrame, dom: pd.DataFrame, frt: pd.DataFrame, dry: bo
     if dry:
         log.info("--dry-run : je n’écris pas les CSV.")
         return
-    df.to_csv(out/"03_donnees_stabilite_fR.csv", index=False)
-    dom.to_csv(out/"03_domaine_stabilite_fR.csv", index=False)
-    frt.to_csv(out/"03_frontiere_stabilite_fR.csv", index=False)
+    df.to_csv(out / "03_donnees_stabilite_fR.csv", index=False)
+    dom.to_csv(out / "03_domaine_stabilite_fR.csv", index=False)
+    frt.to_csv(out / "03_frontiere_stabilite_fR.csv", index=False)
     meta = {
         "n_points": int(df.shape[0]),
         "files": [
             "03_donnees_stabilite_fR.csv",
             "03_domaine_stabilite_fR.csv",
-            "03_frontiere_stabilite_fR.csv"
-        ]
+            "03_frontiere_stabilite_fR.csv",
+        ],
     }
-    (out/"03_meta_stabilite_fR.json").write_text(json.dumps(meta,indent=2))
+    (out / "03_meta_stabilite_fR.json").write_text(json.dumps(meta, indent=2))
     log.info("Données principales et métadonnées écrites.")
+
 
 # ----------------------------------------------------------------------
 # 9. Génération des fichiers R ↔ z et R ↔ T  (section remise à jour)
@@ -239,13 +246,12 @@ def exporter_jalons_inverses(
     p_z = PchipInterpolator(
         np.log10(df_z["R_over_R0"]),
         df_z["z"],
-        extrapolate=False,            # <- évite les z = 0 parasites
+        extrapolate=False,  # <- évite les z = 0 parasites
     )
 
     jal_z = jalons.copy()
-    mask_in = (
-        (jal_z["R_over_R0"] >= df_z["R_over_R0"].min())
-        & (jal_z["R_over_R0"] <= df_z["R_over_R0"].max())
+    mask_in = (jal_z["R_over_R0"] >= df_z["R_over_R0"].min()) & (
+        jal_z["R_over_R0"] <= df_z["R_over_R0"].max()
     )
     jal_z.loc[mask_in, "z"] = p_z(np.log10(jal_z.loc[mask_in, "R_over_R0"]))
 
@@ -255,24 +261,20 @@ def exporter_jalons_inverses(
     # ------------------------------------------------------------------
     # 9-A  Interpolation R → z  (monotone, sans extrapolation)
     # ------------------------------------------------------------------
-    df_zfull = pd.DataFrame({
-        "R_over_R0": df_R["R_over_R0"],
-        "z":         zgrid
-    }).query("z > 0")                                   # z strictement positifs
+    df_zfull = pd.DataFrame({"R_over_R0": df_R["R_over_R0"], "z": zgrid}).query(
+        "z > 0"
+    )  # z strictement positifs
 
     # on garde, pour chaque R, le z le plus grand (plus ancien)
     df_zfull.sort_values(["R_over_R0", "z"], ascending=[True, False], inplace=True)
     df_z = df_zfull.drop_duplicates("R_over_R0").sort_values("R_over_R0")
 
-    p_z = PchipInterpolator(
-        np.log10(df_z["R_over_R0"]),
-        df_z["z"],
-        extrapolate=False
-    )
+    p_z = PchipInterpolator(np.log10(df_z["R_over_R0"]), df_z["z"], extrapolate=False)
 
     jal_z = jalons.copy()
-    in_domain = jal_z["R_over_R0"].between(df_z["R_over_R0"].min(),
-                                           df_z["R_over_R0"].max())
+    in_domain = jal_z["R_over_R0"].between(
+        df_z["R_over_R0"].min(), df_z["R_over_R0"].max()
+    )
     jal_z.loc[in_domain, "z"] = p_z(np.log10(jal_z.loc[in_domain, "R_over_R0"]))
 
     # on ne garde que les jalons réellement interpolés
@@ -296,10 +298,10 @@ def exporter_jalons_inverses(
     p_T = PchipInterpolator(
         np.log10(df_T["R_over_R0"]),
         np.log10(df_T["T_Gyr"]),
-        extrapolate=True,             # extrapolation OK pour T
+        extrapolate=True,  # extrapolation OK pour T
     )
 
-    jal_T = jal_z.copy()             # même sous-ensemble que pour z
+    jal_T = jal_z.copy()  # même sous-ensemble que pour z
     jal_T["T_Gyr"] = 10 ** p_T(np.log10(jal_T["R_over_R0"]))
 
     # Assurer la décroissance de T (le passé ne doit pas dépasser le présent)
@@ -320,16 +322,16 @@ def main() -> None:
     fmin, fmax, dlog = read_scan_section(Path(args.config))
 
     # 10.1 prépare toutes les grilles
-    freqs, Tgrid, zgrid, Rgrid = build_T_z_R_grids(fmin,fmax,dlog,args.npts)
+    freqs, Tgrid, zgrid, Rgrid = build_T_z_R_grids(fmin, fmax, dlog, args.npts)
 
     # 10.2 charge les jalons
     jalon_path = ensure_jalons(Path(args.copy_jalons) if args.copy_jalons else None)
     jalons = (
         pd.read_csv(jalon_path)
-          .rename(columns=str.strip)
-          .query("R_over_R0>0")
-          .drop_duplicates("R_over_R0")
-          .sort_values("R_over_R0")
+        .rename(columns=str.strip)
+        .query("R_over_R0>0")
+        .drop_duplicates("R_over_R0")
+        .sort_values("R_over_R0")
     )
 
     # 10.3 calcul de stabilité
@@ -342,6 +344,7 @@ def main() -> None:
     exporter_jalons_inverses(df_R, jalons, zgrid, Tgrid, args.dry_run)
 
     log.info("Pipeline Chapitre 3 terminé.")
+
 
 if __name__ == "__main__":
     main()

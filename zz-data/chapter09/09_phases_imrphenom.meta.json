@@ -1,9 +1,15 @@
 {
-  "source": "file",
-  "n_points": 1,
+  "source": "lalsuite",
+  "n_points": 232,
   "grid": {
     "fmin_Hz": 10.0,
-    "fmax_Hz": 20.0,
+    "fmax_Hz": 2041.7379446695295,
     "monotone": true
+  },
+  "repro": {
+    "git_hash": null,
+    "numpy": "2.3.1",
+    "pandas": "2.3.1",
+    "lalsuite": "6.2.0"
   }
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # tracer_fig01_stabilite_fR_domaine.py
 """
 Trace le domaine de stabilité de f(R) — Chapitre 3
@@ -6,12 +7,12 @@ Trace le domaine de stabilité de f(R) — Chapitre 3
 Affiche la zone où γ ∈ [0, γ_max(β)] en fonction de β = R/R₀.
 
 Entrée :
-    zz-data/chapter03/03_domaine_stabilite_fR.csv
+    zz-data/chapter03/03_fR_stability_domain.csv
 Colonnes requises :
     beta, gamma_min, gamma_max
 
 Sortie :
-    zz-figures/chapter03/fig_01_stabilite_fR_domaine.png
+    zz-figures/chapter03/fig_01_fR_stability_domain.png
 """
 
 from pathlib import Path
@@ -31,9 +32,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_domaine_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_01_stabilite_fR_domaine.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_domain.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_01_fR_stability_domain.png"
 
 
 def main() -> None:

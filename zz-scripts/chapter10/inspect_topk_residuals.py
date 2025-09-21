@@ -5,7 +5,7 @@ Inspect top-K / best candidates:
 - calcule Δφ_principal selon la règle canonique (k@20-300)
 - écrit CSV per-sample: f_Hz, phi_ref, phi_mcgt, abs_dphi_principal
 - sauvegarde overlays + histogramme des résidus (PNG)
-Usage: python zz-scripts/chapter10/inspect_topk_residus.py --ids 3903,1624,...
+Usage: python zz-scripts/chapter10/inspect_topk_residuals.py --ids 3903,1624,...
 """
 import json, argparse, os
 import numpy as np
@@ -44,7 +44,7 @@ def main(args):
         phi_m = phi_mcgt(ref, theta)
         abs_dphi, k = compute_abs_dphi_principal(phi_m, phi_r, ref, window=(20.0,300.0))
         # save CSV
-        outcsv = os.path.join(args.out_dir, f"10_topresidus_id{id_:d}.csv")
+        outcsv = os.path.join(args.out_dir, f"10_topresiduals_id{id_:d}.csv")
         df = pd.DataFrame({
             "f_Hz": ref,
             "phi_ref": phi_r,
@@ -78,6 +78,6 @@ if __name__ == "__main__":
     p.add_argument("--best-json", default="zz-data/chapter10/10_mc_best.json")
     p.add_argument("--ids", default=None, help="liste csv d'ids (ex: 3903,1624)")
     p.add_argument("--k", type=int, default=50, help="K top if --ids not provided")
-    p.add_argument("--out-dir", default="zz-data/chapter10/topk_residus")
+    p.add_argument("--out-dir", default="zz-data/chapter10/topk_residuals")
     args = p.parse_args()
     main(args)

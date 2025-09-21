@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script de tracé fig_02_cls_lcdm_vs_mcgt pour Chapitre 6 (Rayonnement CMB)
+Script de tracé fig_02_cls_lcdm_vs_mcgt pour Chapitre 6 (Rayonnement CMB)
 """
 #--- IMPORTS & CONFIGURATION ---
 import logging
@@ -16,12 +16,12 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # Paths
 ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / 'zz-data' / 'chapitre6'
-FIG_DIR  = ROOT / 'zz-figures' / 'chapitre6'
+DATA_DIR = ROOT / 'zz-data' / 'chapter06'
+FIG_DIR  = ROOT / 'zz-figures' / 'chapter06'
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-CLS_LCDM_DAT = DATA_DIR / '06_cls_lcdm_spectre.dat'
-CLS_MCGT_DAT = DATA_DIR / '06_cls_spectre.dat'
+CLS_LCDM_DAT = DATA_DIR / '06_cls_lcdm_spectrum.dat'
+CLS_MCGT_DAT = DATA_DIR / '06_cls_spectrum.dat'
 JSON_PARAMS  = DATA_DIR / '06_params_cmb.json'
 OUT_PNG      = FIG_DIR  / 'fig_02_cls_lcdm_vs_mcgt.png'
 
@@ -65,7 +65,7 @@ ax.set_ylabel(r'$C_{\ell}\;[\mu\mathrm{K}^2]$')
 ax.grid(True, which='both', linestyle=':', linewidth=0.5)
 ax.legend(loc='upper right', frameon=False)
 
-# Inset 1: relative difference ΔCℓ / Cℓ (bas‑gauche, décalé à droite et en haut)
+# Inset 1: relative difference ΔCℓ / Cℓ (bas-gauche, décalé à droite et en haut)
 axins1 = inset_axes(
     ax,
     width="85%", height="85%",

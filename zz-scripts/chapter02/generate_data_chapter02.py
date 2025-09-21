@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Pipeline d'intégration chronologique corrigé pour Chapitre 2 (MCGT)
-Avec option --spectre pour générer spec_spectre.json et fig_00_spectre.png
+Pipeline d'intégration chronologique corrigé pour Chapitre 2 (MCGT)
+Avec option --spectre pour générer 02_primordial_spectrum_spec.json et fig_00_spectre.png
 
 Génère :
-- zz-data/chapter02/02_donnees_grille_P_vs_T.dat
-- zz-data/chapter02/02_donnees_derivee_P.dat
-- zz-data/chapter02/02_jalons_chronologie.csv
-- zz-data/chapter02/02_ecarts_relatifs_chronologie.csv
-- zz-data/chapter02/02_parametres_optimaux.json
+- zz-data/chapter02/02_P_vs_T_grid_data.dat
+- zz-data/chapter02/02_P_derivative_data.dat
+- zz-data/chapter02/02_timeline_milestones.csv
+- zz-data/chapter02/02_relative_error_timeline.csv
+- zz-data/chapter02/02_optimal_parameters.json
 Et, si --spectre :
-- zz-data/chapter02/spec_spectre.json
+- zz-data/chapter02/02_primordial_spectrum_spec.json
 - zz-figures/chapter02/fig_00_spectre.png
 """
 
@@ -69,24 +69,24 @@ def fit_segment(T, P_ref, mask, grid, P0, weights, prim_mask, thresh_primary):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Pipeline Chapitre 2 (+ option spectre primordial)"
+        description="Pipeline Chapitre 2 (+ option spectre primordial)"
     )
     parser.add_argument(
         "--spectre", action="store_true",
-        help="Après calibrage, génère spec_spectre.json & fig_00_spectre.png"
+        help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png"
     )
     return parser.parse_args()
 
 # --- Section 3 : Pipeline principal ---
 def main(spectre=False):
     ROOT    = Path(__file__).resolve().parents[2]
-    DATA_DIR = ROOT / "zz-data" / "chapitre2"
-    IMG_DIR  = ROOT / "zz-figures" / "chapitre2"
+    DATA_DIR = ROOT / "zz-data" / "chapter02"
+    IMG_DIR  = ROOT / "zz-figures" / "chapter02"
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     IMG_DIR.mkdir(parents=True, exist_ok=True)
 
     # 3.1 Chargement des jalons
-    meta     = pd.read_csv(DATA_DIR / "02_jalons_meta.csv")
+    meta     = pd.read_csv(DATA_DIR / "02_milestones_meta.csv")
     T         = meta["T"].values
     P_ref     = meta["P_ref"].values
     cls       = meta["classe"].values
@@ -126,7 +126,7 @@ def main(spectre=False):
     idx = np.argsort(T_all)
     T_all, P_all = T_all[idx], P_all[idx]
     np.savetxt(
-        DATA_DIR / "02_donnees_grille_P_vs_T.dat",
+        DATA_DIR / "02_P_vs_T_grid_data.dat",
         np.column_stack((T_all, P_all)),
         fmt="%.6e", header="T P_calc"
     )
@@ -143,7 +143,7 @@ def main(spectre=False):
         T_der, dP_der = grid_low, dotP(grid_low, *params_low)
 
     np.savetxt(
-        DATA_DIR / "02_donnees_derivee_P.dat",
+        DATA_DIR / "02_P_derivative_data.dat",
         np.column_stack((T_der, dP_der)),
         fmt="%.6e", header="T dotP"
     )
@@ -162,12 +162,12 @@ def main(spectre=False):
         "P_opt":      np.round(P_opt, 6),
         "epsilon_i":  np.round(eps, 6),
         "classe":     cls
-    }).to_csv(DATA_DIR / "02_jalons_chronologie.csv", index=False)
+    }).to_csv(DATA_DIR / "02_timeline_milestones.csv", index=False)
 
     pd.DataFrame({
         "T":         T,
         "epsilon_i": np.round(eps, 6)
-    }).to_csv(DATA_DIR / "02_ecarts_relatifs_chronologie.csv", index=False)
+    }).to_csv(DATA_DIR / "02_relative_error_timeline.csv", index=False)
 
     # Alerte ordre 2
     if (~prim_mask).any():
@@ -198,7 +198,7 @@ def main(spectre=False):
             np.round(params_high, 6).tolist()
         ))
 
-    with open(DATA_DIR / "02_parametres_optimaux.json", "w", encoding="utf-8") as f:
+    with open(DATA_DIR / "02_optimal_parameters.json", "w", encoding="utf-8") as f:
         json.dump(json_out, f, ensure_ascii=False, indent=2)
 
     logging.info("Pipeline Chap2 terminé.")
@@ -219,7 +219,7 @@ def main(spectre=False):
         spec = {
             "label_eq":    "eq:spec_prim",
             "formule":     "P_R(k;α)=A_s(α) k^{n_s(α)-1}",
-            "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
+            "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
             "constantes":  {"A_s0": 2.10e-9, "ns0": 0.9649},
             "coefficients": {
                 "c1":   c1,
@@ -228,14 +228,14 @@ def main(spectre=False):
                 "c2_2": c2_2
             }
         }
-        out_spec = DATA_DIR / "spec_spectre.json"
+        out_spec = DATA_DIR / "02_primordial_spectrum_spec.json"
         with open(out_spec, "w", encoding="utf-8") as f:
             json.dump(spec, f, ensure_ascii=False, indent=2)
-        logging.info(f"spec_spectre.json généré → {out_spec}")
+        logging.info(f"02_primordial_spectrum_spec.json généré → {out_spec}")
 
         # 4.3) Tracé de la figure d’exemple
         subprocess.run(
-            ["python3", "zz-scripts/chapter02/tracer_fig00_spectre.py"],
+            ["python3", str(ROOT / "zz-scripts" / "chapter02" / "plot_fig00_spectrum.py")],
             check=True
         )
         logging.info("fig_00_spectre.png générée.")
@@ -243,4 +243,4 @@ def main(spectre=False):
 if __name__ == "__main__":
     args = parse_args()
     main(spectre=args.spectre)
-    print("✅ Génération Chapitre 2 OK")
+    print("✅ Génération Chapitre 2 OK")

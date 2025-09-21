@@ -5,7 +5,7 @@ bootstrap_topk_p95.py
 ---------------------
 
 Bootstrap des p95 pour le top-K en utilisant les fichiers de résidus
-par-identifiant produits par `inspect_topk_residus.py`.
+par-identifiant produits par `inspect_topk_residuals.py`.
 
 Usage (exemple)
 ---------------
@@ -19,7 +19,7 @@ python zz-scripts/chapter10/bootstrap_topk_p95.py \
 Notes
 -----
 - Cherche par défaut les fichiers de résidus dans:
-    zz-data/chapter10/topk_residus/10_topresidus_id{ID}.csv
+    zz-data/chapter10/topk_residuals/10_topresiduals_id{ID}.csv
   Le CSV attendu contient au moins une colonne d'absolu des résidus
   (ex: "absdphi", "abs_dphi", "abs_d_phi", "|Δφ|", "abs(Δφ)").
 - Si un fichier de résidus manque pour un ID, le script conserve
@@ -46,10 +46,10 @@ _logger = logging.getLogger("mcgt.bootstrap_topk_p95")
 def find_resid_file(resid_dir: Path, id_: int) -> Path | None:
     """Retourne le Path du fichier de résidus correspondant à `id_` s'il existe."""
     candidates = [
-        resid_dir / f"10_topresidus_id{id_}.csv",
-        resid_dir / f"topresidus_id{id_}.csv",
-        resid_dir / f"topresidus_{id_}.csv",
-        resid_dir / f"{id_}_topresidus.csv",
+        resid_dir / f"10_topresiduals_id{id_}.csv",
+        resid_dir / f"topresiduals_id{id_}.csv",
+        resid_dir / f"topresiduals_{id_}.csv",
+        resid_dir / f"{id_}_topresiduals.csv",
     ]
     for p in candidates:
         if p.exists():
@@ -118,7 +118,7 @@ def main(argv=None):
     p.add_argument("--results", required=False, help="CSV results (10_mc_results.csv) — utilisé en fallback")
     p.add_argument("--B", type=int, default=1000, help="Nombre de rééchantillonnages bootstrap (défaut: 1000)")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG pour reproductibilité")
-    p.add_argument("--resid-dir", default="zz-data/chapter10/topk_residus",
+    p.add_argument("--resid-dir", default="zz-data/chapter10/topk_residuals",
                    help="Répertoire contenant les fichiers de résidus par id")
     p.add_argument("--out", required=True, help="Fichier JSON de sortie (augmenté)")
     p.add_argument("--log-level", default="INFO", help="Niveau de logs")

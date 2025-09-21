@@ -29,17 +29,17 @@
      – Fichier attendu : `zz-data/chapter09/09_phases_imrphenom.csv`
      (colonnes : `f_Hz`, `phi_ref`)
      – Extraction/normalisation :
-     `zz-scripts/chapter09/extraire_phase_phenom.py` → `zz-data/chapter09/09_phases_imrphenom.csv`
+     `zz-scripts/chapter09/extract_phase_phenom.py` → `zz-data/chapter09/09_phases_imrphenom.csv`
    * **Phase MCGT (pipeline)**
      – Fichiers pipeline : `09_phases_mcgt.prepoly.csv` (brut), `09_phases_mcgt.csv` (final)
-     – Génération : `zz-scripts/chapter09/generer_donnees_chapitre9.py` → `zz-data/chapter09/09_phases_mcgt.prepoly.csv` + `09_phase_diff.csv`
+     – Génération : `zz-scripts/chapter09/generate_chapter09_data.py` → `zz-data/chapter09/09_phases_mcgt.prepoly.csv` + `09_phase_diff.csv`
    * **Correction polynomiale / rebranch**
      – Scripts :
      `zz-scripts/chapter09/opt_poly_rebranch.py` (grid search),
      `zz-scripts/chapter09/apply_poly_unwrap_rebranch.py` (appliquer correction),
      `zz-scripts/chapter09/check_p95_methods.py` (diagnostics raw/unwrap/rebranch)
      – Métriques et méta : `zz-data/chapter09/09_metrics_phase.json`
-   * **Jalons / f\_peak**
+   * **Milestones / f\_peak**
      – Fichier : `zz-data/chapter09/09_comparison_milestones.csv`
      (colonnes typiques : `event`, `f_Hz`, `phi_ref_at_fpeak`, `phi_mcgt_at_fpeak`, `obs_phase`, `sigma_phase`, `classe`)
 
@@ -47,8 +47,8 @@
 
 ```text
 MCGT/
-├─ 09-phase-ondes-gravitationnelles/ # sources LaTeX, GUIDE (chapter tex)
-├─ zz-data/chapter09/              # .csv, .json générés
+├─ 09-gravitational-waves-phase/      # sources LaTeX, GUIDE (chapter tex)
+├─ zz-data/chapter09/                 # .csv, .json générés
 │   ├─ 09_phases_imrphenom.csv
 │   ├─ 09_phases_mcgt.prepoly.csv
 │   ├─ 09_phases_mcgt.csv
@@ -57,29 +57,29 @@ MCGT/
 │   ├─ 09_best_params.json
 │   └─ 09_comparison_milestones.csv
 ├─ zz-scripts/chapter09/              # scripts de génération et tracé
-│   ├─ extraire_phase_phenom.py
-│   ├─ generer_donnees_chapitre9.py
-│   ├─ generer_phase_mcgtraw.py
+│   ├─ extract_phase_phenom.py
+│   ├─ generate_chapter09_data.py
+│   ├─ generate_phase_mcgtraw.py
 │   ├─ opt_poly_rebranch.py
 │   ├─ apply_poly_unwrap_rebranch.py
 │   ├─ check_p95_methods.py
-│   ├─ tracer_fig01_phase_overlay.py
-│   ├─ tracer_fig02_residual_phase.py
-│   ├─ tracer_fig03_hist_absdphi_20_300.py
-│   ├─ tracer_fig04_jalons_absdphi_vs_f.py
-│   └─ tracer_fig05_scatter_phi_at_fpeak.py
-├─ zz-figures/chapter09/               # figures produites
+│   ├─ plot_fig01_phase_overlay.py
+│   ├─ plot_fig02_residual_phase.py
+│   ├─ plot_fig03_hist_absdphi_20_300.py
+│   ├─ plot_fig04_absdphi_milestones_vs_f.py
+│   └─ plot_fig05_scatter_phi_at_fpeak.py
+├─ zz-figures/chapter09/              # figures produites
 │   ├─ fig_01_phase_overlay.png
 │   ├─ fig_01_phase_overlay.final.png
 │   ├─ fig_02_residual_phase.png
 │   ├─ fig_03_hist_absdphi_20_300.png
-│   ├─ fig_04_jalons_absdphi_vs_f.png
+│   ├─ fig_04_milestones_absdphi_vs_f.png
 │   ├─ fig_05_scatter_phi_at_fpeak.png
 │   ├─ p95_check_control.png
-│   └─ p95_checks/                      # outputs de diagnostic (supplements)
+│   └─ p95_checks/                     # outputs de diagnostic (supplements)
 │       ├─ supp_raw_unwrap_rebranch.png
 │       └─ supp_raw_unwrap_rebranch.pdf
-└─ venv9/                              # environnement virtuel Python
+└─ venv9/                             # environnement virtuel Python
 ```
 
 5. **Exécution du pipeline (séquence type)**
@@ -93,14 +93,14 @@ MCGT/
 7. (Optionnel) Regénérer la référence IMRPhenom :
 
    ```bash
-   python zz-scripts/chapter09/extraire_phase_phenom.py \
+   python zz-scripts/chapter09/extract_phase_phenom.py \
      --out zz-data/chapter09/09_phases_imrphenom.csv
    ```
 
 8. Générer la phase MCGT « prepoly » + Δφ :
 
    ```bash
-   python zz-scripts/chapter09/generer_donnees_chapitre9.py \
+   python zz-scripts/chapter09/generate_chapter09_data.py \
      --ref zz-data/chapter09/09_phases_imrphenom.csv \
      --out-prepoly zz-data/chapter09/09_phases_mcgt.prepoly.csv \
      --out-diff    zz-data/chapter09/09_phase_diff.csv \
@@ -159,14 +159,14 @@ MCGT/
       --out zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
       --bins 60 --window 20 300 --xscale log --dpi 300 --log-level INFO
 
-    python zz-scripts/chapter09/tracer_fig04_jalons_absdphi_vs_f.py \
+    python zz-scripts/chapter09/tracer_fig04_milestones_absdphi_vs_f.py \
       --diff zz-data/chapter09/09_phase_diff.csv \
-      --jalons zz-data/chapter09/09_comparison_milestones.csv \
-      --out zz-figures/chapter09/fig_04_jalons_absdphi_vs_f.png \
+      --milestones zz-data/chapter09/09_comparison_milestones.csv \
+      --out zz-figures/chapter09/fig_04_milestones_absdphi_vs_f.png \
       --dpi 300 --with_errorbar --log-level INFO
 
     python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \
-      --jalons zz-data/chapter09/09_comparison_milestones.csv \
+      --milestones zz-data/chapter09/09_comparison_milestones.csv \
       --out zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png \
       --dpi 300 --log-level INFO
     ```
@@ -174,7 +174,7 @@ MCGT/
 12. **Compilation LaTeX**
 
 ```bash
-cd 09-phase-ondes-gravitationnelles/
+cd 09-gravitational-waves-phase/
 pdflatex -interaction=nonstopmode 09_phase_ondes_grav_conceptuel.tex
 pdflatex -interaction=nonstopmode 09_phase_ondes_grav_details.tex
 ```

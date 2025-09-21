@@ -11,7 +11,7 @@ C1 = 1.0
 C2 = -0.04
 
 # Répertoire des données Chapitre 2
-DATA_DIR = Path(__file__).resolve().parents[2] / "zz-data" / "chapitre2"
+DATA_DIR = Path(__file__).resolve().parents[2] / "zz-data" / "chapter02"
 SPEC_FILE = DATA_DIR / "spec_spectre.json"
 
 
@@ -63,7 +63,7 @@ C2 = -0.04
 
 # Chemins vers les données Chapitre 2
 ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data" / "chapitre2"
+DATA_DIR = ROOT / "zz-data" / "chapter02"
 SPEC_FILE = DATA_DIR / "spec_spectre.json"
 
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     spec = {
         "label_eq": "eq:spec_prim",
         "formule": "P_R(k;α)=A_s(α) k^{n_s(α)-1}",
-        "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
+        "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
         "constantes": {"A_s0": A_S0, "ns0": NS0},
         "coefficients": {"c1": C1, "c2": C2}
     }
@@ -124,6 +124,7 @@ if __name__ == "__main__":
     with open(SPEC_FILE, "w", encoding="utf-8") as f:
         json.dump(spec, f, ensure_ascii=False, indent=2)
     print(f"02_spec_spectre.json généré → {SPEC_FILE}")
+    """
 
 
 if __name__ == "__main__":

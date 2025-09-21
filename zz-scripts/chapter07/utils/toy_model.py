@@ -3,8 +3,8 @@
 """
 zz-scripts/chapter07/utils/toy_model.py
 
-Trace un toy‑model sur la grille k pour vérifier l’échantillonnage,
-en lisant k_min, k_max et dlog depuis le JSON de méta‑paramètres.
+Trace un toy-model sur la grille k pour vérifier l’échantillonnage,
+en lisant k_min, k_max et dlog depuis le JSON de méta-paramètres.
 """
 
 import json
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 def load_params():
     # Déterminer la racine du projet
     root = Path(__file__).resolve().parents[3]
-    json_path = root / 'zz-data' / 'chapitre7' / '07_params_perturbations.json'
+    json_path = root / 'zz-data' / 'chapter07' / '07_params_perturbations.json'
     params = json.loads(json_path.read_text(encoding='utf-8'))
     return params
 
@@ -25,7 +25,7 @@ def main():
     kmax = params['k_max']
     dlog = params['dlog']
 
-    # Construction de la grille k log‑uniforme
+    # Construction de la grille k log-uniforme
     n_k = int((np.log10(kmax) - np.log10(kmin)) / dlog) + 1
     kgrid = np.logspace(np.log10(kmin), np.log10(kmax), n_k)
 
@@ -44,4 +44,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -4,26 +4,26 @@ import pandas as pd
 from pathlib import Path
 
 def main():
-    p = argparse.ArgumentParser(description="Extraire le CSV brut des jalons enrichis")
+    p = argparse.ArgumentParser(description="Extract raw CSV from enriched milestones file")
     p.add_argument(
         "--src", required=True,
-        help="Chemin vers 03_ricci_fR_jalons_enrichi.csv"
+        help="Path to 03_ricci_fR_milestones_enriched.csv"
     )
     p.add_argument(
         "--dst",
-        default="zz-data/chapter03/03_ricci_fR_jalons.csv",
-        help="Chemin de sortie pour le CSV brut"
+        default="zz-data/chapter03/03_ricci_fR_milestones.csv",
+        help="Output path for the raw CSV"
     )
     args = p.parse_args()
 
     src_path = Path(args.src)
     if not src_path.exists():
-        print(f"Erreur : fichier source introuvable : {src_path}")
+        print(f"Error: source file not found: {src_path}")
         return
 
     df = pd.read_csv(src_path)
     df[["R_over_R0", "f_R", "f_RR"]].to_csv(args.dst, index=False)
-    print(f"Fichier raw généré : {args.dst}")
+    print(f"Raw file generated: {args.dst}")
 
 if __name__ == "__main__":
     main()

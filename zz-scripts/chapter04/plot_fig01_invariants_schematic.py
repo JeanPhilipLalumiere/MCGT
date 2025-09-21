@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-tracer_fig01_schema_invariants.py
+plot_fig01_invariants_schematic.py
 
 Script corrigé de tracé du schéma conceptuel des invariants adimensionnels
-– Lit 04_invariants_adimensionnels.csv
+– Lit 04_dimensionless_invariants.csv
 – Trace I1, I2, I3 vs log10(T) avec symlog pour I3
 – Marque les phases et les repères pour I2 et I3
 – Sauvegarde la figure 800x500 px DPI 300
@@ -17,7 +17,7 @@ def main():
     # ----------------------------------------------------------------------
     # 1. Chargement des données
     # ----------------------------------------------------------------------
-    data_file = 'zz-data/chapter04/04_invariants_adimensionnels.csv'
+    data_file = 'zz-data/chapter04/04_dimensionless_invariants.csv'
     df = pd.read_csv(data_file)
     T  = df['T_Gyr'].values
     I1 = df['I1'].values
@@ -48,8 +48,8 @@ def main():
     # ----------------------------------------------------------------------
     # 3. Repères horizontaux
     # ----------------------------------------------------------------------
-    ax.axhline(I2_ref, color='C1', linestyle='--', label=r'$I_2 pprox10^{-35}$')
-    ax.axhline(I3_ref, color='C2', linestyle='--', label=r'$I_3 pprox10^{-6}$')
+    ax.axhline(I2_ref, color='C1', linestyle='--', label=r'$I_2 \approx 10^{-35}$')
+    ax.axhline(I3_ref, color='C2', linestyle='--', label=r'$I_3 \approx 10^{-6}$')
 
     # ----------------------------------------------------------------------
     # 4. Repère vertical de transition T_p
@@ -61,14 +61,14 @@ def main():
     # ----------------------------------------------------------------------
     ax.set_xlabel(r'$T\ (\mathrm{Gyr})$')
     ax.set_ylabel('Valeurs adimensionnelles')
-    ax.set_title('Fig. 01 – Schéma conceptuel des invariants adimensionnels')
+    ax.set_title('Fig. 01 – Schéma conceptuel des invariants adimensionnels')
     ax.legend(loc='best', fontsize='small')
     ax.grid(True, which='both', linestyle=':', linewidth=0.5)
 
     # ----------------------------------------------------------------------
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
-    output_fig = 'zz-figures/chapter04/fig_01_schema_invariants.png'
+    output_fig = 'zz-figures/chapter04/fig_01_invariants_schematic.png'
     plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")

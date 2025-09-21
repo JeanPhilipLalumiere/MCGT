@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig05_ddelta_phi_vs_k.py
+plot_fig05_ddelta_phi_vs_k.py
 
 Figure 05 — Dérivée lissée ∂ₖ(δφ/φ)(k)
 Chapitre 7 – Perturbations scalaires MCGT
@@ -26,25 +26,25 @@ plt.style.use("classic")
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-# --- Chemins ---
-DATA_DIR  = ROOT / "zz-data"  / "chapitre7"
+# --- Paths (English names for directories and files) ---
+DATA_DIR  = ROOT / "zz-data"  / "chapter07"
 CSV_DDK   = DATA_DIR / "07_ddelta_phi_dk.csv"
-JSON_META = DATA_DIR / "07_params_perturbations.json"
-FIG_DIR   = ROOT / "zz-figures" / "chapitre7"
-FIG_OUT   = FIG_DIR / "fig_05_ddelta_phi_dk_vs_k.png"
+JSON_META = DATA_DIR / "07_meta_perturbations.json"
+FIG_DIR   = ROOT / "zz-figures" / "chapter07"
+FIG_OUT   = FIG_DIR / "fig_05_ddelta_phi_vs_k.png"
 
 # --- Lecture de k_split ---
 if not JSON_META.exists():
-    raise FileNotFoundError(f"Méta-paramètres introuvables : {JSON_META}")
+    raise FileNotFoundError(f"Meta parameters not found: {JSON_META}")
 meta    = json.loads(JSON_META.read_text("utf-8"))
 k_split = float(meta.get("x_split", 0.02))
 logging.info("k_split = %.2e h/Mpc", k_split)
 
 # --- Chargement des données ---
 if not CSV_DDK.exists():
-    raise FileNotFoundError(f"Données introuvables : {CSV_DDK}")
+    raise FileNotFoundError(f"Data not found: {CSV_DDK}")
 df = pd.read_csv(CSV_DDK, comment="#")
-logging.info("Chargé %d points depuis %s", len(df), CSV_DDK.name)
+logging.info("Loaded %d points from %s", len(df), CSV_DDK.name)
 
 k_vals = df["k"].to_numpy()
 ddphi   = df.iloc[:, 1].to_numpy()
@@ -108,4 +108,4 @@ ax.legend(loc="upper right", frameon=False)
 # Sauvegarde
 fig.savefig(FIG_OUT, dpi=300)
 plt.close(fig)
-logging.info("Figure sauvegardée → %s", FIG_OUT)
+logging.info("Figure saved → %s", FIG_OUT)

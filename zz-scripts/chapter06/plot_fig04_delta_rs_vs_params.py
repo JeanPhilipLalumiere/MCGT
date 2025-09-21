@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)
+Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)
 ───────────────────────────────────────────────────────────────
 Tracé de la variation relative Δr_s/r_s en fonction du paramètre q0star.
 """
@@ -16,8 +16,8 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # Paths
 ROOT        = Path(__file__).resolve().parents[2]
-DATA_DIR    = ROOT / 'zz-data' / 'chapitre6'
-FIG_DIR     = ROOT / 'zz-figures' / 'chapitre6'
+DATA_DIR    = ROOT / 'zz-data' / 'chapter06'
+FIG_DIR     = ROOT / 'zz-figures' / 'chapter06'
 DATA_CSV    = DATA_DIR / '06_delta_rs_scan.csv'
 JSON_PARAMS = DATA_DIR / '06_params_cmb.json'
 OUT_PNG     = FIG_DIR  / 'fig_04_delta_rs_vs_params.png'

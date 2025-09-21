@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # tracer_fig04_fR_fRR_contre_R.py
 """
 Trace f_R et f_RR (double axe) en fonction de R/R₀ — Chapitre 3
@@ -8,12 +9,12 @@ rendre lisible la différence d’échelle entre f_R (≈O(1)) et f_RR (≈O(10�
 et marquer le point pivot à R/R₀ = 1.
 
 Entrée  :
-    zz-data/chapter03/03_donnees_stabilite_fR.csv
+    zz-data/chapter03/03_fR_stability_data.csv
 Colonnes requises :
     R_over_R0, f_R, f_RR
 
 Sortie  :
-    zz-figures/chapter03/fig_04_fR_fRR_contre_R.png
+    zz-figures/chapter03/fig_04_fR_fRR_vs_R.png
 """
 
 from pathlib import Path
@@ -31,9 +32,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_donnees_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_04_fR_fRR_contre_R.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_04_fR_fRR_vs_R.png"
 
 # ----------------------------------------------------------------------
 # Main

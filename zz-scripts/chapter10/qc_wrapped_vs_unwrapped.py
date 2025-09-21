@@ -6,16 +6,8 @@ Vérification rapide : calcul p95 des résidus φ_ref - φ_mcgt
   - méthode raw      : abs(phi_ref - phi_mcgt)
   - méthode unwrap   : abs(unwrap(phi_ref) - unwrap(phi_mcgt))
   - méthode circular : distance angulaire minimale dans [-pi,pi]
-Produit :
-  - PNGs par ID dans zz-data/chapter10/qc_wrapped/
-  - CSV par ID (colonnes: f_Hz, raw, unwrap, circ)
-  - Rapport résumé imprimé à l'écran
-Usage :
-  python zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py --best zz-data/chapter10/10_mc_best.json \
-    --samples zz-data/chapter10/10_mc_samples.csv \
-    --results zz-data/chapter10/10_mc_results.csv \
-    --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
-    --k 10
+
+
 """
 from __future__ import annotations
 import argparse, json, os

@@ -16,10 +16,10 @@ import matplotlib.pyplot as plt
 def main():
     # --- chemins ---
     ROOT      = Path(__file__).resolve().parents[2]
-    DATA_DIR  = ROOT / 'zz-data'  / 'chapitre7'
+    DATA_DIR  = ROOT / 'zz-data'  / 'chapter07'
     CSV_DATA  = DATA_DIR / '07_scalar_perturbations_results.csv'
-    JSON_META = DATA_DIR / '07_params_perturbations.json'
-    FIG_DIR   = ROOT / 'zz-figures'  / 'chapitre7'
+    JSON_META = DATA_DIR / '07_meta_perturbations.json'
+    FIG_DIR   = ROOT / 'zz-figures'  / 'chapter07'
     FIG_OUT   = FIG_DIR / 'fig_07_invariant_I2.png'
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 

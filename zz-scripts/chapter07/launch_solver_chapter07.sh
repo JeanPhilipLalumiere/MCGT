@@ -1,37 +1,37 @@
 #!/usr/bin/env bash
 #------------------------------------------------------------------------------#
-# lancer_solveur_chapitre7.sh                                                  #
-# Génération des données brutes du Chapitre 7 – Perturbations scalaires         #
+# launch_solver_chapter7.sh                                                    #
+# Generation of raw data for Chapter 7 – Scalar perturbations                  #
 #------------------------------------------------------------------------------#
 # Usage :
-#   ./lancer_solveur_chapitre7.sh [--cs2_param X.Y] [--delta_phi_param A.B] [--ini FILE]
+#   ./launch_solver_chapter7.sh [--cs2_param X.Y] [--delta_phi_param A.B] [--ini FILE]
 #
-# Ce script :
-#   1) Parse ses arguments CLI (--cs2_param, --delta_phi_param, --ini)
-#   2) Vérifie l’existence du fichier .ini de configuration
-#   3) Met à jour l’INI avec cs2_param et delta_phi_param
-#   4) Exécute le solveur de perturbations scalaires (CAMB ou CLASS)
-#   5) Convertit ses sorties DAT en CSV commentés
-#   6) Vérifie sommairement la validité des fichiers générés
+# This script :
+#   1) Parses CLI args (--cs2_param, --delta_phi_param, --ini)
+#   2) Checks existence of the .ini configuration file
+#   3) Updates the INI with cs2_param and delta_phi_param
+#   4) Runs the scalar perturbation solver (CAMB or CLASS)
+#   5) Converts its DAT outputs into commented CSVs
+#   6) Performs basic checks on generated files
 #
-# Auteur : Projet MCGT
+# Author : MCGT Project
 #------------------------------------------------------------------------------#
 
 set -euo pipefail
 IFS=$'\n\t'
 
 #------------------------------------------------------------------------------#
-# Fonctions utilitaires                                                        #
+# Utility functions                                                            #
 #------------------------------------------------------------------------------#
 print_usage() {
   cat <<EOF
 Usage: $0 [options]
 
 Options:
-  --cs2_param VALUE       Facteur pour c_s^2 (défaut: 1.0)
-  --delta_phi_param VALUE Facteur pour δφ/φ (défaut: 0.05)
-  --ini FILE              Fichier ini du solveur (défaut: zz-configuration/perturbations_scalaires.ini)
-  -h, --help              Affiche cette aide
+  --cs2_param VALUE       Factor for c_s^2 (default: 1.0)
+  --delta_phi_param VALUE Factor for δφ/φ (default: 0.05)
+  --ini FILE              Solver ini file (default: zz-configuration/scalar_perturbations.ini)
+  -h, --help              Show this help
 EOF
   exit 1
 }
@@ -41,16 +41,16 @@ error_exit() {
 }
 
 #------------------------------------------------------------------------------#
-# Valeurs par défaut                                                           #
+# Defaults                                                                     #
 #------------------------------------------------------------------------------#
 CS2_PARAM=1.0
 DPHI_PARAM=0.05
 INI_FILE=""
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CONF_DIR="$ROOT_DIR/zz-configuration"
-DATA_DIR="$ROOT_DIR/zz-data/chapter7"
-SOLVER_OUT_CS2="$DATA_DIR/solveur_output_cs2.dat"
-SOLVER_OUT_PHI="$DATA_DIR/solveur_output_phi.dat"
+DATA_DIR="$ROOT_DIR/zz-data/chapter07"
+OUTPUT_CS2="$DATA_DIR/output_solver_cs2.dat"
+OUTPUT_PHI="$DATA_DIR/output_solver_phi.dat"
 
 #------------------------------------------------------------------------------#
 # Parse CLI                                                                    #
@@ -66,24 +66,24 @@ while [[ $# -gt 0 ]]; do
     -h|--help)
       print_usage;;
     *)
-      echo "[WARNING] Option non reconnue : $1"; print_usage;;
+      echo "[WARNING] Unrecognized option : $1"; print_usage;;
   esac
 done
 
-# Chemin par défaut de l’INI si non fourni
-: "${INI_FILE:=$CONF_DIR/perturbations_scalaires.ini}"
+# Default INI path if not provided
+: "${INI_FILE:=$CONF_DIR/scalar_perturbations.ini}"
 
 #------------------------------------------------------------------------------#
-# 0) Préparation                                                               #
+# 0) Preparation                                                                #
 #------------------------------------------------------------------------------#
-echo "[INFO] Initialisation…"
+echo "[INFO] Initialization…"
 mkdir -p "$DATA_DIR"
-[[ -f "$INI_FILE" ]] || error_exit "Fichier ini introuvable : $INI_FILE"
+[[ -f "$INI_FILE" ]] || error_exit "INI file not found : $INI_FILE"
 
 #------------------------------------------------------------------------------#
-# 1) Mise à jour de l’INI                                                      #
+# 1) Update INI                                                                 #
 #------------------------------------------------------------------------------#
-echo "[INFO] Mise à jour de l’INI avec cs2_param=$CS2_PARAM, delta_phi_param=$DPHI_PARAM"
+echo "[INFO] Updating INI with cs2_param=$CS2_PARAM, delta_phi_param=$DPHI_PARAM"
 TMP_INI="${INI_FILE}.tmp"
 awk -v cs2="$CS2_PARAM" -v dp="$DPHI_PARAM" '
   BEGIN { found_cs2=0; found_dp=0 }
@@ -98,55 +98,56 @@ awk -v cs2="$CS2_PARAM" -v dp="$DPHI_PARAM" '
 mv "$TMP_INI" "$INI_FILE"
 
 #------------------------------------------------------------------------------#
-# 2) Exécution du solveur                                                      #
+# 2) Run solver                                                                 #
 #------------------------------------------------------------------------------#
-echo "[INFO] Exécution du solveur de perturbations scalaires"
+echo "[INFO] Running scalar perturbation solver"
 if command -v camb &> /dev/null; then
-  camb "$INI_FILE" output_root="$DATA_DIR/solveur_output" \
-    || error_exit "Échec de CAMB"
-  mv "$DATA_DIR/solveur_output_cs2.dat" "$SOLVER_OUT_CS2"
-  mv "$DATA_DIR/solveur_output_phi.dat" "$SOLVER_OUT_PHI"
+  camb "$INI_FILE" output_root="$DATA_DIR/solver_output" \
+    || error_exit "CAMB failed"
+  # expect CAMB to produce solver_output_cs2.dat and solver_output_phi.dat
+  mv "$DATA_DIR/solver_output_cs2.dat" "$OUTPUT_CS2"
+  mv "$DATA_DIR/solver_output_phi.dat" "$OUTPUT_PHI"
 elif command -v class &> /dev/null; then
   class --input.ini="$INI_FILE" --output_dir="$DATA_DIR" \
-    || error_exit "Échec de CLASS"
-  # Adaptez ces noms si CLASS produit des fichiers différents
-  mv "$DATA_DIR/class_output_cs2.dat" "$SOLVER_OUT_CS2"
-  mv "$DATA_DIR/class_output_phi.dat" "$SOLVER_OUT_PHI"
+    || error_exit "CLASS failed"
+  # adapt these names if CLASS produces different filenames
+  mv "$DATA_DIR/class_output_cs2.dat" "$OUTPUT_CS2"
+  mv "$DATA_DIR/class_output_phi.dat" "$OUTPUT_PHI"
 else
-  error_exit "Aucun solveur (camb ou class) trouvé dans le PATH"
+  error_exit "No solver (camb or class) found in PATH"
 fi
 
-# Vérifier existence et non-vacuité
-[[ -s "$SOLVER_OUT_CS2" ]] || error_exit "Fichier CS2 vide ou introuvable : $SOLVER_OUT_CS2"
-[[ -s "$SOLVER_OUT_PHI" ]] || error_exit "Fichier PHI vide ou introuvable : $SOLVER_OUT_PHI"
+# Check existence and non-emptiness
+[[ -s "$OUTPUT_CS2" ]] || error_exit "CS2 file empty or missing: $OUTPUT_CS2"
+[[ -s "$OUTPUT_PHI" ]] || error_exit "PHI file empty or missing: $OUTPUT_PHI"
 
 #------------------------------------------------------------------------------#
-# 3) Conversion en CSV commentés                                               #
+# 3) Convert DAT -> commented CSVs                                             #
 #------------------------------------------------------------------------------#
-echo "[INFO] Conversion des DAT en CSV commentés"
+echo "[INFO] Converting DAT to commented CSV"
 CS2_CSV="$DATA_DIR/07_cs2_scan.csv"
-PHI_CSV="$DATA_DIR/07_delta_phi_phi_scan.csv"
+PHI_CSV="$DATA_DIR/07_delta_phi_scan.csv"
 
 printf "# k [h/Mpc], a, cs2\n" > "$CS2_CSV"
 awk -v factor="$CS2_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6e\n",$1,$2,$3*factor)}' \
-  "$SOLVER_OUT_CS2" >> "$CS2_CSV"
+  "$OUTPUT_CS2" >> "$CS2_CSV"
 
 printf "# k [h/Mpc], a, delta_phi_rel\n" > "$PHI_CSV"
 awk -v factor="$DPHI_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6e\n",$1,$2,$3*factor)}' \
-  "$SOLVER_OUT_PHI" >> "$PHI_CSV"
+  "$OUTPUT_PHI" >> "$PHI_CSV"
 
 #------------------------------------------------------------------------------#
-# 4) Vérifications sommaires                                                   #
+# 4) Basic checks                                                              #
 #------------------------------------------------------------------------------#
-echo "[INFO] Vérifications sur les CSV générés"
+echo "[INFO] Verifying generated CSVs"
 for f in "$CS2_CSV" "$PHI_CSV"; do
   n=$(grep -v '^#' "$f" | wc -l)
   if (( n < 10 )); then
-    echo "[WARNING] Seulement $n lignes de données dans $f"
+    echo "[WARNING] Only $n data lines in $f"
   else
-    echo "[OK] $f contient $n lignes"
+    echo "[OK] $f contains $n lines"
   fi
 done
 
-echo "[INFO] Génération des données brutes terminée ✔"
+echo "[INFO] Raw data generation completed ✔"
 exit 0

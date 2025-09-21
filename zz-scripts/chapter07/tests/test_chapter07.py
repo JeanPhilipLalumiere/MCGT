@@ -1,18 +1,16 @@
-
 # --- auto-inserted by migration helper ---
 from pathlib import Path
 import pytest
 _ROOT = Path(__file__).resolve().parents[2]
 _CANDIDATES = [
     _ROOT / "zz-data/chapter07/07_phase_run.csv",
-    _ROOT / "zz-data/chapitre7/07_phase_run.csv",  # legacy fallback
 ]
 _DATA_07 = next((c for c in _CANDIDATES if c.exists()), None)
 if _DATA_07 is None:
     pytest.skip("missing 07_phase_run.csv (chapter07); skipping data-dependent tests", allow_module_level=True)
 # ------------------------------------------------
 
-# zz-scripts/chapter07/tests/test_chapitre7.py
+# zz-scripts/chapter07/tests/test_chapter07.py
 
 import pytest
 import pandas as pd
@@ -23,7 +21,7 @@ RTOL = 1e-3
 # Project root is three levels up from this test file:
 ROOT = Path(__file__).resolve().parents[3]
 
-DATA_DIR = ROOT / "zz-data" / "chapitre7"
+DATA_DIR = ROOT / "zz-data" / "chapter07"
 RAW_CSV  = DATA_DIR / "07_phase_run.csv"
 REF_CSV  = Path(__file__).parent / "ref_phase_run.csv"  # mettre votre CSV de référence ici
 

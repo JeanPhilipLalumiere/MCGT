@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-zz-scripts/chapter08/tracer_fig05_residus.py
+zz-scripts/chapter08/plot_fig05_residuals.py
 
 Trace les résidus BAO et Pantheon+ : 
   (a) ΔD_V = D_V^obs - D_V^th  avec barres d'erreur σ_DV
@@ -17,21 +17,21 @@ from pathlib import Path
 
 # --- Répertoires ---
 ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data"  / "chapitre8"
-FIG_DIR  = ROOT / "zz-figures" / "chapitre8"
+DATA_DIR = ROOT / "zz-data"  / "chapter08"
+FIG_DIR  = ROOT / "zz-figures" / "chapter08"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 def main():
     # --- Chargement des données BAO + théorique ---
-    bao    = pd.read_csv(DATA_DIR / "08_donnees_bao.csv",    encoding="utf-8")
-    dv_th  = pd.read_csv(DATA_DIR / "08_dv_theorie_z.csv",   encoding="utf-8")
+    bao    = pd.read_csv(DATA_DIR / "08_bao_data.csv",    encoding="utf-8")
+    dv_th  = pd.read_csv(DATA_DIR / "08_dv_theory_z.csv",   encoding="utf-8")
     df_bao = pd.merge(bao, dv_th, on="z", how="inner")
     df_bao["dv_resid"] = df_bao["DV_obs"] - df_bao["DV_calc"]
     df_bao["dv_err"]   = df_bao["sigma_DV"]
 
     # --- Chargement des données Pantheon+ + théorique ---
-    pant   = pd.read_csv(DATA_DIR / "08_donnees_pantheon.csv", encoding="utf-8")
-    mu_th  = pd.read_csv(DATA_DIR / "08_mu_theorie_z.csv",      encoding="utf-8")
+    pant   = pd.read_csv(DATA_DIR / "08_pantheon_data.csv", encoding="utf-8")
+    mu_th  = pd.read_csv(DATA_DIR / "08_mu_theory_z.csv",      encoding="utf-8")
     df_pant = pd.merge(pant, mu_th, on="z", how="inner")
     df_pant["mu_resid"] = df_pant["mu_obs"] - df_pant["mu_calc"]
     df_pant["mu_err"]   = df_pant["sigma_mu"]
@@ -87,7 +87,7 @@ def main():
     fig.suptitle("Résidus en fonction du redshift", y=0.98)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
 
-    outpath = FIG_DIR / "fig_05_residus.png"
+    outpath = FIG_DIR / "fig_05_residuals.png"
     fig.savefig(outpath, dpi=300)
     print(f"✅ {outpath.name} générée")
 

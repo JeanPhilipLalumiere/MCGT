@@ -4,7 +4,7 @@ La liste détaillée des fichiers de données (formats CSV et DAT) et leur descr
 
 \subsection{Script et mise en œuvre}
 
-Les dépendances Python nécessaires sont listées dans \texttt{zz-scripts/chapter02/requirements.txt}.  
+Les dépendances Python nécessaires sont listées dans \texttt{zz-scripts/chapter02/requirements.txt}.
 Pour les installer, exécuter :
 \begin{verbatim}
 pip install -r zz-scripts/chapter02/requirements.txt
@@ -26,12 +26,12 @@ python zz-scripts/chapter02/trace_fig04_schema_calibration.py
 # Durée : quelques secondes par script
 \end{verbatim}
 
-\noindent\textbf{Note :} le script \texttt{integration\_validation\_chronologie.py} normalise la fonction propre en fixant 
+\noindent\textbf{Note :} le script \texttt{integration\_validation\_chronologie.py} normalise la fonction propre en fixant
 \(\displaystyle P\bigl(T_{0}=10^{-6}\,\mathrm{Gyr}\bigr)=1\).
 
 \begin{mdframed}
   \paragraph{Encadré — Exécution et résultats}
-  Après exécution des quatre scripts, le maximum d’écart relatif atteint est  
+  Après exécution des quatre scripts, le maximum d’écart relatif atteint est
   \[
     \max_{i}\,\varepsilon(T_i)\approx0{,}083\%\;<1\%.
   \]
@@ -50,10 +50,10 @@ Avant de présenter les résultats numériques, illustrons le fonctionnement gé
 \begin{figure}[htbp]
   \centering
   \includegraphics{zz-figures/chapter02/fig_04_schema_chaine_calibration.png}
-  \caption{Chaîne de calibration chronologique. Ce diagramme, généré par \texttt{zz-scripts/chapter02/trace\_fig04\_schema\_calibration.py}, décrit : 
-    (i) lecture des neuf jalons \((T_i,P_{\rm ref})\), 
-    (ii) génération du tableau dense \(P(T)\) (\texttt{02\_P\_lin\_vs\_T.dat}), 
-    (iii) optimisation de \(\chi^2\), et 
+  \caption{Chaîne de calibration chronologique. Ce diagramme, généré par \texttt{zz-scripts/chapter02/trace\_fig04\_schema\_calibration.py}, décrit :
+    (i) lecture des neuf jalons \((T_i,P_{\rm ref})\),
+    (ii) génération du tableau dense \(P(T)\) (\texttt{02\_P\_lin\_vs\_T.dat}),
+    (iii) optimisation de \(\chi^2\), et
     (iv) sélection du meilleur jeu de paramètres.}
   \label{fig:schema_chaine_calibration}
 \end{figure}
@@ -63,29 +63,29 @@ Avant de présenter les résultats numériques, illustrons le fonctionnement gé
 Les résultats de la validation chronologique sont illustrés par trois figures, générées dans \texttt{zz-figures/chapter02/} :
 
 \begin{itemize}
-  \item Figure \ref{fig:p_vs_t_calibration_ch2} :  
-    trace dense de \(P_{\rm calc}(T)\) vs \(T\) (échelle log–log) avec superposition des neuf points de référence.  
+  \item Figure \ref{fig:p_vs_t_calibration_ch2} :
+    trace dense de \(P_{\rm calc}(T)\) vs \(T\) (échelle log–log) avec superposition des neuf points de référence.
     Fichier : \texttt{fig\_01\_P\_vs\_T.png}.
-  
-  \item Figure \ref{fig:calibration_9points} :  
-    diagramme de calibration (échelle log–log) : scatter des neuf jalons avec barres d’erreur \(\pm1\%\) et courbe modèle.  
+
+  \item Figure \ref{fig:calibration_9points} :
+    diagramme de calibration (échelle log–log) : scatter des neuf jalons avec barres d’erreur \(\pm1\%\) et courbe modèle.
     Fichier : \texttt{fig\_02\_calibration\_9points.png}.
-  
-  \item Figure \ref{fig:ecart_relatif_chronologie_ch2} :  
-    écart relatif \(\varepsilon(T_i)\) vs \(T_i\) en échelle log–log, confirmant tous les écarts \(<1\%\).  
+
+  \item Figure \ref{fig:ecart_relatif_chronologie_ch2} :
+    écart relatif \(\varepsilon(T_i)\) vs \(T_i\) en échelle log–log, confirmant tous les écarts \(<1\%\).
     Fichier : \texttt{fig\_03\_ecart\_relatif.png}.
 \end{itemize}
 
 \subsection{Résultats numériques et cohérence}
 
-Les écarts relatifs  
+Les écarts relatifs
 \[
   \varepsilon(T_{i})
   = \frac{\bigl|P_{\rm calc}(T_{i}) - P_{\rm ref}(T_{i})\bigr|}
          {P_{\rm ref}(T_{i})}\times100\%
 \]
-restent inférieurs à 1 % aux neuf âges clés, confirmant la réussite de la calibration.  
-Les valeurs numériques complètes sont disponibles dans  
+restent inférieurs à 1 % aux neuf âges clés, confirmant la réussite de la calibration.
+Les valeurs numériques complètes sont disponibles dans
 \texttt{zz-data/chapter02/02\_ecart\_relatif\_chronologie.csv}.
 
 \subsubsection*{Discussion rapide des erreurs systématiques}
@@ -93,49 +93,49 @@ Les valeurs numériques complètes sont disponibles dans
 Les principales sources d’incertitude dans cette validation chronologique sont :
 
 \begin{itemize}
-  \item \textbf{Intégration trapézoïdale sur grille log :}  
-    le calcul de \(P(T)\) par intégration trapézoïdale est effectué sur une grille logarithmique de 800 points entre \(10^{-3}\) et \(14\) Gyr.  
+  \item \textbf{Intégration trapézoïdale sur grille log :}
+    le calcul de \(P(T)\) par intégration trapézoïdale est effectué sur une grille logarithmique de 800 points entre \(10^{-3}\) et \(14\) Gyr.
     L’erreur numérique est de l’ordre de \(\mathcal{O}\bigl((\Delta \ln T)^2\bigr)\approx10^{-5}\), contrôlée par la densité de la grille.
 
-  \item \textbf{Précision des âges clés :}  
+  \item \textbf{Précision des âges clés :}
     un décalage de \(\pm1\%\) sur un jalon \(T_i\) se traduit par une variation de \(\varepsilon(T_i)\) d’environ \(\pm0{,}1\%\).
 
-  \item \textbf{Paramètres de plateau précoce et transition :}  
-    le choix des paramètres \(T_{p}\) et \(\Delta\) module la forme de \(\dot P(T)\) autour de la transition logistique.  
+  \item \textbf{Paramètres de plateau précoce et transition :}
+    le choix des paramètres \(T_{p}\) et \(\Delta\) module la forme de \(\dot P(T)\) autour de la transition logistique.
     Leur estimation peut biaiser localement \(P(T)\), avec un effet global généralement inférieur à \(0{,}2\%\) sur \(\varepsilon_{\max}\).
 
-  \item \textbf{Erreur d’interpolation :}  
+  \item \textbf{Erreur d’interpolation :}
     lors de l’évaluation de \(P_{\rm calc}(T_i)\) sur les jalons, l’interpolation linéaire en \(\log T\) introduit une imprécision de l’ordre de \(10^{-4}\).
 
-  \item \textbf{Artefact numérique et seuil minimal :}  
+  \item \textbf{Artefact numérique et seuil minimal :}
     pour \(T<10^{-3}\) Gyr, on fixe \(T_{\min}=10^{-3}\) Gyr comme borne inférieure pour éviter les instabilités en double précision.
 \end{itemize}
 
 \subsection{Conclusion détaillée}
 
-\noindent\textbf{Rappel :} le critère d’acceptation impose 
+\noindent\textbf{Rappel :} le critère d’acceptation impose
 \(\max_{i}\,\varepsilon(T_i)<1\%\).
 
-La comparaison entre \(P_{\rm calc}(T)\) et \(P_{\rm ref}(T)\) sur l’ensemble des neuf âges clés valide la fonction propre avec une précision meilleure que \(1\%\), depuis l’ère planckienne (\(T_{0}=10^{-6}\,\mathrm{Gyr}\)) jusqu’à \(T=13{,}8\) Gyr.  
+La comparaison entre \(P_{\rm calc}(T)\) et \(P_{\rm ref}(T)\) sur l’ensemble des neuf âges clés valide la fonction propre avec une précision meilleure que \(1\%\), depuis l’ère planckienne (\(T_{0}=10^{-6}\,\mathrm{Gyr}\)) jusqu’à \(T=13{,}8\) Gyr.
 Cette validation chronologique, à la fois robuste et précise, constitue la base solide pour les analyses suivantes : BBN (Chapitre 5), CMB (Chapitre 6) et perturbations scalaires (Chapitre 7).
 
 \subsubsection*{Transition vers le Chapitre 3}
 
-Les paramètres logistiques optimisés et validés ici seront désormais réutilisés pour étudier l’extension \(f(R)\) du modèle et analyser la stabilité linéaire des solutions, telles que développées dans le Chapitre 3.  
+Les paramètres logistiques optimisés et validés ici seront désormais réutilisés pour étudier l’extension \(f(R)\) du modèle et analyser la stabilité linéaire des solutions, telles que développées dans le Chapitre 3.
 
 \subsection{Glossaire}
 \begin{itemize}
   \item $T_i$ : neuf âges clés de l’Univers (Gyr), définis dans \texttt{zz-data/chapter02/02\_chronologie\_resultats.csv}.
-  \item $P_{\rm calc}(T)$ : fonction propre du temps calculée par intégration de $\dot P(T)$, 
+  \item $P_{\rm calc}(T)$ : fonction propre du temps calculée par intégration de $\dot P(T)$,
     \[
       P_{\rm calc}(T)=T^{\alpha(T)}.
     \]
   \item $P_{\rm ref}(T_i)$ : valeur de référence de la fonction propre aux âges clés, tirée de \texttt{zz-data/chapter02/02\_chronologie\_resultats.csv}.
-  \item $\chi^2$ : fonction de coût pour la calibration, 
+  \item $\chi^2$ : fonction de coût pour la calibration,
     \[
       \chi^2 = \sum_{i=1}^{9}\bigl[P_{\rm calc}(T_i)-P_{\rm ref}(T_i)\bigr]^{2}.
     \]
-  \item $\varepsilon(T_i)$ : écart relatif en pourcentage, 
+  \item $\varepsilon(T_i)$ : écart relatif en pourcentage,
     \[
       \varepsilon(T_i)
       = \frac{\lvert P_{\rm calc}(T_i)-P_{\rm ref}(T_i)\rvert}

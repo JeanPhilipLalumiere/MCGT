@@ -91,7 +91,7 @@ def main() -> None:
     # ------------------------------------------------------------------
     mask = (df["beta"] >= 0.5) & (df["beta"] <= 2.0)
     if mask.any():
-        ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])  
+        ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])
 
         # Tracé γ_max (et γ_min si ≠0)
         ax_in.plot(

@@ -1,7 +1,7 @@
 \subsection{Source des données \(\dot P(T)\)}
 
-La table \dot P(T) provient directement du Chapitre 2 :  
-\texttt{02_pdot_tableau_plateau_fine.dat}, contenant 30 points \{T_i,\dot P(T_i)\} couvrant  
+La table \dot P(T) provient directement du Chapitre 2 :
+\texttt{02_pdot_tableau_plateau_fine.dat}, contenant 30 points \{T_i,\dot P(T_i)\} couvrant
 \[
   T\in[0{,}01,\,10]\;\mathrm{s},
 \]
@@ -13,17 +13,17 @@ Ce fichier constitue l’entrée de base pour la conversion vers le format Alter
 Ce script prend en entrée la table \texttt{02\_pdot\_tableau\_plateau\_fine.dat} (déjà exprimée en secondes) et génère le fichier \texttt{bbn\_input.txt} au format requis par AlterBBN.
 
 \begin{itemize}
-  \item \textbf{Usage} :  
+  \item \textbf{Usage} :
     \verb|python 13_executer_alterbbn_plateau.py|
-  
-  \item \textbf{Fonctionnement} :  
+
+  \item \textbf{Fonctionnement} :
     \begin{enumerate}
       \item Lit la table de points \(\{T_i,\dot P(T_i)\}\) au format deux colonnes, où \(T_i\) est déjà en secondes.
-      \item Calcule le ratio  
+      \item Calcule le ratio
         \[
           r_i \;=\;\frac{1}{\dot P(T_i)}.
         \]
-      \item Vérifie que  
+      \item Vérifie que
         \[
           r_i > 0
           \quad\text{et}\quad
@@ -34,13 +34,13 @@ Ce script prend en entrée la table \texttt{02\_pdot\_tableau\_plateau\_fine.dat
         \begin{itemize}
           \item Première ligne : commentaire
             \verb|# T(s) H_ratio|
-          \item Lignes suivantes :  
-            \verb|<T_i> <r_i>|  
+          \item Lignes suivantes :
+            \verb|<T_i> <r_i>|
             où <T_i> est la valeur de l’âge cosmique en secondes et <r_i> le ratio calculé.
         \end{itemize}
     \end{enumerate}
 
-  \item \textbf{Dépendances} :  
+  \item \textbf{Dépendances} :
     Python 3.x, \texttt{numpy}.
 \end{itemize}
 
@@ -70,13 +70,13 @@ Le fichier \texttt{bbn\_input.txt} doit respecter le format suivant :
 \subsection{Exécution d’AlterBBN}
 
 \begin{itemize}
-  \item \textbf{Préparation} :  
+  \item \textbf{Préparation} :
     copier \texttt{bbn\_input.txt} dans le répertoire principal d’AlterBBN, sans modifier les paramètres par défaut (\(\Omega_{b}h^{2},\,N_{\nu}\), etc.).
   \item \textbf{Lancement} :
     \begin{verbatim}
 alterbbn --input bbn_input.txt
     \end{verbatim}
-  \item \textbf{Sortie} :  
+  \item \textbf{Sortie} :
   AlterBBN génère le fichier \texttt{05\_nucleosynthese\_resultats\_exact.csv}, structuré en trois colonnes :
   \[
     T\,[\mathrm{Gyr}],\quad Y_{p}^{\rm mod}(T),\quad (D/H)^{\rm mod}(T).
@@ -105,8 +105,8 @@ python 13_calculer_chi2_nucleosynthese.py
     \end{verbatim}
   \item \textbf{Étapes essentielles} :
     \begin{enumerate}
-      \item Lecture du CSV avec \texttt{pandas}.  
-      \item Calcul de \(\chi^{2}_{\rm BBN}(T)\) pour chaque ligne comme défini précédemment.  
+      \item Lecture du CSV avec \texttt{pandas}.
+      \item Calcul de \(\chi^{2}_{\rm BBN}(T)\) pour chaque ligne comme défini précédemment.
       \item Écriture du résultat sous la forme :
         \[
           T\,[\mathrm{Gyr}],\;\chi^{2}_{\rm BBN}(T).
@@ -207,13 +207,13 @@ Pour visualiser la qualité d’ajustement sur toute la plage de températures, 
 Le répertoire comporte trois scripts principaux pour automatiser le workflow BBN :
 
 \begin{description}
-  \item[\texttt{13\_executer\_alterbbn\_plateau.py}]  
+  \item[\texttt{13\_executer\_alterbbn\_plateau.py}]
     Convertit \texttt{02\_pdot\_tableau\_plateau\_fine.dat} en \texttt{bbn\_input.txt} (format AlterBBN), avec vérification de la validité numérique des ratios.
 
-  \item[\texttt{13\_calculer\_chi2\_nucleosynthese.py}]  
+  \item[\texttt{13\_calculer\_chi2\_nucleosynthese.py}]
     Lit \texttt{05\_nucleosynthese\_resultats\_exact.csv}, calcule \(\chi^{2}_{\rm BBN}(T)\) selon la section « Définition de la fonction de coût \(\chi^{2}_{\rm BBN}(T)\) », et écrit \texttt{05\_chi2\_nucleosynthese\_vs\_t.csv}.
 
-  \item[\texttt{13\_tracer\_resultats\_nucleosynthese.py}]  
+  \item[\texttt{13\_tracer\_resultats\_nucleosynthese.py}]
     Trace et sauve les figures comparatives (D/H, \(Y_{p}\), \(\chi^{2}\)) à partir des CSV générés.
 \end{description}
 
@@ -242,4 +242,3 @@ Le répertoire comporte trois scripts principaux pour automatiser le workflow BB
 
 \bigskip
 \noindent\emph{Fin de la partie détaillée, Chapitre 5.}
-

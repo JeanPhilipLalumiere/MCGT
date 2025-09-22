@@ -3,7 +3,7 @@
 """
 zz-scripts/chapter08/plot_fig07_chi2_profile.py
 
-Trace le profil Δχ² en fonction de q₀⋆ autour du minimum, 
+Trace le profil Δχ² en fonction de q₀⋆ autour du minimum,
 avec annotations des niveaux 1σ, 2σ, 3σ (1 degré de liberté).
 """
 

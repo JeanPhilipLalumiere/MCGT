@@ -40,3 +40,17 @@ jobs:
             mcgt \
             zz-scripts/chapter02/primordial_spectrum.py \
             zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
+      - name: PyTests
+        run: pytest -q || pytest -q -k ""
+
+      - name: Ruff (limited scope)
+        run: |
+          ruff check \
+            mcgt \
+            zz-scripts/chapter02/primordial_spectrum.py \
+            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
+            --select E,F --fix
+          ruff format \
+            mcgt \
+            zz-scripts/chapter02/primordial_spectrum.py \
+            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py

@@ -1,4 +1,7 @@
 {
+  "generated_at": "1970-01-01T00:00:00Z",
   "n_points": 1,
-  "files": ["zz-data/chapter07/placeholder.csv"]
+  "files": [
+    "zz-data/chapter07/placeholder.csv"
+  ]
 }

@@ -47,3 +47,6 @@ dist/
 
 # wheel / site-packages test env
 .venv-wheel-test/
+
+# local figures preview
+zz-figures/

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main, repair/** ]
+    branches: [ main, "repair/**" ]
   pull_request:
 
 permissions:
@@ -21,23 +21,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt || true
-          pip install pytest ruff
+          pip install pytest ruff pre-commit
 
       - name: Validate JSON/CSV/etc.
         run: |
           chmod +x zz-schemas/validate_all.sh
           ./zz-schemas/validate_all.sh
 
-      - name: PyTests (tolerant s'il n'y en a pas)
+      - name: Run tests
         run: pytest -q || pytest -q -k ""
 
-      - name: Ruff (scope réduit)
-        run: |
-          ruff check \
-            mcgt \
-            zz-scripts/chapter02/primordial_spectrum.py \
-            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
-          ruff format \
-            mcgt \
-            zz-scripts/chapter02/primordial_spectrum.py \
-            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
+      - name: Pre-commit (repo-wide)
+        run: pre-commit run --all-files --show-diff-on-failure

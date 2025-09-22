@@ -56,3 +56,32 @@ run_pair "$DIR_SCHEMAS/02_optimal_parameters.schema.json"  "$DIR_DATA_EN/chapter
 
 echo "Summary: ok=$ok bad=$bad skip=$skip"
 exit 0
+
+echo "== Meta file existence check =="
+python - <<'PY'
+import json, pathlib, sys
+
+probes = [
+  ("zz-data/chapter07/07_meta_perturbations.json", "files"),
+  ("zz-data/chapter03/03_meta_stability_fR.json", "files"),
+]
+missing = 0
+for meta_path, key in probes:
+    p = pathlib.Path(meta_path)
+    if not p.exists():
+        print(f"[WARN] missing meta: {meta_path}")
+        missing += 1
+        continue
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[WARN] unreadable meta: {meta_path} ({e})")
+        missing += 1
+        continue
+    for f in data.get(key, []):
+        if not pathlib.Path(f).exists():
+            print(f"[WARN] referenced file not found: {f} (from {meta_path})")
+            missing += 1
+if missing == 0:
+    print("All referenced meta files exist.")
+PY

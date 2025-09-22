@@ -69,7 +69,7 @@ ax.legend(loc='upper right', frameon=False)
 axins1 = inset_axes(
     ax,
     width="85%", height="85%",
-    bbox_to_anchor=(0.06, 0.06, 0.30, 0.35),  
+    bbox_to_anchor=(0.06, 0.06, 0.30, 0.35),
     bbox_transform=ax.transAxes,
     borderpad=0
 )

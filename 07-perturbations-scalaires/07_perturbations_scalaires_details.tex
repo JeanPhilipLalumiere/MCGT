@@ -1,5 +1,5 @@
 \subsection{Grille numérique}
-On discrétise l’espace \((k,a)\) en posant 
+On discrétise l’espace \((k,a)\) en posant
 \[
   k_{i} \;=\; 10^{-4 \;+\;\frac{i}{N_{k}-1}\,\log_{10}(10^{4})},
   \quad
@@ -24,71 +24,71 @@ Pour chaque facteur d’échelle \(a_{j}\) de la grille, on procède ainsi :
 Pour chaque nœud \(\bigl(k_{i},a_{j}\bigr)\) de la grille, on procède ainsi :
 
 \begin{enumerate}
-  \item \textbf{Interpolation des coefficients :}  
+  \item \textbf{Interpolation des coefficients :}
     \[
       z_{j} = \frac{1}{a_{j}} - 1,
       \quad
       R_{\mathrm{norm}} = R(z_{j})/R_{0},
     \]
     puis on interpole \(f_{R}=f_{R}(R_{\mathrm{norm}})\) et \(f_{RR}=f_{RR}(R_{\mathrm{norm}})\) à partir des fichiers du Chapitre 3.
-    
-  \item \textbf{Calcul de la masse scalaire :}  
+
+  \item \textbf{Calcul de la masse scalaire :}
     \[
       m_{s}^{2}
       = \frac{f_{R} - R_{\mathrm{norm}}\,f_{RR}}{3\,f_{RR}}.
     \]
 
-  \item \textbf{Calcul de la vitesse effective :}  
+  \item \textbf{Calcul de la vitesse effective :}
     \[
       c_{s}^{2}(k_{i},a_{j})
       = \frac{f_{R}}{3\,f_{RR}}
         \;\frac{\bigl(k_{i}/a_{j}\bigr)^{2}}{\bigl(k_{i}/a_{j}\bigr)^{2} + m_{s}^{2}}.
     \]
 
-  \item \textbf{Résolution de l’équation de Mukhanov–Sasaki modifiée :}  
+  \item \textbf{Résolution de l’équation de Mukhanov–Sasaki modifiée :}
     \[
       \zeta'' + 2\frac{z'}{z}\,\zeta' + c_{s}^{2}(k_{i},a_{j})\,k_{i}^{2}\,\zeta = 0,
     \]
-    avec  
-    \(\zeta(\eta_{\rm init}) = \frac{1}{\sqrt{2k_{i}}}\),  
-    \(\zeta'(\eta_{\rm init}) = -i\,\sqrt{\tfrac{k_{i}}{2}}\)  
-    (conditions de Bunch–Davies en sous-horizon),  
+    avec
+    \(\zeta(\eta_{\rm init}) = \frac{1}{\sqrt{2k_{i}}}\),
+    \(\zeta'(\eta_{\rm init}) = -i\,\sqrt{\tfrac{k_{i}}{2}}\)
+    (conditions de Bunch–Davies en sous-horizon),
     intégrée jusqu’à l’échelle super-horizon.
 
-  \item \textbf{Calcul de la perturbation scalarisée :}  
-    À l’issue de l’intégration, on note \(\zeta_{\rm fin}\) la valeur finale et on définit  
+  \item \textbf{Calcul de la perturbation scalarisée :}
+    À l’issue de l’intégration, on note \(\zeta_{\rm fin}\) la valeur finale et on définit
     \[
       \frac{\delta\varphi}{\varphi}(k_{i},a_{j})
       = \frac{f_{R} - R_{\mathrm{norm}}\,f_{RR}}{f_{R}}\;\zeta_{\rm fin}.
     \]
 
-  \item \textbf{Enregistrement des résultats :}  
-    Sauvegarde dans la table de sortie des valeurs  
+  \item \textbf{Enregistrement des résultats :}
+    Sauvegarde dans la table de sortie des valeurs
     \(\{\,k_{i},\,a_{j},\,c_{s}^{2},\,m_{s}^{2},\,\delta\varphi/\varphi\}\).
 \end{enumerate}
 
 \subsection{Scripts et exécution numérique}
-Tous les scripts nécessaires se trouvent dans le dossier annexe \texttt{../13-scripts-annexes/}.  
+Tous les scripts nécessaires se trouvent dans le dossier annexe \texttt{../13-scripts-annexes/}.
 
-\paragraph{Dépendances Python}  
+\paragraph{Dépendances Python}
 \texttt{numpy}, \texttt{scipy}, \texttt{pandas}, \texttt{matplotlib}.
 
 \paragraph{Liste des scripts}
 \begin{itemize}
-  \item \texttt{13\_executer\_scan\_perturbations\_scalaires.py}  
+  \item \texttt{13\_executer\_scan\_perturbations\_scalaires.py}
         Interpole \(f_{R}\) et \(f_{RR}\), balaie la grille \((k,a)\), calcule \(c_{s}^{2}\), \(m_{s}^{2}\) et \(\delta\varphi/\varphi\), puis génère :
-        \texttt{07\_cs2\_scan.csv},  
-        \texttt{07\_delta\_phi\_phi\_scan.csv},  
+        \texttt{07\_cs2\_scan.csv},
+        \texttt{07\_delta\_phi\_phi\_scan.csv},
         \texttt{07\_perturbations\_scalaires\_resultats.csv}.
-  \item \texttt{13\_extraire\_extrema.py}  
-        Extrait et affiche  
-        \(\min_{(k,a)}c_{s}^{2}\) et \(\max_{(k,a)}(\delta\varphi/\varphi)\)  
+  \item \texttt{13\_extraire\_extrema.py}
+        Extrait et affiche
+        \(\min_{(k,a)}c_{s}^{2}\) et \(\max_{(k,a)}(\delta\varphi/\varphi)\)
         depuis \texttt{07\_perturbations\_scalaires\_resultats.csv}.
-  \item \texttt{13\_tracer\_carte\_chaleur\_cs2.py}  
-        Trace et sauvegarde la carte de chaleur de \(c_{s}^{2}(k,a)\) sous  
+  \item \texttt{13\_tracer\_carte\_chaleur\_cs2.py}
+        Trace et sauvegarde la carte de chaleur de \(c_{s}^{2}(k,a)\) sous
         \texttt{fig\_01\_carte\_chaleur\_cs2\_k\_a.png}.
-  \item \texttt{13\_tracer\_carte\_chaleur\_delta\_phi.py}  
-        Trace et sauvegarde la carte de chaleur de \(\delta\varphi/\varphi\) sous  
+  \item \texttt{13\_tracer\_carte\_chaleur\_delta\_phi.py}
+        Trace et sauvegarde la carte de chaleur de \(\delta\varphi/\varphi\) sous
         \texttt{fig\_02\_carte\_chaleur\_delta\_phi\_k\_a.png}.
 \end{itemize}
 
@@ -123,9 +123,9 @@ python ../13-scripts-annexes/13_tracer_carte_chaleur_delta_phi.py \
 
 \subsection{Structure détaillée des fichiers CSV}
 
-\paragraph{\texttt{07\_perturbations\_scalaires\_resultats.csv}}  
+\paragraph{\texttt{07\_perturbations\_scalaires\_resultats.csv}}
 \begin{itemize}
-  \item \textbf{Colonnes (dans l’ordre exact, séparées par une virgule sans espace)} :  
+  \item \textbf{Colonnes (dans l’ordre exact, séparées par une virgule sans espace)} :
   \texttt{k, a, c\_s\^2, m\_s\^2/R0, delta\_phi\_over\_phi}
   \item Il y a une ligne par nœud de la grille \((k_{i},a_{j})\) avec \(N_{k}=50\), \(N_{a}=50\), soit 2500 lignes.
   \item Format des valeurs :
@@ -145,7 +145,7 @@ k,a,cs2,ms2_over_R0,delta_phi_over_phi
     \end{verbatim}
 \end{itemize}
 
-\paragraph{\texttt{07\_cs2\_scan.csv}}  
+\paragraph{\texttt{07\_cs2\_scan.csv}}
 \begin{itemize}
   \item \textbf{Colonnes} :
     \[
@@ -161,7 +161,7 @@ k,a,cs2,ms2_over_R0,delta_phi_over_phi
   \item Utilisé exclusivement pour générer la carte de chaleur de \(c_{s}^{2}(k,a)\).
 \end{itemize}
 
-\paragraph{\texttt{07\_delta\_phi\_phi\_scan.csv}}  
+\paragraph{\texttt{07\_delta\_phi\_phi\_scan.csv}}
 \begin{itemize}
   \item \textbf{Colonnes} :
     \[
@@ -201,9 +201,9 @@ print(high_cs2[['k','a','c_s^2']].head())
   \centering
   \includegraphics[width=0.75\linewidth]
     {07-perturbations-scalaires/fig_01_carte_chaleur_cs2_k_a.png}
-  \caption{carte de chaleur de \(c_{s}^{2}(k,a)\) sur 
-           \((k,a)\in[10^{-4},\,1]\times[0.1,\,1]\).  
-           L’axe horizontal (log en \(k\)), l’axe vertical (linéaire en \(a\)).  
+  \caption{carte de chaleur de \(c_{s}^{2}(k,a)\) sur
+           \((k,a)\in[10^{-4},\,1]\times[0.1,\,1]\).
+           L’axe horizontal (log en \(k\)), l’axe vertical (linéaire en \(a\)).
            On constate \(\min c_{s}^{2} \approx 0.50\), confirmant l’absence de modes instables.}
   \label{fig:carte_chaleur_cs2}
 \end{figure}
@@ -214,8 +214,8 @@ print(high_cs2[['k','a','c_s^2']].head())
   \centering
   \includegraphics[width=0.75\linewidth]
     {07-perturbations-scalaires/fig_02_carte_chaleur_delta_phi_k_a.png}
-  \caption{carte de chaleur de \(\delta\varphi/\varphi(k,a)\) sur la même grille 
-           \((k,a)\in[10^{-4},\,1]\times[0.1,\,1]\).  
+  \caption{carte de chaleur de \(\delta\varphi/\varphi(k,a)\) sur la même grille
+           \((k,a)\in[10^{-4},\,1]\times[0.1,\,1]\).
            Le maximum atteint \(\approx 10^{-4}\), bien en dessous du seuil \(10^{-2}\).}
   \label{fig:carte_chaleur_delta_phi}
 \end{figure}
@@ -229,7 +229,7 @@ montre clairement :
   \qquad
   \max_{(k,a)} \frac{\delta\varphi}{\varphi}(k,a) \simeq 10^{-4} \ll 10^{-2}.
 \]
-Ainsi, le MCGT est totalement exempt d’instabilités scalaires linéaires sur le domaine considéré.  
+Ainsi, le MCGT est totalement exempt d’instabilités scalaires linéaires sur le domaine considéré.
 Les scripts et fichiers décrits garantissent la reproductibilité intégrale des résultats.
 
 \subsection*{Glossaire}
@@ -241,12 +241,12 @@ Les scripts et fichiers décrits garantissent la reproductibilité intégrale de
   \item[$R_{\mathrm{norm}}$] $R/R_{0}$, valeur normalisée de la courbure de Ricci ($R_{0}=12H_{0}^{2}$).
   \item[$f_{R}(R)$] Première dérivée de la fonction $f(R)$ par rapport à $R$.
   \item[$f_{RR}(R)$] Seconde dérivée de la fonction $f(R)$ par rapport à $R$.
-  \item[$m_{s}^{2}$] Masse scalaire définie par 
+  \item[$m_{s}^{2}$] Masse scalaire définie par
     $\displaystyle m_{s}^{2}=\frac{f_{R}-R_{\mathrm{norm}}\,f_{RR}}{3\,f_{RR}}$.
-  \item[$c_{s}^{2}(k,a)$] Vitesse effective des perturbations scalaires : 
+  \item[$c_{s}^{2}(k,a)$] Vitesse effective des perturbations scalaires :
     $\displaystyle c_{s}^{2}=\frac{f_{R}}{3f_{RR}}\frac{(k/a)^{2}}{(k/a)^{2}+m_{s}^{2}}$.
   \item[$\zeta(\eta,\mathbf{x})$] Variable de perturbation comobile en jauge comobile.
-  \item[$\delta\varphi/\varphi(k,a)$] Fraction de perturbation scalaire normalisée,  
+  \item[$\delta\varphi/\varphi(k,a)$] Fraction de perturbation scalaire normalisée,
     $\displaystyle \frac{\delta\varphi}{\varphi}=\frac{f_{R}-R_{\mathrm{norm}}\,f_{RR}}{f_{R}}\,\zeta_{\rm fin}$.
   \item[Grille $(k_{i},a_{j})$] Ensemble de $N_{k}\times N_{a}=50\times50=2500$ nœuds pour $(k,a)$.
   \item[\texttt{07\_cs2\_scan.csv}] Fichier CSV contenant les valeurs de $c_{s}^{2}(k,a)$ pour chaque nœud.
@@ -256,7 +256,7 @@ Les scripts et fichiers décrits garantissent la reproductibilité intégrale de
   \item[\texttt{13\_extraire\_extrema.py}] Script Python pour extraire et afficher $\min c_{s}^{2}$ et $\max(\delta\varphi/\varphi)$.
   \item[\texttt{13\_tracer\_carte\_chaleur\_cs2.py}] Script Python pour tracer et sauvegarder la carte de chaleur de $c_{s}^{2}(k,a)$.
   \item[\texttt{13\_tracer\_carte\_chaleur\_delta\_phi.py}] Script Python pour tracer et sauvegarder la carte de chaleur de $\delta\varphi/\varphi(k,a)$.
-  \item[Département des dépendances]  
+  \item[Département des dépendances]
     Bibliothèques Python requises : \texttt{numpy}, \texttt{scipy}, \texttt{pandas}, \texttt{matplotlib}.
 \end{description}
 

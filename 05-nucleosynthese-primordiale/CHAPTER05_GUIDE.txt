@@ -151,4 +151,3 @@ python zz-scripts/chapter05/plot_fig04_chi2_contre_T.py
 11) Compilation LaTeX
 pdflatex -jobname=chap5_conceptual  05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_conceptual.tex
 pdflatex -jobname=chap5_details     05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_details.tex
-

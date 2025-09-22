@@ -93,7 +93,7 @@ def main() -> None:
     ax1.legend(
         handles, labels,
         loc="upper left",
-        bbox_to_anchor=(0.25, 0.50),  
+        bbox_to_anchor=(0.25, 0.50),
         framealpha=0.9,
         edgecolor="black"
     )

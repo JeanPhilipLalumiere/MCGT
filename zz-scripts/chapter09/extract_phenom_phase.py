@@ -53,7 +53,7 @@ def main():
 
     # Filtrer la grille log-lin manuellement si nécessaire
     # Ici on suppose que PyCBC renvoie une grille lin-équidistante en delta_f
-    # Pour une grille log-lin, on reconstruirait la grille : 
+    # Pour une grille log-lin, on reconstruirait la grille :
     # freqs = 10**np.arange(np.log10(args.fmin), np.log10(args.fmax)+1e-12, args.dlogf)
     # phase = np.interp(freqs, hp.sample_frequencies, np.unwrap(np.angle(hp)))
 

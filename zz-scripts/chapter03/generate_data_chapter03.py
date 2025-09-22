@@ -5,7 +5,7 @@
 Chapitre 3 – Pipeline intégral (v3.2.0)
 --------------------------------------
 Stabilité de f(R) : génération des données numériques pour les figures
-et les tableaux du Chapitre 3. 
+et les tableaux du Chapitre 3.
 
 """
 

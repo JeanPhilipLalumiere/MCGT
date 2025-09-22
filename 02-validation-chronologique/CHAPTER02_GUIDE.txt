@@ -58,9 +58,9 @@ Ce guide décrit la production des données, des figures et la procédure d’ex
 | `classe`| Catégorie d’exigence : `primary` (≤ 1 %) / `order2` (≤ 10 %) | —     |
 
 ### 3.2 Spécification du spectre primordial — `02_primordial_spectrum_spec.json`
-Champs :  
-- `label_eq`, `formula`, `description`  
-- `constants` : `A_s0`, `ns0`  
+Champs :
+- `label_eq`, `formula`, `description`
+- `constants` : `A_s0`, `ns0`
 - `coefficients` : `c1`, `c1_2`, `c2`, `c2_2`
 
 > Règle d’homogénéisation : les noms de champs et l’usage de la notation \(P_R(k;\alpha)\) sont **alignés** sur les chapitres 1 et 6 (paramètres cosmologiques globaux dans `mcgt-global-config.ini`).
@@ -97,10 +97,10 @@ Champs :
 | `epsilon_i` | Écart relatif aux jalons                  |
 
 ### 4.5 Paramètres optimaux — `02_optimal_parameters.json`
-Champs :  
-- `T_split_Gyr`  
-- `segments.low|high` : `alpha0`, `alpha_inf`, `Tc`, `Delta`, `Tp`  
-- `thresholds` : `primary`, `order2`  
+Champs :
+- `T_split_Gyr`
+- `segments.low|high` : `alpha0`, `alpha_inf`, `Tc`, `Delta`, `Tp`
+- `thresholds` : `primary`, `order2`
 - `max_epsilon_primary`, `max_epsilon_order2`
 
 ### 4.6 Échantillonnage du spectre — `02_P_R_sampling.csv`
@@ -127,12 +127,12 @@ Champs :
 ---
 
 ## 5. Figures produites
-- `fig_00_spectrum.png` : spectre primordial MCGT (log–log).  
-- `fig_01_P_vs_T_evolution.png` : \(P_{\rm calc}(T)\) vs jalons \(P_{\rm ref}(T_i)\).  
-- `fig_02_calibration.png` : nuage \(P_{\rm ref}\) vs \(P_{\rm calc}\) + ligne d’identité.  
-- `fig_03_relative_errors.png` : \(\epsilon_i\) vs \(T\) (échelle adaptée).  
-- `fig_04_pipeline_diagram.png` : schéma du pipeline de calcul.  
-- `fig_05_FG_series.png` : séries \(F(\alpha)-1\) et \(G(\alpha)\).  
+- `fig_00_spectrum.png` : spectre primordial MCGT (log–log).
+- `fig_01_P_vs_T_evolution.png` : \(P_{\rm calc}(T)\) vs jalons \(P_{\rm ref}(T_i)\).
+- `fig_02_calibration.png` : nuage \(P_{\rm ref}\) vs \(P_{\rm calc}\) + ligne d’identité.
+- `fig_03_relative_errors.png` : \(\epsilon_i\) vs \(T\) (échelle adaptée).
+- `fig_04_pipeline_diagram.png` : schéma du pipeline de calcul.
+- `fig_05_FG_series.png` : séries \(F(\alpha)-1\) et \(G(\alpha)\).
 - `fig_06_fit_alpha.png` : ajustements \(A_s(\alpha)\) et \(n_s(\alpha)\).
 
 ---
@@ -181,4 +181,3 @@ python zz-scripts/chapter02/plot_fig06_alpha_fit.py
 
 * JSON : `zz-schemas/02_optimal_parameters.schema.json`, `zz-schemas/02_spec_spectrum.schema.json`
 * CSV : gabarit tabulaire `zz-schemas/mc_results_table_schema.json` et schémas spécifiques au chapitre
-

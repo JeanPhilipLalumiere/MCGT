@@ -37,6 +37,3 @@ Ce répertoire contient les fichiers de configuration partagés entre chapitres.
 &nbsp; et un fichier `\*.template` (comme celui fourni) à la place.
 
 \- Documenter toute variable non triviale directement dans le `.ini` avec un commentaire.
-
-
-

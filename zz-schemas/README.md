@@ -27,6 +27,3 @@ les fichiers de résultats, manifests et métadonnées.
 ```bash
 
 python zz-schemas/validate\_json.py --all
-
-
-

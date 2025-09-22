@@ -49,7 +49,7 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
       • 01_dimensionless_invariants.csv             (T, I1)
 
 [PRODUCTION DES FIGURES]
-- [ ] Générer : 
+- [ ] Générer :
       python zz-scripts/chapter01/plot_fig01_early_plateau.py
       python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
       python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py

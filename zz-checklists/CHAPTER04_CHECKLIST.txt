@@ -104,4 +104,3 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 - [ ] Figures   :  exécuter les 4 scripts plot_fig**
 - [ ] Validation:  (schéma CSV si disponible) validate_csv_table.py ; sinon tests zz-tests
 - [ ] LaTeX     :  commandes pdflatex ci-dessus
-

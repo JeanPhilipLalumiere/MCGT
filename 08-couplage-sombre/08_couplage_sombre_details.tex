@@ -16,7 +16,7 @@ Le système détaillé décrivant l’échange d’énergie entre matière sombr
 
 Les densités aux temps présents sont fixées par :
 \[
-  \rho_{m}(0) = \rho_{c,0}\,\Omega_{m,0}, 
+  \rho_{m}(0) = \rho_{c,0}\,\Omega_{m,0},
   \quad
   \rho_{\phi}(0) = \rho_{c,0}\,\Omega_{\phi,0},
   \quad
@@ -68,15 +68,15 @@ Par exemple :
 \subsection{Vérifications et cohérence interne}
 
 \begin{itemize}
-  \item \textbf{Contrôle du rapport global}  
-    Calculer  
+  \item \textbf{Contrôle du rapport global}
+    Calculer
     \[
       \frac{\chi^{2}_{\rm tot}(Q_{0}^{\star})}{N_{\rm data}}
       \approx 1,
     \]
     où \(N_{\rm data} = N_{\rm SNIa} + N_{\rm BAO} + 1\) est le nombre total de points analysés.
 
-  \item \textbf{Validation de la contrainte locale \(H_{0}\)}  
+  \item \textbf{Validation de la contrainte locale \(H_{0}\)}
     S’assurer que la covariance \(\sigma_{H_{0}} = 1.3\;\mathrm{km/s/Mpc}\) a été correctement appliquée :
     \[
       \chi^{2}_{H_{0}}
@@ -84,26 +84,26 @@ Par exemple :
              {\sigma_{H_{0}}^{2}}.
     \]
 
-  \item \textbf{Tests ponctuels}  
+  \item \textbf{Tests ponctuels}
     \begin{itemize}
-      \item Sur un sous-ensemble de Supernovae Ia :  
+      \item Sur un sous-ensemble de Supernovae Ia :
         \[
           \bigl|\mu_{\rm th}(z_i;Q_{0}^{\star}) - \mu_{\rm obs}(z_i)\bigr|
           < \sigma_{\mu,i}.
         \]
-      \item Sur un sous-ensemble de mesures BAO :  
+      \item Sur un sous-ensemble de mesures BAO :
         \[
           \bigl|D_{V}(z_j;Q_{0}^{\star}) - D_{V}^{\rm obs}(z_j)\bigr|
           < \sigma_{D_{V},j}.
         \]
-      \item Récupération de \(\Lambda\)CDM (\(Q_{0}=0\)) :  
+      \item Récupération de \(\Lambda\)CDM (\(Q_{0}=0\)) :
         \[
           \bigl|H(z;0) - H_{\Lambda\rm CDM}(z)\bigr|
           < 10^{-6}\,H(z).
         \]
     \end{itemize}
 
-  \item \textbf{Gestion des alertes}  
+  \item \textbf{Gestion des alertes}
     Tout écart supérieur à \(3\sigma\) doit déclencher une notification au format :
     \begin{verbatim}
 [ALERTE] Donnée [type] à z=<valeur> hors 3σ : obs=<valeur_obs>, théorie=<valeur_th>
@@ -115,54 +115,54 @@ Par exemple :
 Les opérations s’effectuent via trois scripts, chaque script gérant à la fois son rôle, les options CLI, les sorties, et les étapes clés du workflow :
 
 \begin{description}
-  \item[\texttt{13\_resolution\_grille\_z.py}]  
-    \textbf{Rôle :} résoudre numériquement l’évolution de \(H(z;Q_{0})\) conformément aux équations détaillées dans « Équations complètes du couplage ».  
-    \textbf{Options CLI :}  
-      \verb|--Q0 <float>|, \verb|--Nz <int>|, \verb|--rtol <float>|, \verb|--atol <float>|.  
+  \item[\texttt{13\_resolution\_grille\_z.py}]
+    \textbf{Rôle :} résoudre numériquement l’évolution de \(H(z;Q_{0})\) conformément aux équations détaillées dans « Équations complètes du couplage ».
+    \textbf{Options CLI :}
+      \verb|--Q0 <float>|, \verb|--Nz <int>|, \verb|--rtol <float>|, \verb|--atol <float>|.
     \textbf{Déroulement :}
     \begin{enumerate}
-      \item Lecture de la valeur du paramètre \(Q_{0}\).  
-      \item Intégration numérique de \(H(z)\) sur une grille de \(N_z\) points en \(z\).  
-      \item Écriture du fichier de sortie \texttt{08\_grille\_Hz\_q0.txt}, listant les paires \(\{z_{i},\,H(z_{i};Q_{0})\}\).  
+      \item Lecture de la valeur du paramètre \(Q_{0}\).
+      \item Intégration numérique de \(H(z)\) sur une grille de \(N_z\) points en \(z\).
+      \item Écriture du fichier de sortie \texttt{08\_grille\_Hz\_q0.txt}, listant les paires \(\{z_{i},\,H(z_{i};Q_{0})\}\).
     \end{enumerate}
 
-  \item[\texttt{13\_couplage\_energie\_sombre.py}]  
-    \textbf{Rôle :} orchestrer le balayage de \(Q_{0}\in[0,0.20]\), calculer distances et \(\chi^2\), puis constituer le scan.  
-    \textbf{Options CLI :}  
-      \verb|--pantheon <fichier_csv>|,  
-      \verb|--bao <fichier_csv>|,  
-      \verb|--H0 <float>|,  
-      \verb|--sigma_H0 <float>|,  
-      \verb|--output_scan <fichier_csv>|,  
-      \verb|--output_bestfit <fichier_txt>|.  
+  \item[\texttt{13\_couplage\_energie\_sombre.py}]
+    \textbf{Rôle :} orchestrer le balayage de \(Q_{0}\in[0,0.20]\), calculer distances et \(\chi^2\), puis constituer le scan.
+    \textbf{Options CLI :}
+      \verb|--pantheon <fichier_csv>|,
+      \verb|--bao <fichier_csv>|,
+      \verb|--H0 <float>|,
+      \verb|--sigma_H0 <float>|,
+      \verb|--output_scan <fichier_csv>|,
+      \verb|--output_bestfit <fichier_txt>|.
     \textbf{Déroulement :}
     \begin{enumerate}
-      \item Lecture des fichiers \texttt{08\_pantheon\_plus.csv} et \texttt{08\_donnees\_bao.csv}.  
+      \item Lecture des fichiers \texttt{08\_pantheon\_plus.csv} et \texttt{08\_donnees\_bao.csv}.
       \item Boucle pour chaque \(Q_{0}\) de la grille :
         \begin{itemize}
-          \item Appel à \texttt{13\_resolution\_grille\_z.py} (génère \texttt{08\_grille\_Hz\_q0.txt}).  
-          \item Interpolation spline de \(H(z)\).  
+          \item Appel à \texttt{13\_resolution\_grille\_z.py} (génère \texttt{08\_grille\_Hz\_q0.txt}).
+          \item Interpolation spline de \(H(z)\).
            \item Calcul des distances et des \(\chi^2\) selon les formules données dans les sections « Formules des distances cosmologiques » et « Formules des statistiques \(\chi^2\) ».
-          \item Écriture d’une ligne \(\{Q_{0},\chi^{2}_{H_{0}},\chi^{2}_{\rm SNIa},\chi^{2}_{\rm BAO},\chi^{2}_{\rm tot}\}\)  
-                dans \texttt{08\_q0\_reel\_scan.csv}.  
+          \item Écriture d’une ligne \(\{Q_{0},\chi^{2}_{H_{0}},\chi^{2}_{\rm SNIa},\chi^{2}_{\rm BAO},\chi^{2}_{\rm tot}\}\)
+                dans \texttt{08\_q0\_reel\_scan.csv}.
         \end{itemize}
-      \item Interpolation quadratique locale autour du minimum de \(\chi^{2}_{\rm tot}\)  
-            pour estimer \(Q_{0}^{\star}\pm\sigma\), sauvegardé dans \texttt{08\_q0\_meilleur\_ajustement.txt}.  
+      \item Interpolation quadratique locale autour du minimum de \(\chi^{2}_{\rm tot}\)
+            pour estimer \(Q_{0}^{\star}\pm\sigma\), sauvegardé dans \texttt{08\_q0\_meilleur\_ajustement.txt}.
     \end{enumerate}
 
-  \item[\texttt{13\_valider\_resultats\_couplage.py}]  
-    \textbf{Rôle :} générer les diagnostics visuels à partir du scan complet.  
-    \textbf{Options CLI :}  
-      \verb|--input_scan <fichier_csv>|,  
-      \verb|--output_chi2 <fichier_png>|,  
-      \verb|--output_dv <fichier_png>|,  
-      \verb|--output_mu <fichier_png>|.  
+  \item[\texttt{13\_valider\_resultats\_couplage.py}]
+    \textbf{Rôle :} générer les diagnostics visuels à partir du scan complet.
+    \textbf{Options CLI :}
+      \verb|--input_scan <fichier_csv>|,
+      \verb|--output_chi2 <fichier_png>|,
+      \verb|--output_dv <fichier_png>|,
+      \verb|--output_mu <fichier_png>|.
     \textbf{Déroulement :}
     \begin{enumerate}
-      \item Lecture de \texttt{08\_q0\_reel\_scan.csv}.  
-      \item Tracé de la courbe \(\chi^{2}_{\rm tot}(Q_{0})\) dans \texttt{fig\_01\_chi2\_total\_vs\_q0.png}.  
-      \item Superposition modèle vs observations BAO dans \texttt{fig\_02\_dv\_vs\_z.png}.  
-      \item Superposition modèle vs SNIa dans \texttt{fig\_03\_mu\_vs\_z.png}.  
+      \item Lecture de \texttt{08\_q0\_reel\_scan.csv}.
+      \item Tracé de la courbe \(\chi^{2}_{\rm tot}(Q_{0})\) dans \texttt{fig\_01\_chi2\_total\_vs\_q0.png}.
+      \item Superposition modèle vs observations BAO dans \texttt{fig\_02\_dv\_vs\_z.png}.
+      \item Superposition modèle vs SNIa dans \texttt{fig\_03\_mu\_vs\_z.png}.
     \end{enumerate}
 \end{description}
 
@@ -171,14 +171,14 @@ Les opérations s’effectuent via trois scripts, chaque script gérant à la fo
 Les opérations génèrent deux types de fichiers de résultats :
 
 \begin{itemize}
-  \item \textbf{Fichier de grille de H(z)}  
+  \item \textbf{Fichier de grille de H(z)}
     \texttt{08\_grille\_Hz\_q0.txt} : chaque ligne contient deux colonnes séparées par un espace :
     \[
-      z_i 
+      z_i
       \quad H(z_i;Q_{0})\,.
     \]
 
-  \item \textbf{Fichier de scan statistique}  
+  \item \textbf{Fichier de scan statistique}
     \texttt{08\_q0\_reel\_scan.csv} : fichier CSV à cinq colonnes, séparées par des virgules, avec en-tête :
     \begin{verbatim}
 Q0,chi2_H0,chi2_SNIa,chi2_BAO,chi2_tot
@@ -197,53 +197,53 @@ En complément du fichier de scan statistique, nous stockons :
   \item \texttt{08\_mu\_theorie\_q0star.csv} : valeurs de \(\mu_{\rm th}(z_i;Q_0^\star)\) pour chaque redshift \(z_i\).
 \end{itemize}
 
-Ces deux fichiers servent à tracer les figures  
+Ces deux fichiers servent à tracer les figures
 \texttt{fig\_02\_dv\_vs\_z.png} et \texttt{fig\_03\_mu\_vs\_z.png}.
 
 \subsection{Notes d’implémentation}
 
-Le résumé conceptuel (08\_couplage\_sombre\_conceptuel.tex) présente formules, définitions, sources de données, figures et résultats chiffrés.  
+Le résumé conceptuel (08\_couplage\_sombre\_conceptuel.tex) présente formules, définitions, sources de données, figures et résultats chiffrés.
 Ce document détaille en revanche :
 
 \begin{itemize}
-  \item l’arborescence et le rôle des scripts (\texttt{13\_resolution\_grille\_z.py}, \texttt{13\_couplage\_energie\_sombre.py}, \texttt{13\_valider\_resultats\_couplage.py}),  
-  \item les formats de fichiers produits (\texttt{08\_grille\_Hz\_q0.txt}, \texttt{08\_q0\_reel\_scan.csv}, \texttt{08\_q0\_meilleur\_ajustement.txt}),  
+  \item l’arborescence et le rôle des scripts (\texttt{13\_resolution\_grille\_z.py}, \texttt{13\_couplage\_energie\_sombre.py}, \texttt{13\_valider\_resultats\_couplage.py}),
+  \item les formats de fichiers produits (\texttt{08\_grille\_Hz\_q0.txt}, \texttt{08\_q0\_reel\_scan.csv}, \texttt{08\_q0\_meilleur\_ajustement.txt}),
   \item l’organisation technique des boucles, interpolations et alertes.
 \end{itemize}
 
-Pour ajuster l’intervalle de balayage \(Q_{0}\), le maillage en \(z\) ou les tolérances ODE, modifier les constantes en tête de \texttt{13\_resolution\_grille\_z.py} et \texttt{13\_couplage\_energie\_sombre.py}.  
+Pour ajuster l’intervalle de balayage \(Q_{0}\), le maillage en \(z\) ou les tolérances ODE, modifier les constantes en tête de \texttt{13\_resolution\_grille\_z.py} et \texttt{13\_couplage\_energie\_sombre.py}.
 
 \subsection{Informations complémentaires utiles}
 
 \begin{itemize}
-  \item \textbf{Environnement et dépendances}  
-    Les scripts ont été testés sous Python 3.10.  
+  \item \textbf{Environnement et dépendances}
+    Les scripts ont été testés sous Python 3.10.
     Les principales bibliothèques requises sont listées dans \texttt{13\_requirements.txt}, notamment :
     \begin{itemize}
-      \item \texttt{numpy}  
-      \item \texttt{scipy}  
-      \item \texttt{pandas}  
-      \item \texttt{matplotlib}  
+      \item \texttt{numpy}
+      \item \texttt{scipy}
+      \item \texttt{pandas}
+      \item \texttt{matplotlib}
     \end{itemize}
 
-  \item \textbf{Performance / durée}  
-    Le balayage complet de \(Q_{0}\) (201 valeurs, résolution ODE sur 1000 points)  
+  \item \textbf{Performance / durée}
+    Le balayage complet de \(Q_{0}\) (201 valeurs, résolution ODE sur 1000 points)
     nécessite environ 3 minutes sur un processeur quad-core standard.
 
-  \item \textbf{Reproductibilité}  
+  \item \textbf{Reproductibilité}
     Pour exécuter l’intégralité de la chaîne de calcul en une seule commande, on peut utiliser un script shell dédié, par exemple :
     \begin{verbatim}
 bash run_all_coupling.sh
     \end{verbatim}
     qui appelle successivement :
     \begin{enumerate}
-      \item \texttt{13\_resolution\_grille\_z.py}  
-      \item \texttt{13\_couplage\_energie\_sombre.py}  
+      \item \texttt{13\_resolution\_grille\_z.py}
+      \item \texttt{13\_couplage\_energie\_sombre.py}
       \item \texttt{13\_valider\_resultats\_couplage.py}
     \end{enumerate}
 
-  \item \textbf{Répertoire de travail}  
-    Les scripts doivent être lancés depuis la racine du projet pour que les chemins relatifs  
+  \item \textbf{Répertoire de travail}
+    Les scripts doivent être lancés depuis la racine du projet pour que les chemins relatifs
     (\texttt{08-couplage-sombre/...} et \texttt{13-scripts-annexes/...}) soient correctement résolus.
 \end{itemize}
 
@@ -253,13 +253,13 @@ bash run_all_coupling.sh
   \item[$Q_{0}$] Paramètre d’interaction matière sombre–énergie sombre, détermine le transfert d’énergie entre \(\rho_{m}\) et \(\rho_{\phi}\).
   \item[$\rho_{m}(0),\;\rho_{\phi}(0)$] Densités initiales aujourd’hui, fixées par \(\rho_{c,0}\,\Omega_{m,0}\) et \(\rho_{c,0}\,\Omega_{\phi,0}\).
   \item[$H_{0}^{\rm local}$] Contrainte locale de la constante de Hubble, \(73.2\pm1.3\)\,km/s/Mpc.
-  \item[$D_{L}(z)$] Distance lumineuse : 
+  \item[$D_{L}(z)$] Distance lumineuse :
     \(\displaystyle D_{L}(z) = (1+z)\int_{0}^{z}\frac{c\,dz'}{H(z')}\).
   \item[$D_{V}(z)$] Distance volumétrique :
     \(\displaystyle D_{V}(z) = \Bigl[\frac{c\,z}{H(z)}\Bigl(\int_{0}^{z}\frac{c\,dz'}{H(z')}\Bigr)^{2}\Bigr]^{1/3}.\)
-  \item[$\chi^{2}_{H_{0}}$] Contribution du terme \(H_{0}\) : 
+  \item[$\chi^{2}_{H_{0}}$] Contribution du terme \(H_{0}\) :
     \(\displaystyle \frac{[H(0)-H_{0}^{\rm local}]^{2}}{\sigma_{H_{0}}^{2}}.\)
-  \item[$\chi^{2}_{\rm SNIa}$] Statistique Supernovae Ia : 
+  \item[$\chi^{2}_{\rm SNIa}$] Statistique Supernovae Ia :
     \(\displaystyle \sum_{i}\frac{[\mu_{\rm th}(z_{i})-\mu_{\rm obs}(z_{i})]^{2}}{\sigma_{\mu,i}^{2}}.\)
   \item[$\chi^{2}_{\rm BAO}$] Statistique BAO :
     \(\displaystyle \sum_{j}\frac{[D_{V}(z_{j})-D_{V}^{\rm obs}(z_{j})]^{2}}{\sigma_{D_{V},j}^{2}}.\)

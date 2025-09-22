@@ -3,7 +3,7 @@
 \subsection{10.1 – Définition du vecteur de paramètres \(\Theta\)}
 On considère un vecteur à huit composantes :
 \[
-  \Theta \;=\; 
+  \Theta \;=\;
   \bigl(\alpha_{1},\,T_{c},\,\Delta,\,T_{p},\,\Delta_{p},\,\beta,\,
            \Omega_{m},\,H_{0}\bigr).
 \]
@@ -13,10 +13,10 @@ Les six premiers paramètres sont propres au MCGT, les deux derniers proviennent
 Pour les tirages MCGT, chaque paramètre suit une loi normale centrée sur sa valeur optimale :
 \[
   \begin{aligned}
-    \alpha_{1} &\sim \mathcal{N}\bigl(0.40,\;0.01^{2}\bigr), 
+    \alpha_{1} &\sim \mathcal{N}\bigl(0.40,\;0.01^{2}\bigr),
     &\quad
     T_{c} &\sim \mathcal{N}\bigl(0.25\,\text{Gyr},\;0.01^{2}\bigr), \\
-    \Delta &\sim \mathcal{N}\bigl(3.00,\;0.50^{2}\bigr), 
+    \Delta &\sim \mathcal{N}\bigl(3.00,\;0.50^{2}\bigr),
     &\quad
     T_{p} &\sim \mathcal{N}\bigl(0.05\,\text{Gyr},\;0.01^{2}\bigr), \\
     \Delta_{p} &\sim \mathcal{N}\bigl(0.10\,\text{Gyr},\;0.02^{2}\bigr),
@@ -46,16 +46,16 @@ On obtient ainsi \(N_{\rm MC}\) vecteurs complets \(\Theta^{(i)} \in \mathbb{R}^
 \subsection{10.5 – Formule de la covariance empirique}
 La matrice de covariance empirique \(C_{8\times8}\) de l’échantillon \(\{\Theta^{(i)}\}\) est définie par :
 \[
-  C_{jk} 
-  \;=\; 
+  C_{jk}
+  \;=\;
   \frac{1}{N_{\rm MC} - 1}
   \sum_{i=1}^{N_{\rm MC}}
     \Bigl(\Theta_{j}^{(i)} - \overline{\Theta}_{j}\Bigr)
     \Bigl(\Theta_{k}^{(i)} - \overline{\Theta}_{k}\Bigr),
   \quad
-  \overline{\Theta}_{j} 
-  \;=\; 
-  \frac{1}{N_{\rm MC}} 
+  \overline{\Theta}_{j}
+  \;=\;
+  \frac{1}{N_{\rm MC}}
   \sum_{i=1}^{N_{\rm MC}} \Theta_{j}^{(i)}.
 \]
 Cette matrice symétrique 8 × 8 est sauvegardée au format binaire NumPy sous le nom \texttt{10\_global\_covariance\_real.npy}.
@@ -63,18 +63,18 @@ Cette matrice symétrique 8 × 8 est sauvegardée au format binaire NumPy sous l
 \subsection{10.6 – Figures à produire}
 
 \begin{itemize}
-  \item \textbf{Heatmap de la matrice de covariance}  
-    \texttt{fig\_01\_covariance\_heatmap.png} :  
-    représentation colorée de \(C_{8\times8}\) avec annotations numériques.  
+  \item \textbf{Heatmap de la matrice de covariance}
+    \texttt{fig\_01\_covariance\_heatmap.png} :
+    représentation colorée de \(C_{8\times8}\) avec annotations numériques.
     Permet de visualiser corrélations et anticorrélations entre les huit paramètres.
 
-  \item \textbf{Densités KDE unidimensionnelles}  
-    \texttt{fig\_02\_distributions\_unidimensionnelles.png} :  
+  \item \textbf{Densités KDE unidimensionnelles}
+    \texttt{fig\_02\_distributions\_unidimensionnelles.png} :
     pour chaque composante \(\Theta_{j}\), tracer la densité de probabilité estimée (KDE) et indiquer l’écart‐type empirique \(\sqrt{C_{jj}}\).
 
-  \item \textbf{Ellipse de confiance \((\Omega_{m},\,H_{0})\)}  
-    \texttt{fig\_03\_ellipse\_Omega\_m\_H0.png} :  
-    ellipses 68 \% (Δχ² = 2,30) et 95 \% (Δχ² = 5,99) basées sur la sous‐matrice covariante extraite de \((\Omega_{m},H_{0})\).  
+  \item \textbf{Ellipse de confiance \((\Omega_{m},\,H_{0})\)}
+    \texttt{fig\_03\_ellipse\_Omega\_m\_H0.png} :
+    ellipses 68 \% (Δχ² = 2,30) et 95 \% (Δχ² = 5,99) basées sur la sous‐matrice covariante extraite de \((\Omega_{m},H_{0})\).
     Le centre correspond à la moyenne Planck \(\bigl(\overline{\Omega}_{m},\,\overline{H}_{0}\bigr)\).
 
 \end{itemize}
@@ -82,9 +82,9 @@ Cette matrice symétrique 8 × 8 est sauvegardée au format binaire NumPy sous l
 \subsection{10.7 – Choix numériques et organisation}
 
 \begin{itemize}
-  \item \(\mathbf{N_{\rm MC} = 10^{5}}\) : compromis entre précision statistique et temps de calcul (quelques minutes sur CPU standard).  
-  \item \(\mathbf{np.random.seed(0)}\) : garantit la même suite de tirages MCGT à chaque exécution.  
-  \item Ordre des huit paramètres :  
+  \item \(\mathbf{N_{\rm MC} = 10^{5}}\) : compromis entre précision statistique et temps de calcul (quelques minutes sur CPU standard).
+  \item \(\mathbf{np.random.seed(0)}\) : garantit la même suite de tirages MCGT à chaque exécution.
+  \item Ordre des huit paramètres :
     \[
       (\alpha_{1},\,T_{c},\,\Delta,\,T_{p},\,\Delta_{p},\,\beta,\,\Omega_{m},\,H_{0}),
     \]

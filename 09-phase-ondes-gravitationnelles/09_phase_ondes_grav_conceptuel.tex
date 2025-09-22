@@ -30,16 +30,16 @@ Pour relier la fréquence \(f\) à l’âge chirp \(T\), on utilise l’inversio
   \quad\Longrightarrow\quad
   T = T(f)\,,
 \]
-où \(\dot F(f)\) provient de la modélisation IMRPhenomD.  
+où \(\dot F(f)\) provient de la modélisation IMRPhenomD.
 
 \subsection{Paramètres astrophysiques et instrumentaux}
 \begin{itemize}
-  \item \textbf{Source :} binaire de trous noirs, masse chirp 
-        \(\mathcal{M}=30\,M_{\odot}\), rapport de masses \(\eta=0.25\), à 
+  \item \textbf{Source :} binaire de trous noirs, masse chirp
+        \(\mathcal{M}=30\,M_{\odot}\), rapport de masses \(\eta=0.25\), à
         \(d = 1\,\mathrm{Gpc}\).
   \item \textbf{Plage fréquentielle :}
         \[
-          f_{\min} = 10^{-4}\,\mathrm{Hz}, 
+          f_{\min} = 10^{-4}\,\mathrm{Hz},
           \quad
           f_{\max} = 1\,\mathrm{Hz}.
         \]
@@ -49,10 +49,10 @@ où \(\dot F(f)\) provient de la modélisation IMRPhenomD.
 \subsection{Schéma conceptuel du phasing modifié}
 Le phasing corrigé s’obtient en deux étapes conceptuelles :
 \begin{enumerate}
-  \item Inversion numérique phase \(\to\) âge chirp \(T(f)\)  
+  \item Inversion numérique phase \(\to\) âge chirp \(T(f)\)
         (cf. § « Contexte et définitions »).
-  \item Calcul du retard \(\Delta\tau(f)\) et déphasage  
-        \(\Delta\varphi(f)=2\pi\,f\,\Delta\tau(f)\)  
+  \item Calcul du retard \(\Delta\tau(f)\) et déphasage
+        \(\Delta\varphi(f)=2\pi\,f\,\Delta\tau(f)\)
         (cf. § « Contexte et définitions »).
 \end{enumerate}
 
@@ -60,38 +60,38 @@ Le phasing corrigé s’obtient en deux étapes conceptuelles :
 La chaîne conceptuelle se décline en sept étapes principales :
 
 \begin{enumerate}
-  \item \textbf{Génération de la grille fréquentielle}  
+  \item \textbf{Génération de la grille fréquentielle}
     Création d’une grille log-linéaire de fréquences $f\in[10^{-4},1]\,$Hz
     pour assurer la reproductibilité du calcul.
 
-  \item \textbf{Simulation de la PSD brute}  
+  \item \textbf{Simulation de la PSD brute}
     Calcul de la densité spectrale de bruit (PSD) de LISA sur cette grille.
 
-  \item \textbf{Construction de la PSD simplifiée}  
+  \item \textbf{Construction de la PSD simplifiée}
     Nettoyage et interpolation spline de la PSD brute, en garantissant
     $S_n(f)>0$ sur toute la bande.
 
-  \item \textbf{Calcul des retards et des phases}  
+  \item \textbf{Calcul des retards et des phases}
     Pour chaque fréquence, inversion $f\to T$ puis évaluation de
     \(\Delta\tau(f)\) et \(\Delta\varphi(f)=2\pi f\,\Delta\tau(f)\).
 
-  \item \textbf{Évaluation de la matrice de Fisher}  
+  \item \textbf{Évaluation de la matrice de Fisher}
     Construction et inversion de la matrice de Fisher pour extraire les
     incertitudes sur \(\mathcal{M}\) et \(\eta\).
 
-  \item \textbf{Vérification et journalisation des anomalies}  
+  \item \textbf{Vérification et journalisation des anomalies}
     Contrôle systématique de :
     \begin{itemize}
-      \item \(S_n(f)>0\),  
-      \item \(0 \le \Delta\tau(f)\le 10^{-1}\,\mathrm{s}\),  
+      \item \(S_n(f)>0\),
+      \item \(0 \le \Delta\tau(f)\le 10^{-1}\,\mathrm{s}\),
       \item \(\det C \neq 0\) (matrice de covariance).
     \end{itemize}
     Toutes les violations sont consignées dans un journal d’anomalies.
 
-  \item \textbf{Extraction et visualisation des résultats}  
+  \item \textbf{Extraction et visualisation des résultats}
     \begin{itemize}
-      \item Extraction du déphasage optimal pour la valeur choisie de \(Q_0\).  
-      \item Tracé des ellipses de confiance (68 % & 95 %).  
+      \item Extraction du déphasage optimal pour la valeur choisie de \(Q_0\).
+      \item Tracé des ellipses de confiance (68 % & 95 %).
       \item (Optionnel) Validation comparative de la différence de phase.
     \end{itemize}
 \end{enumerate}
@@ -125,7 +125,7 @@ Les principaux fichiers produits par la chaîne de traitement sont :
   \item \texttt{fig\_04\_validation\_delta\_phase.png} : validation de \(\Delta\varphi(f)\) sur la bande complète LISA.
 \end{itemize}
 
-Pour le format exact des colonnes, les tolérances et les exemples de commandes, voir la section « Détails opérationnels ».  
+Pour le format exact des colonnes, les tolérances et les exemples de commandes, voir la section « Détails opérationnels ».
 
 \subsection{Résultats numériques clés}
 Les ordres de grandeur obtenus pour la configuration considérée sont :
@@ -138,10 +138,10 @@ Les ordres de grandeur obtenus pour la configuration considérée sont :
   \quad
   \frac{\Delta\eta}{\eta} \sim 2 \times 10^{-3}.
 \]
-Ces résultats indiquent que, même pour un binaire de masse chirp 
-\(\mathcal{M}=30\,M_{\odot}\) et \(\eta=0.25\), l’effet du MCGT sur la phase 
-des ondes gravitationnelles reste potentiellement détectable par un instrument 
-de type LISA (voir § « Détails opérationnels » pour les valeurs exactes et 
+Ces résultats indiquent que, même pour un binaire de masse chirp
+\(\mathcal{M}=30\,M_{\odot}\) et \(\eta=0.25\), l’effet du MCGT sur la phase
+des ondes gravitationnelles reste potentiellement détectable par un instrument
+de type LISA (voir § « Détails opérationnels » pour les valeurs exactes et
 leurs tableaux associés).
 
 \subsection{Figures principales}
@@ -177,10 +177,10 @@ La figure ci-dessous présente la validation du déphasage \(\Delta\varphi(f)\) 
   \label{fig:validation_delta_phase_full}
 \end{figure}
 
-Ce tracé confirme que, même si le retard \(\Delta\tau(f)\) diminue à haute fréquence, le produit \(f\,\Delta\tau(f)\) croît suffisamment pour rendre le déphasage plus marqué près de \(1\) Hz.  
+Ce tracé confirme que, même si le retard \(\Delta\tau(f)\) diminue à haute fréquence, le produit \(f\,\Delta\tau(f)\) croît suffisamment pour rendre le déphasage plus marqué près de \(1\) Hz.
 
 \subsection{Matrice de Fisher et incertitudes}
-La matrice de Fisher pour les paramètres 
+La matrice de Fisher pour les paramètres
 \(\theta = (\mathcal{M},\,\eta)\) se définit formellement par :
 \[
   F_{ij}
@@ -199,9 +199,9 @@ Les incertitudes s’extraient via l’inversion de \(\mathbf{F}\) :
   \Delta\eta
   = \sqrt{\bigl(\mathbf{F}^{-1}\bigr)_{22}}.
 \]
-Pour la configuration considérée, on obtient 
-\(\Delta\mathcal{M}/\mathcal{M}\sim10^{-3}\) et 
-\(\Delta\eta/\eta\sim2\times10^{-3}\) 
+Pour la configuration considérée, on obtient
+\(\Delta\mathcal{M}/\mathcal{M}\sim10^{-3}\) et
+\(\Delta\eta/\eta\sim2\times10^{-3}\)
 (voir § « Détails opérationnels » pour la procédure numérique complète).
 
 \subsection{Références}
@@ -213,28 +213,28 @@ Pour la configuration considérée, on obtient
 
 \subsection{Limites et perspectives}
 \begin{itemize}
-  \item \textbf{Principales hypothèses}  
+  \item \textbf{Principales hypothèses}
     Phasing quadratique (IMRPhenomD), PSD simplifiée, absence de bruit de confusion galactique.
-  \item \textbf{Axes d’amélioration}  
+  \item \textbf{Axes d’amélioration}
     \begin{itemize}
-      \item Tester des phasings plus précis (PhenomX, calibrations numériquement ajustées).  
-      \item Intégrer le bruit de confusion galactique et des contributions astrophysiques additionnelles.  
+      \item Tester des phasings plus précis (PhenomX, calibrations numériquement ajustées).
+      \item Intégrer le bruit de confusion galactique et des contributions astrophysiques additionnelles.
       \item Étendre l’analyse à d’autres infrastructures (Einstein Telescope, Cosmic Explorer).
     \end{itemize}
 \end{itemize}
 
 \subsubsection*{Sensibilité minimale}
-Le seuil de détection de LISA est de l’ordre  
+Le seuil de détection de LISA est de l’ordre
 \[
   \Delta\varphi_{\min}\sim10^{-3}\,\mathrm{rad}.
 \]
-Nos déphasages calculés \(\mathcal{O}(10^{-3})\) rad se situent donc juste au seuil de détectabilité ;  
+Nos déphasages calculés \(\mathcal{O}(10^{-3})\) rad se situent donc juste au seuil de détectabilité ;
 tout effet plus faible exigerait un rapport signal-à-bruit plus élevé ou un réseau conjoint de détecteurs.
 
 \subsection{Conclusion conceptuelle}
 Pour un binaire de masse chirp \(\mathcal{M}=30\,M_{\odot}\), \(\eta=0.25\), à 1 Gpc et SNR = 20, on obtient :
 \[
-  \Delta\tau \sim 10^{-4}\!-\!10^{-2}\,\mathrm{s}, 
+  \Delta\tau \sim 10^{-4}\!-\!10^{-2}\,\mathrm{s},
   \quad
   \Delta\varphi \sim 10^{-3}\,\mathrm{rad},
   \quad

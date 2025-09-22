@@ -11,7 +11,7 @@ from typing import List, Tuple
 import numpy as np
 import pandas as pd
 
-def p95(a): 
+def p95(a):
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
     return float(np.percentile(a, 95.0)) if a.size else float("nan")

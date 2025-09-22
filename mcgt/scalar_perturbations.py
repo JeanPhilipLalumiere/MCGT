@@ -15,6 +15,7 @@ Remarques :
 - Les chemins et noms de fichiers doivent être en anglais côté I/O ; seul
   le contenu textuel (commentaires/docstrings) reste en français.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -35,6 +36,7 @@ __all__ = [
     "compute_delta_phi",
     "_default_params",
 ]
+
 
 # -----------------------------------------------------------------------------#
 # 1) Dataclass des paramètres
@@ -65,9 +67,9 @@ class PertParams:
     k_split: float
 
     # Dynamique Φ & gel progressif
-    a_eq: float              # facteur d’échelle à l’égalité rad−mat
-    freeze_scale: float      # ~1e5 (plus petit ⇒ gel plus doux)
-    Phi0: float              # Φ(k≈0, a≪a_eq)
+    a_eq: float  # facteur d’échelle à l’égalité rad−mat
+    freeze_scale: float  # ~1e5 (plus petit ⇒ gel plus doux)
+    Phi0: float  # Φ(k≈0, a≪a_eq)
 
     # Champs optionnels
     alpha: Optional[float] = None
@@ -153,7 +155,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
     cs2_a = PchipInterpolator(a_vals, cs2_a, extrapolate=True)(a_vals)
 
     # Filtre gaussien en k + amplitude globale
-    T = np.exp(-(K / p.k0) ** 2)
+    T = np.exp(-((K / p.k0) ** 2))
     cs2 = T * cs2_a[np.newaxis, :] * p.cs2_param
 
     # Contrôle physique strict
@@ -182,7 +184,7 @@ def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
     # potentiel métrique Φ(k,a)
     Phi0 = p.Phi0
     a_eq = p.a_eq
-    Phi = Phi0 * np.exp(-(k / p.k_split) ** 2) / (1.0 + (a / a_eq) ** 3)
+    Phi = Phi0 * np.exp(-((k / p.k_split) ** 2)) / (1.0 + (a / a_eq) ** 3)
 
     # source
     φ0 = float(phi0_of_a(a, p))
@@ -223,7 +225,7 @@ def compute_delta_phi(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> 
         # gel progressif continu (suppression des modes profonds sous-horizon)
         freeze = np.exp(-((k / a_min) / H_a_min) / p.freeze_scale)
 
-        init_amp = freeze * p.delta_phi_param * p.phi0_init * np.exp(-(k / p.k_split) ** 2)
+        init_amp = freeze * p.delta_phi_param * p.phi0_init * np.exp(-((k / p.k_split) ** 2))
 
         sol = integrate.solve_ivp(
             lambda aa, yy: _kg_eq(float(aa), yy, float(k), p),

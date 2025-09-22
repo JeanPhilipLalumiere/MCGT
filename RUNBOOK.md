@@ -269,7 +269,7 @@ MCGT/
 │  ├─ validate_json.py
 │  └─ validate_csv_table.py
 ├─ zz-data/
-│  ├─ chapter01/ ... 
+│  ├─ chapter01/ ...
 │  ├─ chapter09/
 │  │  ├─ 09_phases_imrphenom.csv
 │  │  ├─ 09_phases_imrphenom.meta.json
@@ -312,4 +312,3 @@ python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json --repo
 * Fichiers manquants parce que `chapter10` vs `chapitre10` → rester cohérent (anglais)
 * `p95_*` mélangé (linéaire/circulaire) → vérifier les suffixes (`_circ`, `_recalc`) et l’unité (radian)
 * `*.meta.json` incomplets (pas de `generated_at`/`git_hash`) → compléter avant remise
-

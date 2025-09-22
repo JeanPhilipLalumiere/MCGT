@@ -56,10 +56,10 @@ def generate_spec() -> None:
     """Génère un petit JSON descriptif du spectre primordial (méta)."""
     spec = {
         "label_eq": "eq:spec_prim",
-        "formule": "P_R(k; α) = A_s(α) k^{n_s(α)-1}",
+        "formula": "P_R(k; α) = A_s(α) k^{n_s(α)-1}",
         "description": "Spectre primordial modifié MCGT — paramètres de référence (Planck 2018).",
-        "constantes": {"A_s0": A_S0, "ns0": NS0},
-        "coefficients": {"c1": C1, "c2": C2},
+        "constants": {"A_s0": A_S0, "ns0": NS0},
+        "coefficients": {"c1": C1, "c2": C2, "c1_2": 0.0, "c2_2": 0.0},
     }
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with open(SPEC_FILE, "w", encoding="utf-8") as f:

@@ -203,7 +203,7 @@ def main():
     sub = df[cols].dropna().copy()
     x = sub[xcol].astype(float).values
     y = sub[ycol].astype(float).values
-    groups = sub[groupcol].values if groupcol else None
+    _groups = sub[groupcol].values if groupcol else None
 
     # Δφ circulaire
     dphi = circ_diff(x, y)

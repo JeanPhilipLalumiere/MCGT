@@ -492,4 +492,3 @@ Pour des validations supplémentaires :
 * Licence : à préciser (interne / publique) — voir fichier LICENSE.
 * Contact scientifique : responsable MCGT.
 * Contact technique : mainteneur des scripts / CI.
-

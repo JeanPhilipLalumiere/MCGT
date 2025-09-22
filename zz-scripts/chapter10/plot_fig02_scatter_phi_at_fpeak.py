@@ -104,6 +104,7 @@ def main():
     p.add_argument("--results", required=True, help="CSV contenant les colonnes de phases à f_peak")
     p.add_argument("--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis.")
     p.add_argument("--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis.")
+    p.add_argument("--sigma-col", default=None, help="Colonne sigma (erreurs sur X) optionnelle")
     p.add_argument("--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)")
     p.add_argument("--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")

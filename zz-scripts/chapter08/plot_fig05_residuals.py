@@ -3,7 +3,7 @@
 """
 zz-scripts/chapter08/plot_fig05_residuals.py
 
-Trace les résidus BAO et Pantheon+ : 
+Trace les résidus BAO et Pantheon+ :
   (a) ΔD_V = D_V^obs - D_V^th  avec barres d'erreur σ_DV
   (b) Δμ   = μ^obs   - μ^th    avec barres d'erreur σ_μ
 

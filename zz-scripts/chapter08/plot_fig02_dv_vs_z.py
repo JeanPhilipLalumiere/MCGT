@@ -21,9 +21,9 @@ def main():
 
     # --- Load BAO observations, theoretical curve and χ² scan ---
     # Filenames translated to English:
-    # 08_bao_data.csv        
-    # 08_dv_theory_z.csv         
-    # 08_chi2_total_vs_q0.csv 
+    # 08_bao_data.csv
+    # 08_dv_theory_z.csv
+    # 08_chi2_total_vs_q0.csv
     bao    = pd.read_csv(DATA_DIR / "08_bao_data.csv",    encoding="utf-8")
     theo   = pd.read_csv(DATA_DIR / "08_dv_theory_z.csv",  encoding="utf-8")
     chi2   = pd.read_csv(DATA_DIR / "08_chi2_total_vs_q0.csv", encoding="utf-8")

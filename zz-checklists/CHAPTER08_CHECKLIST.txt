@@ -169,4 +169,3 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
       python zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py  # etc.
 - [ ] LaTeX :
       pdflatex 08-couplage-sombre/08_couplage_sombre_conceptuel.tex ; pdflatex 08-couplage_sombre/08_couplage_sombre_details.tex
-

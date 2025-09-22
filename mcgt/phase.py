@@ -15,6 +15,7 @@ Fonctions exposées
 - corr_phase()           : correcteur analytique δφ(f) = ∫δt(f) df
 - solve_mcgt()           : phase MCGT = φ_GR − δφ
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -35,13 +36,13 @@ __all__ = [
 # ----------------------------------------------------------------------#
 @dataclass
 class PhaseParams:
-    m1: float              # masse primaire [M☉]
-    m2: float              # masse secondaire [M☉]
-    q0star: float          # amplitude du correcteur MCGT
-    alpha: float           # exposant α (param2)
-    phi0: float = 0.0      # phase initiale à fmin [rad]
-    tc: float = 0.0        # temps de coalescence t_c [s]
-    tol: float = 1e-8      # tolérance numérique
+    m1: float  # masse primaire [M☉]
+    m2: float  # masse secondaire [M☉]
+    q0star: float  # amplitude du correcteur MCGT
+    alpha: float  # exposant α (param2)
+    phi0: float = 0.0  # phase initiale à fmin [rad]
+    tc: float = 0.0  # temps de coalescence t_c [s]
+    tol: float = 1e-8  # tolérance numérique
 
 
 # ----------------------------------------------------------------------#
@@ -78,7 +79,7 @@ def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
 # ----------------------------------------------------------------------#
 _CPN = {
     0: 1.0,
-    2: (3715 / 756 + 55 / 9),         # coefficients simplifiés
+    2: (3715 / 756 + 55 / 9),  # coefficients simplifiés
     3: -16 * np.pi,
     4: (15293365 / 508032 + 27145 / 504 + 3085 / 72),
     5: np.pi * (38645 / 756 - 65 / 9) * (1 + 3 * np.log(np.pi)),
@@ -116,9 +117,9 @@ def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
         raise ValueError("La grille freqs doit être 1D et strictement croissante.")
 
     # Conversion masse solaire → secondes (G = c = 1)
-    M_s = (p.m1 + p.m2) * 4.925490947e-6     # masse totale (s)
+    M_s = (p.m1 + p.m2) * 4.925490947e-6  # masse totale (s)
     eta = _symmetric_eta(p.m1, p.m2)
-    v = (np.pi * M_s * freqs) ** (1 / 3)     # vitesse PN
+    v = (np.pi * M_s * freqs) ** (1 / 3)  # vitesse PN
 
     # Série PN
     series = np.zeros_like(freqs)

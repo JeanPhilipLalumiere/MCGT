@@ -107,58 +107,58 @@ Métadonnées : `09_jalons_comparaison.meta.json` (catalogue, règles d’incert
 3) SCRIPTS D’EXÉCUTION (dossier `zz-scripts/chapter09/`)
 --------------------------------------------------------
 
-- extract_phenom_phase.py  
-  Extrait la phase GR de référence (IMRPhenomD) sur la grille f_Hz.  
+- extract_phenom_phase.py
+  Extrait la phase GR de référence (IMRPhenomD) sur la grille f_Hz.
   Sorties : `09_phases_imrphenom.csv`, `09_phases_imrphenom.meta.json`.
 
-- generate_mcgt_raw_phase.py  (optionnel)  
-  Reconstruit φ_mcgt “brute” (avant correction) pour diagnostic.  
+- generate_mcgt_raw_phase.py  (optionnel)
+  Reconstruit φ_mcgt “brute” (avant correction) pour diagnostic.
   Sorties : `09_phases_mcgt_prepoly.csv` (colonnes `phi_mcgt_raw`, `phi_mcgt_cal` si calage dispo).
 
-- generate_data_chapter09.py  
-  Pipeline de base : produit la série **pré-correction** et le résidu standardisé.  
-  Entrées : `09_phases_imrphenom.csv`.  
+- generate_data_chapter09.py
+  Pipeline de base : produit la série **pré-correction** et le résidu standardisé.
+  Entrées : `09_phases_imrphenom.csv`.
   Sorties : `09_phases_mcgt_prepoly.csv`, `09_phase_diff.csv` (|Δφ|_principal).
 
-- apply_poly_unwrap_rebranch.py  
-  Applique le fit polynomiale, unwrap et rebranch (k) ; écrit la série finale.  
-  Entrées : `09_phases_mcgt_prepoly.csv`.  
+- apply_poly_unwrap_rebranch.py
+  Applique le fit polynomiale, unwrap et rebranch (k) ; écrit la série finale.
+  Entrées : `09_phases_mcgt_prepoly.csv`.
   Sorties : `09_phases_mcgt.csv`, mise à jour `09_metrics_phase.json`.
 
-- opt_poly_rebranch.py  
-  Recherche (base, degré, k) minimisant p95 (20–300 Hz) ; exporte les meilleurs paramètres.  
-  Entrées : `09_phases_mcgt_prepoly.csv`.  
+- opt_poly_rebranch.py
+  Recherche (base, degré, k) minimisant p95 (20–300 Hz) ; exporte les meilleurs paramètres.
+  Entrées : `09_phases_mcgt_prepoly.csv`.
   Sorties : `09_phases_mcgt.csv`, `09_best_params.json`, `09_metrics_phase.json`.
 
-- check_p95_methods.py  
+- check_p95_methods.py
   Contrôle méthodologique : compare p95 (raw/unwrap/principal), teste k±1, vérifie l’effet d’un ancrage visuel,
-  et peut mettre à jour les métriques.  
-  Sorties : `zz-figures/chapter09/p95_check_control.png`, logs.  
+  et peut mettre à jour les métriques.
+  Sorties : `zz-figures/chapter09/p95_check_control.png`, logs.
   (Peut aussi servir à **ré-écrire** `metrics_active` à partir du “principal” si demandé.)
 
-- plot_fig01_phase_overlay.py  
-  Superpose φ_ref & φ_mcgt (log-x) avec encart du résidu |Δφ| ; options d’ancrage visuel.  
-  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.  
+- plot_fig01_phase_overlay.py
+  Superpose φ_ref & φ_mcgt (log-x) avec encart du résidu |Δφ| ; options d’ancrage visuel.
+  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.
   Sorties : `fig_01_phase_overlay.png`.
 
-- plot_fig02_residual_phase.py  
-  Tracé |Δφ|_principal par bandes (20–300, 300–1000, 1000–2000 Hz) avec p95 par panneau.  
-  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.  
+- plot_fig02_residual_phase.py
+  Tracé |Δφ|_principal par bandes (20–300, 300–1000, 1000–2000 Hz) avec p95 par panneau.
+  Entrées : `09_phases_mcgt.csv`, `09_metrics_phase.json`.
   Sorties : `fig_02_residual_phase.png`.
 
-- plot_fig03_hist_absdphi_20_300.py  
-  Histogramme de |Δφ| (20–300 Hz), échelle log recommandée, lignes moyenne/médiane/p95/max.  
-  Entrées : `09_phase_diff.csv` (prioritaire) ou `09_phases_mcgt.csv`.  
+- plot_fig03_hist_absdphi_20_300.py
+  Histogramme de |Δφ| (20–300 Hz), échelle log recommandée, lignes moyenne/médiane/p95/max.
+  Entrées : `09_phase_diff.csv` (prioritaire) ou `09_phases_mcgt.csv`.
   Sorties : `fig_03_hist_absdphi_20_300.png`.
 
-- plot_fig04_absdphi_milestones_vs_f.py  
-  |Δφ|(f) aux jalons GWTC-3 avec barres d’erreur (±σ) et fond optionnel de résidu.  
-  Entrées : `09_jalons_comparaison.csv` (+ `09_phase_diff.csv` / `09_metrics_phase.json` facultatifs).  
+- plot_fig04_absdphi_milestones_vs_f.py
+  |Δφ|(f) aux jalons GWTC-3 avec barres d’erreur (±σ) et fond optionnel de résidu.
+  Entrées : `09_jalons_comparaison.csv` (+ `09_phase_diff.csv` / `09_metrics_phase.json` facultatifs).
   Sorties : `fig_04_absdphi_milestones_vs_f.png`.
 
-- plot_fig05_scatter_phi_at_fpeak.py  
-  Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) coloré par classe ; barres d’erreur ±σ.  
-  Entrées : `09_jalons_comparaison.csv`.  
+- plot_fig05_scatter_phi_at_fpeak.py
+  Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) coloré par classe ; barres d’erreur ±σ.
+  Entrées : `09_jalons_comparaison.csv`.
   Sorties : `fig_05_scatter_phi_at_fpeak.png`.
 
 
@@ -376,4 +376,3 @@ pdflatex -interaction=nonstopmode 09_phase_ondes_grav_details.tex
 - Mettre à jour `CHANGELOG.md` (entrée “Chapitre 9 – Première version”)
 - Créer un tag Git : `git tag -a v9.0 -m "Chapitre 9 – Phase et ondes gravitationnelles"`
 - Pousser le tag : `git push --tags`
-

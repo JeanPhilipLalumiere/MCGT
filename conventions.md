@@ -1,6 +1,6 @@
 # CONVENTION MCGT
 
-Version : 1.1 
+Version : 1.1
 Portée : ce document définit les **conventions de données, de métadonnées, d’unités, de nommage et de validation** applicables à l’ensemble des 10 chapitres MCGT (01–10). Il accompagne `zz-configuration/mcgt-global-config.ini` et les schémas dans `zz-schemas/`.
 
 ---
@@ -337,4 +337,3 @@ $$
 * Validation JSON seule : `make validate-json`
 * Validation CSV (tables) : `make validate-csv`
 * Rapport manifest : `make manifests-md`
-

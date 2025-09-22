@@ -15,12 +15,12 @@ Les données chiffrées, les tableaux et les tracés correspondants sont compil�
 Nous commençons par rappeler deux définitions-clés :
 
 \begin{itemize}
-  \item \textbf{Fonction de Hubble}  
+  \item \textbf{Fonction de Hubble}
     \[
       H(z) \;=\; H_0\,\sqrt{\Omega_m(1+z)^3 + \Omega_r(1+z)^4 + \Omega_\Lambda}\,.
     \]
     où \(\Omega_m\), \(\Omega_r\) et \(\Omega_\Lambda\) sont respectivement les densités réduites de matière, radiation et constante cosmologique, satisfaisant \(\Omega_m+\Omega_r+\Omega_\Lambda=1\).
-  \item \textbf{Scalaire de Ricci} en fonction du redshift  
+  \item \textbf{Scalaire de Ricci} en fonction du redshift
     \[
       R(z)
       =6\Bigl[2H^2(z)+(1+z)\,H(z)\,\frac{dH}{dz}\Bigr].
@@ -36,8 +36,8 @@ Nous définissons ensuite la quantité de référence
 
 À partir de ces définitions, l’extension considérée s’écrit sous la forme polynomiale :
 \[
-  f(R) \;=\; R 
-    \;+\; \frac{\beta}{2\,R_{0}}\,(R - R_{0})^{2} 
+  f(R) \;=\; R
+    \;+\; \frac{\beta}{2\,R_{0}}\,(R - R_{0})^{2}
     \;+\; \frac{\gamma}{3\,R_{0}^{2}}\,(R - R_{0})^{3}.
 \]
 
@@ -64,14 +64,14 @@ qui satisfont simultanément les contraintes CMB, solaires et assurent une robus
 \subsection{Dérivées et masse scalaire}
 On note
 \[
-  f_{R}(R) \;=\; \frac{d f}{dR}, 
+  f_{R}(R) \;=\; \frac{d f}{dR},
   \qquad
   f_{RR}(R) \;=\; \frac{d^{2} f}{dR^{2}},
 \]
 et l’on définit la masse scalaire associée par :
 \[
-  m_{s}^{2}(R) 
-  \;=\; 
+  m_{s}^{2}(R)
+  \;=\;
   \frac{\,f_{R}(R) \;-\; R\,f_{RR}(R)\,}{3\,f_{RR}(R)}.
 \]
 Ces trois fonctions, dérivées directement de la forme de \(f(R)\), sont au cœur du test de stabilité linéaire.
@@ -87,10 +87,10 @@ Sur toute la plage cosmologique d’intérêt \(0 \le z \le 1000\), on vérifie 
   \frac{m_{s}^{2}\bigl(R(z)\bigr)}{R_{0}} \;>\; 0.
 \]
 \begin{itemize}
-  \item \(f_{R}(R)>0\) garantit l’absence de ghost.  
-  \item \(f_{RR}(R)>0\) assure la convexité de \(f\).  
-  \item \(\dfrac{m_{s}^{2}(R)}{R_{0}}>0\) exclut les modes tachyoniques et correspond à la quantité tracée dans les figures (fig.~\ref{fig:ms2_vs_z}).  
-\end{itemize} 
+  \item \(f_{R}(R)>0\) garantit l’absence de ghost.
+  \item \(f_{RR}(R)>0\) assure la convexité de \(f\).
+  \item \(\dfrac{m_{s}^{2}(R)}{R_{0}}>0\) exclut les modes tachyoniques et correspond à la quantité tracée dans les figures (fig.~\ref{fig:ms2_vs_z}).
+\end{itemize}
 (voir Glossaire pour les définitions et unités de chaque terme).
 
 \subsection{Sources et domaine de stabilité}
@@ -109,16 +109,16 @@ Les données et scripts sources pour reproduire les tests de stabilité sont :
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.75\linewidth]{03-stabilite-fR/fig_01_stabilite_fR_domaine.png}
-  \caption{Domaine de stabilité linéaire de l’extension \(f(R)\) dans l’espace des paramètres \((\beta,\gamma)\), tracé en échelles logarithmiques.  
-    En vert, la région stable où \(f_R>0\), \(f_{RR}>0\) et \(m_s^2>0\) pour tous les redshifts clés; en rouge, la zone instable.  
-    La frontière critique (ligne pointillée) est extraite de \texttt{03\_stabilite\_fR\_frontiere.csv}.  
-    Le point bleu (\(\beta=10^{-6},\,\gamma=5\times10^{-9}\)) marque les paramètres de référence.  
+  \caption{Domaine de stabilité linéaire de l’extension \(f(R)\) dans l’espace des paramètres \((\beta,\gamma)\), tracé en échelles logarithmiques.
+    En vert, la région stable où \(f_R>0\), \(f_{RR}>0\) et \(m_s^2>0\) pour tous les redshifts clés; en rouge, la zone instable.
+    La frontière critique (ligne pointillée) est extraite de \texttt{03\_stabilite\_fR\_frontiere.csv}.
+    Le point bleu (\(\beta=10^{-6},\,\gamma=5\times10^{-9}\)) marque les paramètres de référence.
     Données issues de \texttt{03\_stabilite\_fR\_domaine.csv}.}
   \label{fig:stabilite_fR_domaine}
 \end{figure}
 
 \subsection{Conclusion conceptuelle}
-Les définitions de \(f(R)\), de ses dérivées \(f_{R}\), \(f_{RR}\) et de la masse scalaire \(m_{s}^{2}\), ainsi que les trois conditions de positivité, suffisent à poser le test de stabilité linéaire de l’extension $f(R)$.  
+Les définitions de \(f(R)\), de ses dérivées \(f_{R}\), \(f_{RR}\) et de la masse scalaire \(m_{s}^{2}\), ainsi que les trois conditions de positivité, suffisent à poser le test de stabilité linéaire de l’extension $f(R)$.
 Pour visualiser les résultats numériques détaillés, les tableaux complets et les tracés, se reporter à :
 \[
   \texttt{03\_stabilite\_fR\_details.tex}.

@@ -1,11 +1,11 @@
 # Exigences pour le Chapitre 5 (Nucléosynthèse primordiale)
 
 1. **Environnement système**
-   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
-   * Espace disque : ≥ 500 Mo libre  
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux
+   * Espace disque : ≥ 500 Mo libre
 
 2. **Environnement Python**
-   * Python ≥ 3.9  
+   * Python ≥ 3.9
    * Créer et activer un environnement virtuel spécifique :
      ```
      cd ~/MCGT
@@ -19,13 +19,13 @@
      ```
 
 3. **Données brutes & scripts d’extraction**
-   * **Jalons BBN**  
-     – Fichier cible : `zz-data/chapter05/05_nucleosynthesis_milestones.csv`  
-     – Extraction depuis sources Observations D/H & Yₚ via :  
-       `zz-scripts/chapter05/utils/extract_bbn_milestones.py`  
-   * **χ² vs T**  
-     – Fichier cible : `zz-data/chapter05/05_chi2_nucleosynthesis_vs_T.csv`  
-     – Calcul / export par :  
+   * **Jalons BBN**
+     – Fichier cible : `zz-data/chapter05/05_nucleosynthesis_milestones.csv`
+     – Extraction depuis sources Observations D/H & Yₚ via :
+       `zz-scripts/chapter05/utils/extract_bbn_milestones.py`
+   * **χ² vs T**
+     – Fichier cible : `zz-data/chapter05/05_chi2_nucleosynthesis_vs_T.csv`
+     – Calcul / export par :
        `zz-scripts/chapter05/utils/extract_chi2_nucleosynthesis.py`
 
 4. **Structure du dépôt**
@@ -78,4 +78,3 @@ MCGT/
    * S’assurer qu’il n’y a pas de `NaN` ni `Inf` dans les CSV
    * `max_epsilon_primary` < 0.01 et `max_epsilon_order2` < 0.10 dans `05_nucleosynthesis_params.json`
    * Ouvrir chaque figure PNG dans `zz-figures/chapter05/` pour un contrôle visuel
-

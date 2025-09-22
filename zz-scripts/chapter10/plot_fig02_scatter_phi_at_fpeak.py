@@ -13,6 +13,7 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 
 Exemple d’usage (recommandé) à la fin du fichier.
 """
+
 from __future__ import annotations
 import argparse
 import numpy as np
@@ -100,33 +101,19 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    p.add_argument(
-        "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
-    )
-    p.add_argument(
-        "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
-    )
-    p.add_argument(
-        "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
-    )
-    p.add_argument(
-        "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
-    )
-    p.add_argument(
-        "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
-    )
+    p.add_argument("--results", required=True, help="CSV contenant les colonnes de phases à f_peak")
+    p.add_argument("--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis.")
+    p.add_argument("--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis.")
+    p.add_argument("--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)")
+    p.add_argument("--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
         "--title",
         default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
         help="Titre de la figure (fontsize=15)",
     )
-    p.add_argument(
-        "--point-size", type=float, default=12.0, help="Taille des points du scatter"
-    )
-    p.add_argument(
-        "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
-    )
+    p.add_argument("--point-size", type=float, default=12.0, help="Taille des points du scatter")
+    p.add_argument("--alpha", type=float, default=0.7, help="Alpha des points du scatter")
     p.add_argument("--cmap", default="viridis", help="Colormap pour |Δφ|")
 
     # options de clipping / échelle
@@ -149,15 +136,9 @@ def main():
     )
 
     # HEXBIN
-    p.add_argument(
-        "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
-    )
-    p.add_argument(
-        "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
-    )
-    p.add_argument(
-        "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
-    )
+    p.add_argument("--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité).")
+    p.add_argument("--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité).")
+    p.add_argument("--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond.")
 
     # Colorbar ticks π/4
     p.add_argument(
@@ -221,9 +202,7 @@ def main():
     cmean = circ_mean_rad(dphi)
     cstd = circ_std_rad(dphi)
     if args.boot_ci > 0:
-        cmean_hat, ci_lo, ci_hi = bootstrap_circ_mean_ci(
-            dphi, B=args.boot_ci, seed=args.seed
-        )
+        cmean_hat, ci_lo, ci_hi = bootstrap_circ_mean_ci(dphi, B=args.boot_ci, seed=args.seed)
     else:
         cmean_hat, ci_lo, ci_hi = cmean, cmean, cmean
 

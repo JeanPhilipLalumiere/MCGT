@@ -2,11 +2,11 @@
 # Exigences pour le Chapitre 3 (Stabilité de f(R))
 
 1. **Environnement système**
-   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
-   * Espace disque : ≥ 200 Mo libre  
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux
+   * Espace disque : ≥ 200 Mo libre
 
 2. **Environnement Python**
-   * Python ≥ 3.9  
+   * Python ≥ 3.9
    * Créer et activer un environnement virtuel dédié :
      ```bash
      cd ~/MCGT
@@ -20,12 +20,12 @@
      ```
 
 3. **Données brutes & scripts d’extraction**
-   * **Fichiers jalons et grille**  
-     - `zz-data/chapter03/03_ricci_fR_milestones.csv`  
-       • Colonnes :  
-         • `R_over_R0` : rapport R/R₀ (—)  
-         • `f_R`        : f′(R)       (—)  
-         • `f_RR`       : f″(R)       (—)  
+   * **Fichiers jalons et grille**
+     - `zz-data/chapter03/03_ricci_fR_milestones.csv`
+       • Colonnes :
+         • `R_over_R0` : rapport R/R₀ (—)
+         • `f_R`        : f′(R)       (—)
+         • `f_RR`       : f″(R)       (—)
      * Aucun autre fichier brut n’est requis. *
 
 4. **Structure du dépôt**

@@ -137,4 +137,3 @@ Introduction & applications (MCGT)
 11. Compilation LaTeX
    pdflatex -jobname=chap1_conceptuel 01-introduction-applications/01_introduction_conceptuel.tex
    pdflatex -jobname=chap1_applications 01-introduction-applications/01_applications_calibration_conceptuel.tex
-

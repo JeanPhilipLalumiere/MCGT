@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig02_scatter_phi_at_fpeak.py
+plot_fig02_scatter_phi_at_fpeak
 
 Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 - Différence circulaire Δφ = wrap(φ_MCGT - φ_ref) dans [-π, π)

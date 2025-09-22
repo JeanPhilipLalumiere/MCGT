@@ -1,7 +1,0 @@
-T_Gyr,DH_obs,sigma_DH,Yp_obs,sigma_Yp,source
-1e-15,2.55e-05,2.55e-07,0.247,0.00247,BBN théorique
-2.0,2.53e-05,3e-07,0.247,0.00247,Observation DH z~2.5
-2.1,2.53e-05,4e-07,0.247,0.00247,Pettini & Cooke 2012
-2.61,2.53e-05,4.1e-06,0.247,0.00247,Zavarygin et al. 2018
-13.8,2.55e-05,2.55e-07,0.2551,0.0022,Izotov et al. 2014
-2.0,2.53e-05,1.265e-06,0.245,0.01225,Test order2 (σ≈5%)

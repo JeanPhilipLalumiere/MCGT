@@ -1,88 +1,67 @@
-# Python / virtualenvs / build
-.venv/
-venv/
-env/
-.venv-wheel-test/
-build/
-dist/
-*.egg-info/
-
-# Byte-compiled / cache
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Tests / tooling
-.pytest_cache/
-.coverage
-.tox/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-
-# OS
-.DS_Store
-Thumbs.db
-
-# local editor / misc
-*.log
-# Virtualenvs / envs
+# === Virtualenvs / build artefacts ===
+# Virtualenv folders
 .venv/
 .venv-*/
 venv/
 env/
 .Python
 
-# Python cache / build artefacts
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Build / distribution
 build/
 dist/
-
-# wheel / site-packages test env
+*.egg-info/
 .venv-wheel-test/
 
-# local figures preview
-zz-figures/
+# === Python bytecode / caches ===
+__pycache__/
+*.py[cod]
+*.pyo
 
-# Track tests directory
-!tests/
-
-# === Caches & artefacts locaux ===
-**/__pycache__/
-**/.pytest_cache/
-**/.ipynb_checkpoints/
+# Tool caches
 .ruff_cache/
 .mypy_cache/
 .pytype/
 .cache/
-build/
-dist/
-*.egg-info/
+.pytest_cache/
 
-# === Bytecode / compiled ===
-*.py[cod]
-*.so
-
-# === Couverture & tests ===
+# === Tests / coverage ===
+# Keep the test directory tracked (explicit allow)
+!.github/
+!tests/
 .coverage
 .coverage.*
 coverage.xml
 htmlcov/
 
-# === Logs & temporaires ===
+# === Editor / IDE files ===
+.vscode/
+.idea/
+*.swp
+
+# === OS / system files ===
+.DS_Store
+Thumbs.db
+
+# === Jupyter ===
+.ipynb_checkpoints/
+
+# === Logs & temporary files ===
 *.log
 *.tmp
 
-# === Backups & poubelles (legacy) ===
+# === Backups & miscellaneous ===
 *.bak
 zz-trash/
 
-# === Figures locales (préviews) ===
+# === Local preview / generated figures (not part of publication) ===
+# Keep local figures previews out of git (representative figures for publication
+# should be placed in zz-figures/ and added intentionally).
 zz-figures/
+
+# === Misc binary / compiled ===
+*.so
+
+# === Allowlist notes (examples) ===
+# If you want to keep some generated files or data in the repo, add
+# explicit allow rules like:
+# !zz-figures/chapter09/fig_01_phase_overlay.png

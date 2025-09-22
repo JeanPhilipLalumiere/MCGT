@@ -5,6 +5,9 @@ on:
     branches: [ main, repair/** ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,31 +28,15 @@ jobs:
           chmod +x zz-schemas/validate_all.sh
           ./zz-schemas/validate_all.sh
 
-      - name: PyTests
+      - name: PyTests (tolerant s'il n'y en a pas)
         run: pytest -q || pytest -q -k ""
 
-      # Limite le lint aux zones actives du PR pour éviter les 200+ warnings legacy
-      - name: Ruff (limited scope)
+      - name: Ruff (scope réduit)
         run: |
           ruff check \
-            mcgt \
-            zz-scripts/chapter02/primordial_spectrum.py \
-            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
-            --select E,F --fix
-          ruff format \
             mcgt \
             zz-scripts/chapter02/primordial_spectrum.py \
             zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
-      - name: PyTests
-        run: pytest -q || pytest -q -k ""
-
-      - name: Ruff (limited scope)
-        run: |
-          ruff check \
-            mcgt \
-            zz-scripts/chapter02/primordial_spectrum.py \
-            zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
-            --select E,F --fix
           ruff format \
             mcgt \
             zz-scripts/chapter02/primordial_spectrum.py \

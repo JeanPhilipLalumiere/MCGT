@@ -53,3 +53,36 @@ zz-figures/
 
 # Track tests directory
 !tests/
+
+# === Caches & artefacts locaux ===
+**/__pycache__/
+**/.pytest_cache/
+**/.ipynb_checkpoints/
+.ruff_cache/
+.mypy_cache/
+.pytype/
+.cache/
+build/
+dist/
+*.egg-info/
+
+# === Bytecode / compiled ===
+*.py[cod]
+*.so
+
+# === Couverture & tests ===
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# === Logs & temporaires ===
+*.log
+*.tmp
+
+# === Backups & poubelles (legacy) ===
+*.bak
+zz-trash/
+
+# === Figures locales (préviews) ===
+zz-figures/

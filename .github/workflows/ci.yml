@@ -31,5 +31,5 @@ jobs:
       - name: Run tests
         run: pytest -q || pytest -q -k ""
 
-      - name: Pre-commit (repo-wide)
+      - name: pre-commit (repo-wide)
         run: pre-commit run --all-files --show-diff-on-failure

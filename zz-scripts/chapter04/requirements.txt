@@ -1,11 +1,11 @@
 # Exigences pour le Chapitre 4 (Invariants adimensionnels)
 
 1. **Environnement système**
-   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux
    * Espace disque : ≥ 200 Mo libre
 
 2. **Environnement Python**
-   * Python ≥ 3.9  
+   * Python ≥ 3.9
    * Créer et activer un environnement virtuel spécifique :
      ```bash
      cd ~/MCGT
@@ -19,14 +19,14 @@
      ```
 
 3. **Données brutes & scripts d’extraction**
-   * **P(T) brut**  
-     – Fichier : `zz-data/chapter04/04_P_vs_T.dat`  
+   * **P(T) brut**
+     – Fichier : `zz-data/chapter04/04_P_vs_T.dat`
      – Chargement et parsing par : `zz-scripts/chapter04/integrate_dimensionless_invariants.py`
-   * **R/R₀ vs T**  
-     – Fichier : `zz-data/chapter03/03_r_over_r0.csv`  
+   * **R/R₀ vs T**
+     – Fichier : `zz-data/chapter03/03_r_over_r0.csv`
      – Chargement et interpolation par le même script d’intégration
-   * **f_R exact vs R/R₀**  
-     – Fichier : `zz-data/chapter03/03_ricci_fR_exact.csv`  
+   * **f_R exact vs R/R₀**
+     – Fichier : `zz-data/chapter03/03_ricci_fR_exact.csv`
      – Chargement et interpolation lin–lin (ou log–log selon précision souhaitée)
 
 4. **Structure du dépôt**
@@ -102,5 +102,3 @@ MCGT/
    * Les noms de fichiers et répertoires doivent rester cohérents (utiliser `chapter04` et non `chapter4`).
    * Lorsque des CSV sont produits par des scripts antérieurs (chapitre 03), vérifier leur compatibilité de colonnes avant d’exécuter l’intégration.
    * Si le pipeline est exécuté dans un environnement CI (GitHub Actions / GitLab CI), veiller à installer `venv4` et copier les jeux de données requis dans le workspace avant d’exécuter les scripts.
-
-

@@ -288,4 +288,3 @@ Constantes et tolérances clés :
 Notes :
   • Tous les chemins sont relatifs à la racine du projet.
   • Vérifier la présence des dépendances Python et l’accès aux fichiers INI/JSON.
-

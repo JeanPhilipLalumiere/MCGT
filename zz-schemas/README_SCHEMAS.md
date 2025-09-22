@@ -213,6 +213,3 @@ J. CONTACT ET JOURNAL DES MODIFICATIONS
 • Politique de mise à jour : incrémenter « schema\_version » dans validation\_globals.json lors de changements de règles canoniques ; en cas de modification de structure d’une instance JSON, incrémenter le « $id » du schéma correspondant et consigner le changement dans zz-manifests/manifest\_report.md.
 
 End of README\_SCHEMAS.md
-
-
-

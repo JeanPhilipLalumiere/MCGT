@@ -73,7 +73,7 @@ draw_arrow(
     y_off=-DY/8
 )
 
-# 3) script 
+# 3) script
 draw_arrow(
     east_center(*blocks["scr"][:2]),
     west_center(*blocks["fig"][:2]),

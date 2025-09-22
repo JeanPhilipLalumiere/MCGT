@@ -24,12 +24,14 @@ _have_lal = False
 _have_filelock = False
 try:
     from filelock import FileLock
+
     _have_filelock = True
 except Exception:
     FileLock = None
 
 try:
     from pycbc.waveform import get_fd_waveform
+
     _have_pyc = True
 except Exception:
     _have_pyc = False
@@ -37,6 +39,7 @@ except Exception:
 try:
     import lal
     import lalsimulation as lalsim
+
     _have_lal = True
 except Exception:
     _have_lal = False
@@ -164,7 +167,9 @@ def _acquire_lock(path: str, timeout: float = LOCK_TIMEOUT):
 
 
 # ------------------------- Backends de calcul ------------------------- #
-def _phi_ref_via_pyc(f_Hz: np.ndarray, m1: float, m2: float, approximant: str = "IMRPhenomD") -> np.ndarray:
+def _phi_ref_via_pyc(
+    f_Hz: np.ndarray, m1: float, m2: float, approximant: str = "IMRPhenomD"
+) -> np.ndarray:
     """Calcul via PyCBC/get_fd_waveform. Retourne la phase (radians) sur f_Hz."""
     if not _have_pyc:
         raise RuntimeError("PyCBC indisponible")
@@ -202,7 +207,9 @@ def _phi_ref_via_pyc(f_Hz: np.ndarray, m1: float, m2: float, approximant: str = 
         try:
             f_src = np.asarray(hp.sample_frequencies(), dtype=np.float64)
         except Exception:
-            raise RuntimeError("REF_COMPUTE_FAIL: impossible d'extraire sample_frequencies de PyCBC waveform")
+            raise RuntimeError(
+                "REF_COMPUTE_FAIL: impossible d'extraire sample_frequencies de PyCBC waveform"
+            )
 
     data = np.asarray(hp.data, dtype=np.complex128)
     phase_src = np.unwrap(np.angle(data))
@@ -210,7 +217,9 @@ def _phi_ref_via_pyc(f_Hz: np.ndarray, m1: float, m2: float, approximant: str = 
     return phi_on_grid
 
 
-def _phi_ref_via_lalsim(f_Hz: np.ndarray, m1: float, m2: float, approximant: str = "IMRPhenomD") -> np.ndarray:
+def _phi_ref_via_lalsim(
+    f_Hz: np.ndarray, m1: float, m2: float, approximant: str = "IMRPhenomD"
+) -> np.ndarray:
     """Calcul via LALSimulation (API indicative ; peut nécessiter adaptation selon version)."""
     if not _have_lal:
         raise RuntimeError("LALSuite/lalsimulation indisponible")
@@ -227,11 +236,18 @@ def _phi_ref_via_lalsim(f_Hz: np.ndarray, m1: float, m2: float, approximant: str
 
         # NB : Interface indicative — peut varier suivant la version.
         hp_fd = lalsim.SimInspiralChooseFDWaveform(
-            m1_si, m2_si,
-            0.0, 0.0, 0.0,   # spins
-            0.0, 1.0, 1.0,   # orientation/distance placeholders
-            f_Hz[0], f_Hz[-1],
-            0.0, approx_enum
+            m1_si,
+            m2_si,
+            0.0,
+            0.0,
+            0.0,  # spins
+            0.0,
+            1.0,
+            1.0,  # orientation/distance placeholders
+            f_Hz[0],
+            f_Hz[-1],
+            0.0,
+            approx_enum,
         )
         # Extraction (indicative) — adapter si nécessaire
         f_src = np.arange(len(hp_fd.data), dtype=float)
@@ -351,7 +367,9 @@ def compute_phi_ref(
 
         # Écriture cache disque + LRU mémoire
         try:
-            _atomic_write_npz(cache_path, {"phi_on_grid": np.asarray(phi_on_grid, dtype=np.float64)})
+            _atomic_write_npz(
+                cache_path, {"phi_on_grid": np.asarray(phi_on_grid, dtype=np.float64)}
+            )
             _evict_cache_if_needed(cache_dir=cache_dir, quota_bytes=CACHE_DISK_QUOTA_BYTES)
         except Exception as e:
             logger.warning("Écriture cache disque impossible (%s) : %s", cache_path, e)
@@ -403,7 +421,9 @@ def ref_cache_info(cache_dir: Optional[str] = None) -> dict:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Test rapide du backend φ_ref (PyCBC/LALSuite) et cache.")
+    parser = argparse.ArgumentParser(
+        description="Test rapide du backend φ_ref (PyCBC/LALSuite) et cache."
+    )
     parser.add_argument("--fmin", type=float, default=10.0)
     parser.add_argument("--fmax", type=float, default=2041.7379)
     parser.add_argument("--dlog10", type=float, default=0.01)
@@ -418,7 +438,14 @@ if __name__ == "__main__":
     fgrid = np.logspace(np.log10(args.fmin), np.log10(args.fmax), n)
     logger.info("Test compute_phi_ref: grille %d points, m1=%s m2=%s", fgrid.size, args.m1, args.m2)
     try:
-        phi = compute_phi_ref(fgrid, args.m1, args.m2, approximant=args.approximant, cache_dir=args.cache_dir)
-        logger.info("Phase calculée, %d points (min/max) = (%g, %g)", phi.size, float(np.min(phi)), float(np.max(phi)))
+        phi = compute_phi_ref(
+            fgrid, args.m1, args.m2, approximant=args.approximant, cache_dir=args.cache_dir
+        )
+        logger.info(
+            "Phase calculée, %d points (min/max) = (%g, %g)",
+            phi.size,
+            float(np.min(phi)),
+            float(np.max(phi)),
+        )
     except Exception as e:
         logger.exception("Échec compute_phi_ref (test) : %s", e)

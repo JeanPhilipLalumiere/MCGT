@@ -3,18 +3,18 @@
 \subsection{Données essentielles et workflow global}
 Le test CMB du MCGT repose sur les éléments suivants :
 \begin{itemize}
-  \item \texttt{06-rayonnement-cmb/06\_hubble\_mcgt.dat} : table des rapports 
+  \item \texttt{06-rayonnement-cmb/06\_hubble\_mcgt.dat} : table des rapports
         \(\{z,\;H_{MCGT}(z)/H_{\Lambda\mathrm{CDM}}(z)\}\).
-  \item \texttt{06-rayonnement-cmb/06\_cls\_lcdm\_spectre.dat} : spectre angulaire 
+  \item \texttt{06-rayonnement-cmb/06\_cls\_lcdm\_spectre.dat} : spectre angulaire
         \(\{\ell,\;C_{\ell}^{\Lambda\mathrm{CDM}}\}\).
-  \item \texttt{06-rayonnement-cmb/06\_cls\_spectre.dat} : spectre angulaire 
+  \item \texttt{06-rayonnement-cmb/06\_cls\_spectre.dat} : spectre angulaire
         \(\{\ell,\;C_{\ell}^{MCGT}\}\).
   \item \texttt{06-rayonnement-cmb/06\_delta\_rs\_scan.csv} : scan paramétrique des écarts acoustiques \(\Delta r_{s}/r_{s}\).
   \item \texttt{06-rayonnement-cmb/06\_delta\_rs\_scan\_complet.csv} : scan unidimensionnel des écarts \(\Delta r_{s}/r_{s}\) par variation de \(\alpha_{1}\), \(T_{c}\) ou \(\Delta\).
   \item \texttt{06-rayonnement-cmb/06\_cmb\_resultats\_complets.csv} : synthèse finale des métriques CMB (écarts acoustiques, résidus spectre, positions des pics, \(\Delta\chi^2_{\rm Planck}\)).
   \item \texttt{06-rayonnement-cmb/06\_cmb\_resultats\_scan\_chi2.csv} : scan paramétrique de \(\Delta\chi^2_{\mathrm{Planck}}\) pour chaque configuration \((\alpha_{1},T_{c},\Delta)\).
   \item \texttt{06-rayonnement-cmb/06\_planck\_likelihood.ini} : configuration CAMB (likelihood Planck TT/TE/EE/lensing).
-  \item \texttt{13-scripts-annexes/13\_generer\_spectres\_cmb.py} : script d’appel de CAMB pour générer les spectres 
+  \item \texttt{13-scripts-annexes/13\_generer\_spectres\_cmb.py} : script d’appel de CAMB pour générer les spectres
         \texttt{06-rayonnement-cmb/06\_cls\_lcdm\_spectre.dat} et \texttt{06-rayonnement-cmb/06\_cls\_spectre.dat}.
   \item \texttt{13-scripts-annexes/13\_executer\_cmb\_complet.py} : orchestre l’ensemble du pipeline CMB, de la lecture des données à la production de \texttt{06\_cmb\_resultats\_complets.csv}.
 \end{itemize}
@@ -31,11 +31,11 @@ Cette figure illustre les différentes étapes automatisées du pipeline CMB sou
 \subsection{Figures clés et renvoi}
 
 \begin{itemize}
-  \item \texttt{fig\_02\_cls\_lcdm\_vs\_mcgt.png}  
+  \item \texttt{fig\_02\_cls\_lcdm\_vs\_mcgt.png}
         superposition des spectres CMB \(\Lambda\)CDM (gris) et MCGT (bleu) pour \(\ell \le 2500\).
-  \item \texttt{fig\_03\_delta\_cls\_rel.png}  
+  \item \texttt{fig\_03\_delta\_cls\_rel.png}
         tracé de \(\Delta C_{\ell}/C_{\ell}\) en fonction de \(\ell\) (jusqu’à \(\ell=2500\)).
-  \item \texttt{fig\_04\_delta\_rs\_vs\_params.png}  
+  \item \texttt{fig\_04\_delta\_rs\_vs\_params.png}
         déviation \(\Delta r_{s}/r_{s}\) selon \((\alpha_{1},T_{c},\Delta)\).
 \end{itemize}
 

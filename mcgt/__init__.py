@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 # mcgt/__init__.py
 # -----------------------------------------------------------------------------
 """
@@ -11,6 +12,7 @@ Ce fichier expose :
 
 But : rester non-intrusif (pas d'I/O obligatoire à l'import).
 """
+
 from __future__ import annotations
 
 __all__ = [
@@ -27,6 +29,7 @@ __version__ = "0.1.1"  # bump mineur après refactor des noms de fichiers
 
 # --- logging minimal ---
 import logging
+
 logger = logging.getLogger("mcgt")
 if not logger.handlers:
     handler = logging.NullHandler()
@@ -108,6 +111,7 @@ def list_backends(package: str = "mcgt.backends") -> List[str]:
         return []
     return [name for _, name, _ in pkgutil.iter_modules(mod.__path__)]
 
+
 # --- lazy imports pour commodité ---
 def _lazy_import(name: str):
     try:
@@ -159,7 +163,7 @@ if _pkg_version:
 # --- helper CLI léger ---
 def print_summary():
     """Affiche un résumé utile pour debug / CI."""
-    cfg = get_config()
+    _ = get_config()
     n_back = len(list_backends())
     print(f"MCGT package version: {__version__}")
     print(f"Config file: {find_config_path() or '<none>'}")

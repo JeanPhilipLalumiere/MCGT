@@ -50,3 +50,6 @@ dist/
 
 # local figures preview
 zz-figures/
+
+# Track tests directory
+!tests/

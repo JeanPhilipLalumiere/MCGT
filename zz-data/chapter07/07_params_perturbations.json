@@ -1,17 +1,11 @@
 {
-  "cs2_param": 0,
-  "delta_phi_param": 0,
-  "k_min": 0,
-  "k_max": 0,
-  "dlog": 0,
-  "n_k": [],
-  "a_min": 0,
-  "a_max": 0,
-  "n_a": [],
-  "derivative_window": [],
-  "derivative_polyorder": [],
-  "thresholds": {},
-  "x_split": 0,
-  "k0": 0,
-  "alpha": 0
+  "n_a": 64,
+  "n_k": 128,
+  "k_max": 0.5,
+  "derivative_window": 5,
+  "derivative_polyorder": 3,
+  "thresholds": {
+    "primary": 0.1,
+    "order2": 0.05
+  }
 }

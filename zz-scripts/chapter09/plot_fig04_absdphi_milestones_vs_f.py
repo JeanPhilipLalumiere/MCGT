@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-fig_04 – Validation par jalons : |Δφ|(f) + points aux f_peak par classe (publication)
+fig_04 – Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
 
 Entrées:
   - (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi
   - (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ...
   - (--meta) 09_metrics_phase.json (optionnel) pour lire le calage phi0, tc (enabled)
-  - (--jalons, requis) 09_comparison_milestones.csv :
+  - (--milestones, requis) 09_comparison_milestones.csv :
         event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,obs_phase,sigma_phase,epsilon_rel,classe
 
 Sortie:
   - PNG unique (et optionnellement PDF/SVG si tu veux étendre)
 
 Points clés corrigés:
-  * Les JALONS sont calculés en **différence principale** modulo 2π, PAS abs(diff) brute.
-  * On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux jalons (et au fond s'il
+  * Les MILESTONES sont calculés en **différence principale** modulo 2π, PAS abs(diff) brute.
+  * On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
     est reconstruit depuis --csv) pour cohérence scientifique.
   * Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
     sous 1e-12.
 
 Exemple:
-  python tracer_fig04_jalons_absdphi_vs_f.py \
+  python tracer_fig04_milestones_absdphi_vs_f.py \
     --diff zz-data/chapter09/09_phase_diff.csv \
     --csv  zz-data/chapter09/09_phases_mcgt.csv \
     --meta zz-data/chapter09/09_metrics_phase.json \
-    --jalons zz-data/chapter09/09_comparison_milestones.csv \
-    --out  zz-figures/chapter09/fig_04_jalons_absdphi_vs_f.png \
+    --milestones zz-data/chapter09/09_comparison_milestones.csv \
+    --out  zz-figures/chapter09/fig_04_milestones_absdphi_vs_f.png \
     --window 20 300 --with_errorbar --dpi 300 --log-level INFO
 """
 
@@ -36,11 +36,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-DEF_DIFF   = Path("zz-data/chapter09/09_phase_diff.csv")
-DEF_CSV    = Path("zz-data/chapter09/09_phases_mcgt.csv")
-DEF_META   = Path("zz-data/chapter09/09_metrics_phase.json")
-DEF_JALONS = Path("zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT    = Path("zz-figures/chapter09/fig_04_jalons_absdphi_vs_f.png")
+DEF_DIFF       = Path("zz-data/chapter09/09_phase_diff.csv")
+DEF_CSV        = Path("zz-data/chapter09/09_phases_mcgt.csv")
+DEF_META       = Path("zz-data/chapter09/09_metrics_phase.json")
+DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
+DEF_OUT        = Path("zz-figures/chapter09/fig_04_milestones_absdphi_vs_f.png")
 
 
 # ---------------- utilitaires ----------------
@@ -113,12 +113,12 @@ def pick_variant(df: pd.DataFrame) -> str:
 # ---------------- CLI ----------------
 
 def parse_args():
-    ap = argparse.ArgumentParser(description="fig_04 – |Δφ|(f) + jalons (principal, calage cohérent)")
-    ap.add_argument("--diff",   type=Path, default=DEF_DIFF,   help="CSV fond (f_Hz, abs_dphi). Prioritaire si présent.")
-    ap.add_argument("--csv",    type=Path, default=DEF_CSV,    help="CSV phases (fallback si --diff absent).")
-    ap.add_argument("--meta",   type=Path, default=DEF_META,   help="JSON méta (pour calage).")
-    ap.add_argument("--jalons", type=Path, default=DEF_JALONS, help="CSV jalons (requis).")
-    ap.add_argument("--out",    type=Path, default=DEF_OUT,    help="PNG de sortie.")
+    ap = argparse.ArgumentParser(description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)")
+    ap.add_argument("--diff",       type=Path, default=DEF_DIFF,   help="CSV fond (f_Hz, abs_dphi). Prioritaire si présent.")
+    ap.add_argument("--csv",        type=Path, default=DEF_CSV,    help="CSV phases (fallback si --diff absent).")
+    ap.add_argument("--meta",       type=Path, default=DEF_META,   help="JSON méta (pour calage).")
+    ap.add_argument("--milestones", type=Path, default=DEF_MILESTONES, help="CSV milestones (requis).")
+    ap.add_argument("--out",        type=Path, default=DEF_OUT,    help="PNG de sortie.")
     ap.add_argument("--log-level", choices=["DEBUG","INFO","WARNING","ERROR"], default="INFO")
 
     ap.add_argument("--window", nargs=2, type=float, default=[20.0, 300.0],
@@ -129,9 +129,9 @@ def parse_args():
                     help="Limites Y (log). Auto sinon.")
 
     ap.add_argument("--with_errorbar", action="store_true", help="Afficher ±σ si disponible.")
-    ap.add_argument("--show_autres", action="store_true", help="Afficher les jalons 'autres'.")
+    ap.add_argument("--show_autres", action="store_true", help="Afficher les milestones 'autres'.")
     ap.add_argument("--apply-calibration", choices=["auto","on","off"], default="auto",
-                    help="Appliquer (phi0, tc) aux jalons et au fond si reconstruit. 'auto' => selon meta.enabled.")
+                    help="Appliquer (phi0, tc) aux milestones et au fond si reconstruit. 'auto' => selon meta.enabled.")
     ap.add_argument("--dpi", type=int, default=300)
     return ap.parse_args()
 
@@ -155,17 +155,17 @@ def main():
 
     fmin_shade, fmax_shade = sorted(map(float, args.window))
 
-    # --- JALONS (requis)
-    if not args.jalons.exists():
-        raise SystemExit(f"Fichier jalons introuvable: {args.jalons}")
-    J = pd.read_csv(args.jalons)
+    # --- MILESTONES (requis)
+    if not args.milestones.exists():
+        raise SystemExit(f"Fichier milestones introuvable: {args.milestones}")
+    M = pd.read_csv(args.milestones)
     need = {"event","f_Hz","phi_mcgt_at_fpeak","obs_phase"}
-    if not need.issubset(J.columns):
-        raise SystemExit(f"{args.jalons} doit contenir {need}")
+    if not need.issubset(M.columns):
+        raise SystemExit(f"{args.milestones} doit contenir {need}")
 
-    fpk = J["f_Hz"].to_numpy(float)
-    phi_m = J["phi_mcgt_at_fpeak"].to_numpy(float)
-    phi_o = J["obs_phase"].to_numpy(float)
+    fpk = M["f_Hz"].to_numpy(float)
+    phi_m = M["phi_mcgt_at_fpeak"].to_numpy(float)
+    phi_o = M["obs_phase"].to_numpy(float)
 
     # appliquer calage identique si demandé
     if apply_cal:
@@ -174,15 +174,15 @@ def main():
     # différence principale (!!!)
     dphi = np.abs(principal_diff(phi_m, phi_o))
 
-    sigma = J["sigma_phase"].to_numpy(float) if "sigma_phase" in J.columns else None
-    raw_cls = J.get("classe", pd.Series(["autres"] * len(J))).astype(str).str.lower().str.replace(" ", "").str.replace("-", "")
+    sigma = M["sigma_phase"].to_numpy(float) if "sigma_phase" in M.columns else None
+    raw_cls = M.get("classe", pd.Series(["autres"] * len(M))).astype(str).str.lower().str.replace(" ", "").str.replace("-", "")
     cls = np.where(raw_cls.isin(["primary","primaire"]), "primaire",
           np.where(raw_cls.isin(["ordre2","order2","ordredeux"]), "ordre2", "autres"))
 
     # garder uniquement points finis
     mfin = np.isfinite(fpk) & np.isfinite(dphi)
     if not np.all(mfin):
-        log.warning("Jalons ignorés pour non-finitude: %d", int((~mfin).sum()))
+        log.warning("Milestones ignorés pour non-finitude: %d", int((~mfin).sum()))
     fpk, dphi, cls = fpk[mfin], dphi[mfin], cls[mfin]
     if sigma is not None:
         sigma = sigma[mfin]
@@ -244,7 +244,7 @@ def main():
         ymin, ymax = map(float, args.ylim)
         ymin = max(ymin, 1e-12)
 
-    log.info("xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_jalons=%d", xmin, xmax, ymin, ymax, fpk.size)
+    log.info("xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_milestones=%d", xmin, xmax, ymin, ymax, fpk.size)
 
     # --- Figure
     fig = plt.figure(figsize=(11.5, 7.4))
@@ -260,7 +260,7 @@ def main():
             ax.plot(f_bg[vis], _safe_pos(ad_bg[vis]), lw=1.8, alpha=0.85, color="C0",
                     label=r"$|\Delta\phi|(f)$ (principal)", zorder=1)
 
-    # Groupes jalons
+    # Groupes milestones
     m_pri = (cls == "primaire")
     m_o2  = (cls == "ordre2")
     m_aut = ~(m_pri | m_o2)
@@ -289,10 +289,10 @@ def main():
             ax.scatter(x, y, s=64, marker=marker, color=color, edgecolors="none",
                        label=label, zorder=z)
 
-    plot_group(m_pri, "o", "C1", "Jalons (primaire) (±σ)")
-    plot_group(m_o2,  "s", "C2", "Jalons (ordre 2) (±σ)")
+    plot_group(m_pri, "o", "C1", "Milestones (primaire) (±σ)")
+    plot_group(m_o2,  "s", "C2", "Milestones (ordre 2) (±σ)")
     if args.show_autres:
-        plot_group(m_aut, "x", "C4", "Jalons (autres)")
+        plot_group(m_aut, "x", "C4", "Milestones (autres)")
 
     # Axes / style
     ax.set_xscale("log"); ax.set_yscale("log")
@@ -302,9 +302,9 @@ def main():
     ax.grid(True, which="both", ls=":", alpha=0.45)
 
     # Titres
-    title = r"Validation par jalons : $|\Delta\phi|(f)$ aux fréquences caractéristiques"
+    title = r"Validation par milestones : $|\Delta\phi|(f)$ aux fréquences caractéristiques"
     fig.suptitle(title, fontsize=18, fontweight="semibold", y=0.98)
-    subtitle = f"Comparaison MCGT vs jalons GWTC-3 — N_jalons={int(fpk.size)}" \
+    subtitle = f"Comparaison MCGT vs milestones GWTC-3 — N_milestones={int(fpk.size)}" \
                + ("" if not apply_cal else " — calage appliqué")
     fig.text(0.5, 0.905, subtitle, ha="center", fontsize=13)
 

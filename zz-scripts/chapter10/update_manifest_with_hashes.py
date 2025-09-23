@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# update_manifest_with_hashes.py
 import json, subprocess, pathlib, sys
 from importlib import metadata
 
@@ -19,7 +18,7 @@ files = {
     "results_csv": "zz-data/chapter10/10_mc_results.csv",
     "results_agg_csv": "zz-data/chapter10/10_mc_results.agg.csv",
     "best_json": "zz-data/chapter10/10_mc_best.json",
-    "jalons_csv": "zz-data/chapter10/10_mc_jalons_eval.csv",
+    "milestones_csv": "zz-data/chapter10/10_mc_milestones_eval.csv",
 }
 
 h = {}

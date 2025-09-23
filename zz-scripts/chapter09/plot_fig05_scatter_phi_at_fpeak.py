@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig05_scatter_phi_at_fpeak.py
+plot_fig05_scatter_phi_at_fpeak.py
 Fig. 05 — Comparaison ponctuelle aux f_peak : φ_ref vs φ_MCGT (±σ)
 
 Entrée (obligatoire)
@@ -26,7 +26,7 @@ Points clés
 Exemples
 ---------
 python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \
-  --jalons zz-data/chapter09/09_comparison_milestones.csv \
+  --milestones zz-data/chapter09/09_comparison_milestones.csv \
   --out    zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png \
   --dpi 300 --log-level INFO --pdf
 
@@ -45,8 +45,8 @@ import matplotlib.pyplot as plt
 
 
 # ---------- Defaults ----------
-DEF_JALONS = Path("zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT    = Path("zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png")
+DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
+DEF_OUT        = Path("zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png")
 
 
 # ---------- Utils ----------
@@ -70,7 +70,6 @@ def principal_align(y: np.ndarray, x: np.ndarray) -> np.ndarray:
 
 
 def class_color_map() -> Dict[str, str]:
-    # Couleurs homogènes avec les autres figures
     return {"primaire": "C0", "ordre2": "C1", "autres": "C2"}
 
 
@@ -107,9 +106,9 @@ def robust_stats(residual: np.ndarray) -> Tuple[float, float, float, float, int]
 
 def parse_args():
     ap = argparse.ArgumentParser(description="Fig.05 — φ_ref vs φ_MCGT aux f_peak (±σ)")
-    ap.add_argument("--jalons", type=Path, default=DEF_JALONS,
-                    help="CSV jalons (phi_ref_at_fpeak, phi_mcgt_at_fpeak, ...)")
-    ap.add_argument("--out",    type=Path, default=DEF_OUT,
+    ap.add_argument("--milestones", type=Path, default=DEF_MILESTONES,
+                    help="CSV milestones (phi_ref_at_fpeak, phi_mcgt_at_fpeak, ...)")
+    ap.add_argument("--out",        type=Path, default=DEF_OUT,
                     help="Image de sortie (PNG)")
     ap.add_argument("--pdf", action="store_true",
                     help="Écrire aussi un PDF à côté du PNG")
@@ -125,35 +124,32 @@ def main():
     args = parse_args()
     log = setup_logger(args.log_level)
 
-    if not args.jalons.exists():
-        raise SystemExit(f"Fichier introuvable : {args.jalons}")
+    if not args.milestones.exists():
+        raise SystemExit(f"Fichier introuvable : {args.milestones}")
 
-    jal = pd.read_csv(args.jalons)
+    ms = pd.read_csv(args.milestones)
 
     need = {"phi_ref_at_fpeak", "phi_mcgt_at_fpeak"}
-    if not need.issubset(jal.columns):
-        raise SystemExit(f"{args.jalons} doit contenir {need}")
+    if not need.issubset(ms.columns):
+        raise SystemExit(f"{args.milestones} doit contenir {need}")
 
     # Colonnes
-    x = jal["phi_ref_at_fpeak"].to_numpy(float)
-    y = jal["phi_mcgt_at_fpeak"].to_numpy(float)
+    x = ms["phi_ref_at_fpeak"].to_numpy(float)
+    y = ms["phi_mcgt_at_fpeak"].to_numpy(float)
 
     # Classes (optionnelles)
-    cls_raw = jal.get("classe", pd.Series(["autres"] * len(jal)))
+    cls_raw = ms.get("classe", pd.Series(["autres"] * len(ms)))
     cls = np.array([normalize_class(c) for c in cls_raw], dtype=object)
 
     # Barres d'erreur (optionnelles)
     sigma = None
-    if "sigma_phase" in jal.columns:
-        sigma = jal["sigma_phase"].to_numpy(float)
-    # Eventuel identifiant d’événement (optionnel, non utilisé dans ce script)
-    # events = jal.get("event", pd.Series([None]*len(jal))).astype(str).to_numpy()
+    if "sigma_phase" in ms.columns:
+        sigma = ms["sigma_phase"].to_numpy(float)
 
     # Filtre finitude
     m_fin = finite_mask(x, y)
     if sigma is not None:
         m_fin &= np.isfinite(sigma)
-        # σ non-finies seront simplement ignorées comme yerr (on mettra None plus bas)
     n_drop = int((~m_fin).sum())
     if n_drop:
         log.warning("Lignes ignorées (valeurs non finies) : %d", n_drop)
@@ -173,8 +169,6 @@ def main():
         log.info("Alignement désactivé (valeurs brutes).")
 
     # Résidus principaux (pour métriques et annot)
-    # (Même si align=none, on annonce les métriques sur le résidu principal,
-    #  car c'est scientifiquement pertinent.)
     res_principal = (y - x + np.pi) % (2.0*np.pi) - np.pi
     abs_res = np.abs(res_principal)
     mean_abs, med_abs, p95_abs, max_abs, n_eff = robust_stats(abs_res)
@@ -184,7 +178,6 @@ def main():
     # Prépare figure
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
-    # Style de titre harmonisé (comme figs 02/03) avec espace sous le titre
     fig = plt.figure(figsize=(7.8, 7.6))
     ax  = fig.add_subplot(111)
 
@@ -219,7 +212,6 @@ def main():
         xg, yg = x[m], y_al[m]
         if sigma is not None:
             sg = sigma[m]
-            # yerr seulement là où sigma est fini et >0
             yerr = np.where(np.isfinite(sg) & (sg > 0), sg, np.nan)
             if np.any(np.isfinite(yerr)):
                 ax.errorbar(xg, yg, yerr=yerr, fmt="o", ms=5, mew=0.0,
@@ -230,29 +222,25 @@ def main():
         else:
             ax.scatter(xg, yg, s=28, color=color, label=f"{name}", alpha=0.9)
 
-    # Axes, grille, aspect
     ax.set_xlim(lo, hi)
     ax.set_ylim(lo, hi)
-    ax.set_aspect('equal', adjustable='box')  # lecture claire vs y=x
+    ax.set_aspect('equal', adjustable='box')
     ax.grid(True, ls=":", alpha=0.4)
     ax.set_xlabel(r"$\phi_{\rm ref}(f_{\rm peak})$ [rad]")
     ax.set_ylabel(r"$\phi_{\rm MCGT}(f_{\rm peak})$ [rad]" + ("  (alignement principal)" if args.align == "principal" else ""))
 
-    # Légende dédupliquée
     h, l = ax.get_legend_handles_labels()
     uniq = {}
     for hh, ll in zip(h, l):
         uniq[ll] = hh
     ax.legend(uniq.values(), uniq.keys(), frameon=True, facecolor="white", framealpha=0.95, loc="upper left")
 
-    # Bloc méta (haut-gauche)
     meta_txt = (f"N={n_eff}  |Δφ|_principal  —  mean={mean_abs:.3f}  "
                 f"median={med_abs:.3f}  p95={p95_abs:.3f}  max={max_abs:.3f} rad")
     ax.text(0.02, 0.02, meta_txt, transform=ax.transAxes, ha="left", va="bottom",
             fontsize=9, bbox=dict(boxstyle="round,pad=0.35", facecolor="white",
                                   edgecolor="0.6", alpha=0.95))
 
-    # Sauvegarde
     fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight")
     log.info("PNG écrit → %s", args.out)
     if args.pdf:

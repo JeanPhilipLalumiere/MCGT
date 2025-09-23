@@ -1,30 +1,50 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-lancer_solveur_perturbations_scalaires.py
+launch_scalar_perturbations_solver.py
 
-Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapitre 7 – Perturbations scalaires MCGT.
+Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapter 7 — Perturbations scalaires MCGT.
+
+Ce script :
+ - lit une configuration INI (grilles, knobs, tolérances, lissage),
+ - construit les grilles en k (log) et a (lin),
+ - appelle les fonctions compute_cs2(...) et compute_delta_phi(...) du module mcgt,
+ - écrit un CSV "raw" unifié (colonnes k,a,cs2_raw,delta_phi_raw),
+ - (optionnel) écrit des matrices 2D CS2 / delta_phi,
+ - journalise et contrôle les erreurs.
 """
+from __future__ import annotations
 
 import sys
 import argparse
 import logging
 import configparser
-from pathlib import Path
+import subprocess
+import json
 from dataclasses import dataclass
+from pathlib import Path
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 
-# rendre mcgt importable
+# rendre mcgt importable depuis la racine du projet
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi
 
+# fonctions fournies par le package mcgt (doit être disponible dans PYTHONPATH)
+try:
+    from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi
+except Exception as e:
+    raise ImportError("Impossible d'importer compute_cs2 / compute_delta_phi depuis mcgt. "
+                      "Vérifiez l'installation du package mcgt.") from e
 
+# ---------------------------------------------------------------------------
+# Dataclass configuration (structure attendue dans l'INI)
+# ---------------------------------------------------------------------------
 @dataclass
 class PhaseParams:
-    # cosmologie
+    # cosmologie (utilisées éventuellement par le solveur)
     H0: float
     ombh2: float
     omch2: float
@@ -33,6 +53,7 @@ class PhaseParams:
     mnu: float
     As0: float
     ns0: float
+
     # grille
     k_min: float
     k_max: float
@@ -41,39 +62,71 @@ class PhaseParams:
     a_min: float
     a_max: float
     n_a: int
-    # découpe/grille secondaire
+
+    # découpe / split
     x_split: float
-    k_split: float  # alias pour compute_delta_phi
+    k_split: float
+
     # lissage
     derivative_window: int
     derivative_polyorder: int
+
     # scan knobs
     k0: float
     decay: float
     cs2_param: float
     delta_phi_param: float
+
+    # tolérances
     tolerance_primary: float
     tolerance_order2: float
-    # dynamique φ
+
+    # dynamique φ (optionnel)
     phi0_init: float
     phi_inf: float
     a_char: float
     m_phi: float
     m_eff_const: float
-    # paramètres dynamique φ avancés
+
+    # avancés
     a_eq: float
     freeze_scale: float
     Phi0: float
 
+# ---------------------------------------------------------------------------
+# Utilitaires
+# ---------------------------------------------------------------------------
+def safe_git_hash(root: Path) -> str | None:
+    """Retourne le hash git HEAD si disponible, sinon None."""
+    try:
+        if not (root / ".git").exists():
+            return None
+        out = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True)
+        return out.strip()
+    except Exception:
+        return None
+
+def build_log_grid(xmin: float, xmax: float, n_points: int | None = None, dlog: float | None = None) -> np.ndarray:
+    """Construit une grille log-uniforme."""
+    if xmin <= 0 or xmax <= xmin:
+        raise ValueError("xmin doit être > 0 et xmax > xmin.")
+    if n_points is not None:
+        return np.logspace(np.log10(xmin), np.log10(xmax), n_points)
+    if dlog is not None:
+        n = int(np.floor((np.log10(xmax) - np.log10(xmin)) / dlog)) + 1
+        return 10 ** (np.log10(xmin) + np.arange(n) * dlog)
+    raise ValueError("Fournir n_points ou dlog.")
 
 def load_config(ini_path: Path) -> PhaseParams:
-    cfg = configparser.ConfigParser(
-        interpolation=None,
-        inline_comment_prefixes=('#', ';')
-    )
-    cfg.read(ini_path, encoding='utf-8')
+    """Lit un INI flexible et renvoie une PhaseParams."""
+    cfg = configparser.ConfigParser(interpolation=None, inline_comment_prefixes=('#', ';'))
+    read = cfg.read(ini_path, encoding='utf-8')
+    if not read:
+        raise FileNotFoundError(f"INI introuvable ou illisible : {ini_path}")
 
-    # 1) section cosmologie
+    # cosmologie (section obligatoire)
+    if 'cosmologie' not in cfg:
+        raise KeyError("Section [cosmologie] manquante dans l'INI.")
     cos = cfg['cosmologie']
     H0    = cos.getfloat('H0')
     ombh2 = cos.getfloat('ombh2')
@@ -84,55 +137,54 @@ def load_config(ini_path: Path) -> PhaseParams:
     As0   = cos.getfloat('As0')
     ns0   = cos.getfloat('ns0')
 
-    # 2) section scan ou fallback grille
+    # grille : privilégier [scan] si présent
     if 'scan' in cfg and 'k_min' in cfg['scan']:
         s = cfg['scan']
         k_min = float(s['k_min']); k_max = float(s['k_max'])
-        dlog  = float(s.get('dlog', s.get('dlog_k'))); n_k = int(s['n_k'])
-        a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+        dlog  = float(s.get('dlog', s.get('dlog_k', 0.01)))
+        n_k   = int(s.get('n_k', max(2, int((np.log10(k_max)-np.log10(k_min))/dlog)+1)))
+        a_min = float(s.get('a_min', 0.0)); a_max = float(s.get('a_max', 1.0)); n_a = int(s.get('n_a', 1))
     else:
         g1 = cfg['grille1D']; g2 = cfg['grille2D']
         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
-        dlog  = g1.getfloat('dlog_k');       n_k = g1.getint('n_k')
-        a_min = g2.getfloat('a_min');        a_max = g2.getfloat('a_max')
-        n_a   = g2.getint('n_a')
-        s = cfg['scan']
+        dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+        a_min = g2.getfloat('a_min'); a_max = g2.getfloat('a_max'); n_a = g2.getint('n_a')
+        s = cfg['scan'] if 'scan' in cfg else {}
 
-    # 3) x_split depuis scan ou segmentation
-    raw_xsplit = s.get('x_split')
-    x_split = float(raw_xsplit) if raw_xsplit is not None else cfg['segmentation'].getfloat('x_split')
-    k_split = x_split  # aliased for compute_delta_phi
+    # découpe / split
+    x_split = float(s.get('x_split', cfg.get('segmentation', {}).get('x_split', 1.0)))
+    k_split = x_split
 
-    # 4) lissage (section [lissage] ou fallback)
+    # lissage
     if 'lissage' in cfg:
         l = cfg['lissage']
-        window  = int(l.get('derivative_window', l.get('window')))
-        polyord = int(l.get('derivative_polyorder', l.get('polyorder')))
+        window  = int(l.get('derivative_window', l.get('window', 7)))
+        polyord = int(l.get('derivative_polyorder', l.get('polyorder', 3)))
     else:
-        window  = int(s['derivative_window'])
-        polyord = int(s['derivative_polyorder'])
+        window  = int(s.get('derivative_window', 7))
+        polyord = int(s.get('derivative_polyorder', 3))
 
-    # 5) tolérances (section [tolerances] ou fallback)
+    # tolérances
     if 'tolerances' in cfg:
-        t    = cfg['tolerances']
-        tol1 = float(t.get('primary', t.get('tolerance_primary')))
-        tol2 = float(t.get('order2', t.get('tolerance_order2')))
+        t = cfg['tolerances']
+        tol1 = float(t.get('primary', t.get('tolerance_primary', 0.01)))
+        tol2 = float(t.get('order2', t.get('tolerance_order2', 0.10)))
     else:
-        tol1 = float(s.get('tolerance_primary', s.get('primary')))
-        tol2 = float(s.get('tolerance_order2', s.get('order2')))
+        tol1 = float(s.get('tolerance_primary', 0.01))
+        tol2 = float(s.get('tolerance_order2', 0.10))
 
-    # 6) knobs scan
-    k0              = float(s['k0'])
-    decay           = float(s['decay'])
-    cs2_param       = float(s['cs2_param'])
-    delta_phi_param = float(s['delta_phi_param'])
-    phi0_init       = float(s['phi0_init'])
-    phi_inf         = float(s['phi_inf'])
-    a_char          = float(s['a_char'])
-    m_phi           = float(s['m_phi'])
-    m_eff_const     = float(s['m_eff_const'])
+    # knobs
+    k0              = float(s.get('k0', 1.0))
+    decay           = float(s.get('decay', 1.0))
+    cs2_param       = float(s.get('cs2_param', 1.0))
+    delta_phi_param = float(s.get('delta_phi_param', 1.0))
+    phi0_init       = float(s.get('phi0_init', 1.0))
+    phi_inf         = float(s.get('phi_inf', 1.0))
+    a_char          = float(s.get('a_char', 1.0))
+    m_phi           = float(s.get('m_phi', 0.0))
+    m_eff_const     = float(s.get('m_eff_const', 0.0))
 
-    # 7) dynamique phi (optionnel)
+    # dynamique phi optionnelle
     if 'dynamique_phi' in cfg:
         dyn = cfg['dynamique_phi']
         a_eq         = float(dyn.get('a_eq', phi0_init))
@@ -158,89 +210,132 @@ def load_config(ini_path: Path) -> PhaseParams:
         a_eq=a_eq, freeze_scale=freeze_scale, Phi0=Phi0
     )
 
-
+# ---------------------------------------------------------------------------
+# Entrée / sortie et exécution
+# ---------------------------------------------------------------------------
 def parse_args():
-    p = argparse.ArgumentParser(
-        description="Génère le scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapitre 7."
-    )
-    p.add_argument('-i','--ini',      required=True, help="INI de config")
-    p.add_argument('--export-raw',    required=True, help="CSV raw unifié")
-    p.add_argument('--export-2d',     action='store_true', help="Exporter matrices 2D")
-    p.add_argument('--n-k',           type=int, metavar="NK", help="Override # points k")
-    p.add_argument('--n-a',           type=int, metavar="NA", help="Override # points a")
-    p.add_argument('--dry-run',       action='store_true', help="Valide config et grille")
-    p.add_argument('--log-level',     default='INFO',
-                   choices=['DEBUG','INFO','WARNING','ERROR','CRITICAL'], help="Niveau log")
-    p.add_argument('--log-file',      metavar="FILE", help="Fichier log")
+    p = argparse.ArgumentParser(description="Lance le solveur de perturbations scalaires (Chapter 7).")
+    p.add_argument('-i', '--ini', required=True, help="Chemin du fichier INI de configuration")
+    p.add_argument('--export-raw', required=True, help="Chemin du CSV raw unifié (k,a,cs2_raw,delta_phi_raw)")
+    p.add_argument('--export-2d', action='store_true', help="Exporter matrices 2D (csv)")
+    p.add_argument('--n-k', type=int, help="Override du nombre de points en k")
+    p.add_argument('--n-a', type=int, help="Override du nombre de points en a")
+    p.add_argument('--dry-run', action='store_true', help="Construire les grilles et quitter")
+    p.add_argument('--log-level', default='INFO', choices=['DEBUG','INFO','WARNING','ERROR','CRITICAL'])
+    p.add_argument('--log-file', help="Fichier de log")
     return p.parse_args()
-
 
 def main():
     args = parse_args()
 
-    # Logging
+    # logger
     logger = logging.getLogger()
+    logger.handlers.clear()
     fmt = logging.Formatter('[%(levelname)s] %(message)s')
     ch = logging.StreamHandler(); ch.setFormatter(fmt); logger.addHandler(ch)
     logger.setLevel(args.log_level.upper())
     if args.log_file:
-        lf = Path(args.log_file); lf.parent.mkdir(parents=True, exist_ok=True)
+        lf = Path(args.log_file)
+        lf.parent.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
 
-    # Charger config
+    # lire INI
     ini_path = Path(args.ini)
     if not ini_path.exists():
         logger.error("INI non trouvé : %s", ini_path)
         sys.exit(1)
-    p = load_config(ini_path)
+    try:
+        params = load_config(ini_path)
+    except Exception as e:
+        logger.exception("Erreur en lisant l'INI : %s", e)
+        sys.exit(1)
 
-    # Overrides grille
+    # overrides
     if args.n_k:
-        p.n_k = args.n_k
-        p.dlog = (np.log10(p.k_max) - np.log10(p.k_min)) / (p.n_k - 1)
+        params.n_k = args.n_k
+        # ajuster dlog pour rester cohérent
+        params.dlog = (np.log10(params.k_max) - np.log10(params.k_min)) / max(params.n_k - 1, 1)
     if args.n_a:
-        p.n_a = args.n_a
+        params.n_a = args.n_a
 
-    # Construire grilles
-    k_grid = np.logspace(np.log10(p.k_min), np.log10(p.k_max), p.n_k)
-    a_vals = np.linspace(p.a_min, p.a_max, p.n_a)
-    logger.info("Grilles : %d k-points × %d a-points", len(k_grid), len(a_vals))
+    # construire grilles
+    k_grid = build_log_grid(params.k_min, params.k_max, n_points=params.n_k)
+    a_vals = np.linspace(params.a_min, params.a_max, params.n_a)
+    logger.info("Grilles : %d k-points entre [%g, %g], %d a-points entre [%g, %g]",
+                len(k_grid), params.k_min, params.k_max, len(a_vals), params.a_min, params.a_max)
 
     if args.dry_run:
-        logger.info("Dry-run uniquement : pas de calcul.")
+        logger.info("Dry-run demandé. Fin.")
         return
 
-    # Exécution solveur
-    logger.info("Exécution du solveur MCGT…")
-    cs2_mat = compute_cs2(k_grid, a_vals, p)
-    phi_mat = compute_delta_phi(k_grid, a_vals, p)
+    # Appel du solveur fourni par mcgt
+    logger.info("Appel du solveur : compute_cs2 / compute_delta_phi …")
+    try:
+        cs2_mat = compute_cs2(k_grid, a_vals, params)       # attente : shape (len(k), len(a))
+        phi_mat = compute_delta_phi(k_grid, a_vals, params) # même shape
+    except Exception as e:
+        logger.exception("Erreur lors de l'exécution du solveur : %s", e)
+        sys.exit(1)
 
-    # Export raw unifié
-    raw_path = Path(args.export_raw); raw_path.parent.mkdir(parents=True, exist_ok=True)
+    # vérifications basiques
+    if cs2_mat.shape != (len(k_grid), len(a_vals)):
+        logger.warning("Shape de cs2_mat inattendue : %s", cs2_mat.shape)
+    if phi_mat.shape != (len(k_grid), len(a_vals)):
+        logger.warning("Shape de phi_mat inattendue : %s", phi_mat.shape)
+
+    # export raw unifié
+    out_raw = Path(args.export_raw)
+    out_raw.parent.mkdir(parents=True, exist_ok=True)
     df_raw = pd.DataFrame({
-        'k':             k_grid.repeat(len(a_vals)),
-        'a':             np.tile(a_vals, len(k_grid)),
-        'cs2_raw':       cs2_mat.ravel(),
+        'k': k_grid.repeat(len(a_vals)),
+        'a': np.tile(a_vals, len(k_grid)),
+        'cs2_raw': cs2_mat.ravel(),
         'delta_phi_raw': phi_mat.ravel()
     })
-    df_raw.to_csv(raw_path, index=False)
-    logger.info("Raw unifié écrit → %s", raw_path)
+    df_raw.to_csv(out_raw, index=False)
+    logger.info("Raw unifié écrit → %s (%d lignes)", out_raw, len(df_raw))
 
-    # Export matrices 2D
+    # export matrices 2D si demandé (format long k,a,val)
     if args.export_2d:
-        mat_dir = raw_path.parent
-        pd.DataFrame({
-            'k':           k_grid.repeat(len(a_vals)),
-            'a':           np.tile(a_vals, len(k_grid)),
-            'cs2_matrix':  cs2_mat.ravel()
-        }).to_csv(mat_dir / '07_cs2_matrix.csv', index=False)
-        pd.DataFrame({
-            'k':                k_grid.repeat(len(a_vals)),
-            'a':                np.tile(a_vals, len(k_grid)),
+        mat_dir = out_raw.parent
+        df_cs2_mat = pd.DataFrame({
+            'k': k_grid.repeat(len(a_vals)),
+            'a': np.tile(a_vals, len(k_grid)),
+            'cs2_matrix': cs2_mat.ravel()
+        })
+        df_phi_mat = pd.DataFrame({
+            'k': k_grid.repeat(len(a_vals)),
+            'a': np.tile(a_vals, len(k_grid)),
             'delta_phi_matrix': phi_mat.ravel()
-        }).to_csv(mat_dir / '07_delta_phi_matrix.csv', index=False)
-        logger.info("Matrices 2D exportées → %s", mat_dir)
+        })
+        cs2_path = mat_dir / '07_cs2_matrix.csv'
+        phi_path = mat_dir / '07_delta_phi_matrix.csv'
+        df_cs2_mat.to_csv(cs2_path, index=False)
+        df_phi_mat.to_csv(phi_path, index=False)
+        logger.info("Matrices 2D exportées → %s , %s", cs2_path, phi_path)
 
+    # écriture d'un méta JSON avec hash git si disponible
+    data_dir = out_raw.parent
+    meta = {
+        'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z'),
+        'n_k': int(len(k_grid)),
+        'n_a': int(len(a_vals)),
+        'k_min': float(params.k_min),
+        'k_max': float(params.k_max),
+        'dlog': float(params.dlog),
+        'a_min': float(params.a_min),
+        'a_max': float(params.a_max),
+        'files': [str(out_raw.name)]
+    }
+    if args.export_2d:
+        meta['files'] += ['07_cs2_matrix.csv', '07_delta_phi_matrix.csv']
+    git_h = safe_git_hash(ROOT)
+    meta['git_hash'] = git_h or 'unknown'
+    meta_path = data_dir / '07_meta_perturbations.json'
+    meta_path.write_text(json.dumps(meta, indent=2), encoding='utf-8')
+    logger.info("Méta écrit → %s", meta_path)
+
+    logger.info("Terminé avec succès.")
 
 if __name__ == '__main__':
     main()

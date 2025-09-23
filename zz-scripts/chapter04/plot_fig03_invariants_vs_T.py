@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-tracer_fig03_invariants_contre_T.py
+plot_fig03_invariants_vs_T.py
 
 Script de tracé des invariants adimensionnels I1, I2 et I3 en fonction de T
-– Lit 04_invariants_adimensionnels.csv
+– Lit 04_dimensionless_invariants.csv
 – Utilise une échelle log pour T, symlog pour gérer I3 négatif
 – Ajoute les repères pour I2≈10⁻³⁵, I3≈10⁻⁶ et la transition Tp
 – Sauvegarde la figure en PNG 800×500 px, DPI 300
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 def main():
     # 1. Chargement des données
-    df = pd.read_csv('zz-data/chapter04/04_invariants_adimensionnels.csv')
+    df = pd.read_csv('zz-data/chapter04/04_dimensionless_invariants.csv')
     T = df['T_Gyr'].values
     I1 = df['I1'].values
     I2 = df['I2'].values
@@ -47,7 +47,7 @@ def main():
     ax.grid(True, which='both', linestyle=':', linewidth=0.5)
 
     # 5. Sauvegarde
-    out = 'zz-figures/chapter04/fig_03_invariants_contre_T.png'
+    out = 'zz-figures/chapter04/fig_03_invariants_vs_T.png'
     plt.tight_layout()
     plt.savefig(out)
     print(f"Figure enregistrée : {out}")

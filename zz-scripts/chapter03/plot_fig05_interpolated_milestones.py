@@ -6,14 +6,14 @@ Visualisation de l’interpolation PCHIP vs points de jalons — Chapitre 3
 =======================================================================
 
 Entrées :
-    zz-data/chapter03/03_ricci_fR_jalons.csv
-    zz-data/chapter03/03_donnees_stabilite_fR.csv
+    zz-data/chapter03/03_ricci_fR_milestones.csv
+    zz-data/chapter03/03_fR_stability_data.csv
 
 Colonnes jalons :
     R_over_R0, f_R, f_RR
 
 Sortie :
-    zz-figures/chapter03/fig_05_interpolation_jalons.png
+    zz-figures/chapter03/fig_05_interpolated_milestones.png
 """
 
 from pathlib import Path
@@ -33,11 +33,11 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_DIR  = Path("zz-data/chapter3")
-RAW_FILE  = DATA_DIR / "03_ricci_fR_jalons.csv"
-GRID_FILE = DATA_DIR / "03_donnees_stabilite_fR.csv"
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_05_interpolation_jalons.png"
+DATA_DIR  = Path("zz-data") / "chapter03"
+RAW_FILE  = DATA_DIR / "03_ricci_fR_milestones.csv"
+GRID_FILE = DATA_DIR / "03_fR_stability_data.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_05_interpolated_milestones.png"
 
 def main() -> None:
     # 1. Lecture des données

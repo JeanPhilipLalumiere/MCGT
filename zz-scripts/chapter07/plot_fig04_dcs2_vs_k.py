@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig04_dcs2_vs_k.py
+plot_fig04_dcs2_vs_k.py
 
 Figure 04 – Dérivée lissée ∂c_s²/∂k
 Chapitre 7 – Perturbations scalaires MCGT.
@@ -22,14 +22,14 @@ from matplotlib.ticker import FuncFormatter, LogLocator
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 plt.style.use("classic")
 
-# --- Définitions des chemins ---
+# --- Définitions des chemins (noms en anglais) ---
 ROOT      = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-DATA_DIR  = ROOT / "zz-data"  / "chapitre7"
-FIG_DIR   = ROOT / "zz-figures" / "chapitre7"
-META_JSON = DATA_DIR / "07_params_perturbations.json"
+DATA_DIR  = ROOT / "zz-data" / "chapter07"
+FIG_DIR   = ROOT / "zz-figures" / "chapter07"
+META_JSON = DATA_DIR / "07_meta_perturbations.json"
 CSV_DCS2  = DATA_DIR / "07_dcs2_dk.csv"
-FIG_OUT   = FIG_DIR  / "fig_04_dcs2_dk_vs_k.png"
+FIG_OUT   = FIG_DIR  / "fig_04_dcs2_vs_k.png"
 
 # --- Lecture de k_split ---
 meta    = json.loads(META_JSON.read_text("utf-8"))

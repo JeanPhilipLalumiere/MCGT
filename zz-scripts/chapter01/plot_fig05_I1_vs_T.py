@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 base = Path(__file__).resolve().parents[2]
-data_file = base / 'zz-data' / 'chapitre1' / '01_invariants_adimensionnels.csv'
-output_file = base / 'zz-figures' / 'chapitre1' / 'fig_05_invariant_I1_contre_T.png'
+data_file = base / 'zz-data' / 'chapter01' / '01_dimensionless_invariants.csv'
+output_file = base / 'zz-figures' / 'chapter01' / 'fig_05_I1_vs_T.png'
 
 df = pd.read_csv(data_file)
 T = df['T']

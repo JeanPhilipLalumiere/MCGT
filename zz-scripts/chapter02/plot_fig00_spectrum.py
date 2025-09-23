@@ -4,11 +4,11 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Ajouter le module spectre_primordial au PYTHONPATH
+# Ajouter le module primordial_spectrum au PYTHONPATH
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "zz-scripts" / "chapitre2"))
+sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
 
-from spectre_primordial import P_R
+from primordial_spectrum import P_R
 
 # Grille de k et valeurs de alpha
 k = np.logspace(-4, 2, 100)
@@ -30,7 +30,7 @@ ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 plt.tight_layout()
 
 # Sauvegarde
-OUT = ROOT / "zz-figures" / "chapitre2" / "fig_00_spectre.png"
+OUT = ROOT / "zz-figures" / "chapter02" / "fig_00_spectrum.png"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 plt.savefig(OUT, dpi=300)
 print(f"Figure enregistrée → {OUT}")

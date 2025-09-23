@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script de tracé fig_03_delta_cls_rel pour Chapitre 6 (Rayonnement CMB)
+Script de tracé fig_03_delta_cls_rel pour Chapitre 6 (Rayonnement CMB)
 ───────────────────────────────────────────────────────────────
 Tracé de la différence relative ΔCℓ/Cℓ en fonction du multipôle ℓ,
 avec annotation des paramètres MCGT (α, q0star).
@@ -18,8 +18,8 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # Paths
 ROOT                = Path(__file__).resolve().parents[2]
-DATA_DIR            = ROOT / 'zz-data' / 'chapitre6'
-FIG_DIR             = ROOT / 'zz-figures' / 'chapitre6'
+DATA_DIR            = ROOT / 'zz-data' / 'chapter06'
+FIG_DIR             = ROOT / 'zz-figures' / 'chapter06'
 DELTA_CLS_REL_CSV   = DATA_DIR / '06_delta_cls_relative.csv'
 JSON_PARAMS         = DATA_DIR / '06_params_cmb.json'
 OUT_PNG             = FIG_DIR  / 'fig_03_delta_cls_rel.png'

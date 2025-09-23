@@ -1,15 +1,16 @@
+#!/usr/bin/env python3
 # tracer_fig02_fR_fRR_contre_R.py
 """
 Trace f_R et f_RR en fonction de R/R₀ — Chapitre 3
 =================================================
 
 Entrée :
-    zz-data/chapter03/03_donnees_stabilite_fR.csv
+    zz-data/chapter03/03_fR_stability_data.csv
 Colonnes requises :
     R_over_R0, f_R, f_RR
 
 Sortie :
-    zz-figures/chapter03/fig_02_fR_fRR_contre_R.png
+    zz-figures/chapter03/fig_02_fR_fRR_vs_R.png
 """
 
 from pathlib import Path
@@ -28,9 +29,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_donnees_stabilite_fR.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_02_fR_fRR_contre_R.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_02_fR_fRR_vs_R.png"
 
 # ----------------------------------------------------------------------
 # Main
@@ -72,8 +73,8 @@ def main() -> None:
     # 5. Inset zoom sur f_RR (premiers 50 points)
     import numpy as np
 
-    df_zoom = df.iloc[:50]  
-    ax_in = fig.add_axes([0.62, 0.30, 0.30, 0.30])  
+    df_zoom = df.iloc[:50]
+    ax_in = fig.add_axes([0.62, 0.30, 0.30, 0.30])
     ax_in.loglog(df_zoom["R_over_R0"], df_zoom["f_RR"], color="tab:orange", lw=1.5)
 
     ax_in.set_xscale("log")

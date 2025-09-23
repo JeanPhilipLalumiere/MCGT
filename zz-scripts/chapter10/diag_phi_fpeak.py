@@ -7,7 +7,7 @@ Usage:
 python zz-scripts/chapter10/diag_phi_fpeak.py \
   --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
   --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
-  --out-diagnostics zz-data/chapter10/diag_phi_fpeak_report.csv \
+  --out-diagnostics zz-data/chapter10/10_diag_phi_fpeak_report.csv \
   --thresh 1e3
 """
 from __future__ import annotations
@@ -38,7 +38,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--results", required=True)
     p.add_argument("--ref-grid", required=True)
-    p.add_argument("--out-diagnostics", default="zz-data/chapter10/diag_phi_fpeak_report.csv")
+    p.add_argument("--out-diagnostics", default="zz-data/chapter10/10_diag_phi_fpeak_report.csv")
     p.add_argument("--thresh", type=float, default=1e3, help="seuil pour considérer une phi aberrante")
     args = p.parse_args()
 
@@ -86,8 +86,6 @@ def main():
                     break
             # if f_peak not present, fall back to single point (e.g. median of f_ref)
             if f_peak is None or (isinstance(f_peak, float) and (np.isnan(f_peak) or np.isinf(f_peak))):
-                # fallback: choose middle of band [20,300] if within f_ref
-                # prefer to choose median frequency of available ref grid
                 f_peak = float(np.median(f_ref))
             else:
                 f_peak = float(f_peak)

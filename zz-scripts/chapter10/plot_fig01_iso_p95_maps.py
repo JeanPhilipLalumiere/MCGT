@@ -1,22 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig01_cartes_iso_p95.py
+plot_fig01_iso_p95_maps.py
 
-Trace une carte iso (contour filled) de la métrique p95 dans l'espace (m1,m2).
-Affiche les points d'échantillons superposés.
-Produit un PNG.
-
-Usage example:
-python zz-scripts/chapter10/tracer_fig01_cartes_iso_p95.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --p95-col p95_20_300_recalc \
-  --m1-col m1 --m2-col m2 \
-  --out zz-figures/chapter10/fig_01_cartes_iso_p95.png \
-  --levels 16 --cmap viridis --dpi 300
-
-Options notables:
-  --no-clip    : disable percentiles clipping (show full vmin/vmax)
 """
 from __future__ import annotations
 import argparse
@@ -88,7 +74,7 @@ def main():
     ap.add_argument("--p95-col", default=None, help="p95 column name (auto detect if omitted)")
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
-    ap.add_argument("--out", default="fig_01_cartes_iso_p95.png", help="output PNG file")
+    ap.add_argument("--out", default="zz-figures/chapter10/fig_01_iso_map_p95.png", help="output PNG file")
     ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
     ap.add_argument("--cmap", default="viridis", help="colormap")
     ap.add_argument("--dpi", type=int, default=150, help="png dpi")

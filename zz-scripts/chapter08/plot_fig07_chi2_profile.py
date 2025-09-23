@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-zz-scripts/chapter08/tracer_fig07_chi2_profile.py
+zz-scripts/chapter08/plot_fig07_chi2_profile.py
 
 Trace le profil Δχ² en fonction de q₀⋆ autour du minimum, 
 avec annotations des niveaux 1σ, 2σ, 3σ (1 degré de liberté).
@@ -14,8 +14,8 @@ from pathlib import Path
 def main():
     # Répertoires
     ROOT     = Path(__file__).resolve().parents[2]
-    DATA_DIR = ROOT / "zz-data" / "chapitre8"
-    FIG_DIR  = ROOT / "zz-figures" / "chapitre8"
+    DATA_DIR = ROOT / "zz-data" / "chapter08"
+    FIG_DIR  = ROOT / "zz-figures" / "chapter08"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Chargement du scan 1D χ²

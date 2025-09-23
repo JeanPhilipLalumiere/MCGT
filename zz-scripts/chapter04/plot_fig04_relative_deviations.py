@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-tracer_fig04_ecarts_relatifs.py
+plot_fig04_relative_deviations.py
 
 Script corrigé pour tracer les écarts relatifs des invariants I2 et I3 :
 - Lit le CSV des invariants en tenant compte de plusieurs emplacements possibles
@@ -25,8 +25,8 @@ def main():
     # 1. Chargement des données
     # ----------------------------------------------------------------------
     possible_paths = [
-        'zz-data/chapter04/04_invariants_adimensionnels.csv',
-        '/mnt/data/04_invariants_adimensionnels.csv'
+        'zz-data/chapter04/04_dimensionless_invariants.csv',
+        '/mnt/data/04_dimensionless_invariants.csv'
     ]
     df = None
     for path in possible_paths:
@@ -116,7 +116,7 @@ def main():
     # ----------------------------------------------------------------------
     # 5. Sauvegarde
     # ----------------------------------------------------------------------
-    output_fig = 'zz-figures/chapter04/fig_04_ecarts_relatifs.png'
+    output_fig = 'zz-figures/chapter04/fig_04_relative_deviations.png'
     plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Figure sauvegardée : {output_fig}")

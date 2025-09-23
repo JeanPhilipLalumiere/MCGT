@@ -352,7 +352,7 @@ def main(argv=None):
 
     # prepare parallel evaluation
     window = WINDOW_DEFAULT
-    work = []
+    _work = []
     # joblib Parallel with chunksize automatic
     logging.info(
         "Démarrage évaluation en parallèle : batch=%d n_workers=%d",

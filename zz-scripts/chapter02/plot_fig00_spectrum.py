@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
 
-from primordial_spectrum import P_R
+from primordial_spectrum import P_R  # noqa: E402
 
 # Grille de k et valeurs de alpha
 k = np.logspace(-4, 2, 100)

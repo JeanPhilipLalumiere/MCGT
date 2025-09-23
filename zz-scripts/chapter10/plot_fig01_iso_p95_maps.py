@@ -168,7 +168,9 @@ def main():
 
     # tricontourf with normalization
     cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
-    cs = ax.tricontour(triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5)
+    _cs = ax.tricontour(
+        triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5
+    )
 
     # scatter overlay (points) - smaller, semi-transparent
     ax.scatter(

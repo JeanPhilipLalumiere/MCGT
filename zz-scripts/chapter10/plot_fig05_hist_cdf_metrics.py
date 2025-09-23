@@ -181,7 +181,7 @@ def main():
         borderpad=1.0,
     )
     x0, x1 = args.zoom_x - args.zoom_dx, args.zoom_x + args.zoom_dx
-    y0_user, y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
+    _y0_user, y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
 
     mask_x = (p95 >= x0) & (p95 <= x1)
     data_inset = p95[mask_x] if mask_x.sum() >= 5 else p95

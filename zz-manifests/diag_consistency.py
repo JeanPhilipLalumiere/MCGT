@@ -640,7 +640,7 @@ def _check_csv_milestones(
     try:
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
-            fieldnames = reader.fieldnames or []
+            _fieldnames = reader.fieldnames or []
             for row in reader:
                 ev = row.get("event", "")
                 cl = row.get("classe", "")

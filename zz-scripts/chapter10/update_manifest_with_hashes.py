@@ -48,7 +48,7 @@ for pkg in ("numpy", "pandas", "scipy", "matplotlib", "joblib", "pycbc"):
         versions[pkg] = None
 
 # python version
-import platform
+import platform  # noqa: E402
 
 pyv = platform.python_version()
 

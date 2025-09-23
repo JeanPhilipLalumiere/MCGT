@@ -141,8 +141,8 @@ def main():
         N_list = np.append(N_list, M)
 
     ref_mean = float(np.mean(p95))
-    ref_median = float(np.median(p95))
-    ref_tmean = trimmed_mean(p95, args.trim)
+    _ref_median = float(np.median(p95))
+    _ref_tmean = trimmed_mean(p95, args.trim)
 
     print(
         f"[INFO] Bootstrap convergence: M={M}, B={args.B}, points={len(N_list)}, seed={args.seed}, trim={args.trim:.3f}"

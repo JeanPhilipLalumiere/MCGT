@@ -53,7 +53,7 @@ def main():
     out_path = Path(args.out) if args.out else csv_path.with_suffix(".flagged.csv")
 
     df = pd.read_csv(csv_path)
-    required_cols = ["event", "f_Hz", "phi_mcgt_at_fpeak", "obs_phase", "sigma_phase"]
+    _required_cols = ["event", "f_Hz", "phi_mcgt_at_fpeak", "obs_phase", "sigma_phase"]
     # Accept also phi_mcgt_at_fpeak_cal or phi_mcgt_at_fpeak_raw if main absent
     alt_phi_cols = [
         "phi_mcgt_at_fpeak",
@@ -83,7 +83,7 @@ def main():
     fmin, fmax = args.metrics_window
 
     for idx, row in df.iterrows():
-        evt = row.get("event", "")
+        _evt = row.get("event", "")
         f = safe_float(row.get("f_Hz", np.nan))
         phi_mcgt = safe_float(row.get(phi_col, np.nan))
         obs = safe_float(row.get("obs_phase", np.nan))

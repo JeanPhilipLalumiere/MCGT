@@ -1,6 +1,6 @@
 # --- auto-inserted by migration helper ---
-from pathlib import Path
-import pytest
+from pathlib import Path  # noqa: E402
+import pytest  # noqa: E402
 
 _ROOT = Path(__file__).resolve().parents[2]
 _CANDIDATES = [
@@ -16,9 +16,9 @@ if _DATA_07 is None:
 
 # zz-scripts/chapter07/tests/test_chapter07.py
 
-import pytest
-import pandas as pd
-from pathlib import Path
+import pytest  # noqa: E402
+import pandas as pd  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 RTOL = 1e-3
 

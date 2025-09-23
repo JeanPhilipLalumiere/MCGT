@@ -20,7 +20,7 @@ def main():
     # 0. Configuration des constantes et des chemins de fichiers
     # ----------------------------------------------------------------------
     kappa = 1e-35
-    Tp = 0.087  # Gyr, transition logistique
+    _Tp = 0.087  # Gyr, transition logistique
     data_dir = "zz-data/chapter04"
     chap3_dir = "zz-data/chapter03"
     p_file = f"{data_dir}/04_P_vs_T.dat"
@@ -61,7 +61,7 @@ def main():
     # 4. Calcul et lissage de la dérivée dP/dT (Savitzky–Golay)
     # ----------------------------------------------------------------------
     dP = np.gradient(P, T)
-    dP_smooth = savgol_filter(dP, window_length=21, polyorder=3, mode="interp")
+    _dP_smooth = savgol_filter(dP, window_length=21, polyorder=3, mode="interp")
 
     # ----------------------------------------------------------------------
     # 5. Interpolation de R/R0 vs T (extrapolation lisse)

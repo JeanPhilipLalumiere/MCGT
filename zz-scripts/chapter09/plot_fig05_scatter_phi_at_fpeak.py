@@ -262,10 +262,9 @@ def main():
         r"$\phi_{\rm MCGT}(f_{\rm peak})$ [rad]"
         + ("  (alignement principal)" if args.align == "principal" else "")
     )
-
-    h, l = ax.get_legend_handles_labels()
+    h, labels = ax.get_legend_handles_labels()
     uniq = {}
-    for hh, ll in zip(h, l):
+    for hh, ll in zip(h, labels):
         uniq[ll] = hh
     ax.legend(
         uniq.values(),

@@ -46,13 +46,25 @@ _logger = logging.getLogger("mcgt.bootstrap_topk_p95")
 
 def find_resid_file(resid_dir: Path, id_: int) -> Path | None:
     """Retourne le Path du fichier de résidus correspondant à `id_` s'il existe."""
-    candidates = [
+    _candidates = [
         resid_dir / f"10_topresiduals_id{id_}.csv",
         resid_dir / f"topresiduals_id{id_}.csv",
         resid_dir / f"topresiduals_{id_}.csv",
         resid_dir / f"{id_}_topresiduals.csv",
     ]
-    for p in candidates:
+    # define candidate paths (robust; no silent fallbacks)
+    try:
+        _resid_dir = resid_dir
+        _id = id_
+    except NameError as e:
+        raise RuntimeError(
+            "find_top_residuals: missing 'resid_dir' or 'id_' in scope"
+        ) from e
+    paths = [
+        _resid_dir / f"{_id}_residuals.csv",
+        _resid_dir / f"{_id}_topresiduals.csv",
+    ]
+    for p in paths:
         if p.exists():
             return p
     # fallback: glob any file containing the id
@@ -63,7 +75,7 @@ def find_resid_file(resid_dir: Path, id_: int) -> Path | None:
 
 def detect_abscol(df: pd.DataFrame) -> str | None:
     """Tente détecter la colonne contenant les valeurs |Δφ|."""
-    candidates = [c.lower() for c in df.columns]
+    _candidates = [c.lower() for c in df.columns]
     mapping = {
         "absdphi": [
             "absdphi",

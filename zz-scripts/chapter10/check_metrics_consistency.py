@@ -74,7 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("Chargement results: %s", results_p)
     df = pd.read_csv(results_p)
     # normalisation noms colonnes courants (tolérance)
-    df_cols = {c: c for c in df.columns}
+    _df_cols = {c: c for c in df.columns}
     # required metrics expected
     required_cols = [
         "id",

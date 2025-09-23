@@ -18,7 +18,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
 sys.path.insert(0, str(UTILS))
-from cosmo import DV, distance_modulus
+from cosmo import DV, distance_modulus  # noqa: E402
 
 
 def main():

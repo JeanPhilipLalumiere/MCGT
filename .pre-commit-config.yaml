@@ -15,4 +15,8 @@ repos:
   hooks:
   - id: ruff-format
     exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+  - id: ruff
+    args:
+    - --fix
+    - --exit-non-zero-on-fix
 exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)

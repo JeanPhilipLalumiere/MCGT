@@ -43,16 +43,16 @@ ax.errorbar(
 
 # -- Courbe théorique
 label_th = (
-    r"$\mu^{\rm th}(z; q_0^*={:.3f})$".format(q0star)
+    r"$\mu^{{\rm th}}(z; q_0^*={:.3f})$".format(q0star)
     if q0star is not None
-    else r"$\mu^{\rm th}(z)$"
+    else r"$\mu^{{\rm th}}(z)$"
 )
 ax.semilogx(theory["z"], theory["mu_calc"], "-", lw=2, label=label_th)
 
 # -- Labels & titre
 ax.set_xlabel("Redshift $z$")
 ax.set_ylabel(r"Distance modulaire $\mu$\;[mag]")
-ax.set_title(r"Comparaison $\mu^{\rm obs}$ vs $\mu^{\rm th}$")
+ax.set_title(r"Comparaison $\mu^{\rm obs}$ vs $\mu^{{\rm th}}$")
 
 # -- Grille & légende
 ax.grid(which="both", ls=":", lw=0.5, alpha=0.6)

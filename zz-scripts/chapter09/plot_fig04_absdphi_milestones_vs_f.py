@@ -458,9 +458,9 @@ def main():
     fig.text(0.5, 0.905, subtitle, ha="center", fontsize=13)
 
     # Légende dédupliquée
-    h, l = ax.get_legend_handles_labels()
+    h, labels = ax.get_legend_handles_labels()
     uniq = {}
-    for hh, ll in zip(h, l):
+    for hh, ll in zip(h, labels):
         uniq[ll] = hh
     ax.legend(
         uniq.values(),

@@ -35,11 +35,11 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 # --- utils for config discovery & loading (no load at import time) ---
-from pathlib import Path
-import configparser
-import importlib
-import pkgutil
-from typing import Optional, List
+from pathlib import Path  # noqa: E402
+import configparser  # noqa: E402
+import importlib  # noqa: E402
+import pkgutil  # noqa: E402
+from typing import Optional, List  # noqa: E402
 
 # On suppose que la racine du dépôt est le parent du package
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
@@ -162,7 +162,7 @@ if _pkg_version:
 # --- helper CLI léger ---
 def print_summary():
     """Affiche un résumé utile pour debug / CI."""
-    cfg = get_config()
+    _cfg = get_config()
     n_back = len(list_backends())
     print(f"MCGT package version: {__version__}")
     print(f"Config file: {find_config_path() or '<none>'}")

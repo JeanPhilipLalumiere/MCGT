@@ -1,6 +1,16 @@
 import tempfile
 from pathlib import Path
 import importlib.util
+import sys
+import types
+
+# Stubs minimalistes pour éviter les deps lourdes lors de l'import du module testé
+if "numpy" not in sys.modules:
+    sys.modules["numpy"] = types.ModuleType("numpy")
+if "pandas" not in sys.modules:
+    pd_stub = types.ModuleType("pandas")
+    pd_stub.DataFrame = type("DataFrame", (), {})
+    sys.modules["pandas"] = pd_stub
 
 # Charger le module directement depuis son chemin (car "zz-scripts" a un tiret)
 ROOT = Path(__file__).resolve().parents[3]

@@ -16,9 +16,9 @@ Le calcul complet s’appuie sur dix scripts principaux et un fichier de dépen
 
   \item \texttt{13\_generer\_journal\_anomalies.py} : vérifie :
     \begin{itemize}
-      \item $S_n(f)>0$,  
-      \item $0 \le \Delta\tau(f)\le10^{-1}\,\mathrm{s}$,  
-      \item $\det\mathbf{F}\neq0$,  
+      \item $S_n(f)>0$,
+      \item $0 \le \Delta\tau(f)\le10^{-1}\,\mathrm{s}$,
+      \item $\det\mathbf{F}\neq0$,
     \end{itemize}
     et consigne chaque anomalie dans \texttt{09\_anomalies.log}.
 
@@ -80,49 +80,49 @@ Le calcul complet s’appuie sur dix scripts principaux et un fichier de dépen
 \end{verbatim}
 
 \begin{itemize}
-  \item \textbf{Version Python et dépendances :}  
-    Python \(\ge3.8\) (voir \texttt{13\_requirements.txt}).  
+  \item \textbf{Version Python et dépendances :}
+    Python \(\ge3.8\) (voir \texttt{13\_requirements.txt}).
     Packages : \texttt{numpy}, \texttt{scipy}, \texttt{pandas}, \texttt{matplotlib}, \texttt{lalsuite}, \texttt{lalsimulation}.
 
-  \item \textbf{Grille fréquentielle :}  
+  \item \textbf{Grille fréquentielle :}
     \[
       N_{f} = 10\,000,\quad
       f_{i} = 10^{\log_{10}(f_{\min}) + \frac{i}{N_{f}-1}\bigl(\log_{10}(f_{\max})-\log_{10}(f_{\min})\bigr)},
       \]
-    avec \(f_{\min}=10^{-4}\,\mathrm{Hz}\), \(f_{\max}=1\,\mathrm{Hz}\).  
+    avec \(f_{\min}=10^{-4}\,\mathrm{Hz}\), \(f_{\max}=1\,\mathrm{Hz}\).
     Générée par \texttt{13\_generer\_grille\_frequentielle.py} et stockée dans \texttt{12\_grille\_frequentielle.csv} (colonne unique \texttt{f} en Hz).
 
   \item \textbf{Tolérances d’intégration :}
     \begin{itemize}
-      \item \(\varphi\to T\) (inversion numérique) : \(\mathrm{rtol}=\mathrm{atol}=10^{-10}\).  
+      \item \(\varphi\to T\) (inversion numérique) : \(\mathrm{rtol}=\mathrm{atol}=10^{-10}\).
       \item Calcul de \(\Delta\tau\) (trapèzes en \(\ln f\)) : pas variable en \(\ln f\).
     \end{itemize}
 
   \item \textbf{Fichiers PSD :}
     \begin{itemize}
-      \item \texttt{12\_psd\_lisa\_brute.csv} (CSV, entête \texttt{f,S\_n}) :  
-        \texttt{f} [Hz], \texttt{S\_n} [Hz\(^{-1}\)].  
-      \item \texttt{12\_psd\_lisa\_simplifiee.dat} (ASCII, deux colonnes séparées par un espace) :  
+      \item \texttt{12\_psd\_lisa\_brute.csv} (CSV, entête \texttt{f,S\_n}) :
+        \texttt{f} [Hz], \texttt{S\_n} [Hz\(^{-1}\)].
+      \item \texttt{12\_psd\_lisa\_simplifiee.dat} (ASCII, deux colonnes séparées par un espace) :
         \texttt{f} [Hz], \texttt{S\_n} [Hz\(^{-1}\)], interpolée en spline cubique et strictement positive sur la bande.
     \end{itemize}
 
-  \item \textbf{Tableau \(\dot P(T)\) :}  
-    \texttt{02\_pdot\_tableau\_plateau\_fine.dat} (deux colonnes \texttt{T, Pdot}).  
+  \item \textbf{Tableau \(\dot P(T)\) :}
+    \texttt{02\_pdot\_tableau\_plateau\_fine.dat} (deux colonnes \texttt{T, Pdot}).
     Utilisé par \texttt{13\_generer\_retards\_phases.py} pour interpoler \(\dot P\).
 
-  \item \textbf{Format de \texttt{09\_gw\_resultats.csv} :}  
+  \item \textbf{Format de \texttt{09\_gw\_resultats.csv} :}
     CSV, entête \texttt{f,DeltaTau,DeltaPhase} :
     \begin{itemize}
-      \item \texttt{f} [Hz] (scientifique),  
-      \item \texttt{DeltaTau} [s] (\(\Delta\tau(f)\), \texttt{\%e}),  
+      \item \texttt{f} [Hz] (scientifique),
+      \item \texttt{DeltaTau} [s] (\(\Delta\tau(f)\), \texttt{\%e}),
       \item \texttt{DeltaPhase} [rad] (\(\Delta\varphi(f)\), \texttt{\%e}).
     \end{itemize}
 
-  \item \textbf{Format de \texttt{09\_matrice\_fisher.csv} :}  
-    CSV sans entête, quatre valeurs \(\{F_{11},F_{12},F_{21},F_{22}\}\) séparées par « , »,  
+  \item \textbf{Format de \texttt{09\_matrice\_fisher.csv} :}
+    CSV sans entête, quatre valeurs \(\{F_{11},F_{12},F_{21},F_{22}\}\) séparées par « , »,
     avec \(F_{12}=F_{21}\), unités \(\mathrm{Hz}^0\).
 
-  \item \textbf{Seuils de validation} (journal \texttt{09\_anomalies.log}) :  
+  \item \textbf{Seuils de validation} (journal \texttt{09\_anomalies.log}) :
     Vérifications par \texttt{13\_generer\_journal\_anomalies.py} :
     \[
       S_{n}(f)>0,\quad
@@ -130,13 +130,13 @@ Le calcul complet s’appuie sur dix scripts principaux et un fichier de dépen
       \det F\neq0.
     \]
 
-  \item \textbf{Options communes des scripts :}  
-    \verb|--freq-grid| (grille CSV),  
-    \verb|--psd-file| (PSD simplifiée),  
-    \verb|--pdot-file| (\(\dot P\) DAT),  
-    \verb|--snr| (rapport SNR, ex.~20),  
-    \verb|--nf| (points grille, ex.~10000),  
-    \verb|--out_csv| (sortie CSV),  
+  \item \textbf{Options communes des scripts :}
+    \verb|--freq-grid| (grille CSV),
+    \verb|--psd-file| (PSD simplifiée),
+    \verb|--pdot-file| (\(\dot P\) DAT),
+    \verb|--snr| (rapport SNR, ex.~20),
+    \verb|--nf| (points grille, ex.~10000),
+    \verb|--out_csv| (sortie CSV),
     \verb|--out_log| (journal anomalies).
 \end{itemize}
 
@@ -145,11 +145,11 @@ Python (≥ 3.8) et les bibliothèques suivantes sont nécessaires :
 \[
   \texttt{numpy},\;\texttt{scipy},\;\texttt{pandas},\;\texttt{matplotlib},\;\texttt{lalsuite},
 \]
-ainsi que \texttt{lalsimulation} (LALSuite v6.10+) pour IMRPhenomD.  
+ainsi que \texttt{lalsimulation} (LALSuite v6.10+) pour IMRPhenomD.
 Il est recommandé d’utiliser un environnement isolé (virtualenv ou Conda).
 
 \subsection{Paramètres astrophysiques et instrumentaux}
-Pour la description complète de ces paramètres, voir § « Paramètres astrophysiques et instrumentaux » du volet conceptuel.  
+Pour la description complète de ces paramètres, voir § « Paramètres astrophysiques et instrumentaux » du volet conceptuel.
 Ici, on se contente de rappeler les valeurs numériques utilisées :
 
 \begin{itemize}
@@ -285,11 +285,11 @@ Chaque anomalie détectée est consignée, ligne par ligne, dans \texttt{09\_ano
 Cette étape s’appuie désormais sur deux scripts complémentaires :
 
 \begin{itemize}
-  \item \textbf{Génération du CSV complet des phases}  
-    \texttt{13\_generer\_phases\_completes.py} : produit le fichier  
-    \texttt{09\_phases\_gw.csv} contenant, pour chaque fréquence, la phase  
-    IMRPhenomD (\(\varphi_{\Lambda\mathrm{CDM}}\)) et la phase MCGT  
-    (\(\varphi_{\mathrm{MCGT}}\)).  
+  \item \textbf{Génération du CSV complet des phases}
+    \texttt{13\_generer\_phases\_completes.py} : produit le fichier
+    \texttt{09\_phases\_gw.csv} contenant, pour chaque fréquence, la phase
+    IMRPhenomD (\(\varphi_{\Lambda\mathrm{CDM}}\)) et la phase MCGT
+    (\(\varphi_{\mathrm{MCGT}}\)).
     \textbf{Usage :}
     \begin{verbatim}
 python 13_generer_phases_completes.py \
@@ -299,10 +299,10 @@ python 13_generer_phases_completes.py \
   --out-csv   09_phases_gw.csv
     \end{verbatim}
 
-  \item \textbf{Vérification comparative des phases}  
-    \texttt{13\_valider\_phase\_gw.py} : lit \texttt{09\_phases\_gw.csv}, calcule  
-    \(\Delta\varphi(f)=\varphi_{\mathrm{MCGT}}(f)-\varphi_{\Lambda\mathrm{CDM}}(f)\)  
-    et trace son évolution.  
+  \item \textbf{Vérification comparative des phases}
+    \texttt{13\_valider\_phase\_gw.py} : lit \texttt{09\_phases\_gw.csv}, calcule
+    \(\Delta\varphi(f)=\varphi_{\mathrm{MCGT}}(f)-\varphi_{\Lambda\mathrm{CDM}}(f)\)
+    et trace son évolution.
     \textbf{Usage :}
     \begin{verbatim}
 python 13_valider_phase_gw.py \
@@ -337,11 +337,11 @@ Le fichier \texttt{09\_anomalies.log}, produit automatiquement par \texttt{13\_g
 
 \noindent Plus précisément :
 \begin{itemize}
-  \item \texttt{[PSD]}      \, f=\<valeur\> Hz \(\to\) S\_n=\<valeur\>  
-        (lorsque \(S_{n}(f)\le 0\)).  
-  \item \texttt{[DeltaTau]} \, f=\<valeur\> Hz \(\to\) DeltaTau=\<valeur\> s  
-        (lorsque \(\Delta\tau(f)<0\) ou \(\Delta\tau(f)>10^{-1}\) s).  
-  \item \texttt{[Fisher]}   \, det(C)=\<valeur\>  
+  \item \texttt{[PSD]}      \, f=\<valeur\> Hz \(\to\) S\_n=\<valeur\>
+        (lorsque \(S_{n}(f)\le 0\)).
+  \item \texttt{[DeltaTau]} \, f=\<valeur\> Hz \(\to\) DeltaTau=\<valeur\> s
+        (lorsque \(\Delta\tau(f)<0\) ou \(\Delta\tau(f)>10^{-1}\) s).
+  \item \texttt{[Fisher]}   \, det(C)=\<valeur\>
         (lorsque \(\det C=0\), matrice singulière).
 \end{itemize}
 
@@ -359,11 +359,11 @@ Chaque valeur numérique est affichée en notation scientifique, exemple :
 La mise en œuvre numérique suit ces étapes :
 
 \begin{enumerate}
-  \item \textbf{Chargement de la PSD et des paramètres :}  
+  \item \textbf{Chargement de la PSD et des paramètres :}
   lire \texttt{12\_psd\_lisa\_simplifiee.dat} (\(f,S_{n}(f)\)), fixer la SNR (20).
 
-  \item \textbf{Intégration numérique :}  
-    calculer 
+  \item \textbf{Intégration numérique :}
+    calculer
     \[
       F_{ij}
       =4\,\mathrm{SNR}^{2}
@@ -375,18 +375,18 @@ La mise en œuvre numérique suit ces étapes :
     \]
     par quadrature adaptée (trapèzes en \(\log f\) ou méthode de Simpson).
 
-  \item \textbf{Construction et inversion de la matrice de Fisher :}  
-  calculer directement 
-  \(\;F_{ij}=4\,\mathrm{SNR}^{2}\!\int\!\cdots\), imposer \(F_{12}=F_{21}\)  
+  \item \textbf{Construction et inversion de la matrice de Fisher :}
+  calculer directement
+  \(\;F_{ij}=4\,\mathrm{SNR}^{2}\!\int\!\cdots\), imposer \(F_{12}=F_{21}\)
   puis inverser la matrice de Fisher \(\mathbf{F}\) pour obtenir \(\mathbf{F}^{-1}\).
 
-  \item \textbf{Extraction des incertitudes :}  
-    calculer 
-    \(\Delta\mathcal{M}=\sqrt{(\mathbf{F}^{-1})_{11}}\) et 
+  \item \textbf{Extraction des incertitudes :}
+    calculer
+    \(\Delta\mathcal{M}=\sqrt{(\mathbf{F}^{-1})_{11}}\) et
     \(\Delta\eta=\sqrt{(\mathbf{F}^{-1})_{22}}\).
 
-  \item \textbf{Vérifications :}  
-  vérifier \(\det\mathbf{F}\neq0\) (matrice non singulière) et, en cas d’échec,  
+  \item \textbf{Vérifications :}
+  vérifier \(\det\mathbf{F}\neq0\) (matrice non singulière) et, en cas d’échec,
   consigner l’anomalie dans \texttt{09\_anomalies.log}.
 \end{enumerate}
 
@@ -394,34 +394,34 @@ La mise en œuvre numérique suit ces étapes :
 Pour garantir la robustesse et la cohérence de l’ensemble du pipeline, les vérifications suivantes sont effectuées et toutes anomalies consignées dans \texttt{09\_anomalies.log} :
 
 \begin{itemize}
-  \item \textbf{PSD strictement positive}  
-    Vérifier que la densité spectrale de bruit simplifiée 
-    \(\,S_{n}(f)>0\) pour tout 
-    \(f\in[10^{-4},\,1]\)\;Hz.  
-    Toute valeur \(S_{n}(f)\le0\) déclenche une entrée  
+  \item \textbf{PSD strictement positive}
+    Vérifier que la densité spectrale de bruit simplifiée
+    \(\,S_{n}(f)>0\) pour tout
+    \(f\in[10^{-4},\,1]\)\;Hz.
+    Toute valeur \(S_{n}(f)\le0\) déclenche une entrée
     \verb|[PSD] f=<valeur> Hz -> S_n=<valeur>|.
 
-  \item \textbf{Cas \(\Lambda\)CDM (\(Q_{0}=0\))}  
-    En forçant \(\dot P(T)=1\) dans le script de génération des retards,  
-    s’assurer que \(\Delta\tau(f)=0\) sur toute la bande.  
+  \item \textbf{Cas \(\Lambda\)CDM (\(Q_{0}=0\))}
+    En forçant \(\dot P(T)=1\) dans le script de génération des retards,
+    s’assurer que \(\Delta\tau(f)=0\) sur toute la bande.
     Toute déviation est signalée comme \verb|[DeltaTau] f=<valeur> Hz -> DeltaTau≠0|.
 
-  \item \textbf{Bornes sur \(\Delta\tau\)}  
-    Contrôler que 
+  \item \textbf{Bornes sur \(\Delta\tau\)}
+    Contrôler que
     \[
       0 \;\le\;\Delta\tau(f)\;\le\;10^{-1}\,\mathrm{s}
       \quad\forall\,f\in[10^{-4},\,1]\;\mathrm{Hz}.
     \]
-    Toute valeur hors plage génère une entrée  
+    Toute valeur hors plage génère une entrée
     \verb|[DeltaTau] f=<valeur> Hz -> DeltaTau=<valeur> s > 1e-1 s|.
 
-  \item \textbf{Invertibilité de la matrice de Fisher}  
-    Après construction de 
-    \(\mathbf{F}\) selon 
-    \(\;F_{ij}=4\,\mathrm{SNR}^{2}\int\cdots\),  
-    imposer la symétrie \(F_{12}=F_{21}\) puis vérifier 
-    \(\det\mathbf{F}\neq0\).  
-    En cas de singularité, consigner  
+  \item \textbf{Invertibilité de la matrice de Fisher}
+    Après construction de
+    \(\mathbf{F}\) selon
+    \(\;F_{ij}=4\,\mathrm{SNR}^{2}\int\cdots\),
+    imposer la symétrie \(F_{12}=F_{21}\) puis vérifier
+    \(\det\mathbf{F}\neq0\).
+    En cas de singularité, consigner
     \verb|[Fisher] det(F)=0 -> matrice singulière|.
 \end{itemize}
 
@@ -435,53 +435,53 @@ Pour garantir la robustesse et la cohérence de l’ensemble du pipeline, les v�
 \subsection*{Glossaire}
 
 \begin{description}
-  \item[\texttt{12\_grille\_frequentielle.csv}]  
+  \item[\texttt{12\_grille\_frequentielle.csv}]
     Grille log‐linéaire de fréquences $f\in[10^{-4},1]\,$Hz, générée par \texttt{13\_generer\_grille\_frequentielle.py} (colonne unique \texttt{f} en Hz).
 
-  \item[$N_{f}$]  
+  \item[$N_{f}$]
     Nombre de points de la grille fréquentielle (ici $N_{f}=10\,000$).
 
-  \item[\texttt{12\_psd\_lisa\_brute.csv}]  
+  \item[\texttt{12\_psd\_lisa\_brute.csv}]
     PSD brute simulée de LISA, deux colonnes \{\texttt{f},\texttt{S\_n}\}, générée par \texttt{13\_calculer\_psd\_brute.py}.
 
-  \item[\texttt{12\_psd\_lisa\_simplifiee.dat}]  
+  \item[\texttt{12\_psd\_lisa\_simplifiee.dat}]
     PSD simplifiée (strictement positive), deux colonnes \{\texttt{f},\texttt{S\_n}\}, interpolée en spline cubique par \texttt{13\_construire\_psd\_simplifiee.py}.
 
-  \item[\texttt{02\_pdot\_tableau\_plateau\_fine.dat}]  
+  \item[\texttt{02\_pdot\_tableau\_plateau\_fine.dat}]
     Tableau $\{T_i,\dot P(T_i)\}$ utilisé pour interpoler $\dot P$ dans \texttt{13\_generer\_retards\_phases.py}.
 
-  \item[$\Delta\tau(f)$]  
-    Retard de propagation induit par MCGT :  
+  \item[$\Delta\tau(f)$]
+    Retard de propagation induit par MCGT :
     $\displaystyle \Delta\tau(f)
       =\int_{f_{\min}}^{f}\bigl[1 - 1/\dot P(T(f'))\bigr]\,\mathrm{d}\ln f'$.
 
-  \item[$\Delta\varphi(f)$]  
-    Déphasage associé :  
+  \item[$\Delta\varphi(f)$]
+    Déphasage associé :
     $\Delta\varphi(f)=2\pi\,f\,\Delta\tau(f)$.
 
-  \item[\texttt{09\_gw\_resultats.csv}]  
+  \item[\texttt{09\_gw\_resultats.csv}]
     Résultats des retards et déphasages, colonnes \texttt{f,DeltaTau,DeltaPhase}.
 
-  \item[\texttt{09\_matrice\_fisher.csv}]  
-    Matrice de Fisher $F_{ij}$ (sans entête), format  
+  \item[\texttt{09\_matrice\_fisher.csv}]
+    Matrice de Fisher $F_{ij}$ (sans entête), format
     \texttt{F11,F12,F21,F22} avec $F_{12}=F_{21}$.
 
-  \item[\texttt{09\_phases\_gw.csv}]  
+  \item[\texttt{09\_phases\_gw.csv}]
     CSV complet des phases, colonnes \texttt{f,phi\_LCDM,phi\_MCGT}, produit par \texttt{13\_generer\_phases\_completes.py}.
 
-  \item[\texttt{09\_phase\_diff\_q0star.csv}]  
+  \item[\texttt{09\_phase\_diff\_q0star.csv}]
     Colonne unique \texttt{DeltaPhase} pour la valeur optimale $Q_{0}^{\star}$, extraite par \texttt{13\_extraire\_dephasage\_optimal.py}.
 
-  \item[\texttt{09\_anomalies.log}]  
+  \item[\texttt{09\_anomalies.log}]
     Journal des anomalies (PSD non‐positive, retards hors bornes, Fisher singulière) consigné par \texttt{13\_generer\_journal\_anomalies.py}.
 
-  \item[\texttt{fig\_03\_fisher\_contour.png}]  
+  \item[\texttt{fig\_03\_fisher\_contour.png}]
     Ellipses de confiance (68 \% & 95 \%) dans le plan $(\mathcal{M},\eta)$, tracées par \texttt{13\_tracer\_ellipses\_fisher.py}.
 
-  \item[\texttt{fig\_04\_validation\_delta\_phase.png}]  
+  \item[\texttt{fig\_04\_validation\_delta\_phase.png}]
     Validation du déphasage sur la bande complète LISA, générée par \texttt{13\_valider\_phase\_gw.py}.
 
-  \item[\texttt{--freq-grid}, \texttt{--psd-file}, \texttt{--pdot-file}, …]  
+  \item[\texttt{--freq-grid}, \texttt{--psd-file}, \texttt{--pdot-file}, …]
     Principaux flags de ligne de commande pour les scripts du Chapitre 9 (voir § « Paramètres numériques et configuration »).
 \end{description}
 

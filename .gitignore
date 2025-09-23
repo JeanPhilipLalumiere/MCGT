@@ -47,3 +47,7 @@ dist/
 
 # wheel / site-packages test env
 .venv-wheel-test/
+_reports/
+_snapshots/
+MCGT-clean/
+.venv-mcgt/

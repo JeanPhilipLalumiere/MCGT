@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-import json, subprocess, pathlib, sys
+import json
+import subprocess
+import pathlib
+import sys
 from importlib import metadata
 
 manifest_path = pathlib.Path("zz-data/chapter10/10_mc_run_manifest.json")
 if not manifest_path.exists():
-    print("Manifest missing:", manifest_path); sys.exit(1)
+    print("Manifest missing:", manifest_path)
+    sys.exit(1)
+
 
 def sha256(fpath):
     res = subprocess.run(["sha256sum", str(fpath)], capture_output=True, text=True)
     if res.returncode != 0:
         return None
     return res.stdout.split()[0]
+
 
 files = {
     "ref_phases": "zz-data/chapter09/09_phases_imrphenom.csv",
@@ -22,16 +28,20 @@ files = {
 }
 
 h = {}
-for k,p in files.items():
+for k, p in files.items():
     pth = pathlib.Path(p)
     if pth.exists():
-        h[k] = {"path": str(pth.resolve()), "sha256": sha256(pth), "size": pth.stat().st_size}
+        h[k] = {
+            "path": str(pth.resolve()),
+            "sha256": sha256(pth),
+            "size": pth.stat().st_size,
+        }
     else:
         h[k] = {"path": str(pth.resolve()), "sha256": None, "size": None}
 
 # versions libs
 versions = {}
-for pkg in ("numpy","pandas","scipy","matplotlib","joblib","pycbc"):
+for pkg in ("numpy", "pandas", "scipy", "matplotlib", "joblib", "pycbc"):
     try:
         versions[pkg] = metadata.version(pkg)
     except Exception:
@@ -39,6 +49,7 @@ for pkg in ("numpy","pandas","scipy","matplotlib","joblib","pycbc"):
 
 # python version
 import platform
+
 pyv = platform.python_version()
 
 m = json.loads(manifest_path.read_text())

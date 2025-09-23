@@ -25,6 +25,7 @@ Notes
 - Si un fichier de résidus manque pour un ID, le script conserve
   la valeur p95 issue de results.csv (si fournie) et marque p95_ci=null.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -64,7 +65,14 @@ def detect_abscol(df: pd.DataFrame) -> str | None:
     """Tente détecter la colonne contenant les valeurs |Δφ|."""
     candidates = [c.lower() for c in df.columns]
     mapping = {
-        "absdphi": ["absdphi", "abs_dphi", "abs_d_phi", "abs(phi_diff)", "|Δφ|", "abs(delta_phi)"],
+        "absdphi": [
+            "absdphi",
+            "abs_dphi",
+            "abs_d_phi",
+            "abs(phi_diff)",
+            "|Δφ|",
+            "abs(delta_phi)",
+        ],
         "absdeltaphi": ["absdeltaphi", "abs_delta_phi", "abs(delta_phi)"],
         "absd": ["absd"],
     }
@@ -86,7 +94,9 @@ def detect_abscol(df: pd.DataFrame) -> str | None:
     return None
 
 
-def bootstrap_p95_from_array(arr: np.ndarray, B: int, rng: np.random.Generator) -> np.ndarray:
+def bootstrap_p95_from_array(
+    arr: np.ndarray, B: int, rng: np.random.Generator
+) -> np.ndarray:
     """
     Retourne les B valeurs bootstrapées du p95 calculées à partir d'`arr`.
     - arr : 1D array des valeurs |Δφ|(f) sur la fenêtre d'intérêt
@@ -99,7 +109,7 @@ def bootstrap_p95_from_array(arr: np.ndarray, B: int, rng: np.random.Generator) 
         return np.array([], dtype=float)
     # indices shape (B, L)
     idx = rng.integers(0, L, size=(B, L))
-    samples = arr[idx]          # shape (B, L)
+    samples = arr[idx]  # shape (B, L)
     # np.nanpercentile with axis=1
     try:
         p95s = np.nanpercentile(samples, 95, axis=1, method="linear")
@@ -113,19 +123,37 @@ def bootstrap_p95_from_array(arr: np.ndarray, B: int, rng: np.random.Generator) 
 # Main
 # -----------------------
 def main(argv=None):
-    p = argparse.ArgumentParser(description="Bootstrap p95 pour top-K (fichiers de résidus requis).")
+    p = argparse.ArgumentParser(
+        description="Bootstrap p95 pour top-K (fichiers de résidus requis)."
+    )
     p.add_argument("--best", required=True, help="JSON top-K (10_mc_best.json)")
-    p.add_argument("--results", required=False, help="CSV results (10_mc_results.csv) — utilisé en fallback")
-    p.add_argument("--B", type=int, default=1000, help="Nombre de rééchantillonnages bootstrap (défaut: 1000)")
-    p.add_argument("--seed", type=int, default=12345, help="Seed RNG pour reproductibilité")
-    p.add_argument("--resid-dir", default="zz-data/chapter10/topk_residuals",
-                   help="Répertoire contenant les fichiers de résidus par id")
+    p.add_argument(
+        "--results",
+        required=False,
+        help="CSV results (10_mc_results.csv) — utilisé en fallback",
+    )
+    p.add_argument(
+        "--B",
+        type=int,
+        default=1000,
+        help="Nombre de rééchantillonnages bootstrap (défaut: 1000)",
+    )
+    p.add_argument(
+        "--seed", type=int, default=12345, help="Seed RNG pour reproductibilité"
+    )
+    p.add_argument(
+        "--resid-dir",
+        default="zz-data/chapter10/topk_residuals",
+        help="Répertoire contenant les fichiers de résidus par id",
+    )
     p.add_argument("--out", required=True, help="Fichier JSON de sortie (augmenté)")
     p.add_argument("--log-level", default="INFO", help="Niveau de logs")
     args = p.parse_args(argv)
 
-    logging.basicConfig(level=getattr(logging, args.log_level.upper(), logging.INFO),
-                        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+    logging.basicConfig(
+        level=getattr(logging, args.log_level.upper(), logging.INFO),
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    )
     _logger.info("Lancement bootstrap_topk_p95.py")
     best_path = Path(args.best)
     out_path = Path(args.out)
@@ -143,7 +171,14 @@ def main(argv=None):
     if not top_k:
         _logger.warning("Aucun top_k trouvé dans %s. Rien à faire.", best_path)
         # write minimal output
-        out = {"top_k": [], "meta": {"B": args.B, "seed": args.seed, "created_at": datetime.utcnow().isoformat() + "Z"}}
+        out = {
+            "top_k": [],
+            "meta": {
+                "B": args.B,
+                "seed": args.seed,
+                "created_at": datetime.utcnow().isoformat() + "Z",
+            },
+        }
         out_path.parent.mkdir(parents=True, exist_ok=True)
         with out_path.open("w", encoding="utf-8") as fh:
             json.dump(out, fh, indent=2, sort_keys=True)
@@ -172,7 +207,11 @@ def main(argv=None):
 
         resid_file = find_resid_file(resid_dir, id_)
         if resid_file is None:
-            _logger.warning("Fichier de résidus non trouvé pour id=%d (cherche dans %s). Fallback p95 si dispo.", id_, resid_dir)
+            _logger.warning(
+                "Fichier de résidus non trouvé pour id=%d (cherche dans %s). Fallback p95 si dispo.",
+                id_,
+                resid_dir,
+            )
             # fallback : copy p95 from results_df if available
             if results_df is not None:
                 row = results_df.loc[results_df["id"] == id_]
@@ -195,7 +234,9 @@ def main(argv=None):
         try:
             dfr = pd.read_csv(resid_file)
         except Exception as e:
-            _logger.exception("Impossible de lire %s pour id=%d : %s", resid_file, id_, e)
+            _logger.exception(
+                "Impossible de lire %s pour id=%d : %s", resid_file, id_, e
+            )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
             ent["n_points_resid"] = None
@@ -204,7 +245,11 @@ def main(argv=None):
 
         col = detect_abscol(dfr)
         if col is None:
-            _logger.warning("Impossible de détecter colonne |Δφ| dans %s pour id=%d", resid_file, id_)
+            _logger.warning(
+                "Impossible de détecter colonne |Δφ| dans %s pour id=%d",
+                resid_file,
+                id_,
+            )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
             ent["n_points_resid"] = None
@@ -245,7 +290,14 @@ def main(argv=None):
         ent["n_points_resid"] = int(n_points)
         ent["resid_file"] = str(resid_file)
         enriched.append(ent)
-        _logger.info("id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d", id_, med, low, high, n_points)
+        _logger.info(
+            "id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d",
+            id_,
+            med,
+            low,
+            high,
+            n_points,
+        )
 
     # écriture du JSON de sortie
     out_obj = {

@@ -30,8 +30,9 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
-FIG_DIR   = Path("zz-figures") / "chapter03"
-FIG_PATH  = FIG_DIR / "fig_02_fR_fRR_vs_R.png"
+FIG_DIR = Path("zz-figures") / "chapter03"
+FIG_PATH = FIG_DIR / "fig_02_fR_fRR_vs_R.png"
+
 
 # ----------------------------------------------------------------------
 # Main
@@ -54,8 +55,10 @@ def main() -> None:
 
     # 3. Graphique principal
     fig, ax = plt.subplots(dpi=300, figsize=(6, 4))
-    ax.loglog(df["R_over_R0"], df["f_R"],  color="tab:blue",  lw=1.5, label=r"$f_R(R)$")
-    ax.loglog(df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$")
+    ax.loglog(df["R_over_R0"], df["f_R"], color="tab:blue", lw=1.5, label=r"$f_R(R)$")
+    ax.loglog(
+        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+    )
 
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$f_R,\;f_{RR}$")
@@ -64,10 +67,7 @@ def main() -> None:
 
     # 4. Légende à mi-hauteur complètement à gauche
     ax.legend(
-        loc="center left",
-        bbox_to_anchor=(0.01, 0.5),
-        framealpha=0.8,
-        edgecolor="black"
+        loc="center left", bbox_to_anchor=(0.01, 0.5), framealpha=0.8, edgecolor="black"
     )
 
     # 5. Inset zoom sur f_RR (premiers 50 points)
@@ -82,7 +82,10 @@ def main() -> None:
     ax_in.set_xlim(df_zoom["R_over_R0"].min(), df_zoom["R_over_R0"].max())
 
     # graduations x (4 points logarithmiques)
-    lmin, lmax = np.log10(df_zoom["R_over_R0"].min()), np.log10(df_zoom["R_over_R0"].max())
+    lmin, lmax = (
+        np.log10(df_zoom["R_over_R0"].min()),
+        np.log10(df_zoom["R_over_R0"].max()),
+    )
     xticks = 10 ** np.linspace(lmin, lmax, 4)
     ax_in.xaxis.set_major_locator(FixedLocator(xticks))
     ax_in.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:.0f}"))

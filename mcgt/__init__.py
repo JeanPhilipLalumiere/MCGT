@@ -11,6 +11,7 @@ Ce fichier expose :
 
 But : rester non-intrusif (pas d'I/O obligatoire à l'import).
 """
+
 from __future__ import annotations
 
 __all__ = [
@@ -27,6 +28,7 @@ __version__ = "0.1.1"  # bump mineur après refactor des noms de fichiers
 
 # --- logging minimal ---
 import logging
+
 logger = logging.getLogger("mcgt")
 if not logger.handlers:
     handler = logging.NullHandler()
@@ -107,6 +109,7 @@ def list_backends(package: str = "mcgt.backends") -> List[str]:
     except ModuleNotFoundError:
         return []
     return [name for _, name, _ in pkgutil.iter_modules(mod.__path__)]
+
 
 # --- lazy imports pour commodité ---
 def _lazy_import(name: str):

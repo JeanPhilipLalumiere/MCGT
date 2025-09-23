@@ -4,6 +4,7 @@ import json
 import sys
 from jsonschema import Draft202012Validator
 
+
 def validate_instance(schema_path: str, instance_path: str) -> int:
     with open(schema_path, "r", encoding="utf-8") as f:
         schema = json.load(f)
@@ -11,7 +12,9 @@ def validate_instance(schema_path: str, instance_path: str) -> int:
         inst = json.load(f)
 
     validator = Draft202012Validator(schema)
-    errors = sorted(validator.iter_errors(inst), key=lambda e: (list(e.path), e.message))
+    errors = sorted(
+        validator.iter_errors(inst), key=lambda e: (list(e.path), e.message)
+    )
 
     if not errors:
         print(f"OK: {instance_path} matches {schema_path}")
@@ -25,6 +28,7 @@ def validate_instance(schema_path: str, instance_path: str) -> int:
         ctx = f" ({what})" if what else ""
         print(f" - at {path}{ctx}: {e.message}")
     return 1
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

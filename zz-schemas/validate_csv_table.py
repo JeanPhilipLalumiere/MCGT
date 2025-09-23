@@ -29,10 +29,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 _NULL_TOKENS = {"", "na", "nan", "none", "null", "n/a", "."}
 
+
 def is_null_token(s: Optional[str]) -> bool:
     if s is None:
         return True
     return s.strip().lower() in _NULL_TOKENS
+
 
 def parse_integer(s: str) -> Optional[int]:
     try:
@@ -46,6 +48,7 @@ def parse_integer(s: str) -> Optional[int]:
             pass
     return None
 
+
 def parse_number(s: str) -> Optional[float]:
     try:
         f = float(s)
@@ -54,6 +57,7 @@ def parse_number(s: str) -> Optional[float]:
         return f
     except ValueError:
         return None
+
 
 def cast_value(s: Optional[str], typ: str) -> Tuple[bool, Any, str]:
     """
@@ -83,9 +87,11 @@ def cast_value(s: Optional[str], typ: str) -> Tuple[bool, Any, str]:
     # fallback: treat as string
     return True, s, ""
 
+
 # ----------------------------
 # Validation principale
 # ----------------------------
+
 
 class CSVTableValidator:
     def __init__(self, schema: Dict[str, Any], data_path: str, max_errors: int = 50):
@@ -118,7 +124,9 @@ class CSVTableValidator:
             self._fatal("Schema error: 'columns' doit être une liste non vide.")
         names = [c.get("name") for c in self.columns]
         if any(not isinstance(n, str) or not n for n in names):
-            self._fatal("Schema error: chaque colonne doit avoir un champ 'name' non vide.")
+            self._fatal(
+                "Schema error: chaque colonne doit avoir un champ 'name' non vide."
+            )
         if len(set(names)) != len(names):
             self._fatal("Schema error: noms de colonnes dupliqués.")
         for c in self.columns:
@@ -143,7 +151,9 @@ class CSVTableValidator:
                     # ignorer complètement les lignes vides
                     if all((v is None or str(v).strip() == "") for v in row.values()):
                         continue
-                    rows.append({k: (v if v is not None else "") for k, v in row.items()})
+                    rows.append(
+                        {k: (v if v is not None else "") for k, v in row.items()}
+                    )
             else:
                 reader = csv.reader(f, delimiter=self.delimiter)
                 headers = [c["name"] for c in self.columns]
@@ -189,13 +199,17 @@ class CSVTableValidator:
             # Présence de colonne
             if raw is None:
                 if required:
-                    self.add_error(f"[row {rownum}] column '{name}': missing required column")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': missing required column"
+                    )
                 continue
 
             # Null handling
             if is_null_token(raw):
                 if not nullable:
-                    self.add_error(f"[row {rownum}] column '{name}': null/empty not allowed")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': null/empty not allowed"
+                    )
                 typed[name] = None
                 continue
 
@@ -208,19 +222,27 @@ class CSVTableValidator:
             # Enum
             if enum is not None:
                 if val not in enum:
-                    self.add_error(f"[row {rownum}] column '{name}': value {val!r} not in enum {enum}")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': value {val!r} not in enum {enum}"
+                    )
 
             # Pattern (pour strings)
             if pattern and isinstance(val, str):
                 if not re.fullmatch(pattern, val):
-                    self.add_error(f"[row {rownum}] column '{name}': value {val!r} does not match pattern {pattern!r}")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': value {val!r} does not match pattern {pattern!r}"
+                    )
 
             # Min/Max (pour nombres/entiers)
             if isinstance(val, (int, float)):
                 if minv is not None and val < minv:
-                    self.add_error(f"[row {rownum}] column '{name}': value {val} < min {minv}")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': value {val} < min {minv}"
+                    )
                 if maxv is not None and val > maxv:
-                    self.add_error(f"[row {rownum}] column '{name}': value {val} > max {maxv}")
+                    self.add_error(
+                        f"[row {rownum}] column '{name}': value {val} > max {maxv}"
+                    )
 
             typed[name] = val
         return typed
@@ -237,11 +259,15 @@ class CSVTableValidator:
             key_vals.append(v)
         tup = tuple(key_vals)
         if tup in self.pk_seen:
-            self.add_error(f"[row {rownum}] duplicate primary_key {self.primary_key}={tup}")
+            self.add_error(
+                f"[row {rownum}] duplicate primary_key {self.primary_key}={tup}"
+            )
         else:
             self.pk_seen.add(tup)
 
-    def _get_value_for_constraint(self, typed: Dict[str, Any], spec: Dict[str, Any]) -> Tuple[bool, Any]:
+    def _get_value_for_constraint(
+        self, typed: Dict[str, Any], spec: Dict[str, Any]
+    ) -> Tuple[bool, Any]:
         """
         Retourne (present, value) où value peut venir de:
           - spec["left"]/spec["right"] (colonne)
@@ -263,30 +289,52 @@ class CSVTableValidator:
             ctype = c.get("type")
             if ctype == "compare":
                 left_present, left_val = self._get_value_for_constraint(
-                    typed, {"column": c["left"]} if "left" in c else {"left_value": c.get("left_value")}
+                    typed,
+                    {"column": c["left"]}
+                    if "left" in c
+                    else {"left_value": c.get("left_value")},
                 )
                 if "right" in c:
-                    right_present, right_val = self._get_value_for_constraint(typed, {"column": c["right"]})
+                    right_present, right_val = self._get_value_for_constraint(
+                        typed, {"column": c["right"]}
+                    )
                 else:
-                    right_present, right_val = self._get_value_for_constraint(typed, {"right_value": c.get("right_value")})
+                    right_present, right_val = self._get_value_for_constraint(
+                        typed, {"right_value": c.get("right_value")}
+                    )
 
-                if not left_present or left_val is None or not right_present or right_val is None:
+                if (
+                    not left_present
+                    or left_val is None
+                    or not right_present
+                    or right_val is None
+                ):
                     continue
 
                 op = c.get("op")
                 ok = True
                 try:
-                    if   op == "<":  ok = left_val <  right_val
-                    elif op == "<=": ok = left_val <= right_val
-                    elif op == ">":  ok = left_val >  right_val
-                    elif op == ">=": ok = left_val >= right_val
-                    elif op == "==": ok = left_val == right_val
-                    elif op == "!=": ok = left_val != right_val
+                    if op == "<":
+                        ok = left_val < right_val
+                    elif op == "<=":
+                        ok = left_val <= right_val
+                    elif op == ">":
+                        ok = left_val > right_val
+                    elif op == ">=":
+                        ok = left_val >= right_val
+                    elif op == "==":
+                        ok = left_val == right_val
+                    elif op == "!=":
+                        ok = left_val != right_val
                     else:
-                        self.add_error(f"[row {rownum}] constraint 'compare': unknown operator {op!r}")
+                        self.add_error(
+                            f"[row {rownum}] constraint 'compare': unknown operator {op!r}"
+                        )
                         continue
                 except Exception as e:
-                    self.add_error(f"[row {rownum}] constraint 'compare' failed to evaluate: {e}")
+                    self.add_error(
+                        f"[row {rownum}] constraint 'compare' failed to evaluate: {e}"
+                    )
                     continue
 
                 if not ok:
@@ -307,29 +355,37 @@ class CSVTableValidator:
                 if_match = False
                 if if_present:
                     if if_equals is None:
-                        if_match = (if_val is not None)
+                        if_match = if_val is not None
                     else:
-                        if_match = (if_val == if_equals)
+                        if_match = if_val == if_equals
 
                 if not if_match:
                     continue
 
                 then_col = cond_then.get("column")
                 if then_col is None:
-                    self.add_error(f"[row {rownum}] constraint 'implies' missing 'then.column'")
+                    self.add_error(
+                        f"[row {rownum}] constraint 'implies' missing 'then.column'"
+                    )
                     continue
 
                 then_val = typed.get(then_col)
 
                 if cond_then.get("is_null", False):
                     if then_val is not None:
-                        self.add_error(f"[row {rownum}] implies failed: expected '{then_col}' to be null")
+                        self.add_error(
+                            f"[row {rownum}] implies failed: expected '{then_col}' to be null"
+                        )
                 if cond_then.get("not_null", False):
                     if then_val is None:
-                        self.add_error(f"[row {rownum}] implies failed: expected '{then_col}' to be not null")
+                        self.add_error(
+                            f"[row {rownum}] implies failed: expected '{then_col}' to be not null"
+                        )
                 if "equals" in cond_then:
                     if then_val != cond_then["equals"]:
-                        self.add_error(f"[row {rownum}] implies failed: expected '{then_col}' == {cond_then['equals']!r}, got {then_val!r}")
+                        self.add_error(
+                            f"[row {rownum}] implies failed: expected '{then_col}' == {cond_then['equals']!r}, got {then_val!r}"
+                        )
 
             else:
                 self.add_error(f"[row {rownum}] unknown constraint type: {ctype!r}")
@@ -346,7 +402,10 @@ class CSVTableValidator:
                 break
 
         if self.errors:
-            print(f"Found {len(self.errors)} error(s) (showing up to {self.max_errors}):", file=sys.stderr)
+            print(
+                f"Found {len(self.errors)} error(s) (showing up to {self.max_errors}):",
+                file=sys.stderr,
+            )
             for e in self.errors:
                 print(f"  - {e}", file=sys.stderr)
             return 1
@@ -354,11 +413,14 @@ class CSVTableValidator:
         print(f"OK: {self.data_path} matches {self.schema.get('$id', '<schema>')}")
         return 0
 
+
 def main(argv: List[str]) -> int:
     ap = argparse.ArgumentParser(description="Validate CSV against a csv-table schema.")
     ap.add_argument("schema", help="Path to schema JSON")
     ap.add_argument("csv", help="Path to CSV to validate")
-    ap.add_argument("--max-errors", type=int, default=50, help="Max errors to display (default: 50)")
+    ap.add_argument(
+        "--max-errors", type=int, default=50, help="Max errors to display (default: 50)"
+    )
     args = ap.parse_args(argv)
 
     try:
@@ -371,12 +433,15 @@ def main(argv: List[str]) -> int:
         print(f"Invalid JSON schema ({args.schema}): {e}", file=sys.stderr)
         return 2
 
-    validator = CSVTableValidator(schema=schema, data_path=args.csv, max_errors=args.max_errors)
+    validator = CSVTableValidator(
+        schema=schema, data_path=args.csv, max_errors=args.max_errors
+    )
     try:
         return validator.validate()
     except FileNotFoundError:
         print(f"CSV file not found: {args.csv}", file=sys.stderr)
         return 2
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

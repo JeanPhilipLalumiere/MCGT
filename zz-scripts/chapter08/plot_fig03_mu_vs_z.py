@@ -11,20 +11,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # -- Chemins
-ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data"   / "chapter08"
-FIG_DIR  = ROOT / "zz-figures"   / "chapter08"
+ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = ROOT / "zz-data" / "chapter08"
+FIG_DIR = ROOT / "zz-figures" / "chapter08"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # -- Chargement des données
 pantheon = pd.read_csv(DATA_DIR / "08_pantheon_data.csv", encoding="utf-8")
-theory   = pd.read_csv(DATA_DIR / "08_mu_theory_z.csv",    encoding="utf-8")
-params   = json.loads((DATA_DIR / "08_coupling_params.json").read_text(encoding="utf-8"))
-q0star   = params.get("q0star_optimal", None)  # ou autre clé selon ton JSON
+theory = pd.read_csv(DATA_DIR / "08_mu_theory_z.csv", encoding="utf-8")
+params = json.loads((DATA_DIR / "08_coupling_params.json").read_text(encoding="utf-8"))
+q0star = params.get("q0star_optimal", None)  # ou autre clé selon ton JSON
 
 # -- Tri par redshift
 pantheon = pantheon.sort_values("z")
-theory   = theory.sort_values("z")
+theory = theory.sort_values("z")
 
 # -- Configuration du tracé
 plt.rcParams.update({"font.size": 11})
@@ -35,18 +35,19 @@ ax.errorbar(
     pantheon["z"],
     pantheon["mu_obs"],
     yerr=pantheon["sigma_mu"],
-    fmt="o", markersize=5, capsize=3, label="Pantheon + obs"
+    fmt="o",
+    markersize=5,
+    capsize=3,
+    label="Pantheon + obs",
 )
 
 # -- Courbe théorique
-label_th = r"$\mu^{\rm th}(z; q_0^*={:.3f})$".format(q0star) \
-    if q0star is not None else r"$\mu^{\rm th}(z)$"
-ax.semilogx(
-    theory["z"],
-    theory["mu_calc"],
-    "-", lw=2,
-    label=label_th
+label_th = (
+    r"$\mu^{\rm th}(z; q_0^*={:.3f})$".format(q0star)
+    if q0star is not None
+    else r"$\mu^{\rm th}(z)$"
 )
+ax.semilogx(theory["z"], theory["mu_calc"], "-", lw=2, label=label_th)
 
 # -- Labels & titre
 ax.set_xlabel("Redshift $z$")

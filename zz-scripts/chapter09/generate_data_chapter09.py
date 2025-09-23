@@ -20,6 +20,7 @@ Conventions:
 - La "variante active" reflète la politique de calage (calibrated si --calibrate≠off, sinon raw).
 - Les métriques par défaut sont calculées sur 20–300 Hz.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -53,21 +54,26 @@ REF_CSV = OUT_DIR / "09_phases_imrphenom.csv"
 REF_META = OUT_DIR / "09_phases_imrphenom.meta.json"
 JALONS_CSV = OUT_DIR / "09_comparison_milestones.csv"
 
+
 # -----------------------
 # Utilities
 # -----------------------
 def setup_logger(level: str = "INFO") -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level.upper(), logging.INFO),
-        format='[%(asctime)s] [%(levelname)s] %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
+        format="[%(asctime)s] [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     return logging.getLogger("chapitre9.pipeline")
 
 
 def git_hash() -> Optional[str]:
     try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=PROJECT_ROOT).decode().strip()
+        return (
+            subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=PROJECT_ROOT)
+            .decode()
+            .strip()
+        )
     except Exception:
         return None
 
@@ -80,26 +86,30 @@ def ensure_dirs() -> None:
 def load_ini(path: Path | None) -> dict:
     cfg = {}
     if path and path.exists():
-        parser = configparser.ConfigParser(inline_comment_prefixes=('#', ';'), interpolation=None)
+        parser = configparser.ConfigParser(
+            inline_comment_prefixes=("#", ";"), interpolation=None
+        )
         parser.read(path)
         if "scan" in parser:
             s = parser["scan"]
+
             def fget(key: str, default: float) -> float:
                 try:
                     return s.getfloat(key)
                 except Exception:
                     return default
+
             cfg = {
-                "fmin":   fget("fmin", 10.0),
-                "fmax":   fget("fmax", 2048.0),
-                "dlog":   fget("dlog", 0.01),
-                "m1":     fget("m1", 30.0),
-                "m2":     fget("m2", 30.0),
+                "fmin": fget("fmin", 10.0),
+                "fmax": fget("fmax", 2048.0),
+                "dlog": fget("dlog", 0.01),
+                "m1": fget("m1", 30.0),
+                "m2": fget("m2", 30.0),
                 "q0star": fget("q0star", 0.20),
-                "alpha":  fget("alpha", 1.00),
-                "phi0":   fget("phi0", 0.0),
-                "tc":     fget("tc", 0.0),
-                "tol":    fget("tol", 1e-8),
+                "alpha": fget("alpha", 1.00),
+                "phi0": fget("phi0", 0.0),
+                "tc": fget("tc", 0.0),
+                "tol": fget("tol", 1e-8),
             }
     return cfg
 
@@ -128,7 +138,9 @@ def clamp_min_frequencies(f: np.ndarray, fmin: float) -> np.ndarray:
 # -----------------------
 # Reference generation via LALSuite or fallback
 # -----------------------
-def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional[np.ndarray]:
+def _try_lalsuite_phi_ref(
+    freqs: np.ndarray, logger: logging.Logger
+) -> Optional[np.ndarray]:
     try:
         import lal  # type: ignore
         import lalsimulation as lalsim  # type: ignore
@@ -146,7 +158,11 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional
         fmin = float(np.nanmin(f))
         fmax = float(np.nanmax(f))
         df_candidates = np.diff(np.unique(f[np.isfinite(f)]))
-        df = float(np.nanmin(df_candidates)) if df_candidates.size else max(1.0, fmin * 1e-3)
+        df = (
+            float(np.nanmin(df_candidates))
+            if df_candidates.size
+            else max(1.0, fmin * 1e-3)
+        )
         if not np.isfinite(df) or df <= 0:
             df = max(1.0, fmin * 1e-3)
 
@@ -161,13 +177,26 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional
         dct = lal.CreateDict()
 
         hp, _ = lalsim.SimInspiralChooseFDWaveform(
-            m1_kg, m2_kg,
-            zero, zero, zero,
-            zero, zero, zero,
-            dist, incl, phi0,
-            zero, zero, zero,
-            df, fmin, fmax, f_ref,
-            dct, lalsim.IMRPhenomD
+            m1_kg,
+            m2_kg,
+            zero,
+            zero,
+            zero,
+            zero,
+            zero,
+            zero,
+            dist,
+            incl,
+            phi0,
+            zero,
+            zero,
+            zero,
+            df,
+            fmin,
+            fmax,
+            f_ref,
+            dct,
+            lalsim.IMRPhenomD,
         )
 
         n = int(hp.data.length)
@@ -179,27 +208,42 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional
         return None
 
 
-def _try_external_script_for_ref(freqs: np.ndarray, logger: logging.Logger) -> Optional[np.ndarray]:
+def _try_external_script_for_ref(
+    freqs: np.ndarray, logger: logging.Logger
+) -> Optional[np.ndarray]:
     script = PROJECT_ROOT / "zz-scripts" / "chapter09" / "extract_phenom_phase.py"
     if not script.exists():
         logger.debug("Fallback script introuvable: %s", script)
         return None
     try:
-        proc = subprocess.run([sys.executable, str(script)], cwd=PROJECT_ROOT,
-                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+        proc = subprocess.run(
+            [sys.executable, str(script)],
+            cwd=PROJECT_ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
         if REF_CSV.exists():
             df = pd.read_csv(REF_CSV)
             if {"f_Hz", "phi_ref"}.issubset(df.columns):
                 f = np.asarray(freqs, float)
-                return np.interp(f, df["f_Hz"].to_numpy(float), df["phi_ref"].to_numpy(float))
-        logger.debug("extract_phenom_phase stdout: %s", proc.stdout.decode(errors="ignore")[:400])
-        logger.debug("extract_phenom_phase stderr: %s", proc.stderr.decode(errors="ignore")[:400])
+                return np.interp(
+                    f, df["f_Hz"].to_numpy(float), df["phi_ref"].to_numpy(float)
+                )
+        logger.debug(
+            "extract_phenom_phase stdout: %s", proc.stdout.decode(errors="ignore")[:400]
+        )
+        logger.debug(
+            "extract_phenom_phase stderr: %s", proc.stderr.decode(errors="ignore")[:400]
+        )
     except Exception as e:
         logger.warning("Fallback script a échoué: %s", e)
     return None
 
 
-def load_or_build_reference(freqs_cfg: np.ndarray, logger: logging.Logger, refresh: bool) -> Tuple[np.ndarray, np.ndarray, str]:
+def load_or_build_reference(
+    freqs_cfg: np.ndarray, logger: logging.Logger, refresh: bool
+) -> Tuple[np.ndarray, np.ndarray, str]:
     """
     Charge ou (re)génère la référence. Retourne (f_ref, phi_ref, tag_source).
     """
@@ -231,19 +275,33 @@ def load_or_build_reference(freqs_cfg: np.ndarray, logger: logging.Logger, refre
         phi_ref = _try_external_script_for_ref(f, logger)
 
     if phi_ref is None:
-        raise RuntimeError("Impossible de générer φ_ref : installez LALSuite ou fournissez " + str(REF_CSV))
+        raise RuntimeError(
+            "Impossible de générer φ_ref : installez LALSuite ou fournissez "
+            + str(REF_CSV)
+        )
 
     # Save reference
     try:
-        pd.DataFrame({"f_Hz": f, "phi_ref": np.asarray(phi_ref, float)}).to_csv(REF_CSV, index=False)
+        pd.DataFrame({"f_Hz": f, "phi_ref": np.asarray(phi_ref, float)}).to_csv(
+            REF_CSV, index=False
+        )
         meta = {
             "source": tag,
             "n_points": int(len(f)),
-            "grid": {"fmin_Hz": float(np.nanmin(f)), "fmax_Hz": float(np.nanmax(f)), "monotone": bool(np.all(np.diff(f) > 0))},
-            "repro": {"git_hash": git_hash(), "numpy": np.__version__, "pandas": pd.__version__}
+            "grid": {
+                "fmin_Hz": float(np.nanmin(f)),
+                "fmax_Hz": float(np.nanmax(f)),
+                "monotone": bool(np.all(np.diff(f) > 0)),
+            },
+            "repro": {
+                "git_hash": git_hash(),
+                "numpy": np.__version__,
+                "pandas": pd.__version__,
+            },
         }
         try:
             import lalsimulation as _ls  # type: ignore
+
             meta["repro"]["lalsuite"] = getattr(_ls, "__version__", "present")
         except Exception:
             meta["repro"]["lalsuite"] = None
@@ -266,14 +324,16 @@ def fit_alignment_phi0_tc(
     fmax: float,
     model: str,
     weight: str,
-    logger: logging.Logger
+    logger: logging.Logger,
 ) -> Tuple[float, float, int]:
     f = np.asarray(f, float)
     y = np.asarray(phi_ref, float) - np.asarray(phi_mcgt, float)
     mask = np.isfinite(f) & np.isfinite(y) & (f >= fmin) & (f <= fmax)
     n = int(np.sum(mask))
     if n < 2:
-        logger.warning("Calage: trop peu de points dans [%.1f, %.1f] Hz (n=%d).", fmin, fmax, n)
+        logger.warning(
+            "Calage: trop peu de points dans [%.1f, %.1f] Hz (n=%d).", fmin, fmax, n
+        )
         return 0.0, 0.0, n
 
     ff = f[mask]
@@ -301,8 +361,16 @@ def fit_alignment_phi0_tc(
     phi0_hat = float(beta[0])
     tc_hat = float(beta[1]) if (model == "phi0_tc" and len(beta) > 1) else 0.0
 
-    logger.info("Calage %s (poids=%s): φ0=%.6e rad, t_c=%.6e s (n=%d, window=[%.1f, %.1f])",
-                model, weight, phi0_hat, tc_hat, n, fmin, fmax)
+    logger.info(
+        "Calage %s (poids=%s): φ0=%.6e rad, t_c=%.6e s (n=%d, window=[%.1f, %.1f])",
+        model,
+        weight,
+        phi0_hat,
+        tc_hat,
+        n,
+        fmin,
+        fmax,
+    )
     return phi0_hat, tc_hat, n
 
 
@@ -310,34 +378,102 @@ def fit_alignment_phi0_tc(
 # CLI
 # -----------------------
 def parse_args() -> argparse.Namespace:
-    ap = argparse.ArgumentParser(description="Chapitre 9 — Pipeline MCGT (accord homogène 20–300 Hz)")
-    ap.add_argument("-i", "--ini", type=Path, default=Path("zz-configuration/gw_phase.ini"),
-                    help="Fichier INI (section [scan]).")
-    ap.add_argument("--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO")
-    ap.add_argument("--overwrite", action="store_true", help="Écraser les fichiers de sortie s'ils existent.")
-    ap.add_argument("--refresh-ref", action="store_true", help="Forcer la régénération de φ_ref (IMRPhenom).")
+    ap = argparse.ArgumentParser(
+        description="Chapitre 9 — Pipeline MCGT (accord homogène 20–300 Hz)"
+    )
+    ap.add_argument(
+        "-i",
+        "--ini",
+        type=Path,
+        default=Path("zz-configuration/gw_phase.ini"),
+        help="Fichier INI (section [scan]).",
+    )
+    ap.add_argument(
+        "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
+    )
+    ap.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Écraser les fichiers de sortie s'ils existent.",
+    )
+    ap.add_argument(
+        "--refresh-ref",
+        action="store_true",
+        help="Forcer la régénération de φ_ref (IMRPhenom).",
+    )
 
-    ap.add_argument("--metrics-window", nargs=2, type=float, default=[20.0, 300.0],
-                    metavar=("FMIN", "FMAX"), help="Fenêtre [Hz] pour les métriques.")
-    ap.add_argument("--calibrate", choices=["off", "phi0", "phi0,tc"], default="phi0,tc",
-                    help="Modèle de calage global (φ0 / φ0+t_c).")
-    ap.add_argument("--calib-window", nargs=2, type=float, default=[20.0, 300.0],
-                    metavar=("FMIN", "FMAX"), help="Fenêtre [Hz] pour le fit φ0(/t_c).")
-    ap.add_argument("--calib-weight", choices=["flat", "1/f", "1/f2"], default="1/f2",
-                    help="Pondération WLS dans la fenêtre de calage.")
+    ap.add_argument(
+        "--metrics-window",
+        nargs=2,
+        type=float,
+        default=[20.0, 300.0],
+        metavar=("FMIN", "FMAX"),
+        help="Fenêtre [Hz] pour les métriques.",
+    )
+    ap.add_argument(
+        "--calibrate",
+        choices=["off", "phi0", "phi0,tc"],
+        default="phi0,tc",
+        help="Modèle de calage global (φ0 / φ0+t_c).",
+    )
+    ap.add_argument(
+        "--calib-window",
+        nargs=2,
+        type=float,
+        default=[20.0, 300.0],
+        metavar=("FMIN", "FMAX"),
+        help="Fenêtre [Hz] pour le fit φ0(/t_c).",
+    )
+    ap.add_argument(
+        "--calib-weight",
+        choices=["flat", "1/f", "1/f2"],
+        default="1/f2",
+        help="Pondération WLS dans la fenêtre de calage.",
+    )
 
-    ap.add_argument("--auto-tighten", dest="auto_tighten", action="store_true", default=True,
-                    help="Activer le resserrage automatique (par défaut ON).")
-    ap.add_argument("--no-auto-tighten", dest="auto_tighten", action="store_false",
-                    help="Désactiver le resserrage automatique.")
-    ap.add_argument("--tighten-window", nargs=2, type=float, default=[30.0, 250.0],
-                    metavar=("FMIN", "FMAX"), help="Fenêtre [Hz] utilisée si resserrage.")
-    ap.add_argument("--tighten-threshold-p95", type=float, default=5.0,
-                    help="Seuil p95(|Δφ|) 20–300 (rad) déclenchant le resserrage.")
+    ap.add_argument(
+        "--auto-tighten",
+        dest="auto_tighten",
+        action="store_true",
+        default=True,
+        help="Activer le resserrage automatique (par défaut ON).",
+    )
+    ap.add_argument(
+        "--no-auto-tighten",
+        dest="auto_tighten",
+        action="store_false",
+        help="Désactiver le resserrage automatique.",
+    )
+    ap.add_argument(
+        "--tighten-window",
+        nargs=2,
+        type=float,
+        default=[30.0, 250.0],
+        metavar=("FMIN", "FMAX"),
+        help="Fenêtre [Hz] utilisée si resserrage.",
+    )
+    ap.add_argument(
+        "--tighten-threshold-p95",
+        type=float,
+        default=5.0,
+        help="Seuil p95(|Δφ|) 20–300 (rad) déclenchant le resserrage.",
+    )
 
-    ap.add_argument("--export-diff", action="store_true", help="Écrire zz-data/chapter09/09_phase_diff.csv.")
-    ap.add_argument("--export-anomalies", action="store_true", help="Écrire comparaison jalons si présents.")
-    ap.add_argument("--export-heatmap", action="store_true", help="Écrire 09_fisher_scan2D.csv (approx locale).")
+    ap.add_argument(
+        "--export-diff",
+        action="store_true",
+        help="Écrire zz-data/chapter09/09_phase_diff.csv.",
+    )
+    ap.add_argument(
+        "--export-anomalies",
+        action="store_true",
+        help="Écrire comparaison jalons si présents.",
+    )
+    ap.add_argument(
+        "--export-heatmap",
+        action="store_true",
+        help="Écrire 09_fisher_scan2D.csv (approx locale).",
+    )
 
     ap.add_argument("--fmin", type=float, default=None)
     ap.add_argument("--fmax", type=float, default=None)
@@ -363,22 +499,45 @@ def main() -> None:
 
     # Defaults + INI + overrides
     cfg = {
-        "fmin": 10.0, "fmax": 2048.0, "dlog": 0.01,
-        "m1": 30.0, "m2": 30.0, "q0star": 0.20, "alpha": 1.00,
-        "phi0": 0.0, "tc": 0.0, "tol": 1e-8,
+        "fmin": 10.0,
+        "fmax": 2048.0,
+        "dlog": 0.01,
+        "m1": 30.0,
+        "m2": 30.0,
+        "q0star": 0.20,
+        "alpha": 1.00,
+        "phi0": 0.0,
+        "tc": 0.0,
+        "tol": 1e-8,
     }
     cfg.update(load_ini(args.ini))
-    for k in ("fmin", "fmax", "dlog", "m1", "m2", "q0star", "alpha", "phi0", "tc", "tol"):
+    for k in (
+        "fmin",
+        "fmax",
+        "dlog",
+        "m1",
+        "m2",
+        "q0star",
+        "alpha",
+        "phi0",
+        "tc",
+        "tol",
+    ):
         v = getattr(args, k, None)
         if v is not None:
             cfg[k] = v
 
-    fmin = float(cfg["fmin"]); fmax = float(cfg["fmax"]); dlog = float(cfg["dlog"])
+    fmin = float(cfg["fmin"])
+    fmax = float(cfg["fmax"])
+    dlog = float(cfg["dlog"])
     params = PhaseParams(
-        m1=float(cfg["m1"]), m2=float(cfg["m2"]),
-        q0star=float(cfg["q0star"]), alpha=float(cfg["alpha"]),
-        phi0=float(cfg["phi0"]), tc=float(cfg["tc"]),
-        tol=float(cfg["tol"])
+        m1=float(cfg["m1"]),
+        m2=float(cfg["m2"]),
+        q0star=float(cfg["q0star"]),
+        alpha=float(cfg["alpha"]),
+        phi0=float(cfg["phi0"]),
+        tc=float(cfg["tc"]),
+        tol=float(cfg["tol"]),
     )
     logger.info("Paramètres MCGT: %s", params)
 
@@ -386,7 +545,9 @@ def main() -> None:
     freqs_cfg = build_loglin_grid(fmin, fmax, dlog)
 
     # Load or build reference
-    f_ref, phi_ref, ref_tag = load_or_build_reference(freqs_cfg, logger, refresh=args.refresh_ref)
+    f_ref, phi_ref, ref_tag = load_or_build_reference(
+        freqs_cfg, logger, refresh=args.refresh_ref
+    )
 
     # Solve MCGT on reference grid (clamp f < fmin to fmin)
     f = clamp_min_frequencies(f_ref, fmin)
@@ -395,17 +556,25 @@ def main() -> None:
     # Filter finite points
     mask_ok = np.isfinite(f) & np.isfinite(phi_ref) & np.isfinite(phi_mcgt_raw)
     if not np.any(mask_ok):
-        raise RuntimeError("Aucune donnée finie après génération de la référence et solveur MCGT.")
+        raise RuntimeError(
+            "Aucune donnée finie après génération de la référence et solveur MCGT."
+        )
     if np.sum(~mask_ok) > 0:
-        logger.warning("Points non finis supprimés: %d / %d", int(np.sum(~mask_ok)), int(len(f)))
+        logger.warning(
+            "Points non finis supprimés: %d / %d", int(np.sum(~mask_ok)), int(len(f))
+        )
 
     f = f[mask_ok]
     phi_ref = phi_ref[mask_ok]
     phi_mcgt_raw = phi_mcgt_raw[mask_ok]
 
     # Calibration WLS
-    calib_enabled = (args.calibrate != "off")
-    calib_model = "phi0_tc" if args.calibrate == "phi0,tc" else ("phi0" if args.calibrate == "phi0" else None)
+    calib_enabled = args.calibrate != "off"
+    calib_model = (
+        "phi0_tc"
+        if args.calibrate == "phi0,tc"
+        else ("phi0" if args.calibrate == "phi0" else None)
+    )
     f_cal_lo, f_cal_hi = map(float, args.calib_window)
 
     phi0_hat = 0.0
@@ -419,7 +588,14 @@ def main() -> None:
 
     if calib_enabled and calib_model is not None:
         phi0_hat, tc_hat, n_cal = fit_alignment_phi0_tc(
-            f, phi_ref, phi_mcgt_raw, f_cal_lo, f_cal_hi, model=calib_model, weight=args.calib_weight, logger=logger
+            f,
+            phi_ref,
+            phi_mcgt_raw,
+            f_cal_lo,
+            f_cal_hi,
+            model=calib_model,
+            weight=args.calib_weight,
+            logger=logger,
         )
         phi_mcgt_cal = phi_mcgt_raw + phi0_hat + (2.0 * np.pi * f * tc_hat)
 
@@ -427,20 +603,39 @@ def main() -> None:
         band_lo, band_hi = map(float, args.metrics_window)
         band_mask = (f >= band_lo) & (f <= band_hi)
         p95_check_before = p95(np.abs(phi_mcgt_cal[band_mask] - phi_ref[band_mask]))
-        logger.info("Contrôle p95 avant resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad (seuil=%.3f)",
-                    band_lo, band_hi, p95_check_before, float(args.tighten_threshold_p95))
+        logger.info(
+            "Contrôle p95 avant resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad (seuil=%.3f)",
+            band_lo,
+            band_hi,
+            p95_check_before,
+            float(args.tighten_threshold_p95),
+        )
 
         if args.auto_tighten and (p95_check_before > float(args.tighten_threshold_p95)):
             tlo, thi = map(float, args.tighten_window)
-            logger.info("Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi)
+            logger.info(
+                "Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi
+            )
             phi0_hat, tc_hat, n_cal = fit_alignment_phi0_tc(
-                f, phi_ref, phi_mcgt_raw, tlo, thi, model=calib_model, weight=args.calib_weight, logger=logger
+                f,
+                phi_ref,
+                phi_mcgt_raw,
+                tlo,
+                thi,
+                model=calib_model,
+                weight=args.calib_weight,
+                logger=logger,
             )
             phi_mcgt_cal = phi_mcgt_raw + phi0_hat + (2.0 * np.pi * f * tc_hat)
             used_window = [tlo, thi]
             tightened = True
             p95_check_after = p95(np.abs(phi_mcgt_cal[band_mask] - phi_ref[band_mask]))
-            logger.info("Après resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad", band_lo, band_hi, p95_check_after)
+            logger.info(
+                "Après resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad",
+                band_lo,
+                band_hi,
+                p95_check_after,
+            )
         else:
             p95_check_after = p95_check_before
 
@@ -454,15 +649,20 @@ def main() -> None:
     # Exports phases (respect overwrite)
     out_mcgt = OUT_DIR / "09_phases_mcgt.csv"
     if out_mcgt.exists() and not args.overwrite:
-        logger.info("Conserver fichier existant (utilisez --overwrite pour écraser): %s", out_mcgt)
+        logger.info(
+            "Conserver fichier existant (utilisez --overwrite pour écraser): %s",
+            out_mcgt,
+        )
     else:
-        pd.DataFrame({
-            "f_Hz": f,
-            "phi_ref": phi_ref,
-            "phi_mcgt": phi_mcgt_active,
-            "phi_mcgt_raw": phi_mcgt_raw,
-            "phi_mcgt_cal": phi_mcgt_cal
-        }).to_csv(out_mcgt, index=False)
+        pd.DataFrame(
+            {
+                "f_Hz": f,
+                "phi_ref": phi_ref,
+                "phi_mcgt": phi_mcgt_active,
+                "phi_mcgt_raw": phi_mcgt_raw,
+                "phi_mcgt_cal": phi_mcgt_cal,
+            }
+        ).to_csv(out_mcgt, index=False)
         logger.info("Écrit → %s", out_mcgt)
 
     # Δφ and metrics (metrics window)
@@ -497,20 +697,24 @@ def main() -> None:
     out_diff = OUT_DIR / "09_phase_diff.csv"
     if args.export_diff:
         if out_diff.exists() and not args.overwrite:
-            logger.info("Conserver diff existant (use --overwrite to replace): %s", out_diff)
+            logger.info(
+                "Conserver diff existant (use --overwrite to replace): %s", out_diff
+            )
         else:
-            df_diff = pd.DataFrame({
-                "f_Hz": f,
-                "dphi": dphi,
-                "abs_dphi": abs_dphi,
-                "mean_abs_20_300": np.full_like(f, float(mean_abs), dtype=float),
-                "max_abs_20_300":  np.full_like(f, float(max_abs),  dtype=float),
-                "p95_abs_20_300":  np.full_like(f, float(p95_abs),  dtype=float),
-                "dphi_raw": dphi_raw,
-                "abs_dphi_raw": abs_raw,
-                "dphi_cal": dphi_cal,
-                "abs_dphi_cal": abs_cal,
-            })
+            df_diff = pd.DataFrame(
+                {
+                    "f_Hz": f,
+                    "dphi": dphi,
+                    "abs_dphi": abs_dphi,
+                    "mean_abs_20_300": np.full_like(f, float(mean_abs), dtype=float),
+                    "max_abs_20_300": np.full_like(f, float(max_abs), dtype=float),
+                    "p95_abs_20_300": np.full_like(f, float(p95_abs), dtype=float),
+                    "dphi_raw": dphi_raw,
+                    "abs_dphi_raw": abs_raw,
+                    "dphi_cal": dphi_cal,
+                    "abs_dphi_cal": abs_cal,
+                }
+            )
             df_diff.to_csv(out_diff, index=False)
             logger.info("Écrit → %s", out_diff)
 
@@ -521,12 +725,16 @@ def main() -> None:
             jal = pd.read_csv(JALONS_CSV)
             need = {"event", "f_Hz", "obs_phase", "sigma_phase"}
             if not need.issubset(jal.columns):
-                logger.warning("Jalons: colonnes manquantes (attendues: %s).", sorted(need))
+                logger.warning(
+                    "Jalons: colonnes manquantes (attendues: %s).", sorted(need)
+                )
             else:
                 fpk = np.asarray(jal["f_Hz"].to_numpy(float), float)
                 phi_ref_at = np.interp(fpk, f, phi_ref)
                 phi_raw_at = np.interp(fpk, f, phi_mcgt_raw)
-                phi_cal_at = np.interp(fpk, f, phi_mcgt_raw + phi0_hat + 2.0*np.pi*f*tc_hat)
+                phi_cal_at = np.interp(
+                    fpk, f, phi_mcgt_raw + phi0_hat + 2.0 * np.pi * f * tc_hat
+                )
                 phi_active_at = phi_cal_at if calib_enabled else phi_raw_at
 
                 obs = jal["obs_phase"].to_numpy(float)
@@ -534,22 +742,26 @@ def main() -> None:
                 epsilon_rel = (phi_active_at - obs) / denom
 
                 out_jalons_cmp = OUT_DIR / "09_comparison_milestones.csv"
-                pd.DataFrame({
-                    "event": jal["event"],
-                    "f_Hz": fpk,
-                    "phi_ref_at_fpeak": phi_ref_at,
-                    "phi_mcgt_at_fpeak": phi_active_at,
-                    "phi_mcgt_at_fpeak_raw": phi_raw_at,
-                    "phi_mcgt_at_fpeak_cal": phi_cal_at,
-                    "obs_phase": jal["obs_phase"],
-                    "sigma_phase": jal["sigma_phase"],
-                    "epsilon_rel": epsilon_rel,
-                    "classe": jal.get("classe", pd.Series([""] * len(jal))),
-                    "variant": "calibrated" if calib_enabled else "raw",
-                }).to_csv(out_jalons_cmp, index=False)
+                pd.DataFrame(
+                    {
+                        "event": jal["event"],
+                        "f_Hz": fpk,
+                        "phi_ref_at_fpeak": phi_ref_at,
+                        "phi_mcgt_at_fpeak": phi_active_at,
+                        "phi_mcgt_at_fpeak_raw": phi_raw_at,
+                        "phi_mcgt_at_fpeak_cal": phi_cal_at,
+                        "obs_phase": jal["obs_phase"],
+                        "sigma_phase": jal["sigma_phase"],
+                        "epsilon_rel": epsilon_rel,
+                        "classe": jal.get("classe", pd.Series([""] * len(jal))),
+                        "variant": "calibrated" if calib_enabled else "raw",
+                    }
+                ).to_csv(out_jalons_cmp, index=False)
                 logger.info("Écrit → %s", out_jalons_cmp)
         else:
-            logger.warning("Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV)
+            logger.warning(
+                "Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV
+            )
 
     # Optional local Fisher-like heatmap (approx)
     out_fisher = None
@@ -560,19 +772,47 @@ def main() -> None:
                 sigma_phase = float(np.median(sj.values)) if len(sj) else 0.1
             else:
                 sigma_phase = 0.1
-            param2_vals = np.linspace(max(0.5, params.alpha - 0.5), min(2.0, params.alpha + 0.5), 51)
+            param2_vals = np.linspace(
+                max(0.5, params.alpha - 0.5), min(2.0, params.alpha + 0.5), 51
+            )
             eps = 1e-5
             rows = []
             for a in param2_vals:
-                p_lo = PhaseParams(m1=params.m1, m2=params.m2, q0star=params.q0star - eps, alpha=a,
-                                   phi0=params.phi0, tc=params.tc, tol=params.tol)
-                p_hi = PhaseParams(m1=params.m1, m2=params.m2, q0star=params.q0star + eps, alpha=a,
-                                   phi0=params.phi0, tc=params.tc, tol=params.tol)
+                p_lo = PhaseParams(
+                    m1=params.m1,
+                    m2=params.m2,
+                    q0star=params.q0star - eps,
+                    alpha=a,
+                    phi0=params.phi0,
+                    tc=params.tc,
+                    tol=params.tol,
+                )
+                p_hi = PhaseParams(
+                    m1=params.m1,
+                    m2=params.m2,
+                    q0star=params.q0star + eps,
+                    alpha=a,
+                    phi0=params.phi0,
+                    tc=params.tc,
+                    tol=params.tol,
+                )
                 phi_lo = solve_mcgt(f, p_lo)
                 phi_hi = solve_mcgt(f, p_hi)
                 dphi_dq = (phi_hi - phi_lo) / (2 * eps)
-                fisher = (dphi_dq ** 2) / (sigma_phase ** 2) if sigma_phase > 0 else np.full_like(dphi_dq, np.nan)
-                rows.append(pd.DataFrame({"f_Hz": f, "param2": np.full_like(f, a), "fisher_value": fisher}))
+                fisher = (
+                    (dphi_dq**2) / (sigma_phase**2)
+                    if sigma_phase > 0
+                    else np.full_like(dphi_dq, np.nan)
+                )
+                rows.append(
+                    pd.DataFrame(
+                        {
+                            "f_Hz": f,
+                            "param2": np.full_like(f, a),
+                            "fisher_value": fisher,
+                        }
+                    )
+                )
             fisher_df = pd.concat(rows, ignore_index=True)
             out_fisher = OUT_DIR / "09_fisher_scan2D.csv"
             fisher_df.to_csv(out_fisher, index=False)
@@ -584,17 +824,34 @@ def main() -> None:
     meta = {
         "ini": str(args.ini),
         "params": asdict(params),
-        "reference": {"csv": str(REF_CSV), "meta": str(REF_META), "source_tag": ref_tag},
-        "grid_used": {"fmin_Hz": float(np.nanmin(f)), "fmax_Hz": float(np.nanmax(f)), "dlog10": float(dlog), "n_points_used": int(len(f))},
+        "reference": {
+            "csv": str(REF_CSV),
+            "meta": str(REF_META),
+            "source_tag": ref_tag,
+        },
+        "grid_used": {
+            "fmin_Hz": float(np.nanmin(f)),
+            "fmax_Hz": float(np.nanmax(f)),
+            "dlog10": float(dlog),
+            "n_points_used": int(len(f)),
+        },
         "metrics_window_Hz": [float(mw_lo), float(mw_hi)],
         "metrics_active": {
             "mean_abs_20_300": float(mean_abs),
-            "max_abs_20_300":  float(max_abs),
-            "p95_abs_20_300":  float(p95_abs),
+            "max_abs_20_300": float(max_abs),
+            "p95_abs_20_300": float(p95_abs),
             "variant": active_variant,
         },
-        "metrics_raw": {"mean_abs_20_300": float(mean_raw), "max_abs_20_300": float(max_raw), "p95_abs_20_300": float(p95_raw)},
-        "metrics_cal": {"mean_abs_20_300": float(mean_cal), "max_abs_20_300": float(max_cal), "p95_abs_20_300": float(p95_cal)},
+        "metrics_raw": {
+            "mean_abs_20_300": float(mean_raw),
+            "max_abs_20_300": float(max_raw),
+            "p95_abs_20_300": float(p95_raw),
+        },
+        "metrics_cal": {
+            "mean_abs_20_300": float(mean_cal),
+            "max_abs_20_300": float(max_cal),
+            "p95_abs_20_300": float(p95_cal),
+        },
         "calibration": {
             "enabled": bool(calib_enabled),
             "mode": args.calibrate,
@@ -612,21 +869,30 @@ def main() -> None:
         },
         "outputs": {
             "phases_mcgt_csv": str(out_mcgt) if out_mcgt.exists() else None,
-            "diff_phase_csv": str(out_diff) if args.export_diff and out_diff.exists() else None,
-            "comparison_milestones_csv": str(out_jalons_cmp) if out_jalons_cmp else None,
+            "diff_phase_csv": str(out_diff)
+            if args.export_diff and out_diff.exists()
+            else None,
+            "comparison_milestones_csv": str(out_jalons_cmp)
+            if out_jalons_cmp
+            else None,
             "fisher_scan2D_csv": str(out_fisher) if out_fisher else None,
         },
         "repro": {
             "git_hash": git_hash(),
             "python": "{}.{}.{}".format(*sys.version_info[:3]),
-            "libs": {"numpy": np.__version__, "pandas": pd.__version__}
-        }
+            "libs": {"numpy": np.__version__, "pandas": pd.__version__},
+        },
     }
     (OUT_DIR / "09_metrics_phase.json").write_text(json.dumps(meta, indent=2))
     logger.info("Écrit → %s", OUT_DIR / "09_metrics_phase.json")
 
-    logger.info("Terminé. Variante ACTIVE: %s | p95(|Δφ|)@%g–%g = %.6f rad",
-                active_variant, mw_lo, mw_hi, p95_abs)
+    logger.info(
+        "Terminé. Variante ACTIVE: %s | p95(|Δφ|)@%g–%g = %.6f rad",
+        active_variant,
+        mw_lo,
+        mw_hi,
+        p95_abs,
+    )
 
 
 if __name__ == "__main__":

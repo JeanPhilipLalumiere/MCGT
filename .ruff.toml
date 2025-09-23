@@ -1,0 +1,3 @@
+
+[per-file-ignores]
+"zz-scripts/**" = ["E402"]

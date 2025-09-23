@@ -1,55 +1,39 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
+license = { text = "MIT License" }
 name = "mcgt"
-version = "0.2.0"
-description = "MCGT — outils, données et scripts pour l’ouvrage (10 chapitres)."
+description = "MCGT core package"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE" }
-authors = [
-  { name = "Jean-Philip Lalumière", email = "contact@jeanphiliplalumiere.com" }
-]
-keywords = ["cosmologie", "CMB", "BBN", "GW", "Monte Carlo", "MCGT"]
+authors = [{name="Jean-Philip Lalumiere"}]
+keywords = ["mcgt", "cosmo", "analysis"]
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
-  "Intended Audience :: Science/Research",
-  "Topic :: Scientific/Engineering :: Physics",
-]
 
-# Dépendances *runtime* minimales du paquet (pas toute la pile des notebooks/figures)
-dependencies = [
-  "numpy>=1.24",
-  "scipy>=1.11",
+
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
 ]
+dependencies = []
+dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = [
-  "pytest",
-  "jsonschema[format-nongpl]",
-  "rich",
-  "tqdm",
-]
+dev = ["pytest", "pytest-cov", "ruff", "pre-commit"]
+viz = ["pandas", "matplotlib"]
 
-[project.urls]
-Homepage = "https://example.org/mcgt"
-Repository = "https://example.org/mcgt/repo"
-Issues = "https://example.org/mcgt/issues"
+[project.scripts]
+mcgt = "mcgt.__main__:main"
 
 [tool.setuptools]
+license-files = []
+
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["."]
-include = ["mcgt", "mcgt.*"]
+include = ["mcgt*"]
+namespaces = false
 
-# Si tu veux embarquer des fichiers non-Python dans la wheel (ajuste au besoin)
-[tool.setuptools.package-data]
-mcgt = ["**/*.ini", "**/*.json", "**/*.dat"]
+[tool.setuptools.dynamic]
+version = {attr = "mcgt.__version__"}

@@ -24,7 +24,7 @@ __all__ = [
     "perturbations",
 ]
 
-__version__ = "0.1.1"  # bump mineur après refactor des noms de fichiers
+__version__ = "0.1.2.dev0"
 
 # --- logging minimal ---
 import logging

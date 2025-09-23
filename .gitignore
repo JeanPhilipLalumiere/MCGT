@@ -52,3 +52,5 @@ _snapshots/
 MCGT-clean/
 .venv-mcgt/
 zz-trash/
+coverage.xml
+_tools/*.sh

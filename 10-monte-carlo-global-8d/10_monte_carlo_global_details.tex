@@ -3,7 +3,7 @@
   \item Charger la chaîne MCMC Planck (\texttt{planck2018\_chain.csv}) contenant les colonnes \texttt{omegabh2}, \texttt{omegach2} et \texttt{H0}.
   \item Pour chaque ligne \(i\) :
     \[
-      h_{i} = \frac{H_{0}^{(i)}}{100}, 
+      h_{i} = \frac{H_{0}^{(i)}}{100},
       \quad
       \Omega_{m}^{(i)} = \frac{\omega_{b}h^{2} + \omega_{c}h^{2}}{h^{2}},
       \quad
@@ -14,8 +14,8 @@
 
 \subsection{10.9 – Génération des tirages MCGT}
 \begin{enumerate}
-  \item Fixer la graine aléatoire :  
-    \verb|np.random.seed(0)|  
+  \item Fixer la graine aléatoire :
+    \verb|np.random.seed(0)|
 
   \item Définir les distributions normales :
     \begin{align*}
@@ -39,18 +39,18 @@
   \item Initialiser un tableau \texttt{samples} de forme \((N_{\rm MC},\,8)\).
   \item Pour chaque \(i=0,\dots,N_{\rm MC}-1\) :
     \begin{itemize}
-      \item Sélectionner l’indice Planck \(j = i \bmod N_{\rm Planck}\).  
-      \item Extraire \(\Omega_{m}^{(j)},\,H_{0}^{(j)}\) depuis le tableau Planck.  
+      \item Sélectionner l’indice Planck \(j = i \bmod N_{\rm Planck}\).
+      \item Extraire \(\Omega_{m}^{(j)},\,H_{0}^{(j)}\) depuis le tableau Planck.
       \item Affecter :
         \[
-          \texttt{samples}[i,\,0:6] = \texttt{mcgt\_samples}[i,\,0:6], 
+          \texttt{samples}[i,\,0:6] = \texttt{mcgt\_samples}[i,\,0:6],
           \quad
-          \texttt{samples}[i,\,6] = \Omega_{m}^{(j)}, 
+          \texttt{samples}[i,\,6] = \Omega_{m}^{(j)},
           \quad
           \texttt{samples}[i,\,7] = H_{0}^{(j)}.
         \]
     \end{itemize}
-  \item Au terme de la boucle, \texttt{samples[i]} contient 
+  \item Au terme de la boucle, \texttt{samples[i]} contient
     \(\bigl[\alpha_{1}^{(i)},\,T_{c}^{(i)},\,\Delta^{(i)},\,T_{p}^{(i)},\,\Delta_{p}^{(i)},\,\beta^{(i)},\,\Omega_{m}^{(j)},\,H_{0}^{(j)}\bigr]\).
 \end{enumerate}
 
@@ -60,10 +60,10 @@
     \[
       C_{8\times8} = \texttt{np.cov(samples, rowvar=False)}.
     \]
-  \item Vérifier la symétrie :  
-    \texttt{assert np.allclose(cov8, cov8.T)}  
+  \item Vérifier la symétrie :
+    \texttt{assert np.allclose(cov8, cov8.T)}
   \item Vérifier que toutes les variances diagonales sont strictement positives :
-    \texttt{assert np.all(np.diag(cov8) > 0)}  
+    \texttt{assert np.all(np.diag(cov8) > 0)}
   \item Sauvegarder au format binaire NumPy :
     \[
       \texttt{np.save('10\_global\_covariance\_real.npy',\,C_{8\times8})}.
@@ -174,14 +174,14 @@ plt.close()
 
 \subsection{10.15 – Dépendances et installation}
 \begin{itemize}
-  \item Python 3.8 ou supérieur  
-  \item Packages :  
+  \item Python 3.8 ou supérieur
+  \item Packages :
     \begin{itemize}
-      \item \texttt{numpy} (manipulation de tableaux, calcul de covariance)  
-      \item \texttt{scipy} (estimation KDE)  
-      \item \texttt{matplotlib} (tracés)  
+      \item \texttt{numpy} (manipulation de tableaux, calcul de covariance)
+      \item \texttt{scipy} (estimation KDE)
+      \item \texttt{matplotlib} (tracés)
     \end{itemize}
-  \item Installation recommandée :  
+  \item Installation recommandée :
     \begin{verbatim}
     pip install numpy scipy matplotlib
     \end{verbatim}
@@ -189,14 +189,14 @@ plt.close()
 
 \subsection{10.16 – Validations post‐calcul}
 \begin{itemize}
-  \item Vérifier la symétrie de la matrice :  
-    \verb|assert np.allclose(cov8, cov8.T)|  
-  \item Vérifier la positivité des variances :  
-    \verb|assert np.all(np.diag(cov8) > 0)|  
-  \item Contrôler que les écarts‐types reportés dans les KDE correspondent 
-        à \(\sqrt{C_{jj}}\) pour chaque \(j\).  
-  \item S’assurer que l’ellipse \((\Omega_{m},H_{0})\) est centrée sur 
-        \(\bigl(\overline{\Omega}_{m},\,\overline{H}_{0}\bigr)\) 
+  \item Vérifier la symétrie de la matrice :
+    \verb|assert np.allclose(cov8, cov8.T)|
+  \item Vérifier la positivité des variances :
+    \verb|assert np.all(np.diag(cov8) > 0)|
+  \item Contrôler que les écarts‐types reportés dans les KDE correspondent
+        à \(\sqrt{C_{jj}}\) pour chaque \(j\).
+  \item S’assurer que l’ellipse \((\Omega_{m},H_{0})\) est centrée sur
+        \(\bigl(\overline{\Omega}_{m},\,\overline{H}_{0}\bigr)\)
         et reflète la corrélation de \(\text{sub_cov}\).
 \end{itemize}
 

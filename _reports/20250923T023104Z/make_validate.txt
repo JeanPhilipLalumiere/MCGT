@@ -1,0 +1,59 @@
+./zz-schemas/validate_all.sh
+== JSON validation (safe SKIP) ==
+JSON: zz-data/chapter10/10_mc_config.json  ↔  zz-schemas/mc_config_schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter10/10_mc_best.json  ↔  zz-schemas/mc_best_schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter09/09_metrics_phase.json  ↔  zz-schemas/metrics_phase_schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter09/09_best_params.json  ↔  zz-schemas/09_best_params.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter09/09_phases_imrphenom.meta.json  ↔  zz-schemas/09_phases_imrphenom.meta.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter08/08_coupling_params.json  ↔  zz-schemas/08_coupling_params.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+SKIP: missing sample  zz-data/chapter07/07_params_perturbations.json
+SKIP: missing sample  zz-data/chapter07/07_meta_perturbations.json
+JSON: zz-data/chapter06/06_params_cmb.json  ↔  zz-schemas/06_cmb_params.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter05/05_bbn_params.json  ↔  zz-schemas/05_nucleosynthesis_parameters.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+SKIP: missing sample  zz-data/chapter03/03_meta_stability_fR.json
+JSON: zz-data/chapter02/02_primordial_spectrum_spec.json  ↔  zz-schemas/02_spec_spectrum.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+JSON: zz-data/chapter02/02_optimal_parameters.json  ↔  zz-schemas/02_optimal_parameters.schema.json
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-schemas/validate_json.py", line 5, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+Summary: ok=0 bad=10 skip=3
+./zz-schemas/validate_csv_all.sh
+/bin/bash: line 1: ./zz-schemas/validate_csv_all.sh: No such file or directory
+make: *** [Makefile:34: csv] Error 127

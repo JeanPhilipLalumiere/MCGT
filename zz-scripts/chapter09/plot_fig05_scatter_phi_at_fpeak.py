@@ -46,15 +46,15 @@ import matplotlib.pyplot as plt
 
 # ---------- Defaults ----------
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT        = Path("zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png")
+DEF_OUT = Path("zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png")
 
 
 # ---------- Utils ----------
 def setup_logger(level: str) -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level),
-        format='[%(asctime)s] [%(levelname)s] %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        format="[%(asctime)s] [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
     return logging.getLogger("fig05")
 
@@ -98,24 +98,34 @@ def robust_stats(residual: np.ndarray) -> Tuple[float, float, float, float, int]
     if a.size == 0:
         return (np.nan, np.nan, np.nan, np.nan, 0)
     mean = float(np.nanmean(a))
-    med  = float(np.nanmedian(a))
-    p95  = float(np.nanpercentile(a, 95))
-    mx   = float(np.nanmax(a))
+    med = float(np.nanmedian(a))
+    p95 = float(np.nanpercentile(a, 95))
+    mx = float(np.nanmax(a))
     return (mean, med, p95, mx, a.size)
 
 
 def parse_args():
     ap = argparse.ArgumentParser(description="Fig.05 — φ_ref vs φ_MCGT aux f_peak (±σ)")
-    ap.add_argument("--milestones", type=Path, default=DEF_MILESTONES,
-                    help="CSV milestones (phi_ref_at_fpeak, phi_mcgt_at_fpeak, ...)")
-    ap.add_argument("--out",        type=Path, default=DEF_OUT,
-                    help="Image de sortie (PNG)")
-    ap.add_argument("--pdf", action="store_true",
-                    help="Écrire aussi un PDF à côté du PNG")
-    ap.add_argument("--align", choices=["principal", "none"], default="principal",
-                    help="Alignement visuel de y sur x modulo 2π (défaut=principal)")
+    ap.add_argument(
+        "--milestones",
+        type=Path,
+        default=DEF_MILESTONES,
+        help="CSV milestones (phi_ref_at_fpeak, phi_mcgt_at_fpeak, ...)",
+    )
+    ap.add_argument("--out", type=Path, default=DEF_OUT, help="Image de sortie (PNG)")
+    ap.add_argument(
+        "--pdf", action="store_true", help="Écrire aussi un PDF à côté du PNG"
+    )
+    ap.add_argument(
+        "--align",
+        choices=["principal", "none"],
+        default="principal",
+        help="Alignement visuel de y sur x modulo 2π (défaut=principal)",
+    )
     ap.add_argument("--dpi", type=int, default=300, help="DPI du PNG")
-    ap.add_argument("--log-level", choices=["DEBUG","INFO","WARNING","ERROR"], default="INFO")
+    ap.add_argument(
+        "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
+    )
     return ap.parse_args()
 
 
@@ -169,21 +179,29 @@ def main():
         log.info("Alignement désactivé (valeurs brutes).")
 
     # Résidus principaux (pour métriques et annot)
-    res_principal = (y - x + np.pi) % (2.0*np.pi) - np.pi
+    res_principal = (y - x + np.pi) % (2.0 * np.pi) - np.pi
     abs_res = np.abs(res_principal)
     mean_abs, med_abs, p95_abs, max_abs, n_eff = robust_stats(abs_res)
-    log.info("Métriques |Δφ|_principal : mean=%.3f  median=%.3f  p95=%.3f  max=%.3f  (N=%d)",
-             mean_abs, med_abs, p95_abs, max_abs, n_eff)
+    log.info(
+        "Métriques |Δφ|_principal : mean=%.3f  median=%.3f  p95=%.3f  max=%.3f  (N=%d)",
+        mean_abs,
+        med_abs,
+        p95_abs,
+        max_abs,
+        n_eff,
+    )
 
     # Prépare figure
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
     fig = plt.figure(figsize=(7.8, 7.6))
-    ax  = fig.add_subplot(111)
+    ax = fig.add_subplot(111)
 
     fig.suptitle(
         r"Comparaison ponctuelle aux $f_{\rm peak}$ : $\phi_{\rm ref}$ vs $\phi_{\rm MCGT}$",
-        fontsize=18, fontweight="semibold", y=0.97
+        fontsize=18,
+        fontweight="semibold",
+        y=0.97,
     )
     fig.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.98)
 
@@ -191,8 +209,8 @@ def main():
     cmap = class_color_map()
     masks = {
         "primaire": (cls == "primaire"),
-        "ordre2":   (cls == "ordre2"),
-        "autres":   (cls == "autres"),
+        "ordre2": (cls == "ordre2"),
+        "autres": (cls == "autres"),
     }
 
     # Limites (après alignement visuel si activé)
@@ -214,9 +232,22 @@ def main():
             sg = sigma[m]
             yerr = np.where(np.isfinite(sg) & (sg > 0), sg, np.nan)
             if np.any(np.isfinite(yerr)):
-                ax.errorbar(xg, yg, yerr=yerr, fmt="o", ms=5, mew=0.0,
-                            ecolor=color, elinewidth=0.9, capsize=2.5,
-                            mfc=color, mec="none", color=color, alpha=0.85, label=f"{name}")
+                ax.errorbar(
+                    xg,
+                    yg,
+                    yerr=yerr,
+                    fmt="o",
+                    ms=5,
+                    mew=0.0,
+                    ecolor=color,
+                    elinewidth=0.9,
+                    capsize=2.5,
+                    mfc=color,
+                    mec="none",
+                    color=color,
+                    alpha=0.85,
+                    label=f"{name}",
+                )
             else:
                 ax.scatter(xg, yg, s=28, color=color, label=f"{name}", alpha=0.9)
         else:
@@ -224,22 +255,43 @@ def main():
 
     ax.set_xlim(lo, hi)
     ax.set_ylim(lo, hi)
-    ax.set_aspect('equal', adjustable='box')
+    ax.set_aspect("equal", adjustable="box")
     ax.grid(True, ls=":", alpha=0.4)
     ax.set_xlabel(r"$\phi_{\rm ref}(f_{\rm peak})$ [rad]")
-    ax.set_ylabel(r"$\phi_{\rm MCGT}(f_{\rm peak})$ [rad]" + ("  (alignement principal)" if args.align == "principal" else ""))
+    ax.set_ylabel(
+        r"$\phi_{\rm MCGT}(f_{\rm peak})$ [rad]"
+        + ("  (alignement principal)" if args.align == "principal" else "")
+    )
 
     h, l = ax.get_legend_handles_labels()
     uniq = {}
     for hh, ll in zip(h, l):
         uniq[ll] = hh
-    ax.legend(uniq.values(), uniq.keys(), frameon=True, facecolor="white", framealpha=0.95, loc="upper left")
+    ax.legend(
+        uniq.values(),
+        uniq.keys(),
+        frameon=True,
+        facecolor="white",
+        framealpha=0.95,
+        loc="upper left",
+    )
 
-    meta_txt = (f"N={n_eff}  |Δφ|_principal  —  mean={mean_abs:.3f}  "
-                f"median={med_abs:.3f}  p95={p95_abs:.3f}  max={max_abs:.3f} rad")
-    ax.text(0.02, 0.02, meta_txt, transform=ax.transAxes, ha="left", va="bottom",
-            fontsize=9, bbox=dict(boxstyle="round,pad=0.35", facecolor="white",
-                                  edgecolor="0.6", alpha=0.95))
+    meta_txt = (
+        f"N={n_eff}  |Δφ|_principal  —  mean={mean_abs:.3f}  "
+        f"median={med_abs:.3f}  p95={p95_abs:.3f}  max={max_abs:.3f} rad"
+    )
+    ax.text(
+        0.02,
+        0.02,
+        meta_txt,
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=9,
+        bbox=dict(
+            boxstyle="round,pad=0.35", facecolor="white", edgecolor="0.6", alpha=0.95
+        ),
+    )
 
     fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight")
     log.info("PNG écrit → %s", args.out)

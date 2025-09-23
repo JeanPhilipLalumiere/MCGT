@@ -1,0 +1,4 @@
+Branche active : stabilization/v0.9-rc-20250922
+Stash (top 10) :
+stash@{0}: On main: WIP pre-stabilization 20250923T022514Z
+Rapports       : _reports/20250923T024313Z

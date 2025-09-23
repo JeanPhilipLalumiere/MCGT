@@ -29,7 +29,7 @@ else:
 interp = PchipInterpolator(
     np.log10(donnees["T_Gyr"].values),
     np.log10(donnees["DH_calc"].values),
-    extrapolate=False
+    extrapolate=False,
 )
 jalons["DH_calc"] = 10 ** interp(np.log10(jalons["T_Gyr"].values))
 
@@ -40,15 +40,17 @@ ax.set_yscale("log")
 
 # Barres d'erreur et points de calibration
 ax.errorbar(
-    jalons["DH_obs"], jalons["DH_calc"],
+    jalons["DH_obs"],
+    jalons["DH_calc"],
     yerr=jalons["sigma_DH"],
-    fmt='o', label="Points de calibration"
+    fmt="o",
+    label="Points de calibration",
 )
 
 # Droite d'identité y = x
 lims = [
     min(jalons["DH_obs"].min(), jalons["DH_calc"].min()),
-    max(jalons["DH_obs"].max(), jalons["DH_calc"].max())
+    max(jalons["DH_obs"].max(), jalons["DH_calc"].max()),
 ]
 ax.plot(lims, lims, ls="--", color="black", label="Identité")
 
@@ -60,10 +62,13 @@ if max_ep_order2 is not None:
     txt_lines.append(f"max ε_order2 = {max_ep_order2:.2e}")
 if txt_lines:
     ax.text(
-        0.05, 0.5, "\n".join(txt_lines),
+        0.05,
+        0.5,
+        "\n".join(txt_lines),
         transform=ax.transAxes,
-        va="center", ha="left",
-        bbox=dict(boxstyle="round", facecolor="white", alpha=0.5)
+        va="center",
+        ha="left",
+        bbox=dict(boxstyle="round", facecolor="white", alpha=0.5),
     )
 
 # Légendes et annotations

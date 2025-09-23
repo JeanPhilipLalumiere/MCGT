@@ -33,6 +33,3 @@ Toutes les modifications notables de ce projet seront documentées ici.
 \### Corrigé
 
 \- Petites incohérences de normalisation de classes (`primaire`/`ordre2`) désormais cartographiées via le fichier de migration.
-
-
-

@@ -10,17 +10,18 @@ dans zz-data/chapter09/.
 Usage:
     python zz-scripts/chapter09/fetch_gwtc3_confident.py
 """
+
 from __future__ import annotations
 import json
 import os
 import sys
 import hashlib
 import datetime
-import shutil
 
 OUT_CFG = "zz-configuration/GWTC-3-confident-events.json"
 OUT_DATA = "zz-data/chapter09/gwtc3_confident_parameters.json"
 URL_BASE = "https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events"
+
 
 def sha256_of_file(path):
     h = hashlib.sha256()
@@ -29,36 +30,38 @@ def sha256_of_file(path):
             h.update(b)
     return h.hexdigest(), os.path.getsize(path)
 
+
 def fetch_with_requests(url):
     import requests
+
     headers = {"Accept": "application/json", "User-Agent": "mcgt-fetch/1.0"}
     r = requests.get(url, headers=headers, timeout=25)
     r.raise_for_status()
     return r.json()
 
+
 def fetch_with_urllib(url):
     from urllib.request import Request, urlopen
-    req = Request(url, headers={"Accept": "application/json", "User-Agent": "mcgt-fetch/1.0"})
+
+    req = Request(
+        url, headers={"Accept": "application/json", "User-Agent": "mcgt-fetch/1.0"}
+    )
     with urlopen(req, timeout=25) as resp:
         data = resp.read()
     return json.loads(data.decode("utf-8", "replace"))
+
 
 def try_fetch():
     """
     Essaie plusieurs variantes d'URL/format et retourne (obj_json, url_used).
     Lève RuntimeError si tout échoue.
     """
-    candidates = [
-        URL_BASE,
-        URL_BASE + "?format=json",
-        URL_BASE + "?format=api"
-    ]
+    candidates = [URL_BASE, URL_BASE + "?format=json", URL_BASE + "?format=api"]
     errs = []
     for url in candidates:
         try:
             # prefer requests if available
             try:
-                import requests  # type: ignore
                 obj = fetch_with_requests(url)
             except Exception:
                 obj = fetch_with_urllib(url)
@@ -67,6 +70,7 @@ def try_fetch():
             errs.append((url, str(e)))
             print(f"[WARN] fetch failed for {url}: {e}", file=sys.stderr)
     raise RuntimeError(f"All fetch attempts failed: {errs}")
+
 
 def normalize_events(json_obj):
     """
@@ -89,6 +93,7 @@ def normalize_events(json_obj):
     # unknown form -> wrap
     return [json_obj]
 
+
 def build_minimal_and_rich(events_list, url_used):
     event_ids = []
     rich_events = []
@@ -98,7 +103,13 @@ def build_minimal_and_rich(events_list, url_used):
             name = str(e)
             raw = e
         else:
-            name = e.get("name") or e.get("event_id") or e.get("id") or e.get("event") or e.get("common_name")
+            name = (
+                e.get("name")
+                or e.get("event_id")
+                or e.get("id")
+                or e.get("event")
+                or e.get("common_name")
+            )
             raw = e
         if name is None:
             # generate canonical name if missing
@@ -115,7 +126,7 @@ def build_minimal_and_rich(events_list, url_used):
         entry = {
             "name": name,
             "source_url": raw.get("url") if isinstance(raw, dict) else None,
-            "raw": raw
+            "raw": raw,
         }
         if f_peak is not None:
             entry["f_peak_Hz"] = f_peak
@@ -129,15 +140,16 @@ def build_minimal_and_rich(events_list, url_used):
         "source_url": url_used,
         "fetched_at": now,
         "n_events": len(event_ids),
-        "event_ids": event_ids
+        "event_ids": event_ids,
     }
     rich = {
         "generated_at": now,
         "source_url": url_used,
         "n_events": len(rich_events),
-        "events": rich_events
+        "events": rich_events,
     }
     return minimal, rich
+
 
 def safe_write(path, obj):
     tmp = path + ".tmp"
@@ -150,12 +162,15 @@ def safe_write(path, obj):
     os.replace(tmp, path)
     return sha256_of_file(path)
 
+
 def main():
     try:
         api_json, url_used = try_fetch()
     except Exception as e:
         print("[ERROR] fetch failed:", e, file=sys.stderr)
-        print("→ Si l'API bloque, télécharger manuellement et placer le fichier dans zz-data/chapter09/")
+        print(
+            "→ Si l'API bloque, télécharger manuellement et placer le fichier dans zz-data/chapter09/"
+        )
         sys.exit(2)
 
     events_list = normalize_events(api_json)
@@ -167,7 +182,10 @@ def main():
     print(f"[WROTE] {OUT_DATA}  sha256={h_data}  bytes={sz_data}")
 
     print(f"Fetched {minimal['n_events']} events. Minimal & rich files written.")
-    print(f"Validate with: python -m json.tool {OUT_CFG} && python -m json.tool {OUT_DATA}")
+    print(
+        f"Validate with: python -m json.tool {OUT_CFG} && python -m json.tool {OUT_DATA}"
+    )
+
 
 if __name__ == "__main__":
     main()

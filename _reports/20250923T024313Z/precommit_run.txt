@@ -1,0 +1,2118 @@
+check yaml...............................................................Failed
+- hook id: check-yaml
+- exit code: 1
+
+mapping values are not allowed in this context
+  in "zz-workflows/ci.yml", line 35, column 44
+
+check json...............................................................Failed
+- hook id: check-json
+- exit code: 1
+
+zz-manifests/migration_map.json: Failed to json decode (Duplicate key: zz-data/chapter10/)
+
+fix end of files.........................................................Failed
+- hook id: end-of-file-fixer
+- exit code: 1
+- files were modified by this hook
+
+Fixing 01-introduction-applications/01_introduction_conceptuel.tex
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter08--08_coupling_params.json.bak
+Fixing zz-data/chapter09/09_phases_imrphenom.meta.json
+Fixing zz-checklists/CHAPTER09_CHECKLIST.txt
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter05--05_bbn_params.json.bak
+Fixing zz-data/chapter05/05_bbn_params.json
+Fixing zz-configuration/perturbations_07.ini
+Fixing zz-schemas/README_SCHEMAS.md
+Fixing 09-phase-ondes-gravitationnelles/09_phase_ondes_grav_details.tex
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter03--03_fR_stability_meta.json.bak
+Fixing zz-schemas/07_params_perturbations.schema.json
+Fixing 07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex
+Fixing zz-schemas/02_optimal_parameters.schema.json
+Fixing 03-stabilite-fR/03_stabilite_fR_conceptuel.tex
+Fixing zz-schemas/08_coupling_params.schema.json
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter06--06_params_cmb.json.bak
+Fixing 09-phase-ondes-gravitationnelles/CHAPTER09_GUIDE.txt
+Fixing zz-data/chapter02/02_optimal_parameters.json
+Fixing zz-data/chapter02/02_primordial_spectrum_spec.json.bak
+Fixing zz-manifests/chapters/chapter_manifest_09.json
+Fixing 10-monte-carlo-global-8d/10_monte_carlo_global_details.tex
+Fixing 08-couplage-sombre/08_couplage_sombre_details.tex
+Fixing zz-manifests/manifest_publication.json.pre-alias.bak
+Fixing zz-scripts/chapter08/plot_fig02_dv_vs_z.py
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter02--02_primordial_spectrum_spec.json.bak.bak
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter09--09_metrics_phase.json.bak
+Fixing zz-schemas/09_phases_imrphenom.meta.schema.json
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter02--02_optimal_parameters.json.bak
+Fixing zz-schemas/03_meta_stability_fR.schema.json
+Fixing 05-nucleosynthese-primordiale/CHAPTER05_GUIDE.txt
+Fixing 07-perturbations-scalaires/CHAPTER07_GUIDE.txt
+Fixing zz-schemas/06_cmb_params.schema.json
+Fixing 08-couplage-sombre/08_couplage_sombre_conceptuel.tex
+Fixing zz-schemas/07_meta_perturbations.schema.json
+Fixing zz-schemas/09_best_params.schema.json
+Fixing zz-workflows/README.md
+Fixing zz-scripts/chapter04/requirements.txt
+Fixing zz-manifests/chapters/chapter_manifest_01.json.bak
+Fixing 05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_details.tex
+Fixing zz-manifests/chapters/chapter_manifest_05.json
+Fixing 01-introduction-applications/01_applications_calibration_conceptuel.tex
+Fixing 10-monte-carlo-global-8d/CHAPTER10_GUIDE.txt
+Fixing 04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
+Fixing 06-rayonnement-cmb/06_cmb_conceptuel.tex
+Fixing zz-schemas/metrics_phase_schema.json
+Fixing zz-manifests/chapters/chapter_manifest_07.json
+Fixing zz-manifests/chapters/chapter_manifest_04.json
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter07--07_perturbations_meta.json.bak
+Fixing mcgt/CHANGELOG.md
+Fixing zz-checklists/CHAPTER08_CHECKLIST.txt
+Fixing 02-validation-chronologique/02_validation_chronologique_details.tex
+Fixing 02-validation-chronologique/CHAPTER02_GUIDE.txt
+Fixing zz-schemas/05_nucleosynthesis_parameters.schema.json
+Fixing 09-phase-ondes-gravitationnelles/09_phase_ondes_grav_conceptuel.tex
+Fixing zz-schemas/02_optimal_parameters.schema.json.bak
+Fixing zz-data/chapter06/06_params_cmb.json
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter09--09_best_params.json.bak
+Fixing 01-introduction-applications/CHAPTER01_GUIDE.txt
+Fixing zz-data/chapter08/08_coupling_params.json
+Fixing zz-checklists/CHAPTER07_CHECKLIST.txt
+Fixing 04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
+Fixing conventions.md
+Fixing zz-checklists/CHAPTER02_CHECKLIST.txt
+Fixing zz-manifests/manifest_master.json.20250917T161003Z.bak
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter09--09_phases_imrphenom.meta.json.bak
+Fixing zz-schemas/02_spec_spectrum.schema.json
+Fixing zz-manifests/manifest_master.json.pre-alias.bak
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter09--09_comparison_milestones.meta.json.bak
+Fixing zz-scripts/chapter05/requirements.txt
+Fixing zz-trash/FR_legacy_20250918-101954/zz-data--chapter02--02_primordial_spectrum_spec.json.bak
+Fixing zz-data/chapter09/09_metrics_phase.json
+Fixing zz-manifests/chapters/chapter_manifest_10.json
+Fixing zz-schemas/README.md
+Fixing zz-checklists/CHAPTER04_CHECKLIST.txt
+Fixing zz-data/chapter02/02_primordial_spectrum_spec.json
+Fixing zz-data/chapter10/10_mc_best.json
+Fixing 06-rayonnement-cmb/06_cmb_details.tex
+Fixing zz-data/chapter09/09_best_params.json
+Fixing 05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_conceptuel.tex
+Fixing zz-manifests/manifest_publication.json.20250917T161013Z.bak
+Fixing RUNBOOK.md
+Fixing zz-manifests/chapters/chapter_manifest_08.json
+Fixing zz-manifests/chapters/chapter_manifest_02.json
+Fixing zz-manifests/chapters/chapter_manifest_06.json
+Fixing 10-monte-carlo-global-8d/10_monte_carlo_global_conceptuel.tex
+Fixing 03-stabilite-fR/03_stabilite_fR_details.tex
+Fixing zz-manifests/meta_template.json.bak
+Fixing zz-configuration/README.md
+Fixing zz-manifests/chapters/chapter_manifest_03.json
+
+trim trailing whitespace.................................................Failed
+- hook id: trailing-whitespace
+- exit code: 1
+- files were modified by this hook
+
+Fixing 01-introduction-applications/01_introduction_conceptuel.tex
+Fixing zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+Fixing zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py
+Fixing 09-phase-ondes-gravitationnelles/09_phase_ondes_grav_details.tex
+Fixing 07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex
+Fixing 03-stabilite-fR/03_stabilite_fR_conceptuel.tex
+Fixing 02-validation-chronologique/02_validation_chronologique_conceptuel.tex
+Fixing 09-phase-ondes-gravitationnelles/CHAPTER09_GUIDE.txt
+Fixing zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py
+Fixing zz-scripts/chapter08/plot_fig07_chi2_profile.py
+Fixing zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
+Fixing 10-monte-carlo-global-8d/10_monte_carlo_global_details.tex
+Fixing 08-couplage-sombre/08_couplage_sombre_details.tex
+Fixing zz-scripts/chapter02/requirements.txt
+Fixing zz-scripts/chapter08/plot_fig02_dv_vs_z.py
+Fixing zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+Fixing 08-couplage-sombre/08_couplage_sombre_conceptuel.tex
+Fixing zz-scripts/chapter03/requirements.txt
+Fixing zz-scripts/chapter04/requirements.txt
+Fixing zz-checklists/CHAPTER01_CHECKLIST.txt
+Fixing zz-scripts/chapter03/generate_data_chapter03.py
+Fixing 05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_details.tex
+Fixing arborescence.txt
+Fixing 01-introduction-applications/01_applications_calibration_conceptuel.tex
+Fixing 04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
+Fixing 06-rayonnement-cmb/06_cmb_conceptuel.tex
+Fixing 02-validation-chronologique/02_validation_chronologique_details.tex
+Fixing 02-validation-chronologique/CHAPTER02_GUIDE.txt
+Fixing 09-phase-ondes-gravitationnelles/09_phase_ondes_grav_conceptuel.tex
+Fixing zz-scripts/chapter01/requirements.txt
+Fixing 07-perturbations-scalaires/07_perturbations_scalaires_details.tex
+Fixing 04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
+Fixing conventions.md
+Fixing zz-scripts/chapter05/requirements.txt
+Fixing zz-scripts/chapter09/extract_phenom_phase.py
+Fixing 06-rayonnement-cmb/06_cmb_details.tex
+Fixing 05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_conceptuel.tex
+Fixing RUNBOOK.md
+Fixing zz-scripts/chapter08/plot_fig05_residuals.py
+Fixing 10-monte-carlo-global-8d/10_monte_carlo_global_conceptuel.tex
+Fixing 03-stabilite-fR/03_stabilite_fR_details.tex
+Fixing README-REPRO.md
+Fixing zz-scripts/chapter02/primordial_spectrum.py
+Fixing zz-scripts/chapter09/opt_poly_rebranch.py
+
+ruff.....................................................................Failed
+- hook id: ruff
+- exit code: 1
+- files were modified by this hook
+
+mcgt/__init__.py:36:1: E402 Module level import not at top of file
+   |
+35 | # --- utils for config discovery & loading (no load at import time) ---
+36 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^ E402
+37 | import configparser
+38 | import importlib
+   |
+
+mcgt/__init__.py:37:1: E402 Module level import not at top of file
+   |
+35 | # --- utils for config discovery & loading (no load at import time) ---
+36 | from pathlib import Path
+37 | import configparser
+   | ^^^^^^^^^^^^^^^^^^^ E402
+38 | import importlib
+39 | import pkgutil
+   |
+
+mcgt/__init__.py:38:1: E402 Module level import not at top of file
+   |
+36 | from pathlib import Path
+37 | import configparser
+38 | import importlib
+   | ^^^^^^^^^^^^^^^^ E402
+39 | import pkgutil
+40 | from typing import Optional, List
+   |
+
+mcgt/__init__.py:39:1: E402 Module level import not at top of file
+   |
+37 | import configparser
+38 | import importlib
+39 | import pkgutil
+   | ^^^^^^^^^^^^^^ E402
+40 | from typing import Optional, List
+   |
+
+mcgt/__init__.py:40:1: E402 Module level import not at top of file
+   |
+38 | import importlib
+39 | import pkgutil
+40 | from typing import Optional, List
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+41 |
+42 | # On suppose que la racine du dépôt est le parent du package
+   |
+
+mcgt/__init__.py:162:5: F841 Local variable `cfg` is assigned to but never used
+    |
+160 | def print_summary():
+161 |     """Affiche un résumé utile pour debug / CI."""
+162 |     cfg = get_config()
+    |     ^^^ F841
+163 |     n_back = len(list_backends())
+164 |     print(f"MCGT package version: {__version__}")
+    |
+    = help: Remove assignment to unused variable `cfg`
+
+zz-manifests/add_to_manifest.py:328:47: E702 Multiple statements on one line (semicolon)
+    |
+326 |                     rp = sub.resolve()
+327 |                     if rp not in seen:
+328 |                         input_files.append(rp); seen.add(rp)
+    |                                               ^ E702
+329 |         elif p.is_file():
+330 |             rp = p.resolve()
+    |
+
+zz-manifests/add_to_manifest.py:332:39: E702 Multiple statements on one line (semicolon)
+    |
+330 |             rp = p.resolve()
+331 |             if rp not in seen:
+332 |                 input_files.append(rp); seen.add(rp)
+    |                                       ^ E702
+333 |         else:
+334 |             # motif qui n'a rien trouvé ou chemin inexistant
+    |
+
+zz-manifests/diag_consistency.py:504:13: F841 Local variable `fieldnames` is assigned to but never used
+    |
+502 |         with path.open("r", encoding="utf-8", newline="") as f:
+503 |             reader = csv.DictReader(f)
+504 |             fieldnames = reader.fieldnames or []
+    |             ^^^^^^^^^^ F841
+505 |             for row in reader:
+506 |                 ev = row.get("event", "")
+    |
+    = help: Remove assignment to unused variable `fieldnames`
+
+zz-schemas/validate_csv_table.py:279:35: E701 Multiple statements on one line (colon)
+    |
+277 |                 ok = True
+278 |                 try:
+279 |                     if   op == "<":  ok = left_val <  right_val
+    |                                   ^ E701
+280 |                     elif op == "<=": ok = left_val <= right_val
+281 |                     elif op == ">":  ok = left_val >  right_val
+    |
+
+zz-schemas/validate_csv_table.py:280:36: E701 Multiple statements on one line (colon)
+    |
+278 |                 try:
+279 |                     if   op == "<":  ok = left_val <  right_val
+280 |                     elif op == "<=": ok = left_val <= right_val
+    |                                    ^ E701
+281 |                     elif op == ">":  ok = left_val >  right_val
+282 |                     elif op == ">=": ok = left_val >= right_val
+    |
+
+zz-schemas/validate_csv_table.py:281:35: E701 Multiple statements on one line (colon)
+    |
+279 |                     if   op == "<":  ok = left_val <  right_val
+280 |                     elif op == "<=": ok = left_val <= right_val
+281 |                     elif op == ">":  ok = left_val >  right_val
+    |                                   ^ E701
+282 |                     elif op == ">=": ok = left_val >= right_val
+283 |                     elif op == "==": ok = left_val == right_val
+    |
+
+zz-schemas/validate_csv_table.py:282:36: E701 Multiple statements on one line (colon)
+    |
+280 |                     elif op == "<=": ok = left_val <= right_val
+281 |                     elif op == ">":  ok = left_val >  right_val
+282 |                     elif op == ">=": ok = left_val >= right_val
+    |                                    ^ E701
+283 |                     elif op == "==": ok = left_val == right_val
+284 |                     elif op == "!=": ok = left_val != right_val
+    |
+
+zz-schemas/validate_csv_table.py:283:36: E701 Multiple statements on one line (colon)
+    |
+281 |                     elif op == ">":  ok = left_val >  right_val
+282 |                     elif op == ">=": ok = left_val >= right_val
+283 |                     elif op == "==": ok = left_val == right_val
+    |                                    ^ E701
+284 |                     elif op == "!=": ok = left_val != right_val
+285 |                     else:
+    |
+
+zz-schemas/validate_csv_table.py:284:36: E701 Multiple statements on one line (colon)
+    |
+282 |                     elif op == ">=": ok = left_val >= right_val
+283 |                     elif op == "==": ok = left_val == right_val
+284 |                     elif op == "!=": ok = left_val != right_val
+    |                                    ^ E701
+285 |                     else:
+286 |                         self.add_error(f"[row {rownum}] constraint 'compare': unknown operator {op!r}")
+    |
+
+zz-scripts/chapter02/plot_fig00_spectrum.py:11:1: E402 Module level import not at top of file
+   |
+ 9 | sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
+10 |
+11 | from primordial_spectrum import P_R
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+12 |
+13 | # Grille de k et valeurs de alpha
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:47:8: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+45 |     Génère le fichier JSON de métadonnées du spectre primordial.#!/usr/bin/env python3
+46 | """
+47 | Module spectre_primordial.py
+   |        ^
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:9: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |         ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:12: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |            ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:20: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                    ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:31: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                               ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:36: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                                    ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:39: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                                       ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:46: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                                              ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:49:64: SyntaxError: Expected an identifier
+   |
+47 | Module spectre_primordial.py
+48 |
+49 | Définit le spectre primordial MCGT et génère spec_spectre.json.
+   |                                                                ^
+50 | """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:72:1: SyntaxError: Unexpected indentation
+   |
+70 | def P_R(k: np.ndarray, alpha: float) -> np.ndarray:
+71 |     """
+72 |     Spectre primordial MCGT :
+   | ^
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:72:13: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+70 | def P_R(k: np.ndarray, alpha: float) -> np.ndarray:
+71 |     """
+72 |     Spectre primordial MCGT :
+   |             ^
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:72:24: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+70 | def P_R(k: np.ndarray, alpha: float) -> np.ndarray:
+71 |     """
+72 |     Spectre primordial MCGT :
+   |                        ^
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:72:30: SyntaxError: Expected an expression
+   |
+70 | def P_R(k: np.ndarray, alpha: float) -> np.ndarray:
+71 |     """
+72 |     Spectre primordial MCGT :
+   |                              ^
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:73:1: SyntaxError: Unexpected indentation
+   |
+71 |     """
+72 |     Spectre primordial MCGT :
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   | ^
+74 |
+75 |     où :
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:73:9: SyntaxError: Invalid assignment target
+   |
+71 |     """
+72 |     Spectre primordial MCGT :
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |         ^
+74 |
+75 |     où :
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:73:14: SyntaxError: Expected ',', found ';'
+   |
+71 |     """
+72 |     Spectre primordial MCGT :
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+   |              ^
+74 |
+75 |     où :
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:75:5: SyntaxError: Expected a statement
+   |
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+74 |
+75 |     où :
+   |     ^
+76 |         A_s(alpha) = A_S0 * (1 + C1 * alpha)
+77 |         n_s(alpha) = NS0 + C2 * alpha
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:75:9: SyntaxError: Expected an expression
+   |
+73 |         P_R(k; alpha) = A_s(alpha) * k^(n_s(alpha) - 1)
+74 |
+75 |     où :
+   |         ^
+76 |         A_s(alpha) = A_S0 * (1 + C1 * alpha)
+77 |         n_s(alpha) = NS0 + C2 * alpha
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:76:1: SyntaxError: Unexpected indentation
+   |
+75 |     où :
+76 |         A_s(alpha) = A_S0 * (1 + C1 * alpha)
+   | ^
+77 |         n_s(alpha) = NS0 + C2 * alpha
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:76:9: SyntaxError: Invalid assignment target
+   |
+75 |     où :
+76 |         A_s(alpha) = A_S0 * (1 + C1 * alpha)
+   |         ^
+77 |         n_s(alpha) = NS0 + C2 * alpha
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:77:9: SyntaxError: Invalid assignment target
+   |
+75 |     où :
+76 |         A_s(alpha) = A_S0 * (1 + C1 * alpha)
+77 |         n_s(alpha) = NS0 + C2 * alpha
+   |         ^
+78 |
+79 |     Args:
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:79:5: SyntaxError: Expected a statement
+   |
+77 |         n_s(alpha) = NS0 + C2 * alpha
+78 |
+79 |     Args:
+   |     ^
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:79:10: SyntaxError: Expected an expression
+   |
+77 |         n_s(alpha) = NS0 + C2 * alpha
+78 |
+79 |     Args:
+   |          ^
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:80:1: SyntaxError: Unexpected indentation
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+   | ^
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:80:9: SyntaxError: Invalid annotated assignment target
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+   |         ^
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:80:43: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+   |                                           ^
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:80:44: SyntaxError: missing closing quote in string literal
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+   |                                            ^
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:80:71: SyntaxError: Expected a statement
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+   |                                                                       ^
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:81:9: SyntaxError: Invalid annotated assignment target
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |         ^
+82 |
+83 |     Returns:
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:81:34: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |                                  ^
+82 |
+83 |     Returns:
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:81:46: SyntaxError: Expected ',', found name
+   |
+79 |     Args:
+80 |         k (float | array-like): Nombre(s) d'onde comobile(s) (h·Mpc⁻¹)
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+   |                                              ^
+82 |
+83 |     Returns:
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:83:5: SyntaxError: Expected a statement
+   |
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+82 |
+83 |     Returns:
+   |     ^
+84 |         np.ndarray: Valeurs de P_R sur k.
+85 |     """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:83:13: SyntaxError: Expected an expression
+   |
+81 |         alpha (float): Paramètre MCGT, borné dans [-0.1, 0.1]
+82 |
+83 |     Returns:
+   |             ^
+84 |         np.ndarray: Valeurs de P_R sur k.
+85 |     """
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:1: SyntaxError: Unexpected indentation
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   | ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:29: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   |                             ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:32: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   |                                ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:36: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   |                                    ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:40: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   |                                        ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:84:42: SyntaxError: Expected an identifier
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+   |                                          ^
+85 |     """
+86 |     alpha = float(alpha)
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:85:5: SyntaxError: Expected a statement
+   |
+83 |     Returns:
+84 |         np.ndarray: Valeurs de P_R sur k.
+85 |     """
+   |     ^
+86 |     alpha = float(alpha)
+87 |     if not -0.1 <= alpha <= 0.1:
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:12: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |            ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:15: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |               ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:23: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                       ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:28: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                            ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:31: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                               ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:43: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                                           ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:46: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                                              ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:54: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                                                      ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:97:65: SyntaxError: Expected an identifier
+   |
+95 | def generate_spec():
+96 |     """
+97 |     Génère le fichier JSON de métadonnées du spectre primordial.
+   |                                                                 ^
+98 |     """
+99 |     spec = {
+   |
+
+zz-scripts/chapter02/primordial_spectrum.py:127:5: SyntaxError: missing closing quote in string literal
+    |
+125 |         json.dump(spec, f, ensure_ascii=False, indent=2)
+126 |     print(f"02_spec_spectre.json généré → {SPEC_FILE}")
+127 |     """
+    |     ^
+    |
+
+zz-scripts/chapter02/primordial_spectrum.py:132:1: SyntaxError: Expected a statement
+    |
+130 | if __name__ == "__main__":
+131 |     generate_spec()
+    |
+
+zz-scripts/chapter03/generate_data_chapter03.py:50:5: E731 Do not assign a `lambda` expression, use a `def`
+   |
+48 | def T_of_z(z: float) -> float:
+49 |     """Âge de l’Univers (Gyr) à redshift z dans un ΛCDM plat."""
+50 |     integrand = lambda zp: 1/((1+zp)*H0*np.sqrt(Om0*(1+zp)**3 + Ol0))
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E731
+51 |     T, _ = quad(integrand, z, 1e5)
+52 |     return T
+   |
+   = help: Rewrite `integrand` as a `def`
+
+zz-scripts/chapter03/generate_data_chapter03.py:64:5: E731 Do not assign a `lambda` expression, use a `def`
+   |
+62 |         return max(((2/(3*H0*np.sqrt(Om0)))/T)**(2/3) - 1, 0.0)
+63 |     # sinon root-finding
+64 |     f = lambda z: T_of_z(z) - T
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ E731
+65 |     zmax = 1e6
+66 |     if f(0)*f(zmax) > 0:
+   |
+   = help: Rewrite `f` as a `def`
+
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py:49:5: F841 Local variable `grid` is assigned to but never used
+   |
+48 |     jalons = pd.read_csv(RAW_FILE)
+49 |     grid   = pd.read_csv(GRID_FILE)
+   |     ^^^^ F841
+50 |
+51 |     # On garde seulement R>0 pour log–log
+   |
+   = help: Remove assignment to unused variable `grid`
+
+zz-scripts/chapter04/generate_data_chapter04.py:21:5: F841 Local variable `Tp` is assigned to but never used
+   |
+19 |     # ----------------------------------------------------------------------
+20 |     kappa     = 1e-35
+21 |     Tp        = 0.087  # Gyr, transition logistique
+   |     ^^ F841
+22 |     data_dir  = "zz-data/chapter04"
+23 |     chap3_dir = "zz-data/chapter03"
+   |
+   = help: Remove assignment to unused variable `Tp`
+
+zz-scripts/chapter04/generate_data_chapter04.py:66:5: F841 Local variable `dP_smooth` is assigned to but never used
+   |
+64 |     # ----------------------------------------------------------------------
+65 |     dP         = np.gradient(P, T)
+66 |     dP_smooth  = savgol_filter(dP, window_length=21, polyorder=3, mode="interp")
+   |     ^^^^^^^^^ F841
+67 |
+68 |     # ----------------------------------------------------------------------
+   |
+   = help: Remove assignment to unused variable `dP_smooth`
+
+zz-scripts/chapter07/generate_data_chapter07.py:23:1: E402 Module level import not at top of file
+   |
+21 | ROOT = Path(__file__).resolve().parents[2]
+22 | sys.path.insert(0, str(ROOT))
+23 | from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:91:34: E702 Multiple statements on one line (semicolon)
+   |
+89 |     if 'scan' in cfg and 'k_min' in cfg['scan']:
+90 |         s = cfg['scan']
+91 |         k_min = float(s['k_min']); k_max = float(s['k_max'])
+   |                                  ^ E702
+92 |         dlog  = float(s.get('dlog', s.get('dlog_k'))); n_k = int(s['n_k'])
+93 |         a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:92:54: E702 Multiple statements on one line (semicolon)
+   |
+90 |         s = cfg['scan']
+91 |         k_min = float(s['k_min']); k_max = float(s['k_max'])
+92 |         dlog  = float(s.get('dlog', s.get('dlog_k'))); n_k = int(s['n_k'])
+   |                                                      ^ E702
+93 |         a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+94 |     else:
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:93:34: E702 Multiple statements on one line (semicolon)
+   |
+91 |         k_min = float(s['k_min']); k_max = float(s['k_max'])
+92 |         dlog  = float(s.get('dlog', s.get('dlog_k'))); n_k = int(s['n_k'])
+93 |         a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+   |                                  ^ E702
+94 |     else:
+95 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:93:61: E702 Multiple statements on one line (semicolon)
+   |
+91 |         k_min = float(s['k_min']); k_max = float(s['k_max'])
+92 |         dlog  = float(s.get('dlog', s.get('dlog_k'))); n_k = int(s['n_k'])
+93 |         a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+   |                                                             ^ E702
+94 |     else:
+95 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:95:29: E702 Multiple statements on one line (semicolon)
+   |
+93 |         a_min = float(s['a_min']); a_max = float(s['a_max']); n_a = int(s['n_a'])
+94 |     else:
+95 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+   |                             ^ E702
+96 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+97 |         dlog  = g1.getfloat('dlog_k');       n_k = g1.getint('n_k')
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:96:37: E702 Multiple statements on one line (semicolon)
+   |
+94 |     else:
+95 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+96 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+   |                                     ^ E702
+97 |         dlog  = g1.getfloat('dlog_k');       n_k = g1.getint('n_k')
+98 |         a_min = g2.getfloat('a_min');        a_max = g2.getfloat('a_max')
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:97:38: E702 Multiple statements on one line (semicolon)
+   |
+95 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+96 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+97 |         dlog  = g1.getfloat('dlog_k');       n_k = g1.getint('n_k')
+   |                                      ^ E702
+98 |         a_min = g2.getfloat('a_min');        a_max = g2.getfloat('a_max')
+99 |         n_a   = g2.getint('n_a')
+   |
+
+zz-scripts/chapter07/generate_data_chapter07.py:98:37: E702 Multiple statements on one line (semicolon)
+    |
+ 96 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+ 97 |         dlog  = g1.getfloat('dlog_k');       n_k = g1.getint('n_k')
+ 98 |         a_min = g2.getfloat('a_min');        a_max = g2.getfloat('a_max')
+    |                                     ^ E702
+ 99 |         n_a   = g2.getint('n_a')
+100 |         s = cfg['scan']
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:109:9: E741 Ambiguous variable name: `l`
+    |
+107 |     # 4) lissage (section [lissage] ou fallback)
+108 |     if 'lissage' in cfg:
+109 |         l = cfg['lissage']
+    |         ^ E741
+110 |         window  = int(l.get('derivative_window', l.get('window')))
+111 |         polyord = int(l.get('derivative_polyorder', l.get('polyorder')))
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:185:33: E702 Multiple statements on one line (semicolon)
+    |
+183 |     logger = logging.getLogger()
+184 |     fmt = logging.Formatter('[%(levelname)s] %(message)s')
+185 |     ch = logging.StreamHandler(); ch.setFormatter(fmt); logger.addHandler(ch)
+    |                                 ^ E702
+186 |     logger.setLevel(args.log_level.upper())
+187 |     if args.log_file:
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:185:55: E702 Multiple statements on one line (semicolon)
+    |
+183 |     logger = logging.getLogger()
+184 |     fmt = logging.Formatter('[%(levelname)s] %(message)s')
+185 |     ch = logging.StreamHandler(); ch.setFormatter(fmt); logger.addHandler(ch)
+    |                                                       ^ E702
+186 |     logger.setLevel(args.log_level.upper())
+187 |     if args.log_file:
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:188:33: E702 Multiple statements on one line (semicolon)
+    |
+186 |     logger.setLevel(args.log_level.upper())
+187 |     if args.log_file:
+188 |         lf = Path(args.log_file); lf.parent.mkdir(parents=True, exist_ok=True)
+    |                                 ^ E702
+189 |         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:189:37: E702 Multiple statements on one line (semicolon)
+    |
+187 |     if args.log_file:
+188 |         lf = Path(args.log_file); lf.parent.mkdir(parents=True, exist_ok=True)
+189 |         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
+    |                                     ^ E702
+190 |
+191 |     # Charger config
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:189:59: E702 Multiple statements on one line (semicolon)
+    |
+187 |     if args.log_file:
+188 |         lf = Path(args.log_file); lf.parent.mkdir(parents=True, exist_ok=True)
+189 |         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
+    |                                                           ^ E702
+190 |
+191 |     # Charger config
+    |
+
+zz-scripts/chapter07/generate_data_chapter07.py:220:38: E702 Multiple statements on one line (semicolon)
+    |
+219 |     # Export brut unifié
+220 |     brut_path = Path(args.export_raw); brut_path.parent.mkdir(parents=True, exist_ok=True)
+    |                                      ^ E702
+221 |     df_brut = pd.DataFrame({
+222 |         'k':               k_grid.repeat(len(a_vals)),
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:143:34: E702 Multiple statements on one line (semicolon)
+    |
+141 |     if 'scan' in cfg and 'k_min' in cfg['scan']:
+142 |         s = cfg['scan']
+143 |         k_min = float(s['k_min']); k_max = float(s['k_max'])
+    |                                  ^ E702
+144 |         dlog  = float(s.get('dlog', s.get('dlog_k', 0.01)))
+145 |         n_k   = int(s.get('n_k', max(2, int((np.log10(k_max)-np.log10(k_min))/dlog)+1)))
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:146:43: E702 Multiple statements on one line (semicolon)
+    |
+144 |         dlog  = float(s.get('dlog', s.get('dlog_k', 0.01)))
+145 |         n_k   = int(s.get('n_k', max(2, int((np.log10(k_max)-np.log10(k_min))/dlog)+1)))
+146 |         a_min = float(s.get('a_min', 0.0)); a_max = float(s.get('a_max', 1.0)); n_a = int(s.get('n_a', 1))
+    |                                           ^ E702
+147 |     else:
+148 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:146:79: E702 Multiple statements on one line (semicolon)
+    |
+144 |         dlog  = float(s.get('dlog', s.get('dlog_k', 0.01)))
+145 |         n_k   = int(s.get('n_k', max(2, int((np.log10(k_max)-np.log10(k_min))/dlog)+1)))
+146 |         a_min = float(s.get('a_min', 0.0)); a_max = float(s.get('a_max', 1.0)); n_a = int(s.get('n_a', 1))
+    |                                                                               ^ E702
+147 |     else:
+148 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:148:29: E702 Multiple statements on one line (semicolon)
+    |
+146 |         a_min = float(s.get('a_min', 0.0)); a_max = float(s.get('a_max', 1.0)); n_a = int(s.get('n_a', 1))
+147 |     else:
+148 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+    |                             ^ E702
+149 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+150 |         dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:149:37: E702 Multiple statements on one line (semicolon)
+    |
+147 |     else:
+148 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+149 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+    |                                     ^ E702
+150 |         dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+151 |         a_min = g2.getfloat('a_min'); a_max = g2.getfloat('a_max'); n_a = g2.getint('n_a')
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:150:38: E702 Multiple statements on one line (semicolon)
+    |
+148 |         g1 = cfg['grille1D']; g2 = cfg['grille2D']
+149 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+150 |         dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+    |                                      ^ E702
+151 |         a_min = g2.getfloat('a_min'); a_max = g2.getfloat('a_max'); n_a = g2.getint('n_a')
+152 |         s = cfg['scan'] if 'scan' in cfg else {}
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:151:37: E702 Multiple statements on one line (semicolon)
+    |
+149 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+150 |         dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+151 |         a_min = g2.getfloat('a_min'); a_max = g2.getfloat('a_max'); n_a = g2.getint('n_a')
+    |                                     ^ E702
+152 |         s = cfg['scan'] if 'scan' in cfg else {}
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:151:67: E702 Multiple statements on one line (semicolon)
+    |
+149 |         k_min = g1.getfloat('k_min'); k_max = g1.getfloat('k_max')
+150 |         dlog  = g1.getfloat('dlog_k'); n_k = g1.getint('n_k')
+151 |         a_min = g2.getfloat('a_min'); a_max = g2.getfloat('a_max'); n_a = g2.getint('n_a')
+    |                                                                   ^ E702
+152 |         s = cfg['scan'] if 'scan' in cfg else {}
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:160:9: E741 Ambiguous variable name: `l`
+    |
+158 |     # lissage
+159 |     if 'lissage' in cfg:
+160 |         l = cfg['lissage']
+    |         ^ E741
+161 |         window  = int(l.get('derivative_window', l.get('window', 7)))
+162 |         polyord = int(l.get('derivative_polyorder', l.get('polyorder', 3)))
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:235:33: E702 Multiple statements on one line (semicolon)
+    |
+233 |     logger.handlers.clear()
+234 |     fmt = logging.Formatter('[%(levelname)s] %(message)s')
+235 |     ch = logging.StreamHandler(); ch.setFormatter(fmt); logger.addHandler(ch)
+    |                                 ^ E702
+236 |     logger.setLevel(args.log_level.upper())
+237 |     if args.log_file:
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:235:55: E702 Multiple statements on one line (semicolon)
+    |
+233 |     logger.handlers.clear()
+234 |     fmt = logging.Formatter('[%(levelname)s] %(message)s')
+235 |     ch = logging.StreamHandler(); ch.setFormatter(fmt); logger.addHandler(ch)
+    |                                                       ^ E702
+236 |     logger.setLevel(args.log_level.upper())
+237 |     if args.log_file:
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:240:37: E702 Multiple statements on one line (semicolon)
+    |
+238 |         lf = Path(args.log_file)
+239 |         lf.parent.mkdir(parents=True, exist_ok=True)
+240 |         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
+    |                                     ^ E702
+241 |
+242 |     # lire INI
+    |
+
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py:240:59: E702 Multiple statements on one line (semicolon)
+    |
+238 |         lf = Path(args.log_file)
+239 |         lf.parent.mkdir(parents=True, exist_ok=True)
+240 |         fh = logging.FileHandler(lf); fh.setFormatter(fmt); logger.addHandler(fh)
+    |                                                           ^ E702
+241 |
+242 |     # lire INI
+    |
+
+zz-scripts/chapter07/tests/test_chapter07.py:15:1: E402 Module level import not at top of file
+   |
+13 | # zz-scripts/chapter07/tests/test_chapter07.py
+14 |
+15 | import pytest
+   | ^^^^^^^^^^^^^ E402
+16 | import pandas as pd
+17 | from pathlib import Path
+   |
+
+zz-scripts/chapter07/tests/test_chapter07.py:16:1: E402 Module level import not at top of file
+   |
+15 | import pytest
+16 | import pandas as pd
+   | ^^^^^^^^^^^^^^^^^^^ E402
+17 | from pathlib import Path
+   |
+
+zz-scripts/chapter07/tests/test_chapter07.py:17:1: E402 Module level import not at top of file
+   |
+15 | import pytest
+16 | import pandas as pd
+17 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^ E402
+18 |
+19 | RTOL = 1e-3
+   |
+
+zz-scripts/chapter08/generate_data_chapter08.py:20:1: E402 Module level import not at top of file
+   |
+18 | UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
+19 | sys.path.insert(0, str(UTILS))
+20 | from cosmo import DV, distance_modulus, Omega_m0, Omega_lambda0
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+21 |
+22 | def parse_args():
+   |
+
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py:42:12: F524 `.format` call is missing argument(s) for placeholder(s): \rm th
+   |
+41 | # -- Courbe théorique
+42 | label_th = r"$\mu^{\rm th}(z; q_0^*={:.3f})$".format(q0star) \
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ F524
+43 |     if q0star is not None else r"$\mu^{\rm th}(z)$"
+44 | ax.semilogx(
+   |
+
+zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py:20:1: E402 Module level import not at top of file
+   |
+18 | UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
+19 | sys.path.insert(0, str(UTILS))
+20 | from cosmo import DV, distance_modulus
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+21 |
+22 | def main():
+   |
+
+zz-scripts/chapter08/plot_fig07_chi2_profile.py:43:5: F841 Local variable `colors` is assigned to but never used
+   |
+41 |     sigmas = [1.0, 4.0, 9.0]
+42 |     styles = ["--", "-.", ":"]
+43 |     colors = ["C1"]*3
+   |     ^^^^^^ F841
+44 |     for lvl, ls in zip(sigmas, styles):
+45 |         ax.axhline(lvl, color="C1", linestyle=ls, lw=1.5)
+   |
+   = help: Remove assignment to unused variable `colors`
+
+zz-scripts/chapter09/flag_jalons.py:42:5: F841 Local variable `required_cols` is assigned to but never used
+   |
+41 |     df = pd.read_csv(csv_path)
+42 |     required_cols = ["event","f_Hz","phi_mcgt_at_fpeak","obs_phase","sigma_phase"]
+   |     ^^^^^^^^^^^^^ F841
+43 |     # Accept also phi_mcgt_at_fpeak_cal or phi_mcgt_at_fpeak_raw if main absent
+44 |     alt_phi_cols = ["phi_mcgt_at_fpeak", "phi_mcgt_at_fpeak_cal", "phi_mcgt_at_fpeak_raw"]
+   |
+   = help: Remove assignment to unused variable `required_cols`
+
+zz-scripts/chapter09/flag_jalons.py:68:9: F841 Local variable `evt` is assigned to but never used
+   |
+67 |     for idx, row in df.iterrows():
+68 |         evt = row.get("event", "")
+   |         ^^^ F841
+69 |         f = safe_float(row.get("f_Hz", np.nan))
+70 |         phi_mcgt = safe_float(row.get(phi_col, np.nan))
+   |
+   = help: Remove assignment to unused variable `evt`
+
+zz-scripts/chapter09/flag_jalons.py:79:37: E702 Multiple statements on one line (semicolon)
+   |
+77 |             flags.append("FAIL")
+78 |             reason_list.append("f_Hz missing/invalid")
+79 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                     ^ E702
+80 |
+81 |         if not np.isfinite(phi_mcgt):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:79:62: E702 Multiple statements on one line (semicolon)
+   |
+77 |             flags.append("FAIL")
+78 |             reason_list.append("f_Hz missing/invalid")
+79 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                              ^ E702
+80 |
+81 |         if not np.isfinite(phi_mcgt):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:79:102: E702 Multiple statements on one line (semicolon)
+   |
+77 |             flags.append("FAIL")
+78 |             reason_list.append("f_Hz missing/invalid")
+79 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                                                                      ^ E702
+80 |
+81 |         if not np.isfinite(phi_mcgt):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:84:37: E702 Multiple statements on one line (semicolon)
+   |
+82 |             flags.append("FAIL")
+83 |             reason_list.append(f"{phi_col} missing/invalid")
+84 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                     ^ E702
+85 |
+86 |         if not np.isfinite(obs):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:84:62: E702 Multiple statements on one line (semicolon)
+   |
+82 |             flags.append("FAIL")
+83 |             reason_list.append(f"{phi_col} missing/invalid")
+84 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                              ^ E702
+85 |
+86 |         if not np.isfinite(obs):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:84:102: E702 Multiple statements on one line (semicolon)
+   |
+82 |             flags.append("FAIL")
+83 |             reason_list.append(f"{phi_col} missing/invalid")
+84 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                                                                      ^ E702
+85 |
+86 |         if not np.isfinite(obs):
+   |
+
+zz-scripts/chapter09/flag_jalons.py:91:37: E702 Multiple statements on one line (semicolon)
+   |
+89 |             # we'll compute abs diff vs phi_ref if present? For now mark warn.
+90 |             flags.append("WARN")
+91 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                     ^ E702
+92 |
+93 |         # compute abs diff (wrapped)
+   |
+
+zz-scripts/chapter09/flag_jalons.py:91:62: E702 Multiple statements on one line (semicolon)
+   |
+89 |             # we'll compute abs diff vs phi_ref if present? For now mark warn.
+90 |             flags.append("WARN")
+91 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                              ^ E702
+92 |
+93 |         # compute abs diff (wrapped)
+   |
+
+zz-scripts/chapter09/flag_jalons.py:91:102: E702 Multiple statements on one line (semicolon)
+   |
+89 |             # we'll compute abs diff vs phi_ref if present? For now mark warn.
+90 |             flags.append("WARN")
+91 |             abs_diffs.append(np.nan); z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+   |                                                                                                      ^ E702
+92 |
+93 |         # compute abs diff (wrapped)
+   |
+
+zz-scripts/chapter09/flag_jalons.py:103:37: E702 Multiple statements on one line (semicolon)
+    |
+101 |             # warn: no sigma
+102 |             if f < fmin or f > fmax:
+103 |                 flags.append("WARN"); reason_list.append("sigma missing; f_peak hors fenêtre metrics")
+    |                                     ^ E702
+104 |             else:
+105 |                 flags.append("WARN"); reason_list.append("sigma missing")
+    |
+
+zz-scripts/chapter09/flag_jalons.py:105:37: E702 Multiple statements on one line (semicolon)
+    |
+103 |                 flags.append("WARN"); reason_list.append("sigma missing; f_peak hors fenêtre metrics")
+104 |             else:
+105 |                 flags.append("WARN"); reason_list.append("sigma missing")
+    |                                     ^ E702
+106 |             z_scores.append(np.nan)
+107 |             reasons.append("; ".join(reason_list))
+    |
+
+zz-scripts/chapter09/flag_jalons.py:111:33: E702 Multiple statements on one line (semicolon)
+    |
+110 |         if sigma == 0:
+111 |             flags.append("FAIL"); reason_list.append("sigma_phase == 0")
+    |                                 ^ E702
+112 |             z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+    |
+
+zz-scripts/chapter09/flag_jalons.py:112:36: E702 Multiple statements on one line (semicolon)
+    |
+110 |         if sigma == 0:
+111 |             flags.append("FAIL"); reason_list.append("sigma_phase == 0")
+112 |             z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+    |                                    ^ E702
+113 |
+114 |         z = ad / sigma
+    |
+
+zz-scripts/chapter09/flag_jalons.py:112:76: E702 Multiple statements on one line (semicolon)
+    |
+110 |         if sigma == 0:
+111 |             flags.append("FAIL"); reason_list.append("sigma_phase == 0")
+112 |             z_scores.append(np.nan); reasons.append("; ".join(reason_list)); continue
+    |                                                                            ^ E702
+113 |
+114 |         z = ad / sigma
+    |
+
+zz-scripts/chapter09/flag_jalons.py:119:33: E702 Multiple statements on one line (semicolon)
+    |
+117 |         # thresholds
+118 |         if z > args.sigma_fail:
+119 |             flags.append("FAIL"); reason_list.append(f"z={z:.2f}>{args.sigma_fail}")
+    |                                 ^ E702
+120 |         elif z > args.sigma_warn:
+121 |             flags.append("WARN"); reason_list.append(f"z={z:.2f}>{args.sigma_warn}")
+    |
+
+zz-scripts/chapter09/flag_jalons.py:121:33: E702 Multiple statements on one line (semicolon)
+    |
+119 |             flags.append("FAIL"); reason_list.append(f"z={z:.2f}>{args.sigma_fail}")
+120 |         elif z > args.sigma_warn:
+121 |             flags.append("WARN"); reason_list.append(f"z={z:.2f}>{args.sigma_warn}")
+    |                                 ^ E702
+122 |         else:
+123 |             flags.append("OK")
+    |
+
+zz-scripts/chapter09/generate_data_chapter09.py:376:30: E702 Multiple statements on one line (semicolon)
+    |
+374 |             cfg[k] = v
+375 |
+376 |     fmin = float(cfg["fmin"]); fmax = float(cfg["fmax"]); dlog = float(cfg["dlog"])
+    |                              ^ E702
+377 |     params = PhaseParams(
+378 |         m1=float(cfg["m1"]), m2=float(cfg["m2"]),
+    |
+
+zz-scripts/chapter09/generate_data_chapter09.py:376:57: E702 Multiple statements on one line (semicolon)
+    |
+374 |             cfg[k] = v
+375 |
+376 |     fmin = float(cfg["fmin"]); fmax = float(cfg["fmax"]); dlog = float(cfg["dlog"])
+    |                                                         ^ E702
+377 |     params = PhaseParams(
+378 |         m1=float(cfg["m1"]), m2=float(cfg["m2"]),
+    |
+
+zz-scripts/chapter09/opt_poly_rebranch.py:121:26: E702 Multiple statements on one line (semicolon)
+    |
+120 |     # apply best to data and save
+121 |     basis = best["basis"]; deg = best["degree"]; c_desc = np.asarray(best["coeff_desc"], float); k = int(best["k"])
+    |                          ^ E702
+122 |     x_all = basis_x(f_all, basis)
+123 |     trend_all = np.polyval(c_desc, x_all)
+    |
+
+zz-scripts/chapter09/opt_poly_rebranch.py:121:48: E702 Multiple statements on one line (semicolon)
+    |
+120 |     # apply best to data and save
+121 |     basis = best["basis"]; deg = best["degree"]; c_desc = np.asarray(best["coeff_desc"], float); k = int(best["k"])
+    |                                                ^ E702
+122 |     x_all = basis_x(f_all, basis)
+123 |     trend_all = np.polyval(c_desc, x_all)
+    |
+
+zz-scripts/chapter09/opt_poly_rebranch.py:121:96: E702 Multiple statements on one line (semicolon)
+    |
+120 |     # apply best to data and save
+121 |     basis = best["basis"]; deg = best["degree"]; c_desc = np.asarray(best["coeff_desc"], float); k = int(best["k"])
+    |                                                                                                ^ E702
+122 |     x_all = basis_x(f_all, basis)
+123 |     trend_all = np.polyval(c_desc, x_all)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:57:21: E701 Multiple statements on one line (colon)
+   |
+55 |     y = np.asarray(y, float)
+56 |     n = y.size
+57 |     if n < min_run+1: return y, n-1
+   |                     ^ E701
+58 |     run, last = 0, n-1
+59 |     for i in range(n-1, 0, -1):
+   |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:68:22: E702 Multiple statements on one line (semicolon)
+   |
+66 |             run = 0
+67 |     if run >= min_run and last < n-1:
+68 |         yy = y.copy(); yy[last+1:] = np.nan
+   |                      ^ E702
+69 |         return yy, last
+70 |     return y, n-1
+   |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:73:39: E701 Multiple statements on one line (colon)
+   |
+72 | def pick_anchor_frequency(f: np.ndarray, fmin: float, fmax: float) -> float:
+73 |     if 100.0 >= fmin and 100.0 <= fmax: return 100.0
+   |                                       ^ E701
+74 |     return float(np.exp(0.5*(np.log(max(fmin,1e-12))+np.log(max(fmax,1e-12)))))
+   |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:77:31: E702 Multiple statements on one line (semicolon)
+   |
+76 | def interp_at(x, xp, fp):
+77 |     xp = np.asarray(xp, float); fp = np.asarray(fp, float)
+   |                               ^ E702
+78 |     m = np.isfinite(xp) & np.isfinite(fp)
+79 |     return float(np.interp(x, xp[m], fp[m])) if np.any(m) else float("nan")
+   |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:141:32: E701 Multiple statements on one line (colon)
+    |
+139 |         raise SystemExit(f"Introuvable : {args.csv}")
+140 |     df = pd.read_csv(args.csv)
+141 |     if "f_Hz" not in df.columns: raise SystemExit("Colonne manquante: f_Hz")
+    |                                ^ E701
+142 |
+143 |     # Sélection variante (priorité corrigée)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:147:30: E701 Multiple statements on one line (colon)
+    |
+145 |     disp = args.display_variant
+146 |     if disp == "auto":
+147 |         if "phi_mcgt" in cols: disp = "phi_mcgt"
+    |                              ^ E701
+148 |         elif "phi_mcgt_cal" in cols: disp = "phi_mcgt_cal"
+149 |         elif "phi_mcgt_raw" in cols: disp = "phi_mcgt_raw"
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:148:36: E701 Multiple statements on one line (colon)
+    |
+146 |     if disp == "auto":
+147 |         if "phi_mcgt" in cols: disp = "phi_mcgt"
+148 |         elif "phi_mcgt_cal" in cols: disp = "phi_mcgt_cal"
+    |                                    ^ E701
+149 |         elif "phi_mcgt_raw" in cols: disp = "phi_mcgt_raw"
+150 |         else: raise SystemExit("Aucune colonne phi_mcgt* trouvée.")
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:149:36: E701 Multiple statements on one line (colon)
+    |
+147 |         if "phi_mcgt" in cols: disp = "phi_mcgt"
+148 |         elif "phi_mcgt_cal" in cols: disp = "phi_mcgt_cal"
+149 |         elif "phi_mcgt_raw" in cols: disp = "phi_mcgt_raw"
+    |                                    ^ E701
+150 |         else: raise SystemExit("Aucune colonne phi_mcgt* trouvée.")
+151 |     if disp not in cols: raise SystemExit(f"Colonne {disp} introuvable. Colonnes={cols}")
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:150:13: E701 Multiple statements on one line (colon)
+    |
+148 |         elif "phi_mcgt_cal" in cols: disp = "phi_mcgt_cal"
+149 |         elif "phi_mcgt_raw" in cols: disp = "phi_mcgt_raw"
+150 |         else: raise SystemExit("Aucune colonne phi_mcgt* trouvée.")
+    |             ^ E701
+151 |     if disp not in cols: raise SystemExit(f"Colonne {disp} introuvable. Colonnes={cols}")
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:151:24: E701 Multiple statements on one line (colon)
+    |
+149 |         elif "phi_mcgt_raw" in cols: disp = "phi_mcgt_raw"
+150 |         else: raise SystemExit("Aucune colonne phi_mcgt* trouvée.")
+151 |     if disp not in cols: raise SystemExit(f"Colonne {disp} introuvable. Colonnes={cols}")
+    |                        ^ E701
+152 |
+153 |     f_raw = df["f_Hz"].to_numpy(float)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:163:22: E702 Multiple statements on one line (semicolon)
+    |
+161 |     # Tri et alignement
+162 |     f, arrs = enforce_monotone_freq(f_raw, {"ref":phi_ref_raw, "mcg":phi_mcg_raw}, log)
+163 |     ref = arrs["ref"]; mcg = arrs["mcg"]
+    |                      ^ E702
+164 |
+165 |     # Unwrap de la ref pour rendu + masque plateau
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:174:29: E701 Multiple statements on one line (colon)
+    |
+172 |     f1, f2 = sorted(map(float, args.shade))
+173 |     mask_band = (f>=f1) & (f<=f2) & np.isfinite(ref) & np.isfinite(mcg)
+174 |     if not np.any(mask_band): raise SystemExit("Aucun point dans la bande métriques.")
+    |                             ^ E701
+175 |     two_pi = 2.0*np.pi
+176 |     k = int(np.round(np.nanmedian((mcg[mask_band] - ref[mask_band]) / two_pi)))
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:193:22: E702 Multiple statements on one line (semicolon)
+    |
+191 |         m = mask_band & np.isfinite(ref_u) & np.isfinite(mcg_disp)
+192 |         if m.sum() >= 3:
+193 |             ff = f[m]; y = (ref_u[m] - mcg_disp[m])
+    |                      ^ E702
+194 |             w = 1.0/(ff**2)
+195 |             A = np.vstack([np.ones_like(ff), 2.0*np.pi*ff]).T
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:196:30: E702 Multiple statements on one line (semicolon)
+    |
+194 |             w = 1.0/(ff**2)
+195 |             A = np.vstack([np.ones_like(ff), 2.0*np.pi*ff]).T
+196 |             ATA = (A.T*w) @ A; ATy = (A.T*w) @ y
+    |                              ^ E702
+197 |             try:
+198 |                 dphi0, dtc = np.linalg.solve(ATA, ATy)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:225:49: E702 Multiple statements on one line (semicolon)
+    |
+224 |     ax.set_xscale("log")
+225 |     xmin = max(f1/5.0, float(np.nanmin(f))*0.98); xmax = float(np.nanmax(f))
+    |                                                 ^ E702
+226 |     ax.set_xlim(xmin, xmax)
+227 |     ax.axvspan(f1, f2, color="0.90", alpha=0.6)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:244:29: E701 Multiple statements on one line (colon)
+    |
+242 |     leg = ax.legend(handles + extra, labels + [cal_txt, grid_txt, metrics_txt],
+243 |                     loc="upper left", bbox_to_anchor=bbox, frameon=True, framealpha=0.95)
+244 |     for t in leg.get_texts(): t.set_fontsize(9)
+    |                             ^ E701
+245 |
+246 |     # Inset résidu (log-log) — cohérent avec métriques
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:249:28: E702 Multiple statements on one line (semicolon)
+    |
+247 |     if args.show_residual and np.isfinite(dphi).any():
+248 |         inset = ax.inset_axes([0.60, 0.07, 0.35, 0.32])
+249 |         absd = np.abs(dphi); eps = 1e-12
+    |                            ^ E702
+250 |         absd = np.where(absd<=0, eps, absd)
+251 |         inset.plot(f, absd, lw=1.1)
+    |
+
+zz-scripts/chapter09/plot_fig01_phase_overlay.py:252:32: E702 Multiple statements on one line (semicolon)
+    |
+250 |         absd = np.where(absd<=0, eps, absd)
+251 |         inset.plot(f, absd, lw=1.1)
+252 |         inset.set_xscale("log"); inset.set_yscale("log")
+    |                                ^ E702
+253 |         inset.set_xlim(xmin, xmax)
+254 |         finite = absd[np.isfinite(absd)]
+    |
+
+zz-scripts/chapter09/plot_fig02_residual_phase.py:127:24: E701 Multiple statements on one line (colon)
+    |
+126 |     # variante active
+127 |     if "phi_mcgt" in df:          phi_col = "phi_mcgt"
+    |                        ^ E701
+128 |     elif "phi_mcgt_cal" in df:    phi_col = "phi_mcgt_cal"
+129 |     elif "phi_mcgt_raw" in df:    phi_col = "phi_mcgt_raw"
+    |
+
+zz-scripts/chapter09/plot_fig02_residual_phase.py:128:30: E701 Multiple statements on one line (colon)
+    |
+126 |     # variante active
+127 |     if "phi_mcgt" in df:          phi_col = "phi_mcgt"
+128 |     elif "phi_mcgt_cal" in df:    phi_col = "phi_mcgt_cal"
+    |                              ^ E701
+129 |     elif "phi_mcgt_raw" in df:    phi_col = "phi_mcgt_raw"
+130 |     else: raise SystemExit("Aucune colonne phi_mcgt* disponible.")
+    |
+
+zz-scripts/chapter09/plot_fig02_residual_phase.py:129:30: E701 Multiple statements on one line (colon)
+    |
+127 |     if "phi_mcgt" in df:          phi_col = "phi_mcgt"
+128 |     elif "phi_mcgt_cal" in df:    phi_col = "phi_mcgt_cal"
+129 |     elif "phi_mcgt_raw" in df:    phi_col = "phi_mcgt_raw"
+    |                              ^ E701
+130 |     else: raise SystemExit("Aucune colonne phi_mcgt* disponible.")
+131 |     log.info("Variante active: %s", phi_col)
+    |
+
+zz-scripts/chapter09/plot_fig02_residual_phase.py:130:9: E701 Multiple statements on one line (colon)
+    |
+128 |     elif "phi_mcgt_cal" in df:    phi_col = "phi_mcgt_cal"
+129 |     elif "phi_mcgt_raw" in df:    phi_col = "phi_mcgt_raw"
+130 |     else: raise SystemExit("Aucune colonne phi_mcgt* disponible.")
+    |         ^ E701
+131 |     log.info("Variante active: %s", phi_col)
+    |
+
+zz-scripts/chapter09/plot_fig02_residual_phase.py:172:41: E702 Multiple statements on one line (semicolon)
+    |
+170 |     # axes
+171 |     axs = [fig.add_subplot(gs[i, 0]) for i in range(3)]
+172 |     ax_right = fig.add_subplot(gs[:, 1]); ax_right.axis("off")
+    |                                         ^ E702
+173 |
+174 |     # titre + espace vertical accru
+    |
+
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py:195:24: E702 Multiple statements on one line (semicolon)
+    |
+193 |     # 1) si --diff OK: on suppose cohérent (abs_dphi déjà principal). Sinon:
+194 |     # 2) reconstruire depuis --csv avec principal + calage identique + rebranch k (20–300) pour compat.
+195 |     f_bg = np.array([]); ad_bg = np.array([])
+    |                        ^ E702
+196 |     if args.diff.exists():
+197 |         D = pd.read_csv(args.diff)
+    |
+
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py:300:25: E702 Multiple statements on one line (semicolon)
+    |
+299 |     # Axes / style
+300 |     ax.set_xscale("log"); ax.set_yscale("log")
+    |                         ^ E702
+301 |     ax.set_xlim(xmin, xmax); ax.set_ylim(ymin, ymax)
+302 |     ax.set_xlabel(r"Fréquence $f$ [Hz]")
+    |
+
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py:301:28: E702 Multiple statements on one line (semicolon)
+    |
+299 |     # Axes / style
+300 |     ax.set_xscale("log"); ax.set_yscale("log")
+301 |     ax.set_xlim(xmin, xmax); ax.set_ylim(ymin, ymax)
+    |                            ^ E702
+302 |     ax.set_xlabel(r"Fréquence $f$ [Hz]")
+303 |     ax.set_ylabel(r"$|\Delta\phi|$ [rad]")
+    |
+
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py:314:8: E741 Ambiguous variable name: `l`
+    |
+313 |     # Légende dédupliquée
+314 |     h, l = ax.get_legend_handles_labels()
+    |        ^ E741
+315 |     uniq = {}
+316 |     for hh, ll in zip(h, l):
+    |
+
+zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py:232:8: E741 Ambiguous variable name: `l`
+    |
+230 |     ax.set_ylabel(r"$\phi_{\rm MCGT}(f_{\rm peak})$ [rad]" + ("  (alignement principal)" if args.align == "principal" else ""))
+231 |
+232 |     h, l = ax.get_legend_handles_labels()
+    |        ^ E741
+233 |     uniq = {}
+234 |     for hh, ll in zip(h, l):
+    |
+
+zz-scripts/chapter10/bootstrap_topk_p95.py:65:5: F841 Local variable `candidates` is assigned to but never used
+   |
+63 | def detect_abscol(df: pd.DataFrame) -> str | None:
+64 |     """Tente détecter la colonne contenant les valeurs |Δφ|."""
+65 |     candidates = [c.lower() for c in df.columns]
+   |     ^^^^^^^^^^ F841
+66 |     mapping = {
+67 |         "absdphi": ["absdphi", "abs_dphi", "abs_d_phi", "abs(phi_diff)", "|Δφ|", "abs(delta_phi)"],
+   |
+   = help: Remove assignment to unused variable `candidates`
+
+zz-scripts/chapter10/check_metrics_consistency.py:71:5: F841 Local variable `df_cols` is assigned to but never used
+   |
+69 |     df = pd.read_csv(results_p)
+70 |     # normalisation noms colonnes courants (tolérance)
+71 |     df_cols = {c: c for c in df.columns}
+   |     ^^^^^^^ F841
+72 |     # required metrics expected
+73 |     required_cols = ["id", "p95_20_300", "mean_20_300", "max_20_300", "n_20_300", "status"]
+   |
+   = help: Remove assignment to unused variable `df_cols`
+
+zz-scripts/chapter10/diag_phi_fpeak.py:29:19: E701 Multiple statements on one line (colon)
+   |
+28 | def is_bad_phi(val, thresh):
+29 |     if val is None: return True
+   |                   ^ E701
+30 |     try:
+31 |         v = float(val)
+   |
+
+zz-scripts/chapter10/diag_phi_fpeak.py:34:38: E701 Multiple statements on one line (colon)
+   |
+32 |     except Exception:
+33 |         return True
+34 |     if math.isnan(v) or math.isinf(v): return True
+   |                                      ^ E701
+35 |     return abs(v) > thresh
+   |
+
+zz-scripts/chapter10/eval_primary_metrics_20_300.py:253:5: F841 Local variable `work` is assigned to but never used
+    |
+251 |     # prepare parallel evaluation
+252 |     window = WINDOW_DEFAULT
+253 |     work = []
+    |     ^^^^ F841
+254 |     # joblib Parallel with chunksize automatic
+255 |     logging.info("Démarrage évaluation en parallèle : batch=%d n_workers=%d", args.batch, args.n_workers)
+    |
+    = help: Remove assignment to unused variable `work`
+
+zz-scripts/chapter10/inspect_topk_residuals.py:62:32: E702 Multiple statements on one line (semicolon)
+   |
+60 |         ax.semilogx(ref, phi_r, label="phi_ref")
+61 |         ax.semilogx(ref, phi_m, label="phi_mcgt")
+62 |         ax.set_xlabel("f [Hz]"); ax.set_ylabel("phase [rad]")
+   |                                ^ E702
+63 |         ax.set_title(f"Overlay id={id_:d} (k={k})")
+64 |         ax.legend()
+   |
+
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py:58:27: E702 Multiple statements on one line (semicolon)
+   |
+56 |     try:
+57 |         tris = triang.triangles
+58 |         x1 = x[tris[:, 0]]; x2 = x[tris[:, 1]]; x3 = x[tris[:, 2]]
+   |                           ^ E702
+59 |         y1 = y[tris[:, 0]]; y2 = y[tris[:, 1]]; y3 = y[tris[:, 2]]
+60 |         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
+   |
+
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py:58:47: E702 Multiple statements on one line (semicolon)
+   |
+56 |     try:
+57 |         tris = triang.triangles
+58 |         x1 = x[tris[:, 0]]; x2 = x[tris[:, 1]]; x3 = x[tris[:, 2]]
+   |                                               ^ E702
+59 |         y1 = y[tris[:, 0]]; y2 = y[tris[:, 1]]; y3 = y[tris[:, 2]]
+60 |         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
+   |
+
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py:59:27: E702 Multiple statements on one line (semicolon)
+   |
+57 |         tris = triang.triangles
+58 |         x1 = x[tris[:, 0]]; x2 = x[tris[:, 1]]; x3 = x[tris[:, 2]]
+59 |         y1 = y[tris[:, 0]]; y2 = y[tris[:, 1]]; y3 = y[tris[:, 2]]
+   |                           ^ E702
+60 |         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
+61 |         mask = areas <= 0.0
+   |
+
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py:59:47: E702 Multiple statements on one line (semicolon)
+   |
+57 |         tris = triang.triangles
+58 |         x1 = x[tris[:, 0]]; x2 = x[tris[:, 1]]; x3 = x[tris[:, 2]]
+59 |         y1 = y[tris[:, 0]]; y2 = y[tris[:, 1]]; y3 = y[tris[:, 2]]
+   |                                               ^ E702
+60 |         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
+61 |         mask = areas <= 0.0
+   |
+
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py:143:5: F841 Local variable `cs` is assigned to but never used
+    |
+141 |     # tricontourf with normalization
+142 |     cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
+143 |     cs = ax.tricontour(triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5)
+    |     ^^ F841
+144 |
+145 |     # scatter overlay (points) - smaller, semi-transparent
+    |
+    = help: Remove assignment to unused variable `cs`
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:8: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+   |        ^
+14 |     return (x + np.pi) % TWOPI - np.pi
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:15: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+   |               ^
+14 |     return (x + np.pi) % TWOPI - np.pi
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:19: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+   |                   ^
+14 |     return (x + np.pi) % TWOPI - np.pi
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:20: SyntaxError: missing closing quote in string literal
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+   |                    ^
+14 |     return (x + np.pi) % TWOPI - np.pi
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:43: SyntaxError: Expected a statement
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+   |                                           ^
+14 |     return (x + np.pi) % TWOPI - np.pi
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:14:1: SyntaxError: Unexpected indentation
+   |
+12 | def wrap_pi(x: np.ndarray) -> np.ndarray:
+13 |     """Réduit sur l'intervalle [-π, π)."""
+14 |     return (x + np.pi) % TWOPI - np.pi
+   | ^
+15 |
+16 | def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+   |
+
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:16:1: SyntaxError: Expected a statement
+   |
+14 |     return (x + np.pi) % TWOPI - np.pi
+15 |
+16 | def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+   | ^
+17 |     """Δφ = wrap( b - a ) dans [-π, π)."""
+18 |     return wrap_pi(b - a)
+   |
+
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py:104:5: F841 Local variable `ref_median` is assigned to but never used
+    |
+103 |     ref_mean = float(np.mean(p95))
+104 |     ref_median = float(np.median(p95))
+    |     ^^^^^^^^^^ F841
+105 |     ref_tmean = trimmed_mean(p95, args.trim)
+    |
+    = help: Remove assignment to unused variable `ref_median`
+
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py:105:5: F841 Local variable `ref_tmean` is assigned to but never used
+    |
+103 |     ref_mean = float(np.mean(p95))
+104 |     ref_median = float(np.median(p95))
+105 |     ref_tmean = trimmed_mean(p95, args.trim)
+    |     ^^^^^^^^^ F841
+106 |
+107 |     print(f"[INFO] Bootstrap convergence: M={M}, B={args.B}, points={len(N_list)}, seed={args.seed}, trim={args.trim:.3f}")
+    |
+    = help: Remove assignment to unused variable `ref_tmean`
+
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py:147:36: E702 Multiple statements on one line (semicolon)
+    |
+145 |     if np.sum(sel) == 0:
+146 |         sel = slice(len(N_list)//3, 2*len(N_list)//3)
+147 |         ylo = np.min(mean_low[sel]); yhi = np.max(mean_high[sel])
+    |                                    ^ E702
+148 |     else:
+149 |         ylo = float(np.nanmin(mean_low[sel])); yhi = float(np.nanmax(mean_high[sel]))
+    |
+
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py:149:46: E702 Multiple statements on one line (semicolon)
+    |
+147 |         ylo = np.min(mean_low[sel]); yhi = np.max(mean_high[sel])
+148 |     else:
+149 |         ylo = float(np.nanmin(mean_low[sel])); yhi = float(np.nanmax(mean_high[sel]))
+    |                                              ^ E702
+150 |     ypad = 0.02 * (yhi - ylo) if (yhi - ylo) > 0 else 0.005
+151 |     yin0, yin1 = ylo - ypad, yhi + ypad
+    |
+
+zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py:129:5: F841 Local variable `y0_user` is assigned to but never used
+    |
+127 |     )
+128 |     x0, x1 = args.zoom_x - args.zoom_dx, args.zoom_x + args.zoom_dx
+129 |     y0_user, y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
+    |     ^^^^^^^ F841
+130 |
+131 |     mask_x = (p95 >= x0) & (p95 <= x1)
+    |
+    = help: Remove assignment to unused variable `y0_user`
+
+zz-scripts/chapter10/plot_fig06_residual_map.py:52:46: E702 Multiple statements on one line (semicolon)
+   |
+50 |     ap.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
+51 |     ap.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
+52 |     ap.add_argument("--m1-col", default="m1"); ap.add_argument("--m2-col", default="m2")
+   |                                              ^ E702
+53 |     ap.add_argument("--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95).")
+54 |     ap.add_argument("--recalc-col", default="p95_20_300_recalc", help="Colonne p95 recalculée (dp95).")
+   |
+
+zz-scripts/chapter10/plot_fig06_residual_map.py:133:29: E702 Multiple statements on one line (semicolon)
+    |
+132 |     ax_main.set_title(rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$" + (" (absolu)" if args.abs else ""))
+133 |     ax_main.set_xlabel("m1"); ax_main.set_ylabel("m2")
+    |                             ^ E702
+134 |
+135 |     # annotation mincnt
+    |
+
+zz-scripts/chapter10/plot_fig06_residual_map.py:146:28: E702 Multiple statements on one line (semicolon)
+    |
+144 |     cbar_cnt.set_label("Counts")
+145 |     ax_cnt.set_title("Counts (par cellule)")
+146 |     ax_cnt.set_xlabel("m1"); ax_cnt.set_ylabel("m2")
+    |                            ^ E702
+147 |     ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
+148 |     ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))
+    |
+
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py:87:25: E702 Multiple statements on one line (semicolon)
+   |
+85 |     plt.semilogx(fgrid, unwrap, label=f"unwrap p95={p95_unwrap:.4f} rad", alpha=0.6)
+86 |     plt.semilogx(fgrid, circ, label=f"circ p95={p95_circ:.4f} rad", alpha=0.9)
+87 |     plt.xlabel("f [Hz]"); plt.ylabel("|Δφ(f)| [rad]")
+   |                         ^ E702
+88 |     plt.title(f"Residus ID {int(id_)} (raw / unwrap / circ)")
+89 |     plt.legend(loc="best", fontsize="small")
+   |
+
+zz-scripts/chapter10/regen_fig05_using_circp95.py:129:5: F841 Local variable `y0_user` is assigned to but never used
+    |
+127 |     )
+128 |     x0, x1 = args.zoom_x - args.zoom_dx, args.zoom_x + args.zoom_dx
+129 |     y0_user, y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
+    |     ^^^^^^^ F841
+130 |     mask_x = (p95 >= x0) & (p95 <= x1)
+131 |     data_inset = p95[mask_x] if mask_x.sum() >= 5 else p95
+    |
+    = help: Remove assignment to unused variable `y0_user`
+
+zz-scripts/chapter10/update_manifest_with_hashes.py:10:46: E702 Multiple statements on one line (semicolon)
+   |
+ 8 | manifest_path = pathlib.Path("zz-data/chapter10/10_mc_run_manifest.json")
+ 9 | if not manifest_path.exists():
+10 |     print("Manifest missing:", manifest_path); sys.exit(1)
+   |                                              ^ E702
+11 |
+12 | def sha256(fpath):
+   |
+
+zz-scripts/chapter10/update_manifest_with_hashes.py:44:1: E402 Module level import not at top of file
+   |
+43 | # python version
+44 | import platform
+   | ^^^^^^^^^^^^^^^ E402
+45 | pyv = platform.python_version()
+   |
+
+zz-tools/json_audit_strict.py:16:44: E702 Multiple statements on one line (semicolon)
+   |
+14 |             obj = json.loads(txt)
+15 |             if not txt.strip() or obj in ({}, []):
+16 |                 print("WARN empty-ish:", p); bad += 1
+   |                                            ^ E702
+17 |             if html.search(txt):
+18 |                 print("WARN html-like:", p); bad += 1
+   |
+
+zz-tools/json_audit_strict.py:18:44: E702 Multiple statements on one line (semicolon)
+   |
+16 |                 print("WARN empty-ish:", p); bad += 1
+17 |             if html.search(txt):
+18 |                 print("WARN html-like:", p); bad += 1
+   |                                            ^ E702
+19 |         except Exception as e:
+20 |             print("ERR invalid JSON:", p, "->", e); bad += 1
+   |
+
+zz-tools/json_audit_strict.py:20:51: E702 Multiple statements on one line (semicolon)
+   |
+18 |                 print("WARN html-like:", p); bad += 1
+19 |         except Exception as e:
+20 |             print("ERR invalid JSON:", p, "->", e); bad += 1
+   |                                                   ^ E702
+21 | sys.exit(1 if bad else 0)
+   |
+
+zz-tools/manifest_check.py:6:35: E702 Multiple statements on one line (semicolon)
+  |
+4 | p="zz-manifests/manifest_master.json"
+5 | if not os.path.exists(p):
+6 |     print("SKIP:", p, "(missing)"); sys.exit(0)
+  |                                   ^ E702
+7 | m=json.load(open(p,"r",encoding="utf-8"))
+8 | missing=[]
+  |
+
+zz-tools/manifest_check.py:16:19: E701 Multiple statements on one line (colon)
+   |
+14 | def visit(v):
+15 |     if isinstance(v, list):
+16 |         for x in v: visit(x)
+   |                   ^ E701
+17 |     elif isinstance(v, dict):
+18 |         if "path" in v: check(v["path"])
+   |
+
+zz-tools/manifest_check.py:18:23: E701 Multiple statements on one line (colon)
+   |
+16 |         for x in v: visit(x)
+17 |     elif isinstance(v, dict):
+18 |         if "path" in v: check(v["path"])
+   |                       ^ E701
+19 |         if "file" in v: check(v["file"])
+20 |     elif isinstance(v, str):
+   |
+
+zz-tools/manifest_check.py:19:23: E701 Multiple statements on one line (colon)
+   |
+17 |     elif isinstance(v, dict):
+18 |         if "path" in v: check(v["path"])
+19 |         if "file" in v: check(v["file"])
+   |                       ^ E701
+20 |     elif isinstance(v, str):
+21 |         check(v)
+   |
+
+zz-tools/manifest_check.py:25:40: E702 Multiple statements on one line (semicolon)
+   |
+23 |     visit(m.get(k, []))
+24 | if missing:
+25 |     print("Missing files in manifest:"); [print("  -",x) for x in missing]
+   |                                        ^ E702
+26 |     sys.exit(1)
+27 | print("Manifest OK.")
+   |
+
+zz-tools/manifest_report.py:7:37: E702 Multiple statements on one line (semicolon)
+  |
+5 | dst="zz-manifests/manifest_report.md"
+6 | if not os.path.exists(src):
+7 |     print("SKIP:", src, "(missing)"); raise SystemExit(0)
+  |                                     ^ E702
+8 | m=json.load(open(src,"r",encoding="utf-8"))
+9 | ts=datetime.datetime.utcnow().isoformat()+"Z"
+  |
+
+zz-tools/manifest_report.py:13:17: E701 Multiple statements on one line (colon)
+   |
+11 | def sec(title, items):
+12 |     out=[f"## {title}", ""]
+13 |     if not items: out.append("*none*"); out.append(""); return out
+   |                 ^ E701
+14 |     for s in items:
+15 |         if isinstance(s, dict):
+   |
+
+zz-tools/manifest_report.py:13:39: E702 Multiple statements on one line (semicolon)
+   |
+11 | def sec(title, items):
+12 |     out=[f"## {title}", ""]
+13 |     if not items: out.append("*none*"); out.append(""); return out
+   |                                       ^ E702
+14 |     for s in items:
+15 |         if isinstance(s, dict):
+   |
+
+zz-tools/manifest_report.py:13:55: E702 Multiple statements on one line (semicolon)
+   |
+11 | def sec(title, items):
+12 |     out=[f"## {title}", ""]
+13 |     if not items: out.append("*none*"); out.append(""); return out
+   |                                                       ^ E702
+14 |     for s in items:
+15 |         if isinstance(s, dict):
+   |
+
+Found 264 errors (63 fixed, 201 remaining).
+No fixes available (18 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+ruff-format..............................................................Failed
+- hook id: ruff-format
+- exit code: 2
+- files were modified by this hook
+
+error: Failed to parse zz-scripts/chapter02/primordial_spectrum.py:47:8: Simple statements must be separated by newlines or semicolons
+error: Failed to parse zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py:13:8: Simple statements must be separated by newlines or semicolons
+116 files reformatted, 2 files left unchanged

@@ -1,0 +1,6 @@
+==[0] Contexte machine ==
+whoami: jplal
+cwd    : /home/jplal/MCGT
+kernel : Linux JPL 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+python : Python 3.12.11
+pip    : pip 25.2 from /home/jplal/MCGT/.venv-mcgt/lib/python3.12/site-packages/pip (python 3.12)

@@ -37,6 +37,3 @@ les credentials correspondants dans les \_secrets\_ du dépôt et étendre `rele
 \- Préparer des jeux de données \*\*réduits\*\* pour les tests (fixtures) afin d’éviter
 
 &nbsp; des temps de CI trop longs.
-
-
-

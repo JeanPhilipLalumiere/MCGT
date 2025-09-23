@@ -1,14 +1,18 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-      - id: check-yaml
-      - id: check-json
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
-    hooks:
-      - id: ruff
-        args: [--fix]
-      - id: ruff-format
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.6.0
+  hooks:
+  - id: check-yaml
+    exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+  - id: check-json
+    exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+  - id: end-of-file-fixer
+    exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+  - id: trailing-whitespace
+    exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.6.9
+  hooks:
+  - id: ruff-format
+    exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)
+exclude: ^(zz-trash/|_reports/|_snapshots/|MCGT-clean/)

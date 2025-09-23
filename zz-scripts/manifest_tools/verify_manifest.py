@@ -8,9 +8,16 @@ Vérifier un manifest JSON :
 Usage:
   python3 verify_manifest.py zz-manifests/manifest_publication.json --repo-root . --output report.json
 """
+
 from __future__ import annotations
-import argparse, json, os, hashlib, subprocess, sys
+import argparse
+import json
+import os
+import hashlib
+import subprocess
+import sys
 from datetime import datetime, timezone
+
 
 def sha256_of(path):
     h = hashlib.sha256()
@@ -19,10 +26,12 @@ def sha256_of(path):
             h.update(chunk)
     return h.hexdigest()
 
+
 def mtime_iso_of(path):
     st = os.stat(path)
     # timezone-aware UTC
     return datetime.fromtimestamp(st.st_mtime, tz=timezone.utc).isoformat()
+
 
 def git_hash_of(path, repo_root=None):
     # Return git object hash (sha1) if git available and file inside git repo.
@@ -38,6 +47,7 @@ def git_hash_of(path, repo_root=None):
     except Exception:
         pass
     return None
+
 
 def check_entry(entry, repo_root):
     path = entry.get("path")
@@ -61,27 +71,44 @@ def check_entry(entry, repo_root):
     actual_size = st.st_size
     actual_mtime = datetime.fromtimestamp(st.st_mtime, tz=timezone.utc).isoformat()
     actual_sha256 = sha256_of(abs_path)
-    actual_git = git_hash_of(os.path.relpath(abs_path, repo_root) if repo_root else abs_path, repo_root=repo_root)
+    actual_git = git_hash_of(
+        os.path.relpath(abs_path, repo_root) if repo_root else abs_path,
+        repo_root=repo_root,
+    )
     result["actual"]["size_bytes"] = actual_size
     result["actual"]["mtime_iso"] = actual_mtime
     result["actual"]["sha256"] = actual_sha256
     result["actual"]["git_hash"] = actual_git
     # comparisons
-    if entry.get("size_bytes") is not None and int(entry.get("size_bytes")) != actual_size:
+    if (
+        entry.get("size_bytes") is not None
+        and int(entry.get("size_bytes")) != actual_size
+    ):
         result["issues"].append("MISMATCH_SIZE")
     if entry.get("sha256") is not None and entry.get("sha256") != actual_sha256:
         result["issues"].append("MISMATCH_SHA256")
     # tolerance: strict equality for mtime (could be fine-tuned)
     if entry.get("mtime_iso") is not None and entry.get("mtime_iso") != actual_mtime:
         result["issues"].append("MISMATCH_MTIME")
-    if entry.get("git_hash") is not None and actual_git is not None and entry.get("git_hash") != actual_git:
+    if (
+        entry.get("git_hash") is not None
+        and actual_git is not None
+        and entry.get("git_hash") != actual_git
+    ):
         result["issues"].append("MISMATCH_GIT_HASH")
     return result
 
+
 def main():
-    ap = argparse.ArgumentParser(description="Vérifier manifest JSON (sha256, size, mtime, git hash)")
+    ap = argparse.ArgumentParser(
+        description="Vérifier manifest JSON (sha256, size, mtime, git hash)"
+    )
     ap.add_argument("manifest", help="chemin vers manifest JSON")
-    ap.add_argument("--repo-root", default=".", help="racine du dépôt (pour chemins relatifs, git operations)")
+    ap.add_argument(
+        "--repo-root",
+        default=".",
+        help="racine du dépôt (pour chemins relatifs, git operations)",
+    )
     ap.add_argument("--output", default=None, help="fichier JSON du rapport")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
@@ -110,17 +137,24 @@ def main():
             summary["mismatches"] += 1
 
     # output human readable
-    print("="*60)
+    print("=" * 60)
     print(f"Manifest: {manifest_path}")
     print(f"Repo root: {repo_root}")
-    print(f"Entries: {summary['total']}, OK: {summary['ok']}, Missing: {summary['missing']}, Mismatches: {summary['mismatches']}")
-    print("="*60)
+    print(
+        f"Entries: {summary['total']}, OK: {summary['ok']}, Missing: {summary['missing']}, Mismatches: {summary['mismatches']}"
+    )
+    print("=" * 60)
     if args.verbose:
         for r in results:
             print(json.dumps(r, indent=2, ensure_ascii=False))
 
     if args.output:
-        out = {"manifest_path": manifest_path, "repo_root": repo_root, "summary": summary, "results": results}
+        out = {
+            "manifest_path": manifest_path,
+            "repo_root": repo_root,
+            "summary": summary,
+            "results": results,
+        }
         with open(args.output, "w", encoding="utf-8") as f:
             json.dump(out, f, indent=2, ensure_ascii=False)
         print("Rapport écrit:", args.output)
@@ -130,10 +164,11 @@ def main():
             if r.get("issues"):
                 print(r["path"], "->", ", ".join(r["issues"]))
     # exit code: 0 if all ok or only missing? choose 0 if no mismatches and missing==0
-    if summary["mismatches"]==0 and summary["missing"]==0:
+    if summary["mismatches"] == 0 and summary["missing"] == 0:
         sys.exit(0)
     else:
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

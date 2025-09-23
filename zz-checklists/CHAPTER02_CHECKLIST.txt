@@ -110,4 +110,3 @@ CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
 - [ ] Schémas   :  validate_json.py & validate_csv_table.py (voir bloc “Validation”)
 - [ ] LaTeX     :  commandes pdflatex ci-dessus
 - [ ] Diagnostic:  diag_consistency.py (report MD) + mise à jour manifeste des figures
-

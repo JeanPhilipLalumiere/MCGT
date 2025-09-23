@@ -60,38 +60,38 @@ Ce document explique comment (re)générer les données, figures et diagnostics 
 
 6.1 Chapitre 09 — Phase d’ondes gravitationnelles
 Étape 0 — (si besoin) extraire/régénérer la référence
-python zz-scripts/chapter09/extract\_phenom\_phase.py 
+python zz-scripts/chapter09/extract\_phenom\_phase.py
 --out zz-data/chapter09/09\_phases\_imrphenom.csv
 Étape 1 — Générer prétraitement + résidus
-python zz-scripts/chapter09/generate\_data\_chapter09.py 
---ref zz-data/chapter09/09\_phases\_imrphenom.csv 
---out-prepoly zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv 
---out-diff    zz-data/chapter09/09\_phase\_diff.csv 
+python zz-scripts/chapter09/generate\_data\_chapter09.py
+--ref zz-data/chapter09/09\_phases\_imrphenom.csv
+--out-prepoly zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv
+--out-diff    zz-data/chapter09/09\_phase\_diff.csv
 --log-level INFO
 Étape 2 — Optimiser (base, degré) + rebranch k, écrire la série finale
-python zz-scripts/chapter09/opt\_poly\_rebranch.py 
---csv zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv 
---meta zz-data/chapter09/09\_metrics\_phase.json 
---fit-window 30 250 --metrics-window 20 300 
---degrees 3 4 5 --bases log10 hz --k-range -10 10 
---out-csv  zz-data/chapter09/09\_phases\_mcgt.csv 
---out-best zz-data/chapter09/09\_best\_params.json 
+python zz-scripts/chapter09/opt\_poly\_rebranch.py
+--csv zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv
+--meta zz-data/chapter09/09\_metrics\_phase.json
+--fit-window 30 250 --metrics-window 20 300
+--degrees 3 4 5 --bases log10 hz --k-range -10 10
+--out-csv  zz-data/chapter09/09\_phases\_mcgt.csv
+--out-best zz-data/chapter09/09\_best\_params.json
 --backup --log-level INFO
 Étape 3 — Figures
-python zz-scripts/chapter09/plot\_fig01\_phase\_overlay.py 
---csv  zz-data/chapter09/09\_phases\_mcgt.csv 
---meta zz-data/chapter09/09\_metrics\_phase.json 
---out  zz-figures/chapter09/fig\_01\_phase\_overlay.png 
+python zz-scripts/chapter09/plot\_fig01\_phase\_overlay.py
+--csv  zz-data/chapter09/09\_phases\_mcgt.csv
+--meta zz-data/chapter09/09\_metrics\_phase.json
+--out  zz-figures/chapter09/fig\_01\_phase\_overlay.png
 --shade 20 300 --show-residual --dpi 300
-python zz-scripts/chapter09/plot\_fig02\_residual\_phase.py 
---csv  zz-data/chapter09/09\_phases\_mcgt.csv 
---meta zz-data/chapter09/09\_metrics\_phase.json 
---out  zz-figures/chapter09/fig\_02\_residual\_phase.png 
+python zz-scripts/chapter09/plot\_fig02\_residual\_phase.py
+--csv  zz-data/chapter09/09\_phases\_mcgt.csv
+--meta zz-data/chapter09/09\_metrics\_phase.json
+--out  zz-figures/chapter09/fig\_02\_residual\_phase.png
 --bands 20 300 300 1000 1000 2000 --dpi 300
-python zz-scripts/chapter09/plot\_fig03\_hist\_absdphi\_20\_300.py 
---csv  zz-data/chapter09/09\_phases\_mcgt.csv 
---meta zz-data/chapter09/09\_metrics\_phase.json 
---out  zz-figures/chapter09/fig\_03\_hist\_absdphi\_20\_300.png 
+python zz-scripts/chapter09/plot\_fig03\_hist\_absdphi\_20\_300.py
+--csv  zz-data/chapter09/09\_phases\_mcgt.csv
+--meta zz-data/chapter09/09\_metrics\_phase.json
+--out  zz-figures/chapter09/fig\_03\_hist\_absdphi\_20\_300.png
 --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
 Étape 4 — Jalons (catalogue GWTC-3 confident)
 
@@ -99,50 +99,50 @@ Préparez « zz-data/chapter09/09\_comparison\_milestones.csv »
 
 puis flaguez selon sigma/classe :
 
-python zz-scripts/chapter09/flag\_jalons.py 
---csv  zz-data/chapter09/09\_comparison\_milestones.csv 
---meta zz-data/chapter09/09\_comparison\_milestones.meta.json 
---out-csv zz-data/chapter09/09\_comparison\_milestones.flagged.csv 
+python zz-scripts/chapter09/flag\_jalons.py
+--csv  zz-data/chapter09/09\_comparison\_milestones.csv
+--meta zz-data/chapter09/09\_comparison\_milestones.meta.json
+--out-csv zz-data/chapter09/09\_comparison\_milestones.flagged.csv
 --write-meta
 
 Figures jalons :
 
-python zz-scripts/chapter09/plot\_fig04\_absdphi\_milestones\_vs\_f.py 
---diff   zz-data/chapter09/09\_phase\_diff.csv 
---csv    zz-data/chapter09/09\_phases\_mcgt.csv 
---meta   zz-data/chapter09/09\_metrics\_phase.json 
---jalons zz-data/chapter09/09\_comparison\_milestones.csv 
---out    zz-figures/chapter09/fig\_04\_absdphi\_milestones\_vs\_f.png 
+python zz-scripts/chapter09/plot\_fig04\_absdphi\_milestones\_vs\_f.py
+--diff   zz-data/chapter09/09\_phase\_diff.csv
+--csv    zz-data/chapter09/09\_phases\_mcgt.csv
+--meta   zz-data/chapter09/09\_metrics\_phase.json
+--jalons zz-data/chapter09/09\_comparison\_milestones.csv
+--out    zz-figures/chapter09/fig\_04\_absdphi\_milestones\_vs\_f.png
 --window 20 300 --with\_errorbar --dpi 300
-python zz-scripts/chapter09/plot\_fig05\_scatter\_phi\_at\_fpeak.py 
---jalons zz-data/chapter09/09\_comparison\_milestones.csv 
+python zz-scripts/chapter09/plot\_fig05\_scatter\_phi\_at\_fpeak.py
+--jalons zz-data/chapter09/09\_comparison\_milestones.csv
 --out    zz-figures/chapter09/fig\_05\_scatter\_phi\_at\_fpeak.png
 
 6.2 Chapitre 10 — Monte Carlo global 8D
 Étape 1 — Config (paramètres/prior/nuisances)
 cat zz-data/chapter10/10\_mc\_config.json   # vérifiez les bornes, seed, n
 Étape 2 — Génération/évaluation principale
-python zz-scripts/chapter10/generate\_data\_chapter10.py 
---config zz-data/chapter10/10\_mc\_config.json 
---out-results zz-data/chapter10/10\_mc\_results.csv 
---out-results-circ zz-data/chapter10/10\_mc\_results.circ.csv 
---out-samples zz-data/chapter10/10\_mc\_samples.csv 
+python zz-scripts/chapter10/generate\_data\_chapter10.py
+--config zz-data/chapter10/10\_mc\_config.json
+--out-results zz-data/chapter10/10\_mc\_results.csv
+--out-results-circ zz-data/chapter10/10\_mc\_results.circ.csv
+--out-samples zz-data/chapter10/10\_mc\_samples.csv
 --log-level INFO
 Étape 3 — Diagnostics complémentaires
 
 Ajout de φ(f\_peak) et QA circulaire
 
-python zz-scripts/chapter10/add\_phi\_at\_fpeak.py 
---results zz-data/chapter10/10\_mc\_results.circ.csv 
+python zz-scripts/chapter10/add\_phi\_at\_fpeak.py
+--results zz-data/chapter10/10\_mc\_results.circ.csv
 --out     zz-data/chapter10/10\_mc\_results.circ.with\_fpeak.csv
-python zz-scripts/chapter10/inspect\_topk\_residuals.py 
---results zz-data/chapter10/10\_mc\_results.csv 
---jalons  zz-data/chapter10/10\_mc\_milestones\_eval.csv 
+python zz-scripts/chapter10/inspect\_topk\_residuals.py
+--results zz-data/chapter10/10\_mc\_results.csv
+--jalons  zz-data/chapter10/10\_mc\_milestones\_eval.csv
 --out-dir zz-data/chapter10/topk\_residuals
-python zz-scripts/chapter10/bootstrap\_topk\_p95.py 
---results zz-data/chapter10/10\_mc\_results.csv 
---topk-json zz-data/chapter10/10\_mc\_best.json 
---out-json  zz-data/chapter10/10\_mc\_best\_bootstrap.json 
+python zz-scripts/chapter10/bootstrap\_topk\_p95.py
+--results zz-data/chapter10/10\_mc\_results.csv
+--topk-json zz-data/chapter10/10\_mc\_best.json
+--out-json  zz-data/chapter10/10\_mc\_best\_bootstrap.json
 --B 1000 --seed 12345
 Étape 4 — Figures de synthèse
 python zz-scripts/chapter10/plot\_fig01\_iso\_p95\_maps.py        --out zz-figures/chapter10/fig\_01\_iso\_p95\_maps.png
@@ -170,16 +170,16 @@ python zz-scripts/chapter10/plot\_fig07\_synthesis.py            --out zz-figure
    make jsoncheck-strict
 8. MANIFESTES \& PUBLICATION
    Vérifier et rapporter l’inventaire
-   python zz-manifests/diag\_consistency.py 
-   zz-manifests/manifest\_publication.json 
+   python zz-manifests/diag\_consistency.py
+   zz-manifests/manifest\_publication.json
    --report md > zz-manifests/manifest\_report.md
    Corriger/compléter (optionnel, prudence)
-   python zz-manifests/diag\_consistency.py 
-   zz-manifests/manifest\_master.json 
+   python zz-manifests/diag\_consistency.py
+   zz-manifests/manifest\_master.json
    --fix --normalize-paths --strip-internal --sha256-out
    Préparer une archive livrable (exemple)
-   tar czf MCGT\_artifacts\_$(date +%Y%m%d).tar.gz 
-   zz-data/ zz-figures/ zz-manifests/ zz-schemas/ 
+   tar czf MCGT\_artifacts\_$(date +%Y%m%d).tar.gz
+   zz-data/ zz-figures/ zz-manifests/ zz-schemas/
    convention.md README-REPRO.md RUNBOOK.md
 9. ARBORESCENCE MINIMALE ATTENDUE
    MCGT/

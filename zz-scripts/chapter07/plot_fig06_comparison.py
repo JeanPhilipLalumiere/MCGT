@@ -23,30 +23,31 @@ logger = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[2]
 
 # --- Paths (English names for directories and files) ---
-DATA_DIR  = ROOT / 'zz-data'  / 'chapter07'
-INV_CSV   = DATA_DIR / '07_scalar_invariants.csv'
-DCS2_CSV  = DATA_DIR / '07_derivative_cs2_dk.csv'
-DDPHI_CSV = DATA_DIR / '07_derivative_ddelta_phi_dk.csv'
-META_JSON = DATA_DIR / '07_meta_perturbations.json'
-FIG_OUT   = ROOT / 'zz-figures' / 'chapter07' / 'fig_06_comparison.png'
+DATA_DIR = ROOT / "zz-data" / "chapter07"
+INV_CSV = DATA_DIR / "07_scalar_invariants.csv"
+DCS2_CSV = DATA_DIR / "07_derivative_cs2_dk.csv"
+DDPHI_CSV = DATA_DIR / "07_derivative_ddelta_phi_dk.csv"
+META_JSON = DATA_DIR / "07_meta_perturbations.json"
+FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_06_comparison.png"
 
 # --- Read k_split ---
-with open(META_JSON, 'r', encoding='utf-8') as f:
+with open(META_JSON, "r", encoding="utf-8") as f:
     meta = json.load(f)
-k_split = float(meta.get('x_split', 0.02))
+k_split = float(meta.get("x_split", 0.02))
 logger.info("k_split = %.2e h/Mpc", k_split)
 
 # --- Load data ---
-df_inv  = pd.read_csv(INV_CSV)
+df_inv = pd.read_csv(INV_CSV)
 df_dcs2 = pd.read_csv(DCS2_CSV)
-df_ddp  = pd.read_csv(DDPHI_CSV)
+df_ddp = pd.read_csv(DDPHI_CSV)
 
-k1, I1   = df_inv['k'].values,  df_inv.iloc[:,1].values
-k2, dcs2 = df_dcs2['k'].values, df_dcs2.iloc[:,1].values
-k3, ddp  = df_ddp['k'].values,  df_ddp.iloc[:,1].values
+k1, I1 = df_inv["k"].values, df_inv.iloc[:, 1].values
+k2, dcs2 = df_dcs2["k"].values, df_dcs2.iloc[:, 1].values
+k3, ddp = df_ddp["k"].values, df_ddp.iloc[:, 1].values
 
 # Mask zeros for derivative of delta phi/phi
 ddp_mask = np.ma.masked_where(np.abs(ddp) <= 0, np.abs(ddp))
+
 
 # Function to annotate the plateau region
 def zoom_plateau(ax, k, y):
@@ -56,34 +57,39 @@ def zoom_plateau(ax, k, y):
         return
     lo, hi = ysel.min(), ysel.max()
     ax.set_ylim(lo * 0.8, hi * 1.2)
-    xm = k[sel][len(ysel)//2]
+    xm = k[sel][len(ysel) // 2]
     ym = np.sqrt(lo * hi)
     ax.text(
-        xm, ym, 'Plateau',
-        ha='center', va='center',
-        fontsize=7, bbox=dict(boxstyle='round', fc='white', alpha=0.7)
+        xm,
+        ym,
+        "Plateau",
+        ha="center",
+        va="center",
+        fontsize=7,
+        bbox=dict(boxstyle="round", fc="white", alpha=0.7),
     )
+
 
 # --- Create figure ---
 fig, axs = plt.subplots(3, 1, figsize=(8, 14), sharex=True)
 
 # 1) I₁ = c_s²/k
 ax = axs[0]
-ax.loglog(k1, I1, color='C0', label=r'$I_1 = c_s^2/k$')
-ax.axvline(k_split, ls='--', color='k', lw=1)
+ax.loglog(k1, I1, color="C0", label=r"$I_1 = c_s^2/k$")
+ax.axvline(k_split, ls="--", color="k", lw=1)
 zoom_plateau(ax, k1, I1)
-ax.set_ylabel(r'$I_1(k)$', fontsize=10)
-ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
-ax.grid(True, which='both', ls=':', linewidth=0.5)
+ax.set_ylabel(r"$I_1(k)$", fontsize=10)
+ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
+ax.grid(True, which="both", ls=":", linewidth=0.5)
 
 # 2) |∂ₖ c_s²|
 ax = axs[1]
-ax.loglog(k2, np.abs(dcs2), color='C1', label=r'$|\partial_k c_s^2|$')
-ax.axvline(k_split, ls='--', color='k', lw=1)
+ax.loglog(k2, np.abs(dcs2), color="C1", label=r"$|\partial_k c_s^2|$")
+ax.axvline(k_split, ls="--", color="k", lw=1)
 zoom_plateau(ax, k2, np.abs(dcs2))
-ax.set_ylabel(r'$|\partial_k c_s^2|$', fontsize=10)
-ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
-ax.grid(True, which='both', ls=':', linewidth=0.5)
+ax.set_ylabel(r"$|\partial_k c_s^2|$", fontsize=10)
+ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
+ax.grid(True, which="both", ls=":", linewidth=0.5)
 
 # → Adjust upper limit to emphasize the peak
 ymin, _ = ax.get_ylim()
@@ -91,22 +97,19 @@ ax.set_ylim(ymin, 1e1)
 
 # 3) |∂ₖ(δφ/φ)|
 ax = axs[2]
-ax.loglog(k3, ddp_mask, color='C2',
-          label=r'$|\partial_k(\delta\phi/\phi)|_{\mathrm{smooth}}$')
-ax.axvline(k_split, ls='--', color='k', lw=1)
+ax.loglog(
+    k3, ddp_mask, color="C2", label=r"$|\partial_k(\delta\phi/\phi)|_{\mathrm{smooth}}$"
+)
+ax.axvline(k_split, ls="--", color="k", lw=1)
 zoom_plateau(ax, k3, ddp_mask)
-ax.set_ylabel(r'$|\partial_k(\delta\phi/\phi)|$', fontsize=10)
-ax.set_xlabel(r'$k\,[h/\mathrm{Mpc}]$', fontsize=10)
-ax.legend(loc='upper right', fontsize=8, framealpha=0.8)
-ax.grid(True, which='both', ls=':', linewidth=0.5)
+ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$", fontsize=10)
+ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$", fontsize=10)
+ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
+ax.grid(True, which="both", ls=":", linewidth=0.5)
 
 # --- Title and layout ---
-fig.suptitle('Comparaison des invariants et dérivées', fontsize=14)
-fig.subplots_adjust(
-    top=0.92, bottom=0.07,
-    left=0.10, right=0.95,
-    hspace=0.30
-)
+fig.suptitle("Comparaison des invariants et dérivées", fontsize=14)
+fig.subplots_adjust(top=0.92, bottom=0.07, left=0.10, right=0.95, hspace=0.30)
 
 # --- Save ---
 FIG_OUT.parent.mkdir(parents=True, exist_ok=True)

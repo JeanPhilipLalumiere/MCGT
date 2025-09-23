@@ -157,4 +157,3 @@ CHECKLIST — CHAPITRE 07 (Perturbations scalaires / Solveur MCGT)
 - [ ] Données :  python zz-scripts/chapter07/generate_data_chapter07.py --ini zz-configuration/scalar_perturbations.ini --export-derivative --export-matrix
 - [ ] Figures :  exécuter les scripts plot_fig** / tracer_fig**
 - [ ] LaTeX   :  2× pdflatex pour chaque .tex (conceptuel, details)
-

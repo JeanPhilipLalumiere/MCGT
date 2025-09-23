@@ -1,79 +1,79 @@
 # Exigences pour le Chapitre 2 (Validation chronologique)
 
 1. **Environnement système**
-   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux  
-   * Espace disque : ≥ 200 Mo libre  
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux
+   * Espace disque : ≥ 200 Mo libre
 
 2. **Environnement Python**
-   * Python ≥ 3.9  
-   * Créer et activer un environnement virtuel spécifique :  
-       
-       cd ~/MCGT  
-       python3 -m venv venv2  
+   * Python ≥ 3.9
+   * Créer et activer un environnement virtuel spécifique :
+
+       cd ~/MCGT
+       python3 -m venv venv2
        source venv2/bin/activate
-       
-   * Installer les dépendances :  
-       
-       pip install --upgrade pip  
+
+   * Installer les dépendances :
+
+       pip install --upgrade pip
        pip install numpy>=1.20 pandas>=1.2 scipy>=1.6 matplotlib>=3.3 sympy nbconvert
-       
+
 
 3. **Données brutes & scripts d’extraction**
-   * **Jalons bibliographiques**  
-     – Fichier : `zz-data/chapter02/02_milestones_meta.csv`  
-     – Colonnes : `T,P_ref,classe`  
-   * **Extraction symbolique F/G**  
-     – Notebook : `zz-scripts/chapter02/extract_sympy_FG.ipynb`  
-       – Lit `02_As_ns_vs_alpha.csv` → produit `02_FG_series.csv`  
-   * **Échantillonnage spectre**  
-     – Script : `zz-scripts/chapter02/sampler_PR_grid.py`  
-       → génère `zz-data/chapter02/02_P_R_sampling.csv`  
-   * **Ajustement A_s, n_s**  
-     – Script : `zz-scripts/chapter02/fit_As_ns.py` (ou équivalent)  
-       → produit `zz-data/chapter02/02_As_ns_vs_alpha.csv`  
+   * **Jalons bibliographiques**
+     – Fichier : `zz-data/chapter02/02_milestones_meta.csv`
+     – Colonnes : `T,P_ref,classe`
+   * **Extraction symbolique F/G**
+     – Notebook : `zz-scripts/chapter02/extract_sympy_FG.ipynb`
+       – Lit `02_As_ns_vs_alpha.csv` → produit `02_FG_series.csv`
+   * **Échantillonnage spectre**
+     – Script : `zz-scripts/chapter02/sampler_PR_grid.py`
+       → génère `zz-data/chapter02/02_P_R_sampling.csv`
+   * **Ajustement A_s, n_s**
+     – Script : `zz-scripts/chapter02/fit_As_ns.py` (ou équivalent)
+       → produit `zz-data/chapter02/02_As_ns_vs_alpha.csv`
 
 4. **Structure du dépôt**
 
-    MCGT/  
-    ├─ 02-chronological-validation/     # sources LaTeX, GUIDE  
-    ├─ zz-data/chapter02/               # milestones_meta.csv, .dat, .csv, .json générés  
-    ├─ zz-scripts/chapter02/            # generate_data_chapter02.py, sampler_PR_grid.py, fit_As_ns.py, plot_fig00_spectrum.py, extract_sympy_FG.ipynb  
-    ├─ zz-figures/chapter02/            # fig_00_spectrum.png, fig_01_…, fig_04…  
+    MCGT/
+    ├─ 02-chronological-validation/     # sources LaTeX, GUIDE
+    ├─ zz-data/chapter02/               # milestones_meta.csv, .dat, .csv, .json générés
+    ├─ zz-scripts/chapter02/            # generate_data_chapter02.py, sampler_PR_grid.py, fit_As_ns.py, plot_fig00_spectrum.py, extract_sympy_FG.ipynb
+    ├─ zz-figures/chapter02/            # fig_00_spectrum.png, fig_01_…, fig_04…
     └─ venv2/                           # environnement virtuel Python
-    
+
 
 5. **Exécution du pipeline**
-   1. *Génération et validation chronologique*  
-       
-       source venv2/bin/activate  
+   1. *Génération et validation chronologique*
+
+       source venv2/bin/activate
        python zz-scripts/chapter02/generate_data_chapter02.py
-       
-   2. *Spectre primordial (+ figure)*  
-       
+
+   2. *Spectre primordial (+ figure)*
+
        python zz-scripts/chapter02/generate_data_chapter02.py --spectre
-       
-   3. *Échantillonnage P_R(k,α)*  
-       
+
+   3. *Échantillonnage P_R(k,α)*
+
        python zz-scripts/chapter02/sampler_PR_grid.py
-       
-   4. *Ajustement A_s(α), n_s(α)*  
-       
-       jupyter nbconvert --execute --inplace zz-scripts/chapter02/extract_sympy_FG.ipynb  
-       (ou)  
+
+   4. *Ajustement A_s(α), n_s(α)*
+
+       jupyter nbconvert --execute --inplace zz-scripts/chapter02/extract_sympy_FG.ipynb
+       (ou)
        python zz-scripts/chapter02/fit_As_ns.py
-       
-   5. *Tracé des figures additionnelles (F/G)*  
-       
-       python zz-scripts/chapter02/plot_fig05_FG_series.py  
+
+   5. *Tracé des figures additionnelles (F/G)*
+
+       python zz-scripts/chapter02/plot_fig05_FG_series.py
        python zz-scripts/chapter02/plot_fig06_fit_alpha.py
-       
+
 
 6. **Compilation LaTeX**
-    
-    cd 02-chronological-validation/  
-    pdflatex -interaction=nonstopmode 02_chronological_validation_conceptual.tex  
+
+    cd 02-chronological-validation/
+    pdflatex -interaction=nonstopmode 02_chronological_validation_conceptual.tex
     pdflatex -interaction=nonstopmode 02_chronological_validation_details.tex
-    
+
 
 7. **Tests & validations**
 
@@ -94,14 +94,14 @@
    * S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV
    * Contrôler :
 
-     * `max|epsilon_primary| < 0.01` et `max|epsilon_order2| < 0.10` dans `02_optimal_parameters.json`  
+     * `max|epsilon_primary| < 0.01` et `max|epsilon_order2| < 0.10` dans `02_optimal_parameters.json`
      * `A_s(0)=2.10e-9`, `n_s(0)=0.9649` dans `02_As_ns_vs_alpha.csv`
    * Ouvrir chaque figure PNG dans `zz-figures/chapter02/` pour un contrôle visuel :
 
-     * `fig_00_spectrum.png`  
-     * `fig_01_P_vs_T_evolution.png`  
-     * `fig_02_calibration.png`  
-     * `fig_03_relative_errors.png`  
-     * `fig_04_schema_pipeline.png`  
-     * `fig_05_FG_series.png`  
+     * `fig_00_spectrum.png`
+     * `fig_01_P_vs_T_evolution.png`
+     * `fig_02_calibration.png`
+     * `fig_03_relative_errors.png`
+     * `fig_04_schema_pipeline.png`
+     * `fig_05_FG_series.png`
      * `fig_06_fit_alpha.png`

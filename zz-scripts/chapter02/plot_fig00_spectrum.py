@@ -21,7 +21,7 @@ for alpha in alphas:
     ax.loglog(k, P_R(k, alpha), label=f"α = {alpha}")
 
 ax.set_xlabel("k [h·Mpc⁻¹]")
-ax.set_ylabel("P_R(k; α)", labelpad=12)    # labelpad pour décaler plus à droite
+ax.set_ylabel("P_R(k; α)", labelpad=12)  # labelpad pour décaler plus à droite
 ax.set_title("Spectre primordial MCGT")
 ax.legend(loc="upper right")
 ax.grid(True, which="both", linestyle="--", linewidth=0.5)

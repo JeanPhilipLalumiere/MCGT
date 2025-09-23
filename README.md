@@ -1,3 +1,5 @@
+[![CI](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml/badge.svg?branch=stabilization/v0.9-rc-20250922)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml?query=branch%3Astabilization/v0.9-rc-20250922)
+
 # Modèle de Courbure Gravitationnelle Temporelle (MCGT)
 
 ## Résumé

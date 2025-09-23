@@ -6,12 +6,12 @@ Trace f_R et f_{RR} aux points jalons en fonction du redshift — Chapitre 3
 ========================================================================
 
 Entrée :
-    zz-data/chapter03/03_ricci_fR_contre_z.csv
+    zz-data/chapter03/03_ricci_fR_vs_z.csv
 Colonnes requises :
     R_over_R0, f_R, f_RR, z
 
 Sortie :
-    zz-figures/chapter03/fig_07_ricci_fR_contre_z.png
+    zz-figures/chapter03/fig_07_ricci_fR_vs_z.png
 """
 
 from pathlib import Path
@@ -29,9 +29,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_ricci_fR_contre_z.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_07_ricci_fR_contre_z.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_z.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_07_ricci_fR_vs_z.png"
 
 # ----------------------------------------------------------------------
 # Main

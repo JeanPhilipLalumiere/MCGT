@@ -7,12 +7,12 @@ from pathlib import Path
 
 # — Répertoires —
 ROOT     = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "zz-data" / "chapitre5"
-FIG_DIR  = ROOT / "zz-figures" / "chapitre5"
+DATA_DIR = ROOT / "zz-data" / "chapter05"
+FIG_DIR  = ROOT / "zz-figures" / "chapter05"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # — 1) Chargement de χ² —
-chi2_file = DATA_DIR / "05_chi2_nucleosynthese_contre_T.csv"
+chi2_file = DATA_DIR / "05_chi2_bbn_vs_T.csv"
 chi2_df   = pd.read_csv(chi2_file)
 
 # auto-détection de la colonne χ² (contient "chi2" mais pas "d" ou "deriv")
@@ -35,7 +35,7 @@ else:
     sigma = 0.10 * chi2
 
 # — 2) Chargement de dχ²/dT —
-dchi_file = DATA_DIR / "05_derivee_chi2.csv"
+dchi_file = DATA_DIR / "05_dchi2_vs_T.csv"
 dchi_df   = pd.read_csv(dchi_file)
 
 # auto-détection de la colonne dérivée (contient "chi2" et "d" ou "deriv" ou "smooth")
@@ -136,6 +136,6 @@ ax1.legend(
 )
 
 fig.tight_layout()
-out_png = FIG_DIR / "fig_04_chi2_contre_T.png"
+out_png = FIG_DIR / "fig_04_chi2_vs_T.png"
 fig.savefig(out_png, dpi=300)
 print(f"✓ {out_png.relative_to(ROOT)} généré.")

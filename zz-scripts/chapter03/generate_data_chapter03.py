@@ -84,12 +84,12 @@ def check_log_spacing(g: np.ndarray, atol: float=1e-12) -> bool:
 # 4. Jalons : copie si besoin
 # ----------------------------------------------------------------------
 def ensure_jalons(src: Path|None) -> Path:
-    dst = Path("zz-data/chapter03/03_ricci_fR_jalons.csv")
+    dst = Path("zz-data") / "chapter03" / "03_ricci_fR_milestones.csv"
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.exists():
         return dst
     if src is None or not Path(src).exists():
-        log.error("Manque 03_ricci_fR_jalons.csv – utilisez --copy-jalons")
+        log.error("Manque 03_ricci_fR_milestones.csv – utilisez --copy-jalons")
         sys.exit(1)
     dst.write_bytes(Path(src).read_bytes())
     log.info("Jalons copiés → %s", dst)
@@ -183,23 +183,23 @@ def calculer_stabilite(jalons: pd.DataFrame, Rgrid: np.ndarray):
 # 8. Exports CSV & métadonnées
 # ----------------------------------------------------------------------
 def exporter_csv(df: pd.DataFrame, dom: pd.DataFrame, frt: pd.DataFrame, dry: bool):
-    out = Path("zz-data/chapter3")
+    out = Path("zz-data") / "chapter03"
     out.mkdir(parents=True, exist_ok=True)
     if dry:
         log.info("--dry-run : je n’écris pas les CSV.")
         return
-    df.to_csv(out/"03_donnees_stabilite_fR.csv", index=False)
-    dom.to_csv(out/"03_domaine_stabilite_fR.csv", index=False)
-    frt.to_csv(out/"03_frontiere_stabilite_fR.csv", index=False)
+    df.to_csv(out / "03_fR_stability_data.csv", index=False)
+    dom.to_csv(out / "03_fR_stability_domain.csv", index=False)
+    frt.to_csv(out / "03_fR_stability_boundary.csv", index=False)
     meta = {
         "n_points": int(df.shape[0]),
         "files": [
-            "03_donnees_stabilite_fR.csv",
-            "03_domaine_stabilite_fR.csv",
-            "03_frontiere_stabilite_fR.csv"
+            "03_fR_stability_data.csv",
+            "03_fR_stability_domain.csv",
+            "03_fR_stability_boundary.csv"
         ]
     }
-    (out/"03_meta_stabilite_fR.json").write_text(json.dumps(meta,indent=2))
+    (out / "03_fR_stability_meta.json").write_text(json.dumps(meta, indent=2))
     log.info("Données principales et métadonnées écrites.")
 
 # ----------------------------------------------------------------------
@@ -215,13 +215,13 @@ def exporter_jalons_inverses(
     """
     Construit deux fichiers :
 
-    * 03_ricci_fR_contre_z.csv  : jalons + redshift interpolé
-    * 03_ricci_fR_contre_T.csv  : jalons + âge interpolé
+    * 03_ricci_fR_vs_z.csv  : jalons + redshift interpolé
+    * 03_ricci_fR_vs_T.csv  : jalons + âge interpolé
 
     Les jalons hors domaine d’interpolation **sont ignorés** afin
     d’éviter les z = 0 artificiels.
     """
-    out = Path("zz-data/chapter3")
+    out = Path("zz-data") / "chapter03"
     out.mkdir(parents=True, exist_ok=True)
     if dry:
         log.info("--dry-run : pas d’export R↔z / R↔T")
@@ -281,8 +281,8 @@ def exporter_jalons_inverses(
     # garantir z croissant avec R
     jal_z["z"] = jal_z["z"].cummax()
 
-    jal_z.to_csv(out / "03_ricci_fR_contre_z.csv", index=False)
-    log.info("→ 03_ricci_fR_contre_z.csv généré (%d jalons)", len(jal_z))
+    jal_z.to_csv(out / "03_ricci_fR_vs_z.csv", index=False)
+    log.info("→ 03_ricci_fR_vs_z.csv généré (%d jalons)", len(jal_z))
 
     # ------------------------------------------------------------------
     # 9-B  Interpolation R → T  (log-log, toujours définie : extrapolate=True)
@@ -308,8 +308,8 @@ def exporter_jalons_inverses(
         T_vals[i] = min(T_vals[i], T_vals[i - 1])
     jal_T["T_Gyr"] = T_vals
 
-    jal_T.to_csv(out / "03_ricci_fR_contre_T.csv", index=False)
-    log.info("→ 03_ricci_fR_contre_T.csv généré (%d jalons)", len(jal_T))
+    jal_T.to_csv(out / "03_ricci_fR_vs_T.csv", index=False)
+    log.info("→ 03_ricci_fR_vs_T.csv généré (%d jalons)", len(jal_T))
 
 
 # ----------------------------------------------------------------------

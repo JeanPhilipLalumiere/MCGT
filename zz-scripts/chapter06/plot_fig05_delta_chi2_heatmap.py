@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script de tracé fig_05_carte_chaleur_delta_chi2 pour Chapitre 6 (Rayonnement CMB)
+Script de tracé fig_05_heatmap_delta_chi2 pour Chapitre 6 (Rayonnement CMB)
 ───────────────────────────────────────────────────────────────
 Affiche la carte de chaleur 2D de Δχ² en fonction de α et q0star.
 """
@@ -17,11 +17,11 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 # Paths
 ROOT         = Path(__file__).resolve().parents[2]
-DATA_DIR     = ROOT / 'zz-data' / 'chapitre6'
-FIG_DIR      = ROOT / 'zz-figures' / 'chapitre6'
+DATA_DIR     = ROOT / 'zz-data' / 'chapter06'
+FIG_DIR      = ROOT / 'zz-figures' / 'chapter06'
 DATA_CSV     = DATA_DIR / '06_cmb_chi2_scan2D.csv'
 JSON_PARAMS  = DATA_DIR / '06_params_cmb.json'
-OUT_PNG      = FIG_DIR  / 'fig_05_carte_chaleur_delta_chi2.png'
+OUT_PNG      = FIG_DIR  / 'fig_05_heatmap_delta_chi2.png'
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load injection parameters for annotation
@@ -58,7 +58,7 @@ pcm = ax.pcolormesh(
 cbar = fig.colorbar(pcm, ax=ax, label=r'$\Delta\chi^2$')
 
 # Aesthetics
-ax.set_title(r"Carte de chaleur $\Delta\chi^2$ (Chapitre 6)", fontsize=14, fontweight='bold')
+ax.set_title(r"Carte de chaleur $\Delta\chi^2$ (Chapitre 6)", fontsize=14, fontweight='bold')
 ax.set_xlabel(r"$\alpha$")
 ax.set_ylabel(r"$q_0^*$")
 ax.grid(which='major', linestyle=':', linewidth=0.5)

@@ -1,23 +1,25 @@
 {
-  "T_split_Gyr": 1.0,
+  "T_split_Gyr": 0.15,
+  "segments": {
+    "low": {
+      "alpha0": 0.257717,
+      "alpha_inf": 0.999996,
+      "Tc": 0.20012,
+      "Delta": 0.018769,
+      "Tp": 0.243819
+    },
+    "high": {
+      "alpha0": 0.271173,
+      "alpha_inf": 1.006884,
+      "Tc": 0.195135,
+      "Delta": 0.011616,
+      "Tp": 0.220424
+    }
+  },
   "thresholds": {
     "primary": 0.01,
     "order2": 0.1
   },
-  "segments": {
-    "low": {
-      "alpha0": 0.2,
-      "alpha_inf": 0.2,
-      "Tc": 0.0,
-      "Delta": 0.0,
-      "Tp": 0.0
-    },
-    "high": {
-      "alpha0": 0.2,
-      "alpha_inf": 0.2,
-      "Tc": 0.0,
-      "Delta": 0.0,
-      "Tp": 0.0
-    }
-  }
+  "max_epsilon_primary": 2.1947570587947003e-05,
+  "max_epsilon_order2": 0.07194300543935292
 }

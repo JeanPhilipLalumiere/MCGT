@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# zz-scripts/chapter10/add_phi_at_fpeak_fixed.py
+# zz-scripts/chapter10/add_phi_at_fpeak.py
 """
 Ajoute/garantit les colonnes phi_ref_fpeak et phi_mcgt_fpeak dans un CSV results.
 - Retente le calcul sur la grille complète si la version "locale" échoue.
@@ -7,7 +7,7 @@ Ajoute/garantit les colonnes phi_ref_fpeak et phi_mcgt_fpeak dans un CSV results
 - Filtre valeurs aberrantes et logge erreurs.
 
 Usage:
-python zz-scripts/chapter10/add_phi_at_fpeak_fixed.py \
+python zz-scripts/chapter10/add_phi_at_fpeak.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
   --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \

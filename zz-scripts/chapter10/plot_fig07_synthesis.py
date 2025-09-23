@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig07_synthese.py — Figure 7 (synthèse)
+plot_fig07_summary.py — Figure 7 (synthèse)
 
-Panneaux :
-  (1) Couverture vs N  (barres = Wilson 95% si fournies)
-  (2) Largeur moyenne d’IC vs N [rad]  (pente log–log width ≈ a·N^b calculée)
-  (3) Tableau « Synthèse numérique (résumé) » sur une deuxième rangée
-
-Modifs (2025-08-27) :
-  - Retrait des annotations textuelles dans le panneau Largeur (pas de doublon).
-  - Pentes b reportées dans le caption du bas (pas dans le graphe).
-  - Colonne « série » élargie ; espace accru entre titre et tableau.
-  - CSV enrichi : M, outer_B, inner_B.
 """
 from __future__ import annotations
 import argparse, json, os, sys, csv
@@ -100,8 +90,8 @@ def powerlaw_slope(N: np.ndarray, W: np.ndarray) -> float:
     m = np.isfinite(N) & np.isfinite(W) & (N > 0) & (W > 0)
     if m.sum() < 2:
         return np.nan
-    p = np.polyfit(np.log(N[m]), np.log(W[m]), 1)  # log W = a + b log N
-    return float(p[0])  # b
+    p = np.polyfit(np.log(N[m]), np.log(W[m]), 1)
+    return float(p[0])
 
 # ---------- CSV ----------
 def save_summary_csv(series_list: List[Series], out_csv: str) -> None:
@@ -134,13 +124,11 @@ def plot_synthese(series_list: List[Series], out_png: str,
     plt.style.use("classic")
     fig = plt.figure(figsize=figsize, constrained_layout=False)
 
-    # 2 rangées : (couverture, largeur) / (tableau)
     gs = GridSpec(2, 2, figure=fig, height_ratios=[0.78, 0.22], width_ratios=[1.0, 1.0])
     ax_cov   = fig.add_subplot(gs[0, 0])
     ax_width = fig.add_subplot(gs[0, 1])
     ax_tab   = fig.add_subplot(gs[1, :])
 
-    # ----- Couverture vs N -----
     alpha = series_list[0].alpha if series_list else 0.05
     nominal_level = 1.0 - alpha
 
@@ -168,15 +156,12 @@ def plot_synthese(series_list: List[Series], out_png: str,
         ymax = ymax_cov if ymax_cov is not None else ax_cov.get_ylim()[1]
         ax_cov.set_ylim(ymin, ymax)
 
-    # Note basse, sur 2 lignes
     ax_cov.text(0.02, 0.06,
                 "Barres = Wilson 95% (n = outer B=400,2000); IC interne = percentile (inner B=2000)",
                 transform=ax_cov.transAxes, fontsize=9, va="bottom")
     ax_cov.text(0.02, 0.03, "α=0.05. Variabilité ↑ pour petits N.",
                 transform=ax_cov.transAxes, fontsize=9, va="bottom")
 
-    # ----- Largeur vs N -----
-    # (Plus d’annotations de texte dans le graphe : uniquement les courbes + légende)
     for s, h in zip(series_list, handles):
         color = h.lines[0].get_color() if hasattr(h, "lines") and h.lines else None
         ax_width.plot(s.N, s.width_mean, "-o", lw=1.8, ms=5, label=s.label, color=color)
@@ -185,8 +170,7 @@ def plot_synthese(series_list: List[Series], out_png: str,
     ax_width.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
     ax_width.legend(fontsize=10, loc="upper right", frameon=True)
 
-    # ----- Tableau résumé -----
-    ax_tab.set_title("Synthèse numérique (résumé)", y=0.88, pad=12, fontsize=12)  # un peu plus d'espace
+    ax_tab.set_title("Synthèse numérique (résumé)", y=0.88, pad=12, fontsize=12)
     rows = compute_summary_rows(series_list)
 
     col_labels = ["série", "outer_B", "inner_B", "mean_cov", "med_cov", "std_cov", "p95_cov", "med_width [rad]"]
@@ -212,17 +196,14 @@ def plot_synthese(series_list: List[Series], out_png: str,
     table.set_fontsize(10)
     table.scale(1.0, 1.3)
 
-    # quadrillage + première colonne plus large
     for (r, c), cell in table.get_celld().items():
         cell.set_edgecolor("0.3")
         cell.set_linewidth(0.8)
         if r == 0:
             cell.set_height(cell.get_height() * 1.15)
         if c == 0:
-            cell.set_width(cell.get_width() * 1.85)  # élargissement supplémentaire
+            cell.set_width(cell.get_width() * 1.85)
 
-    # ----- Caption bas avec pentes -----
-    # Pentes pour toutes les séries, dans le texte du bas (pas dans le graphe).
     slopes = []
     for s in series_list:
         b = powerlaw_slope(s.N, s.width_mean)
@@ -240,7 +221,6 @@ def plot_synthese(series_list: List[Series], out_png: str,
         fig.text(0.5, 0.035, cap1, ha="center", fontsize=9)
         fig.text(0.5, 0.017, cap2, ha="center", fontsize=9)
 
-    # marges
     fig.subplots_adjust(left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35)
 
     os.makedirs(os.path.dirname(out_png) or ".", exist_ok=True)
@@ -254,7 +234,7 @@ def main(argv=None):
     ap.add_argument("--label-a", default=None)
     ap.add_argument("--manifest-b", default=None)
     ap.add_argument("--label-b", default=None)
-    ap.add_argument("--out", default="fig_07_synthese_compare.png")
+    ap.add_argument("--out", default="fig_07_summary_compare.png")
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--figsize", default="14,6")
     ap.add_argument("--ymin-coverage", type=float, default=None)

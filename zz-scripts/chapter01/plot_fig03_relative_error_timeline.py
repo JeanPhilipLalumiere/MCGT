@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 base = Path(__file__).resolve().parents[2]
-data_file = base / 'zz-data' / 'chapitre1' / '01_ecart_relatif_chronologie.csv'
-output_file = base / 'zz-figures' / 'chapitre1' / 'fig_03_ecart_relatif_chronologie.png'
+data_file = base / 'zz-data' / 'chapter01' / '01_relative_error_timeline.csv'
+output_file = base / 'zz-figures' / 'chapter01' / 'fig_03_relative_error_timeline.png'
 
 df = pd.read_csv(data_file)
 T = df['T']

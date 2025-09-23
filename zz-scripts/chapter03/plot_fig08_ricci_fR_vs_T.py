@@ -6,12 +6,12 @@ Trace f_R et f_RR aux points jalons en fonction de l’âge de l’Univers (Gyr)
 =======================================================================================
 
 Entrée :
-    zz-data/chapter03/03_ricci_fR_contre_T.csv
+    zz-data/chapter03/03_ricci_fR_vs_T.csv
 Colonnes requises :
     R_over_R0, f_R, f_RR, T_Gyr
 
 Sortie :
-    zz-figures/chapter03/fig_08_ricci_fR_contre_T.png
+    zz-figures/chapter03/fig_08_ricci_fR_vs_T.png
 """
 
 from pathlib import Path
@@ -30,9 +30,9 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data/chapter03/03_ricci_fR_contre_T.csv")
-FIG_DIR   = Path("zz-figures/chapter3")
-FIG_PATH  = FIG_DIR / "fig_08_ricci_fR_contre_T.png"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_T.csv"
+FIG_DIR   = Path("zz-figures") / "chapter03"
+FIG_PATH  = FIG_DIR / "fig_08_ricci_fR_vs_T.png"
 
 def main() -> None:
     # 1. Lecture des données
@@ -94,7 +94,6 @@ def main() -> None:
     ax2.tick_params(axis="y", labelcolor=color2)
 
     # 5. Légende commune
-    # on récupère handles/labels des deux axes
     handles1, labels1 = ax1.get_legend_handles_labels()
     handles2, labels2 = ax2.get_legend_handles_labels()
     ax1.legend(

@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-tracer_fig03b_coverage_bootstrap_vs_n.py
+plot_fig03b_coverage_bootstrap_vs_n.py
 
-But
----
-Tracer (i) la couverture empirique (IC 95% percentile) vs N avec barres d'erreur
-binomiales (Wilson) + (ii) la largeur moyenne des IC vs N.
-Options ajoutées:
-- Inset (petit encart) comparant moyenne linéaire vs moyenne circulaire si --angular.
-- Figure annexe de sensibilité (coverage vs outer ou vs inner) si --make-sensitivity.
-- Préréglage pratique --hires2000 (outer=2000, inner=2000) sans changer les défauts.
-
-***La figure principale conserve exactement l’apparence actuelle.***
 """
 from __future__ import annotations
 
@@ -85,7 +75,7 @@ def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument("--results", required=True, help="CSV avec colonne p95.")
     p.add_argument("--p95-col", default=None, help="Nom exact de la colonne p95.")
-    p.add_argument("--out", default="fig_03b_coverage_bootstrap_vs_n.png", help="PNG de sortie")
+    p.add_argument("--out", default="zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n.png", help="PNG de sortie")
     p.add_argument("--outer", type=int, default=400, help="Nombre de réplicats externes (couverture).")
     p.add_argument("--M", type=int, default=None, help="Alias de --outer (si précisé, remplace --outer).")
     p.add_argument("--inner", type=int, default=2000, help="Nombre de réplicats internes (IC).")
@@ -98,12 +88,10 @@ def main():
     p.add_argument("--ymax-coverage", type=float, default=None, help="Ymax panneau couverture.")
     p.add_argument("--title-left", default="Couverture IC vs N (estimateur: mean)", help="Titre panneau gauche.")
     p.add_argument("--title-right", default="Largeur d'IC vs N", help="Titre panneau droit.")
-    # options ajoutées
     p.add_argument("--hires2000", action="store_true",
                    help="Utiliser outer=2000, inner=2000 (ne change pas les défauts globaux).")
     p.add_argument("--angular", action="store_true",
                    help="Active l'encart comparant moyenne linéaire vs moyenne circulaire (p95 en radians).")
-    # figure annexe de sensibilité
     p.add_argument("--make-sensitivity", action="store_true",
                    help="Produit une figure annexe de sensibilité (coverage vs outer/inner).")
     p.add_argument("--sens-mode", choices=["outer", "inner"], default="outer",
@@ -114,7 +102,6 @@ def main():
                    help="Liste de B séparés par virgules pour la sensibilité.")
     args = p.parse_args()
 
-    # lecture
     df = pd.read_csv(args.results)
     p95_col = detect_p95_column(df, args.p95_col)
     vals_all = df[p95_col].dropna().astype(float).values
@@ -123,7 +110,6 @@ def main():
         raise SystemExit("Aucune donnée p95.")
     print(f"[INFO] Dataset M={Mtot}, p95_col={p95_col}")
 
-    # préréglage haute précision si demandé
     if args.hires2000:
         args.outer = 2000
         args.inner = 2000
@@ -131,7 +117,6 @@ def main():
             args.M = 2000
         print("[INFO] Mode haute précision: outer=2000, inner=2000")
 
-    # N list
     minN = max(10, int(args.minN))
     N_list = np.unique(np.linspace(minN, Mtot, args.npoints, dtype=int))
     if N_list[-1] != Mtot:
@@ -145,7 +130,6 @@ def main():
     ref_value_lin = float(np.mean(vals_all))
     ref_value_circ = float(circ_mean_rad(vals_all)) if args.angular else None
 
-    # Boucle couverture/largeur
     results: list[RowRes] = []
     for idx, N in enumerate(N_list, start=1):
         hits = 0
@@ -169,14 +153,12 @@ def main():
         ))
         print(f"[{idx}/{len(N_list)}] N={N:5d}  coverage={p_hat:0.3f}  width_mean={np.mean(widths):0.5f} rad")
 
-    # ------------------------------- tracé principal ---------------------------------
     plt.style.use("classic")
     fig = plt.figure(figsize=(15, 6))
     gs = fig.add_gridspec(1, 2, width_ratios=[5, 3], wspace=0.25)
-    ax1 = fig.add_subplot(gs[0, 0])  # couverture
-    ax2 = fig.add_subplot(gs[0, 1])  # largeur
+    ax1 = fig.add_subplot(gs[0, 0])
+    ax2 = fig.add_subplot(gs[0, 1])
 
-    # Couverture + barres d'erreur Wilson
     xN = [r.N for r in results]
     yC = [r.coverage for r in results]
     yerr_low = [r.cov_err95_low for r in results]
@@ -195,7 +177,6 @@ def main():
         ax1.set_ylim(ymin, ymax)
     ax1.legend(loc="lower right", frameon=True)
 
-    # Boîte d'info (haut gauche)
     txt = (f"N = {Mtot}\n"
            f"mean(ref) = {ref_value_lin:0.3f} rad\n"
            f"outer B = {outer_for_cov}, inner B = {args.inner}\n"
@@ -205,7 +186,6 @@ def main():
              va="top", ha="left",
              bbox=dict(boxstyle="round", fc="white", ec="black", alpha=0.95))
 
-    # Inset "moyenne linéaire vs circulaire" si demandé
     if args.angular:
         inset = inset_axes(ax1, width="33%", height="27%", loc="lower left",
                            bbox_to_anchor=(0.04, 0.08, 0.33, 0.27),
@@ -218,29 +198,24 @@ def main():
         inset.set_ylabel("[rad]", fontsize=8)
         inset.tick_params(axis='both', labelsize=8)
 
-    # Panneau largeur
     ax2.plot(xN, [r.width_mean for r in results], "-", lw=2.0, color="tab:green")
     ax2.set_xlabel("Taille d'échantillon N")
     ax2.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
     ax2.set_title(args.title_right)
 
-    # >>> NOUVEL ESPACEMENT BAS : marge généreuse + texte plus bas <<<
-    # Réserve 18% de la hauteur pour le pied de figure
     fig.subplots_adjust(left=0.08, right=0.98, top=0.92, bottom=0.18, wspace=0.25)
 
     foot = (f"Bootstrap imbriqué: outer={outer_for_cov}, inner={args.inner}. "
             f"Référence = estimateur({Mtot}) = {ref_value_lin:0.3f} rad. Seed={args.seed}.")
-    # Place le texte très bas, dans la marge réservée
     fig.text(0.5, 0.012, foot, ha="center", fontsize=10)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     fig.savefig(args.out, dpi=args.dpi)
     print(f"[OK] Figure écrite: {args.out}")
 
-    # ---------------------------- manifest JSON ----------------------------
     manifest_path = os.path.splitext(args.out)[0] + ".manifest.json"
     manifest = {
-        "script": "tracer_fig03b_coverage_bootstrap_vs_n.py",
+        "script": "plot_fig03b_coverage_bootstrap_vs_n.py",
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "inputs": {"results": args.results, "p95_col": p95_col},
         "params": {
@@ -253,7 +228,7 @@ def main():
         },
         "ref_value_linear_rad": float(ref_value_lin),
         "ref_value_circular_rad": None if ref_value_circ is None else float(ref_value_circ),
-        "N_list": [int(x) for x in np.asarray(N_list).tolist()],
+        "N_list": [int(x) for x in np.asarray(N_list).tolist() ],
         "results": [
             {
                 "N": int(r.N),
@@ -271,7 +246,6 @@ def main():
         json.dump(manifest, f, indent=2)
     print(f"[OK] Manifest écrit: {manifest_path}")
 
-    # ---------------------------- Figure annexe: sensibilité ---------------------------
     if args.make_sensitivity:
         mode = args.sens_mode
         sensN = int(args.sens_N) if args.sens_N is not None else int(N_list[-1])
@@ -321,7 +295,7 @@ def main():
         print(f"[OK] Figure annexe écrite: {out_sens}")
 
         manifest_sens = {
-            "script": "tracer_fig03b_coverage_bootstrap_vs_n.py",
+            "script": "plot_fig03b_coverage_bootstrap_vs_n.py",
             "annex": "sensitivity",
             "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "mode": mode, "N": int(sensN),

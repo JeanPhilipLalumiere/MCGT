@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-zz-scripts/chapter09/extraire_phase_phenom.py
+zz-scripts/chapter09/extract_phenom_phase.py
 
 Génère 09_phases_imrphenom.csv :
 – f_Hz    : fréquence (Hz) sur grille log-lin

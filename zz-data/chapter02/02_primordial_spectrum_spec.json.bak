@@ -1,12 +1,15 @@
 {
-  "label_eq": "P_R(k;alpha)",
-  "formula": "As * (k/k0)^(ns-1 + 0.5*alpha*ln(k/k0))",
-  "constants": {
-    "k0": 0.05
+  "label_eq": "eq:spec_prim",
+  "formule": "P_R(k;α)=A_s(α) k^{n_s(α)-1}",
+  "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
+  "constantes": {
+    "A_s0": 2.1e-09,
+    "ns0": 0.9649
   },
   "coefficients": {
-    "As": 2.1e-09,
-    "ns": 0.965,
-    "alpha": 0.0
+    "c1": 0.1,
+    "c1_2": 0.0,
+    "c2": 0.01,
+    "c2_2": 0.0
   }
 }

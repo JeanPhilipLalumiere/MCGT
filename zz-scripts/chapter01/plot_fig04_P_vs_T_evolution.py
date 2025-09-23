@@ -6,9 +6,9 @@ from pathlib import Path
 
 # Configuration des chemins
 base = Path(__file__).resolve().parents[2]
-init_csv = base / 'zz-data' / 'chapitre1' / '01_donnees_initiales_grille.dat'
-opt_csv  = base / 'zz-data' / 'chapitre1' / '01_donnees_optimisees_et_derivees.csv'
-output_file = base / 'zz-figures' / 'chapitre1' / 'fig_04_evolution_P_en_fonction_de_T.png'
+init_csv = base / 'zz-data' / 'chapter01' / '01_initial_grid_data.dat'
+opt_csv  = base / 'zz-data' / 'chapter01' / '01_optimized_data_and_derivatives.csv'
+output_file = base / 'zz-figures' / 'chapter01' / 'fig_04_P_vs_T_evolution.png'
 
 # Lecture des données
 df_init = pd.read_csv(init_csv)

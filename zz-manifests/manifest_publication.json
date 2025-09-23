@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-09-23T01:25:29Z",
+  "generated_at": "2025-09-13T01:34:14.734252+00:00",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [],
   "total_entries": 0,
@@ -10,8 +10,5 @@
     "contact": "Jean-Philip Lalumière <contact@jeanphiliplalumiere.com>",
     "website": "https://example.org/mcgt",
     "license": "MIT"
-  },
-  "total_size_bytes": 0,
-  "entries_updated": 0,
-  "generated_by": "jplal"
+  }
 }

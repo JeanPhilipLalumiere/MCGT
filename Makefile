@@ -49,3 +49,22 @@ distcheck:
 
 clean:
 > rm -rf build dist *.egg-info
+
+# === MCGT: validation targets ===
+.RECIPEPREFIX := >
+.PHONY: validate validate-json validate-csv diag
+
+# Pipeline complet
+validate: validate-json validate-csv diag
+
+# JSON: suite de validations pilotée par zz-schemas/validate_all.sh
+validate-json:
+> ./zz-schemas/validate_all.sh
+
+# CSV: nos deux tables clés (élargis la liste dans validate_csv_all.sh si besoin)
+validate-csv:
+> ./zz-schemas/validate_csv_all.sh
+
+# Diagnostic de cohérence des manifestes (chemins/sha/tailles)
+diag:
+> python zz-manifests/diag_consistency.py zz-manifests/manifest_publication.json --repo-root . --report json --content-check

@@ -6,7 +6,7 @@ select = ["E", "F"]
 ignore = ["E501"]
 
 [project]
-name = "mcgt"
+name = "mcgt-core"
 
 readme = "README.md"
 version = "0.2.5"

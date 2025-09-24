@@ -14,22 +14,21 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Build wheel & sdist
+      - name: Build
         run: |
           python -m pip install -U pip build
+          rm -rf dist build *.egg-info
           python -m build
 
       - name: Publish to PyPI (OIDC Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist
-          verify-metadata: true
-          skip-existing: true
-          verbose: true
-          print-hash: true

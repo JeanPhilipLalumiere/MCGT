@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -36,17 +39,7 @@ jobs:
           set -euo pipefail
           TAG="${GITHUB_REF_NAME#v}"
           WHL="$(ls dist/*.whl | head -n1)"
-          python - <<'PY' "${WHL}" > /tmp/pkg_ver.txt
-            import sys, zipfile
-            from email.parser import Parser
-            from pathlib import Path
-            whl = Path(sys.argv[1])
-            with zipfile.ZipFile(whl) as z:
-                meta = [n for n in z.namelist() if n.endswith('METADATA')][0]
-                ver = Parser().parsestr(z.read(meta).decode()).get('Version')
-                print(ver)
-          PY
-          PKG_VER="$(cat /tmp/pkg_ver.txt)"
+          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; whl=Path(sys.argv[1]); z=zipfile.ZipFile(whl); meta=[n for n in z.namelist() if n.endswith('METADATA')][0]; print(Parser().parsestr(z.read(meta).decode()).get('Version'))" "$WHL")"
           echo "Tag: ${TAG}"
           echo "Wheel: ${WHL}"
           echo "Package version: ${PKG_VER}"

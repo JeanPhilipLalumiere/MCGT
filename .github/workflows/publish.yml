@@ -28,8 +28,8 @@ jobs:
       - name: Publish to PyPI (OIDC Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages_dir: dist
-          verify_metadata: true
-          skip_existing: true
+          packages-dir: dist
+          verify-metadata: true
+          skip-existing: true
           verbose: true
-          print_hash: true
+          print-hash: true

@@ -16,7 +16,7 @@ attr = "mcgt.__init__.__version__"
 [project]
 name = "mcgt-core"
 readme = "README.md"
-version = "0.2.13"
+version = "0.2.16"
 dependencies = [
     "numpy>=1.25",
     "scipy>=1.10",

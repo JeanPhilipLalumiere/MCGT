@@ -65,3 +65,7 @@ zz-figures/
 # If you want to keep some generated files or data in the repo, add
 # explicit allow rules like:
 # !zz-figures/chapter09/fig_01_phase_overlay.png
+
+# Local only
+MCGT-clean/
+_reports/

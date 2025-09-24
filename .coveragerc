@@ -1,0 +1,17 @@
+[run]
+branch = True
+source = mcgt
+omit =
+    */__init__.py  # optionnel si tu ne veux pas compter le module version
+    **/zz-scripts/**
+    **/.venv*/**
+    **/venv*/**
+    **/site-packages/**
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:
+    if __name__ == .__main__.:
+precision = 1
+skip_covered = True

@@ -25,7 +25,7 @@ __all__ = [
     "perturbations",
 ]
 
-__version__ = "0.2.1"  # bump mineur après refactor des noms de fichiers
+__version__ = "0.2.5"
 
 # --- logging minimal ---
 import logging
@@ -157,7 +157,8 @@ def _load_package_version_from_metadata():
 
 _pkg_version = _load_package_version_from_metadata()
 if _pkg_version:
-    __version__ = _pkg_version
+    pass
+#     __version__ = _pkg_version
 
 
 # --- helper CLI léger ---

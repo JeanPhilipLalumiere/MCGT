@@ -5,8 +5,9 @@ line-length = 100
 select = ["E", "F"]
 ignore = ["E501"]
 
+readme = "README.md"
 [project]
-name = "mcgt"
+name = "mcgt-core"
 
 readme = "README.md"
 version = "0.2.5"

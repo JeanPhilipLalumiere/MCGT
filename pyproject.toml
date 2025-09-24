@@ -9,6 +9,6 @@ ignore = ["E501"]
 name = "mcgt-core"
 
 readme = "README.md"
-version = "0.2.11"
+version = "0.2.12"
 [tool.setuptools.dynamic]
 version = {attr = "mcgt.__init__.__version__"}

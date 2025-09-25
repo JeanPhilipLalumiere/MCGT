@@ -148,7 +148,7 @@ python zz-schemas/validate_json.py zz-schemas/metrics_phase_schema.json zz-data/
 ```
 python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json zz-data/chapter10/10_mc_results.csv
 python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json zz-data/chapter10/10_mc_results.circ.csv
-python zz-schemas/validate_csv_table.py zz-schemas/jalons_comparaison_table_schema.json zz-data/chapter09/09_comparison_milestones.csv
+python zz-schemas/validate_csv_table.py zz-schemas/comparison_milestones_table_schema.json zz-data/chapter09/09_comparison_milestones.csv
 ```
 
 ### 3.4 Diagnostic de manifestes + règles transverses

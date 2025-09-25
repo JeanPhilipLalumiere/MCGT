@@ -339,7 +339,7 @@
 |       09_best_params.schema.json
 |       09_phases_imrphenom.meta.schema.json
 |       comparison_milestones_table_schema.json
-|       jalons_comparaison_table_schema.json
+|       comparison_milestones_table_schema.json
 |       mc_best_schema.json
 |       mc_config_schema.json
 |       mc_results_table_schema.json

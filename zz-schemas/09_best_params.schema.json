@@ -134,7 +134,8 @@
       "type": "array",
       "description": "Fenêtre utilisée pour évaluer les métriques (moyenne/mediane/p95/max).",
       "items": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0
       },
       "minItems": 2,
       "maxItems": 2

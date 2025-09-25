@@ -12,13 +12,13 @@
     { "name": "event",                 "type": "string",  "required": true,  "nullable": false, "description": "Identifiant GWOSC (ex: GW191103_012549-v1)", "pattern": "^GW.*$" },
     { "name": "f_Hz",                  "type": "number",  "required": true,  "nullable": false, "description": "Fréquence de pic",                         "unit": "Hz",   "min": 0.0 },
 
-    { "name": "phi_ref_at_fpeak",      "type": "number",  "required": true,  "nullable": false, "description": "Phase de référence au pic",               "unit": "deg" },
-    { "name": "phi_mcgt_at_fpeak",     "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (courante)",            "unit": "deg" },
-    { "name": "phi_mcgt_at_fpeak_raw", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (brute)",               "unit": "deg" },
-    { "name": "phi_mcgt_at_fpeak_cal", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (après calibration)",   "unit": "deg" },
+    { "name": "phi_ref_at_fpeak",      "type": "number",  "required": true,  "nullable": false, "description": "Phase de référence au pic",               "unit": "rad" },
+    { "name": "phi_mcgt_at_fpeak",     "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (courante)",            "unit": "rad" },
+    { "name": "phi_mcgt_at_fpeak_raw", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (brute)",               "unit": "rad" },
+    { "name": "phi_mcgt_at_fpeak_cal", "type": "number",  "required": true,  "nullable": false, "description": "Phase MCGT au pic (après calibration)",   "unit": "rad" },
 
-    { "name": "obs_phase",             "type": "number",  "required": true,  "nullable": false, "description": "Phase observée / proxy catalogue",        "unit": "deg" },
-    { "name": "sigma_phase",           "type": "number",  "required": true,  "nullable": false, "description": "Incertitude (écart-type) sur la phase",   "unit": "deg",   "min": 0.0 },
+    { "name": "obs_phase",             "type": "number",  "required": true,  "nullable": false, "description": "Phase observée / proxy catalogue",        "unit": "rad" },
+    { "name": "sigma_phase",           "type": "number",  "required": true,  "nullable": false, "description": "Incertitude (écart-type) sur la phase",   "unit": "rad",   "min": 0.0 },
 
     { "name": "epsilon_rel",           "type": "number",  "required": true,  "nullable": false, "description": "Écart relatif (déf. interne)",            "unit": "" },
 

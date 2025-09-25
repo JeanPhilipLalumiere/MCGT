@@ -1,6 +1,6 @@
 {
-"\\$schema": "https://json-schema.org/draft/2020-12/schema",
-"\\$id": "zz-schemas/06_cmb_params.schema.json",
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "zz-schemas/06_cmb_params.schema.json",
 "title": "Chapter 06 — CMB & pipeline parameters",
 "description": "Schéma des paramètres liés au CMB (ex.: 06_params_cmb.json). Valide paramètres cosmologiques et numériques pour générer Cℓ et scans χ².",
 "type": "object",

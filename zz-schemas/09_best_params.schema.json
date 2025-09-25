@@ -1,10 +1,10 @@
 {
-  "\\$schema": "https://json-schema.org/draft/2020-12/schema",
-  "\\$id": "zz-schemas/09_best_parameters.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/09_best_parameters.schema.json",
   "title": "Chapter 09 — Best polynomial / rebranch parameters",
   "description": "Schéma pour les meilleurs paramètres utilisés pour construire la phase MCGT finale (fit polynomial + unwrap + rebranch). Fichier cible: 09_best_parameters.json.",
   "type": "object",
-  "\\$defs": {
+  "$defs": {
     "fileRef": {
       "type": "object",
       "properties": {

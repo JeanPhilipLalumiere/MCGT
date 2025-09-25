@@ -1,5 +1,5 @@
 {
-"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$schema": "https://json-schema.org/draft/2020-12/schema",
 "\\$id": "zz-schemas/02_optimal_parameters.schema.json",
 "title": "Paramètres optimaux — Chapitre 02",
 "description": "Schéma JSON pour le fichier 02_optimal_parameters.json (découpage temporel, segments low/high, seuils, epsilons).",

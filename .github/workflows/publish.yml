@@ -25,6 +25,21 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Verrou CI: échoue vite si le tag ≠ project.version (ne s'exécute que dans CI, pas localement)
+      - name: Fail fast if tag != pyproject version
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME#v}"
+          PYVER=$(python - <<'PY'
+import tomllib, pathlib
+d = tomllib.loads(pathlib.Path("pyproject.toml").read_text("utf-8"))
+print(d["project"]["version"])
+PY
+)
+          echo "Tag=$TAG  pyproject.version=$PYVER"
+          test "$TAG" = "$PYVER" || { echo "::error::Tag/version mismatch"; exit 1; }
+
       - name: Build wheel & sdist
         shell: bash
         run: |
@@ -33,7 +48,7 @@ jobs:
           rm -rf dist build *.egg-info
           python -m build
 
-      - name: Verify tag == package version
+      - name: Verify tag == package version (wheel)
         shell: bash
         run: |
           set -euo pipefail

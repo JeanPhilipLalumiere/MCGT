@@ -128,7 +128,9 @@
         "type": "number"
       },
       "minItems": 2,
-      "maxItems": 2
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
     },
     "metrics_window_Hz": {
       "type": "array",
@@ -138,7 +140,9 @@
         "minimum": 0
       },
       "minItems": 2,
-      "maxItems": 2
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
     },
     "scores": {
       "type": "object",

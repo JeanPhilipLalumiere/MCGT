@@ -1,132 +1,248 @@
 {
-"$schema": "https://json-schema.org/draft/2020-12/schema",
-"$id": "zz-schemas/09_imrphenom_phases_meta.schema.json",
-"title": "Chapter 09 — IMRPhenom reference phases (meta)",
-"description": "Métadonnées pour le CSV de phases de référence GR (IMRPhenom*). Fichier cible: 09_phases_imrphenom.meta.json.",
-"type": "object",
-"$defs": {
-"columns": {
-"type": "object",
-"description": "Description optionnelle des colonnes du CSV.",
-"properties": {
-"f_Hz": { "type": "string", "const": "frequency in Hz" },
-"phi_ref_rad": { "type": "string", "const": "reference phase (rad)" },
-"phi_ref_unwrapped_rad": { "type": "string", "const": "unwrapped reference phase (rad)" }
-},
-"additionalProperties": { "type": "string" }
-}
-},
-"properties": {
-"generated_at": { "type": "string", "format": "date-time", "description": "Horodatage ISO." },
-"producer_script": { "type": "string", "description": "Script ayant créé le CSV (optionnel)." },
-"git_hash": { "anyOf": [{ "type": "string", "minLength": 7 }, { "type": "null" }], "description": "Commit (optionnel)." },
-
-"filename": {
-  "type": "string",
-  "description": "Chemin relatif recommandé du CSV.",
-  "examples": ["zz-data/chapter9/09_phases_imrphenom.csv"]
-},
-
-"source": {
-  "type": "string",
-  "description": "Origine des phases de référence.",
-  "enum": ["lalsuite", "external", "file"]
-},
-
-"approximant": {
-  "type": "string",
-  "description": "Nom de l’approximant d’onde (ex. IMRPhenomD).",
-  "default": "IMRPhenomD"
-},
-
-"n_points": { "type": "integer", "minimum": 1, "description": "Nombre d’échantillons fréquentiels." },
-
-"grid": {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/09_imrphenom_phases_meta.schema.json",
+  "title": "Chapter 09 — IMRPhenom reference phases (meta)",
+  "description": "Métadonnées pour le CSV de phases de référence GR (IMRPhenom*). Fichier cible: 09_phases_imrphenom.meta.json.",
   "type": "object",
-  "description": "Grille fréquentielle.",
-  "properties": {
-    "fmin_Hz": { "type": "number", "exclusiveMinimum": 0 },
-    "fmax_Hz": { "type": "number", "exclusiveMinimum": 0 },
-    "monotone": { "type": "boolean" },
-    "spacing": { "type": "string", "enum": ["log", "linear", "mixed"], "default": "log" }
-  },
-  "required": ["fmin_Hz", "fmax_Hz", "monotone"],
-  "additionalProperties": false
-},
-
-"params": {
-  "type": "object",
-  "description": "Paramètres physiques utilisés (si applicables).",
-  "properties": {
-    "m1_Msun": { "type": "number", "minimum": 0 },
-    "m2_Msun": { "type": "number", "minimum": 0 },
-    "chi1": { "type": "number" },
-    "chi2": { "type": "number" },
-    "phi0": { "type": "number" },
-    "tc": { "type": "number" }
-  },
-  "additionalProperties": true
-},
-
-"columns": { "$ref": "#/$defs/columns" },
-
-"integrity": {
-  "type": "object",
-  "description": "Informations d’intégrité du fichier principal.",
-  "properties": {
-    "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
-    "size_bytes": { "type": "integer", "minimum": 0 }
-  },
-  "additionalProperties": false
-},
-
-"repro": {
-  "description": "Informations de reproductibilité.",
-  "anyOf": [
-    {
+  "$defs": {
+    "columns": {
       "type": "object",
+      "description": "Description optionnelle des colonnes du CSV.",
       "properties": {
-        "python": { "type": "string" },
-        "libs": { "type": "object", "additionalProperties": { "type": "string" } }
+        "f_Hz": {
+          "type": "string",
+          "const": "frequency in Hz"
+        },
+        "phi_ref_rad": {
+          "type": "string",
+          "const": "reference phase (rad)"
+        },
+        "phi_ref_unwrapped_rad": {
+          "type": "string",
+          "const": "unwrapped reference phase (rad)"
+        }
       },
-      "required": ["libs"],
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Horodatage ISO."
+    },
+    "producer_script": {
+      "type": "string",
+      "description": "Script ayant créé le CSV (optionnel)."
+    },
+    "git_hash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 7
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Commit (optionnel)."
+    },
+    "filename": {
+      "type": "string",
+      "description": "Chemin relatif recommandé du CSV.",
+      "examples": [
+        "zz-data/chapter9/09_phases_imrphenom.csv"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "description": "Origine des phases de référence.",
+      "enum": [
+        "lalsuite",
+        "external",
+        "file"
+      ]
+    },
+    "approximant": {
+      "type": "string",
+      "description": "Nom de l’approximant d’onde (ex. IMRPhenomD).",
+      "default": "IMRPhenomD"
+    },
+    "n_points": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Nombre d’échantillons fréquentiels."
+    },
+    "grid": {
+      "type": "object",
+      "description": "Grille fréquentielle.",
+      "properties": {
+        "fmin_Hz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fmax_Hz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "monotone": {
+          "type": "boolean"
+        },
+        "spacing": {
+          "type": "string",
+          "enum": [
+            "log",
+            "linear",
+            "mixed"
+          ],
+          "default": "log"
+        }
+      },
+      "required": [
+        "fmin_Hz",
+        "fmax_Hz",
+        "monotone"
+      ],
       "additionalProperties": false
     },
-    {
+    "params": {
       "type": "object",
+      "description": "Paramètres physiques utilisés (si applicables).",
       "properties": {
-        "git_hash": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
-        "numpy": { "type": "string" },
-        "pandas": { "type": "string" },
-        "lalsuite": { "type": "string" }
+        "m1_Msun": {
+          "type": "number",
+          "minimum": 0
+        },
+        "m2_Msun": {
+          "type": "number",
+          "minimum": 0
+        },
+        "chi1": {
+          "type": "number"
+        },
+        "chi2": {
+          "type": "number"
+        },
+        "phi0": {
+          "type": "number"
+        },
+        "tc": {
+          "type": "number"
+        }
       },
-      "required": ["numpy", "pandas"],
       "additionalProperties": true
+    },
+    "columns": {
+      "$ref": "#/$defs/columns"
+    },
+    "integrity": {
+      "type": "object",
+      "description": "Informations d’intégrité du fichier principal.",
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "repro": {
+      "description": "Informations de reproductibilité.",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "python": {
+              "type": "string"
+            },
+            "libs": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "libs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "git_hash": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "numpy": {
+              "type": "string"
+            },
+            "pandas": {
+              "type": "string"
+            },
+            "lalsuite": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "numpy",
+            "pandas"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source",
+    "n_points",
+    "grid"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "generated_at": "2025-08-23T12:00:00Z",
+      "producer_script": "zz-scripts/chapter9/extract_imrphenom_phase.py",
+      "git_hash": "abcdef1",
+      "filename": "zz-data/chapter9/09_phases_imrphenom.csv",
+      "source": "lalsuite",
+      "approximant": "IMRPhenomD",
+      "n_points": 232,
+      "grid": {
+        "fmin_Hz": 10.0,
+        "fmax_Hz": 2041.7379446695295,
+        "monotone": true,
+        "spacing": "log"
+      },
+      "columns": {
+        "f_Hz": "frequency in Hz",
+        "phi_ref_rad": "reference phase (rad)"
+      },
+      "integrity": {
+        "sha256": "d41d8cd98f00b204e9800998ecf8427e",
+        "size_bytes": 123456
+      },
+      "repro": {
+        "numpy": "2.3.1",
+        "pandas": "2.3.1",
+        "lalsuite": "6.2.0"
+      },
+      "notes": "Phases GR de référence pour comparaison avec MCGT."
     }
   ]
-},
-
-"notes": { "type": "string" }
-
-},
-
-"required": ["source", "n_points", "grid"],
-"additionalProperties": false,
-
-"examples": [
-{
-"generated_at": "2025-08-23T12:00:00Z",
-"producer_script": "zz-scripts/chapter9/extract_imrphenom_phase.py",
-"git_hash": "abcdef1",
-"filename": "zz-data/chapter9/09_phases_imrphenom.csv",
-"source": "lalsuite",
-"approximant": "IMRPhenomD",
-"n_points": 232,
-"grid": { "fmin_Hz": 10.0, "fmax_Hz": 2041.7379446695295, "monotone": true, "spacing": "log" },
-"columns": { "f_Hz": "frequency in Hz", "phi_ref_rad": "reference phase (rad)" },
-"integrity": { "sha256": "d41d8cd98f00b204e9800998ecf8427e", "size_bytes": 123456 },
-"repro": { "numpy": "2.3.1", "pandas": "2.3.1", "lalsuite": "6.2.0" },
-"notes": "Phases GR de référence pour comparaison avec MCGT."
-}
-]
 }

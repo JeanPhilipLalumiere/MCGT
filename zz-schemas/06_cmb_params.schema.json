@@ -1,5 +1,5 @@
 {
-"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$schema": "https://json-schema.org/draft/2020-12/schema",
 "\\$id": "zz-schemas/06_cmb_params.schema.json",
 "title": "Chapter 06 — CMB & pipeline parameters",
 "description": "Schéma des paramètres liés au CMB (ex.: 06_params_cmb.json). Valide paramètres cosmologiques et numériques pour générer Cℓ et scans χ².",
@@ -67,7 +67,7 @@
 "ns0": { "description": "Indice spectral de base n_s0.", "type": "number" },
 "c1": { "description": "Coefficient c1 du spectre primordial.", "type": "number" },
 "c2": { "description": "Coefficient c2 du spectre primordial.", "type": "number" },
-"metric_window_Hz": {
+"metrics_window_Hz": {
 "description": "Fenêtre de fréquences (Hz) pour les métriques (ex. [20, 300]).",
 "type": "array",
 "items": { "type": "number", "minimum": 0 },
@@ -130,7 +130,7 @@
 "ns0": 0.9649,
 "c1": 0.1,
 "c2": 0.01,
-"metric_window_Hz": [20, 300],
+"metrics_window_Hz": [20, 300],
 "camb_ini": "zz-configuration/camb_plateau_exact.ini",
 "max_delta_Cl_rel": 0.63,
 "notes": "Vérifier la cohérence ell_max/n_points avec la sortie CAMB."

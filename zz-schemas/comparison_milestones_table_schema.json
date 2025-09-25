@@ -22,7 +22,8 @@
       "required": true,
       "nullable": false,
       "description": "Fréquence de pic",
-      "min": 0.0
+      "min": 0.0,
+      "unit": "Hz"
     },
     {
       "name": "phi_ref_at_fpeak",

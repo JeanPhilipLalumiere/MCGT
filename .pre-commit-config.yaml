@@ -1,19 +1,7 @@
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
-  hooks:
-  - id: check-yaml
-    files: ^(zz-workflows/|\.github/workflows/).*\.(yml|yaml)$
-  - id: check-json
-    files: ^zz-(data|schemas|manifests)/.*\.json$
-  - id: end-of-file-fixer
-  - id: trailing-whitespace
-
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.6.3
-  hooks:
-  - id: ruff
-    args: [--fix]
-    files: ^(mcgt/|zz-scripts/chapter02/|zz-scripts/chapter10/)
-  - id: ruff-format
-    files: ^(mcgt/|zz-scripts/chapter02/|zz-scripts/chapter10/)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

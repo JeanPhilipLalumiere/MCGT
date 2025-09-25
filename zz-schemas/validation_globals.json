@@ -89,7 +89,7 @@
         "name": "spec_primordial",
         "candidates": [
           "zz-data/chapter02/02_spec_spectrum.json",
-          "zz-donnees/chapitre2/02_spec_spectre.json"
+          "zz-data/chapter2/02_spec_spectre.json"
         ],
         "type": "json"
       },
@@ -97,7 +97,7 @@
         "name": "params_cmb",
         "candidates": [
           "zz-data/chapter06/06_params_cmb.json",
-          "zz-donnees/chapitre6/06_params_cmb.json"
+          "zz-data/chapter6/06_params_cmb.json"
         ],
         "type": "json"
       },
@@ -105,7 +105,7 @@
         "name": "params_perturbations",
         "candidates": [
           "zz-data/chapter07/07_params_perturbations.json",
-          "zz-donnees/chapitre7/07_params_perturbations.json"
+          "zz-data/chapter7/07_params_perturbations.json"
         ],
         "type": "json"
       },
@@ -113,7 +113,7 @@
         "name": "metrics_phase",
         "candidates": [
           "zz-data/chapter09/09_metrics_phase.json",
-          "zz-donnees/chapitre9/09_metrics_phase.json"
+          "zz-data/chapter9/09_metrics_phase.json"
         ],
         "type": "json"
       },
@@ -121,7 +121,7 @@
         "name": "jalons_chap2",
         "candidates": [
           "zz-data/chapter02/02_chronology_milestones.csv",
-          "zz-donnees/chapitre2/02_jalons_chronologie.csv"
+          "zz-data/chapter2/02_jalons_chronologie.csv"
         ],
         "type": "csv",
         "expect_columns": ["T", "P_ref", "P_opt", "epsilon_i", "classe"]
@@ -130,7 +130,7 @@
         "name": "mc_results_table",
         "candidates": [
           "zz-data/chapter10/10_mc_results.csv",
-          "zz-donnees/chapitre10/10_mc_results.csv"
+          "zz-data/chapter10/10_mc_results.csv"
         ],
         "type": "csv"
       },
@@ -138,7 +138,7 @@
         "name": "jalons_gw",
         "candidates": [
           "zz-data/chapter09/09_comparison_milestones.csv",
-          "zz-donnees/chapitre9/09_jalons_comparaison.csv"
+          "zz-data/chapter9/09_jalons_comparaison.csv"
         ],
         "type": "csv",
         "expect_columns": [

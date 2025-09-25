@@ -25,21 +25,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Verrou CI: échoue vite si le tag ≠ project.version (ne s'exécute que dans CI, pas localement)
-      - name: Fail fast if tag != pyproject version
-        shell: bash
-        run: |
-          set -euo pipefail
-          TAG="${GITHUB_REF_NAME#v}"
-          PYVER=$(python - <<'PY'
-import tomllib, pathlib
-d = tomllib.loads(pathlib.Path("pyproject.toml").read_text("utf-8"))
-print(d["project"]["version"])
-PY
-)
-          echo "Tag=$TAG  pyproject.version=$PYVER"
-          test "$TAG" = "$PYVER" || { echo "::error::Tag/version mismatch"; exit 1; }
-
       - name: Build wheel & sdist
         shell: bash
         run: |
@@ -48,13 +33,13 @@ PY
           rm -rf dist build *.egg-info
           python -m build
 
-      - name: Verify tag == package version (wheel)
+      - name: Verify tag == package version
         shell: bash
         run: |
           set -euo pipefail
           TAG="${GITHUB_REF_NAME#v}"
           WHL="$(ls dist/*.whl | head -n1)"
-          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; whl=Path(sys.argv[1]); z=zipfile.ZipFile(whl); meta=[n for n in z.namelist() if n.endswith('METADATA')][0]; print(Parser().parsestr(z.read(meta).decode()).get('Version'))" "$WHL")"
+          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; w=Path(sys.argv[1]); z=zipfile.ZipFile(w); m=[n for n in z.namelist() if n.endswith('METADATA')][0]; print(Parser().parsestr(z.read(m).decode()).get('Version'))" "$WHL")"
           echo "Tag: ${TAG}"
           echo "Wheel: ${WHL}"
           echo "Package version: ${PKG_VER}"

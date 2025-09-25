@@ -126,5 +126,6 @@
       "op": ">=",
       "right_value": 0.0
     }
-  ]
+  ],
+  "properties": null
 }

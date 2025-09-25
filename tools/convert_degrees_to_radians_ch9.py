@@ -5,6 +5,9 @@ TARGET_GLOBS = [
     "zz-data/chapter09/09_comparison_milestones*.csv",
     "zz-donnees/chapitre9/09_jalons_comparaison*.csv",
 ]
+    "zz-data/chapter09/09_comparison_milestones*.csv",
+    "zz-donnees/chapitre9/09_jalons_comparaison*.csv",
+]
 
 PHASE_COLS = [
     "phi_ref_at_fpeak",

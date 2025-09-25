@@ -1,8 +1,12 @@
 {
   "schema_version": "1.0.0",
   "canonical_constants": { "H0": 67.36, "A_s0": 2.1e-9, "ns0": 0.9649 },
-  "tolerances": { "H0": {"abs": 0.5}, "A_s0": {"rel": 0.05}, "ns0": {"abs": 0.01} },
+  "tolerances": {
+    "H0": { "abs": 0.5 },
+    "A_s0": { "rel": 0.05 },
+    "ns0": { "abs": 0.01 }
+  },
   "metric_windows": { "phase_20_300": [20.0, 300.0] },
-  "classes": { "allowed": ["primary","order2"], "normalize": { "prim": "primary" } },
+  "classes": { "allowed": ["primary", "order2"], "normalize": { "prim": "primary" } },
   "path_aliases": {}
 }

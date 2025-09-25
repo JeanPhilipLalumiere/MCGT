@@ -1,6 +1,6 @@
 {
-"\\$schema": "https://json-schema.org/draft/2020-12/schema",
-"\\$id": "zz-schemas/02_spec_spectrum.schema.json",
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "zz-schemas/02_spec_spectrum.schema.json",
 "title": "Primordial spectrum specification — Chapter 02",
 "description": "JSON Schema pour le fichier 02_spec_spectrum.json. Valide le label, la forme analytique, les constantes et les coefficients utilisés pour construire P_R(k; alpha).",
 "type": "object",

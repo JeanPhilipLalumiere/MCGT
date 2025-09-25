@@ -1,10 +1,10 @@
 {
-"\\$schema": "https://json-schema.org/draft/2020-12/schema",
-"\\$id": "zz-schemas/02_optimal_parameters.schema.json",
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "zz-schemas/02_optimal_parameters.schema.json",
 "title": "Paramètres optimaux — Chapitre 02",
 "description": "Schéma JSON pour le fichier 02_optimal_parameters.json (découpage temporel, segments low/high, seuils, epsilons).",
 "type": "object",
-"\\$defs": {
+"$defs": {
 "segmentParams": {
 "type": "object",
 "description": "Paramètres logistiques pour un segment temporel.",
@@ -39,13 +39,13 @@
 "description": "Paramètres distincts pour les segments 'low' et 'high'.",
 "type": "object",
 "properties": {
-"low": { "\\$ref": "#/\\$defs/segmentParams" },
-"high": { "\\$ref": "#/\\$defs/segmentParams" }
+"low": { "$ref": "#/$defs/segmentParams" },
+"high": { "$ref": "#/$defs/segmentParams" }
 },
 "required": ["low", "high"],
 "additionalProperties": false
 },
-"thresholds": { "\\$ref": "#/\\$defs/thresholdPair" },
+"thresholds": { "$ref": "#/$defs/thresholdPair" },
 "max_epsilon_primary": {
 "description": "Epsilon maximal observé pour la classe primaire.",
 "type": "number",

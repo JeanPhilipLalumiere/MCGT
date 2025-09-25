@@ -6,35 +6,149 @@
   "delimiter": ",",
   "header": true,
   "allow_extra_columns": true,
-  "primary_key": ["id"],
-
-  "columns": [
-    { "name": "id",           "type": "integer", "required": true },
-    { "name": "m1",           "type": "number",  "required": true, "min": 0 },
-    { "name": "m2",           "type": "number",  "required": true, "min": 0 },
-    { "name": "q0star",       "type": "number",  "required": true },
-    { "name": "alpha",        "type": "number",  "required": true },
-    { "name": "phi0",         "type": "number",  "required": true },
-    { "name": "tc",           "type": "number",  "required": true },
-    { "name": "dist",         "type": "number",  "required": true, "min": 0 },
-    { "name": "incl",         "type": "number",  "required": true, "min": 0 },
-    { "name": "k",            "type": "integer", "required": true },
-    { "name": "mean_20_300",  "type": "number",  "required": true, "min": 0 },
-    { "name": "p95_20_300",   "type": "number",  "required": true, "min": 0 },
-    { "name": "max_20_300",   "type": "number",  "required": true, "min": 0 },
-    { "name": "n_20_300",     "type": "integer", "required": true, "min": 1 },
-    { "name": "status",       "type": "string",  "required": true },
-    { "name": "error_code",   "type": "string",  "required": false, "nullable": true },
-    { "name": "wall_time_s",  "type": "number",  "required": false, "nullable": true, "min": 0 },
-    { "name": "model",        "type": "string",  "required": true },
-    { "name": "score",        "type": "number",  "required": true, "min": 0 }
+  "primary_key": [
+    "id"
   ],
-
+  "columns": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "m1",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "m2",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "q0star",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "alpha",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "phi0",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "tc",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "dist",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "incl",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "k",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "mean_20_300",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "p95_20_300",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "max_20_300",
+      "type": "number",
+      "required": true,
+      "min": 0
+    },
+    {
+      "name": "n_20_300",
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "error_code",
+      "type": "string",
+      "required": false,
+      "nullable": true
+    },
+    {
+      "name": "wall_time_s",
+      "type": "number",
+      "required": false,
+      "nullable": true,
+      "min": 0
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "score",
+      "type": "number",
+      "required": true,
+      "min": 0
+    }
+  ],
   "constraints": [
-    { "type": "compare", "left": "m1",         "op": ">=", "right_value": 5 },
-    { "type": "compare", "left": "m2",         "op": ">=", "right_value": 5 },
-    { "type": "compare", "left": "n_20_300",   "op": ">",  "right_value": 0 },
-    { "type": "compare", "left": "p95_20_300", "op": ">=", "right": "mean_20_300" },
-    { "type": "compare", "left": "max_20_300", "op": ">=", "right": "p95_20_300" }
-  ]
+    {
+      "type": "compare",
+      "left": "m1",
+      "op": ">=",
+      "right_value": 5
+    },
+    {
+      "type": "compare",
+      "left": "m2",
+      "op": ">=",
+      "right_value": 5
+    },
+    {
+      "type": "compare",
+      "left": "n_20_300",
+      "op": ">",
+      "right_value": 0
+    },
+    {
+      "type": "compare",
+      "left": "p95_20_300",
+      "op": ">=",
+      "right": "mean_20_300"
+    },
+    {
+      "type": "compare",
+      "left": "max_20_300",
+      "op": ">=",
+      "right": "p95_20_300"
+    }
+  ],
+  "properties": null
 }

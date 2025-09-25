@@ -50,5 +50,5 @@
       "minimum": 2
     }
   },
-  "description": "Note: la contrainte param2_max > param2_min n'est pas exprim\u00e9e ici (cross-field); elle reste \u00e0 la charge des scripts."
+  "description": "Note: la contrainte param2_max > param2_min n'est pas exprimée ici (cross-field); elle reste à la charge des scripts."
 }

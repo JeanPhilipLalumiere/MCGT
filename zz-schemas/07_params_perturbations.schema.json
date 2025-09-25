@@ -1,5 +1,5 @@
 {
-"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$schema": "https://json-schema.org/draft/2020-12/schema",
 "\\$id": "zz-schemas/07_perturbations_parameters.schema.json",
 "title": "Chapter 07 — Perturbations parameters",
 "description": "Schéma validant les paramètres numériques et pipeline utilisés au Chapitre 7 (perturbations scalaires). Fichier cible: 07_params_perturbations.json.",
@@ -75,7 +75,7 @@
   "additionalProperties": false
 },
 
-"metric_window_Hz": {
+"metrics_window_Hz": {
   "type": "array",
   "description": "Fenêtre de fréquences pour les métriques (ex. [20, 300]).",
   "items": { "type": "number", "minimum": 0 },
@@ -132,7 +132,7 @@
 "max_epsilon_primary_phi": 0.0,
 "max_epsilon_order2_phi": 0.0,
 "segments": { "low": { "k_max": 0.01995, "n_points": 231 }, "high": { "k_min": 0.02042, "n_points": 270 } },
-"metric_window_Hz": [20, 300],
+"metrics_window_Hz": [20, 300],
 "notes": "Ajuster la fenêtre SavGol si oscillations numériques."
 }
 ]

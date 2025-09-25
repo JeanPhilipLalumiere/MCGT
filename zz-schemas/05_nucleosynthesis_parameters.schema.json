@@ -1,5 +1,5 @@
 {
-"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$schema": "https://json-schema.org/draft/2020-12/schema",
 "\\$id": "zz-schemas/05_nucleosynthesis_parameters.schema.json",
 "title": "Chapter 05 — Nucleosynthesis parameters",
 "description": "Schéma pour les fichiers de paramètres BBN (ex.: 05_nucleosynthesis_parameters.json). Contient seuils, tolérances et métadonnées utilisées pour générer les sorties liées à la BBN.",

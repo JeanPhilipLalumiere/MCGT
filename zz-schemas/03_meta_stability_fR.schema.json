@@ -1,5 +1,5 @@
 {
-"\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+"\\$schema": "https://json-schema.org/draft/2020-12/schema",
 "\\$id": "zz-schemas/03_meta_stability_fR.schema.json",
 "title": "Chapter 03 — Meta for f(R) stability outputs",
 "description": "JSON Schema des métadonnées décrivant les jeux de données produits pour le chapitre 03 (analyse de stabilité f(R)).",

@@ -21,14 +21,16 @@ note(){ printf '[NOTE] %s\n' "$*"; }
 warn(){ printf '[WARN] %s\n' "$*"; WARN=$((WARN+1)); }
 err(){  printf '[ERR ] %s\n' "$*";  FAILS=$((FAILS+1)); }
 
-run(){ # non fatal wrapper
+run(){ # non fatal wrapper with output capture
   local desc="$1"; shift
   section "$desc"
   if [[ "${DRYRUN:-0}" == "1" ]]; then
     printf '[DRYRUN] %q ' "$@"; printf '\n'
     return 0
   fi
-  "$@"; local rc=$?
+  local out rc
+  out="$("$@" 2>&1)"; rc=$?
+  printf '%s\n' "$out"
   if [[ $rc -ne 0 ]]; then err "rc=$rc on: $*"; fi
   return 0
 }
@@ -50,8 +52,8 @@ if [[ $# -ne 1 ]]; then
   section "Usage"
   echo "Usage: $0 X.Y.Z[-rcN]"
   echo "Exemples:"
-  echo "  $0 0.2.33-rc1"
-  echo "  $0 0.2.33"
+  echo "  $0 0.2.34-rc1"
+  echo "  $0 0.2.34"
   err "Argument version manquant."
   exit 0
 fi
@@ -111,19 +113,31 @@ p.write_text(t, encoding="utf-8")
 print("ok: __version__ =", ver)
 PY
 
-# ── Commit & tag (avec reprise auto si hooks modifient) ───────────────────────
-section "git add/commit (avec reprise auto si hooks changent des fichiers)"
+# ── Commit & tag (résilient) ────────────────────────────────────────────────
+section "git add/commit (résilient: hooks & no-op commits)"
 if [[ "${DRYRUN:-0}" == "1" ]]; then
   printf '[DRYRUN] git add -A\n[DRYRUN] git commit -m %q\n' "release: bump version ${VER}"
 else
   git add -A
-  if ! git commit -m "release: bump version ${VER}"; then
-    warn "git commit a échoué — tentative de reprise (hooks ont pu modifier des fichiers)."
-    git add -A || err "git add après hooks a échoué."
-    if ! git commit -m "release: bump version ${VER} (after hooks)"; then
-      err "échec du commit après reprise."
+  out="$(git commit -m "release: bump version ${VER}" 2>&1)"; rc=$?
+  echo "$out"
+  if [[ $rc -ne 0 ]]; then
+    if echo "$out" | grep -qE '(nothing to commit|nothing added to commit)'; then
+      note "Aucun changement à committer — on continue."
     else
-      note "commit réussi après reprise."
+      warn "commit a échoué — tentative de reprise (les hooks ont pu modifier des fichiers)."
+      git add -A || err "git add après hooks a échoué."
+      out2="$(git commit -m "release: bump version ${VER} (after hooks)" 2>&1)"; rc2=$?
+      echo "$out2"
+      if [[ $rc2 -ne 0 ]]; then
+        if echo "$out2" | grep -qE '(nothing to commit|nothing added to commit)'; then
+          note "Toujours aucun changement — on continue."
+        else
+          err "échec du commit après reprise."
+        fi
+      else
+        note "commit réussi après reprise."
+      fi
     fi
   fi
 fi
@@ -151,5 +165,3 @@ else
   run "git push"      git push
   run "git push tags" git push --tags
 fi
-
-true

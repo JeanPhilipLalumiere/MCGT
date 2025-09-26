@@ -1305,39 +1305,11 @@
       "mtime_iso": "2025-09-12T22:19:25Z"
     },
     {
-      "path": "zz-manifests/manifest_master.json",
-      "role": "manifest",
-      "size_bytes": 716,
-      "sha256": "f39926e719f1091f8a08879ac0ebd46e6a6ec4372e5bbe44e7b5785cb542b054",
-      "mtime_iso": "2025-09-26T00:41:04Z"
-    },
-    {
-      "path": "zz-manifests/manifest_publication.json",
-      "role": "manifest",
-      "size_bytes": 317,
-      "sha256": "5e6795d54484c3c2c3fe6d0b5289b67d058ba0e99ae0e52879749dbc4bc3c6bc",
-      "mtime_iso": "2025-09-26T00:41:04Z"
-    },
-    {
-      "path": "zz-manifests/manifest_publication.sha256sum",
-      "role": "manifest",
-      "size_bytes": 99,
-      "sha256": "b00757084a7de876a1ada5221ba947e8675babfce3bdbfca8f704db2ad4ab800",
-      "mtime_iso": "2025-09-26T00:41:32Z"
-    },
-    {
       "path": "zz-manifests/manifest_report.json",
       "role": "manifest",
       "size_bytes": 555,
       "sha256": "f9239bc867e79dd7ffcce59a4e1b466535e6f4b5c06376a892939ffa616e2954",
       "mtime_iso": "2025-09-25T23:43:51Z"
-    },
-    {
-      "path": "zz-manifests/manifest_report.md",
-      "role": "manifest",
-      "size_bytes": 196,
-      "sha256": "8fba6d895cbc80b03e7e00b91d50dcc663cd5dc927b9e96bd90c2f5a4a6485e2",
-      "mtime_iso": "2025-09-26T00:41:32Z"
     },
     {
       "path": "zz-manifests/meta_template.json",

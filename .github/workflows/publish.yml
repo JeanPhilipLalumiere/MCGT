@@ -36,7 +36,7 @@ jobs:
           set -euo pipefail
           TAG="${GITHUB_REF_NAME#v}"
           WHL="$(ls dist/*.whl | head -n1)"
-          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; w=Path(sys.argv[1]); z=zipfile.ZipFile(w); m=[n for n in z.namelist() if n.endswith('METADATA')][0]; import io; print(Parser().parsestr(io.TextIOWrapper(z.open(m),encoding='utf-8').read()).get('Version'))" "$WHL")"
+          PKG_VER="$(python -c 'import sys,zipfile,io;from email.parser import Parser;from pathlib import Path; w=Path(sys.argv[1]); z=zipfile.ZipFile(w); m=[n for n in z.namelist() if n.endswith(\"METADATA\")][0]; print(Parser().parsestr(z.read(m).decode()).get(\"Version\"))' "$WHL")"
           echo "Tag=${TAG} | Wheel=${WHL} | Version=${PKG_VER}"
           test "${TAG}" = "${PKG_VER}" || { echo "::error::Version mismatch: tag=${TAG}, package=${PKG_VER}"; exit 1; }
 

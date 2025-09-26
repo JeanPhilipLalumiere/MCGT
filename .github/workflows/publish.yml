@@ -1,69 +1,55 @@
-name: Publish to (Test)PyPI
+name: Build & Publish to (Test)PyPI
 
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
-      - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
-
-permissions:
-  contents: read
-  id-token: write
+      - "v*"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
-
-      - name: Install build tooling
+          python-version: "3.12"
+      - name: Upgrade build tooling
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build twine
-
+          python -m pip install -U pip build twine
       - name: Build sdist & wheel
         run: |
-          rm -rf dist build *.egg-info
           python -m build
           python -m twine check dist/*
-
-      - name: Upload build artifacts
+      - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/*
 
-  publish-testpypi:
-    if: startsWith(github.ref_name, 'v') && contains(github.ref_name, '-rc')
+  publish:
     needs: build
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Decide repository
+        id: repo
+        run: |
+          TAG="${GITHUB_REF##*/}"
+          if [[ "$TAG" =~ -rc[0-9]+$ ]]; then
+            echo "repo_url=https://test.pypi.org/legacy/" >> "$GITHUB_OUTPUT"
+            echo "token_name=TEST_PYPI_API_TOKEN"       >> "$GITHUB_OUTPUT"
+          else
+            echo "repo_url=https://upload.pypi.org/legacy/" >> "$GITHUB_OUTPUT"
+            echo "token_name=PYPI_API_TOKEN"                >> "$GITHUB_OUTPUT"
+          fi
+      - name: Publish to (Test)PyPI
+        uses: pypa/gh-action-pypi-publish@v1.12.2
         with:
-          repository-url: https://test.pypi.org/legacy/
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-
-  publish-pypi:
-    if: startsWith(github.ref_name, 'v') && !contains(github.ref_name, '-rc')
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist
+          repository-url: ${{ steps.repo.outputs.repo_url }}
+          password: ${{ secrets[steps.repo.outputs.token_name] }}

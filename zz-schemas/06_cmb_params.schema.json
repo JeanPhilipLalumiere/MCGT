@@ -191,5 +191,33 @@
       "max_delta_Cl_rel": 0.63,
       "notes": "Vérifier la cohérence ell_max/n_points avec la sortie CAMB."
     }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "ell_min",
+          "ell_max"
+        ],
+        "properties": {
+          "ell_min": {
+            "type": "number"
+          },
+          "ell_max": {
+            "type": "number"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ell_max": {
+            "minimum": {
+              "$data": "1/ell_min"
+            }
+          }
+        }
+      },
+      "$comment": "cross: ell_max >= ell_min ($data)"
+    }
   ]
 }

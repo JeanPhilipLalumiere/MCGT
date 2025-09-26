@@ -223,11 +223,6 @@
           "required": [
             "comparison_milestones_csv"
           ]
-        },
-        {
-          "required": [
-            "jalons_comparaison_csv"
-          ]
         }
       ]
     },

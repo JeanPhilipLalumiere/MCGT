@@ -1,3 +1,4 @@
+DEFAULT_RULES = "zz-schemas/consistency_rules.json"
 #!/usr/bin/env python3
 import csv, glob, math, os, shutil, sys
 

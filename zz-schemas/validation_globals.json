@@ -192,5 +192,6 @@
       }
     ]
   },
-  "properties": null
+  "properties": null,
+  "$id": "zz-schemas/validation_globals.json"
 }

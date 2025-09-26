@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "zz-schemas/09_imrphenom_phases_meta.schema.json",
+  "$id": "zz-schemas/09_phases_imrphenom.meta.schema.json",
   "title": "Chapter 09 — IMRPhenom reference phases (meta)",
   "description": "Métadonnées pour le CSV de phases de référence GR (IMRPhenom*). Fichier cible: 09_phases_imrphenom.meta.json.",
   "type": "object",

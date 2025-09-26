@@ -61,5 +61,6 @@
   "classes_normalize": {
     "prim": "primary"
   },
-  "properties": null
+  "properties": null,
+  "$id": "zz-schemas/consistency_rules.json"
 }

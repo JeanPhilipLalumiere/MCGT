@@ -2,7 +2,15 @@
   "manifest_version": "1.1",
   "generated_at": "2025-09-13T01:34:14.734241+00:00",
   "manifest_tool_version": "diag_consistency.py v1",
-  "entries": [],
+  "entries": [
+    {
+      "path": "zz-manifests/figure_manifest.csv",
+      "role": "manifest",
+      "size_bytes": 183,
+      "sha256": "b833b9956f22ccf79c2990f03f872e744fec8b3eb59e9b8f03f5556726dd518f",
+      "mtime_iso": "2025-09-12T22:19:25Z"
+    }
+  ],
   "total_entries": 0,
   "project": {
     "name": "MCGT",
@@ -10,5 +18,6 @@
     "contact": "Jean-Philip Lalumière <contact@jeanphiliplalumiere.com>",
     "website": "https://example.org/mcgt",
     "license": "MIT"
-  }
+  },
+  "repository_root": "."
 }

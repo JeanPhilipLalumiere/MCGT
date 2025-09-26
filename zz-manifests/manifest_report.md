@@ -1,6 +1,10 @@
-# Consistency report
+# Manifest Report
 
-- Errors: **0**
-- Warnings: **0**
+- Manifest version: 1.1
+- Entries: 1
 
-No problems detected.
+## Breakdown by role
+- **manifest**: 1
+
+## Sample (first 20)
+- `zz-manifests/figure_manifest.csv` (manifest, 183 B) sha256=b833b9956f22…

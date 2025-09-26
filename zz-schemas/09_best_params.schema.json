@@ -177,12 +177,13 @@
     },
     "variant_used": {
       "type": "string",
-      "description": "Variante φ optimisée.",
+      "description": "Variante φ optimisée. [DEPRECATED: use phase_variant]",
       "enum": [
         "phi_mcgt",
         "phi_mcgt_cal",
         "phi_mcgt_raw"
-      ]
+      ],
+      "deprecated": true
     },
     "inputs": {
       "type": "object",
@@ -253,6 +254,15 @@
     },
     "notes": {
       "type": "string"
+    },
+    "phase_variant": {
+      "type": "string",
+      "description": "Variante φ optimisée.",
+      "enum": [
+        "phi_mcgt",
+        "phi_mcgt_cal",
+        "phi_mcgt_raw"
+      ]
     }
   },
   "additionalProperties": true,
@@ -321,6 +331,16 @@
         "k_cycles",
         "fit_window_Hz",
         "metrics_window_Hz"
+      ]
+    },
+    {
+      "required": [
+        "phase_variant"
+      ]
+    },
+    {
+      "required": [
+        "variant_used"
       ]
     }
   ]

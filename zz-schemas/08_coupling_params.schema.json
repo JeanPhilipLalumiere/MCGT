@@ -50,5 +50,33 @@
       "minimum": 2
     }
   },
-  "description": "Note: la contrainte param2_max > param2_min n'est pas exprimée ici (cross-field); elle reste à la charge des scripts."
+  "description": "Note: la contrainte param2_max > param2_min n'est pas exprimée ici (cross-field); elle reste à la charge des scripts.",
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "param2_min",
+          "param2_max"
+        ],
+        "properties": {
+          "param2_min": {
+            "type": "number"
+          },
+          "param2_max": {
+            "type": "number"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "param2_max": {
+            "exclusiveMinimum": {
+              "$data": "1/param2_min"
+            }
+          }
+        }
+      },
+      "$comment": "cross: param2_max > param2_min ($data)"
+    }
+  ]
 }

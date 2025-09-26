@@ -45,7 +45,8 @@ jobs:
   publish-testpypi:
     needs: build
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') && contains(github.ref, 'rc')
+    # RC gating strict: tag commence par v et contient 'rc' (forme vX.Y.ZrcN). Évitez '-rc' par défaut.
+    if: startsWith(github.ref, 'refs/tags/') && startsWith(github.ref_name, 'v') && contains(github.ref_name, 'rc') && !contains(github.ref_name, '-rc')
     env:
       TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
     steps:
@@ -54,13 +55,16 @@ jobs:
           name: dist
           path: dist
 
+      - name: Twine check (downloaded)
+        run: python -m twine check dist/*
+
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("ℹ️ Aucun .whl trouvé dans dist/ (pas bloquant)"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/ (non bloquant)"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
@@ -92,7 +96,7 @@ jobs:
   publish-pypi:
     needs: build
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'rc')
+    if: startsWith(github.ref, 'refs/tags/') && startsWith(github.ref_name, 'v') && !contains(github.ref_name, 'rc')
     env:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     steps:
@@ -101,13 +105,16 @@ jobs:
           name: dist
           path: dist
 
+      - name: Twine check (downloaded)
+        run: python -m twine check dist/*
+
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("ℹ️ Aucun .whl trouvé dans dist/ (pas bloquant)"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/ (non bloquant)"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]

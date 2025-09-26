@@ -14,7 +14,7 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}\\$"
+          "pattern": "^[0-9a-fA-F]{64}$"
         },
         "size_bytes": {
           "type": "integer",
@@ -56,8 +56,8 @@
     "basis": {
       "type": "string",
       "enum": [
-        "log10",
-        "hz"
+        "hz",
+        "log10"
       ],
       "description": "Base polynomiale pour l’ajustement."
     },
@@ -125,7 +125,8 @@
       "type": "array",
       "description": "Fenêtre utilisée pour le fit polynomial.",
       "items": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0
       },
       "minItems": 2,
       "maxItems": 2,
@@ -177,15 +178,6 @@
     "variant_used": {
       "type": "string",
       "description": "Variante φ optimisée.",
-      "enum": [
-        "phi_mcgt",
-        "phi_mcgt_cal",
-        "phi_mcgt_raw"
-      ]
-    },
-    "phase_variant": {
-      "type": "string",
-      "description": "Alias de variant_used (déprécié si les deux sont présents).",
       "enum": [
         "phi_mcgt",
         "phi_mcgt_cal",
@@ -321,11 +313,6 @@
     }
   ],
   "anyOf": [
-    {
-      "required": [
-        "best"
-      ]
-    },
     {
       "required": [
         "basis",

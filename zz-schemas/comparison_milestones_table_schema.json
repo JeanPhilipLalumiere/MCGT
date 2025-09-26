@@ -88,10 +88,10 @@
       "nullable": false,
       "description": "Catégorie du jalon",
       "enum": [
-        "primary",
         "order2",
+        "ordre2",
         "primaire",
-        "ordre2"
+        "primary"
       ]
     },
     {

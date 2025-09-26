@@ -1,8 +1,9 @@
 [project]
 license-files = []
-name = "mcgt-core"
+version = "${VERSION}"
+name = "${NAME}"
 readme = "README.md"
-dynamic = ["version"]
+dynamic = []
 dependencies = [
     "numpy>=1.25",
     "scipy>=1.10",

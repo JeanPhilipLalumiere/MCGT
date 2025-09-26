@@ -31,7 +31,7 @@ jobs:
       - name: Build sdist & wheel
         run: python -m build
 
-      - name: Twine check
+      - name: Twine check (local)
         run: python -m twine check dist/*
 
       - name: Upload dist artifacts
@@ -56,17 +56,17 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-            print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
+              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
           for whl in wheels:
-            with zipfile.ZipFile(whl) as zf:
-              meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
-              if not meta:
-                print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
-              data = zf.read(meta[0]).decode("utf-8", "replace")
-              print(f"--- {whl} :: {meta[0]} (début) ---")
-              for line in data.splitlines()[:20]:
-                print(line)
-              print("--- FIN ---")
+              with zipfile.ZipFile(whl) as zf:
+                  meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+                  if not meta:
+                      print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+                  data = zf.read(meta[0]).decode("utf-8", "replace")
+                  print(f"--- {whl} :: {meta[0]} (début) ---")
+                  for line in data.splitlines()[:25]:
+                      print(line)
+                  print("--- FIN ---")
           PY
 
       - name: Publish to TestPyPI
@@ -96,17 +96,17 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-            print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
+              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
           for whl in wheels:
-            with zipfile.ZipFile(whl) as zf:
-              meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
-              if not meta:
-                print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
-              data = zf.read(meta[0]).decode("utf-8", "replace")
-              print(f"--- {whl} :: {meta[0]} (début) ---")
-              for line in data.splitlines()[:20]:
-                print(line)
-              print("--- FIN ---")
+              with zipfile.ZipFile(whl) as zf:
+                  meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+                  if not meta:
+                      print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+                  data = zf.read(meta[0]).decode("utf-8", "replace")
+                  print(f"--- {whl} :: {meta[0]} (début) ---")
+                  for line in data.splitlines()[:25]:
+                      print(line)
+                  print("--- FIN ---")
           PY
 
       - name: Publish to PyPI

@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-# bump_and_tag_safe.sh — bump version, tag, build & push — sans tuer le terminal
+# bump_and_tag_safe.sh — bump version, tag, build & push — résilient
 
-# ── Guardrails ────────────────────────────────────────────────────────────────
-# - Pas de `set -e` : on capture les RC et on continue.
-# - Log complet de la session.
-# - Récapitulatif final + pause (désactivable).
-# - Variables:
-#     DRYRUN=1   → affiche les commandes, ne modifie rien
-#     NO_BUILD=1 → saute build & twine check
-#     NO_PUSH=1  → saute git push & push --tags
-#     FORCE=1    → continue même si WT sale ou tag existant
-#     NO_PAUSE=1 → désactive la pause finale
+# Options via env:
+#   DRYRUN=1   → affiche les commandes, ne modifie rien
+#   NO_BUILD=1 → saute build & twine check
+#   NO_PUSH=1  → saute git push & push --tags
+#   FORCE=1    → continue même si WT/Index sales
+#   NO_PAUSE=1 → désactive la pause finale
 
 set -u
 START_TS="$(date -u +%Y%m%dT%H%M%SZ)"
@@ -18,7 +14,6 @@ LOG="bump_tag_${START_TS}.log"
 FAILS=0
 WARN=0
 
-# Log de toute la session
 exec > >(tee -a "$LOG") 2>&1
 
 section(){ printf '\n===== %s =====\n' "$*"; }
@@ -26,7 +21,7 @@ note(){ printf '[NOTE] %s\n' "$*"; }
 warn(){ printf '[WARN] %s\n' "$*"; WARN=$((WARN+1)); }
 err(){  printf '[ERR ] %s\n' "$*";  FAILS=$((FAILS+1)); }
 
-run(){ # Runner non fatal
+run(){ # non fatal wrapper
   local desc="$1"; shift
   section "$desc"
   if [[ "${DRYRUN:-0}" == "1" ]]; then
@@ -55,8 +50,8 @@ if [[ $# -ne 1 ]]; then
   section "Usage"
   echo "Usage: $0 X.Y.Z[-rcN]"
   echo "Exemples:"
-  echo "  $0 0.2.32-rc1   # tag RC (TestPyPI via workflow)"
-  echo "  $0 0.2.32       # tag final (PyPI via workflow)"
+  echo "  $0 0.2.33-rc1"
+  echo "  $0 0.2.33"
   err "Argument version manquant."
   exit 0
 fi
@@ -71,11 +66,9 @@ echo "Log fichier        : $LOG"
 # ── Pré-requis ────────────────────────────────────────────────────────────────
 section "Vérification prérequis"
 need_cmds=(git python sed awk)
-missing=0
 for c in "${need_cmds[@]}"; do
-  if ! command -v "${c%% *}" >/dev/null 2>&1; then err "binaire requis manquant: $c"; missing=1; else note "ok: $(command -v "${c%% *}")"; fi
+  if ! command -v "${c%% *}" >/dev/null 2>&1; then err "binaire requis manquant: $c"; else note "ok: $(command -v "${c%% *}")"; fi
 done
-[[ $missing -eq 0 ]] || warn "Des prérequis manquent — certaines étapes peuvent échouer."
 
 # Semver-ish
 if ! [[ "$VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?$ ]]; then
@@ -85,16 +78,17 @@ fi
 # Git sanity
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then err "Pas un dépôt git."; fi
 if ! git diff --quiet || ! git diff --cached --quiet; then
-  [[ "${FORCE:-0}" == "1" ]] && warn "WT/Index non propres mais FORCE=1 → on continue." || err "WT/Index non propres (FORCE=1 pour ignorer)."
-fi
-if git tag -l "v${VER}" | grep -qx "v${VER}"; then
-  [[ "${FORCE:-0}" == "1" ]] && warn "Tag v${VER} existe (FORCE=1) → on continue." || err "Le tag v${VER} existe déjà."
+  if [[ "${FORCE:-0}" == "1" ]]; then
+    warn "WT/Index non propres mais FORCE=1 → on continue."
+  else
+    err "WT/Index non propres (FORCE=1 pour ignorer)."
+  fi
 fi
 
 # ── Bump versions ─────────────────────────────────────────────────────────────
 run "Mise à jour pyproject.toml → version=${VER}" bash -c '
 if [[ -f pyproject.toml ]] && grep -Eq "^[[:space:]]*version[[:space:]]*=" pyproject.toml; then
-  sed -i -E "s/^([[:space:]]*version[[:space:]]*=\s*\")[0-9]+\.[0-9]+\.[0-9]+(\".*)$/\1'"$VER"'\2/" pyproject.toml
+  sed -i -E "s/^([[:space:]]*version[[:space:]]*=\s*\")[0-9]+\.[0-9]+\.[0-9]+(\")(.*)$/\1'"$VER"'\2\3/" pyproject.toml
 else
   echo "[WARN] Aucun champ version dans pyproject.toml (ok si géré ailleurs)."
 fi'
@@ -117,10 +111,29 @@ p.write_text(t, encoding="utf-8")
 print("ok: __version__ =", ver)
 PY
 
-# ── Commit & tag ──────────────────────────────────────────────────────────────
-run "git add/commit"  git add -A
-run "git commit"      git commit -m "release: bump version ${VER}"
-run "git tag v${VER}" git tag -a "v${VER}" -m "mcgt_core ${VER}"
+# ── Commit & tag (avec reprise auto si hooks modifient) ───────────────────────
+section "git add/commit (avec reprise auto si hooks changent des fichiers)"
+if [[ "${DRYRUN:-0}" == "1" ]]; then
+  printf '[DRYRUN] git add -A\n[DRYRUN] git commit -m %q\n' "release: bump version ${VER}"
+else
+  git add -A
+  if ! git commit -m "release: bump version ${VER}"; then
+    warn "git commit a échoué — tentative de reprise (hooks ont pu modifier des fichiers)."
+    git add -A || err "git add après hooks a échoué."
+    if ! git commit -m "release: bump version ${VER} (after hooks)"; then
+      err "échec du commit après reprise."
+    else
+      note "commit réussi après reprise."
+    fi
+  fi
+fi
+
+section "git tag v${VER} (skip si existe déjà)"
+if git tag -l "v${VER}" | grep -qx "v${VER}"; then
+  warn "Tag v${VER} existe déjà — on saute la création."
+else
+  run "Création du tag" git tag -a "v${VER}" -m "mcgt_core ${VER}"
+fi
 
 # ── Build & check (optionnel) ────────────────────────────────────────────────
 if [[ "${NO_BUILD:-0}" == "1" ]]; then
@@ -139,5 +152,4 @@ else
   run "git push tags" git push --tags
 fi
 
-# Fin — summary via trap
 true

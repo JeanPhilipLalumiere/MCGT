@@ -78,6 +78,7 @@ jobs:
           PY
 
       - name: Publish to TestPyPI (twine)
+        if: ${{ secrets.TEST_PYPI_API_TOKEN != '' }}
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -85,6 +86,10 @@ jobs:
           python -m pip install -U twine
           python -m twine upload --non-interactive --skip-existing dist/* \
             --repository-url https://test.pypi.org/legacy/
+
+      - name: Skip publish (no TEST_PYPI_API_TOKEN)
+        if: ${{ secrets.TEST_PYPI_API_TOKEN == '' }}
+        run: echo "⚠️ TEST_PYPI_API_TOKEN not set; skipping TestPyPI upload."
 
   publish-pypi:
     needs: build
@@ -119,9 +124,14 @@ jobs:
           PY
 
       - name: Publish to PyPI (twine)
+        if: ${{ secrets.PYPI_API_TOKEN != '' }}
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           python -m pip install -U twine
           python -m twine upload --non-interactive --skip-existing dist/*
+
+      - name: Skip publish (no PYPI_API_TOKEN)
+        if: ${{ secrets.PYPI_API_TOKEN == '' }}
+        run: echo "⚠️ PYPI_API_TOKEN not set; skipping PyPI upload."

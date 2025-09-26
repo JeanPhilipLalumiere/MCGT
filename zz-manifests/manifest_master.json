@@ -1343,16 +1343,16 @@
     {
       "path": ".github/workflows/ci.yml",
       "role": "other",
-      "size_bytes": 893,
-      "sha256": "5a3392d8c9a9c1724688b036033ae6602db29b356c72bd80fbac225c3ee2fbb7",
-      "mtime_iso": "2025-09-23T22:04:13Z"
+      "size_bytes": 1477,
+      "sha256": "71aa83a468d9636f92f40f1eab70729f9790a23429ba9d71173ce7b385e63d24",
+      "mtime_iso": "2025-09-26T01:51:56Z"
     },
     {
       "path": ".github/workflows/publish.yml",
       "role": "other",
-      "size_bytes": 1488,
-      "sha256": "568436c65621084b277173093db94df561d96b880c363b78d954fc1104101851",
-      "mtime_iso": "2025-09-25T02:38:12Z"
+      "size_bytes": 1696,
+      "sha256": "11e925c5313446524aa464d6de7e8d69f748a2016248e8142ea4d74229f08f39",
+      "mtime_iso": "2025-09-26T01:51:56Z"
     },
     {
       "path": ".github/workflows/release.yml",
@@ -1623,9 +1623,9 @@
     {
       "path": "scripts/preflight_release.sh",
       "role": "other",
-      "size_bytes": 1888,
-      "sha256": "a79c114b69f7e22e625d8edab155d4f44c98c1c4affbcb826dcef635b3516003",
-      "mtime_iso": "2025-09-25T02:51:25Z"
+      "size_bytes": 2159,
+      "sha256": "db911d58cc53a76efdb97719f448198c717937ed7cb1722d58722d498956d00b",
+      "mtime_iso": "2025-09-26T01:26:15Z"
     },
     {
       "path": "scripts/release.sh",
@@ -2752,140 +2752,140 @@
       "role": "schema",
       "size_bytes": 3868,
       "sha256": "f541e537bd5afc16ea997a079a3c5c8e53625e817216ce77358c567dec3d1712",
-      "mtime_iso": "2025-09-26T00:26:20Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/02_spec_spectrum.schema.json",
       "role": "schema",
       "size_bytes": 3642,
       "sha256": "8110ef1346aab830310e04cf96842a461e202f831e3d6140c6f8070815499ab8",
-      "mtime_iso": "2025-09-26T00:26:20Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/03_meta_stability_fR.schema.json",
       "role": "schema",
       "size_bytes": 3726,
       "sha256": "be953dc7a0854c7bcea5a7ac5bbcf2b4769c08aa3b356ebd053c993d0b503435",
-      "mtime_iso": "2025-09-26T00:26:20Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/05_nucleosynthesis_parameters.schema.json",
       "role": "schema",
       "size_bytes": 3989,
       "sha256": "116bb62753c155ea833f9b4d3b339dd42bd875ea82c0a553605ae3bbf731e0f9",
-      "mtime_iso": "2025-09-26T00:26:20Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/06_cmb_params.schema.json",
       "role": "schema",
       "size_bytes": 5509,
       "sha256": "e8415e89ca113787ebbefff0f1ce66df3219568564acc816f4f51d903b082664",
-      "mtime_iso": "2025-09-26T00:33:16Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/07_meta_perturbations.schema.json",
       "role": "schema",
-      "size_bytes": 6380,
-      "sha256": "22a59357dde0a00ea548a615e71d97c2f11c2f811084aac475bb1366b4e9bd71",
-      "mtime_iso": "2025-09-26T00:25:44Z"
+      "size_bytes": 6373,
+      "sha256": "049fd13415c88caedbaa5d25d6005aafb7a03045439fe4cb123c519787444198",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/07_params_perturbations.schema.json",
       "role": "schema",
-      "size_bytes": 5979,
-      "sha256": "830f27d0e7fa851743168abaeb449ced5bcaaabdd8dc0d6dffb4709ad0b45a18",
-      "mtime_iso": "2025-09-26T00:25:35Z"
+      "size_bytes": 5975,
+      "sha256": "11be5e68a951c6c89b6da39bcb88df1b0a2a0b195fc8244ceb1454152ca26806",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/08_coupling_params.schema.json",
       "role": "schema",
-      "size_bytes": 1750,
-      "sha256": "1c746f7d222dcb635bcd91ce123e40c3e3050f9f78054f645959db8c186b5851",
-      "mtime_iso": "2025-09-26T00:33:16Z"
+      "size_bytes": 1740,
+      "sha256": "224aa2e45d76ca928c7c330b755924f1346770829f9fc31cb05c2de855818814",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/09_best_params.schema.json",
       "role": "schema",
-      "size_bytes": 8145,
-      "sha256": "36f8a5a6f8b9b0b7ac34f29c1be2ba65a7b12834474e98d205f5a5cdafdc98ff",
-      "mtime_iso": "2025-09-26T00:33:27Z"
+      "size_bytes": 8141,
+      "sha256": "dab8e46ffd690c7222cbd32399450b4213801ab57207d8be342df8e55bb511dd",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/09_phases_imrphenom.meta.schema.json",
       "role": "schema",
       "size_bytes": 5878,
-      "sha256": "ee7035e63b255d87c3fe26a60b90c5e399627ce45936e425ee3f1da88db03c4f",
-      "mtime_iso": "2025-09-25T23:51:35Z"
+      "sha256": "c49aa03d512e5ea1df2046635f0e051a0e724fd5d1c6b40057beece7f256360c",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/comparison_milestones_table_schema.json",
       "role": "schema",
       "size_bytes": 3054,
       "sha256": "22717a07d3730be09806f24bb85a18785b22e03871f5f875f641ddbe8076882f",
-      "mtime_iso": "2025-09-26T00:26:11Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/consistency_rules.json",
       "role": "schema",
-      "size_bytes": 1174,
-      "sha256": "13870831e118c5c945e579b1236b7fd837af4e7f985b0ca6535f9b1bb734dabb",
-      "mtime_iso": "2025-09-25T23:51:35Z"
+      "size_bytes": 1220,
+      "sha256": "35068d573a151aeb3eda821218e96723c55fc7354cdbff9ec6090fd0aacae385",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/mc_best_schema.json",
       "role": "schema",
       "size_bytes": 4110,
       "sha256": "e855c089a68f16136650f469ceeb4b1daed2480bb22ff477e344bc58d3ec5dc2",
-      "mtime_iso": "2025-09-25T23:51:35Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/mc_config_schema.json",
       "role": "schema",
       "size_bytes": 4828,
       "sha256": "c67a8ef696e7d8d366545945b80752aa559c9c9e097a8fb6cf63baa79df5bc48",
-      "mtime_iso": "2025-09-26T00:25:29Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/mc_results_table_schema.json",
       "role": "schema",
       "size_bytes": 2726,
       "sha256": "33e4a7120bb2c965c9f3ab0890c3f6f6239d661f93bf6f65d2131c8abe20fb16",
-      "mtime_iso": "2025-09-26T00:25:29Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/meta_schema.json",
       "role": "schema",
       "size_bytes": 3227,
       "sha256": "9f8f61750399921539e30d5d2357575a28001c6f29affadbd99b3ad848214b35",
-      "mtime_iso": "2025-09-26T00:25:29Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/metrics_phase_schema.json",
       "role": "schema",
       "size_bytes": 10500,
       "sha256": "3f3f5ebb2c41facac2da87f48ce8d68afce8558ed3f6ab315102dde3e0015adb",
-      "mtime_iso": "2025-09-26T00:33:31Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/results_schema_examples.json",
       "role": "schema",
       "size_bytes": 26049,
       "sha256": "d8d2c1d52783bf082b93d1bcaa83af66c3a2732e67b722d5377d2b0b7c4f010e",
-      "mtime_iso": "2025-09-25T23:51:35Z"
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "zz-schemas/validation_globals.json",
       "role": "schema",
-      "size_bytes": 4260,
-      "sha256": "2535efd20adf2b07ec68598d79e3ada1eacc1d1476838d4e57abaf20485268de",
-      "mtime_iso": "2025-09-25T23:51:35Z"
+      "size_bytes": 4307,
+      "sha256": "2af8ac366d1ea8b5666b3865989a54b7495a3d38fc1da30fb3694eb2faf6a419",
+      "mtime_iso": "2025-09-26T01:04:13Z"
     },
     {
       "path": "tools/convert_degrees_to_radians_ch9.py",
       "role": "script",
-      "size_bytes": 2367,
-      "sha256": "64770e38b8fe448b2b860fd5ec1bfa79717beb294dd1240d783b058248dca02f",
-      "mtime_iso": "2025-09-25T23:39:30Z"
+      "size_bytes": 2419,
+      "sha256": "5b59c96f98df6e11e404e4725aab339ed36363238dc99e8c60dae54371211b04",
+      "mtime_iso": "2025-09-26T01:04:45Z"
     },
     {
       "path": "01-introduction-applications/01_applications_calibration_conceptuel.tex",
@@ -3121,11 +3121,9 @@
   ],
   "total_entries": 0,
   "project": {
-    "name": "MCGT",
-    "description": "Manifeste des artefacts (données, figures, scripts) du projet MCGT.",
-    "contact": "Jean-Philip Lalumière <contact@jeanphiliplalumiere.com>",
-    "website": "https://example.org/mcgt",
-    "license": "MIT"
+    "name": "mcgt-core",
+    "version": "0.2.30",
+    "homepage": ""
   },
   "repository_root": "."
 }

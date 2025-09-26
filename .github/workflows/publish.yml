@@ -49,6 +49,26 @@ jobs:
         with:
           name: dist
           path: dist
+
+      - name: Inspect METADATA (debug)
+        run: |
+          python - <<'PY'
+          import glob, zipfile, sys
+          wheels = sorted(glob.glob("dist/*.whl"))
+          if not wheels:
+            print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
+          for whl in wheels:
+            with zipfile.ZipFile(whl) as zf:
+              meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+              if not meta:
+                print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+              data = zf.read(meta[0]).decode("utf-8", "replace")
+              print(f"--- {whl} :: {meta[0]} (début) ---")
+              for line in data.splitlines()[:20]:
+                print(line)
+              print("--- FIN ---")
+          PY
+
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@v1.12.2
         with:
@@ -69,6 +89,26 @@ jobs:
         with:
           name: dist
           path: dist
+
+      - name: Inspect METADATA (debug)
+        run: |
+          python - <<'PY'
+          import glob, zipfile, sys
+          wheels = sorted(glob.glob("dist/*.whl"))
+          if not wheels:
+            print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
+          for whl in wheels:
+            with zipfile.ZipFile(whl) as zf:
+              meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+              if not meta:
+                print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+              data = zf.read(meta[0]).decode("utf-8", "replace")
+              print(f"--- {whl} :: {meta[0]} (début) ---")
+              for line in data.splitlines()[:20]:
+                print(line)
+              print("--- FIN ---")
+          PY
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.12.2
         with:

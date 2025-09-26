@@ -77,10 +77,14 @@ if ! [[ "$VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z\.-]+)?$ ]]; then
   err "Version invalide: $VER"
 fi
 
-# Git sanity
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then err "Pas un dépôt git."; fi
-if ! git diff --quiet || ! git diff --cached --quiet; then
-  if [[ "${FORCE:-0}" == "1" ]]; then
+# Git sanity (DRYRUN => NOTE, FORCE => WARN, sinon => ERR)
+dirty=0
+git diff --quiet        || dirty=1
+git diff --cached --quiet || dirty=1
+if (( dirty )); then
+  if [[ "${DRYRUN:-0}" == "1" ]]; then
+    note "WT/Index non propres (DRYRUN) — on continue."
+  elif [[ "${FORCE:-0}" == "1" ]]; then
     warn "WT/Index non propres mais FORCE=1 → on continue."
   else
     err "WT/Index non propres (FORCE=1 pour ignorer)."

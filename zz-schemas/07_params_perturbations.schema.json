@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "zz-schemas/07_perturbations_parameters.schema.json",
+  "$id": "zz-schemas/07_params_perturbations.schema.json",
   "title": "Chapter 07 — Perturbations parameters",
   "description": "Schéma validant les paramètres numériques et pipeline utilisés au Chapitre 7 (perturbations scalaires). Fichier cible: 07_params_perturbations.json.",
   "type": "object",

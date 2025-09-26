@@ -34,8 +34,13 @@ jobs:
           if [ -f Makefile ] && grep -qE '^\s*validate\s*:' Makefile; then
             make validate
           else
-            echo "No make validate target; basic sanity only."
-            # JSON well-formed (fast scan)
+            echo "== basic sanity =="
+            # JSON well-formed
             find . -type f -name '*.json' -not -path './.git/*' -print0 \
               | xargs -0 -I{} sh -c 'jq -e . "{}" >/dev/null || (echo "Invalid JSON: {}" && exit 1)'
+            # Manifests exist if present & are objects with relative paths
+            for mf in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
+              [ -f "$mf" ] || continue
+              jq -e '.manifest_version and .repository_root=="." and (.entries|type)=="array" and (.entries|all(.path|startswith("/")|not))' "$mf" >/dev/null
+            done
           fi

@@ -1643,28 +1643,28 @@
     },
     {
       "path": "tests/test_00_imports.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 280,
       "sha256": "86092b5eeb065e7c1e23ca60af7668294691d67f13fea6716270fdb2a891ae70",
       "mtime_iso": "2025-09-23T21:19:22Z"
     },
     {
       "path": "tests/test_01_cli.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 745,
       "sha256": "e3d0a10b9a3490714fdcb230a92b49baba492384e7387e03145a6df9f5e50c09",
       "mtime_iso": "2025-09-23T21:19:29Z"
     },
     {
       "path": "tests/test_02_public_api.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 153,
       "sha256": "63cf17295c54de3c0a8fccdac6348feabab9bf525960e8d009c0214c2fdd8b9f",
       "mtime_iso": "2025-09-23T21:19:32Z"
     },
     {
       "path": "tests/test_fig02_columns.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 735,
       "sha256": "9aec3668b2f3817b1b25d94fc95a856250ed4d7bbdb2cd3ddce5fc48abe95297",
       "mtime_iso": "2025-09-23T22:04:13Z"
@@ -2693,21 +2693,21 @@
     },
     {
       "path": "zz-tests/pytest.ini",
-      "role": "test",
+      "role": "code",
       "size_bytes": 681,
       "sha256": "2063518f7bc4cb7e3e3839821d151421658fd420b001e2f5cccc534cac972080",
       "mtime_iso": "2025-09-12T22:19:26Z"
     },
     {
       "path": "zz-tests/test_manifest.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 1918,
       "sha256": "84f15953a5f9da70ed87b9bb1d5b8030a60f91bcfb08667663a9f23480aab585",
       "mtime_iso": "2025-09-23T22:04:13Z"
     },
     {
       "path": "zz-tests/test_schemas.py",
-      "role": "test",
+      "role": "code",
       "size_bytes": 1918,
       "sha256": "84f15953a5f9da70ed87b9bb1d5b8030a60f91bcfb08667663a9f23480aab585",
       "mtime_iso": "2025-09-23T22:04:13Z"

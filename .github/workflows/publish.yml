@@ -54,6 +54,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: dist
+        # If someone renamed the artifact, fail clearly here
           path: dist
 
       - name: Show downloaded dist tree

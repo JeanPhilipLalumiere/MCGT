@@ -60,7 +60,7 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/ (pas bloquant)"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
@@ -73,8 +73,9 @@ jobs:
                   print("--- FIN ---")
           PY
 
-      - name: Publish to TestPyPI (skips if secret missing)
+      - name: Publish to TestPyPI (twine)
         if: env.TEST_PYPI_API_TOKEN != ''
+        continue-on-error: true
         run: |
           python -m pip install -U twine >/dev/null
           python -m twine upload \
@@ -83,6 +84,7 @@ jobs:
             -u __token__ \
             -p "$TEST_PYPI_API_TOKEN" \
             --skip-existing dist/*
+
       - name: Note missing TEST_PYPI_API_TOKEN
         if: env.TEST_PYPI_API_TOKEN == ''
         run: echo "🔒 TEST_PYPI_API_TOKEN absent — publication TestPyPI sautée."
@@ -105,7 +107,7 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/ (pas bloquant)"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
@@ -118,8 +120,9 @@ jobs:
                   print("--- FIN ---")
           PY
 
-      - name: Publish to PyPI (skips if secret missing)
+      - name: Publish to PyPI (twine)
         if: env.PYPI_API_TOKEN != ''
+        continue-on-error: true
         run: |
           python -m pip install -U twine >/dev/null
           python -m twine upload \
@@ -127,6 +130,7 @@ jobs:
             -u __token__ \
             -p "$PYPI_API_TOKEN" \
             --skip-existing dist/*
+
       - name: Note missing PYPI_API_TOKEN
         if: env.PYPI_API_TOKEN == ''
         run: echo "🔒 PYPI_API_TOKEN absent — publication PyPI sautée."

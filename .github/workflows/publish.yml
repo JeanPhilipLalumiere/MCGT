@@ -1,5 +1,4 @@
-name: Publish to PyPI
-
+name: Publish (PyPI / TestPyPI via OIDC)
 on:
   push:
     tags:
@@ -14,19 +13,17 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
       - name: Build wheel & sdist
-        shell: bash
         run: |
           set -euo pipefail
           python -m pip install -U pip build
@@ -39,13 +36,19 @@ jobs:
           set -euo pipefail
           TAG="${GITHUB_REF_NAME#v}"
           WHL="$(ls dist/*.whl | head -n1)"
-          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; w=Path(sys.argv[1]); z=zipfile.ZipFile(w); m=[n for n in z.namelist() if n.endswith('METADATA')][0]; print(Parser().parsestr(z.read(m).decode()).get('Version'))" "$WHL")"
-          echo "Tag: ${TAG}"
-          echo "Wheel: ${WHL}"
-          echo "Package version: ${PKG_VER}"
+          PKG_VER="$(python -c "import sys,zipfile;from email.parser import Parser;from pathlib import Path; w=Path(sys.argv[1]); z=zipfile.ZipFile(w); m=[n for n in z.namelist() if n.endswith('METADATA')][0]; import io; print(Parser().parsestr(io.TextIOWrapper(z.open(m),encoding='utf-8').read()).get('Version'))" "$WHL")"
+          echo "Tag=${TAG} | Wheel=${WHL} | Version=${PKG_VER}"
           test "${TAG}" = "${PKG_VER}" || { echo "::error::Version mismatch: tag=${TAG}, package=${PKG_VER}"; exit 1; }
 
-      - name: Publish to PyPI (OIDC Trusted Publishing)
+      - name: Publish to TestPyPI for RC tags
+        if: contains(github.ref, '-rc')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist
+          repository-url: https://test.pypi.org/legacy/
+
+      - name: Publish to PyPI for final tags
+        if: "!contains(github.ref, '-rc')"
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist

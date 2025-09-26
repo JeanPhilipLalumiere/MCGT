@@ -45,12 +45,17 @@ jobs:
   publish-testpypi:
     needs: build
     runs-on: ubuntu-latest
-    # RC gating strict: tag commence par v et contient 'rc' (forme vX.Y.ZrcN). Évitez '-rc' par défaut.
+    # RC gating strict: tag commence par v, contient 'rc', et ne contient pas '-rc' (modifiez au besoin).
     if: startsWith(github.ref, 'refs/tags/') && startsWith(github.ref_name, 'v') && contains(github.ref_name, 'rc') && !contains(github.ref_name, '-rc')
     env:
       TEST_PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -64,7 +69,7 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("ℹ️ Aucun .whl trouvé dans dist/ (non bloquant)"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
@@ -80,14 +85,11 @@ jobs:
       - name: Publish to TestPyPI (twine)
         if: env.TEST_PYPI_API_TOKEN != ''
         continue-on-error: true
-        run: |
-          python -m pip install -U twine >/dev/null
-          python -m twine upload \
-            --non-interactive \
-            --repository-url https://test.pypi.org/legacy/ \
-            -u __token__ \
-            -p "$TEST_PYPI_API_TOKEN" \
-            --skip-existing dist/*
+        run: >
+          python -m pip install -U twine >/dev/null &&
+          python -m twine upload --non-interactive
+          --repository-url https://test.pypi.org/legacy/
+          -u __token__ -p "$TEST_PYPI_API_TOKEN" --skip-existing dist/*
 
       - name: Note missing TEST_PYPI_API_TOKEN
         if: env.TEST_PYPI_API_TOKEN == ''
@@ -100,7 +102,12 @@ jobs:
     env:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -114,7 +121,7 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("ℹ️ Aucun .whl trouvé dans dist/ (non bloquant)"); sys.exit(0)
+              print("ℹ️ Aucun .whl trouvé dans dist/"); sys.exit(0)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
@@ -130,13 +137,10 @@ jobs:
       - name: Publish to PyPI (twine)
         if: env.PYPI_API_TOKEN != ''
         continue-on-error: true
-        run: |
-          python -m pip install -U twine >/dev/null
-          python -m twine upload \
-            --non-interactive \
-            -u __token__ \
-            -p "$PYPI_API_TOKEN" \
-            --skip-existing dist/*
+        run: >
+          python -m pip install -U twine >/dev/null &&
+          python -m twine upload --non-interactive
+          -u __token__ -p "$PYPI_API_TOKEN" --skip-existing dist/*
 
       - name: Note missing PYPI_API_TOKEN
         if: env.PYPI_API_TOKEN == ''

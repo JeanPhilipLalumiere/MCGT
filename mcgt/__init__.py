@@ -25,7 +25,7 @@ __all__ = [
     "perturbations",
 ]
 
-__version__ = "0.2.46"
+__version__ = "$NEW_VER"
 
 # --- logging minimal ---
 import logging

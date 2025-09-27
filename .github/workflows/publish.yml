@@ -45,6 +45,7 @@ jobs:
         with:
           name: dist
           path: dist
+
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'
@@ -62,8 +63,10 @@ jobs:
                   print("\n".join(data.splitlines()[:25]))
                   print("--- FIN ---")
           PY
+
       - name: Twine check (downloaded)
         run: python -m twine check dist/*
+
       - name: Publish to TestPyPI (token path)
         if: ${{ secrets.TEST_PYPI_API_TOKEN != '' }}
         uses: pypa/gh-action-pypi-publish@v1.12.2
@@ -75,6 +78,7 @@ jobs:
           skip-existing: true
           verify-metadata: true
           attestations: false
+
       - name: Publish to TestPyPI (OIDC path)
         if: ${{ secrets.TEST_PYPI_API_TOKEN == '' }}
         uses: pypa/gh-action-pypi-publish@v1.12.2
@@ -94,6 +98,7 @@ jobs:
         with:
           name: dist
           path: dist
+
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'
@@ -111,8 +116,10 @@ jobs:
                   print("\n".join(data.splitlines()[:25]))
                   print("--- FIN ---")
           PY
+
       - name: Twine check (downloaded)
         run: python -m twine check dist/*
+
       - name: Publish to PyPI (token path)
         if: ${{ secrets.PYPI_API_TOKEN != '' }}
         uses: pypa/gh-action-pypi-publish@v1.12.2
@@ -123,6 +130,7 @@ jobs:
           skip-existing: true
           verify-metadata: true
           attestations: false
+
       - name: Publish to PyPI (OIDC path)
         if: ${{ secrets.PYPI_API_TOKEN == '' }}
         uses: pypa/gh-action-pypi-publish@v1.12.2

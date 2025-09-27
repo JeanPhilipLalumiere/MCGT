@@ -8,38 +8,56 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      dist-exists: ${{ steps.check.outputs.exists }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Upgrade build tooling
         run: python -m pip install -U pip build twine
+
       - name: Clean
         run: rm -rf dist build *.egg-info || true
+
       - name: Build sdist & wheel
         run: python -m build
+
       - name: Twine check (local)
         run: python -m twine check dist/*
+
+      - name: Ensure dist non-empty
+        id: check
+        run: |
+          shopt -s nullglob || true
+          files=(dist/*)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::set-output name=exists::false"
+            exit 1
+          else
+            echo "::set-output name=exists::true"
+          fi
+
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/*
-          if-no-files-found: error
 
   publish-testpypi:
     needs: build
+    if: startsWith(github.ref, 'refs/tags/') && contains(github.ref, 'rc')
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, 'rc')
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -52,78 +70,26 @@ jobs:
           import glob, zipfile, sys
           wheels = sorted(glob.glob("dist/*.whl"))
           if not wheels:
-              print("❌ Aucun .whl trouvé"); sys.exit(2)
+              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
           for whl in wheels:
               with zipfile.ZipFile(whl) as zf:
                   meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
                   if not meta:
-                      print(f"❌ {whl}: pas de METADATA"); continue
-                  data = zf.read(meta[0]).decode("utf-8","replace")
-                  print(f"--- {whl} :: {meta[0]} ---")
-                  print("\n".join(data.splitlines()[:25]))
+                      print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+                  data = zf.read(meta[0]).decode("utf-8", "replace")
+                  print(f"--- {whl} :: {meta[0]} (début) ---")
+                  for line in data.splitlines()[:25]:
+                      print(line)
                   print("--- FIN ---")
           PY
 
-      - name: Twine check (downloaded)
+      - name: Twine check (artifact)
         run: python -m twine check dist/*
 
-      - name: Publish to TestPyPI (token path)
-        if: ${{ secrets.TEST_PYPI_API_TOKEN != '' }}
+      - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@v1.12.2
         with:
           repository-url: https://test.pypi.org/legacy/
-          user: __token__
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          packages-dir: dist
-          skip-existing: true
-          verify-metadata: true
-          attestations: false
-
-      - name: Publish to TestPyPI (OIDC path)
-        if: ${{ secrets.TEST_PYPI_API_TOKEN == '' }}
-        uses: pypa/gh-action-pypi-publish@v1.12.2
-        with:
-          repository-url: https://test.pypi.org/legacy/
-          packages-dir: dist
-          skip-existing: true
-          verify-metadata: true
-          attestations: false
-
-  publish-pypi:
-    needs: build
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, 'rc')
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Inspect METADATA (debug)
-        run: |
-          python - <<'PY'
-          import glob, zipfile, sys
-          wheels = sorted(glob.glob("dist/*.whl"))
-          if not wheels:
-              print("❌ Aucun .whl trouvé"); sys.exit(2)
-          for whl in wheels:
-              with zipfile.ZipFile(whl) as zf:
-                  meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
-                  if not meta:
-                      print(f"❌ {whl}: pas de METADATA"); continue
-                  data = zf.read(meta[0]).decode("utf-8","replace")
-                  print(f"--- {whl} :: {meta[0]} ---")
-                  print("\n".join(data.splitlines()[:25]))
-                  print("--- FIN ---")
-          PY
-
-      - name: Twine check (downloaded)
-        run: python -m twine check dist/*
-
-      - name: Publish to PyPI (token path)
-        if: ${{ secrets.PYPI_API_TOKEN != '' }}
-        uses: pypa/gh-action-pypi-publish@v1.12.2
-        with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
@@ -131,10 +97,43 @@ jobs:
           verify-metadata: true
           attestations: false
 
-      - name: Publish to PyPI (OIDC path)
-        if: ${{ secrets.PYPI_API_TOKEN == '' }}
+  publish-pypi:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'rc')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Inspect METADATA (debug)
+        run: |
+          python - <<'PY'
+          import glob, zipfile, sys
+          wheels = sorted(glob.glob("dist/*.whl"))
+          if not wheels:
+              print("❌ Aucun .whl trouvé dans dist/"); sys.exit(2)
+          for whl in wheels:
+              with zipfile.ZipFile(whl) as zf:
+                  meta = [n for n in zf.namelist() if n.endswith(".dist-info/METADATA")]
+                  if not meta:
+                      print(f"❌ {whl}: pas de .dist-info/METADATA"); continue
+                  data = zf.read(meta[0]).decode("utf-8", "replace")
+                  print(f"--- {whl} :: {meta[0]} (début) ---")
+                  for line in data.splitlines()[:25]:
+                      print(line)
+                  print("--- FIN ---")
+          PY
+
+      - name: Twine check (artifact)
+        run: python -m twine check dist/*
+
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.12.2
         with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
           skip-existing: true
           verify-metadata: true

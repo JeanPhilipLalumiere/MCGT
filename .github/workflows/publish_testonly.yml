@@ -1,16 +1,12 @@
-name: Build & Publish to TestPyPIH
- isolated
+name: Build & Publish to TestPyPI (isolated)
 
 on:
-
-  workflow_dispatch:
-    # au moins 1 manuel
-    parameters: {}
-
+  workflow_dispatch: {}
   push:
     tags:
-- v*-testretry.**
-permissions: 
+      - v*-testretry.**
+
+permissions:
   contents: read
   id-token: write
 

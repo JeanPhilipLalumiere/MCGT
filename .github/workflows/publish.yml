@@ -5,6 +5,11 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      ref:
+        description: "Ref (branche ou tag) à builder/publier"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -38,14 +43,16 @@ jobs:
 
       - name: Ensure dist non-empty
         id: check
+        shell: bash
         run: |
           shopt -s nullglob || true
           files=(dist/*)
           if [ "${#files[@]}" -eq 0 ]; then
-            echo "::set-output name=exists::false"
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "No built artifacts in dist/"
             exit 1
           else
-            echo "::set-output name=exists::true"
+            echo "exists=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload dist artifacts
@@ -56,7 +63,7 @@ jobs:
 
   publish-testpypi:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/') && contains(github.ref, 'rc')
+    if: startsWith(github.ref, 'refs/tags/v') && contains(github.ref, 'rc')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -91,7 +98,7 @@ jobs:
         with:
           repository-url: https://test.pypi.org/legacy/
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           packages-dir: dist
           skip-existing: true
           verify-metadata: true
@@ -99,7 +106,7 @@ jobs:
 
   publish-pypi:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'rc')
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, 'rc')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4

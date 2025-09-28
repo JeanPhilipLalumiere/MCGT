@@ -1,6 +1,6 @@
 [project]
 license-files = []
-version = "$NEW_VER"
+version = "0.2.47"
 name = "mcgt-core"
 readme = "README.md"
 dependencies = [

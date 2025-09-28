@@ -71,6 +71,11 @@ jobs:
           name: dist
           path: dist
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install twine
+        run: python -m pip install -U pip twine
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'
@@ -114,6 +119,11 @@ jobs:
           name: dist
           path: dist
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install twine
+        run: python -m pip install -U pip twine
       - name: Inspect METADATA (debug)
         run: |
           python - <<'PY'

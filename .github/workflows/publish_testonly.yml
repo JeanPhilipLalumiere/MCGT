@@ -8,22 +8,70 @@ on:
     paths:
       - .ci_poke/**
       - .github/workflows/publish_testonly.yml
+      - pyproject.toml
+      - setup.cfg
+      - setup.py
+      - src/**
+      - MCGT/**
+      - package.json
+      - poetry.lock
+      - requirements*.txt
 
 permissions:
   contents: read
+  id-token: write  # requis si on utilise pypa/gh-action-pypi-publish (OpenID Connect)
 
 jobs:
-  smoke:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Show context
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build backend
         run: |
-          echo "branch=$GITHUB_REF"
-          echo "sha=$GITHUB_SHA"
-          echo "actor=$GITHUB_ACTOR"
-      - name: Python smoke
+          python -m pip install --upgrade pip
+          pip install build
+
+      - name: Build dist (wheel+sdist)
         run: |
-          python3 -V || true
-          echo "hello from smoke"
+          python -m build
+          ls -la dist || true
+
+      - name: Upload artifact 'dist'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
+
+  publish-testpypi:
+    needs: build
+    # Ne publie que:
+    # - si on a déclenché via workflow_dispatch
+    # - si on est bien sur la branche fixe
+    # - si le secret TEST_PYPI_API_TOKEN est défini côté repo
+    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/ci/testpypi-workflow-rmid' && secrets.TEST_PYPI_API_TOKEN != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact 'dist'
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Publish to TestPyPI (pypa/gh-action-pypi-publish)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist
+          skip-existing: true
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}

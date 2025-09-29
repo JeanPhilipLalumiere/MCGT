@@ -6,6 +6,8 @@ on:
     tags:
       - v*-testretry.**
 
+    branches:
+      - ci/testpypi-workflow-rmid-20250929T185423Z
 permissions:
   contents: read
   id-token: write
@@ -74,3 +76,4 @@ jobs:
           verify-metadata: false
           skip-existing: true
           attestations: false
+_ci_touch_comment: touch 2025-09-29T18:54:24Z

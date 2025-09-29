@@ -12,6 +12,7 @@ on:
     paths:
     - .github/workflows/publish_testonly.yml
     - .ci_poke
+    - .ci_poke/**
 permissions:
   contents: read
   id-token: write
@@ -84,5 +85,3 @@ jobs:
         attestations: false
     if: (github.event_name == 'workflow_dispatch') || startsWith(github.ref, 
       'refs/heads/ci/testpypi-workflow-rmid')
-_ci_touch_comment: patched 2025-09-29T19:55:40Z
-# _ci_touch: 2025-09-29T19:23:56Z

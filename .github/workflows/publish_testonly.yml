@@ -17,6 +17,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
+      - name: Upgrade build tooling
+        run: |
+          python -m pip install -U pip build wheel "setuptools<75"
         with:
           python-version: "3.12"
 

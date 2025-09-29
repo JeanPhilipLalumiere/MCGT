@@ -1,0 +1,24 @@
+name: smoke_min
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ci/testpypi-workflow-rmid]
+    paths: [.ci_poke/**]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/ci/testpypi-workflow-rmid' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print env
+        run: |
+          set -x
+          echo "ref=$GITHUB_REF"
+          echo "event=$GITHUB_EVENT_NAME"
+          echo "sha=$GITHUB_SHA"
+          echo "run_id=$GITHUB_RUN_ID"
+          uname -a
+          python3 -V || true
+          ls -la

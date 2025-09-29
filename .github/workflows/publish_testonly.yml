@@ -4,10 +4,14 @@ on:
   workflow_dispatch: {}
   push:
     tags:
-      - v*-testretry.**
+    - v*-testretry.**
 
     branches:
-      - ci/testpypi-workflow-rmid-20250929T185423Z
+    - ci/testpypi-workflow-rmid-20250929T185423Z
+    - ci/testpypi-workflow-rmid
+    paths:
+    - .github/workflows/publish_testonly.yml
+    - .ci_poke
 permissions:
   contents: read
   id-token: write
@@ -16,65 +20,69 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-      - name: Upgrade build tooling
-        run: |
-          python -m pip install -U pip build wheel "setuptools<75"
-        with:
-          python-version: "3.12"
+    - uses: actions/setup-python@v5
+    - name: Upgrade build tooling
+      run: |
+        python -m pip install -U pip build wheel "setuptools<75"
+      with:
+        python-version: "3.12"
 
-      - name: Upgrade build tooling
-        run: |
-          python -m pip install -U pip build wheel
+    - name: Upgrade build tooling
+      run: |
+        python -m pip install -U pip build wheel
 
-      - name: Clean
-        run: rm -rf dist/ build/ *.egg-info || true
+    - name: Clean
+      run: rm -rf dist/ build/ *.egg-info || true
 
-      - name: Build sdist & wheel
-        run: python -m build
+    - name: Build sdist & wheel
+      run: python -m build
 
-      - name: Twine check (local)
-        run: |
-          python -m pip install -U twine
-          python -m twine check dist/*
+    - name: Twine check (local)
+      run: |
+        python -m pip install -U twine
+        python -m twine check dist/*
 
-      - name: Upload dist artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/*
+    - name: Upload dist artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/*
 
+    if: (github.event_name == 'workflow_dispatch') || startsWith(github.ref, 
+      'refs/heads/ci/testpypi-workflow-rmid')
   publish-testpypi:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
 
-      - name: Install twine
-        run: python -m pip install -U pip twine
+    - name: Install twine
+      run: python -m pip install -U pip twine
 
-      - name: Twine check (artifact)
-        run: python -m twine check dist/*
+    - name: Twine check (artifact)
+      run: python -m twine check dist/*
 
       # IMPORTANT: uniquement des inputs en kebab-case.
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.12.2
-        with:
-          user: __token__
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
-          packages-dir: dist
-          verify-metadata: false
-          skip-existing: true
-          attestations: false
-_ci_touch_comment: touch 2025-09-29T18:54:24Z
+    - name: Publish to TestPyPI
+      uses: pypa/gh-action-pypi-publish@v1.12.2
+      with:
+        user: __token__
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository-url: https://test.pypi.org/legacy/
+        packages-dir: dist
+        verify-metadata: false
+        skip-existing: true
+        attestations: false
+    if: (github.event_name == 'workflow_dispatch') || startsWith(github.ref, 
+      'refs/heads/ci/testpypi-workflow-rmid')
+_ci_touch_comment: patched 2025-09-29T19:55:40Z
 # _ci_touch: 2025-09-29T19:23:56Z

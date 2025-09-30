@@ -1654,9 +1654,9 @@
     {
       "path": "Makefile",
       "role": "document",
-      "size_bytes": 2644,
-      "sha256": "69a4fd9abdf4b7f1d49d5e392ebf6e22c7b57dedca2778165cc67a12815efb4e",
-      "mtime_iso": "2025-09-30T23:05:03Z",
+      "size_bytes": 2583,
+      "sha256": "3cf6ba7a324200299467addc5852366852116246bc10a2da22607d427bc5c81a",
+      "mtime_iso": "2025-09-30T22:31:24Z",
       "git_hash": "86b3f9c4ba4afd7501bac1af1229a1cbe81eba11"
     },
     {

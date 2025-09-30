@@ -1,4 +1,4 @@
-name: .github/workflows/publish_testonly.yml
+name: publish_testonly
 
 on:
   workflow_dispatch:
@@ -15,7 +15,6 @@ on:
       - MCGT/**
       - requirements*.txt
       - poetry.lock
-      - package.json
 
 permissions:
   contents: read

@@ -1654,10 +1654,10 @@
     {
       "path": "Makefile",
       "role": "document",
-      "size_bytes": 2648,
-      "sha256": "51b3392c18fd88d17f92a589a824bc19b6eb9111edce5bb7783ec6588e18a41f",
-      "mtime_iso": "2025-09-30T23:08:25Z",
-      "git_hash": "fe01adb4daa813976f162d0660f16b03659cb9ab"
+      "size_bytes": 2644,
+      "sha256": "69a4fd9abdf4b7f1d49d5e392ebf6e22c7b57dedca2778165cc67a12815efb4e",
+      "mtime_iso": "2025-09-30T23:05:03Z",
+      "git_hash": "86b3f9c4ba4afd7501bac1af1229a1cbe81eba11"
     },
     {
       "path": "_tools/phase1_2h_export_find_top_residuals.sh",

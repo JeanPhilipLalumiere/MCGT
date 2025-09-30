@@ -1,6 +1,6 @@
 # --- Minimal MCGT Makefile ---
 SHELL := /bin/bash
-# .RECIPEPREFIX := >
+.RECIPEPREFIX := >
 .DEFAULT_GOAL := help
 
 PY             ?= python3
@@ -51,7 +51,7 @@ clean:
 	# > rm -rf build dist *.egg-info
 
 # === MCGT: validation targets ===
-# .RECIPEPREFIX := >
+.RECIPEPREFIX := >
 .PHONY: validate validate-json validate-csv diag
 
 # Pipeline complet

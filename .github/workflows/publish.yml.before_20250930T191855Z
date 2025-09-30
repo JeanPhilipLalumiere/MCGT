@@ -1,0 +1,42 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build sdist & wheel
+        run: python -m build
+
+      # Si tu utilises Trusted Publishing (recommandé), ceci suffit:
+      - name: Publish to PyPI (OIDC)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          skip-existing: true
+
+      # Sinon, dé-commente la ligne suivante et configure PYPI_API_TOKEN dans les secrets:
+      # with:
+      #   password: ${{ secrets.PYPI_API_TOKEN }}

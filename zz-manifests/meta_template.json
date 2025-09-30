@@ -22,23 +22,23 @@
   "license": {
     "id": "CC-BY-SA-4.0|MIT|CC0-1.0",
     "spdx_id": "CC-BY-SA-4.0",
-    "url": "[https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)"
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   "links": {
-    "code_repository": "[https://example.org/mcgt/repo](https://example.org/mcgt/repo)",
+    "code_repository": "https://example.org/mcgt/repo",
     "data_doi": "<optional-DOI-for-dataset>",
-    "documentation_url": "[https://example.org/mcgt/docs](https://example.org/mcgt/docs)",
+    "documentation_url": "https://example.org/mcgt/docs",
     "doi": "<optional-publication-DOI>",
-    "issue_tracker": "[https://example.org/mcgt/issues](https://example.org/mcgt/issues)",
-    "related_project": "[https://example.org/mcgt](https://example.org/mcgt)",
-    "website": "[https://example.org/mcgt/site](https://example.org/mcgt/site)"
+    "issue_tracker": "https://example.org/mcgt/issues",
+    "related_project": "https://example.org/mcgt",
+    "website": "https://example.org/mcgt/site"
   },
   "manifest": {
     "manifest_entry": "zz-manifests/manifest_master.json#entries/<artifact-id>",
     "manifest_master_checksum": "<sha256-of-zz-manifests/manifest_master.json>"
   },
   "notes": "Gabarit générique pour métadonnées d’artefacts (figures, tableaux, jeux de données, scripts). Remplacer les valeurs <...>. Tous les chemins de fichiers doivent être en anglais, à l’exception des sources LaTeX (*.tex) dont le nom peut rester en français.",
-  "schema_url": "[https://example.org/mcgt/manifest-meta-schema/v1.1](https://example.org/mcgt/manifest-meta-schema/v1.1)",
+  "schema_url": "https://example.org/mcgt/manifest-meta-schema/v1.1",
   "template_version": "1.1.0",
   "artifact": {
     "chapter": 0,

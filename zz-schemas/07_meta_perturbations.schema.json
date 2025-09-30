@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "zz-schemas/07_scalar_perturbations_meta.schema.json",
+  "$id": "zz-schemas/07_meta_perturbations.schema.json",
   "title": "Chapter 07 — Perturbations (meta)",
   "description": "Schéma des métadonnées pour les sorties du Chapitre 7 (perturbations scalaires). Fichier cible: 07_meta_perturbations.json.",
   "type": "object",

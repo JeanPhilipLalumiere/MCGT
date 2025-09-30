@@ -4,65 +4,198 @@
   "title": "Schéma générique pour *.meta.json (chap. 1–10)",
   "type": "object",
   "additionalProperties": true,
-
   "properties": {
-    "version":        { "type": ["string", "number", "null"] },
-    "n_points":       { "type": ["integer", "null"], "minimum": 0 },
-    "n_jalons":       { "type": ["integer", "null"], "minimum": 0 },
-    "catalog":        { "type": ["string", "null"] },
-    "zenodo_record":  { "type": ["integer", "null"], "minimum": 0 },
-    "timestamp":      { "type": ["string", "null"], "format": "date-time" },
-
+    "version": {
+      "type": [
+        "string",
+        "number",
+        "null"
+      ]
+    },
+    "n_points": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "n_jalons": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "catalog": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "zenodo_record": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
     "files": {
-      "type": ["array", "null"],
-      "items": { "type": "string" }
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
     },
-
     "grid": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "additionalProperties": true,
       "properties": {
-        "fmin_Hz":  { "type": ["number", "null"] },
-        "fmax_Hz":  { "type": ["number", "null"] },
-        "monotone": { "type": ["boolean", "null"] }
-      }
-    },
-
-    "mcgt_params": {
-      "type": ["object", "null"],
-      "additionalProperties": false,
-      "properties": {
-        "q0star": { "type": ["number", "null"] },
-        "alpha":  { "type": ["number", "null"] },
-        "phi0":   { "type": ["number", "null"] },
-        "tc":     { "type": ["number", "null"] },
-        "tol":    { "type": ["number", "null"] }
-      }
-    },
-
-    "repro": {
-      "type": ["object", "null"],
-      "additionalProperties": true,
-      "properties": {
-        "git_hash": { "type": ["string", "null"] },
-        "python":   { "type": ["string", "null"] },
-        "libs": {
-          "type": ["object", "null"],
-          "additionalProperties": { "type": "string" }
+        "fmin_Hz": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fmax_Hz": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "monotone": {
+          "type": [
+            "boolean",
+            "null"
+          ]
         }
       }
     },
-
-    "ref_choice":     { "type": ["string", "null"] },
-    "f_peak_model":   { "type": ["string", "null"] },
-    "phi_ref_model":  { "type": ["string", "null"] },
-    "cache_dir":      { "type": ["string", "null"] }
+    "mcgt_params": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "q0star": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "alpha": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "phi0": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tc": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tol": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "repro": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "git_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "python": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "libs": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ref_choice": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "f_peak_model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phi_ref_model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cache_dir": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
   },
-
   "anyOf": [
-    { "required": ["n_points"] },
-    { "required": ["n_jalons"] },
-    { "required": ["files"] },
-    { "required": ["grid"] }
+    {
+      "required": [
+        "n_points"
+      ]
+    },
+    {
+      "required": [
+        "n_jalons"
+      ]
+    },
+    {
+      "required": [
+        "files"
+      ]
+    },
+    {
+      "required": [
+        "grid"
+      ]
+    }
   ]
 }

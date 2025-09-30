@@ -1,10 +1,10 @@
 {
-  "\\$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
-  "\\$id": "zz-schemas/09_best_parameters.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/09_best_params.schema.json",
   "title": "Chapter 09 — Best polynomial / rebranch parameters",
   "description": "Schéma pour les meilleurs paramètres utilisés pour construire la phase MCGT finale (fit polynomial + unwrap + rebranch). Fichier cible: 09_best_parameters.json.",
   "type": "object",
-  "\\$defs": {
+  "$defs": {
     "fileRef": {
       "type": "object",
       "properties": {
@@ -14,7 +14,7 @@
         },
         "sha256": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}\\$"
+          "pattern": "^[0-9a-fA-F]{64}$"
         },
         "size_bytes": {
           "type": "integer",
@@ -56,8 +56,8 @@
     "basis": {
       "type": "string",
       "enum": [
-        "log10",
-        "hz"
+        "hz",
+        "log10"
       ],
       "description": "Base polynomiale pour l’ajustement."
     },
@@ -125,19 +125,25 @@
       "type": "array",
       "description": "Fenêtre utilisée pour le fit polynomial.",
       "items": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0
       },
       "minItems": 2,
-      "maxItems": 2
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
     },
     "metrics_window_Hz": {
       "type": "array",
       "description": "Fenêtre utilisée pour évaluer les métriques (moyenne/mediane/p95/max).",
       "items": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0
       },
       "minItems": 2,
-      "maxItems": 2
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
     },
     "scores": {
       "type": "object",
@@ -171,21 +177,13 @@
     },
     "variant_used": {
       "type": "string",
-      "description": "Variante φ optimisée.",
+      "description": "Variante φ optimisée. [DEPRECATED: use phase_variant]",
       "enum": [
         "phi_mcgt",
         "phi_mcgt_cal",
         "phi_mcgt_raw"
-      ]
-    },
-    "phase_variant": {
-      "type": "string",
-      "description": "Alias de variant_used (déprécié si les deux sont présents).",
-      "enum": [
-        "phi_mcgt",
-        "phi_mcgt_cal",
-        "phi_mcgt_raw"
-      ]
+      ],
+      "deprecated": true
     },
     "inputs": {
       "type": "object",
@@ -256,6 +254,15 @@
     },
     "notes": {
       "type": "string"
+    },
+    "phase_variant": {
+      "type": "string",
+      "description": "Variante φ optimisée.",
+      "enum": [
+        "phi_mcgt",
+        "phi_mcgt_cal",
+        "phi_mcgt_raw"
+      ]
     }
   },
   "additionalProperties": true,
@@ -318,17 +325,22 @@
   "anyOf": [
     {
       "required": [
-        "best"
-      ]
-    },
-    {
-      "required": [
         "basis",
         "degree",
         "coeff_desc",
         "k_cycles",
         "fit_window_Hz",
         "metrics_window_Hz"
+      ]
+    },
+    {
+      "required": [
+        "phase_variant"
+      ]
+    },
+    {
+      "required": [
+        "variant_used"
       ]
     }
   ]

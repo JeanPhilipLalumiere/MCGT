@@ -1,0 +1,8 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - ci/testpypi-workflow-rmid
+    paths:
+    - .ci_poke/**
+jobs: {}

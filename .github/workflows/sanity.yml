@@ -1,38 +1,46 @@
 name: sanity
-on:
-  push:
-  pull_request:
-
+true:
+  push: null
+  pull_request: null
 jobs:
   sanity:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install deps (minimal)
+      run: 'python -m pip install -U pip
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+        if [ -f requirements-lock.txt ]; then python -m pip install -r requirements-lock.txt
+        || true; fi
 
-      - name: Install deps (minimal)
-        run: |
-          python -m pip install -U pip
-          if [ -f requirements-lock.txt ]; then python -m pip install -r requirements-lock.txt || true; fi
-          if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt || true; fi
+        if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt
+        || true; fi
 
-      - name: "Guard: no .RECIPEPREFIX"
-        run: bash tools/guard_no_recipeprefix.sh
-
-      - name: Dry-run Make (fix-manifest)
-        run: make -n fix-manifest
-
-      - name: Manifests strict diag
-        run: |
-          python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
-            --report json --normalize-paths --apply-aliases --strip-internal \
-            --content-check --fail-on errors
-
-      - name: Pytest
-        run: python -m pytest -q
+        '
+    - name: 'Guard: no .RECIPEPREFIX'
+      run: bash tools/guard_no_recipeprefix.sh
+    - name: Dry-run Make (fix-manifest)
+      run: make -n fix-manifest
+    - name: Manifests strict diag
+      shell: bash
+      run: "set +e\npython zz-manifests/diag_consistency.py zz-manifests/manifest_master.json\
+        \ \\\n  --report json --normalize-paths --apply-aliases --strip-internal \\\
+        \n  --content-check --fail-on errors > diag.json 2> diag.err\nec=$?\nset -e\n\
+        \necho '--- diag summary ---'\npython - <<'PY2' || true\nimport json, sys\n\
+        try:\n    d=json.load(open('diag.json'))\nexcept Exception as e:\n    print('!\
+        \ cannot parse diag.json:', e)\n    print('stderr:')\n    print(open('diag.err','r',errors='ignore').read())\n\
+        \    sys.exit(0)\nerrs=d.get('errors',0)\nprint('ERRORS:', errs)\nfor it in\
+        \ d.get('issues',[]):\n    if it.get('severity')=='ERROR':\n        print(f\"\
+        {it.get('code','?')}\\t{it.get('path','?')}\\t{it.get('message','')}\")\n\
+        PY2\n\nif [ $ec -ne 0 ]; then\n  echo \"::error title=diag_consistency failed::See\
+        \ the diag summary above\"\n  exit $ec\nfi\n"
+    - name: Pytest
+      run: python -m pytest -q
+'on':
+  workflow_dispatch: null

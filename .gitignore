@@ -87,3 +87,15 @@ artifacts_*/
 *.bak
 actionlint.tar.gz
 archive/cleanup_*.tar.gz
+# --- MCGT cleanup hardening ---
+archive/
+dist/
+dist_*/
+dist_from_*/
+artifacts_*/
+.tmp-*/
+.ci_poke/
+.tmp-gh-dist/
+.pytest_cache/
+*.log
+*.bak

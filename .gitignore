@@ -71,3 +71,19 @@ MCGT-clean/
 _reports/
 
 MCGT-clean/
+
+# cleanup patterns auto-added by cleanup script
+# temp / ci / artifacts
+dist/
+dist_from_*/
+artifacts_*/
+.tmp-*/
+.tmp_*/
+.tmp-ci/
+.tmp-gh-dist/
+.tmp-cleanup-logs/
+.ci_poke/
+*.log
+*.bak
+actionlint.tar.gz
+archive/cleanup_*.tar.gz

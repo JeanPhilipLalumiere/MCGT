@@ -6,7 +6,7 @@ echo "== MCGT push-all =="
 branch_cur="$(git rev-parse --abbrev-ref HEAD)"
 echo "• Branche: ${branch_cur}"
 
-# 0) Vérif d’intégration (optionnel)
+# 0) Vérif d’intégration (non bloquant)
 if [ -x tools/verify_integration.sh ]; then
   if ! PAUSE=0 tools/verify_integration.sh; then
     echo "⚠️  verify_integration a signalé des points non bloquants. On continue."
@@ -18,13 +18,12 @@ if [ -x tools/archive/archive_safe.sh ]; then
   tools/archive/archive_safe.sh archive README.md || true
 fi
 
-# 2) Sync manifeste (size/sha/mtime/git_hash) + diag strict
+# 2) Sync manifeste + diag strict
 if [ -f zz-manifests/manifest_master.json ]; then
   cp -f zz-manifests/manifest_master.json "zz-manifests/manifest_master.json.bak.$(date -u +%Y%m%dT%H%M%SZ)"
   python - <<'PY'
 import json, os, hashlib, subprocess, time, sys
 from pathlib import Path
-
 from subprocess import CalledProcessError, DEVNULL
 
 MAN = Path("zz-manifests/manifest_master.json")
@@ -55,7 +54,6 @@ for e in m.get("entries", []):
     if not p:
         continue
     if not Path(p).exists():
-        # exemple: ancien fichier supprimé — on sait le retirer explicitement
         if p.endswith("arborescence.txt"):
             removed += 1
             continue
@@ -88,17 +86,13 @@ PY
   fi
 fi
 
-# 3) Qualité locale
+# 3) Qualité + tests
 if command -v pre-commit >/dev/null 2>&1; then
   pre-commit run --all-files || true
 fi
-
-# (Optionnel) make validate — non bloquant
 if [ -f Makefile ]; then
   make validate || true
 fi
-
-# Tests
 python -m pytest -q || true
 
 # 4) Commit + push
@@ -110,7 +104,7 @@ else
 fi
 git push origin HEAD
 
-# 5) Tag optionnel pour déclencher publish.yml (tags v*)
+# 5) Tag optionnel (exporter TAG=vX.Y.Z pour déclencher le workflow publish)
 if [ -n "${TAG:-}" ]; then
   echo "🔖 Création du tag ${TAG}"
   git tag -a "${TAG}" -m "release ${TAG}"

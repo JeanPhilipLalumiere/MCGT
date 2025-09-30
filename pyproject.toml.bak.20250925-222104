@@ -1,0 +1,29 @@
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+]
+ignore = [
+    "E501",
+]
+
+[tool.setuptools.dynamic.version]
+attr = "mcgt.__init__.__version__"
+
+[project]
+name = "mcgt-core"
+readme = "README.md"
+version = "0.2.30"
+dependencies = [
+    "numpy>=1.25",
+    "scipy>=1.10",
+]
+
+license-files = ["LICENSE"]
+[build-system]
+requires = ["setuptools>=77", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools]

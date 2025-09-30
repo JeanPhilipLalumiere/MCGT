@@ -1,46 +1,16 @@
 name: publish_testonly
-
 on:
   workflow_dispatch:
   push:
     branches: [ ci/testpypi-workflow-rmid ]
-    paths:
-      - .ci_poke/**
-      - .github/workflows/publish_testonly.yml
-      - pyproject.toml
-      - setup.cfg
-      - setup.py
-      - src/**
-      - MCGT/**
-      - requirements*.txt
-      - poetry.lock
-
-permissions:
-  contents: read
-  id-token: write
-
+    paths: [ .ci_poke/**, .github/workflows/publish_testonly.yml ]
 jobs:
-  build:
+  smoke:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install build backend
+      - uses: actions/checkout@v4
+      - name: Show context
         run: |
-          python -m pip install --upgrade pip
-          pip install build
-      - name: Build dist (wheel+sdist)
-        run: |
-          python -m build
-          ls -la dist || true
-      - name: Upload artifact 'dist'
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-          if-no-files-found: error
-          retention-days: 7
+          echo "branch=$GITHUB_REF"
+          echo "sha=$GITHUB_SHA"
+          echo "actor=$GITHUB_ACTOR"

@@ -13,13 +13,13 @@ on:
       - setup.py
       - src/**
       - MCGT/**
-      - package.json
-      - poetry.lock
       - requirements*.txt
+      - poetry.lock
+      - package.json
 
 permissions:
   contents: read
-  id-token: write  # requis si on utilise pypa/gh-action-pypi-publish (OpenID Connect)
+  id-token: write
 
 jobs:
   build:
@@ -53,10 +53,6 @@ jobs:
 
   publish-testpypi:
     needs: build
-    # Ne publie que:
-    # - si on a déclenché via workflow_dispatch
-    # - si on est bien sur la branche fixe
-    # - si le secret TEST_PYPI_API_TOKEN est défini côté repo
     if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/ci/testpypi-workflow-rmid' && secrets.TEST_PYPI_API_TOKEN != '' }}
     runs-on: ubuntu-latest
     steps:
@@ -66,7 +62,7 @@ jobs:
           name: dist
           path: dist
 
-      - name: Publish to TestPyPI (pypa/gh-action-pypi-publish)
+      - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/

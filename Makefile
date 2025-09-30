@@ -68,3 +68,15 @@ validate-csv:
 # Diagnostic de cohérence des manifestes (chemins/sha/tailles)
 diag:
 > python zz-manifests/diag_consistency.py zz-manifests/manifest_publication.json --repo-root . --report json --content-check
+
+# --- Manifests maintenance ---
+fix-manifest:
+	@python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
+	  --report json --normalize-paths --apply-aliases --strip-internal \
+	  --content-check --write-hashes --write-sizes || true
+	@echo "Done: fix-manifest (hashes/sizes écrits si applicable)."
+
+fix-manifest-strict:
+	@python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
+	  --report json --normalize-paths --apply-aliases --strip-internal \
+	  --content-check --fail-on errors

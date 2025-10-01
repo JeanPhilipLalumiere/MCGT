@@ -8,5 +8,5 @@ cat > "${OUT}/diag.json" <<JSON
 {"timestamp":"${ts}","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"PING","msg":"sanity OK"}]}
 JSON
 echo "${ts}" > "${OUT}/diag.ts"
-echo "Contenu ${OUT}:"
+echo "Listing ${OUT}:"
 ls -la "${OUT}" || true

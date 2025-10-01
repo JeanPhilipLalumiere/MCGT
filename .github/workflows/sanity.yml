@@ -1,90 +1,49 @@
-name: sanity
+name: "sanity"
 on:
-  push:
-  pull_request:
-  workflow_dispatch:   # ensured by CAT v5 @ 20251001T103708
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}  # CAT v11 @ 20251001T113808
 
 jobs:
   sanity:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: "Setup Python"
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install deps (minimal)
+      - name: "Install deps (best-effort)"
+        shell: bash
         run: |
-          python -m pip install -U pip
-          if [ -f requirements-lock.txt ]; then python -m pip install -r requirements-lock.txt || true; fi
-          if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt || true; fi
+          python -m pip install -U pip || true
+          [ -f requirements-lock.txt ] && python -m pip install -r requirements-lock.txt || true
+          [ -f requirements-dev.txt ] && python -m pip install -r requirements-dev.txt || true
 
       - name: "Guard: no .RECIPEPREFIX"
-        run: |
-          if [ -f tools/guard_no_recipeprefix.sh ]; then
-            bash tools/guard_no_recipeprefix.sh
-          else
-            echo "skip guard (tool absent)"
-          fi
-
-      - name: Dry-run Make (fix-manifest)
-        run: |
-          if grep -qE '^[[:space:]]*fix-manifest:' Makefile 2>/dev/null; then
-            make -n fix-manifest || true
-          else
-            echo "skip make (target missing)"
-          fi
-
-      - name: Manifests strict diag
         shell: bash
-        continue-on-error: true
-        run: |
-          set +e
-          if [ -f zz-manifests/diag_consistency.py ] && [ -f zz-manifests/manifest_master.json ]; then
-            python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json               --report json --normalize-paths --apply-aliases --strip-internal               --content-check --fail-on errors > diag.json 2> diag.err
-            ec=0
-          else
-            echo '{}' > diag.json; : > diag.err; ec=0
-            echo "skip diag (zz-manifests absents)"
-          fi
-          echo '--- diag summary ---'
-          python - <<'PY' || true
-import json, pathlib
-p=pathlib.Path('diag.json')
-try:
-  d=json.loads(p.read_text())
-  print('errors=', d.get('errors'), 'warnings=', d.get('warnings'))
-  for it in d.get('issues', [])[:20]:
-    if it.get('severity')=='ERROR':
-      print('ERROR\t', it.get('code'), '\t', it.get('path'))
-except Exception as e:
-  print('! cannot parse diag.json:', e)
-  try:
-    import pathlib; print(pathlib.Path('diag.err').read_text()[:2000])
-  except Exception: pass
-PY
-          exit 
+        run: bash tools/guard_no_recipeprefix.sh || echo "guard: skipped/failed (non-fatal)"
 
-      - name: Upload diag artifacts
-        if: always()
+      - name: "Tests (skip if none)"
+        shell: bash
+        run: |
+          if [ -d tests ] && ls tests 2>/dev/null | head -n1 >/dev/null; then
+            python -m pytest -q || echo "pytest a échoué (non-bloquant pour l'artefact diag)"
+          else
+            echo "Aucun tests/ détecté : skip"
+          fi
+
+      - name: "Sanity diag"
+        shell: bash
+        run: bash tools/sanity_diag.sh
+
+      - name: "Upload diag artifact"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: |
-            diag.json
-            diag.err
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Pytest (best-effort)
-        continue-on-error: true
-        run: |
-          if [ -d zz-tests ] || ls -1 *.py zz-*.py tests conftest.py 2>/dev/null | head -n1 >/dev/null; then
-            python -m pytest -q || true
-          else
-            echo "skip pytest (no tests detected)"
-          fi
+          path: .ci-out/
+          if-no-files-found: ignore

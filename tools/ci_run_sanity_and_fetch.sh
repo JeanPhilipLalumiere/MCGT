@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# tools/ci_run_sanity_and_fetch.sh
 # Déclenche sanity-main.yml, attend la fin, télécharge artefacts, affiche diag.json
 
 set -euo pipefail
@@ -25,8 +26,7 @@ RID="$(
     --branch main \
     --limit 10 \
     --json databaseId,createdAt \
-    -q 'sort_by(.createdAt) | last | .databaseId' \
-  | tr -d '\n'
+    -q 'sort_by(.createdAt) | last | .databaseId' | tr -d '\n'
 )"
 if [[ -z "${RID:-}" ]]; then
   log "ERR: Impossible d'obtenir un run id"; exit 1
@@ -39,7 +39,7 @@ log "Watch du run: ${RID}"
 if gh run watch --exit-status "${RID}"; then
   log "Run ${RID} terminé: success"
 else
-  log "WARN: run ${RID} terminé avec un statut non-success (on continue pour récupérer logs/artefacts)"
+  log "WARN: run ${RID} non-success (on continue pour récupérer logs/artefacts)"
 fi
 
 log "Sauvegarde logs -> ${RUN_DIR}/run.log"
@@ -52,15 +52,18 @@ if ! gh run download "${RID}" -n sanity-diag -D "${RUN_DIR}/artifacts"; then
 fi
 
 log "Inventaire des fichiers artefacts"
-find "${RUN_DIR}/artifacts" -type f -maxdepth 2 -print | sed "s|^|${RUN_DIR}/artifacts/|g" | tee "${RUN_DIR}/artifacts/_list.txt" || true
+# Important: -maxdepth AVANT -type, pas de sed qui double le chemin
+find "${RUN_DIR}/artifacts" -maxdepth 2 -type f -print \
+  | tee "${RUN_DIR}/artifacts/_list.txt" || true
 
-if [[ -f "${RUN_DIR}/artifacts/diag.json" ]]; then
-  log "Affichage diag.json"
-  if command -v jq >/dev/null 2>&1; then
-    jq . "${RUN_DIR}/artifacts/diag.json"
-  else
-    cat "${RUN_DIR}/artifacts/diag.json"
-  fi
+# diag.json peut être à la racine d'artifacts/ ou dans un sous-dossier
+CANDIDATES=()
+while IFS= read -r f; do CANDIDATES+=("$f"); done < <(grep -E '/?diag\.json$' "${RUN_DIR}/artifacts/_list.txt" || true)
+
+if [[ ${#CANDIDATES[@]} -gt 0 && -f "${CANDIDATES[0]}" ]]; then
+  DJ="${CANDIDATES[0]}"
+  log "Affichage ${DJ}"
+  if command -v jq >/dev/null 2>&1; then jq . "${DJ}"; else cat "${DJ}"; fi
 else
   log "WARN: diag.json non trouvé"
 fi

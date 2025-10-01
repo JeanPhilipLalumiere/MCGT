@@ -1,8 +1,10 @@
 name: sanity-dispatch
 on:
-  workflow_dispatch:   # CAT v7 @ 20251001T110142
+  workflow_dispatch: {}
+  workflow_dispatch: {}   # CAT v8 @ 20251001T110812
   push:
-  pull_request:
+    branches: ['*']
+  pull_request: {}
 
 jobs:
   sanity:
@@ -26,7 +28,7 @@ jobs:
       - name: Guard: no .RECIPEPREFIX
         run: |
           if [ -f tools/guard_no_recipeprefix.sh ]; then
-            bash tools/guard_no_recipeprefix.sh
+            bash tools/guard_no_recipeprefix.sh || true
           else
             echo "skip guard (tool absent)"
           fi

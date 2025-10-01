@@ -9,11 +9,9 @@ RUN_DIR_BASE=".ci-logs/runs"
 mkdir -p "$RUN_DIR_BASE"
 
 log(){ printf "[%(%F %T)T] %s\n" -1 "$*"; }
-
-need() { command -v "$1" >/dev/null 2>&1 || { log "ERR: '$1' introuvable"; exit 1; }; }
+need(){ command -v "$1" >/dev/null 2>&1 || { log "ERR: '$1' introuvable"; exit 1; }; }
 
 need gh
-# jq est optionnel
 
 log "Trigger workflow_dispatch (sanity-main.yml -> main)"
 gh workflow run sanity-main.yml -r main
@@ -23,8 +21,9 @@ RID="$(gh run list --workflow sanity-main.yml --limit 1 --json databaseId -q '.[
 if [[ -z "${RID:-}" ]]; then
   log "ERR: Impossible d'obtenir un run id"; exit 1
 fi
+
 RUN_DIR="${RUN_DIR_BASE}/${RID}-${STAMP}"
-mkdir -p "${RUN_DIR}/artifacts" "${RUN_DIR}"
+mkdir -p "${RUN_DIR}/artifacts"
 
 log "Watch du run: ${RID}"
 if gh run watch --exit-status "${RID}"; then
@@ -33,12 +32,12 @@ else
   log "WARN: run ${RID} terminé en failure (on continue pour récupérer logs/artefacts)"
 fi
 
-log "Sauvegarde des logs dans ${RUN_DIR}/run.log"
+log "Sauvegarde logs -> ${RUN_DIR}/run.log"
 gh run view "${RID}" --log > "${RUN_DIR}/run.log" || log "WARN: impossible de sauvegarder les logs"
 
-log "Téléchargement des artefacts (par nom) -> ${RUN_DIR}/artifacts"
+log "Téléchargement des artefacts (nom: sanity-diag) -> ${RUN_DIR}/artifacts"
 if ! gh run download "${RID}" -n sanity-diag -D "${RUN_DIR}/artifacts"; then
-  log "WARN: download par nom a échoué; tentative download complet"
+  log "WARN: download par nom KO; tentative full download"
   gh run download "${RID}" -D "${RUN_DIR}/artifacts" || log "WARN: Aucun artefact téléchargé"
 fi
 

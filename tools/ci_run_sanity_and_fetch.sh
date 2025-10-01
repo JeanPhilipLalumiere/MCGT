@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# tools/ci_run_sanity_and_fetch.sh
 # Déclenche sanity-main.yml, attend la fin, télécharge artefacts, affiche diag.json
 
 set -euo pipefail
@@ -16,8 +15,19 @@ need gh
 log "Trigger workflow_dispatch (sanity-main.yml -> main)"
 gh workflow run sanity-main.yml -r main
 
-log "Récupération dernier run id (sanity-main.yml)"
-RID="$(gh run list --workflow sanity-main.yml --limit 1 --json databaseId -q '.[0].databaseId' | tr -d '\n')"
+# Laisse à GitHub 2-3 secondes pour enregistrer le run
+sleep 3
+
+log "Récupération dernier run id (sanity-main.yml, branch=main)"
+RID="$(
+  gh run list \
+    --workflow sanity-main.yml \
+    --branch main \
+    --limit 10 \
+    --json databaseId,createdAt \
+    -q 'sort_by(.createdAt) | last | .databaseId' \
+  | tr -d '\n'
+)"
 if [[ -z "${RID:-}" ]]; then
   log "ERR: Impossible d'obtenir un run id"; exit 1
 fi
@@ -29,34 +39,30 @@ log "Watch du run: ${RID}"
 if gh run watch --exit-status "${RID}"; then
   log "Run ${RID} terminé: success"
 else
-  log "WARN: run ${RID} terminé en failure (on tente quand même de récupérer logs/artifacts)"
+  log "WARN: run ${RID} terminé avec un statut non-success (on continue pour récupérer logs/artefacts)"
 fi
 
 log "Sauvegarde logs -> ${RUN_DIR}/run.log"
-gh run view "${RID}" --log > "${RUN_DIR}/run.log" || log "WARN: impossible de sauvegarder les logs"
+gh run view "${RID}" --log > "${RUN_DIR}/run.log" || true
 
 log "Téléchargement des artefacts (nom: sanity-diag) -> ${RUN_DIR}/artifacts"
 if ! gh run download "${RID}" -n sanity-diag -D "${RUN_DIR}/artifacts"; then
   log "WARN: download par nom KO; tentative full download"
-  gh run download "${RID}" -D "${RUN_DIR}/artifacts" || log "WARN: Aucun artefact téléchargé"
+  gh run download "${RID}" -D "${RUN_DIR}/artifacts" || true
 fi
 
-# Normalement, gh place les fichiers sous ${RUN_DIR}/artifacts/sanity-diag/
-ART_DIR="${RUN_DIR}/artifacts/sanity-diag"
-[[ -d "${ART_DIR}" ]] || ART_DIR="${RUN_DIR}/artifacts"  # fallback
-
 log "Inventaire des fichiers artefacts"
-find "${RUN_DIR}/artifacts" -maxdepth 3 -type f -print | tee "${RUN_DIR}/artifacts/_list.txt" || true
+find "${RUN_DIR}/artifacts" -type f -maxdepth 2 -print | sed "s|^|${RUN_DIR}/artifacts/|g" | tee "${RUN_DIR}/artifacts/_list.txt" || true
 
-if [[ -f "${ART_DIR}/diag.json" ]]; then
+if [[ -f "${RUN_DIR}/artifacts/diag.json" ]]; then
   log "Affichage diag.json"
   if command -v jq >/dev/null 2>&1; then
-    jq . "${ART_DIR}/diag.json"
+    jq . "${RUN_DIR}/artifacts/diag.json"
   else
-    cat "${ART_DIR}/diag.json"
+    cat "${RUN_DIR}/artifacts/diag.json"
   fi
 else
-  log "WARN: diag.json introuvable dans ${ART_DIR}"
+  log "WARN: diag.json non trouvé"
 fi
 
 log "DONE"

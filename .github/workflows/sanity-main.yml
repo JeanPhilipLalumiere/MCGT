@@ -11,17 +11,16 @@ jobs:
     timeout-minutes: 20
     env:
       ART_DIR: ${{ github.workspace }}/.ci-out
+      TAR_PATH: ${{ github.workspace }}/sanity-diag.tgz
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: "Setup Python"
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
       - name: "Install deps (best-effort)"
         shell: bash
         continue-on-error: true
@@ -29,12 +28,10 @@ jobs:
           python -m pip install -U pip || true
           [ -f requirements-lock.txt ] && python -m pip install -r requirements-lock.txt || true
           [ -f requirements-dev.txt ] && python -m pip install -r requirements-dev.txt || true
-
       - name: "Guard: no .RECIPEPREFIX"
         shell: bash
         continue-on-error: true
         run: bash tools/guard_no_recipeprefix.sh
-
       - name: "Tests (skip si absents)"
         shell: bash
         continue-on-error: true
@@ -44,49 +41,33 @@ jobs:
           else
             echo "Aucun tests/ détecté : skip"
           fi
-
       - name: "Sanity diag (always)"
         if: ${{ always() }}
         shell: bash
         run: bash tools/sanity_diag.sh
-
       - name: "Ensure artifact présent (pré-upload)"
         if: ${{ always() }}
         shell: bash
         run: |
-          set -x
+          set -e
           mkdir -p "$ART_DIR"
-          [ -s "$ART_DIR/diag.json" ] || echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"ENSURE","msg":"créé par ensure"}]}' > "$ART_DIR/diag.json"
+          [ -s "$ART_DIR/diag.json" ] || echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0}' > "$ART_DIR/diag.json"
           [ -s "$ART_DIR/diag.ts" ] || date -u +%FT%TZ > "$ART_DIR/diag.ts"
-          echo "Listing:"
-          find "$ART_DIR" -maxdepth 1 -type f -ls
-
-      - name: "Résout dossier d'artefact"
+          ls -la "$ART_DIR"
+      - name: "Pack .ci-out en .tgz"
         if: ${{ always() }}
-        id: res
+        id: pack
         shell: bash
         run: |
           set -e
-          C1="${ART_DIR}"
-          FOUND=""
-          if [ -d "$C1" ] && [ "$(ls -A "$C1" || true)" ]; then FOUND="$C1"; fi
-          if [ -z "$FOUND" ]; then
-            FOUND="$(find "$GITHUB_WORKSPACE" -maxdepth 3 -type d -name ".ci-out" -print -quit || true)"
-          fi
-          if [ -z "$FOUND" ]; then
-            FOUND="$GITHUB_WORKSPACE/.ci-out"
-            mkdir -p "$FOUND"
-            echo '{"timestamp":"'"$(date -u +%FT%TZ)"'"}' > "$FOUND/diag.json"
-            date -u +%FT%TZ > "$FOUND/diag.ts"
-          fi
-          echo "Using artifact dir: $FOUND"
-          echo "path=$FOUND" >> "$GITHUB_OUTPUT"
-          ls -la "$FOUND" || true
-
-      - name: "Upload diag artifact (DOSSIER)"
+          test -s "$ART_DIR/diag.json" || { echo "diag.json manquant"; exit 1; }
+          tar -czf "$TAR_PATH" -C "$ART_DIR" .
+          echo "file=$TAR_PATH" >> "$GITHUB_OUTPUT"
+          ls -la "$TAR_PATH"
+      - name: "Upload diag artifact (FICHIER .tgz)"
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: ${{ steps.res.outputs.path }}
+          path: ${{ steps.pack.outputs.file }}
           if-no-files-found: error

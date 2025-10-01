@@ -8,45 +8,33 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ART_DIR: ${{ github.workspace }}/.ci-out
+      TAR_PATH: ${{ github.workspace }}/sanity-echo.tgz
     steps:
-      - name: "Debug contexte"
+      - name: "Debug"
         shell: bash
         run: |
           set -x
-          pwd; ls -la
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-      - name: "Prépare artifact (création fichiers)"
+          pwd; echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"; ls -la
+      - name: "Prépare artifact (fichiers)"
         shell: bash
         run: |
           set -e
           mkdir -p "$ART_DIR"
           date -u +%FT%TZ > "$ART_DIR/echo.ts"
-          printf '{"ok":true,"ts":"%s"}\n' "$(cat "$ART_DIR/echo.ts")" > "$ART_DIR/echo.json"
-          echo "Listing:"
-          find "$ART_DIR" -maxdepth 1 -type f -ls
-      - name: "Résout dossier d'artefact"
-        id: res
+          jq -n --arg ts "$(cat "$ART_DIR/echo.ts")" '{ok:true,ts:$ts}' > "$ART_DIR/echo.json"
+          ls -la "$ART_DIR"
+      - name: "Pack .ci-out en .tgz"
+        id: pack
         shell: bash
         run: |
           set -e
-          C1="${ART_DIR}"
-          FOUND=""
-          if [ -d "$C1" ] && [ "$(ls -A "$C1" || true)" ]; then FOUND="$C1"; fi
-          if [ -z "$FOUND" ]; then
-            FOUND="$(find "$GITHUB_WORKSPACE" -maxdepth 3 -type d -name ".ci-out" -print -quit || true)"
-          fi
-          if [ -z "$FOUND" ]; then
-            FOUND="$GITHUB_WORKSPACE/.ci-out"
-            mkdir -p "$FOUND"
-            echo "{}" > "$FOUND/echo.json"
-            date -u +%FT%TZ > "$FOUND/echo.ts"
-          fi
-          echo "Using artifact dir: $FOUND"
-          echo "path=$FOUND" >> "$GITHUB_OUTPUT"
-          ls -la "$FOUND" || true
-      - name: "Upload artifact echo (DOSSIER)"
+          test -s "$ART_DIR/echo.json" || { echo "echo.json manquant"; exit 1; }
+          tar -czf "$TAR_PATH" -C "$ART_DIR" .
+          echo "file=$TAR_PATH" >> "$GITHUB_OUTPUT"
+          ls -la "$TAR_PATH"
+      - name: "Upload artifact (FICHIER .tgz)"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-echo
-          path: ${{ steps.res.outputs.path }}
+          path: ${{ steps.pack.outputs.file }}
           if-no-files-found: error

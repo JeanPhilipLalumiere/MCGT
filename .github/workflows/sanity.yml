@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -32,7 +34,7 @@ jobs:
         shell: bash
         run: bash tools/guard_no_recipeprefix.sh || true
 
-      - name: Tests (skip if none)
+      - name: Tests (skip si absents)
         shell: bash
         run: |
           if [ -d tests ] && ls tests 2>/dev/null | head -n1 >/dev/null; then
@@ -52,4 +54,4 @@ jobs:
         with:
           name: sanity-diag
           path: .ci-out/
-          if-no-files-found: warn
+          if-no-files-found: error

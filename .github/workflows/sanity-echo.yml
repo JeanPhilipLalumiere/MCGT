@@ -10,19 +10,20 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - name: Context & env
+      - name: Contexte
         shell: bash
         run: |
           set -x
-          uname -a
+          pwd; ls -la
           echo "event=$GITHUB_EVENT_NAME"
           echo "ref=$GITHUB_REF"
-      - name: Prepare artifact
+      - name: Prépare artifact
         shell: bash
         run: |
           mkdir -p .ci-out
           date -u +"%FT%TZ" > .ci-out/echo.ts
           printf '{"ok":true,"ts":"%s"}\n' "$(cat .ci-out/echo.ts)" > .ci-out/echo.json
+          test -s .ci-out/echo.ts && test -s .ci-out/echo.json
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

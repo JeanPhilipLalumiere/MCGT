@@ -17,48 +17,38 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p .ci-out/sanity-diag
+          OUT=".ci-out/sanity-diag"
+          mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
 
-          # Écriture du JSON sans here-doc
-          printf '%s\n' \
-            '{' \
-            '  "timestamp": "__TS__", ' \
-            '  "errors": 0,' \
-            '  "warnings": 0,' \
-            '  "issues": [' \
-            '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }' \
-            '  ]' \
-            '}' > .ci-out/sanity-diag/diag.json
+          # Écriture du JSON sans here-doc (robuste aux collages)
+          printf '{\n'                          >  "$OUT/diag.json"
+          printf '  "timestamp": "%s",\n' "$TS" >> "$OUT/diag.json"
+          printf '  "errors": 0,\n'             >> "$OUT/diag.json"
+          printf '  "warnings": 0,\n'           >> "$OUT/diag.json"
+          printf '  "issues": [\n'              >> "$OUT/diag.json"
+          printf '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }\n' >> "$OUT/diag.json"
+          printf '  ]\n'                        >> "$OUT/diag.json"
+          printf '}\n'                          >> "$OUT/diag.json"
 
-          sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.json
-          printf "timestamp=%s\nok=true\n" "${TS}" > .ci-out/sanity-diag/diag.txt
+          # Petit mémo texte
+          printf "timestamp=%s\nok=true\n" "$TS" > "$OUT/diag.txt"
 
-      - name: Pack artifact + summary
-        shell: bash
-        run: |
-          set -euo pipefail
-          tar czf .ci-out/sanity-diag/sanity-diag.tgz -C .ci-out sanity-diag
-
-          SUM="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
+          # Résumé dans l'onglet "Summary" du job (fallback vers fichier local)
+          SUM="${GITHUB_STEP_SUMMARY:-$OUT/SUMMARY.md}"
           {
             echo "### Sanity Diag"
             echo
-            cat .ci-out/sanity-diag/diag.json
+            cat "$OUT/diag.json"
             echo
-            echo "Packaged files:"
-            if command -v find >/dev/null 2>&1; then
-              find .ci-out/sanity-diag -maxdepth 1 -type f -printf ' - %f\n' 2>/dev/null || \
-              find .ci-out/sanity-diag -maxdepth 1 -type f -exec basename {} \;
-            else
-              ls -1 .ci-out/sanity-diag || true
-            fi
+            echo "Fichiers :"
+            ls -1 "$OUT" || true
           } >> "$SUM"
 
-      - name: Upload artifact
+      - name: Upload artifact (sanity-diag)
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: .ci-out/sanity-diag/sanity-diag.tgz
+          path: .ci-out/sanity-diag/**
           if-no-files-found: error
           retention-days: 5

@@ -534,3 +534,17 @@ Voir docs/CI.md.
 
 <!-- CI:END -->
 
+
+<!-- CI:BEGIN -->
+CI (Workflows canoniques)
+
+sanity-main.yml
+
+sanity-echo.yml
+
+ci-yaml-check.yml
+
+Voir docs/CI.md.
+
+<!-- CI:END -->
+

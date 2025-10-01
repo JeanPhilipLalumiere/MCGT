@@ -29,7 +29,7 @@ log "Watch du run: ${RID}"
 if gh run watch --exit-status "${RID}"; then
   log "Run ${RID} terminé: success"
 else
-  log "WARN: run ${RID} terminé en failure (on continue pour récupérer logs/artefacts)"
+  log "WARN: run ${RID} terminé en failure (on tente quand même de récupérer logs/artifacts)"
 fi
 
 log "Sauvegarde logs -> ${RUN_DIR}/run.log"
@@ -41,26 +41,22 @@ if ! gh run download "${RID}" -n sanity-diag -D "${RUN_DIR}/artifacts"; then
   gh run download "${RID}" -D "${RUN_DIR}/artifacts" || log "WARN: Aucun artefact téléchargé"
 fi
 
-log "Inventaire des .tgz"
-find "${RUN_DIR}/artifacts" -maxdepth 3 -type f -name '*.tgz' -print | tee "${RUN_DIR}/artifacts/_list.txt" || true
+# Normalement, gh place les fichiers sous ${RUN_DIR}/artifacts/sanity-diag/
+ART_DIR="${RUN_DIR}/artifacts/sanity-diag"
+[[ -d "${ART_DIR}" ]] || ART_DIR="${RUN_DIR}/artifacts"  # fallback
 
-PKG="$(grep -m1 'sanity-diag.tgz' "${RUN_DIR}/artifacts/_list.txt" || true)"
-if [[ -n "${PKG}" && -f "${PKG}" ]]; then
-  EXTRACT_DIR="${RUN_DIR}/extracted"
-  mkdir -p "${EXTRACT_DIR}"
-  tar xzf "${PKG}" -C "${EXTRACT_DIR}"
-  if [[ -f "${EXTRACT_DIR}/sanity-diag/diag.json" ]]; then
-    log "Affichage diag.json"
-    if command -v jq >/dev/null 2>&1; then
-      jq . "${EXTRACT_DIR}/sanity-diag/diag.json"
-    else
-      cat "${EXTRACT_DIR}/sanity-diag/diag.json"
-    fi
+log "Inventaire des fichiers artefacts"
+find "${RUN_DIR}/artifacts" -maxdepth 3 -type f -print | tee "${RUN_DIR}/artifacts/_list.txt" || true
+
+if [[ -f "${ART_DIR}/diag.json" ]]; then
+  log "Affichage diag.json"
+  if command -v jq >/dev/null 2>&1; then
+    jq . "${ART_DIR}/diag.json"
   else
-    log "WARN: diag.json manquant après extraction"
+    cat "${ART_DIR}/diag.json"
   fi
 else
-  log "WARN: paquet sanity-diag.tgz non trouvé"
+  log "WARN: diag.json introuvable dans ${ART_DIR}"
 fi
 
 log "DONE"

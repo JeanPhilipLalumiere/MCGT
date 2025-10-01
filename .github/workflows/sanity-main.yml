@@ -11,7 +11,7 @@ on:
       - '.ci-logs/**'
       - '.ci-archive/**'
   schedule:
-    - cron: '0 6 * * *' # Tous les jours à 06:00 UTC
+    - cron: '0 6 * * *' # tous les jours 06:00 UTC
 
 concurrency:
   group: sanity-main-${{ github.ref }}-${{ github.event_name }}
@@ -33,6 +33,8 @@ jobs:
           OUT=".ci-out/sanity-diag"
           mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
+
+          # JSON minimal, robuste aux collages
           {
             printf '{\n'
             printf '  "timestamp": "%s",\n' "$TS"
@@ -43,21 +45,58 @@ jobs:
             printf '  ]\n'
             printf '}\n'
           } > "$OUT/diag.json"
-          printf "timestamp=%s\nok=true\n" "$TS" > "$OUT/diag.txt"
-          SUM="${GITHUB_STEP_SUMMARY:-$OUT/SUMMARY.md}"
+
+          # Texte lisible
           {
-            echo "### Sanity Diag"
+            echo "Sanity diag — $TS"
             echo
-            cat "$OUT/diag.json"
-            echo
-            echo "Fichiers :"
-            ls -1 "$OUT" || true
-          } >> "$SUM"
+            echo "- errors: 0"
+            echo "- warnings: 0"
+            echo "- issues:"
+            echo "  - [INFO] PING: sanity OK"
+          } > "$OUT/diag.txt"
 
       - name: Upload artifact (sanity-diag)
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: .ci-out/sanity-diag/**
+          path: .ci-out/sanity-diag/
           if-no-files-found: error
-          retention-days: 5
+          retention-days: 7
+
+      - name: Job summary (Markdown)
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Sanity diag"
+            echo
+            echo "- Timestamp: $(command -v jq >/dev/null 2>&1 && jq -r .timestamp .ci-out/sanity-diag/diag.json || date -u +%FT%TZ)"
+            echo "- Errors: $(command -v jq >/dev/null 2>&1 && jq -r .errors .ci-out/sanity-diag/diag.json || echo 0)"
+            echo "- Warnings: $(command -v jq >/dev/null 2>&1 && jq -r .warnings .ci-out/sanity-diag/diag.json || echo 0)"
+            echo
+            echo "### Issues"
+            if command -v jq >/dev/null 2>&1; then
+              jq -r '.issues[] | "- [" + .severity + "] " + .code + ": " + .msg' .ci-out/sanity-diag/diag.json || true
+            else
+              cat .ci-out/sanity-diag/diag.txt || true
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  meta:
+    if: ${{ github.event_name != 'schedule' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: actionlint
+        uses: rhysd/actionlint@v1
+        continue-on-error: true
+
+      - name: ShellCheck (tools/*.sh)
+        uses: ludeeus/action-shellcheck@v2
+        with:
+          scandir: tools
+        continue-on-error: true

@@ -6,6 +6,8 @@ permissions:
 jobs:
   echo:
     runs-on: ubuntu-latest
+    env:
+      ART_DIR: ${{ github.workspace }}/.ci-out
     steps:
       - name: "Contexte"
         shell: bash
@@ -13,16 +15,18 @@ jobs:
           set -x
           pwd; ls -la
           echo "workspace=$GITHUB_WORKSPACE"
-      - name: "Prépare artifact ABSOLU"
+      - name: "Prépare artifact (création fichiers)"
         shell: bash
         run: |
-          mkdir -p "$GITHUB_WORKSPACE/.ci-out"
-          date -u +"%FT%TZ" > "$GITHUB_WORKSPACE/.ci-out/echo.ts"
-          printf '{"ok":true,"ts":"%s"}\n' "$(cat "$GITHUB_WORKSPACE/.ci-out/echo.ts")" > "$GITHUB_WORKSPACE/.ci-out/echo.json"
-          ls -la "$GITHUB_WORKSPACE/.ci-out" || true
-      - name: "Upload artifact echo"
+          set -e
+          mkdir -p "$ART_DIR"
+          date -u +%FT%TZ > "$ART_DIR/echo.ts"
+          printf '{"ok":true,"ts":"%s"}\n' "$(cat "$ART_DIR/echo.ts")" > "$ART_DIR/echo.json"
+          echo "Listing:"
+          find "$ART_DIR" -maxdepth 1 -type f -ls
+      - name: "Upload artifact echo (DOSSIER, sans glob)"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-echo
-          path: ${{ github.workspace }}/.ci-out/**
+          path: ${{ env.ART_DIR }}
           if-no-files-found: error

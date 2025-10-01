@@ -16,7 +16,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .ci-out/sanity-diag
-          TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          TS="$(date -u +%FT%TZ)"
 
           cat > .ci-out/sanity-diag/diag.json <<'JSON'
           {
@@ -30,19 +30,28 @@ jobs:
           JSON
           sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.json
 
-          cat > .ci-out/sanity-diag/diag.ts <<'TS'
-          export const timestamp = "__TS__";
-          export const ok = true;
-          TS
-          sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.ts
+          # petit fichier texte pour inspection humaine
+          printf "timestamp=%s\nok=true\n" "${TS}" > .ci-out/sanity-diag/diag.txt
 
-      - name: Pack artifact
+      - name: Pack artifact + summary (robuste)
         shell: bash
         run: |
           set -euo pipefail
+          test -s .ci-out/sanity-diag/diag.json
+          test -s .ci-out/sanity-diag/diag.txt
+
           tar czf .ci-out/sanity-diag/sanity-diag.tgz -C .ci-out sanity-diag
-          echo '### Sanity Diag' >> "$GITHUB_STEP_SUMMARY"
-          cat .ci-out/sanity-diag/diag.json >> "$GITHUB_STEP_SUMMARY"
+
+          # Fallback si $GITHUB_STEP_SUMMARY est absent
+          SUMMARY_FILE="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
+          {
+            echo "### Sanity Diag"
+            echo
+            cat .ci-out/sanity-diag/diag.json
+            echo
+            echo 'Packaged files:'
+            find .ci-out/sanity-diag -maxdepth 1 -type f -printf ' - %f\n'
+          } >> "${SUMMARY_FILE}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -50,3 +59,4 @@ jobs:
           name: sanity-diag
           path: .ci-out/sanity-diag/sanity-diag.tgz
           if-no-files-found: error
+          retention-days: 5

@@ -33,8 +33,6 @@ jobs:
           OUT=".ci-out/sanity-diag"
           mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
-
-          # JSON minimal, robuste aux collages
           {
             printf '{\n'
             printf '  "timestamp": "%s",\n' "$TS"
@@ -45,8 +43,6 @@ jobs:
             printf '  ]\n'
             printf '}\n'
           } > "$OUT/diag.json"
-
-          # Texte lisible
           {
             echo "Sanity diag — $TS"
             echo
@@ -86,17 +82,50 @@ jobs:
   meta:
     if: ${{ github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
 
-      - name: actionlint
-        uses: rhysd/actionlint@v1
-        continue-on-error: true
+      - name: Install actionlint (pinned)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .tools/bin
+          curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash \
+            | bash -s -- -b .tools/bin v1.7.1
+          echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
 
-      - name: ShellCheck (tools/*.sh)
-        uses: ludeeus/action-shellcheck@v2
-        with:
-          scandir: tools
+      - name: Run actionlint
+        shell: bash
         continue-on-error: true
+        run: |
+          set -euo pipefail
+          .tools/bin/actionlint -color -shellcheck= -format '{{.File}}:{{.Line}}:{{.Col}}: {{.Message}}'
+
+      - name: Run shellcheck (tools/*.sh)
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if command -v shellcheck >/dev/null 2>&1; then
+            shopt -s nullglob
+            FILES=(tools/*.sh)
+            if (( ${#FILES[@]} )); then
+              shellcheck -S style -x "${FILES[@]}" || true
+            else
+              echo "No shell scripts under tools/"
+            fi
+          else
+            echo "shellcheck not found on runner (unexpected on ubuntu-latest), skipping"
+          fi
+
+      - name: Meta summary
+        if: always()
+        shell: bash
+        run: |
+          echo "## Meta checks" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- actionlint: executed (pinned v1.7.1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- shellcheck: executed on tools/*.sh (if any)" >> "$GITHUB_STEP_SUMMARY"

@@ -2,7 +2,9 @@ name: "sanity"
 on:
   push: {}
   pull_request: {}
-  workflow_dispatch: {}  # CAT v11 @ 20251001T113808
+  workflow_dispatch: {}  # CAT v12 @ 20251001T114336
+  repository_dispatch:
+    types: [sanity]
 
 jobs:
   sanity:
@@ -32,7 +34,7 @@ jobs:
         shell: bash
         run: |
           if [ -d tests ] && ls tests 2>/dev/null | head -n1 >/dev/null; then
-            python -m pytest -q || echo "pytest a échoué (non-bloquant pour l'artefact diag)"
+            python -m pytest -q || echo "pytest a échoué (non-bloquant)"
           else
             echo "Aucun tests/ détecté : skip"
           fi

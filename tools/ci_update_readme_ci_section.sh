@@ -9,16 +9,13 @@ slug_from_remote() {
 }
 
 REPO_SLUG="$(slug_from_remote)"
-if [[ -z "${REPO_SLUG:-}" ]]; then
-  # fallback si non détecté
-  REPO_SLUG="JeanPhilipLalumiere/MCGT"
-fi
+: "${REPO_SLUG:=JeanPhilipLalumiere/MCGT}"
 
-readme="README.md"
-[[ -f "$readme" ]] || echo "# MCGT" > "$readme"
+README="README.md"
+[[ -f "$README" ]] || echo "# MCGT" > "$README"
 
-tmp="$(mktemp)"
-cat > "$tmp" <<EOF
+TMP="$(mktemp)"
+cat > "$TMP" <<EOF
 <!-- CI:BEGIN -->
 ### CI (Workflows canoniques)
 
@@ -34,21 +31,16 @@ Voir \`docs/CI.md\`.
 <!-- CI:END -->
 EOF
 
-# Remplacement entre marqueurs si présents; sinon append
-if grep -q "<!-- CI:BEGIN -->" "$readme" && grep -q "<!-- CI:END -->" "$readme"; then
-  awk -v RS= -v r="$(cat "$tmp")" '
-  BEGIN{FS="\n"}
-  {
-    gsub(/<!-- CI:BEGIN -->.*<!-- CI:END -->/s, r)
-    print
-  }' "$readme" > "${readme}.tmp"
-  mv "${readme}.tmp" "$readme"
+BLOCK="$(cat "$TMP")"
+export BLOCK
+
+if grep -q "<!-- CI:BEGIN -->" "$README" && grep -q "<!-- CI:END -->" "$README"; then
+  # Remplacement multiligne sûr (dotall)
+  perl -0777 -pe 's/<!-- CI:BEGIN -->.*?<!-- CI:END -->/$ENV{BLOCK}/s' "$README" > "${README}.tmp"
+  mv "${README}.tmp" "$README"
 else
-  {
-    echo
-    cat "$tmp"
-  } >> "$readme"
+  printf "\n%s\n" "$BLOCK" >> "$README"
 fi
 
-rm -f "$tmp"
-echo "README mis à jour avec les badges pour ${REPO_SLUG}"
+rm -f "$TMP"
+echo "README mis à jour pour ${REPO_SLUG}"

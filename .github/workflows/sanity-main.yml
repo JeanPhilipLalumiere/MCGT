@@ -20,27 +20,24 @@ jobs:
           mkdir -p .ci-out/sanity-diag
           TS="$(date -u +%FT%TZ)"
 
-          cat > .ci-out/sanity-diag/diag.json <<'JSON'
-          {
-            "timestamp": "__TS__",
-            "errors": 0,
-            "warnings": 0,
-            "issues": [
-              { "severity": "INFO", "code": "PING", "msg": "sanity OK" }
-            ]
-          }
-          JSON
+          # Écriture du JSON sans here-doc
+          printf '%s\n' \
+            '{' \
+            '  "timestamp": "__TS__", ' \
+            '  "errors": 0,' \
+            '  "warnings": 0,' \
+            '  "issues": [' \
+            '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }' \
+            '  ]' \
+            '}' > .ci-out/sanity-diag/diag.json
 
           sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.json
           printf "timestamp=%s\nok=true\n" "${TS}" > .ci-out/sanity-diag/diag.txt
 
-      - name: Pack artifact + summary (robuste)
+      - name: Pack artifact + summary
         shell: bash
         run: |
           set -euo pipefail
-          test -s .ci-out/sanity-diag/diag.json
-          test -s .ci-out/sanity-diag/diag.txt
-
           tar czf .ci-out/sanity-diag/sanity-diag.tgz -C .ci-out sanity-diag
 
           SUM="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
@@ -49,8 +46,13 @@ jobs:
             echo
             cat .ci-out/sanity-diag/diag.json
             echo
-            echo 'Packaged files:'
-            find .ci-out/sanity-diag -maxdepth 1 -type f -printf ' - %f\n'
+            echo "Packaged files:"
+            if command -v find >/dev/null 2>&1; then
+              find .ci-out/sanity-diag -maxdepth 1 -type f -printf ' - %f\n' 2>/dev/null || \
+              find .ci-out/sanity-diag -maxdepth 1 -type f -exec basename {} \;
+            else
+              ls -1 .ci-out/sanity-diag || true
+            fi
           } >> "$SUM"
 
       - name: Upload artifact

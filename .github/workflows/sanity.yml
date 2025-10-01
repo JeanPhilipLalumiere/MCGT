@@ -2,7 +2,7 @@ name: "sanity"
 on:
   push: {}
   pull_request: {}
-  workflow_dispatch: {}  # CAT v14 @ 20251001T115209
+  workflow_dispatch: {}  # CAT v15 @ 20251001T120001
   repository_dispatch:
     types: [sanity]
 

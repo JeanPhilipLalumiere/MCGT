@@ -8,6 +8,8 @@ on:
 jobs:
   diag:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +30,7 @@ jobs:
             ]
           }
           JSON
+
           sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.json
           printf "timestamp=%s\nok=true\n" "${TS}" > .ci-out/sanity-diag/diag.txt
 
@@ -40,7 +43,7 @@ jobs:
 
           tar czf .ci-out/sanity-diag/sanity-diag.tgz -C .ci-out sanity-diag
 
-          SUMMARY_FILE="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
+          SUM="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
           {
             echo "### Sanity Diag"
             echo
@@ -48,7 +51,7 @@ jobs:
             echo
             echo 'Packaged files:'
             find .ci-out/sanity-diag -maxdepth 1 -type f -printf ' - %f\n'
-          } >> "${SUMMARY_FILE}"
+          } >> "$SUM"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

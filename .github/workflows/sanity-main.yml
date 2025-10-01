@@ -5,10 +5,11 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 6 * * *' # Tous les jours à 06:00 UTC (ajuste si besoin)
+    - cron: '0 6 * * *' # Tous les jours à 06:00 UTC
 
 concurrency:
-  group: sanity-main-${{ github.ref }}
+  # Sépare les groupes par ref ET par type d'évènement
+  group: sanity-main-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -27,20 +28,22 @@ jobs:
           mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
 
-          # JSON robuste (pas de here-doc)
-          printf '{\n'                          >  "$OUT/diag.json"
-          printf '  "timestamp": "%s",\n' "$TS" >> "$OUT/diag.json"
-          printf '  "errors": 0,\n'             >> "$OUT/diag.json"
-          printf '  "warnings": 0,\n'           >> "$OUT/diag.json"
-          printf '  "issues": [\n'              >> "$OUT/diag.json"
-          printf '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }\n' >> "$OUT/diag.json"
-          printf '  ]\n'                        >> "$OUT/diag.json"
-          printf '}\n'                          >> "$OUT/diag.json"
+          # JSON robuste (printf, pas de here-doc)
+          {
+            printf '{\n'
+            printf '  "timestamp": "%s",\n' "$TS"
+            printf '  "errors": 0,\n'
+            printf '  "warnings": 0,\n'
+            printf '  "issues": [\n'
+            printf '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }\n'
+            printf '  ]\n'
+            printf '}\n'
+          } > "$OUT/diag.json"
 
-          # Mémo
+          # Petit mémo texte
           printf "timestamp=%s\nok=true\n" "$TS" > "$OUT/diag.txt"
 
-          # Summary (fallback local si $GITHUB_STEP_SUMMARY absent)
+          # Summary (fallback local)
           SUM="${GITHUB_STEP_SUMMARY:-$OUT/SUMMARY.md}"
           {
             echo "### Sanity Diag"

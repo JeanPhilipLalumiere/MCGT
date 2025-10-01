@@ -88,7 +88,7 @@ PY
       - name: Pytest
         continue-on-error: true
         run: |
-          if [ -d zz-tests ] || ls -1 *.py zz-*.py tests conftest.py 2>/dev/null | head -n1 >/devnull; then
+          if [ -d zz-tests ] || ls -1 *.py zz-*.py tests conftest.py 2>/dev/null | head -n1 >/dev/null; then
             python -m pytest -q || true
           else
             echo "skip pytest (no tests detected)"

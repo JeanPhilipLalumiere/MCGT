@@ -5,12 +5,7 @@ diag="$outdir/diag.json"
 errors=0; warnings=0
 [ -d ".github/workflows" ] || { warnings=$((warnings+1)); echo "WARN: .github/workflows manquant"; }
 command -v python >/dev/null || { warnings=$((warnings+1)); echo "WARN: python manquant"; }
-{
-  printf '{'
-  printf '"timestamp":"%s",' "$(date -u +%FT%TZ)"
-  printf '"errors":%s,' "$errors"
-  printf '"warnings":%s,' "$warnings"
-  printf '"issues":[{"severity":"INFO","code":"PING","path":"repo","msg":"sanity OK"}]'
-  printf '}\n'
-} > "$diag"
+cat > "$diag" <<JSON
+{"timestamp":"$(date -u +%FT%TZ)","errors":$errors,"warnings":$warnings,"issues":[{"severity":"INFO","code":"PING","path":"repo","msg":"sanity OK"}]}
+JSON
 echo "Diag écrit: $diag"

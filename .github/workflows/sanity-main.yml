@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '0 6 * * *' # Tous les jours à 06:00 UTC (ajuste si besoin)
+
+concurrency:
+  group: sanity-main-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   diag:
@@ -21,7 +27,7 @@ jobs:
           mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
 
-          # Écriture du JSON sans here-doc (robuste aux collages)
+          # JSON robuste (pas de here-doc)
           printf '{\n'                          >  "$OUT/diag.json"
           printf '  "timestamp": "%s",\n' "$TS" >> "$OUT/diag.json"
           printf '  "errors": 0,\n'             >> "$OUT/diag.json"
@@ -31,10 +37,10 @@ jobs:
           printf '  ]\n'                        >> "$OUT/diag.json"
           printf '}\n'                          >> "$OUT/diag.json"
 
-          # Petit mémo texte
+          # Mémo
           printf "timestamp=%s\nok=true\n" "$TS" > "$OUT/diag.txt"
 
-          # Résumé dans l'onglet "Summary" du job (fallback vers fichier local)
+          # Summary (fallback local si $GITHUB_STEP_SUMMARY absent)
           SUM="${GITHUB_STEP_SUMMARY:-$OUT/SUMMARY.md}"
           {
             echo "### Sanity Diag"

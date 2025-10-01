@@ -1,9 +1,10 @@
 name: "sanity-echo"
 on:
-  workflow_dispatch: {}  # CAT v16 @ 20251001T120656
+  workflow_dispatch: {}
   repository_dispatch:
     types: [ping]
 permissions:
+  actions: write
   contents: read
 jobs:
   echo:
@@ -16,13 +17,12 @@ jobs:
           uname -a
           echo "event=$GITHUB_EVENT_NAME"
           echo "ref=$GITHUB_REF"
-          env | sort | sed -n '1,120p'
       - name: Prepare artifact
         shell: bash
         run: |
           mkdir -p .ci-out
           date -u +"%FT%TZ" > .ci-out/echo.ts
-          printf '{"ok":true,"ts":"%s"}\n' "" > .ci-out/echo.json
+          printf '{"ok":true,"ts":"%s"}\n' "$(cat .ci-out/echo.ts)" > .ci-out/echo.json
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

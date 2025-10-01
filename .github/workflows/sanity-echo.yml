@@ -1,0 +1,31 @@
+name: "sanity-echo"
+on:
+  workflow_dispatch: {}  # CAT v16 @ 20251001T120656
+  repository_dispatch:
+    types: [ping]
+permissions:
+  contents: read
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Context & env
+        shell: bash
+        run: |
+          set -x
+          uname -a
+          echo "event=$GITHUB_EVENT_NAME"
+          echo "ref=$GITHUB_REF"
+          env | sort | sed -n '1,120p'
+      - name: Prepare artifact
+        shell: bash
+        run: |
+          mkdir -p .ci-out
+          date -u +"%FT%TZ" > .ci-out/echo.ts
+          printf '{"ok":true,"ts":"%s"}\n' "" > .ci-out/echo.json
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanity-echo
+          path: .ci-out/
+          if-no-files-found: error

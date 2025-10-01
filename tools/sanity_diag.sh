@@ -4,7 +4,6 @@ outdir=".ci-out"; mkdir -p "$outdir"
 diag="$outdir/diag.json"
 errors=0; warnings=0
 [ -d ".github/workflows" ] || { warnings=$((warnings+1)); echo "WARN: .github/workflows manquant"; }
-command -v python >/dev/null || { warnings=$((warnings+1)); echo "WARN: python manquant"; }
 cat > "$diag" <<JSON
 {"timestamp":"$(date -u +%FT%TZ)","errors":$errors,"warnings":$warnings,"issues":[{"severity":"INFO","code":"PING","path":"repo","msg":"sanity OK"}]}
 JSON

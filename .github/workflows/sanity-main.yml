@@ -46,24 +46,24 @@ jobs:
       - name: "Sanity diag (always)"
         if: ${{ always() }}
         shell: bash
-        continue-on-error: false
         run: bash tools/sanity_diag.sh
 
-      - name: "Ensure artifact présent (pré-upload)"
+      - name: "Ensure artifact présent (pré-upload, ABSOLU)"
         if: ${{ always() }}
         shell: bash
         run: |
-          mkdir -p .ci-out
-          # Si diag.json n'existe pas ou est vide, on en crée un de secours
-          if [ ! -s .ci-out/diag.json ]; then
-            echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"FALLBACK","msg":"created by ensure step"}]}' > .ci-out/diag.json
+          set -x
+          echo "workspace=$GITHUB_WORKSPACE"
+          mkdir -p "$GITHUB_WORKSPACE/.ci-out"
+          if [ ! -s "$GITHUB_WORKSPACE/.ci-out/diag.json" ]; then
+            echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"FALLBACK","msg":"created by ensure step"}]}' > "$GITHUB_WORKSPACE/.ci-out/diag.json"
           fi
-          ls -la .ci-out || true
+          ls -la "$GITHUB_WORKSPACE/.ci-out" || true
 
       - name: "Upload diag artifact (always)"
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: .ci-out/
-          if-no-files-found: warn
+          path: ${{ github.workspace }}/.ci-out/**
+          if-no-files-found: error

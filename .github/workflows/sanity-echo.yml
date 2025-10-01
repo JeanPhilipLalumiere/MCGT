@@ -12,25 +12,17 @@ jobs:
         run: |
           set -x
           pwd; ls -la
-          echo "event=$GITHUB_EVENT_NAME"
-          echo "ref=$GITHUB_REF"
-      - name: "Prépare artifact"
+          echo "workspace=$GITHUB_WORKSPACE"
+      - name: "Prépare artifact ABSOLU"
         shell: bash
         run: |
-          mkdir -p .ci-out
-          date -u +"%FT%TZ" > .ci-out/echo.ts
-          printf '{"ok":true,"ts":"%s"}\n' "$(cat .ci-out/echo.ts)" > .ci-out/echo.json
-          ls -la .ci-out || true
-      - name: "Ensure artifact présent (pré-upload)"
-        shell: bash
-        run: |
-          if [ ! -e .ci-out/echo.json ]; then
-            echo '{"ok":true,"ts":"'"$(date -u +%FT%TZ)"'"}' > .ci-out/echo.json
-          fi
-          ls -la .ci-out || true
-      - name: "Upload artifact"
+          mkdir -p "$GITHUB_WORKSPACE/.ci-out"
+          date -u +"%FT%TZ" > "$GITHUB_WORKSPACE/.ci-out/echo.ts"
+          printf '{"ok":true,"ts":"%s"}\n' "$(cat "$GITHUB_WORKSPACE/.ci-out/echo.ts")" > "$GITHUB_WORKSPACE/.ci-out/echo.json"
+          ls -la "$GITHUB_WORKSPACE/.ci-out" || true
+      - name: "Upload artifact echo"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-echo
-          path: .ci-out/
-          if-no-files-found: warn
+          path: ${{ github.workspace }}/.ci-out/**
+          if-no-files-found: error

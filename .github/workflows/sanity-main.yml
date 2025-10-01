@@ -29,8 +29,6 @@ jobs:
           }
           JSON
           sed -i "s/__TS__/${TS}/" .ci-out/sanity-diag/diag.json
-
-          # petit fichier texte pour inspection humaine
           printf "timestamp=%s\nok=true\n" "${TS}" > .ci-out/sanity-diag/diag.txt
 
       - name: Pack artifact + summary (robuste)
@@ -42,7 +40,6 @@ jobs:
 
           tar czf .ci-out/sanity-diag/sanity-diag.tgz -C .ci-out sanity-diag
 
-          # Fallback si $GITHUB_STEP_SUMMARY est absent
           SUMMARY_FILE="${GITHUB_STEP_SUMMARY:-.ci-out/sanity-diag/SUMMARY.md}"
           {
             echo "### Sanity Diag"

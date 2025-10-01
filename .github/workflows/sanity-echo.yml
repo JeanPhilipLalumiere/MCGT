@@ -1,40 +1,9 @@
-name: "sanity-echo"
+name: sanity-echo
 on:
   workflow_dispatch: {}
-permissions:
-  contents: read
 jobs:
   echo:
     runs-on: ubuntu-latest
-    env:
-      ART_DIR: ${{ github.workspace }}/.ci-out
-      TAR_PATH: ${{ github.workspace }}/sanity-echo.tgz
     steps:
-      - name: "Debug"
-        shell: bash
-        run: |
-          set -x
-          pwd; echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"; ls -la
-      - name: "Prépare artifact (fichiers)"
-        shell: bash
-        run: |
-          set -e
-          mkdir -p "$ART_DIR"
-          date -u +%FT%TZ > "$ART_DIR/echo.ts"
-          jq -n --arg ts "$(cat "$ART_DIR/echo.ts")" '{ok:true,ts:$ts}' > "$ART_DIR/echo.json"
-          ls -la "$ART_DIR"
-      - name: "Pack .ci-out en .tgz"
-        id: pack
-        shell: bash
-        run: |
-          set -e
-          test -s "$ART_DIR/echo.json" || { echo "echo.json manquant"; exit 1; }
-          tar -czf "$TAR_PATH" -C "$ART_DIR" .
-          echo "file=$TAR_PATH" >> "$GITHUB_OUTPUT"
-          ls -la "$TAR_PATH"
-      - name: "Upload artifact (FICHIER .tgz)"
-        uses: actions/upload-artifact@v4
-        with:
-          name: sanity-echo
-          path: ${{ steps.pack.outputs.file }}
-          if-no-files-found: error
+      - name: Echo
+        run: echo "sanity-echo OK @ $(date -u +%FT%TZ)"

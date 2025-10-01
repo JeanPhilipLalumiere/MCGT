@@ -9,6 +9,8 @@ jobs:
   sanity:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      ART_DIR: ${{ github.workspace }}/.ci-out
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -48,22 +50,21 @@ jobs:
         shell: bash
         run: bash tools/sanity_diag.sh
 
-      - name: "Ensure artifact présent (pré-upload, ABSOLU)"
+      - name: "Ensure artifact présent (pré-upload)"
         if: ${{ always() }}
         shell: bash
         run: |
           set -x
-          echo "workspace=$GITHUB_WORKSPACE"
-          mkdir -p "$GITHUB_WORKSPACE/.ci-out"
-          if [ ! -s "$GITHUB_WORKSPACE/.ci-out/diag.json" ]; then
-            echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"FALLBACK","msg":"created by ensure step"}]}' > "$GITHUB_WORKSPACE/.ci-out/diag.json"
-          fi
-          ls -la "$GITHUB_WORKSPACE/.ci-out" || true
+          mkdir -p "$ART_DIR"
+          [ -s "$ART_DIR/diag.json" ] || echo '{"timestamp":"'"$(date -u +%FT%TZ)"'","errors":0,"warnings":0,"issues":[{"severity":"INFO","code":"ENSURE","msg":"créé par ensure"}]}' > "$ART_DIR/diag.json"
+          [ -s "$ART_DIR/diag.ts" ] || date -u +%FT%TZ > "$ART_DIR/diag.ts"
+          echo "Listing:"
+          find "$ART_DIR" -maxdepth 1 -type f -ls
 
-      - name: "Upload diag artifact (always)"
+      - name: "Upload diag artifact (DOSSIER, sans glob)"
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: ${{ github.workspace }}/.ci-out/**
+          path: ${{ env.ART_DIR }}
           if-no-files-found: error

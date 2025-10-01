@@ -9,12 +9,12 @@ jobs:
     env:
       ART_DIR: ${{ github.workspace }}/.ci-out
     steps:
-      - name: "Contexte"
+      - name: "Debug contexte"
         shell: bash
         run: |
           set -x
           pwd; ls -la
-          echo "workspace=$GITHUB_WORKSPACE"
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
       - name: "Prépare artifact (création fichiers)"
         shell: bash
         run: |
@@ -24,9 +24,29 @@ jobs:
           printf '{"ok":true,"ts":"%s"}\n' "$(cat "$ART_DIR/echo.ts")" > "$ART_DIR/echo.json"
           echo "Listing:"
           find "$ART_DIR" -maxdepth 1 -type f -ls
-      - name: "Upload artifact echo (DOSSIER, sans glob)"
+      - name: "Résout dossier d'artefact"
+        id: res
+        shell: bash
+        run: |
+          set -e
+          C1="${ART_DIR}"
+          FOUND=""
+          if [ -d "$C1" ] && [ "$(ls -A "$C1" || true)" ]; then FOUND="$C1"; fi
+          if [ -z "$FOUND" ]; then
+            FOUND="$(find "$GITHUB_WORKSPACE" -maxdepth 3 -type d -name ".ci-out" -print -quit || true)"
+          fi
+          if [ -z "$FOUND" ]; then
+            FOUND="$GITHUB_WORKSPACE/.ci-out"
+            mkdir -p "$FOUND"
+            echo "{}" > "$FOUND/echo.json"
+            date -u +%FT%TZ > "$FOUND/echo.ts"
+          fi
+          echo "Using artifact dir: $FOUND"
+          echo "path=$FOUND" >> "$GITHUB_OUTPUT"
+          ls -la "$FOUND" || true
+      - name: "Upload artifact echo (DOSSIER)"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-echo
-          path: ${{ env.ART_DIR }}
+          path: ${{ steps.res.outputs.path }}
           if-no-files-found: error

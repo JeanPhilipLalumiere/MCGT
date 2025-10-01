@@ -61,10 +61,32 @@ jobs:
           echo "Listing:"
           find "$ART_DIR" -maxdepth 1 -type f -ls
 
-      - name: "Upload diag artifact (DOSSIER, sans glob)"
+      - name: "Résout dossier d'artefact"
+        if: ${{ always() }}
+        id: res
+        shell: bash
+        run: |
+          set -e
+          C1="${ART_DIR}"
+          FOUND=""
+          if [ -d "$C1" ] && [ "$(ls -A "$C1" || true)" ]; then FOUND="$C1"; fi
+          if [ -z "$FOUND" ]; then
+            FOUND="$(find "$GITHUB_WORKSPACE" -maxdepth 3 -type d -name ".ci-out" -print -quit || true)"
+          fi
+          if [ -z "$FOUND" ]; then
+            FOUND="$GITHUB_WORKSPACE/.ci-out"
+            mkdir -p "$FOUND"
+            echo '{"timestamp":"'"$(date -u +%FT%TZ)"'"}' > "$FOUND/diag.json"
+            date -u +%FT%TZ > "$FOUND/diag.ts"
+          fi
+          echo "Using artifact dir: $FOUND"
+          echo "path=$FOUND" >> "$GITHUB_OUTPUT"
+          ls -la "$FOUND" || true
+
+      - name: "Upload diag artifact (DOSSIER)"
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: sanity-diag
-          path: ${{ env.ART_DIR }}
+          path: ${{ steps.res.outputs.path }}
           if-no-files-found: error

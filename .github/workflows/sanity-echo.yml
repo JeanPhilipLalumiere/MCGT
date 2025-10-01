@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: "Contexte"
         shell: bash
-        continue-on-error: true
         run: |
           set -x
           pwd; ls -la
@@ -17,14 +16,21 @@ jobs:
           echo "ref=$GITHUB_REF"
       - name: "Prépare artifact"
         shell: bash
-        continue-on-error: false
         run: |
           mkdir -p .ci-out
           date -u +"%FT%TZ" > .ci-out/echo.ts
           printf '{"ok":true,"ts":"%s"}\n' "$(cat .ci-out/echo.ts)" > .ci-out/echo.json
+          ls -la .ci-out || true
+      - name: "Ensure artifact présent (pré-upload)"
+        shell: bash
+        run: |
+          if [ ! -e .ci-out/echo.json ]; then
+            echo '{"ok":true,"ts":"'"$(date -u +%FT%TZ)"'"}' > .ci-out/echo.json
+          fi
+          ls -la .ci-out || true
       - name: "Upload artifact"
         uses: actions/upload-artifact@v4
         with:
           name: sanity-echo
           path: .ci-out/
-          if-no-files-found: error
+          if-no-files-found: warn

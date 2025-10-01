@@ -1,20 +1,26 @@
 name: sanity-main
+run-name: sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - '.ci-logs/**'
+      - '.ci-archive/**'
   schedule:
     - cron: '0 6 * * *' # Tous les jours à 06:00 UTC
 
 concurrency:
-  # Sépare les groupes par ref ET par type d'évènement
   group: sanity-main-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
   diag:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
     steps:
@@ -27,8 +33,6 @@ jobs:
           OUT=".ci-out/sanity-diag"
           mkdir -p "$OUT"
           TS="$(date -u +%FT%TZ)"
-
-          # JSON robuste (printf, pas de here-doc)
           {
             printf '{\n'
             printf '  "timestamp": "%s",\n' "$TS"
@@ -39,11 +43,7 @@ jobs:
             printf '  ]\n'
             printf '}\n'
           } > "$OUT/diag.json"
-
-          # Petit mémo texte
           printf "timestamp=%s\nok=true\n" "$TS" > "$OUT/diag.txt"
-
-          # Summary (fallback local)
           SUM="${GITHUB_STEP_SUMMARY:-$OUT/SUMMARY.md}"
           {
             echo "### Sanity Diag"

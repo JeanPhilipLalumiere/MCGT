@@ -99,3 +99,9 @@ artifacts_*/
 .pytest_cache/
 *.log
 *.bak
+
+# Backups / archives locales
+.github/workflows/*.bak.*
+*.bak
+*.bak.*
+.ci-archive/

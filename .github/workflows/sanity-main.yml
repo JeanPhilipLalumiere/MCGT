@@ -173,13 +173,9 @@ jobs:
           __TMP_GITHUB_STEP_SUMMARY_0__="$(mktemp)"
           {
             echo "## Meta checks"
-          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
-          {
             echo "- actionlint: pinned v1.7.1 (skip si indisponible)"
-          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
-          {
             echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"
-          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
+          } >> "$__TMP_GITHUB_STEP_SUMMARY_0__"
           if [ -f "$__TMP_GITHUB_STEP_SUMMARY_0__" ]; then
             cat "$__TMP_GITHUB_STEP_SUMMARY_0__" >> "${GITHUB_STEP_SUMMARY}"
             rm -f "$__TMP_GITHUB_STEP_SUMMARY_0__"

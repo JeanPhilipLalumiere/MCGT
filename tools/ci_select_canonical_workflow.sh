@@ -31,7 +31,11 @@ __cat_header_cleanup(){
 # minimal checks
 say "START script $(basename "$0")"
 say "Etape: vérification gh auth"
-command -v gh >/dev/null 2>&1 && gh auth status || say "WARN: gh not authenticated or not installed"
+if command -v gh >/dev/null 2>&1; then
+  gh auth status
+else
+  say "WARN: gh not authenticated or not installed"
+fi
 say "Etape: git fetch"
 git fetch --all --prune || say "WARN: git fetch failed"
 # start heartbeat

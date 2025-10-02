@@ -64,21 +64,24 @@ jobs:
         if: always()
         shell: bash
         run: |
+          set -euo pipefail
           {
             echo "## Sanity diag"
             echo
-            echo "- Timestamp: $(command -v jq >/dev/null 2>&1 && jq -r .timestamp .ci-out/sanity-diag/diag.json || date -u +%FT%TZ)"
-            echo "- Errors: $(command -v jq >/dev/null 2>&1 && jq -r .errors .ci-out/sanity-diag/diag.json || echo 0)"
-            echo "- Warnings: $(command -v jq >/dev/null 2>&1 && jq -r .warnings .ci-out/sanity-diag/diag.json || echo 0)"
-            echo
-            echo "### Issues"
             if command -v jq >/dev/null 2>&1; then
-              jq -r '.issues[] | "- [" + .severity + "] " + .code + ": " + .msg' .ci-out/sanity-diag/diag.json || true
+              TS="$(jq -r .timestamp // empty .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              ERR="$(jq -r .errors // empty .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
             else
-              cat .ci-out/sanity-diag/diag.txt || true
+              TS="$(date -u +%FT%TZ)"
+              ERR=""
+            fi
+            echo "- Timestamp: ${TS:-unknown}"
+            if [ -n "${ERR:-}" ]; then
+              echo "- Errors: $ERR"
+            else
+              echo "- Errors: none"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
-
   meta:
     if: ${{ github.event_name != 'schedule' }}
     runs-on: ubuntu-latest

@@ -141,7 +141,7 @@ awk -v factor="$DPHI_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6
 #------------------------------------------------------------------------------#
 echo "[INFO] Verifying generated CSVs"
 for f in "$CS2_CSV" "$PHI_CSV"; do
-  n=$(grep -v '^#' "$f" | wc -l)
+  n=$(grep -c -v '^#' "$f")
   if (( n < 10 )); then
     echo "[WARNING] Only $n data lines in $f"
   else

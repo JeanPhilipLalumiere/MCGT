@@ -88,21 +88,52 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install actionlint (pinned)
+      - name: Install actionlint (pinned v1.7.1) with fallback
         shell: bash
+        continue-on-error: true
         run: |
           set -euo pipefail
           mkdir -p .tools/bin
-          curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash \
-            | bash -s -- -b .tools/bin v1.7.1
-          echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
+          ver="1.7.1"
+          base="https://github.com/rhysd/actionlint/releases/download/v${ver}"
+
+          # Essai 1: script officiel
+          if curl -fsSL --retry 3 https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash -o /tmp/dl_actionlint.sh; then
+            bash /tmp/dl_actionlint.sh -b .tools/bin "v${ver}" || true
+          fi
+
+          # Essai 2: tarball direct (noms d’assets les plus courants)
+          if ! [ -x .tools/bin/actionlint ]; then
+            for asset in \
+              "actionlint_${ver}_linux_amd64.tar.gz" \
+              "actionlint_${ver}_Linux_x86_64.tar.gz"
+            do
+              if curl -fL --retry 3 "${base}/${asset}" -o "/tmp/${asset}"; then
+                tar -xzf "/tmp/${asset}" -C .tools/bin actionlint || true
+                chmod +x .tools/bin/actionlint || true
+                break
+              fi
+            done
+          fi
+
+          # Export PATH si présent
+          if [ -x .tools/bin/actionlint ]; then
+            echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
+            .tools/bin/actionlint --version || true
+          else
+            echo "WARN: actionlint indisponible (checks sautés)"
+          fi
 
       - name: Run actionlint
         shell: bash
         continue-on-error: true
         run: |
           set -euo pipefail
-          .tools/bin/actionlint -color -shellcheck= -format '{{.File}}:{{.Line}}:{{.Col}}: {{.Message}}'
+          if command -v actionlint >/dev/null 2>&1; then
+            actionlint -color -shellcheck= -format '{{.File}}:{{.Line}}:{{.Col}}: {{.Message}}'
+          else
+            echo "skip: actionlint non installé"
+          fi
 
       - name: Run shellcheck (tools/*.sh)
         shell: bash
@@ -118,7 +149,7 @@ jobs:
               echo "No shell scripts under tools/"
             fi
           else
-            echo "shellcheck not found on runner (unexpected on ubuntu-latest), skipping"
+            echo "shellcheck not found on runner, skipping"
           fi
 
       - name: Meta summary
@@ -126,6 +157,5 @@ jobs:
         shell: bash
         run: |
           echo "## Meta checks" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- actionlint: executed (pinned v1.7.1)" >> "$GITHUB_STEP_SUMMARY"
-          echo "- shellcheck: executed on tools/*.sh (if any)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- actionlint: pinned v1.7.1 (skip si indisponible)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)" >> "$GITHUB_STEP_SUMMARY"

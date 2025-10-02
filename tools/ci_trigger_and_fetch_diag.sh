@@ -10,12 +10,25 @@ set +e
 STAMP="$(date +%Y%m%dT%H%M%S)"
 ROOT_LOG=".ci-logs/trigger-fetch-$STAMP.log"
 exec > >(tee -a "$ROOT_LOG") 2>&1
-say(){ printf "\n== %s ==\n" "$*"; }; pause(){ printf "\n(Pause) Entrée pour continuer… "; read -r _ || true; }
+say() { printf "\n== %s ==\n" "$*"; }
+pause() {
+  printf "\n(Pause) Entrée pour continuer… "
+  read -r _ || true
+}
 
-WF="sanity-main.yml"; ART="sanity-diag"
+WF="sanity-main.yml"
+ART="sanity-diag"
 
-command -v gh >/dev/null 2>&1 || { echo "✘ gh manquant"; pause; exit 2; }
-[ -d .git ] || { echo "✘ Pas de dépôt git"; pause; exit 2; }
+command -v gh >/dev/null 2>&1 || {
+  echo "✘ gh manquant"
+  pause
+  exit 2
+}
+[ -d .git ] || {
+  echo "✘ Pas de dépôt git"
+  pause
+  exit 2
+}
 
 say "Dispatch REST ($WF -> main)"
 if gh api repos/:owner/:repo/actions/workflows/"$WF"/dispatches --method POST -f ref=main 2>&1; then
@@ -35,7 +48,7 @@ if [ -n "$RID" ]; then
 
   say "Téléchargement logs & artifacts"
   mkdir -p .ci-logs/"${WF%.yml}"-artifacts
-  gh run view "$RID" --log > .ci-logs/"${WF%.yml}".full.log 2>/dev/null || true
+  gh run view "$RID" --log >.ci-logs/"${WF%.yml}".full.log 2>/dev/null || true
   gh run download "$RID" --dir .ci-logs/"${WF%.yml}"-artifacts || true
 
   echo
@@ -46,7 +59,7 @@ if [ -n "$RID" ]; then
     echo "-- Liste dans l'archive --"
     tar -tzf "$TGZ" || true
     echo "-- diag.json (pretty) --"
-    ( tar -xOzf "$TGZ" ./diag.json 2>/dev/null || tar -xOzf "$TGZ" diag.json ) | python -m json.tool || true
+    (tar -xOzf "$TGZ" ./diag.json 2>/dev/null || tar -xOzf "$TGZ" diag.json) | python -m json.tool || true
   else
     echo "WARN: artifact $ART non trouvé"
   fi

@@ -4,19 +4,23 @@
 set -euo pipefail
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 [timeout-secs] <script> [args...]"; exit 2
+  echo "Usage: $0 [timeout-secs] <script> [args...]"
+  exit 2
 fi
 
 re='^[0-9]+$'
 if [[ "$1" =~ $re ]]; then
-  TIMEOUT="$1"; shift
+  TIMEOUT="$1"
+  shift
 else
   TIMEOUT=900
 fi
 
-SCRIPT="$1"; shift || true
+SCRIPT="$1"
+shift || true
 if [ ! -f "$SCRIPT" ]; then
-  echo "ERR: script '$SCRIPT' not found"; exit 2
+  echo "ERR: script '$SCRIPT' not found"
+  exit 2
 fi
 
 mkdir -p .ci-logs
@@ -25,7 +29,7 @@ LOG=".ci-logs/$(basename "$SCRIPT" .sh)-$STAMP.log"
 
 # create wrapper (temp file)
 WRAP="/tmp/__cat_wrapper_${STAMP}.sh"
-cat > "$WRAP" <<'WRAP_EOF'
+cat >"$WRAP" <<'WRAP_EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 

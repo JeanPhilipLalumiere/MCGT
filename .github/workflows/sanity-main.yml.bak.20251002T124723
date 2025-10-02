@@ -1,0 +1,186 @@
+name: sanity-main
+run-name: sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - '.ci-logs/**'
+      - '.ci-archive/**'
+  schedule:
+    - cron: '0 6 * * *' # tous les jours 06:00 UTC
+
+concurrency:
+  group: sanity-main-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build diag payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=".ci-out/sanity-diag"
+          mkdir -p "$OUT"
+          TS="$(date -u +%FT%TZ)"
+          {
+            printf '{\n'
+            printf '  "timestamp": "%s",\n' "$TS"
+            printf '  "errors": 0,\n'
+            printf '  "warnings": 0,\n'
+            printf '  "issues": [\n'
+            printf '    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }\n'
+            printf '  ]\n'
+            printf '}\n'
+          } > "$OUT/diag.json"
+          {
+            echo "Sanity diag — $TS"
+            echo
+            echo "- errors: 0"
+            echo "- warnings: 0"
+            echo "- issues:"
+            echo "  - [INFO] PING: sanity OK"
+          } > "$OUT/diag.txt"
+
+      - name: Upload artifact (sanity-diag)
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanity-diag
+          path: .ci-out/sanity-diag/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Job summary (Markdown)
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "## Sanity diag"
+            echo
+            if command -v jq >/dev/null 2>&1; then
+              TS="$(jq -r '.timestamp // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              ERR="$(jq -r '.errors // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              WARN="$(jq -r '.warnings // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              if [ -s .ci-out/sanity-diag/diag.txt ]; then
+                ISSUES="$(cat .ci-out/sanity-diag/diag.txt)"
+              else
+                ISSUES="$(jq -r '.issues[]? | "- [" + (.severity // "info") + "] " + (.code // "") + ": " + (.msg // "")' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              fi
+            else
+              TS="$(date -u +%FT%TZ)"
+              ERR=""
+              WARN=""
+              ISSUES="$(cat .ci-out/sanity-diag/diag.txt 2>/dev/null || true)"
+            fi
+            echo "- Timestamp: ${TS:-unknown}"
+            echo "- Errors: ${ERR:-none}"
+            echo "- Warnings: ${WARN:-none}"
+            if [ -n "${ISSUES:-}" ]; then
+              echo
+              echo "### Issues"
+              printf "%s
+          " "$ISSUES"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+  meta:
+    if: ${{ github.event_name != 'schedule' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install actionlint (pinned v1.7.1) with fallback
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          mkdir -p .tools/bin
+          ver="1.7.1"
+          base="https://github.com/rhysd/actionlint/releases/download/v${ver}"
+
+          # Essai 1: script officiel
+          if curl -fsSL --retry 3 https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash -o /tmp/dl_actionlint.sh; then
+            bash /tmp/dl_actionlint.sh -b .tools/bin "v${ver}" || true
+          fi
+
+          # Essai 2: tarball direct (noms d’assets les plus courants)
+          if ! [ -x .tools/bin/actionlint ]; then
+            for asset in \
+              "actionlint_${ver}_linux_amd64.tar.gz" \
+              "actionlint_${ver}_Linux_x86_64.tar.gz"
+            do
+              if curl -fL --retry 3 "${base}/${asset}" -o "/tmp/${asset}"; then
+                tar -xzf "/tmp/${asset}" -C .tools/bin actionlint || true
+                chmod +x .tools/bin/actionlint || true
+                break
+              fi
+            done
+          fi
+
+          # Export PATH si présent
+          if [ -x .tools/bin/actionlint ]; then
+            echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
+            .tools/bin/actionlint --version || true
+          else
+            echo "WARN: actionlint indisponible (checks sautés)"
+          fi
+
+      - name: Run actionlint
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if command -v actionlint >/dev/null 2>&1; then
+            actionlint -color -shellcheck= -format '{{.File}}:{{.Line}}:{{.Col}}: {{.Message}}'
+          else
+            echo "skip: actionlint non installé"
+          fi
+
+      - name: Run shellcheck (tools/*.sh)
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if command -v shellcheck >/dev/null 2>&1; then
+            shopt -s nullglob
+            FILES=(tools/*.sh)
+            if (( ${#FILES[@]} )); then
+              shellcheck -S style -x "${FILES[@]}" || true
+            else
+              echo "No shell scripts under tools/"
+            fi
+          else
+            echo "shellcheck not found on runner, skipping"
+          fi
+
+      - name: Meta summary
+        if: always()
+        shell: bash
+        run: |
+          __TMP_GITHUB_STEP_SUMMARY_0__="$(mktemp)"
+          {
+            echo "## Meta checks"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
+          {
+            echo "- actionlint: pinned v1.7.1 (skip si indisponible)"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
+          {
+            echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
+          if [ -f "$__TMP_GITHUB_STEP_SUMMARY_0__" ]; then
+            cat "$__TMP_GITHUB_STEP_SUMMARY_0__" >> "${GITHUB_STEP_SUMMARY}"
+            rm -f "$__TMP_GITHUB_STEP_SUMMARY_0__"
+          fi

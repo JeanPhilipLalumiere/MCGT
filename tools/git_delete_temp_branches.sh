@@ -14,7 +14,7 @@ fi
 say "Candidates to delete locally:"
 for b in "${branches[@]}"; do say " - $b"; done
 
-read -p "Delete these local branches? (y/N) " yn
+read -r -p "Delete these local branches? (y/N) " yn
 if [[ "$yn" =~ ^[Yy]$ ]]; then
   for b in "${branches[@]}"; do
     git branch -D "$b" || true

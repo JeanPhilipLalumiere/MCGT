@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2034
+#!/usr/bin/env bash
 set +e
 found=0
 while IFS= read -r -d '' mk; do

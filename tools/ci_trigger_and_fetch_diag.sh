@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2015
+#!/usr/bin/env bash
 ###############################################################################
 # 8) Trigger + fetch diag pour sanity-main.yml
 #    - REST workflow_dispatch -> fallback commit vide (push)

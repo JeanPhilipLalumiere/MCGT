@@ -22,12 +22,12 @@ repos:
       - id: check-shebang-scripts-are-executable
 
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.1
+    rev: v1.7.7
     hooks:
       - id: actionlint
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         files: ^(tools/|zz-scripts/).*\.(sh|bash)$
@@ -39,3 +39,12 @@ repos:
         entry: tools/check_sc2129_in_workflows.sh
         language: system
         files: '^\.github/workflows/.*\.ya?ml$'
+
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    # Tag compatible avec shfmt 3.7.0; "pre-commit autoupdate" fera le bump si besoin
+    rev: v3.12.0-2
+    hooks:
+      - id: shfmt
+        args: ["-w","-i","2","-ci"]
+        files: "^(tools/|zz-scripts/).+\\.(sh|bash)$"

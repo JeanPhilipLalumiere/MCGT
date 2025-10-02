@@ -2,14 +2,20 @@
 # Affiche le diag.json du **dernier run terminé** de sanity-main (success en priorité)
 
 set -euo pipefail
-log(){ printf "[%(%F %T)T] %s\n" -1 "$*"; }
+log() { printf "[%(%F %T)T] %s\n" -1 "$*"; }
 
-command -v gh >/dev/null 2>&1 || { echo "ERR: gh introuvable"; exit 1; }
+command -v gh >/dev/null 2>&1 || {
+  echo "ERR: gh introuvable"
+  exit 1
+}
 
 log "Recherche du dernier run (success d'abord, sinon dernier terminé)"
 RID="$(gh run list --workflow sanity-main.yml --json databaseId,status,conclusion,createdAt \
-      --limit 20 -q '[.[] | select(.status=="completed")] | sort_by(.createdAt) | reverse | .[0].databaseId')"
-[[ -n "${RID:-}" ]] || { echo "ERR: aucun run trouvé"; exit 1; }
+  --limit 20 -q '[.[] | select(.status=="completed")] | sort_by(.createdAt) | reverse | .[0].databaseId')"
+[[ -n "${RID:-}" ]] || {
+  echo "ERR: aucun run trouvé"
+  exit 1
+}
 log "Run sélectionné: ${RID}"
 
 TMPDIR="$(mktemp -d)"

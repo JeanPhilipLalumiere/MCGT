@@ -11,7 +11,10 @@ cleanup() {
 }
 trap 'cleanup $?' EXIT
 
-command -v gh >/dev/null 2>&1 || { echo "[ERREUR] GitHub CLI 'gh' requis." >&2; exit 1; }
+command -v gh >/dev/null 2>&1 || {
+  echo "[ERREUR] GitHub CLI 'gh' requis." >&2
+  exit 1
+}
 
 HEAD_SHA="$(git rev-parse HEAD)"
 echo "[INFO] HEAD_SHA=${HEAD_SHA}"

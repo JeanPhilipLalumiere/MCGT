@@ -39,7 +39,7 @@ if command -v gh >/dev/null 2>&1; then
   gh workflow run ci-pre-commit.yml -r "$TARGET_BRANCH" >/dev/null
 
   RID="$(gh run list --workflow ci-pre-commit.yml --branch "$TARGET_BRANCH" --limit 1 \
-        --json databaseId -q '.[0].databaseId')"
+    --json databaseId -q '.[0].databaseId')"
   echo "[INFO] RID=$RID"
 
   # Attente (ne bloque pas la CI si échec) puis affichage du tronçon intéressant des logs

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
-need(){ command -v "$1" >/dev/null 2>&1 || { echo "ERR: '$1' introuvable"; exit 1; }; }
+need() { command -v "$1" >/dev/null 2>&1 || {
+  echo "ERR: '$1' introuvable"
+  exit 1
+}; }
 need gh
 
 # Déduire owner/repo
@@ -14,7 +17,7 @@ gh api -X PUT "repos/${slug}/branches/main/protection" \
   -F required_status_checks.contexts[]="sanity-main" \
   -F enforce_admins=true \
   -F required_pull_request_reviews.required_approving_review_count=1 \
-  -F restrictions= \
-  || echo "WARN: protection call failed (insufficient rights?)"
+  -F restrictions= ||
+  echo "WARN: protection call failed (insufficient rights?)"
 
 echo "[protect] Done"

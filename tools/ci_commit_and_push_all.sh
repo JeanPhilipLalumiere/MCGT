@@ -2,7 +2,10 @@
 set -euo pipefail
 LOG=".ci-logs/ci_commit_and_push_all-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
-say(){ date +"[%F %T] - "; printf "%s\n" "$*"; }
+say() {
+  date +"[%F %T] - "
+  printf "%s\n" "$*"
+}
 
 DEF_BRANCH="$(git remote show origin 2>/dev/null | awk '/HEAD branch/ {print $NF}')"
 [ -n "$DEF_BRANCH" ] || DEF_BRANCH="main"

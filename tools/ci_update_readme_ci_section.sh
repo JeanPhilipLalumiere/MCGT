@@ -12,10 +12,10 @@ REPO_SLUG="$(slug_from_remote)"
 : "${REPO_SLUG:=JeanPhilipLalumiere/MCGT}"
 
 README="README.md"
-[[ -f "$README" ]] || echo "# MCGT" > "$README"
+[[ -f "$README" ]] || echo "# MCGT" >"$README"
 
 TMP="$(mktemp)"
-cat > "$TMP" <<EOF
+cat >"$TMP" <<EOF
 <!-- CI:BEGIN -->
 ### CI (Workflows canoniques)
 
@@ -36,10 +36,10 @@ export BLOCK
 
 if grep -q "<!-- CI:BEGIN -->" "$README" && grep -q "<!-- CI:END -->" "$README"; then
   # Remplacement multiligne sûr (dotall)
-  perl -0777 -pe 's/<!-- CI:BEGIN -->.*?<!-- CI:END -->/$ENV{BLOCK}/s' "$README" > "${README}.tmp"
+  perl -0777 -pe 's/<!-- CI:BEGIN -->.*?<!-- CI:END -->/$ENV{BLOCK}/s' "$README" >"${README}.tmp"
   mv "${README}.tmp" "$README"
 else
-  printf "\n%s\n" "$BLOCK" >> "$README"
+  printf "\n%s\n" "$BLOCK" >>"$README"
 fi
 
 rm -f "$TMP"

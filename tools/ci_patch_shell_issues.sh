@@ -3,11 +3,12 @@ set -euo pipefail
 
 # Normaliser tools/*.sh : retirer BOM/blank au début, forcer le shebang en 1re ligne
 normalize() {
-  local f="$1"; [ -f "$f" ] || return 0
+  local f="$1"
+  [ -f "$f" ] || return 0
   # strip UTF-8 BOM
   perl -i -pe 's/^\x{FEFF}//;' "$f" 2>/dev/null || true
   # enlever lignes vides au début
-  awk 'BEGIN{seen=0} {if(!seen && $0 ~ /^[[:space:]]*$/) next; seen=1; print}' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+  awk 'BEGIN{seen=0} {if(!seen && $0 ~ /^[[:space:]]*$/) next; seen=1; print}' "$f" >"$f.tmp" && mv "$f.tmp" "$f"
   # shebang si absent
   if ! head -n1 "$f" | grep -q '^#!'; then
     sed -i '1i #!/usr/bin/env bash' "$f"
@@ -22,7 +23,7 @@ grep -lR --include='*.sh' -n 'read -r -p ' tools/ 2>/dev/null | xargs -r sed -i 
 # SC2086 : exit $rc -> exit "$rc" (dans run_with_instrumentation.sh)
 if [ -f tools/run_with_instrumentation.sh ]; then
   # Remplace exactement 'exit $rc' par exit "$rc"
-# shellcheck disable=SC2016
+  # shellcheck disable=SC2016
   sed -i 's/^\([[:space:]]*exit\)[[:space:]]\+\$rc/\1 "\$rc"/' tools/run_with_instrumentation.sh
 fi
 

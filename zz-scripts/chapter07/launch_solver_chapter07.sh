@@ -58,15 +58,24 @@ OUTPUT_PHI="$DATA_DIR/output_solver_phi.dat"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --cs2_param)
-      CS2_PARAM="$2"; shift 2;;
+      CS2_PARAM="$2"
+      shift 2
+      ;;
     --delta_phi_param)
-      DPHI_PARAM="$2"; shift 2;;
+      DPHI_PARAM="$2"
+      shift 2
+      ;;
     --ini)
-      INI_FILE="$2"; shift 2;;
-    -h|--help)
-      print_usage;;
+      INI_FILE="$2"
+      shift 2
+      ;;
+    -h | --help)
+      print_usage
+      ;;
     *)
-      echo "[WARNING] Unrecognized option : $1"; print_usage;;
+      echo "[WARNING] Unrecognized option : $1"
+      print_usage
+      ;;
   esac
 done
 
@@ -94,22 +103,22 @@ awk -v cs2="$CS2_PARAM" -v dp="$DPHI_PARAM" '
     if (!found_cs2) print "cs2_param = " cs2
     if (!found_dp) print "delta_phi_param = " dp
   }
-' "$INI_FILE" > "$TMP_INI"
+' "$INI_FILE" >"$TMP_INI"
 mv "$TMP_INI" "$INI_FILE"
 
 #------------------------------------------------------------------------------#
 # 2) Run solver                                                                 #
 #------------------------------------------------------------------------------#
 echo "[INFO] Running scalar perturbation solver"
-if command -v camb &> /dev/null; then
-  camb "$INI_FILE" output_root="$DATA_DIR/solver_output" \
-    || error_exit "CAMB failed"
+if command -v camb &>/dev/null; then
+  camb "$INI_FILE" output_root="$DATA_DIR/solver_output" ||
+    error_exit "CAMB failed"
   # expect CAMB to produce solver_output_cs2.dat and solver_output_phi.dat
   mv "$DATA_DIR/solver_output_cs2.dat" "$OUTPUT_CS2"
   mv "$DATA_DIR/solver_output_phi.dat" "$OUTPUT_PHI"
-elif command -v class &> /dev/null; then
-  class --input.ini="$INI_FILE" --output_dir="$DATA_DIR" \
-    || error_exit "CLASS failed"
+elif command -v class &>/dev/null; then
+  class --input.ini="$INI_FILE" --output_dir="$DATA_DIR" ||
+    error_exit "CLASS failed"
   # adapt these names if CLASS produces different filenames
   mv "$DATA_DIR/class_output_cs2.dat" "$OUTPUT_CS2"
   mv "$DATA_DIR/class_output_phi.dat" "$OUTPUT_PHI"
@@ -128,13 +137,13 @@ echo "[INFO] Converting DAT to commented CSV"
 CS2_CSV="$DATA_DIR/07_cs2_scan.csv"
 PHI_CSV="$DATA_DIR/07_delta_phi_scan.csv"
 
-printf "# k [h/Mpc], a, cs2\n" > "$CS2_CSV"
+printf "# k [h/Mpc], a, cs2\n" >"$CS2_CSV"
 awk -v factor="$CS2_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6e\n",$1,$2,$3*factor)}' \
-  "$OUTPUT_CS2" >> "$CS2_CSV"
+  "$OUTPUT_CS2" >>"$CS2_CSV"
 
-printf "# k [h/Mpc], a, delta_phi_rel\n" > "$PHI_CSV"
+printf "# k [h/Mpc], a, delta_phi_rel\n" >"$PHI_CSV"
 awk -v factor="$DPHI_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6e\n",$1,$2,$3*factor)}' \
-  "$OUTPUT_PHI" >> "$PHI_CSV"
+  "$OUTPUT_PHI" >>"$PHI_CSV"
 
 #------------------------------------------------------------------------------#
 # 4) Basic checks                                                              #
@@ -142,7 +151,7 @@ awk -v factor="$DPHI_PARAM" -F'[ \t]+' 'BEGIN{OFS=", "} {printf("%.6e, %.4f, %.6
 echo "[INFO] Verifying generated CSVs"
 for f in "$CS2_CSV" "$PHI_CSV"; do
   n=$(grep -c -v '^#' "$f")
-  if (( n < 10 )); then
+  if ((n < 10)); then
     echo "[WARNING] Only $n data lines in $f"
   else
     echo "[OK] $f contains $n lines"

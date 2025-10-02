@@ -3,10 +3,13 @@ set -euo pipefail
 mkdir -p docs
 LOG=".ci-logs/docs_write_ci_readme-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
-say(){ date +"[%F %T] - "; printf "%s\n" "$*"; }
+say() {
+  date +"[%F %T] - "
+  printf "%s\n" "$*"
+}
 
 say "Writing docs/CI.md"
-cat > docs/CI.md <<'MD'
+cat >docs/CI.md <<'MD'
 # CI — Sanity workflows
 
 Workflows:
@@ -21,7 +24,7 @@ How to trigger:
 MD
 
 say "Appending short CI section to README.md if not present"
-grep -q "## CI" README.md 2>/dev/null || cat >> README.md <<'MD'
+grep -q "## CI" README.md 2>/dev/null || cat >>README.md <<'MD'
 
 ## CI
 

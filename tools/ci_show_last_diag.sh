@@ -9,8 +9,11 @@ STAMP="$(date +%Y%m%dT%H%M%S)"
 ROOT_LOG="$PWD/.ci-logs/show-last-diag-$STAMP.log"
 exec > >(tee -a "$ROOT_LOG") 2>&1
 
-say(){ printf "\n== %s ==\n" "$*"; }
-pause(){ printf "\n(Pause) Entrée pour continuer… "; read -r _ || true; }
+say() { printf "\n== %s ==\n" "$*"; }
+pause() {
+  printf "\n(Pause) Entrée pour continuer… "
+  read -r _ || true
+}
 
 WF="sanity-main.yml"
 ART_NAME="sanity-diag"
@@ -18,8 +21,8 @@ ART_NAME="sanity-diag"
 say "Recherche du dernier artifact .tgz déjà présent"
 pick_tgz() {
   # Trie par date de modif décroissante et garde le 1er
-  find .ci-logs -type f -name '*.tgz' -printf '%T@ %p\n' 2>/dev/null \
-    | sort -nr | head -n1 | cut -d' ' -f2-
+  find .ci-logs -type f -name '*.tgz' -printf '%T@ %p\n' 2>/dev/null |
+    sort -nr | head -n1 | cut -d' ' -f2-
 }
 TGZ="$(pick_tgz)"
 
@@ -51,7 +54,8 @@ if [ -z "$TGZ" ]; then
   say "Toujours aucun artifact .tgz disponible."
   echo "Contenu actuel de .ci-logs/ :"
   find .ci-logs -maxdepth 2 -type f -print 2>/dev/null || true
-  pause; exit 0
+  pause
+  exit 0
 fi
 
 say "Artifact sélectionné"
@@ -60,7 +64,7 @@ echo "-- Liste dans l'archive --"
 tar -tzf "$TGZ" || true
 
 echo "-- diag.json (pretty) --"
-( tar -xOzf "$TGZ" ./diag.json 2>/dev/null || tar -xOzf "$TGZ" diag.json ) | python -m json.tool || {
+(tar -xOzf "$TGZ" ./diag.json 2>/dev/null || tar -xOzf "$TGZ" diag.json) | python -m json.tool || {
   echo "WARN: diag.json non lisible. Extraction complète vers .ci-logs/_extracted"
   mkdir -p .ci-logs/_extracted
   tar -xzf "$TGZ" -C .ci-logs/_extracted || true

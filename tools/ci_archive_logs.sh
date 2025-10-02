@@ -8,7 +8,11 @@ STAMP="$(date +%Y%m%dT%H%M%S)"
 ARCH_DIR=".ci-archive/$STAMP"
 LOG=".ci-logs/ci_archive_logs-$STAMP.log"
 exec > >(tee -a "$LOG") 2>&1
-say(){ printf "\n== %s ==\n" "$*"; }; pause(){ printf "\n(Pause) Entrée pour continuer… "; read -r _ || true; }
+say() { printf "\n== %s ==\n" "$*"; }
+pause() {
+  printf "\n(Pause) Entrée pour continuer… "
+  read -r _ || true
+}
 
 mkdir -p "$ARCH_DIR"
 say "Archiver .ci-logs -> $ARCH_DIR/ci-logs.tar.gz"

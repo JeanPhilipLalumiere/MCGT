@@ -8,7 +8,10 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
 WF_FILE=".github/workflows/sanity-main.yml"
-[[ -f "$WF_FILE" ]] || { echo "[ERREUR] Fichier introuvable: $WF_FILE" >&2; exit 1; }
+[[ -f "$WF_FILE" ]] || {
+  echo "[ERREUR] Fichier introuvable: $WF_FILE" >&2
+  exit 1
+}
 
 echo "=== 0) Sauvegarde ==="
 TS="$(date +%Y%m%dT%H%M%S)"
@@ -179,7 +182,10 @@ CUR_BR="$(git rev-parse --abbrev-ref HEAD || true)"
 if [[ "$CUR_BR" != "main" ]]; then
   git switch main
   git pull --ff-only
-  git merge --ff-only "$CUR_BR" || { echo "[ERREUR] Merge FF impossible — faites une PR."; exit 1; }
+  git merge --ff-only "$CUR_BR" || {
+    echo "[ERREUR] Merge FF impossible — faites une PR."
+    exit 1
+  }
 fi
 git push -u origin main
 
@@ -198,7 +204,7 @@ if command -v gh >/dev/null 2>&1; then
       --json databaseId,headSha,createdAt \
       -q 'map(select(.headSha=="'"$HEAD_SHA"'")) | sort_by(.createdAt) | last | .databaseId // empty' 2>/dev/null || true)"
     RID="$(printf "%s\n" "$RID" | sed '/^$/d' | tail -n1)"
-    tries=$((tries+1))
+    tries=$((tries + 1))
   done
 
   if [[ -n "$RID" ]]; then

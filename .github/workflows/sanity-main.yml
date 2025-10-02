@@ -170,12 +170,17 @@ jobs:
         if: always()
         shell: bash
         run: |
+          __TMP_GITHUB_STEP_SUMMARY_0__="$(mktemp)"
           {
             echo "## Meta checks"
-          } >> "$GITHUB_STEP_SUMMARY"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
           {
             echo "- actionlint: pinned v1.7.1 (skip si indisponible)"
-          } >> "$GITHUB_STEP_SUMMARY"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
           {
             echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"
-          } >> "$GITHUB_STEP_SUMMARY"
+          } >> "__TMP_GITHUB_STEP_SUMMARY_0__"
+          if [ -f "$__TMP_GITHUB_STEP_SUMMARY_0__" ]; then
+            cat "$__TMP_GITHUB_STEP_SUMMARY_0__" >> "${GITHUB_STEP_SUMMARY}"
+            rm -f "$__TMP_GITHUB_STEP_SUMMARY_0__"
+          fi

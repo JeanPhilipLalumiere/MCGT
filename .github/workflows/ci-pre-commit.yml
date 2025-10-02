@@ -24,7 +24,6 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -39,8 +38,12 @@ jobs:
           python --version
           pre-commit --version
 
+      - name: Validate config
+        run: |
+          pre-commit validate-config
+          pre-commit validate-manifest
+
       - name: Run pre-commit (all files)
         run: |
-          pre-commit install-hooks -f
-          # Si un hook auto-fixe des fichiers, le job échouera: c'est voulu.
-          pre-commit run -a
+          # pas de -f ici (non supporté) ; --all-files = -a
+          pre-commit run --all-files --show-diff-on-failure

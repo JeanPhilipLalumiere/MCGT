@@ -28,10 +28,13 @@ repos:
     hooks:
       - id: actionlint
 
-  # Shellcheck (rapide / portable via wheels Python)
+  # Shellcheck via wheels Python (rapide/portable)
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-        args: [ "-S", "style", "-x" ]
+        # Affiche warnings+errors (ignore "info" et "style")
+        args: [ "-S", "warning", "-x" ]
         files: ^tools/.*\.sh$
+        # ce fichier contient du HTML/markdown -> on l'exclut
+        exclude: (^tools/ci_fix_readme_encart\.sh$)

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2218
+#!/usr/bin/env bash
 # inserted header
 set -uo pipefail
 STAMP="$(date +%Y%m%dT%H%M%S)"

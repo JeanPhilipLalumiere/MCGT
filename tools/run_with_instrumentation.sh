@@ -73,4 +73,4 @@ if [ "$rc" -eq 124 ]; then
 else
   echo "[$(date +'%F %T')] script exit code $rc. Log: $LOG"
 fi
-exit $rc
+exit "$rc"

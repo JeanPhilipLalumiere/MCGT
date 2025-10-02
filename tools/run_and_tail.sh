@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2046
+# shellcheck disable=SC2012
+#!/usr/bin/env bash
 # usage: tools/run_and_tail.sh [timeout-secs] <script> [args...]
 set -euo pipefail
 
@@ -16,7 +19,7 @@ WRPID=$!
 # Wait briefly for a log file to appear, then tail it
 sleep 0.8
 LOG="$(ls -1t .ci-logs/$(basename "$SCRIPT" .sh)-*.log 2>/dev/null | head -n1 || true)"
-for i in $(seq 1 10); do
+for i in $(seq 1 10); do : "$i";
   if [ -n "$LOG" ]; then break; fi
   sleep 0.4
   LOG="$(ls -1t .ci-logs/$(basename "$SCRIPT" .sh)-*.log 2>/dev/null | head -n1 || true)"

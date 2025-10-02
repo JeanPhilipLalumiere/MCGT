@@ -2,7 +2,10 @@
 set -euo pipefail
 
 FILE=".github/workflows/sanity-main.yml"
-test -f "$FILE" || { echo "[ERREUR] Fichier introuvable: $FILE" >&2; exit 1; }
+test -f "$FILE" || {
+  echo "[ERREUR] Fichier introuvable: $FILE" >&2
+  exit 1
+}
 
 TS="$(date +%Y%m%dT%H%M%S)"
 BACKUP="${FILE}.bak.${TS}"
@@ -10,7 +13,7 @@ cp -v -- "$FILE" "$BACKUP"
 
 # Crée le programme AWK qui transforme le YAML uniquement à l'intérieur des blocs "run: |"
 AWK_PROG="$(mktemp)"
-cat > "$AWK_PROG" <<'AWK'
+cat >"$AWK_PROG" <<'AWK'
 function ltrim(s){ sub(/^[ \t\r\n]+/, "", s); return s }
 function rtrim(s){ sub(/[ \t\r\n]+$/, "", s); return s }
 function trim(s){ return rtrim(ltrim(s)) }
@@ -103,7 +106,7 @@ END{
 AWK
 
 TMP="${FILE}.tmp.${TS}"
-awk -f "$AWK_PROG" -- "$FILE" > "$TMP"
+awk -f "$AWK_PROG" -- "$FILE" >"$TMP"
 mv -v -- "$TMP" "$FILE"
 rm -f -- "$AWK_PROG"
 

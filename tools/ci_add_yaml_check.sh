@@ -2,7 +2,10 @@
 set -euo pipefail
 LOG=".ci-logs/ci_add_yaml_check-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
-say(){ date +"[%F %T] - "; printf "%s\n" "$*"; }
+say() {
+  date +"[%F %T] - "
+  printf "%s\n" "$*"
+}
 
 say "Checking YAML syntax for .github/workflows/*.yml"
 python - <<'PY'

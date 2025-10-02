@@ -6,9 +6,12 @@ f="tools/ci_fix_readme_encart.sh"
 if [ -f "$f" ]; then
   t="$(mktemp)"
   if head -n1 "$f" | grep -q '^#!'; then
-    awk 'NR==1{print; print "# shellcheck disable=SC1009,SC1072,SC1073"; next}1' "$f" > "$t"
+    awk 'NR==1{print; print "# shellcheck disable=SC1009,SC1072,SC1073"; next}1' "$f" >"$t"
   else
-    { echo "# shellcheck disable=SC1009,SC1072,SC1073"; cat "$f"; } > "$t"
+    {
+      echo "# shellcheck disable=SC1009,SC1072,SC1073"
+      cat "$f"
+    } >"$t"
   fi
   mv "$t" "$f"
 fi

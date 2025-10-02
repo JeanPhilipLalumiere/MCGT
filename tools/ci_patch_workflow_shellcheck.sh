@@ -2,7 +2,10 @@
 set -euo pipefail
 
 WF=".github/workflows/sanity-main.yml"
-[ -f "$WF" ] || { echo "Fichier introuvable: $WF" >&2; exit 1; }
+[ -f "$WF" ] || {
+  echo "Fichier introuvable: $WF" >&2
+  exit 1
+}
 
 tmp="$(mktemp)"
 awk -v OFS="" '
@@ -39,6 +42,6 @@ function flush_seq() {
   print line
 }
 END { flush_seq() }
-' "$WF" > "$tmp" && mv "$tmp" "$WF"
+' "$WF" >"$tmp" && mv "$tmp" "$WF"
 
 echo "[patch] SC2015/SC2129 appliqué à $WF"

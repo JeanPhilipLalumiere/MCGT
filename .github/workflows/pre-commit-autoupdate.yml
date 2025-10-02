@@ -1,0 +1,21 @@
+name: pre-commit autoupdate
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Lundi 05:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  autoupdate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - run: pipx install pre-commit
+      - run: pre-commit autoupdate
+      - name: Crée la PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(pre-commit): autoupdate hooks"
+          branch: chore/pre-commit-autoupdate
+          title: "chore(pre-commit): autoupdate hooks"
+          body: "MAJ automatique des hooks pre-commit hebdomadaire."

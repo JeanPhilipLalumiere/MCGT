@@ -7,7 +7,10 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
 WF_FILE="${1:-.github/workflows/sanity-main.yml}"
-[[ -f "$WF_FILE" ]] || { echo "[ERREUR] Fichier introuvable: $WF_FILE" >&2; exit 1; }
+[[ -f "$WF_FILE" ]] || {
+  echo "[ERREUR] Fichier introuvable: $WF_FILE" >&2
+  exit 1
+}
 
 echo "=== 0) Sauvegarde ==="
 TS="$(date +%Y%m%dT%H%M%S)"

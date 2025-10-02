@@ -17,10 +17,10 @@ git status --porcelain
 say "Show staged diff (first 200 lines):"
 git diff --staged | sed -n '1,200p'
 
-read -p "Commit all staged changes with message? (y/N) " yn
+read -r -p "Commit all staged changes with message? (y/N) " yn
 if [[ "$yn" =~ ^[Yy]$ ]]; then
   git commit -m "ci: tidy tools & workflows (auto)" || true
-  read -p "Push to origin/$DEF_BRANCH ? (y/N) " yn2
+  read -r -p "Push to origin/$DEF_BRANCH ? (y/N) " yn2
   if [[ "$yn2" =~ ^[Yy]$ ]]; then
     git push origin "$DEF_BRANCH"
     say "Pushed to origin/$DEF_BRANCH"

@@ -1,0 +1,8 @@
+# Propriétaire par défaut
+* @JeanPhilipLalumiere
+
+# CI workflows
+.github/workflows/* @JeanPhilipLalumiere
+
+# Scripts shell
+tools/*.sh @JeanPhilipLalumiere

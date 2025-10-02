@@ -1,0 +1,6 @@
+Sanity diag — 2025-10-02T01:00:31Z
+
+- errors: 0
+- warnings: 0
+- issues:
+  - [INFO] PING: sanity OK

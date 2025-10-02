@@ -11,30 +11,23 @@ exclude: |
   (\.bak($|\.))
 
 repos:
-  # Hooks de base (format)
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
-        args: [ "--allow-multiple-documents" ]
+        args: ["--allow-multiple-documents"]
       - id: end-of-file-fixer
       - id: trailing-whitespace
-        # pour éviter les faux positifs sur le markdown, décommente si besoin:
-        # exclude: '\.md$'
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
 
-  # Lint des workflows GitHub
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.1
     hooks:
       - id: actionlint
 
-  # Shellcheck via wheels Python (rapide/portable)
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-        # Affiche warnings+errors (ignore "info" et "style")
-        args: [ "-S", "warning", "-x" ]
-        files: ^tools/.*\.sh$
-        # ce fichier contient du HTML/markdown -> on l'exclut
-        exclude: (^tools/ci_fix_readme_encart\.sh$)
+        files: ^(tools/|zz-scripts/).*\.(sh|bash)$

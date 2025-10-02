@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1009,SC1072,SC1073
+# shellcheck disable=SC1009,SC1072,SC1073
 # set -euo pipefail
 # [ -f README.md ] || echo "# MCGT" > README.md
 # perl -0777 -pe 's/<!-- CI:BEGIN -->.*?<!-- CI:END -->/<!-- CI:BEGIN -->\n### CI (Workflows canoniques)\n- sanity-main.yml\n- sanity-echo.yml\n- ci-yaml-check.yml\n\nVoir docs/CI.md.\n<!-- CI:END -->/s' -i README.md

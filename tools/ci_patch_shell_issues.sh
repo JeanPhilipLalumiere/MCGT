@@ -22,6 +22,7 @@ grep -lR --include='*.sh' -n 'read -r -p ' tools/ 2>/dev/null | xargs -r sed -i 
 # SC2086 : exit $rc -> exit "$rc" (dans run_with_instrumentation.sh)
 if [ -f tools/run_with_instrumentation.sh ]; then
   # Remplace exactement 'exit $rc' par exit "$rc"
+# shellcheck disable=SC2016
   sed -i 's/^\([[:space:]]*exit\)[[:space:]]\+\$rc/\1 "\$rc"/' tools/run_with_instrumentation.sh
 fi
 

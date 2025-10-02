@@ -9,21 +9,22 @@ LOG=".ci-logs/$(basename "$0" .sh)-${STAMP}.log"
 # redirect stdout/stderr unbuffered to tee
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
 
-ts(){ date +"[%F %T]"; }
-say(){ printf "%s %s\\n" "$(ts)" "$*"; }
+ts() { date +"[%F %T]"; }
+say() { printf "%s %s\\n" "$(ts)" "$*"; }
 # heartbeat: print alive every 30s in background
-__cat_header_heartbeat(){
+__cat_header_heartbeat() {
   while true; do
     sleep 30
     say "HEARTBEAT: running $(basename "$0")"
   done
 }
 # start heartbeat in background; store pid for cleanup
-__cat_header_start_hb(){
-  __cat_header_heartbeat & __CAT_HB_PID=$!
+__cat_header_start_hb() {
+  __cat_header_heartbeat &
+  __CAT_HB_PID=$!
   trap __cat_header_cleanup INT TERM EXIT
 }
-__cat_header_cleanup(){
+__cat_header_cleanup() {
   say "CLEANUP: stopping heartbeat and exiting"
   if [ -n "${__CAT_HB_PID:-}" ]; then kill "${__CAT_HB_PID}" 2>/dev/null || true; fi
   trap - INT TERM EXIT
@@ -50,14 +51,17 @@ mkdir -p .ci-logs
 LOG=".ci-logs/v26_select_canonical_${STAMP}.log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
 
-ts(){ date +"[%F %T]"; }
-say(){ printf "\n%s %s\n" "$(ts)" "$*"; }
-pause(){ printf "\n(Pause) Entrée pour continuer… "; read -r _ || true; }
+ts() { date +"[%F %T]"; }
+say() { printf "\n%s %s\n" "$(ts)" "$*"; }
+pause() {
+  printf "\n(Pause) Entrée pour continuer… "
+  read -r _ || true
+}
 
 say "Écriture outils (tools/)"
 mkdir -p tools
 
-cat > tools/guard_no_recipeprefix.sh <<'SH'
+cat >tools/guard_no_recipeprefix.sh <<'SH'
 #!/usr/bin/env bash
 set +e
 found=0
@@ -71,7 +75,7 @@ exit 0
 SH
 chmod +x tools/guard_no_recipeprefix.sh
 
-cat > tools/sanity_diag.sh <<'SH'
+cat >tools/sanity_diag.sh <<'SH'
 #!/usr/bin/env bash
 set +e
 mkdir -p .ci-out
@@ -87,7 +91,7 @@ chmod +x tools/sanity_diag.sh
 say "Écriture workflows (.github/workflows/)"
 mkdir -p .github/workflows
 
-cat > .github/workflows/sanity-main.yml <<'YML'
+cat >.github/workflows/sanity-main.yml <<'YML'
 name: sanity-main
 on:
   push: {}
@@ -133,7 +137,7 @@ jobs:
           if-no-files-found: error
 YML
 
-cat > .github/workflows/sanity-echo.yml <<'YML'
+cat >.github/workflows/sanity-echo.yml <<'YML'
 name: sanity-echo
 on:
   workflow_dispatch: {}

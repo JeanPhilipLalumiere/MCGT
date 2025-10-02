@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Usage: tools/run_with_timeout_and_tail.sh <timeout-seconds> <script> [args...]
 set -uo pipefail
-timeout_secs="${1:-600}"   # valeur par défaut (ex.: 600s). Tu choisis.
+timeout_secs="${1:-600}" # valeur par défaut (ex.: 600s). Tu choisis.
 shift || true
 script="${1:-}"
 shift || true

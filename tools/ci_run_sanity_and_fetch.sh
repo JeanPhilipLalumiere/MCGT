@@ -8,8 +8,11 @@ STAMP="$(date +%Y%m%dT%H%M%S)"
 RUN_DIR_BASE=".ci-logs/runs"
 mkdir -p "$RUN_DIR_BASE"
 
-log(){ printf "[%(%F %T)T] %s\n" -1 "$*"; }
-need(){ command -v "$1" >/dev/null 2>&1 || { log "ERR: '$1' introuvable"; exit 1; }; }
+log() { printf "[%(%F %T)T] %s\n" -1 "$*"; }
+need() { command -v "$1" >/dev/null 2>&1 || {
+  log "ERR: '$1' introuvable"
+  exit 1
+}; }
 
 need gh
 
@@ -29,7 +32,8 @@ RID="$(
     -q 'sort_by(.createdAt) | last | .databaseId' | tr -d '\n'
 )"
 if [[ -z "${RID:-}" ]]; then
-  log "ERR: Impossible d'obtenir un run id"; exit 1
+  log "ERR: Impossible d'obtenir un run id"
+  exit 1
 fi
 
 RUN_DIR="${RUN_DIR_BASE}/${RID}-${STAMP}"
@@ -43,7 +47,7 @@ else
 fi
 
 log "Sauvegarde logs -> ${RUN_DIR}/run.log"
-gh run view "${RID}" --log > "${RUN_DIR}/run.log" || true
+gh run view "${RID}" --log >"${RUN_DIR}/run.log" || true
 
 log "Téléchargement des artefacts (nom: sanity-diag) -> ${RUN_DIR}/artifacts"
 if ! gh run download "${RID}" -n sanity-diag -D "${RUN_DIR}/artifacts"; then
@@ -53,8 +57,8 @@ fi
 
 log "Inventaire des fichiers artefacts"
 # Important: -maxdepth AVANT -type, pas de sed qui double le chemin
-find "${RUN_DIR}/artifacts" -maxdepth 2 -type f -print \
-  | tee "${RUN_DIR}/artifacts/_list.txt" || true
+find "${RUN_DIR}/artifacts" -maxdepth 2 -type f -print |
+  tee "${RUN_DIR}/artifacts/_list.txt" || true
 
 # diag.json peut être à la racine d'artifacts/ ou dans un sous-dossier
 CANDIDATES=()

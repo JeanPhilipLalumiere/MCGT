@@ -12,7 +12,10 @@ cleanup() {
 trap 'cleanup $?' EXIT
 
 TARGET_BRANCH="${1:-main}"
-command -v gh >/dev/null 2>&1 || { echo "[ERREUR] GitHub CLI 'gh' requis." >&2; exit 1; }
+command -v gh >/dev/null 2>&1 || {
+  echo "[ERREUR] GitHub CLI 'gh' requis." >&2
+  exit 1
+}
 
 # 1) Arbre propre
 if ! git diff --quiet || ! git diff --cached --quiet; then

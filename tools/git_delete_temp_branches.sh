@@ -2,7 +2,10 @@
 set -euo pipefail
 LOG=".ci-logs/git_delete_temp_branches-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1
-say(){ date +"[%F %T] - "; printf "%s\n" "$*"; }
+say() {
+  date +"[%F %T] - "
+  printf "%s\n" "$*"
+}
 
 say "Listing local branches that look temporary (pattern ci/sanity-*)"
 mapfile -t branches < <(git branch --list 'ci/*' | sed 's/^[*[:space:]]*//')

@@ -69,17 +69,28 @@ jobs:
             echo "## Sanity diag"
             echo
             if command -v jq >/dev/null 2>&1; then
-              TS="$(jq -r .timestamp // empty .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
-              ERR="$(jq -r .errors // empty .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              TS="$(jq -r '.timestamp // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              ERR="$(jq -r '.errors // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              WARN="$(jq -r '.warnings // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              if [ -s .ci-out/sanity-diag/diag.txt ]; then
+                ISSUES="$(cat .ci-out/sanity-diag/diag.txt)"
+              else
+                ISSUES="$(jq -r '.issues[]? | "- [" + (.severity // "info") + "] " + (.code // "") + ": " + (.msg // "")' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"
+              fi
             else
               TS="$(date -u +%FT%TZ)"
               ERR=""
+              WARN=""
+              ISSUES="$(cat .ci-out/sanity-diag/diag.txt 2>/dev/null || true)"
             fi
             echo "- Timestamp: ${TS:-unknown}"
-            if [ -n "${ERR:-}" ]; then
-              echo "- Errors: $ERR"
-            else
-              echo "- Errors: none"
+            echo "- Errors: ${ERR:-none}"
+            echo "- Warnings: ${WARN:-none}"
+            if [ -n "${ISSUES:-}" ]; then
+              echo
+              echo "### Issues"
+              printf "%s
+          " "$ISSUES"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
   meta:

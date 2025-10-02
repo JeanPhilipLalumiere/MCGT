@@ -1,6 +1,5 @@
 name: sanity-main
-run-name: sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}
-
+run-name: "sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}"
 on:
   workflow_dispatch:
   push:

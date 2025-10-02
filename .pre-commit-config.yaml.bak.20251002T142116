@@ -35,7 +35,15 @@ repos:
   - repo: local
     hooks:
       - id: gh-workflows-sc2129-guard
-        name: "Guard SC2129 in GitHub workflows (run: |)"
+        name: Guard SC2129 in GitHub workflows (run: |)
         entry: tools/check_sc2129_in_workflows.sh
         language: system
-        files: '^\.github/workflows/.*\.ya?ml$'
+        files: ^\.github/workflows/.*\.ya?ml$
+
+- repo: local
+  hooks:
+    - id: gh-workflows-sc2129-guard
+      name: Guard SC2129 in GitHub workflows (run: |)
+      entry: tools/check_sc2129_in_workflows.sh
+      language: system
+      files: ^\.github/workflows/.*\.ya?ml$

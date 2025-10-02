@@ -1,7 +1,37 @@
+# Canonical pre-commit for MCGT
+minimum_pre_commit_version: "3.5.0"
+
+default_language_version:
+  python: python3
+
+# Ne scanne pas archives/logs et backups
+exclude: |
+  (^\.ci-archive/)|
+  (^\.ci-logs/)|
+  (\.bak($|\.))
+
 repos:
+  # Hooks de base (format)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: check-yaml
+        args: [ "--allow-multiple-documents" ]
       - id: end-of-file-fixer
       - id: trailing-whitespace
+        # éviter les faux positifs sur le markdown si tu veux:
+        # exclude: '\.md$'
+
+  # Lint des workflows GitHub
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.1
+    hooks:
+      - id: actionlint
+
+  # Shellcheck (rapide/portable)
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args: [ "-S", "style", "-x" ]
+        files: ^tools/.*\.sh$

@@ -1,0 +1,3 @@
+.ci-logs/runs/18179034466-20251001T195859/artifacts/diag.json
+.ci-logs/runs/18179034466-20251001T195859/artifacts/diag.txt
+.ci-logs/runs/18179034466-20251001T195859/artifacts/_list.txt

@@ -1,5 +1,5 @@
 name: ci-pre-commit
-run-name: pre-commit • ${{ github.event_name }} • ${{ github.ref_name }}
+run-name: "pre-commit • ${{ github.event_name }} • ${{ github.ref_name }}"
 
 on:
   workflow_dispatch:

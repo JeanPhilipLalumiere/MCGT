@@ -107,7 +107,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .tools/bin
-          ver="1.7.1"
+          ver="1.7.7"
           base="https://github.com/rhysd/actionlint/releases/download/v${ver}"
 
           # Essai 1: script officiel

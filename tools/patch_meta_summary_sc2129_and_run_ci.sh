@@ -1,149 +1,265 @@
 #!/usr/bin/env bash
-# Patch ciblé du step "Meta summary" pour éviter SC2129 (multiples >>).
-# - Sauvegarde le YAML dans .ci-archive/
-# - Remplace le bloc run: | de "Meta summary" par un bloc groupé { ... } >> "$GITHUB_STEP_SUMMARY"
-# - Commit + push
-# - Déclenche ci-pre-commit.yml et suit les logs utiles (si 'gh' présent)
+# Patch le step "Meta summary" d'un workflow GitHub pour regrouper
+# plusieurs appends ">> $GITHUB_STEP_SUMMARY" en un seul redirect,
+# afin d'éviter SC2129. Le patch est conservateur : il ne modifie
+# que si toutes les lignes qui appendent sont contiguës.
+#
+# Usage:
+#   tools/patch_meta_summary_sc2129_and_run_ci.sh [options]
+# Options:
+#   -f, --file PATH        Fichier workflow à patcher (sinon essaye sanity-main.yml)
+#       --no-commit        N'effectue pas de commit automatique
+#       --no-push          N'effectue pas de push
+#       --no-trigger       Ne déclenche pas ci-pre-commit.yml
+#       --watch            Regarde l'exécution CI après trigger (si déclenchée)
+#   -h, --help             Aide
+#
+# Dépendances : bash, awk, git (pour commit/push), gh (pour trigger/watch).
+
 set -Eeuo pipefail
 
 cleanup() {
-  local rc="$1"
+  local rc="$?"
   echo
   echo "=== FIN DU SCRIPT (code=$rc) ==="
   if [[ "${PAUSE_ON_EXIT:-1}" != "0" && -t 1 && -t 0 ]]; then
     read -rp "Appuyez sur Entrée pour fermer cette fenêtre..." _ || true
   fi
 }
-trap 'cleanup $?' EXIT
+trap cleanup EXIT
 
-# --- Préambule
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT"
+# --- Defaults ---
+FILE=""
+DO_COMMIT=1
+DO_PUSH=1
+DO_TRIGGER=1
+WATCH=0
 
-WF_FILE=".github/workflows/sanity-main.yml"
-[[ -f "$WF_FILE" ]] || {
-  echo "[ERREUR] Fichier introuvable: $WF_FILE" >&2
+# --- Args ---
+usage() {
+  sed -n '1,40p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+while (($#)); do
+  case "$1" in
+    -f | --file)
+      shift
+      FILE="${1:-}"
+      [[ -n "${FILE}" ]] || {
+        echo "[ERREUR] --file requiert un chemin" >&2
+        exit 2
+      }
+      shift
+      ;;
+    --no-commit)
+      DO_COMMIT=0
+      shift
+      ;;
+    --no-push)
+      DO_PUSH=0
+      shift
+      ;;
+    --no-trigger)
+      DO_TRIGGER=0
+      shift
+      ;;
+    --watch)
+      WATCH=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "[ERREUR] Argument inconnu: $1" >&2
+      usage
+      exit 2
+      ;;
+  esac
+done
+
+# --- Choix du fichier ---
+if [[ -z "$FILE" ]]; then
+  if [[ -f ".github/workflows/sanity-main.yml" ]]; then
+    FILE=".github/workflows/sanity-main.yml"
+  else
+    echo "[ERREUR] Aucun fichier indiqué et .github/workflows/sanity-main.yml introuvable." >&2
+    echo "        Spécifiez un fichier avec --file PATH." >&2
+    exit 1
+  fi
+fi
+[[ -f "$FILE" ]] || {
+  echo "[ERREUR] Fichier introuvable: $FILE" >&2
   exit 1
 }
 
-BACKUP_DIR="${BACKUP_DIR:-.ci-archive}"
-mkdir -p "$BACKUP_DIR"
-TS="$(date +%Y%m%dT%H%M%S)"
-cp -v -- "$WF_FILE" "$BACKUP_DIR/$(basename "$WF_FILE").bak.${TS}"
+# --- Sauvegarde ---
+ts="$(date +%Y%m%dT%H%M%S)"
+bak_dir=".ci-archive/workflows"
+mkdir -p "$bak_dir"
+bak_path="$bak_dir/$(basename "$FILE").bak.$ts"
+cp -f -- "$FILE" "$bak_path"
+echo "[INFO] Backup: $bak_path"
 
-# --- Patch Python : remplace le bloc run: | du step "- name: Meta summary"
-python3 - "$WF_FILE" <<'PY'
-import sys, re, pathlib
+# --- Patcher (awk) ---
+tmp_out="$(mktemp)"
+awk -v target_step="Meta summary" '
+function lspace(s,    n) { n=match(s,/^[ ]*/); return RLENGTH }
+function process_block(arr, n, base_ind,    i, cnt, first, last, nonredir, content_ind, line) {
+  cnt=0; first=-1; last=-1
+  for (i=1;i<=n;i++){
+    if (arr[i] ~ />>[[:space:]]*"?\$GITHUB_STEP_SUMMARY"?[[:space:]]*$/){
+      cnt++
+      if (first<0) first=i
+      last=i
+    }
+  }
+  if (cnt<=1) {
+    for (i=1;i<=n;i++) print arr[i]
+    return 0
+  }
+  nonredir=0
+  for (i=first;i<=last;i++){
+    if (arr[i] ~ /^[[:space:]]*$/) continue
+    if (arr[i] !~ />>[[:space:]]*"?\$GITHUB_STEP_SUMMARY"?[[:space:]]*$/){ nonredir=1; break }
+  }
+  if (nonredir){
+    # Trop risqué: on laisse tel quel
+    for (i=1;i<=n;i++) print arr[i]
+    return 0
+  }
+  content_ind=""
+  for (i=1;i<=n;i++){
+    if (arr[i] ~ /^[[:space:]]*$/) continue
+    match(arr[i],/^[ ]*/)
+    content_ind=substr(arr[i],1,RLENGTH)
+    break
+  }
+  # avant le premier
+  for (i=1;i<first;i++) print arr[i]
+  print content_ind "{"
+  for (i=first;i<=last;i++){
+    line=arr[i]
+    sub(/[[:space:]]*>>[[:space:]]*"?\$GITHUB_STEP_SUMMARY"?[[:space:]]*$/,"", line)
+    print line
+  }
+  print content_ind "} >> \"$GITHUB_STEP_SUMMARY\""
+  for (i=last+1;i<=n;i++) print arr[i]
+  return 1
+}
+BEGIN{
+  in_run=0; changed=0; step_name=""; run_base=0
+  bcount=0
+}
+{
+  if (!in_run) {
+    # garde le dernier "name:" rencontré
+    if ($0 ~ /^[[:space:]]*name:[[:space:]]*/) {
+      sub(/^[[:space:]]*name:[[:space:]]*/,"")
+      step_name=$0
+      gsub(/^[[:space:]]+|[[:space:]]+$/,"",step_name)
+    }
+    # detect run: |
+    if ($0 ~ /^[[:space:]]*run:[[:space:]]*\|[[:space:]]*$/) {
+      # nactive uniquement si on est dans le bon step
+      if (step_name == target_step) {
+        print $0
+        in_run=1
+        run_base=lspace($0)
+        bcount=0
+        next
+      }
+    }
+    print $0
+    next
+  } else {
+    # dans un bloc run: |
+    if ($0 ~ /^[[:space:]]*$/) {
+      block[++bcount]=$0
+      next
+    }
+    cur=lspace($0)
+    if (cur > run_base) {
+      block[++bcount]=$0
+      next
+    }
+    # fin du bloc
+    if (process_block(block, bcount, run_base)) changed=1
+    # reset
+    split("", block); bcount=0; in_run=0
+    # traiter la ligne courante hors bloc
+    print $0
+    next
+  }
+}
+END{
+  if (in_run) {
+    # fin de fichier au milieu du bloc
+    if (process_block(block, bcount, run_base)) changed=1
+  }
+  if (changed) {
+    # marqueur pour debug si nécessaire (stdout propre autrement)
+    # print "#__SC2129_PATCH_APPLIED__" > "/dev/stderr"
+    ;
+  }
+}
+' "$FILE" >"$tmp_out"
 
-p = pathlib.Path(sys.argv[1])
-text = p.read_text(encoding="utf-8").splitlines(keepends=True)
-
-# 1) Trouver la ligne "- name: Meta summary"
-meta_idx = None
-for i, line in enumerate(text):
-    if re.match(r'^\s*-\s*name:\s*Meta summary\s*$', line):
-        meta_idx = i
-        break
-
-if meta_idx is None:
-    print("[INFO] Step 'Meta summary' introuvable — aucun changement.", file=sys.stderr)
-    sys.exit(0)
-
-# 2) Chercher "run: |" (ou variantes) après ce step
-run_idx = None
-run_indent = None
-for i in range(meta_idx + 1, len(text)):
-    m = re.match(r'^(\s*)run:\s*(\||>\-?)\s*$', text[i])
-    if m:
-        run_idx = i
-        run_indent = len(m.group(1))
-        break
-    if re.match(r'^\s*-\s*name:\s*', text[i]):
-        break
-
-if run_idx is None:
-    print("[INFO] 'run:' introuvable sous 'Meta summary' — aucun changement.", file=sys.stderr)
-    sys.exit(0)
-
-# 3) Délimiter le bloc littéral du run (lignes strictement plus indentées)
-block_start = run_idx + 1
-j = block_start
-def indent_len(s: str) -> int:
-    return len(s) - len(s.lstrip(' '))
-
-while j < len(text):
-    line = text[j]
-    if line.strip() == "":
-        j += 1
-        continue
-    if indent_len(line) <= run_indent:
-        break
-    j += 1
-
-block_end = j  # non inclus
-
-# 4) Construire le bloc désiré
-content_indent = " " * (run_indent + 2)
-new_block_lines = [
-    text[run_idx].split("run:")[0] + "run: |\n",
-    f"{content_indent}{{\n",
-    f'{content_indent}  echo "## Meta checks"\n',
-    f'{content_indent}  echo "- actionlint: pinned v1.7.1 (skip si indisponible)"\n',
-    f'{content_indent}  echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"\n',
-    f"{content_indent}}} >> \"$GITHUB_STEP_SUMMARY\"\n",
-]
-
-current = text[run_idx:block_end]
-proposed = new_block_lines
-if current != proposed:
-    text[run_idx:block_end] = proposed
-    p.write_text("".join(text), encoding="utf-8")
-    print("[PATCH] Bloc 'Meta summary' -> run: | groupé vers $GITHUB_STEP_SUMMARY", file=sys.stderr)
-else:
-    print("[INFO] Bloc 'Meta summary' déjà conforme — aucun changement.", file=sys.stderr)
-PY
-
-# --- Commit ciblé (uniquement si modifié)
-if ! git diff --quiet -- "$WF_FILE"; then
-  git add -- "$WF_FILE"
-  # 👇 Double quotes + $ échappé => pas de SC2016
-  msg="ci(sanity-main): SC2129 — regroupe les appends du step \"Meta summary\" vers \$GITHUB_STEP_SUMMARY"
-  echo "=== COMMIT ==="
-  pre-commit run -a || true
-  git commit -m "$msg"
-  echo "=== PUSH ==="
-  git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
+# Détermine si des changements ont été appliqués
+PATCHED=0
+if cmp -s -- "$FILE" "$tmp_out"; then
+  echo "[INFO] Aucun changement nécessaire (déjà SC2129-safe)."
 else
-  echo "[INFO] Aucun changement à committer."
+  mv -- "$tmp_out" "$FILE"
+  PATCHED=1
+  echo "[OK] Patch appliqué: $FILE"
+fi
+rm -f -- "$tmp_out" || true
+
+# --- Git ops ---
+if ((PATCHED)) && ((DO_COMMIT)); then
+  git add -- "$FILE" || true
+  if git check-ignore -q -- "$bak_path"; then
+    echo "[INFO] Backup ignoré par .gitignore (non ajouté): $bak_path"
+  else
+    git add -- "$bak_path" || true
+  fi
+  msg="ci(sanity-main): SC2129 - regroupe les appends du step \"Meta summary\" vers \$GITHUB_STEP_SUMMARY"
+  git commit -m "$msg" || { echo "[INFO] Rien à commit (peut-être déjà en place)."; }
+else
+  if ((!DO_COMMIT)); then
+    echo "[INFO] --no-commit : aucun commit créé."
+  fi
 fi
 
-# --- Déclenchement + suivi du workflow ci-pre-commit.yml (si gh dispo)
-if command -v gh >/dev/null 2>&1; then
-  echo "[INFO] Déclenchement ci-pre-commit.yml…"
-  BR="$(git rev-parse --abbrev-ref HEAD)"
-  gh workflow run ci-pre-commit.yml -r "$BR" >/dev/null || echo "[WARN] Impossible de déclencher le workflow (gh)."
+if ((PATCHED)) && ((DO_COMMIT)) && ((DO_PUSH)); then
+  echo "[INFO] Push sur main…"
+  git push -u origin HEAD:main || true
+else
+  if ((!DO_PUSH)); then
+    echo "[INFO] --no-push : aucun push effectué."
+  fi
+fi
 
-  echo "[INFO] Recherche du run pour HEAD…"
-  HEAD_SHA="$(git rev-parse HEAD)"
-  RID=""
-  for _ in $(seq 1 60); do
-    RID="$(gh run list --workflow ci-pre-commit.yml --branch "$BR" \
-      --json databaseId,headSha,createdAt \
-      -q '[.[] | select(.headSha=="'"$HEAD_SHA"'")] | sort_by(.createdAt) | last | .databaseId' || true)"
-    [[ -n "$RID" && "$RID" != "null" ]] && break
-    sleep 2
-  done
-
-  if [[ -n "$RID" && "$RID" != "null" ]]; then
-    echo "[INFO] RID=$RID — suivi des logs utiles…"
-    if gh run watch "$RID" --exit-status --interval 3 | sed -n '/Run pre-commit (all files)/,$p'; then
-      :
-    else
-      gh run view "$RID" --log || true
+# --- CI trigger / watch ---
+if ((DO_TRIGGER)); then
+  if command -v gh >/dev/null 2>&1; then
+    echo "[INFO] Déclenchement du workflow ci-pre-commit.yml…"
+    gh workflow run ci-pre-commit.yml || true
+    if ((WATCH)); then
+      if [[ -x tools/watch_head_ci.sh ]]; then
+        echo "[INFO] Suivi du run en temps réel via tools/watch_head_ci.sh…"
+        tools/watch_head_ci.sh || true
+      else
+        echo "[WARN] tools/watch_head_ci.sh introuvable ou non exécutable ; pas de suivi."
+      fi
     fi
   else
-    echo "[WARN] Run non trouvé; ouvrez l’onglet Actions."
+    echo "[WARN] gh (GitHub CLI) non disponible: impossible de déclencher/observer la CI."
   fi
 else
-  echo "[INFO] GitHub CLI 'gh' non détecté — patch/commit/push faits. Consultez l’onglet Actions pour la CI."
+  echo "[INFO] --no-trigger : aucun déclenchement CI."
 fi
+
+echo "[OK] Terminé."

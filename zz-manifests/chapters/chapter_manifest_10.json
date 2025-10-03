@@ -24,16 +24,16 @@
 "zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
 "zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
 "zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
-"zz-figures/chapter10/fig_03b_bootstrap_coverage_vs_n_hires.png",
+"zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n_hires.png",
 "zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
 "zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
 "zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png",
-"zz-figures/chapter10/fig_07_synthesis_compare.png"
+"zz-figures/chapter10/10_fig_07_synthesis_compare.png"
 ],
 "metas": [
 "zz-data/chapter10/10_mc_best.meta.json",
 "zz-data/chapter10/10_mc_results.meta.json",
-"zz-figures/chapter10/fig_*.meta.json"
+"zz-figures/chapter10/10_fig_*.meta.json"
 ],
 "others": [
 "10-monte-carlo-global-8d/CHAPTER10_GUIDE.txt"
@@ -53,7 +53,7 @@
 "meta_expected": [
 "zz-data/chapter10/10_mc_results.meta.json",
 "zz-data/chapter10/10_mc_best.meta.json",
-"zz-figures/chapter10/fig_*.meta.json"
+"zz-figures/chapter10/10_fig_*.meta.json"
 ],
 "status": "ready",
 "qa_checks": [

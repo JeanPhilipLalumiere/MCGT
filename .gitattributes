@@ -17,3 +17,5 @@
 *.jpeg  binary
 *.gif   binary
 *.pdf   binary
+*.csv text eol=lf
+*.txt text eol=lf

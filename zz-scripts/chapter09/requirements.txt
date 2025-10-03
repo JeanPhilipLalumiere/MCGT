@@ -162,7 +162,7 @@ MCGT/
     python zz-scripts/chapter09/tracer_fig04_milestones_absdphi_vs_f.py \
       --diff zz-data/chapter09/09_phase_diff.csv \
       --milestones zz-data/chapter09/09_comparison_milestones.csv \
-      --out zz-figures/chapter09/fig_04_milestones_absdphi_vs_f.png \
+      --out zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png \
       --dpi 300 --with_errorbar --log-level INFO
 
     python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \

@@ -8,6 +8,7 @@ cd "$ROOT"
 OUT_DIR=".ci-out"
 mkdir -p "$OUT_DIR"
 REPORT="$OUT_DIR/figures_guard_report.txt"
+ALLOWLIST_FILE=".ci-config/figures_orphans_allowlist.txt"
 : >"$REPORT"
 
 err() { echo "ERROR: $*" | tee -a "$REPORT"; }
@@ -99,23 +100,48 @@ else
   exit 1
 fi
 
-# STRICT_ORPHANS enforcement
-# On lit le rapport pour compter les orphelins imprimés (lignes "  - ...")
-if [[ "${STRICT_ORPHANS:-0}" == "1" ]]; then
-  ORPH_COUNT=$(
-    awk '
-      /^INFO:  Orphelins / { flag=1; next }
-      flag && /^  - /      { c++ }
-      flag && /^INFO:/     { flag=0 }
-      END { print c+0 }
-    ' "$REPORT" 2>/dev/null || echo 0
-  )
-  if ((ORPH_COUNT > 0)); then
-    err "Orphelins détectés et STRICT_ORPHANS=1 (${ORPH_COUNT})"
-    exit 1
+# STRICT_ORPHANS enforcement (avec allowlist)
+mkdir -p .ci-config
+: >"$REPORT" # s'assurer que $REPORT existe même si rien n'a encore écrit
+
+# Charger l'allowlist (globs), ignorer vides/commentaires
+mapfile -t _ALLOW < <(grep -vE '^\s*($|#)' "$ALLOWLIST_FILE" 2>/dev/null || true)
+
+# Extraire les "orphelins" depuis le rapport produit plus haut par le script :
+#   - entre "INFO:  Orphelins" et le prochain "INFO:" (ou EOF)
+mapfile -t _ORPH_ALL < <(
+  awk '
+    /^INFO:  Orphelins / { flag=1; next }
+    flag && /^  - /      { sub(/^[[:space:]]*-[[:space:]]*/, "", \$0); print \$0; next }
+    flag && /^INFO:/     { flag=0 }
+  ' "$REPORT" 2>/dev/null || true
+)
+
+# Filtrer avec allowlist (globs)
+_ORPH=()
+for o in "${_ORPH_ALL[@]:-}"; do
+  keep=1
+  if declare -p _ALLOW >/dev/null 2>&1; then _allow_list=("${_ALLOW[@]}"); else _allow_list=(); fi
+  for p in "${_allow_list[@]}"; do
+    if [[ "$o" == "$p" ]]; then
+      keep=0
+      break
+    fi
+  done
+  ((keep)) && _ORPH+=("$o")
+done
+
+__len__ORPH=0
+if declare -p _ORPH >/dev/null 2>&1; then __len__ORPH=${#_ORPH[@]}; fi
+if ((__len__ORPH)); then
+  info "==> Orphelins (hors allowlist) :"
+  for o in "${_ORPH[@]}"; do echo "  - $o" | tee -a "$REPORT"; done
+  if [[ "$STRICT_ORPHANS" == "1" ]]; then
+    err "Orphelins détectés et STRICT_ORPHANS=1"
+    fail=1
   fi
+else
+  info "==> Aucun orphelin hors allowlist."
 fi
 
-# Assure un code de sortie aligné avec "fail"
-exit "${fail:-0}"
-# (si le script avait déjà un echo de succès plus haut, il restera inoffensif)
+exit "$fail"

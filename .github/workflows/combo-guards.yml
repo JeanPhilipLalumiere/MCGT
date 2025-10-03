@@ -1,0 +1,26 @@
+name: combo-guards
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'zz-figures/**'
+      - 'zz-scripts/**'
+      - 'zz-manifests/**'
+      - 'tools/ci_step*.sh'
+      - '.github/workflows/*guard*.yml'
+      - '!**/*.md'
+  pull_request:
+    paths:
+      - 'zz-figures/**'
+      - 'zz-scripts/**'
+      - 'zz-manifests/**'
+      - 'tools/ci_step*.sh'
+      - '.github/workflows/*guard*.yml'
+      - '!**/*.md'
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run combo guards
+        run: bash tools/ci_combo_guards.sh

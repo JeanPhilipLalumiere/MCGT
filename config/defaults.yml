@@ -1,0 +1,5 @@
+env_var: {}
+frontmatter_key: {}
+yaml_key:
+  python-version: '3.12'
+  timeout-minutes: 15

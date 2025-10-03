@@ -3,7 +3,7 @@
 Tracer les séries brutes F(α)−1 et G(α) pour le Chapitre 2 (MCGT)
 
 Produit :
-- zz-figures/chapter02/fig_05_FG_series.png
+- zz-figures/chapter02/02_fig_05_fg_series.png
 
 Données sources :
 - zz-data/chapter02/02_As_ns_vs_alpha.csv

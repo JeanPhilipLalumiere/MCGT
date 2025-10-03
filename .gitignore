@@ -105,3 +105,6 @@ artifacts_*/
 *.bak
 *.bak.*
 .ci-archive/
+.ci-logs/
+.ci-logs/
+.ci-logs/

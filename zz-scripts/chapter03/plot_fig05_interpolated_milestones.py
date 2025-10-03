@@ -13,7 +13,7 @@ Colonnes jalons :
     R_over_R0, f_R, f_RR
 
 Sortie :
-    zz-figures/chapter03/fig_05_interpolated_milestones.png
+    zz-figures/chapter03/03_fig_05_interpolated_milestones.png
 """
 
 from pathlib import Path

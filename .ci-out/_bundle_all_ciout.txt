@@ -1,0 +1,1547 @@
+
+========================================================================
+>>> FILE: .ci-out/ci_budgets_report.txt
+========================================================================
+[BUDGET SCAN]
+FILE: .github/workflows/ci-pre-commit.yml
+22:    timeout-minutes: 15
+29:          python-version: '3.12'
+
+FILE: .github/workflows/ci-yaml-check.yml
+  (no timeout-minutes found)
+13:          python-version: '3.12'
+
+FILE: .github/workflows/pre-commit-autoupdate.yml
+  (no timeout-minutes found)
+  (no python-version found)
+
+FILE: .github/workflows/sanity-echo.yml
+  (no timeout-minutes found)
+  (no python-version found)
+
+FILE: .github/workflows/sanity-main.yml
+22:    timeout-minutes: 15
+98:    timeout-minutes: 15
+186:    timeout-minutes: 15
+  (no python-version found)
+
+
+========================================================================
+>>> FILE: .ci-out/figures_all.tsv
+========================================================================
+path	size_bytes	status
+zz-figures/chapter01/01_fig_01_early_plateau.png	139499	bad
+zz-figures/chapter01/01_fig_02_logistic_calibration.png	86100	bad
+zz-figures/chapter01/01_fig_03_relative_error_timeline.png	147364	bad
+zz-figures/chapter01/01_fig_04_p_vs_t_evolution.png	179830	bad
+zz-figures/chapter01/01_fig_05_i1_vs_t.png	184707	bad
+zz-figures/chapter01/01_fig_06_p_derivative_comparison.png	142306	bad
+zz-figures/chapter02/02_fig_00_spectrum.png	159549	bad
+zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png	226947	bad
+zz-figures/chapter02/02_fig_02_calibration.png	129000	bad
+zz-figures/chapter02/02_fig_03_relative_errors.png	243417	bad
+zz-figures/chapter02/02_fig_04_pipeline_diagram.png	114450	bad
+zz-figures/chapter02/02_fig_05_fg_series.png	141373	bad
+zz-figures/chapter02/02_fig_06_fit_alpha.png	194065	bad
+zz-figures/chapter03/03_fig_01_fr_stability_domain.png	156062	bad
+zz-figures/chapter03/03_fig_02_fr_frr_vs_r.png	149686	bad
+zz-figures/chapter03/03_fig_03_ms2_r0_vs_r.png	106335	bad
+zz-figures/chapter03/03_fig_04_fr_frr_vs_r.png	125044	bad
+zz-figures/chapter03/03_fig_05_interpolated_milestones.png	175918	bad
+zz-figures/chapter03/03_fig_06_grid_quality.png	148123	bad
+zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png	157336	bad
+zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png	131638	bad
+zz-figures/chapter04/04_fig_01_invariants_schematic.png	223196	bad
+zz-figures/chapter04/04_fig_02_invariants_histogram.png	89610	bad
+zz-figures/chapter04/04_fig_03_invariants_vs_t.png	335362	bad
+zz-figures/chapter04/04_fig_04_relative_deviations.png	123480	bad
+zz-figures/chapter05/05_fig_01_bbn_reaction_network.png	105903	bad
+zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png	155105	bad
+zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png	105279	bad
+zz-figures/chapter05/05_fig_04_chi2_vs_t.png	248424	bad
+zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png	160812	bad
+zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png	472389	bad
+zz-figures/chapter06/06_fig_03_delta_cls_relative.png	287171	bad
+zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png	160906	bad
+zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png	383702	bad
+zz-figures/chapter07/07_fig_00_loglog_sampling_test.png	55159	bad
+zz-figures/chapter07/07_fig_01_cs2_heatmap_k_a.png	78571	bad
+zz-figures/chapter07/07_fig_02_delta_phi_heatmap_k_a.png	85425	bad
+zz-figures/chapter07/07_fig_03_invariant_i1.png	213681	bad
+zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png	144345	bad
+zz-figures/chapter07/07_fig_05_ddelta_phi_dk_vs_k.png	111276	bad
+zz-figures/chapter07/07_fig_06_comparison.png	584719	bad
+zz-figures/chapter07/07_fig_07_invariant_i2.png	260207	bad
+zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png	190989	bad
+zz-figures/chapter08/08_fig_02_dv_vs_z.png	152884	bad
+zz-figures/chapter08/08_fig_03_mu_vs_z.png	178950	bad
+zz-figures/chapter08/08_fig_04_chi2_heatmap.png	229498	bad
+zz-figures/chapter08/08_fig_05_residuals.png	367132	bad
+zz-figures/chapter08/08_fig_06_pulls.png	202558	bad
+zz-figures/chapter08/08_fig_07_chi2_profile.png	122853	bad
+zz-figures/chapter09/09_fig_01_phase_overlay.png	420082	bad
+zz-figures/chapter09/09_fig_02_residual_phase.png	582426	bad
+zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png	341922	bad
+zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png	482346	bad
+zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png	206304	bad
+zz-figures/chapter09/09_fig_p95_check_control.png	38788	bad
+zz-figures/chapter09/09_fig_03_raw_bins30.png	39294	bad
+zz-figures/chapter09/09_fig_03_raw_bins50.png	45180	bad
+zz-figures/chapter09/09_fig_03_raw_bins80.png	39781	bad
+zz-figures/chapter09/09_fig_03_rebranch_k_bins30.png	40646	bad
+zz-figures/chapter09/09_fig_03_rebranch_k_bins50.png	46178	bad
+zz-figures/chapter09/09_fig_03_rebranch_k_bins80.png	40376	bad
+zz-figures/chapter09/09_fig_03_unwrap_bins30.png	40168	bad
+zz-figures/chapter09/09_fig_03_unwrap_bins50.png	45751	bad
+zz-figures/chapter09/09_fig_03_unwrap_bins80.png	40270	bad
+zz-figures/chapter10/10_fig_01_iso_p95_maps.png	1838732	bad
+zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png	1629247	bad
+zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png	199736	bad
+zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png	388364	bad
+zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png	380197	bad
+zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png	155634	bad
+zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png	861897	bad
+zz-figures/chapter10/10_fig_07_summary_comparison.png	558127	bad
+
+========================================================================
+>>> FILE: .ci-out/figures_bad_names.tsv
+========================================================================
+path	size_bytes
+zz-figures/chapter01/01_fig_01_early_plateau.png	139499
+zz-figures/chapter01/01_fig_02_logistic_calibration.png	86100
+zz-figures/chapter01/01_fig_03_relative_error_timeline.png	147364
+zz-figures/chapter01/01_fig_04_p_vs_t_evolution.png	179830
+zz-figures/chapter01/01_fig_05_i1_vs_t.png	184707
+zz-figures/chapter01/01_fig_06_p_derivative_comparison.png	142306
+zz-figures/chapter02/02_fig_00_spectrum.png	159549
+zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png	226947
+zz-figures/chapter02/02_fig_02_calibration.png	129000
+zz-figures/chapter02/02_fig_03_relative_errors.png	243417
+zz-figures/chapter02/02_fig_04_pipeline_diagram.png	114450
+zz-figures/chapter02/02_fig_05_fg_series.png	141373
+zz-figures/chapter02/02_fig_06_fit_alpha.png	194065
+zz-figures/chapter03/03_fig_01_fr_stability_domain.png	156062
+zz-figures/chapter03/03_fig_02_fr_frr_vs_r.png	149686
+zz-figures/chapter03/03_fig_03_ms2_r0_vs_r.png	106335
+zz-figures/chapter03/03_fig_04_fr_frr_vs_r.png	125044
+zz-figures/chapter03/03_fig_05_interpolated_milestones.png	175918
+zz-figures/chapter03/03_fig_06_grid_quality.png	148123
+zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png	157336
+zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png	131638
+zz-figures/chapter04/04_fig_01_invariants_schematic.png	223196
+zz-figures/chapter04/04_fig_02_invariants_histogram.png	89610
+zz-figures/chapter04/04_fig_03_invariants_vs_t.png	335362
+zz-figures/chapter04/04_fig_04_relative_deviations.png	123480
+zz-figures/chapter05/05_fig_01_bbn_reaction_network.png	105903
+zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png	155105
+zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png	105279
+zz-figures/chapter05/05_fig_04_chi2_vs_t.png	248424
+zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png	160812
+zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png	472389
+zz-figures/chapter06/06_fig_03_delta_cls_relative.png	287171
+zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png	160906
+zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png	383702
+zz-figures/chapter07/07_fig_00_loglog_sampling_test.png	55159
+zz-figures/chapter07/07_fig_01_cs2_heatmap_k_a.png	78571
+zz-figures/chapter07/07_fig_02_delta_phi_heatmap_k_a.png	85425
+zz-figures/chapter07/07_fig_03_invariant_i1.png	213681
+zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png	144345
+zz-figures/chapter07/07_fig_05_ddelta_phi_dk_vs_k.png	111276
+zz-figures/chapter07/07_fig_06_comparison.png	584719
+zz-figures/chapter07/07_fig_07_invariant_i2.png	260207
+zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png	190989
+zz-figures/chapter08/08_fig_02_dv_vs_z.png	152884
+zz-figures/chapter08/08_fig_03_mu_vs_z.png	178950
+zz-figures/chapter08/08_fig_04_chi2_heatmap.png	229498
+zz-figures/chapter08/08_fig_05_residuals.png	367132
+zz-figures/chapter08/08_fig_06_pulls.png	202558
+zz-figures/chapter08/08_fig_07_chi2_profile.png	122853
+zz-figures/chapter09/09_fig_01_phase_overlay.png	420082
+zz-figures/chapter09/09_fig_02_residual_phase.png	582426
+zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png	341922
+zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png	482346
+zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png	206304
+zz-figures/chapter09/09_fig_p95_check_control.png	38788
+zz-figures/chapter09/09_fig_03_raw_bins30.png	39294
+zz-figures/chapter09/09_fig_03_raw_bins50.png	45180
+zz-figures/chapter09/09_fig_03_raw_bins80.png	39781
+zz-figures/chapter09/09_fig_03_rebranch_k_bins30.png	40646
+zz-figures/chapter09/09_fig_03_rebranch_k_bins50.png	46178
+zz-figures/chapter09/09_fig_03_rebranch_k_bins80.png	40376
+zz-figures/chapter09/09_fig_03_unwrap_bins30.png	40168
+zz-figures/chapter09/09_fig_03_unwrap_bins50.png	45751
+zz-figures/chapter09/09_fig_03_unwrap_bins80.png	40270
+zz-figures/chapter10/10_fig_01_iso_p95_maps.png	1838732
+zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png	1629247
+zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png	199736
+zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png	388364
+zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png	380197
+zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png	155634
+zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png	861897
+zz-figures/chapter10/10_fig_07_summary_comparison.png	558127
+
+========================================================================
+>>> FILE: .ci-out/figures_bad_names.txt
+========================================================================
+[FIG_BADNAMES]
+zz-figures/chapter07/07_fig_06_comparison.png
+zz-figures/chapter07/07_fig_05_ddelta_phi_dk_vs_k.png
+zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png
+zz-figures/chapter07/07_fig_01_cs2_heatmap_k_a.png
+zz-figures/chapter07/07_fig_00_loglog_sampling_test.png
+zz-figures/chapter07/07_fig_03_invariant_i1.png
+zz-figures/chapter07/07_fig_02_delta_phi_heatmap_k_a.png
+zz-figures/chapter07/07_fig_07_invariant_i2.png
+zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png
+zz-figures/chapter10/10_fig_07_summary_comparison.png
+zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
+zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
+zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png
+zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
+zz-figures/chapter10/10_fig_01_iso_p95_maps.png
+zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png
+zz-figures/chapter06/06_fig_03_delta_cls_relative.png
+zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png
+zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png
+zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png
+zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png
+zz-figures/chapter09/09_fig_03_raw_bins30.png
+zz-figures/chapter09/09_fig_03_unwrap_bins80.png
+zz-figures/chapter09/09_fig_03_raw_bins80.png
+zz-figures/chapter09/09_fig_03_rebranch_k_bins50.png
+zz-figures/chapter09/09_fig_03_unwrap_bins30.png
+zz-figures/chapter09/09_fig_03_unwrap_bins50.png
+zz-figures/chapter09/09_fig_03_raw_bins50.png
+zz-figures/chapter09/09_fig_03_rebranch_k_bins30.png
+zz-figures/chapter09/09_fig_03_rebranch_k_bins80.png
+zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png
+zz-figures/chapter09/09_fig_p95_check_control.png
+zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
+zz-figures/chapter09/09_fig_02_residual_phase.png
+zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png
+zz-figures/chapter09/09_fig_01_phase_overlay.png
+zz-figures/chapter03/03_fig_02_fr_frr_vs_r.png
+zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png
+zz-figures/chapter03/03_fig_04_fr_frr_vs_r.png
+zz-figures/chapter03/03_fig_03_ms2_r0_vs_r.png
+zz-figures/chapter03/03_fig_05_interpolated_milestones.png
+zz-figures/chapter03/03_fig_06_grid_quality.png
+zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png
+zz-figures/chapter03/03_fig_01_fr_stability_domain.png
+zz-figures/chapter05/05_fig_04_chi2_vs_t.png
+zz-figures/chapter05/05_fig_01_bbn_reaction_network.png
+zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png
+zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png
+zz-figures/chapter02/02_fig_00_spectrum.png
+zz-figures/chapter02/02_fig_06_fit_alpha.png
+zz-figures/chapter02/02_fig_04_pipeline_diagram.png
+zz-figures/chapter02/02_fig_05_fg_series.png
+zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png
+zz-figures/chapter02/02_fig_03_relative_errors.png
+zz-figures/chapter02/02_fig_02_calibration.png
+zz-figures/chapter01/01_fig_03_relative_error_timeline.png
+zz-figures/chapter01/01_fig_04_p_vs_t_evolution.png
+zz-figures/chapter01/01_fig_05_i1_vs_t.png
+zz-figures/chapter01/01_fig_06_p_derivative_comparison.png
+zz-figures/chapter01/01_fig_01_early_plateau.png
+zz-figures/chapter01/01_fig_02_logistic_calibration.png
+zz-figures/chapter04/04_fig_01_invariants_schematic.png
+zz-figures/chapter04/04_fig_03_invariants_vs_t.png
+zz-figures/chapter04/04_fig_04_relative_deviations.png
+zz-figures/chapter04/04_fig_02_invariants_histogram.png
+zz-figures/chapter08/08_fig_04_chi2_heatmap.png
+zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png
+zz-figures/chapter08/08_fig_05_residuals.png
+zz-figures/chapter08/08_fig_03_mu_vs_z.png
+zz-figures/chapter08/08_fig_07_chi2_profile.png
+zz-figures/chapter08/08_fig_02_dv_vs_z.png
+zz-figures/chapter08/08_fig_06_pulls.png
+
+========================================================================
+>>> FILE: .ci-out/frontmatter_samples.txt
+========================================================================
+
+========================================================================
+>>> FILE: .ci-out/make_vars.tsv
+========================================================================
+file	lineno	var	operator	value
+
+========================================================================
+>>> FILE: .ci-out/makefiles.list.txt
+========================================================================
+[MAKEFILES]
+./Makefile
+
+========================================================================
+>>> FILE: .ci-out/makefiles.python_var.txt
+========================================================================
+[MAKE_PYTHON_VAR]
+
+========================================================================
+>>> FILE: .ci-out/md_frontmatter_paths.txt
+========================================================================
+[MD_FRONTMATTER_PATHS]
+zz-manifests/README_manifest.md
+
+========================================================================
+>>> FILE: .ci-out/params/params-inventory.tsv
+========================================================================
+KIND	NAME	SAMPLE_VALUE	FILE	LINE
+yaml_key	name	mcgt-dev	./environment-3.12-dev.yml	1
+yaml_key	channels		./environment-3.12-dev.yml	2
+yaml_key	dependencies		./environment-3.12-dev.yml	5
+yaml_key	pip		./environment-3.12-dev.yml	11
+yaml_key	name	"Workflow hygiene audit"	./.github/actions/workflow-hygiene/action.yml	1
+yaml_key	description	"Checks run-name quoting, forbids +x on non-scripts, and blocks BOM/CRLF/Tabs."	./.github/actions/workflow-hygiene/action.yml	2
+yaml_key	runs		./.github/actions/workflow-hygiene/action.yml	3
+yaml_key	using	"composite"	./.github/actions/workflow-hygiene/action.yml	4
+yaml_key	steps		./.github/actions/workflow-hygiene/action.yml	5
+yaml_key	name	Audit run-name quoting & basic hygiene	./.github/actions/workflow-hygiene/action.yml	6
+yaml_key	shell	bash	./.github/actions/workflow-hygiene/action.yml	7
+yaml_key	run	|	./.github/actions/workflow-hygiene/action.yml	8
+yaml_key	name	Forbid +x on non-script files	./.github/actions/workflow-hygiene/action.yml	15
+yaml_key	shell	bash	./.github/actions/workflow-hygiene/action.yml	16
+yaml_key	run	|	./.github/actions/workflow-hygiene/action.yml	17
+yaml_key	name	Forbid BOM/CRLF/Tabs under .github (check mode)	./.github/actions/workflow-hygiene/action.yml	24
+yaml_key	shell	bash	./.github/actions/workflow-hygiene/action.yml	25
+yaml_key	run	|	./.github/actions/workflow-hygiene/action.yml	26
+yaml_key	version	2	./.github/dependabot.yml	1
+yaml_key	updates		./.github/dependabot.yml	2
+yaml_key	package-ecosystem	"github-actions"	./.github/dependabot.yml	3
+yaml_key	directory	"/"	./.github/dependabot.yml	4
+yaml_key	schedule		./.github/dependabot.yml	5
+yaml_key	interval	"weekly"	./.github/dependabot.yml	6
+yaml_key	open-pull-requests-limit	10	./.github/dependabot.yml	7
+yaml_key	commit-message		./.github/dependabot.yml	8
+yaml_key	prefix	"deps(actions)"	./.github/dependabot.yml	9
+yaml_key	name	sanity-main	./.github/workflows/sanity-main.yml	1
+yaml_key	run-name	"sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}"	./.github/workflows/sanity-main.yml	2
+yaml_key	on		./.github/workflows/sanity-main.yml	3
+yaml_key	workflow_dispatch		./.github/workflows/sanity-main.yml	4
+yaml_key	push		./.github/workflows/sanity-main.yml	5
+yaml_key	branches	[ main ]	./.github/workflows/sanity-main.yml	6
+yaml_key	paths-ignore		./.github/workflows/sanity-main.yml	7
+yaml_key	schedule		./.github/workflows/sanity-main.yml	12
+yaml_key	cron	'0 6 * * *'	./.github/workflows/sanity-main.yml	13
+yaml_key	concurrency		./.github/workflows/sanity-main.yml	15
+yaml_key	group	sanity-main-${{ github.ref }}-${{ github.event_name }}	./.github/workflows/sanity-main.yml	16
+yaml_key	cancel-in-progress	true	./.github/workflows/sanity-main.yml	17
+yaml_key	jobs		./.github/workflows/sanity-main.yml	19
+yaml_key	diag		./.github/workflows/sanity-main.yml	20
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/sanity-main.yml	21
+yaml_key	timeout-minutes	10	./.github/workflows/sanity-main.yml	22
+yaml_key	permissions		./.github/workflows/sanity-main.yml	23
+yaml_key	contents	read	./.github/workflows/sanity-main.yml	24
+yaml_key	steps		./.github/workflows/sanity-main.yml	25
+yaml_key	uses	actions/checkout@v4	./.github/workflows/sanity-main.yml	26
+yaml_key	name	Build diag payload	./.github/workflows/sanity-main.yml	28
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	29
+yaml_key	run	|	./.github/workflows/sanity-main.yml	30
+yaml_key	name	Upload artifact (sanity-diag)	./.github/workflows/sanity-main.yml	54
+yaml_key	uses	actions/upload-artifact@v4	./.github/workflows/sanity-main.yml	55
+yaml_key	with		./.github/workflows/sanity-main.yml	56
+yaml_key	name	sanity-diag	./.github/workflows/sanity-main.yml	57
+yaml_key	path	.ci-out/sanity-diag/	./.github/workflows/sanity-main.yml	58
+yaml_key	if-no-files-found	error	./.github/workflows/sanity-main.yml	59
+yaml_key	retention-days	7	./.github/workflows/sanity-main.yml	60
+yaml_key	name	Job summary (Markdown)	./.github/workflows/sanity-main.yml	62
+yaml_key	if	always()	./.github/workflows/sanity-main.yml	63
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	64
+yaml_key	run	|	./.github/workflows/sanity-main.yml	65
+yaml_key	meta		./.github/workflows/sanity-main.yml	95
+yaml_key	if	${{ github.event_name != 'schedule' }}	./.github/workflows/sanity-main.yml	96
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/sanity-main.yml	97
+yaml_key	timeout-minutes	5	./.github/workflows/sanity-main.yml	98
+yaml_key	permissions		./.github/workflows/sanity-main.yml	99
+yaml_key	contents	read	./.github/workflows/sanity-main.yml	100
+yaml_key	steps		./.github/workflows/sanity-main.yml	101
+yaml_key	uses	actions/checkout@v4	./.github/workflows/sanity-main.yml	102
+yaml_key	name	Install actionlint (pinned v1.7.7) with fallback	./.github/workflows/sanity-main.yml	104
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	105
+yaml_key	continue-on-error	true	./.github/workflows/sanity-main.yml	106
+yaml_key	run	|	./.github/workflows/sanity-main.yml	107
+yaml_key	name	Run actionlint	./.github/workflows/sanity-main.yml	140
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	141
+yaml_key	continue-on-error	true	./.github/workflows/sanity-main.yml	142
+yaml_key	run	|	./.github/workflows/sanity-main.yml	143
+yaml_key	name	Run shellcheck (tools/*.sh)	./.github/workflows/sanity-main.yml	151
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	152
+yaml_key	continue-on-error	true	./.github/workflows/sanity-main.yml	153
+yaml_key	run	|	./.github/workflows/sanity-main.yml	154
+yaml_key	name	Meta summary	./.github/workflows/sanity-main.yml	168
+yaml_key	if	always()	./.github/workflows/sanity-main.yml	169
+yaml_key	shell	bash	./.github/workflows/sanity-main.yml	170
+yaml_key	run	|	./.github/workflows/sanity-main.yml	171
+yaml_key	hygiene		./.github/workflows/sanity-main.yml	183
+yaml_key	if	${{ github.event_name != 'schedule' }}	./.github/workflows/sanity-main.yml	184
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/sanity-main.yml	185
+yaml_key	timeout-minutes	5	./.github/workflows/sanity-main.yml	186
+yaml_key	permissions		./.github/workflows/sanity-main.yml	187
+yaml_key	contents	read	./.github/workflows/sanity-main.yml	188
+yaml_key	steps		./.github/workflows/sanity-main.yml	189
+yaml_key	uses	actions/checkout@v4	./.github/workflows/sanity-main.yml	190
+yaml_key	name	Workflow hygiene (composite)	./.github/workflows/sanity-main.yml	191
+yaml_key	uses	./.github/actions/workflow-hygiene	./.github/workflows/sanity-main.yml	192
+yaml_key	name	ci-pre-commit	./.github/workflows/ci-pre-commit.yml	1
+yaml_key	run-name	"pre-commit • ${{ github.event_name }} • ${{ github.ref_name }}"	./.github/workflows/ci-pre-commit.yml	2
+yaml_key	on		./.github/workflows/ci-pre-commit.yml	4
+yaml_key	workflow_dispatch		./.github/workflows/ci-pre-commit.yml	5
+yaml_key	pull_request		./.github/workflows/ci-pre-commit.yml	6
+yaml_key	push		./.github/workflows/ci-pre-commit.yml	7
+yaml_key	branches	[ main ]	./.github/workflows/ci-pre-commit.yml	8
+yaml_key	paths-ignore		./.github/workflows/ci-pre-commit.yml	9
+yaml_key	concurrency		./.github/workflows/ci-pre-commit.yml	15
+yaml_key	group	ci-pre-commit-${{ github.ref }}-${{ github.event_name }}	./.github/workflows/ci-pre-commit.yml	16
+yaml_key	cancel-in-progress	true	./.github/workflows/ci-pre-commit.yml	17
+yaml_key	jobs		./.github/workflows/ci-pre-commit.yml	19
+yaml_key	run		./.github/workflows/ci-pre-commit.yml	20
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/ci-pre-commit.yml	21
+yaml_key	timeout-minutes	15	./.github/workflows/ci-pre-commit.yml	22
+yaml_key	permissions		./.github/workflows/ci-pre-commit.yml	23
+yaml_key	contents	read	./.github/workflows/ci-pre-commit.yml	24
+yaml_key	steps		./.github/workflows/ci-pre-commit.yml	25
+yaml_key	uses	actions/checkout@v4	./.github/workflows/ci-pre-commit.yml	26
+yaml_key	uses	actions/setup-python@v5	./.github/workflows/ci-pre-commit.yml	27
+yaml_key	with		./.github/workflows/ci-pre-commit.yml	28
+yaml_key	python-version	'3.11'	./.github/workflows/ci-pre-commit.yml	29
+yaml_key	name	Install pre-commit	./.github/workflows/ci-pre-commit.yml	31
+yaml_key	run	|	./.github/workflows/ci-pre-commit.yml	32
+yaml_key	name	Show versions	./.github/workflows/ci-pre-commit.yml	36
+yaml_key	run	|	./.github/workflows/ci-pre-commit.yml	37
+yaml_key	name	Validate config	./.github/workflows/ci-pre-commit.yml	41
+yaml_key	run	|	./.github/workflows/ci-pre-commit.yml	42
+yaml_key	name	Run pre-commit (all files)	./.github/workflows/ci-pre-commit.yml	46
+yaml_key	run	|	./.github/workflows/ci-pre-commit.yml	47
+yaml_key	name	ci-yaml-check	./.github/workflows/ci-yaml-check.yml	1
+yaml_key	on		./.github/workflows/ci-yaml-check.yml	2
+yaml_key	push	{}	./.github/workflows/ci-yaml-check.yml	3
+yaml_key	pull_request	{}	./.github/workflows/ci-yaml-check.yml	4
+yaml_key	jobs		./.github/workflows/ci-yaml-check.yml	6
+yaml_key	yaml		./.github/workflows/ci-yaml-check.yml	7
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/ci-yaml-check.yml	8
+yaml_key	steps		./.github/workflows/ci-yaml-check.yml	9
+yaml_key	uses	actions/checkout@v4	./.github/workflows/ci-yaml-check.yml	10
+yaml_key	uses	actions/setup-python@v5	./.github/workflows/ci-yaml-check.yml	11
+yaml_key	with		./.github/workflows/ci-yaml-check.yml	12
+yaml_key	python-version	'3.12'	./.github/workflows/ci-yaml-check.yml	13
+yaml_key	name	Install PyYAML	./.github/workflows/ci-yaml-check.yml	14
+yaml_key	run	python -m pip install --upgrade pip pyyaml	./.github/workflows/ci-yaml-check.yml	15
+yaml_key	name	Validate workflow YAMLs	./.github/workflows/ci-yaml-check.yml	16
+yaml_key	run	bash tools/yaml_check.sh	./.github/workflows/ci-yaml-check.yml	17
+yaml_key	name	sanity-echo	./.github/workflows/sanity-echo.yml	1
+yaml_key	on		./.github/workflows/sanity-echo.yml	2
+yaml_key	workflow_dispatch	{}	./.github/workflows/sanity-echo.yml	3
+yaml_key	jobs		./.github/workflows/sanity-echo.yml	4
+yaml_key	echo		./.github/workflows/sanity-echo.yml	5
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/sanity-echo.yml	6
+yaml_key	steps		./.github/workflows/sanity-echo.yml	7
+yaml_key	name	Echo	./.github/workflows/sanity-echo.yml	8
+yaml_key	run	echo "sanity-echo OK @ $(date -u +%FT%TZ)"	./.github/workflows/sanity-echo.yml	9
+yaml_key	name	pre-commit autoupdate	./.github/workflows/pre-commit-autoupdate.yml	1
+yaml_key	on		./.github/workflows/pre-commit-autoupdate.yml	2
+yaml_key	schedule		./.github/workflows/pre-commit-autoupdate.yml	3
+yaml_key	cron	"0 5 * * 1"	./.github/workflows/pre-commit-autoupdate.yml	4
+yaml_key	workflow_dispatch	{}	./.github/workflows/pre-commit-autoupdate.yml	5
+yaml_key	jobs		./.github/workflows/pre-commit-autoupdate.yml	7
+yaml_key	autoupdate		./.github/workflows/pre-commit-autoupdate.yml	8
+yaml_key	runs-on	ubuntu-latest	./.github/workflows/pre-commit-autoupdate.yml	9
+yaml_key	steps		./.github/workflows/pre-commit-autoupdate.yml	10
+yaml_key	uses	actions/checkout@v4	./.github/workflows/pre-commit-autoupdate.yml	11
+yaml_key	uses	actions/setup-python@v5	./.github/workflows/pre-commit-autoupdate.yml	12
+yaml_key	run	pipx install pre-commit	./.github/workflows/pre-commit-autoupdate.yml	13
+yaml_key	run	pre-commit autoupdate	./.github/workflows/pre-commit-autoupdate.yml	14
+yaml_key	name	Crée la PR	./.github/workflows/pre-commit-autoupdate.yml	15
+yaml_key	uses	peter-evans/create-pull-request@v7	./.github/workflows/pre-commit-autoupdate.yml	16
+yaml_key	with		./.github/workflows/pre-commit-autoupdate.yml	17
+yaml_key	commit-message	"chore(pre-commit): autoupdate hooks"	./.github/workflows/pre-commit-autoupdate.yml	18
+yaml_key	branch	chore/pre-commit-autoupdate	./.github/workflows/pre-commit-autoupdate.yml	19
+yaml_key	title	"chore(pre-commit): autoupdate hooks"	./.github/workflows/pre-commit-autoupdate.yml	20
+yaml_key	body	"MAJ automatique des hooks pre-commit hebdomadaire."	./.github/workflows/pre-commit-autoupdate.yml	21
+yaml_key	name	mcgt-ci	./environment-3.12-ci.yml	1
+yaml_key	channels		./environment-3.12-ci.yml	2
+yaml_key	dependencies		./environment-3.12-ci.yml	5
+yaml_key	pip		./environment-3.12-ci.yml	11
+yaml_key	minimum_pre_commit_version	"3.5.0"	./.pre-commit-config.yaml	2
+yaml_key	default_language_version		./.pre-commit-config.yaml	4
+yaml_key	python	python3	./.pre-commit-config.yaml	5
+yaml_key	exclude	|	./.pre-commit-config.yaml	8
+yaml_key	repos		./.pre-commit-config.yaml	13
+yaml_key	repo	https://github.com/pre-commit/pre-commit-hooks	./.pre-commit-config.yaml	14
+yaml_key	rev	v6.0.0	./.pre-commit-config.yaml	15
+yaml_key	hooks		./.pre-commit-config.yaml	16
+yaml_key	id	check-yaml	./.pre-commit-config.yaml	17
+yaml_key	args	["--allow-multiple-documents"]	./.pre-commit-config.yaml	18
+yaml_key	id	end-of-file-fixer	./.pre-commit-config.yaml	19
+yaml_key	id	trailing-whitespace	./.pre-commit-config.yaml	20
+yaml_key	id	check-executables-have-shebangs	./.pre-commit-config.yaml	21
+yaml_key	id	check-shebang-scripts-are-executable	./.pre-commit-config.yaml	22
+yaml_key	repo	https://github.com/rhysd/actionlint	./.pre-commit-config.yaml	24
+yaml_key	rev	v1.7.7	./.pre-commit-config.yaml	25
+yaml_key	hooks		./.pre-commit-config.yaml	26
+yaml_key	id	actionlint	./.pre-commit-config.yaml	27
+yaml_key	repo	https://github.com/shellcheck-py/shellcheck-py	./.pre-commit-config.yaml	29
+yaml_key	rev	v0.11.0.1	./.pre-commit-config.yaml	30
+yaml_key	hooks		./.pre-commit-config.yaml	31
+yaml_key	id	shellcheck	./.pre-commit-config.yaml	32
+yaml_key	files	^(tools/|zz-scripts/).*\.(sh|bash)$	./.pre-commit-config.yaml	33
+yaml_key	repo	local	./.pre-commit-config.yaml	35
+yaml_key	hooks		./.pre-commit-config.yaml	36
+yaml_key	id	gh-workflows-sc2129-guard	./.pre-commit-config.yaml	37
+yaml_key	name	"Guard SC2129 in GitHub workflows (run: |)"	./.pre-commit-config.yaml	38
+yaml_key	entry	tools/check_sc2129_in_workflows.sh	./.pre-commit-config.yaml	39
+yaml_key	language	system	./.pre-commit-config.yaml	40
+yaml_key	files	'^\.github/workflows/.*\.ya?ml$'	./.pre-commit-config.yaml	41
+yaml_key	repo	https://github.com/scop/pre-commit-shfmt	./.pre-commit-config.yaml	44
+yaml_key	rev	v3.12.0-2	./.pre-commit-config.yaml	46
+yaml_key	hooks		./.pre-commit-config.yaml	47
+yaml_key	id	shfmt	./.pre-commit-config.yaml	48
+yaml_key	args	["-w","-i","2","-ci"]	./.pre-commit-config.yaml	49
+yaml_key	files	"^(tools/|zz-scripts/).+\\.(sh|bash)$"	./.pre-commit-config.yaml	50
+yaml_key	repo	local	./.pre-commit-config.yaml	52
+yaml_key	hooks		./.pre-commit-config.yaml	53
+yaml_key	id	gh-workflows-fix-run-name-quotes	./.pre-commit-config.yaml	54
+yaml_key	name	Fix unquoted run-name with GitHub expressions	./.pre-commit-config.yaml	55
+yaml_key	entry	tools/fix_run_name_quotes.sh	./.pre-commit-config.yaml	56
+yaml_key	language	system	./.pre-commit-config.yaml	57
+yaml_key	files	^.github/workflows/.*.ya?ml	./.pre-commit-config.yaml	58
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	59
+yaml_key	id	gh-workflows-audit	./.pre-commit-config.yaml	60
+yaml_key	language	system	./.pre-commit-config.yaml	61
+yaml_key	files	^.github/workflows/.*.ya?ml	./.pre-commit-config.yaml	62
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	63
+yaml_key	entry	tools/audit_workflows.sh	./.pre-commit-config.yaml	64
+yaml_key	name	Audit GitHub workflow hygiene	./.pre-commit-config.yaml	65
+yaml_key	id	gh-workflows-audit	./.pre-commit-config.yaml	66
+yaml_key	name	Audit GitHub workflow hygiene	./.pre-commit-config.yaml	67
+yaml_key	entry	tools/audit_workflows.sh	./.pre-commit-config.yaml	68
+yaml_key	language	system	./.pre-commit-config.yaml	69
+yaml_key	files	'^\.github/workflows/.*\.ya?ml$'	./.pre-commit-config.yaml	70
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	71
+yaml_key	repo	local	./.pre-commit-config.yaml	73
+yaml_key	hooks		./.pre-commit-config.yaml	74
+yaml_key	id	no-plusx-nonscripts	./.pre-commit-config.yaml	75
+yaml_key	name	Forbid +x on non-script files	./.pre-commit-config.yaml	76
+yaml_key	entry	tools/no_plusx_nonscripts.sh	./.pre-commit-config.yaml	77
+yaml_key	language	system	./.pre-commit-config.yaml	78
+yaml_key	pass_filenames	false	./.pre-commit-config.yaml	79
+yaml_key	repo	local	./.pre-commit-config.yaml	81
+yaml_key	hooks		./.pre-commit-config.yaml	82
+yaml_key	id	forbid-bom-crlf-tabs-workflows	./.pre-commit-config.yaml	83
+yaml_key	name	Forbid BOM/CRLF/Tabs in workflows (auto-fix)	./.pre-commit-config.yaml	84
+yaml_key	entry	tools/forbid_bom_crlf_tabs.sh	./.pre-commit-config.yaml	85
+yaml_key	language	system	./.pre-commit-config.yaml	86
+yaml_key	files	'^\.github/workflows/.*\.ya?ml$'	./.pre-commit-config.yaml	87
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	88
+yaml_key	args	['--fix']	./.pre-commit-config.yaml	89
+yaml_key	repo	local	./.pre-commit-config.yaml	91
+yaml_key	hooks		./.pre-commit-config.yaml	92
+yaml_key	id	forbid-bom-crlf-tabs-dotgithub	./.pre-commit-config.yaml	93
+yaml_key	name	Forbid BOM/CRLF/Tabs under .github (auto-fix)	./.pre-commit-config.yaml	94
+yaml_key	entry	tools/forbid_bom_crlf_tabs.sh	./.pre-commit-config.yaml	95
+yaml_key	language	system	./.pre-commit-config.yaml	96
+yaml_key	files	'^\.github/.*\.(ya?ml|md)$'	./.pre-commit-config.yaml	97
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	98
+yaml_key	args	['--fix']	./.pre-commit-config.yaml	99
+yaml_key	repo	local	./.pre-commit-config.yaml	101
+yaml_key	hooks		./.pre-commit-config.yaml	102
+yaml_key	id	forbid-bom-crlf-tabs-repo	./.pre-commit-config.yaml	103
+yaml_key	name	Forbid BOM/CRLF/Tabs repo-wide (YAML/MD, auto-fix)	./.pre-commit-config.yaml	104
+yaml_key	entry	tools/forbid_bom_crlf_tabs.sh	./.pre-commit-config.yaml	105
+yaml_key	language	system	./.pre-commit-config.yaml	106
+yaml_key	files	'^.+\.(ya?ml|md)$'	./.pre-commit-config.yaml	107
+yaml_key	pass_filenames	true	./.pre-commit-config.yaml	108
+yaml_key	args	['--fix']	./.pre-commit-config.yaml	109
+yaml_key	name	mcgt	./environment.yml	11
+yaml_key	channels		./environment.yml	12
+yaml_key	dependencies		./environment.yml	15
+yaml_key	pip		./environment.yml	51
+yaml_key	name	smoke_min	./.ci-archive/workflows-20251001T160328/smoke_min.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/smoke_min.yml	3
+yaml_key	workflow_dispatch		./.ci-archive/workflows-20251001T160328/smoke_min.yml	4
+yaml_key	push		./.ci-archive/workflows-20251001T160328/smoke_min.yml	5
+yaml_key	branches	[ci/testpypi-workflow-rmid]	./.ci-archive/workflows-20251001T160328/smoke_min.yml	6
+yaml_key	paths	[.ci_poke/**]	./.ci-archive/workflows-20251001T160328/smoke_min.yml	7
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/smoke_min.yml	9
+yaml_key	smoke		./.ci-archive/workflows-20251001T160328/smoke_min.yml	10
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/smoke_min.yml	11
+yaml_key	if	github.ref == 'refs/heads/ci/testpypi-workflow-rmid' || github.event_name == 'workflow_dispatch'	./.ci-archive/workflows-20251001T160328/smoke_min.yml	12
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/smoke_min.yml	13
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/smoke_min.yml	14
+yaml_key	name	Print env	./.ci-archive/workflows-20251001T160328/smoke_min.yml	15
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/smoke_min.yml	16
+yaml_key	name	publish	./.ci-archive/workflows-20251001T160328/publish.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/publish.yml	3
+yaml_key	push		./.ci-archive/workflows-20251001T160328/publish.yml	4
+yaml_key	tags		./.ci-archive/workflows-20251001T160328/publish.yml	5
+yaml_key	permissions		./.ci-archive/workflows-20251001T160328/publish.yml	8
+yaml_key	contents	read	./.ci-archive/workflows-20251001T160328/publish.yml	9
+yaml_key	id-token	write	./.ci-archive/workflows-20251001T160328/publish.yml	10
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/publish.yml	12
+yaml_key	build-and-publish		./.ci-archive/workflows-20251001T160328/publish.yml	13
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/publish.yml	14
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/publish.yml	15
+yaml_key	name	Checkout	./.ci-archive/workflows-20251001T160328/publish.yml	16
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/publish.yml	17
+yaml_key	name	Set up Python	./.ci-archive/workflows-20251001T160328/publish.yml	19
+yaml_key	uses	actions/setup-python@v5	./.ci-archive/workflows-20251001T160328/publish.yml	20
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish.yml	21
+yaml_key	python-version	'3.12'	./.ci-archive/workflows-20251001T160328/publish.yml	22
+yaml_key	name	Cache pip	./.ci-archive/workflows-20251001T160328/publish.yml	24
+yaml_key	uses	actions/cache@v4	./.ci-archive/workflows-20251001T160328/publish.yml	25
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish.yml	26
+yaml_key	path	~/.cache/pip	./.ci-archive/workflows-20251001T160328/publish.yml	27
+yaml_key	key	${{ runner.os }}-pip-${{ hashFiles('requirements*.txt', 'pyproject.toml') }}	./.ci-archive/workflows-20251001T160328/publish.yml	28
+yaml_key	restore-keys	|	./.ci-archive/workflows-20251001T160328/publish.yml	29
+yaml_key	name	Install build tooling	./.ci-archive/workflows-20251001T160328/publish.yml	32
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/publish.yml	33
+yaml_key	name	Install project deps (best-effort)	./.ci-archive/workflows-20251001T160328/publish.yml	37
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/publish.yml	38
+yaml_key	name	Build sdist/wheel	./.ci-archive/workflows-20251001T160328/publish.yml	42
+yaml_key	run	python -m build	./.ci-archive/workflows-20251001T160328/publish.yml	43
+yaml_key	name	Publish to TestPyPI	./.ci-archive/workflows-20251001T160328/publish.yml	46
+yaml_key	uses	pypa/gh-action-pypi-publish@release/v1	./.ci-archive/workflows-20251001T160328/publish.yml	47
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish.yml	48
+yaml_key	repository-url	https://test.pypi.org/legacy/	./.ci-archive/workflows-20251001T160328/publish.yml	49
+yaml_key	packages-dir	dist	./.ci-archive/workflows-20251001T160328/publish.yml	50
+yaml_key	skip-existing	true	./.ci-archive/workflows-20251001T160328/publish.yml	51
+yaml_key	name	publish_testonly	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	3
+yaml_key	workflow_dispatch		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	4
+yaml_key	push		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	5
+yaml_key	branches	[ ci/testpypi-workflow-rmid ]	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	6
+yaml_key	paths		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	7
+yaml_key	permissions		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	18
+yaml_key	contents	read	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	19
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	21
+yaml_key	build		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	22
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	23
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	24
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	25
+yaml_key	uses	actions/setup-python@v5	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	27
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	28
+yaml_key	python-version	"3.12"	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	29
+yaml_key	cache	pip	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	30
+yaml_key	name	Install build backend	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	32
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	33
+yaml_key	name	Build dist (wheel+sdist)	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	37
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	38
+yaml_key	name	Upload artifact 'dist'	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	42
+yaml_key	uses	actions/upload-artifact@v4	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	43
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	44
+yaml_key	name	dist	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	45
+yaml_key	path	dist	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	46
+yaml_key	if-no-files-found	error	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	47
+yaml_key	retention-days	7	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	48
+yaml_key	publish-testpypi		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	50
+yaml_key	needs	build	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	51
+yaml_key	if	${{ secrets.TESTPYPI_API_TOKEN != '' }}	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	52
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	53
+yaml_key	environment		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	54
+yaml_key	name	testpypi	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	55
+yaml_key	url	https://test.pypi.org/p/mcgt-core	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	56
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	57
+yaml_key	name	Download artifact 'dist'	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	58
+yaml_key	uses	actions/download-artifact@v4	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	59
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	60
+yaml_key	name	dist	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	61
+yaml_key	path	dist	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	62
+yaml_key	name	Publish to TestPyPI	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	64
+yaml_key	uses	pypa/gh-action-pypi-publish@release/v1	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	65
+yaml_key	with		./.ci-archive/workflows-20251001T160328/publish_testonly.yml	66
+yaml_key	user	__token__	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	67
+yaml_key	password	${{ secrets.TESTPYPI_API_TOKEN }}	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	68
+yaml_key	repository_url	https://test.pypi.org/legacy/	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	69
+yaml_key	packages_dir	dist	./.ci-archive/workflows-20251001T160328/publish_testonly.yml	70
+yaml_key	name	sanity-dispatch	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	2
+yaml_key	workflow_dispatch	{}	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	3
+yaml_key	workflow_dispatch	{}	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	4
+yaml_key	push		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	5
+yaml_key	branches	['*']	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	6
+yaml_key	pull_request	{}	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	7
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	9
+yaml_key	sanity		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	10
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	11
+yaml_key	timeout-minutes	30	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	12
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	13
+yaml_key	name	"Checkout"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	14
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	15
+yaml_key	name	"Setup Python"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	17
+yaml_key	uses	actions/setup-python@v5	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	18
+yaml_key	with		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	19
+yaml_key	python-version	'3.12'	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	20
+yaml_key	name	"Install deps (minimal)"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	22
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	23
+yaml_key	name	"Guard: no .RECIPEPREFIX"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	28
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	29
+yaml_key	name	"Manifests strict diag"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	36
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	37
+yaml_key	continue-on-error	true	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	38
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	39
+yaml_key	try		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	52
+yaml_key	try		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	60
+yaml_key	name	"Upload diag artifacts"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	66
+yaml_key	if	always()	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	67
+yaml_key	uses	actions/upload-artifact@v4	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	68
+yaml_key	with		./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	69
+yaml_key	name	sanity-diag	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	70
+yaml_key	path	|	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	71
+yaml_key	if-no-files-found	warn	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	74
+yaml_key	retention-days	7	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	75
+yaml_key	name	"Pytest (best-effort)"	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	77
+yaml_key	continue-on-error	true	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	78
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity_dispatch.yml	79
+yaml_key	name	sanity-ping	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/sanity_ping.yml	2
+yaml_key	workflow_dispatch	{}	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	3
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/sanity_ping.yml	5
+yaml_key	ping		./.ci-archive/workflows-20251001T160328/sanity_ping.yml	6
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	7
+yaml_key	timeout-minutes	5	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	8
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/sanity_ping.yml	9
+yaml_key	name	"Checkout"	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	10
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	11
+yaml_key	name	"Echo ping"	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	12
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity_ping.yml	13
+yaml_key	name	"sanity"	./.ci-archive/workflows-20251001T160328/sanity.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/sanity.yml	2
+yaml_key	push	{}	./.ci-archive/workflows-20251001T160328/sanity.yml	3
+yaml_key	pull_request	{}	./.ci-archive/workflows-20251001T160328/sanity.yml	4
+yaml_key	workflow_dispatch	{}	./.ci-archive/workflows-20251001T160328/sanity.yml	5
+yaml_key	repository_dispatch		./.ci-archive/workflows-20251001T160328/sanity.yml	6
+yaml_key	types	[sanity]	./.ci-archive/workflows-20251001T160328/sanity.yml	7
+yaml_key	permissions		./.ci-archive/workflows-20251001T160328/sanity.yml	8
+yaml_key	actions	write	./.ci-archive/workflows-20251001T160328/sanity.yml	9
+yaml_key	contents	read	./.ci-archive/workflows-20251001T160328/sanity.yml	10
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/sanity.yml	11
+yaml_key	sanity		./.ci-archive/workflows-20251001T160328/sanity.yml	12
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/sanity.yml	13
+yaml_key	timeout-minutes	20	./.ci-archive/workflows-20251001T160328/sanity.yml	14
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/sanity.yml	15
+yaml_key	name	Checkout	./.ci-archive/workflows-20251001T160328/sanity.yml	16
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/sanity.yml	17
+yaml_key	with		./.ci-archive/workflows-20251001T160328/sanity.yml	18
+yaml_key	fetch-depth	0	./.ci-archive/workflows-20251001T160328/sanity.yml	19
+yaml_key	name	Setup Python	./.ci-archive/workflows-20251001T160328/sanity.yml	21
+yaml_key	uses	actions/setup-python@v5	./.ci-archive/workflows-20251001T160328/sanity.yml	22
+yaml_key	with		./.ci-archive/workflows-20251001T160328/sanity.yml	23
+yaml_key	python-version	'3.12'	./.ci-archive/workflows-20251001T160328/sanity.yml	24
+yaml_key	name	Install deps (best-effort)	./.ci-archive/workflows-20251001T160328/sanity.yml	26
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/sanity.yml	27
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity.yml	28
+yaml_key	name	Guard: no .RECIPEPREFIX	./.ci-archive/workflows-20251001T160328/sanity.yml	33
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/sanity.yml	34
+yaml_key	run	bash tools/guard_no_recipeprefix.sh || true	./.ci-archive/workflows-20251001T160328/sanity.yml	35
+yaml_key	name	Tests (skip si absents)	./.ci-archive/workflows-20251001T160328/sanity.yml	37
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/sanity.yml	38
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/sanity.yml	39
+yaml_key	name	Sanity diag (always)	./.ci-archive/workflows-20251001T160328/sanity.yml	46
+yaml_key	if	${{ always() }}	./.ci-archive/workflows-20251001T160328/sanity.yml	47
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/sanity.yml	48
+yaml_key	run	bash tools/sanity_diag.sh	./.ci-archive/workflows-20251001T160328/sanity.yml	49
+yaml_key	name	Upload diag artifact (always)	./.ci-archive/workflows-20251001T160328/sanity.yml	51
+yaml_key	if	${{ always() }}	./.ci-archive/workflows-20251001T160328/sanity.yml	52
+yaml_key	uses	actions/upload-artifact@v4	./.ci-archive/workflows-20251001T160328/sanity.yml	53
+yaml_key	with		./.ci-archive/workflows-20251001T160328/sanity.yml	54
+yaml_key	name	sanity-diag	./.ci-archive/workflows-20251001T160328/sanity.yml	55
+yaml_key	path	.ci-out/	./.ci-archive/workflows-20251001T160328/sanity.yml	56
+yaml_key	if-no-files-found	error	./.ci-archive/workflows-20251001T160328/sanity.yml	57
+yaml_key	name	CI	./.ci-archive/workflows-20251001T160328/ci.yml	1
+yaml_key	on		./.ci-archive/workflows-20251001T160328/ci.yml	2
+yaml_key	push		./.ci-archive/workflows-20251001T160328/ci.yml	3
+yaml_key	branches	["**"]	./.ci-archive/workflows-20251001T160328/ci.yml	4
+yaml_key	pull_request		./.ci-archive/workflows-20251001T160328/ci.yml	5
+yaml_key	branches	["**"]	./.ci-archive/workflows-20251001T160328/ci.yml	6
+yaml_key	workflow_dispatch	{}	./.ci-archive/workflows-20251001T160328/ci.yml	7
+yaml_key	jobs		./.ci-archive/workflows-20251001T160328/ci.yml	9
+yaml_key	validate		./.ci-archive/workflows-20251001T160328/ci.yml	10
+yaml_key	runs-on	ubuntu-latest	./.ci-archive/workflows-20251001T160328/ci.yml	11
+yaml_key	steps		./.ci-archive/workflows-20251001T160328/ci.yml	12
+yaml_key	uses	actions/checkout@v4	./.ci-archive/workflows-20251001T160328/ci.yml	13
+yaml_key	uses	actions/setup-python@v5	./.ci-archive/workflows-20251001T160328/ci.yml	15
+yaml_key	with		./.ci-archive/workflows-20251001T160328/ci.yml	16
+yaml_key	python-version	"3.12"	./.ci-archive/workflows-20251001T160328/ci.yml	17
+yaml_key	cache	"pip"	./.ci-archive/workflows-20251001T160328/ci.yml	18
+yaml_key	name	Install	./.ci-archive/workflows-20251001T160328/ci.yml	20
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/ci.yml	21
+yaml_key	name	Pre-commit	./.ci-archive/workflows-20251001T160328/ci.yml	27
+yaml_key	run	pre-commit run --all-files	./.ci-archive/workflows-20251001T160328/ci.yml	28
+yaml_key	name	Validate (make or fallback)	./.ci-archive/workflows-20251001T160328/ci.yml	30
+yaml_key	shell	bash	./.ci-archive/workflows-20251001T160328/ci.yml	31
+yaml_key	run	|	./.ci-archive/workflows-20251001T160328/ci.yml	32
+yaml_key	env_var		./config/defaults.yml	1
+yaml_key	LOGDIR	.tmp-cleanup-logs; mkdir -p "$LOGDIR"	./config/defaults.yml	2
+yaml_key	frontmatter_key	{}	./config/defaults.yml	3
+yaml_key	yaml_key		./config/defaults.yml	4
+yaml_key	python-version	'''3.12'''	./config/defaults.yml	5
+yaml_key	shell	bash	./config/defaults.yml	6
+yaml_key	timeout-minutes	'5'	./config/defaults.yml	7
+yaml_key	name	Release	./zz-workflows/release.yml	1
+yaml_key	on		./zz-workflows/release.yml	3
+yaml_key	push		./zz-workflows/release.yml	4
+yaml_key	tags		./zz-workflows/release.yml	5
+yaml_key	permissions		./zz-workflows/release.yml	8
+yaml_key	contents	write	./zz-workflows/release.yml	9
+yaml_key	jobs		./zz-workflows/release.yml	11
+yaml_key	build-and-attach		./zz-workflows/release.yml	12
+yaml_key	runs-on	ubuntu-latest	./zz-workflows/release.yml	13
+yaml_key	steps		./zz-workflows/release.yml	14
+yaml_key	name	Checkout	./zz-workflows/release.yml	15
+yaml_key	uses	actions/checkout@v4	./zz-workflows/release.yml	16
+yaml_key	name	Set up Python	./zz-workflows/release.yml	18
+yaml_key	uses	actions/setup-python@v5	./zz-workflows/release.yml	19
+yaml_key	with		./zz-workflows/release.yml	20
+yaml_key	python-version	"3.12"	./zz-workflows/release.yml	21
+yaml_key	name	Install build deps	./zz-workflows/release.yml	23
+yaml_key	run	|	./zz-workflows/release.yml	24
+yaml_key	name	Build sdist & wheel	./zz-workflows/release.yml	27
+yaml_key	run	|	./zz-workflows/release.yml	28
+yaml_key	name	Upload artifacts	./zz-workflows/release.yml	32
+yaml_key	uses	actions/upload-artifact@v4	./zz-workflows/release.yml	33
+yaml_key	with		./zz-workflows/release.yml	34
+yaml_key	name	mcgt-dist	./zz-workflows/release.yml	35
+yaml_key	path	dist/*	./zz-workflows/release.yml	36
+yaml_key	name	Create GitHub Release (if not exists) & attach assets	./zz-workflows/release.yml	38
+yaml_key	uses	softprops/action-gh-release@v2	./zz-workflows/release.yml	39
+yaml_key	with		./zz-workflows/release.yml	40
+yaml_key	files	dist/*	./zz-workflows/release.yml	41
+yaml_key	generate_release_notes	true	./zz-workflows/release.yml	42
+yaml_key	name	mcgt	./environment-3.10-full.yml	1
+yaml_key	channels		./environment-3.10-full.yml	2
+yaml_key	dependencies		./environment-3.10-full.yml	5
+yaml_key	pip		./environment-3.10-full.yml	37
+env_var	VER	"$1"	./scripts/preflight_release.sh	9
+env_var	PKG_NAME	"${2:-mcgt}"	./scripts/preflight_release.sh	10
+env_var	DRYRUN	1   → affiche les commandes, ne modifie rien	./scripts/bump_and_tag_safe.sh	5
+env_var	NO_BUILD	1 → saute build & twine check	./scripts/bump_and_tag_safe.sh	6
+env_var	NO_PUSH	1  → saute git push & push --tags	./scripts/bump_and_tag_safe.sh	7
+env_var	FORCE	1    → continue même si WT/Index sales	./scripts/bump_and_tag_safe.sh	8
+env_var	NO_PAUSE	1 → désactive la pause finale	./scripts/bump_and_tag_safe.sh	9
+env_var	START_TS	"$(date -u +%Y%m%dT%H%M%SZ)"	./scripts/bump_and_tag_safe.sh	12
+env_var	LOG	"bump_tag_${START_TS}.log"	./scripts/bump_and_tag_safe.sh	13
+env_var	FAILS	0	./scripts/bump_and_tag_safe.sh	14
+env_var	WARN	0	./scripts/bump_and_tag_safe.sh	15
+env_var	WARN	$((WARN+1)); }	./scripts/bump_and_tag_safe.sh	21
+env_var	FAILS	$((FAILS+1)); }	./scripts/bump_and_tag_safe.sh	22
+env_var	VER	"$1"	./scripts/bump_and_tag_safe.sh	60
+env_var	DRYRUN	${FORCE:-0}"	./scripts/bump_and_tag_safe.sh	64
+env_var	FORCE	1 → on continue."	./scripts/bump_and_tag_safe.sh	88
+env_var	VER	"$VER" python - <<'PY'	./scripts/bump_and_tag_safe.sh	102
+env_var	VER	"$(	./scripts/03_build_upload_pypi_safe.sh	25
+env_var	PKG	"$(	./scripts/03_build_upload_pypi_safe.sh	39
+env_var	BUILD_CODE	$?	./scripts/03_build_upload_pypi_safe.sh	58
+env_var	TWINE_USERNAME	"$PYPI_API_TOKEN" \	./scripts/03_build_upload_pypi_safe.sh	76
+env_var	TMPVENV	"/tmp/venv-${PKG//[^A-Za-z0-9]/_}-${VER//[^A-Za-z0-9]/_}"	./scripts/03_build_upload_pypi_safe.sh	87
+env_var	VER	"$1"	./scripts/bump_and_tag.sh	4
+env_var	TAG	"$1"	./scripts/verify_tag.sh	9
+env_var	SHA	"$(git rev-parse "${TAG}")" || { echo "❌ Tag introuvable"; exit 1; }	./scripts/verify_tag.sh	11
+env_var	WF_PATH	".github/workflows/publish.yml"	./scripts/verify_tag.sh	14
+env_var	APPLY	0	./scripts/clean_project.sh	11
+env_var	ALSO_VENV	0	./scripts/clean_project.sh	12
+env_var	COLOR	1	./scripts/clean_project.sh	13
+env_var	QUIET	0	./scripts/clean_project.sh	14
+env_var	APPLY	1 ;;	./scripts/clean_project.sh	18
+env_var	ALSO_VENV	1 ;;	./scripts/clean_project.sh	19
+env_var	COLOR	0 ;;	./scripts/clean_project.sh	20
+env_var	QUIET	1 ;;	./scripts/clean_project.sh	21
+env_var	BOLD	$033[0m	./scripts/clean_project.sh	28
+env_var	BOLD	""	./scripts/clean_project.sh	30
+env_var	ALSO_VENV	${ALSO_VENV})${RST}"	./scripts/clean_project.sh	42
+env_var	DIRS_PRUNE	(	./scripts/clean_project.sh	45
+env_var	FILES_PATTERNS	(	./scripts/clean_project.sh	55
+env_var	VENV_DIRS_LOCAL	( ".venv" "venv" "env" )	./scripts/clean_project.sh	67
+env_var	VENV_PHASE4_GLOB	"/tmp/venv_phase4_*"	./scripts/clean_project.sh	70
+env_var	IFS	 read -r -d "" d; do	./scripts/clean_project.sh	75
+env_var	IFS	 read -r -d "" f; do	./scripts/clean_project.sh	88
+env_var	LEFT_PYC	$(count_files "*.pyc")	./scripts/clean_project.sh	134
+env_var	LEFT_CACHES	$(( $(count_dirs "__pycache__") + $(count_dirs ".pytest_cache") + $(count_dirs ".ruff_cache") + $(count_dirs ".mypy_c...	./scripts/clean_project.sh	135
+env_var	LEFT_BUILD	$(( $(count_dirs "build") + $(count_dirs "dist") + $(count_dirs "*.egg-info") ))	./scripts/clean_project.sh	136
+env_var	APPLY	0	./scripts/clean_final_submission.sh	10
+env_var	APPLY	1; fi	./scripts/clean_final_submission.sh	11
+env_var	PATTERNS	(	./scripts/clean_final_submission.sh	14
+env_var	TO_DELETE	()	./scripts/clean_final_submission.sh	41
+env_var	IFS	 read -r f; do	./scripts/clean_final_submission.sh	47
+env_var	IFS	($(printf "%s\n" "${TO_DELETE[@]}" | sed '/^$/d' | sort -u))	./scripts/clean_final_submission.sh	58
+env_var	BACKUP	"/tmp/mcgt_clean_backup_$(date +%Y%m%d_%H%M%S).tar.gz"	./scripts/clean_final_submission.sh	78
+env_var	VER	"$1"	./scripts/release.sh	9
+env_var	RUN_ID	"$(gh run list --workflow publish.yml --limit 30 --json databaseId,headBranch,createdAt \	./scripts/release.sh	41
+env_var	JOB_ID	"$(gh run view "${RUN_ID}" --json jobs --jq '.jobs[0].databaseId' || true)"	./scripts/release.sh	51
+env_var	VER	"${VER}" ./phase4_validate.sh	./scripts/release.sh	62
+env_var	WF_PATH	".github/workflows/publish_testonly.yml"	./diagnose_workflow_invalid.sh	9
+env_var	FIXBR	"ci/testpypi-workflow-rmid"	./diagnose_workflow_invalid.sh	10
+env_var	WF_ID_FALLBACK	"193389332"	./diagnose_workflow_invalid.sh	11
+env_var	GH_REPO	"$(repo)"	./diagnose_workflow_invalid.sh	38
+env_var	WFID	"$(get_wfid)"; echo "Workflow ID: $WFID"	./diagnose_workflow_invalid.sh	46
+env_var	RUN_ID	"$(jq -r '.databaseId' .diag_last_failed.json)"	./diagnose_workflow_invalid.sh	61
+env_var	HEAD_SHA	"$(jq -r '.headSha' .diag_last_failed.json)"	./diagnose_workflow_invalid.sh	62
+env_var	HEAD_BRANCH	"$(jq -r '.headBranch' .diag_last_failed.json)"	./diagnose_workflow_invalid.sh	63
+env_var	WF_PATH	".github/workflows/publish_testonly.yml"	./diagnose_workflow_invalid_v2.sh	7
+env_var	FIXBR	"ci/testpypi-workflow-rmid"	./diagnose_workflow_invalid_v2.sh	8
+env_var	WF_ID_FALLBACK	"193389332"	./diagnose_workflow_invalid_v2.sh	9
+env_var	GH_REPO	"$(repo)"	./diagnose_workflow_invalid_v2.sh	36
+env_var	WFID	"$(get_wfid)"; echo "Workflow ID: $WFID"	./diagnose_workflow_invalid_v2.sh	44
+env_var	RUN_ID	"$(jq -r '.databaseId' .diag_last_failed.json)"	./diagnose_workflow_invalid_v2.sh	55
+env_var	HEAD_SHA	"$(jq -r '.headSha' .diag_last_failed.json)"	./diagnose_workflow_invalid_v2.sh	56
+env_var	HEAD_BRANCH	"$(jq -r '.headBranch' .diag_last_failed.json)"	./diagnose_workflow_invalid_v2.sh	57
+env_var	FIXBR	"ci/testpypi-workflow-rmid"	./create_and_run_smoke_workflow.sh	7
+env_var	WF_SMOKE	".github/workflows/smoke_min.yml"	./create_and_run_smoke_workflow.sh	8
+env_var	WF_ID_FALLBACK	""	./create_and_run_smoke_workflow.sh	9
+env_var	GH_REPO	"$(repo)"	./create_and_run_smoke_workflow.sh	36
+env_var	WFID	"$(gh workflow view "$WF_SMOKE" -R "$GH_REPO" --json databaseId -q .databaseId 2>/dev/null || echo "")"	./create_and_run_smoke_workflow.sh	82
+env_var	HEAD_SHA	"$(git rev-parse HEAD)"	./create_and_run_smoke_workflow.sh	83
+env_var	RUN_ID	"$rid"; echo "RUN_ID: $RUN_ID"; break; fi	./create_and_run_smoke_workflow.sh	88
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/finalize_and_tag.sh	4
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	3
+env_var	LOG	"$PWD/.ci-logs/cleanup-$STAMP.log"	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	4
+env_var	ARCH_DIR	".ci-archive/$STAMP"	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	13
+env_var	KEEP_TOOLS	(	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	23
+env_var	ALL_TOOLS	( $(ls tools 2>/dev/null || true) )	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	31
+env_var	TO_MOVE	()	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	32
+env_var	ARCH_WF_DIR	"$ARCH_DIR/workflows"	./.ci-archive/20251001T140146/tools/cleanup_cat_safe.sh	59
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	12
+env_var	ROOT_LOG	"$PWD/.ci-bootstrap-$STAMP.log"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	13
+env_var	CUR_BRANCH	"$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	23
+env_var	DEF_BRANCH	"$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name 2>/dev/null)"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	24
+env_var	DEF_BRANCH	"$(git remote show origin 2>/dev/null | awk '/HEAD branch/ {print $NF}')"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	25
+env_var	DEF_BRANCH	"main"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	26
+env_var	NEED_STASH	0	./.ci-archive/20251001T140146/tools/cat_sanity.sh	30
+env_var	NEED_STASH	1	./.ci-archive/20251001T140146/tools/cat_sanity.sh	31
+env_var	NEED_STASH	1	./.ci-archive/20251001T140146/tools/cat_sanity.sh	32
+env_var	NEED_STASH	1	./.ci-archive/20251001T140146/tools/cat_sanity.sh	33
+env_var	STASH_NAME	"CATv25-$STAMP-autostash"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	34
+env_var	OUT	"${WS}/.ci-out"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	64
+env_var	WF_ECHO	".github/workflows/sanity-echo.yml"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	77
+env_var	WF_MAIN	".github/workflows/sanity-main.yml"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	123
+env_var	RID	"$(gh run list --workflow "$wf" -b "$DEF_BRANCH" -L1 --json databaseId -q '.[0].databaseId' 2>/dev/null || true)"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	214
+env_var	RID	"$(gh run list --workflow "$wf" -L1 --json databaseId -q '.[0].databaseId' 2>/dev/null || true)"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	215
+env_var	ECHO_WF	"$(basename "$WF_ECHO")"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	226
+env_var	MAIN_WF	"$(basename "$WF_MAIN")"	./.ci-archive/20251001T140146/tools/cat_sanity.sh	233
+env_var	GREEN	$'\e[0m'	./.ci-archive/20251001T140146/tools/verify_integration.sh	4
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/sanitize_make_recipes.sh	4
+env_var	IFS	 read -r L; do	./.ci-archive/20251001T140146/tools/sanitize_make_recipes.sh	105
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/fix_gt_headers_and_push.sh	4
+env_var	GREEN	$'\e[0m'	./.ci-archive/20251001T140146/tools/verify_ci_ready.sh	4
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/patch_make_targets.sh	4
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/force_tab_recipeprefix_and_check.sh	4
+env_var	PAUSE	"${PAUSE:-1}"	./.ci-archive/20251001T140146/tools/fix_orphan_tabs_and_check.sh	4
+env_var	PAUSE	0 tools/verify_integration.sh; then	./.ci-archive/20251001T140146/tools/push_all.sh	11
+env_var	TAG	vX.Y.Z pour déclencher le workflow publish)	./.ci-archive/20251001T140146/tools/push_all.sh	107
+env_var	ROOT	"$(git rev-parse --show-toplevel 2>/dev/null || true)"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	16
+env_var	SCRIPTDIR	"tools/clean-steps"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	19
+env_var	LOGDIR	".tmp-cleanup-logs"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	20
+env_var	AGGLOG	"${LOGDIR}/run-all.log"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	22
+env_var	DO_APPLY	0	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	25
+env_var	NONINTERACTIVE	0	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	26
+env_var	START	0	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	27
+env_var	END	13	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	28
+env_var	STOP_ON_ERROR	0	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	29
+env_var	DO_APPLY	1; shift ;;	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	47
+env_var	NONINTERACTIVE	1; shift ;;	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	48
+env_var	START	"$2"; shift 2 ;;	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	49
+env_var	END	"$2"; shift 2 ;;	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	50
+env_var	STOP_ON_ERROR	1; shift ;;	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	51
+env_var	APPLY	${STOP_ON_ERROR}" | tee -a "${AGGLOG}"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	103
+env_var	APPLY	"${DO_APPLY}"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	123
+env_var	NONINTERACTIVE	"${NONINTERACTIVE}"	./.ci-archive/tools-20251001T153844/clean-steps/run-all-steps.sh	124
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-07-git-rm-ci-scripts.sh	4
+env_var	LOG	"$LOGDIR/step-07-git-rm-ci-scripts.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-07-git-rm-ci-scripts.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-07-git-rm-ci-scripts.sh	10
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-13-review-and-commit.sh	4
+env_var	LOG	"$LOGDIR/step-13-review-and-commit.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-13-review-and-commit.sh	5
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-08-delete-artifacts.sh	4
+env_var	LOG	"$LOGDIR/step-08-delete-artifacts.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-08-delete-artifacts.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-08-delete-artifacts.sh	10
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-11-prune-empty-dirs.sh	4
+env_var	LOG	"$LOGDIR/step-11-prune-empty-dirs.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-11-prune-empty-dirs.sh	5
+env_var	APPLY	1 $0"	./.ci-archive/tools-20251001T153844/clean-steps/step-11-prune-empty-dirs.sh	16
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-01-list-candidates.sh	4
+env_var	LOG	"$LOGDIR/step-01-list-candidates.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-01-list-candidates.sh	5
+env_var	LOGDIR	".tmp-cleanup-logs"	./.ci-archive/tools-20251001T153844/clean-steps/step-00-preflight.sh	6
+env_var	LOG	"$LOGDIR/step-00-preflight.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-00-preflight.sh	8
+env_var	ROOT	"$(git rev-parse --show-toplevel 2>/dev/null || true)"	./.ci-archive/tools-20251001T153844/clean-steps/step-00-preflight.sh	11
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-02-inspect-names-and-sizes.sh	4
+env_var	LOG	"$LOGDIR/step-02-inspect-names-and-sizes.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-02-inspect-names-and-sizes.sh	5
+env_var	IFS	 read -r p; do	./.ci-archive/tools-20251001T153844/clean-steps/step-02-inspect-names-and-sizes.sh	16
+env_var	IFS	 read -r -d '' f; do	./.ci-archive/tools-20251001T153844/clean-steps/step-02-inspect-names-and-sizes.sh	26
+env_var	LC_ALL	C grep -q '[^ -~]' 2>/dev/null; then	./.ci-archive/tools-20251001T153844/clean-steps/step-02-inspect-names-and-sizes.sh	29
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-04-delete-untracked.sh	4
+env_var	LOG	"$LOGDIR/step-04-delete-untracked.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-04-delete-untracked.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-04-delete-untracked.sh	13
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-05-delete-dist_from.sh	4
+env_var	LOG	"$LOGDIR/step-05-delete-dist_from.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-05-delete-dist_from.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-05-delete-dist_from.sh	11
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-10-inode-cleaner.sh	4
+env_var	LOG	"$LOGDIR/step-10-inode-cleaner.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-10-inode-cleaner.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-10-inode-cleaner.sh	10
+env_var	IFS	 read -r -d '' p; do	./.ci-archive/tools-20251001T153844/clean-steps/step-10-inode-cleaner.sh	12
+env_var	LC_ALL	C grep -q '[^ -~]' 2>/dev/null || (( ${#p} > 200 )); then	./.ci-archive/tools-20251001T153844/clean-steps/step-10-inode-cleaner.sh	15
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	4
+env_var	LOG	"$LOGDIR/step-03-archive-single.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	5
+env_var	ARCHDIR	".tmp-cleanup-backup"; mkdir -p "$ARCHDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	21
+env_var	ARCHNAME	"$(basename "$P")_$(date -u +%Y%m%dT%H%M%SZ).tar.zst"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	22
+env_var	APPLY	1 $0 $P"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	26
+env_var	ARCHNAME	"${ARCHNAME%.zst}.tar.gz"	./.ci-archive/tools-20251001T153844/clean-steps/step-03-archive-single.sh	33
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-09-clean-dists.sh	4
+env_var	LOG	"$LOGDIR/step-09-clean-dists.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-09-clean-dists.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-09-clean-dists.sh	10
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-06-delete-backups.sh	4
+env_var	LOG	"$LOGDIR/step-06-delete-backups.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-06-delete-backups.sh	5
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-06-delete-backups.sh	10
+env_var	LOGDIR	".tmp-cleanup-logs"; mkdir -p "$LOGDIR"	./.ci-archive/tools-20251001T153844/clean-steps/step-12-update-gitignore.sh	4
+env_var	LOG	"$LOGDIR/step-12-update-gitignore.log"	./.ci-archive/tools-20251001T153844/clean-steps/step-12-update-gitignore.sh	5
+env_var	IGNOREFILE	".gitignore"	./.ci-archive/tools-20251001T153844/clean-steps/step-12-update-gitignore.sh	10
+env_var	APPLY	"${APPLY:-0}"	./.ci-archive/tools-20251001T153844/clean-steps/step-12-update-gitignore.sh	12
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./.ci-archive/tools-20251001T153844/inject_instrumentation_header_fixed.sh	10
+env_var	LOG	".ci-logs/$(basename "$0" .sh)-${STAMP}.log"	./.ci-archive/tools-20251001T153844/inject_instrumentation_header_fixed.sh	12
+env_var	DATE	$(date -u +"%Y%m%dT%H%M%SZ")	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	3
+env_var	ARCHDIR	"${1:-archive}"; shift || true	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	4
+env_var	TMP_TAR	"$(mktemp "/tmp/cleanup_${DATE}.XXXXXX.tar")"	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	6
+env_var	OUT	"${ARCHDIR}/cleanup_${DATE}.tar.gz"	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	7
+env_var	DEFAULTS	( ".ci_poke" ".tmp-ci" ".tmp-gh-dist" ".tmp-cleanup-logs" "artifacts_*" "dist*" "dist_from_*" ".pytest_cache" "*.log"...	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	9
+env_var	INCLUDES	( "$@" )	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	10
+env_var	INCLUDES	( "${DEFAULTS[@]}" )	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	11
+env_var	TO_ADD	()	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	13
+env_var	IFS	 read -r match; do	./.ci-archive/tools-20251001T153844/archive/archive_safe.sh	16
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./.ci-archive/tools-20251001T153844/inject_instrumentation_header.sh	16
+env_var	LOG	".ci-logs/$(basename "$0" .sh)-${STAMP}.log"	./.ci-archive/tools-20251001T153844/inject_instrumentation_header.sh	18
+env_var	ROOT	"$(cd "$(dirname "$0")" && pwd)/.."	./zz-schemas/validate_csv_all.sh	6
+env_var	SCHEMA_DIR	"$(cd "$(dirname "$0")" && pwd)"	./zz-schemas/validate_csv_all.sh	7
+env_var	DIR_SCHEMAS	${DIR_SCHEMAS:-zz-schemas}	./zz-schemas/validate_all.sh	4
+env_var	DIR_DATA_EN	${DIR_DATA_EN:-zz-data}	./zz-schemas/validate_all.sh	5
+env_var	WF_NEW	".github/workflows/publish_testonly.yml"	./fix_testonly_workflow_and_dispatch.sh	6
+env_var	MSG	"ci: fix publish_testonly.yml (add workflow_dispatch, ensure validity)"	./fix_testonly_workflow_and_dispatch.sh	9
+env_var	RETRY_TAG_BASE	"${RETRY_TAG_BASE:-v0.2.47-testretry}"	./fix_testonly_workflow_and_dispatch.sh	10
+env_var	DETECT_TIMEOUT	"${DETECT_TIMEOUT:-120}"	./fix_testonly_workflow_and_dispatch.sh	11
+env_var	GH_OK	1	./fix_testonly_workflow_and_dispatch.sh	21
+env_var	B64	'bmFtZTogQnVpbGQgJiBQdWJsaXNoIHRvIFRlc3RQeVBJSAogaXNvbGF0ZWQKCm9uOgoKICB3b3Jr	./fix_testonly_workflow_and_dispatch.sh	24
+env_var	TAG	"${RETRY_TAG_BASE}.${TS}"	./fix_testonly_workflow_and_dispatch.sh	88
+env_var	LOG	".ci-logs/docs_write_ci_readme-$(date +%Y%m%dT%H%M%S).log"	./tools/docs_write_ci_readme.sh	4
+env_var	HEAD_SHA	"$(git rev-parse HEAD)"	./tools/watch_head_ci.sh	19
+env_var	HEAD_SHA	${HEAD_SHA}"	./tools/watch_head_ci.sh	20
+env_var	RID	""	./tools/watch_head_ci.sh	23
+env_var	RID	"$(gh run list --workflow ci-pre-commit.yml --branch main \	./tools/watch_head_ci.sh	25
+env_var	HEAD	${HEAD_SHA}."	./tools/watch_head_ci.sh	33
+env_var	RID	$RID — suivi en temps réel…"	./tools/watch_head_ci.sh	37
+env_var	RID	"$(gh run list --workflow sanity-main.yml --json databaseId,status,conclusion,createdAt \	./tools/ci_show_last_sanity.sh	13
+env_var	TMPDIR	"$(mktemp -d)"	./tools/ci_show_last_sanity.sh	21
+env_var	ART_DIR	"$TMPDIR/sanity-diag"	./tools/ci_show_last_sanity.sh	29
+env_var	ART_DIR	"$TMPDIR"	./tools/ci_show_last_sanity.sh	30
+env_var	TARGET_BRANCH	"${1:-main}"	./tools/ci_get_fixes_onto_main.sh	4
+env_var	CUR	"$(git rev-parse --abbrev-ref HEAD)"	./tools/ci_get_fixes_onto_main.sh	5
+env_var	LAST	"$(git rev-parse "$CUR")"	./tools/ci_get_fixes_onto_main.sh	26
+env_var	RID	"$(gh run list --workflow ci-pre-commit.yml --branch "$TARGET_BRANCH" --limit 1 \	./tools/ci_get_fixes_onto_main.sh	41
+env_var	RID	$RID"	./tools/ci_get_fixes_onto_main.sh	43
+env_var	NON_SCRIPT_EXTS	'(ya?ml|md|txt|json|toml|ini|lock|csv|svg|png|jpe?g|gif|pdf)'	./tools/no_plusx_nonscripts.sh	5
+env_var	TIMEOUT	"$1"	./tools/run_with_instrumentation.sh	13
+env_var	TIMEOUT	900	./tools/run_with_instrumentation.sh	16
+env_var	SCRIPT	"$1"	./tools/run_with_instrumentation.sh	19
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/run_with_instrumentation.sh	27
+env_var	LOG	".ci-logs/$(basename "$SCRIPT" .sh)-$STAMP.log"	./tools/run_with_instrumentation.sh	28
+env_var	WRAP	"/tmp/__cat_wrapper_${STAMP}.sh"	./tools/run_with_instrumentation.sh	31
+env_var	STAMP_WRAPPER	"$(date +%Y%m%dT%H%M%S)"	./tools/run_with_instrumentation.sh	37
+env_var	LOG_WRAPPER	".ci-logs/$(basename "$1" .sh)-${STAMP_WRAPPER}.log"	./tools/run_with_instrumentation.sh	38
+env_var	HB_PID	$!	./tools/run_with_instrumentation.sh	60
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_show_last_diag.sh	8
+env_var	ROOT_LOG	"$PWD/.ci-logs/show-last-diag-$STAMP.log"	./tools/ci_show_last_diag.sh	9
+env_var	ART_NAME	"sanity-diag"	./tools/ci_show_last_diag.sh	19
+env_var	TGZ	"$(pick_tgz)"	./tools/ci_show_last_diag.sh	27
+env_var	RID	"$(gh run list --workflow "$WF" -L1 --json databaseId -q '.[0].databaseId' 2>/dev/null)"	./tools/ci_show_last_diag.sh	36
+env_var	TGZ	"$(pick_tgz)"	./tools/ci_show_last_diag.sh	43
+env_var	LOG	".ci-logs/ci_commit_and_push_all-$(date +%Y%m%dT%H%M%S).log"	./tools/ci_commit_and_push_all.sh	3
+env_var	DEF_BRANCH	"$(git remote show origin 2>/dev/null | awk '/HEAD branch/ {print $NF}')"	./tools/ci_commit_and_push_all.sh	10
+env_var	DEF_BRANCH	"main"	./tools/ci_commit_and_push_all.sh	11
+env_var	CUR_BRANCH	"$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"	./tools/ci_commit_and_push_all.sh	12
+env_var	LC_ALL	C grep -q $'\xEF\xBB\xBF'; then	./tools/audit_workflows.sh	22
+env_var	LC_ALL	C grep -q $'\r$' "$f"; then	./tools/audit_workflows.sh	26
+env_var	LC_ALL	C grep -q $'\t' "$f"; then	./tools/audit_workflows.sh	30
+env_var	IFS	 read -r hit; do	./tools/audit_workflows.sh	63
+env_var	IFS	 read -r -d '' f; do	./tools/scan_params.sh	12
+env_var	IFS	 read -r -d '' f; do	./tools/scan_params.sh	26
+env_var	IFS	 read -r -d '' f; do	./tools/scan_params.sh	42
+env_var	REPO_SLUG	"$(slug_from_remote)"	./tools/ci_update_readme_ci_section.sh	11
+env_var	README	"README.md"	./tools/ci_update_readme_ci_section.sh	14
+env_var	TMP	"$(mktemp)"	./tools/ci_update_readme_ci_section.sh	17
+env_var	BLOCK	"$(cat "$TMP")"	./tools/ci_update_readme_ci_section.sh	34
+env_var	FILE	""	./tools/patch_meta_summary_sc2129_and_run_ci.sh	32
+env_var	DO_COMMIT	1	./tools/patch_meta_summary_sc2129_and_run_ci.sh	33
+env_var	DO_PUSH	1	./tools/patch_meta_summary_sc2129_and_run_ci.sh	34
+env_var	DO_TRIGGER	1	./tools/patch_meta_summary_sc2129_and_run_ci.sh	35
+env_var	WATCH	0	./tools/patch_meta_summary_sc2129_and_run_ci.sh	36
+env_var	FILE	"${1:-}"	./tools/patch_meta_summary_sc2129_and_run_ci.sh	47
+env_var	DO_COMMIT	0	./tools/patch_meta_summary_sc2129_and_run_ci.sh	55
+env_var	DO_PUSH	0	./tools/patch_meta_summary_sc2129_and_run_ci.sh	59
+env_var	DO_TRIGGER	0	./tools/patch_meta_summary_sc2129_and_run_ci.sh	63
+env_var	WATCH	1	./tools/patch_meta_summary_sc2129_and_run_ci.sh	67
+env_var	FILE	".github/workflows/sanity-main.yml"	./tools/patch_meta_summary_sc2129_and_run_ci.sh	85
+env_var	PATCHED	0	./tools/patch_meta_summary_sc2129_and_run_ci.sh	210
+env_var	PATCHED	1	./tools/patch_meta_summary_sc2129_and_run_ci.sh	215
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_archive_logs.sh	7
+env_var	ARCH_DIR	".ci-archive/$STAMP"	./tools/ci_archive_logs.sh	8
+env_var	LOG	".ci-logs/ci_archive_logs-$STAMP.log"	./tools/ci_archive_logs.sh	9
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_select_canonical_workflow.sh	6
+env_var	LOG	".ci-logs/$(basename "$0" .sh)-${STAMP}.log"	./tools/ci_select_canonical_workflow.sh	8
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_select_canonical_workflow.sh	49
+env_var	LOG	".ci-logs/v26_select_canonical_${STAMP}.log"	./tools/ci_select_canonical_workflow.sh	51
+env_var	IFS	 read -r -d '' mk; do	./tools/ci_select_canonical_workflow.sh	68
+env_var	FILE	".github/workflows/sanity-main.yml"	./tools/ci_fix_actionlint_yaml.sh	4
+env_var	BACKUP	"${FILE}.bak.${TS}"	./tools/ci_fix_actionlint_yaml.sh	11
+env_var	AWK_PROG	"$(mktemp)"	./tools/ci_fix_actionlint_yaml.sh	15
+env_var	TMP	"${FILE}.tmp.${TS}"	./tools/ci_fix_actionlint_yaml.sh	108
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_trim_tools.sh	5
+env_var	LOG	".ci-logs/ci_trim_tools-$STAMP.log"	./tools/ci_trim_tools.sh	6
+env_var	IFS	 read -r -d '' f; do	./tools/ci_fix_exec_bits.sh	5
+env_var	REPO_ROOT	"$(git rev-parse --show-toplevel)"	./tools/ci_fix_sc2129_merge.sh	6
+env_var	WF_FILE	"${1:-.github/workflows/sanity-main.yml}"	./tools/ci_fix_sc2129_merge.sh	9
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_trigger_and_fetch_diag.sh	10
+env_var	ROOT_LOG	".ci-logs/trigger-fetch-$STAMP.log"	./tools/ci_trigger_and_fetch_diag.sh	11
+env_var	ART	"sanity-diag"	./tools/ci_trigger_and_fetch_diag.sh	20
+env_var	RID	"$(gh run list --workflow "$WF" -L1 --json databaseId -q '.[0].databaseId' 2>/dev/null)"	./tools/ci_trigger_and_fetch_diag.sh	42
+env_var	TGZ	"$(find .ci-logs -type f -path "*${ART}/*" -name '*.tgz' | head -n1)"	./tools/ci_trigger_and_fetch_diag.sh	56
+env_var	BOM	${tabs}"	./tools/forbid_bom_crlf_tabs.sh	34
+env_var	REPO_ROOT	"$(git rev-parse --show-toplevel)"	./tools/ci_fix_sc2129_all.sh	6
+env_var	WF_FILE	"${1:-.github/workflows/sanity-main.yml}"	./tools/ci_fix_sc2129_all.sh	9
+env_var	CFG	".pre-commit-config.yaml"	./tools/ci_extend_precommit.sh	3
+env_var	ACTIONLINT_BLOCK	"$(	./tools/ci_extend_precommit.sh	19
+env_var	SHELLCHECK_BLOCK	"$(	./tools/ci_extend_precommit.sh	28
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_archive_workflow_baks.sh	3
+env_var	DEST	".ci-archive/workflows-bak-${STAMP}"	./tools/ci_archive_workflow_baks.sh	4
+env_var	STAMP	"$(date +%Y%m%dT%H%M%S)"	./tools/ci_run_sanity_and_fetch.sh	7
+env_var	RUN_DIR_BASE	".ci-logs/runs"	./tools/ci_run_sanity_and_fetch.sh	8
+env_var	RID	"$(	./tools/ci_run_sanity_and_fetch.sh	26
+env_var	RUN_DIR	"${RUN_DIR_BASE}/${RID}-${STAMP}"	./tools/ci_run_sanity_and_fetch.sh	39
+env_var	CANDIDATES	()	./tools/ci_run_sanity_and_fetch.sh	64
+env_var	IFS	("$f"); done < <(grep -E '/?diag\.json$' "${RUN_DIR}/artifacts/_list.txt" || true)	./tools/ci_run_sanity_and_fetch.sh	65
+env_var	IFS	 read -r -d '' mk; do	./tools/guard_no_recipeprefix.sh	6
+env_var	DAYS_LOGS	"${1:-7}"	./tools/ci_purge_old_ci_logs.sh	4
+env_var	DAYS_ARCH	"${2:-30}"	./tools/ci_purge_old_ci_logs.sh	5
+env_var	LOG	".ci-logs/ci_add_yaml_check-$(date +%Y%m%dT%H%M%S).log"	./tools/ci_add_yaml_check.sh	3
+env_var	TARGET_BRANCH	"${1:-main}"	./tools/get_fixes_onto_main.sh	14
+env_var	CUR_BRANCH	"$(git rev-parse --abbrev-ref HEAD)"	./tools/get_fixes_onto_main.sh	27
+env_var	OFS	"" '	./tools/ci_patch_workflow_shellcheck.sh	11
+env_var	REPO_ROOT	"$(git rev-parse --show-toplevel)"	./tools/fix_ci_and_run.sh	7
+env_var	WF_FILE	".github/workflows/sanity-main.yml"	./tools/fix_ci_and_run.sh	10
+env_var	ERR	"$(jq -r '.errors // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"	./tools/fix_ci_and_run.sh	60
+env_var	WARN	"$(jq -r '.warnings // empty' .ci-out/sanity-diag/diag.json 2>/dev/null || true)"	./tools/fix_ci_and_run.sh	61
+env_var	ISSUES	"$(cat .ci-out/sanity-diag/diag.txt)"	./tools/fix_ci_and_run.sh	63
+env_var	ISSUES	"$(jq -r '.issues[]? | "- [" + (.severity // "info") + "] " + (.code // "") + ": " + (.msg // "")' .ci-out/sanity-dia...	./tools/fix_ci_and_run.sh	65
+env_var	ERR	""	./tools/fix_ci_and_run.sh	69
+env_var	WARN	""	./tools/fix_ci_and_run.sh	70
+env_var	ISSUES	"$(cat .ci-out/sanity-diag/diag.txt 2>/dev/null || true)"	./tools/fix_ci_and_run.sh	71
+env_var	CUR_BR	"$(git rev-parse --abbrev-ref HEAD || true)"	./tools/fix_ci_and_run.sh	181
+env_var	HEAD_SHA	"$(git rev-parse HEAD)"	./tools/fix_ci_and_run.sh	192
+env_var	RID	""	./tools/fix_ci_and_run.sh	199
+env_var	RID	"$(gh run list --workflow ci-pre-commit.yml --branch main --limit 30 \	./tools/fix_ci_and_run.sh	203
+env_var	RID	"$(printf "%s\n" "$RID" | sed '/^$/d' | tail -n1)"	./tools/fix_ci_and_run.sh	206
+env_var	RID	$RID — suivi en temps réel…"	./tools/fix_ci_and_run.sh	211
+env_var	OUT_FILE	"${1:-README.md}"	./tools/ci_fix_readme_encart.sh	18
+env_var	BEGIN_MARK	"<!-- BEGIN: ENCART CI -->"	./tools/ci_fix_readme_encart.sh	20
+env_var	END_MARK	"<!-- END: ENCART CI -->"	./tools/ci_fix_readme_encart.sh	21
+env_var	LOG	".ci-logs/git_delete_temp_branches-$(date +%Y%m%dT%H%M%S).log"	./tools/git_delete_temp_branches.sh	3
+env_var	TIMEOUT	"$1"	./tools/run_and_tail.sh	15
+env_var	TIMEOUT	900; fi	./tools/run_and_tail.sh	17
+env_var	SCRIPT	"$1"	./tools/run_and_tail.sh	18
+env_var	WRPID	$!	./tools/run_and_tail.sh	27
+env_var	LOG	"$(ls -1t .ci-logs/$(basename "$SCRIPT" .sh)-*.log 2>/dev/null | head -n1 || true)"	./tools/run_and_tail.sh	31
+env_var	LOG	"$(ls -1t .ci-logs/$(basename "$SCRIPT" .sh)-*.log 2>/dev/null | head -n1 || true)"	./tools/run_and_tail.sh	36
+env_var	TAILPID	$!	./tools/run_and_tail.sh	42
+env_var	IFS	$'\n\t'	./zz-scripts/chapter07/launch_solver_chapter07.sh	21
+env_var	CS2_PARAM	1.0	./zz-scripts/chapter07/launch_solver_chapter07.sh	46
+env_var	DPHI_PARAM	0.05	./zz-scripts/chapter07/launch_solver_chapter07.sh	47
+env_var	INI_FILE	""	./zz-scripts/chapter07/launch_solver_chapter07.sh	48
+env_var	ROOT_DIR	"$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"	./zz-scripts/chapter07/launch_solver_chapter07.sh	49
+env_var	CONF_DIR	"$ROOT_DIR/zz-configuration"	./zz-scripts/chapter07/launch_solver_chapter07.sh	50
+env_var	DATA_DIR	"$ROOT_DIR/zz-data/chapter07"	./zz-scripts/chapter07/launch_solver_chapter07.sh	51
+env_var	OUTPUT_CS2	"$DATA_DIR/output_solver_cs2.dat"	./zz-scripts/chapter07/launch_solver_chapter07.sh	52
+env_var	OUTPUT_PHI	"$DATA_DIR/output_solver_phi.dat"	./zz-scripts/chapter07/launch_solver_chapter07.sh	53
+env_var	CS2_PARAM	"$2"	./zz-scripts/chapter07/launch_solver_chapter07.sh	61
+env_var	DPHI_PARAM	"$2"	./zz-scripts/chapter07/launch_solver_chapter07.sh	65
+env_var	INI_FILE	"$2"	./zz-scripts/chapter07/launch_solver_chapter07.sh	69
+env_var	TMP_INI	"${INI_FILE}.tmp"	./zz-scripts/chapter07/launch_solver_chapter07.sh	96
+env_var	CS2_CSV	"$DATA_DIR/07_cs2_scan.csv"	./zz-scripts/chapter07/launch_solver_chapter07.sh	137
+env_var	PHI_CSV	"$DATA_DIR/07_delta_phi_scan.csv"	./zz-scripts/chapter07/launch_solver_chapter07.sh	138
+env_var	ROOT	"$(git rev-parse --show-toplevel 2>/dev/null || pwd)"	./_tools/phase2_finish.sh	3
+env_var	REPORTS	"_reports/${TS}"; mkdir -p "$REPORTS"	./_tools/phase2_finish.sh	6
+env_var	BRANCH	"$(git rev-parse --abbrev-ref HEAD)"	./_tools/phase2_finish.sh	43
+env_var	REMOTE_URL	"$(git config --get remote.origin.url | sed -E 's#^(git@|https://)github.com[:/](.*)\.git$#\2#')"	./_tools/phase2_finish.sh	44
+env_var	BADGE	branch%3A${BRANCH})"	./_tools/phase2_finish.sh	45
+env_var	ROOT	"$(git rev-parse --show-toplevel 2>/dev/null || pwd)"	./_tools/phase3_bootstrap_package.sh	4
+env_var	REPORTS	"_reports/${TS}"; mkdir -p "$REPORTS"	./_tools/phase3_bootstrap_package.sh	7
+env_var	CLI	"	./_tools/phase3_bootstrap_package.sh	159
+env_var	FILE	"zz-scripts/chapter10/bootstrap_topk_p95.py"	./_tools/phase1_2h_export_find_top_residuals.sh	5
+env_var	VER	0.2.22 ./phase4_validate.sh	./phase4_validate.sh	5
+env_var	WORKDIR	"/tmp"	./phase4_validate.sh	6
+env_var	VENV_DIR	"${WORKDIR}/venv_phase4_${VER//./_}"	./phase4_validate.sh	7
+env_var	VENV_PY	"${VENV_DIR}/bin/python"	./phase4_validate.sh	8
+env_var	LOG_FILE	"$(pwd)/phase4_$(date +%Y%m%d_%H%M%S)_v${VER}.log"	./phase4_validate.sh	9
+env_var	FAILED	""	./phase4_validate.sh	10
+env_var	WORKFLOW_FILE	".github/workflows/publish.yml"	./script_patch_publish_safe.sh	6
+env_var	BACKUP_DIR	".tmp-ci/backup_publish_$(date -u +%Y%m%dT%H%M%SZ)"	./script_patch_publish_safe.sh	7
+
+========================================================================
+>>> FILE: .ci-out/pyproject_presence.txt
+========================================================================
+[PYPROJECT]
+pyproject.toml
+
+========================================================================
+>>> FILE: .ci-out/python_consts.tsv
+========================================================================
+file	name	value_preview	lineno
+mcgt/__init__.py	PACKAGE_ROOT	'<non-literal>'	46
+mcgt/backends/ref_phase.py	CACHE_DIR_DEFAULT	'<non-literal>'	56
+mcgt/backends/ref_phase.py	CACHE_MAX_ENTRIES_MEM	128	57
+mcgt/backends/ref_phase.py	CACHE_DISK_QUOTA_BYTES	'<non-literal>'	58
+mcgt/backends/ref_phase.py	CACHE_FILE_SUFFIX	'.npz'	59
+mcgt/backends/ref_phase.py	CACHE_LOCK_SUFFIX	'.lock'	60
+mcgt/backends/ref_phase.py	CACHE_PART_SUFFIX	'.part'	61
+mcgt/backends/ref_phase.py	LOCK_TIMEOUT	120.0	62
+tools/scan_figures.py	OUT_BAD	'<non-literal>'	4
+tools/scan_figures.py	OUT_ALL	'<non-literal>'	5
+tools/scan_frontmatter.py	OUT	'<non-literal>'	4
+tools/scan_make_vars.py	OUT	'<non-literal>'	4
+tools/scan_py_consts.py	OUT	'<non-literal>'	4
+zz-manifests/add_to_manifest.py	UTC	'<non-literal>'	25
+zz-manifests/add_to_manifest.py	REPO_ROOT	'<non-literal>'	26
+zz-manifests/diag_consistency.py	UTC	'<non-literal>'	49
+zz-scripts/chapter02/plot_fig00_spectrum.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter02/plot_fig00_spectrum.py	OUT	'<non-literal>'	34
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py	ROOT	'<non-literal>'	10
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py	DATA_DIR	'<non-literal>'	11
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py	FIG_DIR	'<non-literal>'	12
+zz-scripts/chapter02/plot_fig02_calibration.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter02/plot_fig02_calibration.py	DATA_DIR	'<non-literal>'	10
+zz-scripts/chapter02/plot_fig02_calibration.py	FIG_DIR	'<non-literal>'	11
+zz-scripts/chapter02/plot_fig03_relative_errors.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter02/plot_fig03_relative_errors.py	DATA_DIR	'<non-literal>'	10
+zz-scripts/chapter02/plot_fig03_relative_errors.py	FIG_DIR	'<non-literal>'	11
+zz-scripts/chapter02/plot_fig04_pipeline_diagram.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter02/plot_fig04_pipeline_diagram.py	FIG_DIR	'<non-literal>'	10
+zz-scripts/chapter02/plot_fig05_FG_series.py	A_S0	2.1e-09	17
+zz-scripts/chapter02/plot_fig05_FG_series.py	NS0	0.9649	18
+zz-scripts/chapter02/plot_fig05_FG_series.py	ROOT	'<non-literal>'	21
+zz-scripts/chapter02/plot_fig05_FG_series.py	DATA_IN	'<non-literal>'	22
+zz-scripts/chapter02/plot_fig05_FG_series.py	OUT_PLOT	'<non-literal>'	23
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	ROOT	'<non-literal>'	20
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	DATA_DIR	'<non-literal>'	21
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	FIG_DIR	'<non-literal>'	22
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	DATA_IN	'<non-literal>'	23
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	SPEC_JS	'<non-literal>'	24
+zz-scripts/chapter02/plot_fig06_alpha_fit.py	OUT_PLOT	'<non-literal>'	25
+zz-scripts/chapter02/primordial_spectrum.py	A_S0	2.1e-09	16
+zz-scripts/chapter02/primordial_spectrum.py	NS0	0.9649	17
+zz-scripts/chapter02/primordial_spectrum.py	ROOT	'<non-literal>'	24
+zz-scripts/chapter02/primordial_spectrum.py	DATA_DIR	'<non-literal>'	25
+zz-scripts/chapter02/primordial_spectrum.py	SPEC_FILE	'<non-literal>'	26
+zz-scripts/chapter03/plot_fig01_fR_stability_domain.py	DATA_FILE	'<non-literal>'	35
+zz-scripts/chapter03/plot_fig01_fR_stability_domain.py	FIG_DIR	'<non-literal>'	36
+zz-scripts/chapter03/plot_fig01_fR_stability_domain.py	FIG_PATH	'<non-literal>'	37
+zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py	DATA_FILE	'<non-literal>'	32
+zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py	FIG_DIR	'<non-literal>'	33
+zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py	FIG_PATH	'<non-literal>'	34
+zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py	DATA_FILE	'<non-literal>'	34
+zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py	FIG_DIR	'<non-literal>'	35
+zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py	FIG_PATH	'<non-literal>'	36
+zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py	DATA_FILE	'<non-literal>'	35
+zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py	FIG_DIR	'<non-literal>'	36
+zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py	FIG_PATH	'<non-literal>'	37
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py	DATA_DIR	'<non-literal>'	36
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py	RAW_FILE	'<non-literal>'	37
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py	GRID_FILE	'<non-literal>'	38
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py	FIG_DIR	'<non-literal>'	39
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py	FIG_PATH	'<non-literal>'	40
+zz-scripts/chapter03/plot_fig06_grid_quality.py	DATA_FILE	'<non-literal>'	37
+zz-scripts/chapter03/plot_fig06_grid_quality.py	FIG_DIR	'<non-literal>'	38
+zz-scripts/chapter03/plot_fig06_grid_quality.py	FIG_PATH	'<non-literal>'	39
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py	DATA_FILE	'<non-literal>'	32
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py	FIG_DIR	'<non-literal>'	33
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py	FIG_PATH	'<non-literal>'	34
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py	DATA_FILE	'<non-literal>'	33
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py	FIG_DIR	'<non-literal>'	34
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py	FIG_PATH	'<non-literal>'	35
+zz-scripts/chapter05/generate_data_chapter05.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter05/generate_data_chapter05.py	DATA_DIR	'<non-literal>'	10
+zz-scripts/chapter05/generate_data_chapter05.py	JALONS_FILE	'<non-literal>'	14
+zz-scripts/chapter05/generate_data_chapter05.py	GRILLE_FILE	'<non-literal>'	15
+zz-scripts/chapter05/generate_data_chapter05.py	PRED_FILE	'<non-literal>'	16
+zz-scripts/chapter05/generate_data_chapter05.py	CHI2_FILE	'<non-literal>'	17
+zz-scripts/chapter05/generate_data_chapter05.py	DERIV_FILE	'<non-literal>'	18
+zz-scripts/chapter05/generate_data_chapter05.py	PARAMS_FILE	'<non-literal>'	19
+zz-scripts/chapter05/generate_data_chapter05.py	THRESHOLDS	{'primary': 0.01, 'order2': 0.1}	22
+zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py	DATA_DIR	'<non-literal>'	10
+zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py	FIG_DIR	'<non-literal>'	11
+zz-scripts/chapter05/plot_fig04_chi2_vs_T.py	ROOT	'<non-literal>'	9
+zz-scripts/chapter05/plot_fig04_chi2_vs_T.py	DATA_DIR	'<non-literal>'	10
+zz-scripts/chapter05/plot_fig04_chi2_vs_T.py	FIG_DIR	'<non-literal>'	11
+zz-scripts/chapter06/generate_data_chapter06.py	ALPHA	'<non-literal>'	28
+zz-scripts/chapter06/generate_data_chapter06.py	Q0STAR	'<non-literal>'	29
+zz-scripts/chapter06/generate_data_chapter06.py	ROOT	'<non-literal>'	32
+zz-scripts/chapter06/generate_data_chapter06.py	CONF_DIR	'<non-literal>'	35
+zz-scripts/chapter06/generate_data_chapter06.py	DATA_DIR	'<non-literal>'	36
+zz-scripts/chapter06/generate_data_chapter06.py	INI_DIR	'<non-literal>'	37
+zz-scripts/chapter06/generate_data_chapter06.py	SPEC2_FILE	'<non-literal>'	43
+zz-scripts/chapter06/generate_data_chapter06.py	A_S0	'<non-literal>'	47
+zz-scripts/chapter06/generate_data_chapter06.py	NS0	'<non-literal>'	48
+zz-scripts/chapter06/generate_data_chapter06.py	OUT_ALPHA	'<non-literal>'	63
+zz-scripts/chapter06/generate_data_chapter06.py	ELL_MIN	2	69
+zz-scripts/chapter06/generate_data_chapter06.py	ELL_MAX	3000	70
+zz-scripts/chapter06/generate_data_chapter06.py	PK_KMAX	10.0	71
+zz-scripts/chapter06/generate_data_chapter06.py	DERIV_WINDOW	7	72
+zz-scripts/chapter06/generate_data_chapter06.py	DERIV_POLYORDER	3	73
+zz-scripts/chapter06/generate_data_chapter06.py	CLS_LCDM_DAT	'<non-literal>'	86
+zz-scripts/chapter06/generate_data_chapter06.py	CLS_MCGT_DAT	'<non-literal>'	87
+zz-scripts/chapter06/generate_data_chapter06.py	DELTA_CLS_CSV	'<non-literal>'	88
+zz-scripts/chapter06/generate_data_chapter06.py	DELTA_CLS_REL_CSV	'<non-literal>'	89
+zz-scripts/chapter06/generate_data_chapter06.py	JSON_PARAMS	'<non-literal>'	90
+zz-scripts/chapter06/generate_data_chapter06.py	CSV_RS_SCAN	'<non-literal>'	91
+zz-scripts/chapter06/generate_data_chapter06.py	CSV_RS_SCAN_FULL	'<non-literal>'	92
+zz-scripts/chapter06/generate_data_chapter06.py	CSV_CHI2_2D	'<non-literal>'	93
+zz-scripts/chapter06/generate_data_chapter06.py	PDOT_FILE	'<non-literal>'	141
+zz-scripts/chapter06/generate_data_chapter06.py	OUT_TMDAT	'<non-literal>'	310
+zz-scripts/chapter06/generate_pdot_plateau_vs_z.py	ROOT	'<non-literal>'	10
+zz-scripts/chapter06/generate_pdot_plateau_vs_z.py	CONF_DIR	'<non-literal>'	12
+zz-scripts/chapter06/generate_pdot_plateau_vs_z.py	OUT_FILE	'<non-literal>'	13
+zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py	ROOT	'<non-literal>'	10
+zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py	FIG_DIR	'<non-literal>'	11
+zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py	OUT_PNG	'<non-literal>'	13
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	ROOT	'<non-literal>'	18
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	DATA_DIR	'<non-literal>'	19
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	FIG_DIR	'<non-literal>'	20
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	CLS_LCDM_DAT	'<non-literal>'	23
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	CLS_MCGT_DAT	'<non-literal>'	24
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	JSON_PARAMS	'<non-literal>'	25
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	OUT_PNG	'<non-literal>'	26
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	ALPHA	'<non-literal>'	31
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	Q0STAR	'<non-literal>'	32
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	ROOT	'<non-literal>'	20
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	DATA_DIR	'<non-literal>'	21
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	FIG_DIR	'<non-literal>'	22
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	DELTA_CLS_REL_CSV	'<non-literal>'	23
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	JSON_PARAMS	'<non-literal>'	24
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	OUT_PNG	'<non-literal>'	25
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	ALPHA	'<non-literal>'	31
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py	Q0STAR	'<non-literal>'	32
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	ROOT	'<non-literal>'	18
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	DATA_DIR	'<non-literal>'	19
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	FIG_DIR	'<non-literal>'	20
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	DATA_CSV	'<non-literal>'	21
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	JSON_PARAMS	'<non-literal>'	22
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	OUT_PNG	'<non-literal>'	23
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	ALPHA	'<non-literal>'	34
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py	Q0STAR	'<non-literal>'	35
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	ROOT	'<non-literal>'	19
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	DATA_DIR	'<non-literal>'	20
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	FIG_DIR	'<non-literal>'	21
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	DATA_CSV	'<non-literal>'	22
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	JSON_PARAMS	'<non-literal>'	23
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	OUT_PNG	'<non-literal>'	24
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	ALPHA	'<non-literal>'	30
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	Q0STAR	'<non-literal>'	31
+zz-scripts/chapter07/generate_data_chapter07.py	ROOT	'<non-literal>'	21
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py	ROOT	'<non-literal>'	32
+zz-scripts/chapter07/plot_fig01_cs2_heatmap.py	DONNEES_CSV	'<non-literal>'	30
+zz-scripts/chapter07/plot_fig01_cs2_heatmap.py	META_JSON	'<non-literal>'	31
+zz-scripts/chapter07/plot_fig01_cs2_heatmap.py	FIGURE_SORTIE	'<non-literal>'	32
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py	DONNEES_DIR	'<non-literal>'	31
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py	FIG_DIR	'<non-literal>'	32
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py	CSV_MATRICE	'<non-literal>'	33
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py	JSON_META	'<non-literal>'	34
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py	FIG_OUT	'<non-literal>'	35
+zz-scripts/chapter07/plot_fig03_invariant_I1.py	ROOT	'<non-literal>'	15
+zz-scripts/chapter07/plot_fig03_invariant_I1.py	DATA_CSV	'<non-literal>'	19
+zz-scripts/chapter07/plot_fig03_invariant_I1.py	JSON_META	'<non-literal>'	20
+zz-scripts/chapter07/plot_fig03_invariant_I1.py	FIG_OUT	'<non-literal>'	21
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	ROOT	'<non-literal>'	26
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	DATA_DIR	'<non-literal>'	28
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	FIG_DIR	'<non-literal>'	29
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	META_JSON	'<non-literal>'	30
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	CSV_DCS2	'<non-literal>'	31
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py	FIG_OUT	'<non-literal>'	32
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	ROOT	'<non-literal>'	26
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	DATA_DIR	'<non-literal>'	30
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	CSV_DDK	'<non-literal>'	31
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	JSON_META	'<non-literal>'	32
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	FIG_DIR	'<non-literal>'	33
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	FIG_OUT	'<non-literal>'	34
+zz-scripts/chapter07/plot_fig06_comparison.py	ROOT	'<non-literal>'	23
+zz-scripts/chapter07/plot_fig06_comparison.py	DATA_DIR	'<non-literal>'	26
+zz-scripts/chapter07/plot_fig06_comparison.py	INV_CSV	'<non-literal>'	27
+zz-scripts/chapter07/plot_fig06_comparison.py	DCS2_CSV	'<non-literal>'	28
+zz-scripts/chapter07/plot_fig06_comparison.py	DDPHI_CSV	'<non-literal>'	29
+zz-scripts/chapter07/plot_fig06_comparison.py	META_JSON	'<non-literal>'	30
+zz-scripts/chapter07/plot_fig06_comparison.py	FIG_OUT	'<non-literal>'	31
+zz-scripts/chapter07/tests/test_chapter07.py	RTOL	0.001	19
+zz-scripts/chapter07/tests/test_chapter07.py	ROOT	'<non-literal>'	22
+zz-scripts/chapter07/tests/test_chapter07.py	DATA_DIR	'<non-literal>'	24
+zz-scripts/chapter07/tests/test_chapter07.py	RAW_CSV	'<non-literal>'	25
+zz-scripts/chapter07/tests/test_chapter07.py	REF_CSV	'<non-literal>'	26
+zz-scripts/chapter08/generate_coupling_milestones.py	BASE_DIR	'<non-literal>'	6
+zz-scripts/chapter08/generate_coupling_milestones.py	DATA_DIR	'<non-literal>'	7
+zz-scripts/chapter08/generate_data_chapter08.py	ROOT	'<non-literal>'	17
+zz-scripts/chapter08/generate_data_chapter08.py	UTILS	'<non-literal>'	18
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py	ROOT	'<non-literal>'	14
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py	DATA_DIR	'<non-literal>'	15
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py	FIG_DIR	'<non-literal>'	16
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py	ROOT	'<non-literal>'	15
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py	DATA_DIR	'<non-literal>'	16
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py	FIG_DIR	'<non-literal>'	17
+zz-scripts/chapter08/plot_fig05_residuals.py	ROOT	'<non-literal>'	19
+zz-scripts/chapter08/plot_fig05_residuals.py	DATA_DIR	'<non-literal>'	20
+zz-scripts/chapter08/plot_fig05_residuals.py	FIG_DIR	'<non-literal>'	21
+zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py	ROOT	'<non-literal>'	17
+zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py	UTILS	'<non-literal>'	18
+zz-scripts/chapter08/utils/coupling_example_model.py	ROOT	'<non-literal>'	24
+zz-scripts/chapter08/utils/coupling_example_model.py	FIG_DIR	'<non-literal>'	25
+zz-scripts/chapter08/utils/extract_bao_data.py	SCRIPT_DIR	'<non-literal>'	11
+zz-scripts/chapter08/utils/extract_bao_data.py	DATA_DIR	'<non-literal>'	12
+zz-scripts/chapter08/utils/extract_pantheon_plus_data.py	DATA_DIR	'<non-literal>'	11
+zz-scripts/chapter08/utils/generate_coupling_milestones.py	BASE_DIR	'<non-literal>'	6
+zz-scripts/chapter08/utils/generate_coupling_milestones.py	DATA_DIR	'<non-literal>'	7
+zz-scripts/chapter08/utils/verify_z_grid.py	ROOT	'<non-literal>'	11
+zz-scripts/chapter08/utils/verify_z_grid.py	PARAMS_FILE	'<non-literal>'	12
+zz-scripts/chapter09/fetch_gwtc3_confident.py	OUT_CFG	'zz-configuration/GWTC-3-confident-events.json'	21
+zz-scripts/chapter09/fetch_gwtc3_confident.py	OUT_DATA	'zz-data/chapter09/gwtc3_confident_parameters.json'	22
+zz-scripts/chapter09/fetch_gwtc3_confident.py	URL_BASE	'https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events'	23
+zz-scripts/chapter09/generate_data_chapter09.py	PROJECT_ROOT	'<non-literal>'	39
+zz-scripts/chapter09/generate_data_chapter09.py	OUT_DIR	'<non-literal>'	50
+zz-scripts/chapter09/generate_data_chapter09.py	FIG_DIR	'<non-literal>'	51
+zz-scripts/chapter09/generate_data_chapter09.py	REF_CSV	'<non-literal>'	52
+zz-scripts/chapter09/generate_data_chapter09.py	REF_META	'<non-literal>'	53
+zz-scripts/chapter09/generate_data_chapter09.py	JALONS_CSV	'<non-literal>'	54
+zz-scripts/chapter09/plot_fig01_phase_overlay.py	DEF_IN	'<non-literal>'	19
+zz-scripts/chapter09/plot_fig01_phase_overlay.py	DEF_META	'<non-literal>'	20
+zz-scripts/chapter09/plot_fig01_phase_overlay.py	DEF_INI	'<non-literal>'	21
+zz-scripts/chapter09/plot_fig01_phase_overlay.py	DEF_OUT	'<non-literal>'	22
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py	DEF_CSV	'<non-literal>'	21
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py	DEF_DIFF	'<non-literal>'	22
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py	DEF_META	'<non-literal>'	23
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py	DEF_OUT	'<non-literal>'	24
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	DEF_DIFF	'<non-literal>'	39
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	DEF_CSV	'<non-literal>'	40
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	DEF_META	'<non-literal>'	41
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	DEF_MILESTONES	'<non-literal>'	42
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	DEF_OUT	'<non-literal>'	43
+zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py	DEF_MILESTONES	'<non-literal>'	48
+zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py	DEF_OUT	'<non-literal>'	49
+zz-scripts/chapter10/eval_primary_metrics_20_300.py	WINDOW_DEFAULT	(20.0, 300.0)	52
+zz-scripts/chapter10/eval_primary_metrics_20_300.py	PCTL_METHOD	'linear'	53
+zz-scripts/chapter10/eval_primary_metrics_20_300.py	EPS_PLOT	1e-12	54
+zz-scripts/chapter10/eval_primary_metrics_20_300.py	ERR_CODES	{'FORWARD_MISSING': 'PHI_MCGT_IMPORT_FAIL', 'REF_MISSING': 'REF_BACKEND_MISSING'…	57
+zz-scripts/chapter10/generate_data_chapter10.py	HERE	'<non-literal>'	63
+zz-scripts/chapter10/generate_data_chapter10.py	ROOT	'<non-literal>'	64
+zz-scripts/chapter10/generate_data_chapter10.py	DDIR	'<non-literal>'	65
+zz-scripts/chapter10/generate_data_chapter10.py	FDIR	'<non-literal>'	66
+zz-scripts/chapter10/generate_data_chapter10.py	REF_CH9	'<non-literal>'	67
+zz-scripts/chapter10/generate_data_chapter10.py	CACHE_REF	'<non-literal>'	68
+zz-scripts/chapter10/generate_data_chapter10.py	SCRIPTS	'<non-literal>'	70
+zz-scripts/chapter10/generate_data_chapter10.py	DEFAULTS	'<non-literal>'	77
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py	TWOPI	'<non-literal>'	26
+zz-tests/test_manifest.py	ROOT	'<non-literal>'	8
+zz-tests/test_manifest.py	MANIFEST_DIR	'<non-literal>'	9
+zz-tests/test_manifest.py	MASTER	'<non-literal>'	10
+zz-tests/test_manifest.py	PUBLICATION	'<non-literal>'	11
+zz-tests/test_manifest.py	ALLOWED_ROLES	{'meta', 'schema', 'source', 'data', 'artifact', 'config', 'script', 'manifest',…	13
+zz-tests/test_schemas.py	ROOT	'<non-literal>'	8
+zz-tests/test_schemas.py	MANIFEST_DIR	'<non-literal>'	9
+zz-tests/test_schemas.py	MASTER	'<non-literal>'	10
+zz-tests/test_schemas.py	PUBLICATION	'<non-literal>'	11
+zz-tests/test_schemas.py	ALLOWED_ROLES	{'meta', 'schema', 'source', 'data', 'artifact', 'config', 'script', 'manifest',…	13
+
+========================================================================
+>>> FILE: .ci-out/python_consts_modules.txt
+========================================================================
+[PY_CONST_MODULES]
+./.ci-archive/20251001T140146/tools/convert_degrees_to_radians_ch9.py
+./mcgt/__init__.py
+./mcgt/backends/ref_phase.py
+./tools/scan_figures.py
+./tools/scan_frontmatter.py
+./tools/scan_make_vars.py
+./tools/scan_py_consts.py
+./zz-manifests/add_to_manifest.py
+./zz-manifests/diag_consistency.py
+./zz-scripts/chapter02/generate_data_chapter02.py
+./zz-scripts/chapter02/plot_fig00_spectrum.py
+./zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
+./zz-scripts/chapter02/plot_fig02_calibration.py
+./zz-scripts/chapter02/plot_fig03_relative_errors.py
+./zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
+./zz-scripts/chapter02/plot_fig05_FG_series.py
+./zz-scripts/chapter02/plot_fig06_alpha_fit.py
+./zz-scripts/chapter02/primordial_spectrum.py
+./zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
+./zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py
+./zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py
+./zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py
+./zz-scripts/chapter03/plot_fig05_interpolated_milestones.py
+./zz-scripts/chapter03/plot_fig06_grid_quality.py
+./zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
+./zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+./zz-scripts/chapter04/generate_data_chapter04.py
+./zz-scripts/chapter05/generate_data_chapter05.py
+./zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py
+./zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py
+./zz-scripts/chapter05/plot_fig04_chi2_vs_T.py
+./zz-scripts/chapter06/generate_data_chapter06.py
+./zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
+./zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+./zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+./zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
+./zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
+./zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+./zz-scripts/chapter07/generate_data_chapter07.py
+./zz-scripts/chapter07/launch_scalar_perturbations_solver.py
+./zz-scripts/chapter07/plot_fig01_cs2_heatmap.py
+./zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
+./zz-scripts/chapter07/plot_fig03_invariant_I1.py
+./zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
+./zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
+./zz-scripts/chapter07/plot_fig06_comparison.py
+./zz-scripts/chapter07/plot_fig07_invariant_I2.py
+./zz-scripts/chapter07/tests/test_chapter07.py
+./zz-scripts/chapter08/generate_coupling_milestones.py
+./zz-scripts/chapter08/generate_data_chapter08.py
+./zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py
+./zz-scripts/chapter08/plot_fig02_dv_vs_z.py
+./zz-scripts/chapter08/plot_fig03_mu_vs_z.py
+./zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
+./zz-scripts/chapter08/plot_fig05_residuals.py
+./zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py
+./zz-scripts/chapter08/plot_fig07_chi2_profile.py
+./zz-scripts/chapter08/utils/coupling_example_model.py
+./zz-scripts/chapter08/utils/extract_bao_data.py
+./zz-scripts/chapter08/utils/extract_pantheon_plus_data.py
+./zz-scripts/chapter08/utils/generate_coupling_milestones.py
+./zz-scripts/chapter08/utils/verify_z_grid.py
+./zz-scripts/chapter09/fetch_gwtc3_confident.py
+./zz-scripts/chapter09/generate_data_chapter09.py
+./zz-scripts/chapter09/opt_poly_rebranch.py
+./zz-scripts/chapter09/plot_fig01_phase_overlay.py
+./zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py
+./zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py
+./zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py
+./zz-scripts/chapter10/eval_primary_metrics_20_300.py
+./zz-scripts/chapter10/generate_data_chapter10.py
+./zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
+./zz-tests/test_manifest.py
+./zz-tests/test_schemas.py
+
+========================================================================
+>>> FILE: .ci-out/scan_done.txt
+========================================================================
+[SCAN] done 20251003T195712Z
+
+========================================================================
+>>> FILE: .ci-out/scan_start.txt
+========================================================================
+[SCAN] start 20251003T195712Z
+
+========================================================================
+>>> FILE: .ci-out/workflows.list.txt
+========================================================================
+[WORKFLOWS]
+.github/workflows/ci-pre-commit.yml
+.github/workflows/ci-yaml-check.yml
+.github/workflows/pre-commit-autoupdate.yml
+.github/workflows/sanity-echo.yml
+.github/workflows/sanity-main.yml

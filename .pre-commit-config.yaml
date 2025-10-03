@@ -77,3 +77,13 @@ repos:
         entry: tools/no_plusx_nonscripts.sh
         language: system
         pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: forbid-bom-crlf-tabs-workflows
+        name: Forbid BOM/CRLF/Tabs in workflows (auto-fix)
+        entry: tools/forbid_bom_crlf_tabs.sh
+        language: system
+        files: '^\.github/workflows/.*\.ya?ml$'
+        pass_filenames: true
+        args: ['--fix']

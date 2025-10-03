@@ -156,7 +156,7 @@ MCGT/
     python zz-scripts/chapter10/plot_fig01_iso_p95_map.py \
       --results zz-data/chapter10/10_mc_results.circ.csv \
       --p95-col p95_20_300_recalc \
-      --out zz-figures/chapter10/10_fig_01_iso_p95_map.png --dpi 300
+      --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png --dpi 300
 
     python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
       --jalons zz-data/chapter10/10_mc_jalons_eval.csv \

@@ -190,7 +190,7 @@ MCGT/
       --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 
     python zz-scripts/chapter10/plot_fig07_synthesis.py \
-      --manifest-a zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n.manifest.json \
+      --manifest-a zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n.manifest.json \
       --label-a "Percentile (outer=400,inner=2000)" \
       --manifest-b zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.manifest.json \
       --label-b "Percentile (outer=2000,inner=2000)" \

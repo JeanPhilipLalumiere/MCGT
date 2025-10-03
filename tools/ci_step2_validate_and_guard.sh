@@ -144,4 +144,21 @@ else
   info "==> Aucun orphelin hors allowlist."
 fi
 
+# === STRICT_ORPHANS enforcement (basé sur la section "hors allowlist") ===
+if [[ "${STRICT_ORPHANS:-0}" == "1" ]]; then
+  oa_count="$(
+    awk '
+      /^\s*INFO:  ==> Orphelins \(hors allowlist\)/ { flag=1; next }
+      flag && /^\s*INFO:/ { flag=0; next }
+      flag && /^\s*-\s*$/ { next }        # un tiret seul = aucun item
+      flag && /^\s{2}- / { c++ }          # items: lignes commençant par "  - "
+      END { print (c+0) }
+    ' "$REPORT" 2>/dev/null || echo 0
+  )"
+  if [[ "$oa_count" =~ ^[0-9]+$ ]] && ((oa_count > 0)); then
+    err "Orphelins détectés (hors allowlist): ${oa_count} et STRICT_ORPHANS=1"
+    fail=1
+  fi
+fi
+# ==========================================================================
 exit "$fail"

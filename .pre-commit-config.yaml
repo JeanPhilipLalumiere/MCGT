@@ -97,3 +97,13 @@ repos:
         files: '^\.github/.*\.(ya?ml|md)$'
         pass_filenames: true
         args: ['--fix']
+
+  - repo: local
+    hooks:
+      - id: forbid-bom-crlf-tabs-repo
+        name: Forbid BOM/CRLF/Tabs repo-wide (YAML/MD, auto-fix)
+        entry: tools/forbid_bom_crlf_tabs.sh
+        language: system
+        files: '^.+\.(ya?ml|md)$'
+        pass_filenames: true
+        args: ['--fix']

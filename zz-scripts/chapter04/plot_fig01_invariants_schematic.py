@@ -68,7 +68,7 @@ def main():
     # ----------------------------------------------------------------------
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
-    output_fig = 'zz-figures/chapter04/fig_01_invariants_schematic.png'
+    output_fig = 'zz-figures/chapter04/04_fig_01_invariants_schematic.png'
     plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")

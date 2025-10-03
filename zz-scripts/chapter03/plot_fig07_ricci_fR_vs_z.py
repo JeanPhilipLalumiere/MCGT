@@ -11,7 +11,7 @@ Colonnes requises :
     R_over_R0, f_R, f_RR, z
 
 Sortie :
-    zz-figures/chapter03/fig_07_ricci_fR_vs_z.png
+    zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png
 """
 
 from pathlib import Path

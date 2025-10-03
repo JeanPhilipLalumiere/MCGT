@@ -14,7 +14,7 @@ Exemple:
   python zz-scripts/chapter09/tracer_fig02_residual_phase.py \
     --csv zz-data/chapter09/09_phases_mcgt.csv \
     --meta zz-data/chapter09/09_metrics_phase.json \
-    --out zz-figures/chapter09/fig_02_residual_phase.png \
+    --out zz-figures/chapter09/09_fig_02_residual_phase.png \
     --bands 20 300 300 1000 1000 2000 \
     --dpi 300 --marker-size 3 --line-width 0.9 \
     --gap-thresh-log10 0.12 --log-level INFO

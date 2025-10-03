@@ -65,7 +65,7 @@ Ce dossier contient :
   "selection_policy": { "include": [...], "exclude": [...] },
   "entries": [
     {
-      "path": "zz-figures/chapter09/fig_01_phase_overlay.png",
+      "path": "zz-figures/chapter09/09_fig_01_phase_overlay.png",
       "role": "figure",
       "kind": "png",
       "format": "png",
@@ -151,7 +151,7 @@ python3 zz-manifests/add_to_manifest.py zz-data/chapter09/09_metrics_phase.json 
 
 ```bash
 # (exécution des pipelines de génération en amont)
-python3 zz-manifests/add_to_manifest.py zz-figures/chapter09/fig_02_residual_phase.png --role figure
+python3 zz-manifests/add_to_manifest.py zz-figures/chapter09/09_fig_02_residual_phase.png --role figure
 python3 zz-manifests/add_to_manifest.py zz-data/chapter10/10_mc_results.csv --role data
 ```
 

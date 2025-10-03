@@ -12,7 +12,7 @@ Portée : ce document définit les **conventions de données, de métadonnées, 
 * **Données** : `zz-data/chapter{N}/`
   *ex.* `zz-data/chapter07/07_perturbations_domain.csv`
 * **Figures** : `zz-figures/chapter{N}/`
-  *ex.* `zz-figures/chapter03/fig_07_ricci_fR_vs_z.png`
+  *ex.* `zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png`
 * **Scripts** : `zz-scripts/chapter{N}/`
   *ex.* `zz-scripts/chapter06/generate_data_chapter06.py`
 * **Configuration** : `zz-configuration/`

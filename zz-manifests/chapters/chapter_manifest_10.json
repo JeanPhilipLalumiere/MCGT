@@ -21,13 +21,13 @@
 ],
 "data_outputs": [],
 "figures": [
-"zz-figures/chapter10/fig_01_iso_p95_maps.png",
-"zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png",
-"zz-figures/chapter10/fig_03_convergence_p95_vs_n.png",
+"zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
+"zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
+"zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
 "zz-figures/chapter10/fig_03b_bootstrap_coverage_vs_n_hires.png",
-"zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png",
-"zz-figures/chapter10/fig_05_hist_cdf_metrics.png",
-"zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png",
+"zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
+"zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+"zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png",
 "zz-figures/chapter10/fig_07_synthesis_compare.png"
 ],
 "metas": [

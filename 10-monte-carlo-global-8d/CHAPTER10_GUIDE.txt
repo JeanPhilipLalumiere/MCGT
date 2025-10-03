@@ -182,7 +182,7 @@ Compilation (voir §10).
 - Exemple :
   python zz-scripts/chapter10/regen_fig05_using_circp95.py \
     --in zz-data/chapter10/10_mc_results.circ.csv \
-    --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png
+    --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
 
 3.8 `update_manifest_with_hashes.py` (traçabilité)
 - Rôle : met à jour les manifests avec hash/checksum, date, taille.
@@ -363,25 +363,25 @@ python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
-  --out zz-figures/chapter10/fig_01_iso_p95_maps.png \
+  --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
   --levels 16 --dpi 300
 
 python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
   --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
   --x-col phi_ref_at_fpeak --y-col phi_mcgt_at_fpeak \
-  --out zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png \
+  --out zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png \
   --dpi 300 --clip-pi
 
 python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
-  --out zz-figures/chapter10/fig_03_convergence_p95_vs_n.png \
+  --out zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png \
   --B 2000 --seed 12345 --dpi 300
 
 python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
-  --out zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.png \
+  --out zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png \
   --outer 2000 --inner 2000 --M 2000 --alpha 0.05 --seed 12345 \
   --minN 100 --npoints 10 --dpi 300 \
   --ymin-coverage 0.88 --ymax-coverage 1.01
@@ -389,12 +389,12 @@ python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py \
 python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png \
+  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
   --dpi 300 --bins 50
 
 python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
-  --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png \
+  --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150
 
 python zz-scripts/chapter10/plot_fig06_residual_map.py \
@@ -403,14 +403,14 @@ python zz-scripts/chapter10/plot_fig06_residual_map.py \
   --m1-col m1 --m2-col m2 \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
   --gridsize 36 --mincnt 3 --dpi 300 \
-  --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
+  --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 
 python zz-scripts/chapter10/plot_fig07_synthesis.py \
   --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json \
   --label-a "Percentile (outer=2000,inner=2000)" \
   --manifest-b zz-figures/chapter10/fig_03_convergence_p95_vs_n.manifest.json \
   --label-b "Convergence p95 vs N" \
-  --out zz-figures/chapter10/fig_07_summary_comparison.png \
+  --out zz-figures/chapter10/10_fig_07_summary_comparison.png \
   --dpi 300 --figsize 14,6
 
 --------------------------------------------------------------------

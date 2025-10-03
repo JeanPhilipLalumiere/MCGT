@@ -19,7 +19,7 @@ from matplotlib.lines import Line2D
 DEF_IN   = Path("zz-data/chapter09/09_phases_mcgt.csv")
 DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
 DEF_INI  = Path("zz-configuration/gw_phase.ini")
-DEF_OUT  = Path("zz-figures/chapter09/fig_01_phase_overlay.png")
+DEF_OUT  = Path("zz-figures/chapter09/09_fig_01_phase_overlay.png")
 
 # ---------------- utils
 def setup_logger(level="INFO"):

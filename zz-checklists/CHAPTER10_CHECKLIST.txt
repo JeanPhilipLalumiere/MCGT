@@ -115,42 +115,42 @@ CHECKLIST — CHAPITRE 10 (Monte-Carlo global 8D : échantillonnage, p95, bootst
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --p95-col p95_20_300_recalc --m1-col m1 --m2-col m2 \
         --levels 16 --dpi 300 \
-        --out zz-figures/chapter10/fig_01_iso_p95_maps.png
+        --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png
 - [ ] Scatter φ_ref vs φ_mcgt @ f_peak :
       python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
         --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
         --x-col phi_ref_at_fpeak --y-col phi_mcgt_at_fpeak \
         --clip-pi --dpi 300 \
-        --out zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png
+        --out zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
 - [ ] Convergence p95 vs N :
       python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --p95-col p95_20_300_recalc --B 2000 --seed 12345 --dpi 300 \
-        --out zz-figures/chapter10/fig_03_convergence_p95_vs_n.png
+        --out zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png
 - [ ] Couverture bootstrap (hires) :
       python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --p95-col p95_20_300_recalc --outer 2000 --inner 2000 --M 2000 \
         --alpha 0.05 --minN 100 --npoints 10 --dpi 300 \
-        --out zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.png
+        --out zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png
 - [ ] p95(recalc) vs p95(orig) :
       python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
         --bins 50 --dpi 300 \
-        --out zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png
+        --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png
 - [ ] Histogrammes/CDF :
       python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --dpi 150 \
-        --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png
+        --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
 - [ ] Carte |Δp95| (m1,m2) :
       python zz-scripts/chapter10/plot_fig06_residual_map.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --metric dp95 --abs --m1-col m1 --m2-col m2 \
         --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
         --gridsize 36 --mincnt 3 --dpi 300 \
-        --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
+        --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 - [ ] Synthèse :
       python zz-scripts/chapter10/plot_fig07_synthesis.py \
         --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json \
@@ -158,7 +158,7 @@ CHECKLIST — CHAPITRE 10 (Monte-Carlo global 8D : échantillonnage, p95, bootst
         --manifest-b zz-figures/chapter10/fig_03_convergence_p95_vs_n.manifest.json \
         --label-b "Convergence p95 vs N" \
         --dpi 300 \
-        --out zz-figures/chapter10/fig_07_summary_comparison.png
+        --out zz-figures/chapter10/10_fig_07_summary_comparison.png
 
 [PARAMÈTRES & RECOMMANDATIONS]
 - [ ] p95 circulaire = **colonne de référence** pour toutes les analyses/figures.

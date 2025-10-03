@@ -90,7 +90,7 @@ def main():
     p.add_argument("--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)")
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/fig_03_convergence_p95_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument("--B", type=int, default=2000, help="Nombre de réplicats bootstrap")

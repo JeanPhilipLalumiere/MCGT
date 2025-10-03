@@ -3,7 +3,7 @@
 Tracer l'ajustement polynomial de A_s(α) et n_s(α) pour le Chapitre 2 (MCGT)
 
 Produit :
-- zz-figures/chapter02/fig_06_fit_alpha.png
+- zz-figures/chapter02/02_fig_06_fit_alpha.png
 
 Données sources :
 - zz-data/chapter02/02_As_ns_vs_alpha.csv

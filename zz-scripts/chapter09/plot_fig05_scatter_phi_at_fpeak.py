@@ -12,7 +12,7 @@ Entrée (obligatoire)
       sigma_phase, classe, event, f_Hz
 
 Sorties
-  - PNG (par défaut) : zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png
+  - PNG (par défaut) : zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
   - PDF optionnel (--pdf)
 
 Points clés
@@ -27,7 +27,7 @@ Exemples
 ---------
 python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \
   --milestones zz-data/chapter09/09_comparison_milestones.csv \
-  --out    zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png \
+  --out    zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png \
   --dpi 300 --log-level INFO --pdf
 
 # Pour désactiver l’alignement principal (montrer valeurs brutes) :
@@ -46,7 +46,7 @@ import matplotlib.pyplot as plt
 
 # ---------- Defaults ----------
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT        = Path("zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png")
+DEF_OUT        = Path("zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png")
 
 
 # ---------- Utils ----------

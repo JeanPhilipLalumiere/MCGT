@@ -8,7 +8,7 @@ Exemple :
 python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
   --csv zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
-  --out zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
+  --out zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
   --mode principal --bins 50 --window 20 300 --xscale log --dpi 300 --log-level INFO
 """
 from pathlib import Path
@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 DEF_CSV  = Path("zz-data/chapter09/09_phases_mcgt.csv")
 DEF_DIFF = Path("zz-data/chapter09/09_phase_diff.csv")
 DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
-DEF_OUT  = Path("zz-figures/chapter09/fig_03_hist_absdphi_20_300.png")
+DEF_OUT  = Path("zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png")
 
 # -------- Utils
 def setup_logger(level: str):

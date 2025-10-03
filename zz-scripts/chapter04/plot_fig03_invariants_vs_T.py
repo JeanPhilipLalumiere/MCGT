@@ -47,7 +47,7 @@ def main():
     ax.grid(True, which='both', linestyle=':', linewidth=0.5)
 
     # 5. Sauvegarde
-    out = 'zz-figures/chapter04/fig_03_invariants_vs_T.png'
+    out = 'zz-figures/chapter04/04_fig_03_invariants_vs_t.png'
     plt.tight_layout()
     plt.savefig(out)
     print(f"Figure enregistrée : {out}")

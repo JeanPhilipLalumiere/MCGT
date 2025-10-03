@@ -12,7 +12,7 @@ Colonnes requises :
     beta, gamma_min, gamma_max
 
 Sortie :
-    zz-figures/chapter03/fig_01_fR_stability_domain.png
+    zz-figures/chapter03/03_fig_01_fr_stability_domain.png
 """
 
 from pathlib import Path

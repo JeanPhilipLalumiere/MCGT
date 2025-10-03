@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-10-01T23:06:30Z",
-  "errors": 0,
-  "warnings": 0,
-  "issues": [
-    { "severity": "INFO", "code": "PING", "msg": "sanity OK" }
-  ]
-}

@@ -40,7 +40,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", required=True, help="CSV avec p95 circulaire recalculé")
     ap.add_argument(
-        "--out", default="zz-figures/chapter10/fig_05_hist_cdf_metrics.png", help="PNG de sortie"
+        "--out", default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png", help="PNG de sortie"
     )
     ap.add_argument(
         "--ref-p95", type=float, default=0.7104087123286049, help="p95 de référence [rad]"

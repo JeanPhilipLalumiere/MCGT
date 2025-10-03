@@ -46,7 +46,7 @@ def main():
     p.add_argument("--recalc-col", default="p95_20_300_recalc", help="Recalculated p95 column")
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png",
+        default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
         help="Output PNG",
     )
     p.add_argument("--dpi", type=int, default=300, help="PNG dpi")

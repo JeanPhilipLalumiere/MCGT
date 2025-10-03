@@ -15,7 +15,7 @@ Colonnes requises :
     R_over_R0
 
 Sortie :
-    zz-figures/chapter03/fig_06_grid_quality.png
+    zz-figures/chapter03/03_fig_06_grid_quality.png
 """
 
 from pathlib import Path

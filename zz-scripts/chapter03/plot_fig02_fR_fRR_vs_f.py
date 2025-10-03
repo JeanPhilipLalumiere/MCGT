@@ -10,7 +10,7 @@ Colonnes requises :
     R_over_R0, f_R, f_RR
 
 Sortie :
-    zz-figures/chapter03/fig_02_fR_fRR_vs_R.png
+    zz-figures/chapter03/03_fig_02_fr_frr_vs_r.png
 """
 
 from pathlib import Path

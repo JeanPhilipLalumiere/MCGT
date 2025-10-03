@@ -14,7 +14,7 @@ python zz-scripts/chapter10/plot_fig06_residual_map.py \
   --gridsize 36 --mincnt 3 --cmap viridis --vclip 1,99 \
   --scale-exp -7 --threshold 1e-6 \
   --figsize 15,9 --dpi 300 --manifest \
-  --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
+  --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 """
 
 from __future__ import annotations

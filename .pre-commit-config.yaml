@@ -48,3 +48,24 @@ repos:
       - id: shfmt
         args: ["-w","-i","2","-ci"]
         files: "^(tools/|zz-scripts/).+\\.(sh|bash)$"
+
+  - repo: local
+    hooks:
+      - id: gh-workflows-fix-run-name-quotes
+        name: Fix unquoted run-name with GitHub expressions
+        entry: tools/fix_run_name_quotes.sh
+        language: system
+        files: ^.github/workflows/.*.ya?ml
+        pass_filenames: true
+      - id: gh-workflows-audit
+        language: system
+        files: ^.github/workflows/.*.ya?ml
+        pass_filenames: true
+        entry: tools/audit_workflows.sh
+        name: Audit GitHub workflow hygiene
+      - id: gh-workflows-audit
+        name: Audit GitHub workflow hygiene
+        entry: tools/audit_workflows.sh
+        language: system
+        files: '^\.github/workflows/.*\.ya?ml$'
+        pass_filenames: true

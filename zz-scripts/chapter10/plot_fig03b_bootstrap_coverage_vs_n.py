@@ -93,7 +93,7 @@ def main():
     p.add_argument("--p95-col", default=None, help="Nom exact de la colonne p95.")
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument(

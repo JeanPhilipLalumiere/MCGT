@@ -1,0 +1,16 @@
+name: figures-guard
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run figures guard
+        shell: bash
+        run: |
+          bash tools/ci_step2_validate_and_guard.sh

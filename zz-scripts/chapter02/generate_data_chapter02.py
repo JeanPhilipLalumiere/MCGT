@@ -11,7 +11,7 @@ Génère :
 - zz-data/chapter02/02_optimal_parameters.json
 Et, si --spectre :
 - zz-data/chapter02/02_primordial_spectrum_spec.json
-- zz-figures/chapter02/fig_00_spectre.png
+- zz-figures/chapter02/02_fig_00_spectre.png
 """
 
 # --- Section 1 : Imports et configuration ---

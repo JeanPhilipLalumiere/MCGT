@@ -132,7 +132,7 @@ CHECKLIST — CHAPITRE 10 (Monte-Carlo global 8D : échantillonnage, p95, bootst
         --results zz-data/chapter10/10_mc_results.circ.csv \
         --p95-col p95_20_300_recalc --outer 2000 --inner 2000 --M 2000 \
         --alpha 0.05 --minN 100 --npoints 10 --dpi 300 \
-        --out zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png
+        --out zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png
 - [ ] p95(recalc) vs p95(orig) :
       python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
         --results zz-data/chapter10/10_mc_results.circ.csv \
@@ -153,9 +153,9 @@ CHECKLIST — CHAPITRE 10 (Monte-Carlo global 8D : échantillonnage, p95, bootst
         --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 - [ ] Synthèse :
       python zz-scripts/chapter10/plot_fig07_synthesis.py \
-        --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json \
+        --manifest-a zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.manifest.json \
         --label-a "Percentile (outer=2000,inner=2000)" \
-        --manifest-b zz-figures/chapter10/fig_03_convergence_p95_vs_n.manifest.json \
+        --manifest-b zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.manifest.json \
         --label-b "Convergence p95 vs N" \
         --dpi 300 \
         --out zz-figures/chapter10/10_fig_07_summary_comparison.png

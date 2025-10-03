@@ -9,7 +9,7 @@
 #
 # Exemples :
 #   python zz-manifests/add_to_manifest.py zz-data/chapter10/10_mc_results.csv
-#   python zz-manifests/add_to_manifest.py "zz-figures/chapter09/fig_*.png" --role figure
+#   python zz-manifests/add_to_manifest.py "zz-figures/chapter09/09_fig_*.png" --role figure
 #   python zz-manifests/add_to_manifest.py --from-list paths.txt --tags "chapter09,phase"
 #   git ls-files | python zz-manifests/add_to_manifest.py - --role source
 #   python zz-manifests/add_to_manifest.py --remove "zz-data/chapter09/*.tmp"

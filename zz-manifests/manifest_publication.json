@@ -1081,7 +1081,7 @@
       "mtime_iso": "2025-09-12T22:19:25Z"
     },
     {
-      "path": "zz-figures/chapter09/09_fig_p95_check_control.png",
+      "path": "zz-figures/chapter09/09_fig_00_p95_check_control.png",
       "role": "figure",
       "size_bytes": 38788,
       "sha256": "589f02cbda624f376228264223225b9970d448f5521d0366c7540482c4a8ccbc",
@@ -1172,7 +1172,7 @@
       "mtime_iso": "2025-09-12T22:19:24Z"
     },
     {
-      "path": "zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png",
+      "path": "zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png",
       "role": "figure",
       "size_bytes": 388364,
       "sha256": "dad8c865975e324ca4b2917c92648fd4f17bd44ef39136f30560a20578f1f355",

@@ -156,7 +156,7 @@ MCGT/
     python zz-scripts/chapter10/plot_fig01_iso_p95_map.py \
       --results zz-data/chapter10/10_mc_results.circ.csv \
       --p95-col p95_20_300_recalc \
-      --out zz-figures/chapter10/fig_01_iso_p95_map.png --dpi 300
+      --out zz-figures/chapter10/10_fig_01_iso_p95_map.png --dpi 300
 
     python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
       --jalons zz-data/chapter10/10_mc_jalons_eval.csv \
@@ -169,7 +169,7 @@ MCGT/
     python zz-scripts/chapter10/plot_fig03b_coverage_bootstrap_vs_n.py \
       --results zz-data/chapter10/10_mc_results.circ.csv \
       --p95-col p95_20_300_recalc \
-      --out zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n_hires.png \
+      --out zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png \
       --hires2000 --M 2000 --seed 12345 --dpi 300 \
       --minN 100 --npoints 10 --ymin-coverage 0.88 --ymax-coverage 1.01
 
@@ -190,11 +190,11 @@ MCGT/
       --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 
     python zz-scripts/chapter10/plot_fig07_synthesis.py \
-      --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n.manifest.json \
+      --manifest-a zz-figures/chapter10/10_fig_03b_coverage_bootstrap_vs_n.manifest.json \
       --label-a "Percentile (outer=400,inner=2000)" \
-      --manifest-b zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json \
+      --manifest-b zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.manifest.json \
       --label-b "Percentile (outer=2000,inner=2000)" \
-      --out zz-figures/chapter10/fig_07_synthesis_compare.png \
+      --out zz-figures/chapter10/10_fig_07_synthesis_compare.png \
       --dpi 300 --figsize 14,6 --ymin-coverage 0.88 --ymax-coverage 1.01
     ```
 

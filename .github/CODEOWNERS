@@ -1,8 +1,3 @@
-# Propriétaire par défaut
+# Ajustez au besoin (équipes/aliases). Valeur par défaut: owner du repo.
 * @JeanPhilipLalumiere
-
-# CI workflows
-.github/workflows/* @JeanPhilipLalumiere
-
-# Scripts shell
-tools/*.sh @JeanPhilipLalumiere
+.github/** @JeanPhilipLalumiere

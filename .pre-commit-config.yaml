@@ -69,3 +69,11 @@ repos:
         language: system
         files: '^\.github/workflows/.*\.ya?ml$'
         pass_filenames: true
+
+  - repo: local
+    hooks:
+      - id: no-plusx-nonscripts
+        name: Forbid +x on non-script files
+        entry: tools/no_plusx_nonscripts.sh
+        language: system
+        pass_filenames: false

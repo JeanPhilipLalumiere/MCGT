@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install actionlint (pinned v1.7.1) with fallback
+      - name: Install actionlint (pinned v1.7.7) with fallback
         shell: bash
         continue-on-error: true
         run: |
@@ -172,7 +172,7 @@ jobs:
           __TMP_GITHUB_STEP_SUMMARY_0__="$(mktemp)"
           {
             echo "## Meta checks"
-            echo "- actionlint: pinned v1.7.1 (skip si indisponible)"
+            echo "- actionlint: pinned v1.7.7 (skip si indisponible)"
             echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"
           } >> "$__TMP_GITHUB_STEP_SUMMARY_0__"
           if [ -f "$__TMP_GITHUB_STEP_SUMMARY_0__" ]; then

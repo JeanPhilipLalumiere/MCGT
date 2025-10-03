@@ -23,4 +23,4 @@ jobs:
       - name: Run figures guard (strict)
         shell: bash
         run: |
-          STRICT_ORPHANS=1 bash tools/ci_step2_validate_and_guard.sh
+          STRICT_ORPHANS=1 STRICT_ORPHANS=1 bash tools/ci_step2_validate_and_guard.sh

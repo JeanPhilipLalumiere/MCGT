@@ -19,7 +19,7 @@ concurrency:
 jobs:
   diag:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -95,7 +95,7 @@ jobs:
   meta:
     if: ${{ github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -183,7 +183,7 @@ jobs:
   hygiene:
     if: ${{ github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:

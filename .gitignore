@@ -108,3 +108,4 @@ artifacts_*/
 .ci-logs/
 .ci-logs/
 .ci-logs/
+.ci-out/figures_guard_report.txt

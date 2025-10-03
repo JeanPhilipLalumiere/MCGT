@@ -101,7 +101,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
       python zz-scripts/chapter09/check_p95_methods.py \
         --csv zz-data/chapter09/09_phases_mcgt.csv \
         --window 20 300 \
-        --out zz-figures/chapter09/09_fig_p95_check_control.png
+        --out zz-figures/chapter09/09_fig_00_p95_check_control.png
       (option : --update-metrics-json zz-data/chapter09/09_metrics_phase.json)
 
 [PRODUCTION DES FIGURES]

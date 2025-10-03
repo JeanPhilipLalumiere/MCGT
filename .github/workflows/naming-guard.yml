@@ -1,0 +1,28 @@
+name: naming-guard
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'zz-figures/**'
+      - 'zz-scripts/**'
+      - '10-monte-carlo-global-8d/**'
+      - 'zz-checklists/**'
+      - 'tools/ci_step4_guard_naming.sh'
+      - '.github/workflows/naming-guard.yml'
+      - '!**/*.md'
+  pull_request:
+    paths:
+      - 'zz-figures/**'
+      - 'zz-scripts/**'
+      - '10-monte-carlo-global-8d/**'
+      - 'zz-checklists/**'
+      - 'tools/ci_step4_guard_naming.sh'
+      - '.github/workflows/naming-guard.yml'
+      - '!**/*.md'
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Naming consistency guard
+        run: bash tools/ci_step4_guard_naming.sh

@@ -1,0 +1,32 @@
+name: "Workflow hygiene audit"
+description: "Checks run-name quoting, forbids +x on non-scripts, and blocks BOM/CRLF/Tabs."
+runs:
+  using: "composite"
+  steps:
+    - name: Audit run-name quoting & basic hygiene
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [[ -x tools/audit_workflows.sh ]]; then
+          tools/audit_workflows.sh
+        else
+          echo "tools/audit_workflows.sh manquant"; exit 1
+        fi
+    - name: Forbid +x on non-script files
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [[ -x tools/no_plusx_nonscripts.sh ]]; then
+          tools/no_plusx_nonscripts.sh
+        else
+          echo "tools/no_plusx_nonscripts.sh manquant"; exit 1
+        fi
+    - name: Forbid BOM/CRLF/Tabs under .github (check mode)
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [[ -x tools/forbid_bom_crlf_tabs.sh ]]; then
+          tools/forbid_bom_crlf_tabs.sh .github/**/*.yml .github/**/*.yaml .github/**/*.md
+        else
+          echo "tools/forbid_bom_crlf_tabs.sh manquant"; exit 1
+        fi

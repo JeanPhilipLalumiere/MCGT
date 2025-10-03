@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-def draw_bbn_schema(save_path="zz-figures/chapter05/fig_01_bbn_reaction_network.png"):
+def draw_bbn_schema(save_path="zz-figures/chapter05/05_fig_01_bbn_reaction_network.png"):
     fig, ax = plt.subplots(figsize=(8, 4.2), facecolor="white")
 
     # Centres des boîtes (x, y)

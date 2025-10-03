@@ -1,0 +1,2 @@
+[MD_FRONTMATTER_PATHS]
+zz-manifests/README_manifest.md

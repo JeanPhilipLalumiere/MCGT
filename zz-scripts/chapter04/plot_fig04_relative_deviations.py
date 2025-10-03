@@ -116,7 +116,7 @@ def main():
     # ----------------------------------------------------------------------
     # 5. Sauvegarde
     # ----------------------------------------------------------------------
-    output_fig = 'zz-figures/chapter04/fig_04_relative_deviations.png'
+    output_fig = 'zz-figures/chapter04/04_fig_04_relative_deviations.png'
     plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Figure sauvegardée : {output_fig}")

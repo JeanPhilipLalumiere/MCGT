@@ -133,7 +133,7 @@ Métadonnées : `09_jalons_comparaison.meta.json` (catalogue, règles d’incert
 - check_p95_methods.py
   Contrôle méthodologique : compare p95 (raw/unwrap/principal), teste k±1, vérifie l’effet d’un ancrage visuel,
   et peut mettre à jour les métriques.
-  Sorties : `zz-figures/chapter09/p95_check_control.png`, logs.
+  Sorties : `zz-figures/chapter09/09_fig_p95_check_control.png`, logs.
   (Peut aussi servir à **ré-écrire** `metrics_active` à partir du “principal” si demandé.)
 
 - plot_fig01_phase_overlay.py
@@ -190,7 +190,7 @@ Métadonnées : `09_jalons_comparaison.meta.json` (catalogue, règles d’incert
 - Dossier : `zz-figures/chapter09/p95_checks/` (captures k±1, logs, p95_check_control.png)
 - Archivage :
   tar czf zz-figures/chapter09/checks_archive_$(date +%Y%m%d).tar.gz \
-      zz-figures/chapter09/p95_checks/ zz-figures/chapter09/p95_check_control.png
+      zz-figures/chapter09/p95_checks/ zz-figures/chapter09/09_fig_p95_check_control.png
 
 
 5) PARAMÈTRES & CONFIGURATION (exemples)
@@ -238,7 +238,7 @@ PY
 python zz-scripts/chapter09/check_p95_methods.py \
   --csv zz-data/chapter09/09_phases_mcgt.csv \
   --window 20 300 \
-  --out zz-figures/chapter09/p95_check_control.png
+  --out zz-figures/chapter09/09_fig_p95_check_control.png
 
 #4 Stabilité k±1 sur p95 (20–300 Hz)
 python - << 'PY'
@@ -281,7 +281,7 @@ PY
 
 #7 Archivage des preuves
 tar czf zz-figures/chapter09/checks_archive_$(date +%Y%m%d).tar.gz \
-  zz-figures/chapter09/p95_checks/ zz-figures/chapter09/p95_check_control.png
+  zz-figures/chapter09/p95_checks/ zz-figures/chapter09/09_fig_p95_check_control.png
 
 
 8) COMMANDES D’EXÉCUTION (séquence type)
@@ -311,7 +311,7 @@ python zz-scripts/chapter09/opt_poly_rebranch.py \
 python zz-scripts/chapter09/check_p95_methods.py \
   --csv zz-data/chapter09/09_phases_mcgt.csv \
   --window 20 300 \
-  --out zz-figures/chapter09/p95_check_control.png
+  --out zz-figures/chapter09/09_fig_p95_check_control.png
 
 # 5) Mise à jour JSON (sur “principal”, si besoin)
 python zz-scripts/chapter09/check_p95_methods.py \
@@ -322,7 +322,7 @@ python zz-scripts/chapter09/check_p95_methods.py \
 python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
-  --out  zz-figures/chapter09/fig_01_phase_overlay.png \
+  --out  zz-figures/chapter09/09_fig_01_phase_overlay.png \
   --shade 20 300 --show-residual \
   --display-variant auto --anchor-policy if-not-calibrated \
   --dpi 300 --save-pdf --log-level INFO
@@ -330,7 +330,7 @@ python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
 python zz-scripts/chapter09/plot_fig02_residual_phase.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
-  --out  zz-figures/chapter09/fig_02_residual_phase.png \
+  --out  zz-figures/chapter09/09_fig_02_residual_phase.png \
   --bands 20 300 300 1000 1000 2000 \
   --dpi 300 --marker-size 3 --line-width 0.9 \
   --gap-thresh-log10 0.12 --log-level INFO
@@ -338,7 +338,7 @@ python zz-scripts/chapter09/plot_fig02_residual_phase.py \
 python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
-  --out  zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
+  --out  zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
   --mode principal --bins 50 --window 20 300 --xscale log \
   --dpi 300 --log-level INFO
 
@@ -347,12 +347,12 @@ python zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py \
   --csv    zz-data/chapter09/09_phases_mcgt.csv \
   --meta   zz-data/chapter09/09_metrics_phase.json \
   --jalons zz-data/chapter09/09_jalons_comparaison.csv \
-  --out    zz-figures/chapter09/fig_04_absdphi_milestones_vs_f.png \
+  --out    zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png \
   --window 20 300 --with_errorbar --dpi 300 --log-level INFO
 
 python zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py \
   --jalons zz-data/chapter09/09_jalons_comparaison.csv \
-  --out    zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png
+  --out    zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
 
 
 9) FIGURES (récapitulatif)

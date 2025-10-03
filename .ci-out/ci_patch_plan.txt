@@ -1,0 +1,8 @@
+# Plan de patch CI (dry-run)
+
+== Ajouter `timeout-minutes: 15` à ces workflows (au niveau des jobs sans timeout) ==
+- .github/workflows/ci-yaml-check.yml
+- .github/workflows/pre-commit-autoupdate.yml
+- .github/workflows/sanity-echo.yml
+
+== Aucune modification python-version détectée ==

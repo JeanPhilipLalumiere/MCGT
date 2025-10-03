@@ -89,7 +89,7 @@ def main():
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
     ap.add_argument(
-        "--out", default="zz-figures/chapter10/10_fig_01_iso_map_p95.png", help="output PNG file"
+        "--out", default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png", help="output PNG file"
     )
     ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
     ap.add_argument("--cmap", default="viridis", help="colormap")

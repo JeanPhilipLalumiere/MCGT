@@ -73,7 +73,7 @@ MCGT/
 │   ├─ fig_01_phase_overlay.final.png
 │   ├─ fig_02_residual_phase.png
 │   ├─ fig_03_hist_absdphi_20_300.png
-│   ├─ fig_04_milestones_absdphi_vs_f.png
+│   ├─ 09_fig_04_absdphi_milestones_vs_f.png
 │   ├─ fig_05_scatter_phi_at_fpeak.png
 │   ├─ p95_check_control.png
 │   └─ p95_checks/                     # outputs de diagnostic (supplements)

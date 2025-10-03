@@ -92,7 +92,7 @@ MCGT/
 │  ├─ plot_fig06_residual_map.py
 │  └─ plot_fig07_synthesis.py
 ├─ zz-figures/chapter10/        # figures produites
-│  ├─ fig_01_iso_p95_map.png
+│  ├─ 10_fig_01_iso_p95_maps.png
 │  ├─ fig_02_scatter_phi_at_fpeak.png
 │  ├─ fig_03_convergence_p95_vs_n.png
 │  ├─ fig_03b_coverage_bootstrap_vs_n_hires.png

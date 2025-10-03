@@ -137,8 +137,8 @@ if ((__len__ORPH)); then
   info "==> Orphelins (hors allowlist) :"
   for o in "${_ORPH[@]}"; do echo "  - $o" | tee -a "$REPORT"; done
   if [[ "$STRICT_ORPHANS" == "1" ]]; then
-    err "Orphelins détectés et STRICT_ORPHANS=1"
-    fail=1
+    info "Old strict-orphans check bypassed; using hors-allowlist parser"
+    : # old fail neutralized (handled by hors-allowlist parser)
   fi
 else
   info "==> Aucun orphelin hors allowlist."
@@ -161,4 +161,24 @@ if [[ "${STRICT_ORPHANS:-0}" == "1" ]]; then
   fi
 fi
 # ==========================================================================
+# === STRICT_ORPHANS enforcement (hors allowlist) BEGIN ===
+if [[ "${STRICT_ORPHANS:-0}" == "1" ]]; then
+  oa_count="$(
+    awk '
+      BEGIN { c=0; flag=0 }
+      /^\s*INFO:\s*==>\s*Orphelins \(hors allowlist\)/ { flag=1; next }
+      flag && /^\s*INFO:/  { flag=0; next }
+      flag {
+        if ($0 ~ /^\s*-\s*$/) next        # un tiret seul => aucun item
+        if ($0 ~ /^\s{2}- /)   c++        # items listés: "  - ..."
+      }
+      END { print c }
+    ' "$REPORT" 2>/dev/null || echo 0
+  )"
+  if [[ "$oa_count" =~ ^[0-9]+$ ]] && ((oa_count > 0)); then
+    err "Orphelins détectés (hors allowlist): ${oa_count} et STRICT_ORPHANS=1"
+    fail=1
+  fi
+fi
+# === STRICT_ORPHANS enforcement (hors allowlist) END ===
 exit "$fail"

@@ -1,7 +1,24 @@
 name: manifests-guard
+
 on:
-  push: { branches: [ main ] }
+  push:
+    branches: [ main ]
+    paths:
+      - 'zz-figures/**'
+      - 'zz-manifests/manifest_publication.sha256sum'
+      - 'tools/rebuild_figures_sha256.sh'
+      - 'tools/ci_step3_validate_manifests.sh'
+      - '.github/workflows/manifests-guard.yml'
+      - '!**/*.md'
   pull_request:
+    paths:
+      - 'zz-figures/**'
+      - 'zz-manifests/manifest_publication.sha256sum'
+      - 'tools/rebuild_figures_sha256.sh'
+      - 'tools/ci_step3_validate_manifests.sh'
+      - '.github/workflows/manifests-guard.yml'
+      - '!**/*.md'
+
 jobs:
   guard:
     runs-on: ubuntu-latest

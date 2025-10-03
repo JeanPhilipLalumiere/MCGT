@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+STRICT_ORPHANS="${STRICT_ORPHANS:-0}"
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
@@ -97,3 +98,24 @@ else
   echo "❌ Figures guard: ÉCHEC. Voir le rapport: $REPORT"
   exit 1
 fi
+
+# STRICT_ORPHANS enforcement
+# On lit le rapport pour compter les orphelins imprimés (lignes "  - ...")
+if [[ "${STRICT_ORPHANS:-0}" == "1" ]]; then
+  ORPH_COUNT=$(
+    awk '
+      /^INFO:  Orphelins / { flag=1; next }
+      flag && /^  - /      { c++ }
+      flag && /^INFO:/     { flag=0 }
+      END { print c+0 }
+    ' "$REPORT" 2>/dev/null || echo 0
+  )
+  if ((ORPH_COUNT > 0)); then
+    err "Orphelins détectés et STRICT_ORPHANS=1 (${ORPH_COUNT})"
+    exit 1
+  fi
+fi
+
+# Assure un code de sortie aligné avec "fail"
+exit "${fail:-0}"
+# (si le script avait déjà un echo de succès plus haut, il restera inoffensif)

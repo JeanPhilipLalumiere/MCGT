@@ -179,3 +179,14 @@ jobs:
             cat "$__TMP_GITHUB_STEP_SUMMARY_0__" >> "${GITHUB_STEP_SUMMARY}"
             rm -f "$__TMP_GITHUB_STEP_SUMMARY_0__"
           fi
+
+  hygiene:
+    if: ${{ github.event_name != 'schedule' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Workflow hygiene (composite)
+        uses: ./.github/actions/workflow-hygiene

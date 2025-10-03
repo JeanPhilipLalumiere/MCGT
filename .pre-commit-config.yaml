@@ -87,3 +87,13 @@ repos:
         files: '^\.github/workflows/.*\.ya?ml$'
         pass_filenames: true
         args: ['--fix']
+
+  - repo: local
+    hooks:
+      - id: forbid-bom-crlf-tabs-dotgithub
+        name: Forbid BOM/CRLF/Tabs under .github (auto-fix)
+        entry: tools/forbid_bom_crlf_tabs.sh
+        language: system
+        files: '^\.github/.*\.(ya?ml|md)$'
+        pass_filenames: true
+        args: ['--fix']

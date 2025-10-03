@@ -6,3 +6,6 @@ fmt:
 	if command -v shfmt >/dev/null 2>&1; then shfmt -w -i 2 -ci tools/*.sh; fi
 
 ci-local: fmt lint
+
+check:
+	pre-commit run -a --show-diff-on-failure

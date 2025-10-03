@@ -1,0 +1,19 @@
+* text=auto eol=lf
+
+# textes courants
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.toml  text eol=lf
+*.ini   text eol=lf
+*.csv   text eol=lf
+*.sh    text eol=lf
+*.sv*   text eol=lf
+
+# binaires
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.pdf   binary

@@ -1534,18 +1534,18 @@
     {
       "path": ".gitignore",
       "role": "config",
-      "size_bytes": 1790,
-      "sha256": "05c558839f9f0e4f38dd50190a47f98b9e34d74ce29a225b863682deb921878b",
-      "mtime_iso": "2025-10-04T13:48:33Z",
-      "git_hash": "89a326dabcbe5937e7e2824486d815bcc8381119"
+      "size_bytes": 1844,
+      "sha256": "9f8f0985eb1f7db596211d9232fe0284cdb43ed92c2a1104ddd4aa9472f07014",
+      "mtime_iso": "2025-10-04T19:09:32Z",
+      "git_hash": "90c856c39a5337a38f778c01b125788756df4f6d"
     },
     {
       "path": ".pre-commit-config.yaml",
       "role": "config",
-      "size_bytes": 666,
-      "sha256": "be2f789da6ee1c383f02e794939021c424a2be4e32093744b01602d1bd849a87",
-      "mtime_iso": "2025-10-04T17:18:18Z",
-      "git_hash": "205f8b95b8fb6e463121fab04b8c62f3a431d3b6"
+      "size_bytes": 744,
+      "sha256": "a22882c583993ee6758eb2d4aa8475540209ccee24c0a2943fd11c57e2e1dde1",
+      "mtime_iso": "2025-10-04T19:09:46Z",
+      "git_hash": "54ba62141664b0eb282af039e558cd824e7e07cb"
     },
     {
       "path": "01-introduction-applications/CHAPTER01_GUIDE.txt",

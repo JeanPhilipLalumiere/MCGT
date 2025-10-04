@@ -138,7 +138,7 @@ def main(argv=None):
 
     summary = []
     for i, id_ in enumerate(ids):
-        print(f"[{i+1}/{len(ids)}] Traitement id={id_} ...")
+        print(f"[{i + 1}/{len(ids)}] Traitement id={id_} ...")
         try:
             out = compute_resids_for_id(id_, samples, fgrid, args.outdir, args.ref_grid)
             summary.append(out)
@@ -158,7 +158,7 @@ def main(argv=None):
     for s in summary:
         change = (s["p95_raw"] - s["p95_circ"]) / (s["p95_raw"] + 1e-12)
         print(
-            f"id={s['id']:5d}  raw={s['p95_raw']:.6f}  circ={s['p95_circ']:.6f}  unwrap={s['p95_unwrap']:.6f}  delta%={(change*100):+.2f}%"
+            f"id={s['id']:5d}  raw={s['p95_raw']:.6f}  circ={s['p95_circ']:.6f}  unwrap={s['p95_unwrap']:.6f}  delta%={(change * 100):+.2f}%"
         )
     print("\nFichiers écrits dans:", os.path.abspath(args.outdir))
     return 0

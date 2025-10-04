@@ -19,7 +19,10 @@ import pandas as pd
 # rendre mcgt importable
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi
+from mcgt.perturbations_scalaires import (
+    compute_cs2,
+    compute_delta_phi,
+)  # noqa: E402  # noqa: E402
 
 
 @dataclass
@@ -116,9 +119,11 @@ def load_config(ini_path: Path) -> PhaseParams:
 
     # 4) lissage (section [lissage] ou fallback)
     if "lissage" in cfg:
-        l = cfg["lissage"]
-        window = int(l.get("derivative_window", l.get("window")))
-        polyord = int(l.get("derivative_polyorder", l.get("polyorder")))
+        cfg["lissage"]
+        window = int(cfg_lissage.get("derivative_window", cfg_lissage.get("window")))
+        polyord = int(
+            cfg_lissage.get("derivative_polyorder", cfg_lissage.get("polyorder"))
+        )
     else:
         window = int(s["derivative_window"])
         polyord = int(s["derivative_polyorder"])

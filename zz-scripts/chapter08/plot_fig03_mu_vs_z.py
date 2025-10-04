@@ -43,7 +43,7 @@ ax.errorbar(
 
 # -- Courbe théorique
 label_th = (
-    r"$\mu^{\rm th}(z; q_0^*={:.3f})$".format(q0star)
+    rf"$\mu^{{\rm th}}(z; q_0^*={q0star:.3f})$"
     if q0star is not None
     else r"$\mu^{\rm th}(z)$"
 )

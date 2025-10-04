@@ -18,7 +18,12 @@ from scipy.signal import savgol_filter
 ROOT = Path(__file__).resolve().parents[2]
 UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
 sys.path.insert(0, str(UTILS))
-from cosmo import DV, Omega_lambda0, Omega_m0, distance_modulus
+from cosmo import (
+    DV,
+    Omega_lambda0,
+    Omega_m0,
+    distance_modulus,
+)  # noqa: E402  # noqa: E402
 
 
 def parse_args():

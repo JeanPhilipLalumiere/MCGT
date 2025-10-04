@@ -336,9 +336,7 @@ def main():
     # Légende compacte
     legend_w = 0.50
     bbox = (1.0 - legend_w - 0.02, 0.54, legend_w, 0.42)
-    cal_txt = (
-        f"Calage: {calib.get('model','phi0,tc')} (enabled={calib.get('enabled',False)})"
-    )
+    cal_txt = f"Calage: {calib.get('model', 'phi0,tc')} (enabled={calib.get('enabled', False)})"
     grid_txt = f"Grille: [{grid['fmin_Hz']:.0f}-{grid['fmax_Hz']:.0f}] Hz, dlog10={grid['dlog10']:.3f}"
     metrics_txt = f"|Δφ| {int(f1)}–{int(f2)} Hz (principal, k={k}): mean={mean_abs:.3f} rad ; p95={p95_abs:.3f} rad"
     handles, labels = ax.get_legend_handles_labels()

@@ -40,7 +40,6 @@ def main():
     # Niveaux de confiance (1 dof)
     sigmas = [1.0, 4.0, 9.0]
     styles = ["--", "-.", ":"]
-    colors = ["C1"] * 3
     for lvl, ls in zip(sigmas, styles, strict=False):
         ax.axhline(lvl, color="C1", linestyle=ls, lw=1.5)
         # annotation sur la ligne

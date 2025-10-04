@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -Eeuo pipefail
 grep -q 'repo: https://github.com/mvdan/sh' .pre-commit-config.yaml && {
   echo "[INFO] shfmt déjà présent dans .pre-commit-config.yaml"

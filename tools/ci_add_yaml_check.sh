@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 LOG=".ci-logs/ci_add_yaml_check-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1

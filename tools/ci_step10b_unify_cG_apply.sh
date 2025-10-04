@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 
 DRY_RUN="${DRY_RUN:-0}" # DRY_RUN=1 => plan uniquement (pas d'écriture)

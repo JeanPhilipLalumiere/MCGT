@@ -275,7 +275,7 @@ def main():
             cal = meta.get("calibration", {})
             grid = meta.get("grid_used", meta.get("grid", {}))
             cal_lines.append(
-                f"Calage: {cal.get('model', cal.get('mode','phi0,tc'))} "
+                f"Calage: {cal.get('model', cal.get('mode', 'phi0,tc'))} "
                 f"(enabled={cal.get('enabled', False)})"
             )
             if "phi0_hat_rad" in cal or "tc_hat_s" in cal:
@@ -285,7 +285,7 @@ def main():
             if grid:
                 cal_lines.append(
                     f"Grille: [{int(grid.get('fmin_Hz', fmin))}-{int(grid.get('fmax_Hz', fmax))}] Hz, "
-                    f"dlog10={grid.get('dlog10','?')}"
+                    f"dlog10={grid.get('dlog10', '?')}"
                 )
         except Exception as e:
             cal_lines.append(f"(meta illisible: {e})")

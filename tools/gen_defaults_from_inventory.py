@@ -26,7 +26,7 @@ def norm_scalar(s: str):
     if re.fullmatch(r"[0-9]+", s):
         try:
             return int(s)
-        except:
+        except Exception:
             pass
     return s
 

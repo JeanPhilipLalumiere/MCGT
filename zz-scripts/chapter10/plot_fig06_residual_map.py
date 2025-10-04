@@ -206,7 +206,7 @@ def main():
     stats_lines = [
         rf"median={med:.2f}, mean={mean:.2f}",
         rf"std={std:.2f}, p95={p95:.2f} {exp_txt} [rad]",
-        rf"fraction |metric|>{args.threshold:.0e} rad = {100*frac_over:.2f}%",
+        rf"fraction |metric|>{args.threshold:.0e} rad = {100 * frac_over:.2f}%",
     ]
     ax_hist.text(
         0.02,

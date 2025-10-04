@@ -237,8 +237,8 @@ def main():
     inset_y = 0.18
     inset_ax = inset_axes(
         ax,
-        width=f"{inset_w*100}%",
-        height=f"{inset_h*100}%",
+        width=f"{inset_w * 100}%",
+        height=f"{inset_h * 100}%",
         bbox_to_anchor=(inset_x, inset_y, inset_w, inset_h),
         bbox_transform=fig.transFigure,
         loc="lower left",

@@ -388,7 +388,7 @@ def print_report(report: dict[str, Any], mode: str, stream=sys.stdout) -> None:
         stream.write(f"- Warnings: **{report['warnings']}**\n\n")
         if report.get("rules"):
             stream.write(
-                f"- Rules version: `{report['rules'].get('schema_version','n/a')}`\n\n"
+                f"- Rules version: `{report['rules'].get('schema_version', 'n/a')}`\n\n"
             )
         if report["issues"]:
             stream.write("| Sev | Code | Entry | Path | Message |\n")
@@ -639,7 +639,6 @@ def _check_csv_milestones(
     try:
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
-            fieldnames = reader.fieldnames or []
             for row in reader:
                 ev = row.get("event", "")
                 cl = row.get("classe", "")

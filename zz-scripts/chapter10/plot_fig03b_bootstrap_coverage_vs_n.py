@@ -412,7 +412,7 @@ def main():
         axS.set_xlabel("B (outer)" if mode == "outer" else "B (inner)")
         axS.set_ylabel("Couverture (IC 95% contient la référence)")
         axS.set_title(
-            f"Sensibilité de la couverture vs {'outer' if mode=='outer' else 'inner'}  (N={sensN})"
+            f"Sensibilité de la couverture vs {'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
         )
         axS.legend(loc="lower right", frameon=True)
         figS.tight_layout()

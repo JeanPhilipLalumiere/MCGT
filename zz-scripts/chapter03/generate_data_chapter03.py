@@ -50,7 +50,10 @@ Om0, Ol0 = 0.3111, 0.6889
 
 def T_of_z(z: float) -> float:
     """Âge de l’Univers (Gyr) à redshift z dans un ΛCDM plat."""
-    integrand = lambda zp: 1 / ((1 + zp) * H0 * np.sqrt(Om0 * (1 + zp) ** 3 + Ol0))
+
+    def integrand(zp):
+        return 1 / ((1 + zp) * H0 * np.sqrt(Om0 * (1 + zp) ** 3 + Ol0))
+
     T, _ = quad(integrand, z, 1e5)
     return T
 
@@ -64,8 +67,11 @@ def z_of_T(T: float) -> float:
     thr = 1e-2
     if thr > T:
         return max(((2 / (3 * H0 * np.sqrt(Om0))) / T) ** (2 / 3) - 1, 0.0)
+
     # sinon root-finding
-    f = lambda z: T_of_z(z) - T
+    def f(z):
+        return T_of_z(z) - T
+
     zmax = 1e6
     if f(0) * f(zmax) > 0:
         zmax *= 10

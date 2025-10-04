@@ -205,8 +205,8 @@ def main():
     hist_y = args.hist_y
     hist_ax = inset_axes(
         ax,
-        width=f"{hist_w*100}%",
-        height=f"{hist_h*100}%",
+        width=f"{hist_w * 100}%",
+        height=f"{hist_h * 100}%",
         bbox_to_anchor=(hist_x, hist_y, hist_w, hist_h),
         bbox_transform=fig.transFigure,
         loc="lower left",
@@ -249,8 +249,8 @@ def main():
         inset_h = args.zoom_h
         inz = inset_axes(
             ax,
-            width=f"{inset_w*100}%",
-            height=f"{inset_h*100}%",
+            width=f"{inset_w * 100}%",
+            height=f"{inset_h * 100}%",
             bbox_to_anchor=(0.48, 0.58, inset_w, inset_h),
             bbox_transform=fig.transFigure,
             loc="lower left",

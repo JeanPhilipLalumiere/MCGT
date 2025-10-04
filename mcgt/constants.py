@@ -17,7 +17,6 @@ H0 est défini canoniquement en km·s⁻¹·Mpc⁻¹ (par défaut 67.4, Planck 2
 On expose aussi la conversion en Gyr⁻¹ pour les modules qui en ont besoin.
 """
 
-from mcgt.constants import C_LIGHT_M_S
 
 # --- unités / conversions de base ---
 METER_PER_PC = 3.085_677_581_491_367e16

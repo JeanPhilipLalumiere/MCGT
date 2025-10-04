@@ -260,9 +260,9 @@ def main():
         + ("  (alignement principal)" if args.align == "principal" else "")
     )
 
-    h, l = ax.get_legend_handles_labels()
+    handles, labels = ax.get_legend_handles_labels()
     uniq = {}
-    for hh, ll in zip(h, l, strict=False):
+    for hh, ll in zip(handles, labels, strict=False):
         uniq[ll] = hh
     ax.legend(
         uniq.values(),

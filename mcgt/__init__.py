@@ -40,7 +40,6 @@ import configparser
 import importlib
 import pkgutil
 from pathlib import Path
-from typing import List, Optional
 
 # On suppose que la racine du dépôt est le parent du package
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent

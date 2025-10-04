@@ -68,7 +68,10 @@ cont = ax.contour(
     linewidths=1.2,
 )
 ax.clabel(
-    cont, fmt={lvl: f"{int(lvl-chi2_min)}" for lvl in levels}, inline=True, fontsize=10
+    cont,
+    fmt={lvl: f"{int(lvl - chi2_min)}" for lvl in levels},
+    inline=True,
+    fontsize=10,
 )
 
 # point du minimum
@@ -76,7 +79,7 @@ ax.plot(q0_min, p2_min, "o", color="black", ms=6)
 
 # annotation du minimum
 bbox = dict(boxstyle="round,pad=0.4", fc="white", ec="gray", alpha=0.8)
-txt = f"min χ² = {chi2_min:.1f}\n" f"q₀⋆ = {q0_min:.3f}, p₂ = {p2_min:.3f}"
+txt = f"min χ² = {chi2_min:.1f}\nq₀⋆ = {q0_min:.3f}, p₂ = {p2_min:.3f}"
 ax.text(0.98, 0.95, txt, transform=ax.transAxes, va="top", ha="right", bbox=bbox)
 
 # axes et titre

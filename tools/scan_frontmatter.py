@@ -7,14 +7,12 @@ OUT.parent.mkdir(parents=True, exist_ok=True)
 
 
 def extract_fm(path: pathlib.Path):
-    fm_started = False
     fm = []
     try:
         with path.open("r", encoding="utf-8", errors="ignore") as f:
             first = f.readline()
             if not first.strip().startswith("---"):
                 return None
-            fm_started = True
             fm.append(first)
             for line in f:
                 fm.append(line)

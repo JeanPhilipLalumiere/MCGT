@@ -5,8 +5,8 @@ Constantes MCGT — point unique de vérité.
 H0 est défini canoniquement en km·s⁻¹·Mpc⁻¹ (par défaut 67.4, Planck 2018).
 On expose aussi la conversion en Gyr⁻¹ pour les modules qui en ont besoin.
 """
-
 from __future__ import annotations
+
 from mcgt.constants import C_LIGHT_M_S, G_SI
 
 # --- unités / conversions de base ---
@@ -37,7 +37,6 @@ __all__ = [
 
 
 # === Canonical physics constants (SI & handy units) ===
-from __future__ import annotations
 try:
     from math import pi
 except Exception:  # pragma: no cover
@@ -58,3 +57,12 @@ def km_s_per_Mpc_to_per_s(x: float) -> float:
         METER_PER_PC = 3.085677581491367e16
         METER_PER_MPC = METER_PER_PC * 1_000_000.0
         return x * 1000.0 / METER_PER_MPC
+
+# Canonical constant (auto-fixed)
+C_LIGHT_M_S = 299_792_458.0
+
+# Canonical constant (auto-fixed)
+C_LIGHT_KM_S = C_LIGHT_M_S / 1000.0
+
+# Canonical constant (auto-fixed)
+G_SI = 6.67430e-11

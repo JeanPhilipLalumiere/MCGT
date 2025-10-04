@@ -26,6 +26,7 @@ import pandas as pd
 from scipy.integrate import quad
 from scipy.interpolate import PchipInterpolator
 from scipy.optimize import brentq
+from mcgt.constants import H0_1_PER_GYR as H0  # unified
 
 # ----------------------------------------------------------------------
 # 1. Logging
@@ -42,7 +43,7 @@ log = logging.getLogger(__name__)
 H0_km_s_Mpc = 67.66
 Mpc_to_km   = 3.0856775814913673e19  # km dans 1 Mpc
 sec_per_Gyr = 3.1536e16             # s dans 1 Gyr
-H0 = H0_km_s_Mpc / Mpc_to_km * sec_per_Gyr   # ≈0.069 Gyr⁻¹
+# H0 unifié → import
 Om0, Ol0 = 0.3111, 0.6889
 
 def T_of_z(z: float) -> float:

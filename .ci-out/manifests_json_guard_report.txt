@@ -1,6 +1,0 @@
-INFO:  Lecture JSON & SHA…
-INFO:  publication.json est inclus dans master.json
-INFO:  Correspondance figures ↔ SHA256 OK
-INFO:  Tous les fichiers de publication.json existent sur disque
-INFO:  Aucun doublon dans publication.json
-INFO:  Canonicité OK (figures)

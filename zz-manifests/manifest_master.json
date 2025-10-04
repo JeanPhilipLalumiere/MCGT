@@ -33,7 +33,7 @@
       "size_bytes": 292,
       "sha256": "d7173363883d52535b5dbafda630d9d25e3652d4f743f6d48a744af8a7bc2420",
       "mtime_iso": "2025-09-12T22:19:24Z",
-      "git_hash": "d7b0f3e5226268fff15bb90bdf8c832e1301bb49"
+      "git_hash": "5e6e641bfc241be961afdd50a94dfb31dc87649e"
     },
     {
       "path": "zz-configuration/mcgt-global-config.ini",
@@ -41,7 +41,7 @@
       "size_bytes": 5110,
       "sha256": "33b44443b69025f563e7a487f78ef154acd8fcf8d98632062f9daf87407dab85",
       "mtime_iso": "2025-09-12T22:19:24Z",
-      "git_hash": "df6a514cb24dd97291fef73d307dd04b0c1ac865"
+      "git_hash": "31076fc9b1aa3cec2c1c0ba4ac258d9c84514515"
     },
     {
       "path": "zz-configuration/mcgt-global-config.ini.template",
@@ -49,7 +49,7 @@
       "size_bytes": 2025,
       "sha256": "3ab2e76cdd464c8528a80dc50c22a59c79efb8fe37909d0e14483169574b9f88",
       "mtime_iso": "2025-09-12T22:19:24Z",
-      "git_hash": "76a74d4492c225f9bbd0b9d46aae3d97742d8058"
+      "git_hash": "92e6636148b5157820b09b105445cf99da06fe9c"
     },
     {
       "path": "zz-configuration/meta_template.json",
@@ -81,7 +81,7 @@
       "size_bytes": 5329,
       "sha256": "7fdf0ad7c1b700a3ab0c9a68422d35cd8b73511e71e9b3bbf6cbd1121926aafa",
       "mtime_iso": "2025-09-12T22:19:23Z",
-      "git_hash": "3ed93004a2f123fa47c652fd506dc2fa9cba3311"
+      "git_hash": "4fb52b3a960cc12656803b183f459e774bd027a1"
     },
     {
       "path": "zz-data/chapter01/01_P_derivative_initial.csv",
@@ -1542,10 +1542,10 @@
     {
       "path": ".pre-commit-config.yaml",
       "role": "config",
-      "size_bytes": 744,
-      "sha256": "a22882c583993ee6758eb2d4aa8475540209ccee24c0a2943fd11c57e2e1dde1",
-      "mtime_iso": "2025-10-04T19:09:46Z",
-      "git_hash": "54ba62141664b0eb282af039e558cd824e7e07cb"
+      "size_bytes": 975,
+      "sha256": "f362e296a55bd323e32de841f7f144a316a8f74b8bcd22eec5455a4e38630004",
+      "mtime_iso": "2025-10-04T20:35:01Z",
+      "git_hash": "c5bf173c520d8badb5221cf54fe644e083507a4b"
     },
     {
       "path": "01-introduction-applications/CHAPTER01_GUIDE.txt",
@@ -1633,7 +1633,7 @@
       "size_bytes": 1097,
       "sha256": "d777f7437ae2e8aec43ad4c15762847df46eb2e8576b5b79f1e1add294fef1e5",
       "mtime_iso": "2025-09-12T22:19:23Z",
-      "git_hash": "4f01300361b6481d6df0b42e35fea7fb6bf18847"
+      "git_hash": "e44ba03425e1fa348201afd536c3c3d6a6b3f445"
     },
     {
       "path": "Makefile",
@@ -1758,10 +1758,10 @@
     {
       "path": "pyproject.toml",
       "role": "document",
-      "size_bytes": 314,
-      "sha256": "af79f04df01541126c9510541c4fad7e999c8e2e884f0d93c0964ec0a04ee43c",
-      "mtime_iso": "2025-10-01T14:47:22Z",
-      "git_hash": "bd06366cade5e49fc8460a34a9ed7db93659d303"
+      "size_bytes": 695,
+      "sha256": "27a43e1c0852f9b9026e442c584834c4eb621ef8a186fb94d104aa3b18c05974",
+      "mtime_iso": "2025-10-04T20:35:01Z",
+      "git_hash": "8671b814a1a3adf287277b5b06653e90a6e769f2"
     },
     {
       "path": "requirements-dev.lock.txt",
@@ -2792,16 +2792,16 @@
       "role": "code",
       "size_bytes": 5787,
       "sha256": "05aba3a3146a90ca54f43cd3c188316b0069b7f2ddd36dfa5aaae8c6e5d11977",
-      "mtime_iso": "2025-10-04T19:54:09Z",
-      "git_hash": "50f5ffa16696e0944f25b5d5fbae64c478c4f1df"
+      "mtime_iso": "2025-10-04T20:30:58Z",
+      "git_hash": "ad67b72576dde8b9e931350daf9db2d5dc834328"
     },
     {
       "path": "zz-scripts/chapter09/flag_jalons.py",
       "role": "code",
       "size_bytes": 6592,
       "sha256": "524c860fdba5ed6c1a6e6dc17a1ef7795dff7f03548d99032d6cc8c3db088add",
-      "mtime_iso": "2025-10-04T19:54:09Z",
-      "git_hash": "566f6214b159f2e1fabf1b06f4229a9b43c89197"
+      "mtime_iso": "2025-10-04T20:30:58Z",
+      "git_hash": "469d1f079160c5b6b9e9a23426db349b37e286eb"
     },
     {
       "path": "zz-scripts/chapter09/generate_data_chapter09.py",
@@ -3057,7 +3057,7 @@
       "size_bytes": 681,
       "sha256": "2063518f7bc4cb7e3e3839821d151421658fd420b001e2f5cccc534cac972080",
       "mtime_iso": "2025-09-12T22:19:26Z",
-      "git_hash": "094e6c64e94046ea4deafb1f84a4e5cef76c3967"
+      "git_hash": "7fe44f03ea91f252e45d15fefa60e4700d8ad574"
     },
     {
       "path": "zz-tests/test_manifest.py",
@@ -3096,8 +3096,8 @@
       "role": "code",
       "size_bytes": 920,
       "sha256": "095915d022a2614a077206073acc5ccce388b3598445851b4b44fa6bfeb56c1f",
-      "mtime_iso": "2025-10-04T19:54:09Z",
-      "git_hash": "54bef8dcead9ba3143b6b4ebd4e2632db98d49db"
+      "mtime_iso": "2025-10-04T20:30:58Z",
+      "git_hash": "1bfc023eb6378552915171c0cf11f7b38c667d87"
     },
     {
       "path": "zz-workflows/release.yml",

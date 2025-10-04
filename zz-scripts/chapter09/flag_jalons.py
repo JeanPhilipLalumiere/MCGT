@@ -144,7 +144,7 @@ def main():
     totals = int(len(df))
 
     summary = {
-        "generated_at": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+        "generated_at": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat() + "Z",
         "n_rows_checked": totals,
         "n_ok": n_ok,
         "n_warn": n_warn,

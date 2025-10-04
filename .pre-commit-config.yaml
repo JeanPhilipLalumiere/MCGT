@@ -22,3 +22,15 @@ repos:
         pass_filenames: false
         entry: >-
           bash -c "if git diff --cached --name-only | grep -E '^(0[1-9]|10)-.*/.*\.tex$' >/dev/null; then echo 'ERROR: .tex interdits dans 01..10'; exit 1; fi"
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black

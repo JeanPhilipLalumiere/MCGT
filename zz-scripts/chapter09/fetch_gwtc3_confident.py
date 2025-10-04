@@ -123,7 +123,7 @@ def build_minimal_and_rich(events_list, url_used):
             entry["phi_ref_at_fpeak"] = phi_ref
         rich_events.append(entry)
 
-    now = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat() + "Z"
     minimal = {
         "catalog": "GWTC-3-confident",
         "source_url": url_used,

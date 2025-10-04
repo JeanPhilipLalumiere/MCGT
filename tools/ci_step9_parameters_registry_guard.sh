@@ -23,7 +23,7 @@ SCHEMA_DIR = ROOT/"zz-schemas"
 REGISTRY = ROOT/".ci-out"/"parameters_registry.json"
 
 def iso_now():
-    return datetime.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
+    return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()+"Z"
 
 def norm_key(k: str) -> str:
     k = k.strip().replace(" ", "_").replace("-", "_")

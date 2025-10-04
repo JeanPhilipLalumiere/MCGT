@@ -4,7 +4,7 @@ dst="zz-manifests/manifest_report.md"
 if not os.path.exists(src):
     print("SKIP:", src, "(missing)"); raise SystemExit(0)
 m=json.load(open(src,"r",encoding="utf-8"))
-ts=datetime.datetime.utcnow().isoformat()+"Z"
+ts=datetime.datetime.now(datetime.timezone.utc).isoformat()+"Z"
 hdr=["# Manifest Report", f"- source: {src}", f"- generated: {ts}", ""]
 def sec(title, items):
     out=[f"## {title}", ""]

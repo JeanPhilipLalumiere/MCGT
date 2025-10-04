@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+
+# --- Canonical physical constants (SI) ---
+from typing import Final
+C_LIGHT_M_S: Final[float] = 299_792_458.0
+C_LIGHT_KM_S: Final[float] = C_LIGHT_M_S / 1000.0
+G_SI: Final[float] = 6.67430e-11
 """
 Constantes MCGT — point unique de vérité.
 
@@ -35,7 +41,6 @@ __all__ = [
     "H0_KM_S_PER_MPC", "H0_1_PER_GYR", "H0_to_per_Gyr",
 ]
 
-
 # === Canonical physics constants (SI & handy units) ===
 try:
     from math import pi
@@ -43,11 +48,8 @@ except Exception:  # pragma: no cover
     pi = 3.141592653589793
 
 # Speed of light
-C_LIGHT_M_S: float = C_LIGHT_M_S  # m/s (exact)
-C_LIGHT_KM_S: float = C_LIGHT_M_S  # km/s
 
 # Newtonian gravitational constant (CODATA 2018)
-G_SI: float = G_SI  # m^3 / (kg s^2)
 
 # Helper converters (rely on existing H0 utilities if defined)
 def km_s_per_Mpc_to_per_s(x: float) -> float:
@@ -59,10 +61,7 @@ def km_s_per_Mpc_to_per_s(x: float) -> float:
         return x * 1000.0 / METER_PER_MPC
 
 # Canonical constant (auto-fixed)
-C_LIGHT_M_S = 299_792_458.0
 
 # Canonical constant (auto-fixed)
-C_LIGHT_KM_S = C_LIGHT_M_S / 1000.0
 
 # Canonical constant (auto-fixed)
-G_SI = 6.67430e-11

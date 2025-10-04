@@ -16,16 +16,16 @@ Et, si --spectre :
 
 # --- Section 1 : Imports et configuration ---
 import argparse
-import subprocess
-import logging
 import json
+import logging
+import subprocess
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy.signal import savgol_filter
 from scipy.interpolate import PchipInterpolator
 from scipy.optimize import minimize
+from scipy.signal import savgol_filter
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
@@ -35,7 +35,9 @@ def dotP(T, a0, ainf, Tc, Delta, Tp):
     a_log = a0 + (ainf - a0) / (1 + np.exp(-(T - Tc) / Delta))
     a = a_log * (1 - np.exp(-((T / Tp) ** 2)))
     da_log = (
-        ((ainf - a0) / Delta) * np.exp(-(T - Tc) / Delta) / (1 + np.exp(-(T - Tc) / Delta)) ** 2
+        ((ainf - a0) / Delta)
+        * np.exp(-(T - Tc) / Delta)
+        / (1 + np.exp(-(T - Tc) / Delta)) ** 2
     )
     da = da_log * (1 - np.exp(-((T / Tp) ** 2))) + a_log * (2 * T / Tp**2) * np.exp(
         -((T / Tp) ** 2)
@@ -115,16 +117,25 @@ def main(spectre=False):
         return np.logspace(np.log10(t0), np.log10(t1), n)
 
     grid_low = make_grid(Tmin, T_split)
-    mask_low = T < T_split
+    mask_low = T_split > T
     P0 = float(P_ref[mask_low][0])
-    params_low = fit_segment(T, P_ref, mask_low, grid_low, P0, weights, prim_mask, thresh_primary)
+    params_low = fit_segment(
+        T, P_ref, mask_low, grid_low, P0, weights, prim_mask, thresh_primary
+    )
     P_split = integrate(grid_low, params_low, P0)
 
     params_high = None
     if mask_low.size and (~mask_low).any():
         grid_high = make_grid(T_split, Tmax)
         params_high = fit_segment(
-            T, P_ref, ~mask_low, grid_high, P_split[-1], weights, prim_mask, thresh_primary
+            T,
+            P_ref,
+            ~mask_low,
+            grid_high,
+            P_split[-1],
+            weights,
+            prim_mask,
+            thresh_primary,
         )
 
     # 3.3 Fusion des segments et export de P(T)
@@ -196,7 +207,11 @@ def main(spectre=False):
         "T_split_Gyr": T_split,
         "segments": {
             "low": dict(
-                zip(["alpha0", "alpha_inf", "Tc", "Delta", "Tp"], np.round(params_low, 6).tolist())
+                zip(
+                    ["alpha0", "alpha_inf", "Tc", "Delta", "Tp"],
+                    np.round(params_low, 6).tolist(),
+                    strict=False,
+                )
             )
         },
         "thresholds": {"primary": thresh_primary, "order2": thresh_order2},
@@ -206,7 +221,11 @@ def main(spectre=False):
 
     if params_high is not None:
         json_out["segments"]["high"] = dict(
-            zip(["alpha0", "alpha_inf", "Tc", "Delta", "Tp"], np.round(params_high, 6).tolist())
+            zip(
+                ["alpha0", "alpha_inf", "Tc", "Delta", "Tp"],
+                np.round(params_high, 6).tolist(),
+                strict=False,
+            )
         )
 
     with open(DATA_DIR / "02_optimal_parameters.json", "w", encoding="utf-8") as f:
@@ -241,7 +260,10 @@ def main(spectre=False):
 
         # 4.3) Tracé de la figure d’exemple
         subprocess.run(
-            ["python3", str(ROOT / "zz-scripts" / "chapter02" / "plot_fig00_spectrum.py")],
+            [
+                "python3",
+                str(ROOT / "zz-scripts" / "chapter02" / "plot_fig00_spectrum.py"),
+            ],
             check=True,
         )
         logging.info("fig_00_spectre.png générée.")

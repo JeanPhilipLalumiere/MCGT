@@ -8,24 +8,31 @@ Génère 09_phases_imrphenom.csv :
 """
 
 import argparse
+
 import numpy as np
 import pandas as pd
 from pycbc.waveform import get_fd_waveform
+
 
 def parse_args():
     p = argparse.ArgumentParser(
         description="Extraire la phase de référence IMRPhenomD (PyCBC)"
     )
-    p.add_argument("--fmin",   type=float, required=True, help="Fréquence minimale (Hz)")
-    p.add_argument("--fmax",   type=float, required=True, help="Fréquence maximale (Hz)")
-    p.add_argument("--dlogf",  type=float, required=True, help="Pas Δlog10(f)")
-    p.add_argument("--m1",     type=float, required=True, help="Masse primaire (M☉)")
-    p.add_argument("--m2",     type=float, required=True, help="Masse secondaire (M☉)")
-    p.add_argument("--phi0",   type=float, default=0.0, help="Phase initiale φ0 (rad)")
-    p.add_argument("--dist",   type=float, required=True, help="Distance (Mpc)")
-    p.add_argument("--outcsv", type=str, default="09_phases_imrphenom.csv",
-                   help="Nom du fichier CSV de sortie")
+    p.add_argument("--fmin", type=float, required=True, help="Fréquence minimale (Hz)")
+    p.add_argument("--fmax", type=float, required=True, help="Fréquence maximale (Hz)")
+    p.add_argument("--dlogf", type=float, required=True, help="Pas Δlog10(f)")
+    p.add_argument("--m1", type=float, required=True, help="Masse primaire (M☉)")
+    p.add_argument("--m2", type=float, required=True, help="Masse secondaire (M☉)")
+    p.add_argument("--phi0", type=float, default=0.0, help="Phase initiale φ0 (rad)")
+    p.add_argument("--dist", type=float, required=True, help="Distance (Mpc)")
+    p.add_argument(
+        "--outcsv",
+        type=str,
+        default="09_phases_imrphenom.csv",
+        help="Nom du fichier CSV de sortie",
+    )
     return p.parse_args()
+
 
 def main():
     args = parse_args()
@@ -38,13 +45,16 @@ def main():
     # Générer le waveform fréquentiel
     hp, hc = get_fd_waveform(
         approximant="IMRPhenomD",
-        mass1=m1, mass2=m2,
-        spin1z=0.0, spin2z=0.0,
-        delta_f=10**(np.log10(args.fmin + args.dlogf) - np.log10(args.fmin)) * args.fmin,
+        mass1=m1,
+        mass2=m2,
+        spin1z=0.0,
+        spin2z=0.0,
+        delta_f=10 ** (np.log10(args.fmin + args.dlogf) - np.log10(args.fmin))
+        * args.fmin,
         f_lower=args.fmin,
         f_final=args.fmax,
         distance=distance,
-        phi0=args.phi0
+        phi0=args.phi0,
     )
 
     # Récupérer fréquences et phases
@@ -61,6 +71,7 @@ def main():
     df = pd.DataFrame({"f_Hz": freqs, "phi_ref": phase})
     df.to_csv(args.outcsv, index=False, float_format="%.8e", encoding="utf-8")
     print(f"Écrit : {args.outcsv}")
+
 
 if __name__ == "__main__":
     main()

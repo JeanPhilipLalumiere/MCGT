@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Chapitre 10 — Pipeline complet (génération & agrégation des données)
 ===================================================================
@@ -46,16 +45,17 @@ Notes
 """
 
 from __future__ import annotations
+
 import argparse
-import sys
-import os
-import json
-import time
-import logging
 import hashlib
+import json
+import logging
+import os
 import subprocess
-from pathlib import Path
+import sys
+import time
 from datetime import datetime
+from pathlib import Path
 
 # ---------------------------------------------------------------------
 # 0) Emplacements et scripts appelés
@@ -106,7 +106,7 @@ def save_json(obj, path: Path):
 
 
 def load_json(path: Path):
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -277,7 +277,9 @@ def etape_4_jalons(args, log: logging.Logger, best_json: Path):
     return out
 
 
-def etape_5_agregat(args, log: logging.Logger, jalons_csv: Path | None, results_csv: Path):
+def etape_5_agregat(
+    args, log: logging.Logger, jalons_csv: Path | None, results_csv: Path
+):
     if args.skip_aggregate:
         log.info("5) Agrégation & score — SKIP demandé")
         return (
@@ -308,7 +310,9 @@ def etape_5_agregat(args, log: logging.Logger, jalons_csv: Path | None, results_
     run_cmd(cmd, log)
     out_agg = Path(args.results_agg_csv or DEFAULTS["results_agg_csv"])
     best = Path(args.best_json or DEFAULTS["best_json"])
-    log.info("   ✓ Résultats agrégés : %s | Top-K final : %s", bref(out_agg), bref(best))
+    log.info(
+        "   ✓ Résultats agrégés : %s | Top-K final : %s", bref(out_agg), bref(best)
+    )
     return (out_agg, best)
 
 
@@ -338,7 +342,9 @@ def _calcul_boite_topk(topk: list[dict], shrink: float) -> dict:
     return out
 
 
-def _ecrire_config_raffine(cfg_base: Path, cfg_out: Path, boite: dict, log: logging.Logger):
+def _ecrire_config_raffine(
+    cfg_base: Path, cfg_out: Path, boite: dict, log: logging.Logger
+):
     base = load_json(cfg_base)
     # Adapter les bornes uniquement sur les 4 paramètres libres
     for key in ["m1", "m2", "q0star", "alpha"]:
@@ -366,7 +372,11 @@ def _assurer_ids_uniques(samples_path: Path, id_offset: int, log: logging.Logger
 
 
 def etape_6_raffinement(
-    args, log: logging.Logger, best_json_final: Path, samples_global: Path, results_global: Path
+    args,
+    log: logging.Logger,
+    best_json_final: Path,
+    samples_global: Path,
+    results_global: Path,
 ):
     if not args.refine:
         log.info("6) Raffinement global — SKIP (désactivé)")
@@ -381,7 +391,9 @@ def etape_6_raffinement(
     # 6.1 Boîte englobante restreinte
     boite = _calcul_boite_topk(topk, args.refine_shrink)
     cfg_refine = DDIR / "10_mc_config.refine.json"
-    _ecrire_config_raffine(Path(args.config or DEFAULTS["config"]), cfg_refine, boite, log)
+    _ecrire_config_raffine(
+        Path(args.config or DEFAULTS["config"]), cfg_refine, boite, log
+    )
 
     # 6.2 Génération des échantillons (raffiné)
     samples_ref = DDIR / "10_mc_samples.refine.csv"
@@ -450,9 +462,11 @@ def etape_6_raffinement(
     return merged
 
 
-def etape_7_resume(args, log: logging.Logger, results_final_csv: Path, best_json_final: Path):
-    import pandas as pd
+def etape_7_resume(
+    args, log: logging.Logger, results_final_csv: Path, best_json_final: Path
+):
     import numpy as np
+    import pandas as pd
 
     log.info("7) Résumé & manifeste pipeline")
     df = pd.read_csv(results_final_csv)
@@ -464,9 +478,11 @@ def etape_7_resume(args, log: logging.Logger, results_final_csv: Path, best_json
         "generated_at": datetime.now().astimezone().isoformat(),
         "inputs": {
             "ref_grid": bref(Path(args.ref_grid or DEFAULTS["ref_grid"])),
-            "jalons": bref(Path(args.jalons or DEFAULTS["jalons_ref"]))
-            if not args.skip_jalons
-            else None,
+            "jalons": (
+                bref(Path(args.jalons or DEFAULTS["jalons_ref"]))
+                if not args.skip_jalons
+                else None
+            ),
             "config": bref(Path(args.config or DEFAULTS["config"])),
         },
         "results": {
@@ -504,8 +520,12 @@ def build_parser():
     p.add_argument("--summary", default=str(DEFAULTS["summary"]))
 
     # Contrôles généraux
-    p.add_argument("--log-level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"])
-    p.add_argument("--overwrite", action="store_true", help="autoriser l'écrasement des sorties")
+    p.add_argument(
+        "--log-level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"]
+    )
+    p.add_argument(
+        "--overwrite", action="store_true", help="autoriser l'écrasement des sorties"
+    )
     p.add_argument("--skip-samples", action="store_true")
     p.add_argument("--skip-metrics", action="store_true")
     p.add_argument("--skip-jalons", action="store_true")
@@ -516,7 +536,10 @@ def build_parser():
     p.add_argument("--scramble", default=True, action=argparse.BooleanOptionalAction)
     p.add_argument("--seed", type=int, default=12345)
     p.add_argument(
-        "--sobol-offset", type=int, default=None, help="reprise/append de la séquence sobol"
+        "--sobol-offset",
+        type=int,
+        default=None,
+        help="reprise/append de la séquence sobol",
     )
 
     # Paramètres métriques / agrégation
@@ -527,7 +550,9 @@ def build_parser():
 
     # Raffinement global (option)
     p.add_argument(
-        "--refine", action="store_true", help="activer un second lot raffiné (global bbox du top-K)"
+        "--refine",
+        action="store_true",
+        help="activer un second lot raffiné (global bbox du top-K)",
     )
     p.add_argument("--refine-n", type=int, default=10000)
     p.add_argument(
@@ -546,7 +571,8 @@ def build_parser():
 def main(argv=None):
     args = build_parser().parse_args(argv)
     logging.basicConfig(
-        level=getattr(logging, args.log_level), format="%(asctime)s [%(levelname)s] %(message)s"
+        level=getattr(logging, args.log_level),
+        format="%(asctime)s [%(levelname)s] %(message)s",
     )
     log = logging.getLogger("mcgt.pipeline10")
 
@@ -565,13 +591,19 @@ def main(argv=None):
         jalons_csv = etape_4_jalons(args, log, best_json)
 
         # 5) Agrégation (global)
-        results_agg_csv, best_json_final = etape_5_agregat(args, log, jalons_csv, results_csv)
+        results_agg_csv, best_json_final = etape_5_agregat(
+            args, log, jalons_csv, results_csv
+        )
 
         # 6) Raffinement (option) puis re-agrégation sur la fusion
-        merged_csv = etape_6_raffinement(args, log, best_json_final, samples_csv, results_csv)
+        merged_csv = etape_6_raffinement(
+            args, log, best_json_final, samples_csv, results_csv
+        )
         if merged_csv is not None:
             # On relance une agrégation sur la fusion (avec les mêmes jalons)
-            results_agg_csv, best_json_final = etape_5_agregat(args, log, jalons_csv, merged_csv)
+            results_agg_csv, best_json_final = etape_5_agregat(
+                args, log, jalons_csv, merged_csv
+            )
 
         # 7) Résumé
         etape_7_resume(args, log, results_agg_csv, best_json_final)

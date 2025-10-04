@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 diag_consistency.py — Audit de manifeste + cohérence transverse MCGT (règles intégrées).
 
@@ -41,15 +40,16 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
+from dataclasses import asdict, dataclass
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-UTC = timezone.utc
+UTC = UTC
 
 
 # ------------------------- Utilitaires temps / hash / git -------------------------
+
 
 def utc_now_iso() -> str:
     """Horodatage ISO-8601 en UTC, sans microsecondes."""
@@ -58,7 +58,12 @@ def utc_now_iso() -> str:
 
 def iso_from_mtime(ts: float) -> str:
     """Convertit un mtime POSIX en ISO-8601 UTC, sans microsecondes."""
-    return datetime.fromtimestamp(ts, UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        datetime.fromtimestamp(ts, UTC)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 def sha256_of(path: Path) -> str:
@@ -70,12 +75,15 @@ def sha256_of(path: Path) -> str:
     return h.hexdigest()
 
 
-def git_hash_of(path: Path) -> Optional[str]:
+def git_hash_of(path: Path) -> str | None:
     """Retourne le hash git-blob si git est disponible (sinon None)."""
     try:
         res = subprocess.run(
             ["git", "hash-object", str(path)],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
         )
         if res.returncode == 0:
             return res.stdout.strip()
@@ -90,6 +98,7 @@ def ensure_relative(p: Path) -> bool:
 
 
 # ------------------------- Structures de rapport -------------------------
+
 
 @dataclass
 class Issue:
@@ -110,19 +119,20 @@ class EntryCheck:
     mtime_ok: bool
     git_ok: bool
     rel_ok: bool
-    issues: List[Issue]
+    issues: list[Issue]
 
 
 # ------------------------- Lecture / gestion des règles -------------------------
 
-def load_rules(path: Optional[Path]) -> Dict[str, Any]:
+
+def load_rules(path: Path | None) -> dict[str, Any]:
     if not path:
         return {}
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def normalize_path_aliases(rel_path: str, rules: Dict[str, Any]) -> str:
+def normalize_path_aliases(rel_path: str, rules: dict[str, Any]) -> str:
     """
     Applique les alias de chemins définis dans rules['path_aliases'].
     Remplace d’abord les préfixes les plus longs pour éviter les collisions partielles.
@@ -134,7 +144,7 @@ def normalize_path_aliases(rel_path: str, rules: Dict[str, Any]) -> str:
     norm = rel_path
     for src, dst in items:
         if norm.startswith(src):
-            norm = dst + norm[len(src):]
+            norm = dst + norm[len(src) :]
     return norm
 
 
@@ -158,7 +168,7 @@ def within_tolerance(value: float, target: float, tol: Any) -> bool:
     return abs_ok and rel_ok
 
 
-def try_get(d: Dict[str, Any], keys: List[str], default=None):
+def try_get(d: dict[str, Any], keys: list[str], default=None):
     """Essaye plusieurs chemins 'a.b.c' pour récupérer une valeur d’un dict JSON."""
     for k in keys:
         cur = d
@@ -176,33 +186,42 @@ def try_get(d: Dict[str, Any], keys: List[str], default=None):
 
 # ------------------------- Vérification d'une entrée du manifeste -------------------------
 
+
 def _compare_field(stored: Any, computed: Any) -> bool:
     return stored == computed
 
 
-def compute_info(repo_root: Path, rel_path: str) -> Tuple[Optional[Dict[str, Any]], Optional[Issue]]:
+def compute_info(
+    repo_root: Path, rel_path: str
+) -> tuple[dict[str, Any] | None, Issue | None]:
     p = Path(rel_path)
     if p.is_absolute():
-        return None, Issue("ERROR", "ABSOLUTE_PATH", f"Chemin absolu interdit: {p}", -1, rel_path)
+        return None, Issue(
+            "ERROR", "ABSOLUTE_PATH", f"Chemin absolu interdit: {p}", -1, rel_path
+        )
     full = (repo_root / p).resolve()
     if not full.exists():
-        return None, Issue("ERROR", "FILE_MISSING", f"Fichier introuvable: {rel_path}", -1, rel_path)
+        return None, Issue(
+            "ERROR", "FILE_MISSING", f"Fichier introuvable: {rel_path}", -1, rel_path
+        )
     st = full.stat()
     info = {
         "size_bytes": st.st_size,
         "sha256": sha256_of(full),
         "mtime_iso": iso_from_mtime(st.st_mtime),
-        "git_hash": git_hash_of(full)
+        "git_hash": git_hash_of(full),
     }
     return info, None
 
 
-def check_entry(e: Dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
-    issues: List[Issue] = []
+def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
+    issues: list[Issue] = []
     rel = e.get("path", "")
     rel_ok = ensure_relative(Path(rel))
     if not rel_ok:
-        issues.append(Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel))
+        issues.append(
+            Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel)
+        )
 
     info, err = compute_info(repo_root, rel)
     if err:
@@ -214,44 +233,82 @@ def check_entry(e: Dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
     if e.get("size_bytes") is None:
         issues.append(Issue("WARN", "SIZE_MISSING", "size_bytes manquant", idx, rel))
     elif not size_ok:
-        issues.append(Issue("ERROR", "SIZE_MISMATCH",
-                            f"size_bytes {e.get('size_bytes')} != {info['size_bytes']}", idx, rel))
+        issues.append(
+            Issue(
+                "ERROR",
+                "SIZE_MISMATCH",
+                f"size_bytes {e.get('size_bytes')} != {info['size_bytes']}",
+                idx,
+                rel,
+            )
+        )
 
     sha_ok = _compare_field(e.get("sha256"), info["sha256"])
     if e.get("sha256") is None:
         issues.append(Issue("WARN", "SHA_MISSING", "sha256 manquant", idx, rel))
     elif not sha_ok:
-        issues.append(Issue("ERROR", "SHA_MISMATCH",
-                            f"sha256 {e.get('sha256')} != {info['sha256']}", idx, rel))
+        issues.append(
+            Issue(
+                "ERROR",
+                "SHA_MISMATCH",
+                f"sha256 {e.get('sha256')} != {info['sha256']}",
+                idx,
+                rel,
+            )
+        )
 
     mt_ok = _compare_field(e.get("mtime_iso"), info["mtime_iso"])
     if e.get("mtime_iso") is None:
         issues.append(Issue("WARN", "MTIME_MISSING", "mtime_iso manquant", idx, rel))
     elif not mt_ok:
-        issues.append(Issue("WARN", "MTIME_DIFFERS",
-                            f"mtime_iso diffère (manifest={e.get('mtime_iso')}, fs={info['mtime_iso']})",
-                            idx, rel))
+        issues.append(
+            Issue(
+                "WARN",
+                "MTIME_DIFFERS",
+                f"mtime_iso diffère (manifest={e.get('mtime_iso')}, fs={info['mtime_iso']})",
+                idx,
+                rel,
+            )
+        )
 
     gh_stored = e.get("git_hash")
     gh_comp = info["git_hash"]
     git_ok = (gh_stored == gh_comp) or (gh_stored is None and gh_comp is None)
     if gh_stored is None:
-        issues.append(Issue("WARN", "GIT_HASH_MISSING", "git_hash manquant (ok si hors git)", idx, rel))
+        issues.append(
+            Issue(
+                "WARN",
+                "GIT_HASH_MISSING",
+                "git_hash manquant (ok si hors git)",
+                idx,
+                rel,
+            )
+        )
     elif gh_comp is None:
-        issues.append(Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel))
+        issues.append(
+            Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel)
+        )
     elif not git_ok:
-        issues.append(Issue("WARN", "GIT_HASH_DIFFERS",
-                            f"git_hash diffère (manifest={gh_stored}, git={gh_comp})", idx, rel))
+        issues.append(
+            Issue(
+                "WARN",
+                "GIT_HASH_DIFFERS",
+                f"git_hash diffère (manifest={gh_stored}, git={gh_comp})",
+                idx,
+                rel,
+            )
+        )
 
     return EntryCheck(idx, rel, exists, size_ok, sha_ok, mt_ok, git_ok, rel_ok, issues)
 
 
 # ------------------------- I/O manifeste -------------------------
 
-def _migrate_files_to_entries(obj: Dict[str, Any]) -> Dict[str, Any]:
+
+def _migrate_files_to_entries(obj: dict[str, Any]) -> dict[str, Any]:
     """Migration legacy: convertit 'files' → 'entries' si nécessaire."""
     if isinstance(obj, dict) and "entries" not in obj and "files" in obj:
-        ent: List[Dict[str, Any]] = []
+        ent: list[dict[str, Any]] = []
         for it in obj.get("files", []):
             if isinstance(it, dict):
                 ent.append(it)
@@ -262,19 +319,21 @@ def _migrate_files_to_entries(obj: Dict[str, Any]) -> Dict[str, Any]:
     return obj
 
 
-def load_manifest(path: Path) -> Dict[str, Any]:
+def load_manifest(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         return _migrate_files_to_entries(json.load(f))
 
 
-def write_manifest_atomic(path: Path, obj: Dict[str, Any]) -> None:
+def write_manifest_atomic(path: Path, obj: dict[str, Any]) -> None:
     fd, tmppath = tempfile.mkstemp(prefix=path.name + ".", dir=str(path.parent))
     tmp = Path(tmppath)
     try:
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(obj, f, indent=2, ensure_ascii=False)
             f.write("\n")
-        bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
+        bak = path.with_suffix(
+            path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
+        )
         if path.exists():
             shutil.copy2(path, bak)
         shutil.move(str(tmp), str(path))
@@ -289,7 +348,10 @@ def write_manifest_atomic(path: Path, obj: Dict[str, Any]) -> None:
 
 # ------------------------- Rapport (agrégé) -------------------------
 
-def build_report(results: List[EntryCheck], content_issues: List[Issue], rules_meta: Dict[str, Any]) -> Dict[str, Any]:
+
+def build_report(
+    results: list[EntryCheck], content_issues: list[Issue], rules_meta: dict[str, Any]
+) -> dict[str, Any]:
     errors, warnings = 0, 0
     issues = []
     for r in results:
@@ -315,37 +377,49 @@ def build_report(results: List[EntryCheck], content_issues: List[Issue], rules_m
     return rep
 
 
-def print_report(report: Dict[str, Any], mode: str, stream=sys.stdout) -> None:
+def print_report(report: dict[str, Any], mode: str, stream=sys.stdout) -> None:
     if mode == "json":
         json.dump(report, stream, indent=2, ensure_ascii=False)
         stream.write("\n")
         return
     if mode == "md":
-        stream.write(f"# Consistency report\n\n")
+        stream.write("# Consistency report\n\n")
         stream.write(f"- Errors: **{report['errors']}**\n")
         stream.write(f"- Warnings: **{report['warnings']}**\n\n")
         if report.get("rules"):
-            stream.write(f"- Rules version: `{report['rules'].get('schema_version','n/a')}`\n\n")
+            stream.write(
+                f"- Rules version: `{report['rules'].get('schema_version','n/a')}`\n\n"
+            )
         if report["issues"]:
             stream.write("| Sev | Code | Entry | Path | Message |\n")
             stream.write("|-----|------|-------|------|---------|\n")
             for it in report["issues"]:
-                stream.write(f"| {it['severity']} | {it['code']} | {it['entry_index']} | `{it['path']}` | {it['message']} |\n")
+                stream.write(
+                    f"| {it['severity']} | {it['code']} | {it['entry_index']} | `{it['path']}` | {it['message']} |\n"
+                )
         else:
             stream.write("No problems detected.\n")
         return
     # texte
     stream.write(f"Errors: {report['errors']}  |  Warnings: {report['warnings']}\n")
     for it in report["issues"]:
-        stream.write(f"- [{it['severity']}] {it['code']} (#{it['entry_index']}:{it['path']}): {it['message']}\n")
+        stream.write(
+            f"- [{it['severity']}] {it['code']} (#{it['entry_index']}:{it['path']}): {it['message']}\n"
+        )
     if not report["issues"]:
         stream.write("OK: no problems detected.\n")
 
 
 # ------------------------- Corrections manifeste -------------------------
 
-def apply_fixes(manifest: Dict[str, Any], results: List[EntryCheck], repo_root: Path,
-                normalize_paths: bool, strip_internal: bool) -> int:
+
+def apply_fixes(
+    manifest: dict[str, Any],
+    results: list[EntryCheck],
+    repo_root: Path,
+    normalize_paths: bool,
+    strip_internal: bool,
+) -> int:
     updated = 0
     for r in results:
         if not r.exists:
@@ -378,14 +452,19 @@ def apply_fixes(manifest: Dict[str, Any], results: List[EntryCheck], repo_root: 
     # Top-level
     manifest["generated_at"] = utc_now_iso()
     manifest["total_entries"] = len(manifest.get("entries", []))
-    manifest["total_size_bytes"] = int(sum((e.get("size_bytes") or 0) for e in manifest.get("entries", [])))
+    manifest["total_size_bytes"] = int(
+        sum((e.get("size_bytes") or 0) for e in manifest.get("entries", []))
+    )
     manifest["entries_updated"] = updated
     return updated
 
 
 # ------------------------- Corrections alias de chemin -------------------------
 
-def apply_aliases_to_manifest_paths(manifest: Dict[str, Any], repo_root: Path, rules: Dict[str, Any]) -> int:
+
+def apply_aliases_to_manifest_paths(
+    manifest: dict[str, Any], repo_root: Path, rules: dict[str, Any]
+) -> int:
     """Remplace e['path'] via les alias, si le fichier existe au chemin normalisé."""
     updated = 0
     for idx, e in enumerate(manifest.get("entries", [])):
@@ -401,11 +480,12 @@ def apply_aliases_to_manifest_paths(manifest: Dict[str, Any], repo_root: Path, r
 
 # ------------------------- Contrôles de contenu (transverses) -------------------------
 
+
 def _content_issue(sev: str, code: str, msg: str, idx: int, path: str) -> Issue:
     return Issue(sev, code, msg, idx, path)
 
 
-def _read_json(path: Path) -> Optional[Dict[str, Any]]:
+def _read_json(path: Path) -> dict[str, Any] | None:
     try:
         with path.open("r", encoding="utf-8") as f:
             return json.load(f)
@@ -413,8 +493,10 @@ def _read_json(path: Path) -> Optional[Dict[str, Any]]:
         return None
 
 
-def _check_canonical_constants(json_obj: Dict[str, Any], rules: Dict[str, Any], idx: int, rel: str) -> List[Issue]:
-    issues: List[Issue] = []
+def _check_canonical_constants(
+    json_obj: dict[str, Any], rules: dict[str, Any], idx: int, rel: str
+) -> list[Issue]:
+    issues: list[Issue] = []
     canon = rules.get("canonical_constants", {})
     toler = rules.get("tolerances", {})
     # H0
@@ -422,82 +504,138 @@ def _check_canonical_constants(json_obj: Dict[str, Any], rules: Dict[str, Any], 
     if H0 is not None and "H0" in canon:
         tol = toler.get("H0", {"abs": 0.5})
         if not within_tolerance(float(H0), float(canon["H0"]), tol):
-            issues.append(_content_issue("WARN", "CONST_MISMATCH",
-                                         f"H0={H0} deviates from canonical {canon['H0']} (tol={tol})", idx, rel))
+            issues.append(
+                _content_issue(
+                    "WARN",
+                    "CONST_MISMATCH",
+                    f"H0={H0} deviates from canonical {canon['H0']} (tol={tol})",
+                    idx,
+                    rel,
+                )
+            )
     # A_s0 / As0
     As = try_get(json_obj, ["A_s0", "As0", "primordial.A_s0"])
     if As is not None and "A_s0" in canon:
         tol = toler.get("A_s0", {"rel": 0.05})
         if not within_tolerance(float(As), float(canon["A_s0"]), tol):
-            issues.append(_content_issue("WARN", "CONST_MISMATCH",
-                                         f"A_s0={As} deviates from canonical {canon['A_s0']} (tol={tol})", idx, rel))
+            issues.append(
+                _content_issue(
+                    "WARN",
+                    "CONST_MISMATCH",
+                    f"A_s0={As} deviates from canonical {canon['A_s0']} (tol={tol})",
+                    idx,
+                    rel,
+                )
+            )
     # n_s0 / ns0
     ns = try_get(json_obj, ["n_s0", "ns0", "primordial.ns0"])
     if ns is not None and "ns0" in canon:
         tol = toler.get("ns0", {"abs": 0.01})
         if not within_tolerance(float(ns), float(canon["ns0"]), tol):
-            issues.append(_content_issue("WARN", "CONST_MISMATCH",
-                                         f"ns0={ns} deviates from canonical {canon['ns0']} (tol={tol})", idx, rel))
+            issues.append(
+                _content_issue(
+                    "WARN",
+                    "CONST_MISMATCH",
+                    f"ns0={ns} deviates from canonical {canon['ns0']} (tol={tol})",
+                    idx,
+                    rel,
+                )
+            )
     return issues
 
 
-def _check_thresholds(json_obj: Dict[str, Any], rules: Dict[str, Any], idx: int, rel: str) -> List[Issue]:
-    issues: List[Issue] = []
+def _check_thresholds(
+    json_obj: dict[str, Any], rules: dict[str, Any], idx: int, rel: str
+) -> list[Issue]:
+    issues: list[Issue] = []
     want = rules.get("thresholds", {})
     have = try_get(json_obj, ["thresholds"])
     if isinstance(have, dict) and want:
         for k in ("primary", "order2"):
             if k in want and k in have and float(have[k]) != float(want[k]):
-                issues.append(_content_issue("WARN", "THRESHOLD_DIFFERS",
-                                             f"thresholds.{k}={have[k]} vs canonical {want[k]}", idx, rel))
+                issues.append(
+                    _content_issue(
+                        "WARN",
+                        "THRESHOLD_DIFFERS",
+                        f"thresholds.{k}={have[k]} vs canonical {want[k]}",
+                        idx,
+                        rel,
+                    )
+                )
     return issues
 
 
-def _check_derivative(json_obj: Dict[str, Any], rules: Dict[str, Any], idx: int, rel: str) -> List[Issue]:
-    issues: List[Issue] = []
+def _check_derivative(
+    json_obj: dict[str, Any], rules: dict[str, Any], idx: int, rel: str
+) -> list[Issue]:
+    issues: list[Issue] = []
     want = rules.get("derivative", {})
     if not want:
         return issues
     w = try_get(json_obj, ["derivative_window"])
     p = try_get(json_obj, ["derivative_polyorder"])
     if w is not None and "window" in want and int(w) != int(want["window"]):
-        issues.append(_content_issue("WARN", "DERIV_WINDOW_DIFFERS",
-                                     f"derivative_window={w} vs canonical {want['window']}", idx, rel))
+        issues.append(
+            _content_issue(
+                "WARN",
+                "DERIV_WINDOW_DIFFERS",
+                f"derivative_window={w} vs canonical {want['window']}",
+                idx,
+                rel,
+            )
+        )
     if p is not None and "polyorder" in want and int(p) != int(want["polyorder"]):
-        issues.append(_content_issue("WARN", "DERIV_POLYORDER_DIFFERS",
-                                     f"derivative_polyorder={p} vs canonical {want['polyorder']}", idx, rel))
+        issues.append(
+            _content_issue(
+                "WARN",
+                "DERIV_POLYORDER_DIFFERS",
+                f"derivative_polyorder={p} vs canonical {want['polyorder']}",
+                idx,
+                rel,
+            )
+        )
     return issues
 
 
-def _check_metrics_window(json_obj: Dict[str, Any], rules: Dict[str, Any], idx: int, rel: str) -> List[Issue]:
-    issues: List[Issue] = []
+def _check_metrics_window(
+    json_obj: dict[str, Any], rules: dict[str, Any], idx: int, rel: str
+) -> list[Issue]:
+    issues: list[Issue] = []
     want = rules.get("metric_windows", {}).get("phase_20_300")
     have = try_get(json_obj, ["metrics_active.metrics_window_Hz", "metrics_window_Hz"])
     if want and isinstance(have, list) and len(have) == 2:
         wtuple = (float(have[0]), float(have[1]))
         wwant = (float(want[0]), float(want[1]))
         if wtuple != wwant:
-            issues.append(_content_issue("WARN", "METRIC_WINDOW_DIFFERS",
-                                         f"metrics_window_Hz={wtuple} vs canonical {wwant}", idx, rel))
+            issues.append(
+                _content_issue(
+                    "WARN",
+                    "METRIC_WINDOW_DIFFERS",
+                    f"metrics_window_Hz={wtuple} vs canonical {wwant}",
+                    idx,
+                    rel,
+                )
+            )
     return issues
 
 
-def _check_csv_milestones(path: Path, rules: Dict[str, Any], idx: int, rel: str,
-                          fix_content: bool) -> List[Issue]:
+def _check_csv_milestones(
+    path: Path, rules: dict[str, Any], idx: int, rel: str, fix_content: bool
+) -> list[Issue]:
     """
     Vérifie le CSV des jalons de comparaison (chapter09/09_comparison_milestones.csv).
     - classes autorisées/normalisation
     - motif d’ID d’événement
     - sigma_phase > 0 si présent
     """
-    issues: List[Issue] = []
+    issues: list[Issue] = []
     allowed = set(rules.get("classes", {}).get("allowed", ["primary", "order2"]))
-    normalize_map: Dict[str, str] = rules.get("classes", {}).get("normalize", {})
+    normalize_map: dict[str, str] = rules.get("classes", {}).get("normalize", {})
     event_pat = rules.get("events", {}).get("id_regex", r"^GW\d{6}_[0-9]{6}-v\d+$")
     evrx = re.compile(event_pat)
 
     changed = False
-    rows_out: List[Dict[str, str]] = []
+    rows_out: list[dict[str, str]] = []
     try:
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.DictReader(f)
@@ -506,13 +644,26 @@ def _check_csv_milestones(path: Path, rules: Dict[str, Any], idx: int, rel: str,
                 ev = row.get("event", "")
                 cl = row.get("classe", "")
                 if ev and not evrx.match(ev):
-                    issues.append(_content_issue("WARN", "EVENT_ID_PATTERN",
-                                                 f"event '{ev}' does not match regex {event_pat}", idx, rel))
+                    issues.append(
+                        _content_issue(
+                            "WARN",
+                            "EVENT_ID_PATTERN",
+                            f"event '{ev}' does not match regex {event_pat}",
+                            idx,
+                            rel,
+                        )
+                    )
                 if cl not in allowed:
                     norm = normalize_map.get(cl, cl)
-                    issues.append(_content_issue("WARN", "CLASS_LABEL_UNKNOWN",
-                                                 f"classe '{cl}' not in {sorted(allowed)}; normalize→'{norm}'",
-                                                 idx, rel))
+                    issues.append(
+                        _content_issue(
+                            "WARN",
+                            "CLASS_LABEL_UNKNOWN",
+                            f"classe '{cl}' not in {sorted(allowed)}; normalize→'{norm}'",
+                            idx,
+                            rel,
+                        )
+                    )
                     if fix_content and norm in allowed:
                         row["classe"] = norm
                         changed = True
@@ -520,33 +671,61 @@ def _check_csv_milestones(path: Path, rules: Dict[str, Any], idx: int, rel: str,
                 if sp is not None and sp != "":
                     try:
                         if float(sp) <= 0:
-                            issues.append(_content_issue("ERROR", "NEGATIVE_SIGMA",
-                                                         f"sigma_phase={sp} ≤ 0", idx, rel))
+                            issues.append(
+                                _content_issue(
+                                    "ERROR",
+                                    "NEGATIVE_SIGMA",
+                                    f"sigma_phase={sp} ≤ 0",
+                                    idx,
+                                    rel,
+                                )
+                            )
                     except ValueError:
-                        issues.append(_content_issue("ERROR", "NONNUMERIC_SIGMA",
-                                                     f"sigma_phase not numeric: {sp}", idx, rel))
+                        issues.append(
+                            _content_issue(
+                                "ERROR",
+                                "NONNUMERIC_SIGMA",
+                                f"sigma_phase not numeric: {sp}",
+                                idx,
+                                rel,
+                            )
+                        )
                 rows_out.append(row)
 
         if fix_content and changed and rows_out:
-            bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
+            bak = path.with_suffix(
+                path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
+            )
             shutil.copy2(path, bak)
             with path.open("w", encoding="utf-8", newline="") as fw:
                 writer = csv.DictWriter(fw, fieldnames=rows_out[0].keys())
                 writer.writeheader()
                 writer.writerows(rows_out)
     except FileNotFoundError:
-        issues.append(_content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel))
+        issues.append(
+            _content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel)
+        )
     except Exception as e:
-        issues.append(_content_issue("ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel))
+        issues.append(
+            _content_issue(
+                "ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel
+            )
+        )
 
     return issues
 
 
-def run_content_checks(manifest: Dict[str, Any], repo_root: Path, rules: Dict[str, Any],
-                       do_checks: bool, fix_content: bool, apply_aliases_hint: bool) -> List[Issue]:
+def run_content_checks(
+    manifest: dict[str, Any],
+    repo_root: Path,
+    rules: dict[str, Any],
+    do_checks: bool,
+    fix_content: bool,
+    apply_aliases_hint: bool,
+) -> list[Issue]:
     if not do_checks or not rules:
         return []
-    issues: List[Issue] = []
+    issues: list[Issue] = []
 
     # Suffixes ciblés (EN uniquement)
     json_cmb_suffix = ("chapter06/06_params_cmb.json",)
@@ -576,21 +755,33 @@ def run_content_checks(manifest: Dict[str, Any], repo_root: Path, rules: Dict[st
         alias_rel = normalize_path_aliases(rel, rules)
         if alias_rel != rel and (repo_root / alias_rel).exists():
             if not apply_aliases_hint:
-                issues.append(_content_issue("WARN", "PATH_ALIAS_CANDIDATE",
-                                             f"path '{rel}' → canonical '{alias_rel}' exists; consider --apply-aliases",
-                                             idx, rel))
+                issues.append(
+                    _content_issue(
+                        "WARN",
+                        "PATH_ALIAS_CANDIDATE",
+                        f"path '{rel}' → canonical '{alias_rel}' exists; consider --apply-aliases",
+                        idx,
+                        rel,
+                    )
+                )
 
-        full = (repo_root / rel)
+        full = repo_root / rel
         low = rel.replace("\\", "/")
 
         # JSON – constantes/seuils/dérivées/fenêtres métriques
-        if (low.endswith(json_cmb_suffix) or
-            low.endswith(json_primordial_suffix) or
-            low.endswith(metrics_phase_suffix) or
-            low.endswith(json_threshold_like)):
+        if (
+            low.endswith(json_cmb_suffix)
+            or low.endswith(json_primordial_suffix)
+            or low.endswith(metrics_phase_suffix)
+            or low.endswith(json_threshold_like)
+        ):
             jobj = _read_json(full)
             if jobj is None:
-                issues.append(_content_issue("ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel))
+                issues.append(
+                    _content_issue(
+                        "ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel
+                    )
+                )
             else:
                 issues += _check_canonical_constants(jobj, rules, idx, rel)
                 issues += _check_thresholds(jobj, rules, idx, rel)
@@ -609,6 +800,7 @@ def run_content_checks(manifest: Dict[str, Any], repo_root: Path, rules: Dict[st
 
 # ------------------------- Signature / empreintes -------------------------
 
+
 def write_sha256sum(path: Path) -> Path:
     h = sha256_of(path)
     out = path.with_suffix(path.suffix + ".sha256sum")
@@ -616,11 +808,14 @@ def write_sha256sum(path: Path) -> Path:
     return out
 
 
-def gpg_sign(path: Path) -> Optional[Path]:
+def gpg_sign(path: Path) -> Path | None:
     try:
         res = subprocess.run(
             ["gpg", "--armor", "--detach-sign", str(path)],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
         )
         if res.returncode == 0:
             sig = path.with_suffix(path.suffix + ".asc")
@@ -635,33 +830,86 @@ def gpg_sign(path: Path) -> Optional[Path]:
 
 # ------------------------- CLI -------------------------
 
-def parse_args(argv: List[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Manifest audit + transverse consistency checks for MCGT.")
-    p.add_argument("manifest", help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)")
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="Manifest audit + transverse consistency checks for MCGT."
+    )
+    p.add_argument(
+        "manifest",
+        help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)",
+    )
     p.add_argument("--repo-root", default=".", help="Racine du dépôt (défaut: .)")
-    p.add_argument("--rules", default="zz-schemas/consistency_rules.json", help="Fichier de règles de cohérence")
-    p.add_argument("--report", choices=["text", "json", "md"], default="text", help="Format du rapport")
-    p.add_argument("--fix", action="store_true", help="Applique les corrections techniques et réécrit le manifeste")
-    p.add_argument("--normalize-paths", action="store_true", help="Normalise les champs internes *_path du manifeste")
-    p.add_argument("--strip-internal", action="store_true", help="Supprime les clés internes commençant par '_'")
-    p.add_argument("--set-repo-root", action="store_true", help="Force repository_root='.' dans le manifeste")
-    p.add_argument("--fail-on", choices=["errors", "warnings", "none"], default="errors",
-                   help="Politique d'échec (code retour)")
-    p.add_argument("--sha256-out", action="store_true", help="Écrit un fichier .sha256sum du manifeste")
-    p.add_argument("--gpg-sign", action="store_true", help="Génère une signature GPG détachée (.sig)")
+    p.add_argument(
+        "--rules",
+        default="zz-schemas/consistency_rules.json",
+        help="Fichier de règles de cohérence",
+    )
+    p.add_argument(
+        "--report",
+        choices=["text", "json", "md"],
+        default="text",
+        help="Format du rapport",
+    )
+    p.add_argument(
+        "--fix",
+        action="store_true",
+        help="Applique les corrections techniques et réécrit le manifeste",
+    )
+    p.add_argument(
+        "--normalize-paths",
+        action="store_true",
+        help="Normalise les champs internes *_path du manifeste",
+    )
+    p.add_argument(
+        "--strip-internal",
+        action="store_true",
+        help="Supprime les clés internes commençant par '_'",
+    )
+    p.add_argument(
+        "--set-repo-root",
+        action="store_true",
+        help="Force repository_root='.' dans le manifeste",
+    )
+    p.add_argument(
+        "--fail-on",
+        choices=["errors", "warnings", "none"],
+        default="errors",
+        help="Politique d'échec (code retour)",
+    )
+    p.add_argument(
+        "--sha256-out",
+        action="store_true",
+        help="Écrit un fichier .sha256sum du manifeste",
+    )
+    p.add_argument(
+        "--gpg-sign",
+        action="store_true",
+        help="Génère une signature GPG détachée (.sig)",
+    )
     # Nouveaux contrôles / corrections
-    p.add_argument("--content-check", action="store_true",
-                   help="Active les contrôles de contenu via les règles de cohérence")
-    p.add_argument("--apply-aliases", action="store_true",
-                   help="Réécrit les chemins du manifeste selon les alias si la cible existe")
-    p.add_argument("--fix-content", action="store_true",
-                   help="Normalise en place les classes dans CSV jalons (backup .bak horodaté)")
+    p.add_argument(
+        "--content-check",
+        action="store_true",
+        help="Active les contrôles de contenu via les règles de cohérence",
+    )
+    p.add_argument(
+        "--apply-aliases",
+        action="store_true",
+        help="Réécrit les chemins du manifeste selon les alias si la cible existe",
+    )
+    p.add_argument(
+        "--fix-content",
+        action="store_true",
+        help="Normalise en place les classes dans CSV jalons (backup .bak horodaté)",
+    )
     return p.parse_args(argv)
 
 
 # ------------------------- main -------------------------
 
-def main(argv: List[str]) -> int:
+
+def main(argv: list[str]) -> int:
     args = parse_args(argv)
     manifest_path = Path(args.manifest).resolve()
     repo_root = Path(args.repo_root).resolve()
@@ -688,19 +936,23 @@ def main(argv: List[str]) -> int:
         updated = apply_aliases_to_manifest_paths(manifest, repo_root, rules)
         if updated:
             manifest.setdefault("notes", [])
-            manifest["notes"].append(f"apply_aliases: {updated} paths normalized at {utc_now_iso()}")
+            manifest["notes"].append(
+                f"apply_aliases: {updated} paths normalized at {utc_now_iso()}"
+            )
 
     # Per-entry technical checks
-    checks: List[EntryCheck] = []
+    checks: list[EntryCheck] = []
     for idx, e in enumerate(manifest.get("entries", [])):
         checks.append(check_entry(e, idx, repo_root))
 
     # Transverse content checks
-    content_issues: List[Issue] = run_content_checks(
-        manifest, repo_root, rules,
+    content_issues: list[Issue] = run_content_checks(
+        manifest,
+        repo_root,
+        rules,
         do_checks=(args.content_check or bool(rules)),
         fix_content=args.fix_content,
-        apply_aliases_hint=args.apply_aliases
+        apply_aliases_hint=args.apply_aliases,
     )
 
     # Build & print report
@@ -709,14 +961,22 @@ def main(argv: List[str]) -> int:
 
     # Apply technical fixes to manifest if requested
     if args.fix:
-        updated = apply_fixes(manifest, checks, repo_root,
-                              normalize_paths=args.normalize_paths,
-                              strip_internal=args.strip_internal)
+        updated = apply_fixes(
+            manifest,
+            checks,
+            repo_root,
+            normalize_paths=args.normalize_paths,
+            strip_internal=args.strip_internal,
+        )
         manifest.setdefault("manifest_tool_version", "diag_consistency.py")
-        manifest.setdefault("generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown")
+        manifest.setdefault(
+            "generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown"
+        )
         write_manifest_atomic(manifest_path, manifest)
-        print(f"\nWrote: {manifest_path}  (entries_updated={manifest.get('entries_updated')}, "
-              f"total_size_bytes={manifest.get('total_size_bytes')})")
+        print(
+            f"\nWrote: {manifest_path}  (entries_updated={manifest.get('entries_updated')}, "
+            f"total_size_bytes={manifest.get('total_size_bytes')})"
+        )
 
     # Optional outputs
     if args.sha256_out:
@@ -733,7 +993,9 @@ def main(argv: List[str]) -> int:
     code = 0
     if args.fail_on == "errors" and report["errors"] > 0:
         code = 3
-    elif args.fail_on == "warnings" and (report["errors"] > 0 or report["warnings"] > 0):
+    elif args.fail_on == "warnings" and (
+        report["errors"] > 0 or report["warnings"] > 0
+    ):
         code = 2
     else:
         code = 0

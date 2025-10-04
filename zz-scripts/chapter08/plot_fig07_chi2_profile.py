@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 zz-scripts/chapter08/plot_fig07_chi2_profile.py
 
@@ -7,15 +6,17 @@ Trace le profil Δχ² en fonction de q₀⋆ autour du minimum,
 avec annotations des niveaux 1σ, 2σ, 3σ (1 degré de liberté).
 """
 
-import pandas as pd
-import matplotlib.pyplot as plt
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
 
 def main():
     # Répertoires
-    ROOT     = Path(__file__).resolve().parents[2]
+    ROOT = Path(__file__).resolve().parents[2]
     DATA_DIR = ROOT / "zz-data" / "chapter08"
-    FIG_DIR  = ROOT / "zz-figures" / "chapter08"
+    FIG_DIR = ROOT / "zz-figures" / "chapter08"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Chargement du scan 1D χ²
@@ -34,24 +35,34 @@ def main():
     fig, ax = plt.subplots(figsize=(6.5, 4.5))
 
     # Profil Δχ²
-    ax.plot(q0, delta_chi2, color="C0", lw=2,
-            label=r"$\Delta\chi^2(q_0^\star)$")
+    ax.plot(q0, delta_chi2, color="C0", lw=2, label=r"$\Delta\chi^2(q_0^\star)$")
 
     # Niveaux de confiance (1 dof)
     sigmas = [1.0, 4.0, 9.0]
     styles = ["--", "-.", ":"]
-    colors = ["C1"]*3
-    for lvl, ls in zip(sigmas, styles):
+    colors = ["C1"] * 3
+    for lvl, ls in zip(sigmas, styles, strict=False):
         ax.axhline(lvl, color="C1", linestyle=ls, lw=1.5)
         # annotation sur la ligne
-        ax.text(q0_best + 0.02, lvl + 0.2,
-                rf"${int(lvl**0.5)}\sigma$",
-                color="C1", va="bottom")
+        ax.text(
+            q0_best + 0.02,
+            lvl + 0.2,
+            rf"${int(lvl**0.5)}\sigma$",
+            color="C1",
+            va="bottom",
+        )
 
     # Best-fit point
-    ax.plot(q0_best, 0.0, "o",
-            mfc="white", mec="C0", mew=2, ms=8,
-            label=rf"$q_0^* = {q0_best:.3f}$")
+    ax.plot(
+        q0_best,
+        0.0,
+        "o",
+        mfc="white",
+        mec="C0",
+        mew=2,
+        ms=8,
+        label=rf"$q_0^* = {q0_best:.3f}$",
+    )
 
     # Zoom autour du minimum
     dx = 0.2
@@ -72,6 +83,7 @@ def main():
     out = FIG_DIR / "fig_07_chi2_profile.png"
     fig.savefig(out, dpi=300)
     print(f"✅ {out.name} générée")
+
 
 if __name__ == "__main__":
     main()

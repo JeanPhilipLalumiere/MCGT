@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 qc_wrapped_vs_unwrapped.py
 Vérification rapide : calcul p95 des résidus φ_ref - φ_mcgt
@@ -11,12 +10,14 @@ Vérification rapide : calcul p95 des résidus φ_ref - φ_mcgt
 """
 
 from __future__ import annotations
+
 import argparse
 import json
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # import fonctions existantes
 try:
@@ -39,13 +40,15 @@ def load_ref_grid(path):
 
 
 def select_ids(best_json, results_df, k=10):
-    with open(best_json, "r", encoding="utf-8") as f:
+    with open(best_json, encoding="utf-8") as f:
         bj = json.load(f)
     top = [int(x["id"]) for x in bj.get("top_k", [])][:k]
     # median id: nearest to median p95 in results
     med_p95 = results_df["p95_20_300"].median()
     med_id = int(
-        (results_df.iloc[(results_df["p95_20_300"] - med_p95).abs().argsort()]).iloc[0]["id"]
+        (results_df.iloc[(results_df["p95_20_300"] - med_p95).abs().argsort()]).iloc[0][
+            "id"
+        ]
     )
     worst_id = int(results_df.loc[results_df["p95_20_300"].idxmax()]["id"])
     # ensure uniqueness and include top few
@@ -82,7 +85,9 @@ def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
     # sauvegarde CSV
     os.makedirs(outdir, exist_ok=True)
     csvfile = os.path.join(outdir, f"qc_resid_id{int(id_)}.csv")
-    dfout = pd.DataFrame({"f_Hz": fgrid, "raw_abs": raw, "unwrap_abs": unwrap, "circ_abs": circ})
+    dfout = pd.DataFrame(
+        {"f_Hz": fgrid, "raw_abs": raw, "unwrap_abs": unwrap, "circ_abs": circ}
+    )
     dfout.to_csv(csvfile, index=False)
     # trace
     pngfile = os.path.join(outdir, f"qc_resid_id{int(id_)}.png")
@@ -113,7 +118,9 @@ def main(argv=None):
         "--best", required=True, help="json top-K (zz-data/chapter10/10_mc_best.json)"
     )
     parser.add_argument("--samples", required=True, help="csv samples")
-    parser.add_argument("--results", required=True, help="csv results (pour median/worst)")
+    parser.add_argument(
+        "--results", required=True, help="csv results (pour median/worst)"
+    )
     parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
     parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
     parser.add_argument(

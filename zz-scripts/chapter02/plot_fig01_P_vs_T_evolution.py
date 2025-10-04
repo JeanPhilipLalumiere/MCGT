@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Fig. 01 – Évolution de P(T) – Chapitre 2 (Validation chronologique)"""
 
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from pathlib import Path
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]

@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig01_iso_p95_maps.py
 
 """
 
 from __future__ import annotations
+
 import argparse
+import sys
 import warnings
-import numpy as np
-import pandas as pd
+
 import matplotlib.pyplot as plt
 import matplotlib.tri as tri
+import numpy as np
+import pandas as pd
 from matplotlib import colors
-import sys
 
 # ---------- utilities ----------
 
@@ -84,17 +85,25 @@ def make_triangulation_and_mask(x, y):
 
 def main():
     ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument("--results", required=True, help="CSV results (must contain m1,m2 and p95).")
-    ap.add_argument("--p95-col", default=None, help="p95 column name (auto detect if omitted)")
+    ap.add_argument(
+        "--results", required=True, help="CSV results (must contain m1,m2 and p95)."
+    )
+    ap.add_argument(
+        "--p95-col", default=None, help="p95 column name (auto detect if omitted)"
+    )
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
     ap.add_argument(
-        "--out", default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png", help="output PNG file"
+        "--out",
+        default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png",
+        help="output PNG file",
     )
     ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
     ap.add_argument("--cmap", default="viridis", help="colormap")
     ap.add_argument("--dpi", type=int, default=150, help="png dpi")
-    ap.add_argument("--title", default="Carte iso de p95 (m1 vs m2)", help="figure title")
+    ap.add_argument(
+        "--title", default="Carte iso de p95 (m1 vs m2)", help="figure title"
+    )
     ap.add_argument(
         "--no-clip",
         action="store_true",
@@ -160,10 +169,14 @@ def main():
 
     # tricontourf with normalization
     cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
-    _cs = ax.tricontour(triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5)
+    _cs = ax.tricontour(
+        triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5
+    )
 
     # scatter overlay (points) - smaller, semi-transparent
-    ax.scatter(x, y, c="k", s=3, alpha=0.5, edgecolors="none", label="échantillons", zorder=5)
+    ax.scatter(
+        x, y, c="k", s=3, alpha=0.5, edgecolors="none", label="échantillons", zorder=5
+    )
 
     # colorbar (respect the norm)
     cbar = fig.colorbar(cf, ax=ax, shrink=0.8)

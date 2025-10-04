@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig04_scatter_p95_recalc_vs_orig.py
 
 """
 
 from __future__ import annotations
+
 import argparse
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
@@ -40,10 +41,14 @@ def fmt_sci_power(v: float) -> tuple[float, int]:
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results", required=True, help="CSV results (must contain orig/recalc columns)"
+        "--results",
+        required=True,
+        help="CSV results (must contain orig/recalc columns)",
     )
     p.add_argument("--orig-col", default="p95_20_300", help="Original p95 column")
-    p.add_argument("--recalc-col", default="p95_20_300_recalc", help="Recalculated p95 column")
+    p.add_argument(
+        "--recalc-col", default="p95_20_300_recalc", help="Recalculated p95 column"
+    )
     p.add_argument(
         "--out",
         default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
@@ -54,19 +59,34 @@ def main():
     p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
     p.add_argument("--cmap", default="viridis", help="colormap")
     p.add_argument(
-        "--change-eps", type=float, default=1e-6, help="threshold for 'changed' count (abs Δ > eps)"
+        "--change-eps",
+        type=float,
+        default=1e-6,
+        help="threshold for 'changed' count (abs Δ > eps)",
     )
     p.add_argument(
-        "--with-zoom", action="store_true", help="Enable inset zoom box (disabled by default)"
+        "--with-zoom",
+        action="store_true",
+        help="Enable inset zoom box (disabled by default)",
     )
     p.add_argument(
-        "--zoom-center-x", type=float, default=None, help="Zoom center (x) in data units"
+        "--zoom-center-x",
+        type=float,
+        default=None,
+        help="Zoom center (x) in data units",
     )
     p.add_argument(
-        "--zoom-center-y", type=float, default=None, help="Zoom center (y) in data units"
+        "--zoom-center-y",
+        type=float,
+        default=None,
+        help="Zoom center (y) in data units",
     )
-    p.add_argument("--zoom-w", type=float, default=0.45, help="Inset zoom width (fraction fig)")
-    p.add_argument("--zoom-h", type=float, default=0.10, help="Inset zoom height (fraction fig)")
+    p.add_argument(
+        "--zoom-w", type=float, default=0.45, help="Inset zoom width (fraction fig)"
+    )
+    p.add_argument(
+        "--zoom-h", type=float, default=0.10, help="Inset zoom height (fraction fig)"
+    )
 
     p.add_argument(
         "--hist-x",

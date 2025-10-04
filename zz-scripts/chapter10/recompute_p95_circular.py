@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 recompute_p95_circular.py
 Recalcule p95_20_300 en utilisant la distance angulaire minimale (circular diff).
@@ -14,11 +13,14 @@ Usage:
 """
 
 from __future__ import annotations
+
 import argparse
 import json
 import os
+
 import numpy as np
 import pandas as pd
+
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
 

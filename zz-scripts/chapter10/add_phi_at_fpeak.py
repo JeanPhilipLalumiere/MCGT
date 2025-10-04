@@ -15,12 +15,14 @@ python zz-scripts/chapter10/add_phi_at_fpeak.py \
 """
 
 from __future__ import annotations
+
 import argparse
+import logging
+import math
 import os
 import shutil
-import math
-import logging
 from datetime import datetime
+
 import numpy as np
 import pandas as pd
 
@@ -52,18 +54,29 @@ def nearest_index(arr, val):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--results", required=True, help="CSV results input")
-    p.add_argument("--ref-grid", required=True, help="CSV reference grid (first col frequencies)")
-    p.add_argument("--out", default=None, help="output CSV (if omitted add .with_fpeak.csv)")
     p.add_argument(
-        "--thresh", type=float, default=1e3, help="threshold to consider phi aberrant (abs)"
+        "--ref-grid", required=True, help="CSV reference grid (first col frequencies)"
     )
-    p.add_argument("--backup", action="store_true", help="write .bak of original results")
+    p.add_argument(
+        "--out", default=None, help="output CSV (if omitted add .with_fpeak.csv)"
+    )
+    p.add_argument(
+        "--thresh",
+        type=float,
+        default=1e3,
+        help="threshold to consider phi aberrant (abs)",
+    )
+    p.add_argument(
+        "--backup", action="store_true", help="write .bak of original results"
+    )
     args = p.parse_args()
 
     # prepare logging
     log_path = "zz-data/chapter10/add_phi_at_fpeak_errors.log"
     logging.basicConfig(
-        filename=log_path, level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s"
+        filename=log_path,
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s: %(message)s",
     )
     logging.getLogger().addHandler(logging.StreamHandler())
 
@@ -86,7 +99,9 @@ def main():
     f_ref = np.asarray(f_ref)
     f_ref = f_ref[np.isfinite(f_ref)]
     if f_ref.size < 2:
-        raise SystemExit("Critical: ref-grid contains <2 valid frequencies after cleaning.")
+        raise SystemExit(
+            "Critical: ref-grid contains <2 valid frequencies after cleaning."
+        )
 
     # ensure sorted
     if not np.all(np.diff(f_ref) > 0):
@@ -145,7 +160,9 @@ def main():
                         f"phi_ref length {phi_ref_full.size} != f_ref length {f_ref.size} for id={idx}"
                     )
             except Exception as e:
-                logging.warning(f"compute_phi_ref error for id={idx} (m1={m1},m2={m2}): {e}")
+                logging.warning(
+                    f"compute_phi_ref error for id={idx} (m1={m1},m2={m2}): {e}"
+                )
                 raise
 
             # choose f_peak: prefer existing 'f_peak' or 'fpeak' column if present and finite
@@ -159,7 +176,12 @@ def main():
             if f_peak is None:
                 # fallback: choose a frequency in the band [20,300] if available, else median of f_ref
                 f_min, f_max = np.min(f_ref), np.max(f_ref)
-                if (20 >= f_min) and (20 <= f_max) and (300 >= f_min) and (300 <= f_max):
+                if (
+                    (f_min <= 20)
+                    and (f_max >= 20)
+                    and (f_min <= 300)
+                    and (f_max >= 300)
+                ):
                     f_peak = 100.0  # generic fallback inside band; we could refine if you have a better rule
                 else:
                     f_peak = float(np.median(f_ref))

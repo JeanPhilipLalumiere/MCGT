@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2"""
 
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
-from pathlib import Path
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,7 +24,9 @@ order2 = cls != "primaire"
 
 # Plot
 plt.figure(dpi=300)
-plt.scatter(T[primary], eps[primary], marker="o", label="Jalons primaires", color="black")
+plt.scatter(
+    T[primary], eps[primary], marker="o", label="Jalons primaires", color="black"
+)
 plt.scatter(T[order2], eps[order2], marker="s", label="Jalons ordre 2", color="grey")
 plt.xscale("log")
 plt.yscale("symlog", linthresh=1e-3)

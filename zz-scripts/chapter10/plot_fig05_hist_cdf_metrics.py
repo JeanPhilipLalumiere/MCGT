@@ -7,12 +7,14 @@ Figure 05 : Histogramme + CDF des p95 recalculés en métrique circulaire.
 """
 
 from __future__ import annotations
+
 import argparse
 import textwrap
+
+import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
@@ -38,23 +40,40 @@ def detect_p95_column(df: pd.DataFrame) -> str:
 # ---------- main ----------
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--results", required=True, help="CSV avec p95 circulaire recalculé")
     ap.add_argument(
-        "--out", default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png", help="PNG de sortie"
+        "--results", required=True, help="CSV avec p95 circulaire recalculé"
     )
     ap.add_argument(
-        "--ref-p95", type=float, default=0.7104087123286049, help="p95 de référence [rad]"
+        "--out",
+        default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+        help="PNG de sortie",
+    )
+    ap.add_argument(
+        "--ref-p95",
+        type=float,
+        default=0.7104087123286049,
+        help="p95 de référence [rad]",
     )
     ap.add_argument("--bins", type=int, default=50, help="Nb de bacs histogramme")
     ap.add_argument("--dpi", type=int, default=150, help="DPI du PNG")
     # position et fenêtre du zoom (centre + demi-étendues)
     ap.add_argument("--zoom-x", type=float, default=3.0, help="centre X du zoom (rad)")
-    ap.add_argument("--zoom-y", type=float, default=35.0, help="centre Y du zoom (counts)")
-    ap.add_argument("--zoom-dx", type=float, default=0.30, help="demi-largeur X du zoom (rad)")
-    ap.add_argument("--zoom-dy", type=float, default=30.0, help="demi-hauteur Y du zoom (counts)")
+    ap.add_argument(
+        "--zoom-y", type=float, default=35.0, help="centre Y du zoom (counts)"
+    )
+    ap.add_argument(
+        "--zoom-dx", type=float, default=0.30, help="demi-largeur X du zoom (rad)"
+    )
+    ap.add_argument(
+        "--zoom-dy", type=float, default=30.0, help="demi-hauteur Y du zoom (counts)"
+    )
     # taille du panneau de zoom (fraction de l’axe)
-    ap.add_argument("--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)")
-    ap.add_argument("--zoom-h", type=float, default=0.25, help="hauteur du zoom (fraction)")
+    ap.add_argument(
+        "--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)"
+    )
+    ap.add_argument(
+        "--zoom-h", type=float, default=0.25, help="hauteur du zoom (fraction)"
+    )
     args = ap.parse_args()
 
     # --- lecture & colonne p95 ---
@@ -72,7 +91,11 @@ def main():
 
     # --- stats ---
     N = p95.size
-    mean, median, std = float(np.mean(p95)), float(np.median(p95)), float(np.std(p95, ddof=0))
+    mean, median, std = (
+        float(np.mean(p95)),
+        float(np.median(p95)),
+        float(np.std(p95, ddof=0)),
+    )
     n_below = int((p95 < args.ref_p95).sum())
     frac_below = n_below / max(1, N)
 
@@ -135,13 +158,20 @@ def main():
     else:
         from matplotlib.patches import Rectangle
 
-        handles.append(Rectangle((0, 0), 1, 1, facecolor="C0", edgecolor="k", alpha=0.7))
+        handles.append(
+            Rectangle((0, 0), 1, 1, facecolor="C0", edgecolor="k", alpha=0.7)
+        )
     proxy_cdf = mlines.Line2D([], [], color=cdf_line.get_color(), lw=2)
     proxy_ref = mlines.Line2D([], [], color="crimson", linestyle="--", lw=2)
     handles += [proxy_cdf, proxy_ref]
     labels = ["Histogramme (effectifs)", "CDF empirique", "p95 réf"]
     ax.legend(
-        handles, labels, loc="upper left", bbox_to_anchor=(0.02, 0.72), frameon=True, fontsize=10
+        handles,
+        labels,
+        loc="upper left",
+        bbox_to_anchor=(0.02, 0.72),
+        frameon=True,
+        fontsize=10,
     )
 
     # Inset zoom — centré dans l’axe, fenêtre contrôlée par (zoom-x/y, zoom-dx/dy).

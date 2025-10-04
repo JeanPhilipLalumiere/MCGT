@@ -17,11 +17,11 @@ Sortie  :
     zz-figures/chapter03/03_fig_04_fr_frr_vs_r.png
 """
 
-from pathlib import Path
 import logging
+from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # ----------------------------------------------------------------------
 # Configuration logging
@@ -33,8 +33,9 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
-FIG_DIR   = Path("zz-figures") / "chapter03"
-FIG_PATH  = FIG_DIR / "fig_04_fR_fRR_vs_R.png"
+FIG_DIR = Path("zz-figures") / "chapter03"
+FIG_PATH = FIG_DIR / "fig_04_fR_fRR_vs_R.png"
+
 
 # ----------------------------------------------------------------------
 # Main
@@ -56,7 +57,7 @@ def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # 3. Création de la figure
-    fig, ax1 = plt.subplots(dpi=300, figsize=(6,4))
+    fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
     fig.suptitle(r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)", y=0.98)
 
     # axe X en log
@@ -64,9 +65,8 @@ def main() -> None:
     ax1.set_xlabel(r"$R/R_0$")
 
     # 4. Tracé de f_R sur l'axe de gauche
-    ln1, = ax1.loglog(
-        df["R_over_R0"], df["f_R"],
-        color="tab:blue", lw=1.5, label=r"$f_R(R)$"
+    (ln1,) = ax1.loglog(
+        df["R_over_R0"], df["f_R"], color="tab:blue", lw=1.5, label=r"$f_R(R)$"
     )
     ax1.set_ylabel(r"$f_R$", color="tab:blue")
     ax1.tick_params(axis="y", labelcolor="tab:blue")
@@ -75,9 +75,8 @@ def main() -> None:
     # 5. Tracé de f_RR sur l'axe de droite
     ax2 = ax1.twinx()
     ax2.set_yscale("log")
-    ln2, = ax2.loglog(
-        df["R_over_R0"], df["f_RR"],
-        color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+    (ln2,) = ax2.loglog(
+        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
     )
     ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
     ax2.tick_params(axis="y", labelcolor="tab:orange")
@@ -89,13 +88,14 @@ def main() -> None:
 
     # 7. Légende explicite
     handles = [ln1, ln2, ln3]
-    labels  = [h.get_label() for h in handles]
+    labels = [h.get_label() for h in handles]
     ax1.legend(
-        handles, labels,
+        handles,
+        labels,
         loc="upper left",
         bbox_to_anchor=(0.25, 0.50),
         framealpha=0.9,
-        edgecolor="black"
+        edgecolor="black",
     )
 
     # 8. Mise en forme finale et sauvegarde

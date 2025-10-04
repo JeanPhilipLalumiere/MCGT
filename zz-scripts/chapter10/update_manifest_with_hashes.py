@@ -1,8 +1,8 @@
 # ruff: noqa: E402
 #!/usr/bin/env python3
 import json
-import subprocess
 import pathlib
+import subprocess
 import sys
 from importlib import metadata
 
@@ -32,7 +32,11 @@ h = {}
 for k, p in files.items():
     pth = pathlib.Path(p)
     if pth.exists():
-        h[k] = {"path": str(pth.resolve()), "sha256": sha256(pth), "size": pth.stat().st_size}
+        h[k] = {
+            "path": str(pth.resolve()),
+            "sha256": sha256(pth),
+            "size": pth.stat().st_size,
+        }
     else:
         h[k] = {"path": str(pth.resolve()), "sha256": None, "size": None}
 

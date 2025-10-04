@@ -17,10 +17,12 @@ Fonctions exposées
 """
 
 from __future__ import annotations
-from mcgt.constants import G_SI
 
 from dataclasses import dataclass
+
 import numpy as np
+
+from mcgt.constants import G_SI
 
 __all__ = [
     "PhaseParams",
@@ -84,7 +86,9 @@ _CPN = {
     3: -16 * np.pi,
     4: (15293365 / 508032 + 27145 / 504 + 3085 / 72),
     5: np.pi * (38645 / 756 - 65 / 9) * (1 + 3 * np.log(np.pi)),
-    6: (11583231236531 / 4694215680 - 640 / 3 * np.pi**2 - 6848 / 21 * np.log(4 * np.pi)),
+    6: (
+        11583231236531 / 4694215680 - 640 / 3 * np.pi**2 - 6848 / 21 * np.log(4 * np.pi)
+    ),
     7: np.pi * (77096675 / 254016 + 378515 / 1512),
 }
 
@@ -134,7 +138,9 @@ def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
 # ----------------------------------------------------------------------#
 # 4. Correcteur analytique δφ (δt(f) = q0★ · f^(−α))
 # ----------------------------------------------------------------------#
-def corr_phase(freqs: np.ndarray, fmin: float, q0star: float, alpha: float) -> np.ndarray:
+def corr_phase(
+    freqs: np.ndarray, fmin: float, q0star: float, alpha: float
+) -> np.ndarray:
     """
     Correction δφ(f) induite par un décalage temporel δt(f)=q0★·f^(−α).
 
@@ -144,13 +150,17 @@ def corr_phase(freqs: np.ndarray, fmin: float, q0star: float, alpha: float) -> n
     freqs = np.asarray(freqs, dtype=float)
     if np.isclose(alpha, 1.0):
         return 2 * np.pi * q0star * np.log(freqs / fmin)
-    return (2 * np.pi * q0star / (1 - alpha)) * (freqs ** (1 - alpha) - fmin ** (1 - alpha))
+    return (2 * np.pi * q0star / (1 - alpha)) * (
+        freqs ** (1 - alpha) - fmin ** (1 - alpha)
+    )
 
 
 # ----------------------------------------------------------------------#
 # 5. Solveur global MCGT
 # ----------------------------------------------------------------------#
-def solve_mcgt(freqs: np.ndarray, p: PhaseParams, fmin: float | None = None) -> np.ndarray:
+def solve_mcgt(
+    freqs: np.ndarray, p: PhaseParams, fmin: float | None = None
+) -> np.ndarray:
     """
     Calcule la phase MCGT sur `freqs` :
 

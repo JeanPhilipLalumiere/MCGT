@@ -1,8 +1,13 @@
-import re, yaml, pathlib
+import pathlib
+import re
+
+import yaml
+
 p = pathlib.Path("config/defaults.yml")
 if not p.exists():
     raise SystemExit("config/defaults.yml absent — génère-le d'abord.")
 data = yaml.safe_load(p.read_text(encoding="utf-8"))
+
 
 def strip_outer_quotes(s: str):
     s = s.strip()
@@ -10,9 +15,10 @@ def strip_outer_quotes(s: str):
         return s[1:-1]
     return s
 
-for kind in ("yaml_key","frontmatter_key","env_var"):
+
+for kind in ("yaml_key", "frontmatter_key", "env_var"):
     bucket = data.get(kind, {}) or {}
-    for k,v in list(bucket.items()):
+    for k, v in list(bucket.items()):
         # si la valeur est une chaîne qui elle-même contient un wrapping de quotes, on retire
         if isinstance(v, str) and re.match(r"^(['\"]).*\1$", v.strip()):
             inner = strip_outer_quotes(v)

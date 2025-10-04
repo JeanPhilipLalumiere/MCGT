@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 bootstrap_topk_p95.py
 ---------------------
@@ -31,12 +30,11 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
 
 # -----------------------
 # Helpers
@@ -65,7 +63,14 @@ def detect_abscol(df: pd.DataFrame) -> str | None:
     """Tente détecter la colonne contenant les valeurs |Δφ|."""
     _candidates = [c.lower() for c in df.columns]
     mapping = {
-        "absdphi": ["absdphi", "abs_dphi", "abs_d_phi", "abs(phi_diff)", "|Δφ|", "abs(delta_phi)"],
+        "absdphi": [
+            "absdphi",
+            "abs_dphi",
+            "abs_d_phi",
+            "abs(phi_diff)",
+            "|Δφ|",
+            "abs(delta_phi)",
+        ],
         "absdeltaphi": ["absdeltaphi", "abs_delta_phi", "abs(delta_phi)"],
         "absd": ["absd"],
     }
@@ -87,7 +92,9 @@ def detect_abscol(df: pd.DataFrame) -> str | None:
     return None
 
 
-def bootstrap_p95_from_array(arr: np.ndarray, B: int, rng: np.random.Generator) -> np.ndarray:
+def bootstrap_p95_from_array(
+    arr: np.ndarray, B: int, rng: np.random.Generator
+) -> np.ndarray:
     """
     Retourne les B valeurs bootstrapées du p95 calculées à partir d'`arr`.
     - arr : 1D array des valeurs |Δφ|(f) sur la fenêtre d'intérêt
@@ -119,12 +126,19 @@ def main(argv=None):
     )
     p.add_argument("--best", required=True, help="JSON top-K (10_mc_best.json)")
     p.add_argument(
-        "--results", required=False, help="CSV results (10_mc_results.csv) — utilisé en fallback"
+        "--results",
+        required=False,
+        help="CSV results (10_mc_results.csv) — utilisé en fallback",
     )
     p.add_argument(
-        "--B", type=int, default=1000, help="Nombre de rééchantillonnages bootstrap (défaut: 1000)"
+        "--B",
+        type=int,
+        default=1000,
+        help="Nombre de rééchantillonnages bootstrap (défaut: 1000)",
     )
-    p.add_argument("--seed", type=int, default=12345, help="Seed RNG pour reproductibilité")
+    p.add_argument(
+        "--seed", type=int, default=12345, help="Seed RNG pour reproductibilité"
+    )
     p.add_argument(
         "--resid-dir",
         default="zz-data/chapter10/topk_residuals",
@@ -218,7 +232,9 @@ def main(argv=None):
         try:
             dfr = pd.read_csv(resid_file)
         except Exception as e:
-            _logger.exception("Impossible de lire %s pour id=%d : %s", resid_file, id_, e)
+            _logger.exception(
+                "Impossible de lire %s pour id=%d : %s", resid_file, id_, e
+            )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
             ent["n_points_resid"] = None
@@ -228,7 +244,9 @@ def main(argv=None):
         col = detect_abscol(dfr)
         if col is None:
             _logger.warning(
-                "Impossible de détecter colonne |Δφ| dans %s pour id=%d", resid_file, id_
+                "Impossible de détecter colonne |Δφ| dans %s pour id=%d",
+                resid_file,
+                id_,
             )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
@@ -271,7 +289,12 @@ def main(argv=None):
         ent["resid_file"] = str(resid_file)
         enriched.append(ent)
         _logger.info(
-            "id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d", id_, med, low, high, n_points
+            "id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d",
+            id_,
+            med,
+            low,
+            high,
+            n_points,
         )
 
     # écriture du JSON de sortie

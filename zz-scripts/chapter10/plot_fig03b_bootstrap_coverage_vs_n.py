@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig03b_coverage_bootstrap_vs_n.py
 
@@ -13,9 +12,9 @@ import os
 import time
 from dataclasses import dataclass
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 # ----------------------------- utilitaires ---------------------------------
@@ -97,25 +96,41 @@ def main():
         help="PNG de sortie",
     )
     p.add_argument(
-        "--outer", type=int, default=400, help="Nombre de réplicats externes (couverture)."
+        "--outer",
+        type=int,
+        default=400,
+        help="Nombre de réplicats externes (couverture).",
     )
     p.add_argument(
-        "--M", type=int, default=None, help="Alias de --outer (si précisé, remplace --outer)."
+        "--M",
+        type=int,
+        default=None,
+        help="Alias de --outer (si précisé, remplace --outer).",
     )
-    p.add_argument("--inner", type=int, default=2000, help="Nombre de réplicats internes (IC).")
-    p.add_argument("--alpha", type=float, default=0.05, help="Niveau d'erreur pour IC (ex. 0.05).")
+    p.add_argument(
+        "--inner", type=int, default=2000, help="Nombre de réplicats internes (IC)."
+    )
+    p.add_argument(
+        "--alpha", type=float, default=0.05, help="Niveau d'erreur pour IC (ex. 0.05)."
+    )
     p.add_argument("--npoints", type=int, default=10, help="Nombre de points N.")
     p.add_argument("--minN", type=int, default=100, help="Plus petit N.")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG.")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG.")
-    p.add_argument("--ymin-coverage", type=float, default=None, help="Ymin panneau couverture.")
-    p.add_argument("--ymax-coverage", type=float, default=None, help="Ymax panneau couverture.")
+    p.add_argument(
+        "--ymin-coverage", type=float, default=None, help="Ymin panneau couverture."
+    )
+    p.add_argument(
+        "--ymax-coverage", type=float, default=None, help="Ymax panneau couverture."
+    )
     p.add_argument(
         "--title-left",
         default="Couverture IC vs N (estimateur: mean)",
         help="Titre panneau gauche.",
     )
-    p.add_argument("--title-right", default="Largeur d'IC vs N", help="Titre panneau droit.")
+    p.add_argument(
+        "--title-right", default="Largeur d'IC vs N", help="Titre panneau droit."
+    )
     p.add_argument(
         "--hires2000",
         action="store_true",
@@ -172,7 +187,9 @@ def main():
     print(f"[INFO] N_list = {N_list.tolist()}")
 
     outer_for_cov = int(args.M) if args.M is not None else int(args.outer)
-    print(f"[INFO] outer={outer_for_cov}, inner={args.inner}, alpha={args.alpha}, seed={args.seed}")
+    print(
+        f"[INFO] outer={outer_for_cov}, inner={args.inner}, alpha={args.alpha}, seed={args.seed}"
+    )
 
     rng = np.random.default_rng(args.seed)
     ref_value_lin = float(np.mean(vals_all))
@@ -228,14 +245,20 @@ def main():
         capsize=3,
         label="Couverture empirique",
     )
-    ax1.axhline(1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%")
+    ax1.axhline(
+        1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%"
+    )
 
     ax1.set_xlabel("Taille d'échantillon N")
     ax1.set_ylabel("Couverture (IC 95% contient la référence)")
     ax1.set_title(args.title_left)
     if (args.ymin_coverage is not None) or (args.ymax_coverage is not None):
-        ymin = args.ymin_coverage if args.ymin_coverage is not None else ax1.get_ylim()[0]
-        ymax = args.ymax_coverage if args.ymax_coverage is not None else ax1.get_ylim()[1]
+        ymin = (
+            args.ymin_coverage if args.ymin_coverage is not None else ax1.get_ylim()[0]
+        )
+        ymax = (
+            args.ymax_coverage if args.ymax_coverage is not None else ax1.get_ylim()[1]
+        )
         ax1.set_ylim(ymin, ymax)
     ax1.legend(loc="lower right", frameon=True)
 
@@ -303,12 +326,18 @@ def main():
             "seed": int(args.seed),
             "minN": int(args.minN),
             "npoints": int(args.npoints),
-            "ymin_coverage": None if args.ymin_coverage is None else float(args.ymin_coverage),
-            "ymax_coverage": None if args.ymax_coverage is None else float(args.ymax_coverage),
+            "ymin_coverage": (
+                None if args.ymin_coverage is None else float(args.ymin_coverage)
+            ),
+            "ymax_coverage": (
+                None if args.ymax_coverage is None else float(args.ymax_coverage)
+            ),
             "angular_inset": bool(args.angular),
         },
         "ref_value_linear_rad": float(ref_value_lin),
-        "ref_value_circular_rad": None if ref_value_circ is None else float(ref_value_circ),
+        "ref_value_circular_rad": (
+            None if ref_value_circ is None else float(ref_value_circ)
+        ),
         "N_list": [int(x) for x in np.asarray(N_list).tolist()],
         "results": [
             {
@@ -342,7 +371,9 @@ def main():
                 hits = 0
                 for b in range(B):
                     samp = rng2.choice(vals_all, size=sensN, replace=True)
-                    lo, hi = bootstrap_percentile_ci(samp, args.inner, rng2, alpha=args.alpha)
+                    lo, hi = bootstrap_percentile_ci(
+                        samp, args.inner, rng2, alpha=args.alpha
+                    )
                     if (ref_value_lin >= lo) and (ref_value_lin <= hi):
                         hits += 1
                 p_hat = hits / B
@@ -375,7 +406,9 @@ def main():
             ms=6,
             label="Couverture empirique",
         )
-        axS.axhline(1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%")
+        axS.axhline(
+            1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%"
+        )
         axS.set_xlabel("B (outer)" if mode == "outer" else "B (inner)")
         axS.set_ylabel("Couverture (IC 95% contient la référence)")
         axS.set_title(

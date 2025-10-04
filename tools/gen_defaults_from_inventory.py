@@ -1,13 +1,21 @@
-import sys, csv, collections, re, pathlib, yaml
+import collections
+import csv
+import pathlib
+import re
+import sys
+
+import yaml
+
 tsv = pathlib.Path(".ci-out/params/params-inventory.tsv")
 if not tsv.exists():
     print("no inventory: run tools/scan_params.sh first", file=sys.stderr)
     sys.exit(2)
 
 # Quelles clés on canonise ? (ajoute-en ici selon tes besoins)
-YL = {"python-version"}           # on laisse 'timeout-minutes' de côté pour éviter le bruit
-FM = set()                        # ex: {"chapter", "dataset"} si tu veux
-EV = set()                        # ex: {"SEED"} si tu veux
+YL = {"python-version"}  # on laisse 'timeout-minutes' de côté pour éviter le bruit
+FM = set()  # ex: {"chapter", "dataset"} si tu veux
+EV = set()  # ex: {"SEED"} si tu veux
+
 
 def norm_scalar(s: str):
     s = (s or "").strip()
@@ -16,9 +24,12 @@ def norm_scalar(s: str):
         s = s[1:-1]
     # convertit en int si entier pur (on ne touche pas aux floats comme 3.12)
     if re.fullmatch(r"[0-9]+", s):
-        try: return int(s)
-        except: pass
+        try:
+            return int(s)
+        except:
+            pass
     return s
+
 
 freq = {"yaml_key": {}, "frontmatter_key": {}, "env_var": {}}
 with tsv.open(encoding="utf-8") as fh:
@@ -27,15 +38,23 @@ with tsv.open(encoding="utf-8") as fh:
         path = row["FILE"]
         if "/.ci-archive/" in path:
             continue
-        kind = row["KIND"]; name = row["NAME"]; val = norm_scalar(row["SAMPLE_VALUE"])
-        if kind == "yaml_key" and name not in YL: continue
-        if kind == "frontmatter_key" and name not in FM: continue
-        if kind == "env_var" and name not in EV: continue
+        kind = row["KIND"]
+        name = row["NAME"]
+        val = norm_scalar(row["SAMPLE_VALUE"])
+        if kind == "yaml_key" and name not in YL:
+            continue
+        if kind == "frontmatter_key" and name not in FM:
+            continue
+        if kind == "env_var" and name not in EV:
+            continue
         freq.setdefault(kind, {}).setdefault(name, collections.Counter())[val] += 1
 
+
 def pick_majority(counter: collections.Counter):
-    if not counter: return None
+    if not counter:
+        return None
     return counter.most_common(1)[0][0]
+
 
 defaults = {"yaml_key": {}, "frontmatter_key": {}, "env_var": {}}
 for kind, bucket in freq.items():

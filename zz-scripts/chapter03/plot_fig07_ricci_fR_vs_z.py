@@ -14,11 +14,11 @@ Sortie :
     zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png
 """
 
-from pathlib import Path
 import logging
+from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # ----------------------------------------------------------------------
 # Configuration logging
@@ -30,8 +30,9 @@ log = logging.getLogger(__name__)
 # Chemins
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_z.csv"
-FIG_DIR   = Path("zz-figures") / "chapter03"
-FIG_PATH  = FIG_DIR / "fig_07_ricci_fR_vs_z.png"
+FIG_DIR = Path("zz-figures") / "chapter03"
+FIG_PATH = FIG_DIR / "fig_07_ricci_fR_vs_z.png"
+
 
 # ----------------------------------------------------------------------
 # Main
@@ -63,14 +64,15 @@ def main() -> None:
 
     # 4. Tracer f_R sur l'axe de gauche
     ax1.scatter(
-        df["z"], df["f_R"],
-        color="tab:blue", marker="o", s=40, alpha=0.8,
-        label=r"$f_R$"
+        df["z"],
+        df["f_R"],
+        color="tab:blue",
+        marker="o",
+        s=40,
+        alpha=0.8,
+        label=r"$f_R$",
     )
-    ax1.plot(
-        df["z"], df["f_R"],
-        color="tab:blue", lw=1, alpha=0.6
-    )
+    ax1.plot(df["z"], df["f_R"], color="tab:blue", lw=1, alpha=0.6)
     ax1.set_ylabel(r"$f_R$", color="tab:blue")
     ax1.tick_params(axis="y", colors="tab:blue")
     ax1.set_yscale("log")
@@ -79,14 +81,15 @@ def main() -> None:
     # 5. Tracer f_RR sur un second axe de droite
     ax2 = ax1.twinx()
     ax2.scatter(
-        df["z"], df["f_RR"],
-        color="tab:orange", marker="s", s=40, alpha=0.8,
-        label=r"$f_{RR}$"
+        df["z"],
+        df["f_RR"],
+        color="tab:orange",
+        marker="s",
+        s=40,
+        alpha=0.8,
+        label=r"$f_{RR}$",
     )
-    ax2.plot(
-        df["z"], df["f_RR"],
-        color="tab:orange", lw=1, alpha=0.6, linestyle="--"
-    )
+    ax2.plot(df["z"], df["f_RR"], color="tab:orange", lw=1, alpha=0.6, linestyle="--")
     ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
     ax2.tick_params(axis="y", colors="tab:orange")
     ax2.set_yscale("log")

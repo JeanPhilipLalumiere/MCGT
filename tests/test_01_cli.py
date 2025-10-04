@@ -1,4 +1,7 @@
-import subprocess, sys, re
+import re
+import subprocess
+import sys
+
 
 def test_cli_version_subprocess():
     # Vérifie que l’entrypoint "python -m mcgt --version" marche
@@ -8,6 +11,7 @@ def test_cli_version_subprocess():
     out = (cp.stdout or cp.stderr).strip()
     # match "0.1.x" ou "0.1.x.dev0"
     assert re.search(r"\b\d+\.\d+\.\d+(?:\.\w+)?\b", out)
+
 
 def test_cli_help_subprocess():
     cmd = [sys.executable, "-m", "mcgt", "--help"]

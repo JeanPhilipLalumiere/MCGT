@@ -1,0 +1,16 @@
+name: meta-guard
+on:
+  push:
+  pull_request:
+jobs:
+  export-ignore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify .ci-out is not in source archive
+        run: |
+          git archive -o /tmp/test.zip HEAD
+          if unzip -l /tmp/test.zip | grep -q '\.ci-out/'; then
+            echo "::error::.ci-out leaked into archive"
+            exit 1
+          fi

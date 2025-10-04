@@ -340,7 +340,7 @@ class CSVTableValidator:
 
                 if not ok:
                     self.add_error(
-                        f"[row {rownum}] compare failed: {c.get('left','left_value')} {op} {c.get('right','right_value')} "
+                        f"[row {rownum}] compare failed: {c.get('left', 'left_value')} {op} {c.get('right', 'right_value')} "
                         f"(values: {left_val} {op} {right_val})"
                     )
 

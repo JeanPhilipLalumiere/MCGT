@@ -200,7 +200,7 @@ def main(spectre=False):
     if (~prim_mask).any():
         eps_o2 = float(np.max(np.abs(eps[~prim_mask])))
         if eps_o2 > thresh_order2:
-            logging.warning(f"Max ε_order2 = {eps_o2:.4f} ≥ {thresh_order2*100:.0f}%")
+            logging.warning(f"Max ε_order2 = {eps_o2:.4f} ≥ {thresh_order2 * 100:.0f}%")
 
     # 3.6 Export des paramètres optimaux
     json_out = {

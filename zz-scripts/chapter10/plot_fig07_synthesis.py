@@ -233,7 +233,7 @@ def plot_synthese(
         color="crimson",
         lw=1.5,
         ls="--",
-        label=f"Niveau nominal {int(nominal_level*100)}%",
+        label=f"Niveau nominal {int(nominal_level * 100)}%",
     )
 
     ax_cov.legend(

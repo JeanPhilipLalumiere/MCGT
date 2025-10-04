@@ -1,22 +1,29 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig03_convergence_p95_vs_n.py
 
 """
 
 from __future__ import annotations
+
 import argparse
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
 def detect_p95_column(df: pd.DataFrame, hint: str | None):
     if hint and hint in df.columns:
         return hint
-    for c in ["p95_20_300_recalc", "p95_20_300_circ", "p95_20_300", "p95_circ", "p95_recalc"]:
+    for c in [
+        "p95_20_300_recalc",
+        "p95_20_300_circ",
+        "p95_20_300",
+        "p95_circ",
+        "p95_recalc",
+    ]:
         if c in df.columns:
             return c
     for c in df.columns:
@@ -87,7 +94,9 @@ def compute_bootstrap_convergence(
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument("--results", required=True, help="CSV results (with p95 column)")
-    p.add_argument("--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)")
+    p.add_argument(
+        "--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)"
+    )
     p.add_argument(
         "--out",
         default="zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
@@ -98,14 +107,25 @@ def main():
     p.add_argument("--dpi", type=int, default=150, help="DPI PNG")
     p.add_argument("--npoints", type=int, default=100, help="Nb de valeurs N évaluées")
     p.add_argument(
-        "--trim", type=float, default=0.05, help="Proportion tronquée de chaque côté (trimmed mean)"
+        "--trim",
+        type=float,
+        default=0.05,
+        help="Proportion tronquée de chaque côté (trimmed mean)",
     )
-    p.add_argument("--zoom-center-n", type=int, default=None, help="Centre en N (par défaut ~M/2)")
     p.add_argument(
-        "--zoom-w", type=float, default=0.35, help="Largeur de base de l'encart (fraction figure)"
+        "--zoom-center-n", type=int, default=None, help="Centre en N (par défaut ~M/2)"
     )
     p.add_argument(
-        "--zoom-h", type=float, default=0.20, help="Hauteur de base de l'encart (fraction figure)"
+        "--zoom-w",
+        type=float,
+        default=0.35,
+        help="Largeur de base de l'encart (fraction figure)",
+    )
+    p.add_argument(
+        "--zoom-h",
+        type=float,
+        default=0.20,
+        help="Hauteur de base de l'encart (fraction figure)",
     )
     args = p.parse_args()
 
@@ -141,18 +161,39 @@ def main():
     ) = compute_bootstrap_convergence(p95, N_list, args.B, args.seed, args.trim)
 
     final_i = np.where(N_list == M)[0][0] if (N_list == M).any() else -1
-    final_mean, final_mean_ci = mean_est[final_i], (mean_low[final_i], mean_high[final_i])
-    final_median, final_median_ci = median_est[final_i], (median_low[final_i], median_high[final_i])
-    final_tmean, final_tmean_ci = tmean_est[final_i], (tmean_low[final_i], tmean_high[final_i])
+    final_mean, final_mean_ci = (
+        mean_est[final_i],
+        (mean_low[final_i], mean_high[final_i]),
+    )
+    final_median, final_median_ci = (
+        median_est[final_i],
+        (median_low[final_i], median_high[final_i]),
+    )
+    final_tmean, final_tmean_ci = (
+        tmean_est[final_i],
+        (tmean_low[final_i], tmean_high[final_i]),
+    )
 
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(14, 6))
 
     ax.fill_between(
-        N_list, mean_low, mean_high, color="tab:blue", alpha=0.18, label="IC 95% (bootstrap, mean)"
+        N_list,
+        mean_low,
+        mean_high,
+        color="tab:blue",
+        alpha=0.18,
+        label="IC 95% (bootstrap, mean)",
     )
     ax.plot(N_list, mean_est, color="tab:blue", lw=2.0, label="Estimateur (mean)")
-    ax.plot(N_list, median_est, color="tab:orange", lw=1.6, ls="--", label="Estimateur (median)")
+    ax.plot(
+        N_list,
+        median_est,
+        color="tab:orange",
+        lw=1.6,
+        ls="--",
+        label="Estimateur (median)",
+    )
     ax.plot(
         N_list,
         tmean_est,
@@ -206,11 +247,19 @@ def main():
 
     sel_idx = (N_list >= xin0) & (N_list <= xin1)
     inset_ax.fill_between(
-        N_list[sel_idx], mean_low[sel_idx], mean_high[sel_idx], color="tab:blue", alpha=0.18
+        N_list[sel_idx],
+        mean_low[sel_idx],
+        mean_high[sel_idx],
+        color="tab:blue",
+        alpha=0.18,
     )
     inset_ax.plot(N_list[sel_idx], mean_est[sel_idx], color="tab:blue", lw=1.5)
-    inset_ax.plot(N_list[sel_idx], median_est[sel_idx], color="tab:orange", lw=1.2, ls="--")
-    inset_ax.plot(N_list[sel_idx], tmean_est[sel_idx], color="tab:green", lw=1.2, ls="-.")
+    inset_ax.plot(
+        N_list[sel_idx], median_est[sel_idx], color="tab:orange", lw=1.2, ls="--"
+    )
+    inset_ax.plot(
+        N_list[sel_idx], tmean_est[sel_idx], color="tab:green", lw=1.2, ls="-."
+    )
     inset_ax.axhline(ref_mean, color="crimson", lw=1.0, ls="--")
     inset_ax.set_xlim(xin0, xin1)
     inset_ax.set_ylim(yin0, yin1)

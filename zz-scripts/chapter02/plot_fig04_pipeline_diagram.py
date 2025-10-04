@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fig. 04 – Schéma de la chaîne de calibration – Chapitre 2"""
 
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
-from pathlib import Path
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]

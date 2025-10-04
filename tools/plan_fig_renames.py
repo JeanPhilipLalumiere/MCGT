@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import re, unicodedata, sys
+import re
+import unicodedata
 from pathlib import Path
 
 ROOT = Path("zz-figures")
@@ -8,12 +9,14 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 MAP_TSV = OUT_DIR / "figures_rename_plan.tsv"
 SCRIPT_SH = OUT_DIR / "apply_fig_renames.sh"
 
+
 def slugify(s: str) -> str:
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
     s = s.lower()
     s = re.sub(r"[^a-z0-9._-]+", "_", s)
     s = re.sub(r"_+", "_", s).strip("_")
     return s
+
 
 def propose_target(chap: str, fname: str) -> str:
     # chap like 'chapter07'
@@ -42,6 +45,7 @@ def propose_target(chap: str, fname: str) -> str:
 
     cand = slugify(cand) + ext
     return cand
+
 
 rows = []
 for p in sorted(ROOT.rglob("*")):
@@ -75,9 +79,11 @@ with MAP_TSV.open("w", encoding="utf-8") as f:
 with SCRIPT_SH.open("w", encoding="utf-8") as f:
     f.write("#!/usr/bin/env bash\nset -Eeuo pipefail\nAPPLY=${APPLY:-0}\n")
     f.write("PLAN='.ci-out/figures_rename_plan.tsv'\n")
-    f.write("test -f \"$PLAN\" || { echo \"Plan introuvable: $PLAN\"; exit 1; }\n")
+    f.write('test -f "$PLAN" || { echo "Plan introuvable: $PLAN"; exit 1; }\n')
     f.write("tail -n +2 \"$PLAN\" | while IFS=$'\\t' read -r SRC DST; do\n")
-    f.write("  echo \"mv -- \"$SRC\" \"$DST\"\";\n")
-    f.write("  if [ \"$APPLY\" = \"1\" ]; then mkdir -p \"$(dirname \"$DST\")\"; mv -- \"$SRC\" \"$DST\"; fi\n")
+    f.write('  echo "mv -- "$SRC" "$DST"";\n')
+    f.write(
+        '  if [ "$APPLY" = "1" ]; then mkdir -p "$(dirname "$DST")"; mv -- "$SRC" "$DST"; fi\n'
+    )
     f.write("done\n")
 print(f"[fig-rename] {len(rows)} propositions → {MAP_TSV} ; script: {SCRIPT_SH}")

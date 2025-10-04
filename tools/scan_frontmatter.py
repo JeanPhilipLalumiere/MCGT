@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import sys, os, pathlib
+import os
+import pathlib
 
 OUT = pathlib.Path(".ci-out/frontmatter_samples.txt")
 OUT.parent.mkdir(parents=True, exist_ok=True)
+
 
 def extract_fm(path: pathlib.Path):
     fm_started = False
@@ -22,6 +24,7 @@ def extract_fm(path: pathlib.Path):
         return None
     return "".join(fm)
 
+
 def main():
     roots = []
     for root, _, files in os.walk("."):
@@ -39,6 +42,7 @@ def main():
                 out.write(f">>> {p.as_posix()}\n{fm}\n")
                 count += 1
     print(f"[frontmatter] wrote samples to {OUT}")
+
 
 if __name__ == "__main__":
     main()

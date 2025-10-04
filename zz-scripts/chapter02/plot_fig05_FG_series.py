@@ -9,9 +9,10 @@ Données sources :
 - zz-data/chapter02/02_As_ns_vs_alpha.csv
 """
 
-import pandas as pd
-import matplotlib.pyplot as plt
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # Constantes Planck 2018
 A_S0 = 2.10e-9

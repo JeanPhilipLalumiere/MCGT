@@ -36,17 +36,17 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 # --- utils for config discovery & loading (no load at import time) ---
-from pathlib import Path
 import configparser
 import importlib
 import pkgutil
-from typing import Optional, List
+from pathlib import Path
+from typing import List, Optional
 
 # On suppose que la racine du dépôt est le parent du package
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
 
 
-def find_config_path(name: str = "mcgt-global-config.ini") -> Optional[Path]:
+def find_config_path(name: str = "mcgt-global-config.ini") -> Path | None:
     """
     Cherche un fichier de configuration dans cet ordre :
     1) répertoire de travail courant ./zz-configuration/<name>
@@ -73,7 +73,7 @@ def find_config_path(name: str = "mcgt-global-config.ini") -> Optional[Path]:
     return None
 
 
-def load_config(path: Optional[str | Path] = None) -> configparser.ConfigParser:
+def load_config(path: str | Path | None = None) -> configparser.ConfigParser:
     """
     Charge et retourne un `configparser.ConfigParser` à partir d'un fichier ini.
     Si `path` est None, tente find_config_path().
@@ -91,7 +91,7 @@ def load_config(path: Optional[str | Path] = None) -> configparser.ConfigParser:
 
 
 # Accessor qui met en cache la config chargée
-_cached_config: Optional[configparser.ConfigParser] = None
+_cached_config: configparser.ConfigParser | None = None
 
 
 def get_config(force_reload: bool = False) -> configparser.ConfigParser:
@@ -103,7 +103,7 @@ def get_config(force_reload: bool = False) -> configparser.ConfigParser:
 
 
 # --- discovery des backends et API conviviale ---
-def list_backends(package: str = "mcgt.backends") -> List[str]:
+def list_backends(package: str = "mcgt.backends") -> list[str]:
     """Retourne la liste des modules/backends disponibles dans mcgt.backends."""
     try:
         mod = importlib.import_module(package)
@@ -144,9 +144,9 @@ perturbations = _LazyModuleProxy("scalar_perturbations")
 def _load_package_version_from_metadata():
     try:
         try:
-            from importlib.metadata import version, PackageNotFoundError
+            from importlib.metadata import PackageNotFoundError, version
         except Exception:
-            from importlib_metadata import version, PackageNotFoundError  # type: ignore
+            from importlib_metadata import PackageNotFoundError, version  # type: ignore
         try:
             return version("mcgt")
         except PackageNotFoundError:

@@ -12,11 +12,14 @@ python zz-scripts/chapter10/diag_phi_fpeak.py \
 """
 
 from __future__ import annotations
+
 import argparse
 import csv
 import math
+
 import numpy as np
 import pandas as pd
+
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
 
@@ -44,9 +47,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--results", required=True)
     p.add_argument("--ref-grid", required=True)
-    p.add_argument("--out-diagnostics", default="zz-data/chapter10/10_diag_phi_fpeak_report.csv")
     p.add_argument(
-        "--thresh", type=float, default=1e3, help="seuil pour considérer une phi aberrante"
+        "--out-diagnostics", default="zz-data/chapter10/10_diag_phi_fpeak_report.csv"
+    )
+    p.add_argument(
+        "--thresh",
+        type=float,
+        default=1e3,
+        help="seuil pour considérer une phi aberrante",
     )
     args = p.parse_args()
 
@@ -167,7 +175,9 @@ def main():
             for r in out_rows:
                 roww = {k: r.get(k, "") for k in keys}
                 w.writerow(roww)
-        print(f"Wrote diagnostics ({len(out_rows)} problematic rows) -> {args.out_diagnostics}")
+        print(
+            f"Wrote diagnostics ({len(out_rows)} problematic rows) -> {args.out_diagnostics}"
+        )
 
 
 if __name__ == "__main__":

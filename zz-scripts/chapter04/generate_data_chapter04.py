@@ -10,31 +10,29 @@ import pandas as pd
 from scipy.interpolate import PchipInterpolator
 from scipy.signal import savgol_filter
 
+
 def main():
     import os
+
     print("[DBG] Entrée dans main(), cwd=", os.getcwd())
 
     # ----------------------------------------------------------------------
     # 0. Configuration des constantes et des chemins de fichiers
     # ----------------------------------------------------------------------
-    kappa     = 1e-35
-    Tp        = 0.087  # Gyr, transition logistique
-    data_dir  = "zz-data/chapter04"
+    kappa = 1e-35
+    Tp = 0.087  # Gyr, transition logistique
+    data_dir = "zz-data/chapter04"
     chap3_dir = "zz-data/chapter03"
-    p_file    = f"{data_dir}/04_P_vs_T.dat"
-    r_file    = f"{chap3_dir}/03_ricci_fR_vs_T.csv"
-    fr_file   = f"{chap3_dir}/03_fR_stability_data.csv"
+    p_file = f"{data_dir}/04_P_vs_T.dat"
+    r_file = f"{chap3_dir}/03_ricci_fR_vs_T.csv"
+    fr_file = f"{chap3_dir}/03_fR_stability_data.csv"
     output_file = f"{data_dir}/04_dimensionless_invariants.csv"
 
     # ----------------------------------------------------------------------
     # 1. Chargement des données P(T) brutes
     # ----------------------------------------------------------------------
     df_p = pd.read_csv(
-        p_file,
-        sep="\s+",
-        skiprows=1,
-        header=None,
-        names=["T_Gyr", "P_raw"]
+        p_file, sep=r"\s+", skiprows=1, header=None, names=["T_Gyr", "P_raw"]
     )
     df_p = df_p.astype({"T_Gyr": float, "P_raw": float})
     print("[DEBUG] df_p.columns:", df_p.columns.tolist())
@@ -45,43 +43,43 @@ def main():
     # 2. Construction de la grille log-uniforme (T ∈ [1e-6, 14] Gyr)
     # ----------------------------------------------------------------------
     Tmin, Tmax = 1e-6, 14.0
-    log_min    = np.log10(Tmin)
-    log_max    = np.log10(Tmax)
-    log_grid   = np.arange(log_min, log_max + 1e-12, 0.01)
-    T          = 10 ** log_grid
+    log_min = np.log10(Tmin)
+    log_max = np.log10(Tmax)
+    log_grid = np.arange(log_min, log_max + 1e-12, 0.01)
+    T = 10**log_grid
 
     # ----------------------------------------------------------------------
     # 3. Interpolation P(T) en log–log via PCHIP (extrapolation lisse)
     # ----------------------------------------------------------------------
-    logT_data  = np.log10(df_p["T_Gyr"])
-    logP_data  = np.log10(df_p["P_raw"])
+    logT_data = np.log10(df_p["T_Gyr"])
+    logP_data = np.log10(df_p["P_raw"])
     interp_logP = PchipInterpolator(logT_data, logP_data, extrapolate=True)
-    logP       = interp_logP(log_grid)
-    P          = 10 ** logP
+    logP = interp_logP(log_grid)
+    P = 10**logP
 
     # ----------------------------------------------------------------------
     # 4. Calcul et lissage de la dérivée dP/dT (Savitzky–Golay)
     # ----------------------------------------------------------------------
-    dP         = np.gradient(P, T)
-    dP_smooth  = savgol_filter(dP, window_length=21, polyorder=3, mode="interp")
+    dP = np.gradient(P, T)
+    dP_smooth = savgol_filter(dP, window_length=21, polyorder=3, mode="interp")
 
     # ----------------------------------------------------------------------
     # 5. Interpolation de R/R0 vs T (extrapolation lisse)
     # ----------------------------------------------------------------------
-    df_r       = pd.read_csv(r_file)
-    logT_r     = np.log10(df_r["T_Gyr"])
-    logR_data  = np.log10(df_r["R_over_R0"])
+    df_r = pd.read_csv(r_file)
+    logT_r = np.log10(df_r["T_Gyr"])
+    logR_data = np.log10(df_r["R_over_R0"])
     interp_logR = PchipInterpolator(logT_r, logR_data, extrapolate=True)
-    logR       = interp_logR(log_grid)
-    R_R0       = 10 ** logR
+    logR = interp_logR(log_grid)
+    R_R0 = 10**logR
 
     # ----------------------------------------------------------------------
     # 6. Interpolation log–log de f_R(R) pour préserver la précision ∼10⁻⁶
     # ----------------------------------------------------------------------
     # Lecture du CSV exact de f_R(R)
-    df_fr = pd.read_csv(fr_file, sep=',', header=0, usecols=['R_over_R0', 'f_R'])
-    R_fr   = df_fr['R_over_R0'].values
-    fR_fr  = df_fr['f_R'].values
+    df_fr = pd.read_csv(fr_file, sep=",", header=0, usecols=["R_over_R0", "f_R"])
+    R_fr = df_fr["R_over_R0"].values
+    fR_fr = df_fr["f_R"].values
 
     # DEBUG – contrôler les données brutes
     print("[DEBUG] df_fr.columns       :", df_fr.columns.tolist())
@@ -95,7 +93,7 @@ def main():
 
     # Appliquer sur la grille calculée R_R0
     logfR = interp_logf(np.log10(R_R0))
-    f_R   = 10 ** logfR
+    f_R = 10**logfR
 
     # Calcul de l’invariant I3 = f_R – 1
     I3 = f_R - 1
@@ -117,14 +115,10 @@ def main():
     # ----------------------------------------------------------------------
     # 8. Export du CSV final
     # ----------------------------------------------------------------------
-    df_out = pd.DataFrame({
-        "T_Gyr": T,
-        "I1":     I1,
-        "I2":     I2,
-        "I3":     I3
-    })
+    df_out = pd.DataFrame({"T_Gyr": T, "I1": I1, "I2": I2, "I3": I3})
     df_out.to_csv(output_file, index=False)
     print(f"[✔] Fichier exporté : {output_file}")
+
 
 if __name__ == "__main__":
     main()

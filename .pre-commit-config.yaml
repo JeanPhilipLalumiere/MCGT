@@ -107,3 +107,11 @@ repos:
         files: '^.+\.(ya?ml|md)$'
         pass_filenames: true
         args: ['--fix']
+  - repo: local
+    hooks:
+      - id: manifests-json-guard
+        name: manifests-json-guard
+        entry: bash tools/ci_step5_validate_manifests_json.sh
+        language: system
+        pass_filenames: false
+        files: ^(zz-manifests/|zz-figures/)

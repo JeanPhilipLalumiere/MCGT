@@ -33,3 +33,27 @@ __all__ = [
     "SEC_PER_YEAR", "SEC_PER_GYR",
     "H0_KM_S_PER_MPC", "H0_1_PER_GYR", "H0_to_per_Gyr",
 ]
+
+
+# === Canonical physics constants (SI & handy units) ===
+from __future__ import annotations
+try:
+    from math import pi
+except Exception:  # pragma: no cover
+    pi = 3.141592653589793
+
+# Speed of light
+C_LIGHT_M_S: float = 299_792_458.0  # m/s (exact)
+C_LIGHT_KM_S: float = C_LIGHT_M_S / 1_000.0  # km/s
+
+# Newtonian gravitational constant (CODATA 2018)
+G_SI: float = 6.67430e-11  # m^3 / (kg s^2)
+
+# Helper converters (rely on existing H0 utilities if defined)
+def km_s_per_Mpc_to_per_s(x: float) -> float:
+    try:
+        return x * 1000.0 / (METER_PER_MPC)  # type: ignore[name-defined]
+    except NameError:
+        METER_PER_PC = 3.085677581491367e16
+        METER_PER_MPC = METER_PER_PC * 1_000_000.0
+        return x * 1000.0 / METER_PER_MPC

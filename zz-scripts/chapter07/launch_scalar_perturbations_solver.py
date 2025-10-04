@@ -177,7 +177,7 @@ def load_config(ini_path: Path) -> PhaseParams:
 
     # lissage
     if "lissage" in cfg:
-        cfg["lissage"]
+        cfg_lissage = cfg["lissage"]
         window = int(cfg_lissage.get("derivative_window", cfg_lissage.get("window", 7)))
         polyord = int(
             cfg_lissage.get("derivative_polyorder", cfg_lissage.get("polyorder", 3))

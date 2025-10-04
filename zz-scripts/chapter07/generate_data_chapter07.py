@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ruff: noqa: E402
 """
 generate_data_chapter07.py
 
@@ -119,7 +120,7 @@ def load_config(ini_path: Path) -> PhaseParams:
 
     # 4) lissage (section [lissage] ou fallback)
     if "lissage" in cfg:
-        cfg["lissage"]
+        cfg_lissage = cfg["lissage"]
         window = int(cfg_lissage.get("derivative_window", cfg_lissage.get("window")))
         polyord = int(
             cfg_lissage.get("derivative_polyorder", cfg_lissage.get("polyorder"))

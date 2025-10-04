@@ -111,3 +111,6 @@ artifacts_*/
 .ci-out/figures_guard_report.txt
 .ci-out/manifest_publication.sha256sum.new
 .ci-out/naming_guard_report.txt
+
+# CI artifacts
+.ci-out/

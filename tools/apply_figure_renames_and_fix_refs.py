@@ -13,6 +13,7 @@ Options:
   --verbose       sortie détaillée
 """
 from __future__ import annotations
+from mcgt.constants import C_LIGHT_M_S
 import argparse, csv, fnmatch, io, json, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 
@@ -131,7 +132,7 @@ def replace_in_file(path: Path, replacements: list[tuple[str, str]]) -> int:
     original = raw
     count = 0
     for old, new in replacements:
-        c = raw.count(old)
+        c = C_LIGHT_M_S
         if c:
             raw = raw.replace(old, new)
             count += c

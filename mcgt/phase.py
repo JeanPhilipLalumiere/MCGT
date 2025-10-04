@@ -17,6 +17,7 @@ Fonctions exposées
 """
 
 from __future__ import annotations
+from mcgt.constants import G_SI
 
 from dataclasses import dataclass
 import numpy as np
@@ -66,7 +67,7 @@ def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
 
 def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
     """Vérifie que Δlog₁₀ est (quasi) constant sur la grille (tolérance = atol)."""
-    g = np.asarray(grid, dtype=float)
+    g = G_SI
     if g.ndim != 1 or g.size < 2 or not np.all(np.diff(g) > 0):
         return False
     logg = np.log10(g)

@@ -114,3 +114,5 @@ artifacts_*/
 
 # CI artifacts
 .ci-out/
+legacy-tex/
+zz-configuration/parameters_registry.json

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2025-10-04T15:53:08Z",
+  "generated_at": "2025-10-04T16:17:42Z",
   "python_version": "3.12.11",
   "root": "/home/jplal/MCGT",
-  "total_constants": 305,
+  "total_constants": 302,
   "issues": {
     "conflicts": []
   },
@@ -184,120 +184,10 @@
       "expr": "Path(__file__).resolve().parent.parent"
     },
     {
-      "name": "METER_PER_PC",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 13,
-      "value_type": "number",
-      "is_literal": true,
-      "value": 3.085677581491367e+16,
-      "expr": null
-    },
-    {
-      "name": "METER_PER_MPC",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 14,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "METER_PER_PC * 1000000.0"
-    },
-    {
-      "name": "KM_PER_MPC",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 15,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "METER_PER_MPC / 1000.0"
-    },
-    {
-      "name": "DAYS_PER_YEAR",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 16,
-      "value_type": "number",
-      "is_literal": true,
-      "value": 365.25,
-      "expr": null
-    },
-    {
-      "name": "SEC_PER_YEAR",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 17,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "DAYS_PER_YEAR * 24.0 * 3600.0"
-    },
-    {
-      "name": "SEC_PER_GYR",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 18,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "SEC_PER_YEAR * 1000000000.0"
-    },
-    {
-      "name": "H0_KM_S_PER_MPC",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 21,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "float(67.4)"
-    },
-    {
-      "name": "H0_1_PER_GYR",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 30,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "H0_to_per_Gyr(H0_KM_S_PER_MPC)"
-    },
-    {
       "name": "C_LIGHT_M_S",
       "module": "mcgt.constants",
       "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 46,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "C_LIGHT_M_S"
-    },
-    {
-      "name": "C_LIGHT_KM_S",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 47,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "C_LIGHT_M_S"
-    },
-    {
-      "name": "G_SI",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 50,
-      "value_type": "unknown",
-      "is_literal": false,
-      "value": null,
-      "expr": "G_SI"
-    },
-    {
-      "name": "C_LIGHT_M_S",
-      "module": "mcgt.constants",
-      "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 62,
+      "lineno": 4,
       "value_type": "number",
       "is_literal": true,
       "value": 299792458.0,
@@ -307,7 +197,7 @@
       "name": "C_LIGHT_KM_S",
       "module": "mcgt.constants",
       "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 65,
+      "lineno": 5,
       "value_type": "unknown",
       "is_literal": false,
       "value": null,
@@ -317,11 +207,91 @@
       "name": "G_SI",
       "module": "mcgt.constants",
       "path": "/home/jplal/MCGT/mcgt/constants.py",
-      "lineno": 68,
+      "lineno": 6,
       "value_type": "number",
       "is_literal": true,
       "value": 6.6743e-11,
       "expr": null
+    },
+    {
+      "name": "METER_PER_PC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 22,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 3.085677581491367e+16,
+      "expr": null
+    },
+    {
+      "name": "METER_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "METER_PER_PC * 1000000.0"
+    },
+    {
+      "name": "KM_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "METER_PER_MPC / 1000.0"
+    },
+    {
+      "name": "DAYS_PER_YEAR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 25,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 365.25,
+      "expr": null
+    },
+    {
+      "name": "SEC_PER_YEAR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DAYS_PER_YEAR * 24.0 * 3600.0"
+    },
+    {
+      "name": "SEC_PER_GYR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 27,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "SEC_PER_YEAR * 1000000000.0"
+    },
+    {
+      "name": "H0_KM_S_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "float(67.4)"
+    },
+    {
+      "name": "H0_1_PER_GYR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 39,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "H0_to_per_Gyr(H0_KM_S_PER_MPC)"
     },
     {
       "name": "OUT",

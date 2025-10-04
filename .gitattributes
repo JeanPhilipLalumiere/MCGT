@@ -16,3 +16,5 @@
 *.yml     text eol=lf
 *.yaml    text eol=lf
 .ci-out export-ignore
+legacy-tex export-ignore
+zz-configuration/parameters_registry.json export-ignore

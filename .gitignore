@@ -116,3 +116,5 @@ artifacts_*/
 .ci-out/
 legacy-tex/
 zz-configuration/parameters_registry.json
+tools/*.before_psx
+tools/*.new

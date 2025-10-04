@@ -27,7 +27,9 @@ if [[ ! -x "$0" ]]; then
 fi
 
 # Backup pyproject.toml
-cp -n pyproject.toml "pyproject.toml.before_prune_ruff_$(date -u +%Y%m%dT%H%M%SZ)" || true
+ts="$(date -u +%Y%m%dT%H%M%SZ)"
+backup="pyproject.toml.before_prune_ruff_${ts}"
+[ -e "$backup" ] || cp pyproject.toml "$backup"
 
 python3 - <<'PY'
 import tomllib, subprocess, sys, re
@@ -137,9 +139,9 @@ else
 fi
 
 # === PSX ROBUST OVERRIDE (append-only) ========================================
-# Forcer une vraie pause GUI : lire sur /dev/tty si possible, sinon empêcher
-# la fermeture auto (Ctrl+C pour quitter). Cette surcharge remplace le trap
-# précédent, sans toucher au reste du script.
+# Pause GUI robuste :
+# - si WAIT_ON_EXIT=1 et pas en CI, on lit depuis /dev/tty si possible
+# - sinon, on empêche la fermeture auto (Ctrl+C pour quitter)
 if [ "${WAIT_ON_EXIT:-1}" = "1" ] && [ -z "${CI:-}" ]; then
   psx_pause_robust() {
     rc=$?
@@ -154,7 +156,6 @@ if [ "${WAIT_ON_EXIT:-1}" = "1" ] && [ -z "${CI:-}" ]; then
       IFS= read -r _ < /dev/tty
       printf "\n" > /dev/tty
     elif [ -t 0 ]; then
-      # stdin est interactif : on peut lire dessus
       read -r -p "PSX — Appuie sur Entrée pour fermer cette fenêtre…" _
       echo
     else

@@ -2790,17 +2790,17 @@
     {
       "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py",
       "role": "code",
-      "size_bytes": 5769,
-      "sha256": "f44c4d02a9b9429e0ff5fef41501fce020db3821b2203e21382a07cda31b2e7a",
-      "mtime_iso": "2025-09-23T22:04:13Z",
+      "size_bytes": 5787,
+      "sha256": "05aba3a3146a90ca54f43cd3c188316b0069b7f2ddd36dfa5aaae8c6e5d11977",
+      "mtime_iso": "2025-10-04T19:54:09Z",
       "git_hash": "50f5ffa16696e0944f25b5d5fbae64c478c4f1df"
     },
     {
       "path": "zz-scripts/chapter09/flag_jalons.py",
       "role": "code",
-      "size_bytes": 6574,
-      "sha256": "c8ce4cfe0cf38a93ff4db82342d32f7cda957cf3051cd81ffce7a401b5984819",
-      "mtime_iso": "2025-09-23T22:04:13Z",
+      "size_bytes": 6592,
+      "sha256": "524c860fdba5ed6c1a6e6dc17a1ef7795dff7f03548d99032d6cc8c3db088add",
+      "mtime_iso": "2025-10-04T19:54:09Z",
       "git_hash": "566f6214b159f2e1fabf1b06f4229a9b43c89197"
     },
     {
@@ -3094,9 +3094,9 @@
     {
       "path": "zz-tools/manifest_report.py",
       "role": "code",
-      "size_bytes": 902,
-      "sha256": "d9a40bbfbeffc98506a85af690e74d85dc2b5e619a0e98ac566892cc376cc0a3",
-      "mtime_iso": "2025-09-23T22:04:13Z",
+      "size_bytes": 920,
+      "sha256": "095915d022a2614a077206073acc5ccce388b3598445851b4b44fa6bfeb56c1f",
+      "mtime_iso": "2025-10-04T19:54:09Z",
       "git_hash": "54bef8dcead9ba3143b6b4ebd4e2632db98d49db"
     },
     {

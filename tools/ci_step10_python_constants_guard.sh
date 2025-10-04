@@ -132,7 +132,7 @@ for name, items in by_name.items():
         })
 
 data = {
-    "generated_at": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    "generated_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     "python_version": sys.version.split()[0],
     "root": str(ROOT),
     "total_constants": len(consts),

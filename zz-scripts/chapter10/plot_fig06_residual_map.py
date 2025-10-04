@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig06_residual_map.py  —  Figure 6 finale
 
@@ -22,9 +21,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
@@ -55,16 +55,24 @@ def main():
     ap.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
     ap.add_argument("--m1-col", default="m1")
     ap.add_argument("--m2-col", default="m2")
-    ap.add_argument("--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95).")
     ap.add_argument(
-        "--recalc-col", default="p95_20_300_recalc", help="Colonne p95 recalculée (dp95)."
+        "--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95)."
+    )
+    ap.add_argument(
+        "--recalc-col",
+        default="p95_20_300_recalc",
+        help="Colonne p95 recalculée (dp95).",
     )
     ap.add_argument("--phi-ref-col", default=None, help="Colonne phi_ref (dphi).")
     ap.add_argument("--phi-mcgt-col", default=None, help="Colonne phi_mcgt (dphi).")
     ap.add_argument("--gridsize", type=int, default=36)
-    ap.add_argument("--mincnt", type=int, default=3, help="Masque les hexagones avec nb<mincnt.")
+    ap.add_argument(
+        "--mincnt", type=int, default=3, help="Masque les hexagones avec nb<mincnt."
+    )
     ap.add_argument("--cmap", default="viridis")
-    ap.add_argument("--vclip", default="1,99", help="Percentiles pour vmin,vmax (ex: '1,99').")
+    ap.add_argument(
+        "--vclip", default="1,99", help="Percentiles pour vmin,vmax (ex: '1,99')."
+    )
     ap.add_argument(
         "--scale-exp", type=int, default=-7, help="Exponent pour l'échelle ×10^exp rad."
     )
@@ -74,7 +82,9 @@ def main():
         default=1e-6,
         help="Seuil pour fraction |metric|>threshold [rad].",
     )
-    ap.add_argument("--figsize", default="15,9", help="Largeur,hauteur en pouces (ex: '15,9').")
+    ap.add_argument(
+        "--figsize", default="15,9", help="Largeur,hauteur en pouces (ex: '15,9')."
+    )
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--out", default="fig_06_residual_map.png")
     ap.add_argument("--manifest", action="store_true")
@@ -94,7 +104,9 @@ def main():
     else:  # dphi
         col_ref = detect_col(df, [args.phi_ref_col or "phi_ref_fpeak"])
         col_mc = detect_col(df, [args.phi_mcgt_col or "phi_mcgt_fpeak", "phi_mcgt"])
-        raw = wrap_pi(df[col_mc].astype(float).values - df[col_ref].astype(float).values)
+        raw = wrap_pi(
+            df[col_mc].astype(float).values - df[col_ref].astype(float).values
+        )
         metric_name = r"\Delta \phi"
 
     if args.abs:
@@ -108,7 +120,7 @@ def main():
     scaled = raw / scale_factor
 
     # vmin/vmax via percentiles sur *scaled*
-    p_lo, p_hi = [float(t) for t in args.vclip.split(",")]
+    p_lo, p_hi = (float(t) for t in args.vclip.split(","))
     vmin = float(np.percentile(scaled, p_lo))
     vmax = float(np.percentile(scaled, p_hi))
 
@@ -120,7 +132,7 @@ def main():
     frac_over = float(np.mean(np.abs(raw) > args.threshold))
 
     # ------------------------------ figure & axes ---------------------------
-    fig_w, fig_h = [float(s) for s in args.figsize.split(",")]
+    fig_w, fig_h = (float(s) for s in args.figsize.split(","))
     plt.style.use("classic")
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
@@ -150,7 +162,8 @@ def main():
     cbar.set_label(rf"{metric_label} {exp_txt} [rad]")
 
     ax_main.set_title(
-        rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$" + (" (absolu)" if args.abs else "")
+        rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$"
+        + (" (absolu)" if args.abs else "")
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
@@ -169,7 +182,9 @@ def main():
 
     # ------------------------------- counts inset --------------------------
     hb_counts = ax_cnt.hexbin(x, y, gridsize=args.gridsize, cmap="gray_r")
-    cbar_cnt = fig.colorbar(hb_counts, ax=ax_cnt, orientation="vertical", fraction=0.046, pad=0.03)
+    cbar_cnt = fig.colorbar(
+        hb_counts, ax=ax_cnt, orientation="vertical", fraction=0.046, pad=0.03
+    )
     cbar_cnt.set_label("Counts")
     ax_cnt.set_title("Counts (par cellule)")
     ax_cnt.set_xlabel("m1")
@@ -215,7 +230,9 @@ def main():
     )
 
     # (subplots_adjust n'affecte pas add_axes, on l'utilise juste pour la bbox globale)
-    fig.subplots_adjust(left=0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30)
+    fig.subplots_adjust(
+        left=0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30
+    )
     fig.text(0.5, 0.053, foot_scale, ha="center", fontsize=10)
     fig.text(0.5, 0.032, foot_stats + f"{n_active}/{N}.", ha="center", fontsize=10)
 
@@ -229,7 +246,11 @@ def main():
         manifest = {
             "script": "plot_fig06_residual_map.py",
             "generated_at": pd.Timestamp.utcnow().isoformat() + "Z",
-            "inputs": {"csv": args.results, "m1_col": args.m1_col, "m2_col": args.m2_col},
+            "inputs": {
+                "csv": args.results,
+                "m1_col": args.m1_col,
+                "m2_col": args.m2_col,
+            },
             "metric": {
                 "name": args.metric,
                 "absolute": bool(args.abs),

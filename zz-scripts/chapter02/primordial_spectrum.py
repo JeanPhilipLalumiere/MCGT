@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Module `primordial_spectrum.py`
 
@@ -8,8 +7,10 @@ un fichier JSON de métadonnées (commande CLI).
 """
 
 from __future__ import annotations
+
 import json
 from pathlib import Path
+
 import numpy as np
 
 # --- constantes Planck 2018 (valeurs par défaut) ---
@@ -26,7 +27,7 @@ DATA_DIR = ROOT / "zz-data" / "chapter02"
 SPEC_FILE = DATA_DIR / "02_primordial_spectrum_spec.json"
 
 
-def P_R(k: "np.ndarray | float", alpha: float) -> "np.ndarray":
+def P_R(k: np.ndarray | float, alpha: float) -> np.ndarray:
     """
     Spectre primordial MCGT:
         P_R(k; alpha) = A_s(alpha) * k**(n_s(alpha) - 1)

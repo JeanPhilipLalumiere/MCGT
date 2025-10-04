@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-import re, pathlib
+import pathlib
+import re
 
 OUT = pathlib.Path(".ci-out/make_vars.tsv")
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
-pat = re.compile(r'^([A-Z][A-Z0-9_]+)\s*(\?|:)?=\s*(.*)$')
+pat = re.compile(r"^([A-Z][A-Z0-9_]+)\s*(\?|:)?=\s*(.*)$")
 
 rows = []
 for p in sorted(pathlib.Path(".").rglob("Makefile")):

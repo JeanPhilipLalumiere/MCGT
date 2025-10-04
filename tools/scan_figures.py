@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-import pathlib, re
+import pathlib
+import re
 
 OUT_BAD = pathlib.Path(".ci-out/figures_bad_names.tsv")
 OUT_ALL = pathlib.Path(".ci-out/figures_all.tsv")
 OUT_BAD.parent.mkdir(parents=True, exist_ok=True)
 
-rx_ok = re.compile(r'^zz-figures/chapter[0-9]{2}/[0-9]{2}_fig_[a-z0-9_]+\.(png|pdf)$')
+rx_ok = re.compile(r"^zz-figures/chapter[0-9]{2}/[0-9]{2}_fig_[a-z0-9_]+\.(png|pdf)$")
 
 all_rows = []
 bad_rows = []
@@ -13,7 +14,7 @@ bad_rows = []
 for p in sorted(pathlib.Path("zz-figures").rglob("*")):
     if not p.is_file():
         continue
-    if not (p.suffix.lower() in [".png", ".pdf"]):
+    if p.suffix.lower() not in [".png", ".pdf"]:
         continue
     rel = p.as_posix()
     ok = bool(rx_ok.match(rel))

@@ -1,10 +1,15 @@
-exclude: '^\.ci-out/'
+# Minimal, valid pre-commit config (+ exclusion .ci-out)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
+
+# Exclure le répertoire d'artefacts CI de tous les hooks
+exclude: |
+  (?x)
+  ^\.ci-out/

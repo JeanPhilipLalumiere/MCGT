@@ -1542,10 +1542,10 @@
     {
       "path": ".pre-commit-config.yaml",
       "role": "config",
-      "size_bytes": 416,
-      "sha256": "b3562074c7308b99079d5d19b5525f5e125671f0435bb08ffe98cb2638fd3343",
-      "mtime_iso": "2025-10-04T15:43:14Z",
-      "git_hash": "2ace0a361f828afd672e7dcf11f53cd973cbc970"
+      "size_bytes": 666,
+      "sha256": "be2f789da6ee1c383f02e794939021c424a2be4e32093744b01602d1bd849a87",
+      "mtime_iso": "2025-10-04T17:18:18Z",
+      "git_hash": "205f8b95b8fb6e463121fab04b8c62f3a431d3b6"
     },
     {
       "path": "01-introduction-applications/CHAPTER01_GUIDE.txt",
@@ -3260,166 +3260,6 @@
       "git_hash": "a284a16f063827907318dd8dce01c3a975461b96"
     },
     {
-      "path": "01-introduction-applications/01_applications_calibration_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "01-introduction-applications/01_introduction_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "02-validation-chronologique/02_validation_chronologique_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "02-validation-chronologique/02_validation_chronologique_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "03-stabilite-fR/03_stabilite_fR_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "03-stabilite-fR/03_stabilite_fR_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "05-nucleosynthese-primordiale/05_nucleosynthese_primordiale_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "06-rayonnement-cmb/06_cmb_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "06-rayonnement-cmb/06_cmb_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "07-perturbations-scalaires/07_perturbations_scalaires_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "08-couplage-sombre/08_couplage_sombre_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "08-couplage-sombre/08_couplage_sombre_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "09-phase-ondes-gravitationnelles/09_phase_ondes_grav_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "09-phase-ondes-gravitationnelles/09_phase_ondes_grav_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "10-monte-carlo-global-8d/10_monte_carlo_global_conceptuel.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
-      "path": "10-monte-carlo-global-8d/10_monte_carlo_global_details.tex",
-      "role": "source",
-      "size_bytes": 483,
-      "sha256": "3f6cfaa40b3c94b468a72d872ef9837bf6f4d970f4558f744755ba321d8d70cd",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "486b467bd6dde35807fcffd21a82bf25db6c7700"
-    },
-    {
       "path": "CHANGELOG.md",
       "role": "source",
       "size_bytes": 285,
@@ -3474,14 +3314,6 @@
       "sha256": "cf07ceef8b6798eaf29302928d7020255f72c081ba1605d141ebc6fb3afd3e45",
       "mtime_iso": "2025-10-03T20:21:04Z",
       "git_hash": "1df1f6e3d31c0713a377e1b6ccc9266bd3a4e97b"
-    },
-    {
-      "path": "main.tex",
-      "role": "source",
-      "size_bytes": 3479,
-      "sha256": "3cf83edcef6d6c08f946e42f74ab1549e39c6692933e6c3a1c6307893e77aa64",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "git_hash": "eda7e8c941a75f07269b75905d652f5de7a3af9a"
     },
     {
       "path": "mcgt/CHANGELOG.md",

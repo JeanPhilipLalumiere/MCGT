@@ -5,7 +5,7 @@ set -euo pipefail
 
 REPORT=".ci-out/parameters_registry_report.txt"
 PYLOG=".ci-out/parameters_registry_py.log"
-REGISTRY="zz-configuration/parameters_registry.json"
+REGISTRY=".ci-out/parameters_registry.json"
 : >"$REPORT"
 
 log() { echo "INFO:  $*" | tee -a "$REPORT"; }
@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(".").resolve()
 CONF_DIR = ROOT/"zz-configuration"
 SCHEMA_DIR = ROOT/"zz-schemas"
-REGISTRY = ROOT/"zz-configuration"/"parameters_registry.json"
+REGISTRY = ROOT/".ci-out"/"parameters_registry.json"
 
 def iso_now():
     return datetime.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"

@@ -47,7 +47,7 @@ def main() -> None:
         return
 
     jalons = pd.read_csv(RAW_FILE)
-    grid = pd.read_csv(GRID_FILE)
+    pd.read_csv(GRID_FILE)
 
     # On garde seulement R>0 pour log–log
     jalons = jalons[jalons["R_over_R0"] > 0].sort_values("R_over_R0")

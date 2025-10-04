@@ -58,11 +58,11 @@ def process_file(path: pathlib.Path):
         if key == "timeout-minutes":
             try:
                 v_file = int(v_file)
-            except:
+            except Exception:
                 pass
             try:
                 v_def = int(v_def)
-            except:
+            except Exception:
                 pass
         if v_file == v_def:
             continue

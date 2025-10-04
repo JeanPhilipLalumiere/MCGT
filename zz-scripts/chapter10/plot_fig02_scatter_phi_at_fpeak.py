@@ -304,7 +304,7 @@ def main():
         f"median = {median_abs:.3f}",
         f"p95 = {p95_abs:.3f}",
         f"max = {max_abs:.3f}",
-        f"|Δφ| < {args.p95_ref:.4f} : {100*frac_below:.2f}% (n={int(round(frac_below*N))})",
+        f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
         f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
         f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
         f"circ-std(Δφ) = {cstd:.3f} rad",

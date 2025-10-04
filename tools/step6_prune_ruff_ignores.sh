@@ -26,7 +26,7 @@ if [[ ! -x "$0" ]]; then
   git add --chmod=+x "$0" || git add "$0"
 fi
 
-# Backup pyproject.toml (si absent, cp -n ne remplacera pas)
+# Backup pyproject.toml
 cp -n pyproject.toml "pyproject.toml.before_prune_ruff_$(date -u +%Y%m%dT%H%M%SZ)" || true
 
 python3 - <<'PY'
@@ -48,7 +48,7 @@ if start == -1:
     print("Bloc per-file-ignores introuvable — rien à faire.")
     sys.exit(0)
 
-# Trouver la fin du bloc (prochaine section TOML)
+# Fin du bloc = prochaine section TOML
 m = re.search(r'(?m)^\[.*\]', text[start+len(header):])
 end = start + len(header) + (m.start() if m else len(text)-start-len(header))
 body = text[start+len(header):end]
@@ -92,7 +92,6 @@ changed = False
 for path, codes in list(entries.items()):
     file_path = Path(path)
     if not file_path.exists():
-        # entrée orpheline -> on la supprime
         entries[path] = []
         removed.append((path, "ALL(stale)"))
         changed = True
@@ -104,14 +103,12 @@ for path, codes in list(entries.items()):
         candidate = text[:start+len(header)] + new_body + text[end:]
         write_toml(candidate)
         if ruff_ok(file_path):
-            # suppression validée
             entries[path].remove(code)
             text = candidate
             end = start + len(header) + len(new_body)
             removed.append((path, code))
             changed = True
         else:
-            # revert
             write_toml(text)
 
 # Nettoyage des clés vides

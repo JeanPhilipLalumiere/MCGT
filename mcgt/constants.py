@@ -7,6 +7,7 @@ On expose aussi la conversion en Gyr⁻¹ pour les modules qui en ont besoin.
 """
 
 from __future__ import annotations
+from mcgt.constants import C_LIGHT_M_S, G_SI
 
 # --- unités / conversions de base ---
 METER_PER_PC = 3.085_677_581_491_367e16
@@ -43,11 +44,11 @@ except Exception:  # pragma: no cover
     pi = 3.141592653589793
 
 # Speed of light
-C_LIGHT_M_S: float = 299_792_458.0  # m/s (exact)
-C_LIGHT_KM_S: float = C_LIGHT_M_S / 1_000.0  # km/s
+C_LIGHT_M_S: float = C_LIGHT_M_S  # m/s (exact)
+C_LIGHT_KM_S: float = C_LIGHT_M_S  # km/s
 
 # Newtonian gravitational constant (CODATA 2018)
-G_SI: float = 6.67430e-11  # m^3 / (kg s^2)
+G_SI: float = G_SI  # m^3 / (kg s^2)
 
 # Helper converters (rely on existing H0 utilities if defined)
 def km_s_per_Mpc_to_per_s(x: float) -> float:

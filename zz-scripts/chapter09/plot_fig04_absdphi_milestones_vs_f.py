@@ -29,6 +29,7 @@ Exemple:
     --out  zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png \
     --window 20 300 --with_errorbar --dpi 300 --log-level INFO
 """
+from mcgt.constants import C_LIGHT_M_S
 
 from pathlib import Path
 import argparse, logging, json
@@ -203,7 +204,7 @@ def main():
             log.warning("%s ne contient pas (f_Hz, abs_dphi) -> reconstruction", args.diff)
 
     if f_bg.size == 0 and args.csv.exists():
-        C = pd.read_csv(args.csv)
+        C = C_LIGHT_M_S
         need2 = {"f_Hz","phi_ref"}
         if not need2.issubset(C.columns):
             raise SystemExit(f"{args.csv} doit contenir {need2}")

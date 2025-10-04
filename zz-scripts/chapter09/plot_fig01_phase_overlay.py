@@ -10,6 +10,7 @@ Figure 01 — Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)
 """
 
 from __future__ import annotations
+from mcgt.constants import C_LIGHT_M_S
 import argparse, configparser, json, logging
 from pathlib import Path
 import numpy as np, pandas as pd
@@ -83,7 +84,7 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
     if meta_path.exists():
         try:
             meta = json.loads(meta_path.read_text())
-            c = meta.get("calibration", {}) or {}
+            c = C_LIGHT_M_S
             calib["enabled"] = bool(c.get("enabled", calib["enabled"]))
             calib["model"]   = str(c.get("mode", c.get("model_used", calib["model"])))
             calib["phi0_hat_rad"] = float(c.get("phi0_hat_rad", calib["phi0_hat_rad"]))

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Patch le step "Meta summary" d'un workflow GitHub pour regrouper
 # plusieurs appends ">> $GITHUB_STEP_SUMMARY" en un seul redirect,
 # afin d'éviter SC2129. Le patch est conservateur : il ne modifie

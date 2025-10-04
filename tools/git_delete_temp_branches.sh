@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 LOG=".ci-logs/git_delete_temp_branches-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1

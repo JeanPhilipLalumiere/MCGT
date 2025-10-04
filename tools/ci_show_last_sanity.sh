@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Affiche le diag.json du **dernier run terminé** de sanity-main (success en priorité)
 
 set -euo pipefail

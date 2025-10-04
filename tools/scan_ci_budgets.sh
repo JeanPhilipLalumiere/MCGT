@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -Eeuo pipefail
 out=".ci-out/ci_budgets_report.txt"
 : >"$out"

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Usage: tools/run_with_timeout_and_tail.sh <timeout-seconds> <script> [args...]
 set -uo pipefail
 timeout_secs="${1:-600}" # valeur par défaut (ex.: 600s). Tu choisis.

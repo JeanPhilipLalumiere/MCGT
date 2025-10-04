@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 STRICT_ORPHANS="${STRICT_ORPHANS:-0}"
 

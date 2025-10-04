@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set +e
 mkdir -p .ci-out
 TS="$(date -u +%FT%TZ)"

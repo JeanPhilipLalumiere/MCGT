@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ruff: noqa: E402
 # ---------------------------------------------------------------
 # zz-scripts/chapter08/generate_chapter08_data.py
 # Pipeline de génération des données – Chapitre 8 (Dark coupling)

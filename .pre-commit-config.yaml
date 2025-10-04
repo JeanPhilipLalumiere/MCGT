@@ -1,4 +1,6 @@
-# Minimal, valid pre-commit config (+ exclusion .ci-out)
+exclude: |
+  ^\.ci-out/
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -9,7 +11,12 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
 
-# Exclure le répertoire d'artefacts CI de tous les hooks
-exclude: |
-  (?x)
-  ^\.ci-out/
+  - repo: local
+    hooks:
+      - id: forbid-tex-in-chapters
+        name: forbid .tex in chapters (01..10)
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+        entry: >-
+          bash -c "if git diff --cached --name-only | grep -E '^(0[1-9]|10)-.*/.*\.tex$' >/dev/null; then echo 'ERROR: .tex interdits dans 01..10'; exit 1; fi"

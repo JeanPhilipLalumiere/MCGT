@@ -1,6 +1,0 @@
-[WORKFLOWS]
-.github/workflows/ci-pre-commit.yml
-.github/workflows/ci-yaml-check.yml
-.github/workflows/pre-commit-autoupdate.yml
-.github/workflows/sanity-echo.yml
-.github/workflows/sanity-main.yml

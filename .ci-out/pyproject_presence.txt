@@ -1,2 +1,0 @@
-[PYPROJECT]
-pyproject.toml

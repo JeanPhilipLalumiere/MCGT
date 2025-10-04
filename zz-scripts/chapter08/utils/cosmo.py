@@ -3,9 +3,10 @@
 
 import numpy as np
 from scipy.integrate import quad
+from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
 
 # Constantes cosmologiques de référence
-H0             = 67.66       # km/s/Mpc
+# H0 unifié → import
 c_kms          = 299792.458  # km/s
 Omega_m0       = 0.3111
 Omega_lambda0  = 0.6889

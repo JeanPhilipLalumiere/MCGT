@@ -1,0 +1,3078 @@
+{
+  "generated_at": "2025-10-04T13:18:25Z",
+  "python_version": "3.12.11",
+  "root": "/home/jplal/MCGT",
+  "total_constants": 299,
+  "issues": {
+    "conflicts": []
+  },
+  "constants": [
+    {
+      "name": "ROOT",
+      "module": "zz-tests.test_schemas",
+      "path": "/home/jplal/MCGT/zz-tests/test_schemas.py",
+      "lineno": 8,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[1]"
+    },
+    {
+      "name": "MANIFEST_DIR",
+      "module": "zz-tests.test_schemas",
+      "path": "/home/jplal/MCGT/zz-tests/test_schemas.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-manifests'"
+    },
+    {
+      "name": "MASTER",
+      "module": "zz-tests.test_schemas",
+      "path": "/home/jplal/MCGT/zz-tests/test_schemas.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "MANIFEST_DIR / 'manifest_master.json'"
+    },
+    {
+      "name": "PUBLICATION",
+      "module": "zz-tests.test_schemas",
+      "path": "/home/jplal/MCGT/zz-tests/test_schemas.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "MANIFEST_DIR / 'manifest_publication.json'"
+    },
+    {
+      "name": "ALLOWED_ROLES",
+      "module": "zz-tests.test_schemas",
+      "path": "/home/jplal/MCGT/zz-tests/test_schemas.py",
+      "lineno": 13,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [
+        "artifact",
+        "bibliography",
+        "code",
+        "config",
+        "data",
+        "document",
+        "figure",
+        "manifest",
+        "meta",
+        "schema",
+        "script",
+        "source"
+      ],
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-tests.test_manifest",
+      "path": "/home/jplal/MCGT/zz-tests/test_manifest.py",
+      "lineno": 8,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[1]"
+    },
+    {
+      "name": "MANIFEST_DIR",
+      "module": "zz-tests.test_manifest",
+      "path": "/home/jplal/MCGT/zz-tests/test_manifest.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-manifests'"
+    },
+    {
+      "name": "MASTER",
+      "module": "zz-tests.test_manifest",
+      "path": "/home/jplal/MCGT/zz-tests/test_manifest.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "MANIFEST_DIR / 'manifest_master.json'"
+    },
+    {
+      "name": "PUBLICATION",
+      "module": "zz-tests.test_manifest",
+      "path": "/home/jplal/MCGT/zz-tests/test_manifest.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "MANIFEST_DIR / 'manifest_publication.json'"
+    },
+    {
+      "name": "ALLOWED_ROLES",
+      "module": "zz-tests.test_manifest",
+      "path": "/home/jplal/MCGT/zz-tests/test_manifest.py",
+      "lineno": 13,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [
+        "artifact",
+        "bibliography",
+        "code",
+        "config",
+        "data",
+        "document",
+        "figure",
+        "manifest",
+        "meta",
+        "schema",
+        "script",
+        "source"
+      ],
+      "expr": null
+    },
+    {
+      "name": "UTC",
+      "module": "zz-manifests.diag_consistency",
+      "path": "/home/jplal/MCGT/zz-manifests/diag_consistency.py",
+      "lineno": 49,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "timezone.utc"
+    },
+    {
+      "name": "UTC",
+      "module": "zz-manifests.add_to_manifest",
+      "path": "/home/jplal/MCGT/zz-manifests/add_to_manifest.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "datetime.timezone.utc"
+    },
+    {
+      "name": "REPO_ROOT",
+      "module": "zz-manifests.add_to_manifest",
+      "path": "/home/jplal/MCGT/zz-manifests/add_to_manifest.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path.cwd().resolve()"
+    },
+    {
+      "name": "P",
+      "module": "tests.test_fig02_columns",
+      "path": "/home/jplal/MCGT/tests/test_fig02_columns.py",
+      "lineno": 4,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py')"
+    },
+    {
+      "name": "PACKAGE_ROOT",
+      "module": "mcgt.__init__",
+      "path": "/home/jplal/MCGT/mcgt/__init__.py",
+      "lineno": 46,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parent.parent"
+    },
+    {
+      "name": "METER_PER_PC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 12,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 3.085677581491367e+16,
+      "expr": null
+    },
+    {
+      "name": "METER_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 13,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "METER_PER_PC * 1000000.0"
+    },
+    {
+      "name": "KM_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 14,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "METER_PER_MPC / 1000.0"
+    },
+    {
+      "name": "DAYS_PER_YEAR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 15,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 365.25,
+      "expr": null
+    },
+    {
+      "name": "SEC_PER_YEAR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 16,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DAYS_PER_YEAR * 24.0 * 3600.0"
+    },
+    {
+      "name": "SEC_PER_GYR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 17,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "SEC_PER_YEAR * 1000000000.0"
+    },
+    {
+      "name": "H0_KM_S_PER_MPC",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "float(67.4)"
+    },
+    {
+      "name": "H0_1_PER_GYR",
+      "module": "mcgt.constants",
+      "path": "/home/jplal/MCGT/mcgt/constants.py",
+      "lineno": 29,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "H0_to_per_Gyr(H0_KM_S_PER_MPC)"
+    },
+    {
+      "name": "OUT",
+      "module": "tools.scan_frontmatter",
+      "path": "/home/jplal/MCGT/tools/scan_frontmatter.py",
+      "lineno": 4,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('.ci-out/frontmatter_samples.txt')"
+    },
+    {
+      "name": "OUT",
+      "module": "tools.scan_py_consts",
+      "path": "/home/jplal/MCGT/tools/scan_py_consts.py",
+      "lineno": 4,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('.ci-out/python_consts.tsv')"
+    },
+    {
+      "name": "ROOT",
+      "module": "tools.plan_fig_renames",
+      "path": "/home/jplal/MCGT/tools/plan_fig_renames.py",
+      "lineno": 5,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures')"
+    },
+    {
+      "name": "OUT_DIR",
+      "module": "tools.plan_fig_renames",
+      "path": "/home/jplal/MCGT/tools/plan_fig_renames.py",
+      "lineno": 6,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('.ci-out')"
+    },
+    {
+      "name": "MAP_TSV",
+      "module": "tools.plan_fig_renames",
+      "path": "/home/jplal/MCGT/tools/plan_fig_renames.py",
+      "lineno": 8,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / 'figures_rename_plan.tsv'"
+    },
+    {
+      "name": "SCRIPT_SH",
+      "module": "tools.plan_fig_renames",
+      "path": "/home/jplal/MCGT/tools/plan_fig_renames.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / 'apply_fig_renames.sh'"
+    },
+    {
+      "name": "OUT",
+      "module": "tools.scan_make_vars",
+      "path": "/home/jplal/MCGT/tools/scan_make_vars.py",
+      "lineno": 4,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('.ci-out/make_vars.tsv')"
+    },
+    {
+      "name": "OUT_BAD",
+      "module": "tools.scan_figures",
+      "path": "/home/jplal/MCGT/tools/scan_figures.py",
+      "lineno": 4,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('.ci-out/figures_bad_names.tsv')"
+    },
+    {
+      "name": "OUT_ALL",
+      "module": "tools.scan_figures",
+      "path": "/home/jplal/MCGT/tools/scan_figures.py",
+      "lineno": 5,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "pathlib.Path('.ci-out/figures_all.tsv')"
+    },
+    {
+      "name": "ROOT",
+      "module": "tools.apply_figure_renames_and_fix_refs",
+      "path": "/home/jplal/MCGT/tools/apply_figure_renames_and_fix_refs.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[1]"
+    },
+    {
+      "name": "DEFAULT_PLAN",
+      "module": "tools.apply_figure_renames_and_fix_refs",
+      "path": "/home/jplal/MCGT/tools/apply_figure_renames_and_fix_refs.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / '.ci-out' / 'figures_rename_plan.tsv'"
+    },
+    {
+      "name": "LOGDIR",
+      "module": "tools.apply_figure_renames_and_fix_refs",
+      "path": "/home/jplal/MCGT/tools/apply_figure_renames_and_fix_refs.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / '.ci-logs'"
+    },
+    {
+      "name": "ALLOW_EXT",
+      "module": "tools.apply_figure_renames_and_fix_refs",
+      "path": "/home/jplal/MCGT/tools/apply_figure_renames_and_fix_refs.py",
+      "lineno": 23,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [
+        ".bash",
+        ".ini",
+        ".ipynb",
+        ".json",
+        ".md",
+        ".mdx",
+        ".py",
+        ".rst",
+        ".sh",
+        ".tex",
+        ".toml",
+        ".txt",
+        ".yaml",
+        ".yml"
+      ],
+      "expr": null
+    },
+    {
+      "name": "EXCLUDE_DIRS",
+      "module": "tools.apply_figure_renames_and_fix_refs",
+      "path": "/home/jplal/MCGT/tools/apply_figure_renames_and_fix_refs.py",
+      "lineno": 27,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [
+        ".ci-archive",
+        ".ci-logs",
+        ".git",
+        ".hg",
+        ".svn",
+        ".tmp-ci",
+        ".tmp-cleanup-logs",
+        ".venv",
+        "artifacts_",
+        "build",
+        "dist",
+        "dist_from",
+        "env",
+        "node_modules",
+        "site",
+        "venv",
+        "zz-figures"
+      ],
+      "expr": null
+    },
+    {
+      "name": "YL",
+      "module": "tools.gen_defaults_from_inventory",
+      "path": "/home/jplal/MCGT/tools/gen_defaults_from_inventory.py",
+      "lineno": 8,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [
+        "python-version"
+      ],
+      "expr": null
+    },
+    {
+      "name": "FM",
+      "module": "tools.gen_defaults_from_inventory",
+      "path": "/home/jplal/MCGT/tools/gen_defaults_from_inventory.py",
+      "lineno": 9,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [],
+      "expr": null
+    },
+    {
+      "name": "EV",
+      "module": "tools.gen_defaults_from_inventory",
+      "path": "/home/jplal/MCGT/tools/gen_defaults_from_inventory.py",
+      "lineno": 10,
+      "value_type": "set",
+      "is_literal": true,
+      "value": [],
+      "expr": null
+    },
+    {
+      "name": "WF_DIR",
+      "module": "tools.plan_ci_patches",
+      "path": "/home/jplal/MCGT/tools/plan_ci_patches.py",
+      "lineno": 5,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('.github/workflows')"
+    },
+    {
+      "name": "OUT_DIR",
+      "module": "tools.plan_ci_patches",
+      "path": "/home/jplal/MCGT/tools/plan_ci_patches.py",
+      "lineno": 6,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('.ci-out')"
+    },
+    {
+      "name": "PLAN",
+      "module": "tools.plan_ci_patches",
+      "path": "/home/jplal/MCGT/tools/plan_ci_patches.py",
+      "lineno": 7,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / 'ci_patch_plan.txt'"
+    },
+    {
+      "name": "MISSING",
+      "module": "tools.plan_ci_patches",
+      "path": "/home/jplal/MCGT/tools/plan_ci_patches.py",
+      "lineno": 8,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / 'ci_missing_setup_python.txt'"
+    },
+    {
+      "name": "CACHE_DIR_DEFAULT",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 56,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.join('zz-data', 'chapter10', '.cache_ref')"
+    },
+    {
+      "name": "CACHE_MAX_ENTRIES_MEM",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 57,
+      "value_type": "integer",
+      "is_literal": true,
+      "value": 128,
+      "expr": null
+    },
+    {
+      "name": "CACHE_DISK_QUOTA_BYTES",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 58,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "int(2 * 1024 ** 3)"
+    },
+    {
+      "name": "CACHE_FILE_SUFFIX",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 59,
+      "value_type": "string",
+      "is_literal": true,
+      "value": ".npz",
+      "expr": null
+    },
+    {
+      "name": "CACHE_LOCK_SUFFIX",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 60,
+      "value_type": "string",
+      "is_literal": true,
+      "value": ".lock",
+      "expr": null
+    },
+    {
+      "name": "CACHE_PART_SUFFIX",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 61,
+      "value_type": "string",
+      "is_literal": true,
+      "value": ".part",
+      "expr": null
+    },
+    {
+      "name": "LOCK_TIMEOUT",
+      "module": "mcgt.backends.ref_phase",
+      "path": "/home/jplal/MCGT/mcgt/backends/ref_phase.py",
+      "lineno": 62,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 120.0,
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 28,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 29,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter07'"
+    },
+    {
+      "name": "META_JSON",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "CSV_DCS2",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_dcs2_dk.csv'"
+    },
+    {
+      "name": "FIG_OUT",
+      "module": "zz-scripts.chapter07.plot_fig04_dcs2_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_04_dcs2_vs_k.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.launch_scalar_perturbations_solver",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.plot_fig03_invariant_I1",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "lineno": 15,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_CSV",
+      "module": "zz-scripts.chapter07.plot_fig03_invariant_I1",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07' / '07_scalar_invariants.csv'"
+    },
+    {
+      "name": "JSON_META",
+      "module": "zz-scripts.chapter07.plot_fig03_invariant_I1",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07' / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "FIG_OUT",
+      "module": "zz-scripts.chapter07.plot_fig03_invariant_I1",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter07' / 'fig_03_invariant_I1.png'"
+    },
+    {
+      "name": "I1",
+      "module": "zz-scripts.chapter07.plot_fig03_invariant_I1",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "lineno": 28,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df.iloc[:, 1].to_numpy()"
+    },
+    {
+      "name": "DONNEES_DIR",
+      "module": "zz-scripts.chapter07.plot_fig02_delta_phi_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "RACINE / 'zz-data' / 'chapter07'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter07.plot_fig02_delta_phi_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "RACINE / 'zz-figures' / 'chapter07'"
+    },
+    {
+      "name": "CSV_MATRICE",
+      "module": "zz-scripts.chapter07.plot_fig02_delta_phi_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "lineno": 33,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DONNEES_DIR / '07_delta_phi_matrix.csv'"
+    },
+    {
+      "name": "JSON_META",
+      "module": "zz-scripts.chapter07.plot_fig02_delta_phi_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DONNEES_DIR / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "FIG_OUT",
+      "module": "zz-scripts.chapter07.plot_fig02_delta_phi_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_02_delta_phi_heatmap_k_a.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07'"
+    },
+    {
+      "name": "CSV_DDK",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_ddelta_phi_dk.csv'"
+    },
+    {
+      "name": "JSON_META",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 33,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter07'"
+    },
+    {
+      "name": "FIG_OUT",
+      "module": "zz-scripts.chapter07.plot_fig05_ddelta_phi_vs_k",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_05_ddelta_phi_vs_k.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07'"
+    },
+    {
+      "name": "INV_CSV",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 27,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_scalar_invariants.csv'"
+    },
+    {
+      "name": "DCS2_CSV",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 28,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_derivative_cs2_dk.csv'"
+    },
+    {
+      "name": "DDPHI_CSV",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 29,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_derivative_ddelta_phi_dk.csv'"
+    },
+    {
+      "name": "META_JSON",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "FIG_OUT",
+      "module": "zz-scripts.chapter07.plot_fig06_comparison",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter07' / 'fig_06_comparison.png'"
+    },
+    {
+      "name": "DONNEES_CSV",
+      "module": "zz-scripts.chapter07.plot_fig01_cs2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "RACINE / 'zz-data' / 'chapter07' / '07_cs2_matrix.csv'"
+    },
+    {
+      "name": "META_JSON",
+      "module": "zz-scripts.chapter07.plot_fig01_cs2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "RACINE / 'zz-data' / 'chapter07' / '07_meta_perturbations.json'"
+    },
+    {
+      "name": "FIGURE_SORTIE",
+      "module": "zz-scripts.chapter07.plot_fig01_cs2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "RACINE / 'zz-figures' / 'chapter07' / 'fig_01_cs2_heatmap_k_a.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.generate_data_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/generate_data_chapter07.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "HERE",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 63,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parent"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 64,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "HERE.parent.parent"
+    },
+    {
+      "name": "DDIR",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 65,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter10'"
+    },
+    {
+      "name": "FDIR",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 66,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter10'"
+    },
+    {
+      "name": "REF_CH9",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 67,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter09'"
+    },
+    {
+      "name": "CACHE_REF",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 68,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DDIR / '.cache_ref'"
+    },
+    {
+      "name": "SCRIPTS",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 70,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "{'samples': HERE / 'generate_8d_samples.py', 'metrics': HERE / 'eval_metrics_principal_20_300.py', 'jalons': HERE / 'eval_milestones_fpeak.py', 'agg': HERE / 'aggregate_mc_runs.py'}"
+    },
+    {
+      "name": "DEFAULTS",
+      "module": "zz-scripts.chapter10.generate_data_chapter10",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py",
+      "lineno": 77,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "{'config': DDIR / '10_mc_config.json', 'samples_csv': DDIR / '10_mc_samples.csv', 'results_csv': DDIR / '10_mc_results.csv', 'results_agg_csv': DDIR / '10_mc_results.agg.csv', 'best_json': DDIR / '10_mc_best.json', 'jalons_csv': DDIR / '10_mc_milestones_eval.csv', 'manifest': DDIR / '10_mc_run_manifest.json', 'summary': DDIR / '10_pipeline_summary.json', 'ref_grid': REF_CH9 / '09_phases_imrphenom.csv', 'jalons_ref': REF_CH9 / '09_comparison_milestones.csv'}"
+    },
+    {
+      "name": "TWOPI",
+      "module": "zz-scripts.chapter10.plot_fig02_scatter_phi_at_fpeak",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "2.0 * np.pi"
+    },
+    {
+      "name": "WINDOW_DEFAULT",
+      "module": "zz-scripts.chapter10.eval_primary_metrics_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "lineno": 52,
+      "value_type": "tuple",
+      "is_literal": true,
+      "value": [
+        20.0,
+        300.0
+      ],
+      "expr": null
+    },
+    {
+      "name": "PCTL_METHOD",
+      "module": "zz-scripts.chapter10.eval_primary_metrics_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "lineno": 53,
+      "value_type": "string",
+      "is_literal": true,
+      "value": "linear",
+      "expr": null
+    },
+    {
+      "name": "EPS_PLOT",
+      "module": "zz-scripts.chapter10.eval_primary_metrics_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "lineno": 54,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 1e-12,
+      "expr": null
+    },
+    {
+      "name": "ERR_CODES",
+      "module": "zz-scripts.chapter10.eval_primary_metrics_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "lineno": 57,
+      "value_type": "object",
+      "is_literal": true,
+      "value": {
+        "FORWARD_MISSING": "PHI_MCGT_IMPORT_FAIL",
+        "REF_MISSING": "REF_BACKEND_MISSING",
+        "GRID_MISMATCH": "GRID_MISMATCH",
+        "MODEL_DIVERGED": "MODEL_DIVERGED",
+        "NAN_IN_OUTPUT": "NAN_IN_OUTPUT",
+        "NAN_IN_WINDOW": "NAN_IN_WINDOW",
+        "OUT_OF_DOMAIN": "OUT_OF_DOMAIN",
+        "TIMEOUT": "TIMEOUT",
+        "UNKNOWN": "UNKNOWN"
+      },
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.generate_pdot_plateau_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "CONF_DIR",
+      "module": "zz-scripts.chapter06.generate_pdot_plateau_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+      "lineno": 13,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-config'"
+    },
+    {
+      "name": "OUT_FILE",
+      "module": "zz-scripts.chapter06.generate_pdot_plateau_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+      "lineno": 14,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "CONF_DIR / 'pdot_plateau_z.dat'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 18,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter06'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter06'"
+    },
+    {
+      "name": "DATA_CSV",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_rs_scan.csv'"
+    },
+    {
+      "name": "JSON_PARAMS",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_params_cmb.json'"
+    },
+    {
+      "name": "OUT_PNG",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_04_delta_rs_vs_params.png'"
+    },
+    {
+      "name": "ALPHA",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('alpha', None)"
+    },
+    {
+      "name": "Q0STAR",
+      "module": "zz-scripts.chapter06.plot_fig04_delta_rs_vs_params",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('q0star', None)"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.plot_fig01_cmb_dataflow_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter06.plot_fig01_cmb_dataflow_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter06'"
+    },
+    {
+      "name": "OUT_PNG",
+      "module": "zz-scripts.chapter06.plot_fig01_cmb_dataflow_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "lineno": 13,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_01_schema_data_flow_cmb.png'"
+    },
+    {
+      "name": "DY",
+      "module": "zz-scripts.chapter06.plot_fig01_cmb_dataflow_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "lineno": 26,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 0.25,
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter06'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter06'"
+    },
+    {
+      "name": "DATA_CSV",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cmb_chi2_scan2D.csv'"
+    },
+    {
+      "name": "JSON_PARAMS",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_params_cmb.json'"
+    },
+    {
+      "name": "OUT_PNG",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_05_heatmap_delta_chi2.png'"
+    },
+    {
+      "name": "ALPHA",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 30,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('alpha', None)"
+    },
+    {
+      "name": "Q0STAR",
+      "module": "zz-scripts.chapter06.plot_fig05_delta_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('q0star', None)"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter06'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter06'"
+    },
+    {
+      "name": "DELTA_CLS_REL_CSV",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_cls_relative.csv'"
+    },
+    {
+      "name": "JSON_PARAMS",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_params_cmb.json'"
+    },
+    {
+      "name": "OUT_PNG",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_03_delta_cls_rel.png'"
+    },
+    {
+      "name": "ALPHA",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('alpha', None)"
+    },
+    {
+      "name": "Q0STAR",
+      "module": "zz-scripts.chapter06.plot_fig03_delta_cls_relative",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('q0star', None)"
+    },
+    {
+      "name": "ALPHA",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 28,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "args.alpha"
+    },
+    {
+      "name": "Q0STAR",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 29,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "args.q0star"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "CONF_DIR",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-configuration'"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 36,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter06'"
+    },
+    {
+      "name": "INI_DIR",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 37,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / '06-cmb'"
+    },
+    {
+      "name": "SPEC2_FILE",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 43,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02' / '02_spec_spectrum.json'"
+    },
+    {
+      "name": "A_S0",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 47,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "spec2['constantes']['A_s0'] if 'constantes' in spec2 else spec2.get('constants', {}).get('A_s0')"
+    },
+    {
+      "name": "NS0",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 48,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "spec2['constantes']['ns0'] if 'constantes' in spec2 else spec2.get('constants', {}).get('ns0')"
+    },
+    {
+      "name": "C1",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 49,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "spec2.get('coefficients', {}).get('c1')"
+    },
+    {
+      "name": "C2",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 50,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "spec2.get('coefficients', {}).get('c2')"
+    },
+    {
+      "name": "OUT_ALPHA",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 63,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_alpha_evolution.csv'"
+    },
+    {
+      "name": "ELL_MIN",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 69,
+      "value_type": "integer",
+      "is_literal": true,
+      "value": 2,
+      "expr": null
+    },
+    {
+      "name": "ELL_MAX",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 70,
+      "value_type": "integer",
+      "is_literal": true,
+      "value": 3000,
+      "expr": null
+    },
+    {
+      "name": "PK_KMAX",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 71,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 10.0,
+      "expr": null
+    },
+    {
+      "name": "DERIV_WINDOW",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 72,
+      "value_type": "integer",
+      "is_literal": true,
+      "value": 7,
+      "expr": null
+    },
+    {
+      "name": "DERIV_POLYORDER",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 73,
+      "value_type": "integer",
+      "is_literal": true,
+      "value": 3,
+      "expr": null
+    },
+    {
+      "name": "CLS_LCDM_DAT",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 86,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cls_lcdm_spectrum.dat'"
+    },
+    {
+      "name": "CLS_MCGT_DAT",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 87,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cls_spectrum.dat'"
+    },
+    {
+      "name": "DELTA_CLS_CSV",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 88,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_cls.csv'"
+    },
+    {
+      "name": "DELTA_CLS_REL_CSV",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 89,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_cls_relative.csv'"
+    },
+    {
+      "name": "JSON_PARAMS",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 90,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_params_cmb.json'"
+    },
+    {
+      "name": "CSV_RS_SCAN",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 91,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_rs_scan.csv'"
+    },
+    {
+      "name": "CSV_RS_SCAN_FULL",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 92,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_rs_scan_2d.csv'"
+    },
+    {
+      "name": "CSV_CHI2_2D",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 93,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cmb_chi2_scan_2d.csv'"
+    },
+    {
+      "name": "PDOT_FILE",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 141,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "CONF_DIR / 'pdot_plateau_z.dat'"
+    },
+    {
+      "name": "OUT_TMDAT",
+      "module": "zz-scripts.chapter06.generate_data_chapter06",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py",
+      "lineno": 310,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_delta_Tm_scan.csv'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 18,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter06'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter06'"
+    },
+    {
+      "name": "CLS_LCDM_DAT",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cls_lcdm_spectrum.dat'"
+    },
+    {
+      "name": "CLS_MCGT_DAT",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_cls_spectrum.dat'"
+    },
+    {
+      "name": "JSON_PARAMS",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '06_params_cmb.json'"
+    },
+    {
+      "name": "OUT_PNG",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_02_cls_lcdm_vs_mcgt.png'"
+    },
+    {
+      "name": "ALPHA",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('alpha', None)"
+    },
+    {
+      "name": "Q0STAR",
+      "module": "zz-scripts.chapter06.plot_fig02_cls_lcdm_vs_mcgt",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "params.get('q0star', None)"
+    },
+    {
+      "name": "OUT_CFG",
+      "module": "zz-scripts.chapter09.fetch_gwtc3_confident",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/fetch_gwtc3_confident.py",
+      "lineno": 21,
+      "value_type": "string",
+      "is_literal": true,
+      "value": "zz-configuration/GWTC-3-confident-events.json",
+      "expr": null
+    },
+    {
+      "name": "OUT_DATA",
+      "module": "zz-scripts.chapter09.fetch_gwtc3_confident",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/fetch_gwtc3_confident.py",
+      "lineno": 22,
+      "value_type": "string",
+      "is_literal": true,
+      "value": "zz-data/chapter09/gwtc3_confident_parameters.json",
+      "expr": null
+    },
+    {
+      "name": "URL_BASE",
+      "module": "zz-scripts.chapter09.fetch_gwtc3_confident",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/fetch_gwtc3_confident.py",
+      "lineno": 23,
+      "value_type": "string",
+      "is_literal": true,
+      "value": "https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events",
+      "expr": null
+    },
+    {
+      "name": "DEF_CSV",
+      "module": "zz-scripts.chapter09.plot_fig03_hist_absdphi_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_phases_mcgt.csv')"
+    },
+    {
+      "name": "DEF_DIFF",
+      "module": "zz-scripts.chapter09.plot_fig03_hist_absdphi_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_phase_diff.csv')"
+    },
+    {
+      "name": "DEF_META",
+      "module": "zz-scripts.chapter09.plot_fig03_hist_absdphi_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_metrics_phase.json')"
+    },
+    {
+      "name": "DEF_OUT",
+      "module": "zz-scripts.chapter09.plot_fig03_hist_absdphi_20_300",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png')"
+    },
+    {
+      "name": "DEF_IN",
+      "module": "zz-scripts.chapter09.plot_fig01_phase_overlay",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_phases_mcgt.csv')"
+    },
+    {
+      "name": "DEF_META",
+      "module": "zz-scripts.chapter09.plot_fig01_phase_overlay",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_metrics_phase.json')"
+    },
+    {
+      "name": "DEF_INI",
+      "module": "zz-scripts.chapter09.plot_fig01_phase_overlay",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-configuration/gw_phase.ini')"
+    },
+    {
+      "name": "DEF_OUT",
+      "module": "zz-scripts.chapter09.plot_fig01_phase_overlay",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures/chapter09/09_fig_01_phase_overlay.png')"
+    },
+    {
+      "name": "DEF_MILESTONES",
+      "module": "zz-scripts.chapter09.plot_fig05_scatter_phi_at_fpeak",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "lineno": 48,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_comparison_milestones.csv')"
+    },
+    {
+      "name": "DEF_OUT",
+      "module": "zz-scripts.chapter09.plot_fig05_scatter_phi_at_fpeak",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "lineno": 49,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png')"
+    },
+    {
+      "name": "DEF_DIFF",
+      "module": "zz-scripts.chapter09.plot_fig04_absdphi_milestones_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "lineno": 39,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_phase_diff.csv')"
+    },
+    {
+      "name": "DEF_CSV",
+      "module": "zz-scripts.chapter09.plot_fig04_absdphi_milestones_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "lineno": 40,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_phases_mcgt.csv')"
+    },
+    {
+      "name": "DEF_META",
+      "module": "zz-scripts.chapter09.plot_fig04_absdphi_milestones_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "lineno": 41,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_metrics_phase.json')"
+    },
+    {
+      "name": "DEF_MILESTONES",
+      "module": "zz-scripts.chapter09.plot_fig04_absdphi_milestones_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "lineno": 42,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09/09_comparison_milestones.csv')"
+    },
+    {
+      "name": "DEF_OUT",
+      "module": "zz-scripts.chapter09.plot_fig04_absdphi_milestones_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "lineno": 43,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png')"
+    },
+    {
+      "name": "PROJECT_ROOT",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 39,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "OUT_DIR",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 50,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data/chapter09')"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 51,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures/chapter09')"
+    },
+    {
+      "name": "REF_CSV",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 52,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / '09_phases_imrphenom.csv'"
+    },
+    {
+      "name": "REF_META",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 53,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / '09_phases_imrphenom.meta.json'"
+    },
+    {
+      "name": "JALONS_CSV",
+      "module": "zz-scripts.chapter09.generate_data_chapter09",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py",
+      "lineno": 54,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "OUT_DIR / '09_comparison_milestones.csv'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig06_grid_quality",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "lineno": 37,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_fR_stability_data.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig06_grid_quality",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "lineno": 38,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig06_grid_quality",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "lineno": 39,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_06_grid_quality.png'"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter03.plot_fig05_interpolated_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "lineno": 36,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03'"
+    },
+    {
+      "name": "RAW_FILE",
+      "module": "zz-scripts.chapter03.plot_fig05_interpolated_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "lineno": 37,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '03_ricci_fR_milestones.csv'"
+    },
+    {
+      "name": "GRID_FILE",
+      "module": "zz-scripts.chapter03.plot_fig05_interpolated_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "lineno": 38,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '03_fR_stability_data.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig05_interpolated_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "lineno": 39,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig05_interpolated_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "lineno": 40,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_05_interpolated_milestones.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig07_ricci_fR_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_ricci_fR_vs_z.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig07_ricci_fR_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "lineno": 33,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig07_ricci_fR_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_07_ricci_fR_vs_z.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig01_fR_stability_domain",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_fR_stability_domain.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig01_fR_stability_domain",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "lineno": 36,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig01_fR_stability_domain",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "lineno": 37,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_01_fR_stability_domain.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig03_ms2_R0_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_fR_stability_data.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig03_ms2_R0_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig03_ms2_R0_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "lineno": 36,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_03_ms2_R0_vs_R.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig02_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "lineno": 32,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_fR_stability_data.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig02_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "lineno": 33,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig02_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_02_fR_fRR_vs_R.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig08_ricci_fR_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "lineno": 33,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_ricci_fR_vs_T.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig08_ricci_fR_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig08_ricci_fR_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_08_ricci_fR_vs_T.png'"
+    },
+    {
+      "name": "DATA_FILE",
+      "module": "zz-scripts.chapter03.plot_fig04_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "lineno": 35,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-data') / 'chapter03' / '03_fR_stability_data.csv'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter03.plot_fig04_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "lineno": 36,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path('zz-figures') / 'chapter03'"
+    },
+    {
+      "name": "FIG_PATH",
+      "module": "zz-scripts.chapter03.plot_fig04_fR_fRR_vs_f",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "lineno": 37,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_04_fR_fRR_vs_R.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter05.plot_fig04_chi2_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter05.plot_fig04_chi2_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter05'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter05.plot_fig04_chi2_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter05'"
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter05.plot_fig04_chi2_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "lineno": 28,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "chi2_df['T_Gyr'].to_numpy()"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter05'"
+    },
+    {
+      "name": "JALONS_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 14,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_bbn_milestones.csv'"
+    },
+    {
+      "name": "GRILLE_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 15,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_bbn_grid.csv'"
+    },
+    {
+      "name": "PRED_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 16,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_bbn_data.csv'"
+    },
+    {
+      "name": "CHI2_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 17,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_chi2_bbn_vs_T.csv'"
+    },
+    {
+      "name": "DERIV_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 18,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_dchi2_vs_T.csv'"
+    },
+    {
+      "name": "PARAMS_FILE",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '05_bbn_params.json'"
+    },
+    {
+      "name": "THRESHOLDS",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 22,
+      "value_type": "object",
+      "is_literal": true,
+      "value": {
+        "primary": 0.01,
+        "order2": 0.1
+      },
+      "expr": null
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter05.generate_data_chapter05",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "np.logspace(log_min, log_max, num=num)"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter05.plot_fig02_dh_model_vs_obs",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter05.plot_fig02_dh_model_vs_obs",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter05'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter05.plot_fig02_dh_model_vs_obs",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter05'"
+    },
+    {
+      "name": "A_S0",
+      "module": "zz-scripts.chapter02.plot_fig05_FG_series",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "lineno": 17,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 2.1e-09,
+      "expr": null
+    },
+    {
+      "name": "NS0",
+      "module": "zz-scripts.chapter02.plot_fig05_FG_series",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "lineno": 18,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 0.9649,
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig05_FG_series",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_IN",
+      "module": "zz-scripts.chapter02.plot_fig05_FG_series",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02' / '02_As_ns_vs_alpha.csv'"
+    },
+    {
+      "name": "OUT_PLOT",
+      "module": "zz-scripts.chapter02.plot_fig05_FG_series",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02' / 'fig_05_FG_series.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig03_relative_errors",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter02.plot_fig03_relative_errors",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter02.plot_fig03_relative_errors",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02'"
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter02.plot_fig03_relative_errors",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "lineno": 16,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df['T']"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig02_calibration",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter02.plot_fig02_calibration",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter02.plot_fig02_calibration",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig00_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "OUT",
+      "module": "zz-scripts.chapter02.plot_fig00_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "lineno": 34,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02' / 'fig_00_spectrum.png'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02'"
+    },
+    {
+      "name": "DATA_IN",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 23,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '02_As_ns_vs_alpha.csv'"
+    },
+    {
+      "name": "SPEC_JS",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '02_primordial_spectrum_spec.json'"
+    },
+    {
+      "name": "OUT_PLOT",
+      "module": "zz-scripts.chapter02.plot_fig06_alpha_fit",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "FIG_DIR / 'fig_06_fit_alpha.png'"
+    },
+    {
+      "name": "A_S0",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 16,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 2.1e-09,
+      "expr": null
+    },
+    {
+      "name": "NS0",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 17,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 0.9649,
+      "expr": null
+    },
+    {
+      "name": "C1",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 20,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 1.0,
+      "expr": null
+    },
+    {
+      "name": "C2",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 21,
+      "value_type": "number",
+      "is_literal": true,
+      "value": -0.04,
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02'"
+    },
+    {
+      "name": "SPEC_FILE",
+      "module": "zz-scripts.chapter02.primordial_spectrum",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/primordial_spectrum.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '02_primordial_spectrum_spec.json'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig01_P_vs_T_evolution",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter02.plot_fig01_P_vs_T_evolution",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter02'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter02.plot_fig01_P_vs_T_evolution",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "lineno": 12,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter02.plot_fig04_pipeline_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "lineno": 9,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter02.plot_fig04_pipeline_diagram",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "lineno": 10,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter02'"
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter01.plot_fig05_I1_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "lineno": 12,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df['T']"
+    },
+    {
+      "name": "I1",
+      "module": "zz-scripts.chapter01.plot_fig05_I1_vs_T",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "lineno": 13,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df['I1']"
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter01.plot_fig03_relative_error_timeline",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "lineno": 12,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df['T']"
+    },
+    {
+      "name": "T",
+      "module": "zz-scripts.chapter01.plot_fig01_early_plateau",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "lineno": 13,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df_plateau['T']"
+    },
+    {
+      "name": "P",
+      "module": "zz-scripts.chapter01.plot_fig01_early_plateau",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "lineno": 14,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df_plateau['P_calc']"
+    },
+    {
+      "name": "BASE_DIR",
+      "module": "zz-scripts.chapter08.generate_coupling_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/generate_coupling_milestones.py",
+      "lineno": 6,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.dirname(__file__)"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.generate_coupling_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/generate_coupling_milestones.py",
+      "lineno": 7,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.abspath(os.path.join(BASE_DIR, '../../zz-data/chapter08'))"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.plot_fig03_mu_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "lineno": 14,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.plot_fig03_mu_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "lineno": 15,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter08'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter08.plot_fig03_mu_vs_z",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "lineno": 16,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter08'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.plot_fig05_residuals",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig05_residuals.py",
+      "lineno": 19,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.plot_fig05_residuals",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig05_residuals.py",
+      "lineno": 20,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter08'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter08.plot_fig05_residuals",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig05_residuals.py",
+      "lineno": 21,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter08'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.generate_data_chapter08",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/generate_data_chapter08.py",
+      "lineno": 17,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "UTILS",
+      "module": "zz-scripts.chapter08.generate_data_chapter08",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/generate_data_chapter08.py",
+      "lineno": 18,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-scripts' / 'chapter08' / 'utils'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.plot_fig04_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "lineno": 15,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.plot_fig04_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "lineno": 16,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter08'"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter08.plot_fig04_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "lineno": 17,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter08'"
+    },
+    {
+      "name": "M",
+      "module": "zz-scripts.chapter08.plot_fig04_chi2_heatmap",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "lineno": 31,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "df.pivot(index='param2', columns='q0star', values='chi2').loc[p2, p1].values"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.plot_fig06_normalized_residuals_distribution",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "lineno": 17,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "UTILS",
+      "module": "zz-scripts.chapter08.plot_fig06_normalized_residuals_distribution",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "lineno": 18,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-scripts' / 'chapter08' / 'utils'"
+    },
+    {
+      "name": "RTOL",
+      "module": "zz-scripts.chapter07.tests.test_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py",
+      "lineno": 19,
+      "value_type": "number",
+      "is_literal": true,
+      "value": 0.001,
+      "expr": null
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter07.tests.test_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py",
+      "lineno": 22,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[3]"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter07.tests.test_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter07'"
+    },
+    {
+      "name": "RAW_CSV",
+      "module": "zz-scripts.chapter07.tests.test_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "DATA_DIR / '07_phase_run.csv'"
+    },
+    {
+      "name": "REF_CSV",
+      "module": "zz-scripts.chapter07.tests.test_chapter07",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py",
+      "lineno": 26,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).parent / 'ref_phase_run.csv'"
+    },
+    {
+      "name": "BASE_DIR",
+      "module": "zz-scripts.chapter08.utils.generate_coupling_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/generate_coupling_milestones.py",
+      "lineno": 6,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.dirname(__file__)"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.utils.generate_coupling_milestones",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/generate_coupling_milestones.py",
+      "lineno": 7,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.abspath(os.path.join(BASE_DIR, '../../zz-data/chapter08'))"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.utils.verify_z_grid",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/verify_z_grid.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "PARAMS_FILE",
+      "module": "zz-scripts.chapter08.utils.verify_z_grid",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/verify_z_grid.py",
+      "lineno": 12,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-data' / 'chapter08' / '08_coupling_params.json'"
+    },
+    {
+      "name": "ROOT",
+      "module": "zz-scripts.chapter08.utils.coupling_example_model",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/coupling_example_model.py",
+      "lineno": 24,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "Path(__file__).resolve().parents[2]"
+    },
+    {
+      "name": "FIG_DIR",
+      "module": "zz-scripts.chapter08.utils.coupling_example_model",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/coupling_example_model.py",
+      "lineno": 25,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "ROOT / 'zz-figures' / 'chapter08'"
+    },
+    {
+      "name": "SCRIPT_DIR",
+      "module": "zz-scripts.chapter08.utils.extract_bao_data",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/extract_bao_data.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.dirname(os.path.abspath(__file__))"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.utils.extract_bao_data",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/extract_bao_data.py",
+      "lineno": 12,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.abspath(os.path.join(SCRIPT_DIR, '../../../zz-data/chapter08'))"
+    },
+    {
+      "name": "DATA_DIR",
+      "module": "zz-scripts.chapter08.utils.extract_pantheon_plus_data",
+      "path": "/home/jplal/MCGT/zz-scripts/chapter08/utils/extract_pantheon_plus_data.py",
+      "lineno": 11,
+      "value_type": "unknown",
+      "is_literal": false,
+      "value": null,
+      "expr": "os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../zz-data/chapter08'))"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 import numpy as np
 import argparse
+from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
 
 # --- Configuration logging ---
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
@@ -14,7 +15,7 @@ OUT_FILE = CONF_DIR / 'pdot_plateau_z.dat'
 OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 # --- Paramètres cosmologiques par défaut ---
-H0    = 67.4
+# H0 unifié → import
 ombh2 = 0.0224
 omch2 = 0.12
 tau   = 0.06

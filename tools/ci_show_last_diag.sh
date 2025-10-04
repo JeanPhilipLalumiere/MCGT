@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 ###############################################################################
 # Affiche le dernier diag (diag.json) déjà rapatrié.
 # - Si aucun .tgz local, propose de télécharger l'artifact du dernier run

@@ -16,13 +16,18 @@ version = { attr = "mcgt.__init__.__version__" }
 [tool.black]
 target-version = ["py312"]
 line-length = 88
-exclude = "(^\.ci-out/|^legacy-tex/|^\.git/|^venv/|^\.mypy_cache/)"
-
+exclude = '''
+(
+  \.git
+| \.mypy_cache
+| \.ci-out
+| legacy-tex
+| venv
+)
+'''
 [tool.ruff]
-extend-exclude = [".ci-out","legacy-tex",".git","venv",".mypy_cache"]
 target-version = "py312"
 line-length = 88
-
 extend-exclude = [".ci-out","legacy-tex",".git","venv",".mypy_cache"]
 [tool.ruff.lint]
 select = ["E","F","W","I","B","UP","SIM"]

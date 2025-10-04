@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Met à jour un encart CI dans README.md entre deux marqueurs.
 # - S'il n'y a pas de marqueurs, l'encart est ajouté en fin de fichier.
 # - Contenu minimal et stable pour éviter les faux positifs shfmt/shellcheck.

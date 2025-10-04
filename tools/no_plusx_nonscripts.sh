@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -Eeuo pipefail
 # Refuse +x sur fichiers non scripts (YAML/MD/TXT/JSON/TOML/etc.) et workflows
 

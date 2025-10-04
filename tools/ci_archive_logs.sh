@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 ###############################################################################
 # 3) Archive .ci-logs/ vers .ci-archive/<stamp>/ci-logs.tar.gz
 #    (optionnel: vider .ci-logs après archive)

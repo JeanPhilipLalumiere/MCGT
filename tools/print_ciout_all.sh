@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Imprime TOUT le contenu des fichiers texte sous .ci-out/ dans le log (stdout)
 # Usage:
 #   bash tools/print_ciout_all.sh                # parcourt .ci-out/

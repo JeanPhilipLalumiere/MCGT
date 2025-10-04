@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # tools/ci_run_sanity_and_fetch.sh
 # Déclenche sanity-main.yml, attend la fin, télécharge artefacts, affiche diag.json
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 STAMP="$(date +%Y%m%dT%H%M%S)"
 DEST=".ci-archive/workflows-bak-${STAMP}"

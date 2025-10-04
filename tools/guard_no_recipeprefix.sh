@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # shellcheck disable=SC2034
 #!/usr/bin/env bash
 set +e

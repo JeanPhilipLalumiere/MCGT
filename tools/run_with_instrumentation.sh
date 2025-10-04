@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Exécute un script avec header d'instrumentation (ne modifie pas l'original)
 # Usage: tools/run_with_instrumentation.sh [timeout-secs] <script> [args...]
 set -euo pipefail

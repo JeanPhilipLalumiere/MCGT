@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 LOG=".ci-logs/ci_commit_and_push_all-$(date +%Y%m%dT%H%M%S).log"
 exec > >(stdbuf -oL -eL tee -a "$LOG") 2>&1

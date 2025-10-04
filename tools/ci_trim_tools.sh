@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 # Supprime les scripts tools inutiles en conservant une whitelist
 set -euo pipefail
 mkdir -p .ci-logs

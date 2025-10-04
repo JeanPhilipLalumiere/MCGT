@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 mkdir -p docs
 LOG=".ci-logs/docs_write_ci_readme-$(date +%Y%m%dT%H%M%S).log"

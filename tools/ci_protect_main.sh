@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 need() { command -v "$1" >/dev/null 2>&1 || {
   echo "ERR: '$1' introuvable"

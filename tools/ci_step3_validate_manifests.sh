@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 mkdir -p .ci-out

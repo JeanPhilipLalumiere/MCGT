@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck source=/dev/null
+. .ci-helpers/guard.sh
 set -euo pipefail
 
 # 1) tools/ci_fix_readme_encart.sh -> HTML markers confuse ShellCheck: disable SC1009/SC1072/SC1073 at top

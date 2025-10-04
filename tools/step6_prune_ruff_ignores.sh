@@ -6,13 +6,24 @@ WAIT_ON_EXIT="${WAIT_ON_EXIT:-1}"
 psx_pause() {
   rc=$?
   echo
-  if [[ $rc -eq 0 ]]; then
+  if [ "$rc" -eq 0 ]; then
     echo "✅ Étape 6 — Prune per-file-ignores OK (exit: $rc)"
   else
     echo "❌ Étape 6 — Prune per-file-ignores KO (exit: $rc)"
   fi
-  if [[ "${WAIT_ON_EXIT}" == "1" && -t 1 && -z "${CI:-}" ]]; then
-    read -r -p "PSX — Appuie sur Entrée pour fermer cette fenêtre…" _
+  if [ "${WAIT_ON_EXIT}" = "1" ] && [ -z "${CI:-}" ]; then
+    if [ -r /dev/tty ]; then
+      printf "PSX — Appuie sur Entrée pour fermer cette fenêtre…" > /dev/tty
+      IFS= read -r _ < /dev/tty
+      printf "
+" > /dev/tty
+    elif [ -t 0 ]; then
+      read -r -p "PSX — Appuie sur Entrée pour fermer cette fenêtre…" _
+      echo
+    else
+      echo "PSX — Aucun TTY détecté; la fenêtre restera ouverte (Ctrl+C pour fermer)."
+      tail -f /dev/null
+    fi
   fi
 }
 trap 'psx_pause' EXIT
@@ -137,32 +148,3 @@ if ! git diff --staged --quiet; then
 else
   echo "Aucun changement à committer."
 fi
-
-# === PSX ROBUST OVERRIDE (append-only) ========================================
-# Pause GUI robuste :
-# - si WAIT_ON_EXIT=1 et pas en CI, on lit depuis /dev/tty si possible
-# - sinon, on empêche la fermeture auto (Ctrl+C pour quitter)
-if [ "${WAIT_ON_EXIT:-1}" = "1" ] && [ -z "${CI:-}" ]; then
-  psx_pause_robust() {
-    rc=$?
-    echo
-    if [ "$rc" -eq 0 ]; then
-      echo "✅ Étape 6 — Prune per-file-ignores OK (exit: $rc)"
-    else
-      echo "❌ Étape 6 — Prune per-file-ignores KO (exit: $rc)"
-    fi
-    if [ -r /dev/tty ]; then
-      printf "PSX — Appuie sur Entrée pour fermer cette fenêtre…" > /dev/tty
-      IFS= read -r _ < /dev/tty
-      printf "\n" > /dev/tty
-    elif [ -t 0 ]; then
-      read -r -p "PSX — Appuie sur Entrée pour fermer cette fenêtre…" _
-      echo
-    else
-      echo "PSX — Aucun TTY détecté; la fenêtre restera ouverte (Ctrl+C pour fermer)."
-      tail -f /dev/null
-    fi
-  }
-  trap 'psx_pause_robust' EXIT
-fi
-# ==============================================================================

@@ -135,3 +135,33 @@ if ! git diff --staged --quiet; then
 else
   echo "Aucun changement à committer."
 fi
+
+# === PSX ROBUST OVERRIDE (append-only) ========================================
+# Forcer une vraie pause GUI : lire sur /dev/tty si possible, sinon empêcher
+# la fermeture auto (Ctrl+C pour quitter). Cette surcharge remplace le trap
+# précédent, sans toucher au reste du script.
+if [ "${WAIT_ON_EXIT:-1}" = "1" ] && [ -z "${CI:-}" ]; then
+  psx_pause_robust() {
+    rc=$?
+    echo
+    if [ "$rc" -eq 0 ]; then
+      echo "✅ Étape 6 — Prune per-file-ignores OK (exit: $rc)"
+    else
+      echo "❌ Étape 6 — Prune per-file-ignores KO (exit: $rc)"
+    fi
+    if [ -r /dev/tty ]; then
+      printf "PSX — Appuie sur Entrée pour fermer cette fenêtre…" > /dev/tty
+      IFS= read -r _ < /dev/tty
+      printf "\n" > /dev/tty
+    elif [ -t 0 ]; then
+      # stdin est interactif : on peut lire dessus
+      read -r -p "PSX — Appuie sur Entrée pour fermer cette fenêtre…" _
+      echo
+    else
+      echo "PSX — Aucun TTY détecté; la fenêtre restera ouverte (Ctrl+C pour fermer)."
+      tail -f /dev/null
+    fi
+  }
+  trap 'psx_pause_robust' EXIT
+fi
+# ==============================================================================

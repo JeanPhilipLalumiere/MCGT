@@ -9,14 +9,13 @@
 
 from __future__ import annotations
 
-import os
-import time
 import hashlib
 import logging
-from typing import Optional
+import os
+import time
+from collections import OrderedDict
 
 import numpy as np
-from collections import OrderedDict
 
 # Tentatives d'import robustes pour PyCBC / LALSuite et filelock
 _have_pyc = False
@@ -48,7 +47,9 @@ except Exception:
 logger = logging.getLogger("mcgt.ref_phase")
 if not logger.handlers:
     handler = logging.StreamHandler()
-    handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s"))
+    handler.setFormatter(
+        logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+    )
     logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
@@ -154,7 +155,9 @@ def _acquire_lock(path: str, timeout: float = LOCK_TIMEOUT):
                     return self
                 except FileExistsError:
                     if (time.time() - t0) > self.timeout:
-                        raise TimeoutError(f"Timeout acquiring simple lock: {self.lockdir}")
+                        raise TimeoutError(
+                            f"Timeout acquiring simple lock: {self.lockdir}"
+                        )
                     time.sleep(0.1)
 
         def __exit__(self, exc_type, exc, tb):
@@ -266,7 +269,7 @@ def compute_phi_ref(
     m2: float,
     *,
     approximant: str = "IMRPhenomD",
-    cache_dir: Optional[str] = None,
+    cache_dir: str | None = None,
     force_recompute: bool = False,
 ) -> np.ndarray:
     """
@@ -326,7 +329,9 @@ def compute_phi_ref(
                         _memcache.popitem(last=False)
                     return phi
         except Exception as e:
-            logger.warning("Cache disque illisible (%s), on recalcule : %s", cache_path, e)
+            logger.warning(
+                "Cache disque illisible (%s), on recalcule : %s", cache_path, e
+            )
 
     # 3) calcul (avec verrou pour éviter courses multiples)
     with _acquire_lock(cache_path):
@@ -362,15 +367,21 @@ def compute_phi_ref(
 
         if phi_on_grid is None:
             if not (_have_pyc or _have_lal):
-                raise RuntimeError("REF_BACKEND_MISSING: aucun backend (PyCBC/LALSuite) disponible")
-            raise RuntimeError(f"REF_COMPUTE_FAIL: backends disponibles ont échoué: {last_exc}")
+                raise RuntimeError(
+                    "REF_BACKEND_MISSING: aucun backend (PyCBC/LALSuite) disponible"
+                )
+            raise RuntimeError(
+                f"REF_COMPUTE_FAIL: backends disponibles ont échoué: {last_exc}"
+            )
 
         # Écriture cache disque + LRU mémoire
         try:
             _atomic_write_npz(
                 cache_path, {"phi_on_grid": np.asarray(phi_on_grid, dtype=np.float64)}
             )
-            _evict_cache_if_needed(cache_dir=cache_dir, quota_bytes=CACHE_DISK_QUOTA_BYTES)
+            _evict_cache_if_needed(
+                cache_dir=cache_dir, quota_bytes=CACHE_DISK_QUOTA_BYTES
+            )
         except Exception as e:
             logger.warning("Écriture cache disque impossible (%s) : %s", cache_path, e)
 
@@ -382,7 +393,7 @@ def compute_phi_ref(
 
 
 # ------------------------- API utilitaires ------------------------- #
-def clear_ref_cache(cache_dir: Optional[str] = None):
+def clear_ref_cache(cache_dir: str | None = None):
     """Purge tout le cache disque (attention : irréversible)."""
     if cache_dir is None:
         cache_dir = CACHE_DIR_DEFAULT
@@ -397,7 +408,7 @@ def clear_ref_cache(cache_dir: Optional[str] = None):
             logger.warning("clear_ref_cache: impossible de supprimer %s : %s", p, e)
 
 
-def ref_cache_info(cache_dir: Optional[str] = None) -> dict:
+def ref_cache_info(cache_dir: str | None = None) -> dict:
     """Retourne des informations sommaires sur le cache disque (taille, n fichiers)."""
     if cache_dir is None:
         cache_dir = CACHE_DIR_DEFAULT
@@ -411,7 +422,9 @@ def ref_cache_info(cache_dir: Optional[str] = None) -> dict:
                 st = os.stat(p)
                 info["n_files"] += 1
                 info["total_bytes"] += st.st_size
-                info["entries"].append({"file": fn, "size": st.st_size, "mtime": st.st_mtime})
+                info["entries"].append(
+                    {"file": fn, "size": st.st_size, "mtime": st.st_mtime}
+                )
             except Exception:
                 continue
     return info
@@ -436,10 +449,19 @@ if __name__ == "__main__":
     # Construire grille log10
     n = int(np.ceil((np.log10(args.fmax) - np.log10(args.fmin)) / args.dlog10)) + 1
     fgrid = np.logspace(np.log10(args.fmin), np.log10(args.fmax), n)
-    logger.info("Test compute_phi_ref: grille %d points, m1=%s m2=%s", fgrid.size, args.m1, args.m2)
+    logger.info(
+        "Test compute_phi_ref: grille %d points, m1=%s m2=%s",
+        fgrid.size,
+        args.m1,
+        args.m2,
+    )
     try:
         phi = compute_phi_ref(
-            fgrid, args.m1, args.m2, approximant=args.approximant, cache_dir=args.cache_dir
+            fgrid,
+            args.m1,
+            args.m2,
+            approximant=args.approximant,
+            cache_dir=args.cache_dir,
         )
         logger.info(
             "Phase calculée, %d points (min/max) = (%g, %g)",

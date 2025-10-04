@@ -18,9 +18,9 @@ Remarques :
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Tuple
 import pathlib
+from dataclasses import dataclass
+
 import numpy as np
 from scipy import integrate
 from scipy.interpolate import PchipInterpolator
@@ -72,9 +72,9 @@ class PertParams:
     Phi0: float  # Φ(k≈0, a≪a_eq)
 
     # Champs optionnels
-    alpha: Optional[float] = None
-    phi0: Optional[float] = None
-    decay: Optional[float] = None
+    alpha: float | None = None
+    phi0: float | None = None
+    decay: float | None = None
 
 
 # -----------------------------------------------------------------------------#
@@ -198,7 +198,9 @@ def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
 # -----------------------------------------------------------------------------#
 # 5) δφ/φ(k,a)
 # -----------------------------------------------------------------------------#
-def compute_delta_phi(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.ndarray:
+def compute_delta_phi(
+    k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams
+) -> np.ndarray:
     """
     Intègre δφ/φ(k,a) sur la grille (n_k, n_a) via solve_ivp (Radau).
 
@@ -225,7 +227,9 @@ def compute_delta_phi(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> 
         # gel progressif continu (suppression des modes profonds sous-horizon)
         freeze = np.exp(-((k / a_min) / H_a_min) / p.freeze_scale)
 
-        init_amp = freeze * p.delta_phi_param * p.phi0_init * np.exp(-((k / p.k_split) ** 2))
+        init_amp = (
+            freeze * p.delta_phi_param * p.phi0_init * np.exp(-((k / p.k_split) ** 2))
+        )
 
         sol = integrate.solve_ivp(
             lambda aa, yy: _kg_eq(float(aa), yy, float(k), p),
@@ -249,7 +253,7 @@ def compute_delta_phi(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> 
 # -----------------------------------------------------------------------------#
 # 6)  Tests (facultatifs)
 # -----------------------------------------------------------------------------#
-def _load_ref_csv(path: pathlib.Path) -> Tuple[np.ndarray, np.ndarray]:
+def _load_ref_csv(path: pathlib.Path) -> tuple[np.ndarray, np.ndarray]:
     data = np.loadtxt(path, delimiter=",", skiprows=1)
     return data[:, 0].astype(float), data[:, 1].astype(float)
 
@@ -272,7 +276,9 @@ def test_delta_phi_against_reference(
     if not f.exists():
         return
     k_ref, d_ref = _load_ref_csv(f)
-    d_test = compute_delta_phi(k_ref, np.array([1.0], dtype=float), _default_params())[:, -1]
+    d_test = compute_delta_phi(k_ref, np.array([1.0], dtype=float), _default_params())[
+        :, -1
+    ]
     assert np.allclose(d_ref, d_test, rtol=0.2)
 
 

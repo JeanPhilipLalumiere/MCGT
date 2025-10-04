@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 eval_metrics_principal_20_300.py
 ================================
@@ -23,12 +22,12 @@ Sorties :
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import os
 import sys
 import time
-import json
-from typing import Tuple, Dict, Any
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -70,7 +69,9 @@ ERR_CODES = {
 # ---------------------------------------------------------------------
 # Utils IO safe (atomique)
 # ---------------------------------------------------------------------
-def safe_write_csv(df: pd.DataFrame, path: str, overwrite: bool = False, **kwargs) -> None:
+def safe_write_csv(
+    df: pd.DataFrame, path: str, overwrite: bool = False, **kwargs
+) -> None:
     if os.path.exists(path) and not overwrite:
         raise SystemExit(
             f"Refuse d'écraser {path} — relancer avec --overwrite ou supprimer le fichier."
@@ -100,11 +101,13 @@ def compute_rebranch_k(
     phi_mcgt: np.ndarray,
     phi_ref: np.ndarray,
     f_hz: np.ndarray,
-    window: Tuple[float, float] = WINDOW_DEFAULT,
+    window: tuple[float, float] = WINDOW_DEFAULT,
 ) -> int:
     """Calcul de k via median((φ_mcgt − φ_ref)/2π) sur la fenêtre window."""
     fmin, fmax = window
-    mask = (f_hz >= fmin) & (f_hz <= fmax) & np.isfinite(phi_mcgt) & np.isfinite(phi_ref)
+    mask = (
+        (f_hz >= fmin) & (f_hz <= fmax) & np.isfinite(phi_mcgt) & np.isfinite(phi_ref)
+    )
     if not np.any(mask):
         raise ValueError("NAN_IN_WINDOW")
     cycles = (phi_mcgt[mask] - phi_ref[mask]) / (2.0 * np.pi)
@@ -113,7 +116,9 @@ def compute_rebranch_k(
     return k
 
 
-def delta_phi_principal(phi_mcgt: np.ndarray, phi_ref: np.ndarray, k: int) -> np.ndarray:
+def delta_phi_principal(
+    phi_mcgt: np.ndarray, phi_ref: np.ndarray, k: int
+) -> np.ndarray:
     """Retourne Δφ_principal = ((φ_mcgt - k·2π) - φ_ref + π) mod 2π - π."""
     raw = (phi_mcgt - k * 2.0 * np.pi) - phi_ref
     # opération modulo sur floats
@@ -121,7 +126,7 @@ def delta_phi_principal(phi_mcgt: np.ndarray, phi_ref: np.ndarray, k: int) -> np
     return wrapped
 
 
-def metrics_from_absdphi(absdphi: np.ndarray) -> Dict[str, Any]:
+def metrics_from_absdphi(absdphi: np.ndarray) -> dict[str, Any]:
     """Calcule mean, p95, max, n_points"""
     arr = np.asarray(absdphi, dtype=float)
     finite = arr[np.isfinite(arr)]
@@ -138,8 +143,8 @@ def metrics_from_absdphi(absdphi: np.ndarray) -> Dict[str, Any]:
 # Évaluation d'un sample (unité de travail)
 # ---------------------------------------------------------------------
 def evaluate_sample(
-    row: pd.Series, f_hz: np.ndarray, window: Tuple[float, float]
-) -> Dict[str, Any]:
+    row: pd.Series, f_hz: np.ndarray, window: tuple[float, float]
+) -> dict[str, Any]:
     """Évalue les métriques pour un sample (pandas Series). Retourne dict de sortie."""
     t0 = time.time()
     result = {}
@@ -262,7 +267,9 @@ def parse_args(argv=None):
     p = argparse.ArgumentParser(
         description="Évaluer métriques |Δφ|_principal (20-300 Hz) pour un catalogue d'échantillons."
     )
-    p.add_argument("--samples", required=True, help="CSV samples (id,m1,m2,q0star,alpha,...)")
+    p.add_argument(
+        "--samples", required=True, help="CSV samples (id,m1,m2,q0star,alpha,...)"
+    )
     p.add_argument(
         "--ref-grid",
         required=True,
@@ -274,13 +281,20 @@ def parse_args(argv=None):
         help="CSV résultats (sortie)",
     )
     p.add_argument(
-        "--out-best", default="zz-data/chapter10/10_mc_best.json", help="JSON top-K (sortie)"
+        "--out-best",
+        default="zz-data/chapter10/10_mc_best.json",
+        help="JSON top-K (sortie)",
     )
-    p.add_argument("--batch", type=int, default=256, help="taille de batch pour logging")
+    p.add_argument(
+        "--batch", type=int, default=256, help="taille de batch pour logging"
+    )
     p.add_argument("--n-workers", type=int, default=8, help="n_workers joblib")
     p.add_argument("--K", type=int, default=50, help="Top-K à sauver dans out-best")
     p.add_argument(
-        "--n-test", type=int, default=None, help="mode test: n premiers échantillons seulement"
+        "--n-test",
+        type=int,
+        default=None,
+        help="mode test: n premiers échantillons seulement",
     )
     p.add_argument(
         "--jalons",
@@ -288,7 +302,9 @@ def parse_args(argv=None):
         help="(optionnel) fichier jalons — non utilisé ici, penalty via aggregate",
     )
     p.add_argument(
-        "--overwrite", action="store_true", help="Autorise l'écrasement des fichiers de sortie"
+        "--overwrite",
+        action="store_true",
+        help="Autorise l'écrasement des fichiers de sortie",
     )
     p.add_argument("--log-level", default="INFO", help="Niveau de log")
     return p.parse_args(argv)
@@ -315,7 +331,9 @@ def main(argv=None):
     # charger grille f_Hz
     df_ref = pd.read_csv(args.ref_grid)
     if "f_Hz" not in df_ref.columns:
-        raise SystemExit(f"Fichier ref-grid {args.ref_grid} doit contenir une colonne 'f_Hz'.")
+        raise SystemExit(
+            f"Fichier ref-grid {args.ref_grid} doit contenir une colonne 'f_Hz'."
+        )
     f_hz = np.asarray(df_ref["f_Hz"].values, dtype=float)
     logging.info(
         "Grille de référence : %d pts (%.3f..%.3f Hz)",
@@ -336,7 +354,9 @@ def main(argv=None):
     _work = []
     # joblib Parallel with chunksize automatic
     logging.info(
-        "Démarrage évaluation en parallèle : batch=%d n_workers=%d", args.batch, args.n_workers
+        "Démarrage évaluation en parallèle : batch=%d n_workers=%d",
+        args.batch,
+        args.n_workers,
     )
     try:
         results = Parallel(n_jobs=args.n_workers, backend="loky")(
@@ -378,7 +398,9 @@ def main(argv=None):
 
     # safe write CSV
     safe_write_csv(df_out, args.out_results, overwrite=args.overwrite)
-    logging.info("Écriture des résultats (%d lignes) -> %s", len(df_out), args.out_results)
+    logging.info(
+        "Écriture des résultats (%d lignes) -> %s", len(df_out), args.out_results
+    )
 
     # top-K (tri par score ascendant : petite p95 = meilleur)
     df_ok = df_out[df_out["status"] == "ok"].copy()
@@ -386,7 +408,9 @@ def main(argv=None):
         topk = []
         logging.warning("Aucun sample valide (status==ok). Pas de top-K.")
     else:
-        df_ok = df_ok.sort_values(["score", "p95_20_300", "mean_20_300", "max_20_300", "id"])
+        df_ok = df_ok.sort_values(
+            ["score", "p95_20_300", "mean_20_300", "max_20_300", "id"]
+        )
         top = df_ok.head(args.K)
         topk = top.to_dict(orient="records")
 

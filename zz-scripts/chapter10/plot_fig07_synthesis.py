@@ -1,47 +1,49 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 plot_fig07_summary.py — Figure 7 (synthèse)
 
 """
 
 from __future__ import annotations
+
 import argparse
+import csv
 import json
 import os
 import sys
-import csv
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
+import numpy as np
 from matplotlib.gridspec import GridSpec
+from matplotlib.lines import Line2D
 
 
 # ---------- utils ----------
-def parse_figsize(s: str) -> Tuple[float, float]:
+def parse_figsize(s: str) -> tuple[float, float]:
     try:
         a, b = s.split(",")
         return float(a), float(b)
     except Exception as e:
-        raise argparse.ArgumentTypeError("figsize doit être 'largeur,hauteur' (ex: 14,6)") from e
+        raise argparse.ArgumentTypeError(
+            "figsize doit être 'largeur,hauteur' (ex: 14,6)"
+        ) from e
 
 
-def load_manifest(path: str) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
+def load_manifest(path: str) -> dict[str, Any]:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
-def _first(d: Dict[str, Any], keys: List[str], default=np.nan):
+def _first(d: dict[str, Any], keys: list[str], default=np.nan):
     for k in keys:
         if k in d and d[k] is not None:
             return d[k]
     return default
 
 
-def _param(params: Dict[str, Any], candidates: List[str], default=np.nan):
+def _param(params: dict[str, Any], candidates: list[str], default=np.nan):
     return _first(params, candidates, default)
 
 
@@ -54,10 +56,12 @@ class Series:
     err_high: np.ndarray
     width_mean: np.ndarray
     alpha: float
-    params: Dict[str, Any]
+    params: dict[str, Any]
 
 
-def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = None) -> Series:
+def series_from_manifest(
+    man: dict[str, Any], label_override: str | None = None
+) -> Series:
     results = man.get("results", [])
     if not results:
         raise ValueError("Manifest ne contient pas de 'results'.")
@@ -65,13 +69,16 @@ def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = No
     N = np.array([_first(r, ["N"], np.nan) for r in results], dtype=float)
     coverage = np.array([_first(r, ["coverage"], np.nan) for r in results], dtype=float)
     err_low = np.array(
-        [_first(r, ["coverage_err95_low", "coverage_err_low"], 0.0) for r in results], dtype=float
+        [_first(r, ["coverage_err95_low", "coverage_err_low"], 0.0) for r in results],
+        dtype=float,
     )
     err_high = np.array(
-        [_first(r, ["coverage_err95_high", "coverage_err_high"], 0.0) for r in results], dtype=float
+        [_first(r, ["coverage_err95_high", "coverage_err_high"], 0.0) for r in results],
+        dtype=float,
     )
     width_mean = np.array(
-        [_first(r, ["width_mean_rad", "width_mean"], np.nan) for r in results], dtype=float
+        [_first(r, ["width_mean_rad", "width_mean"], np.nan) for r in results],
+        dtype=float,
     )
 
     params = man.get("params", {})
@@ -90,15 +97,21 @@ def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = No
     )
 
 
-def detect_reps_params(params: Dict[str, Any]) -> Tuple[float, float, float]:
-    M = _param(params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan)
-    outer_B = _param(params, ["outer_B", "outer", "B_outer", "outerB", "Bouter"], np.nan)
-    inner_B = _param(params, ["inner_B", "inner", "B_inner", "innerB", "Binner"], np.nan)
+def detect_reps_params(params: dict[str, Any]) -> tuple[float, float, float]:
+    M = _param(
+        params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan
+    )
+    outer_B = _param(
+        params, ["outer_B", "outer", "B_outer", "outerB", "Bouter"], np.nan
+    )
+    inner_B = _param(
+        params, ["inner_B", "inner", "B_inner", "innerB", "Binner"], np.nan
+    )
     return float(M), float(outer_B), float(inner_B)
 
 
 # ---------- stats & résumé ----------
-def compute_summary_rows(series_list: List[Series]) -> List[List[Any]]:
+def compute_summary_rows(series_list: list[Series]) -> list[list[Any]]:
     rows = []
     for s in series_list:
         mean_cov = np.nanmean(s.coverage)
@@ -131,7 +144,7 @@ def powerlaw_slope(N: np.ndarray, W: np.ndarray) -> float:
 
 
 # ---------- CSV ----------
-def save_summary_csv(series_list: List[Series], out_csv: str) -> None:
+def save_summary_csv(series_list: list[Series], out_csv: str) -> None:
     os.makedirs(os.path.dirname(out_csv) or ".", exist_ok=True)
     fields = [
         "series",
@@ -155,12 +168,20 @@ def save_summary_csv(series_list: List[Series], out_csv: str) -> None:
                     {
                         "series": s.label,
                         "N": int(s.N[i]) if np.isfinite(s.N[i]) else "",
-                        "coverage": float(s.coverage[i]) if np.isfinite(s.coverage[i]) else "",
-                        "err95_low": float(s.err_low[i]) if np.isfinite(s.err_low[i]) else "",
-                        "err95_high": float(s.err_high[i]) if np.isfinite(s.err_high[i]) else "",
-                        "width_mean": float(s.width_mean[i])
-                        if np.isfinite(s.width_mean[i])
-                        else "",
+                        "coverage": (
+                            float(s.coverage[i]) if np.isfinite(s.coverage[i]) else ""
+                        ),
+                        "err95_low": (
+                            float(s.err_low[i]) if np.isfinite(s.err_low[i]) else ""
+                        ),
+                        "err95_high": (
+                            float(s.err_high[i]) if np.isfinite(s.err_high[i]) else ""
+                        ),
+                        "width_mean": (
+                            float(s.width_mean[i])
+                            if np.isfinite(s.width_mean[i])
+                            else ""
+                        ),
                         "M": int(M) if np.isfinite(M) else "",
                         "outer_B": int(outer_B) if np.isfinite(outer_B) else "",
                         "inner_B": int(inner_B) if np.isfinite(inner_B) else "",
@@ -171,7 +192,7 @@ def save_summary_csv(series_list: List[Series], out_csv: str) -> None:
 
 # ---------- tracé ----------
 def plot_synthese(
-    series_list: List[Series],
+    series_list: list[Series],
     out_png: str,
     figsize=(14, 6),
     dpi=300,
@@ -193,7 +214,15 @@ def plot_synthese(
     for s in series_list:
         yerr = np.vstack([s.err_low, s.err_high])
         h = ax_cov.errorbar(
-            s.N, s.coverage, yerr=yerr, fmt="o-", lw=1.6, ms=6, capsize=3, zorder=3, label=s.label
+            s.N,
+            s.coverage,
+            yerr=yerr,
+            fmt="o-",
+            lw=1.6,
+            ms=6,
+            capsize=3,
+            zorder=3,
+            label=s.label,
         )
         handles.append(h)
 
@@ -240,7 +269,7 @@ def plot_synthese(
         va="bottom",
     )
 
-    for s, h in zip(series_list, handles):
+    for s, h in zip(series_list, handles, strict=False):
         color = h.lines[0].get_color() if hasattr(h, "lines") and h.lines else None
         ax_width.plot(s.N, s.width_mean, "-o", lw=1.8, ms=5, label=s.label, color=color)
     ax_width.set_title("Largeur d'IC vs N")
@@ -278,7 +307,11 @@ def plot_synthese(
 
     ax_tab.axis("off")
     table = ax_tab.table(
-        cellText=cell_text, colLabels=col_labels, cellLoc="center", colLoc="center", loc="center"
+        cellText=cell_text,
+        colLabels=col_labels,
+        cellLoc="center",
+        colLoc="center",
+        loc="center",
     )
     table.auto_set_font_size(False)
     table.set_fontsize(10)
@@ -314,7 +347,9 @@ def plot_synthese(
         fig.text(0.5, 0.035, cap1, ha="center", fontsize=9)
         fig.text(0.5, 0.017, cap2, ha="center", fontsize=9)
 
-    fig.subplots_adjust(left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35)
+    fig.subplots_adjust(
+        left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35
+    )
 
     os.makedirs(os.path.dirname(out_png) or ".", exist_ok=True)
     fig.savefig(out_png, dpi=dpi, bbox_inches="tight")
@@ -337,7 +372,7 @@ def main(argv=None):
 
     fig_w, fig_h = parse_figsize(args.figsize)
 
-    series_list: List[Series] = []
+    series_list: list[Series] = []
     try:
         man_a = load_manifest(args.manifest_a)
         series_list.append(series_from_manifest(man_a, args.label_a))

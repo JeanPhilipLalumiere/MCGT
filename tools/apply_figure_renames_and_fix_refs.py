@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Renomme les figures selon .ci-out/figures_rename_plan.tsv
 et corrige automatiquement toutes les références dans le dépôt.
@@ -12,30 +11,69 @@ Options:
   --no-git        n'utilise pas git mv (fallback os.rename)
   --verbose       sortie détaillée
 """
+
 from __future__ import annotations
-from mcgt.constants import C_LIGHT_M_S
-import argparse, csv, fnmatch, io, json, os, re, shutil, subprocess, sys, time
+
+import argparse
+import csv
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
 from pathlib import Path
+
+from mcgt.constants import C_LIGHT_M_S
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLAN = ROOT / ".ci-out" / "figures_rename_plan.tsv"
 LOGDIR = ROOT / ".ci-logs"
 
 ALLOW_EXT = {
-    ".md",".mdx",".rst",".tex",".py",".sh",".bash",
-    ".yml",".yaml",".json",".toml",".ini",".txt",".ipynb",
+    ".md",
+    ".mdx",
+    ".rst",
+    ".tex",
+    ".py",
+    ".sh",
+    ".bash",
+    ".yml",
+    ".yaml",
+    ".json",
+    ".toml",
+    ".ini",
+    ".txt",
+    ".ipynb",
 }
 EXCLUDE_DIRS = {
-    ".git",".hg",".svn",".ci-archive",".ci-logs",".tmp-ci",".tmp-cleanup-logs",
-    "dist","dist_from","build","site",".venv","venv","env","node_modules",
-    "artifacts_","zz-figures",  # on évite de scanner les binaires/PNGs
+    ".git",
+    ".hg",
+    ".svn",
+    ".ci-archive",
+    ".ci-logs",
+    ".tmp-ci",
+    ".tmp-cleanup-logs",
+    "dist",
+    "dist_from",
+    "build",
+    "site",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "artifacts_",
+    "zz-figures",  # on évite de scanner les binaires/PNGs
 }
+
 
 def ts_now():
     return time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
 
+
 def is_binary_chunk(b: bytes) -> bool:
     return b"\x00" in b
+
 
 def is_text_file(p: Path) -> bool:
     if p.suffix.lower() in ALLOW_EXT:
@@ -47,22 +85,30 @@ def is_text_file(p: Path) -> bool:
             return False
     return False
 
+
 def should_exclude(path: Path) -> bool:
     parts = path.relative_to(ROOT).parts
     for i, part in enumerate(parts):
         # exclude by exact or prefix (artifacts_, dist_from, etc.)
         if part in EXCLUDE_DIRS:
             return True
-        if any(part.startswith(prefix) for prefix in EXCLUDE_DIRS if prefix.endswith("_")):
+        if any(
+            part.startswith(prefix) for prefix in EXCLUDE_DIRS if prefix.endswith("_")
+        ):
             return True
     return False
+
 
 def detect_git() -> bool:
     return (ROOT / ".git").exists() and shutil.which("git") is not None
 
+
 def git_mv(src: Path, dst: Path) -> subprocess.CompletedProcess | None:
     cmd = ["git", "mv", "-v", str(src), str(dst)]
-    return subprocess.run(cmd, cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    return subprocess.run(
+        cmd, cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+
 
 def safe_rename(src: Path, dst: Path, use_git=True, verbose=False):
     dst.parent.mkdir(parents=True, exist_ok=True)
@@ -77,17 +123,19 @@ def safe_rename(src: Path, dst: Path, use_git=True, verbose=False):
     else:
         os.rename(src, dst)
 
+
 def load_plan(plan_path: Path) -> list[tuple[Path, Path]]:
     if not plan_path.exists():
         raise FileNotFoundError(f"Plan introuvable: {plan_path}")
     mappings = []
-    with open(plan_path, "r", encoding="utf-8") as fh:
+    with open(plan_path, encoding="utf-8") as fh:
         reader = csv.DictReader(fh, delimiter="\t")
         for row in reader:
             src = (ROOT / row["source"]).resolve()
             dst = (ROOT / row["proposed_target"]).resolve()
             mappings.append((src, dst))
     return mappings
+
 
 def preflight(mappings: list[tuple[Path, Path]]) -> dict:
     seen_targets = set()
@@ -99,11 +147,14 @@ def preflight(mappings: list[tuple[Path, Path]]) -> dict:
             diagnostics["existing_targets"].append(str(dst.relative_to(ROOT)))
         key = str(dst).lower()
         if key in seen_targets:
-            diagnostics["existing_targets"].append(f"DUPLICATE_TARGET:{str(dst.relative_to(ROOT))}")
+            diagnostics["existing_targets"].append(
+                f"DUPLICATE_TARGET:{str(dst.relative_to(ROOT))}"
+            )
         seen_targets.add(key)
     if diagnostics["missing_sources"] or diagnostics["existing_targets"]:
         diagnostics["ok"] = False
     return diagnostics
+
 
 def collect_text_files() -> list[Path]:
     files = []
@@ -121,6 +172,7 @@ def collect_text_files() -> list[Path]:
             if is_text_file(p):
                 files.append(p)
     return files
+
 
 def replace_in_file(path: Path, replacements: list[tuple[str, str]]) -> int:
     """Return count of replacements done."""
@@ -140,10 +192,13 @@ def replace_in_file(path: Path, replacements: list[tuple[str, str]]) -> int:
         path.write_text(raw, encoding="utf-8")
     return count
 
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", default=str(DEFAULT_PLAN))
-    ap.add_argument("--apply", action="store_true", help="Applique réellement les changements")
+    ap.add_argument(
+        "--apply", action="store_true", help="Applique réellement les changements"
+    )
     ap.add_argument("--no-git", action="store_true", help="N'utilise pas git mv")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
@@ -181,7 +236,9 @@ def main():
         if pf["missing_sources"]:
             msg.append(f"Sources manquantes: {len(pf['missing_sources'])}")
         if pf["existing_targets"]:
-            msg.append(f"Cibles déjà existantes/dupliquées: {len(pf['existing_targets'])}")
+            msg.append(
+                f"Cibles déjà existantes/dupliquées: {len(pf['existing_targets'])}"
+            )
         summary = " / ".join(msg)
         report["warnings"].append(summary)
         if not args.apply:
@@ -201,23 +258,29 @@ def main():
                 continue
             if dst.exists():
                 # éviter collision silencieuse
-                report["warnings"].append(f"Target exists, skipping rename: {dst.relative_to(ROOT)}")
+                report["warnings"].append(
+                    f"Target exists, skipping rename: {dst.relative_to(ROOT)}"
+                )
                 continue
             if args.verbose:
                 print(f"mv: {src.relative_to(ROOT)} -> {dst.relative_to(ROOT)}")
             safe_rename(src, dst, use_git=(not args.no_git), verbose=args.verbose)
-            report["renames"].append({
-                "from": str(src.relative_to(ROOT)),
-                "to": str(dst.relative_to(ROOT)),
-            })
+            report["renames"].append(
+                {
+                    "from": str(src.relative_to(ROOT)),
+                    "to": str(dst.relative_to(ROOT)),
+                }
+            )
     else:
         for src, dst in mappings:
             exists = src.exists()
-            report["renames"].append({
-                "from": str(src.relative_to(ROOT)),
-                "to": str(dst.relative_to(ROOT)),
-                "would_rename": exists and not dst.exists()
-            })
+            report["renames"].append(
+                {
+                    "from": str(src.relative_to(ROOT)),
+                    "to": str(dst.relative_to(ROOT)),
+                    "would_rename": exists and not dst.exists(),
+                }
+            )
 
     # Réécriture des références
     # Important: trier par longueur décroissante de l'ancien chemin pour éviter remplacements partiels
@@ -251,7 +314,9 @@ def main():
 
     out_json.write_text(json.dumps(report, indent=2, ensure_ascii=False))
     with open(out_txt, "w", encoding="utf-8") as fh:
-        fh.write(f"[{stamp}] apply={args.apply} use_git={(not args.no_git) and detect_git()}\n")
+        fh.write(
+            f"[{stamp}] apply={args.apply} use_git={(not args.no_git) and detect_git()}\n"
+        )
         fh.write(f"Plan: {args.plan}\n")
         fh.write(f"Renames plan entries: {len(mappings)}\n")
         fh.write(f"Changed files (refs): {changed_files}\n")
@@ -263,13 +328,14 @@ def main():
 
     # Résumé console
     if args.apply:
-        print(f"✅ Renommage + corrections appliqués.")
+        print("✅ Renommage + corrections appliqués.")
     else:
-        print(f"🧪 Dry-run terminé (aucune modification écrite).")
+        print("🧪 Dry-run terminé (aucune modification écrite).")
     print(f"Fichiers texte modifiés (ou modifiables): {changed_files}")
     print(f"Nombre total de remplacements: {total_repls}")
     print(f"Rapport JSON : {out_json}")
     print(f"Rapport texte : {out_txt}")
+
 
 if __name__ == "__main__":
     main()

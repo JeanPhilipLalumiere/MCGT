@@ -3,9 +3,10 @@
 # Vérifie que la grille en z (ou q0⋆) correspond aux paramètres minimum, maximum et pas attendus.
 
 import json
-import numpy as np
 import sys
 from pathlib import Path
+
+import numpy as np
 
 # 1. Chargement des méta-paramètres
 ROOT = Path(__file__).resolve().parents[2]
@@ -15,7 +16,7 @@ if not PARAMS_FILE.exists():
     print(f"❌ Fichier de paramètres introuvable : {PARAMS_FILE}")
     sys.exit(1)
 
-with open(PARAMS_FILE, "r", encoding="utf-8") as f:
+with open(PARAMS_FILE, encoding="utf-8") as f:
     params = json.load(f)
 
 xmin = params.get("q0star_min")

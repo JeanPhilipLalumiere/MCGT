@@ -1,32 +1,34 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
-from scipy.signal import savgol_filter
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.patches import FancyArrowPatch
+from scipy.signal import savgol_filter
+
 # — Répertoires —
-ROOT     = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter05"
-FIG_DIR  = ROOT / "zz-figures" / "chapter05"
+FIG_DIR = ROOT / "zz-figures" / "chapter05"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # — 1) Chargement de χ² —
 chi2_file = DATA_DIR / "05_chi2_bbn_vs_T.csv"
-chi2_df   = pd.read_csv(chi2_file)
+chi2_df = pd.read_csv(chi2_file)
 
 # auto-détection de la colonne χ² (contient "chi2" mais pas "d" ou "deriv")
 chi2_col = next(
-    c for c in chi2_df.columns
+    c
+    for c in chi2_df.columns
     if "chi2" in c.lower() and not any(k in c.lower() for k in ("d", "deriv"))
 )
 
 # conversion et nettoyage
-chi2_df["T_Gyr"]         = pd.to_numeric(chi2_df["T_Gyr"], errors="coerce")
-chi2_df[chi2_col]        = pd.to_numeric(chi2_df[chi2_col], errors="coerce")
-chi2_df                  = chi2_df.dropna(subset=["T_Gyr", chi2_col])
-T                        = chi2_df["T_Gyr"].to_numpy()
-chi2                     = chi2_df[chi2_col].to_numpy()
+chi2_df["T_Gyr"] = pd.to_numeric(chi2_df["T_Gyr"], errors="coerce")
+chi2_df[chi2_col] = pd.to_numeric(chi2_df[chi2_col], errors="coerce")
+chi2_df = chi2_df.dropna(subset=["T_Gyr", chi2_col])
+T = chi2_df["T_Gyr"].to_numpy()
+chi2 = chi2_df[chi2_col].to_numpy()
 
 # incertitude : colonne 'chi2_err' si présente, sinon ±10 %
 if "chi2_err" in chi2_df.columns:
@@ -36,19 +38,20 @@ else:
 
 # — 2) Chargement de dχ²/dT —
 dchi_file = DATA_DIR / "05_dchi2_vs_T.csv"
-dchi_df   = pd.read_csv(dchi_file)
+dchi_df = pd.read_csv(dchi_file)
 
 # auto-détection de la colonne dérivée (contient "chi2" et "d" ou "deriv" ou "smooth")
 dchi_col = next(
-    c for c in dchi_df.columns
+    c
+    for c in dchi_df.columns
     if "chi2" in c.lower() and any(k in c.lower() for k in ("d", "deriv", "smooth"))
 )
 
-dchi_df["T_Gyr"]    = pd.to_numeric(dchi_df["T_Gyr"], errors="coerce")
-dchi_df[dchi_col]   = pd.to_numeric(dchi_df[dchi_col], errors="coerce")
-dchi_df             = dchi_df.dropna(subset=["T_Gyr", dchi_col])
-Td                  = dchi_df["T_Gyr"].to_numpy()
-dchi_raw            = dchi_df[dchi_col].to_numpy()
+dchi_df["T_Gyr"] = pd.to_numeric(dchi_df["T_Gyr"], errors="coerce")
+dchi_df[dchi_col] = pd.to_numeric(dchi_df[dchi_col], errors="coerce")
+dchi_df = dchi_df.dropna(subset=["T_Gyr", dchi_col])
+Td = dchi_df["T_Gyr"].to_numpy()
+dchi_raw = dchi_df[dchi_col].to_numpy()
 
 # — 3) Alignement + lissage —
 if dchi_raw.size == 0:
@@ -57,26 +60,20 @@ if dchi_raw.size == 0:
 else:
     # interpolation sur la même grille T
     if not np.allclose(Td, T):
-        dchi = np.interp(
-            np.log10(T),
-            np.log10(Td),
-            dchi_raw,
-            left=np.nan,
-            right=np.nan
-        )
+        dchi = np.interp(np.log10(T), np.log10(Td), dchi_raw, left=np.nan, right=np.nan)
     else:
         dchi = dchi_raw.copy()
     # lissage Savitzky–Golay (fenêtre impaire ≤ 7)
     if len(dchi) >= 5:
-        win = min(7, (len(dchi)//2)*2 + 1)
+        win = min(7, (len(dchi) // 2) * 2 + 1)
         dchi = savgol_filter(dchi, window_length=win, polyorder=3, mode="interp")
 
 # échelle réduite pour lisibilité
 dchi_scaled = dchi / 1e4
 
 # — 4) Recherche du minimum de χ² —
-imin     = int(np.nanargmin(chi2))
-Tmin     = T[imin]
+imin = int(np.nanargmin(chi2))
+Tmin = T[imin]
 chi2_min = chi2[imin]
 
 # — 5) Tracé —
@@ -91,48 +88,49 @@ ax1.grid(which="both", ls=":", lw=0.5, alpha=0.5)
 
 # bande ±1σ
 ax1.fill_between(
-    T, chi2 - sigma, chi2 + sigma,
-    color="tab:blue", alpha=0.12, label=r"$\pm1\sigma$"
+    T, chi2 - sigma, chi2 + sigma, color="tab:blue", alpha=0.12, label=r"$\pm1\sigma$"
 )
 # courbe χ²
-l1, = ax1.plot(
-    T, chi2,
-    lw=2, color="tab:blue", label=r"$\chi^2$"
-)
+(l1,) = ax1.plot(T, chi2, lw=2, color="tab:blue", label=r"$\chi^2$")
 
 # axe secondaire pour la dérivée
 ax2 = ax1.twinx()
-ax2.set_ylabel(
-    r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)",
-    color="tab:orange"
-)
+ax2.set_ylabel(r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange")
 ax2.tick_params(axis="y", labelcolor="tab:orange")
-l2, = ax2.plot(
-    T, dchi_scaled,
-    lw=2, color="tab:orange",
-    label=r"$\mathrm{d}\chi^2/\mathrm{d}T/10^{4}$"
+(l2,) = ax2.plot(
+    T,
+    dchi_scaled,
+    lw=2,
+    color="tab:orange",
+    label=r"$\mathrm{d}\chi^2/\mathrm{d}T/10^{4}$",
 )
 
 # point + flèche sur le minimum
 ax1.scatter(Tmin, chi2_min, s=60, color="k", zorder=4)
 start = (Tmin * 0.2, chi2_min * 0.8)
 arrow = FancyArrowPatch(
-    start, (Tmin, chi2_min),
-    arrowstyle="->", mutation_scale=12,
-    connectionstyle="arc3,rad=-0.35", color="k"
+    start,
+    (Tmin, chi2_min),
+    arrowstyle="->",
+    mutation_scale=12,
+    connectionstyle="arc3,rad=-0.35",
+    color="k",
 )
 ax1.add_patch(arrow)
 ax1.annotate(
-    fr"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
-    xy=(Tmin, chi2_min), xytext=start,
-    ha="left", va="center", fontsize=10
+    rf"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
+    xy=(Tmin, chi2_min),
+    xytext=start,
+    ha="left",
+    va="center",
+    fontsize=10,
 )
 
 # légende combinée
 ax1.legend(
     handles=[l1, l2],
     labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
-    loc="upper right"
+    loc="upper right",
 )
 
 fig.tight_layout()

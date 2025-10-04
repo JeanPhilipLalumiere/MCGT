@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fig. 02 – Diagramme de calibration (P_calc vs P_ref) – Chapitre 2"""
 
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
-from pathlib import Path
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]

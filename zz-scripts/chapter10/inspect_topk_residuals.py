@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Inspect top-K / best candidates:
 - calcule Δφ_principal selon la règle canonique (k@20-300)
@@ -8,12 +7,14 @@ Inspect top-K / best candidates:
 Usage: python zz-scripts/chapter10/inspect_topk_residuals.py --ids 3903,1624,...
 """
 
-import json
 import argparse
+import json
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
 
@@ -47,11 +48,18 @@ def main(args):
         theta = dict(row[["m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"]])
         phi_r = compute_phi_ref(ref, float(row.m1), float(row.m2))
         phi_m = phi_mcgt(ref, theta)
-        abs_dphi, k = compute_abs_dphi_principal(phi_m, phi_r, ref, window=(20.0, 300.0))
+        abs_dphi, k = compute_abs_dphi_principal(
+            phi_m, phi_r, ref, window=(20.0, 300.0)
+        )
         # save CSV
         outcsv = os.path.join(args.out_dir, f"10_topresiduals_id{id_:d}.csv")
         df = pd.DataFrame(
-            {"f_Hz": ref, "phi_ref": phi_r, "phi_mcgt": phi_m, "abs_dphi_principal": abs_dphi}
+            {
+                "f_Hz": ref,
+                "phi_ref": phi_r,
+                "phi_mcgt": phi_m,
+                "abs_dphi_principal": abs_dphi,
+            }
         )
         df.to_csv(outcsv, index=False, float_format="%.12f")
         print(f"Wrote {outcsv} (k={k})")
@@ -68,7 +76,9 @@ def main(args):
         plt.close(fig)
         # resid histogram
         fig, ax = plt.subplots(figsize=(6, 3))
-        ax.hist(df.loc[(df.f_Hz >= 20) & (df.f_Hz <= 300), "abs_dphi_principal"], bins=30)
+        ax.hist(
+            df.loc[(df.f_Hz >= 20) & (df.f_Hz <= 300), "abs_dphi_principal"], bins=30
+        )
         ax.set_xlabel("|Δφ_principal| (20–300 Hz) [rad]")
         ax.set_ylabel("counts")
         fig.savefig(os.path.join(args.out_dir, f"dphi_hist_id{id_:d}.png"), dpi=150)

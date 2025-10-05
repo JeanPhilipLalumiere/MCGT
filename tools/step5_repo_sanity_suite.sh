@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# (Option A) Pour utiliser la pause PSX factorisée :
+# . tools/lib_psx.sh
+# psx_install "step5_repo_sanity_suite.sh"
 set -euo pipefail
 
 # === PSX : bloquer la fermeture auto (hors CI) ===

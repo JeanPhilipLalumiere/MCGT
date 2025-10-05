@@ -34,7 +34,7 @@ except NameError:
 
 # --- MÉTA-PARAMÈTRES ---
     if not META_JSON.exists():
-    logging.error("Méta-paramètres introuvable : %s", META_JSON)
+        logging.error("Méta-paramètres introuvable : %s", META_JSON)
     raise FileNotFoundError(META_JSON)
     meta = json.loads(META_JSON.read_text(encoding="utf-8"))
     k_split = float(meta.get("x_split", meta.get("k_split", 0.0)))
@@ -42,7 +42,7 @@ except NameError:
 
 # --- CHARGEMENT DES DONNÉES ---
     if not DONNEES_CSV.exists():
-    logging.error("Données introuvables : %s", DONNEES_CSV)
+        logging.error("Données introuvables : %s", DONNEES_CSV)
     raise FileNotFoundError(DONNEES_CSV)
     df = pd.read_csv(DONNEES_CSV)
     logging.info("Chargement terminé : %d lignes", len(df))
@@ -63,11 +63,11 @@ except KeyError:
 
 # Détermination de vmin/vmax pour LogNorm
     if mat_masked.count() == 0:
-    raise ValueError("Pas de c_s² > 0 pour tracer")
+        raise ValueError("Pas de c_s² > 0 pour tracer")
     vmin = max(mat_masked.min(), mat_masked.max() * 1e-6)
     vmax = min(mat_masked.max(), 1.0)
     if vmin >= vmax:
-    vmin = vmax * 1e-3
+        vmin = vmax * 1e-3
     logging.info("LogNorm vmin=%.3e vmax=%.3e", vmin, vmax)
 
 # --- Pas de usetex, on utilise mathtext natif ---
@@ -126,7 +126,7 @@ except KeyError:
 
 # === MCGT CLI SEED v2 ===
     if __name__ == "__main__":
-    def _mcgt_cli_seed():
+        def _mcgt_cli_seed():
         import os, argparse, sys, traceback
 
 if __name__ == "__main__":
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     parser.add_argument("-v","--verbose", action="count", default=0, help="Verbosity (-v, -vv)")
     parser.add_argument("--outdir", type=str, default=os.environ.get("MCGT_OUTDIR",""), help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument("--fmt", type=str, default="png", help="Figure format (png/pdf/...)")
+    parser.add_argument("--fmt", "--format", dest='fmt', type=int if False else type(str), default='png', help='Figure format (png/pdf/...)')
     parser.add_argument("--transparent", action="store_true", help="Transparent background")
     args = parser.parse_args()
 

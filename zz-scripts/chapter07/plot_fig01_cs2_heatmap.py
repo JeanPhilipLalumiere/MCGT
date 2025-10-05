@@ -49,7 +49,8 @@ except NameError:
 
     try:
         pivot = df.pivot(index="k", columns="a", values="cs2_matrice")
-except KeyError:
+    except KeyError:
+        pass
     logging.error("Colonnes 'k','a','cs2_matrice' manquantes dans %s", DONNEES_CSV)
     raise
     k_vals = pivot.index.to_numpy()
@@ -152,6 +153,7 @@ if __name__ == "__main__":
     _default_dir = os.path.join(_repo, "zz-figures", _ch)
     _t0 = time.time()
     def _smoke_copy_latest():
+            pass
         try:
             pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
             for _p in pngs:
@@ -168,14 +170,16 @@ if __name__ == "__main__":
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
 
     if args.outdir:
+            pass
         try:
             os.makedirs(args.outdir, exist_ok=True)
-except Exception:
+        except Exception:
             pass
 
+        pass
     try:
         matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
-except Exception:
+    except Exception:
         pass
 
     # Laisse le code existant agir; la plupart des fichiers exécutent du code top-level.

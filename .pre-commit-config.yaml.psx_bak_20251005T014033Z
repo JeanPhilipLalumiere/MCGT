@@ -7,13 +7,9 @@ repos:
         language: system
         entry: tools/hooks/forbid_cp_n.sh
         files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$
       - id: forbid-duplicate-psx-override
         name: forbid duplicate PSX ROBUST OVERRIDE banners
         exclude: ^tools/dallidbsx\.sh$
         language: system
         entry: tools/hooks/forbid_psx_dup.sh
         files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$

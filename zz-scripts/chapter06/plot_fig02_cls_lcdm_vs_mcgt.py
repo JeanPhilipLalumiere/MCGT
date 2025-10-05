@@ -44,7 +44,14 @@ if not Path(CLS_LCDM_DAT).exists():
     df_lcdm = pd.DataFrame({"l": l, "TT": 1e-10 * l * (l + 1)})
     logging.warning("LCDM data %s introuvable — dataset synthétique pour le smoke.", CLS_LCDM_DAT)
 else:
-    df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
+    # smoke-fallback: si le fichier LCDM est absent, génère un dataset synthétique
+    if not Path(CLS_LCDM_DAT).exists():
+        import numpy as np, pandas as pd, logging
+        ell = np.arange(2, 50)
+        df_lcdm = pd.DataFrame({"ell": ell, "TT": 1e-10 * ell * (ell + 1)})
+        logging.warning("LCDM data %s introuvable — dataset synthétique pour le smoke.", CLS_LCDM_DAT)
+    else:
+        df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
 df_mcgt = pd.read_csv(CLS_MCGT_DAT, sep=r"\s+", names=cols_m, comment="#")
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
 df = df[df["ell"] >= 2]
@@ -150,6 +157,28 @@ if __name__ == "__main__":
     parser.add_argument("--transparent", action="store_true", help="Transparent background")
     args = parser.parse_args()
 
+    # [smoke] OUTDIR+copy
+    OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")
+    if OUTDIR_ENV:
+        args.outdir = OUTDIR_ENV
+    os.makedirs(args.outdir, exist_ok=True)
+    import atexit, glob, shutil, time
+    _ch = os.path.basename(os.path.dirname(__file__))
+    _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    _default_dir = os.path.join(_repo, "zz-figures", _ch)
+    _t0 = time.time()
+    def _smoke_copy_latest():
+        try:
+            pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
+            for _p in pngs:
+                if os.path.getmtime(_p) >= _t0 - 10:
+                    _dst = os.path.join(args.outdir, os.path.basename(_p))
+                    if not os.path.exists(_dst):
+                        shutil.copy2(_p, _dst)
+                    break
+        except Exception:
+            pass
+    atexit.register(_smoke_copy_latest)
     if args.verbose:
         level = logging.INFO if args.verbose==1 else logging.DEBUG
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")

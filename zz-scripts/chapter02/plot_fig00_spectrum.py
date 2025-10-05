@@ -54,6 +54,28 @@ if __name__ == "__main__":
     parser.add_argument("--transparent", action="store_true", help="Transparent background")
     args = parser.parse_args()
 
+    # [smoke] OUTDIR+copy
+    OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")
+    if OUTDIR_ENV:
+        args.outdir = OUTDIR_ENV
+    os.makedirs(args.outdir, exist_ok=True)
+    import atexit, glob, shutil, time
+    _ch = os.path.basename(os.path.dirname(__file__))
+    _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    _default_dir = os.path.join(_repo, "zz-figures", _ch)
+    _t0 = time.time()
+    def _smoke_copy_latest():
+        try:
+            pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
+            for _p in pngs:
+                if os.path.getmtime(_p) >= _t0 - 10:
+                    _dst = os.path.join(args.outdir, os.path.basename(_p))
+                    if not os.path.exists(_dst):
+                        shutil.copy2(_p, _dst)
+                    break
+        except Exception:
+            pass
+    atexit.register(_smoke_copy_latest)
     if args.verbose:
         level = logging.INFO if args.verbose==1 else logging.DEBUG
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")

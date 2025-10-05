@@ -83,7 +83,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Pipeline Chapitre 2 (+ option spectre primordial)"
     )
-    parser.add_argument(
+parser.add_argument(
         "--spectre",
         action="store_true",
         help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png",

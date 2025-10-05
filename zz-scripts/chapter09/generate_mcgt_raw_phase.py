@@ -103,27 +103,27 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Génère les phases brutes MCGT (09_phase_run_*.dat)"
     )
-    parser.add_argument(
+parser.add_argument(
         "-i", "--ini", type=Path, required=True, help="Chemin vers gw_phase.ini"
     )
-    parser.add_argument(
+parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Affiche un aperçu et n'écrit pas les fichiers",
     )
-    parser.add_argument(
+parser.add_argument(
         "--export-raw", action="store_true", help="Exporter le CSV et le meta-JSON"
     )
-    parser.add_argument(
+parser.add_argument(
         "--npts", type=int, help="Override du nombre de points de la grille"
     )
-    parser.add_argument(
+parser.add_argument(
         "--log-level",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         default="INFO",
         help="Niveau de verbosité",
     )
-    parser.add_argument("--log-file", type=Path, help="Chemin vers un fichier de log")
+parser.add_argument("--log-file", type=Path, help="Chemin vers un fichier de log")
     return parser.parse_args()
 
 

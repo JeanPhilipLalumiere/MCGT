@@ -33,10 +33,10 @@ def circ_diff(a, b):
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--results", required=True)
-    parser.add_argument("--samples", required=True)
-    parser.add_argument("--ref-grid", required=True)
-    parser.add_argument("--out", default=None)
+parser.add_argument("--results", required=True)
+parser.add_argument("--samples", required=True)
+parser.add_argument("--ref-grid", required=True)
+parser.add_argument("--out", default=None)
     args = parser.parse_args(argv)
 
     df_res = pd.read_csv(args.results)

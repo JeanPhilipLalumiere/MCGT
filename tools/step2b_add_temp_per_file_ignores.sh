@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# (Option A) Pour utiliser la pause PSX factorisée :
+# . tools/lib_psx.sh
+# psx_install "step2b_add_temp_per_file_ignores.sh"
 set -euo pipefail
 
 WAIT_ON_EXIT="${WAIT_ON_EXIT:-1}"

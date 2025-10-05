@@ -96,7 +96,7 @@ except NameError:
 
 # Ticks en taille small
     for lbl in ax.xaxis.get_ticklabels() + ax.yaxis.get_ticklabels():
-    lbl.set_fontsize("small")
+        lbl.set_fontsize("small")
 
 # Colorbar
     cbar = fig.colorbar(mesh, ax=ax)

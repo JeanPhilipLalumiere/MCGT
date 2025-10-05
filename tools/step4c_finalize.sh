@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+. tools/lib_psx.sh
+psx_install "step4c_finalize.sh"
 set -euo pipefail
 
 # === PSX: empêcher la fermeture auto (hors CI) ===

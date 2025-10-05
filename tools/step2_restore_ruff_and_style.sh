@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+. tools/lib_psx.sh
+psx_install "step2_restore_ruff_and_style.sh"
 set -euo pipefail
 
 # === PSX: empêcher la fermeture auto (hors CI) ===

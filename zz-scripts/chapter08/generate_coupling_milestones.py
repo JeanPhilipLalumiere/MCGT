@@ -41,7 +41,7 @@ out_csv = os.path.join(DATA_DIR, "08_coupling_milestones.csv")
 df_all.to_csv(out_csv, index=False, encoding="utf-8")
 print(f"✅ 08_coupling_milestones.csv generated: {out_csv}")
 
-# === MCGT CLI SEED v1 ===
+# === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
@@ -54,6 +54,7 @@ if __name__ == "__main__":
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
+        os.environ["MCGT_OUTDIR"] = args.outdir
         except Exception:
             pass
         _main = globals().get("main")

@@ -216,10 +216,10 @@ if __name__ == "__main__":
             pass
 
         pass
-    try:
-        matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
-    except Exception:
-        pass
+        try:
+            matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
+        except Exception:
+            pass
 
     # Laisse le code existant agir; la plupart des fichiers exécutent du code top-level.
     # Si une fonction main(...) est fournie, tu peux la dé-commenter :

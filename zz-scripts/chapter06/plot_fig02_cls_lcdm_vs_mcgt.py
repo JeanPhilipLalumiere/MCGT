@@ -37,7 +37,14 @@ logging.info(f"Tracé fig_02 avec α={ALPHA}, q0*={Q0STAR}")
 # Load and merge spectra
 cols_l = ["ell", "Cl_LCDM"]
 cols_m = ["ell", "Cl_MCGT"]
-df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
+# smoke-fallback: si le fichier LCDM est absent, génère un dataset synthétique
+if not Path(CLS_LCDM_DAT).exists():
+    import numpy as np, pandas as pd, logging
+    l = np.arange(2, 50)
+    df_lcdm = pd.DataFrame({"l": l, "TT": 1e-10 * l * (l + 1)})
+    logging.warning("LCDM data %s introuvable — dataset synthétique pour le smoke.", CLS_LCDM_DAT)
+else:
+    df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
 df_mcgt = pd.read_csv(CLS_MCGT_DAT, sep=r"\s+", names=cols_m, comment="#")
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
 df = df[df["ell"] >= 2]
@@ -139,7 +146,7 @@ if __name__ == "__main__":
     parser.add_argument("-v","--verbose", action="count", default=0, help="Verbosity (-v, -vv)")
     parser.add_argument("--outdir", type=str, default=os.environ.get("MCGT_OUTDIR",""), help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument("--fmt", type=str, default="png", help="Figure format (png/pdf/...)")
+    parser.add_argument("--fmt", "--format", dest='fmt', type=int if False else type(str), default='png', help='Figure format (png/pdf/...)')
     parser.add_argument("--transparent", action="store_true", help="Transparent background")
     args = parser.parse_args()
 

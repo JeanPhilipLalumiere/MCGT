@@ -206,47 +206,58 @@ if ALPHA is not None and Q0STAR is not None:
         fontsize=9,
     )
 
-## [smoke] enforce positive ylim on all log y-axes (safe)
+## [smoke] ensure positive ylim on log y-axes (safe, idempotent)
+# (Pas de try/except global: uniquement des garde-fous locaux)
 try:
     import numpy as _np
-    import matplotlib.pyplot as _plt
-    _fig = _plt.gcf()
-    for _ax in list(_fig.axes):
-        # Ne touche que les axes en log
-        try:
-            if getattr(_ax, "get_yscale", None) and _ax.get_yscale() == "log":
-                _lo, _hi = _ax.get_ylim()
-                _need_fix = (_lo is None) or (_hi is None) or (_lo <= 0) or not (_lo < _hi)
-                # Essaie d'inférer des bornes positives à partir des données tracées
-                if _need_fix:
-                    _ys = []
-                    try:
-                        for _line in _ax.get_lines():
-                            _y = _line.get_ydata(orig=False)
-                            _ys.append(_np.asarray(_y, dtype=float))
-                    except Exception:
-                        pass
-                    if _ys:
-                        _yall = _np.concatenate(_ys)
-                        _yall = _yall[_np.isfinite(_yall)]
-                        _pos = _yall[_yall > 0]
-                        if _pos.size:
-                            _lo = max(float(_pos.min()) * 0.5, 1e-12)
-                            _hi = float(_pos.max()) * 2.0
-                        else:
-                            _lo, _hi = 1e-12, 1.0
-                    else:
-                        # fallback très conservateur
-                        _lo = 1e-12
-                        _hi = 1.0 if not (_hi and _hi > 0) else float(_hi)
-                # Applique des bornes strictement positives
-                if _lo <= 0:
-                    _lo = 1e-12
-                if _hi <= _lo:
-                    _hi = _lo * 10.0
-                _ax.set_ylim(_lo, _hi)
 except Exception:
-    pass
+    _np = None
+_fig = plt.gcf()
+for _ax in list(_fig.axes):
+    # On corrige uniquement les axes en log-y
+    try:
+        is_log = (getattr(_ax, "get_yscale", lambda: None)() == "log")
+    except Exception:
+        is_log = False
+    if not is_log:
+        continue
+    # Bornes actuelles
+    try:
+        _lo, _hi = _ax.get_ylim()
+    except Exception:
+        _lo, _hi = None, None
+    def _bad(a,b):
+        return (a is None) or (b is None) or (a <= 0) or (b <= 0) or not (a < b)
+    if _bad(_lo, _hi):
+        _ys = []
+        for _line in getattr(_ax, "get_lines", lambda: [])():
+            try:
+                _y = _line.get_ydata(orig=False)
+            except Exception:
+                continue
+            if _np is not None:
+                arr = _np.asarray(_y, dtype=float)
+                if arr.size:
+                    _ys.append(arr)
+        if _ys and _np is not None:
+            yall = _np.concatenate(_ys)
+            yall = yall[_np.isfinite(yall)]
+            pos = yall[yall > 0]
+            if pos.size:
+                _lo = max(float(pos.min()) * 0.5, 1e-12)
+                _hi = float(pos.max()) * 2.0
+            else:
+                _lo, _hi = 1e-12, 1.0
+        else:
+            _lo, _hi = 1e-12, 1.0
+    if _lo <= 0:
+        _lo = 1e-12
+    if _hi <= _lo:
+        _hi = _lo * 10.0
+    try:
+        _ax.set_ylim(_lo, _hi)
+    except Exception:
+        pass
 plt.savefig(OUT_PNG)
 logging.info(f"Figure enregistrée → {OUT_PNG}")
 

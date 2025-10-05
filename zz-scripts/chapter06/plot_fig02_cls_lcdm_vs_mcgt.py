@@ -206,6 +206,47 @@ if ALPHA is not None and Q0STAR is not None:
         fontsize=9,
     )
 
+## [smoke] enforce positive ylim on all log y-axes (safe)
+try:
+    import numpy as _np
+    import matplotlib.pyplot as _plt
+    _fig = _plt.gcf()
+    for _ax in list(_fig.axes):
+        # Ne touche que les axes en log
+        try:
+            if getattr(_ax, "get_yscale", None) and _ax.get_yscale() == "log":
+                _lo, _hi = _ax.get_ylim()
+                _need_fix = (_lo is None) or (_hi is None) or (_lo <= 0) or not (_lo < _hi)
+                # Essaie d'inférer des bornes positives à partir des données tracées
+                if _need_fix:
+                    _ys = []
+                    try:
+                        for _line in _ax.get_lines():
+                            _y = _line.get_ydata(orig=False)
+                            _ys.append(_np.asarray(_y, dtype=float))
+                    except Exception:
+                        pass
+                    if _ys:
+                        _yall = _np.concatenate(_ys)
+                        _yall = _yall[_np.isfinite(_yall)]
+                        _pos = _yall[_yall > 0]
+                        if _pos.size:
+                            _lo = max(float(_pos.min()) * 0.5, 1e-12)
+                            _hi = float(_pos.max()) * 2.0
+                        else:
+                            _lo, _hi = 1e-12, 1.0
+                    else:
+                        # fallback très conservateur
+                        _lo = 1e-12
+                        _hi = 1.0 if not (_hi and _hi > 0) else float(_hi)
+                # Applique des bornes strictement positives
+                if _lo <= 0:
+                    _lo = 1e-12
+                if _hi <= _lo:
+                    _hi = _lo * 10.0
+                _ax.set_ylim(_lo, _hi)
+except Exception:
+    pass
 plt.savefig(OUT_PNG)
 logging.info(f"Figure enregistrée → {OUT_PNG}")
 

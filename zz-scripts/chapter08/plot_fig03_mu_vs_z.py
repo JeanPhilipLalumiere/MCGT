@@ -77,7 +77,7 @@ if __name__ == "__main__":
     parser.add_argument("-v","--verbose", action="count", default=0, help="Verbosity (-v, -vv)")
     parser.add_argument("--outdir", type=str, default=os.environ.get("MCGT_OUTDIR",""), help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument("--fmt", type=str, default="png", help="Figure format (png/pdf/...)")
+    parser.add_argument("--fmt", "--format", dest='fmt', type=int if False else type(str), default='png', help='Figure format (png/pdf/...)')
     parser.add_argument("--transparent", action="store_true", help="Transparent background")
     args = parser.parse_args()
 

@@ -129,7 +129,7 @@ plt.close(fig)
 logging.info("Figure sauvegardée → %s", FIG_OUT)
 logging.info("Tracé de la figure 02 terminé ✔")
 
-# === MCGT CLI SEED v1 ===
+# === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
@@ -142,6 +142,7 @@ if __name__ == "__main__":
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
+        os.environ["MCGT_OUTDIR"] = args.outdir
         except Exception:
             pass
         _main = globals().get("main")

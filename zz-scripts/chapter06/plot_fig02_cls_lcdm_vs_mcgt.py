@@ -53,6 +53,29 @@ else:
     else:
         df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
 df_mcgt = pd.read_csv(CLS_MCGT_DAT, sep=r"\s+", names=cols_m, comment="#")
+## [smoke] harmonize-ell v3
+for _name in ('df_lcdm','df_mcgt'):
+    _df = locals().get(_name)
+    if _df is None:
+        continue
+    if 'ell' not in _df.columns:
+        if 'l' in _df.columns:
+            _df = _df.rename(columns={'l':'ell'})
+        else:
+            first = list(_df.columns)[0] if len(_df.columns) else None
+            if first and first != 'ell':
+                _df = _df.rename(columns={first:'ell'})
+        if 'ell' not in _df.columns:
+            if (_df.index.name == 'ell') or ('ell' in (_df.index.names or [])):
+                _df = _df.reset_index()
+            else:
+                _df = _df.reset_index().rename(columns={'index':'ell'})
+    try:
+        _df['ell'] = _df['ell'].astype(int)
+    except Exception:
+        import pandas as _pd
+        _df['ell'] = _pd.to_numeric(_df['ell'], errors='coerce').fillna(method='ffill').fillna(0).astype(int)
+    locals()[_name] = _df
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
 df = df[df["ell"] >= 2]
 

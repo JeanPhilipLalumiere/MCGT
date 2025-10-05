@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+. tools/lib_psx.sh
+psx_install "step6_prune_ruff_ignores.sh"
 set -euo pipefail
 
 # === PSX : empêcher la fermeture auto (hors CI) ===

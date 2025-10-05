@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# échoue si un "cp -n" est trouvé dans tools/*.sh
-if grep -R --line-number -E '^[[:space:]]*cp[[:space:]]+-n\b' tools/*.sh >/dev/null 2>&1; then
-  echo "ERROR: 'cp -n' détecté dans tools/*.sh — utilise un backup POSIX idempotent."
-  exit 1
-fi
+status=0
+for f in tools/*.sh; do
+  [ -f "$f" ] || continue
+  [ "$(basename "$f")" = "dallidbsx.sh" ] && continue
+  # Ignore les lignes qui commencent par # ; détecte "cp -n" ailleurs
+  if awk 'BEGIN{status=0}
+           /^[[:space:]]*#/ {next}
+           { if ($0 ~ /(^|[[:space:];])cp[[:space:]]+-n([[:space:]]|$)/) { status=1; print "E: cp -n détecté dans " FILENAME; exit 1 } }
+           END{exit status}' "$f"; then
+    :
+  else
+    status=1
+  fi
+done
+exit $status

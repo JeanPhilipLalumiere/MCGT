@@ -76,6 +76,32 @@ for _name in ('df_lcdm','df_mcgt'):
         import pandas as _pd
         _df['ell'] = _pd.to_numeric(_df['ell'], errors='coerce').fillna(method='ffill').fillna(0).astype(int)
     locals()[_name] = _df
+## [smoke] ensure Cl columns v1
+def _rename_cl(df, target, cands):
+    if target in df.columns:
+        return df
+    for c in cands:
+        if c in df.columns:
+            return df.rename(columns={c: target})
+    # sinon, 1er non-ell
+    other = next((c for c in df.columns if c != 'ell'), None)
+    return df.rename(columns={other: target}) if other else df
+
+df_lcdm = _rename_cl(df_lcdm, 'Cl_LCDM', ('Cl','Cl0','C_ell','C_ell_LCDM','Cl_LCDM'))
+df_mcgt = _rename_cl(df_mcgt, 'Cl_MCGT', ('Cl','Cl1','C_ell_MCGT','Cl_MCGT'))
+
+# numericité douce
+for _name in ('df_lcdm','df_mcgt'):
+    _df = locals().get(_name)
+    if _df is None: 
+        continue
+    import pandas as _pd
+    if 'ell' in _df.columns:
+        _df['ell'] = _pd.to_numeric(_df['ell'], errors='coerce').ffill().fillna(0).astype(int)
+    for c in ('Cl_LCDM','Cl_MCGT'):
+        if c in _df.columns:
+            _df[c] = _pd.to_numeric(_df[c], errors='coerce').fillna(0.0)
+    locals()[_name] = _df
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
 df = df[df["ell"] >= 2]
 

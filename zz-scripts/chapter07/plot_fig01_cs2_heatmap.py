@@ -28,9 +28,11 @@ except NameError:
 # --- CHEMINS (names and files in English) ---
     DONNEES_CSV = RACINE / "zz-data" / "chapter07" / "07_cs2_matrix.csv"
     META_JSON = RACINE / "zz-data" / "chapter07" / "07_meta_perturbations.json"
-    FIGURE_SORTIE = RACINE / "zz-figures" / "chapter07" / "fig_01_cs2_heatmap_k_a.png"
+    FIGURE_SORTIE = RACINE / "zz-figures" / \
+        "chapter07" / "fig_01_cs2_heatmap_k_a.png"
 
-    logging.info("Début du tracé de la figure 01 – Carte de chaleur de c_s²(k,a)")
+    logging.info(
+        "Début du tracé de la figure 01 – Carte de chaleur de c_s²(k,a)")
 
 # --- MÉTA-PARAMÈTRES ---
     if not META_JSON.exists():
@@ -51,7 +53,9 @@ except NameError:
         pivot = df.pivot(index="k", columns="a", values="cs2_matrice")
     except KeyError:
         pass
-    logging.error("Colonnes 'k','a','cs2_matrice' manquantes dans %s", DONNEES_CSV)
+    logging.error(
+    "Colonnes 'k','a','cs2_matrice' manquantes dans %s",
+     DONNEES_CSV)
     raise
     k_vals = pivot.index.to_numpy()
     a_vals = pivot.columns.to_numpy()
@@ -129,18 +133,44 @@ except NameError:
     if __name__ == "__main__":
         def _mcgt_cli_seed():
             pass
-        import os, argparse, sys, traceback
+        import os
+        import argparse
+        import sys
+        import traceback
 
 if __name__ == "__main__":
-    import argparse, os, sys, logging
+    import argparse
+    import os
+    import sys
+    import logging
     import matplotlib
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
-    parser.add_argument("-v","--verbose", action="count", default=0, help="Verbosity (-v, -vv)")
-    parser.add_argument("--outdir", type=str, default=os.environ.get("MCGT_OUTDIR",""), help="Output directory")
+    parser.add_argument(
+    "-v",
+    "--verbose",
+    action="count",
+    default=0,
+     help="Verbosity (-v, -vv)")
+    parser.add_argument(
+    "--outdir",
+    type=str,
+    default=os.environ.get(
+        "MCGT_OUTDIR",
+        ""),
+         help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument("--fmt", "--format", dest='fmt', type=int if False else type(str), default='png', help='Figure format (png/pdf/...)')
-    parser.add_argument("--transparent", action="store_true", help="Transparent background")
+    parser.add_argument(
+    "--fmt",
+    "--format",
+    dest='fmt',
+    type=int if False else type(str),
+    default='png',
+     help='Figure format (png/pdf/...)')
+    parser.add_argument(
+    "--transparent",
+    action="store_true",
+     help="Transparent background")
     args = parser.parse_args()
 
     # [smoke] OUTDIR+copy
@@ -148,11 +178,19 @@ if __name__ == "__main__":
     if OUTDIR_ENV:
         args.outdir = OUTDIR_ENV
     os.makedirs(args.outdir, exist_ok=True)
-    import atexit, glob, shutil, time
+    import atexit
+    import glob
+    import shutil
+    import time
     _ch = os.path.basename(os.path.dirname(__file__))
-    _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    _repo = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        "..",
+         ".."))
     _default_dir = os.path.join(_repo, "zz-figures", _ch)
     _t0 = time.time()
+
     def _smoke_copy_latest():
             pass
         try:

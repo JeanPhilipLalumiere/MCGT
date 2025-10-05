@@ -128,6 +128,7 @@ except NameError:
 # === MCGT CLI SEED v2 ===
     if __name__ == "__main__":
         def _mcgt_cli_seed():
+            pass
         import os, argparse, sys, traceback
 
 if __name__ == "__main__":

@@ -103,6 +103,26 @@ for _name in ('df_lcdm','df_mcgt'):
             _df[c] = _pd.to_numeric(_df[c], errors='coerce').fillna(0.0)
     locals()[_name] = _df
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
+## [smoke] positive clip for log-scale (safe)
+try:
+    import numpy as _np
+    import pandas as _pd
+    if 'df' in locals():
+        for _c in ('Cl_LCDM','Cl_MCGT'):
+            if _c in df.columns:
+                df[_c] = _pd.to_numeric(df[_c], errors='coerce').fillna(0.0)
+                _pos = df[_c] > 0
+                if _pos.any():
+                    _eps = float(df.loc[_pos, _c].min()) if df.loc[_pos, _c].min() > 0 else 1e-12
+                    df.loc[~_pos, _c] = _eps
+                else:
+                    # si tout est <=0, transforme en valeurs positives croissantes
+                    n = len(df)
+                    df[_c] = _np.linspace(1e-12, 1e-6, n)
+except Exception as _e:
+    # best-effort pour le smoke
+    pass
+
 df = df[df["ell"] >= 2]
 
 ells = df["ell"].values

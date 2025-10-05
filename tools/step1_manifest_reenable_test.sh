@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# (Option A) Pour utiliser la pause PSX factorisée :
+# . tools/lib_psx.sh
+# psx_install "step1_manifest_reenable_test.sh"
 set -euo pipefail
 
 # === Garde-fou PSX : la fenêtre attend Entrée avant de se fermer (hors CI) ===

@@ -192,7 +192,6 @@ if __name__ == "__main__":
     _t0 = time.time()
 
     def _smoke_copy_latest():
-            pass
         try:
             pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
             for _p in pngs:

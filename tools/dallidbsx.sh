@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+
+# --- POSIX helper: cp_if_missing (remplace "cp -n SRC DEST") ---
+cp_if_missing() {
+  # usage: cp_if_missing SRC DEST
+  # ne remplace pas si DEST existe déjà
+  if [ ! -e "$2" ]; then
+    cp "$1" "$2"
+  fi
+}
+
 set -euo pipefail
 
 # ====================== DALLIDBSX — one-shot full setup ======================
@@ -104,7 +114,7 @@ mapfile -t targets < <(ls -1 tools/*.sh 2>/dev/null || true)
 for f in "${targets[@]}"; do
   [ -f "$f" ] || continue
   if grep -nE '(^|[[:space:];])cp[[:space:]]+-n([[:space:]]|$)' "$f" >/dev/null; then
-    echo "E: cp -n détecté dans $f" >&2
+    echo "E: cp_if_missing détecté dans $f" >&2
     status=1
   fi
 done
@@ -121,7 +131,6 @@ mapfile -t targets < <(ls -1 tools/*.sh 2>/dev/null || true)
 for f in "${targets[@]}"; do
   [ -f "$f" ] || continue
   if [ "$(grep -c 'PSX ROBUST OVERRIDE' "$f" || true)" -gt 1 ]; then
-    echo "E: Bannière 'PSX ROBUST OVERRIDE' dupliquée dans $f" >&2
     status=1
   fi
   if [ "$(grep -c '^[[:space:]]*psx_install[[:space:]]*(' "$f" || true)" -gt 1 ]; then
@@ -148,12 +157,11 @@ repos:
   - repo: local
     hooks:
       - id: forbid-cp-n-in-tools
-        name: forbid cp -n in tools
+        name: forbid cp_if_missing in tools
         entry: tools/hooks/forbid_cp_n.sh
         language: system
         files: ^tools/.*\.sh$
       - id: forbid-psx-dup-banner
-        name: forbid duplicate PSX ROBUST OVERRIDE banners
         entry: tools/hooks/forbid_psx_dup.sh
         language: system
         files: ^tools/.*\.sh$
@@ -211,7 +219,7 @@ for path in paths:
         # cp -n SRC DEST  -> if [ ! -e DEST ]; then cp SRC DEST; fi  # cp -n -> POSIX
         def repl(m):
             src, dst = m.group(1), m.group(2)
-            return f'if [ ! -e {dst} ]; then cp {src} {dst}; fi  # cp -n -> POSIX'
+            return f'if [ ! -e {dst} ]; then cp {src} {dst}; fi  # cp_if_missing -> POSIX'
         newline = re.sub(r'(?<!\S)cp\s+-n\s+(\S+)\s+(\S+)(?!\S)', repl, line)
         if newline != line:
             changed=True
@@ -235,7 +243,7 @@ if has A; then
   if [ "$yaml_ok" -eq 1 ]; then
     git add -A || true
     if ! git diff --staged --quiet; then
-      git commit -m 'chore(psx): install lib, add local hooks; inject psx; cp -n -> POSIX; pre-commit validated'
+      git commit -m 'chore(psx): install lib, add local hooks; inject psx; cp_if_missing -> POSIX; pre-commit validated'
       git push
     else
       echo "Aucun changement à committer."

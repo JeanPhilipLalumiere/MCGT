@@ -96,25 +96,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Standard CLI seed (non-intrusif).")
     parser.add_argument(
-        "--outdir",
-            "MCGT_OUTDIR",
             ".ci-out"),
     parser.add_argument(
-        "--dry-run",
         action="store_true",
     parser.add_argument("--seed", type=int, default=None,
     parser.add_argument(
-        "--force",
         action="store_true",
     parser.add_argument(
-        "-v",
-        "--verbose",
         action="count",
         parser.add_argument("--dpi", type=int, default=150,
                             parser.add_argument(
-                                "--format",
                                 parser.add_argument(
-                                    "--transparent",
                                     action="store_true",
 
                                     parser.add_argument(

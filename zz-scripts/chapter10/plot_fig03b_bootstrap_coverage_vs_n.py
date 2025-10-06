@@ -174,11 +174,11 @@ def main():
         default="100,200,400,800,1200,2000",
         help="Liste de B séparés par virgules pour la sensibilité.",
     )
-    args = pp.add_argument(
-        "--outdir",
-        type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+    p.add_argument(    args = p.parse_args()
+                       "--outdir",
+                       type=str,
+                       default=None,
+                       help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 p.add_argument("--fmt", type=str, default=None,

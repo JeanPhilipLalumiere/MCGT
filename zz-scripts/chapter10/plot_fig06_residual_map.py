@@ -100,7 +100,8 @@ def main():
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--out", default="fig_06_residual_map.png")
     ap.add_argument("--manifest", action="store_true")
-    ap.add_argument(    args = ap.parse_args()
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = ap.parse_args()
                         "--outdir",
                         type=str,
                         default=None,

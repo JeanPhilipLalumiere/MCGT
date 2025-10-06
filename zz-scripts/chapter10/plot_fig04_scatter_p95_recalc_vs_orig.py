@@ -123,7 +123,18 @@ def main():
         default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
         help="Figure title (fontsize=15)",
     )
-    args = p.parse_args()
+    args = pp.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+p.add_argument("--fmt", type=str, default=None,
+               help="Format savefig (png, pdf, etc.)")
+p.add_argument("--transparent", action="store_true",
+               help="Fond transparent pour savefig")
+.parse_args()
 
     df = pd.read_csv(args.results)
     orig_col = detect_column(df, args.orig_col, [args.orig_col])

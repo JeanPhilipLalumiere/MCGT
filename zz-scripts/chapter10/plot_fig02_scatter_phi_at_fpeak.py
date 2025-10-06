@@ -199,11 +199,11 @@ def main():
         default=12345,
         help="Seed RNG bootstrap")
 
-    args = pp.add_argument(
-        "--outdir",
-        type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+    p.add_argument(    args = p.parse_args()
+                       "--outdir",
+                       type=str,
+                       default=None,
+                       help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 p.add_argument("--fmt", type=str, default=None,

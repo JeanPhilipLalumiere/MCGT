@@ -133,11 +133,11 @@ def main():
             "WARNING",
             "ERROR"],
         default="INFO" )
-    args = apap.add_argument(
-        "--outdir",
-        type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+    ap.add_argument(    args = ap.parse_args()
+                        "--outdir",
+                        type=str,
+                        default=None,
+                        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 ap.add_argument(

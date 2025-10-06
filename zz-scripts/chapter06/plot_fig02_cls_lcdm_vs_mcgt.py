@@ -109,16 +109,16 @@ df_lcdm = _rename_cl(
     df_lcdm,
     'Cl_LCDM',
     ('Cl',
-    'Cl0',
-    'C_ell',
-    'C_ell_LCDM',
+     'Cl0',
+     'C_ell',
+     'C_ell_LCDM',
      'Cl_LCDM'))
 df_mcgt = _rename_cl(
     df_mcgt,
     'Cl_MCGT',
     ('Cl',
-    'Cl1',
-    'C_ell_MCGT',
+     'Cl1',
+     'C_ell_MCGT',
      'Cl_MCGT'))
 
 # numericité douce
@@ -408,8 +408,8 @@ if __name__ == "__main__":
 
     try:
         matplotlib.rcParams.update({"savefig.dpi": args.dpi,
-    "savefig.format": args.fmt,
-     "savefig.transparent": bool(args.transparent)})
+                                    "savefig.format": args.fmt,
+                                    "savefig.transparent": bool(args.transparent)})
     except Exception:
         pass
 

@@ -102,8 +102,6 @@ def k_rebranch_median(
 # -------------------- script --------------------
 def main():
     ap = argparse.ArgumentParser(
-        description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
-    )
     ap.add_argument("--csv", type=Path, required=True)
     ap.add_argument(
         type=Path,

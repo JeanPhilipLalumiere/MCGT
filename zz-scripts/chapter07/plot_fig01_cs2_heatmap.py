@@ -205,12 +205,10 @@ if __name__ == "__main__":
                     ".."))
             _default_dir = os.path.join(_repo, "zz-figures", _ch)
             pngs = sorted(
-                glob.glob(
-                    os.path.join(
-                        _default_dir,
-                        "*.png")),
-                key=os.path.getmtime,
-                reverse=True)
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+            )
             for _p in pngs:
                 if os.path.exists(_p):
                     _dst = os.path.join(args.outdir, os.path.basename(_p))
@@ -232,8 +230,8 @@ if __name__ == "__main__":
 
         try:
             matplotlib.rcParams.update({"savefig.dpi": args.dpi,
-    "savefig.format": args.fmt,
-     "savefig.transparent": bool(args.transparent)})
+                                        "savefig.format": args.fmt,
+                                        "savefig.transparent": bool(args.transparent)})
         except Exception:
             pass
     rc = 0

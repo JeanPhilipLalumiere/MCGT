@@ -90,7 +90,7 @@ except NameError:
         norm=LogNorm(vmin=vmin, vmax=vmax),
         cmap=cmap,
         shading="auto",
-    )
+        )
 
     ax.set_xscale("linear")
     ax.set_yscale("log")
@@ -117,7 +117,7 @@ except NameError:
         va="bottom",
         ha="right",
         fontsize="small",
-    )
+        )
     logging.info("Ajout de la ligne horizontale à k = %.2e", k_split)
 
 # --- SAUVEGARDE ---
@@ -208,7 +208,7 @@ if __name__ == "__main__":
                     glob.glob(os.path.join(_default_dir, "*.png")),
                     key=os.path.getmtime,
                     reverse=True,
-            )
+                )
             for _p in pngs:
                 if os.path.exists(_p):
                     _dst = os.path.join(args.outdir, os.path.basename(_p))

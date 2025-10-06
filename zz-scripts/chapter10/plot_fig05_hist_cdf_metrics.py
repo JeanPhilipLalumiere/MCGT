@@ -80,7 +80,21 @@ def main():
     ap.add_argument(
         "--zoom-h", type=float, default=0.25, help="hauteur du zoom (fraction)"
     )
-    args = ap.parse_args()
+    args = apap.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+ap.add_argument(
+    "--fmt",
+    type=str,
+    default=None,
+    help="Format savefig (png, pdf, etc.)")
+ap.add_argument("--transparent", action="store_true",
+                help="Fond transparent pour savefig")
+.parse_args()
 
     # --- lecture & colonne p95 ---
     df = pd.read_csv(args.results)

@@ -134,7 +134,21 @@ def parse_args():
             "WARNING",
             "ERROR"],
         default="INFO" )
-    return ap.parse_args()
+    return apap.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+ap.add_argument(
+    "--fmt",
+    type=str,
+    default=None,
+    help="Format savefig (png, pdf, etc.)")
+ap.add_argument("--transparent", action="store_true",
+                help="Fond transparent pour savefig")
+.parse_args()
 
 
 # ---------- Main ----------

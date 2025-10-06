@@ -54,6 +54,10 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
     parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
+    parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+    parser.add_argument('--outdir', type=str, default=None, help='Dossier pour copier la figure (fallback $MCGT_OUTDIR)')
+    parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
     args = parser.parse_args()
 
     # [smoke] OUTDIR+copy

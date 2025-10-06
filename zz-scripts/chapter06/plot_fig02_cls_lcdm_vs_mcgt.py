@@ -42,8 +42,8 @@ if not Path(CLS_LCDM_DAT).exists():
     import numpy as np
     import pandas as pd
     import logging
-    l = np.arange(2, 50)
-    df_lcdm = pd.DataFrame({"l": l, "TT": 1e-10 * l * (l + 1)})
+    ell = np.arange(2, 50)
+    df_lcdm = pd.DataFrame({"l": ell, "TT": 1e-10 * ell * (ell + 1)})
     logging.warning(
         "LCDM data %s introuvable — dataset synthétique pour le smoke.",
         CLS_LCDM_DAT)
@@ -146,7 +146,7 @@ try:
                 _pos = df[_c] > 0
                 if _pos.any():
                     _eps = float(df.loc[_pos, _c].min(
-                    )) if df.loc[_pos, _c].min() > 0 else 1e-12
+                        )) if df.loc[_pos, _c].min() > 0 else 1e-12
                     df.loc[~_pos, _c] = _eps
                 else:
                     # si tout est <=0, transforme en valeurs positives
@@ -180,7 +180,7 @@ ax.plot(
     linewidth=2,
     label="MCGT",
     alpha=0.7,
-    color="tab:orange" )
+    color="tab:orange")
 
 # Shade region where MCGT > ΛCDM
 ax.fill_between(ells, cl0, cl1, where=cl1 > cl0, color="tab:red", alpha=0.15)
@@ -225,7 +225,7 @@ axins2 = inset_axes(
         0.06,
         0.30,
         0.35,
-    ),  # on décale x0 de ~0.32 pour se caler à droite
+        ),  # on décale x0 de ~0.32 pour se caler à droite
     bbox_transform=ax.transAxes,
     borderpad=0,
 )
@@ -237,7 +237,7 @@ axins2.plot(
     "-",
     linewidth=1,
     alpha=0.7,
-    color="tab:orange" )
+    color="tab:orange")
 axins2.set_xscale("log")
 axins2.set_yscale("log")
 axins2.set_title(r"Zoom $200<\ell<300$", fontsize=8)
@@ -254,7 +254,7 @@ if ALPHA is not None and Q0STAR is not None:
         ha="left",
         va="top",
         fontsize=9,
-    )
+        )
 
 # [smoke] ensure positive ylim on log y-axes (safe, idempotent)
 # (Pas de try/except global: uniquement des garde-fous locaux)

@@ -58,6 +58,7 @@ if __name__ == "__main__":
     parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
     parser.add_argument('--outdir', type=str, default=None, help='Dossier pour copier la figure (fallback $MCGT_OUTDIR)')
     parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+    parser.add_argument('--verbose', action='store_true', help='Verbosity CLI (logs supplémentaires)')
     args = parser.parse_args()
 
     # [smoke] OUTDIR+copy

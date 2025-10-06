@@ -116,30 +116,20 @@ def main():
     p.add_argument(
         "--npoints",
         type=int,
-        default=100,
-        help="Nb de valeurs N évaluées")
     p.add_argument(
         "--trim",
         type=float,
-        default=0.05,
-        help="Proportion tronquée de chaque côté (trimmed mean)",
     )
     p.add_argument(
         "--zoom-center-n",
         type=int,
-        default=None,
-        help="Centre en N (par défaut ~M/2)" )
     p.add_argument(
         "--zoom-w",
         type=float,
-        default=0.35,
-        help="Largeur de base de l'encart (fraction figure)",
     )
     p.add_argument(
         "--zoom-h",
         type=float,
-        default=0.20,
-        help="Hauteur de base de l'encart (fraction figure)",
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

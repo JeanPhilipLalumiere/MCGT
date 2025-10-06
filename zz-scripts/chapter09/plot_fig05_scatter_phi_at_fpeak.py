@@ -104,8 +104,8 @@ def robust_stats(
 
 def parse_args():
     ap = argparse.ArgumentParser(
-    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
-    args = ap.parse_args()
+        ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
+        args = ap.parse_args()
         description="Fig.05 — φ_ref vs φ_MCGT aux f_peak (±σ)")
     ap.add_argument(
         "--milestones",

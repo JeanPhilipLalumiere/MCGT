@@ -145,34 +145,24 @@ def main():
     p.add_argument(
         "--hires2000",
         action="store_true",
-        help="Utiliser outer=2000, inner=2000 (ne change pas les défauts globaux).",
     )
     p.add_argument(
         "--angular",
         action="store_true",
-        help="Active l'encart comparant moyenne linéaire vs moyenne circulaire (p95 en radians).",
     )
     p.add_argument(
         "--make-sensitivity",
         action="store_true",
-        help="Produit une figure annexe de sensibilité (coverage vs outer/inner).",
     )
     p.add_argument(
         "--sens-mode",
-        choices=["outer", "inner"],
-        default="outer",
-        help="Paramètre de sensibilité (outer ou inner).",
     )
     p.add_argument(
         "--sens-N",
         type=int,
-        default=None,
-        help="N fixe utilisé pour la sensibilité (défaut: N max du dataset).",
     )
     p.add_argument(
         "--sens-B-list",
-        default="100,200,400,800,1200,2000",
-        help="Liste de B séparés par virgules pour la sensibilité.",
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

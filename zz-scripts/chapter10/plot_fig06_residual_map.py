@@ -68,35 +68,23 @@ def main():
     )
     ap.add_argument(
         "--phi-ref-col",
-        default=None,
-        help="Colonne phi_ref (dphi).")
     ap.add_argument(
         "--phi-mcgt-col",
-        default=None,
-        help="Colonne phi_mcgt (dphi).")
     ap.add_argument("--gridsize", type=int, default=36)
     ap.add_argument(
         "--mincnt",
         type=int,
-        default=3,
-        help="Masque les hexagones avec nb<mincnt." )
     ap.add_argument("--cmap", default="viridis")
     ap.add_argument(
         "--vclip",
-        default="1,99",
-        help="Percentiles pour vmin,vmax (ex: '1,99')." )
     ap.add_argument( "--scale-exp", type=int, default=-
                      7, help="Exponent pour l'échelle ×10^exp rad." )
     ap.add_argument(
         "--threshold",
         type=float,
-        default=1e-6,
-        help="Seuil pour fraction |metric|>threshold [rad].",
     )
     ap.add_argument(
         "--figsize",
-        default="15,9",
-        help="Largeur,hauteur en pouces (ex: '15,9')." )
     ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()
                         "--outdir",

@@ -125,9 +125,9 @@ def pick_variant(df: pd.DataFrame) -> str:
 
 def parse_args():
     ap = argparse.ArgumentParser(
-    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
-    args = ap.parse_args()
-     description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)" )
+        ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
+        args = ap.parse_args()
+        description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)" )
     ap.add_argument(
         "--diff",
         type=Path,

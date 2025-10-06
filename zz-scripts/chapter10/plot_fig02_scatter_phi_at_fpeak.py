@@ -171,33 +171,24 @@ def main():
     p.add_argument(
         "--hexbin-gridsize",
         type=int,
-        default=120,
-        help="Grille hexbin (densité)." )
     p.add_argument(
         "--hexbin-alpha",
         type=float,
-        default=0.18,
-        help="Alpha du hexbin de fond." )
 
     # Colorbar ticks π/4
     p.add_argument(
         "--pi-ticks",
         action="store_true",
-        help="Colorbar avec ticks à 0, π/4, π/2, 3π/4, π.",
     )
 
     # Bootstrap IC sur la moyenne circulaire
     p.add_argument(
         "--boot-ci",
         type=int,
-        default=1000,
-        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
     )
     p.add_argument(
         "--seed",
         type=int,
-        default=12345,
-        help="Seed RNG bootstrap")
 
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

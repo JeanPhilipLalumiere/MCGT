@@ -92,56 +92,36 @@ def main():
     p.add_argument("--results", required=True, help="CSV avec colonne p95.")
     p.add_argument(
         "--p95-col",
-        default=None,
-        help="Nom exact de la colonne p95.")
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n.png",
-        help="PNG de sortie",
     )
     p.add_argument(
         "--outer",
         type=int,
-        default=400,
-        help="Nombre de réplicats externes (couverture).",
     )
     p.add_argument(
         "--M",
         type=int,
-        default=None,
-        help="Alias de --outer (si précisé, remplace --outer).",
     )
     p.add_argument( "--inner", type=int, default=2000,
-                    help="Nombre de réplicats internes (IC)." )
     p.add_argument( "--alpha", type=float, default=0.05,
-                    help="Niveau d'erreur pour IC (ex. 0.05)." )
     p.add_argument(
         "--npoints",
         type=int,
-        default=10,
-        help="Nombre de points N.")
     p.add_argument("--minN", type=int, default=100, help="Plus petit N.")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG.")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG.")
     p.add_argument(
         "--ymin-coverage",
         type=float,
-        default=None,
-        help="Ymin panneau couverture." )
     p.add_argument(
         "--ymax-coverage",
         type=float,
-        default=None,
-        help="Ymax panneau couverture." )
     p.add_argument(
         "--title-left",
-        default="Couverture IC vs N (estimateur: mean)",
-        help="Titre panneau gauche.",
     )
     p.add_argument(
         "--title-right",
-        default="Largeur d'IC vs N",
-        help="Titre panneau droit." )
     p.add_argument(
         "--hires2000",
         action="store_true",

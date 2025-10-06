@@ -109,38 +109,23 @@ def main():
     p.add_argument(
         "--results",
         required=True,
-        help="CSV contenant les colonnes de phases à f_peak" )
     p.add_argument(
         "--x-col",
-        default=None,
-        help="Nom colonne phase ref (x). Auto-détect si omis." )
     p.add_argument(
         "--y-col",
-        default=None,
-        help="Nom colonne phase MCGT (y). Auto-détect si omis." )
     p.add_argument(
         "--sigma-col",
-        default=None,
-        help="Colonne sigma (erreurs sur X) optionnelle" )
     p.add_argument(
         "--group-col",
-        default=None,
-        help="Colonne de groupe optionnelle (marqueurs)" )
     p.add_argument(
         "--out",
-        default="fig_02_scatter_phi_at_fpeak.png",
-        help="PNG de sortie" )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
         "--title",
-        default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
-        help="Titre de la figure (fontsize=15)",
     )
     p.add_argument(
         "--point-size",
         type=float,
-        default=12.0,
-        help="Taille des points du scatter" )
     p.add_argument(
         "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
     )
@@ -150,24 +135,18 @@ def main():
     p.add_argument(
         "--clip_pi",
         action="store_true",
-        help="Force axes X/Y dans [-π, π] (utile si phases wrapées).",
     )
     p.add_argument(
         "--p95-ref",
         type=float,
-        default=0.7104087123286049,
-        help="Seuil de référence pour fraction |Δφ| < réf.",
     )
     p.add_argument(
         "--annotate-top-k",
         type=int,
-        default=0,
-        help="Annote les K pires |Δφ| (0 = désactivé).",
     )
 
     # HEXBIN
     p.add_argument( "--with-hexbin", action="store_true",
-                    help="Ajoute un hexbin de fond (densité)." )
     p.add_argument(
         "--hexbin-gridsize",
         type=int,

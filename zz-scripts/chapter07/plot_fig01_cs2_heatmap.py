@@ -171,9 +171,9 @@ if __name__ == "__main__":
         "--transparent",
         action="store_true",
         help="Transparent background")
-    args = parserparser.add_argument(
-        "--style",
-        choices=[
+    parser.add_argument(    args = parser.parse_args()
+                            "--style",
+                            choices=[
             "paper",
             "talk",
             "mono",

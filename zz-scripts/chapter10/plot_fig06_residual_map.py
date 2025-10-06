@@ -100,11 +100,11 @@ def main():
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--out", default="fig_06_residual_map.png")
     ap.add_argument("--manifest", action="store_true")
-    args = apap.add_argument(
-        "--outdir",
-        type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+    ap.add_argument(    args = ap.parse_args()
+                        "--outdir",
+                        type=str,
+                        default=None,
+                        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 ap.add_argument(

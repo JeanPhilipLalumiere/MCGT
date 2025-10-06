@@ -203,11 +203,11 @@ if __name__ == "__main__":
         action="store_true",
         help="Transparent background")
 
-    args = parserparser.add_argument(
-        "--fmt",
-        type=str,
-        default=None,
-        help="Format savefig (png, pdf, etc.)")
+    parser.add_argument(    args = parser.parse_args()
+                            "--fmt",
+                            type=str,
+                            default=None,
+                            help="Format savefig (png, pdf, etc.)")
 parser.add_argument(
     "--style",
     choices=[

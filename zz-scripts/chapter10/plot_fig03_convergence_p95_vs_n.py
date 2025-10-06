@@ -141,11 +141,11 @@ def main():
         default=0.20,
         help="Hauteur de base de l'encart (fraction figure)",
     )
-    args = pp.add_argument(
-        "--outdir",
-        type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+    p.add_argument(    args = p.parse_args()
+                       "--outdir",
+                       type=str,
+                       default=None,
+                       help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 p.add_argument("--fmt", type=str, default=None,

@@ -384,15 +384,7 @@ def main(argv=None):
     ap.add_argument("--out", default="fig_07_summary_compare.png")
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--figsize", default="14,6")
-    ap.add_argument(
-        '--style',
-        choices=[
-            'paper',
-            'talk',
-            'mono',
-            'none'],
-        default='none',
-        help='Style de figure (opt-in)')
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()
 
     fig_w, fig_h = parse_figsize(args.figsize)

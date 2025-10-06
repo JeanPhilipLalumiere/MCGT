@@ -83,42 +83,8 @@ if __name__ == "__main__":
     import matplotlib
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help="Verbosity (-v, -vv)")
-    parser.add_argument(
-        "--outdir",
-        type=str,
-        default=os.environ.get(
-            "MCGT_OUTDIR",
-            ""),
-        help="Output directory")
-    parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument(
-        "--fmt",
-        "--format",
-        dest='fmt',
-        type=int if False else type(str),
-        default='png',
-        help='Figure format (png/pdf/...)')
-    parser.add_argument(
-        "--transparent",
-        action="store_true",
-        help="Transparent background")
-    parser.add_argument(
-        '--style',
-        choices=[
-            'paper',
-            'talk',
-            'mono',
-            'none'],
-        default='none',
-        help='Style de figure (opt-in)')
+    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = parser.parse_args()
-                            "--style",
                             choices = [
                                 "paper",
                                 "talk",

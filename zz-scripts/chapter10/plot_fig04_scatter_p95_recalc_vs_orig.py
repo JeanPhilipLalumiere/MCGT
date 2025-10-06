@@ -48,51 +48,35 @@ def main():
     p.add_argument(
         "--results",
         required=True,
-        help="CSV results (must contain orig/recalc columns)",
     )
     p.add_argument(
         "--orig-col",
-        default="p95_20_300",
-        help="Original p95 column")
     p.add_argument(
         "--recalc-col",
-        default="p95_20_300_recalc",
-        help="Recalculated p95 column" )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
-        help="Output PNG",
     )
     p.add_argument("--dpi", type=int, default=300, help="PNG dpi")
     p.add_argument(
         "--point-size",
         type=float,
-        default=10.0,
-        help="scatter marker size")
     p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
     p.add_argument("--cmap", default="viridis", help="colormap")
     p.add_argument(
         "--change-eps",
         type=float,
-        default=1e-6,
-        help="threshold for 'changed' count (abs Δ > eps)",
     )
     p.add_argument(
         "--with-zoom",
         action="store_true",
-        help="Enable inset zoom box (disabled by default)",
     )
     p.add_argument(
         "--zoom-center-x",
         type=float,
-        default=None,
-        help="Zoom center (x) in data units",
     )
     p.add_argument(
         "--zoom-center-y",
         type=float,
-        default=None,
-        help="Zoom center (y) in data units",
     )
     p.add_argument( "--zoom-w", type=float, default=0.45,
     p.add_argument( "--zoom-h", type=float, default=0.10,

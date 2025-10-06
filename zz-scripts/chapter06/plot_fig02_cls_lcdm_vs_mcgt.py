@@ -334,14 +334,7 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
     parser.add_argument(
-        '--style',
-        choices=[
-            'paper',
-            'talk',
-            'mono',
-            'none'],
-        default='none',
-        help='Style de figure (opt-in)')
+    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = parser.parse_args()
                             choices = [
                                 "paper",

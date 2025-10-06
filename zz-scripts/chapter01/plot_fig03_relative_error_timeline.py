@@ -49,10 +49,8 @@ if __name__ == "__main__":
         description="Standard CLI seed (non-intrusif).")
     parser.add_argument(
         "--outdir",
-        default=os.environ.get(
             "MCGT_OUTDIR",
             ".ci-out"),
-        help="Dossier de sortie (par défaut: .ci-out)")
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -72,14 +70,7 @@ if __name__ == "__main__":
                                                                 action="store_true",
 
                                                                 parser.add_argument(
-                                                                    '--style',
-                                                                    choices=[
-                                                                        'paper',
-                                                                        'talk',
-                                                                        'mono',
-                                                                        'none'],
-                                                                    default='none',
-                                                                    help='Style de figure (opt-in)')
+                                                                parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
                                                                 args = parser.parse_args()
                                                                 "--fmt",
                                                                 type = str,

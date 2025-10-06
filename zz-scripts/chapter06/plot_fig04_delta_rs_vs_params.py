@@ -116,7 +116,8 @@ if __name__ == "__main__":
         action="store_true",
         help="Transparent background")
 
-    parser.add_argument(    args = parser.parse_args()
+    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = parser.parse_args()
                             "--fmt",
                             type=str,
                             default=None,

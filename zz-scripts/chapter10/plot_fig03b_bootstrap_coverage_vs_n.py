@@ -174,7 +174,8 @@ def main():
         default="100,200,400,800,1200,2000",
         help="Liste de B séparés par virgules pour la sensibilité.",
     )
-    p.add_argument(    args = p.parse_args()
+    p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = p.parse_args()
                        "--outdir",
                        type=str,
                        default=None,

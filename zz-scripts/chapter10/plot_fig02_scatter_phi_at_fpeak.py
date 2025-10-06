@@ -199,7 +199,8 @@ def main():
         default=12345,
         help="Seed RNG bootstrap")
 
-    p.add_argument(    args = p.parse_args()
+    p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = p.parse_args()
                        "--outdir",
                        type=str,
                        default=None,

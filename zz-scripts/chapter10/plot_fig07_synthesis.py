@@ -67,7 +67,8 @@ def series_from_manifest(
         raise ValueError("Manifest ne contient pas de 'results'.")
 
     N = np.array([_first(r, ["N"], np.nan) for r in results], dtype=float)
-    coverage = np.array([_first(r, ["coverage"], np.nan) for r in results], dtype=float)
+    coverage = np.array([_first(r, ["coverage"], np.nan)
+                        for r in results], dtype=float)
     err_low = np.array(
         [_first(r, ["coverage_err95_low", "coverage_err_low"], 0.0) for r in results],
         dtype=float,
@@ -83,7 +84,8 @@ def series_from_manifest(
 
     params = man.get("params", {})
     alpha = float(_param(params, ["alpha", "conf_alpha"], 0.05))
-    label = label_override or man.get("series_label") or man.get("label") or "série"
+    label = label_override or man.get(
+        "series_label") or man.get("label") or "série"
 
     return Series(
         label=label,
@@ -98,9 +100,8 @@ def series_from_manifest(
 
 
 def detect_reps_params(params: dict[str, Any]) -> tuple[float, float, float]:
-    M = _param(
-        params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan
-    )
+    M = _param( params, ["M", "num_trials", "n_trials",
+                         "n_repeat", "repeats", "nsimu"], np.nan )
     outer_B = _param(
         params, ["outer_B", "outer", "B_outer", "outerB", "Bouter"], np.nan
     )
@@ -202,7 +203,10 @@ def plot_synthese(
     plt.style.use("classic")
     fig = plt.figure(figsize=figsize, constrained_layout=False)
 
-    gs = GridSpec(2, 2, figure=fig, height_ratios=[0.78, 0.22], width_ratios=[1.0, 1.0])
+    gs = GridSpec(
+        2, 2, figure=fig, height_ratios=[
+            0.78, 0.22], width_ratios=[
+            1.0, 1.0])
     ax_cov = fig.add_subplot(gs[0, 0])
     ax_width = fig.add_subplot(gs[0, 1])
     ax_tab = fig.add_subplot(gs[1, :])
@@ -270,14 +274,26 @@ def plot_synthese(
     )
 
     for s, h in zip(series_list, handles, strict=False):
-        color = h.lines[0].get_color() if hasattr(h, "lines") and h.lines else None
-        ax_width.plot(s.N, s.width_mean, "-o", lw=1.8, ms=5, label=s.label, color=color)
+        color = h.lines[0].get_color() if hasattr(
+            h, "lines") and h.lines else None
+        ax_width.plot(
+            s.N,
+            s.width_mean,
+            "-o",
+            lw=1.8,
+            ms=5,
+            label=s.label,
+            color=color)
     ax_width.set_title("Largeur d'IC vs N")
     ax_width.set_xlabel("Taille d'échantillon N")
     ax_width.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
     ax_width.legend(fontsize=10, loc="upper right", frameon=True)
 
-    ax_tab.set_title("Synthèse numérique (résumé)", y=0.88, pad=12, fontsize=12)
+    ax_tab.set_title(
+        "Synthèse numérique (résumé)",
+        y=0.88,
+        pad=12,
+        fontsize=12)
     rows = compute_summary_rows(series_list)
 
     col_labels = [
@@ -328,7 +344,8 @@ def plot_synthese(
     slopes = []
     for s in series_list:
         b = powerlaw_slope(s.N, s.width_mean)
-        slopes.append(f"{s.label}: b={b:.2f}" if np.isfinite(b) else f"{s.label}: b=NA")
+        slopes.append(f"{s.label}: b={b:.2f}" if np.isfinite(b)
+                      else f"{s.label}: b=NA")
 
     if series_list:
         s0 = series_list[0]
@@ -358,7 +375,8 @@ def plot_synthese(
 
 # ---------- CLI ----------
 def main(argv=None):
-    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    ap = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("--manifest-a", required=True)
     ap.add_argument("--label-a", default=None)
     ap.add_argument("--manifest-b", default=None)
@@ -403,3 +421,67 @@ def main(argv=None):
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

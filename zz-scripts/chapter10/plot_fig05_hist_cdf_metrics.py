@@ -54,19 +54,25 @@ def main():
         default=0.7104087123286049,
         help="p95 de référence [rad]",
     )
-    ap.add_argument("--bins", type=int, default=50, help="Nb de bacs histogramme")
+    ap.add_argument(
+        "--bins",
+        type=int,
+        default=50,
+        help="Nb de bacs histogramme")
     ap.add_argument("--dpi", type=int, default=150, help="DPI du PNG")
     # position et fenêtre du zoom (centre + demi-étendues)
-    ap.add_argument("--zoom-x", type=float, default=3.0, help="centre X du zoom (rad)")
+    ap.add_argument(
+        "--zoom-x",
+        type=float,
+        default=3.0,
+        help="centre X du zoom (rad)")
     ap.add_argument(
         "--zoom-y", type=float, default=35.0, help="centre Y du zoom (counts)"
     )
-    ap.add_argument(
-        "--zoom-dx", type=float, default=0.30, help="demi-largeur X du zoom (rad)"
-    )
-    ap.add_argument(
-        "--zoom-dy", type=float, default=30.0, help="demi-hauteur Y du zoom (counts)"
-    )
+    ap.add_argument( "--zoom-dx", type=float, default=0.30,
+                     help="demi-largeur X du zoom (rad)" )
+    ap.add_argument( "--zoom-dy", type=float, default=30.0,
+                     help="demi-hauteur Y du zoom (counts)" )
     # taille du panneau de zoom (fraction de l’axe)
     ap.add_argument(
         "--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)"
@@ -81,12 +87,14 @@ def main():
     p95_col = detect_p95_column(df)
     p95 = df[p95_col].dropna().astype(float).values
 
-    # Heuristique : si colonne "originale" dispo, compter les corrections unwrap
+    # Heuristique : si colonne "originale" dispo, compter les corrections
+    # unwrap
     wrapped_corrected = None
     for cand in ("p95_20_300", "p95_raw", "p95_orig", "p95_20_300_raw"):
         if cand in df.columns and cand != p95_col:
             diff = df[[cand, p95_col]].dropna().astype(float)
-            wrapped_corrected = int((np.abs(diff[cand] - diff[p95_col]) > 1e-6).sum())
+            wrapped_corrected = int(
+                (np.abs(diff[cand] - diff[p95_col]) > 1e-6).sum())
             break
 
     # --- stats ---
@@ -104,7 +112,8 @@ def main():
     fig, ax = plt.subplots(figsize=(14, 6))
 
     # Histogramme (counts)
-    counts, bins, patches = ax.hist(p95, bins=args.bins, alpha=0.7, edgecolor="k")
+    counts, bins, patches = ax.hist(
+        p95, bins=args.bins, alpha=0.7, edgecolor="k")
     ax.set_ylabel("Effectifs")
     ax.set_xlabel("p95_20_300_recalc [rad]")
 
@@ -174,7 +183,8 @@ def main():
         fontsize=10,
     )
 
-    # Inset zoom — centré dans l’axe, fenêtre contrôlée par (zoom-x/y, zoom-dx/dy).
+    # Inset zoom — centré dans l’axe, fenêtre contrôlée par (zoom-x/y,
+    # zoom-dx/dy).
     inset_ax = inset_axes(
         ax,
         width=f"{args.zoom_w * 100:.0f}%",
@@ -183,7 +193,8 @@ def main():
         borderpad=1.0,
     )
     x0, x1 = args.zoom_x - args.zoom_dx, args.zoom_x + args.zoom_dx
-    _y0_user, _y1_user = max(0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
+    _y0_user, _y1_user = max(
+        0, args.zoom_y - args.zoom_dy), args.zoom_y + args.zoom_dy
 
     mask_x = (p95 >= x0) & (p95 <= x1)
     data_inset = p95[mask_x] if mask_x.sum() >= 5 else p95
@@ -212,7 +223,8 @@ def main():
             r"Métrique : distance circulaire (mod $2\pi$). "
             r"Définition : p95 = $95^{\mathrm{e}}$ centile de $|\Delta\phi(f)|$ pour $f\in[20,300]\ \mathrm{Hz}$. "
             r"Corrections : sauts de branchement corrigés, "
-            rf"$N_{{\mathrm{{wrapped\_corrected}}}} = {wrapped_corrected if wrapped_corrected is not None else 0}$. "
+            rf"$N_{{\mathrm{{wrapped\_corrected}}}} = {
+                wrapped_corrected if wrapped_corrected is not None else 0}$. "
             r"Comparaison : "
             rf"$p(\mathrm{{p95}}<\mathrm{{p95_{{ref}}}}) = {frac_below:.3f}$ "
             rf"(n = {n_below})."
@@ -228,3 +240,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

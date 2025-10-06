@@ -61,7 +61,8 @@ def setup_logger(level: str):
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
-    return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
+    return (np.asarray(a, float) - np.asarray(b, float) + \
+            np.pi) % (2.0 * np.pi) - np.pi
 
 
 def _safe_pos(arr: np.ndarray, eps: float = 1e-12) -> np.ndarray:
@@ -124,8 +125,7 @@ def pick_variant(df: pd.DataFrame) -> str:
 
 def parse_args():
     ap = argparse.ArgumentParser(
-        description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)"
-    )
+     description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)" )
     ap.add_argument(
         "--diff",
         type=Path,
@@ -149,8 +149,13 @@ def parse_args():
     )
     ap.add_argument("--out", type=Path, default=DEF_OUT, help="PNG de sortie.")
     ap.add_argument(
-        "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
-    )
+        "--log-level",
+        choices=[
+            "DEBUG",
+            "INFO",
+            "WARNING",
+            "ERROR"],
+        default="INFO" )
 
     ap.add_argument(
         "--window",
@@ -178,17 +183,20 @@ def parse_args():
     )
 
     ap.add_argument(
-        "--with_errorbar", action="store_true", help="Afficher ±σ si disponible."
-    )
-    ap.add_argument(
-        "--show_autres", action="store_true", help="Afficher les milestones 'autres'."
-    )
+        "--with_errorbar",
+        action="store_true",
+        help="Afficher ±σ si disponible." )
+    ap.add_argument( "--show_autres", action="store_true",
+                     help="Afficher les milestones 'autres'." )
     ap.add_argument(
         "--apply-calibration",
-        choices=["auto", "on", "off"],
+        choices=[
+            "auto",
+            "on",
+            "off"],
         default="auto",
         help="Appliquer (phi0, tc) aux milestones et au fond si reconstruit. 'auto' => selon meta.enabled.",
-    )
+         )
     ap.add_argument("--dpi", type=int, default=300)
     return ap.parse_args()
 
@@ -247,7 +255,8 @@ def main():
     # différence principale (!!!)
     dphi = np.abs(principal_diff(phi_m, phi_o))
 
-    sigma = M["sigma_phase"].to_numpy(float) if "sigma_phase" in M.columns else None
+    sigma = M["sigma_phase"].to_numpy(
+        float) if "sigma_phase" in M.columns else None
     raw_cls = (
         M.get("classe", pd.Series(["autres"] * len(M)))
         .astype(str)
@@ -255,23 +264,22 @@ def main():
         .str.replace(" ", "")
         .str.replace("-", "")
     )
-    cls = np.where(
-        raw_cls.isin(["primary", "primaire"]),
-        "primaire",
-        np.where(raw_cls.isin(["ordre2", "order2", "ordredeux"]), "ordre2", "autres"),
-    )
+    cls = np.where( raw_cls.isin(["primary", "primaire"]), "primaire", np.where(
+        raw_cls.isin(["ordre2", "order2", "ordredeux"]), "ordre2", "autres"), )
 
     # garder uniquement points finis
     mfin = np.isfinite(fpk) & np.isfinite(dphi)
     if not np.all(mfin):
-        log.warning("Milestones ignorés pour non-finitude: %d", int((~mfin).sum()))
+        log.warning("Milestones ignorés pour non-finitude: %d",
+                    int((~mfin).sum()))
     fpk, dphi, cls = fpk[mfin], dphi[mfin], cls[mfin]
     if sigma is not None:
         sigma = sigma[mfin]
 
     # --- FOND |Δφ|(f) :
     # 1) si --diff OK: on suppose cohérent (abs_dphi déjà principal). Sinon:
-    # 2) reconstruire depuis --csv avec principal + calage identique + rebranch k (20–300) pour compat.
+    # 2) reconstruire depuis --csv avec principal + calage identique +
+    # rebranch k (20–300) pour compat.
     f_bg = np.array([])
     ad_bg = np.array([])
     if args.diff.exists():
@@ -281,11 +289,14 @@ def main():
             ad_bg = D["abs_dphi"].to_numpy(float)
             m = np.isfinite(f_bg) & np.isfinite(ad_bg) & (f_bg > 0)
             f_bg, ad_bg = f_bg[m], ad_bg[m]
-            log.info("Fond chargé depuis --diff: %s (%d pts).", args.diff, f_bg.size)
+            log.info(
+                "Fond chargé depuis --diff: %s (%d pts).",
+                args.diff,
+                f_bg.size)
         else:
             log.warning(
-                "%s ne contient pas (f_Hz, abs_dphi) -> reconstruction", args.diff
-            )
+                "%s ne contient pas (f_Hz, abs_dphi) -> reconstruction",
+                args.diff )
 
     if f_bg.size == 0 and args.csv.exists():
         C = C_LIGHT_M_S
@@ -301,10 +312,10 @@ def main():
         if apply_cal:
             mc = mc + phi0_hat + 2.0 * np.pi * f * tc_hat
 
-        # rebranch k fond: médiane cycles sur 20–300 (cohérent avec nos autres figures)
-        mask_win = (
-            (f >= fmin_shade) & (f <= fmax_shade) & np.isfinite(mc) & np.isfinite(ref)
-        )
+        # rebranch k fond: médiane cycles sur 20–300 (cohérent avec nos autres
+        # figures)
+        mask_win = ( (f >= fmin_shade) & (f <= fmax_shade)
+                     & np.isfinite(mc) & np.isfinite(ref) )
         two_pi = 2.0 * np.pi
         k = (
             int(np.round(np.nanmedian((mc[mask_win] - ref[mask_win]) / two_pi)))
@@ -482,3 +493,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

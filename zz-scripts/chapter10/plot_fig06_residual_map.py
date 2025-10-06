@@ -49,33 +49,44 @@ def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
 
 # --------------------------- script principal ------------------------------
 def main():
-    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    ap = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("--results", required=True, help="CSV d'entrée.")
     ap.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
-    ap.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
+    ap.add_argument(
+        "--abs",
+        action="store_true",
+        help="Prendre la valeur absolue.")
     ap.add_argument("--m1-col", default="m1")
     ap.add_argument("--m2-col", default="m2")
-    ap.add_argument(
-        "--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95)."
-    )
+    ap.add_argument( "--orig-col", default="p95_20_300",
+                     help="Colonne p95 originale (dp95)." )
     ap.add_argument(
         "--recalc-col",
         default="p95_20_300_recalc",
         help="Colonne p95 recalculée (dp95).",
     )
-    ap.add_argument("--phi-ref-col", default=None, help="Colonne phi_ref (dphi).")
-    ap.add_argument("--phi-mcgt-col", default=None, help="Colonne phi_mcgt (dphi).")
+    ap.add_argument(
+        "--phi-ref-col",
+        default=None,
+        help="Colonne phi_ref (dphi).")
+    ap.add_argument(
+        "--phi-mcgt-col",
+        default=None,
+        help="Colonne phi_mcgt (dphi).")
     ap.add_argument("--gridsize", type=int, default=36)
     ap.add_argument(
-        "--mincnt", type=int, default=3, help="Masque les hexagones avec nb<mincnt."
-    )
+        "--mincnt",
+        type=int,
+        default=3,
+        help="Masque les hexagones avec nb<mincnt." )
     ap.add_argument("--cmap", default="viridis")
     ap.add_argument(
-        "--vclip", default="1,99", help="Percentiles pour vmin,vmax (ex: '1,99')."
-    )
-    ap.add_argument(
-        "--scale-exp", type=int, default=-7, help="Exponent pour l'échelle ×10^exp rad."
-    )
+        "--vclip",
+        default="1,99",
+        help="Percentiles pour vmin,vmax (ex: '1,99')." )
+    ap.add_argument( "--scale-exp", type=int, default=-
+                     7, help="Exponent pour l'échelle ×10^exp rad." )
     ap.add_argument(
         "--threshold",
         type=float,
@@ -83,8 +94,9 @@ def main():
         help="Seuil pour fraction |metric|>threshold [rad].",
     )
     ap.add_argument(
-        "--figsize", default="15,9", help="Largeur,hauteur en pouces (ex: '15,9')."
-    )
+        "--figsize",
+        default="15,9",
+        help="Largeur,hauteur en pouces (ex: '15,9')." )
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--out", default="fig_06_residual_map.png")
     ap.add_argument("--manifest", action="store_true")
@@ -98,12 +110,14 @@ def main():
 
     if args.metric == "dp95":
         col_o = detect_col(df, [args.orig_col, "p95_20_300", "p95"])
-        col_r = detect_col(df, [args.recalc_col, "p95_20_300_recalc", "p95_recalc"])
+        col_r = detect_col(
+            df, [args.recalc_col, "p95_20_300_recalc", "p95_recalc"])
         raw = df[col_r].astype(float).values - df[col_o].astype(float).values
         metric_name = r"\Delta p_{95}"
     else:  # dphi
         col_ref = detect_col(df, [args.phi_ref_col or "phi_ref_fpeak"])
-        col_mc = detect_col(df, [args.phi_mcgt_col or "phi_mcgt_fpeak", "phi_mcgt"])
+        col_mc = detect_col(
+            df, [args.phi_mcgt_col or "phi_mcgt_fpeak", "phi_mcgt"])
         raw = wrap_pi(
             df[col_mc].astype(float).values - df[col_ref].astype(float).values
         )
@@ -138,7 +152,8 @@ def main():
 
     # -> plus d'espace horizontal entre carte/colorbar et inserts (left=0.75)
     # -> moins d'espace vertical avec le footer (bottom abaissé)
-    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])  # left, bottom, width, height
+    # left, bottom, width, height
+    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])
     ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
     right_left = 0.75
     right_w = 0.23
@@ -192,22 +207,34 @@ def main():
     ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
     ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))
 
-    # n_active = somme des points contenus dans les cellules ayant count >= mincnt
+    # n_active = somme des points contenus dans les cellules ayant count >=
+    # mincnt
     counts_arr = hb_counts.get_array()
     n_active = int(np.sum(counts_arr[counts_arr >= args.mincnt]))
 
     # ------------------------------- histogram inset -----------------------
-    ax_hist.hist(scaled, bins=40, color="#1f77b4", edgecolor="black", linewidth=0.6)
+    ax_hist.hist(
+        scaled,
+        bins=40,
+        color="#1f77b4",
+        edgecolor="black",
+        linewidth=0.6)
     ax_hist.set_title("Distribution globale")
     ax_hist.set_xlabel(rf"metric {exp_txt} [rad]")
     ax_hist.set_ylabel("fréquence")
 
     # Boîte de stats (3 lignes)
     stats_lines = [
-        rf"median={med:.2f}, mean={mean:.2f}",
-        rf"std={std:.2f}, p95={p95:.2f} {exp_txt} [rad]",
-        rf"fraction |metric|>{args.threshold:.0e} rad = {100 * frac_over:.2f}%",
-    ]
+        rf"median={
+            med:.2f}, mean={
+            mean:.2f}",
+        rf"std={
+                std:.2f}, p95={
+                    p95:.2f} {exp_txt} [rad]",
+        rf"fraction |metric|>{
+                        args.threshold:.0e} rad = {
+                            100 * frac_over:.2f}%",
+                             ]
     ax_hist.text(
         0.02,
         0.02,
@@ -221,20 +248,30 @@ def main():
 
     # ------------------------------- footers --------------------------------
     foot_scale = (
-        f"Réduction par médiane (gridsize={args.gridsize}, mincnt={args.mincnt}). "
-        f"Échelle: vmin={vmin:.6g}, vmax={vmax:.6g}  (percentiles {p_lo}–{p_hi})."
-    )
+        f"Réduction par médiane (gridsize={
+            args.gridsize}, mincnt={
+            args.mincnt}). " f"Échelle: vmin={
+                vmin:.6g}, vmax={
+                    vmax:.6g}  (percentiles {p_lo}–{p_hi})." )
     foot_stats = (
-        f"Stats globales: median={med:.2f}, mean={mean:.2f}, std={std:.2f}, "
-        f"p95={p95:.2f} {exp_txt} [rad]. N={N}, cellules actives (≥{args.mincnt}) = "
-    )
+        f"Stats globales: median={
+            med:.2f}, mean={
+            mean:.2f}, std={
+                std:.2f}, " f"p95={
+                    p95:.2f} {exp_txt} [rad]. N={N}, cellules actives (≥{
+                        args.mincnt}) = " )
 
     # (subplots_adjust n'affecte pas add_axes, on l'utilise juste pour la bbox globale)
     fig.subplots_adjust(
         left=0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30
     )
     fig.text(0.5, 0.053, foot_scale, ha="center", fontsize=10)
-    fig.text(0.5, 0.032, foot_stats + f"{n_active}/{N}.", ha="center", fontsize=10)
+    fig.text(
+        0.5,
+        0.032,
+        foot_stats + f"{n_active}/{N}.",
+        ha="center",
+        fontsize=10)
 
     # ------------------------------- sortie ---------------------------------
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
@@ -288,3 +325,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

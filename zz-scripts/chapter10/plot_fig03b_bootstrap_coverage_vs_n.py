@@ -88,7 +88,6 @@ class RowRes:
 
 def main():
     p = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument("--results", required=True, help="CSV avec colonne p95.")
     p.add_argument(
     p.add_argument(

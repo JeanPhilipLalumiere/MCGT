@@ -105,7 +105,6 @@ def detect_column(
 
 def main():
     p = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         required=True,
     p.add_argument(

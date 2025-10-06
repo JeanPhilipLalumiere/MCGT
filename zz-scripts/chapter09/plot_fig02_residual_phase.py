@@ -155,8 +155,7 @@ ap.add_argument(
         "mono",
         "none"],
     default=None,
-    help="Thème MCGT commun (opt-in)")
-.parse_args()
+    help="Thème MCGT commun (opt-in)").parse_args()
 
     log = setup_logger(args.log_level)
     meta = load_meta(args.meta)

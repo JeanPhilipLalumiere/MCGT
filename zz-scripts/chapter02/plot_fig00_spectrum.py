@@ -86,8 +86,7 @@ if __name__ == "__main__":
             "mono",
             "none"],
         default=None,
-        help="Thème MCGT commun (opt-in)")
-.parse_args()
+        help="Thème MCGT commun (opt-in)").parse_args()
 
     # [smoke] OUTDIR+copy
     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")

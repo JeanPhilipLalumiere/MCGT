@@ -122,8 +122,7 @@ ap.add_argument(
         "mono",
         "none"],
     default=None,
-    help="Thème MCGT commun (opt-in)")
-.parse_args()
+    help="Thème MCGT commun (opt-in)").parse_args()
 
     # ------------------------------------------------------------------ data
     df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])

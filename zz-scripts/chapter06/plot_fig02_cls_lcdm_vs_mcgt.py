@@ -39,44 +39,61 @@ cols_l = ["ell", "Cl_LCDM"]
 cols_m = ["ell", "Cl_MCGT"]
 # smoke-fallback: si le fichier LCDM est absent, génère un dataset synthétique
 if not Path(CLS_LCDM_DAT).exists():
-    import numpy as np, pandas as pd, logging
+    import numpy as np
+    import pandas as pd
+    import logging
     l = np.arange(2, 50)
     df_lcdm = pd.DataFrame({"l": l, "TT": 1e-10 * l * (l + 1)})
-    logging.warning("LCDM data %s introuvable — dataset synthétique pour le smoke.", CLS_LCDM_DAT)
+    logging.warning(
+        "LCDM data %s introuvable — dataset synthétique pour le smoke.",
+        CLS_LCDM_DAT)
 else:
-    # smoke-fallback: si le fichier LCDM est absent, génère un dataset synthétique
+    # smoke-fallback: si le fichier LCDM est absent, génère un dataset
+    # synthétique
     if not Path(CLS_LCDM_DAT).exists():
-        import numpy as np, pandas as pd, logging
+        import numpy as np
+        import pandas as pd
+        import logging
         ell = np.arange(2, 50)
         df_lcdm = pd.DataFrame({"ell": ell, "TT": 1e-10 * ell * (ell + 1)})
-        logging.warning("LCDM data %s introuvable — dataset synthétique pour le smoke.", CLS_LCDM_DAT)
+        logging.warning(
+            "LCDM data %s introuvable — dataset synthétique pour le smoke.",
+            CLS_LCDM_DAT)
     else:
-        df_lcdm = pd.read_csv(CLS_LCDM_DAT, sep=r"\s+", names=cols_l, comment="#")
+        df_lcdm = pd.read_csv(
+            CLS_LCDM_DAT,
+            sep=r"\s+",
+            names=cols_l,
+            comment="#")
 df_mcgt = pd.read_csv(CLS_MCGT_DAT, sep=r"\s+", names=cols_m, comment="#")
-## [smoke] harmonize-ell v3
-for _name in ('df_lcdm','df_mcgt'):
+# [smoke] harmonize-ell v3
+for _name in ('df_lcdm', 'df_mcgt'):
     _df = locals().get(_name)
     if _df is None:
         continue
     if 'ell' not in _df.columns:
         if 'l' in _df.columns:
-            _df = _df.rename(columns={'l':'ell'})
+            _df = _df.rename(columns={'l': 'ell'})
         else:
             first = list(_df.columns)[0] if len(_df.columns) else None
             if first and first != 'ell':
-                _df = _df.rename(columns={first:'ell'})
+                _df = _df.rename(columns={first: 'ell'})
         if 'ell' not in _df.columns:
             if (_df.index.name == 'ell') or ('ell' in (_df.index.names or [])):
                 _df = _df.reset_index()
             else:
-                _df = _df.reset_index().rename(columns={'index':'ell'})
+                _df = _df.reset_index().rename(columns={'index': 'ell'})
     try:
         _df['ell'] = _df['ell'].astype(int)
     except Exception:
         import pandas as _pd
-        _df['ell'] = _pd.to_numeric(_df['ell'], errors='coerce').fillna(method='ffill').fillna(0).astype(int)
+        _df['ell'] = _pd.to_numeric(
+            _df['ell'], errors='coerce').fillna(
+            method='ffill').fillna(0).astype(int)
     locals()[_name] = _df
-## [smoke] ensure Cl columns v1
+# [smoke] ensure Cl columns v1
+
+
 def _rename_cl(df, target, cands):
     if target in df.columns:
         return df
@@ -87,36 +104,53 @@ def _rename_cl(df, target, cands):
     other = next((c for c in df.columns if c != 'ell'), None)
     return df.rename(columns={other: target}) if other else df
 
-df_lcdm = _rename_cl(df_lcdm, 'Cl_LCDM', ('Cl','Cl0','C_ell','C_ell_LCDM','Cl_LCDM'))
-df_mcgt = _rename_cl(df_mcgt, 'Cl_MCGT', ('Cl','Cl1','C_ell_MCGT','Cl_MCGT'))
+
+df_lcdm = _rename_cl(
+    df_lcdm,
+    'Cl_LCDM',
+    ('Cl',
+    'Cl0',
+    'C_ell',
+    'C_ell_LCDM',
+     'Cl_LCDM'))
+df_mcgt = _rename_cl(
+    df_mcgt,
+    'Cl_MCGT',
+    ('Cl',
+    'Cl1',
+    'C_ell_MCGT',
+     'Cl_MCGT'))
 
 # numericité douce
-for _name in ('df_lcdm','df_mcgt'):
+for _name in ('df_lcdm', 'df_mcgt'):
     _df = locals().get(_name)
-    if _df is None: 
+    if _df is None:
         continue
     import pandas as _pd
     if 'ell' in _df.columns:
-        _df['ell'] = _pd.to_numeric(_df['ell'], errors='coerce').ffill().fillna(0).astype(int)
-    for c in ('Cl_LCDM','Cl_MCGT'):
+        _df['ell'] = _pd.to_numeric(
+            _df['ell'], errors='coerce').ffill().fillna(0).astype(int)
+    for c in ('Cl_LCDM', 'Cl_MCGT'):
         if c in _df.columns:
             _df[c] = _pd.to_numeric(_df[c], errors='coerce').fillna(0.0)
     locals()[_name] = _df
 df = pd.merge(df_lcdm, df_mcgt, on="ell")
-## [smoke] positive clip for log-scale (safe)
+# [smoke] positive clip for log-scale (safe)
 try:
     import numpy as _np
     import pandas as _pd
     if 'df' in locals():
-        for _c in ('Cl_LCDM','Cl_MCGT'):
+        for _c in ('Cl_LCDM', 'Cl_MCGT'):
             if _c in df.columns:
                 df[_c] = _pd.to_numeric(df[_c], errors='coerce').fillna(0.0)
                 _pos = df[_c] > 0
                 if _pos.any():
-                    _eps = float(df.loc[_pos, _c].min()) if df.loc[_pos, _c].min() > 0 else 1e-12
+                    _eps = float(df.loc[_pos, _c].min(
+                    )) if df.loc[_pos, _c].min() > 0 else 1e-12
                     df.loc[~_pos, _c] = _eps
                 else:
-                    # si tout est <=0, transforme en valeurs positives croissantes
+                    # si tout est <=0, transforme en valeurs positives
+                    # croissantes
                     n = len(df)
                     df[_c] = _np.linspace(1e-12, 1e-6, n)
 except Exception as _e:
@@ -132,10 +166,21 @@ delta_rel = (cl1 - cl0) / cl0
 
 # Plot main comparison
 fig, ax = plt.subplots(figsize=(10, 6), dpi=300, constrained_layout=True)
-ax.plot(ells, cl0, linestyle="--", linewidth=2, label=r"$\Lambda$CDM", alpha=0.7)
 ax.plot(
-    ells, cl1, linestyle="-", linewidth=2, label="MCGT", alpha=0.7, color="tab:orange"
-)
+    ells,
+    cl0,
+    linestyle="--",
+    linewidth=2,
+    label=r"$\Lambda$CDM",
+    alpha=0.7)
+ax.plot(
+    ells,
+    cl1,
+    linestyle="-",
+    linewidth=2,
+    label="MCGT",
+    alpha=0.7,
+    color="tab:orange" )
 
 # Shade region where MCGT > ΛCDM
 ax.fill_between(ells, cl0, cl1, where=cl1 > cl0, color="tab:red", alpha=0.15)
@@ -152,7 +197,8 @@ ax.set_ylabel(r"$C_{\ell}\;[\mu\mathrm{K}^2]$")
 ax.grid(True, which="both", linestyle=":", linewidth=0.5)
 ax.legend(loc="upper right", frameon=False)
 
-# Inset 1: relative difference ΔCℓ / Cℓ (bas-gauche, décalé à droite et en haut)
+# Inset 1: relative difference ΔCℓ / Cℓ (bas-gauche, décalé à droite et en
+# haut)
 axins1 = inset_axes(
     ax,
     width="85%",
@@ -186,8 +232,12 @@ axins2 = inset_axes(
 mask_zoom = (ells > 200) & (ells < 300)
 axins2.plot(ells[mask_zoom], cl0[mask_zoom], "--", linewidth=1, alpha=0.7)
 axins2.plot(
-    ells[mask_zoom], cl1[mask_zoom], "-", linewidth=1, alpha=0.7, color="tab:orange"
-)
+    ells[mask_zoom],
+    cl1[mask_zoom],
+    "-",
+    linewidth=1,
+    alpha=0.7,
+    color="tab:orange" )
 axins2.set_xscale("log")
 axins2.set_yscale("log")
 axins2.set_title(r"Zoom $200<\ell<300$", fontsize=8)
@@ -206,7 +256,7 @@ if ALPHA is not None and Q0STAR is not None:
         fontsize=9,
     )
 
-## [smoke] ensure positive ylim on log y-axes (safe, idempotent)
+# [smoke] ensure positive ylim on log y-axes (safe, idempotent)
 # (Pas de try/except global: uniquement des garde-fous locaux)
 try:
     import numpy as _np
@@ -226,8 +276,14 @@ for _ax in list(_fig.axes):
         _lo, _hi = _ax.get_ylim()
     except Exception:
         _lo, _hi = None, None
-    def _bad(a,b):
-        return (a is None) or (b is None) or (a <= 0) or (b <= 0) or not (a < b)
+
+    def _bad(a, b):
+        return (
+            a is None) or (
+            b is None) or (
+            a <= 0) or (
+                b <= 0) or not (
+                    a < b)
     if _bad(_lo, _hi):
         _ys = []
         for _line in getattr(_ax, "get_lines", lambda: [])():
@@ -264,18 +320,44 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
+        import os
+        import argparse
+        import sys
+        import traceback
 
 if __name__ == "__main__":
-    import argparse, os, sys, logging
+    import argparse
+    import os
+    import sys
+    import logging
     import matplotlib
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
-    parser.add_argument("-v","--verbose", action="count", default=0, help="Verbosity (-v, -vv)")
-    parser.add_argument("--outdir", type=str, default=os.environ.get("MCGT_OUTDIR",""), help="Output directory")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity (-v, -vv)")
+    parser.add_argument(
+        "--outdir",
+        type=str,
+        default=os.environ.get(
+            "MCGT_OUTDIR",
+            ""),
+        help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
-    parser.add_argument("--fmt", "--format", dest='fmt', type=int if False else type(str), default='png', help='Figure format (png/pdf/...)')
-    parser.add_argument("--transparent", action="store_true", help="Transparent background")
+    parser.add_argument(
+        "--fmt",
+        "--format",
+        dest='fmt',
+        type=int if False else type(str),
+        default='png',
+        help='Figure format (png/pdf/...)')
+    parser.add_argument(
+        "--transparent",
+        action="store_true",
+        help="Transparent background")
     args = parser.parse_args()
 
     # [smoke] OUTDIR+copy
@@ -283,14 +365,28 @@ if __name__ == "__main__":
     if OUTDIR_ENV:
         args.outdir = OUTDIR_ENV
     os.makedirs(args.outdir, exist_ok=True)
-    import atexit, glob, shutil, time
+    import atexit
+    import glob
+    import shutil
+    import time
     _ch = os.path.basename(os.path.dirname(__file__))
-    _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    _repo = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            ".."))
     _default_dir = os.path.join(_repo, "zz-figures", _ch)
     _t0 = time.time()
+
     def _smoke_copy_latest():
         try:
-            pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
+            pngs = sorted(
+                glob.glob(
+                    os.path.join(
+                        _default_dir,
+                        "*.png")),
+                key=os.path.getmtime,
+                reverse=True)
             for _p in pngs:
                 if os.path.getmtime(_p) >= _t0 - 10:
                     _dst = os.path.join(args.outdir, os.path.basename(_p))
@@ -301,7 +397,7 @@ if __name__ == "__main__":
             pass
     atexit.register(_smoke_copy_latest)
     if args.verbose:
-        level = logging.INFO if args.verbose==1 else logging.DEBUG
+        level = logging.INFO if args.verbose == 1 else logging.DEBUG
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
 
     if args.outdir:
@@ -311,7 +407,9 @@ if __name__ == "__main__":
             pass
 
     try:
-        matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
+        matplotlib.rcParams.update({"savefig.dpi": args.dpi,
+    "savefig.format": args.fmt,
+     "savefig.transparent": bool(args.transparent)})
     except Exception:
         pass
 
@@ -320,4 +418,3 @@ if __name__ == "__main__":
     # rc = main(args) if "main" in globals() else 0
     rc = 0
     sys.exit(rc)
-

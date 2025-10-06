@@ -133,17 +133,6 @@ def main():
 
 p.add_argument("--fmt", type=str, default=None,
                help="Format savefig (png, pdf, etc.)")
-p.add_argument("--transparent", action="store_true",
-               help="Fond transparent pour savefig")
-p.add_argument(
-    "--style",
-    choices=[
-        "paper",
-        "talk",
-        "mono",
-        "none"],
-    default=None,
-    help="Thème MCGT commun (opt-in)").parse_args()
 
     df = pd.read_csv(args.results)
     orig_col = detect_column(df, args.orig_col, [args.orig_col])

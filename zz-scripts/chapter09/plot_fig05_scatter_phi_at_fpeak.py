@@ -104,6 +104,8 @@ def robust_stats(
 
 def parse_args():
     ap = argparse.ArgumentParser(
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = ap.parse_args()
         description="Fig.05 — φ_ref vs φ_MCGT aux f_peak (±σ)")
     ap.add_argument(
         "--milestones",
@@ -146,17 +148,6 @@ ap.add_argument(
     type=str,
     default=None,
     help="Format savefig (png, pdf, etc.)")
-ap.add_argument("--transparent", action="store_true",
-                help="Fond transparent pour savefig")
-ap.add_argument(
-    "--style",
-    choices=[
-        "paper",
-        "talk",
-        "mono",
-        "none"],
-    default=None,
-    help="Thème MCGT commun (opt-in)").parse_args()
 
 
 # ---------- Main ----------

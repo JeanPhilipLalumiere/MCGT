@@ -169,29 +169,12 @@ if __name__ == "__main__":
         action="store_true",
         help="Transparent background")
 
-    parser.add_argument(
-        '--style',
-        choices=[
-            'paper',
-            'talk',
-            'mono',
-            'none'],
-        default='none',
-        help='Style de figure (opt-in)')
+    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = parser.parse_args()
                             "--fmt",
                             type = str,
                             default = None,
                             help = "Format savefig (png, pdf, etc.)")
-                                parser.add_argument(
-    "--style",
-    choices = [
-        "paper",
-        "talk",
-        "mono",
-        "none"],
-    default = None,
-    help = "Thème MCGT commun (opt-in)").parse_args()
         try:
     os.makedirs(args.outdir, exist_ok=True)
         os.environ["MCGT_OUTDIR"] = args.outdir

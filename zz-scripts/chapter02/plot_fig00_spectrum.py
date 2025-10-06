@@ -78,14 +78,22 @@ if __name__ == "__main__":
         "--transparent",
         action="store_true",
         help="Transparent background")
-    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    parser.add_argument(
+        '--style',
+        choices=[
+            'paper',
+            'talk',
+            'mono',
+            'none'],
+        default='none',
+        help='Style de figure (opt-in)')
     args = parser.parse_args()
                             "--style",
-                            choices=[
-            "paper",
-            "talk",
-            "mono",
-            "none"],
+                            choices = [
+                                "paper",
+                                "talk",
+                                "mono",
+                                "none"],
         default=None,
         help="Thème MCGT commun (opt-in)").parse_args()
 

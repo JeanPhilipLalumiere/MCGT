@@ -97,157 +97,151 @@ def main():
         "--figsize",
         default="15,9",
         help="Largeur,hauteur en pouces (ex: '15,9')." )
-    ap.add_argument("--dpi", type=int, default=300)
-    ap.add_argument("--out", default="fig_06_residual_map.png")
-    ap.add_argument("--manifest", action="store_true")
-    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    ap.add_argument(
+        '--style',
+        choices=[
+            'paper',
+            'talk',
+            'mono',
+            'none'],
+        default='none',
+        help='Style de figure (opt-in)')
     args = ap.parse_args()
                         "--outdir",
-                        type=str,
-                        default=None,
-                        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+                        type = str,
+                        default = None,
+                        help = "Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
-ap.add_argument(
+                            ap.add_argument(
     "--fmt",
-    type=str,
-    default=None,
-    help="Format savefig (png, pdf, etc.)")
-ap.add_argument("--transparent", action="store_true",
-                help="Fond transparent pour savefig")
-ap.add_argument(
-    "--style",
-    choices=[
-        "paper",
-        "talk",
-        "mono",
-        "none"],
-    default=None,
-    help="Thème MCGT commun (opt-in)").parse_args()
+    type = str,
+    default = None,
+    help = "Format savefig (png, pdf, etc.)")
 
-    # ------------------------------------------------------------------ data
-    df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])
+        # ------------------------------------------------------------------ data
+        df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])
     x = df[args.m1_col].astype(float).values
-    y = df[args.m2_col].astype(float).values
-    N = len(df)
+        y = df[args.m2_col].astype(float).values
+        N = len(df)
 
-    if args.metric == "dp95":
+        if args.metric == "dp95":
         col_o = detect_col(df, [args.orig_col, "p95_20_300", "p95"])
-        col_r = detect_col(
+    col_r = detect_col(
             df, [args.recalc_col, "p95_20_300_recalc", "p95_recalc"])
-        raw = df[col_r].astype(float).values - df[col_o].astype(float).values
-        metric_name = r"\Delta p_{95}"
-    else:  # dphi
-        col_ref = detect_col(df, [args.phi_ref_col or "phi_ref_fpeak"])
-        col_mc = detect_col(
+            raw = df[col_r].astype(float).values - df[col_o].astype(float).values
+                metric_name = r"\Delta p_{95}"
+                else:  # dphi
+                col_ref = detect_col(df, [args.phi_ref_col or "phi_ref_fpeak"])
+                col_mc = detect_col(
             df, [args.phi_mcgt_col or "phi_mcgt_fpeak", "phi_mcgt"])
-        raw = wrap_pi(
+                raw = wrap_pi(
             df[col_mc].astype(float).values - df[col_ref].astype(float).values
         )
-        metric_name = r"\Delta \phi"
+            metric_name = r"\Delta \phi"
 
-    if args.abs:
-        raw = np.abs(raw)
-        metric_label = rf"|{metric_name}|"
-    else:
-        metric_label = rf"{metric_name}"
+            if args.abs:
+            raw = np.abs(raw)
+            metric_label = rf"|{metric_name}|"
+            else:
+            metric_label = rf"{metric_name}"
 
-    # Pré-scaling pour l'affichage : valeurs en unités “×10^exp rad”
-    scale_factor = 10.0**args.scale_exp
-    scaled = raw / scale_factor
+            # Pré-scaling pour l'affichage : valeurs en unités “×10^exp rad”
+            scale_factor = 10.0**args.scale_exp
+            scaled = raw / scale_factor
 
-    # vmin/vmax via percentiles sur *scaled*
-    p_lo, p_hi = (float(t) for t in args.vclip.split(","))
-    vmin = float(np.percentile(scaled, p_lo))
-    vmax = float(np.percentile(scaled, p_hi))
+            # vmin/vmax via percentiles sur *scaled*
+            p_lo, p_hi = (float(t) for t in args.vclip.split(","))
+            vmin = float(np.percentile(scaled, p_lo))
+            vmax = float(np.percentile(scaled, p_hi))
 
-    # Stats globales (sur scaled) + fraction > threshold (non-scalé)
-    med = float(np.median(scaled))
-    mean = float(np.mean(scaled))
-    std = float(np.std(scaled, ddof=0))
-    p95 = float(np.percentile(scaled, 95.0))
-    frac_over = float(np.mean(np.abs(raw) > args.threshold))
+            # Stats globales (sur scaled) + fraction > threshold (non-scalé)
+            med = float(np.median(scaled))
+            mean = float(np.mean(scaled))
+            std = float(np.std(scaled, ddof=0))
+            p95 = float(np.percentile(scaled, 95.0))
+            frac_over = float(np.mean(np.abs(raw) > args.threshold))
 
-    # ------------------------------ figure & axes ---------------------------
-    fig_w, fig_h = (float(s) for s in args.figsize.split(","))
-    plt.style.use("classic")
-    fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
+            # ------------------------------ figure & axes ---------------------------
+            fig_w, fig_h = (float(s) for s in args.figsize.split(","))
+            plt.style.use("classic")
+            fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
-    # -> plus d'espace horizontal entre carte/colorbar et inserts (left=0.75)
-    # -> moins d'espace vertical avec le footer (bottom abaissé)
-    # left, bottom, width, height
-    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])
-    ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
-    right_left = 0.75
-    right_w = 0.23
-    ax_cnt = fig.add_axes([right_left, 0.60, right_w, 0.30])
-    ax_hist = fig.add_axes([right_left, 0.20, right_w, 0.30])
+            # -> plus d'espace horizontal entre carte/colorbar et inserts (left=0.75)
+            # -> moins d'espace vertical avec le footer (bottom abaissé)
+            # left, bottom, width, height
+            ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])
+            ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
+            right_left = 0.75
+            right_w = 0.23
+            ax_cnt = fig.add_axes([right_left, 0.60, right_w, 0.30])
+            ax_hist = fig.add_axes([right_left, 0.20, right_w, 0.30])
 
-    # ------------------------------- main hexbin ---------------------------
-    hb = ax_main.hexbin(
+            # ------------------------------- main hexbin ---------------------------
+            hb = ax_main.hexbin(
         x,
         y,
-        C=scaled,
-        gridsize=args.gridsize,
-        reduce_C_function=np.median,
-        mincnt=args.mincnt,
-        vmin=vmin,
-        vmax=vmax,
-        cmap=args.cmap,
+        C = scaled,
+        gridsize = args.gridsize,
+        reduce_C_function = np.median,
+        mincnt = args.mincnt,
+        vmin = vmin,
+        vmax = vmax,
+        cmap = args.cmap,
     )
-    cbar = fig.colorbar(hb, cax=ax_cbar)
-    exp_txt = f"× 10^{args.scale_exp}"  # ex: × 10^-7
-    cbar.set_label(rf"{metric_label} {exp_txt} [rad]")
+        cbar = fig.colorbar(hb, cax=ax_cbar)
+        exp_txt = f"× 10^{args.scale_exp}"  # ex: × 10^-7
+        cbar.set_label(rf"{metric_label} {exp_txt} [rad]")
 
-    ax_main.set_title(
+        ax_main.set_title(
         rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$"
         + (" (absolu)" if args.abs else "")
     )
-    ax_main.set_xlabel("m1")
-    ax_main.set_ylabel("m2")
+        ax_main.set_xlabel("m1")
+        ax_main.set_ylabel("m2")
 
-    # annotation mincnt
-    ax_main.text(
+        # annotation mincnt
+        ax_main.text(
         0.02,
         0.02,
         f"Hexagones vides = count < {args.mincnt}",
-        transform=ax_main.transAxes,
-        ha="left",
-        va="bottom",
-        bbox=dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9),
-        fontsize=9,
+        transform = ax_main.transAxes,
+        ha = "left",
+        va = "bottom",
+        bbox = dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9),
+        fontsize = 9,
     )
 
-    # ------------------------------- counts inset --------------------------
-    hb_counts = ax_cnt.hexbin(x, y, gridsize=args.gridsize, cmap="gray_r")
-    cbar_cnt = fig.colorbar(
-        hb_counts, ax=ax_cnt, orientation="vertical", fraction=0.046, pad=0.03
+        # ------------------------------- counts inset --------------------------
+        hb_counts = ax_cnt.hexbin(x, y, gridsize=args.gridsize, cmap="gray_r")
+        cbar_cnt = fig.colorbar(
+        hb_counts, ax = ax_cnt, orientation="vertical", fraction=0.046, pad=0.03
     )
-    cbar_cnt.set_label("Counts")
-    ax_cnt.set_title("Counts (par cellule)")
-    ax_cnt.set_xlabel("m1")
-    ax_cnt.set_ylabel("m2")
-    ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
-    ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))
+        cbar_cnt.set_label("Counts")
+        ax_cnt.set_title("Counts (par cellule)")
+        ax_cnt.set_xlabel("m1")
+        ax_cnt.set_ylabel("m2")
+        ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
+        ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))
 
-    # n_active = somme des points contenus dans les cellules ayant count >=
-    # mincnt
-    counts_arr = hb_counts.get_array()
-    n_active = int(np.sum(counts_arr[counts_arr >= args.mincnt]))
+        # n_active = somme des points contenus dans les cellules ayant count >=
+        # mincnt
+        counts_arr = hb_counts.get_array()
+        n_active = int(np.sum(counts_arr[counts_arr >= args.mincnt]))
 
-    # ------------------------------- histogram inset -----------------------
-    ax_hist.hist(
+        # ------------------------------- histogram inset -----------------------
+        ax_hist.hist(
         scaled,
-        bins=40,
-        color="#1f77b4",
-        edgecolor="black",
-        linewidth=0.6)
-    ax_hist.set_title("Distribution globale")
-    ax_hist.set_xlabel(rf"metric {exp_txt} [rad]")
-    ax_hist.set_ylabel("fréquence")
+        bins = 40,
+        color = "#1f77b4",
+        edgecolor = "black",
+        linewidth = 0.6)
+            ax_hist.set_title("Distribution globale")
+            ax_hist.set_xlabel(rf"metric {exp_txt} [rad]")
+            ax_hist.set_ylabel("fréquence")
 
-    # Boîte de stats (3 lignes)
-    stats_lines = [
+            # Boîte de stats (3 lignes)
+            stats_lines = [
         rf"median={
             med:.2f}, mean={
             mean:.2f}",
@@ -258,25 +252,25 @@ ap.add_argument(
                         args.threshold:.0e} rad = {
                             100 * frac_over:.2f}%",
                              ]
-    ax_hist.text(
+                             ax_hist.text(
         0.02,
         0.02,
         "\n".join(stats_lines),
-        transform=ax_hist.transAxes,
-        ha="left",
-        va="bottom",
-        fontsize=9,
-        bbox=dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9),
+        transform = ax_hist.transAxes,
+        ha = "left",
+        va = "bottom",
+        fontsize = 9,
+        bbox = dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9),
     )
 
-    # ------------------------------- footers --------------------------------
-    foot_scale = (
+        # ------------------------------- footers --------------------------------
+        foot_scale = (
         f"Réduction par médiane (gridsize={
             args.gridsize}, mincnt={
             args.mincnt}). " f"Échelle: vmin={
                 vmin:.6g}, vmax={
                     vmax:.6g}  (percentiles {p_lo}–{p_hi})." )
-    foot_stats = (
+            foot_stats = (
         f"Stats globales: median={
             med:.2f}, mean={
             mean:.2f}, std={
@@ -284,26 +278,26 @@ ap.add_argument(
                     p95:.2f} {exp_txt} [rad]. N={N}, cellules actives (≥{
                         args.mincnt}) = " )
 
-    # (subplots_adjust n'affecte pas add_axes, on l'utilise juste pour la bbox globale)
-    fig.subplots_adjust(
-        left=0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30
+            # (subplots_adjust n'affecte pas add_axes, on l'utilise juste pour la bbox globale)
+            fig.subplots_adjust(
+        left = 0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30
     )
-    fig.text(0.5, 0.053, foot_scale, ha="center", fontsize=10)
-    fig.text(
+        fig.text(0.5, 0.053, foot_scale, ha="center", fontsize=10)
+        fig.text(
         0.5,
         0.032,
         foot_stats + f"{n_active}/{N}.",
-        ha="center",
-        fontsize=10)
+        ha = "center",
+        fontsize = 10)
 
-    # ------------------------------- sortie ---------------------------------
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    fig.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
-    print(f"[OK] Figure écrite: {args.out}")
+            # ------------------------------- sortie ---------------------------------
+            os.makedirs(os.path.dirname(args.out), exist_ok=True)
+            fig.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
+            print(f"[OK] Figure écrite: {args.out}")
 
-    if args.manifest:
-        man_path = os.path.splitext(args.out)[0] + ".manifest.json"
-        manifest = {
+            if args.manifest:
+            man_path = os.path.splitext(args.out)[0] + ".manifest.json"
+            manifest = {
             "script": "plot_fig06_residual_map.py",
             "generated_at": pd.Timestamp.utcnow().isoformat() + "Z",
             "inputs": {
@@ -346,24 +340,24 @@ ap.add_argument(
         print(f"[OK] Manifest écrit: {man_path}")
 
 
-if __name__ == "__main__":
-    main()
+            if __name__ == "__main__":
+            main()
 
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass
+            # [MCGT POSTPARSE EPILOGUE v2]
+            # (compact) delegate to common helper; best-effort wrapper
+            try:
+            import os
+            import sys
+            _here = os.path.abspath(os.path.dirname(__file__))
+            _zz = os.path.abspath(os.path.join(_here, ".."))
+            if _zz not in sys.path:
+            sys.path.insert(0, _zz)
+            from _common.postparse import apply as _mcgt_postparse_apply
+            except Exception:
+            def _mcgt_postparse_apply(*_a, **_k):
+            pass
+            try:
+            if "args" in globals():
+            _mcgt_postparse_apply(args, caller_file=__file__)
+            except Exception:
+            pass

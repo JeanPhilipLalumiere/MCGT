@@ -74,7 +74,6 @@ def main():
             shrinkA=0,
             shrinkB=2,
             connectionstyle="angle3",
-        ),
     )
 
     # --- Inset légèrement vers le haut ---

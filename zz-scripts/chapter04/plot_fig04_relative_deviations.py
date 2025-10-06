@@ -28,7 +28,6 @@ def main():
     possible_paths = [
         "zz-data/chapter04/04_dimensionless_invariants.csv",
         "/mnt/data/04_dimensionless_invariants.csv",
-    ]
     df = None
     for path in possible_paths:
         if os.path.isfile(path):

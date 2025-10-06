@@ -139,8 +139,6 @@ def parse_args():
     return apap.add_argument(
         "--outdir",
         type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 ap.add_argument(

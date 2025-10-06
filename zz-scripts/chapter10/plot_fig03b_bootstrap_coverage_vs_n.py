@@ -87,9 +87,13 @@ class RowRes:
 
 
 def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument("--results", required=True, help="CSV avec colonne p95.")
-    p.add_argument("--p95-col", default=None, help="Nom exact de la colonne p95.")
+    p.add_argument(
+        "--p95-col",
+        default=None,
+        help="Nom exact de la colonne p95.")
     p.add_argument(
         "--out",
         default="zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n.png",
@@ -107,30 +111,37 @@ def main():
         default=None,
         help="Alias de --outer (si précisé, remplace --outer).",
     )
+    p.add_argument( "--inner", type=int, default=2000,
+                    help="Nombre de réplicats internes (IC)." )
+    p.add_argument( "--alpha", type=float, default=0.05,
+                    help="Niveau d'erreur pour IC (ex. 0.05)." )
     p.add_argument(
-        "--inner", type=int, default=2000, help="Nombre de réplicats internes (IC)."
-    )
-    p.add_argument(
-        "--alpha", type=float, default=0.05, help="Niveau d'erreur pour IC (ex. 0.05)."
-    )
-    p.add_argument("--npoints", type=int, default=10, help="Nombre de points N.")
+        "--npoints",
+        type=int,
+        default=10,
+        help="Nombre de points N.")
     p.add_argument("--minN", type=int, default=100, help="Plus petit N.")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG.")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG.")
     p.add_argument(
-        "--ymin-coverage", type=float, default=None, help="Ymin panneau couverture."
-    )
+        "--ymin-coverage",
+        type=float,
+        default=None,
+        help="Ymin panneau couverture." )
     p.add_argument(
-        "--ymax-coverage", type=float, default=None, help="Ymax panneau couverture."
-    )
+        "--ymax-coverage",
+        type=float,
+        default=None,
+        help="Ymax panneau couverture." )
     p.add_argument(
         "--title-left",
         default="Couverture IC vs N (estimateur: mean)",
         help="Titre panneau gauche.",
     )
     p.add_argument(
-        "--title-right", default="Largeur d'IC vs N", help="Titre panneau droit."
-    )
+        "--title-right",
+        default="Largeur d'IC vs N",
+        help="Titre panneau droit." )
     p.add_argument(
         "--hires2000",
         action="store_true",
@@ -188,8 +199,10 @@ def main():
 
     outer_for_cov = int(args.M) if args.M is not None else int(args.outer)
     print(
-        f"[INFO] outer={outer_for_cov}, inner={args.inner}, alpha={args.alpha}, seed={args.seed}"
-    )
+        f"[INFO] outer={outer_for_cov}, inner={
+            args.inner}, alpha={
+            args.alpha}, seed={
+                args.seed}" )
 
     rng = np.random.default_rng(args.seed)
     ref_value_lin = float(np.mean(vals_all))
@@ -201,7 +214,8 @@ def main():
         widths = np.empty(outer_for_cov, dtype=float)
         for b in range(outer_for_cov):
             samp = rng.choice(vals_all, size=int(N), replace=True)
-            lo, hi = bootstrap_percentile_ci(samp, args.inner, rng, alpha=args.alpha)
+            lo, hi = bootstrap_percentile_ci(
+                samp, args.inner, rng, alpha=args.alpha)
             widths[b] = hi - lo
             if (ref_value_lin >= lo) and (ref_value_lin <= hi):
                 hits += 1
@@ -246,19 +260,20 @@ def main():
         label="Couverture empirique",
     )
     ax1.axhline(
-        1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%"
-    )
+        1 - args.alpha,
+        color="crimson",
+        ls="--",
+        lw=1.5,
+        label="Niveau nominal 95%" )
 
     ax1.set_xlabel("Taille d'échantillon N")
     ax1.set_ylabel("Couverture (IC 95% contient la référence)")
     ax1.set_title(args.title_left)
     if (args.ymin_coverage is not None) or (args.ymax_coverage is not None):
         ymin = (
-            args.ymin_coverage if args.ymin_coverage is not None else ax1.get_ylim()[0]
-        )
+            args.ymin_coverage if args.ymin_coverage is not None else ax1.get_ylim()[0] )
         ymax = (
-            args.ymax_coverage if args.ymax_coverage is not None else ax1.get_ylim()[1]
-        )
+            args.ymax_coverage if args.ymax_coverage is not None else ax1.get_ylim()[1] )
         ax1.set_ylim(ymin, ymax)
     ax1.legend(loc="lower right", frameon=True)
 
@@ -297,17 +312,24 @@ def main():
         inset.set_ylabel("[rad]", fontsize=8)
         inset.tick_params(axis="both", labelsize=8)
 
-    ax2.plot(xN, [r.width_mean for r in results], "-", lw=2.0, color="tab:green")
+    ax2.plot(xN, [r.width_mean for r in results],
+             "-", lw=2.0, color="tab:green")
     ax2.set_xlabel("Taille d'échantillon N")
     ax2.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
     ax2.set_title(args.title_right)
 
-    fig.subplots_adjust(left=0.08, right=0.98, top=0.92, bottom=0.18, wspace=0.25)
+    fig.subplots_adjust(
+        left=0.08,
+        right=0.98,
+        top=0.92,
+        bottom=0.18,
+        wspace=0.25)
 
     foot = (
-        f"Bootstrap imbriqué: outer={outer_for_cov}, inner={args.inner}. "
-        f"Référence = estimateur({Mtot}) = {ref_value_lin:0.3f} rad. Seed={args.seed}."
-    )
+        f"Bootstrap imbriqué: outer={outer_for_cov}, inner={
+            args.inner}. " f"Référence = estimateur({Mtot}) = {
+            ref_value_lin:0.3f} rad. Seed={
+                args.seed}." )
     fig.text(0.5, 0.012, foot, ha="center", fontsize=10)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
@@ -359,8 +381,10 @@ def main():
 
     if args.make_sensitivity:
         mode = args.sens_mode
-        sensN = int(args.sens_N) if args.sens_N is not None else int(N_list[-1])
-        B_list = [int(x.strip()) for x in args.sens_B_list.split(",") if x.strip()]
+        sensN = int(args.sens_N) if args.sens_N is not None else int(
+            N_list[-1])
+        B_list = [int(x.strip())
+                      for x in args.sens_B_list.split(",") if x.strip()]
         print(f"[INFO] Sensibilité: mode={mode}, N={sensN}, B_list={B_list}")
 
         rng2 = np.random.default_rng(args.seed + 7)
@@ -382,7 +406,8 @@ def main():
                 hits = 0
                 for b in range(outer_for_cov):
                     samp = rng2.choice(vals_all, size=sensN, replace=True)
-                    lo, hi = bootstrap_percentile_ci(samp, B, rng2, alpha=args.alpha)
+                    lo, hi = bootstrap_percentile_ci(
+                        samp, B, rng2, alpha=args.alpha)
                     if (ref_value_lin >= lo) and (ref_value_lin <= hi):
                         hits += 1
                 p_hat = hits / outer_for_cov
@@ -407,13 +432,16 @@ def main():
             label="Couverture empirique",
         )
         axS.axhline(
-            1 - args.alpha, color="crimson", ls="--", lw=1.5, label="Niveau nominal 95%"
-        )
+            1 - args.alpha,
+            color="crimson",
+            ls="--",
+            lw=1.5,
+            label="Niveau nominal 95%" )
         axS.set_xlabel("B (outer)" if mode == "outer" else "B (inner)")
         axS.set_ylabel("Couverture (IC 95% contient la référence)")
         axS.set_title(
-            f"Sensibilité de la couverture vs {'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
-        )
+            f"Sensibilité de la couverture vs {
+                'outer' if mode == 'outer' else 'inner'}  (N={sensN})" )
         axS.legend(loc="lower right", frameon=True)
         figS.tight_layout()
         out_sens = os.path.splitext(args.out)[0] + f"_sensitivity_{mode}.png"
@@ -440,3 +468,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

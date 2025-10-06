@@ -53,7 +53,8 @@ def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
         raise ValueError("bands must be pairs of floats (even count).")
     it = iter(vals)
-    return [tuple(sorted((float(a), float(b)))) for a, b in zip(it, it, strict=False)]
+    return [tuple(sorted((float(a), float(b))))
+                  for a, b in zip(it, it, strict=False)]
 
 
 def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
@@ -83,7 +84,8 @@ def load_meta(meta_path: Path) -> dict:
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ_principal ∈ (−π, π]"""
-    return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
+    return (np.asarray(a, float) - np.asarray(b, float) + \
+            np.pi) % (2.0 * np.pi) - np.pi
 
 
 def k_rebranch_median(
@@ -104,19 +106,33 @@ def main():
     )
     ap.add_argument("--csv", type=Path, required=True)
     ap.add_argument(
-        "--meta", type=Path, default=Path("zz-data/chapter09/09_metrics_phase.json")
-    )
+        "--meta",
+        type=Path,
+        default=Path("zz-data/chapter09/09_metrics_phase.json") )
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument(
-        "--bands", nargs="+", type=float, default=[20, 300, 300, 1000, 1000, 2000]
-    )
+        "--bands",
+        nargs="+",
+        type=float,
+        default=[
+            20,
+            300,
+            300,
+            1000,
+            1000,
+            2000] )
     ap.add_argument("--marker-size", type=float, default=3.0)
     ap.add_argument("--line-width", type=float, default=0.9)
     ap.add_argument("--gap-thresh-log10", type=float, default=0.12)
     ap.add_argument(
-        "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
-    )
+        "--log-level",
+        choices=[
+            "DEBUG",
+            "INFO",
+            "WARNING",
+            "ERROR"],
+        default="INFO" )
     args = ap.parse_args()
 
     log = setup_logger(args.log_level)
@@ -160,13 +176,18 @@ def main():
 
     # résidu canonique = |Δφ_principal| après rebranch k
     absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
-    # eps pour échelle log (affichage uniquement) — les stats sont calculées AVANT ce remplacement
+    # eps pour échelle log (affichage uniquement) — les stats sont calculées
+    # AVANT ce remplacement
     eps = 1e-12
-    absd_plot = np.where((~np.isfinite(absd_full)) | (absd_full <= 0), eps, absd_full)
+    absd_plot = np.where(
+        (~np.isfinite(absd_full)) | (
+            absd_full <= 0), eps, absd_full)
 
     # stats 20–300 pour panneau compact
     m20300 = (f >= f20) & (f <= f300) & np.isfinite(absd_full)
-    mean20 = float(np.nanmean(absd_full[m20300])) if m20300.any() else float("nan")
+    mean20 = float(
+        np.nanmean(
+            absd_full[m20300])) if m20300.any() else float("nan")
     p9520 = float(p95(absd_full[m20300])) if m20300.any() else float("nan")
     log.info(
         "Stats 20–300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
@@ -195,7 +216,8 @@ def main():
         y=0.985,
     )
     # pousse les sous-graphiques plus bas pour laisser un gap sous le titre
-    fig.subplots_adjust(top=0.88, bottom=0.08)  # <— plus d’espace que précédemment
+    # <— plus d’espace que précédemment
+    fig.subplots_adjust(top=0.88, bottom=0.08)
 
     # styles
     shade_color = "0.92"
@@ -242,10 +264,13 @@ def main():
 
             # ligne p95
             ax.axhline(
-                p95_b if np.isfinite(p95_b) else np.nan, color="r", lw=1.0, ls=":"
-            )
+                p95_b if np.isfinite(p95_b) else np.nan,
+                color="r",
+                lw=1.0,
+                ls=":" )
 
-            # étiquette p95 — géométrique au centre, SOUS la ligne (coords log-y)
+            # étiquette p95 — géométrique au centre, SOUS la ligne (coords
+            # log-y)
             if np.isfinite(p95_b):
                 x_p = (
                     10 ** ((np.log10(blo) + np.log10(bhi)) / 2.0)
@@ -290,7 +315,8 @@ def main():
 
     # ---------------- panneau droit (Option A) ----------------
     # 1) légende des styles (légèrement plus haut)
-    box_styles = ax_right.inset_axes([0.08, 0.64, 0.84, 0.18])  # x,y,w,h (en coord. ax)
+    box_styles = ax_right.inset_axes(
+        [0.08, 0.64, 0.84, 0.18])  # x,y,w,h (en coord. ax)
     box_styles.axis("off")
 
     h_points = Line2D(
@@ -305,12 +331,26 @@ def main():
         label="données (points)",
     )
     h_line = Line2D(
-        [], [], color="#1f77b4", lw=args.line_width, label="runs contigus (ligne)"
-    )
-    h_p95 = Line2D([], [], color="r", lw=1.0, linestyle=":", label="p95 (bandes)")
+        [],
+        [],
+        color="#1f77b4",
+        lw=args.line_width,
+        label="runs contigus (ligne)" )
+    h_p95 = Line2D(
+        [],
+        [],
+        color="r",
+        lw=1.0,
+        linestyle=":",
+        label="p95 (bandes)")
     h_shade = Line2D(
-        [], [], color=shade_color, lw=6, label=f"Bande {int(f20)}–{int(f300)} Hz"
-    )
+        [],
+        [],
+        color=shade_color,
+        lw=6,
+        label=f"Bande {
+            int(f20)}–{
+            int(f300)} Hz" )
 
     leg1 = box_styles.legend(
         [h_points, h_line, h_p95, h_shade],
@@ -360,14 +400,87 @@ def main():
         ha="center",
         va="center",
         fontsize=10,
-        bbox=dict(boxstyle="round", facecolor="white", alpha=0.96, edgecolor="0.6"),
-    )
+        bbox=dict(
+            boxstyle="round",
+            facecolor="white",
+            alpha=0.96,
+            edgecolor="0.6"),
+         )
 
     # ---------------- sortie ----------------
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight", pad_inches=0.06)
+    fig.savefig(
+        args.out,
+        dpi=int(
+            args.dpi),
+        bbox_inches="tight",
+        pad_inches=0.06)
     log.info("PNG écrit → %s", args.out)
 
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

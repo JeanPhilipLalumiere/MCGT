@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# ------------------------- Utils (diff & stats circulaires) -------------------------
+# ------------------------- Utils (diff & stats circulaires) -------------
 
 TWOPI = 2.0 * np.pi
 
@@ -85,7 +85,10 @@ def bootstrap_circ_mean_ci(
 # ------------------------- Parsing & plotting -------------------------
 
 
-def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
+def detect_column(
+    df: pd.DataFrame,
+    hint: str | None,
+    candidates: list[str]) -> str:
     if hint and hint in df.columns:
         return hint
     for c in candidates:
@@ -96,29 +99,37 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
     for cand in candidates:
         if cand.lower() in lowcols:
             return df.columns[lowcols.index(cand.lower())]
-    raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (ou hint={hint})")
+    raise KeyError(
+        f"Aucune colonne trouvée parmi : {candidates} (ou hint={hint})")
 
 
 def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
-    )
+        "--results",
+        required=True,
+        help="CSV contenant les colonnes de phases à f_peak" )
     p.add_argument(
-        "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
-    )
+        "--x-col",
+        default=None,
+        help="Nom colonne phase ref (x). Auto-détect si omis." )
     p.add_argument(
-        "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
-    )
+        "--y-col",
+        default=None,
+        help="Nom colonne phase MCGT (y). Auto-détect si omis." )
     p.add_argument(
-        "--sigma-col", default=None, help="Colonne sigma (erreurs sur X) optionnelle"
-    )
+        "--sigma-col",
+        default=None,
+        help="Colonne sigma (erreurs sur X) optionnelle" )
     p.add_argument(
-        "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
-    )
+        "--group-col",
+        default=None,
+        help="Colonne de groupe optionnelle (marqueurs)" )
     p.add_argument(
-        "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
-    )
+        "--out",
+        default="fig_02_scatter_phi_at_fpeak.png",
+        help="PNG de sortie" )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
         "--title",
@@ -126,8 +137,10 @@ def main():
         help="Titre de la figure (fontsize=15)",
     )
     p.add_argument(
-        "--point-size", type=float, default=12.0, help="Taille des points du scatter"
-    )
+        "--point-size",
+        type=float,
+        default=12.0,
+        help="Taille des points du scatter" )
     p.add_argument(
         "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
     )
@@ -153,15 +166,18 @@ def main():
     )
 
     # HEXBIN
+    p.add_argument( "--with-hexbin", action="store_true",
+                    help="Ajoute un hexbin de fond (densité)." )
     p.add_argument(
-        "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
-    )
+        "--hexbin-gridsize",
+        type=int,
+        default=120,
+        help="Grille hexbin (densité)." )
     p.add_argument(
-        "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
-    )
-    p.add_argument(
-        "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
-    )
+        "--hexbin-alpha",
+        type=float,
+        default=0.18,
+        help="Alpha du hexbin de fond." )
 
     # Colorbar ticks π/4
     p.add_argument(
@@ -177,7 +193,11 @@ def main():
         default=1000,
         help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
     )
-    p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
+    p.add_argument(
+        "--seed",
+        type=int,
+        default=12345,
+        help="Seed RNG bootstrap")
 
     args = p.parse_args()
 
@@ -295,7 +315,8 @@ def main():
     if args.pi_ticks:
         ticks = [0.0, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi]
         cbar.set_ticks(ticks)
-        cbar.set_ticklabels(["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
+        cbar.set_ticklabels(
+            ["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
 
     # stats box
     stat_lines = [
@@ -340,8 +361,7 @@ def main():
     # pied de figure
     foot = (
         r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
-        r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
-    )
+        r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)." )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
     plt.tight_layout(rect=[0, 0.04, 1, 0.98])
@@ -351,3 +371,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

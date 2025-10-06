@@ -212,21 +212,15 @@ if __name__ == "__main__":
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
 
     if args.outdir:
-            pass
         try:
             os.makedirs(args.outdir, exist_ok=True)
         except Exception:
             pass
 
-        pass
         try:
             matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
         except Exception:
             pass
-
-    # Laisse le code existant agir; la plupart des fichiers exécutent du code top-level.
-    # Si une fonction main(...) est fournie, tu peux la dé-commenter :
-    # rc = main(args) if "main" in globals() else 0
     rc = 0
     sys.exit(rc)
 

@@ -107,8 +107,6 @@ def parse_args():
     return pp.add_argument(
         "--outdir",
         type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 p.add_argument("--fmt", type=str, default=None,
@@ -263,7 +261,6 @@ def main():
                     facecolor="white",
                     edgecolor="gray",
                     linewidth=0.6,
-                ),
             )
     else:
         ax.hist(vals, bins=args.bins, alpha=0.75, edgecolor="k")
@@ -332,7 +329,6 @@ def main():
                         facecolor="white",
                         edgecolor="black",
                         linewidth=0.7,
-                        ),
                          )
 
     # méta (si fournie)
@@ -378,7 +374,6 @@ def main():
             facecolor="white",
             edgecolor="black",
             linewidth=0.7,
-        ),
     )
 
     # p95 rappel
@@ -395,7 +390,6 @@ def main():
                 facecolor="#f2f2f2",
                 edgecolor="gray",
                 linewidth=0.6,
-            ),
         )
 
     # Save

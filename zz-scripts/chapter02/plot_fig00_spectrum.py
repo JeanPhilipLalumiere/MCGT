@@ -55,13 +55,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MCGT CLI")
     parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = parser.parse_args()
-                            choices = [
-                                "paper",
-                                "talk",
-                                "mono",
-                                "none"],
-        default=None,
-        help="Thème MCGT commun (opt-in)").parse_args()
 
     # [smoke] OUTDIR+copy
     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")

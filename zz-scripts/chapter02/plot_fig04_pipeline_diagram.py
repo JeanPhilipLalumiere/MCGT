@@ -21,7 +21,6 @@ steps = [
     ("Interpolation & intégration\n(02_P_vs_T_grid_data.dat)", 0.35, 0.5),
     ("Optimisation\n(segmentation & pénalités)", 0.6, 0.5),
     ("Export JSON &\nécarts", 0.85, 0.5),
-]
 width, height = 0.2, 0.15
 
 # Draw boxes and texts

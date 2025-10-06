@@ -53,7 +53,6 @@ ax.errorbar(
 lims = [
     min(jalons["DH_obs"].min(), jalons["DH_calc"].min()),
     max(jalons["DH_obs"].max(), jalons["DH_calc"].max()),
-]
 ax.plot(lims, lims, ls="--", color="black", label="Identité")
 
 # Annotation des métriques de calibration repositionnée

@@ -133,7 +133,6 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
                 calib["window_Hz"] = [
                     float(c["window_Hz"][0]),
                     float(c["window_Hz"][1]),
-                ]
             if (
                 "used_window_Hz" in c
                 and isinstance(c["used_window_Hz"], (list, tuple))
@@ -142,7 +141,6 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
                 calib["used_window_Hz"] = [
                     float(c["used_window_Hz"][0]),
                     float(c["used_window_Hz"][1]),
-                ]
             variant = (
                 meta.get(
                     "metrics_active",
@@ -218,8 +216,6 @@ def parse_args():
     return apap.add_argument(
         "--outdir",
         type=str,
-        default=None,
-        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
 
 
 ap.add_argument(
@@ -400,7 +396,6 @@ def main():
         Line2D([], [], color="none", label=cal_txt),
         Line2D([], [], color="none", label=grid_txt),
         Line2D([], [], color="none", label=metrics_txt),
-    ]
     leg = ax.legend(
         handles + extra,
         labels + [cal_txt, grid_txt, metrics_txt],

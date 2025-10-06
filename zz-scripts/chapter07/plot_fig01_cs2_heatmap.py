@@ -193,9 +193,13 @@ if __name__ == "__main__":
 
     def _smoke_copy_latest():
         try:
+            import glob, os, shutil, time
+            _ch = os.path.basename(os.path.dirname(__file__))
+            _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+            _default_dir = os.path.join(_repo, "zz-figures", _ch)
             pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
             for _p in pngs:
-                if os.path.getmtime(_p) >= _t0 - 10:
+                if os.path.exists(_p):
                     _dst = os.path.join(args.outdir, os.path.basename(_p))
                     if not os.path.exists(_dst):
                         shutil.copy2(_p, _dst)

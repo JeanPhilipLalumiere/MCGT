@@ -53,8 +53,6 @@ if __name__ == "__main__":
     import matplotlib
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
-    parser.add_argument(
-        '--style',
     parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = parser.parse_args()
                             choices = [

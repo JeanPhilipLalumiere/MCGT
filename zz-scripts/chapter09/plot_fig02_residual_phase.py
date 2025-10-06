@@ -117,7 +117,6 @@ def main():
     ap.add_argument("--marker-size", type=float, default=3.0)
     ap.add_argument("--line-width", type=float, default=0.9)
     ap.add_argument("--gap-thresh-log10", type=float, default=0.12)
-    ap.add_argument(
         "--log-level",
     ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()

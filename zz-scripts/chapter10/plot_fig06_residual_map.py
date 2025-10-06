@@ -56,15 +56,11 @@ def main():
     ap.add_argument(
         "--abs",
         action="store_true",
-        help="Prendre la valeur absolue.")
     ap.add_argument("--m1-col", default="m1")
     ap.add_argument("--m2-col", default="m2")
     ap.add_argument( "--orig-col", default="p95_20_300",
-                     help="Colonne p95 originale (dp95)." )
     ap.add_argument(
         "--recalc-col",
-        default="p95_20_300_recalc",
-        help="Colonne p95 recalculée (dp95).",
     )
     ap.add_argument(
         "--phi-ref-col",
@@ -83,7 +79,6 @@ def main():
         "--threshold",
         type=float,
     )
-    ap.add_argument(
         "--figsize",
     ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()

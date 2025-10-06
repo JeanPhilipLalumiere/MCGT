@@ -45,8 +45,6 @@ def main():
     )
     ap.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
-        help="PNG de sortie",
     )
     ap.add_argument(
         "--ref-p95",
@@ -70,14 +68,7 @@ def main():
                                                   "--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)"
                                                   )
                                               ap.add_argument(
-                                                  '--style',
-                                                  choices=[
-                                                      'paper',
-                                                      'talk',
-                                                      'mono',
-                                                      'none'],
-                                                  default='none',
-                                                  help='Style de figure (opt-in)')
+                                              ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
                                               args = ap.parse_args()
                                               "--outdir",
                                               type=str,

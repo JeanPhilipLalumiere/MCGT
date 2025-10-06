@@ -141,7 +141,18 @@ def main():
         default=0.20,
         help="Hauteur de base de l'encart (fraction figure)",
     )
-    args = p.parse_args()
+    args = pp.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+p.add_argument("--fmt", type=str, default=None,
+               help="Format savefig (png, pdf, etc.)")
+p.add_argument("--transparent", action="store_true",
+               help="Fond transparent pour savefig")
+.parse_args()
 
     df = pd.read_csv(args.results)
     p95_col = detect_p95_column(df, args.p95_col)

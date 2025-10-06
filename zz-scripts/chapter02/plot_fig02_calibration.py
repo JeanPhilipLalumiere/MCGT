@@ -83,7 +83,12 @@ if __name__ == "__main__":
         action="store_true",
         help="Transparent background")
 
-    args = parser.parse_args()
+    args = parserparser.add_argument(
+        "--fmt",
+        type=str,
+        default=None,
+        help="Format savefig (png, pdf, etc.)")
+.parse_args()
     try:
     os.makedirs(args.outdir, exist_ok=True)
     os.environ["MCGT_OUTDIR"] = args.outdir

@@ -174,7 +174,18 @@ def main():
         default="100,200,400,800,1200,2000",
         help="Liste de B séparés par virgules pour la sensibilité.",
     )
-    args = p.parse_args()
+    args = pp.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+p.add_argument("--fmt", type=str, default=None,
+               help="Format savefig (png, pdf, etc.)")
+p.add_argument("--transparent", action="store_true",
+               help="Fond transparent pour savefig")
+.parse_args()
 
     df = pd.read_csv(args.results)
     p95_col = detect_p95_column(df, args.p95_col)

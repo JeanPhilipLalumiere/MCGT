@@ -198,7 +198,21 @@ def parse_args():
         help="Appliquer (phi0, tc) aux milestones et au fond si reconstruit. 'auto' => selon meta.enabled.",
          )
     ap.add_argument("--dpi", type=int, default=300)
-    return ap.parse_args()
+    return apap.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+ap.add_argument(
+    "--fmt",
+    type=str,
+    default=None,
+    help="Format savefig (png, pdf, etc.)")
+ap.add_argument("--transparent", action="store_true",
+                help="Fond transparent pour savefig")
+.parse_args()
 
 
 # ---------------- main ----------------

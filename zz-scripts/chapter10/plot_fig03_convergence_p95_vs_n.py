@@ -92,8 +92,12 @@ def compute_bootstrap_convergence(
 
 
 def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    p.add_argument("--results", required=True, help="CSV results (with p95 column)")
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    p.add_argument(
+        "--results",
+        required=True,
+        help="CSV results (with p95 column)")
     p.add_argument(
         "--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)"
     )
@@ -102,10 +106,18 @@ def main():
         default="zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
         help="PNG de sortie",
     )
-    p.add_argument("--B", type=int, default=2000, help="Nombre de réplicats bootstrap")
+    p.add_argument(
+        "--B",
+        type=int,
+        default=2000,
+        help="Nombre de réplicats bootstrap")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG")
     p.add_argument("--dpi", type=int, default=150, help="DPI PNG")
-    p.add_argument("--npoints", type=int, default=100, help="Nb de valeurs N évaluées")
+    p.add_argument(
+        "--npoints",
+        type=int,
+        default=100,
+        help="Nb de valeurs N évaluées")
     p.add_argument(
         "--trim",
         type=float,
@@ -113,8 +125,10 @@ def main():
         help="Proportion tronquée de chaque côté (trimmed mean)",
     )
     p.add_argument(
-        "--zoom-center-n", type=int, default=None, help="Centre en N (par défaut ~M/2)"
-    )
+        "--zoom-center-n",
+        type=int,
+        default=None,
+        help="Centre en N (par défaut ~M/2)" )
     p.add_argument(
         "--zoom-w",
         type=float,
@@ -146,19 +160,25 @@ def main():
     _ref_tmean = trimmed_mean(p95, args.trim)
 
     print(
-        f"[INFO] Bootstrap convergence: M={M}, B={args.B}, points={len(N_list)}, seed={args.seed}, trim={args.trim:.3f}"
-    )
-    (
-        mean_est,
-        mean_low,
-        mean_high,
-        median_est,
-        median_low,
-        median_high,
-        tmean_est,
-        tmean_low,
-        tmean_high,
-    ) = compute_bootstrap_convergence(p95, N_list, args.B, args.seed, args.trim)
+        f"[INFO] Bootstrap convergence: M={M}, B={
+            args.B}, points={
+            len(N_list)}, seed={
+                args.seed}, trim={
+                    args.trim:.3f}" )
+    ( mean_est,
+      mean_low,
+      mean_high,
+      median_est,
+      median_low,
+      median_high,
+      tmean_est,
+      tmean_low,
+      tmean_high,
+    ) = compute_bootstrap_convergence(p95,
+                                      N_list,
+                                      args.B,
+                                      args.seed,
+                                      args.trim)
 
     final_i = np.where(N_list == M)[0][0] if (N_list == M).any() else -1
     final_mean, final_mean_ci = (
@@ -185,7 +205,12 @@ def main():
         alpha=0.18,
         label="IC 95% (bootstrap, mean)",
     )
-    ax.plot(N_list, mean_est, color="tab:blue", lw=2.0, label="Estimateur (mean)")
+    ax.plot(
+        N_list,
+        mean_est,
+        color="tab:blue",
+        lw=2.0,
+        label="Estimateur (mean)")
     ax.plot(
         N_list,
         median_est,
@@ -203,7 +228,8 @@ def main():
         label=f"Estimateur (trimmed mean, α={args.trim:.2f})",
     )
 
-    ax.axhline(ref_mean, color="crimson", lw=2, label=f"Estimation à N={M} (mean réf)")
+    ax.axhline(ref_mean, color="crimson", lw=2,
+               label=f"Estimation à N={M} (mean réf)")
 
     ax.set_xlim(0, M)
     ax.set_xlabel("Taille d'échantillon N")
@@ -216,7 +242,8 @@ def main():
     base_w, base_h = args.zoom_w, args.zoom_h
     inset_w = base_w * 1.5
     inset_h = base_h * 2.3
-    center_n = args.zoom_center_n if args.zoom_center_n is not None else int(M * 0.5)
+    center_n = args.zoom_center_n if args.zoom_center_n is not None else int(
+        M * 0.5)
     win_frac = 0.25
     win_n = int(max(10, M * win_frac))
     xin0 = max(0, center_n - win_n // 2)
@@ -255,8 +282,11 @@ def main():
     )
     inset_ax.plot(N_list[sel_idx], mean_est[sel_idx], color="tab:blue", lw=1.5)
     inset_ax.plot(
-        N_list[sel_idx], median_est[sel_idx], color="tab:orange", lw=1.2, ls="--"
-    )
+        N_list[sel_idx],
+        median_est[sel_idx],
+        color="tab:orange",
+        lw=1.2,
+        ls="--" )
     inset_ax.plot(
         N_list[sel_idx], tmean_est[sel_idx], color="tab:green", lw=1.2, ls="-."
     )
@@ -268,13 +298,19 @@ def main():
     inset_ax.grid(False)
 
     stat_lines = [
-        f"N = {M}",
-        f"mean = {final_mean:.3f}  (95% CI [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}])",
-        f"median = {final_median:.3f}  (95% CI [{final_median_ci[0]:.3f}, {final_median_ci[1]:.3f}])",
-        f"trimmed mean (α={args.trim:.2f}) = {final_tmean:.3f}  "
-        f"(95% CI [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}])",
-        f"bootstrap = percentile, B = {args.B}, seed = {args.seed}",
-    ]
+        f"N = {M}", f"mean = {
+            final_mean:.3f}  (95% CI [{
+            final_mean_ci[0]:.3f}, {
+                final_mean_ci[1]:.3f}])", f"median = {
+                    final_median:.3f}  (95% CI [{
+                        final_median_ci[0]:.3f}, {
+                            final_median_ci[1]:.3f}])", f"trimmed mean (α={
+                                args.trim:.2f}) = {
+                                    final_tmean:.3f}  " f"(95% CI [{
+                                        final_tmean_ci[0]:.3f}, {
+                                            final_tmean_ci[1]:.3f}])", f"bootstrap = percentile, B = {
+                                                args.B}, seed = {
+                                                    args.seed}", ]
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
     ax.text(
         0.98,
@@ -304,3 +340,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

@@ -100,7 +100,21 @@ def main():
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--out", default="fig_06_residual_map.png")
     ap.add_argument("--manifest", action="store_true")
-    args = ap.parse_args()
+    args = apap.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+ap.add_argument(
+    "--fmt",
+    type=str,
+    default=None,
+    help="Format savefig (png, pdf, etc.)")
+ap.add_argument("--transparent", action="store_true",
+                help="Fond transparent pour savefig")
+.parse_args()
 
     # ------------------------------------------------------------------ data
     df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])

@@ -116,7 +116,21 @@ def main():
         action="store_true",
         help="do not clip color scale to percentiles (show full range)",
     )
-    args = ap.parse_args()
+    args = apap.add_argument(
+        "--outdir",
+        type=str,
+        default=None,
+        help="Dossier pour copier la figure (fallback $MCGT_OUTDIR)")
+
+
+ap.add_argument(
+    "--fmt",
+    type=str,
+    default=None,
+    help="Format savefig (png, pdf, etc.)")
+ap.add_argument("--transparent", action="store_true",
+                help="Fond transparent pour savefig")
+.parse_args()
 
     # Read & detect columns
     try:

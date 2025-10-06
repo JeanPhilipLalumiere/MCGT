@@ -44,19 +44,15 @@ def main():
         "--results", required=True, help="CSV avec p95 circulaire recalculé"
     )
     ap.add_argument(
-        "--out",
     )
     ap.add_argument(
-        "--ref-p95",
         type=float,
     )
     ap.add_argument(
-        "--bins",
         type=int,
         ap.add_argument("--dpi", type=int, default=150, help="DPI du PNG")
         # position et fenêtre du zoom (centre + demi-étendues)
         ap.add_argument(
-            "--zoom-x",
             type=float,
             ap.add_argument(
                 "--zoom-y", type=float, default=35.0, help="centre Y du zoom (counts)"

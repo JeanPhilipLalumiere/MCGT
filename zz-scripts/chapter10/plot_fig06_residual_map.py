@@ -54,32 +54,24 @@ def main():
     ap.add_argument("--results", required=True, help="CSV d'entrée.")
     ap.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
     ap.add_argument(
-        "--abs",
         action="store_true",
     ap.add_argument("--m1-col", default="m1")
     ap.add_argument("--m2-col", default="m2")
     ap.add_argument( "--orig-col", default="p95_20_300",
     ap.add_argument(
-        "--recalc-col",
     )
     ap.add_argument(
-        "--phi-ref-col",
     ap.add_argument(
-        "--phi-mcgt-col",
     ap.add_argument("--gridsize", type=int, default=36)
     ap.add_argument(
-        "--mincnt",
         type=int,
     ap.add_argument("--cmap", default="viridis")
     ap.add_argument(
-        "--vclip",
     ap.add_argument( "--scale-exp", type=int, default=-
                      7, help="Exponent pour l'échelle ×10^exp rad." )
     ap.add_argument(
-        "--threshold",
         type=float,
     )
-        "--figsize",
     ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()
                         "--outdir",

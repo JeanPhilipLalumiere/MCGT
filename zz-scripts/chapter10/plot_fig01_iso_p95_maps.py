@@ -87,17 +87,13 @@ def main():
     ap = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument(
-        "--results",
         required=True,
     ap.add_argument(
-        "--p95-col",
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
     ap.add_argument(
-        "--out",
     )
     ap.add_argument(
-        "--levels",
         type=int,
     ap.add_argument("--cmap", default="viridis", help="colormap")
     ap.add_argument("--dpi", type=int, default=150, help="png dpi")
@@ -105,7 +101,6 @@ def main():
         "--title", default="Carte iso de p95 (m1 vs m2)", help="figure title"
     )
     ap.add_argument(
-        "--no-clip",
         action="store_true",
     )
     ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')

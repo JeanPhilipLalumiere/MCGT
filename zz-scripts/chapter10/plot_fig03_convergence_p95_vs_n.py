@@ -95,35 +95,27 @@ def main():
     p = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results",
         required=True,
     p.add_argument(
         "--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)"
     )
     p.add_argument(
-        "--out",
     )
     p.add_argument(
-        "--B",
         type=int,
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG")
     p.add_argument("--dpi", type=int, default=150, help="DPI PNG")
     p.add_argument(
-        "--npoints",
         type=int,
     p.add_argument(
-        "--trim",
         type=float,
     )
     p.add_argument(
-        "--zoom-center-n",
         type=int,
     p.add_argument(
-        "--zoom-w",
         type=float,
     )
     p.add_argument(
-        "--zoom-h",
         type=float,
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')

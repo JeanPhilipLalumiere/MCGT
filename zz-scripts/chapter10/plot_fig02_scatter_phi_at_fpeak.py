@@ -107,24 +107,16 @@ def main():
     p = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results",
         required=True,
     p.add_argument(
-        "--x-col",
     p.add_argument(
-        "--y-col",
     p.add_argument(
-        "--sigma-col",
     p.add_argument(
-        "--group-col",
     p.add_argument(
-        "--out",
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
-        "--title",
     )
     p.add_argument(
-        "--point-size",
         type=float,
     p.add_argument(
         "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
@@ -133,40 +125,32 @@ def main():
 
     # options de clipping / échelle
     p.add_argument(
-        "--clip_pi",
         action="store_true",
     )
     p.add_argument(
-        "--p95-ref",
         type=float,
     )
     p.add_argument(
-        "--annotate-top-k",
         type=int,
     )
 
     # HEXBIN
     p.add_argument( "--with-hexbin", action="store_true",
     p.add_argument(
-        "--hexbin-gridsize",
         type=int,
     p.add_argument(
-        "--hexbin-alpha",
         type=float,
 
     # Colorbar ticks π/4
     p.add_argument(
-        "--pi-ticks",
         action="store_true",
     )
 
     # Bootstrap IC sur la moyenne circulaire
     p.add_argument(
-        "--boot-ci",
         type=int,
     )
     p.add_argument(
-        "--seed",
         type=int,
 
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')

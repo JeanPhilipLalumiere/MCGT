@@ -46,56 +46,43 @@ def main():
     p = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results",
         required=True,
     )
     p.add_argument(
-        "--orig-col",
     p.add_argument(
-        "--recalc-col",
     p.add_argument(
-        "--out",
     )
     p.add_argument("--dpi", type=int, default=300, help="PNG dpi")
     p.add_argument(
-        "--point-size",
         type=float,
     p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
     p.add_argument("--cmap", default="viridis", help="colormap")
     p.add_argument(
-        "--change-eps",
         type=float,
     )
     p.add_argument(
-        "--with-zoom",
         action="store_true",
     )
     p.add_argument(
-        "--zoom-center-x",
         type=float,
     )
     p.add_argument(
-        "--zoom-center-y",
         type=float,
     )
     p.add_argument( "--zoom-w", type=float, default=0.45,
     p.add_argument( "--zoom-h", type=float, default=0.10,
 
     p.add_argument(
-        "--hist-x",
         type=float,
     )
     p.add_argument(
-        "--hist-y",
         type=float,
     )
     p.add_argument(
-        "--hist-scale",
         type=float,
     )
     p.add_argument("--bins", type=int, default=50, help="Histogram bins")
     p.add_argument(
-        "--title",
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

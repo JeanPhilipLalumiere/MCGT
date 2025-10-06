@@ -38,13 +38,11 @@ blocks = {
         Ymid + DY,
         "06_cls_*.dat\n06_delta_*.csv\n06_delta_rs_*.csv\n06_cmb_chi2_scan2D.csv\n06_params_cmb.json",
         "#d7d7d7",
-    ),
     "fig": (
         0.67,
         Ymid - DY,
         "fig_02.png\nfig_03.png\nfig_04.png\nfig_05.png",
         "#d7d7d7",
-    ),
 }
 
 # --- Draw blocks ---

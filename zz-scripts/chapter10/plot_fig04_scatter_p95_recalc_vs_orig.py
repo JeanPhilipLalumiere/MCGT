@@ -123,7 +123,8 @@ def main():
         default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
         help="Figure title (fontsize=15)",
     )
-    p.add_argument(    args = p.parse_args()
+    p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = p.parse_args()
                        "--outdir",
                        type=str,
                        default=None,

@@ -85,7 +85,6 @@ def make_triangulation_and_mask(x, y):
 
 def main():
     ap = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument(
         required=True,
     ap.add_argument(

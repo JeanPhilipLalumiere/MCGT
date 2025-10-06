@@ -376,7 +376,6 @@ def plot_synthese(
 # ---------- CLI ----------
 def main(argv=None):
     ap = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("--manifest-a", required=True)
     ap.add_argument("--label-a", default=None)
     ap.add_argument("--manifest-b", default=None)

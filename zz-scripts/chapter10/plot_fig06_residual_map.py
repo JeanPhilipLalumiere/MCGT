@@ -50,7 +50,6 @@ def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
 # --------------------------- script principal ------------------------------
 def main():
     ap = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("--results", required=True, help="CSV d'entrée.")
     ap.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
     ap.add_argument(

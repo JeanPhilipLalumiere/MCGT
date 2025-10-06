@@ -44,7 +44,6 @@ def fmt_sci_power(v: float) -> tuple[float, int]:
 
 def main():
     p = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         required=True,
     )

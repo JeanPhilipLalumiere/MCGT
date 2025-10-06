@@ -45,7 +45,6 @@ if __name__ == "__main__":
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Standard CLI seed (non-intrusif).")
     parser.add_argument(
             ".ci-out"),
     parser.add_argument(

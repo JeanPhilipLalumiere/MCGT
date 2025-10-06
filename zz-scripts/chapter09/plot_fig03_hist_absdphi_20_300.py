@@ -39,7 +39,8 @@ def setup_logger(level: str):
 
 def principal_phase_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
-    return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2 * np.pi) - np.pi
+    return (np.asarray(a, float) - np.asarray(b, float) + \
+            np.pi) % (2 * np.pi) - np.pi
 
 
 def parse_args():
@@ -52,9 +53,8 @@ def parse_args():
         default=DEF_DIFF,
         help="CSV 09_phase_diff.csv (préféré si présent, contient 'abs_dphi')",
     )
-    p.add_argument(
-        "--csv", type=Path, default=DEF_CSV, help="CSV 09_phases_mcgt.csv (fallback)"
-    )
+    p.add_argument( "--csv", type=Path, default=DEF_CSV,
+                    help="CSV 09_phases_mcgt.csv (fallback)" )
     p.add_argument(
         "--meta",
         type=Path,
@@ -73,8 +73,12 @@ def parse_args():
         help="Fenêtre fréquentielle [Hz]",
     )
     p.add_argument(
-        "--xscale", choices=["linear", "log"], default="log", help="Échelle horizontale"
-    )
+        "--xscale",
+        choices=[
+            "linear",
+            "log"],
+        default="log",
+        help="Échelle horizontale" )
     p.add_argument(
         "--mode",
         choices=["principal", "unwrap", "raw"],
@@ -82,13 +86,22 @@ def parse_args():
         help="Définition du résidu si --csv est utilisé (défaut: principal)",
     )
     p.add_argument(
-        "--no-lines", action="store_true", help="Ne pas tracer les lignes des stats"
-    )
-    p.add_argument("--legend-loc", default="upper right", help="loc Matplotlib")
+        "--no-lines",
+        action="store_true",
+        help="Ne pas tracer les lignes des stats" )
+    p.add_argument(
+        "--legend-loc",
+        default="upper right",
+        help="loc Matplotlib")
     p.add_argument("--dpi", type=int, default=300, help="DPI de sortie")
     p.add_argument(
-        "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
-    )
+        "--log-level",
+        choices=[
+            "DEBUG",
+            "INFO",
+            "WARNING",
+            "ERROR"],
+        default="INFO" )
     return p.parse_args()
 
 
@@ -111,12 +124,15 @@ def main():
             log.info("Chargé diff CSV: %s (%d points).", args.diff, len(df))
         else:
             log.warning(
-                "%s existe mais colonnes manquantes -> fallback sur --csv", args.diff
-            )
+                "%s existe mais colonnes manquantes -> fallback sur --csv",
+                args.diff )
 
     if abs_dphi is None:
         if not args.csv.exists():
-            raise SystemExit(f"Aucun fichier d'entrée: {args.diff} et {args.csv}")
+            raise SystemExit(
+                f"Aucun fichier d'entrée: {
+                    args.diff} et {
+                    args.csv}")
         mc = pd.read_csv(args.csv).sort_values("f_Hz")
         need = {"f_Hz", "phi_ref"}
         if not need.issubset(mc.columns):
@@ -128,12 +144,15 @@ def main():
                 variant = col
                 break
         else:
-            raise SystemExit("Aucune colonne phi_mcgt* disponible dans le CSV.")
+            raise SystemExit(
+                "Aucune colonne phi_mcgt* disponible dans le CSV.")
         phi_r = mc["phi_ref"].to_numpy(float)
         f = mc["f_Hz"].to_numpy(float)
 
         fmin, fmax = sorted(map(float, args.window))
-        mask_win = (f >= fmin) & (f <= fmax) & np.isfinite(phi_m) & np.isfinite(phi_r)
+        mask_win = (
+            f >= fmin) & (
+            f <= fmax) & np.isfinite(phi_m) & np.isfinite(phi_r)
 
         if args.mode == "raw":
             abs_dphi = np.abs(phi_m - phi_r)
@@ -147,8 +166,11 @@ def main():
             two_pi = 2 * np.pi
             if np.any(mask_win):
                 k_used = int(
-                    np.round(np.nanmedian((phi_m[mask_win] - phi_r[mask_win]) / two_pi))
-                )
+                    np.round(
+                        np.nanmedian(
+                            (phi_m[mask_win] -
+                             phi_r[mask_win]) /
+                            two_pi)) )
             else:
                 k_used = 0
             dphi = principal_phase_diff(phi_m - k_used * two_pi, phi_r)
@@ -156,8 +178,10 @@ def main():
             info_mode = f"principal diff (k={k_used})"
         data_label = f"{args.csv.name} • {variant} • {info_mode}"
         log.info(
-            "Chargé mcgt CSV: %s (%d points). Mode=%s", args.csv, len(mc), args.mode
-        )
+            "Chargé mcgt CSV: %s (%d points). Mode=%s",
+            args.csv,
+            len(mc),
+            args.mode )
 
     # --- Fenêtre & stats
     fmin, fmax = sorted(map(float, args.window))
@@ -209,7 +233,12 @@ def main():
         edge_lo = max(vmin, 10 ** (np.floor(np.log10(vmin)) - 1))
         edge_hi = vmax * 1.2
         bins = np.logspace(np.log10(edge_lo), np.log10(edge_hi), args.bins + 1)
-        ax.hist(pos, bins=bins, alpha=0.75, edgecolor="k", label="données (>0)")
+        ax.hist(
+            pos,
+            bins=bins,
+            alpha=0.75,
+            edgecolor="k",
+            label="données (>0)")
         ax.set_xscale("log")
         if n_zero > 0:
             ax.text(
@@ -232,40 +261,69 @@ def main():
     ax.set_xlabel(rf"$|\Delta\phi|$ [rad]  ({int(fmin)}–{int(fmax)} Hz)")
     ax.set_ylabel("Comptes")
     ax.set_title(
-        rf"Histogramme du résidu de phase $|\Delta\phi|$  ({int(fmin)}–{int(fmax)} Hz)"
-    )
+        rf"Histogramme du résidu de phase $|\Delta\phi|$  ({
+            int(fmin)}–{
+            int(fmax)} Hz)" )
 
     ax.grid(which="major", linestyle="-", linewidth=0.6, alpha=0.45)
     ax.grid(which="minor", linestyle=":", linewidth=0.4, alpha=0.35)
 
     if not args.no_lines and (pos.size > 0 or args.xscale == "linear"):
-        ax.axvline(med_abs, color="C0", linestyle="--", linewidth=1.6, label="médiane")
-        ax.axvline(mean_abs, color="C1", linestyle="--", linewidth=1.6, label="moyenne")
-        ax.axvline(p95_abs, color="C2", linestyle=":", linewidth=1.6, label="p95")
-        ax.axvline(max_abs, color="C3", linestyle=":", linewidth=1.6, label="max")
+        ax.axvline(
+            med_abs,
+            color="C0",
+            linestyle="--",
+            linewidth=1.6,
+            label="médiane")
+        ax.axvline(
+            mean_abs,
+            color="C1",
+            linestyle="--",
+            linewidth=1.6,
+            label="moyenne")
+        ax.axvline(
+            p95_abs,
+            color="C2",
+            linestyle=":",
+            linewidth=1.6,
+            label="p95")
+        ax.axvline(
+            max_abs,
+            color="C3",
+            linestyle=":",
+            linewidth=1.6,
+            label="max")
 
     handles, labels = ax.get_legend_handles_labels()
     if handles:
         ax.legend(
-            handles, labels, loc="center left", bbox_to_anchor=(1.02, 0.5), frameon=True
-        )
+            handles,
+            labels,
+            loc="center left",
+            bbox_to_anchor=(
+                1.02,
+                0.5),
+            frameon=True )
 
     # --- Boîtes d'info
     ax.text(
         0.02,
         0.95,
-        f"Source: {data_label}\n"
-        f"n={n_total}  mean={mean_abs:.3g}  median={med_abs:.3g}  p95={p95_abs:.3g}  max={max_abs:.3g}",
+        f"Source: {data_label}\n" f"n={n_total}  mean={
+            mean_abs:.3g}  median={
+            med_abs:.3g}  p95={
+                p95_abs:.3g}  max={
+                    max_abs:.3g}",
         transform=ax.transAxes,
         fontsize=9,
         va="top",
         bbox=dict(
-            boxstyle="round,pad=0.4",
-            facecolor="white",
-            edgecolor="black",
-            linewidth=0.7,
-        ),
-    )
+                        boxstyle="round,pad=0.4",
+                        facecolor="white",
+                        edgecolor="black",
+                        linewidth=0.7,
+                        ),
+                         )
 
     # méta (si fournie)
     cal_lines = []
@@ -293,8 +351,11 @@ def main():
         cal_lines.append("(meta indisponible)")
 
     cal_lines.append(
-        f"|Δφ| {int(fmin)}–{int(fmax)} Hz : mean={mean_abs:.3g} rad ; p95={p95_abs:.3g} rad"
-    )
+        f"|Δφ| {
+            int(fmin)}–{
+            int(fmax)} Hz : mean={
+                mean_abs:.3g} rad ; p95={
+                    p95_abs:.3g} rad" )
     ax.text(
         0.02,
         0.82,
@@ -339,3 +400,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

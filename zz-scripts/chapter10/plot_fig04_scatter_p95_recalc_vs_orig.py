@@ -14,7 +14,10 @@ import pandas as pd
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
-def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
+def detect_column(
+    df: pd.DataFrame,
+    hint: str | None,
+    candidates: list[str]) -> str:
     if hint and hint in df.columns:
         return hint
     for c in candidates:
@@ -26,7 +29,8 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
         for i, col in enumerate(lowcols):
             if lc in col:
                 return df.columns[i]
-    raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (hint={hint})")
+    raise KeyError(
+        f"Aucune colonne trouvée parmi : {candidates} (hint={hint})")
 
 
 def fmt_sci_power(v: float) -> tuple[float, int]:
@@ -39,23 +43,32 @@ def fmt_sci_power(v: float) -> tuple[float, int]:
 
 
 def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         "--results",
         required=True,
         help="CSV results (must contain orig/recalc columns)",
     )
-    p.add_argument("--orig-col", default="p95_20_300", help="Original p95 column")
     p.add_argument(
-        "--recalc-col", default="p95_20_300_recalc", help="Recalculated p95 column"
-    )
+        "--orig-col",
+        default="p95_20_300",
+        help="Original p95 column")
+    p.add_argument(
+        "--recalc-col",
+        default="p95_20_300_recalc",
+        help="Recalculated p95 column" )
     p.add_argument(
         "--out",
         default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
         help="Output PNG",
     )
     p.add_argument("--dpi", type=int, default=300, help="PNG dpi")
-    p.add_argument("--point-size", type=float, default=10.0, help="scatter marker size")
+    p.add_argument(
+        "--point-size",
+        type=float,
+        default=10.0,
+        help="scatter marker size")
     p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
     p.add_argument("--cmap", default="viridis", help="colormap")
     p.add_argument(
@@ -81,12 +94,10 @@ def main():
         default=None,
         help="Zoom center (y) in data units",
     )
-    p.add_argument(
-        "--zoom-w", type=float, default=0.45, help="Inset zoom width (fraction fig)"
-    )
-    p.add_argument(
-        "--zoom-h", type=float, default=0.10, help="Inset zoom height (fraction fig)"
-    )
+    p.add_argument( "--zoom-w", type=float, default=0.45,
+                    help="Inset zoom width (fraction fig)" )
+    p.add_argument( "--zoom-h", type=float, default=0.10,
+                    help="Inset zoom height (fraction fig)" )
 
     p.add_argument(
         "--hist-x",
@@ -165,7 +176,8 @@ def main():
 
     lo = min(np.min(x), np.min(y))
     hi = max(np.max(x), np.max(y))
-    ax.plot([lo, hi], [lo, hi], color="gray", linestyle="--", linewidth=1.0, zorder=1)
+    ax.plot([lo, hi], [lo, hi], color="gray",
+            linestyle="--", linewidth=1.0, zorder=1)
 
     ax.set_xlabel(f"{orig_col} [rad]")
     ax.set_ylabel(f"{recalc_col} [rad]")
@@ -176,13 +188,16 @@ def main():
     cbar.set_label(r"$|\Delta p95|$ [rad]")
 
     stats = [
-        f"N = {N}",
-        f"mean(orig) = {mean_x:.3f} rad",
-        f"mean(recalc) = {mean_y:.3f} rad",
-        f"Δ = recalc - orig : mean = {mean_delta:.3e}, median = {med_delta:.3e}, std = {std_delta:.3e}",
-        f"p95(|Δ|) = {p95_abs:.3e} rad, max |Δ| = {max_abs:.3e} rad",
-        f"N_changed (|Δ| > {args.change_eps}) = {n_changed} ({frac_changed:.2f}%)",
-    ]
+        f"N = {N}", f"mean(orig) = {
+            mean_x:.3f} rad", f"mean(recalc) = {
+            mean_y:.3f} rad", f"Δ = recalc - orig : mean = {
+                mean_delta:.3e}, median = {
+                    med_delta:.3e}, std = {
+                        std_delta:.3e}", f"p95(|Δ|) = {
+                            p95_abs:.3e} rad, max |Δ| = {
+                                max_abs:.3e} rad", f"N_changed (|Δ| > {
+                                    args.change_eps}) = {n_changed} ({
+                                        frac_changed:.2f}%)", ]
     stats_text = "\n".join(stats)
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
     ax.text(
@@ -225,7 +240,11 @@ def main():
             scale = 10.0**exp
 
     hist_vals = abs_delta / scale
-    hist_ax.hist(hist_vals, bins=args.bins, color="tab:blue", edgecolor="black")
+    hist_ax.hist(
+        hist_vals,
+        bins=args.bins,
+        color="tab:blue",
+        edgecolor="black")
     hist_ax.axvline(0.0, color="red", linewidth=2.0)
     hist_ax.set_title("Histogramme |Δp95|", fontsize=9)
     hist_ax.set_xlabel(f"$\\times 10^{{{exp}}}$", fontsize=8)
@@ -267,7 +286,8 @@ def main():
             vmin=0.0,
             vmax=vmax,
         )
-        inz.plot([zx0, zx1], [zx0, zx1], color="gray", linestyle="--", linewidth=0.8)
+        inz.plot([zx0, zx1], [zx0, zx1], color="gray",
+                 linestyle="--", linewidth=0.8)
         inz.set_xlim(zx0, zx1)
         inz.set_ylim(zy0, zy1)
         inz.set_title("zoom", fontsize=8)
@@ -275,8 +295,7 @@ def main():
 
     foot = (
         r"$\Delta p95 = p95_{recalc} - p95_{orig}$. Couleur = $|\Delta p95|$. "
-        "Zoom optionnel (--with-zoom). Histogramme déplacé (place & taille paramétrables)."
-    )
+        "Zoom optionnel (--with-zoom). Histogramme déplacé (place & taille paramétrables)." )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
     plt.tight_layout(rect=[0, 0.04, 1, 0.98])
@@ -286,3 +305,67 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

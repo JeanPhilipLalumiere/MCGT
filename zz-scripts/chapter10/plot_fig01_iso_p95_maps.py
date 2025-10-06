@@ -84,13 +84,16 @@ def make_triangulation_and_mask(x, y):
 
 
 def main():
-    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    ap = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument(
-        "--results", required=True, help="CSV results (must contain m1,m2 and p95)."
-    )
+        "--results",
+        required=True,
+        help="CSV results (must contain m1,m2 and p95)." )
     ap.add_argument(
-        "--p95-col", default=None, help="p95 column name (auto detect if omitted)"
-    )
+        "--p95-col",
+        default=None,
+        help="p95 column name (auto detect if omitted)" )
     ap.add_argument("--m1-col", default="m1", help="column name for m1")
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
     ap.add_argument(
@@ -98,7 +101,11 @@ def main():
         default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png",
         help="output PNG file",
     )
-    ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
+    ap.add_argument(
+        "--levels",
+        type=int,
+        default=16,
+        help="number of contour levels")
     ap.add_argument("--cmap", default="viridis", help="colormap")
     ap.add_argument("--dpi", type=int, default=150, help="png dpi")
     ap.add_argument(
@@ -115,7 +122,10 @@ def main():
     try:
         df_all = pd.read_csv(args.results)
     except Exception as e:
-        print(f"[ERROR] Cannot read results CSV '{args.results}': {e}", file=sys.stderr)
+        print(
+            f"[ERROR] Cannot read results CSV '{
+                args.results}': {e}",
+            file=sys.stderr)
         sys.exit(2)
 
     try:
@@ -157,9 +167,9 @@ def main():
             vmin, vmax = float(p_lo), float(p_hi)
             clipped = True
             warnings.warn(
-                f"Detected extreme p95 values: display clipped to [{vmin:.4g}, {vmax:.4g}] "
-                "(0.1% - 99.9% percentiles) to avoid burning the colormap."
-            )
+                f"Detected extreme p95 values: display clipped to [{
+                    vmin:.4g}, {
+                    vmax:.4g}] " "(0.1% - 99.9% percentiles) to avoid burning the colormap." )
 
     norm = colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
 
@@ -168,15 +178,27 @@ def main():
     fig, ax = plt.subplots(figsize=(10, 8))
 
     # tricontourf with normalization
-    cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
+    cf = ax.tricontourf(
+        triang,
+        z,
+        levels=levels,
+        cmap=args.cmap,
+        alpha=0.95,
+        norm=norm)
     _cs = ax.tricontour(
         triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5
     )
 
     # scatter overlay (points) - smaller, semi-transparent
     ax.scatter(
-        x, y, c="k", s=3, alpha=0.5, edgecolors="none", label="échantillons", zorder=5
-    )
+        x,
+        y,
+        c="k",
+        s=3,
+        alpha=0.5,
+        edgecolors="none",
+        label="échantillons",
+        zorder=5 )
 
     # colorbar (respect the norm)
     cbar = fig.colorbar(cf, ax=ax, shrink=0.8)
@@ -213,9 +235,76 @@ def main():
                 "Note: color scaling was clipped to percentiles (0.1%/99.9%). Use --no-clip to disable clipping."
             )
     except Exception as e:
-        print(f"[ERROR] cannot write output file '{args.out}': {e}", file=sys.stderr)
+        print(
+            f"[ERROR] cannot write output file '{
+                args.out}': {e}",
+            file=sys.stderr)
         sys.exit(2)
 
 
 if __name__ == "__main__":
     main()
+
+# [MCGT POSTPARSE EPILOGUE v1]
+try:
+    # On n agit que si un objet args existe au global
+    if "args" in globals():
+        import os
+        import atexit
+        # 1) Fallback via MCGT_OUTDIR si outdir est vide/None
+        env_out = os.environ.get("MCGT_OUTDIR")
+        if getattr(args, "outdir", None) in (None, "", False) and env_out:
+            args.outdir = env_out
+        # 2) Création sûre du répertoire s il est défini
+        if getattr(args, "outdir", None):
+            try:
+                os.makedirs(args.outdir, exist_ok=True)
+            except Exception:
+                pass
+        # 3) rcParams savefig si des attributs existent
+        try:
+            import matplotlib
+            _rc = {}
+            if hasattr(args, "dpi") and args.dpi:
+                _rc["savefig.dpi"] = args.dpi
+            if hasattr(args, "fmt") and args.fmt:
+                _rc["savefig.format"] = args.fmt
+            if hasattr(args, "transparent"):
+                _rc["savefig.transparent"] = bool(args.transparent)
+            if _rc:
+                matplotlib.rcParams.update(_rc)
+        except Exception:
+            pass
+        # 4) Copier automatiquement le dernier PNG vers outdir à la fin
+
+        def _smoke_copy_latest():
+            try:
+                if not getattr(args, "outdir", None):
+                    return
+                import glob
+                import os
+                import shutil
+                _ch = os.path.basename(os.path.dirname(__file__))
+                _repo = os.path.abspath(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        ".."))
+                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                pngs = sorted(
+                    glob.glob(os.path.join(_default_dir, "*.png")),
+                    key=os.path.getmtime,
+                    reverse=True,
+                )
+                for _p in pngs:
+                    if os.path.exists(_p):
+                        _dst = os.path.join(args.outdir, os.path.basename(_p))
+                        if not os.path.exists(_dst):
+                            shutil.copy2(_p, _dst)
+                        break
+            except Exception:
+                pass
+        atexit.register(_smoke_copy_latest)
+except Exception:
+    # épilogue best-effort — ne doit jamais casser le script principal
+    pass

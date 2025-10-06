@@ -54,8 +54,8 @@ except NameError:
     except KeyError:
         pass
     logging.error(
-    "Colonnes 'k','a','cs2_matrice' manquantes dans %s",
-     DONNEES_CSV)
+        "Colonnes 'k','a','cs2_matrice' manquantes dans %s",
+        DONNEES_CSV)
     raise
     k_vals = pivot.index.to_numpy()
     a_vals = pivot.columns.to_numpy()
@@ -84,12 +84,12 @@ except NameError:
     cmap = plt.get_cmap("Blues")
 
     mesh = ax.pcolormesh(
-    a_vals,
-    k_vals,
-    mat_masked,
-    norm=LogNorm(vmin=vmin, vmax=vmax),
-    cmap=cmap,
-    shading="auto",
+        a_vals,
+        k_vals,
+        mat_masked,
+        norm=LogNorm(vmin=vmin, vmax=vmax),
+        cmap=cmap,
+        shading="auto",
     )
 
     ax.set_xscale("linear")
@@ -110,13 +110,13 @@ except NameError:
 # Trace de k_split
     ax.axhline(k_split, color="white", linestyle="--", linewidth=1)
     ax.text(
-    a_vals.max(),
-    k_split * 1.1,
-    r"$k_{\rm split}$",
-    color="white",
-    va="bottom",
-    ha="right",
-    fontsize="small",
+        a_vals.max(),
+        k_split * 1.1,
+        r"$k_{\rm split}$",
+        color="white",
+        va="bottom",
+        ha="right",
+        fontsize="small",
     )
     logging.info("Ajout de la ligne horizontale à k = %.2e", k_split)
 
@@ -147,30 +147,30 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
     parser = argparse.ArgumentParser(description="MCGT CLI")
     parser.add_argument(
-    "-v",
-    "--verbose",
-    action="count",
-    default=0,
-     help="Verbosity (-v, -vv)")
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity (-v, -vv)")
     parser.add_argument(
-    "--outdir",
-    type=str,
-    default=os.environ.get(
-        "MCGT_OUTDIR",
-        ""),
-         help="Output directory")
+        "--outdir",
+        type=str,
+        default=os.environ.get(
+            "MCGT_OUTDIR",
+            ""),
+        help="Output directory")
     parser.add_argument("--dpi", type=int, default=150, help="Figure DPI")
     parser.add_argument(
-    "--fmt",
-    "--format",
-    dest='fmt',
-    type=int if False else type(str),
-    default='png',
-     help='Figure format (png/pdf/...)')
+        "--fmt",
+        "--format",
+        dest='fmt',
+        type=int if False else type(str),
+        default='png',
+        help='Figure format (png/pdf/...)')
     parser.add_argument(
-    "--transparent",
-    action="store_true",
-     help="Transparent background")
+        "--transparent",
+        action="store_true",
+        help="Transparent background")
     args = parser.parse_args()
 
     # [smoke] OUTDIR+copy
@@ -184,20 +184,33 @@ if __name__ == "__main__":
     import time
     _ch = os.path.basename(os.path.dirname(__file__))
     _repo = os.path.abspath(
-    os.path.join(
-        os.path.dirname(__file__),
-        "..",
-         ".."))
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            ".."))
     _default_dir = os.path.join(_repo, "zz-figures", _ch)
     _t0 = time.time()
 
     def _smoke_copy_latest():
         try:
-            import glob, os, shutil, time
+            import glob
+            import os
+            import shutil
+            import time
             _ch = os.path.basename(os.path.dirname(__file__))
-            _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+            _repo = os.path.abspath(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    "..",
+                    ".."))
             _default_dir = os.path.join(_repo, "zz-figures", _ch)
-            pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
+            pngs = sorted(
+                glob.glob(
+                    os.path.join(
+                        _default_dir,
+                        "*.png")),
+                key=os.path.getmtime,
+                reverse=True)
             for _p in pngs:
                 if os.path.exists(_p):
                     _dst = os.path.join(args.outdir, os.path.basename(_p))
@@ -208,7 +221,7 @@ if __name__ == "__main__":
             pass
     atexit.register(_smoke_copy_latest)
     if args.verbose:
-        level = logging.INFO if args.verbose==1 else logging.DEBUG
+        level = logging.INFO if args.verbose == 1 else logging.DEBUG
         logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
 
     if args.outdir:
@@ -218,9 +231,10 @@ if __name__ == "__main__":
             pass
 
         try:
-            matplotlib.rcParams.update({"savefig.dpi": args.dpi, "savefig.format": args.fmt, "savefig.transparent": bool(args.transparent)})
+            matplotlib.rcParams.update({"savefig.dpi": args.dpi,
+    "savefig.format": args.fmt,
+     "savefig.transparent": bool(args.transparent)})
         except Exception:
             pass
     rc = 0
     sys.exit(rc)
-

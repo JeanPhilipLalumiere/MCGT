@@ -95,33 +95,23 @@ def main():
         help="Zoom center (y) in data units",
     )
     p.add_argument( "--zoom-w", type=float, default=0.45,
-                    help="Inset zoom width (fraction fig)" )
     p.add_argument( "--zoom-h", type=float, default=0.10,
-                    help="Inset zoom height (fraction fig)" )
 
     p.add_argument(
         "--hist-x",
         type=float,
-        default=0.60,
-        help="X (figure coords) de l’histogramme (réduit → plus à gauche)",
     )
     p.add_argument(
         "--hist-y",
         type=float,
-        default=0.18,
-        help="Y (figure coords) de l’histogramme (augmenté → plus haut)",
     )
     p.add_argument(
         "--hist-scale",
         type=float,
-        default=3.0,
-        help="Scale factor for histogram inset size (1.0 = base size; >1 = larger)",
     )
     p.add_argument("--bins", type=int, default=50, help="Histogram bins")
     p.add_argument(
         "--title",
-        default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
-        help="Figure title (fontsize=15)",
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

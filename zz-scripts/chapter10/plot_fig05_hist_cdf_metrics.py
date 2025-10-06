@@ -80,7 +80,8 @@ def main():
     ap.add_argument(
         "--zoom-h", type=float, default=0.25, help="hauteur du zoom (fraction)"
     )
-    ap.add_argument(    args = ap.parse_args()
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = ap.parse_args()
                         "--outdir",
                         type=str,
                         default=None,

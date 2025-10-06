@@ -116,7 +116,8 @@ def main():
         action="store_true",
         help="do not clip color scale to percentiles (show full range)",
     )
-    ap.add_argument(    args = ap.parse_args()
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    args = ap.parse_args()
                         "--outdir",
                         type=str,
                         default=None,

@@ -171,8 +171,7 @@ parser.add_argument(
         "mono",
         "none"],
     default=None,
-    help="Thème MCGT commun (opt-in)")
-.parse_args()
+    help="Thème MCGT commun (opt-in)").parse_args()
     try:
     os.makedirs(args.outdir, exist_ok=True)
     os.environ["MCGT_OUTDIR"] = args.outdir

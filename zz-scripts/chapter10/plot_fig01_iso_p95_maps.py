@@ -138,8 +138,7 @@ ap.add_argument(
         "mono",
         "none"],
     default=None,
-    help="Thème MCGT commun (opt-in)")
-.parse_args()
+    help="Thème MCGT commun (opt-in)").parse_args()
 
     # Read & detect columns
     try:

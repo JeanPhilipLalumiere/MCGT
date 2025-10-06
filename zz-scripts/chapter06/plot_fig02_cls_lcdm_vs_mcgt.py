@@ -12,6 +12,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
 parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')

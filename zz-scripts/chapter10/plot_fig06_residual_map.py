@@ -97,15 +97,7 @@ def main():
         "--figsize",
         default="15,9",
         help="Largeur,hauteur en pouces (ex: '15,9')." )
-    ap.add_argument(
-        '--style',
-        choices=[
-            'paper',
-            'talk',
-            'mono',
-            'none'],
-        default='none',
-        help='Style de figure (opt-in)')
+    ap.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = ap.parse_args()
                         "--outdir",
                         type = str,

@@ -78,7 +78,16 @@ if __name__ == "__main__":
         "--transparent",
         action="store_true",
         help="Transparent background")
-    args = parser.parse_args()
+    args = parserparser.add_argument(
+        "--style",
+        choices=[
+            "paper",
+            "talk",
+            "mono",
+            "none"],
+        default=None,
+        help="Thème MCGT commun (opt-in)")
+.parse_args()
 
     # [smoke] OUTDIR+copy
     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")

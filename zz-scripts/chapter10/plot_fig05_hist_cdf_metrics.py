@@ -94,6 +94,15 @@ ap.add_argument(
     help="Format savefig (png, pdf, etc.)")
 ap.add_argument("--transparent", action="store_true",
                 help="Fond transparent pour savefig")
+ap.add_argument(
+    "--style",
+    choices=[
+        "paper",
+        "talk",
+        "mono",
+        "none"],
+    default=None,
+    help="Thème MCGT commun (opt-in)")
 .parse_args()
 
     # --- lecture & colonne p95 ---

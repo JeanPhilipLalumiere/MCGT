@@ -131,7 +131,6 @@ def compute_summary_rows(series_list: list[Series]) -> list[list[Any]]:
                 std_cov,
                 p95_cov,
                 med_w,
-            ]
         )
     return rows
 
@@ -158,7 +157,6 @@ def save_summary_csv(series_list: list[Series], out_csv: str) -> None:
         "outer_B",
         "inner_B",
         "alpha",
-    ]
     with open(out_csv, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -171,18 +169,14 @@ def save_summary_csv(series_list: list[Series], out_csv: str) -> None:
                         "N": int(s.N[i]) if np.isfinite(s.N[i]) else "",
                         "coverage": (
                             float(s.coverage[i]) if np.isfinite(s.coverage[i]) else ""
-                        ),
                         "err95_low": (
                             float(s.err_low[i]) if np.isfinite(s.err_low[i]) else ""
-                        ),
                         "err95_high": (
                             float(s.err_high[i]) if np.isfinite(s.err_high[i]) else ""
-                        ),
                         "width_mean": (
                             float(s.width_mean[i])
                             if np.isfinite(s.width_mean[i])
                             else ""
-                        ),
                         "M": int(M) if np.isfinite(M) else "",
                         "outer_B": int(outer_B) if np.isfinite(outer_B) else "",
                         "inner_B": int(inner_B) if np.isfinite(inner_B) else "",
@@ -305,7 +299,6 @@ def plot_synthese(
         "std_cov",
         "p95_cov",
         "med_width [rad]",
-    ]
     cell_text = []
     for r in rows:
         cell_text.append(
@@ -318,7 +311,6 @@ def plot_synthese(
                 f"{r[5]:.3f}" if np.isfinite(r[5]) else "-",
                 f"{r[6]:.3f}" if np.isfinite(r[6]) else "-",
                 f"{r[7]:.5f}" if np.isfinite(r[7]) else "-",
-            ]
         )
 
     ax_tab.axis("off")

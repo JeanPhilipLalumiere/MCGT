@@ -30,7 +30,6 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None):
         "p95_circ",
         "p95_recalc",
         "p95",
-    ]
     for c in candidates:
         if c in df.columns:
             return c

@@ -209,15 +209,6 @@ if __name__ == "__main__":
                             type=str,
                             default=None,
                             help="Format savefig (png, pdf, etc.)")
-parser.add_argument(
-    "--style",
-    choices=[
-        "paper",
-        "talk",
-        "mono",
-        "none"],
-    default=None,
-    help="Thème MCGT commun (opt-in)").parse_args()
     try:
     os.makedirs(args.outdir, exist_ok=True)
     os.environ["MCGT_OUTDIR"] = args.outdir

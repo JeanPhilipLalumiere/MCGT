@@ -91,58 +91,43 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument("--results", required=True, help="CSV avec colonne p95.")
     p.add_argument(
-        "--p95-col",
     p.add_argument(
-        "--out",
     )
     p.add_argument(
-        "--outer",
         type=int,
     )
     p.add_argument(
-        "--M",
         type=int,
     )
     p.add_argument( "--inner", type=int, default=2000,
     p.add_argument( "--alpha", type=float, default=0.05,
     p.add_argument(
-        "--npoints",
         type=int,
     p.add_argument("--minN", type=int, default=100, help="Plus petit N.")
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG.")
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG.")
     p.add_argument(
-        "--ymin-coverage",
         type=float,
     p.add_argument(
-        "--ymax-coverage",
         type=float,
     p.add_argument(
-        "--title-left",
     )
     p.add_argument(
-        "--title-right",
     p.add_argument(
-        "--hires2000",
         action="store_true",
     )
     p.add_argument(
-        "--angular",
         action="store_true",
     )
     p.add_argument(
-        "--make-sensitivity",
         action="store_true",
     )
     p.add_argument(
-        "--sens-mode",
     )
     p.add_argument(
-        "--sens-N",
         type=int,
     )
     p.add_argument(
-        "--sens-B-list",
     )
     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
     args = p.parse_args()

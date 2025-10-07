@@ -1,3 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+F="zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py"
+
+echo "[RESTORE] Réécriture propre de $F (sans tight_layout)"
+
+# Écrit une version saine du script
+cat <<'PY' > "$F"
 #!/usr/bin/env python3
 """
 plot_fig05_hist_cdf_metrics.py
@@ -138,3 +147,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+PY
+
+chmod +x "$F"
+
+echo "[TEST] Regénère fig05"
+OUT_DIR="zz-out/chapter10"
+DATA_DIR="zz-data/chapter10"
+mkdir -p "$OUT_DIR"
+python3 "$F" --results "$DATA_DIR/dummy_results.csv" --out "$OUT_DIR/fig05_hist_cdf.png" --bins 40 --dpi 120
+
+echo "[DONE] fig05 restaurée et testée."

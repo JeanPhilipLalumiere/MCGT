@@ -1,3 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+S="zz-scripts/chapter10"
+F="$S/plot_fig07_synthesis.py"
+O="zz-out/chapter10"
+
+echo "[PATCH] Réécriture propre de $F"
+
+cat > "$F" <<'PY'
 #!/usr/bin/env python3
 """
 plot_fig07_synthesis.py — Figure 7 (synthèse)
@@ -205,3 +215,28 @@ def main():
 
 if __name__ == "__main__":
     main()
+PY
+
+echo "[TEST] --help"
+python3 "$F" --help >/dev/null
+
+echo "[RUN] génération rapide si manifests présents"
+M1="$O/fig03b_cov_A.manifest.json"
+M2="$O/fig03b_cov_B.manifest.json"
+if [[ -f "$M1" && -f "$M2" ]]; then
+  python3 "$F" \
+    --manifests "$M1" "$M2" \
+    --labels "A(outer300,inner400)" "B(outer300,inner200)" \
+    --out "$O/fig07_synthesis.png" \
+    --csv "$O/fig07_summary.csv" \
+    --dpi 140
+fi
+
+echo "[SMOKE] tools/ch10_smoke.sh"
+if [[ -x tools/ch10_smoke.sh ]]; then
+  bash tools/ch10_smoke.sh
+else
+  echo "[WARN] tools/ch10_smoke.sh introuvable (mais fig07 est réparé)."
+fi
+
+echo "[DONE]"

@@ -99,7 +99,7 @@ def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
     plt.ylabel("|Δφ(f)| [rad]")
     plt.title(f"Residus ID {int(id_)} (raw / unwrap / circ)")
     plt.legend(loc="best", fontsize="small")
-    plt.tight_layout()
+    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
     plt.savefig(pngfile, dpi=150)
     plt.close()
     return {

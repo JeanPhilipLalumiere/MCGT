@@ -212,7 +212,7 @@ def main():
         ),
         width=180,
     )
-    plt.tight_layout(rect=[0, 0.14, 1, 0.98])
+    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
     fig.text(0.5, 0.04, foot, ha="center", va="bottom", fontsize=9)
 
     fig.savefig(args.out, dpi=args.dpi)

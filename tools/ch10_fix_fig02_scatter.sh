@@ -1,3 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+S="zz-scripts/chapter10"
+F="$S/plot_fig02_scatter_phi_at_fpeak.py"
+
+echo "[PATCH] Réécriture propre de $F (parser complet, aucune exécution hors main)"
+
+cat > "$F" <<'PY'
 #!/usr/bin/env python3
 """
 plot_fig02_scatter_phi_at_fpeak.py
@@ -200,3 +209,33 @@ except Exception:
 
 if __name__ == "__main__":
     main()
+PY
+
+echo "[TEST] --help (doit passer sans exécuter de plotting)"
+python3 "$F" --help >/dev/null
+
+echo "[SMOKE] Relance le smoke minimal pour fig02 + l'ancien smoke global"
+O="zz-out/chapter10"
+D="zz-data/chapter10"
+mkdir -p "$O"
+python3 "$F" --results "$D/dummy_results.csv" --out "$O/fig02.png" --alpha 0.6 --pi-ticks --dpi 120
+
+# Relance le smoke global s'il existe, sinon fait un --help sur tout
+if [[ -x tools/ch10_smoke.sh ]]; then
+  bash tools/ch10_smoke.sh
+else
+  echo "[CHECK] --help sur les autres scripts"
+  for f in \
+    plot_fig01_iso_p95_maps.py \
+    plot_fig03_convergence_p95_vs_n.py \
+    plot_fig03b_bootstrap_coverage_vs_n.py \
+    plot_fig04_scatter_p95_recalc_vs_orig.py \
+    plot_fig05_hist_cdf_metrics.py \
+    plot_fig06_residual_map.py \
+    plot_fig07_synthesis.py
+  do
+    python3 "$S/$f" --help >/dev/null
+  done
+fi
+
+echo "[DONE] fig02 corrigée + smoke OK."

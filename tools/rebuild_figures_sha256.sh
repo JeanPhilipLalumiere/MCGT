@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
-# shellcheck source=/dev/null
-. .ci-helpers/guard.sh
 set -euo pipefail
-cd "$(git rev-parse --show-toplevel)"
-OUT="zz-manifests/manifest_publication.sha256sum"
-tmp="$(mktemp)"
-git ls-files 'zz-figures/**/*.png' 'zz-figures/**/*.jpg' 'zz-figures/**/*.jpeg' 'zz-figures/**/*.svg' |
-  LC_ALL=C sort |
-  xargs -r sha256sum >"$tmp"
-mv "$tmp" "$OUT"
-echo "Wrote $OUT with $(wc -l <"$OUT") entries"
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+FIGDIR="${FIGDIR:-$ROOT/zz-figures}"
+QUAR="$FIGDIR/_legacy_conflicts"
+OUT="${OUT:-$ROOT/zz-manifests/manifest_figures.sha256sum}"
+
+mkdir -p "$(dirname "$OUT")"
+
+# Inventaire: fichiers réels (pas de symlinks), extensions images, en excluant la quarantaine
+# Trié pour stabilité.
+find "$FIGDIR" -path "$QUAR" -prune -o \
+  -type f ! -xtype l \
+  \( -iname '*.png' -o -iname '*.svg' -o -iname '*.pdf' \) -print0 \
+| sort -z \
+| xargs -0 -I{} sha256sum "{}" > "$OUT"
+
+echo "Wrote $OUT ($(
+  awk 'END{print NR}' "$OUT"
+) entries)"

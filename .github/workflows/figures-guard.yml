@@ -2,25 +2,16 @@ name: figures-guard
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'zz-figures/**'
-      - 'tools/ci_step2_validate_and_guard.sh'
-      - '.github/workflows/figures-guard.yml'
-      - '!**/*.md'
+    branches: [ "main" ]
   pull_request:
-    paths:
-      - 'zz-figures/**'
-      - 'tools/ci_step2_validate_and_guard.sh'
-      - '.github/workflows/figures-guard.yml'
-      - '!**/*.md'
 
 jobs:
   guard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run figures guard (strict)
-        shell: bash
+        with:
+          fetch-depth: 0
+      - name: Run guard
         run: |
-          STRICT_ORPHANS=1 STRICT_ORPHANS=1 bash tools/ci_step2_validate_and_guard.sh
+          bash tools/ci_step2_figures_guard.sh

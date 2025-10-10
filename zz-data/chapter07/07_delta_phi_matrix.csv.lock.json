@@ -1,0 +1,12 @@
+{
+  "file": "07_delta_phi_matrix.csv",
+  "chapter": "chapter07",
+  "sha256": "8e531dfd7aca67e5b5f8ce50708d8bdb0c508c3ef5d79df6277f4dd9fb413def",
+  "size_bytes": 947612,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

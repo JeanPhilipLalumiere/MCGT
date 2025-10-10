@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py", line 46
+    }
+    ^
+SyntaxError: closing parenthesis '}' does not match opening parenthesis '(' on line 41

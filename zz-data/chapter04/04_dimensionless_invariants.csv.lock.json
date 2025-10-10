@@ -1,0 +1,12 @@
+{
+  "file": "04_dimensionless_invariants.csv",
+  "chapter": "chapter04",
+  "sha256": "b65d10df05995cfb58d2a32cca6d6d8d1f36ad5afc96f34c4750cfab43c3d4ac",
+  "size_bytes": 58554,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

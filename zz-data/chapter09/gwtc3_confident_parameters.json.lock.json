@@ -1,0 +1,12 @@
+{
+  "file": "gwtc3_confident_parameters.json",
+  "chapter": "chapter09",
+  "sha256": "20b3122f92ce9d613362e31a2420c3fe4ba465393cd8ca190ea0341b9a66f683",
+  "size_bytes": 9728,
+  "provenance": {
+    "source": "GWTC-3 catalog (placeholder)",
+    "license": "per-source",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

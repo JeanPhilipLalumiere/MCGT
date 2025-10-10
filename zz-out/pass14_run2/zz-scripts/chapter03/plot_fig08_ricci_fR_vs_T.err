@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py", line 178, in <module>
+    main()
+  File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py", line 166, in main
+    rf"Jalons $f_R$ et $f_{ RR} $ vs âge $T\in[{
+                            ^^
+NameError: name 'RR' is not defined

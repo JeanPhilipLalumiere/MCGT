@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "max_pixels": 16_000_000,
+  "max_side_px": 8000,
+  "allowed_formats": ["png", "pdf", "svg"],
+  "default_format": "png",
+  "enforce_tight_layout": true,
+  "file_naming": {
+    "canonical_prefix": "NN_fig_",
+    "legacy_prefixes_allowed": ["fig_"],
+    "temporary_legacy_symlink": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "file": "08_coupling_milestones.csv",
+  "chapter": "chapter08",
+  "sha256": "4fd35a7341630b35a7c81a54312884a6c4e15616c9e0c80f5c29d53dcd04d51f",
+  "size_bytes": 68035,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

@@ -1,0 +1,7 @@
+usage: plot_fig03_convergence_p95_vs_n.py [-h] --results RESULTS --out OUT
+                                          [--p95-col P95_COL] [--B B]
+                                          [--npoints NPOINTS] [--seed SEED]
+                                          [--dpi DPI] [--trim TRIM]
+                                          [--zoom-w ZOOM_W] [--zoom-h ZOOM_H]
+                                          [--zoom-center-n ZOOM_CENTER_N]
+plot_fig03_convergence_p95_vs_n.py: error: the following arguments are required: --results, --out

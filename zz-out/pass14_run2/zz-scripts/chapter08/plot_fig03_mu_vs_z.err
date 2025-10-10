@@ -1,0 +1,3 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py", line 95
+    OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")
+IndentationError: unexpected indent

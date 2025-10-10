@@ -1,0 +1,12 @@
+{
+  "file": "07_perturbations_params.json",
+  "chapter": "chapter07",
+  "sha256": "14109664129f15a37edd6d248cb566db440e62f490f79d5d7e9922e6760ea538",
+  "size_bytes": 651,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

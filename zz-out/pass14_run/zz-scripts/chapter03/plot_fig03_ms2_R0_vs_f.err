@@ -1,0 +1,3 @@
+/home/jplal/MCGT/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py:124: UserWarning: Attempt to set non-positive ylim on a log-scaled axis will be ignored.
+  ax_in.set_ylim(
+[INFO] Figure enregistrée → zz-figures/chapter03/fig_03_ms2_R0_vs_R.png

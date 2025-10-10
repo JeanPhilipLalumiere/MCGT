@@ -1,0 +1,12 @@
+{
+  "file": "05_dchi2_vs_T.csv",
+  "chapter": "chapter05",
+  "sha256": "bdff430bd81da605d6d0fdcde9efd9ff7ecc47ff599cbac48128b4ccb24934e2",
+  "size_bytes": 15678,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

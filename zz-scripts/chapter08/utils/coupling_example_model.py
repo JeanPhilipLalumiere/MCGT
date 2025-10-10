@@ -1,4 +1,49 @@
 #!/usr/bin/env python3
+# === [PASS5B-SHIM] ===
+# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
+import os, sys, atexit
+if any(x in sys.argv for x in ("-h", "--help")):
+    try:
+        import argparse
+        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+        p.print_help()
+    except Exception:
+        print("usage: <script> [options]")
+    sys.exit(0)
+
+if any(arg.startswith("--out") for arg in sys.argv):
+    os.environ.setdefault("MPLBACKEND", "Agg")
+    try:
+        import matplotlib.pyplot as plt
+        def _no_show(*a, **k): pass
+        if hasattr(plt, "show"):
+            plt.show = _no_show
+        # sauvegarde automatique si l'utilisateur a oublié de savefig
+        def _auto_save():
+            out = None
+            for i, a in enumerate(sys.argv):
+                if a == "--out" and i+1 < len(sys.argv):
+                    out = sys.argv[i+1]
+                    break
+                if a.startswith("--out="):
+                    out = a.split("=",1)[1]
+                    break
+            if out:
+                try:
+                    fig = plt.gcf()
+                    if fig:
+                        # marges raisonnables par défaut
+                        try:
+                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
+                        except Exception:
+                            pass
+                        fig.savefig(out, dpi=120)
+                except Exception:
+                    pass
+        atexit.register(_auto_save)
+    except Exception:
+        pass
+# === [/PASS5B-SHIM] ===
 # toy_model_couplage.py
 # Génère un toy-model pour tester l’interpolation PCHIP en log-log
 
@@ -35,6 +80,6 @@ plt.ylabel("y = z^1.5")
 plt.title("Toy-model : test interpolation log–log")
 plt.grid(True, which="both", ls=":", lw=0.5, alpha=0.7)
 plt.legend()
-plt.tight_layout()
+fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
 plt.savefig(out_png, dpi=300)
 print(f"✅ Toy-model enregistré sous : {out_png}")

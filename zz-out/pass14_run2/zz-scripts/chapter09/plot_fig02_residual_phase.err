@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py", line 106
+    ap.add_argument(
+                   ^
+SyntaxError: '(' was never closed

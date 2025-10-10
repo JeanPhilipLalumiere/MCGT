@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ts="$(date +%Y%m%dT%H%M%S)"
+log="zz-out/hit_environment_${ts}_$$.log"
+{
+  echo "==== HIT environment shim ===="
+  echo "time: $(date -Is)"
+  echo "pwd : $(pwd)"
+  echo "argv: $0 ${@@Q}"
+  echo "UID : $(id -u)"
+  echo "PPID: $PPID"
+  echo "--- /proc/$$/cmdline ---"; tr '\0' ' ' < /proc/$$/cmdline || true; echo
+  echo "--- /proc/$PPID/cmdline ---"; tr '\0' ' ' < /proc/$PPID/cmdline || true; echo
+  command -v pstree >/dev/null && { echo "--- pstree ---"; pstree -sap $$; }
+} >> "$log" 2>&1
+echo "[environment shim] captured call; aborting." >&2
+exit 113

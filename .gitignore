@@ -1,120 +1,20 @@
-# === Virtualenvs / build artefacts ===
-# Virtualenv folders
-.venv/
-.venv-*/
-venv/
-env/
-.Python
-
-# Build / distribution
-build/
-dist/
-*.egg-info/
-.venv-wheel-test/
-
-# === Python bytecode / caches ===
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Tool caches
-.ruff_cache/
-.mypy_cache/
-.pytype/
-.cache/
-.pytest_cache/
-
-# === Tests / coverage ===
-# Keep the test directory tracked (explicit allow)
-!.github/
-!tests/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
-
-# === Editor / IDE files ===
-.vscode/
-.idea/
-*.swp
-
-# === OS / system files ===
-.DS_Store
-Thumbs.db
-
-# === Jupyter ===
+# Logs locaux
+.ci-logs/
+# Cache/artefacts divers
+**/__pycache__/
 .ipynb_checkpoints/
+.DS_Store
 
-# === Logs & temporary files ===
+# Figures legacy mises en quarantaine (gardées hors manifest & CI)
+zz-figures/_legacy_conflicts/
+
+# Build LaTeX (on n'ignore PAS les *.tex)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
 *.log
-*.tmp
-
-# === Backups & miscellaneous ===
-*.bak
-zz-trash/
-
-# === Local preview / generated figures (not part of publication) ===
-# Keep local figures previews out of git (representative figures for publication
-# should be placed in zz-figures/ and added intentionally).
-zz-figures/
-
-# === Misc binary / compiled ===
-*.so
-
-# === Allowlist notes (examples) ===
-# If you want to keep some generated files or data in the repo, add
-# explicit allow rules like:
-# !zz-figures/chapter09/fig_01_phase_overlay.png
-
-# Local only
-MCGT-clean/
-_reports/
-
-MCGT-clean/
-
-# cleanup patterns auto-added by cleanup script
-# temp / ci / artifacts
-dist/
-dist_from_*/
-artifacts_*/
-.tmp-*/
-.tmp_*/
-.tmp-ci/
-.tmp-gh-dist/
-.tmp-cleanup-logs/
-.ci_poke/
-*.log
-*.bak
-actionlint.tar.gz
-archive/cleanup_*.tar.gz
-# --- MCGT cleanup hardening ---
-archive/
-dist/
-dist_*/
-dist_from_*/
-artifacts_*/
-.tmp-*/
-.ci_poke/
-.tmp-gh-dist/
-.pytest_cache/
-*.log
-*.bak
-
-# Backups / archives locales
-.github/workflows/*.bak.*
-*.bak
-*.bak.*
-.ci-archive/
-.ci-logs/
-.ci-logs/
-.ci-logs/
-.ci-out/figures_guard_report.txt
-.ci-out/manifest_publication.sha256sum.new
-.ci-out/naming_guard_report.txt
-
-# CI artifacts
-.ci-out/
-legacy-tex/
-zz-configuration/parameters_registry.json
-tools/*.before_psx
-tools/*.new
+*.out
+*.toc
+*.synctex.gz

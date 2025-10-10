@@ -1,31 +1,21 @@
-.PHONY: lint fmt ci-local
-lint:
-	pre-commit run -a
+# Utilise '>' comme préfixe de recette pour éviter les TABs obligatoires
+.RECIPEPREFIX := >
+SHELL := /usr/bin/env bash
+.ONESHELL:
+ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null || pwd)
 
-fmt:
-	if command -v shfmt >/dev/null 2>&1; then shfmt -w -i 2 -ci tools/*.sh; fi
+# Dossier des figures (surcharge: make FIGDIR=mon-dossier figures-manifest)
+FIGDIR ?= zz-figures
 
-ci-local: fmt lint
+.PHONY: figures-norm figures-manifest figures-guard all-figures
 
-check:
-	pre-commit run -a --show-diff-on-failure
+figures-norm:
+> bash tools/fig_naming_normalize.sh
 
-hooks:
-	pre-commit install
-ci:
-	@command -v gh >/dev/null 2>&1 || { echo "gh (GitHub CLI) non installé"; exit 0; }
-	gh workflow run ci-pre-commit.yml || true
+figures-manifest:
+> FIGDIR=$(FIGDIR) bash tools/rebuild_figures_sha256.sh
 
-.PHONY: status policies locks
-status:
-	@echo "== MCGT status =="
-	@bash tools/ci_step1_policies_guard.sh || true
-	@echo "-- data locks --"
-	@find zz-data -type f -name '*.lock.json' | wc -l | xargs echo "locks:"
-	@echo "done."
+figures-guard:
+> bash tools/ci_step2_figures_guard.sh
 
-policies:
-	bash tools/ci_step1_policies_guard.sh
-
-locks:
-	bash tools/generate_data_locks.sh
+all-figures: figures-norm figures-manifest figures-guard

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter09/extract_phenom_phase.py", line 66, in <module>
+    from pycbc.waveform import get_fd_waveform
+ModuleNotFoundError: No module named 'pycbc'

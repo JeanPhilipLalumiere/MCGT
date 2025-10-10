@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py", line 897, in <module>
+    main()
+  File "/home/jplal/MCGT/zz-scripts/chapter09/generate_data_chapter09.py", line 532, in main
+    m1=float(cfg["m1"]),
+       ^^^^^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'NoneType'

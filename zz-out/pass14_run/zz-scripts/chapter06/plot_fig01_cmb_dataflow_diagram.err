@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py", line 20
+    fig.suptitle()"Pipeline de génération des données CMB (Chapitre 6)",
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax

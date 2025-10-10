@@ -1,0 +1,4 @@
+[DBG] Entrée dans main(), cwd= /home/jplal/MCGT
+[DEBUG] df_p.columns: ['T_Gyr', 'P_raw']
+[DEBUG] premiers T_Gyr   : [0.001 0.011 0.021 0.031 0.041]
+[DEBUG] premiers P_raw   : [0.99805338 0.87254189 0.73504974 0.6769211  0.667164  ]

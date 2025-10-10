@@ -1,0 +1,85 @@
+{
+  "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
+  "generated_at": "2025-10-07T00:41:15Z",
+  "inputs": {
+    "results": "zz-data/chapter10/dummy_results.csv",
+    "p95_col": "p95_20_300_recalc"
+  },
+  "params": {
+    "outer": 200,
+    "inner": 400,
+    "alpha": 0.05,
+    "seed": 111,
+    "minN": 30,
+    "npoints": 6,
+    "ymin_coverage": null,
+    "ymax_coverage": null
+  },
+  "ref_value_linear_rad": 0.7987817860097004,
+  "ref_value_circular_rad": null,
+  "N_list": [
+    30,
+    264,
+    498,
+    732,
+    966,
+    1200
+  ],
+  "results": [
+    {
+      "N": 30,
+      "coverage": 0.94,
+      "coverage_err95_low": 0.04193169295766275,
+      "coverage_err95_high": 0.025347805745668195,
+      "width_mean": 0.1049476033963511,
+      "hits": 188,
+      "method": "percentile"
+    },
+    {
+      "N": 264,
+      "coverage": 0.915,
+      "coverage_err95_low": 0.04689587071565571,
+      "coverage_err95_high": 0.03125424982252434,
+      "width_mean": 0.0352525517087916,
+      "hits": 183,
+      "method": "percentile"
+    },
+    {
+      "N": 498,
+      "coverage": 0.95,
+      "coverage_err95_low": 0.039578148138776026,
+      "coverage_err95_high": 0.022617354399236067,
+      "width_mean": 0.025805837193947384,
+      "hits": 190,
+      "method": "percentile"
+    },
+    {
+      "N": 732,
+      "coverage": 0.945,
+      "coverage_err95_low": 0.040786998772308514,
+      "coverage_err95_high": 0.024014658296541147,
+      "width_mean": 0.021262183518064314,
+      "hits": 189,
+      "method": "percentile"
+    },
+    {
+      "N": 966,
+      "coverage": 0.945,
+      "coverage_err95_low": 0.040786998772308514,
+      "coverage_err95_high": 0.024014658296541147,
+      "width_mean": 0.018424778180011075,
+      "hits": 189,
+      "method": "percentile"
+    },
+    {
+      "N": 1200,
+      "coverage": 0.98,
+      "coverage_err95_low": 0.030287086905826488,
+      "coverage_err95_high": 0.012195573583650532,
+      "width_mean": 0.016665055389364934,
+      "hits": 196,
+      "method": "percentile"
+    }
+  ],
+  "figure_path": "zz-out/chapter10/fig03b_cov_A.png"
+}

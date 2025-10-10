@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter04/generate_data_chapter04.py", line 175, in <module>
+    main()
+  File "/home/jplal/MCGT/zz-scripts/chapter04/generate_data_chapter04.py", line 123, in main
+    interp_logR = PchipInterpolator(logT_r, logR_data, extrapolate=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/scipy/interpolate/_cubic.py", line 249, in __init__
+    x, _, y, axis, _ = prepare_input(x, y, axis)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/scipy/interpolate/_cubic.py", line 70, in prepare_input
+    raise ValueError("`x` must be strictly increasing sequence.")
+ValueError: `x` must be strictly increasing sequence.

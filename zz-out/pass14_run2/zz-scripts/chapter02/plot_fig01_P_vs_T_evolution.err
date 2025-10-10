@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py", line 63
+    parser.add_argument(
+                       ^
+SyntaxError: '(' was never closed

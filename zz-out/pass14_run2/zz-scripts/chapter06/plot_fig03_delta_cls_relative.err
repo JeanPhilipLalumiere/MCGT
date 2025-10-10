@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py", line 101
+    parser.add_argument(
+                       ^
+SyntaxError: '(' was never closed

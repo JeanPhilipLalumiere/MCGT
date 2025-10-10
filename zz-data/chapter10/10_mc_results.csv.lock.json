@@ -1,0 +1,12 @@
+{
+  "file": "10_mc_results.csv",
+  "chapter": "chapter10",
+  "sha256": "0946e2aa3483a25cc9b070f874fab0dbd0f502d97afc9978a4a39374f0310e6d",
+  "size_bytes": 733754,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

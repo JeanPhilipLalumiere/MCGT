@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py", line 44
+    label_th = rf"$\mu^{\rm th}(z; q_0^*={q0star:.3f})$" if q0star is not None else r"$\mu^{\rm th}(z)$"
+                         ^
+SyntaxError: unexpected character after line continuation character

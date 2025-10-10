@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py", line 27
+    if os.path.isfile(path):
+    ^^
+IndentationError: expected an indented block after 'for' statement on line 26

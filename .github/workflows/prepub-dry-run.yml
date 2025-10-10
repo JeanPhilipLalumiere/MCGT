@@ -31,10 +31,12 @@ jobs:
           bash tools/build_prepub_bundle.sh
 
       - name: Upload prepub artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mcgt-prepub-${{ github.sha }}
           path: |
             dist/*.tar.gz
             zz-manifests/prepub_sha256.txt
-            .ci-logs/prepub_*.log
+            .ci-logs/*.log
+          if-no-files-found: ignore

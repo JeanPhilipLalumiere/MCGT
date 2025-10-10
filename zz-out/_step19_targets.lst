@@ -1,0 +1,10 @@
+zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
+zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+zz-scripts/chapter02/plot_fig03_relative_errors.py
+zz-scripts/chapter05/generate_data_chapter05.py
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
+zz-scripts/chapter07/plot_fig03_invariant_I1.py
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
+zz-scripts/chapter08/generate_coupling_milestones.py
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py

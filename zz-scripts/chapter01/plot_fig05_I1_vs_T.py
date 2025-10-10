@@ -1,98 +1,60 @@
 #!/usr/bin/env python3
 import os
-"""Fig. 05 – Invariant adimensionnel I1(T)"""
+"""Fig. 05 - Invariant adimensionnel I1(T)"""
 
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-base = Path(__file__).resolve().parents[2]
+base = Path( __file__).resolve().parents[ 2]
 data_file = base / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
 output_file = base / "zz-figures" / "chapter01" / "fig_05_I1_vs_T.png"
 
-df = pd.read_csv(data_file)
-T = df["T"]
-I1 = df["I1"]
+df = pd.read_csv( data_file)
+T = df[ "T"]
+I1 = df[ "I1"]
 
-plt.figure(dpi=300)
-plt.plot(T, I1, color="orange", label=r"$I_1 = P(T)/T$")
-plt.xscale("log")
-plt.yscale("log")
-plt.xlabel("T (Gyr)")
-plt.ylabel(r"$I_1$")
-plt.title("Fig. 05 – Invariant adimensionnel $I_1$ en fonction de $T$")
-plt.grid(True, which="both", ls=":", lw=0.5)
+plt.figure( dpi=300)
+plt.plot( T, I1, color="orange", label=r"$I_1 = P(T)/T$")
+plt.xscale( "log")
+plt.yscale( "log")
+plt.xlabel( "T (Gyr)")
+plt.ylabel( r"$I_1$")
+plt.title( "Fig. 05 - Invariant adimensionnel $I_1$ en fonction de $T$")
+plt.grid( True, which="both", ls=":", lw=0.5)
 plt.legend()
-plt.tight_layout()
-plt.savefig(output_file)
+fig=plt.gcf(); fig.subplots_adjust( left=0.07,bottom=0.12,right=0.98,top=0.95)
+plt.savefig( output_file)
 
-# === MCGT CLI SEED v2 ===
+# == MCGT CLI SEED v2 ==
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os
-        import argparse
-        import sys
-        import traceback
+    pass  # auto-added by STEP05c
+def _mcgt_cli_seed():
+    pass
+import os
+import argparse
+import sys
+import traceback
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-    parser.add_argument(
-            ".ci-out"),
-    parser.add_argument(
-        action="store_true",
-    parser.add_argument("--seed", type=int, default=None,
-    parser.add_argument(
-        action="store_true",
-    parser.add_argument(
-        action="count",
-    parser.add_argument("--dpi", type=int, default=150,
-    parser.add_argument(
-    parser.add_argument(
-        action="store_true",
-
-    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
-    args = parser.parse_args()
-                            "--fmt",
-                            type=str,
-                            default=None,
-                            help="Format savefig (png, pdf, etc.)")
-    try:
-    os.makedirs(args.outdir, exist_ok=True)
-    os.environ["MCGT_OUTDIR"] = args.outdir
-    import matplotlib as mpl
-    mpl.rcParams["savefig.dpi"] = args.dpi
-    mpl.rcParams["savefig.format"] = args.format
-    mpl.rcParams["savefig.transparent"] = args.transparent
-    except Exception:
     pass
-    _main = globals().get("main")
-    if callable(_main):
-    try:
-    _main(args)
-    except SystemExit:
-    raise
-    except Exception as e:
-    print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-    traceback.print_exc()
-    sys.exit(1)
-    _mcgt_cli_seed()
+parser = argparse.ArgumentParser(
+)
+parser.add_argument(".ci-out"),
 
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass
+parser.add_argument( "--seed", type=int, default=None)
+parser.add_argument( "--dpi", type=int, default=150)
+parser.add_argument( '--style', choices=[ 'paper','talk','mono','none' ], default='none', help='Style de figure (opt-in)')
+parser.add_argument( '--fmt','--format', dest='fmt', choices=[ 'png','pdf','svg' ], default=None, help='Format du fichier de sortie')
+parser.add_argument( '--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+parser.add_argument( '--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
+parser.add_argument( '--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+parser.add_argument( '--verbose', action='store_true', help='Verbosity CLI')
+
+args = parser.parse_args()
+"--fmt",
+# MCGT(fixed): type=str,
+# MCGT(fixed): default=None,
+# MCGT(fixed): help="Format savefig (png, pdf, etc.)"
+# auto-added by STEP04b

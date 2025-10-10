@@ -1,0 +1,6 @@
+usage: plot_fig01_iso_p95_maps.py [-h] --results RESULTS --out OUT
+                                  [--p95-col P95_COL] [--m1-col M1_COL]
+                                  [--m2-col M2_COL] [--levels LEVELS]
+                                  [--no-clip] [--cmap CMAP] [--dpi DPI]
+                                  [--title TITLE]
+plot_fig01_iso_p95_maps.py: error: the following arguments are required: --results, --out

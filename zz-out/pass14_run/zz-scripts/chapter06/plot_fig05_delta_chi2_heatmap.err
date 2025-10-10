@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py", line 73
+    ax.text(
+           ^
+SyntaxError: '(' was never closed

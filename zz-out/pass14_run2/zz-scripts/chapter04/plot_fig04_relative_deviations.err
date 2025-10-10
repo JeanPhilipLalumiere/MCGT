@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py", line 28
+    possible_paths = [
+                     ^
+SyntaxError: '[' was never closed

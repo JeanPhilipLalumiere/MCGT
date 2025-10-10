@@ -1,0 +1,12 @@
+{
+  "file": "IMRPhenomD_m1-75.222926_m2-70.766556_f-a822fc16c790e54635dcafa80247264bd918ee77.npz.lock",
+  "chapter": ".cache_ref",
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "size_bytes": 0,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

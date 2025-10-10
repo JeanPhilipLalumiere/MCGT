@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py", line 83
+    try:
+    ^^^
+IndentationError: expected an indented block after function definition on line 82

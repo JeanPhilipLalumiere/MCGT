@@ -1,0 +1,22 @@
+zz-scripts/chapter01/plot_fig01_early_plateau.py|IndentationError: expected an indented block after 'if' statement on line 56
+zz-scripts/chapter01/plot_fig02_logistic_calibration.py|IndentationError: expected an indented block after 'if' statement on line 38
+zz-scripts/chapter01/plot_fig03_relative_error_timeline.py|IndentationError: expected an indented block after 'if' statement on line 40
+zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py|IndentationError: expected an indented block after 'if' statement on line 40
+zz-scripts/chapter01/plot_fig05_I1_vs_T.py|IndentationError: expected an indented block after 'if' statement on line 31
+zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py|IndentationError: expected an indented block after 'if' statement on line 36
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py|IndentationError: expected an indented block after 'if' statement on line 44
+zz-scripts/chapter02/plot_fig02_calibration.py|IndentationError: expected an indented block after 'if' statement on line 39
+zz-scripts/chapter02/plot_fig03_relative_errors.py|IndentationError: expected an indented block after 'if' statement on line 61
+zz-scripts/chapter05/generate_data_chapter05.py|IndentationError: expected an indented block after 'if' statement on line 47
+zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py|IndentationError: expected an indented block after 'if' statement on line 22
+zz-scripts/chapter05/plot_fig04_chi2_vs_T.py|IndentationError: expected an indented block after 'if' statement on line 35
+zz-scripts/chapter06/generate_data_chapter06.py|IndentationError: expected an indented block after 'if' statement on line 19
+zz-scripts/chapter06/generate_pdot_plateau_vs_z.py|IndentationError: expected an indented block after 'if' statement on line 28
+zz-scripts/chapter07/plot_fig01_cs2_heatmap.py|SyntaxError: expected 'except' or 'finally' block
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py|SyntaxError: expected 'except' or 'finally' block
+zz-scripts/chapter07/plot_fig03_invariant_I1.py|IndentationError: expected an indented block after 'if' statement on line 38
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py|IndentationError: expected an indented block after 'if' statement on line 38
+zz-scripts/chapter08/generate_coupling_milestones.py|IndentationError: expected an indented block after 'if' statement on line 45
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py|IndentationError: expected an indented block after 'if' statement on line 71
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py|IndentationError: expected an indented block after 'if' statement on line 23
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py|SyntaxError: expected 'except' or 'finally' block

@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py", line 68
+    description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
+                                                          ^
+SyntaxError: unmatched ')'

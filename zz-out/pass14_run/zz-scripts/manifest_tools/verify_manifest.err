@@ -1,0 +1,4 @@
+usage: verify_manifest.py [-h] [--repo-root REPO_ROOT] [--output OUTPUT]
+                          [--verbose]
+                          manifest
+verify_manifest.py: error: the following arguments are required: manifest

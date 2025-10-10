@@ -1,0 +1,12 @@
+{
+  "file": "03_ricci_fR_vs_z.csv",
+  "chapter": "chapter03",
+  "sha256": "f5972a381749fb0fd84189a2363c6cb348c50df292848457179884082a71146c",
+  "size_bytes": 3845,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

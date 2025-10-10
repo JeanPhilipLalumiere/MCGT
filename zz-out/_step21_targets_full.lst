@@ -1,0 +1,13 @@
+zz-scripts/chapter01/generate_data_chapter01.py|IndentationError: expected an indented block after 'if' statement on line 34
+zz-scripts/chapter01/plot_fig02_logistic_calibration.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter01/plot_fig05_I1_vs_T.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter02/plot_fig02_calibration.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py|IndentationError: expected an indented block after 'try' statement on line 6
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py|IndentationError: expected an indented block after 'try' statement on line 6
+zz-scripts/chapter07/plot_fig03_invariant_I1.py|SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py|SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+zz-scripts/chapter09/plot_fig01_phase_overlay.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py|SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?

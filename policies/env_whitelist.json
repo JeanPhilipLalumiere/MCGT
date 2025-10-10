@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "allow": [
+    "MCGT_OUTDIR",
+    "MCGT_PROFILE",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "PYTHONHASHSEED"
+  ],
+  "deny": [ "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "GCP_*", "AZURE_*" ],
+  "enforce_case": "exact"
+}

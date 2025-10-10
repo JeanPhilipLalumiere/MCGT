@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py", line 62
+    ax.annotate(
+               ^
+SyntaxError: '(' was never closed

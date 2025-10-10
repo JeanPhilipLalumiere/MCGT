@@ -1,0 +1,12 @@
+{
+  "file": "example_results.csv",
+  "chapter": "chapter10",
+  "sha256": "992e16edbe6788fa2c0686f42b1a275294e8a02165f1976669213b94ef03a53c",
+  "size_bytes": 224,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

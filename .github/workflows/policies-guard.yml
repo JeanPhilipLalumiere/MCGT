@@ -1,0 +1,22 @@
+name: policies-guard
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'policies/**'
+      - 'tools/ci_step1_policies_guard.sh'
+      - '.github/workflows/policies-guard.yml'
+      - '!**/*.md'
+  pull_request:
+    paths:
+      - 'policies/**'
+      - 'tools/ci_step1_policies_guard.sh'
+      - '.github/workflows/policies-guard.yml'
+      - '!**/*.md'
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run policies guard
+        run: bash tools/ci_step1_policies_guard.sh

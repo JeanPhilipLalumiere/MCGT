@@ -1,0 +1,12 @@
+{
+  "file": "06_alpha_evolution.csv",
+  "chapter": "chapter06",
+  "sha256": "cf46a01233c1c8c225de90d1ff6d91c4e027e7ae46fcfb2de588764e7c45f45a",
+  "size_bytes": 965,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

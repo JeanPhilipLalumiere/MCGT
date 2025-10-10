@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py", line 56
+    ax.plot(lims, lims, ls="--", color="black", label="Identité")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?

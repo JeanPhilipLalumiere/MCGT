@@ -1,0 +1,40 @@
+name: prepub-dry-run
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  prepub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Figures guard
+        run: |
+          bash tools/ci_step2_figures_guard.sh
+
+      - name: Index guard
+        env:
+          MCGT_NO_SHELL_DROP: "1"
+        run: |
+          bash tools/check_figures_index.sh
+
+      - name: Build prepub bundle (dry-run)
+        env:
+          MCGT_NO_SHELL_DROP: "1"
+        run: |
+          bash tools/build_prepub_bundle.sh
+
+      - name: Upload prepub artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcgt-prepub-${{ github.sha }}
+          path: |
+            dist/*.tar.gz
+            zz-manifests/prepub_sha256.txt
+            .ci-logs/prepub_*.log

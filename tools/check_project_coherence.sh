@@ -14,29 +14,29 @@ LINKS="${LINKS:-zz-manifests/script_data_links.csv}"
 mkdir -p "$(dirname "$CSVOUT")"
 echo "== Couverture fig/script/data (scan des scripts) =="
 
-# Prépare listes candidates
-cands_py="$(LC_ALL=C find "$SDIR" -type f \( -iname "*.py" -o -iname "*.py.bak" \) -print || true)"
-cands_data="$(LC_ALL=C find "$DDIR" -type f \( -iname "*.csv" -o -iname "*.json" -o -iname "*.parquet" -o -iname "*.npy" -o -iname "*.npz" -o -iname "*.fits" -o -iname "*.txt" \) -print || true)"
-printf "script_path,data_path\\n" > "$LINKS"
+# Candidates scripts & data
+cands_py="$(LC_ALL=C find "$SDIR" -type f \( -iname "*.py" -o -iname "*.py.bak" \) -print 2>/dev/null || true)"
+cands_data="$(LC_ALL=C find "$DDIR" -type f \( -iname "*.csv" -o -iname "*.json" -o -iname "*.parquet" -o -iname "*.npy" -o -iname "*.npz" -o -iname "*.fits" -o -iname "*.txt" \) -print 2>/dev/null || true)"
+printf "script_path,data_path\n" > "$LINKS"
 
-# Map script -> première data détectée (via scan du contenu)
+# Map script -> première data détectée (via grep + awk sans quotes simples)
 if [ -n "$cands_py" ]; then
   while IFS= read -r sp; do
-    # On cherche des appels classiques de lecture de données
-    m="$(grep -Ei '(read_csv|read_json|read_parquet|np\.load|numpy\.load|loadtxt|genfromtxt|fits\.open|Table\.read|pd\.read_(csv|json|parquet))' "$sp" 2>/dev/null | \\
-         sed -n -E 's/.*["'"'"]([^"'"'"]+\.(csv|json|parquet|npy|npz|fits|txt))["'"'"].*/\1/p' | head -n 1 || true)"
+    m="$(grep -Ei 
+read_csv|read_json|read_parquet|np.load|numpy.load|loadtxt|genfromtxt|fits.open|table.read|pd.read_
+ "$sp" 2>/dev/null | awk -F"\"" "{ for(i=2;i<=NF;i+=2) if (\$i ~ /\.(csv|json|parquet|npy|npz|fits|txt)$/) { print \$i; exit } }" | head -n 1 || true)"
     if [ -n "$m" ]; then
-      printf "%s,%s\\n" "$sp" "$m" >> "$LINKS"
+      printf "%s,%s\n" "$sp" "$m" >> "$LINKS"
     fi
   done < <(printf "%s\n" "$cands_py")
 fi
 
 # Index rapide des data par chapitre (fallback)
-declare -A first_data_by_ch
+declare -A first_data_by_ch || true
 if [ -n "$cands_data" ]; then
   while IFS= read -r dp; do
     ch="$(basename "$(dirname "$dp")")"
-    first_data_by_ch["$ch"]="${first_data_by_ch["$ch"]:-$dp}"
+    [ -n "${first_data_by_ch["$ch"]:-}" ] || first_data_by_ch["$ch"]="$dp"
   done < <(printf "%s\n" "$cands_data")
 fi
 
@@ -51,15 +51,13 @@ while IFS= read -r p; do
   alt2="$(printf "%s" "$s" | sed -E "s/^fig_([0-9]{2})_/fig\\1_/")"
   alt3="$(printf "%s" "$s" | sed -E "s/^fig_([0-9]{2})_/plot_fig\\1_/")"
   total=$((total+1))
-  # Script associé
   script_match=""
   if [ -n "$cands_py" ]; then
     script_match="$(printf "%s\n" "$cands_py" | grep -i -e "$s" -e "$alt1" -e "$alt2" -e "$alt3" | head -n 1 || true)"
   fi
-  # Data associée : (1) via lien script->data si dispo, sinon (2) fallback par chapitre
   data_match=""
   if [ -n "$script_match" ] && [ -s "$LINKS" ]; then
-    data_match="$(awk -F, -v s="$script_match" 'NR>1 && $1==s {print $2; exit}' "$LINKS" | head -n 1 || true)"
+    data_match="$(awk -F, -v s="$script_match" "NR>1 && \$1==s {print \$2; exit}" "$LINKS" | head -n 1 || true)"
   fi
   if [ -z "$data_match" ]; then
     data_match="${first_data_by_ch["$ch"]:-}"
@@ -74,7 +72,7 @@ echo "Couverture CSV: $CSVOUT"
 echo "Liens script→data: $LINKS"
 
 tmpgap="/tmp/gaps_${TS}.csv"
-awk -F, 'NR>1 && ($3==0 || $5==0) {print $0}' "$CSVOUT" > "$tmpgap" || true
+awk -F, "NR>1 && (\$3==0 || \$5==0) {print \$0}" "$CSVOUT" > "$tmpgap" || true
 { printf "# Manques de couverture (scripts/données)\n\n| Chapitre | Figure | Script ? | Données ? | Exemple script | Exemple data |\n|---|---|---|---|---|---|\n";
   if [ -s "$tmpgap" ]; then
     while IFS=, read -r ch s hs sm hd dm; do

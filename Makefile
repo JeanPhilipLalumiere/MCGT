@@ -26,3 +26,9 @@ all-figures: figures-norm figures-manifest figures-guard
 
 guard-local:
 > bash tools/guard_local_run.sh || true
+
+figures-index:
+> bash tools/build_figures_index.sh
+
+index-guard:
+> bash tools/check_figures_index.sh

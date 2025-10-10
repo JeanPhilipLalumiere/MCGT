@@ -12,6 +12,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Run guard
-        run: |
-          bash tools/ci_step2_figures_guard.sh
+      - name: Figures guard (manifest/drift/duplicates)
+        run: bash tools/ci_step2_figures_guard.sh
+      - name: Figures index guard (CSV consistency)
+        env:
+          MCGT_NO_SHELL_DROP: "1"
+        run: bash tools/check_figures_index.sh

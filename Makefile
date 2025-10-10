@@ -32,3 +32,6 @@ figures-index:
 
 index-guard:
 > bash tools/check_figures_index.sh
+
+prepub:
+> bash tools/build_prepub_bundle.sh

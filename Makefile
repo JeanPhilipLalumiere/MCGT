@@ -1,7 +1,11 @@
 # Utilise '>' comme préfixe de recette pour éviter les TABs obligatoires
 .RECIPEPREFIX := >
-SHELL := /usr/bin/env bash
+# IMPORTANT: GNU Make exige un chemin *nu* vers le shell (pas d'arguments)
+SHELL := /bin/bash
+# Options de bash pour que les erreurs fassent échouer la cible
+.SHELLFLAGS := -euo pipefail -c
 .ONESHELL:
+
 ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null || pwd)
 
 # Dossier des figures (surcharge: make FIGDIR=mon-dossier figures-manifest)

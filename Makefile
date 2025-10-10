@@ -23,3 +23,6 @@ figures-guard:
 > bash tools/ci_step2_figures_guard.sh
 
 all-figures: figures-norm figures-manifest figures-guard
+
+guard-local:
+> bash tools/guard_local_run.sh || true

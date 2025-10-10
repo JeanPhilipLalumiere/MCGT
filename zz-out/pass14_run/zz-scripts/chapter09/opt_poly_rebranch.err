@@ -1,0 +1,8 @@
+usage: opt_poly_rebranch.py [-h] --csv CSV --meta META
+                            [--fit-window FIT_WINDOW FIT_WINDOW]
+                            [--metrics-window METRICS_WINDOW METRICS_WINDOW]
+                            [--degrees DEGREES [DEGREES ...]]
+                            [--bases {log10,hz} [{log10,hz} ...]]
+                            [--k-range K_RANGE K_RANGE] [--out-csv OUT_CSV]
+                            [--out-poly-json OUT_POLY_JSON] [--backup]
+opt_poly_rebranch.py: error: the following arguments are required: --csv, --meta

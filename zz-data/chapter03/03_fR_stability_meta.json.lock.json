@@ -1,0 +1,12 @@
+{
+  "file": "03_fR_stability_meta.json",
+  "chapter": "chapter03",
+  "sha256": "4482ff74024c3fb673e0bf3e3db512e24101650bd3cb7c3ecf2deca0b06fc8cb",
+  "size_bytes": 146,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

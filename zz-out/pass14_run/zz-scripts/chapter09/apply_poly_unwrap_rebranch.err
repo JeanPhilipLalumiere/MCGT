@@ -1,0 +1,9 @@
+usage: apply_poly_unwrap_rebranch.py [-h] --csv CSV [--meta META]
+                                     [--degree DEGREE]
+                                     [--fit-window F_LO F_HI]
+                                     [--metrics-window M_LO M_HI]
+                                     [--basis {log10,hz}]
+                                     [--from-column FROM_COLUMN] [--backup]
+                                     [--dry-run]
+                                     [--log-level {DEBUG,INFO,WARNING,ERROR}]
+apply_poly_unwrap_rebranch.py: error: the following arguments are required: --csv

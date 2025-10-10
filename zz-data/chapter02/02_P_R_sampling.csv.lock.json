@@ -1,0 +1,12 @@
+{
+  "file": "02_P_R_sampling.csv",
+  "chapter": "chapter02",
+  "sha256": "54700d97a286b488075d0c7fa461081cd3c4ab04048e996579da7dd63b1863d7",
+  "size_bytes": 82912,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

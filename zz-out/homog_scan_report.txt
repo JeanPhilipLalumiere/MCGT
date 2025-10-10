@@ -1,0 +1,263 @@
+# Homogenization scan report (2025-10-07T01:03:53Z)
+
+## chapter01
+- zz-scripts/chapter01/plot_fig05_I1_vs_T.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py", line 50     parser.add_argument(                        ^ 
+- zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py", line 56     parser.add_argument(                        ^ 
+- zz-scripts/chapter01/plot_fig03_relative_error_timeline.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py", line 60     parser.add_argument(                        ^ 
+- zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py", line 59     parser.add_argument(                        ^ 
+- zz-scripts/chapter01/plot_fig02_logistic_calibration.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py", line 58     parser.add_argument(                        ^ 
+- zz-scripts/chapter01/generate_data_chapter01.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/generate_data_chapter01.py", line 58     if __name__ == "__main__":     ^^ 
+- zz-scripts/chapter01/plot_fig01_early_plateau.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py", line 80     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR") IndentationError: unexpected indent 
+
+## chapter02
+- zz-scripts/chapter02/plot_fig05_FG_series.py : \c
+OK
+- zz-scripts/chapter02/plot_fig03_relative_errors.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py", line 80     parser.add_argument(                        ^ 
+- zz-scripts/chapter02/plot_fig02_calibration.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py", line 58     parser.add_argument(                        ^ 
+- zz-scripts/chapter02/plot_fig00_spectrum.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py", line 65     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR") IndentationError: unexpected indent 
+- zz-scripts/chapter02/plot_fig06_alpha_fit.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py", line 82, in <module>     main() 
+- zz-scripts/chapter02/primordial_spectrum.py : \c
+OK
+- zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py", line 63     parser.add_argument(                        ^ 
+- zz-scripts/chapter02/generate_data_chapter02.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/generate_data_chapter02.py", line 91     return parser.parse_args() IndentationError: unexpected indent 
+- zz-scripts/chapter02/plot_fig04_pipeline_diagram.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py", line 24     width, height = 0.2, 0.15            ^^^^^^^^^^^^ 
+
+## chapter03
+- zz-scripts/chapter03/plot_fig06_grid_quality.py : \c
+OK
+- zz-scripts/chapter03/plot_fig05_interpolated_milestones.py : \c
+OK
+- zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py", line 132, in <module>     main() 
+- zz-scripts/chapter03/plot_fig01_fR_stability_domain.py : \c
+OK
+- zz-scripts/chapter03/generate_data_chapter03.py : \c
+OK
+- zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py : \c
+OK
+- zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py : \c
+OK
+- zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py", line 126, in <module>     main() 
+- zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py : \c
+OK
+
+## chapter04
+- zz-scripts/chapter04/generate_data_chapter04.py : \c
+FAIL
+  -> [DBG] Entrée dans main(), cwd= /home/jplal/MCGT [DEBUG] df_p.columns: ['T_Gyr', 'P_raw'] [DEBUG] premiers T_Gyr   : [0.001 0.011 0.021 0.031 0.041] 
+- zz-scripts/chapter04/plot_fig04_relative_deviations.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py", line 28     possible_paths = [                      ^ 
+- zz-scripts/chapter04/plot_fig01_invariants_schematic.py : \c
+OK
+- zz-scripts/chapter04/plot_fig02_invariants_histogram.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig02_invariants_histogram.py", line 73, in <module>     main() 
+- zz-scripts/chapter04/plot_fig03_invariants_vs_T.py : \c
+OK
+
+## chapter05
+- zz-scripts/chapter05/plot_fig04_chi2_vs_T.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py", line 178     parser.add_argument(                        ^ 
+- zz-scripts/chapter05/generate_data_chapter05.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py", line 136     os.makedirs(args.outdir, exist_ok=True)     ^^ 
+- zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py", line 56     ax.plot(lims, lims, ls="--", color="black", label="Identité")     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+- zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py : \c
+OK
+- zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py : \c
+OK
+
+## chapter06
+- zz-scripts/chapter06/generate_pdot_plateau_vs_z.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/generate_pdot_plateau_vs_z.py", line 58     def _mcgt_cli_seed():     ^^^ 
+- zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py", line 91     parser.add_argument(                        ^ 
+- zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py", line 46     }     ^ 
+- zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py", line 109     parser.add_argument(                        ^ 
+- zz-scripts/chapter06/plot_fig03_delta_cls_relative.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py", line 101     parser.add_argument(                        ^ 
+- zz-scripts/chapter06/generate_data_chapter06.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py", line 52     spec2 = json.load(f)     ^^^^^ 
+- zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py : \c
+OK
+
+## chapter07
+- zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py", line 131     parser.add_argument(                        ^ 
+- zz-scripts/chapter07/launch_scalar_perturbations_solver.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter07/launch_scalar_perturbations_solver.py", line 37, in <module>     from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi 
+- zz-scripts/chapter07/plot_fig03_invariant_I1.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py", line 114     parser.add_argument(                        ^ 
+- zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py", line 162     parser.add_argument(                        ^ 
+- zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py", line 128     parser.add_argument(                        ^ 
+- zz-scripts/chapter07/plot_fig06_comparison.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py", line 142     parser.add_argument(                        ^ 
+- zz-scripts/chapter07/plot_fig07_invariant_I2.py : \c
+OK
+- zz-scripts/chapter07/plot_fig01_cs2_heatmap.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py", line 158     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR") IndentationError: unexpected indent 
+- zz-scripts/chapter07/generate_data_chapter07.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter07/generate_data_chapter07.py", line 23, in <module>     from mcgt.perturbations_scalaires import ( 
+
+## chapter08
+- zz-scripts/chapter08/generate_coupling_milestones.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter08/generate_coupling_milestones.py", line 62     os.makedirs(args.outdir, exist_ok=True)     ^^ 
+- zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py", line 62     ax.annotate(                ^ 
+- zz-scripts/chapter08/plot_fig03_mu_vs_z.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py", line 95     OUTDIR_ENV = os.environ.get("MCGT_OUTDIR") IndentationError: unexpected indent 
+- zz-scripts/chapter08/plot_fig05_residuals.py : \c
+OK
+- zz-scripts/chapter08/generate_data_chapter08.py : \c
+OK
+- zz-scripts/chapter08/plot_fig07_chi2_profile.py : \c
+OK
+- zz-scripts/chapter08/plot_fig02_dv_vs_z.py : \c
+OK
+- zz-scripts/chapter08/plot_fig04_chi2_heatmap.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py", line 134     parser.add_argument(                        ^ 
+- zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py : \c
+OK
+
+## chapter09
+- zz-scripts/chapter09/opt_poly_rebranch.py : \c
+OK
+- zz-scripts/chapter09/fetch_gwtc3_confident.py : \c
+OK
+- zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py", line 48     p.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+- zz-scripts/chapter09/check_p95_methods.py : \c
+OK
+- zz-scripts/chapter09/plot_fig01_phase_overlay.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py", line 136     if (     ^^ 
+- zz-scripts/chapter09/apply_poly_unwrap_rebranch.py : \c
+OK
+- zz-scripts/chapter09/flag_jalons.py : \c
+OK
+- zz-scripts/chapter09/generate_mcgt_raw_phase.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/generate_mcgt_raw_phase.py", line 127     return parser.parse_args() IndentationError: unexpected indent 
+- zz-scripts/chapter09/plot_fig02_residual_phase.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py", line 106     ap.add_argument(                    ^ 
+- zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py", line 107     ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+- zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py", line 128     ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+- zz-scripts/chapter09/extract_phenom_phase.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter09/extract_phenom_phase.py", line 14, in <module>     from pycbc.waveform import get_fd_waveform 
+- zz-scripts/chapter09/generate_data_chapter09.py : \c
+OK
+
+## chapter10
+- zz-scripts/chapter10/add_phi_at_fpeak.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/add_phi_at_fpeak.py", line 31, in <module>     from mcgt.phase import phi_mcgt 
+- zz-scripts/chapter10/bootstrap_topk_p95.py : \c
+OK
+- zz-scripts/chapter10/plot_fig07_synthesis.py : \c
+OK
+- zz-scripts/chapter10/generate_data_chapter10.py : \c
+OK
+- zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py", line 73, in <module>     fig.savefig(args.out,dpi=args.dpi); print(f"Wrote: {args.out}") 
+- zz-scripts/chapter10/eval_primary_metrics_20_300.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/eval_primary_metrics_20_300.py", line 34, in <module>     from joblib import Parallel, delayed 
+- zz-scripts/chapter10/plot_fig06_residual_map.py : \c
+OK
+- zz-scripts/chapter10/check_metrics_consistency.py : \c
+OK
+- zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py", line 84, in <module>     fig.savefig(args.out,dpi=args.dpi); print(f"Wrote: {args.out}") 
+- zz-scripts/chapter10/diag_phi_fpeak.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/diag_phi_fpeak.py", line 24, in <module>     from mcgt.phase import phi_mcgt 
+- zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py", line 81, in <module>     fig.savefig(args.out,dpi=args.dpi); print(f"Wrote: {args.out}") 
+- zz-scripts/chapter10/recompute_p95_circular.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter10/recompute_p95_circular.py", line 40     args = parser.parse_args(argv) IndentationError: unexpected indent 
+- zz-scripts/chapter10/inspect_topk_residuals.py : \c
+FAIL
+  -> Traceback (most recent call last):   File "/home/jplal/MCGT/zz-scripts/chapter10/inspect_topk_residuals.py", line 19, in <module>     from mcgt.phase import phi_mcgt 
+- zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py : \c
+OK
+- zz-scripts/chapter10/update_manifest_with_hashes.py : \c
+FAIL
+  -> Manifest missing: zz-data/chapter10/10_mc_run_manifest.json 
+- zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py : \c
+OK
+- zz-scripts/chapter10/regen_fig05_using_circp95.py : \c
+OK
+- zz-scripts/chapter10/plot_fig01_iso_p95_maps.py : \c
+OK
+- zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py : \c
+FAIL
+  ->   File "/home/jplal/MCGT/zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py", line 129     args = parser.parse_args(argv) IndentationError: unexpected indent 
+

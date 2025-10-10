@@ -1,0 +1,6 @@
+usage: plot_fig07_synthesis.py [-h] --manifests MANIFESTS [MANIFESTS ...]
+                               [--labels [LABELS ...]] --out OUT
+                               [--summary-csv SUMMARY_CSV] [--dpi DPI]
+                               [--ymin-coverage YMIN_COVERAGE]
+                               [--ymax-coverage YMAX_COVERAGE]
+plot_fig07_synthesis.py: error: the following arguments are required: --manifests, --out

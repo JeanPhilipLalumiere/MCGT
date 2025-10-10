@@ -1,0 +1,12 @@
+{
+  "file": "07_dcs2_vs_k.csv",
+  "chapter": "chapter07",
+  "sha256": "6c0b185afc776a59ea6d204e326d67ae49be1b6cfe5fa5eaa39a419d4f06adf0",
+  "size_bytes": 23482,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

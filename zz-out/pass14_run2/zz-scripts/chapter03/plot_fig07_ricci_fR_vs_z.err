@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py", line 184, in <module>
+    main()
+  File "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py", line 172, in main
+    rf"Jalons $f_R$ et $f_{ RR} $ vs redshift $z\in[{
+                            ^^
+NameError: name 'RR' is not defined

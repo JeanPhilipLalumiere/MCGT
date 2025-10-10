@@ -1,0 +1,12 @@
+{
+  "file": "02_timeline_milestones.csv",
+  "chapter": "chapter02",
+  "sha256": "1a8f2219d83250f9a80524f199828e8885208652a616f77d6e8a4f0000612327",
+  "size_bytes": 347,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

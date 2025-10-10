@@ -1,0 +1,12 @@
+{
+  "file": "10_mc_results.circ.with_fpeak.csv",
+  "chapter": "chapter10",
+  "sha256": "6326ae818847850ca407d2cbd9f8dd62cc1795182a97a24f8046cc4454d828f3",
+  "size_bytes": 1006080,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

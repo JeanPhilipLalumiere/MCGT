@@ -1,0 +1,12 @@
+{
+  "file": "08_mu_theory_z.csv",
+  "chapter": "chapter08",
+  "sha256": "743a604a370a53454bb30393879b9fc53c52265fb2410c365d918b17ae952bf8",
+  "size_bytes": 38256,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

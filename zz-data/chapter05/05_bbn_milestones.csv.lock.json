@@ -1,0 +1,12 @@
+{
+  "file": "05_bbn_milestones.csv",
+  "chapter": "chapter05",
+  "sha256": "7b0bfd2c839968062b2ed7f61df4cbdff5b8b30062dcf659b0546fa43160d450",
+  "size_bytes": 379,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

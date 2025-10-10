@@ -1,0 +1,8 @@
+2025-10-08 13:18:39,395 [INFO] 1) Préflight & initialisation
+2025-10-08 13:18:39,395 [ERROR] Échec pipeline: Script manquant (samples) : /home/jplal/MCGT/zz-scripts/chapter10/generate_8d_samples.py
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py", line 582, in main
+    etape_1_preflight(args, log)
+  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py", line 176, in etape_1_preflight
+    raise FileNotFoundError(f"Script manquant ({k}) : {sp}")
+FileNotFoundError: Script manquant (samples) : /home/jplal/MCGT/zz-scripts/chapter10/generate_8d_samples.py

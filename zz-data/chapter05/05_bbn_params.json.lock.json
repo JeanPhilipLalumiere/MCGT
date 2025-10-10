@@ -1,0 +1,12 @@
+{
+  "file": "05_bbn_params.json",
+  "chapter": "chapter05",
+  "sha256": "4872236dd230513e2eedab3d04d7c585aa83c81a1c45eb52cfbe750abceb02dc",
+  "size_bytes": 130,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

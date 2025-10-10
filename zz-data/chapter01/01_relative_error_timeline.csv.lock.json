@@ -1,0 +1,12 @@
+{
+  "file": "01_relative_error_timeline.csv",
+  "chapter": "chapter01",
+  "sha256": "c9a78b6bd3f45da56f245fae184de7d483d166118b56659b349117075d0ccbf6",
+  "size_bytes": 208,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

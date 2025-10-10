@@ -1,0 +1,12 @@
+zz-scripts/chapter01/plot_fig02_logistic_calibration.py
+zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
+zz-scripts/chapter01/plot_fig05_I1_vs_T.py
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
+zz-scripts/chapter02/plot_fig02_calibration.py
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+zz-scripts/chapter07/plot_fig03_invariant_I1.py
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
+zz-scripts/chapter09/plot_fig01_phase_overlay.py
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py

@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py", line 58
+    parser.add_argument(
+                       ^
+SyntaxError: '(' was never closed

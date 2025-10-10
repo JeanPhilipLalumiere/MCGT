@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py", line 61
+    def main():
+    ^^^
+SyntaxError: invalid syntax

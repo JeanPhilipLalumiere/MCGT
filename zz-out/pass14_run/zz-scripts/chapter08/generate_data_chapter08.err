@@ -1,0 +1,7 @@
+usage: generate_data_chapter08.py [-h] --q0star_min Q0STAR_MIN --q0star_max
+                                  Q0STAR_MAX --n_points N_POINTS
+                                  [--export_derivative] [--export_heatmap]
+                                  [--param2_min PARAM2_MIN]
+                                  [--param2_max PARAM2_MAX]
+                                  [--n_param2 N_PARAM2]
+generate_data_chapter08.py: error: the following arguments are required: --q0star_min, --q0star_max, --n_points

@@ -1,0 +1,12 @@
+{
+  "file": "08_bao_data.csv",
+  "chapter": "chapter08",
+  "sha256": "d7fe2f4dc14589d370be7faf2ca7150dcb08dbe141707ab122d566c4d781b91f",
+  "size_bytes": 120,
+  "provenance": {
+    "source": "BAO compilation (placeholder)",
+    "license": "per-source",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

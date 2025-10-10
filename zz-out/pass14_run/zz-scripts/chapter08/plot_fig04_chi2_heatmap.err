@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py", line 107
+    passimport traceback
+               ^^^^^^^^^
+SyntaxError: invalid syntax

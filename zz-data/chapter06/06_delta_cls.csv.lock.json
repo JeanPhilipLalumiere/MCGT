@@ -1,0 +1,12 @@
+{
+  "file": "06_delta_cls.csv",
+  "chapter": "chapter06",
+  "sha256": "5f6e33b6861258591bfd4f06f87f97500e2e1709fdeee20d0e459cbdbac207bb",
+  "size_bytes": 83414,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

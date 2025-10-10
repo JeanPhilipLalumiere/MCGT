@@ -1,0 +1,12 @@
+{
+  "file": "10_mc_best.json",
+  "chapter": "chapter10",
+  "sha256": "dad694d4ddad0e4710c1c1a9f7b20b64dd6afbf26332f083190aaac066552c51",
+  "size_bytes": 18837,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

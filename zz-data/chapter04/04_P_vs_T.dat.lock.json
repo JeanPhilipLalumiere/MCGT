@@ -1,0 +1,12 @@
+{
+  "file": "04_P_vs_T.dat",
+  "chapter": "chapter04",
+  "sha256": "a97aa569faf70ec81171bf34f12fe57c4358a05d5e8f18957db3b87b9cef13bb",
+  "size_bytes": 42044,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

@@ -1,0 +1,3 @@
+usage: check_metrics_consistency.py [-h] --results RESULTS --manifest MANIFEST
+                                    [--rtol RTOL] [--atol ATOL]
+check_metrics_consistency.py: error: the following arguments are required: --results, --manifest

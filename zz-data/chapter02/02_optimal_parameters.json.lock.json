@@ -1,0 +1,12 @@
+{
+  "file": "02_optimal_parameters.json",
+  "chapter": "chapter02",
+  "sha256": "a1789e6e3f0812d1aec1d5469a2f7aca3c79caf3e818ac65faa417b38ead1cec",
+  "size_bytes": 488,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

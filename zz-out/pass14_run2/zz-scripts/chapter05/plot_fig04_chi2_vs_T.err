@@ -1,0 +1,4 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py", line 178
+    parser.add_argument(
+                       ^
+SyntaxError: '(' was never closed

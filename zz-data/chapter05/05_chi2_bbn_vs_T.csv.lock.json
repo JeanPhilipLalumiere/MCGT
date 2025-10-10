@@ -1,0 +1,12 @@
+{
+  "file": "05_chi2_bbn_vs_T.csv",
+  "chapter": "chapter05",
+  "sha256": "dff0736e1ed96a30fef36595138a8f80c229baeeda06ca4cab640dbad890a029",
+  "size_bytes": 87,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

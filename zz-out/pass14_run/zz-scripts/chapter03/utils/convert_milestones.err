@@ -1,0 +1,2 @@
+usage: convert_milestones.py [-h] --src SRC [--dst DST]
+convert_milestones.py: error: the following arguments are required: --src

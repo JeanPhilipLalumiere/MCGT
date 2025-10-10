@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter01/generate_data_chapter01.py", line 15, in <module>
+    df = pd.read_csv( path)
+                      ^^^^
+NameError: name 'path' is not defined

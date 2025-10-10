@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py", line 42, in <module>
+    fig, ax = plt.subplots( figsize=( 8.5 ), constrained_layout=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/matplotlib/pyplot.py", line 1702, in subplots
+    fig = figure(**fig_kw)
+          ^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/matplotlib/pyplot.py", line 1022, in figure
+    manager = new_figure_manager(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/matplotlib/pyplot.py", line 545, in new_figure_manager
+    return _get_backend_mod().new_figure_manager(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/matplotlib/backend_bases.py", line 3520, in new_figure_manager
+    fig = fig_cls(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/matplotlib/figure.py", line 2561, in __init__
+    self.bbox_inches = Bbox.from_bounds(0, 0, *figsize)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Value after * must be an iterable, not float

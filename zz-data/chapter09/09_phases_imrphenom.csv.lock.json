@@ -1,0 +1,12 @@
+{
+  "file": "09_phases_imrphenom.csv",
+  "chapter": "chapter09",
+  "sha256": "6cce6d9e5e1f154c119d7d85006fbbacf0f565fa2f94eec3b6f691cafaec1e59",
+  "size_bytes": 8432,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

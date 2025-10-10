@@ -1,0 +1,4 @@
+[WROTE] zz-configuration/GWTC-3-confident-events.json  sha256=a3c3a5c245e9b04d173ebc814006430bc7afa7ff2845a0ab8846f0ee7b42617c  bytes=658
+[WROTE] zz-data/chapter09/gwtc3_confident_parameters.json  sha256=20b3122f92ce9d613362e31a2420c3fe4ba465393cd8ca190ea0341b9a66f683  bytes=9728
+Fetched 20 events. Minimal & rich files written.
+Validate with: python -m json.tool zz-configuration/GWTC-3-confident-events.json && python -m json.tool zz-data/chapter09/gwtc3_confident_parameters.json

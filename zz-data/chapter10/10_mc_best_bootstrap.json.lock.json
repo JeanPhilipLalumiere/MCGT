@@ -1,0 +1,12 @@
+{
+  "file": "10_mc_best_bootstrap.json",
+  "chapter": "chapter10",
+  "sha256": "b5734520dcb1ebb661c254a6b7ffcb3102ebdc1c6c4ebffad19f775b919bd492",
+  "size_bytes": 30136,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:55Z"
+}

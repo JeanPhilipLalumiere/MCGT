@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "name": "mcgt-runtime-spec",
+  "python": { "min": "3.12.0", "max": "3.12.x" },
+  "numpy":  { "min": "2.0.0", "max": "2.x" },
+  "scipy":  { "min": "1.12.0", "max": "1.x" },
+  "matplotlib": { "min": "3.8.0", "max": "3.x" },
+  "pandas": { "min": "2.2.0", "max": "2.x" },
+  "blas": {
+    "family": "openblas",
+    "accepted_versions": ["0.3.23", "0.3.24", "0.3.25", "0.3.26", "0.3.27", "0.3.28"],
+    "int64_required": true
+  },
+  "compiler": { "gcc_min": 11 }
+}

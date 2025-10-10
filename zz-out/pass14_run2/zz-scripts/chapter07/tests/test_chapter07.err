@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/jplal/MCGT/zz-scripts/chapter07/tests/test_chapter07.py", line 64, in <module>
+    pytest.skip(
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/site-packages/_pytest/outcomes.py", line 159, in skip
+    raise Skipped(msg=reason, allow_module_level=allow_module_level)
+Skipped: missing 07_phase_run.csv (chapter07); skipping data-dependent tests

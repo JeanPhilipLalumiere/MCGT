@@ -1,0 +1,12 @@
+{
+  "file": "01_optimized_data_and_derivatives.csv",
+  "chapter": "chapter01",
+  "sha256": "34967da651418374e75c39f6d64d21455778553c6c9851fe16a70fe94c350c50",
+  "size_bytes": 41878,
+  "provenance": {
+    "source": "INTERNAL",
+    "license": "UNKNOWN",
+    "note": "Populate exact DOI/URL/license later if external."
+  },
+  "generated_at_utc": "2025-10-10T17:56:56Z"
+}

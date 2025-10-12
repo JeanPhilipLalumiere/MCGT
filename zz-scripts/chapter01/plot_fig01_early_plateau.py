@@ -5,99 +5,81 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Lire la grille complète
-from pathlib import Path
-from pathlib import Path
-data_path = (Path(__file__).resolve().parents[2] / "zz-data" / "chapter01" / "01_optimized_data.csv")
-df = pd.read_csv( data_path)
+data_path = (
+    pathlib.Path(__file__).resolve().parents[2]
+    / "zz-data"
+    / "chapter01"
+    / "01_optimized_data.csv"
+)
+df = pd.read_csv(data_path)
 
 # Ne conserver que le plateau précoce T <= Tp
 Tp = 0.087
-df_plateau = df[ df[ "T" ] <= Tp]
+df_plateau = df[df["T"] <= Tp]
 
-T = df_plateau[ "T"]
-P = df_plateau[ "P_calc"]
+T = df_plateau["T"]
+P = df_plateau["P_calc"]
 
 # Tracé continu de P(T) sur le plateau
-plt.figure( figsize=( 8, 4.5 ))
-plt.plot( T, P, color="orange", linewidth=1.5, label="P(T) optimisé")
+plt.figure(figsize=(8, 4.5))
+plt.plot(T, P, color="orange", linewidth=1.5, label="P(T) optimisé")
 
 # Ligne verticale renforcée à Tp
-plt.axvline(Tp, linestyle="--", color="black", linewidth=1.2, label=r"$T_p=0.087\,\mathrm{Gyr}$" )
+plt.axvline(
+    Tp, linestyle="--", color="black", linewidth=1.2, label=r"$T_p=0.087\,\mathrm{Gyr}$"
+)
+
 # Mise en forme
-plt.xscale( "log")
-plt.xlabel( "T (Gyr)")
-plt.ylabel( "P(T)")
-plt.title( "Plateau précoce de P(T)")
-plt.ylim( 0.98, 1.002)
-plt.xlim( df_plateau[ "T" ].min( ), Tp * 1.05)
-plt.grid( True, which="both", linestyle=":", linewidth=0.5)
-plt.legend( loc="lower right")
-fig=plt.gcf(); fig.subplots_adjust( left=0.07,bottom=0.12,right=0.98,top=0.95)
+plt.xscale("log")
+plt.xlabel("T (Gyr)")
+plt.ylabel("P(T)")
+plt.title("Plateau précoce de P(T)")
+plt.ylim(0.98, 1.002)
+plt.xlim(df_plateau["T"].min(), Tp * 1.05)
+plt.grid(True, which="both", linestyle=":", linewidth=0.5)
+plt.legend(loc="lower right")
+plt.tight_layout()
 
 # Sauvegarde
-from pathlib import Path
-from pathlib import Path
-output_path = (Path(__file__).resolve().parents[2] / "zz-figures" / "chapter01" / "fig_01_early_plateau.png")
-output_path.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig( output_path, dpi=300)
+output_path = (
+    pathlib.Path(__file__).resolve().parents[2]
+    / "zz-figures"
+    / "chapter01"
+    / "fig_01_early_plateau.png"
+)
+plt.savefig(output_path, dpi=300)
 
-# == MCGT CLI SEED v2 ==
+# === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
-    pass
-    pass
-pass
-def _mcgt_cli_seed():
-    pass
-pass
-pass
-import os
-import argparse
-import sys
-import traceback
+    def _mcgt_cli_seed():
+        import os, argparse, sys, traceback
+        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+        parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-if __name__ == "__main__":
-    pass
-    pass
-pass
-import argparse
-import os
-import sys
-import logging
-import matplotlib
-import matplotlib.pyplot as plt
-parser = argparse.ArgumentParser( description="MCGT CLI")
-parser.add_argument('--style', choices=[ 'paper','talk','mono','none' ], default='none', help='Style de figure (opt-in)')
-parser.add_argument('--fmt','--format', dest='fmt', choices=[ 'png','pdf','svg' ], default=None, help='Format du fichier de sortie')
-parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
-parser.add_argument('--outdir', type=str, default=None, help='Dossier pour copier la figure (fallback $MCGT_OUTDIR)')
-parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
-parser.add_argument('--verbose', action='store_true', help='Verbosity CLI (logs supplémentaires)')
-args = parser.parse_args()
-
-    # [smoke] OUTDIR+copy
-OUTDIR_ENV = os.environ.get( "MCGT_OUTDIR")
-if OUTDIR_ENV:
-    args.outdir = OUTDIR_ENV
-    os.makedirs(args.outdir, exist_ok=True)
-import atexit
-import glob
-import shutil
-import time
-_ch = os.path.basename( os.path.dirname( __file__ ))
-_repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-_default_dir = os.path.join( _repo, "zz-figures", _ch)
-_t0 = time.time()
-
-def _smoke_copy_latest():
-    import os, glob, shutil, time
-    _repo = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
-    _ch   = "chapter01"
-    _default_dir = os.path.join(_repo, "zz-figures", _ch)
-    _t0 = time.time()
-    pngs = sorted(glob.glob(os.path.join(_default_dir, "*.png")), key=os.path.getmtime, reverse=True)
-    for _p in pngs:
-        if os.path.getmtime(_p) >= _t0 - 10:
-            _dst = os.path.join(args.outdir, os.path.basename(_p))
-            if not os.path.exists(_dst):
-                shutil.copy2(_p, _dst)
-            break
+        args = parser.parse_args()
+        try:
+            os.makedirs(args.outdir, exist_ok=True)
+        os.environ["MCGT_OUTDIR"] = args.outdir
+        import matplotlib as mpl
+        mpl.rcParams["savefig.dpi"] = args.dpi
+        mpl.rcParams["savefig.format"] = args.format
+        mpl.rcParams["savefig.transparent"] = args.transparent
+        except Exception:
+            pass
+        _main = globals().get("main")
+        if callable(_main):
+            try:
+                _main(args)
+            except SystemExit:
+                raise
+            except Exception as e:
+                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+                traceback.print_exc()
+                sys.exit(1)
+    _mcgt_cli_seed()

@@ -59,13 +59,7 @@ def main():
 
     # (a) BAO – rug + KDE
     ax = axes[0]
-    ax.plot(
-        pulls_bao,
-        np.zeros_like(pulls_bao),
-        "|",
-        ms=20,
-        mew=2,
-        label="BAO pulls")
+    ax.plot(pulls_bao, np.zeros_like(pulls_bao), "|", ms=20, mew=2, label="BAO pulls")
     kde = gaussian_kde(pulls_bao)
     xk = np.linspace(pulls_bao.min() - 1, pulls_bao.max() + 1, 300)
     ax.plot(xk, kde(xk), "-", lw=2, label="KDE")
@@ -117,11 +111,8 @@ def main():
     ax.legend(loc="upper right", frameon=False)
     ax.grid(ls=":", lw=0.5, alpha=0.6)
 
-    fig.suptitle(
-        "Distribution des pulls (résidus normalisés)",
-        y=1.02,
-        fontsize=14)
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.suptitle("Distribution des pulls (résidus normalisés)", y=1.02, fontsize=14)
+    fig.tight_layout()
 
     out_path = FIG_DIR / "fig_06_pulls.png"
     fig.savefig(out_path, dpi=300, bbox_inches="tight")
@@ -130,67 +121,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===

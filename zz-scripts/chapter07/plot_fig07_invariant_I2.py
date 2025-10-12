@@ -3,51 +3,6 @@
 Figure 07 – Invariant scalaire I₂ = k·(δφ/φ)
 Chapitre 7 – Perturbations scalaires (MCGT).
 """
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 
 import json
 import logging
@@ -69,9 +24,7 @@ def main():
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # --- logging ---
-    logging.basicConfig(
-        level=logging.INFO,
-        format="[%(levelname)s] %(message)s")
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
     logging.info("→ génération de la figure 07 – Invariant I₂")
 
     # --- chargement des données ---
@@ -79,8 +32,7 @@ def main():
     if df.empty:
         raise RuntimeError(f"Aucune donnée dans {CSV_DATA}")
     if "delta_phi_interp" not in df.columns:
-        raise KeyError(
-            "La colonne 'delta_phi_interp' est introuvable dans le CSV")
+        raise KeyError("La colonne 'delta_phi_interp' est introuvable dans le CSV")
 
     k = df["k"].to_numpy()
     delta_phi = df["delta_phi_interp"].to_numpy()
@@ -99,14 +51,14 @@ def main():
 
     # --- préparation du tracé ---
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.loglog( k, I2, color="C3", linewidth=2,
-               label=r"$I_2(k)=k\,\frac{\delta\phi}{\phi}$" )
+    ax.loglog(
+        k, I2, color="C3", linewidth=2, label=r"$I_2(k)=k\,\frac{\delta\phi}{\phi}$"
+    )
 
     # --- bornes Y centrées sur le plateau (k < k_split) ---
     mask_plateau = k < k_split
     if not np.any(mask_plateau):
-        raise RuntimeError(
-            "Aucune valeur de k < k_split pour définir le plateau.")
+        raise RuntimeError("Aucune valeur de k < k_split pour définir le plateau.")
     bottom = I2[mask_plateau].min() * 0.5
     top = I2[mask_plateau].max() * 1.2
     ax.set_ylim(bottom, top)
@@ -152,29 +104,10 @@ def main():
     ax.legend(loc="upper right", frameon=True)
 
     # --- sauvegarde ---
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.tight_layout()
     fig.savefig(FIG_OUT, dpi=300)
     logging.info("Figure enregistrée → %s", FIG_OUT)
 
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

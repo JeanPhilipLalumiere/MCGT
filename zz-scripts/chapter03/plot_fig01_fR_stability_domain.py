@@ -1,49 +1,4 @@
 #!/usr/bin/env python3
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 # tracer_fig01_stabilite_fR_domaine.py
 """
 Trace le domaine de stabilité de f(R) — Chapitre 3
@@ -109,12 +64,7 @@ def main() -> None:
     )
 
     # Repère β = 1
-    ax.axvline(
-        1.0,
-        color="gray",
-        linestyle="--",
-        linewidth=1.0,
-        label=r"$\beta = 1$")
+    ax.axvline(1.0, color="gray", linestyle="--", linewidth=1.0, label=r"$\beta = 1$")
 
     # Échelles log-log
     ax.set_xscale("log")
@@ -136,11 +86,13 @@ def main() -> None:
         ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])
 
         # Tracé γ_max (et γ_min si ≠0)
-        ax_in.plot( df.loc[mask, "beta"], df.loc[mask,
-                                                 "gamma_max"], color="black", lw=1.2 )
+        ax_in.plot(
+            df.loc[mask, "beta"], df.loc[mask, "gamma_max"], color="black", lw=1.2
+        )
         if (df.loc[mask, "gamma_min"] > 0).any():
-            ax_in.plot( df.loc[mask, "beta"], df.loc[mask,
-                                                     "gamma_min"], color="black", lw=1.2 )
+            ax_in.plot(
+                df.loc[mask, "beta"], df.loc[mask, "gamma_min"], color="black", lw=1.2
+            )
 
         # Échelles : X linéaire, Y log
         from matplotlib.ticker import (
@@ -170,7 +122,7 @@ def main() -> None:
         ax_in.set_title(r"Zoom $\beta\in[0.5,2]$", fontsize=8, pad=2)
 
     # 5. Finalisation et sauvegarde
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.tight_layout()
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
@@ -178,22 +130,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

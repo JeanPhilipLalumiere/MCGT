@@ -8,7 +8,7 @@ F="zz-scripts/chapter07/plot_fig06_comparison.py"
 [[ -f "$F" ]] || { echo "[SKIP] $F introuvable"; exit 0; }
 
 # Sauvegarde unique (conserve l'original)
-safe_cp "$F" "$F.bak" 2>/dev/null || true
+cp -n "$F" "$F.bak" 2>/dev/null || true
 
 echo "[HOTFIX] Réécriture sûre de $F (stub CLI temporaire + Agg + subplots_adjust)"
 

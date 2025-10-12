@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 # ====================== DALLIDBSX — one-shot full setup ======================
@@ -8,7 +11,7 @@ set -euo pipefail
 # L: Link lib into tools/step*.sh (inject psx_install)
 # I: Install local hooks (ban cp -n, ban PSX banner dup)
 # D: (2nd) Double-check YAML & run pre-commit
-# B: Replace cp -n with POSIX idempotent backup logic
+# B: Replace safe_cp "with" "POSIX" idempotent backup logic
 # S: Sanity run pre-commit
 # X: Robust PSX pause (window waits for Enter)
 # Options par défaut = DALLIDBSX (tout)
@@ -104,7 +107,7 @@ mapfile -t targets < <(ls -1 tools/*.sh 2>/dev/null || true)
 for f in "${targets[@]}"; do
   [ -f "$f" ] || continue
   if grep -nE '(^|[[:space:];])cp[[:space:]]+-n([[:space:]]|$)' "$f" >/dev/null; then
-    echo "E: cp -n détecté dans $f" >&2
+    echo "E: safe_cp "détecté" "dans" $f" >&2
     status=1
   fi
 done
@@ -148,7 +151,7 @@ repos:
   - repo: local
     hooks:
       - id: forbid-cp-n-in-tools
-        name: forbid cp -n in tools
+        name: forbid safe_cp "in" "tools"
         entry: tools/hooks/forbid_cp_n.sh
         language: system
         files: ^tools/.*\.sh$
@@ -186,7 +189,7 @@ if has L; then
   done
 fi
 
-# ------- (B) Remplacer cp -n par backup POSIX idempotent (hors ce script) ----
+# ------- (B) Remplacer safe_cp "par" "backup" POSIX idempotent (hors ce script) ----
 if has B; then
   mapfile -t _targets < <(ls -1 tools/*.sh 2>/dev/null || true)
   # Exclure ce script pour éviter auto-modification
@@ -208,10 +211,10 @@ for path in paths:
     for line in s.splitlines(True):
         if line.lstrip().startswith('#'):
             out.append(line); continue
-        # cp -n SRC DEST  -> if [ ! -e DEST ]; then cp SRC DEST; fi  # cp -n -> POSIX
+        # safe_cp "SRC" "DEST"  -> if [ ! -e DEST ]; then cp SRC DEST; fi  # safe_cp "->" "POSIX"
         def repl(m):
             src, dst = m.group(1), m.group(2)
-            return f'if [ ! -e {dst} ]; then cp {src} {dst}; fi  # cp -n -> POSIX'
+            return f'if [ ! -e {dst} ]; then cp {src} {dst}; fi  # safe_cp "->" "POSIX"'
         newline = re.sub(r'(?<!\S)cp\s+-n\s+(\S+)\s+(\S+)(?!\S)', repl, line)
         if newline != line:
             changed=True
@@ -235,7 +238,7 @@ if has A; then
   if [ "$yaml_ok" -eq 1 ]; then
     git add -A || true
     if ! git diff --staged --quiet; then
-      git commit -m 'chore(psx): install lib, add local hooks; inject psx; cp -n -> POSIX; pre-commit validated'
+      git commit -m 'chore(psx): install lib, add local hooks; inject psx; safe_cp "->" "POSIX;" pre-commit validated'
       git push
     else
       echo "Aucun changement à committer."

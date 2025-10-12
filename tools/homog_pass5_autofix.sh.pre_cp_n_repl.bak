@@ -79,7 +79,7 @@ for F in "${FILES[@]}"; do
   fi
 
   # Sauvegarde unique
-  safe_cp "$F" "$F.bak" 2>/dev/null || true
+  cp -n "$F" "$F.bak" 2>/dev/null || true
 
   TMP="$(mktemp)"
   if head -n1 "$F" | grep -q '^#!'; then

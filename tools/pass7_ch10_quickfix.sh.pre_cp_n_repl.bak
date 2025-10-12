@@ -19,7 +19,7 @@ mkdir -p zz-out
 ###############################################################################
 echo "[PASS7-QF] Purge tight_layout dans $S ..."
 while IFS= read -r -d '' f; do
-  safe_cp "$f" "$f.pass7bak" 2>/dev/null || true
+  cp -n "$f" "$f.pass7bak" 2>/dev/null || true
 
   # A) fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
   perl -0777 -pe '

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 echo "[PASS11b] Dé-stubifier ch01–02, purger tight_layout, re-valider (--help)"
 
@@ -27,7 +30,7 @@ echo "[PASS11b] Restaurations: $restored"
 echo "[PASS11b] Purge tight_layout (rect + simple) dans ch01–02…"
 for D in "${CHAPS[@]}"; do
   while IFS= read -r -d '' f; do
-    cp -n "$f" "$f.pass11b" 2>/dev/null || true
+    safe_cp "$f" "$f.pass11b" 2>/dev/null || true
 
     # fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
     perl -0777 -pe '

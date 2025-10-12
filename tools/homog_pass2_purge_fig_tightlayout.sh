@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 echo "[HOMOG-PASS2] Purge fig.tight_layout / plt.tight_layout (toutes variantes) + re-scan"
@@ -17,7 +20,7 @@ done
 echo "[PATCH] Remplacements automatiques dans ${#chapters[@]} dossiers…"
 for d in "${chapters[@]}"; do
   while IFS= read -r -d '' f; do
-    cp -n "$f" "$f.bak" 2>/dev/null || true
+    safe_cp "$f" "$f.bak" 2>/dev/null || true
 
     # 1) fig.tight_layout(rect=[l,b,r,t]) -> fig.subplots_adjust(left=l,bottom=b,right=r,top=t)
     perl -0777 -pe '

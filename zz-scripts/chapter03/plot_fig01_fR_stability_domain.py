@@ -122,7 +122,7 @@ def main() -> None:
         ax_in.set_title(r"Zoom $\beta\in[0.5,2]$", fontsize=8, pad=2)
 
     # 5. Finalisation et sauvegarde
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

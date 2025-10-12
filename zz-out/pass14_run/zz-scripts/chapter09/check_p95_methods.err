@@ -1,5 +1,0 @@
-usage: check_p95_methods.py [-h] --csv CSV [--window WINDOW WINDOW]
-                            [--bins BINS [BINS ...]] [--plot]
-                            [--out-dir OUT_DIR] [--xscale {linear,log}]
-                            [--dpi DPI]
-check_p95_methods.py: error: the following arguments are required: --csv

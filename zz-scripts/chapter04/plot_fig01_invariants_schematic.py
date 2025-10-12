@@ -69,7 +69,7 @@ def main():
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
     output_fig = "zz-figures/chapter04/04_fig_01_invariants_schematic.png"
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")
 

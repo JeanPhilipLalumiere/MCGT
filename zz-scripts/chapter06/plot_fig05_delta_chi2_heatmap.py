@@ -77,7 +77,7 @@ if ALPHA is not None and Q0STAR is not None:
         fontsize=9,
     )
 
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(OUT_PNG)
 logging.info(f"Carte de chaleur enregistrée → {OUT_PNG}")
 

@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py", line 25, in <module>
-    plt.style.use( "classic")
-    ^^^
-NameError: name 'plt' is not defined

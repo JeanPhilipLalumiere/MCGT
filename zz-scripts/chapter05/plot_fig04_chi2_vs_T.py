@@ -134,7 +134,7 @@ ax1.legend(
     loc="upper right",
 )
 
-fig.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 out_png = FIG_DIR / "fig_04_chi2_vs_T.png"
 fig.savefig(out_png, dpi=300)
 print(f"✓ {out_png.relative_to(ROOT)} généré.")

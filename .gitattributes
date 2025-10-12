@@ -1,30 +1,13 @@
-# binaires
-*.png   binary
-*.jpg   binary
-*.jpeg  binary
-*.gif   binary
-*.pdf   binary
-*.txt text eol=lf
-*.json text eol=lf
-
-# Line-endings policy (force LF)
-*.sh      text eol=lf
-*.py      text eol=lf
-*.csv     text eol=lf
-*.tex     text eol=lf
-*.md      text eol=lf
-*.yml     text eol=lf
-*.yaml    text eol=lf
-.ci-out export-ignore
-legacy-tex export-ignore
-zz-configuration/parameters_registry.json export-ignore
+# Normalize end-of-line to LF in repo; checkout adapts to OS
 * text=auto eol=lf
-*.sh text eol=lf
-*.py text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.md text eol=lf
-*.ini text eol=lf
-*.toml text eol=lf
+
+# Treat these as binary to avoid EOL munging
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.npy binary
+*.npz binary
+*.fits binary
 *.csv text eol=lf
-*.tex text eol=lf
+*.tsv text eol=lf

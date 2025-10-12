@@ -74,7 +74,7 @@ def main():
     # Legend bottom-right inside the plot
     ax.legend(loc="lower right", frameon=False)
 
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Save
     out_file = FIG_DIR / "fig_02_dv_vs_z.png"

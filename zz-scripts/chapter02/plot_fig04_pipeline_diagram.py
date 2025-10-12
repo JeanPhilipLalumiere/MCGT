@@ -45,7 +45,7 @@ for i in range(len(steps) - 1):
     ax.annotate("", xy=(x1, y), xytext=(x0, y), arrowprops=dict(arrowstyle="->", lw=1))
 
 plt.title("Fig. 04 – Schéma de la chaîne de calibration\nChapitre 2", pad=20)
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(FIG_DIR / "fig_04_schema_pipeline.png")
 
 # === MCGT CLI SEED v2 ===

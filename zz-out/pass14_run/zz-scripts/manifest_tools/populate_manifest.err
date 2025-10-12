@@ -1,5 +1,0 @@
-usage: populate_manifest.py [-h] [--repo-root REPO_ROOT] [--force] [--search]
-                            [--exclude EXCLUDE] [--sign {gpg,sha256}]
-                            [--no-backup]
-                            manifest
-populate_manifest.py: error: the following arguments are required: manifest

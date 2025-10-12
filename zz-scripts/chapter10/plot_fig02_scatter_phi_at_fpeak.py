@@ -344,7 +344,7 @@ def main():
     )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
-    plt.tight_layout(rect=[0, 0.04, 1, 0.98])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=args.dpi)
     print(f"Wrote: {args.out}")
 

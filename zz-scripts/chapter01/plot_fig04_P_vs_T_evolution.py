@@ -32,7 +32,7 @@ plt.ylabel("P(T)")
 plt.title("Fig. 04 – Évolution de P(T) : initial vs optimisé")
 plt.grid(True, which="both", linestyle=":", linewidth=0.5)
 plt.legend()
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(output_file)
 
 # === MCGT CLI SEED v2 ===

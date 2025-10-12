@@ -44,7 +44,7 @@ def main():
     plt.title("Séries $F(\\alpha)-1$ et $G(\\alpha)$")
     plt.grid(True, which="both", ls=":")
     plt.legend()
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(OUT_PLOT, dpi=300)
     plt.close()
     print(f"Figure enregistrée → {OUT_PLOT}")

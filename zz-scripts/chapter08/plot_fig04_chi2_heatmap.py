@@ -97,7 +97,7 @@ cbar.set_label(r"$\chi^2$ (log)", labelpad=10)
 cbar.ax.yaxis.set_label_position("right")
 cbar.ax.tick_params(labelsize=10)
 
-fig.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 fig.savefig(FIG_DIR / "fig_04_chi2_heatmap.png", dpi=300)
 print(f"✅ fig_04_chi2_heatmap.png générée dans {FIG_DIR}")
 

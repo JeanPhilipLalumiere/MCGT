@@ -123,7 +123,7 @@ cbar.set_ticklabels([f"$10^{{{int(np.round(np.log10(t)))}}}$" for t in ticks])
 cbar.ax.yaxis.set_tick_params(labelsize="small")
 
 # --- SAUVEGARDE ---
-fig.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 fig.savefig(FIG_OUT, dpi=300)
 plt.close(fig)
 

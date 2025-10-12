@@ -38,7 +38,7 @@ plt.ylim(0.98, 1.002)
 plt.xlim(df_plateau["T"].min(), Tp * 1.05)
 plt.grid(True, which="both", linestyle=":", linewidth=0.5)
 plt.legend(loc="lower right")
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
 # Sauvegarde
 output_path = (

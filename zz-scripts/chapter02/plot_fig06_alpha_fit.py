@@ -67,7 +67,7 @@ def main():
     ax2.legend()
 
     plt.suptitle("Ajustement polynomial de $A_s(\\alpha)$ et $n_s(\\alpha)$", y=0.98)
-    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Sauvegarde
     FIG_DIR.mkdir(parents=True, exist_ok=True)

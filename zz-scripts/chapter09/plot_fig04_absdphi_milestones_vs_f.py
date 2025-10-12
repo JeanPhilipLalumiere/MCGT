@@ -475,7 +475,7 @@ def main():
 
     # Sauvegarde
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    fig.tight_layout(rect=[0, 0, 1, 0.945])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=int(args.dpi))
     log.info("PNG écrit → %s", args.out)
 

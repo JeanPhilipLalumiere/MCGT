@@ -1,37 +1,17 @@
-# Utilise '>' comme préfixe de recette pour éviter les TABs obligatoires
-.RECIPEPREFIX := >
-# IMPORTANT: GNU Make exige un chemin *nu* vers le shell (pas d'arguments)
-SHELL := /bin/bash
-# Options de bash pour que les erreurs fassent échouer la cible
-.SHELLFLAGS := -euo pipefail -c
-.ONESHELL:
+.PHONY: lint fmt ci-local
+lint:
+	pre-commit run -a
 
-ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null || pwd)
+fmt:
+	if command -v shfmt >/dev/null 2>&1; then shfmt -w -i 2 -ci tools/*.sh; fi
 
-# Dossier des figures (surcharge: make FIGDIR=mon-dossier figures-manifest)
-FIGDIR ?= zz-figures
+ci-local: fmt lint
 
-.PHONY: figures-norm figures-manifest figures-guard all-figures
+check:
+	pre-commit run -a --show-diff-on-failure
 
-figures-norm:
-> bash tools/fig_naming_normalize.sh
-
-figures-manifest:
-> FIGDIR=$(FIGDIR) bash tools/rebuild_figures_sha256.sh
-
-figures-guard:
-> bash tools/ci_step2_figures_guard.sh
-
-all-figures: figures-norm figures-manifest figures-guard
-
-guard-local:
-> bash tools/guard_local_run.sh || true
-
-figures-index:
-> bash tools/build_figures_index.sh
-
-index-guard:
-> bash tools/check_figures_index.sh
-
-prepub:
-> bash tools/build_prepub_bundle.sh
+hooks:
+	pre-commit install
+ci:
+	@command -v gh >/dev/null 2>&1 || { echo "gh (GitHub CLI) non installé"; exit 0; }
+	gh workflow run ci-pre-commit.yml || true

@@ -1,3 +1,12 @@
+safe_cp() { 
+  src="$1"; dest="$2"; 
+  # si la destination existe déjà, ne rien faire ; sinon copie simple 
+  if [ -e "$dest" ]; then 
+    return 0; 
+  fi; 
+  cp "$src" "$dest"; 
+}
+
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -55,7 +64,7 @@ if [[ -n "${env_files}" ]]; then
     [[ -n "$f" ]] || continue
     if [[ -f "$f" && ! -f "${f}.disabled" ]]; then
       git ls-files --error-unmatch "$f" >/dev/null 2>&1 && tracked=1 || tracked=0
-      cp -n "$f" "${f}.bak"
+      safe_cp "$f" "${f}.bak"
       mv "$f" "${f}.disabled"
       echo "renamed: $f -> ${f}.disabled (backup: ${f}.bak) [tracked=$tracked]"
     fi

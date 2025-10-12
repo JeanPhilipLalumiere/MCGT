@@ -1,49 +1,3 @@
-
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -83,13 +37,7 @@ def tracer_fig03_yp_modele_contre_obs(
     # Création de la figure
     fig, ax = plt.subplots(figsize=(8, 6))
     # Tracer les jalons avec barres d'erreur horizontales
-    ax.errorbar(
-        Yp_obs,
-        Yp_calc,
-        xerr=sigma_Yp,
-        fmt="o",
-        capsize=3,
-        label="Jalons Yp")
+    ax.errorbar(Yp_obs, Yp_calc, xerr=sigma_Yp, fmt="o", capsize=3, label="Jalons Yp")
 
     # Mettre en échelle log–log
     ax.set_xscale("log")
@@ -114,29 +62,10 @@ def tracer_fig03_yp_modele_contre_obs(
     ax.legend()
 
     # Sauvegarde
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    plt.tight_layout()
     plt.savefig(save_path, dpi=300)
     plt.close()
 
 
 if __name__ == "__main__":
     tracer_fig03_yp_modele_contre_obs()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

@@ -2,7 +2,7 @@
 import os
 """
 zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
-Carte de chaleur χ2(q0⋆, p2) avec contours de confiance
+Carte de chaleur χ²(q0⋆, p2) avec contours de confiance
 """
 
 from pathlib import Path
@@ -21,7 +21,7 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 # --- importer le scan 2D ---
 csv2d = DATA_DIR / "08_chi2_scan2D.csv"
 if not csv2d.exists():
-    raise FileNotFoundError(f"Scan 2D χ2 introuvable : {csv2d}")
+    raise FileNotFoundError(f"Scan 2D χ² introuvable : {csv2d}")
 df = pd.read_csv(csv2d)
 
 # extraire les grilles
@@ -29,52 +29,61 @@ p1 = np.sort(df["q0star"].unique())
 p2 = np.sort(df["param2"].unique())
 
 # pivoter en matrice
-M = df.pivot(index="param2", columns="q0star",
-values="chi2").loc[p2, p1].values
+M = df.pivot(index="param2", columns="q0star", values="chi2").loc[p2, p1].values
 
 # calculer les bords pour pcolormesh
 dp1 = np.diff(p1).mean()
 dp2 = np.diff(p2).mean()
-x_edges = np.concatenate([p1 - dp1 / 2[p1[-1] + dp1 / 2]])
-y_edges = np.concatenate([p2 - dp2 / 2[p2[-1] + dp2 / 2]])
+x_edges = np.concatenate([p1 - dp1 / 2, [p1[-1] + dp1 / 2]])
+y_edges = np.concatenate([p2 - dp2 / 2, [p2[-1] + dp2 / 2]])
 
 # trouver le minimum global
 i_min, j_min = np.unravel_index(np.argmin(M), M.shape)
-q0min = p1[j_min]
-p2min = p2[i_min]
-chi2min = M[i_min, j_min]
+q0_min = p1[j_min]
+p2_min = p2[i_min]
+chi2_min = M[i_min, j_min]
 
 # tracer
 plt.rcParams.update({"font.size": 12})
-fig, ax = plt.subplots(figsize=(7.5))
+fig, ax = plt.subplots(figsize=(7, 5))
 
 # heatmap en lognorm pour renforcer le contraste
-pcm = ax.pcolormesh( cmap="viridis")*x_edges,
-# y_edges,
-M,
-norm=LogNorm(vmin=M.min(), vmax=M.max()),
-shading="auto",
+pcm = ax.pcolormesh(
+    x_edges,
+    y_edges,
+    M,
+    norm=LogNorm(vmin=M.min(), vmax=M.max()),
+    cmap="viridis",
+    shading="auto",
+)
 
-# contours de confiance Δχ2 = 2.30, 6.17, 11.8 (68%, 95%, 99.7% pour 2
-# paramètres)
-levels = chi2min + np.array([2.30, 6.17, 11.8])
-cont = ax.contour(p1, p2, M, levels=levels, colors="white", linestyles=["-", "--", ":"])
-# linewidths=1.2,
-ax.clabel(cont, fmt={lvl: f"{int(lvl - chi2min)}" for lvl in levels}, fontsize=10, inline=True)
-# )cont,
-inline=True,
+# contours de confiance Δχ² = 2.30, 6.17, 11.8 (68%, 95%, 99.7% pour 2 paramètres)
+levels = chi2_min + np.array([2.30, 6.17, 11.8])
+cont = ax.contour(
+    p1,
+    p2,
+    M,
+    levels=levels,
+    colors="white",
+    linestyles=["-", "--", ":"],
+    linewidths=1.2,
+)
+ax.clabel(
+    cont,
+    fmt={lvl: f"{int(lvl - chi2_min)}" for lvl in levels},
+    inline=True,
+    fontsize=10,
+)
 
 # point du minimum
-ax.plot(q0min, p2min, "o", color="black", ms=6)
-ax.text(q0min, p2min, txt, ha="right", va="top", bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="gray", alpha=0.8), fontsize=9)
-txt = f"min χ2 = {chi2min:.1f}\nq0⋆ = {q0min:.3f}, p2 = {p2min:.3f}"
-# ax.text(
-# )0.98.0.95,
-# txt,
-# transform=ax.transAxes,
+ax.plot(q0_min, p2_min, "o", color="black", ms=6)
+
+# annotation du minimum
+bbox = dict(boxstyle="round,pad=0.4", fc="white", ec="gray", alpha=0.8)
+txt = f"min χ² = {chi2_min:.1f}\nq₀⋆ = {q0_min:.3f}, p₂ = {p2_min:.3f}"
+ax.text(0.98, 0.95, txt, transform=ax.transAxes, va="top", ha="right", bbox=bbox)
 
 # axes et titre
-
 ax.set_xlabel(r"$q_0^\star$")
 ax.set_ylabel(r"$p_2$")
 ax.set_title(r"Carte de chaleur $\chi^2$ (scan 2D)")
@@ -88,47 +97,41 @@ cbar.set_label(r"$\chi^2$ (log)", labelpad=10)
 cbar.ax.yaxis.set_label_position("right")
 cbar.ax.tick_params(labelsize=10)
 
-fig.subplots_adjust(left=0.07,bottom=0.12,right=0.98,top=0.95)
+fig.tight_layout()
 fig.savefig(FIG_DIR / "fig_04_chi2_heatmap.png", dpi=300)
-print(f"✅ fig_04chi2heatmap.png générée dans {FIG_DIR}")
+print(f"✅ fig_04_chi2_heatmap.png générée dans {FIG_DIR}")
 
-# == MCGT CLI SEED v2 ==
+# === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
+    def _mcgt_cli_seed():
+        import os, argparse, sys, traceback
+        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+        parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-def _mcgt_cli_seed():
-    import os, argparse, sys
-    passimport traceback
-
-if __name__ == "__main__":
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
-parser = argparse.ArgumentParser(
-
-".ci-out"),
-
-parser.add_argument("--seed", type=int, default=None)
-parser.add_argument("--dpi", type=int, default=150)
-parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
-parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
-parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
-parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
-parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
-parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
-
-args = parser.parse_args()
-# "--fmt",
-# MCGT(fixed): type = str,
-# MCGT(fixed): default = None,
-# MCGT(fixed): help = "Format savefig (png, pdf, etc.)"
+        args = parser.parse_args()
+        try:
+            os.makedirs(args.outdir, exist_ok=True)
+        os.environ["MCGT_OUTDIR"] = args.outdir
+        import matplotlib as mpl
+        mpl.rcParams["savefig.dpi"] = args.dpi
+        mpl.rcParams["savefig.format"] = args.format
+        mpl.rcParams["savefig.transparent"] = args.transparent
+        except Exception:
+            pass
+        _main = globals().get("main")
+        if callable(_main):
+            try:
+                _main(args)
+            except SystemExit:
+                raise
+            except Exception as e:
+                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+                traceback.print_exc()
+                sys.exit(1)
+    _mcgt_cli_seed()

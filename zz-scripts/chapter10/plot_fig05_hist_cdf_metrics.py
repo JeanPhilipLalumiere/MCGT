@@ -15,6 +15,8 @@ import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
@@ -78,6 +80,8 @@ def main():
 
     # --- lecture & colonne p95 ---
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     p95_col = detect_p95_column(df)
     p95 = df[p95_col].dropna().astype(float).values
 

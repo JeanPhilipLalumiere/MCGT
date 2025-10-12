@@ -11,6 +11,8 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
@@ -115,6 +117,8 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     orig_col = detect_column(df, args.orig_col, [args.orig_col])
     recalc_col = detect_column(df, args.recalc_col, [args.recalc_col])
 

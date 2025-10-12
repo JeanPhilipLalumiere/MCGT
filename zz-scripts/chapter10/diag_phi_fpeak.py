@@ -20,6 +20,8 @@ import math
 import numpy as np
 import pandas as pd
 
+from zz_tools import common_io as ci
+
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
 
@@ -59,6 +61,8 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     f_ref = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
     # ensure sorted and finite
     f_ref = np.asarray(f_ref)

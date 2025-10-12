@@ -361,7 +361,11 @@ def _assurer_ids_uniques(samples_path: Path, id_offset: int, log: logging.Logger
     """
     import pandas as pd
 
+from zz_tools import common_io as ci
+
     df = pd.read_csv(samples_path)
+df = ci.ensure_fig02_cols(df)
+
     if "id" not in df.columns:
         raise RuntimeError("Le fichier d'échantillons n'a pas de colonne 'id'.")
     df["id"] = df["id"].astype(int) + int(id_offset)

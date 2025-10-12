@@ -8,51 +8,6 @@ Script corrigé de tracé du schéma conceptuel des invariants adimensionnels
 – Marque les phases et les repères pour I2 et I3
 – Sauvegarde la figure 800x500 px DPI 300
 """
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -93,22 +48,13 @@ def main():
     # ----------------------------------------------------------------------
     # 3. Repères horizontaux
     # ----------------------------------------------------------------------
-    ax.axhline(
-        I2_ref,
-        color="C1",
-        linestyle="--",
-        label=r"$I_2 \approx 10^{-35}$")
-    ax.axhline(
-        I3_ref,
-        color="C2",
-        linestyle="--",
-        label=r"$I_3 \approx 10^{-6}$")
+    ax.axhline(I2_ref, color="C1", linestyle="--", label=r"$I_2 \approx 10^{-35}$")
+    ax.axhline(I3_ref, color="C2", linestyle="--", label=r"$I_3 \approx 10^{-6}$")
 
     # ----------------------------------------------------------------------
     # 4. Repère vertical de transition T_p
     # ----------------------------------------------------------------------
-    ax.axvline(Tp, color="orange", linestyle=":",
-               label=r"$T_p=0.087\ \mathrm{Gyr}$")
+    ax.axvline(Tp, color="orange", linestyle=":", label=r"$T_p=0.087\ \mathrm{Gyr}$")
 
     # ----------------------------------------------------------------------
     # 5. Légendes, labels et grille
@@ -123,29 +69,10 @@ def main():
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
     output_fig = "zz-figures/chapter04/04_fig_01_invariants_schematic.png"
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    plt.tight_layout()
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")
 
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

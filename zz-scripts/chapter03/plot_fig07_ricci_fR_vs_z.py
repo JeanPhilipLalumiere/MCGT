@@ -115,7 +115,7 @@ def main() -> None:
     )
 
     # 9. Finalisation
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

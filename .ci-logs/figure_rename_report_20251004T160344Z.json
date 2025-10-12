@@ -1,0 +1,15 @@
+{
+  "timestamp": "20251004T160344Z",
+  "root": "/home/jplal/MCGT",
+  "plan": "/home/jplal/MCGT/.ci-out/figures_rename_plan.tsv",
+  "apply": false,
+  "use_git": true,
+  "renames": [],
+  "ref_updates": {},
+  "warnings": [],
+  "preflight": {
+    "missing_sources": [],
+    "existing_targets": [],
+    "ok": true
+  }
+}

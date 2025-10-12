@@ -29,7 +29,7 @@ ax.legend(loc="upper right")
 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
 # Ajuster les marges pour que tout soit visible
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
 # Sauvegarde
 OUT = ROOT / "zz-figures" / "chapter02" / "fig_00_spectrum.png"

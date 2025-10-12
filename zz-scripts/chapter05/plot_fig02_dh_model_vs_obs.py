@@ -80,7 +80,7 @@ ax.set_title("Diagramme D/H : modèle vs observations")
 ax.legend(framealpha=0.3, loc="upper left")
 
 # Enregistrement
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(FIG_DIR / "fig_02_dh_model_vs_obs.png", dpi=300)
 plt.close()
 

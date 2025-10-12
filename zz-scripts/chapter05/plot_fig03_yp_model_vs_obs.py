@@ -62,7 +62,7 @@ def tracer_fig03_yp_modele_contre_obs(
     ax.legend()
 
     # Sauvegarde
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(save_path, dpi=300)
     plt.close()
 

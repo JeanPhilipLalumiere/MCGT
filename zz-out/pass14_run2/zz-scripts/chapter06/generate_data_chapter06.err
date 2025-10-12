@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter06/generate_data_chapter06.py", line 52
-    spec2 = json.load(f)
-    ^^^^^
-IndentationError: expected an indented block after 'with' statement on line 51

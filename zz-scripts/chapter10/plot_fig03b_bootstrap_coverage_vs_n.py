@@ -415,7 +415,7 @@ def main():
             f"Sensibilité de la couverture vs {'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
         )
         axS.legend(loc="lower right", frameon=True)
-        figS.tight_layout()
+        fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
         out_sens = os.path.splitext(args.out)[0] + f"_sensitivity_{mode}.png"
         figS.savefig(out_sens, dpi=args.dpi)
         print(f"[OK] Figure annexe écrite: {out_sens}")

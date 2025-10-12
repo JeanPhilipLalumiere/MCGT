@@ -30,8 +30,50 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.lines import Line2D
+from zz_tools import common_io as ci
 
+# === MCGT alias helpers ===
+def _pick_col(df, candidates):
+    low = {}
+    for c in df.columns:
+        low[c.lower()] = c
+    for name in candidates:
+        if name in low:
+            return low[name]
+    # autoriser liste de listes
+    for group in candidates:
+        if isinstance(group, (list, tuple)):
+            for name in group:
+                if name in low: return low[name]
+    return None
+
+def _ensure_standard_cols(df):
+    # fréquence
+    fcol = _pick_col(df, ["f_hz","f","freq","frequency_hz","frequency","nu","nu_hz"])
+    if fcol and fcol != "f_Hz":
+        df["f_Hz"] = df[fcol]
+    elif "f_Hz" not in df.columns:
+        raise SystemExit("Colonne fréquence absente (f_Hz|f|freq|frequency|nu).")
+
+    # ref
+    rcol = _pick_col(df, ["phi_ref","phi_imr","phi_ref_cal","phi_ref_raw","phi_ref_model"])
+    if rcol and rcol != "phi_ref":
+        df["phi_ref"] = df[rcol]
+    elif "phi_ref" not in df.columns:
+        raise SystemExit("Colonne phi_ref absente.")
+
+    # active/mcgt
+    acol = _pick_col(df, ["phi_mcgt","phi_mcgt_cal","phi_active","phi_model","phi_mcgt_active"])
+    if acol:
+        if "phi_mcgt" not in df.columns:
+            df["phi_mcgt"] = df[acol]
+        if "phi_active" not in df.columns:
+            df["phi_active"] = df["phi_mcgt"]
+    else:
+        raise SystemExit("Colonne MCGT absente (phi_mcgt|phi_active|phi_model).")
+    return df
+
+from matplotlib.lines import Line2D
 
 # -------------------- utils --------------------
 def setup_logger(level: str = "INFO") -> logging.Logger:
@@ -42,19 +84,16 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     )
     return logging.getLogger("fig02")
 
-
 def p95(a: np.ndarray) -> float:
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
     return float(np.percentile(a, 95.0)) if a.size else float("nan")
-
 
 def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
         raise ValueError("bands must be pairs of floats (even count).")
     it = iter(vals)
     return [tuple(sorted((float(a), float(b)))) for a, b in zip(it, it, strict=False)]
-
 
 def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     """Index runs contigus en log10(f) d’après un seuil de 'trou'."""
@@ -71,7 +110,6 @@ def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     segments.append(np.arange(start, f_band.size))
     return segments
 
-
 def load_meta(meta_path: Path) -> dict:
     if meta_path and meta_path.exists():
         try:
@@ -80,11 +118,9 @@ def load_meta(meta_path: Path) -> dict:
             return {}
     return {}
 
-
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ_principal ∈ (−π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
-
 
 def k_rebranch_median(
     phi_m: np.ndarray, phi_r: np.ndarray, f: np.ndarray, f1: float, f2: float
@@ -95,7 +131,6 @@ def k_rebranch_median(
     if not np.any(m):
         return 0
     return int(np.round(np.nanmedian((phi_m[m] - phi_r[m]) / two_pi)))
-
 
 # -------------------- script --------------------
 def main():
@@ -125,11 +160,13 @@ def main():
     if not args.csv.exists():
         raise SystemExit(f"CSV introuvable: {args.csv}")
 
-    # --- lecture
+    # --- lecture CSV + normalisation colonnes (fig02)
     df = pd.read_csv(args.csv)
-    for c in ("f_Hz", "phi_ref"):
-        if c not in df.columns:
-            raise SystemExit(f"Colonne manquante: {c}")
+    df = ci.ensure_fig02_cols(df)
+    required = ["f_Hz", "phi_ref"]
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise SystemExit(f"Colonnes manquantes pour fig02: {missing}")
 
     # variante active
     if "phi_mcgt" in df:
@@ -367,7 +404,6 @@ def main():
     args.out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight", pad_inches=0.06)
     log.info("PNG écrit → %s", args.out)
-
 
 if __name__ == "__main__":
     main()

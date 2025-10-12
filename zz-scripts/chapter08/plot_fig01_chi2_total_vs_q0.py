@@ -105,7 +105,7 @@ def main():
     h2, l2 = ax2.get_legend_handles_labels()
     ax.legend(h1 + h2, l1 + l2, loc="upper right", fontsize=12, frameon=False)
 
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     outpath = FIG_DIR / "fig_01_chi2_total_vs_q0.png"
     plt.savefig(outpath, dpi=300)
     print(f"✅ Figure enregistrée → {outpath}")

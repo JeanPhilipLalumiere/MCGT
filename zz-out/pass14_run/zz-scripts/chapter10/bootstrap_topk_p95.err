@@ -1,4 +1,0 @@
-usage: bootstrap_topk_p95.py [-h] --best BEST [--results RESULTS] [--B B]
-                             [--seed SEED] [--resid-dir RESID_DIR] --out OUT
-                             [--log-level LOG_LEVEL]
-bootstrap_topk_p95.py: error: the following arguments are required: --best, --out

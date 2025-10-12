@@ -89,7 +89,7 @@ def main():
 
     # --- Ajustements finaux ---
     fig.suptitle("Résidus en fonction du redshift", y=0.98)
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     outpath = FIG_DIR / "fig_05_residuals.png"
     fig.savefig(outpath, dpi=300)

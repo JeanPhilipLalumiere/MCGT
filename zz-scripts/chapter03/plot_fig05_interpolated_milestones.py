@@ -128,7 +128,7 @@ def main() -> None:
     ax1.set_title("Interpolation PCHIP vs points de jalons")
 
     # 8. Finalisation et sauvegarde
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

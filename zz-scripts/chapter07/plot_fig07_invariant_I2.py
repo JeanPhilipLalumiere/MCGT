@@ -104,7 +104,7 @@ def main():
     ax.legend(loc="upper right", frameon=True)
 
     # --- sauvegarde ---
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_OUT, dpi=300)
     logging.info("Figure enregistrée → %s", FIG_OUT)
 

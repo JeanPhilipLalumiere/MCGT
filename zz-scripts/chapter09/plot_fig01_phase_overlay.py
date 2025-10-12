@@ -16,6 +16,25 @@ import json
 import logging
 from pathlib import Path
 
+def _load_meta(path):
+    try:
+        import json, logging
+        with open(REF_META, 'r') as f:
+            try:
+                meta = json.load(f)
+                if not isinstance(meta, dict):
+                    meta = {}
+            except Exception:
+                meta = {}
+        if not isinstance(meta, dict):
+            logging.warning("Lecture JSON méta: objet non-dict (%s).", type(meta).__name__)
+            return {}
+        return meta
+    except Exception as e:
+        import logging
+        logging.warning("Lecture JSON méta échouée (%s).", e)
+        return {}
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -390,7 +409,7 @@ def main():
         fontsize=16,
         pad=18,
     )
-    fig.tight_layout(rect=[0.035, 0.035, 0.985, 0.965])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight", pad_inches=0.03)
     if args.save_pdf:
         fig.savefig(args.out.with_suffix(".pdf"), dpi=int(args.dpi))

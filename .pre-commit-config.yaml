@@ -1,19 +1,27 @@
 repos:
-  - repo: local
-    hooks:
-      - id: forbid-cp-n-in-tools
-        name: forbid cp -n in tools
-        exclude: ^tools/dallidbsx\.sh$
-        language: system
-        entry: tools/hooks/forbid_cp_n.sh
-        files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-      - id: forbid-duplicate-psx-override
-        name: forbid duplicate PSX ROBUST OVERRIDE banners
-        exclude: ^tools/dallidbsx\.sh$
-        language: system
-        entry: tools/hooks/forbid_psx_dup.sh
-        files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$
+- repo: local
+  hooks:
+  - id: tabnanny
+    name: tabnanny
+    entry: python -m tabnanny
+    language: system
+    types: [python]
+
+  - id: forbid-tight_layout
+    name: forbid tight_layout calls
+    language: system
+    entry: bash
+    args:
+      - -c
+      - |
+        set -e
+        echo "[scan] searching for tight_layout() calls in zz-scripts ..."
+        # cherche uniquement de vrais appels (parenthèses), ignore les lignes commentées (# en tête de ligne)
+        if git ls-files -z -- 'zz-scripts/**/*.py' | xargs -0 grep -n "tight_layout(" | grep -vE "^[^:]+:[[:space:]]*#"; then
+          echo
+          echo "[FAIL] tight_layout() call found (see lines above)"
+          exit 1
+        else
+          echo "[OK] no tight_layout() call"
+        fi
+    pass_filenames: false

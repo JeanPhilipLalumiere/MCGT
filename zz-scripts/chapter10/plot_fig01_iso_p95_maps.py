@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from matplotlib import colors
 
 # ---------- utilities ----------
@@ -44,6 +46,8 @@ def read_and_validate(path, m1_col, m2_col, p95_col):
     """Read CSV and validate presence of required columns. Return trimmed DataFrame."""
     try:
         df = pd.read_csv(path)
+df = ci.ensure_fig02_cols(df)
+
     except Exception as e:
         raise SystemExit(f"Erreur lecture CSV '{path}': {e}")
     for col in (m1_col, m2_col, p95_col):

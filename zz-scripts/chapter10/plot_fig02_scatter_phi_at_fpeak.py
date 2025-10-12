@@ -21,6 +21,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from zz_tools import common_io as ci
+
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 
 TWOPI = 2.0 * np.pi
@@ -183,6 +185,8 @@ def main():
 
     # lecture
     df = pd.read_csv(args.results)
+
+df = ci.ensure_fig02_cols(df)
 
     x_candidates = [
         "phi_ref_fpeak",

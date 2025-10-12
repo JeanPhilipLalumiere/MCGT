@@ -15,6 +15,8 @@ from dataclasses import dataclass
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 # ----------------------------- utilitaires ---------------------------------
@@ -166,6 +168,8 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     p95_col = detect_p95_column(df, args.p95_col)
     vals_all = df[p95_col].dropna().astype(float).values
     Mtot = len(vals_all)

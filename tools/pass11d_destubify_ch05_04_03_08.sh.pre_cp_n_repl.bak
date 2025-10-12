@@ -30,7 +30,7 @@ echo "[PASS11d] Restaurations: $restored"
 echo "[PASS11d] Purge tight_layout (rect + simple) dans ch05–04–03–08…"
 for D in "${CHAPS[@]}"; do
   while IFS= read -r -d '' f; do
-    safe_cp "$f" "$f.pass11d" 2>/dev/null || true
+    cp -n "$f" "$f.pass11d" 2>/dev/null || true
 
     # fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
     perl -0777 -pe '

@@ -31,7 +31,7 @@ for f in tools/*.sh; do
       if ($0 ~ /^[[:space:]]*#/) next
       starts_heredoc($0)
       if ($0 ~ /(^|[[:space:];])cp[[:space:]]+-n([[:space:]]|$)/) { 
-        print "E: safe_cp "détecté" "dans" " FILENAME; bad=1; exit 1 
+        print "E: cp -n détecté dans " FILENAME; bad=1; exit 1 
       }
     }
     END{exit bad}

@@ -9,7 +9,7 @@ F=tools/pass14_smoke_with_mapping.sh
 [[ -f "$F" ]] || { echo "[ERREUR] Introuvable: $F" >&2; exit 2; }
 
 # sauvegarde
-safe_cp "$F" "$F.bak" 2>/dev/null || true
+cp -n "$F" "$F.bak" 2>/dev/null || true
 command -v dos2unix >/dev/null && dos2unix -k "$F" >/dev/null 2>&1 || true
 
 tmp="$F.tmp"

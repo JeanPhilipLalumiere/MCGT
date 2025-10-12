@@ -35,7 +35,7 @@ done
 
 for d in "${chapters[@]}"; do
   while IFS= read -r -d '' f; do
-    safe_cp "$f" "$f.bak" 2>/dev/null || true
+    cp -n "$f" "$f.bak" 2>/dev/null || true
 
     # fig.tight_layout(rect=[l,b,r,t]) -> fig.subplots_adjust(left=...,bottom=...,right=...,top=...)
     perl -0777 -pe '

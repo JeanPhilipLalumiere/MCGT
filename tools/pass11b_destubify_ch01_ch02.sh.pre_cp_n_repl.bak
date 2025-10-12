@@ -3,15 +3,15 @@
 . "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
 
 set -euo pipefail
-echo "[PASS11d] Dé-stubifier ch05–04–03–08, purger tight_layout, re-valider (--help)"
+echo "[PASS11b] Dé-stubifier ch01–02, purger tight_layout, re-valider (--help)"
 
-CHAPS=( "zz-scripts/chapter05" "zz-scripts/chapter04" "zz-scripts/chapter03" "zz-scripts/chapter08" )
+CHAPS=( "zz-scripts/chapter01" "zz-scripts/chapter02" )
 INVENTORY="tools/homog_pass4_cli_inventory_safe_v5.sh"
 [[ -x "$INVENTORY" ]] || { echo "[ERR] $INVENTORY introuvable"; exit 1; }
 
 restored=0
 for D in "${CHAPS[@]}"; do
-  echo "[PASS11d] Recherche de stubs PASS6 dans $D ..."
+  echo "[PASS11b] Recherche de stubs PASS6 dans $D ..."
   while IFS= read -r -d '' f; do
     if grep -q '=== \[PASS6-STUB\] ===' "$f"; then
       bak="${f}.bak"
@@ -25,12 +25,12 @@ for D in "${CHAPS[@]}"; do
     fi
   done < <(find "$D" -maxdepth 1 -type f -name "*.py" -print0)
 done
-echo "[PASS11d] Restaurations: $restored"
+echo "[PASS11b] Restaurations: $restored"
 
-echo "[PASS11d] Purge tight_layout (rect + simple) dans ch05–04–03–08…"
+echo "[PASS11b] Purge tight_layout (rect + simple) dans ch01–02…"
 for D in "${CHAPS[@]}"; do
   while IFS= read -r -d '' f; do
-    safe_cp "$f" "$f.pass11d" 2>/dev/null || true
+    cp -n "$f" "$f.pass11b" 2>/dev/null || true
 
     # fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
     perl -0777 -pe '
@@ -44,30 +44,30 @@ for D in "${CHAPS[@]}"; do
         "fig=plt.gcf(); fig.subplots_adjust(left=".$1.",bottom=".$2.",right=".$3.",top=".$4.")"/sge;
     ' -i "$f"
 
-    # plt.tight_layout() -> subplots_adjust (marges par défaut)
+    # plt.tight_layout() -> subplots_adjust (marges par défaut homogènes)
     perl -0777 -pe '
       s/\bplt\.tight_layout\(\s*\)/fig=plt.gcf(); fig.subplots_adjust(left=0.07,bottom=0.12,right=0.98,top=0.95)/sg;
     ' -i "$f"
 
-    # fig.tight_layout() -> subplots_adjust
+    # fig.tight_layout() -> subplots_adjust (idem)
     perl -0777 -pe '
       s/\bfig\.tight_layout\(\s*\)/fig.subplots_adjust(left=0.07,bottom=0.12,right=0.98,top=0.95)/sg;
     ' -i "$f"
   done < <(find "$D" -maxdepth 1 -type f -name "*.py" -print0)
 done
 
-echo "[PASS11d] Vérif: aucun tight_layout actif (hors lignes commentées)…"
+echo "[PASS11b] Vérif: aucun tight_layout actif (hors lignes commentées)…"
 viol=$(awk '/[[:alnum:]_]\.tight_layout\(/ && $0 !~ /^[[:space:]]*#/{print FILENAME ":" FNR ":" $0}' $(find "${CHAPS[@]}" -maxdepth 1 -name "*.py") || true)
 [[ -z "${viol}" ]] || { echo "[FAIL] Restes détectés:"; echo "$viol"; exit 2; }
-echo "[OK] Aucun tight_layout actif en ch05–04–03–08."
+echo "[OK] Aucun tight_layout actif en ch01–02."
 
-# Re-scan inventaire
+# Re-scan inventaire (tolérant v5)
 "$INVENTORY"
 
-# Si des FAIL subsistent dans ces chapitres, insérer un guard PASS5B puis re-scan
+# Si des FAIL ch01–02 subsistent, insérer un guard léger PASS5B puis re-scan
 FAIL_LIST="zz-out/homog_cli_fail_list.txt"
-if grep -qE '^zz-scripts/(chapter05|chapter04|chapter03|chapter08)/' "$FAIL_LIST" 2>/dev/null; then
-  echo "[PASS11d] Guards PASS5B sur FAIL ch05–04–03–08…"
+if grep -qE '^zz-scripts/(chapter01|chapter02)/' "$FAIL_LIST" 2>/dev/null; then
+  echo "[PASS11b] Guards PASS5B sur FAIL ch01–02…"
   python3 - <<'PY'
 import pathlib,re
 marker_open="# === [PASS5B-SHIM] ==="
@@ -102,11 +102,11 @@ if any(a.startswith("--out") for a in sys.argv):
 """.lstrip()
 fail_list=pathlib.Path("zz-out/homog_cli_fail_list.txt")
 targets=[pathlib.Path(l.strip()) for l in fail_list.read_text().splitlines()
-         if l.strip().startswith(("zz-scripts/chapter05/","zz-scripts/chapter04/","zz-scripts/chapter03/","zz-scripts/chapter08/"))]
+         if l.strip().startswith(("zz-scripts/chapter01/","zz-scripts/chapter02/"))]
 for p in targets:
     s=p.read_text(encoding="utf-8",errors="replace")
-    if marker_open in s:
-        print(f"[SKIP] Guard déjà présent: {p}")
+    if marker_open in s: 
+        print(f"[SKIP] Guard déjà présent: {p}"); 
         continue
     ins=0
     m=re.match(r'(?s)\A(\#\!.*\n)?(\#.*coding[:=].*\n)?(from __future__.*\n)?',s)
@@ -120,4 +120,4 @@ PY
   "$INVENTORY"
 fi
 
-echo "[PASS11d] Terminé."
+echo "[PASS11b] Terminé."

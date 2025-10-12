@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-10-12T23:31:39Z",
+  "generated_at": "2025-10-12T23:33:53Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -698,10 +698,14 @@
     {
       "path": "zz-data/chapter09/09_phases_mcgt.csv",
       "role": "data",
-      "size_bytes": 21132,
-      "sha256": "3a5ca56d24c51cad48cdddb59709076f3f6760a64ac57d8c5979434f98f8295e",
-      "mtime_iso": "2025-09-25T19:11:32Z",
-      "git_hash": "63a52ab737bb8d82867cc22a31f0e196e78688e5"
+      "size_bytes": 21217,
+      "sha256": "0578d1aa43ed75e4a36e29a516d5e69142a13bb3d75e5ff5de9eb0d084ee6ae7",
+      "mtime_iso": "2025-10-12T17:24:05Z",
+      "git_hash": "40ac553f7dadc0180fc505e1df1c1e4848da84f4",
+      "media_type": "text/csv",
+      "tags": [
+        "chapter09"
+      ]
     },
     {
       "path": "zz-data/chapter09/09_phases_mcgt_prepoly.csv",
@@ -3009,11 +3013,15 @@
     },
     {
       "path": "zz-scripts/chapter10/recompute_p95_circular.py",
-      "role": "code",
-      "size_bytes": 2867,
-      "sha256": "d2d25d3b23e5fe29efd7f6dfd257c3cc4465028f9d7092b1e1b59fb84c6ff93f",
-      "mtime_iso": "2025-10-04T20:40:12Z",
-      "git_hash": "8a9a8cc8d0bdcf6bdfa9bbc0a88ea269551e6a80"
+      "role": "script",
+      "size_bytes": 2905,
+      "sha256": "ed23004191f402ef897c369a74c19b5c1dde8ae73a185c4371ca8e0e89afcc40",
+      "mtime_iso": "2025-10-12T19:46:37Z",
+      "git_hash": "ed47d137887e43c1200d545d538762fb6d0d1458",
+      "media_type": "text/x-python",
+      "tags": [
+        "chapter10"
+      ]
     },
     {
       "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
@@ -3371,5 +3379,5 @@
     "homepage": ""
   },
   "repository_root": ".",
-  "total_size_bytes": 33284948
+  "total_size_bytes": 33285071
 }

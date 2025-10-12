@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-10-12T23:17:50Z",
+  "generated_at": "2025-10-12T23:22:47Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -658,18 +658,6 @@
       "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3",
       "mtime_iso": "2025-10-01T14:47:22Z",
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
-    },
-    {
-      "path": "zz-data/chapter09/09_metrics_phase.json",
-      "role": "data",
-      "size_bytes": 1839,
-      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
-      "mtime_iso": "2025-10-12T22:56:18Z",
-      "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b",
-      "media_type": "application/json",
-      "tags": [
-        "chapter09"
-      ]
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",
@@ -3342,6 +3330,18 @@
       "sha256": "0ae92ed7d270e7dfa539ba4507a7d224bf524cf90d363727e654636b5f408378",
       "mtime_iso": "2025-10-03T15:22:42Z",
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
+    },
+    {
+      "path": "zz-data/chapter09/09_metrics_phase.json",
+      "role": "data",
+      "size_bytes": 1839,
+      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
+      "mtime_iso": "2025-10-12T22:56:18Z",
+      "media_type": "application/json",
+      "tags": [
+        "chapter09"
+      ],
+      "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b"
     }
   ],
   "total_entries": 417,

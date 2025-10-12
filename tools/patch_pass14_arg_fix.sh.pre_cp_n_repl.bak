@@ -9,7 +9,7 @@ FILE="tools/pass14_smoke_with_mapping.sh"
 [[ -f "$FILE" ]] || { echo "[ERREUR] Introuvable: $FILE" >&2; exit 2; }
 
 # Sauvegarde une copie
-safe_cp "$FILE" "${FILE}.bak"
+cp -n "$FILE" "${FILE}.bak"
 
 # Remplacement ciblé : 'run_one "$0"' -> 'run_one "$1"' _   (avec bash --noprofile --norc -c ...)
 # On ne touche qu'à la ligne contenant 'xargs' et 'bash --noprofile --norc -c'

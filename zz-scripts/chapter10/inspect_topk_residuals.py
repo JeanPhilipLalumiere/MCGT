@@ -7,38 +7,6 @@ Inspect top-K / best candidates:
 Usage: python zz-scripts/chapter10/inspect_topk_residuals.py --ids 3903,1624,...
 """
 
-# === [PASS7QF-SHIM] ===
-# Shim minimal : --help retourne immédiatement, --out force Agg sans show bloquant.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h","--help")):
-    import argparse
-    argparse.ArgumentParser(add_help=True, allow_abbrev=False).print_help()
-    raise SystemExit(0)
-if any(arg=="--out" or arg.startswith("--out=") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        @atexit.register
-        def _auto_save():
-            path = None
-            for a in sys.argv:
-                if a.startswith("--out="): path = a.split("=",1)[1]
-            if not path:
-                # parse --out VALUE
-                for i,a in enumerate(sys.argv):
-                    if a=="--out" and i+1 < len(sys.argv):
-                        path = sys.argv[i+1]; break
-            if path:
-                try:
-                    fig = plt.gcf()
-                    fig.subplots_adjust(left=0.07,bottom=0.12,right=0.98,top=0.95)
-                    fig.savefig(path, dpi=120)
-                    print(f"[PASS7QF] Wrote: {path}")
-                except Exception as e:
-                    print(f"[PASS7QF] WARN: autosave failed: {e}")
-    except Exception:
-        pass
-# === [/PASS7QF-SHIM] ===
 import argparse
 import json
 import os

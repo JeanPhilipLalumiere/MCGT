@@ -74,8 +74,8 @@ def main():
             shrinkA=0,
             shrinkB=2,
             connectionstyle="angle3",
+        ),
     )
-      )
 
     # --- Inset légèrement vers le haut ---
     # width="50%", height="5%" du parent, bbox_to_anchor au milieu-haut
@@ -105,7 +105,7 @@ def main():
     h2, l2 = ax2.get_legend_handles_labels()
     ax.legend(h1 + h2, l1 + l2, loc="upper right", fontsize=12, frameon=False)
 
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,bottom=0.12,right=0.98,top=0.95)
+    plt.tight_layout()
     outpath = FIG_DIR / "fig_01_chi2_total_vs_q0.png"
     plt.savefig(outpath, dpi=300)
     print(f"✅ Figure enregistrée → {outpath}")
@@ -113,22 +113,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

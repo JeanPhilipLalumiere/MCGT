@@ -1,49 +1,4 @@
 #!/usr/bin/env python3
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 # tracer_fig04_fR_fRR_contre_R.py
 """
 Trace f_R et f_RR (double axe) en fonction de R/R₀ — Chapitre 3
@@ -103,9 +58,7 @@ def main() -> None:
 
     # 3. Création de la figure
     fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
-    fig.suptitle(
-        r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)",
-        y=0.98)
+    fig.suptitle(r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)", y=0.98)
 
     # axe X en log
     ax1.set_xscale("log")
@@ -122,8 +75,9 @@ def main() -> None:
     # 5. Tracé de f_RR sur l'axe de droite
     ax2 = ax1.twinx()
     ax2.set_yscale("log")
-    (ln2,) = ax2.loglog( df["R_over_R0"], df["f_RR"],
-                         color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$" )
+    (ln2,) = ax2.loglog(
+        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+    )
     ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
     ax2.tick_params(axis="y", labelcolor="tab:orange")
 
@@ -145,7 +99,7 @@ def main() -> None:
     )
 
     # 8. Mise en forme finale et sauvegarde
-    fig.subplots_adjust(left=0,bottom=0,right=1,top=0.95)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
@@ -153,22 +107,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-# [MCGT POSTPARSE EPILOGUE v2]
-# (compact) delegate to common helper; best-effort wrapper
-try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
-    from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
-except Exception:
-    pass

@@ -663,9 +663,9 @@
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
-      "sha256": "f876ca0f93d000092f05c6cfcc1bd428a368ab26be545ca414573f3e254f4d83",
-      "mtime_iso": "2025-10-12T22:29:22Z",
-      "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
+      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
+      "mtime_iso": "2025-10-12T22:44:17Z",
+      "git_hash": "fca9a2ed089a02d8e2bae99eddd2ed9817a94ad3"
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",
@@ -3001,7 +3001,7 @@
       "size_bytes": 7201,
       "sha256": "5859c2339fd35c89484f9d8c35ac4bdf3d286bb67e001ee072e507a5671ee221",
       "mtime_iso": "2025-10-12T19:46:37Z",
-      "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
+      "git_hash": "69a44f0e9024412d363abc199e4ee349b0f795c8"
     },
     {
       "path": "zz-scripts/chapter10/requirements.txt",

@@ -1,3 +1,4 @@
+export PYTHONPATH="$(git rev-parse --show-toplevel):$PYTHONPATH"
 # zz-tools/smoke_ch09_fast.sh
 #!/usr/bin/env bash
 set -Eeuo pipefail

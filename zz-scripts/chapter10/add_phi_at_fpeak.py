@@ -26,6 +26,8 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
+from zz_tools import common_io as ci
+
 # imports from your package
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
@@ -82,6 +84,8 @@ def main():
 
     # read files
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     if args.backup:
         bak = args.results + ".bak"
         if not os.path.exists(bak):

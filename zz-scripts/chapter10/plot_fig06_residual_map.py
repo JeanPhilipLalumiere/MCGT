@@ -25,6 +25,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from matplotlib.ticker import MaxNLocator
 
 
@@ -92,6 +94,8 @@ def main():
 
     # ------------------------------------------------------------------ data
     df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])
+df = ci.ensure_fig02_cols(df)
+
     x = df[args.m1_col].astype(float).values
     y = df[args.m2_col].astype(float).values
     N = len(df)

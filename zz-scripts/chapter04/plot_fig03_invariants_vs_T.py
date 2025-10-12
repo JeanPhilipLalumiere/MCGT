@@ -48,7 +48,7 @@ def main():
 
     # 5. Sauvegarde
     out = "zz-figures/chapter04/04_fig_03_invariants_vs_t.png"
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(out)
     print(f"Figure enregistrée : {out}")
 

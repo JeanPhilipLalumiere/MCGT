@@ -31,7 +31,7 @@ plt.ylabel(r"$P_{\mathrm{calc}}$")
 plt.title("Fig. 02 – Calibration log–log")
 plt.grid(True, which="both", ls=":", lw=0.5)
 plt.legend()
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(output_file)
 
 # === MCGT CLI SEED v2 ===

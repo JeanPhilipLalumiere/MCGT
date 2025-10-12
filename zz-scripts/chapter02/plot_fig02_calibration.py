@@ -31,7 +31,7 @@ plt.ylabel(r"$P_{\rm calc}$")
 plt.title("Fig. 02 – Diagramme de calibration – Chapitre 2")
 plt.grid(True, which="both", linestyle=":", linewidth=0.5)
 plt.legend()
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(FIG_DIR / "fig_02_calibration.png")
 
 # === MCGT CLI SEED v2 ===

@@ -41,7 +41,7 @@ plt.ylabel(r"$\varepsilon_i$")
 plt.title("Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2")
 plt.grid(True, which="both", linestyle=":", linewidth=0.5)
 plt.legend()
-plt.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(FIG_DIR / "fig_03_relative_errors.png")
 
 # === MCGT CLI SEED v2 ===

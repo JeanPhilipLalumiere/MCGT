@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py", line 56
-    parser.add_argument(
-                       ^
-SyntaxError: '(' was never closed

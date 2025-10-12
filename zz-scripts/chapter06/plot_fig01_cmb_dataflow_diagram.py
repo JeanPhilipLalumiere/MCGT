@@ -109,7 +109,7 @@ draw_arrow(
 )
 
 # --- Finalize and save ---
-plt.tight_layout(rect=[0, 0, 1, 0.93])
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(OUT_PNG)
 logging.info(f"Schéma enregistré → {OUT_PNG}")
 

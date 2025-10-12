@@ -2044,22 +2044,6 @@
       "git_hash": "1b9f9e1b88d0c5d05105d5b05ece108ccce44619"
     },
     {
-      "path": "zz-data/chapter09/09_comparison_milestones.csv.bak",
-      "role": "data",
-      "size_bytes": 6130,
-      "sha256": "f0562f2b31d304b32a6c8590489dc2b5dc15fbe98ea14415d7f214fa3ddac52f",
-      "mtime_iso": "2025-09-12T22:19:24Z",
-      "git_hash": "cb9955bfcff114bf6069845060a83f115a2c7a9d"
-    },
-    {
-      "path": "zz-data/chapter09/09_comparison_milestones.flagged.csv.bak",
-      "role": "data",
-      "size_bytes": 7614,
-      "sha256": "dc5c810502569161b1a0a207880868b42178234dd4a16d031b6d6efa1dd0c413",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "git_hash": "54b54d851789a0674a5dff8570ddc76b62313e95"
-    },
-    {
       "path": "zz-schemas/validate_all.sh",
       "role": "schema",
       "size_bytes": 3135,

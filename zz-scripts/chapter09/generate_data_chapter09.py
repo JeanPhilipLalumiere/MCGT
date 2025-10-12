@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 Chapitre 9 — Pipeline principal : accord homogène 20–300 Hz
@@ -21,6 +22,15 @@ Conventions:
 """
 
 from __future__ import annotations
+
+# === MCGT Hotfix: robust defaults when cfg has None/"" ===
+def _mcgt_safe_float(x, default):
+    try:
+        if x is None or (isinstance(x, str) and x.strip() == ""):
+            return float(default)
+        return float(x)
+    except Exception:
+        return float(default)
 
 import argparse
 import configparser
@@ -52,7 +62,6 @@ REF_CSV = OUT_DIR / "09_phases_imrphenom.csv"
 REF_META = OUT_DIR / "09_phases_imrphenom.meta.json"
 JALONS_CSV = OUT_DIR / "09_comparison_milestones.csv"
 
-
 # -----------------------
 # Utilities
 # -----------------------
@@ -64,7 +73,6 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     )
     return logging.getLogger("chapitre9.pipeline")
 
-
 def git_hash() -> str | None:
     try:
         return (
@@ -75,11 +83,9 @@ def git_hash() -> str | None:
     except Exception:
         return None
 
-
 def ensure_dirs() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
-
 
 def load_ini(path: Path | None) -> dict:
     cfg = {}
@@ -111,7 +117,6 @@ def load_ini(path: Path | None) -> dict:
             }
     return cfg
 
-
 def p95(arr: np.ndarray) -> float:
     a = np.asarray(arr, float)
     a = a[np.isfinite(a)]
@@ -119,19 +124,16 @@ def p95(arr: np.ndarray) -> float:
         return float("nan")
     return float(np.percentile(a, 95.0))
 
-
 def finite_ratio(arr: np.ndarray) -> float:
     arr = np.asarray(arr, float)
     if arr.size == 0:
         return 0.0
     return float(np.mean(np.isfinite(arr)))
 
-
 def clamp_min_frequencies(f: np.ndarray, fmin: float) -> np.ndarray:
     f = np.asarray(f, float).copy()
     f[f < fmin] = fmin
     return f
-
 
 # -----------------------
 # Reference generation via LALSuite or fallback
@@ -153,8 +155,8 @@ def _try_lalsuite_phi_ref(
             return None
 
         # build a frequency-domain waveform with sufficient df
-        fmin = float(np.nanmin(f))
-        fmax = float(np.nanmax(f))
+        fmin = _mcgt_safe_float(np.nanmin(f), 20.0)
+        fmax = _mcgt_safe_float(np.nanmax(f), 300.0)
         df_candidates = np.diff(np.unique(f[np.isfinite(f)]))
         df = (
             float(np.nanmin(df_candidates))
@@ -205,7 +207,6 @@ def _try_lalsuite_phi_ref(
         logger.warning("Échec LALSuite IMRPhenomD: %s", e)
         return None
 
-
 def _try_external_script_for_ref(
     freqs: np.ndarray, logger: logging.Logger
 ) -> np.ndarray | None:
@@ -237,7 +238,6 @@ def _try_external_script_for_ref(
     except Exception as e:
         logger.warning("Fallback script a échoué: %s", e)
     return None
-
 
 def load_or_build_reference(
     freqs_cfg: np.ndarray, logger: logging.Logger, refresh: bool
@@ -287,8 +287,8 @@ def load_or_build_reference(
             "source": tag,
             "n_points": int(len(f)),
             "grid": {
-                "fmin_Hz": float(np.nanmin(f)),
-                "fmax_Hz": float(np.nanmax(f)),
+                "fmin_Hz": _mcgt_safe_float(np.nanmin(f), 20.0),
+                "fmax_Hz": _mcgt_safe_float(np.nanmax(f), 300.0),
                 "monotone": bool(np.all(np.diff(f) > 0)),
             },
             "repro": {
@@ -309,7 +309,6 @@ def load_or_build_reference(
         logger.warning("Impossible d'écrire REF CSV/meta: %s", e)
 
     return f, np.asarray(phi_ref, float), tag
-
 
 # -----------------------
 # Fit alignment WLS
@@ -370,7 +369,6 @@ def fit_alignment_phi0_tc(
         fmax,
     )
     return phi0_hat, tc_hat, n
-
 
 # -----------------------
 # CLI
@@ -486,7 +484,6 @@ def parse_args() -> argparse.Namespace:
 
     return ap.parse_args()
 
-
 # -----------------------
 # Main
 # -----------------------
@@ -525,17 +522,17 @@ def main() -> None:
         if v is not None:
             cfg[k] = v
 
-    fmin = float(cfg["fmin"])
-    fmax = float(cfg["fmax"])
-    dlog = float(cfg["dlog"])
+    fmin = _mcgt_safe_float(cfg.get("fmin"), 20.0)
+    fmax = _mcgt_safe_float(cfg.get("fmax"), 300.0)
+    dlog = _mcgt_safe_float(cfg.get("dlog"), 0.01)
     params = PhaseParams(
-        m1=float(cfg["m1"]),
-        m2=float(cfg["m2"]),
-        q0star=float(cfg["q0star"]),
-        alpha=float(cfg["alpha"]),
-        phi0=float(cfg["phi0"]),
-        tc=float(cfg["tc"]),
-        tol=float(cfg["tol"]),
+        m1=_mcgt_safe_float(cfg.get("m1"), 30.0),
+        m2=_mcgt_safe_float(cfg.get("m2"), 25.0),
+        q0star=_mcgt_safe_float(cfg.get("q0star"), 0.0),
+        alpha=_mcgt_safe_float(cfg.get("alpha"), 0.0),
+        phi0=_mcgt_safe_float(cfg.get("phi0"), 0.0),
+        tc=_mcgt_safe_float(cfg.get("tc"), 0.0),
+        tol=_mcgt_safe_float(cfg.get("tol"), 1e-6),
     )
     logger.info("Paramètres MCGT: %s", params)
 
@@ -828,8 +825,8 @@ def main() -> None:
             "source_tag": ref_tag,
         },
         "grid_used": {
-            "fmin_Hz": float(np.nanmin(f)),
-            "fmax_Hz": float(np.nanmax(f)),
+            "fmin_Hz": _mcgt_safe_float(np.nanmin(f), 20.0),
+            "fmax_Hz": _mcgt_safe_float(np.nanmax(f), 300.0),
             "dlog10": float(dlog),
             "n_points_used": int(len(f)),
         },
@@ -891,7 +888,6 @@ def main() -> None:
         mw_hi,
         p95_abs,
     )
-
 
 if __name__ == "__main__":
     main()

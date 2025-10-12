@@ -56,7 +56,7 @@ def draw_bbn_schema(
     )
 
     ax.axis("off")
-    plt.tight_layout(pad=0.5)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(save_path, dpi=300)
     plt.close()

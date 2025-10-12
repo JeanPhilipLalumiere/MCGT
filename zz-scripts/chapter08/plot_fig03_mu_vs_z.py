@@ -60,7 +60,7 @@ ax.grid(which="both", ls=":", lw=0.5, alpha=0.6)
 ax.legend(loc="lower right")
 
 # -- Mise en page & sauvegarde
-fig.tight_layout()
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 fig.savefig(FIG_DIR / "fig_03_mu_vs_z.png", dpi=300)
 print("✅ fig_03_mu_vs_z.png générée dans", FIG_DIR)
 

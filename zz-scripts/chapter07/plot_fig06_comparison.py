@@ -33,6 +33,9 @@ FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_06_comparison.png"
 # --- Read k_split ---
 with open(META_JSON, encoding="utf-8") as f:
     meta = json.load(f)
+    if not isinstance(meta, dict):
+        meta = {}
+
 k_split = float(meta.get("x_split", 0.02))
 logger.info("k_split = %.2e h/Mpc", k_split)
 

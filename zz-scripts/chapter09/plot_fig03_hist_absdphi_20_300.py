@@ -329,7 +329,7 @@ def main():
 
     # Save
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    plt.tight_layout(rect=[0, 0, 0.88, 1.0])
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
     log.info("PNG écrit → %s", args.out)
     if args.svg:

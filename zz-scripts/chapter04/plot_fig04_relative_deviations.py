@@ -124,7 +124,7 @@ def main():
     # 5. Sauvegarde
     # ----------------------------------------------------------------------
     output_fig = "zz-figures/chapter04/04_fig_04_relative_deviations.png"
-    plt.tight_layout()
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(output_fig)
     print(f"Figure sauvegardée : {output_fig}")
 

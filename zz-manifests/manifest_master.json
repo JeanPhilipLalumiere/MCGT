@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-09-13T01:34:14.734241+00:00",
+  "generated_at": "2025-10-12T23:31:39Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -662,10 +662,14 @@
     {
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "size_bytes": 2391,
-      "sha256": "1472272dcc348e615189c8f71f7b4a92072159db5caad7b5692440a694318b1e",
-      "mtime_iso": "2025-10-01T14:47:22Z",
-      "git_hash": "23538f53ae41faadfb15132f47f45cda7a177e90"
+      "size_bytes": 1839,
+      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
+      "mtime_iso": "2025-10-12T22:56:18Z",
+      "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b",
+      "media_type": "application/json",
+      "tags": [
+        "chapter09"
+      ]
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",
@@ -3013,11 +3017,15 @@
     },
     {
       "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
-      "role": "code",
-      "size_bytes": 7108,
-      "sha256": "4d886a3a201b0521d88e2d7c2f155393cbefb5559a706b9aa9d0d0e2d6f05e20",
-      "mtime_iso": "2025-10-04T20:40:12Z",
-      "git_hash": "eda563bdbae53ac3a5eb21e9437e0f653be11e54"
+      "role": "script",
+      "size_bytes": 7201,
+      "sha256": "5859c2339fd35c89484f9d8c35ac4bdf3d286bb67e001ee072e507a5671ee221",
+      "mtime_iso": "2025-10-12T19:46:37Z",
+      "git_hash": "5b1f6656d722dcd5afe3cc2345e6dabde16aeb08",
+      "media_type": "text/x-python",
+      "tags": [
+        "chapter10"
+      ]
     },
     {
       "path": "zz-scripts/chapter10/requirements.txt",
@@ -3356,11 +3364,12 @@
       "git_hash": "bd8ad9ad3f2facd4ebbb664278309eacafc661e2"
     }
   ],
-  "total_entries": 0,
+  "total_entries": 419,
   "project": {
     "name": "mcgt-core",
     "version": "0.2.30",
     "homepage": ""
   },
-  "repository_root": "."
+  "repository_root": ".",
+  "total_size_bytes": 33284948
 }

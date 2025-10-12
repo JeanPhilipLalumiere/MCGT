@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-09-13T01:34:14.734241+00:00",
+  "generated_at": "2025-10-12T23:17:50Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -665,7 +665,11 @@
       "size_bytes": 1839,
       "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
       "mtime_iso": "2025-10-12T22:56:18Z",
-      "git_hash": "fca9a2ed089a02d8e2bae99eddd2ed9817a94ad3"
+      "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b",
+      "media_type": "application/json",
+      "tags": [
+        "chapter09"
+      ]
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",
@@ -3346,5 +3350,6 @@
     "version": "0.2.30",
     "homepage": ""
   },
-  "repository_root": "."
+  "repository_root": ".",
+  "total_size_bytes": 32872276
 }

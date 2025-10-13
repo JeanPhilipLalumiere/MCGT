@@ -88,3 +88,15 @@ twine-check:
 clean-dist:
 	@rm -rf dist build *.egg-info || true
 # END PY DIST TARGETS
+
+# BEGIN DOCS TARGETS
+.PHONY: docs-serve docs-build docs-clean
+docs-serve:
+\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+\t@mkdocs serve -a 0.0.0.0:8000
+docs-build:
+\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+\t@mkdocs build --clean
+docs-clean:
+\t@rm -rf site || true
+# END DOCS TARGETS

@@ -1,0 +1,11 @@
+site_name: MCGT
+site_description: Documentation du projet MCGT
+site_url: https://jeanphiliplalumiere.github.io/MCGT
+repo_url: https://github.com/JeanPhilipLalumiere/MCGT
+repo_name: JeanPhilipLalumiere/MCGT
+theme:
+  name: material
+nav:
+  - Accueil: index.md
+  - Guide:
+      - Démarrage: guide/demarrage.md

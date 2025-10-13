@@ -29,3 +29,6 @@
 
 ## 0.2.67
 - Publication OK ; latence `/simple` observée (CDN). Probe + smoke: OK dès visibilité.
+
+## 0.2.69
+- Publication OK ; probe `/simple` validée ; smoke-install no-cache OK.

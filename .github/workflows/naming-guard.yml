@@ -1,5 +1,8 @@
 name: naming-guard
 on:
+concurrency:
+  group: .github/workflows/naming-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:

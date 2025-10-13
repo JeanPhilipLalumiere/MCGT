@@ -1,5 +1,8 @@
 name: budgets
 on: [push, pull_request]
+concurrency:
+  group: .github/workflows/budgets.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   budgets:
     runs-on: ubuntu-latest

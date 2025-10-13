@@ -1,5 +1,8 @@
 name: pdf
 on: [push, pull_request]
+concurrency:
+  group: .github/workflows/pdf.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build-pdf:
     runs-on: ubuntu-latest

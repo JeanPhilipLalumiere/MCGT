@@ -8,3 +8,6 @@
 
 # Normalisation des EOL
 * text=auto eol=lf
+*.pdf binary
+zz-figures/_legacy_conflicts/ export-ignore
+zz-figures/_legacy_conflicts/** -diff

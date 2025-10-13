@@ -1,5 +1,8 @@
 name: guard-generated
 on: [push, pull_request]
+concurrency:
+  group: .github/workflows/guard-generated.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   guard-generated:
     runs-on: ubuntu-latest

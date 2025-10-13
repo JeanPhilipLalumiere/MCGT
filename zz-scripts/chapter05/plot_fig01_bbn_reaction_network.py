@@ -67,8 +67,7 @@ def draw_bbn_schema(
     }
 
     dx = 0.04  # décalage horizontal flèches ←→ boîtes (légèrement augmenté)
-    # padding interne des boîtes (boîtes « n », « p » plus larges)
-    pad_box = 0.65
+    pad_box = 0.65  # padding interne des boîtes (boîtes « n », « p » plus larges)
 
     # Dessin des boîtes
     for lab, pos in P.items():
@@ -78,11 +77,8 @@ def draw_bbn_schema(
             fontsize=14,
             ha="center",
             va="center",
-            bbox=dict(
-                boxstyle=f"round,pad={pad_box}",
-                fc="lightgray",
-                ec="gray"),
-         )
+            bbox=dict(boxstyle=f"round,pad={pad_box}", fc="lightgray", ec="gray"),
+        )
 
     # Fonction utilitaire pour tracer une flèche décalée
     def arrow(src, dst):
@@ -90,13 +86,7 @@ def draw_bbn_schema(
         x1, y1 = P[dst]
         start = (x0 + dx, y0) if x1 > x0 else (x0 - dx, y0)
         end = (x1 - dx, y1) if x1 > x0 else (x1 + dx, y1)
-        ax.annotate(
-            "",
-            xy=end,
-            xytext=start,
-            arrowprops=dict(
-                arrowstyle="->",
-                lw=2))
+        ax.annotate("", xy=end, xytext=start, arrowprops=dict(arrowstyle="->", lw=2))
 
     # Flèches du réseau BBN
     arrow("n", "D")
@@ -108,12 +98,11 @@ def draw_bbn_schema(
 
     # Titre rapproché
     ax.set_title(
-        "Schéma des réactions de la nucléosynthèse primordiale",
-        fontsize=14,
-        pad=6 )
+        "Schéma des réactions de la nucléosynthèse primordiale", fontsize=14, pad=6
+    )
 
     ax.axis("off")
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     Path(save_path).parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(save_path, dpi=300)
     plt.close()

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 FAIL_LIST="zz-out/homog_cli_fail_list.txt"
@@ -76,7 +79,7 @@ for F in "${FILES[@]}"; do
   fi
 
   # Sauvegarde unique
-  cp -n "$F" "$F.bak" 2>/dev/null || true
+  safe_cp "$F" "$F.bak" 2>/dev/null || true
 
   TMP="$(mktemp)"
   if head -n1 "$F" | grep -q '^#!'; then

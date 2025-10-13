@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 echo "[PASS12] Retrait des PASS5B-SHIM + re-scan v5 + auto-rollback ciblé si besoin"
 
@@ -16,7 +19,7 @@ echo "[PASS12] Fichiers avec PASS5B: ${#SHIM_FILES[@]}"
 removed=0
 for f in "${SHIM_FILES[@]}"; do
   [[ -f "$f" ]] || continue
-  cp -n "$f" "$f.pass12bak" 2>/dev/null || true
+  safe_cp "$f" "$f.pass12bak" 2>/dev/null || true
   python3 - "$f" "$marker_open" "$marker_close" <<'PY'
 import sys, re, pathlib
 p = pathlib.Path(sys.argv[1]); mo=sys.argv[2]; mc=sys.argv[3]

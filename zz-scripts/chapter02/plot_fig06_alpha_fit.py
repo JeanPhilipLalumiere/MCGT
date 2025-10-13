@@ -118,10 +118,8 @@ def main():
     ax2.grid(True, which="both", ls=":")
     ax2.legend()
 
-    plt.suptitle(
-        "Ajustement polynomial de $A_s(\\alpha)$ et $n_s(\\alpha)$",
-        y=0.98)
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    plt.suptitle("Ajustement polynomial de $A_s(\\alpha)$ et $n_s(\\alpha)$", y=0.98)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Sauvegarde
     FIG_DIR.mkdir(parents=True, exist_ok=True)

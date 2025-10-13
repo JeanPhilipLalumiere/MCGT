@@ -114,16 +114,14 @@ def main() -> None:
 
         # tracé
         ax_in.loglog(
-            df_zoom["R_over_R0"],
-            df_zoom["m_s2_over_R0"],
-            color="tab:blue",
-            lw=1.2 )
+            df_zoom["R_over_R0"], df_zoom["m_s2_over_R0"], color="tab:blue", lw=1.2
+        )
 
         # limites
         ax_in.set_xlim(1e4, 1e6)
         ax_in.set_ylim(
-            df_zoom["m_s2_over_R0"].min() * 0.9,
-            df_zoom["m_s2_over_R0"].max() * 1.1 )
+            df_zoom["m_s2_over_R0"].min() * 0.9, df_zoom["m_s2_over_R0"].max() * 1.1
+        )
 
         # Graduations X : 3 points fixes [1e4,1e5,1e6]
         from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
@@ -149,7 +147,7 @@ def main() -> None:
         ax_in.grid(True, which="both", ls=":", alpha=0.3)
 
     # 5. Finalisation
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

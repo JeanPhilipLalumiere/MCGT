@@ -69,9 +69,7 @@ def main():
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # --- logging ---
-    logging.basicConfig(
-        level=logging.INFO,
-        format="[%(levelname)s] %(message)s")
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
     logging.info("→ génération de la figure 07 – Invariant I₂")
 
     # --- chargement des données ---
@@ -79,8 +77,7 @@ def main():
     if df.empty:
         raise RuntimeError(f"Aucune donnée dans {CSV_DATA}")
     if "delta_phi_interp" not in df.columns:
-        raise KeyError(
-            "La colonne 'delta_phi_interp' est introuvable dans le CSV")
+        raise KeyError("La colonne 'delta_phi_interp' est introuvable dans le CSV")
 
     k = df["k"].to_numpy()
     delta_phi = df["delta_phi_interp"].to_numpy()
@@ -99,8 +96,9 @@ def main():
 
     # --- préparation du tracé ---
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.loglog( k, I2, color="C3", linewidth=2,
-               label=r"$I_2(k)=k\,\frac{\delta\phi}{\phi}$" )
+    ax.loglog(
+        k, I2, color="C3", linewidth=2, label=r"$I_2(k)=k\,\frac{\delta\phi}{\phi}$"
+    )
 
     # --- bornes Y centrées sur le plateau (k < k_split) ---
     mask_plateau = k < k_split
@@ -152,7 +150,7 @@ def main():
     ax.legend(loc="upper right", frameon=True)
 
     # --- sauvegarde ---
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_OUT, dpi=300)
     logging.info("Figure enregistrée → %s", FIG_OUT)
 

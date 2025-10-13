@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
 
-# --- POSIX helper: cp_if_missing (remplace "cp -n SRC DEST") ---
+
+# --- POSIX helper: cp_if_missing (remplace "safe_cp "SRC" "DEST"") ---
 cp_if_missing() {
   # usage: cp_if_missing SRC DEST
   # ne remplace pas si DEST existe déjà
@@ -18,7 +21,7 @@ set -euo pipefail
 # L: Link lib into tools/step*.sh (inject psx_install)
 # I: Install local hooks (ban cp -n, ban PSX banner dup)
 # D: (2nd) Double-check YAML & run pre-commit
-# B: Replace cp -n with POSIX idempotent backup logic
+# B: Replace safe_cp "with" "POSIX" idempotent backup logic
 # S: Sanity run pre-commit
 # X: Robust PSX pause (window waits for Enter)
 # Options par défaut = DALLIDBSX (tout)
@@ -194,7 +197,7 @@ if has L; then
   done
 fi
 
-# ------- (B) Remplacer cp -n par backup POSIX idempotent (hors ce script) ----
+# ------- (B) Remplacer safe_cp "par" "backup" POSIX idempotent (hors ce script) ----
 if has B; then
   mapfile -t _targets < <(ls -1 tools/*.sh 2>/dev/null || true)
   # Exclure ce script pour éviter auto-modification
@@ -216,7 +219,7 @@ for path in paths:
     for line in s.splitlines(True):
         if line.lstrip().startswith('#'):
             out.append(line); continue
-        # cp -n SRC DEST  -> if [ ! -e DEST ]; then cp SRC DEST; fi  # cp -n -> POSIX
+        # safe_cp "SRC" "DEST"  -> if [ ! -e DEST ]; then cp SRC DEST; fi  # safe_cp "->" "POSIX"
         def repl(m):
             src, dst = m.group(1), m.group(2)
             return f'if [ ! -e {dst} ]; then cp {src} {dst}; fi  # cp_if_missing -> POSIX'

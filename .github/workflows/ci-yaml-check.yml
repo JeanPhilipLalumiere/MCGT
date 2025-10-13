@@ -1,5 +1,8 @@
 name: ci-yaml-check
 on:
+concurrency:
+  group: .github/workflows/ci-yaml-check.yml-${{ github.ref }}
+  cancel-in-progress: true
   push: {}
   pull_request: {}
 

@@ -1,0 +1,12 @@
+title = "MCGT gitleaks policy"
+# Répertoires ignorés (copie legacy et artefacts)
+[[allowlist.paths]]
+description = "legacy conflicts"
+path = '''^zz-figures/_legacy_conflicts/'''
+[[allowlist.paths]]
+description = "generated logs/out"
+path = '''^(\.ci-logs/|\.ci-out/|_tmp-figs/|zz-out/)'''
+# Exemples de patterns autorisés (entropie/hex longs inoffensifs)
+[[allowlist.regexes]]
+description = "Longs hex non secrets (hash persistés)"
+regex = '''\b[0-9a-fA-F]{32,}\b'''

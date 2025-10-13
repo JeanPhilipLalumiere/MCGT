@@ -1,6 +1,9 @@
 name: manifests-guard
 
 on:
+concurrency:
+  group: .github/workflows/manifests-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:

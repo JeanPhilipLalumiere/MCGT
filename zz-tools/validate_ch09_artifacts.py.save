@@ -1,0 +1,29 @@
+# zz-tools/validate_ch09_artifacts.py
+import sys, pathlib as p
+root = p.Path(".")
+req = [
+  "zz-data/chapter09/09_phases_imrphenom.csv",
+  "zz-data/chapter09/09_phases_mcgt.csv",
+  "zz-data/chapter09/09_metrics_phase.json",
+  "zz-figures/chapter09/09_fig_01_phase_overlay.png",
+  "zz-figures/chapter09/09_fig_02_residual_phase.png",
+]
+missing = [r for r in req if not (root / r).exists()]
+if missing:
+    print("[FAIL] Manquants:")
+    for m in missing: print(" -", m)
+    sys.exit(2)
+print("[OK] Artefacts CH09 prC)sents")
+1# zz-tools/validate_ch09_artifacts.py
+import sys, pathlib as p
+root = p.Path(".")
+req = [
+  "zz-data/chapter09/09_phases_imrphenom.csv",
+  "zz-data/chapter09/09_phases_mcgt.csv",
+  "zz-data/chapter09/09_metrics_phase.json",
+  "zz-figures/chapter09/09_fig_01_phase_overlay.png",
+  "zz-figures/chapter09/09_fig_02_residual_phase.png",
+] missing = [r for r in req if not (root / r).exists()] if missing: 
+    print("[FAIL] Manquants:") for m in missing: print(" -", m) 
+    sys.exit(2)
+print("[OK] Artefacts CH09 prC)sents")

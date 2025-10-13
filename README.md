@@ -7,7 +7,6 @@
 
 [![ci-pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
 [![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-
 # Modèle de Courbure Gravitationnelle Temporelle (MCGT)
 ## Résumé
 MCGT est un corpus structuré en chapitres, accompagné de scripts, données, figures et manifestes assurant la reproductibilité.

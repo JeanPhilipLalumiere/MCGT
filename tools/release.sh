@@ -130,7 +130,7 @@ def fix_sdist(p: pathlib.Path):
             tin.extractall(tmp)
         root = next(pathlib.Path(tmp).iterdir())
         meta_p = root/"PKG-INFO"
-        meta = meta_p.read_text(encoding="utf-8","replace")
+        meta = meta_p.read_bytes().decode("utf-8","replace")
         meta_p.write_text(strip_meta(meta), encoding="utf-8")
         out = pathlib.Path(tmp_out)/p.name
         with tarfile.open(out,"w:gz") as tout:

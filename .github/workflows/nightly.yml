@@ -1,0 +1,32 @@
+name: nightly-artifacts
+on:
+  schedule:
+    - cron: "33 2 * * *"   # toutes les nuits 02:33 UTC
+  workflow_dispatch:
+concurrency:
+  group: nightly
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  attestations: write
+  id-token: write
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build artifacts
+        run: |
+          make dist-all || make dist || true
+          ls -l dist || true
+      - name: Upload artifacts (nightly)
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-dist
+          path: dist/**
+          if-no-files-found: ignore

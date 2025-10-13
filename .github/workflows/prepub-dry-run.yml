@@ -1,6 +1,9 @@
 name: prepub-dry-run
 
 on:
+concurrency:
+  group: .github/workflows/prepub-dry-run.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
     branches: [ "main" ]
   pull_request:

@@ -5,7 +5,6 @@
 [![CI accel](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml)
 <!-- END BADGES -->
 
-
 [![ci-pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
 [![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
 
@@ -39,7 +38,7 @@ Voir `docs/CI.md`.
 
 ## 1) Arborescence du projet
 Racine :
-* main.tex — Document LaTeX principal (compile les 1
+* main.tex — Document LaTeX principal.
 
 ## 2) Contenu des chapitres (LaTeX)
 Chaque dossier de chapitre contient :

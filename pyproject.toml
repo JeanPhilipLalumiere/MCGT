@@ -3,6 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
+license = { file = "LICENSE" }
 name = "zz-tools"
 version = "0.2.53"
 description = "MCGT utilities"

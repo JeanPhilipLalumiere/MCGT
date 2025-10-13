@@ -1,0 +1,58 @@
+name: build-publish
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      built: ${{ steps.detect.outputs.built }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install build tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+      - id: detect
+        name: Detect packaging files
+        run: |
+          if [ -f pyproject.toml ] || [ -f setup.cfg ] || [ -f setup.py ]; then
+            echo "built=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "built=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build sdist/wheel if present
+        if: steps.detect.outputs.built == 'true'
+        run: |
+          python -m build
+          twine check dist/*
+      - name: Upload dist/ as artifact
+        if: steps.detect.outputs.built == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    if: needs.build.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      # Publication sur PyPI via token (à définir dans Secrets: PYPI_API_TOKEN)
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist

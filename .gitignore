@@ -85,3 +85,19 @@ tools/*.new
 
 # local diagnostics
 zz-out/
+# generated / transient
+zz-out/
+.ci-out/
+.ci-logs/
+_tmp-figs/
+
+# caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# scaffolding / backups
+*.bak
+*_bak_*
+*before_*
+*.pass*

@@ -45,8 +45,7 @@ Chaque dossier de chapitre contient :
 * <prefix>\_conceptuel.tex
 * <prefix>\_details.tex (ou \_calibration\_conceptuel.tex pour le chap. 1)
 * CHAPTERXX\_GUIDE.txt (notes, exigences, jalons spécifiques)
-Liste :
-* Chapitre 1 – Introduction conceptuelle (
+* Chapitre 1 – Introduction conceptuelle
 
 ## 3) Configurations & package Python
 * zz-configuration/mcgt-global-config.ini : paramètres transverses (chemins de données/figures, tolérances, seeds, options graphiques, etc.).
@@ -57,15 +56,15 @@ Liste :
 ---
 ## 4) Données (zz-data/)
 Organisation par chapitre, exemples (liste non exhaustive) :
-* zz-data/chapter
+* zz-data/chapter…
 
 ## 5) Scripts (zz-scripts/)
 Chaque chapitre dispose de générateurs de données generate\_data\_chapterXX.py et de traceurs plot\_fig\*.py. Exemples :
-* zz-scripts/chapter
+* zz-scripts/chapter…
 
 ## 6) Figures (zz-figures/)
 Par chapitre : fig\_\*.png (noms explicites, FR).
-* chap.
+* chapitres
 
 ## 7) Manifests & repro
 * zz-manifests/manifest\_master.json — inventaire complet (source maître).

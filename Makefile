@@ -69,3 +69,10 @@ dist-all: dist checksums sbom-local
 	@echo "dist-all terminé."
 
 # END DIST TARGETS
+
+# BEGIN CI FAST TARGET
+.PHONY: ci-fast
+ci-fast:
+	@echo "CI rapide locale : pre-commit + budgets"
+	pre-commit run -a || true
+# END CI FAST TARGET

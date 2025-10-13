@@ -1,7 +1,7 @@
 name: docs
 on:
   push:
-    branches: [ "main", "feat/homog" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:

@@ -1,16 +1,8 @@
 <!-- BEGIN BADGES -->
-[![Docs](https://github.com/%s/actions/workflows/docs.yml/badge.svg)](https://github.com/%s/actions/workflows/docs.yml)
-JeanPhilipLalumiere/MCGT
-JeanPhilipLalumiere/MCGT
-[![CodeQL](https://github.com/%s/actions/workflows/codeql.yml/badge.svg)](https://github.com/%s/actions/workflows/codeql.yml)
-JeanPhilipLalumiere/MCGT
-JeanPhilipLalumiere/MCGT
-[![Release](https://github.com/%s/actions/workflows/release-publish.yml/badge.svg)](https://github.com/%s/actions/workflows/release-publish.yml)
-JeanPhilipLalumiere/MCGT
-JeanPhilipLalumiere/MCGT
-[![CI accel](https://github.com/%s/actions/workflows/ci-accel.yml/badge.svg)](https://github.com/%s/actions/workflows/ci-accel.yml)
-JeanPhilipLalumiere/MCGT
-JeanPhilipLalumiere/MCGT
+[![Docs](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml)
+[![CodeQL](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/codeql.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/codeql.yml)
+[![Release](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml)
+[![CI accel](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml)
 <!-- END BADGES -->
 
 [![ci-pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)

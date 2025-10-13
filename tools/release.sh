@@ -63,7 +63,7 @@ else
 fi
 
 # ---------- Version actuelle ----------
-CURRENT_IN_PYPROJECT="$(grep -m1 -E '^[[:space:]]*version[[:space:]]*=' pyproject.toml | sed -E 's/.*"([^"]+)".*/\1/')"
+CURRENT_IN_PYPROJECT="$(grep -m1 -E '^[[:space:]]*version[[:space:]]*=' pyproject.toml | sed -E 's/.*\"([^\"]+)\".*/\1/')"
 echo "pyproject.toml: version actuelle = ${CURRENT_IN_PYPROJECT:-?}"
 
 # ---------- Pré-check PyPI (JSON) ----------
@@ -144,7 +144,9 @@ if [[ "${DO_BUILD_UPLOAD}" == "1" ]]; then
     git push || true
   fi
 
-  _run "Nettoyage build" bash -lc rm -rf dist build *.egg-info
+  # ✅ FIX: appeler rm directement (pas via `bash -lc`), robuste même si rien n’existe
+  _run "Nettoyage build" rm -rf dist build *.egg-info
+
   _run "Build (sdist + wheel)" python -m build
 
   if [[ "${RELEASE_SANITIZE}" == "1" ]]; then
@@ -217,7 +219,7 @@ else
   echo "[preflight] Skip bump/build/upload : version déjà présente sur PyPI."
 fi
 
-# ---------- Sondes PyPI (sans pipe dans if) ----------
+# ---------- Sondes PyPI ----------
 probe_json() {
   local ver="$1" deadline=$(( $(date +%s) + ${RELEASE_TIMEOUT_JSON} )) body status
   while :; do

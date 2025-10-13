@@ -1,5 +1,8 @@
 name: quality-guards
 on: [push, pull_request]
+concurrency:
+  group: .github/workflows/quality-guards.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   perms-and-shebang:
     runs-on: ubuntu-latest

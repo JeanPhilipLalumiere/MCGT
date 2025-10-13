@@ -1,5 +1,8 @@
 name: build-publish
 on:
+concurrency:
+  group: .github/workflows/build-publish.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
     tags:
       - "v*.*.*"

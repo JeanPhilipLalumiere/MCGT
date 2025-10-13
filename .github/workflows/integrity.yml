@@ -1,5 +1,8 @@
 name: integrity
 on: [push, pull_request]
+concurrency:
+  group: .github/workflows/integrity.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   integrity:
     runs-on: ubuntu-latest

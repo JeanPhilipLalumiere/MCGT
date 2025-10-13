@@ -1,5 +1,8 @@
 name: ci
 on:
+concurrency:
+  group: .github/workflows/ci.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
   pull_request:
 

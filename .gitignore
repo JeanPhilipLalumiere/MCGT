@@ -77,19 +77,13 @@ archive/
 archive/cleanup_*.tar.gz
 
 # CI artifacts / miscellanea
-.ci-out/
 legacy-tex/
 zz-configuration/parameters_registry.json
 tools/*.before_psx
 tools/*.new
 
 # local diagnostics
-zz-out/
 # generated / transient
-zz-out/
-.ci-out/
-.ci-logs/
-_tmp-figs/
 
 # caches
 __pycache__/
@@ -102,3 +96,8 @@ __pycache__/
 *before_*
 *.pass*
 site/
+zz-out/
+# === Generated artefacts (guard) ===
+_tmp-figs/
+.ci-logs/
+.ci-out/

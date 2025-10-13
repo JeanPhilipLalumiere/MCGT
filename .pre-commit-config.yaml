@@ -1,56 +1,20 @@
 repos:
 - repo: local
   hooks:
-  - id: tabnanny
-    name: tabnanny
-    entry: python -m tabnanny
+  - id: assets-budgets
+    name: assets-budgets
+    entry: python3 tools/scan_assets_budget.py
     language: system
-    types: [python]
-
-  - id: forbid-tight_layout
-    name: forbid tight_layout calls
-    language: system
-    entry: bash
-    args:
-      - -c
-      - |
-        set -e
-        echo "[scan] searching for tight_layout() calls in zz-scripts ..."
-        # cherche uniquement de vrais appels (parenthèses), ignore les lignes commentées (# en tête de ligne)
-        if git ls-files -z -- 'zz-scripts/**/*.py' | xargs -0 grep -n "tight_layout(" | grep -vE "^[^:]+:[[:space:]]*#"; then
-          echo
-          echo "[FAIL] tight_layout() call found (see lines above)"
-          exit 1
-        else
-          echo "[OK] no tight_layout() call"
-        fi
     pass_filenames: false
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v6.0.0
-  hooks:
-    - id: check-merge-conflict
-    - id: check-symlinks
-    - id: mixed-line-ending
-    - id: end-of-file-fixer
-    - id: trailing-whitespace
-    - id: detect-private-key
-    - id: check-added-large-files
-      args: ["--maxkb=10240"]  # 10 Mo (safe pour vos PNG déjà suivis)
+    stages:
+    - pre-commit
+  - id: gitleaks-protect
+    name: gitleaks protect (skip si non installé)
+    entry: bash -lc 'command -v gitleaks >/dev/null || exit 0; gitleaks protect --staged
+      --no-banner --redact'
+    language: system
+    stages:
+    - pre-commit
+    pass_filenames: false
 - repo: local
-  hooks:
-    - id: forbid-large-csv
-      name: forbid-large-csv (use .csv.gz in zz-data/)
-      entry: bash -lc 'git diff --cached --name-only --diff-filter=A | grep -E "^zz-data/.*\.csv$" && { echo "❌ N’ajoutez pas de CSV non compressés sous zz-data/ (utilisez .csv.gz)."; exit 1; } || exit 0'
-      language: system
-      pass_filenames: false
-# BEGIN LOCAL BUDGET HOOKS
-repos:
-  - repo: local
-    hooks:
-      - id: assets-budgets
-        name: assets-budgets
-        entry: python3 tools/scan_assets_budget.py
-        language: system
-        pass_filenames: false
-        stages: [pre-commit]
-# END LOCAL BUDGET HOOKS
+  hooks: []

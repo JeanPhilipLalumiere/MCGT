@@ -1,0 +1,9 @@
+name: integrity
+on: [push, pull_request]
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier intégrité
+        run: python3 tools/check_integrity.py

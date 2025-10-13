@@ -1,0 +1,18 @@
+name: pdf
+on: [push, pull_request]
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build PDF (main.tex)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: false
+          texlive_version: 2023
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcgt-preprint
+          path: main.pdf

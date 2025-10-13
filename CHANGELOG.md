@@ -12,3 +12,7 @@
 
 ## 0.2.55–0.2.59
 - Expo `__version__`, compat méta PEP639 nettoyée, stabilisation packaging.
+
+## 0.2.65
+- Upload Twine rétabli (token correct), publication OK.
+- Probes JSON + /simple et smoke install : OK.

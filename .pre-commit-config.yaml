@@ -25,3 +25,21 @@ repos:
           echo "[OK] no tight_layout() call"
         fi
     pass_filenames: false
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v6.0.0
+  hooks:
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: mixed-line-ending
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: detect-private-key
+    - id: check-added-large-files
+      args: ["--maxkb=10240"]  # 10 Mo (safe pour vos PNG déjà suivis)
+- repo: local
+  hooks:
+    - id: forbid-large-csv
+      name: forbid-large-csv (use .csv.gz in zz-data/)
+      entry: bash -lc 'git diff --cached --name-only --diff-filter=A | grep -E "^zz-data/.*\.csv$" && { echo "❌ N’ajoutez pas de CSV non compressés sous zz-data/ (utilisez .csv.gz)."; exit 1; } || exit 0'
+      language: system
+      pass_filenames: false

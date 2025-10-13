@@ -20,3 +20,6 @@
 ## 0.2.66
 - Publication OK ; probes `/simple` + smoke install stables.
 - Pipeline release: stabilité et latences PyPI mieux gérées.
+
+## 0.2.67
+- Publication OK ; latence `/simple` observée (CDN). Probe + smoke: OK dès visibilité.

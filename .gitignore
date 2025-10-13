@@ -1,20 +1,103 @@
-# Logs locaux
-.ci-logs/
-# Cache/artefacts divers
-**/__pycache__/
-.ipynb_checkpoints/
+# === Virtualenvs / build artefacts ===
+.venv/
+.venv-*/
+venv/
+env/
+.Python
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+.venv-wheel-test/
+
+# === Python bytecode / caches ===
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytype/
+.cache/
+.pytest_cache/
+
+# === Tests / coverage ===
+!.github/
+!tests/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# === Editor / IDE files ===
+.vscode/
+.idea/
+*.swp
+
+# === OS / system files ===
 .DS_Store
+Thumbs.db
 
-# Figures legacy mises en quarantaine (gardées hors manifest & CI)
-zz-figures/_legacy_conflicts/
+# === Jupyter ===
+.ipynb_checkpoints/
 
-# Build LaTeX (on n'ignore PAS les *.tex)
-*.aux
-*.bbl
-*.blg
-*.fdb_latexmk
-*.fls
+# === Logs & temporary files ===
 *.log
-*.out
-*.toc
-*.synctex.gz
+*.tmp
+
+# === Backups & miscellaneous ===
+*.bak
+zz-trash/
+
+# === Local preview / generated figures (not part of publication) ===
+zz-figures/
+
+# === Misc binary / compiled ===
+*.so
+
+# Local only
+MCGT-clean/
+_reports/
+
+# cleanup patterns (dédupliqués)
+dist/
+dist_*/
+dist_from_*/
+artifacts_*/
+.tmp-*/
+.tmp_*/
+.tmp-ci/
+.tmp-gh-dist/
+.tmp-cleanup-logs/
+.ci_poke/
+actionlint.tar.gz
+archive/
+archive/cleanup_*.tar.gz
+
+# CI artifacts / miscellanea
+legacy-tex/
+zz-configuration/parameters_registry.json
+tools/*.before_psx
+tools/*.new
+
+# local diagnostics
+# generated / transient
+
+# caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# scaffolding / backups
+*.bak
+*_bak_*
+*before_*
+*.pass*
+site/
+zz-out/
+# === Generated artefacts (guard) ===
+_tmp-figs/
+.ci-logs/
+.ci-out/

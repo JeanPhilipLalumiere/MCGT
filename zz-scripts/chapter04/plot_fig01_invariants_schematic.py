@@ -93,22 +93,13 @@ def main():
     # ----------------------------------------------------------------------
     # 3. Repères horizontaux
     # ----------------------------------------------------------------------
-    ax.axhline(
-        I2_ref,
-        color="C1",
-        linestyle="--",
-        label=r"$I_2 \approx 10^{-35}$")
-    ax.axhline(
-        I3_ref,
-        color="C2",
-        linestyle="--",
-        label=r"$I_3 \approx 10^{-6}$")
+    ax.axhline(I2_ref, color="C1", linestyle="--", label=r"$I_2 \approx 10^{-35}$")
+    ax.axhline(I3_ref, color="C2", linestyle="--", label=r"$I_3 \approx 10^{-6}$")
 
     # ----------------------------------------------------------------------
     # 4. Repère vertical de transition T_p
     # ----------------------------------------------------------------------
-    ax.axvline(Tp, color="orange", linestyle=":",
-               label=r"$T_p=0.087\ \mathrm{Gyr}$")
+    ax.axvline(Tp, color="orange", linestyle=":", label=r"$T_p=0.087\ \mathrm{Gyr}$")
 
     # ----------------------------------------------------------------------
     # 5. Légendes, labels et grille
@@ -123,7 +114,7 @@ def main():
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
     output_fig = "zz-figures/chapter04/04_fig_01_invariants_schematic.png"
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")
 

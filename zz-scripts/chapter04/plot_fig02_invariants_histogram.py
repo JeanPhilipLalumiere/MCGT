@@ -84,16 +84,11 @@ def main():
     fig, ax = plt.subplots(figsize=(8, 5), dpi=300)
 
     # Définir les bins plus fins
-    bins = np.linspace(min(logI2.min(), logI3.min()),
-                       max(logI2.max(), logI3.max()), 40)
+    bins = np.linspace(min(logI2.min(), logI3.min()), max(logI2.max(), logI3.max()), 40)
 
     ax.hist(
-        logI2,
-        bins=bins,
-        density=True,
-        alpha=0.7,
-        label=r"$\log_{10}I_2$",
-        color="C1" )
+        logI2, bins=bins, density=True, alpha=0.7, label=r"$\log_{10}I_2$", color="C1"
+    )
     ax.hist(
         logI3,
         bins=bins,
@@ -116,7 +111,7 @@ def main():
     # 4. Sauvegarde de la figure
     # ----------------------------------------------------------------------
     output_fig = "zz-figures/chapter04/04_fig_02_invariants_histogram.png"
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")
 

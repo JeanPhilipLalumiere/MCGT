@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 echo "[HOMOG] Scan global chapitres 01–10 : tight_layout + --help"
@@ -17,7 +20,7 @@ purged=0
 for d in "${chapters[@]}"; do
   while IFS= read -r -d '' f; do
     # Sauvegarde
-    cp -n "$f" "$f.bak" 2>/dev/null || true
+    safe_cp "$f" "$f.bak" 2>/dev/null || true
     # Trois passes comme pour ch10 (séquences, blocs warnings, occurrences simples)
     perl -0777 -pe '
       s/plt\.tight_layout\([^)]*\)\s*;\s*fig\.savefig\(([^)]+)\)/fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12);\nfig.savefig(\1)/sg;

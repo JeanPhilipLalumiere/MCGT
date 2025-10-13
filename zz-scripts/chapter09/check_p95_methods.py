@@ -103,7 +103,7 @@ def plot_hist(vals, bins, outpath, xscale="log", dpi=150, title=None):
     plt.xlabel(r"$|\Delta\phi|$ [rad]")
     plt.ylabel("Comptes")
     outpath.parent.mkdir(parents=True, exist_ok=True)
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(outpath, dpi=dpi)
     plt.close()
 

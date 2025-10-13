@@ -15,6 +15,8 @@ import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from zz_tools import common_io as ci
+
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
@@ -76,6 +78,8 @@ def main():
 
     # --- lecture & colonne p95 ---
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     p95_col = detect_p95_column(df)
     p95 = df[p95_col].dropna().astype(float).values
 
@@ -212,7 +216,7 @@ def main():
         ),
         width=180,
     )
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.text(0.5, 0.04, foot, ha="center", va="bottom", fontsize=9)
 
     fig.savefig(args.out, dpi=args.dpi)

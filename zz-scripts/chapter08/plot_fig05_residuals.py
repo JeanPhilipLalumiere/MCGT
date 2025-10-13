@@ -83,18 +83,13 @@ def main():
     ax2.axhline(0, ls="--", color="black", lw=1)
     ax2.axhline(mu_std, ls=":", color="gray", lw=1)
     ax2.axhline(-mu_std, ls=":", color="gray", lw=1)
-    ax2.text(
-        0.02,
-        0.90,
-        "(b) Supernovae",
-        transform=ax2.transAxes,
-        weight="bold")
+    ax2.text(0.02, 0.90, "(b) Supernovae", transform=ax2.transAxes, weight="bold")
     ax2.legend(loc="upper right", framealpha=0.5)
     ax2.grid(which="both", ls=":", lw=0.5, alpha=0.6)
 
     # --- Ajustements finaux ---
     fig.suptitle("Résidus en fonction du redshift", y=0.98)
-    fig.subplots_adjust(left=0,bottom=0,right=1,top=0.95)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     outpath = FIG_DIR / "fig_05_residuals.png"
     fig.savefig(outpath, dpi=300)

@@ -1,0 +1,12 @@
+name: Bug
+description: Signaler un bug
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes: { label: "Que se passe-t-il ?", description: "Comportement observé vs attendu" }
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes: { label: "Reproduction", description: "Étapes, logs, versions" }
+    validations: { required: true }

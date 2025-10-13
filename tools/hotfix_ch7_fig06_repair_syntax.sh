@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 F="zz-scripts/chapter07/plot_fig06_comparison.py"
 [[ -f "$F" ]] || { echo "[SKIP] $F introuvable"; exit 0; }
 
 # Sauvegarde unique (conserve l'original)
-cp -n "$F" "$F.bak" 2>/dev/null || true
+safe_cp "$F" "$F.bak" 2>/dev/null || true
 
 echo "[HOTFIX] Réécriture sûre de $F (stub CLI temporaire + Agg + subplots_adjust)"
 

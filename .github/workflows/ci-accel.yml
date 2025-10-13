@@ -1,0 +1,82 @@
+name: ci-accel
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+concurrency:
+  group: ci-accel-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-budgets:
+    name: Lint & Budgets (pré-commit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Cache pre-commit env
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-precommit-
+
+      - name: Install pre-commit
+        run: python -m pip install -U pip pre-commit
+
+      - name: Run pre-commit (avec cache)
+        uses: pre-commit/action@v3.0.1
+
+  pdf:
+    name: Build PDF (si des .tex existent)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    if: ${{ hashFiles('**/*.tex') != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Cache Tectonic packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Tectonic
+          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+            ${{ runner.os }}-tectonic-
+
+      # Tectonic compile automatiquement et télécharge les paquets requis.
+      - name: Typeset .tex via Tectonic (auto-détection)
+        uses: tectonic-typesetting/tectonic-action@v1
+        with:
+          # Cherche un fichier principal plausible, sinon compile tout ce qu'il peut.
+          tex_path: .
+          only_cached_packages: false
+          continue_on_error: true
+
+      - name: Collecte PDF (best-effort)
+        run: |
+          mkdir -p dist
+          # Copie tous les PDF générés plausibles
+          find . -maxdepth 4 -type f -name '*.pdf' -not -path './dist/*' -print -exec cp -n '{}' dist/ \; || true
+          ls -l dist || true
+
+      - name: Upload PDF artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: dist/*.pdf
+          if-no-files-found: ignore

@@ -100,18 +100,10 @@ def main() -> None:
 
     # 3. Graphique principal
     fig, ax = plt.subplots(dpi=300, figsize=(6, 4))
+    ax.loglog(df["R_over_R0"], df["f_R"], color="tab:blue", lw=1.5, label=r"$f_R(R)$")
     ax.loglog(
-        df["R_over_R0"],
-        df["f_R"],
-        color="tab:blue",
-        lw=1.5,
-        label=r"$f_R(R)$")
-    ax.loglog(
-        df["R_over_R0"],
-        df["f_RR"],
-        color="tab:orange",
-        lw=1.5,
-        label=r"$f_{RR}(R)$" )
+        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+    )
 
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$f_R,\;f_{RR}$")
@@ -120,12 +112,8 @@ def main() -> None:
 
     # 4. Légende à mi-hauteur complètement à gauche
     ax.legend(
-        loc="center left",
-        bbox_to_anchor=(
-            0.01,
-            0.5),
-        framealpha=0.8,
-        edgecolor="black" )
+        loc="center left", bbox_to_anchor=(0.01, 0.5), framealpha=0.8, edgecolor="black"
+    )
 
     # 5. Inset zoom sur f_RR (premiers 50 points)
     import numpy as np
@@ -163,7 +151,7 @@ def main() -> None:
     ax_in.grid(True, which="both", ls=":", alpha=0.3)
 
     # 6. Sauvegarde
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

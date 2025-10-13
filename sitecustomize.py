@@ -1,28 +1,11 @@
-# Loaded automatically by site.py if importable on sys.path.
-# Purpose: provide a harmless shim for mcgt.phase.phi_mcgt during smoke tests.
-import sys
+# Auto-ajoute la racine Git au sys.path si besoin
+import os, sys, pathlib, subprocess
 try:
-    import mcgt.phase as ph
+    root = pathlib.Path(subprocess.run(
+        ["git","rev-parse","--show-toplevel"],
+        check=True, capture_output=True, text=True
+    ).stdout.strip())
+    if root and str(root) not in sys.path:
+        sys.path.insert(0, str(root))
 except Exception:
-    ph = None
-else:
-    if not hasattr(ph, "phi_mcgt"):
-        def phi_mcgt(x=None, *args, **kwargs):
-            # Return 0.0 or a zero-like container to keep pipelines running.
-            try:
-                import numpy as np
-                if x is None:
-                    return 0.0
-                # numpy-aware
-                try:
-                    arr = np.asarray(x)
-                    return np.zeros_like(arr, dtype=float)
-                except Exception:
-                    pass
-                # generic sequence
-                if hasattr(x, "__len__") and not isinstance(x, (str, bytes)):
-                    return np.zeros(len(x)) if "numpy" in sys.modules else [0.0] * len(x)
-            except Exception:
-                pass
-            return 0.0
-        ph.phi_mcgt = phi_mcgt
+    pass

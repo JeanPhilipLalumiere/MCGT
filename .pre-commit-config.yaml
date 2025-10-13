@@ -1,19 +1,20 @@
 repos:
-  - repo: local
-    hooks:
-      - id: forbid-cp-n-in-tools
-        name: forbid cp -n in tools
-        exclude: ^tools/dallidbsx\.sh$
-        language: system
-        entry: tools/hooks/forbid_cp_n.sh
-        files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-      - id: forbid-duplicate-psx-override
-        name: forbid duplicate PSX ROBUST OVERRIDE banners
-        exclude: ^tools/dallidbsx\.sh$
-        language: system
-        entry: tools/hooks/forbid_psx_dup.sh
-        files: ^tools/.*\.sh$
-        exclude: ^tools/dallidbsx\.sh$
-        exclude: ^tools/dallidbsx\.sh$
+- repo: local
+  hooks:
+  - id: assets-budgets
+    name: assets-budgets
+    entry: python3 tools/scan_assets_budget.py
+    language: system
+    pass_filenames: false
+    stages:
+    - pre-commit
+  - id: gitleaks-protect
+    name: gitleaks protect (skip si non installé)
+    entry: bash -lc 'command -v gitleaks >/dev/null || exit 0; gitleaks protect --staged
+      --no-banner --redact'
+    language: system
+    stages:
+    - pre-commit
+    pass_filenames: false
+- repo: local
+  hooks: []

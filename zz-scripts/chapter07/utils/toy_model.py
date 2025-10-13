@@ -86,7 +86,7 @@ def main():
     plt.ylabel("Toy model")
     plt.title("Test d'échantillonnage log–log")
     plt.grid(True, which="both", ls=":")
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.show()
 
 

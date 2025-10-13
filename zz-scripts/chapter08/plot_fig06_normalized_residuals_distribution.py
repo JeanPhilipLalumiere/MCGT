@@ -59,13 +59,7 @@ def main():
 
     # (a) BAO – rug + KDE
     ax = axes[0]
-    ax.plot(
-        pulls_bao,
-        np.zeros_like(pulls_bao),
-        "|",
-        ms=20,
-        mew=2,
-        label="BAO pulls")
+    ax.plot(pulls_bao, np.zeros_like(pulls_bao), "|", ms=20, mew=2, label="BAO pulls")
     kde = gaussian_kde(pulls_bao)
     xk = np.linspace(pulls_bao.min() - 1, pulls_bao.max() + 1, 300)
     ax.plot(xk, kde(xk), "-", lw=2, label="KDE")
@@ -117,11 +111,8 @@ def main():
     ax.legend(loc="upper right", frameon=False)
     ax.grid(ls=":", lw=0.5, alpha=0.6)
 
-    fig.suptitle(
-        "Distribution des pulls (résidus normalisés)",
-        y=1.02,
-        fontsize=14)
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.suptitle("Distribution des pulls (résidus normalisés)", y=1.02, fontsize=14)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     out_path = FIG_DIR / "fig_06_pulls.png"
     fig.savefig(out_path, dpi=300, bbox_inches="tight")

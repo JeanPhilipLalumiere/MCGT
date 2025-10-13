@@ -1,6 +1,9 @@
 name: manifests-json-guard
 
 on:
+concurrency:
+  group: .github/workflows/manifests-json-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:

@@ -147,7 +147,7 @@ def main() -> None:
     ax.grid(True, which="both", ls=":", alpha=0.3)
     ax.legend(loc="lower right", framealpha=0.8)
 
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG_PATH)
     plt.close(fig)

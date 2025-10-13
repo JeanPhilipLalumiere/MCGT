@@ -28,6 +28,8 @@ import sys
 import numpy as np
 import pandas as pd
 
+from zz_tools import common_io as ci
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
@@ -74,6 +76,8 @@ def main(argv: list[str] | None = None) -> int:
 
     logger.info("Chargement results: %s", results_p)
     df = pd.read_csv(results_p)
+df = ci.ensure_fig02_cols(df)
+
     # normalisation noms colonnes courants (tolérance)
     _df_cols = {c: c for c in df.columns}
     # required metrics expected

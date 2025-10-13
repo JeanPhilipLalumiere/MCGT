@@ -12,51 +12,6 @@ python zz-scripts/chapter10/diag_phi_fpeak.py \
 """
 
 from __future__ import annotations
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
-
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
 
 import argparse
 import csv
@@ -64,6 +19,8 @@ import math
 
 import numpy as np
 import pandas as pd
+
+from zz_tools import common_io as ci
 
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
@@ -104,6 +61,8 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
+df = ci.ensure_fig02_cols(df)
+
     f_ref = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
     # ensure sorted and finite
     f_ref = np.asarray(f_ref)

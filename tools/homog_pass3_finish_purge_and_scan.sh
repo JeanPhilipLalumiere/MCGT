@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 echo "[HOMOG-PASS3] Purge recursive *.tight_layout + hook global + re-scan --help"
@@ -32,7 +35,7 @@ done
 
 for d in "${chapters[@]}"; do
   while IFS= read -r -d '' f; do
-    cp -n "$f" "$f.bak" 2>/dev/null || true
+    safe_cp "$f" "$f.bak" 2>/dev/null || true
 
     # fig.tight_layout(rect=[l,b,r,t]) -> fig.subplots_adjust(left=...,bottom=...,right=...,top=...)
     perl -0777 -pe '

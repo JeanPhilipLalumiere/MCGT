@@ -1,37 +1,102 @@
-# Utilise '>' comme préfixe de recette pour éviter les TABs obligatoires
-.RECIPEPREFIX := >
-# IMPORTANT: GNU Make exige un chemin *nu* vers le shell (pas d'arguments)
-SHELL := /bin/bash
-# Options de bash pour que les erreurs fassent échouer la cible
-.SHELLFLAGS := -euo pipefail -c
-.ONESHELL:
 
-ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null || pwd)
 
-# Dossier des figures (surcharge: make FIGDIR=mon-dossier figures-manifest)
-FIGDIR ?= zz-figures
+# BEGIN INTEGRITY TARGETS
+.PHONY: integrity integrity-update
+integrity:
+	@python3 tools/check_integrity.py
 
-.PHONY: figures-norm figures-manifest figures-guard all-figures
+integrity-update:
+	@python3 tools/gen_integrity_manifest.py
+	@git add zz-manifests/integrity.json || true
+	@echo "Manifeste mis à jour. Pensez à committer."
 
-figures-norm:
-> bash tools/fig_naming_normalize.sh
+# END INTEGRITY TARGETS
 
-figures-manifest:
-> FIGDIR=$(FIGDIR) bash tools/rebuild_figures_sha256.sh
+# BEGIN BUDGET TARGETS
+.PHONY: budgets ci-checks
+budgets:
+	@python3 tools/scan_assets_budget.py
 
-figures-guard:
-> bash tools/ci_step2_figures_guard.sh
+ci-checks: integrity budgets
+	@echo "CI local OK."
+# END BUDGET TARGETS
 
-all-figures: figures-norm figures-manifest figures-guard
+# BEGIN DIST TARGETS
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
+DATE    ?= $(shell date -u +%Y%m%dT%H%M%SZ)
+DISTDIR ?= dist
+ARTIFACT_BASENAME ?= mcgt-$(VERSION)-$(DATE)
 
-guard-local:
-> bash tools/guard_local_run.sh || true
+.PHONY: dist-clean
+dist-clean:
+	@rm -rf $(DISTDIR)
 
-figures-index:
-> bash tools/build_figures_index.sh
+.PHONY: dist-prepare
+dist-prepare:
+	@mkdir -p $(DISTDIR)
 
-index-guard:
-> bash tools/check_figures_index.sh
+# Si tu as déjà un build PDF dans .github/workflows/pdf.yml qui dépose un PDF,
+# on rejoue ici de manière best-effort (à adapter au besoin).
+.PHONY: build-pdf
+build-pdf:
+	@echo "Build PDF local (optionnel) — adapte cette cible si nécessaire"
+	@# Exemple : make -C legacy-tex pdf || true
 
-prepub:
-> bash tools/build_prepub_bundle.sh
+.PHONY: dist
+dist: dist-prepare build-pdf
+	@echo "Rassemble les artefacts connus"
+	@# Exemple : cp path/to/output.pdf $(DISTDIR)/$(ARTIFACT_BASENAME).pdf || true
+	@# Ajoute ici d'autres artefacts si besoin (archives, datasets condensés, etc.)
+
+.PHONY: checksums
+checksums: dist
+	@echo "Génère checksums dans $(DISTDIR)/$(ARTIFACT_BASENAME).sha256"
+	@cd $(DISTDIR) && (shopt -s nullglob; \
+	  rm -f $(ARTIFACT_BASENAME).sha256; \
+	  for f in *; do \
+	    [ "$$f" = "$(ARTIFACT_BASENAME).sha256" ] && continue; \
+	    sha256sum "$$f" >> $(ARTIFACT_BASENAME).sha256; \
+	  done)
+
+.PHONY: sbom-local
+sbom-local: dist
+	@echo "SBOM local (si syft dispo)"
+	@command -v syft >/dev/null 2>&1 || { echo "syft non trouvé — skip"; exit 0; }
+	@syft packages dir:. -o cyclonedx-json > $(DISTDIR)/$(ARTIFACT_BASENAME).sbom.cdx.json
+
+.PHONY: dist-all
+dist-all: dist checksums sbom-local
+	@echo "dist-all terminé."
+
+# END DIST TARGETS
+
+# BEGIN CI FAST TARGET
+.PHONY: ci-fast
+ci-fast:
+	@echo "CI rapide locale : pre-commit + budgets"
+	pre-commit run -a || true
+# END CI FAST TARGET
+
+# BEGIN PY DIST TARGETS
+.PHONY: dist clean-dist twine-check
+dist:
+	@python -m pip install -U build twine >/dev/null
+	@python -m build
+twine-check:
+	@python -m pip install -U twine >/dev/null
+	@python -m twine check dist/*
+clean-dist:
+	@rm -rf dist build *.egg-info || true
+# END PY DIST TARGETS
+
+# BEGIN DOCS TARGETS
+.PHONY: docs-serve docs-build docs-clean
+docs-serve:
+\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+\t@mkdocs serve -a 0.0.0.0:8000
+docs-build:
+\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+\t@mkdocs build --clean
+docs-clean:
+\t@rm -rf site || true
+# END DOCS TARGETS

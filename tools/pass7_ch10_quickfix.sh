@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 
 echo "[PASS7-QF] Purge tight_layout (ch10) + shim inspect_topk_residuals + re-scan"
@@ -16,7 +19,7 @@ mkdir -p zz-out
 ###############################################################################
 echo "[PASS7-QF] Purge tight_layout dans $S ..."
 while IFS= read -r -d '' f; do
-  cp -n "$f" "$f.pass7bak" 2>/dev/null || true
+  safe_cp "$f" "$f.pass7bak" 2>/dev/null || true
 
   # A) fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
   perl -0777 -pe '

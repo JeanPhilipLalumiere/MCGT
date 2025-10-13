@@ -1,30 +1,13 @@
-# binaires
-*.png   binary
-*.jpg   binary
-*.jpeg  binary
-*.gif   binary
-*.pdf   binary
-*.txt text eol=lf
-*.json text eol=lf
+# Binaires (pas de diff texte)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.npz binary
+*.gz  binary
 
-# Line-endings policy (force LF)
-*.sh      text eol=lf
-*.py      text eol=lf
-*.csv     text eol=lf
-*.tex     text eol=lf
-*.md      text eol=lf
-*.yml     text eol=lf
-*.yaml    text eol=lf
-.ci-out export-ignore
-legacy-tex export-ignore
-zz-configuration/parameters_registry.json export-ignore
+# Normalisation des EOL
 * text=auto eol=lf
-*.sh text eol=lf
-*.py text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.md text eol=lf
-*.ini text eol=lf
-*.toml text eol=lf
-*.csv text eol=lf
-*.tex text eol=lf
+*.pdf binary
+zz-figures/_legacy_conflicts/ export-ignore
+zz-figures/_legacy_conflicts/** -diff

@@ -1,0 +1,17 @@
+name: guard-generated
+on: [push, pull_request]
+concurrency:
+  group: .github/workflows/guard-generated.yml-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  guard-generated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Vérifier que rien de généré n’est suivi
+        run: |
+          set -euo pipefail
+          git ls-files | grep -E '^(zz-out|\.ci-out|_tmp-figs|\.ci-logs)/' && {
+            echo "❌ Des fichiers générés sont suivis (zz-out/ .ci-out/ _tmp-figs/ .ci-logs/)"; exit 1; } || echo "✅ OK: aucun artefact généré suivi"

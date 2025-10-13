@@ -80,8 +80,7 @@ def main():
     fig, ax = plt.subplots(figsize=(6.5, 4.5))
 
     # Profil Δχ²
-    ax.plot(q0, delta_chi2, color="C0", lw=2,
-            label=r"$\Delta\chi^2(q_0^\star)$")
+    ax.plot(q0, delta_chi2, color="C0", lw=2, label=r"$\Delta\chi^2(q_0^\star)$")
 
     # Niveaux de confiance (1 dof)
     sigmas = [1.0, 4.0, 9.0]
@@ -124,7 +123,7 @@ def main():
     # Légende
     ax.legend(loc="upper left", frameon=True)
 
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     out = FIG_DIR / "fig_07_chi2_profile.png"
     fig.savefig(out, dpi=300)
     print(f"✅ {out.name} générée")

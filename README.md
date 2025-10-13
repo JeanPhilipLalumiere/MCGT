@@ -92,30 +92,10 @@ Par chapitre : fig\_\*.png (noms explicites, FR).
 * Contact technique : mainteneur des scripts / CI.
 
 
-CI (Workflows canoniques)
-sanity-main.yml
-sanity-echo.yml
-ci-yaml-check.yml
-Voir docs/CI.md.
 
 
-CI (Workflows canoniques)
-sanity-main.yml
-sanity-echo.yml
-ci-yaml-check.yml
-Voir docs/CI.md.
 
 
-CI (Workflows canoniques)
-sanity-main.yml
-sanity-echo.yml
-ci-yaml-check.yml
-Voir docs/CI.md.
 
 
-CI (Workflows canoniques)
-sanity-main.yml
-sanity-echo.yml
-ci-yaml-check.yml
-Voir docs/CI.md.
 

@@ -76,3 +76,15 @@ ci-fast:
 	@echo "CI rapide locale : pre-commit + budgets"
 	pre-commit run -a || true
 # END CI FAST TARGET
+
+# BEGIN PY DIST TARGETS
+.PHONY: dist clean-dist twine-check
+dist:
+	@python -m pip install -U build twine >/dev/null
+	@python -m build
+twine-check:
+	@python -m pip install -U twine >/dev/null
+	@python -m twine check dist/*
+clean-dist:
+	@rm -rf dist build *.egg-info || true
+# END PY DIST TARGETS

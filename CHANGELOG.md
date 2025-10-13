@@ -16,3 +16,7 @@
 ## 0.2.65
 - Upload Twine rétabli (token correct), publication OK.
 - Probes JSON + /simple et smoke install : OK.
+
+## 0.2.66
+- Publication OK ; probes `/simple` + smoke install stables.
+- Pipeline release: stabilité et latences PyPI mieux gérées.

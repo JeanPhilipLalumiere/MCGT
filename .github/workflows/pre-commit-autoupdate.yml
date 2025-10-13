@@ -1,5 +1,8 @@
 name: pre-commit autoupdate
 on:
+concurrency:
+  group: .github/workflows/pre-commit-autoupdate.yml-${{ github.ref }}
+  cancel-in-progress: true
   schedule:
     - cron: "0 5 * * 1" # Lundi 05:00 UTC
   workflow_dispatch: {}

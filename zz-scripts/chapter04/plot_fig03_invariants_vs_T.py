@@ -80,30 +80,20 @@ def main():
     ax.plot(T, I3, color="C2", label=r"$I_3 = f_R - 1$", linewidth=1.5)
 
     # 3. Repères
-    ax.axhline(
-        I2_ref,
-        color="C1",
-        linestyle="--",
-        label=r"$I_2 \approx 10^{-35}$")
-    ax.axhline(
-        I3_ref,
-        color="C2",
-        linestyle="--",
-        label=r"$I_3 \approx 10^{-6}$")
-    ax.axvline(Tp, color="orange", linestyle=":",
-               label=r"$T_p = 0.087\ \mathrm{Gyr}$")
+    ax.axhline(I2_ref, color="C1", linestyle="--", label=r"$I_2 \approx 10^{-35}$")
+    ax.axhline(I3_ref, color="C2", linestyle="--", label=r"$I_3 \approx 10^{-6}$")
+    ax.axvline(Tp, color="orange", linestyle=":", label=r"$T_p = 0.087\ \mathrm{Gyr}$")
 
     # 4. Labels et légende
     ax.set_xlabel(r"$T\ (\mathrm{Gyr})$")
     ax.set_ylabel("Invariant (valeur adimensionnelle)")
-    ax.set_title(
-        "Fig. 03 – Invariants adimensionnels $I_1$, $I_2$ et $I_3$ vs $T$")
+    ax.set_title("Fig. 03 – Invariants adimensionnels $I_1$, $I_2$ et $I_3$ vs $T$")
     ax.legend(fontsize="small")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
 
     # 5. Sauvegarde
     out = "zz-figures/chapter04/04_fig_03_invariants_vs_t.png"
-    fig=plt.gcf(); fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(out)
     print(f"Figure enregistrée : {out}")
 

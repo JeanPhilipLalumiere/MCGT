@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 set -euo pipefail
 echo "[PASS11] Dé-stubifier complètement le chapitre 10, purger tight_layout, re-valider"
 
@@ -27,7 +30,7 @@ echo "[PASS11] Restaurations: $restored"
 # 2) Purge robuste de tight_layout (rect + simple)
 echo "[PASS11] Purge tight_layout dans ch10..."
 while IFS= read -r -d '' f; do
-  cp -n "$f" "$f.pass11bak" 2>/dev/null || true
+  safe_cp "$f" "$f.pass11bak" 2>/dev/null || true
 
   # fig.tight_layout(rect=[l,b,r,t]) -> subplots_adjust
   perl -0777 -pe '

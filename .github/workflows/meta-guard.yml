@@ -1,5 +1,8 @@
 name: meta-guard
 on:
+concurrency:
+  group: .github/workflows/meta-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
   push:
   pull_request:
 jobs:

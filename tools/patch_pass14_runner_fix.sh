@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# source POSIX copy helper (safe_cp)
+. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+
 # tools/patch_pass14_runner_fix.sh — remplace le runner xargs par une boucle null-safe
 set -Eeuo pipefail
 
@@ -6,7 +9,7 @@ F=tools/pass14_smoke_with_mapping.sh
 [[ -f "$F" ]] || { echo "[ERREUR] Introuvable: $F" >&2; exit 2; }
 
 # sauvegarde
-cp -n "$F" "$F.bak" 2>/dev/null || true
+safe_cp "$F" "$F.bak" 2>/dev/null || true
 command -v dos2unix >/dev/null && dos2unix -k "$F" >/dev/null 2>&1 || true
 
 tmp="$F.tmp"

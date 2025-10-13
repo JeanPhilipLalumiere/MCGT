@@ -103,9 +103,7 @@ def main() -> None:
 
     # 3. Création de la figure
     fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
-    fig.suptitle(
-        r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)",
-        y=0.98)
+    fig.suptitle(r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)", y=0.98)
 
     # axe X en log
     ax1.set_xscale("log")
@@ -122,8 +120,9 @@ def main() -> None:
     # 5. Tracé de f_RR sur l'axe de droite
     ax2 = ax1.twinx()
     ax2.set_yscale("log")
-    (ln2,) = ax2.loglog( df["R_over_R0"], df["f_RR"],
-                         color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$" )
+    (ln2,) = ax2.loglog(
+        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+    )
     ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
     ax2.tick_params(axis="y", labelcolor="tab:orange")
 
@@ -145,7 +144,7 @@ def main() -> None:
     )
 
     # 8. Mise en forme finale et sauvegarde
-    fig.subplots_adjust(left=0,bottom=0,right=1,top=0.95)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

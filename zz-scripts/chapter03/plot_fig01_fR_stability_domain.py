@@ -109,12 +109,7 @@ def main() -> None:
     )
 
     # Repère β = 1
-    ax.axvline(
-        1.0,
-        color="gray",
-        linestyle="--",
-        linewidth=1.0,
-        label=r"$\beta = 1$")
+    ax.axvline(1.0, color="gray", linestyle="--", linewidth=1.0, label=r"$\beta = 1$")
 
     # Échelles log-log
     ax.set_xscale("log")
@@ -136,11 +131,13 @@ def main() -> None:
         ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])
 
         # Tracé γ_max (et γ_min si ≠0)
-        ax_in.plot( df.loc[mask, "beta"], df.loc[mask,
-                                                 "gamma_max"], color="black", lw=1.2 )
+        ax_in.plot(
+            df.loc[mask, "beta"], df.loc[mask, "gamma_max"], color="black", lw=1.2
+        )
         if (df.loc[mask, "gamma_min"] > 0).any():
-            ax_in.plot( df.loc[mask, "beta"], df.loc[mask,
-                                                     "gamma_min"], color="black", lw=1.2 )
+            ax_in.plot(
+                df.loc[mask, "beta"], df.loc[mask, "gamma_min"], color="black", lw=1.2
+            )
 
         # Échelles : X linéaire, Y log
         from matplotlib.ticker import (
@@ -170,7 +167,7 @@ def main() -> None:
         ax_in.set_title(r"Zoom $\beta\in[0.5,2]$", fontsize=8, pad=2)
 
     # 5. Finalisation et sauvegarde
-    fig.subplots_adjust(left=0.07,right=0.98,top=0.95,bottom=0.12)
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)

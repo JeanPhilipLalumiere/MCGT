@@ -11,3 +11,24 @@ requires-python = ">=3.9"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["zz_tools*"]
+
+
+[project.urls]
+Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
+Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
+
+[tool.hatch.build]
+include = [
+  "/**/*.py",
+  "/zz-data/**/*",
+  "/zz-figures/**/*",
+  "/README.md",
+  "/LICENSE*",
+]
+exclude = [
+  "/.ci-logs/**/*",
+  "/.ci-out/**/*",
+  "/_tmp-figs/**/*",
+  "/zz-out/**/*",
+  "/.github/**/*",
+]

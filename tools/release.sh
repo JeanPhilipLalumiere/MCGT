@@ -151,7 +151,7 @@ if [[ "${DO_BUILD_UPLOAD}" == "1" ]]; then
 
   if [[ "${RELEASE_SANITIZE}" == "1" ]]; then
     python - <<'PY'
-import re, zipfile, tarfile, tempfile, pathlib, hashlib, base64, csv, io, shutil
+import re, zipfile, tarfile, tempfile, pathlib, hashlib, base64, csv, io, shutil, os
 
 DIST = pathlib.Path("dist")
 PAT  = re.compile(r"^(?:License-Expression|License-File|Dynamic\s*:).*$", re.I|re.M)
@@ -194,12 +194,12 @@ def fix_sdist(p: pathlib.Path):
             txt2 = strip_meta(txt)
             if txt2 != txt:
                 m.write_text(txt2, encoding="utf-8")
-        out = p.with_suffix("").with_suffix(".tar.gz")
-        with tarfile.open(out, "w:gz") as tout:
+        # Écrire dans un fichier temporaire, puis remplacement atomique
+        tmp_out = p.with_suffix(".sanitized.tar.gz")
+        with tarfile.open(tmp_out, "w:gz") as tout:
             for q in sorted(tmpdir.rglob("*")):
                 tout.add(q, arcname=q.relative_to(tmpdir))
-        p.unlink()
-        out.rename(p)
+        os.replace(tmp_out, p)
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
 

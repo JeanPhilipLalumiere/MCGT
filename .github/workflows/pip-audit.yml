@@ -1,0 +1,33 @@
+name: pip-audit
+on:
+  push: { branches: ["**"] }
+  pull_request: { branches: ["**"] }
+  schedule:
+    - cron: "11 4 * * 5"
+concurrency:
+  group: deps-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install project (best-effort)
+        run: |
+          set -e
+          python -m pip install -U pip
+          if ls requirements*.txt >/dev/null 2>&1; then
+            pip install -r requirements.txt || true
+          fi
+      - name: Install pip-audit
+        run: pip install pip-audit
+      - name: Run pip-audit
+        run: |
+          set -e
+          if ls requirements*.txt >/dev/null 2>&1; then
+            pip-audit -r requirements.txt
+          else
+            pip-audit
+          fi

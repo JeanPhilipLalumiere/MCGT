@@ -43,3 +43,14 @@ repos:
       entry: bash -lc 'git diff --cached --name-only --diff-filter=A | grep -E "^zz-data/.*\.csv$" && { echo "❌ N’ajoutez pas de CSV non compressés sous zz-data/ (utilisez .csv.gz)."; exit 1; } || exit 0'
       language: system
       pass_filenames: false
+# BEGIN LOCAL BUDGET HOOKS
+repos:
+  - repo: local
+    hooks:
+      - id: assets-budgets
+        name: assets-budgets
+        entry: python3 tools/scan_assets_budget.py
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+# END LOCAL BUDGET HOOKS

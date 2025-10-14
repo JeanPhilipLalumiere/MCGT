@@ -41,3 +41,6 @@
 
 ## 0.2.70
 - Publication OK ; probe `/simple` + smoke-install no-cache OK.
+
+## 0.2.71
+- Publication OK ; probe `/simple` et smoke isolée validées.

@@ -80,19 +80,16 @@ echo "pyproject.toml: version actuelle = ${CURRENT_IN_PYPROJECT:-?}"
 # ---------- Pré-check PyPI (JSON) ----------
 is_on_pypi_json() {
   local ver="$1" body status
-  body="$(curl -fsS -H 'Cache-Control: no-cache' --max-time 5 "https://pypi.org/pypi/zz-tools/json?ts=$(date +%s)" || true)"
-  status="$(python - "$ver" <<'PY' 2>/dev/null <<<"$body"
-import sys, json
-ver = sys.argv[1]
-try:
-    d = json.loads(sys.stdin.read())
-    print("1" if ver in d.get("releases", {}) else "0")
-except Exception:
-    print("0")
-PY
-)"
-  [[ "$status" == "1" ]] && return 0 || return 1
+  # Récup JSON PyPI sans divulguer sous -x
+  { set +x; body="$(xcurl -fsS -H 'Cache-Control: no-cache' --max-time 5 "https://pypi.org/pypi/zz-tools/json?ts=$(date +%s)")"; status=$?; set -x; }
+  if [[ $status -ne 0 || -z "$body" ]]; then
+    # 2 = indéterminé (erreur réseau)
+    return 2
+  fi
+  # Vrai si 'version":"<ver>' est présent dans le JSON renvoyé
+  grep -q "\"version\"[[:space:]]*:[[:space:]]*\"$ver\"" <<<"$body"
 }
+
 
 DO_BUILD_UPLOAD=1
 if is_on_pypi_json "${VER_NEXT}"; then

@@ -197,18 +197,14 @@ def fix_sdist(p: pathlib.Path):
         # Écrire dans un fichier temporaire, puis remplacement atomique
         tmp_out = p.with_suffix(".sanitized.tar.gz")
         with tarfile.open(tmp_out, "w:gz") as tout:
-            for q in sorted(tmpdir.rglob("*")):
-                tout.add(q, arcname=q.relative_to(tmpdir))
-        os.replace(tmp_out, p)
-    finally:
-        shutil.rmtree(tmpdir, ignore_errors=True)
-
-for whl in DIST.glob("*.whl"):
-    fix_wheel(whl)
-for sd in DIST.glob("*.tar.gz"):
-    fix_sdist(sd)
-print("Sanitizer: OK")
-PY
+# -> colle le bloc "Probe /simple (critère pip). Ne bloque pas la fin de script" juste après l’upload PyPI for q 
+# in sorted(tmpdir.rglob("*")):
+#   sauvegarde et quitte tout.add(q, arcname=q.relative_to(tmpdir))
+        os.replace(tmp_out, p) finally:
+# 3) Commit/push shutil.rmtree(tmpdir, ignore_errors=True)
+git add tools/release.sh for whl in DIST.glob("*.whl"): git commit -m "release.sh: probe /simple non bloquant 
+(préserve la fenêtre & les logs)" fix_wheel(whl) for sd in DIST.glob("*.tar.gz"): git push -u origin 
+fix/release-probe-softfail fix_sdist(sd) print("Sanitizer: OK") PY
   else
     echo "Sanitizer: OFF (skipped)"
   fi

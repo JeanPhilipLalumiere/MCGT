@@ -10,6 +10,17 @@
 # - Pause anti-fermeture en fin, même en cas d’erreur
 set -euo pipefail
 
+# Garde-fou token PyPI
+if [[ -z "${TWINE_PASSWORD-}" || ${#TWINE_PASSWORD} -lt 50 ]]; then
+  echo "TWINE_PASSWORD invalide (vide ou trop court). Abandon."
+  exit 1
+fi
+
+
+# curl silencieux quand xtrace est actif
+xcurl() { ( set +x; curl "$@" ); }
+
+
 VER_NEXT="${1:-}"
 if [[ -z "${VER_NEXT}" ]]; then
   echo "Usage: $0 <new-version>"

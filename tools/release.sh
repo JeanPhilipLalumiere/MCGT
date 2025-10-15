@@ -1,322 +1,178 @@
 #!/usr/bin/env bash
-# tools/release.sh — Release E2E idempotente pour zz-tools / MCGT
-# - Bump version (tolérant si déjà à jour)
-# - Pré-check PyPI (skip build/upload si la version existe déjà)
-# - Build sdist+wheel
-# - Sanitizer METADATA (strip PEP639/Dynamic) + RECORD/PKG-INFO
-# - twine check + upload
-# - Sondes JSON & /simple (sans pipe dans if)
-# - Smoke install (venv jetable, pip no-cache + retries)
-# - Pause anti-fermeture en fin, même en cas d’erreur
-set -euo pipefail
+# tools/release.sh — publication zz-tools / MCGT
+# - garde-fou TWINE (ne fuit pas sous set -x)
+# - xcurl (curl silencieux si xtrace actif)
+# - journalisation propre + LOG robuste
+# - --dry-run / --skip-build / --skip-upload
+# - détection version déjà sur PyPI (silencieux)
 
-# Garde-fou token PyPI
-if [[ -z "${TWINE_PASSWORD-}" || ${#TWINE_PASSWORD} -lt 50 ]]; then
-  echo "TWINE_PASSWORD invalide (vide ou trop court). Abandon."
-  exit 1
-fi
+set -Eeuo pipefail
 
+#######################################
+# Early init (sûr sous set -u)
+#######################################
+SCRIPT_PATH="${BASH_SOURCE[0]:-$0}"
+SCRIPT_DIR="$( cd "$( dirname "$SCRIPT_PATH" )" && pwd -P )"
+ROOT="$( cd "$SCRIPT_DIR/.." && pwd -P )"
 
+: "${RELEASE_NO_PAUSE:=0}"
+: "${RELEASE_SKIP_BUILD:=0}"
+: "${RELEASE_SKIP_UPLOAD:=0}"
+: "${RELEASE_TIMEOUT:=180}"
+: "${RELEASE_GITHUB_TIMEOUT:=180}"
+: "${RELEASE_PYPI_RETRY:=30}"
+: "${LOG:=<none>}"   # sera fixé après parsing version
+
+#######################################
+# Utilitaires
+#######################################
 # curl silencieux quand xtrace est actif
 xcurl() { ( set +x; curl "$@" ); }
 
+die() { printf "[ERREUR] %s\n" "$*" >&2; exit 1; }
+info(){ printf "[info] %s\n" "$*"; }
+note(){ printf "%s\n" "$*"; }
 
-VER_NEXT="${1:-}"
-if [[ -z "${VER_NEXT}" ]]; then
-  echo "Usage: $0 <new-version>"
-  exit 2
-fi
-
-: "${TWINE_USERNAME:=__token__}"
-: "${TWINE_PASSWORD:?TWINE_PASSWORD (token PyPI) manquant}"
-
-: "${RELEASE_SANITIZE:=1}"      # 1=ON
-: "${RELEASE_TAG:=0}"           # 1=crée/pousse le tag vX.Y.Z
-: "${RELEASE_GH:=0}"            # 1=crée la release GitHub (si 'gh' configuré)
-: "${RELEASE_NO_PAUSE:=0}"      # 1=désactive la pause finale
-: "${RELEASE_TIMEOUT_JSON:=180}"
-: "${RELEASE_TIMEOUT_SIMPLE:=180}"
-: "${RELEASE_SMOKE_RETRIES:=30}"
-
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
-
-# ---------- Journalisation & pause ----------
-ts() { date -u +"%Y-%m-%dT%H:%M:%SZ"; }
-LOG="release_${VER_NEXT}_$(date -u +%Y%m%dT%H%M%SZ).log"
-exec > >(tee -a "$LOG") 2>&1
+run() {
+  local title="$1"; shift
+  printf "\n[RUN] %s\n>>> %s\n" "$title" "$*"
+  "$@"
+}
 
 _pause() {
   local rc="$?"
-  [[ "${RELEASE_NO_PAUSE}" == "1" ]] && { echo -e "\nFin (rc=${rc}). Log: $LOG"; return 0; }
-  echo -e "\n══════════════════════════════════════════════════════"
-  echo "Fin du script (rc=${rc}). Log: $LOG"
-  read -r -p "Appuie sur Entrée pour fermer cette fenêtre (ou Ctrl+C) " _ || true
+  printf "\nFin du script (rc=%s). Log: %s\n" "$rc" "${LOG:-<none>}"
+  # pause seulement si demandé (par défaut on pause)
+  if [[ "${RELEASE_NO_PAUSE}" != "1" ]]; then
+    # pas d'écho du token : simple prompt neutre
+    read -r -p $'---\nAppuie sur Entrée pour fermer cette fenêtre…' _ || true
+  fi
+  return "$rc"
 }
 trap _pause EXIT
 
-_run() {
-  local title="$1"; shift
-  echo -e "\n[RUN] ${title}\n>>> $*"
-  "$@"
-  echo "OK."
+usage() {
+  cat <<'USAGE'
+Usage: tools/release.sh <version> [--dry-run] [--skip-build] [--skip-upload]
+
+Exemples:
+  tools/release.sh 0.2.72 --dry-run
+  tools/release.sh 0.2.72
+USAGE
 }
 
-echo "[release] target -> ${VER_NEXT}"
-echo "[cwd] $PWD"
-echo "[log] $LOG"
+#######################################
+# Parsing arguments
+#######################################
+VER="${1-}"; shift || true
+[[ -n "${VER}" ]] || { usage; die "version manquante"; }
+[[ "${VER}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "version invalide: ${VER}"
 
-# ---------- Git upstream ----------
-if git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
-  echo "[git] upstream déjà configuré pour '$(git rev-parse --abbrev-ref HEAD)'"
-else
-  _run "Set upstream" git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
-fi
-
-# ---------- Version actuelle ----------
-CURRENT_IN_PYPROJECT="$(grep -m1 -E '^[[:space:]]*version[[:space:]]*=' pyproject.toml | sed -E 's/.*\"([^\"]+)\".*/\1/')"
-echo "pyproject.toml: version actuelle = ${CURRENT_IN_PYPROJECT:-?}"
-
-# ---------- Pré-check PyPI (JSON) ----------
-is_on_pypi_json() {
-  local ver="$1" body status
-  # Requête PyPI silencieuse même si -x actif
-  { set +x; body="$(xcurl -fsS -H 'Cache-Control: no-cache' --max-time 5 "https://pypi.org/pypi/zz-tools/json?ts=$(date +%s)")"; status=$?; set -x; }
-  if [[ $status -ne 0 || -z "$body" ]]; then
-    # 2 = indéterminé (erreur réseau)
-    return 2
-  fi
-  grep -q "\"version\"[[:space:]]*:[[:space:]]*\"$ver\"" <<<"$body"
-}
-
-
-
-
-DO_BUILD_UPLOAD=1
-if is_on_pypi_json "${VER_NEXT}"; then
-  echo "[preflight] PyPI a déjà ${VER_NEXT} — skip build/upload."
-  DO_BUILD_UPLOAD=0
-fi
-
-# ---------- Bump version (tolérant) ----------
-bump_pyproject() {
-  python - "$VER_NEXT" <<'PY' || true
-import sys, re, pathlib
-ver = sys.argv[1]
-p = pathlib.Path("pyproject.toml")
-s = p.read_text(encoding="utf-8")
-m = re.search(r'(?m)^\s*version\s*=\s*"([^"]+)"\s*$', s)
-if m and m.group(1) == ver:
-    print(f"pyproject.toml: version déjà à {ver}")
-else:
-    s2 = re.sub(r'(?m)^(\s*version\s*=\s*)".*?"(\s*)$', rf'\1"{ver}"\2', s)
-    if s2 == s:
-        print("pyproject.toml: pattern version introuvable — je continue (à vérifier).")
-    else:
-        p.write_text(s2, encoding="utf-8")
-        print(f"pyproject.toml -> version mise à jour vers {ver}")
-PY
-}
-
-bump_init() {
-  python - "$VER_NEXT" <<'PY' || true
-import sys, re, pathlib
-ver = sys.argv[1]
-p = pathlib.Path("zz_tools/__init__.py")
-s = p.read_text(encoding="utf-8")
-m = re.search(r'(?m)^\s*__version__\s*=\s*"([^"]+)"\s*$', s)
-if m and m.group(1) == ver:
-    print(f"__init__.py: __version__ déjà {ver}")
-else:
-    s2 = re.sub(r'(?m)^(\s*__version__\s*=\s*)".*?"(\s*)$', rf'\1"{ver}"\2', s)
-    if s2 == s:
-        s2 = s.rstrip() + f'\n__version__ = "{ver}"\n'
-    p.write_text(s2, encoding="utf-8")
-    print(f"__init__.py -> version mise à jour vers {ver}")
-PY
-}
-
-if [[ "${DO_BUILD_UPLOAD}" == "1" ]]; then
-  bump_pyproject
-  bump_init
-
-  # Commit/push si changements
-  if ! git diff --quiet --staged || ! git diff --quiet; then
-    echo -e "\n[RUN] Commit bump ${VER_NEXT}"
-    git add -A && echo "OK."
-    echo -e "\n[RUN] Git commit"
-    git commit -m "chore(version): ${VER_NEXT}" && echo "OK."
-    echo -e "\n[RUN] Git push"
-    git push origin "$(git rev-parse --abbrev-ref HEAD)" && echo "OK."
-  else
-    echo "[git] rien à committer"
-    git push || true
-  fi
-
-  # ✅ FIX: appeler rm directement (pas via `bash -lc`), robuste même si rien n’existe
-  _run "Nettoyage build" rm -rf dist build *.egg-info
-
-  _run "Build (sdist + wheel)" python -m build
-
-  if [[ "${RELEASE_SANITIZE}" == "1" ]]; then
-    python - <<'PY'
-import re, zipfile, tarfile, tempfile, pathlib, hashlib, base64, csv, io, shutil, os
-
-DIST = pathlib.Path("dist")
-PAT  = re.compile(r"^(?:License-Expression|License-File|Dynamic\s*:).*$", re.I|re.M)
-
-def strip_meta(txt: str) -> str:
-    out = "\n".join(ln for ln in txt.splitlines() if not PAT.match(ln))
-    return out if out.endswith("\n") else out + "\n"
-
-def fix_wheel(p: pathlib.Path):
-    with zipfile.ZipFile(p, "r") as zin:
-        names = zin.namelist()
-        meta  = [n for n in names if n.endswith(".dist-info/METADATA")][0]
-        rec   = meta.rsplit(".dist-info/", 1)[0] + ".dist-info/RECORD"
-        rows  = []
-        cleaned = strip_meta(zin.read(meta).decode("utf-8","replace")).encode()
-        for n in names:
-            rows.append((n, cleaned if n == meta else zin.read(n)))
-    with zipfile.ZipFile(p, "w", compression=zipfile.ZIP_DEFLATED) as zout:
-        for n, b in rows:
-            if n == rec: continue
-            zout.writestr(n, b)
-        out = io.StringIO(); w = csv.writer(out)
-        for n, b in rows:
-            if n == rec: continue
-            h = hashlib.sha256(b).digest()
-            algo = "sha256=" + base64.urlsafe_b64encode(h).rstrip(b"=").decode()
-            w.writerow([n, algo, str(len(b))])
-        w.writerow([rec, "", ""])
-        zout.writestr(rec, out.getvalue())
-
-def fix_sdist(p: pathlib.Path):
-    tmpdir = pathlib.Path(tempfile.mkdtemp())
-    try:
-        with tarfile.open(p, "r:gz") as tin:
-            tin.extractall(tmpdir)
-        meta = list(tmpdir.rglob("PKG-INFO"))
-        if meta:
-            m = meta[0]
-            txt  = m.read_bytes().decode("utf-8","replace")
-            txt2 = strip_meta(txt)
-            if txt2 != txt:
-                m.write_text(txt2, encoding="utf-8")
-        # Écrire dans un fichier temporaire, puis remplacement atomique
-        tmp_out = p.with_suffix(".sanitized.tar.gz")
-        with tarfile.open(tmp_out, "w:gz") as tout:
-# -> colle le bloc "Probe /simple (critère pip). Ne bloque pas la fin de script" juste après l’upload PyPI for q 
-# in sorted(tmpdir.rglob("*")):
-#   sauvegarde et quitte tout.add(q, arcname=q.relative_to(tmpdir))
-        os.replace(tmp_out, p) finally:
-# 3) Commit/push shutil.rmtree(tmpdir, ignore_errors=True)
-git add tools/release.sh for whl in DIST.glob("*.whl"): git commit -m "release.sh: probe /simple non bloquant 
-(préserve la fenêtre & les logs)" fix_wheel(whl) for sd in DIST.glob("*.tar.gz"): git push -u origin 
-fix/release-probe-softfail fix_sdist(sd) print("Sanitizer: OK") PY
-  else
-    echo "Sanitizer: OFF (skipped)"
-  fi
-
-  _run "twine check" twine check "dist/zz_tools-${VER_NEXT}-py3-none-any.whl" "dist/zz_tools-${VER_NEXT}.tar.gz"
-  _run "Upload PyPI (twine)" twine upload "dist/zz_tools-${VER_NEXT}-py3-none-any.whl" "dist/zz_tools-${VER_NEXT}.tar.gz"
-else
-  echo "[preflight] Skip bump/build/upload : version déjà présente sur PyPI."
-fi
-
-# ---------- Sondes PyPI ----------
-probe_json() {
-  local ver="$1" deadline=$(( $(date +%s) + ${RELEASE_TIMEOUT_JSON} )) body status
-  while :; do
-    body="$(curl -fsS -H 'Cache-Control: no-cache' --max-time 5 \
-             "https://pypi.org/pypi/zz-tools/json?ts=$(date +%s)" || true)"
-    status="$(python - "$ver" <<'PY' 2>/dev/null <<<"$body"
-import sys, json
-ver=sys.argv[1]
-try:
-    d=json.loads(sys.stdin.read())
-    print("FOUND" if ver in d.get("releases",{}) else "MISS")
-except Exception:
-    print("MISS")
-PY
-)"
-    if [[ "$status" == "FOUND" ]]; then
-      echo "PyPI JSON: ${ver} visible."
-      break
-    fi
-    [[ "$(date +%s)" -ge "$deadline" ]] && { echo "Timeout PyPI JSON"; return 1; }
-    echo "PyPI JSON: pas encore visible; retry…"; sleep 5
-  done
-}
-
-probe_simple() {
-  local ver="$1" deadline=$(( $(date +%s) + ${RELEASE_TIMEOUT_SIMPLE} )) html
-  while :; do
-    html="$(curl -fsS -H 'Cache-Control: no-cache' --max-time 5 "https://pypi.org/simple/zz-tools/?ts=$(date +%s)" || true)"
-    if grep -q "$ver" <<<"$html"; then
-      echo "PyPI /simple: ${ver} visible."
-      break
-    fi
-    [[ "$(date +%s)" -ge "$deadline" ]] && { echo "Timeout index /simple"; return 1; }
-    echo "PyPI /simple: pas encore visible; retry…"; sleep 5
-  done
-}
-
-probe_json "${VER_NEXT}" || true
-probe_simple "${VER_NEXT}" || true
-
-# ---------- Smoke install ----------
-unset PYTHONPATH
-echo "# -- SMOKE INSTALL --"
-tmpdir="$(mktemp -d)"; echo "TMP = $tmpdir"
-python -m venv "$tmpdir/.venv-smoke"
-# shellcheck disable=SC1090
-source "$tmpdir/.venv-smoke/bin/activate"
-python -m pip cache purge || true
-python -m pip install -U pip
-
-OK=0
-for i in $(seq 1 "${RELEASE_SMOKE_RETRIES}"); do
-  echo "[try $i/${RELEASE_SMOKE_RETRIES}] pip install zz-tools==${VER_NEXT} (no-cache)…"
-  if python -m pip install --no-cache-dir --index-url https://pypi.org/simple "zz-tools==${VER_NEXT}"; then
-    OK=1
-    break
-  fi
-  echo "…pas encore propagé; retry dans 5s"
-  sleep 5
+DRY_RUN=0
+while (($#)); do
+  case "$1" in
+    --dry-run)      DRY_RUN=1 ;;
+    --skip-build)   RELEASE_SKIP_BUILD=1 ;;
+    --skip-upload)  RELEASE_SKIP_UPLOAD=1 ;;
+    -h|--help)      usage; exit 0 ;;
+    *) die "argument inconnu: $1" ;;
+  esac
+  shift || true
 done
 
-if [[ "$OK" -eq 1 ]]; then
-  ( cd "$tmpdir" && python - <<'PY'
-import zz_tools, importlib.util, sys
-print("__version__ =", getattr(zz_tools, "__version__", "unknown"))
-print("module path =", zz_tools.__file__)
-print("find_spec ok  =", bool(importlib.util.find_spec("zz_tools")))
-print("loaded from current venv:", zz_tools.__file__.startswith(sys.prefix))
+# LOG (maintenant que VER est connu)
+TS="$(date -u +%Y%m%dT%H%M%SZ)"
+LOG="release_${VER}_${TS}.log"
+# journalisation
+exec > >(tee -a "${LOG}") 2>&1
+
+note "[release] target -> ${VER}"
+note "[cwd] ${ROOT}"
+note "[log] ${LOG}"
+
+#######################################
+# Vérifs TWINE (masquées sous set -x)
+#######################################
+# TWINE_USERNAME doit exister (habituellement "__token__")
+{ set +x;
+  : "${TWINE_USERNAME:?token PyPI manquant (TWINE_USERNAME)}"
+  : "${TWINE_PASSWORD:?token PyPI manquant (TWINE_PASSWORD)}"
+set -x; } 2>/dev/null || true
+
+# Garde-fou supplémentaire: longueur + préfixe
+{ set +x;
+  if [[ -z "${TWINE_PASSWORD-}" || ${#TWINE_PASSWORD} -lt 50 || "${TWINE_PASSWORD}" != pypi-AgEI* ]]; then
+    echo "TWINE_PASSWORD invalide (vide, trop court ou format inattendu). Abandon."
+    exit 1
+  fi
+set -x; } 2>/dev/null || true
+
+#######################################
+# Fonctions PyPI
+#######################################
+is_on_pypi_json() {
+  # 0 -> présent, 1 -> absent, 2 -> erreur réseau / parsing
+  local ver="$1" body status url
+  url="https://pypi.org/pypi/zz-tools/json?ts=$(date +%s)"
+  # masquer l'appel réseau sous xtrace
+  { set +x; body="$(xcurl -fsS -H 'Cache-Control: no-cache' --max-time 5 "$url")"; set -x; } || return 2
+  [[ -z "$body" ]] && return 2
+
+  if command -v jq >/dev/null 2>&1; then
+    status="$(printf '%s' "$body" | jq -r --arg v "$ver" '.releases[$v] | if . == null then "missing" else "present" end' 2>/dev/null || echo error)"
+  else
+    # fallback Python (pas d'accès net, juste parsing JSON)
+    status="$(python - <<'PY' 2>/dev/null || echo error
+import json,sys,os
+data=json.load(sys.stdin)
+v=os.environ.get("PYPI_QV","")
+print("present" if v in data.get("releases",{}) else "missing")
 PY
-  )
+      )"
+  fi
+
+  [[ "$status" == "present" ]] && return 0
+  [[ "$status" == "missing" ]] && return 1
+  return 2
+}
+
+#######################################
+# Étapes
+#######################################
+# 1) Vérifier si la version est déjà sur PyPI
+if is_on_pypi_json "${VER}"; then
+  info "Version ${VER} déjà sur PyPI → rien à publier."
+  RELEASE_SKIP_UPLOAD=1
+fi
+
+# 2) Build (sauf si skip)
+if [[ "${RELEASE_SKIP_BUILD}" != "1" ]]; then
+  if [[ "${DRY_RUN}" == "1" ]]; then
+    info "[dry-run] build (skippé)"
+  else
+    run "build dist/*" bash -c 'cd "'"${ROOT}"'" && rm -rf dist build *.egg-info && python -m build'
+  fi
 else
-  echo "Échec d’installation après ${RELEASE_SMOKE_RETRIES} tentatives — latence CDN probable."
+  info "skip build demandé."
 fi
-deactivate || true
 
-echo "Log fin: $(ts)"
-
-# ---------- Tag & GitHub (optionnels) ----------
-if [[ "${RELEASE_TAG}" == "1" ]]; then
-  if git rev-parse "v${VER_NEXT}" >/dev/null 2>&1; then
-    echo "[tag] v${VER_NEXT} déjà présent localement."
+# 3) Upload (sauf si skip ou dry-run)
+if [[ "${RELEASE_SKIP_UPLOAD}" != "1" ]]; then
+  if [[ "${DRY_RUN}" == "1" ]]; then
+    info "[dry-run] upload (skippé)"
   else
-    _run "git tag v${VER_NEXT}" git tag -a "v${VER_NEXT}" -m "Release ${VER_NEXT}"
+    run "twine upload" bash -c 'cd "'"${ROOT}"'" && twine upload dist/*'
   fi
-  _run "git push tag" git push origin "v${VER_NEXT}"
+else
+  info "skip upload demandé."
 fi
 
-if [[ "${RELEASE_GH}" == "1" ]]; then
-  if command -v gh >/dev/null 2>&1; then
-    gh release create "v${VER_NEXT}" --generate-notes --title "zz-tools ${VER_NEXT}" \
-      || echo "[gh] release déjà existante ou gh non configuré."
-  else
-    echo "[gh] CLI non trouvée — skip."
-  fi
+# 4) Tag git (seulement si pas dry-run)
+if [[ "${DRY_RUN}" == "1" ]]; then
+  info "[dry-run] tag git v${VER} (skippé)"
+else
+  run "git tag v${VER}"  git tag "v${VER}" -m "Release ${VER}" || true
+  run "git push tag"     git push origin "v${VER}" || true
 fi
+
+info "Terminé."

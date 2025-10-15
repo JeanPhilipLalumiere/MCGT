@@ -3,7 +3,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zz-tools"
-version = "0.2.75a1"
+version = "0.2.75"
 description = "Small helpers for MCGT project"
 readme = "README.md"
 requires-python = ">=3.9"

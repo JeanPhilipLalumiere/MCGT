@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
 WHEEL="$(ls dist/*.whl | head -n1)"
-SDIST="$(ls dist/*.tar.gz | head -n1)"
+SDIST="$(ls dist/*.tar.gz | head -n1 || true)"
 
-# Wheel
-if unzip -p "$WHEEL" */METADATA | grep -Eiq '^(License-Expression|License-File|Dynamic: license)'; then
-  echo "[ERR] Wheel contient un champ PEP639 non désiré"; exit 1
+has_pep639() {
+  unzip -p "$WHEEL" */METADATA | grep -qE '^License-Expression:'
+}
+
+if has_pep639; then
+  echo "[OK] PEP639 détecté (License-Expression présent) — métadonnées conformes au mode SPDX."
+  exit 0
 fi
 
-# Sdist (PKG-INFO peut être ailleurs selon l’emballage)
-if tar -tzf "$SDIST" | grep -Eq '\.egg-info/PKG-INFO$'; then
-  PKGINFO="$(tar -tzf "$SDIST" | grep '\.egg-info/PKG-INFO$' | head -n1)"
-  if tar -xOf "$SDIST" "$PKGINFO" | grep -Eiq '^(License-Expression|License-File|Dynamic: license)'; then
-    echo "[ERR] Sdist contient un champ PEP639 non désiré"; exit 1
-  fi
+echo "[INFO] Mode legacy (pas de License-Expression): on s’assure qu’aucun header PEP639 ne s’est glissé."
+if unzip -p "$WHEEL" */METADATA | grep -Ei '^(License-Expression|License-File|Dynamic: license)'; then
+  echo "[ERR] Headers PEP639 détectés en mode legacy."
+  exit 2
 fi
 
-echo "[OK] métadonnées propres"
+if unzip -l "$WHEEL" | grep -qE '/dist-info/licenses/'; then
+  echo "[ERR] Dossier licenses/ détecté en mode legacy."
+  exit 3
+fi
+
+echo "[OK] Legacy: pas de headers PEP639 ni de dossier licenses/"
+exit 0

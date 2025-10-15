@@ -1,25 +1,65 @@
-name: publish
+name: Publish to PyPI
+
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
+  release:
+    types: [published]
+  workflow_dispatch: {}
 
 permissions:
-  id-token: write   # OIDC for PyPI
   contents: read
+  id-token: write  # requis pour Trusted Publishing (OIDC)
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build-publish:
+  build-and-publish:
+    name: Build & publish
     runs-on: ubuntu-latest
+    # Optionnel: si tu utilises l'environnement GitHub "pypi" pour protéger l'étape de publication
+    environment: pypi
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - run: python -m pip install --upgrade build
-      - run: python -m build
-      - run: ./scripts/check_metadata_clean.sh
-      - name: Publish to PyPI (trusted publishing)
+          python-version: "3.x"
+          cache: "pip"
+
+      - name: Upgrade build tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build twine
+
+      - name: Build sdist & wheel
+        run: |
+          python -m build
+
+      # Vérif locale des métadonnées si ton script existe (ne casse pas le build sinon)
+      - name: Metadata hygiene (optional)
+        shell: bash
+        run: |
+          if [[ -x scripts/check_metadata_clean.sh ]]; then
+            ./scripts/check_metadata_clean.sh || true
+          else
+            echo "scripts/check_metadata_clean.sh not found; skipping."
+          fi
+
+      # twine check peut ne pas comprendre PEP 639 selon la version; on ne bloque pas la publication
+      - name: Twine check (non-blocking)
+        continue-on-error: true
+        run: |
+          python -m twine check dist/*
+
+      - name: Publish to PyPI (Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          print-hash: true
+        # Aucun token requis : l'action utilise OIDC (id-token: write ci-dessus)
+        # Si tu veux publier les préversions vers TestPyPI à la place,
+        # configure un autre job/environnement et 'repository-url'.

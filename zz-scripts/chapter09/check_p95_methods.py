@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # check_p95_methods.py
 """
 Compare p95 (et autres stats) pour trois traitements du résidu de phase:
@@ -14,6 +15,7 @@ python zz-scripts/chapter09/check_p95_methods.py \
   --plot --out-dir zz-figures/chapter09/p95_methods --xscale log
 """
 
+"""
 import argparse
 from pathlib import Path
 
@@ -193,7 +195,7 @@ def main():
         for bins in args.bins:
             for name, arr in methods:
                 out = args.out_dir / f"fig_03_{name}_bins{bins}.png"
-                title = f"{name} — bins={bins} — window={int(fmin)}-{int(fmax)} Hz (k={k_med})"
+                title = f"{name} - bins={bins} - window={int(fmin)}-{int(fmax)} Hz (k={k_med})"
                 plot_hist(
                     arr,
                     bins=bins,

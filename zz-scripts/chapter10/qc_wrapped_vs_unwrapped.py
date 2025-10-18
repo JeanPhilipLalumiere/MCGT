@@ -8,8 +8,8 @@ Vérification rapide : calcul p95 des résidus φ_ref - φ_mcgt
 
 
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -24,7 +24,7 @@ from zz_tools import common_io as ci
 # import fonctions existantes
 try:
     from mcgt.backends.ref_phase import compute_phi_ref
-    from mcgt.phase import phi_mcgt
+from mcgt.phase import phi_mcgt
 except Exception as e:
     raise SystemExit(f"Erreur import mcgt : {e}")
 
@@ -116,19 +116,26 @@ def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="QC: wrapped vs unwrapped p95")
-    parser.add_argument(
+
+parser.add_argument(
         "--best", required=True, help="json top-K (zz-data/chapter10/10_mc_best.json)"
     )
-    parser.add_argument("--samples", required=True, help="csv samples")
-    parser.add_argument(
+
+parser.add_argument("--samples", required=True, help="csv samples")
+
+parser.add_argument(
         "--results", required=True, help="csv results (pour median/worst)"
     )
-    parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
-    parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
-    parser.add_argument(
+
+parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
+
+parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
+
+parser.add_argument(
         "--outdir", default="zz-data/chapter10/qc_wrapped", help="répertoire de sortie"
     )
-    args = parser.parse_args(argv)
+
+args = parser.parse_args(argv)
 
     # load
     print("Chargement des fichiers...")

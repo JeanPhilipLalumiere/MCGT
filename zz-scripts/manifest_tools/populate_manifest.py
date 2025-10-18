@@ -1,3 +1,6 @@
+
+from __future__ import annotations
+parser.add_argument("--manifest", default="zz-manifests/figure_manifest.json")
 #!/usr/bin/env python3
 # zz-scripts/manifest_tools/remplir_manifest.py
 """
@@ -11,7 +14,6 @@ Usage:
   python3 remplir_manifest.py zz-manifests/manifest_publication.json --repo-root /home/jplal/MCGT --force --sign sha256
 """
 
-from __future__ import annotations
 
 import argparse
 import hashlib
@@ -212,7 +214,7 @@ def main():
     ap.add_argument(
         "--repo-root",
         default=".",
-        help="racine du dépôt (répertoire) — convertira paths en relatifs par rapport à cette racine",
+        help="racine du dépôt (répertoire) - convertira paths en relatifs par rapport à cette racine",
     )
     ap.add_argument(
         "--force",

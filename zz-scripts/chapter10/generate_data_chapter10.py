@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Chapitre 10 — Pipeline complet (génération & agrégation des données)
+Chapitre 10 - Pipeline complet (génération & agrégation des données)
 ===================================================================
 
 Ce pipeline orchestre, dans le bon ordre et avec traçabilité :
@@ -12,11 +12,11 @@ Ce pipeline orchestre, dans le bon ordre et avec traçabilité :
   6) (Option) Raffinement global autour du top-K puis fusion
   7) Résumé de run & sorties manifestes
 
-Ce qui est volontairement laissé à d’autres scripts (indépendants) :
+Ce qui est volontairement laissé à d'autres scripts (indépendants) :
   - La production des figures 10-01…10-06 (scripts zz-scripts/chapter10/plot_*).
-  - Des explorations très spécifiques (raffinement “boîte par boîte”, CMA-ES, etc.).
+  - Des explorations très spécifiques (raffinement "boîte par boîte", CMA-ES, etc.).
 
-Exemples d’exécution
+Exemples d'exécution
 --------------------
 # Run global simple (comme validé)
 python zz-scripts/chapter10/generate_chapter10_data.py \
@@ -43,8 +43,8 @@ Notes
     • aggregate_mc_runs.py
 - Les fichiers sont produits dans zz-data/chapter10/ ; les journaux (logs) sont sur stdout/err.
 """
-
 from __future__ import annotations
+
 
 import argparse
 import hashlib
@@ -184,7 +184,7 @@ def etape_1_preflight(args, log: logging.Logger):
 
 def etape_2_samples_global(args, log: logging.Logger):
     if args.skip_samples:
-        log.info("2) Échantillons (global) — SKIP demandé")
+        log.info("2) Échantillons (global) - SKIP demandé")
         return Path(args.samples_csv or DEFAULTS["samples_csv"])
     log.info("2) Génération des échantillons (global Sobol)")
     cmd = [
@@ -215,7 +215,7 @@ def etape_2_samples_global(args, log: logging.Logger):
 
 def etape_3_metrics(args, log: logging.Logger, samples_csv: Path):
     if args.skip_metrics:
-        log.info("3) Métriques canoniques — SKIP demandé")
+        log.info("3) Métriques canoniques - SKIP demandé")
         return (
             Path(args.results_csv or DEFAULTS["results_csv"]),
             Path(args.best_json or DEFAULTS["best_json"]),
@@ -252,7 +252,7 @@ def etape_3_metrics(args, log: logging.Logger, samples_csv: Path):
 
 def etape_4_jalons(args, log: logging.Logger, best_json: Path):
     if args.skip_jalons:
-        log.info("4) Jalons f_peak — SKIP demandé")
+        log.info("4) Jalons f_peak - SKIP demandé")
         return None
     log.info("4) Évaluation jalons f_peak pour le top-K")
     cmd = [
@@ -281,7 +281,7 @@ def etape_5_agregat(
     args, log: logging.Logger, jalons_csv: Path | None, results_csv: Path
 ):
     if args.skip_aggregate:
-        log.info("5) Agrégation & score — SKIP demandé")
+        log.info("5) Agrégation & score - SKIP demandé")
         return (
             Path(args.results_agg_csv or DEFAULTS["results_agg_csv"]),
             Path(args.best_json or DEFAULTS["best_json"]),
@@ -328,7 +328,7 @@ def _calcul_boite_topk(topk: list[dict], shrink: float) -> dict:
     Stratégie : on prend [min,max] sur le top-K, on recentre à la médiane, et
     on réduit la demi-largeur -> demi_largeur/shrink.
     """
-    import numpy as np
+import numpy as np
 
     keys = ["m1", "m2", "q0star", "alpha"]
     out = {}
@@ -359,7 +359,7 @@ def _assurer_ids_uniques(samples_path: Path, id_offset: int, log: logging.Logger
     """
     Re-numérotation simple : id := id + id_offset (garantit unicité lors de fusions).
     """
-    import pandas as pd
+import pandas as pd
 
 from zz_tools import common_io as ci
 
@@ -383,7 +383,7 @@ def etape_6_raffinement(
     results_global: Path,
 ):
     if not args.refine:
-        log.info("6) Raffinement global — SKIP (désactivé)")
+        log.info("6) Raffinement global - SKIP (désactivé)")
         return None
 
     log.info("6) Raffinement global autour du top-K (boîte restreinte)")
@@ -510,9 +510,9 @@ def etape_7_resume(
 def build_parser():
     p = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
-        description="Chapitre 10 — Pipeline complet de génération/agrégation des données.",
+        description="Chapitre 10 - Pipeline complet de génération/agrégation des données.",
     )
-    # Fichiers d’E/S principaux
+    # Fichiers d'E/S principaux
     p.add_argument("--config", default=str(DEFAULTS["config"]))
     p.add_argument("--ref-grid", default=str(DEFAULTS["ref_grid"]))
     p.add_argument("--jalons", default=str(DEFAULTS["jalons_ref"]))

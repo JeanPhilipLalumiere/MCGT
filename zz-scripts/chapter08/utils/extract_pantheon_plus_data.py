@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # Script : extract_pantheon_plus_data.py
 # Source des données brutes Pantheon+ SH0ES :
 # https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/
 #   main/Pantheon+_Data/4_DISTANCES_AND_COVAR/Pantheon+SH0ES.dat
 
+"""
 import os
 
 import pandas as pd

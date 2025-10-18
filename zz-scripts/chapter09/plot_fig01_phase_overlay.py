@@ -7,8 +7,8 @@ Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)
 - k appliqué à la série affichée (superposition)
 - Inset/métriques sur |Δφ| principal après rebranch
 """
-
 from __future__ import annotations
+
 
 import argparse
 import configparser
@@ -176,7 +176,7 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
 # ---------------- CLI
 def parse_args():
     ap = argparse.ArgumentParser(
-        description="Figure 01 — Overlay φ_ref vs φ_MCGT + inset résidu"
+        description="Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu"
     )
     ap.add_argument("--csv", type=Path, default=DEF_IN)
     ap.add_argument("--meta", type=Path, default=DEF_META)
@@ -318,7 +318,7 @@ def main():
     p95_abs = float(p95(np.abs(dphi[m2])))
     max_abs = float(np.nanmax(np.abs(dphi[m2])))
     log.info(
-        "|Δφ| %g–%g Hz (après rebranch k=%d): mean=%.3f ; p95=%.3f ; max=%.3f (n=%d)",
+        "|Δφ| %g-%g Hz (après rebranch k=%d): mean=%.3f ; p95=%.3f ; max=%.3f (n=%d)",
         f1,
         f2,
         k,
@@ -357,7 +357,7 @@ def main():
     bbox = (1.0 - legend_w - 0.02, 0.54, legend_w, 0.42)
     cal_txt = f"Calage: {calib.get('model', 'phi0,tc')} (enabled={calib.get('enabled', False)})"
     grid_txt = f"Grille: [{grid['fmin_Hz']:.0f}-{grid['fmax_Hz']:.0f}] Hz, dlog10={grid['dlog10']:.3f}"
-    metrics_txt = f"|Δφ| {int(f1)}–{int(f2)} Hz (principal, k={k}): mean={mean_abs:.3f} rad ; p95={p95_abs:.3f} rad"
+    metrics_txt = f"|Δφ| {int(f1)}-{int(f2)} Hz (principal, k={k}): mean={mean_abs:.3f} rad ; p95={p95_abs:.3f} rad"
     handles, labels = ax.get_legend_handles_labels()
     extra = [
         Line2D([], [], color="none", label=cal_txt),
@@ -375,7 +375,7 @@ def main():
     for t in leg.get_texts():
         t.set_fontsize(9)
 
-    # Inset résidu (log-log) — cohérent avec métriques
+    # Inset résidu (log-log) - cohérent avec métriques
     if args.show_residual and np.isfinite(dphi).any():
         inset = ax.inset_axes([0.60, 0.07, 0.35, 0.32])
         absd = np.abs(dphi)

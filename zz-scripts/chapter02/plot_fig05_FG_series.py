@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Tracer les séries brutes F(α)−1 et G(α) pour le Chapitre 2 (MCGT)
+Tracer les séries brutes F(α)-1 et G(α) pour le Chapitre 2 (MCGT)
 
 Produit :
 - zz-figures/chapter02/02_fig_05_fg_series.png
@@ -44,6 +44,7 @@ def main():
     plt.title("Séries $F(\\alpha)-1$ et $G(\\alpha)$")
     plt.grid(True, which="both", ls=":")
     plt.legend()
+    fig, ax = plt.subplots()
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(OUT_PLOT, dpi=300)
     plt.close()

@@ -1,0 +1,242 @@
+[
+  {
+    "script": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+    "canonical_name": "07_fig_04_dcs2_vs_k.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+    "canonical_name": "07_fig_03_invariant_I1.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+    "canonical_name": "07_fig_02_delta_phi_heatmap.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+    "canonical_name": "07_fig_05_ddelta_phi_vs_k.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig06_comparison.py",
+    "canonical_name": "07_fig_06_comparison.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+    "canonical_name": "07_fig_07_invariant_I2.png"
+  },
+  {
+    "script": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+    "canonical_name": "07_fig_01_cs2_heatmap.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig07_synthesis.py",
+    "canonical_name": "10_fig_07_synthesis.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+    "canonical_name": "10_fig_02_scatter_phi_at_fpeak.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig06_residual_map.py",
+    "canonical_name": "10_fig_06_residual_map.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+    "canonical_name": "10_fig_03_convergence_p95_vs_n.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "canonical_name": "10_fig_04_scatter_p95_recalc_vs_orig.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+    "canonical_name": "10_fig_05_hist_cdf_metrics.png"
+  },
+  {
+    "script": "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+    "canonical_name": "10_fig_01_iso_p95_maps.png"
+  },
+  {
+    "script": "zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+    "canonical_name": "06_fig_04_delta_rs_vs_params.png"
+  },
+  {
+    "script": "zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+    "canonical_name": "06_fig_01_cmb_dataflow_diagram.png"
+  },
+  {
+    "script": "zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+    "canonical_name": "06_fig_05_delta_chi2_heatmap.png"
+  },
+  {
+    "script": "zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+    "canonical_name": "06_fig_03_delta_cls_relative.png"
+  },
+  {
+    "script": "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "canonical_name": "06_fig_02_cls_lcdm_vs_mcgt.png"
+  },
+  {
+    "script": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+    "canonical_name": "09_fig_03_hist_absdphi_20_300.png"
+  },
+  {
+    "script": "zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+    "canonical_name": "09_fig_01_phase_overlay.png"
+  },
+  {
+    "script": "zz-scripts/chapter09/plot_fig02_residual_phase.py",
+    "canonical_name": "09_fig_02_residual_phase.png"
+  },
+  {
+    "script": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+    "canonical_name": "09_fig_05_scatter_phi_at_fpeak.png"
+  },
+  {
+    "script": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+    "canonical_name": "09_fig_04_absdphi_milestones_vs_f.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig06_grid_quality.py",
+    "canonical_name": "03_fig_06_grid_quality.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+    "canonical_name": "03_fig_05_interpolated_milestones.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+    "canonical_name": "03_fig_07_ricci_fR_vs_z.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+    "canonical_name": "03_fig_01_fR_stability_domain.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+    "canonical_name": "03_fig_03_ms2_R0_vs_f.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+    "canonical_name": "03_fig_02_fR_fRR_vs_f.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+    "canonical_name": "03_fig_08_ricci_fR_vs_T.png"
+  },
+  {
+    "script": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+    "canonical_name": "03_fig_04_fR_fRR_vs_f.png"
+  },
+  {
+    "script": "zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+    "canonical_name": "05_fig_04_chi2_vs_T.png"
+  },
+  {
+    "script": "zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+    "canonical_name": "05_fig_02_dh_model_vs_obs.png"
+  },
+  {
+    "script": "zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+    "canonical_name": "05_fig_01_bbn_reaction_network.png"
+  },
+  {
+    "script": "zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+    "canonical_name": "05_fig_03_yp_model_vs_obs.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig05_FG_series.py",
+    "canonical_name": "02_fig_05_FG_series.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+    "canonical_name": "02_fig_03_relative_errors.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig02_calibration.py",
+    "canonical_name": "02_fig_02_calibration.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig00_spectrum.py",
+    "canonical_name": "02_fig_00_spectrum.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+    "canonical_name": "02_fig_06_alpha_fit.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+    "canonical_name": "02_fig_01_P_vs_T_evolution.png"
+  },
+  {
+    "script": "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+    "canonical_name": "02_fig_04_pipeline_diagram.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+    "canonical_name": "01_fig_05_I1_vs_T.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+    "canonical_name": "01_fig_06_P_derivative_comparison.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+    "canonical_name": "01_fig_03_relative_error_timeline.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+    "canonical_name": "01_fig_04_P_vs_T_evolution.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+    "canonical_name": "01_fig_02_logistic_calibration.png"
+  },
+  {
+    "script": "zz-scripts/chapter01/plot_fig01_early_plateau.py",
+    "canonical_name": "01_fig_01_early_plateau.png"
+  },
+  {
+    "script": "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+    "canonical_name": "04_fig_04_relative_deviations.png"
+  },
+  {
+    "script": "zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+    "canonical_name": "04_fig_01_invariants_schematic.png"
+  },
+  {
+    "script": "zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+    "canonical_name": "04_fig_02_invariants_histogram.png"
+  },
+  {
+    "script": "zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+    "canonical_name": "04_fig_03_invariants_vs_T.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+    "canonical_name": "08_fig_01_chi2_total_vs_q0.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+    "canonical_name": "08_fig_03_mu_vs_z.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig05_residuals.py",
+    "canonical_name": "08_fig_05_residuals.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+    "canonical_name": "08_fig_07_chi2_profile.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig02_dv_vs_z.py",
+    "canonical_name": "08_fig_02_dv_vs_z.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+    "canonical_name": "08_fig_04_chi2_heatmap.png"
+  },
+  {
+    "script": "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+    "canonical_name": "08_fig_06_normalized_residuals_distribution.png"
+  }
+]

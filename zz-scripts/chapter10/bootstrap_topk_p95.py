@@ -24,8 +24,8 @@ Notes
 - Si un fichier de résidus manque pour un ID, le script conserve
   la valeur p95 issue de results.csv (si fournie) et marque p95_ci=null.
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -130,7 +130,7 @@ def main(argv=None):
     p.add_argument(
         "--results",
         required=False,
-        help="CSV results (10_mc_results.csv) — utilisé en fallback",
+        help="CSV results (10_mc_results.csv) - utilisé en fallback",
     )
     p.add_argument(
         "--B",

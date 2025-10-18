@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # Script   : extract_bao_data.py
 # Objectif : extraire et formater les données BAO pour le Chapitre 8
 # Source   : https://raw.githubusercontent.com/SDSS-Science-Archive-Server/BOSS-LSS/
 #            master/lss/BAOtables/bao_distances_DR12v5.dat
 
+"""
 import os
 
 import pandas as pd

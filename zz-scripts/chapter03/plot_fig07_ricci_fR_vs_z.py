@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # tracer_fig07_ricci_fR_contre_z.py
 
 """
-Trace f_R et f_{RR} aux points jalons en fonction du redshift — Chapitre 3
+Trace f_R et f_{RR} aux points jalons en fonction du redshift - Chapitre 3
 ========================================================================
 
 Entrée :
@@ -14,6 +15,7 @@ Sortie :
     zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png
 """
 
+"""
 import logging
 from pathlib import Path
 

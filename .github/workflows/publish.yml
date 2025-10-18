@@ -20,8 +20,6 @@ jobs:
   build-and-publish:
     name: Build & publish
     runs-on: ubuntu-latest
-    # Optionnel: si tu utilises l'environnement GitHub "pypi" pour protéger l'étape de publication
-    environment: pypi
 
     steps:
       - name: Check out

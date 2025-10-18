@@ -15,8 +15,8 @@ Usage:
       --manifest zz-data/chapter10/10_mc_run_manifest.json \
       --rtol 1e-6 --atol 1e-12
 """
-
 from __future__ import annotations
+
 
 import argparse
 import hashlib
@@ -181,12 +181,12 @@ df = ci.ensure_fig02_cols(df)
 
     # verdict
     if errors:
-        logger.error("QC échoué — problèmes détectés:")
+        logger.error("QC échoué - problèmes détectés:")
         for e in errors:
             logger.error(" - %s", e)
         return 2
 
-    logger.info("QC passé — aucune divergence critique détectée.")
+    logger.info("QC passé - aucune divergence critique détectée.")
     return 0
 
 

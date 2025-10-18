@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # ruff: noqa: E402
 """
 generate_data_chapter07.py
 
-Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapitre 7 – Perturbations scalaires MCGT.
+Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapitre 7 - Perturbations scalaires MCGT.
 Version francisée : noms d'arguments et fichiers en français (identique en logique).
 """
 
+"""
 import argparse
 import configparser
 import logging

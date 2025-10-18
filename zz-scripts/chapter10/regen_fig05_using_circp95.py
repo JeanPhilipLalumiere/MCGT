@@ -5,8 +5,8 @@ regen_fig05_using_circp95.py
 Figure 05 : Histogramme + CDF des p95 recalculés en métrique circulaire.
 
 """
-
 from __future__ import annotations
+
 
 import argparse
 import textwrap
@@ -67,7 +67,7 @@ def main():
     ap.add_argument(
         "--zoom-dy", type=float, default=30.0, help="demi-hauteur Y du zoom (counts)"
     )
-    # taille du panneau de zoom (fraction de l’axe)
+    # taille du panneau de zoom (fraction de l'axe)
     ap.add_argument(
         "--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)"
     )

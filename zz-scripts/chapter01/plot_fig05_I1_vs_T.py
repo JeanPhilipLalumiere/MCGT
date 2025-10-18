@@ -1,63 +1,56 @@
 #!/usr/bin/env python3
-import os
-"""Fig. 05 – Invariant adimensionnel I1(T)"""
+# -*- coding: utf-8 -*-
+
+"""
+Fig. 05 — Invariant adimensionnel I1(T)
+"""
 
 from pathlib import Path
+import argparse
+import os
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-base = Path(__file__).resolve().parents[2]
-data_file = base / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
-output_file = base / "zz-figures" / "chapter01" / "fig_05_I1_vs_T.png"
 
-df = pd.read_csv(data_file)
-T = df["T"]
-I1 = df["I1"]
+ROOT = Path(__file__).resolve().parents[2]
+DATA = ROOT / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
 
-plt.figure(dpi=300)
-plt.plot(T, I1, color="orange", label=r"$I_1 = P(T)/T$")
-plt.xscale("log")
-plt.yscale("log")
-plt.xlabel("T (Gyr)")
-plt.ylabel(r"$I_1$")
-plt.title("Fig. 05 – Invariant adimensionnel $I_1$ en fonction de $T$")
-plt.grid(True, which="both", ls=":", lw=0.5)
-plt.legend()
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-plt.savefig(output_file)
 
-# === MCGT CLI SEED v2 ===
+def main():
+    parser = argparse.ArgumentParser(
+        description="Fig. 05 — Invariant adimensionnel I1(T) (log–log)."
+    )
+    parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", "zz-figures/_smoke/chapter01"))
+    parser.add_argument("--dpi", type=int, default=300)
+    parser.add_argument("--format", "--fmt", dest="fmt", choices=["png", "pdf", "svg"], default="png")
+    parser.add_argument("--transparent", action="store_true")
+    args = parser.parse_args()
+
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    outpath = outdir / f"fig_05_I1_vs_T.{args.fmt}"
+
+    # Charge données
+    df = pd.read_csv(DATA)
+    T = pd.to_numeric(df["T"], errors="coerce").to_numpy()
+    I1 = pd.to_numeric(df["I1"], errors="coerce").to_numpy()
+
+    # Figure
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=args.dpi)
+    ax.plot(T, I1, label=r"$I_1 = P(T)/T$")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("T (Gyr)")
+    ax.set_ylabel(r"$I_1$")
+    ax.set_title(r"Fig. 05 — Invariant adimensionnel $I_1$ en fonction de $T$")
+    ax.grid(True, which="both", ls=":", lw=0.6, alpha=0.7)
+    ax.legend()
+    fig.subplots_adjust(left=0.06, right=0.98, bottom=0.10, top=0.92)
+
+    fig.savefig(outpath, transparent=args.transparent)
+    print(f"[OK] Figure enregistrée → {outpath}")
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+    main()

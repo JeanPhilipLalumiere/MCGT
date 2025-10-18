@@ -86,7 +86,7 @@ axins1.set_ylabel(r"$\Delta C_{\ell}/C_{\ell}$", fontsize=8)
 axins1.grid(True, which="both", linestyle=":", linewidth=0.5)
 axins1.tick_params(labelsize=7)
 
-# Inset 2: zoom ℓ ≃ 200–300, placé juste à droite du premier inset
+# Inset 2: zoom ℓ ≃ 200-300, placé juste à droite du premier inset
 axins2 = inset_axes(
     ax,
     width="85%",
@@ -130,20 +130,29 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
 
-        args = parser.parse_args()
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
+
+args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
         os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
+import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
         mpl.rcParams["savefig.format"] = args.format
         mpl.rcParams["savefig.transparent"] = args.transparent

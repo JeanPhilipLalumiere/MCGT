@@ -1,0 +1,56 @@
+# MCGT sweep summary
+- total files: 108
+- compile errors: 48
+- args missing: 0
+- future misordered: 0
+
+## COMPILE_FAIL
+- zz-scripts/_common/style.py :: SyntaxError L2 C17: invalid syntax
+- zz-scripts/chapter01/plot_fig01_early_plateau.py :: SyntaxError L75 C8: unexpected indent
+- zz-scripts/chapter01/plot_fig02_logistic_calibration.py :: SyntaxError L60 C8: unexpected indent
+- zz-scripts/chapter01/plot_fig03_relative_error_timeline.py :: SyntaxError L56 C8: unexpected indent
+- zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py :: SyntaxError L61 C8: unexpected indent
+- zz-scripts/chapter01/plot_fig05_I1_vs_T.py :: SyntaxError L55 C48: unindent does not match any outer indentation level
+- zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py :: SyntaxError L58 C8: unexpected indent
+- zz-scripts/chapter02/generate_data_chapter02.py :: SyntaxError L100 C4: unexpected indent
+- zz-scripts/chapter02/plot_fig00_spectrum.py :: SyntaxError L63 C8: unexpected indent
+- zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py :: SyntaxError L60 C8: unexpected indent
+- zz-scripts/chapter02/plot_fig02_calibration.py :: SyntaxError L60 C8: unexpected indent
+- zz-scripts/chapter02/plot_fig03_relative_errors.py :: SyntaxError L73 C8: unexpected indent
+- zz-scripts/chapter02/plot_fig04_pipeline_diagram.py :: SyntaxError L74 C8: unexpected indent
+- zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py :: SyntaxError L10 C25: invalid decimal literal
+- zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py :: SyntaxError L10 C25: invalid decimal literal
+- zz-scripts/chapter04/plot_fig04_relative_deviations.py :: SyntaxError L32 C12: unexpected indent
+- zz-scripts/chapter05/generate_data_chapter05.py :: SyntaxError L141 C8: unexpected indent
+- zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py :: SyntaxError L110 C8: unexpected indent
+- zz-scripts/chapter05/plot_fig04_chi2_vs_T.py :: SyntaxError L174 C48: unindent does not match any outer indentation level
+- zz-scripts/chapter06/generate_data_chapter06.py :: SyntaxError L155 C37: unindent does not match any outer indentation level
+- zz-scripts/chapter06/generate_pdot_plateau_vs_z.py :: SyntaxError L81 C8: unexpected indent
+- zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py :: SyntaxError L140 C8: unexpected indent
+- zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py :: SyntaxError L152 C8: unexpected indent
+- zz-scripts/chapter06/plot_fig03_delta_cls_relative.py :: SyntaxError L104 C8: unexpected indent
+- zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py :: SyntaxError L94 C8: unexpected indent
+- zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py :: SyntaxError L107 C8: unexpected indent
+- zz-scripts/chapter07/generate_data_chapter07.py :: SyntaxError L7 C28: invalid character '²' (U+00B2)
+- zz-scripts/chapter07/plot_fig01_cs2_heatmap.py :: SyntaxError L150 C8: unexpected indent
+- zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py :: SyntaxError L156 C8: unexpected indent
+- zz-scripts/chapter07/plot_fig03_invariant_I1.py :: SyntaxError L116 C8: unexpected indent
+- zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py :: SyntaxError L141 C4: unexpected indent
+- zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py :: SyntaxError L124 C8: unexpected indent
+- zz-scripts/chapter07/plot_fig06_comparison.py :: SyntaxError L98 C4: unexpected indent
+- zz-scripts/chapter08/generate_coupling_milestones.py :: SyntaxError L67 C8: unexpected indent
+- zz-scripts/chapter08/plot_fig03_mu_vs_z.py :: SyntaxError L90 C8: unexpected indent
+- zz-scripts/chapter08/plot_fig04_chi2_heatmap.py :: SyntaxError L128 C8: unexpected indent
+- zz-scripts/chapter09/check_p95_methods.py :: SyntaxError L8 C62: invalid decimal literal
+- zz-scripts/chapter09/generate_mcgt_raw_phase.py :: SyntaxError L133 C4: unexpected indent
+- zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py :: SyntaxError L107 C4: unexpected indent
+- zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py :: SyntaxError L82 C13: invalid syntax
+- zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py :: SyntaxError L81 C55: unmatched ')'
+- zz-scripts/chapter10/add_phi_at_fpeak.py :: SyntaxError L89 C4: unexpected indent
+- zz-scripts/chapter10/check_metrics_consistency.py :: SyntaxError L82 C4: unexpected indent
+- zz-scripts/chapter10/diag_phi_fpeak.py :: SyntaxError L66 C4: unexpected indent
+- zz-scripts/chapter10/generate_data_chapter10.py :: SyntaxError L333 C4: unexpected indent
+- zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py :: SyntaxError L27 C1: expected 'except' or 'finally' block
+- zz-scripts/chapter10/recompute_p95_circular.py :: SyntaxError L49 C4: unexpected indent
+- zz-scripts/chapter10/regen_fig05_using_circp95.py :: SyntaxError L83 C4: unexpected indent
+

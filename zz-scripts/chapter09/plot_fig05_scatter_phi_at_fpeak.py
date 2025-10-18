@@ -20,7 +20,7 @@ Points clés
 => les points sont ramenés dans la bande de ±π autour de la diagonale.
 (Purement visuel ; les métriques sont aussi calculées sur ce résidu principal.)
 - Légende par classes : "primaire", "ordre2", "autres".
-- Barres d’erreur : si sigma_phase est présent et fini → yerr = sigma_phase.
+- Barres d'erreur : si sigma_phase est présent et fini → yerr = sigma_phase.
 
 Exemples
 ---------
@@ -29,7 +29,7 @@ python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \
   --out    zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png \
   --dpi 300 --log-level INFO --pdf
 
-# Pour désactiver l’alignement principal (montrer valeurs brutes) :
+# Pour désactiver l'alignement principal (montrer valeurs brutes) :
 #   --align none
 """
 
@@ -65,11 +65,17 @@ def principal_align(y: np.ndarray, x: np.ndarray) -> np.ndarray:
     return y - 2*np.pi * np.round((y - x) / (2*np.pi))
 
 ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
+
 parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
+
 parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+
 parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
+
 parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+
 parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+
 parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
 args = ap.parse_args()
 description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
@@ -114,7 +120,7 @@ def robust_stats(residual: np.ndarray) -> tuple[float, float, float, float, int]
 
 
 def parse_args():
-    ap = argparse.ArgumentParser(description="Fig.05 — φ_ref vs φ_MCGT aux f_peak (±σ)")
+    ap = argparse.ArgumentParser(description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
     ap.add_argument(
         "--milestones",
         type=Path,
@@ -234,7 +240,7 @@ lo, hi = mn - pad, mx + pad,
     # Diagonale y = x
 ax.plot([lo, hi], [lo, hi], ls="--", lw=1.2,
 color="0.5", label="y = x", zorder=1)
-#     # Tracé par groupes (barres d’erreur si disponibles)
+#     # Tracé par groupes (barres d'erreur si disponibles)
 # for name, m in masks.items():
 # pass  # auto-added by STEP04b
 if not np.any(m):
@@ -246,7 +252,7 @@ sg = sigma[m],
 yerr = np.where(np.isfinite(sg) & (sg > 0), sg, np.nan)
 if np.any(np.isfinite(yerr)):
 
-    # Tracé par groupes (barres d’erreur si disponibles)
+    # Tracé par groupes (barres d'erreur si disponibles)
     for name, m in masks.items():
         if not np.any(m):
             continue
@@ -301,7 +307,7 @@ if np.any(np.isfinite(yerr)):
     )
 
     meta_txt = (
-        f"N={n_eff}  |Δφ|_principal  —  mean={mean_abs:.3f}  "
+        f"N={n_eff}  |Δφ|_principal  -  mean={mean_abs:.3f}  "
         f"median={med_abs:.3f}  p95={p95_abs:.3f}  max={max_abs:.3f} rad"
     )
     ax.text(

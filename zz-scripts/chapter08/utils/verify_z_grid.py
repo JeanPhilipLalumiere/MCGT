@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # verify_z_grid.py
 # Vérifie que la grille en z (ou q0⋆) correspond aux paramètres minimum, maximum et pas attendus.
 
+"""
 import json
 import sys
 from pathlib import Path

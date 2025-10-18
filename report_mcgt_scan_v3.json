@@ -1,0 +1,591 @@
+{
+  "root": "/home/jplal/MCGT",
+  "savefig": [
+    {
+      "script": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig06_comparison.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig06_comparison.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+      "arg": "FIG_OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "arg": "FIGURE_SORTIE, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig07_synthesis.py",
+      "arg": "out_png, dpi=dpi, bbox_inches=\"tight\""
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig06_residual_map.py",
+      "arg": "args.out, dpi=args.dpi, bbox_inches=\"tight\""
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/inspect_topk_residuals.py",
+      "arg": "f_png, dpi=150"
+    },
+    {
+      "script": "zz-scripts/chapter10/inspect_topk_residuals.py",
+      "arg": "os.path.join(args.out_dir, f\"dphi_hist_id{id_:d}.png\""
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+      "arg": "out_sens, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+      "arg": "args.out, dpi=args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+      "arg": "pngfile, dpi=150"
+    },
+    {
+      "script": "zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "arg": "OUT_PNG"
+    },
+    {
+      "script": "zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "arg": "OUT_PNG"
+    },
+    {
+      "script": "zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "arg": "OUT_PNG"
+    },
+    {
+      "script": "zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "arg": "OUT_PNG"
+    },
+    {
+      "script": "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "arg": "OUT_PNG"
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "arg": "args.out, dpi=args.dpi, bbox_inches=\"tight\""
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "arg": "args.out.with_suffix(\".svg\""
+    },
+    {
+      "script": "zz-scripts/chapter09/check_p95_methods.py",
+      "arg": "outpath, dpi=dpi"
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "arg": "args.out, dpi=int(args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "arg": "args.out.with_suffix(\".pdf\""
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig02_residual_phase.py",
+      "arg": "args.out, dpi=int(args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "arg": "args.out, dpi=int(args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "arg": "out_pdf, bbox_inches=\"tight\""
+    },
+    {
+      "script": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "arg": "args.out, dpi=int(args.dpi"
+    },
+    {
+      "script": "zz-scripts/chapter09/extract_phenom_phase.py",
+      "arg": "_out, dpi=_dpi"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "arg": "FIG_PATH"
+    },
+    {
+      "script": "zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "arg": "out_png, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "arg": "FIG_DIR / \"fig_02_dh_model_vs_obs.png\", dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+      "arg": "save_path, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+      "arg": "save_path, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "arg": "OUT_PLOT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "arg": "FIG_DIR / \"fig_03_relative_errors.png\""
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig02_calibration.py",
+      "arg": "FIG_DIR / \"fig_02_calibration.png\""
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "arg": "OUT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "arg": "_out, dpi=_dpi"
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "arg": "OUT_PLOT, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "arg": "FIG_DIR / \"fig_01_P_vs_T_evolution.png\""
+    },
+    {
+      "script": "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "arg": "FIG_DIR / \"fig_04_schema_pipeline.png\""
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "arg": "output_file"
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+      "arg": "out"
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "arg": "output_file"
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+      "arg": "output_file"
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+      "arg": "output_file"
+    },
+    {
+      "script": "zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "arg": "output_path, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter04/generate_data_chapter04.py",
+      "arg": "_out, dpi=_dpi"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+      "arg": "output_fig"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+      "arg": "output_fig"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+      "arg": "_out, dpi=_dpi"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+      "arg": "output_fig"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+      "arg": "out"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+      "arg": "outpath, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "arg": "FIG_DIR / \"fig_03_mu_vs_z.png\", dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig05_residuals.py",
+      "arg": "outpath, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig05_residuals.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+      "arg": "out, dpi=120"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+      "arg": "out, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig02_dv_vs_z.py",
+      "arg": "out_file, dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "arg": "FIG_DIR / \"fig_04_chi2_heatmap.png\", dpi=300"
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "arg": "out_path, dpi=300, bbox_inches=\"tight\""
+    },
+    {
+      "script": "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "arg": "out, dpi=120"
+    }
+  ],
+  "to_csv": [
+    {
+      "script": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "arg": "out_raw, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "arg": "cs2_path, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "arg": "phi_path, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter07/generate_data_chapter07.py",
+      "arg": "brut_path, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter07/generate_data_chapter07.py",
+      "arg": "mat_dir / \"07_cs2_matrix.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter07/generate_data_chapter07.py",
+      "arg": "mat_dir / \"07_delta_phi_matrix.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter10/add_phi_at_fpeak.py",
+      "arg": "out_path, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter10/generate_data_chapter10.py",
+      "arg": "tmp, index=False, float_format=\"%.6f\""
+    },
+    {
+      "script": "zz-scripts/chapter10/generate_data_chapter10.py",
+      "arg": "merged, index=False, float_format=\"%.6f\""
+    },
+    {
+      "script": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "arg": "tmp, index=False, float_format=\"%.6f\", **kwargs"
+    },
+    {
+      "script": "zz-scripts/chapter10/recompute_p95_circular.py",
+      "arg": "outpath, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter10/inspect_topk_residuals.py",
+      "arg": "outcsv, index=False, float_format=\"%.12f\""
+    },
+    {
+      "script": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+      "arg": "csvfile, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "OUT_ALPHA, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "DELTA_CLS_CSV, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "DELTA_CLS_REL_CSV, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "CSV_RS_SCAN, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "CSV_RS_SCAN_FULL, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "CSV_CHI2_2D, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "arg": "OUT_ALPHA, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/opt_poly_rebranch.py",
+      "arg": "bak, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/opt_poly_rebranch.py",
+      "arg": "out_csv, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/apply_poly_unwrap_rebranch.py",
+      "arg": "args.csv, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/flag_jalons.py",
+      "arg": "out_path, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/extract_phenom_phase.py",
+      "arg": "args.outcsv, index=False, float_format=\"%.8e\", encoding=\"utf-8\""
+    },
+    {
+      "script": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "arg": "REF_CSV, index=False\n        "
+    },
+    {
+      "script": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "arg": "out_mcgt, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "arg": "out_diff, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "arg": "out_jalons_cmp, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "arg": "out_fisher, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "arg": "out / \"03_fR_stability_data.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "arg": "out / \"03_fR_stability_domain.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "arg": "out / \"03_fR_stability_boundary.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "arg": "out / \"03_ricci_fR_vs_z.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "arg": "out / \"03_ricci_fR_vs_T.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter05/generate_data_chapter05.py",
+      "arg": "GRILLE_FILE, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter05/generate_data_chapter05.py",
+      "arg": "PRED_FILE, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter05/generate_data_chapter05.py",
+      "arg": "CHI2_FILE, index=False\n"
+    },
+    {
+      "script": "zz-scripts/chapter05/generate_data_chapter05.py",
+      "arg": "DERIV_FILE, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter02/generate_data_chapter02.py",
+      "arg": "DATA_DIR / \"02_timeline_milestones.csv\", index=False"
+    },
+    {
+      "script": "zz-scripts/chapter02/generate_data_chapter02.py",
+      "arg": "DATA_DIR / \"02_relative_error_timeline.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_P_derivative_initial.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_optimized_data.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_P_derivative_optimized.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_optimized_data_and_derivatives.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_relative_error_timeline.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "arg": "base / \"01_dimensionless_invariants.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter04/generate_data_chapter04.py",
+      "arg": "output_file, index=False"
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_coupling_milestones.py",
+      "arg": "out_csv, index=False, encoding=\"utf-8\""
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "arg": "DATA_DIR / \"08_dv_theory_z.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "arg": "DATA_DIR / \"08_mu_theory_z.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "arg": "DATA_DIR / \"08_chi2_total_vs_q0.csv\", index=False\n    "
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "arg": "DATA_DIR / \"08_dchi2_dq0.csv\", index=False\n        "
+    },
+    {
+      "script": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "arg": "DATA_DIR / \"08_chi2_scan2D.csv\", index=False"
+    }
+  ],
+  "plot_tokens": [
+    "fig00",
+    "fig01",
+    "fig02",
+    "fig03",
+    "fig04",
+    "fig05",
+    "fig06",
+    "fig07",
+    "fig08"
+  ],
+  "fig_tokens_on_disk": [
+    "fig_01",
+    "fig_03"
+  ],
+  "legacy_nonconforming": 21
+}

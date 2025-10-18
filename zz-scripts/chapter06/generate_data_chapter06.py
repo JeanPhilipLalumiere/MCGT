@@ -18,16 +18,20 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 parser = argparse.ArgumentParser(
     description="Chapter 6 pipeline: generate CMB spectra for MCGT"
 )
+
 parser.add_argument("--alpha", type=float, default=0.0, help="Modulation amplitude α")
+
 parser.add_argument(
     "--q0star",
     type=float,
     default=0.0,
     help="Effective curvature parameter q0star (Ω_k)",
 )
+
 parser.add_argument(
     "--export-derivative", action="store_true", help="Export derivative Δχ²/Δℓ"
 )
+
 args = parser.parse_args()
 
 ALPHA = args.alpha
@@ -131,7 +135,7 @@ def tweak_for_mcgt(pars, alpha, q0star):
     )
 
     # 3) Optional post-processing for matter transfer ΔT_m(k)
-    def post_process(results):
+def post_process(results):
         try:
             tm_obj = results.get_matter_transfer_data()
             k_vals = tm_obj.q
@@ -350,20 +354,29 @@ logging.info("=== Chapter 6 generation completed ===")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
 
-        args = parser.parse_args()
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
+
+args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
         os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
+import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
         mpl.rcParams["savefig.format"] = args.format
         mpl.rcParams["savefig.transparent"] = args.transparent

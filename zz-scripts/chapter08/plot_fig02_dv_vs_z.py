@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # plot_fig02_dv_vs_z.py
 # ---------------------------------------------------------------
 # zz-scripts/chapter08/plot_fig02_dv_vs_z.py
-# Figure 02 – Comparison D_V^obs vs D_V^th for Chapter 08
+# Figure 02 - Comparison D_V^obs vs D_V^th for Chapter 08
 # BAO errorbars, legend bottom-right
 # ---------------------------------------------------------------
 
+"""
 import json
 from pathlib import Path
 

@@ -11,8 +11,8 @@ python zz-scripts/chapter10/recompute_p95_circular.py \
 --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
 --out zz-data/chapter10/10_mc_results.circ.csv
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -36,10 +36,14 @@ def circ_diff(a, b):
 def main(argv=None):
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--results", required=True)
-    parser.add_argument("--samples", required=True)
-    parser.add_argument("--ref-grid", required=True)
-    parser.add_argument("--out", default=None)
+parser.add_argument("--results", required=True)
+
+parser.add_argument("--samples", required=True)
+
+parser.add_argument("--ref-grid", required=True)
+
+parser.add_argument("--out", default=None)
+
 args = parser.parse_args( argv)
 
     df_res = pd.read_csv(args.results)

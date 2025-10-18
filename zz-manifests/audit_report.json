@@ -1,0 +1,3855 @@
+{
+  "root": "/home/jplal/MCGT",
+  "scripts_audit": [
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py\", line 61\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import pathlib",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd",
+        "data_path = ("
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 02 – Diagramme de calibration P_ref vs P_calc\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py\", line 42\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 03 – Écarts relatifs ε_i\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py\", line 47\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 04 – Évolution de P(T) : initial vs optimisé\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py\", line 39\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 05 – Invariant adimensionnel I1(T)\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py\", line 44\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd",
+        "base = Path(__file__).resolve().parents[2] / \"zz-data\" / \"chapter01\""
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py\", line 49\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import sys",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 01 – Évolution de P(T) – Chapitre 2 (Validation chronologique)\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 02 – Diagramme de calibration (P_calc vs P_ref) – Chapitre 2\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py\", line 59\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 03 – Écarts relatifs $\\varepsilon_i$ – Chapitre 2\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py\", line 60\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"Fig. 04 – Schéma de la chaîne de calibration – Chapitre 2\"\"\"",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "from matplotlib.patches import FancyBboxPatch"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Tracer les séries brutes F(α)−1 et G(α) pour le Chapitre 2 (MCGT)",
+        "Produit :",
+        "- zz-figures/chapter02/02_fig_05_fg_series.png",
+        "Données sources :"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "if __name__ == \"__main__\":",
+        "    try:",
+        "        import sys, os, atexit",
+        "        _argv = sys.argv[1:]",
+        "        if any(a in (\"-h\",\"--help\") for a in _argv):"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Trace f_R et f_{RR} aux points jalons en fonction du redshift — Chapitre 3",
+        "========================================================================",
+        "Entrée :",
+        "    zz-data/chapter03/03_ricci_fR_vs_z.csv"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Trace f_R et f_RR aux points jalons en fonction de l’âge de l’Univers (Gyr) — Chapitre 3",
+        "=======================================================================================",
+        "Entrée :",
+        "    zz-data/chapter03/03_ricci_fR_vs_T.csv"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig01_invariants_schematic.py",
+        "Script corrigé de tracé du schéma conceptuel des invariants adimensionnels",
+        "– Lit 04_dimensionless_invariants.csv",
+        "– Trace I1, I2, I3 vs log10(T) avec symlog pour I3"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "if __name__ == \"__main__\":",
+        "    try:",
+        "        import sys, os, atexit",
+        "        _argv = sys.argv[1:]",
+        "        if any(a in (\"-h\",\"--help\") for a in _argv):"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig03_invariants_vs_T.py",
+        "Script de tracé des invariants adimensionnels I1, I2 et I3 en fonction de T",
+        "– Lit 04_dimensionless_invariants.csv",
+        "– Utilise une échelle log pour T, symlog pour gérer I3 négatif"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+      "compiles": false,
+      "compile_error": "Sorry: IndentationError: expected an indented block after 'for' statement on line 26 (plot_fig04_relative_deviations.py, line 27)",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import glob",
+        "import os",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os, sys, atexit",
+        "if any(x in sys.argv for x in (\"-h\", \"--help\")):",
+        "    try:",
+        "        import argparse",
+        "        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py\", line 96\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import json",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np",
+        "import pandas as pd",
+        "def tracer_fig03_yp_modele_contre_obs("
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py\", line 158\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py\", line 126\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import logging",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "from matplotlib.patches import FancyArrowPatch, Rectangle"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py\", line 138\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "Script de tracé fig_02_cls_lcdm_vs_mcgt pour Chapitre 6 (Rayonnement CMB)",
+        "\"\"\"",
+        "import json"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py\", line 90\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "Script de tracé fig_03_delta_cls_rel pour Chapitre 6 (Rayonnement CMB)",
+        "───────────────────────────────────────────────────────────────",
+        "Tracé de la différence relative ΔCl/Cl en fonction du multipôle l,"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py\", line 80\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)",
+        "───────────────────────────────────────────────────────────────",
+        "Tracé de la variation relative Δr_s/r_s en fonction du paramètre q0star."
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py\", line 93\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "Script de tracé fig_05_heatmap_delta_chi2 pour Chapitre 6 (Rayonnement CMB)",
+        "───────────────────────────────────────────────────────────────",
+        "Affiche la carte de chaleur 2D de Δχ² en fonction de α et q0star."
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py\", line 136\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "plot_fig01_cs2_heatmap.py",
+        "Figure 01 - Carte de chaleur de $c_s^2(k,a)$",
+        "pour le Chapitre 7 (Perturbations scalaires) du projet MCGT."
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py\", line 142\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "r\"\"\"",
+        "plot_fig02_delta_phi_heatmap.py",
+        "Figure 02 – Carte de chaleur de $\\delta\\phi/\\phi(k,a)$",
+        "pour le Chapitre 7 (Perturbations scalaires) du projet MCGT."
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py\", line 102\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "Figure 03 - Invariant scalaire I1(k)=c_s2/k (Chapitre 7, MCGT)",
+        "\"\"\"",
+        "import json"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        10
+      ],
+      "args_used": [
+        "dpi",
+        "format",
+        "out",
+        "transparent",
+        "verbose"
+      ],
+      "args_defined": [
+        "dpi",
+        "format",
+        "out",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig04_dcs2_vs_k.py",
+        "Figure 04 — Dérivée lissée ∂c_s²/∂k",
+        "Chapitre 7 — Perturbations scalaires MCGT.",
+        "\"\"\""
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py\", line 110\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": false,
+      "future_offenders": [
+        10
+      ],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "plot_fig05_ddelta_phi_vs_k.py",
+        "Figure 05 — Dérivée lissée ∂ₖ(δφ/φ)(k)",
+        "Chapitre 7 – Perturbations scalaires MCGT"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "compiles": false,
+      "compile_error": "Sorry: IndentationError: unexpected indent (plot_fig06_comparison.py, line 98)",
+      "future_at_top": false,
+      "future_offenders": [
+        10
+      ],
+      "args_used": [
+        "dpi",
+        "format",
+        "out",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "out",
+        "outdir",
+        "results",
+        "seed",
+        "title",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "plot_fig06_comparison.py — STUB TEMPORAIRE (homogénisation CLI)",
+        "- Objectif: rendre --help et un rendu rapide (--out) 100% sûrs et non-bloquants.",
+        "- L'implémentation scientifique complète est conservée dans plot_fig06_comparison.py.bak"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Figure 07 – Invariant scalaire I₂ = k·(δφ/φ)",
+        "Chapitre 7 – Perturbations scalaires (MCGT).",
+        "\"\"\"",
+        "import os, sys, atexit"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import numpy as np",
+        "import pandas as pd",
+        "from matplotlib.ticker import MaxNLocator"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig02_dv_vs_z.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import json",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd",
+        "def main():"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py\", line 76\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "import json",
+        "from pathlib import Path",
+        "import matplotlib.pyplot as plt",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py\", line 114\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "import os",
+        "\"\"\"",
+        "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+        "Carte de chaleur χ2(q0⋆, p2) avec contours de confiance",
+        "\"\"\""
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig05_residuals.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "zz-scripts/chapter08/plot_fig05_residuals.py",
+        "Trace les résidus BAO et Pantheon+ :",
+        "  (a) ΔD_V = D_V^obs - D_V^th  avec barres d'erreur σ_DV",
+        "  (b) Δμ   = μ^obs   - μ^th    avec barres d'erreur σ_μ"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+        "Distribution des pulls (résidus normalisés) pour BAO et Supernovae.",
+        "Rug‐plot + KDE pour BAO, histogramme pour Supernovae",
+        "\"\"\""
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+        "Trace le profil Δχ² en fonction de q₀⋆ autour du minimum,",
+        "avec annotations des niveaux 1σ, 2σ, 3σ (1 degré de liberté).",
+        "\"\"\""
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        11
+      ],
+      "args_used": [
+        "anchor_policy",
+        "csv",
+        "display_variant",
+        "dpi",
+        "force_fit",
+        "ini",
+        "log_level",
+        "meta",
+        "out",
+        "save_pdf",
+        "shade",
+        "show_residual"
+      ],
+      "args_defined": [
+        "anchor_policy",
+        "csv",
+        "display_variant",
+        "dpi",
+        "force_fit",
+        "ini",
+        "log_level",
+        "meta",
+        "out",
+        "save_pdf",
+        "shade",
+        "show_residual"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)",
+        "- Auto-variant: phi_mcgt > phi_mcgt_cal > phi_mcgt_raw",
+        "- k (rebranch) = round(median((phi_m - phi_r)/(2*π))) sur [f1,f2]",
+        "- k appliqué à la série affichée (superposition)"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py\", line 89\n    return float(np.percentile(a, 95.0)) if a.size else float(\"nan\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: 'return' outside function\n",
+      "future_at_top": false,
+      "future_offenders": [
+        22
+      ],
+      "args_used": [
+        "bands",
+        "csv",
+        "dpi",
+        "gap_thresh_log10",
+        "line_width",
+        "log_level",
+        "marker_size",
+        "meta",
+        "out"
+      ],
+      "args_defined": [
+        "bands",
+        "csv",
+        "dpi",
+        "gap_thresh_log10",
+        "line_width",
+        "log_level",
+        "marker_size",
+        "meta",
+        "out"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "Figure 02 - Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)",
+        "Version publication - panneau de droite compact (Option A)",
+        "CHANGEMENTS CLÉS",
+        "- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k.2*π) - φ_ref + π) mod 2*π - π"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "compiles": false,
+      "compile_error": "Sorry: IndentationError: expected an indented block after function definition on line 97 (plot_fig03_hist_absdphi_20_300.py, line 98)",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "bins",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "mode",
+        "no_lines",
+        "out",
+        "svg",
+        "window",
+        "xscale"
+      ],
+      "args_defined": [
+        "bins",
+        "csv",
+        "diff",
+        "dpi",
+        "legend_loc",
+        "log_level",
+        "meta",
+        "mode",
+        "no_lines",
+        "out",
+        "svg",
+        "window",
+        "xscale"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig03hist_absdphi_20300.py",
+        "Histogramme du résidu de phase |Δφ| sur une fenêtre (par défaut 20-300 Hz).",
+        "Exemple :",
+        "python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \\"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "compiles": false,
+      "compile_error": "Sorry: IndentationError: expected an indented block after function definition on line 78 (plot_fig04_absdphi_milestones_vs_f.py, line 79)",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "apply_calibration",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "milestones",
+        "out",
+        "show_autres",
+        "window",
+        "with_errorbar",
+        "xlim",
+        "ylim"
+      ],
+      "args_defined": [
+        "apply_calibration",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "milestones",
+        "out",
+        "show_autres",
+        "window",
+        "with_errorbar",
+        "xlim",
+        "ylim"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "fig_04 - Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)",
+        "Entrées:",
+        "- (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi",
+        "- (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ..."
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "compiles": false,
+      "compile_error": "  File \"/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py\", line 75\n    description=\"Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)\")\n                                                          ^\nSyntaxError: unmatched ')'\n",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "align",
+        "dpi",
+        "log_level",
+        "milestones",
+        "out",
+        "pdf"
+      ],
+      "args_defined": [
+        "",
+        "align",
+        "dpi",
+        "fmt",
+        "format",
+        "log_level",
+        "milestones",
+        "out",
+        "outdir",
+        "pdf",
+        "style",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig05_scatter_phi_at_fpeak.py",
+        "Fig. 05 - Comparaison ponctuelle aux f_peak : φ_ref vs φ_MCGT (±σ)",
+        "Entrée (obligatoire)",
+        "- zz-data/chapter09/09_comparison_milestones.csv"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        9
+      ],
+      "args_used": [
+        "cmap",
+        "dpi",
+        "levels",
+        "m1_col",
+        "m2_col",
+        "no_clip",
+        "out",
+        "p95_col",
+        "results",
+        "title"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "levels",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "no_clip",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig01_iso_p95_maps.py",
+        "Carte iso-valeurs d'un p95 (ou métrique équivalente) sur (m1, m2) à partir d'un CSV.",
+        "- Détection robuste de la colonne p95 (ou --p95-col)",
+        "- Tricontours + scatter des échantillons"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        16
+      ],
+      "args_used": [
+        "alpha",
+        "annotate_top_k",
+        "boot_ci",
+        "clip_pi",
+        "cmap",
+        "dpi",
+        "group_col",
+        "hexbin_alpha",
+        "hexbin_gridsize",
+        "out",
+        "p95_ref",
+        "pi_ticks",
+        "point_size",
+        "results",
+        "seed",
+        "title",
+        "with_hexbin",
+        "x_col",
+        "y_col"
+      ],
+      "args_defined": [
+        "alpha",
+        "annotate_top_k",
+        "boot_ci",
+        "clip_pi",
+        "cmap",
+        "dpi",
+        "group_col",
+        "hexbin_alpha",
+        "hexbin_gridsize",
+        "out",
+        "p95_ref",
+        "pi_ticks",
+        "point_size",
+        "results",
+        "seed",
+        "sigma_col",
+        "title",
+        "with_hexbin",
+        "x_col",
+        "y_col"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig02_scatter_phi_at_fpeak",
+        "Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).",
+        "- Différence circulaire Δφ = wrap(φ_MCGT - φ_ref) dans [-π, π)",
+        "- Couleur = |Δφ|"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        7
+      ],
+      "args_used": [
+        "B",
+        "dpi",
+        "npoints",
+        "out",
+        "p95_col",
+        "results",
+        "seed",
+        "trim",
+        "zoom_center_n",
+        "zoom_h",
+        "zoom_w"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig03_convergence_p95_vs_n.py",
+        "\"\"\"",
+        "from __future__ import annotations",
+        "try:"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "M",
+        "alpha",
+        "angular",
+        "dpi",
+        "hires2000",
+        "inner",
+        "make_sensitivity",
+        "minN",
+        "npoints",
+        "out",
+        "outer",
+        "p95_col",
+        "results",
+        "seed",
+        "sens_B_list",
+        "sens_N",
+        "sens_mode",
+        "title_left",
+        "title_right",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "make_sensitivity",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sens_B_list",
+        "sens_N",
+        "sens_mode",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "ymax_coverage",
+        "ymin_coverage",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "from __future__ import annotations",
+        "import sys as _sys, types as _types, re as _re",
+        "try:",
+        "    args  # noqa: F821  # peut ne pas exister",
+        "except NameError:"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        7
+      ],
+      "args_used": [
+        "alpha",
+        "bins",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "orig_col",
+        "out",
+        "point_size",
+        "recalc_col",
+        "results",
+        "title",
+        "with_zoom",
+        "zoom_center_x",
+        "zoom_center_y",
+        "zoom_h",
+        "zoom_w"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_center_x",
+        "zoom_center_y",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig04_scatter_p95_recalc_vs_orig.py",
+        "\"\"\"",
+        "from __future__ import annotations",
+        "try:"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        9
+      ],
+      "args_used": [
+        "bins",
+        "dpi",
+        "out",
+        "results",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig05_hist_cdf_metrics.py",
+        "Figure 05 : Histogramme + CDF des p95 recalculés en métrique circulaire.",
+        "\"\"\"",
+        "from __future__ import annotations"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig06_residual_map.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": true,
+      "future_offenders": [],
+      "args_used": [
+        "abs",
+        "cmap",
+        "dpi",
+        "figsize",
+        "gridsize",
+        "m1_col",
+        "m2_col",
+        "manifest",
+        "metric",
+        "minN",
+        "mincnt",
+        "npoints",
+        "orig_col",
+        "out",
+        "phi_mcgt_col",
+        "phi_ref_col",
+        "recalc_col",
+        "results",
+        "scale_exp",
+        "threshold",
+        "vclip"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "manifest",
+        "metric",
+        "minN",
+        "mincnt",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "p95_ref",
+        "phi_mcgt_col",
+        "phi_ref_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "from __future__ import annotations",
+        "import sys as _sys, types as _types, re as _re",
+        "try:",
+        "    args  # noqa: F821  # peut ne pas exister",
+        "except NameError:"
+      ]
+    },
+    {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig07_synthesis.py",
+      "compiles": true,
+      "compile_error": "",
+      "future_at_top": false,
+      "future_offenders": [
+        7
+      ],
+      "args_used": [
+        "dpi",
+        "figsize",
+        "label_a",
+        "label_b",
+        "manifest_a",
+        "manifest_b",
+        "out",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_defined": [
+        "dpi",
+        "figsize",
+        "label_a",
+        "label_b",
+        "manifest_a",
+        "manifest_b",
+        "out",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_missing": [],
+      "hygiene": {
+        "tabs": 0,
+        "crlf_lines": 0,
+        "trailing_space_lines": 0
+      },
+      "first_code_lines": [
+        "\"\"\"",
+        "plot_fig07_summary.py — Figure 7 (synthèse)",
+        "\"\"\"",
+        "from __future__ import annotations",
+        "import argparse"
+      ]
+    }
+  ],
+  "blocking": [
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py\", line 61\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py\", line 42\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py\", line 47\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py\", line 39\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py\", line 44\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py\", line 49\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py\", line 46\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py\", line 59\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py\", line 60\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+      "detail": "Sorry: IndentationError: expected an indented block after 'for' statement on line 26 (plot_fig04_relative_deviations.py, line 27)"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py\", line 96\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py\", line 158\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py\", line 126\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py\", line 138\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py\", line 90\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py\", line 80\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py\", line 93\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py\", line 136\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py\", line 142\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py\", line 102\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "detail": {
+        "offenders": [
+          10
+        ]
+      }
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py\", line 110\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "detail": {
+        "offenders": [
+          10
+        ]
+      }
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "detail": "Sorry: IndentationError: unexpected indent (plot_fig06_comparison.py, line 98)"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py",
+      "detail": {
+        "offenders": [
+          10
+        ]
+      }
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py\", line 76\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py\", line 114\n    parser.add_argument(\"-v\", \"--verbose\", action=\"count\", default=0, help=\"Verbosity cumulable (-v, -vv).\")        parser.add_argument(\"--dpi\", type=int, default=150, help=\"Figure DPI (default: 150)\")\n                                                                                                                    ^^^^^^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "detail": {
+        "offenders": [
+          11
+        ]
+      }
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py\", line 89\n    return float(np.percentile(a, 95.0)) if a.size else float(\"nan\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: 'return' outside function\n"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py",
+      "detail": {
+        "offenders": [
+          22
+        ]
+      }
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "detail": "Sorry: IndentationError: expected an indented block after function definition on line 97 (plot_fig03_hist_absdphi_20_300.py, line 98)"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "detail": "Sorry: IndentationError: expected an indented block after function definition on line 78 (plot_fig04_absdphi_milestones_vs_f.py, line 79)"
+    },
+    {
+      "type": "compile",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "detail": "  File \"/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py\", line 75\n    description=\"Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)\")\n                                                          ^\nSyntaxError: unmatched ')'\n"
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+      "detail": {
+        "offenders": [
+          9
+        ]
+      }
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "detail": {
+        "offenders": [
+          16
+        ]
+      }
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+      "detail": {
+        "offenders": [
+          7
+        ]
+      }
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+      "detail": {
+        "offenders": [
+          7
+        ]
+      }
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+      "detail": {
+        "offenders": [
+          9
+        ]
+      }
+    },
+    {
+      "type": "future-import",
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig07_synthesis.py",
+      "detail": {
+        "offenders": [
+          7
+        ]
+      }
+    }
+  ],
+  "manifests": {
+    "figure_manifest_csv": {
+      "exists": true,
+      "size": 14589,
+      "kind_guess": "text",
+      "is_empty": false
+    },
+    "manifest_master_json": {
+      "exists": true,
+      "size": 141097,
+      "kind_guess": "json-like",
+      "is_empty": false
+    },
+    "fig07_expectation": {
+      "file": "/home/jplal/MCGT/zz-scripts/chapter10/plot_fig07_synthesis.py",
+      "expects": "both",
+      "detail": "uses_json=True uses_csv=True"
+    },
+    "figure_manifest_csv_is_json_disguised": false,
+    "per_figure_manifests": [
+      {
+        "file": "/home/jplal/MCGT/zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.manifest.json",
+        "ok_json": true
+      }
+    ]
+  },
+  "data_columns": {
+    "checked": [
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_ddelta_phi_vs_k.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "d_delta_phi_dk"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_delta_phi_matrix.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "a",
+          "delta_phi_matrix"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_cs2_matrix.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "a",
+          "cs2_matrix"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_dcs2_dk.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "d_cs2_dk"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_dcs2_vs_k.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "d_cs2_dk"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_perturbations_domain.csv",
+        "has_header": true,
+        "columns": [
+          "k_min",
+          "k_max",
+          "a_min",
+          "a_max"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_scalar_perturbations_results.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "cs2_interp",
+          "d_cs2_dk",
+          "delta_phi_interp",
+          "d_delta_phi_dk"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_scalar_invariants.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "I1_cs2"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/placeholder.csv",
+        "has_header": false,
+        "columns": [],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_perturbations_main_data.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "cs2_interp",
+          "d_cs2_dk",
+          "phi_interp",
+          "d_delta_phi_dk"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_phase_run.csv",
+        "has_header": true,
+        "columns": [
+          "k",
+          "a",
+          "cs2_raw",
+          "delta_phi_raw"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter07/07_perturbations_boundary.csv",
+        "has_header": true,
+        "columns": [
+          "k_split",
+          "cs2_at_split"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_samples.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "seed",
+          "created_at",
+          "model"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/example_results.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "event",
+          "f_Hz",
+          "phi_mcgt_at_fpeak",
+          "obs_phase",
+          "sigma_phase"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_results.agg.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "k",
+          "mean_20_300",
+          "p95_20_300",
+          "max_20_300",
+          "n_20_300",
+          "status",
+          "error_code",
+          "wall_time_s",
+          "model",
+          "score",
+          "n_jalons_total",
+          "n_jalons_used",
+          "penalty_mean"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_milestones_eval.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "event_id",
+          "f_peak_Hz",
+          "abs_dphi_principal_at_fpeak",
+          "sigma_phase_rad",
+          "classe",
+          "delta_over_sigma",
+          "k_20_300",
+          "n_20_300"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_results.circ.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "k",
+          "mean_20_300",
+          "p95_20_300",
+          "max_20_300",
+          "n_20_300",
+          "status",
+          "error_code",
+          "wall_time_s",
+          "model",
+          "score",
+          "p95_20_300_circ",
+          "p95_20_300_recalc"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/dummy_results.csv",
+        "has_header": true,
+        "columns": [
+          "m1",
+          "m2",
+          "p95_20_300",
+          "p95_20_300_recalc",
+          "phi_ref_fpeak",
+          "phi_mcgt_fpeak"
+        ],
+        "missing_common": [
+          "phi0"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_results.circ.agg.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "k",
+          "mean_20_300",
+          "p95_20_300",
+          "max_20_300",
+          "n_20_300",
+          "status",
+          "error_code",
+          "wall_time_s",
+          "model",
+          "score",
+          "p95_20_300_circ",
+          "p95_20_300_recalc",
+          "n_jalons_total",
+          "n_jalons_used",
+          "penalty_mean"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "k",
+          "mean_20_300",
+          "p95_20_300",
+          "max_20_300",
+          "n_20_300",
+          "status",
+          "error_code",
+          "wall_time_s",
+          "model",
+          "score",
+          "p95_20_300_circ",
+          "p95_20_300_recalc",
+          "phi_ref_fpeak",
+          "phi_mcgt_fpeak"
+        ],
+        "missing_common": []
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter10/10_mc_results.csv",
+        "has_header": true,
+        "columns": [
+          "id",
+          "m1",
+          "m2",
+          "q0star",
+          "alpha",
+          "phi0",
+          "tc",
+          "dist",
+          "incl",
+          "k",
+          "mean_20_300",
+          "p95_20_300",
+          "max_20_300",
+          "n_20_300",
+          "status",
+          "error_code",
+          "wall_time_s",
+          "model",
+          "score"
+        ],
+        "missing_common": [
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_Tm_scan.csv",
+        "has_header": true,
+        "columns": [
+          "# k",
+          "delta_Tm"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_rs_scan_full.csv",
+        "has_header": true,
+        "columns": [
+          "alpha",
+          "q0star",
+          "chi2"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_cls_relative.csv",
+        "has_header": true,
+        "columns": [
+          "ell",
+          "delta_Cl_rel"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_cmb_chi2_scan2D.csv",
+        "has_header": true,
+        "columns": [
+          "alpha",
+          "q0star",
+          "chi2"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_rs_scan.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "delta_rs_rel"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_alpha_evolution.csv",
+        "has_header": true,
+        "columns": [
+          "alpha",
+          "A_s",
+          "n_s"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_cls.csv",
+        "has_header": true,
+        "columns": [
+          "ell",
+          "delta_Cl"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_cmb_full_results.csv",
+        "has_header": true,
+        "columns": [
+          "ell",
+          "cl_lcdm",
+          "cl_mcgt",
+          "delta_cls",
+          "delta_cls_rel"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter06/06_delta_rs_scan2D.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "r_s",
+          "delta_rs_rel"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_phases_imrphenom.csv",
+        "has_header": true,
+        "columns": [
+          "f_Hz",
+          "phi_ref"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_phase_diff.csv",
+        "has_header": true,
+        "columns": [
+          "f_Hz",
+          "abs_dphi"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_comparison_milestones.flagged.csv",
+        "has_header": true,
+        "columns": [
+          "event",
+          "f_Hz",
+          "phi_ref_at_fpeak",
+          "phi_mcgt_at_fpeak",
+          "phi_mcgt_at_fpeak_raw",
+          "phi_mcgt_at_fpeak_cal",
+          "obs_phase",
+          "sigma_phase",
+          "epsilon_rel",
+          "classe",
+          "variant",
+          "_abs_phase_diff_rad",
+          "_z_score",
+          "flag",
+          "flag_reason"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_comparison_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "event",
+          "f_Hz",
+          "phi_ref_at_fpeak",
+          "phi_mcgt_at_fpeak",
+          "phi_mcgt_at_fpeak_raw",
+          "phi_mcgt_at_fpeak_cal",
+          "obs_phase",
+          "sigma_phase",
+          "epsilon_rel",
+          "classe",
+          "variant"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_phases_mcgt.csv",
+        "has_header": true,
+        "columns": [
+          "f_Hz",
+          "phi_ref",
+          "phi_mcgt",
+          "phi_mcgt_raw",
+          "phi_mcgt_cal"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter09/09_phases_mcgt_prepoly.csv",
+        "has_header": true,
+        "columns": [
+          "f_Hz",
+          "phi_ref",
+          "phi_mcgt",
+          "phi_mcgt_raw",
+          "phi_mcgt_cal"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_ricci_fR_vs_T.csv",
+        "has_header": true,
+        "columns": [
+          "R_over_R0",
+          "f_R",
+          "f_RR",
+          "z",
+          "T_Gyr"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_ricci_fR_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "R_over_R0",
+          "f_R",
+          "f_RR"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_ricci_fR_vs_z.csv",
+        "has_header": true,
+        "columns": [
+          "R_over_R0",
+          "f_R",
+          "f_RR",
+          "z"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/placeholder.csv",
+        "has_header": false,
+        "columns": [],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_fR_stability_data.csv",
+        "has_header": true,
+        "columns": [
+          "R_over_R0",
+          "f_R",
+          "f_RR",
+          "m_s2_over_R0"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_fR_stability_domain.csv",
+        "has_header": true,
+        "columns": [
+          "beta",
+          "gamma_min",
+          "gamma_max"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter03/03_fR_stability_boundary.csv",
+        "has_header": true,
+        "columns": [
+          "beta",
+          "gamma_limit"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_bbn_invariants.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "I_DH",
+          "I_Yp"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_bbn_data.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "DH_calc",
+          "Yp_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_dchi2_vs_T.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "dchi2_smooth"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_bbn_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "DH_obs",
+          "sigma_DH",
+          "Yp_obs",
+          "sigma_Yp",
+          "source"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_chi2_bbn_vs_T.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "chi2_nucleosynthese"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter05/05_bbn_grid.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_relative_error_timeline.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "epsilon_i"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_timeline_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "P_ref",
+          "P_opt",
+          "epsilon_i",
+          "classe"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_milestones_meta.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "P_ref",
+          "classe",
+          "sigma_stat",
+          "sigma_syst",
+          "tolerance_pct"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_P_R_sampling.csv",
+        "has_header": true,
+        "columns": [
+          "alpha",
+          "k",
+          "P_R"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_As_ns_vs_alpha.csv",
+        "has_header": true,
+        "columns": [
+          "alpha",
+          "A_s",
+          "n_s"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter02/02_FG_series.csv",
+        "has_header": true,
+        "columns": [
+          "fonc",
+          "ordre",
+          "coeff"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "P_calc",
+          "dP_dT"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_optimized_data.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "P_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_timeline_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "P_ref"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_P_derivative_initial.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "deriveeP_initial"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_P_derivative_optimized.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "dP_dT"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_dimensionless_invariants.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "I1"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter01/01_relative_error_timeline.csv",
+        "has_header": true,
+        "columns": [
+          "T",
+          "epsilon"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter04/04_dimensionless_invariants.csv",
+        "has_header": true,
+        "columns": [
+          "T_Gyr",
+          "I1",
+          "I2",
+          "I3"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_mu_theory_z.csv",
+        "has_header": true,
+        "columns": [
+          "z",
+          "mu_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_dv_theory_z.csv",
+        "has_header": true,
+        "columns": [
+          "z",
+          "DV_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_coupling_milestones.csv",
+        "has_header": true,
+        "columns": [
+          "jalon",
+          "z",
+          "obs",
+          "sigma_obs",
+          "classe"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_chi2_scan2D.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "param2",
+          "chi2"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_mu_theory_q0star.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "mu_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_dv_theory_q0star.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "DV_calc"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_chi2_total_vs_q0.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "chi2_total",
+          "chi2_err"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_bao_data.csv",
+        "has_header": true,
+        "columns": [
+          "z",
+          "DV_obs",
+          "sigma_DV"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_pantheon_data.csv",
+        "has_header": true,
+        "columns": [
+          "z",
+          "mu_obs",
+          "sigma_mu"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      },
+      {
+        "file": "/home/jplal/MCGT/zz-data/chapter08/08_chi2_derivative.csv",
+        "has_header": true,
+        "columns": [
+          "q0star",
+          "dchi2_smooth"
+        ],
+        "missing_common": [
+          "m1",
+          "m2",
+          "phi0",
+          "phi_ref_fpeak"
+        ]
+      }
+    ]
+  },
+  "fig07_help_probe": {
+    "rc": 0,
+    "stdout": "             [--label-b LABEL_B] [--out OUT] [--dpi DPI]\n                               [--figsize FIGSIZE]\n                               [--ymin-coverage YMIN_COVERAGE]\n                               [--ymax-coverage YMAX_COVERAGE]\n\noptions:\n  -h, --help            show this help message and exit\n  --manifest-a MANIFEST_A\n  --label-a LABEL_A\n  --manifest-b MANIFEST_B\n  --label-b LABEL_B\n  --out OUT\n  --dpi DPI\n  --figsize FIGSIZE\n  --ymin-coverage YMIN_COVERAGE\n  --ymax-coverage YMAX_COVERAGE\n",
+    "stderr": ""
+  }
+}

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-plot_fig07_summary.py — Figure 7 (synthèse)
+plot_fig07_summary.py - Figure 7 (synthèse)
 
 """
-
 from __future__ import annotations
+
 
 import argparse
 import csv
@@ -18,6 +18,24 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.gridspec import GridSpec
 from matplotlib.lines import Line2D
+
+def safe_make_table(ax_tab, cell_text, col_labels):
+    """Construit le tableau si utile, sinon None (sans lever d'IndexError)."""
+    if not cell_text:
+        return None
+    try:
+        t = ax_tab.table(
+            cellText=cell_text,
+            colLabels=col_labels,
+            cellLoc="center",
+            colLoc="center",
+            loc="center",
+        )
+        return t
+    except IndexError:
+        return None
+
+
 
 
 # ---------- utils ----------
@@ -114,6 +132,9 @@ def detect_reps_params(params: dict[str, Any]) -> tuple[float, float, float]:
 def compute_summary_rows(series_list: list[Series]) -> list[list[Any]]:
     rows = []
     for s in series_list:
+        if (len(s.coverage) == 0 or (hasattr(np, 'isnan') and np.all(np.isnan(s.coverage)))) \
+           and (len(s.width_mean) == 0 or (hasattr(np, 'isnan') and np.all(np.isnan(s.width_mean)))):
+            continue
         mean_cov = np.nanmean(s.coverage)
         med_cov = np.nanmedian(s.coverage)
         std_cov = np.nanstd(s.coverage)
@@ -306,25 +327,19 @@ def plot_synthese(
         )
 
     ax_tab.axis("off")
-    table = ax_tab.table(
-        cellText=cell_text,
-        colLabels=col_labels,
-        cellLoc="center",
-        colLoc="center",
-        loc="center",
-    )
-    table.auto_set_font_size(False)
-    table.set_fontsize(10)
-    table.scale(1.0, 1.3)
-
-    for (r, c), cell in table.get_celld().items():
-        cell.set_edgecolor("0.3")
-        cell.set_linewidth(0.8)
-        if r == 0:
-            cell.set_height(cell.get_height() * 1.15)
-        if c == 0:
-            cell.set_width(cell.get_width() * 1.85)
-
+    table = safe_make_table(ax_tab, cell_text, col_labels)
+    if table is not None:
+        table.auto_set_font_size(False)
+        table.set_fontsize(10)
+        table.scale(1.0, 1.3)
+        for (r, c), cell in table.get_celld().items():
+            cell.set_edgecolor("0.3")
+            cell.set_linewidth(0.8)
+            if r == 0:
+                cell.set_height(cell.get_height() * 1.15)
+            if c == 0:
+                cell.set_width(cell.get_width() * 1.85)
+    
     slopes = []
     for s in series_list:
         b = powerlaw_slope(s.N, s.width_mean)
@@ -340,7 +355,7 @@ def plot_synthese(
             f"inner_B={int(inner0) if np.isfinite(inner0) else '?'} ; α={s0.alpha:.2f}."
         )
         cap2 = (
-            "Largeur moyenne en radians ; ajustement log–log width ≈ a·N^b ; "
+            "Largeur moyenne en radians ; ajustement log-log width ≈ a·N^b ; "
             + " ; ".join(slopes)
             + "."
         )

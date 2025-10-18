@@ -2,7 +2,7 @@
 """
 generate_phase_mcgtraw.py
 
-Génère la phase brute MCGT sur une grille log–lin de fréquences,
+Génère la phase brute MCGT sur une grille log-lin de fréquences,
 exporte les résultats en CSV et crée un fichier meta-JSON compagnon.
 """
 
@@ -43,7 +43,7 @@ def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
     return np.allclose(diffs, diffs[0], atol=atol, rtol=0.0)
 
 
-# --- Coefficients PN jusqu’à 3.5PN (simplifiés) --------------------------------
+# --- Coefficients PN jusqu'à 3.5PN (simplifiés) --------------------------------
 _CPN = {
     0: 1,
     2: (3715 / 756 + 55 / 9),
@@ -63,7 +63,7 @@ def _symmetric_eta(m1: float, m2: float) -> float:
 
 # --- Phase GR (SPA) ----------------------------------------------------------
 def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
-    """Phase fréquentielle GR via SPA jusqu’à 3.5PN."""
+    """Phase fréquentielle GR via SPA jusqu'à 3.5PN."""
     M_s = (p.m1 + p.m2) * 4.925490947e-6  # conversion M☉ → s
     eta = _symmetric_eta(p.m1, p.m2)
     v = (np.pi * M_s * freqs) ** (1 / 3)
@@ -78,7 +78,7 @@ def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
 def corr_phase(
     freqs: np.ndarray, fmin: float, q0star: float, alpha: float
 ) -> np.ndarray:
-    """Correction analytique pour δt = q0star * f^(−alpha)."""
+    """Correction analytique pour δt = q0star * f^(-alpha)."""
     if np.isclose(alpha, 1.0):
         return 2 * np.pi * q0star * np.log(freqs / fmin)
     return (2 * np.pi * q0star / (1 - alpha)) * (
@@ -88,7 +88,7 @@ def corr_phase(
 
 # --- Solveur MCGT ------------------------------------------------------------
 def solve_mcgt(freqs: np.ndarray, p: PhaseParams, fmin: float = None) -> np.ndarray:
-    """Calcule φ_MCGT(f) = φ_GR(f) − δφ(f) sur la grille `freqs`."""
+    """Calcule φ_MCGT(f) = φ_GR(f) - δφ(f) sur la grille `freqs`."""
     freqs = np.asarray(freqs, dtype=float)
     f0 = freqs[0] if fmin is None else fmin
     if not np.all(freqs[1:] > freqs[:-1]):
@@ -103,27 +103,33 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Génère les phases brutes MCGT (09_phase_run_*.dat)"
     )
-    parser.add_argument(
+
+parser.add_argument(
         "-i", "--ini", type=Path, required=True, help="Chemin vers gw_phase.ini"
     )
-    parser.add_argument(
+
+parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Affiche un aperçu et n'écrit pas les fichiers",
     )
-    parser.add_argument(
+
+parser.add_argument(
         "--export-raw", action="store_true", help="Exporter le CSV et le meta-JSON"
     )
-    parser.add_argument(
+
+parser.add_argument(
         "--npts", type=int, help="Override du nombre de points de la grille"
     )
-    parser.add_argument(
+
+parser.add_argument(
         "--log-level",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         default="INFO",
         help="Niveau de verbosité",
     )
-    parser.add_argument("--log-file", type=Path, help="Chemin vers un fichier de log")
+
+parser.add_argument("--log-file", type=Path, help="Chemin vers un fichier de log")
     return parser.parse_args()
 
 

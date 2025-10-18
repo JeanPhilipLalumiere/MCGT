@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 # zz-scripts/chapter10/add_phi_at_fpeak.py
 """
 Ajoute/garantit les colonnes phi_ref_fpeak et phi_mcgt_fpeak dans un CSV results.
@@ -14,7 +15,6 @@ python zz-scripts/chapter10/add_phi_at_fpeak.py \
   --thresh 1e3 --backup
 """
 
-from __future__ import annotations
 
 import argparse
 import logging
@@ -271,7 +271,7 @@ df = ci.ensure_fig02_cols(df)
         "out": os.path.abspath(out_path),
     }
     manifest_path = out_path + ".manifest.json"
-    import json
+import json
 
     with open(manifest_path, "w") as fh:
         json.dump(manifest, fh, indent=2)

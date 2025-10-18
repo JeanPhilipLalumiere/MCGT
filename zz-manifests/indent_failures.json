@@ -1,0 +1,354 @@
+[
+  {
+    "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+    "type": "SyntaxError",
+    "msg": "invalid syntax",
+    "lineno": 162,
+    "offset": 9,
+    "line": "        except Exception:"
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 116,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 156,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 124,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 98,
+    "offset": 4,
+    "line": "    if args.out:"
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 150,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter07/generate_data_chapter07.py",
+    "type": "SyntaxError",
+    "msg": "invalid character '\u00b2' (U+00B2)",
+    "lineno": 7,
+    "offset": 28,
+    "line": "G\u00e9n\u00e9ration du scan brut c_s\u00b2(k,a) et \u03b4\u03c6/\u03c6(k,a) pour le Chapitre 7 - Perturbations scalaires MCGT."
+  },
+  {
+    "path": "zz-scripts/chapter10/add_phi_at_fpeak.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 89,
+    "offset": 4,
+    "line": "    if args.backup:"
+  },
+  {
+    "path": "zz-scripts/chapter10/generate_data_chapter10.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 333,
+    "offset": 4,
+    "line": "    keys = [\"m1\", \"m2\", \"q0star\", \"alpha\"]"
+  },
+  {
+    "path": "zz-scripts/chapter10/check_metrics_consistency.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 82,
+    "offset": 4,
+    "line": "    _df_cols = {c: c for c in df.columns}"
+  },
+  {
+    "path": "zz-scripts/chapter10/diag_phi_fpeak.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 66,
+    "offset": 4,
+    "line": "    f_ref = np.loadtxt(args.ref_grid, delimiter=\",\", skiprows=1, usecols=[0])"
+  },
+  {
+    "path": "zz-scripts/chapter10/recompute_p95_circular.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 49,
+    "offset": 4,
+    "line": "    df_res = pd.read_csv(args.results)"
+  },
+  {
+    "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 83,
+    "offset": 4,
+    "line": "    p95_col = detect_p95_column(df)"
+  },
+  {
+    "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+    "type": "SyntaxError",
+    "msg": "expected 'except' or 'finally' block",
+    "lineno": 27,
+    "offset": 1,
+    "line": "from mcgt.phase import phi_mcgt"
+  },
+  {
+    "path": "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 81,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 140,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 107,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 104,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter06/generate_data_chapter06.py",
+    "type": "SyntaxError",
+    "msg": "unindent does not match any outer indentation level",
+    "lineno": 155,
+    "offset": 37,
+    "line": "    pars.post_process = post_process"
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 152,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+    "type": "SyntaxError",
+    "msg": "unterminated string literal (detected at line 126)",
+    "lineno": 126,
+    "offset": 10,
+    "line": "args.csv}\")"
+  },
+  {
+    "path": "zz-scripts/chapter09/check_p95_methods.py",
+    "type": "SyntaxError",
+    "msg": "invalid decimal literal",
+    "lineno": 8,
+    "offset": 62,
+    "line": "  - rebranch: alignement par k cycles enti\u00e8res: phi_mcgt - k*2pi"
+  },
+  {
+    "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 133,
+    "offset": 4,
+    "line": "    return parser.parse_args()"
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+    "type": "SyntaxError",
+    "msg": "unmatched ')'",
+    "lineno": 81,
+    "offset": 55,
+    "line": "description=\"Fig.05 - \u03c6_ref vs \u03c6_MCGT aux f_peak (\u00b1\u03c3)\")"
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+    "type": "SyntaxError",
+    "msg": "invalid syntax",
+    "lineno": 82,
+    "offset": 13,
+    "line": "if f.size ==== 0:"
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+    "type": "SyntaxError",
+    "msg": "invalid decimal literal",
+    "lineno": 10,
+    "offset": 25,
+    "line": "    zz-data/chapter03/03_ricci_fR_vs_z.csv"
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+    "type": "SyntaxError",
+    "msg": "invalid decimal literal",
+    "lineno": 10,
+    "offset": 25,
+    "line": "    zz-data/chapter03/03_ricci_fR_vs_T.csv"
+  },
+  {
+    "path": "zz-scripts/chapter05/generate_data_chapter05.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 141,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 110,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 73,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig02_calibration.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 60,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig00_spectrum.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 63,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 60,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter02/generate_data_chapter02.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 100,
+    "offset": 4,
+    "line": "    return parser.parse_args()"
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 74,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+    "type": "SyntaxError",
+    "msg": "unterminated string literal (detected at line 40)",
+    "lineno": 40,
+    "offset": 2,
+    "line": ".\")"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 58,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 56,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 61,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 60,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig01_early_plateau.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 75,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 67,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 90,
+    "offset": 8,
+    "line": "        try:"
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+    "type": "SyntaxError",
+    "msg": "unexpected indent",
+    "lineno": 128,
+    "offset": 8,
+    "line": "        try:"
+  }
+]

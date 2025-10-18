@@ -1,51 +1,31 @@
-"""
-MCGT common figure styles (opt-in).
-Usage:
-    import zz-scripts._common.style  # via postparse loader
-    style.apply(theme="paper")       # or "talk", "mono"
-"""
+#!/usr/bin/env python3
 from __future__ import annotations
-import matplotlib
+from contextlib import contextmanager
+import matplotlib as mpl
 
-_THEMES = {
-    "paper": dict(
-        figure_dpi=150,
-        font_size=9,
-        font_family="DejaVu Sans",
-        axes_linewidth=0.8,
-        grid=True,
-    ),
-    "talk": dict(
-        figure_dpi=150,
-        font_size=12,
-        font_family="DejaVu Sans",
-        axes_linewidth=1.0,
-        grid=True,
-    ),
-    "mono": dict(
-        figure_dpi=150,
-        font_size=9,
-        font_family="DejaVu Sans Mono",
-        axes_linewidth=0.8,
-        grid=True,
-    ),
+_PRESETS = {
+    "paper": {"figure.dpi": 300, "savefig.dpi": 300, "axes.grid": False, "font.size": 9.0},
+    "talk":  {"figure.dpi": 150, "savefig.dpi": 150, "axes.grid": False, "font.size": 12.0},
+    "mono":  {"text.kerning_factor": 0, "axes.prop_cycle": mpl.cycler(color=["0.0","0.3","0.6","0.9"])},
 }
 
-def apply(theme: str | None) -> None:
-    if not theme or theme == "none":
+@contextmanager
+def apply_style(name: str | None):
+    """
+    N'applique rien si name in (None, 'none'); restaure toujours les rcParams.
+
+    Usage:
+        from _common.style import apply_style
+        with apply_style(getattr(args, "style", "none")):
+            ...
+    """
+    if not name or name == "none":
+        yield
         return
-    t = _THEMES.get(theme, _THEMES["paper"])
-    rc = matplotlib.rcParams
-    # taille police
-    rc["font.size"] = t["font_size"]
-    rc["font.family"] = [t["font_family"]]
-    # traits axes
-    rc["axes.linewidth"] = t["axes_linewidth"]
-    rc["xtick.major.width"] = t["axes_linewidth"]
-    rc["ytick.major.width"] = t["axes_linewidth"]
-    # DPI figure par défaut (ne force pas savefig.*)
-    rc["figure.dpi"] = t["figure_dpi"]
-    # grille légère
-    rc["axes.grid"] = bool(t["grid"])
-    rc["grid.linestyle"] = ":"
-    rc["grid.linewidth"] = 0.6
+    old = mpl.rcParams.copy()
+    try:
+        for k, v in _PRESETS.get(name, {}).items():
+            mpl.rcParams[k] = v
+        yield
+    finally:
+        mpl.rcParams.update(old)

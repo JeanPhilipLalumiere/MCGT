@@ -10,10 +10,10 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 - Statistiques incluant IC bootstrap (95%) de la moyenne circulaire de Δφ
 - Export PNG (DPI au choix)
 
-Exemple d’usage (recommandé) à la fin du fichier.
+Exemple d'usage (recommandé) à la fin du fichier.
 """
-
 from __future__ import annotations
+
 
 import argparse
 
@@ -335,7 +335,7 @@ def main():
 
     # pied de figure
     foot = (
-        r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
+        r"$\Delta\phi$ calculé circulairement en radians (b - a mod $2\pi \rightarrow [-\pi,\pi)$). "
         r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
     )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)

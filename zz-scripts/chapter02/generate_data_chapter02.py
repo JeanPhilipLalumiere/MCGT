@@ -91,7 +91,8 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Pipeline Chapitre 2 (+ option spectre primordial)"
     )
-    parser.add_argument(
+
+parser.add_argument(
         "--spectre",
         action="store_true",
         help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png",
@@ -120,7 +121,7 @@ def main(spectre=False):
     # 3.2 Définition de la grille et segmentation
     Tmin, Tmax, dlog, T_split = 1e-6, 14.0, 0.01, 0.15
 
-    def make_grid(t0, t1):
+def make_grid(t0, t1):
         n = int(np.floor((np.log10(t1) - np.log10(t0)) / dlog)) + 1
         return np.logspace(np.log10(t0), np.log10(t1), n)
 
@@ -257,7 +258,7 @@ def main(spectre=False):
         spec = {
             "label_eq": "eq:spec_prim",
             "formule": "P_R(k;α)=A_s(α) k^{n_s(α)-1}",
-            "description": "Spectre primordial modifié MCGT – Paramètres Planck 2018",
+            "description": "Spectre primordial modifié MCGT - Paramètres Planck 2018",
             "constantes": {"A_s0": 2.10e-9, "ns0": 0.9649},
             "coefficients": {"c1": c1, "c1_2": c1_2, "c2": c2, "c2_2": c2_2},
         }
@@ -266,7 +267,7 @@ def main(spectre=False):
             json.dump(spec, f, ensure_ascii=False, indent=2)
         logging.info(f"02_primordial_spectrum_spec.json généré → {out_spec}")
 
-        # 4.3) Tracé de la figure d’exemple
+        # 4.3) Tracé de la figure d'exemple
         subprocess.run(
             [
                 "python3",

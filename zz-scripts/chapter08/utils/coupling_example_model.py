@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # toy_model_couplage.py
-# Génère un toy-model pour tester l’interpolation PCHIP en log-log
+# Génère un toy-model pour tester l'interpolation PCHIP en log-log
 
+"""
 import os
 from pathlib import Path
 
@@ -32,7 +34,7 @@ plt.loglog(z_ref, y_ref, "o", label="Points de référence")
 plt.loglog(z_fine, y_interp, "-", label="Interpolation PCHIP")
 plt.xlabel("z")
 plt.ylabel("y = z^1.5")
-plt.title("Toy-model : test interpolation log–log")
+plt.title("Toy-model : test interpolation log-log")
 plt.grid(True, which="both", ls=":", lw=0.5, alpha=0.7)
 plt.legend()
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

@@ -9,8 +9,8 @@ dans zz-data/chapter09/.
 Usage:
     python zz-scripts/chapter09/fetch_gwtc3_confident.py
 """
-
 from __future__ import annotations
+
 
 import datetime
 import hashlib

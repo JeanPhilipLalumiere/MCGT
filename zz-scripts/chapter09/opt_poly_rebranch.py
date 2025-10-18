@@ -3,8 +3,8 @@
 Recherche automatique : polynôme (sur unwrap diff) + rebranch entier k optimisé.
 Applique la meilleure correction au CSV (backup) et met à jour le JSON métriques.
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json

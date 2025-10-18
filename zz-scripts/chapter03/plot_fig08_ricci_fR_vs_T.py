@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # tracer_fig08_ricci_fR_contre_T.py
 
 """
-Trace f_R et f_RR aux points jalons en fonction de l’âge de l’Univers (Gyr) — Chapitre 3
+Trace f_R et f_RR aux points jalons en fonction de l'âge de l'Univers (Gyr) - Chapitre 3
 =======================================================================================
 
 Entrée :
@@ -14,6 +15,7 @@ Sortie :
     zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png
 """
 
+"""
 import logging
 from pathlib import Path
 
@@ -65,7 +67,7 @@ def main() -> None:
     ax1.plot(df["T_Gyr"], df["f_R"], c=color1, lw=1, alpha=0.6)
     ax1.set_xscale("log")
     ax1.set_yscale("log")
-    ax1.set_xlabel("Âge de l’Univers $T$ (Gyr)")
+    ax1.set_xlabel("Âge de l'Univers $T$ (Gyr)")
     ax1.set_ylabel(r"$f_R$", color=color1)
     ax1.tick_params(axis="y", labelcolor=color1)
     ax1.grid(True, which="both", ls=":", alpha=0.3)

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # ruff: noqa: E402
 # ---------------------------------------------------------------
 # zz-scripts/chapter08/generate_chapter08_data.py
-# Pipeline de génération des données – Chapitre 8 (Dark coupling)
+# Pipeline de génération des données - Chapitre 8 (Dark coupling)
 # Scan 1D et 2D χ² (axe param2 « phantom » pour la heatmap)
 # ---------------------------------------------------------------
 
+"""
 import argparse
 import json
 import sys
@@ -15,7 +17,7 @@ import numpy as np
 import pandas as pd
 from scipy.signal import savgol_filter
 
-# --- Permet d’importer cosmo.py depuis utils ---
+# --- Permet d'importer cosmo.py depuis utils ---
 ROOT = Path(__file__).resolve().parents[2]
 UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
 sys.path.insert(0, str(UTILS))

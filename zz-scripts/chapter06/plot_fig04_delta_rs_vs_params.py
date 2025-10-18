@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import argparse
 """
 Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)
 ───────────────────────────────────────────────────────────────
@@ -72,33 +73,45 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default="zz-figures/chapter06")
+parser.add_argument("--dry-run", action="store_true")
+parser.add_argument("--seed", type=int, default=0)
+parser.add_argument("--force", action="store_true")
+parser.add_argument("-v", "--verbose", action="count", default=0)
+parser.add_argument("--dpi", type=int, default=150)
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png")
+parser.add_argument("--fmt", dest="format", choices=["png","pdf","svg"])  # alias
+parser.add_argument("--transparent", action="store_true")
+args = parser.parse_args()
 
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+try:
+    os.makedirs(args.outdir, exist_ok=True)
+    os.environ["MCGT_OUTDIR"] = args.outdir
+except Exception:
+    pass
+# [AUTO] orphan except/finally removed
+# [AUTO]     pass
+# [AUTO] orphan except/finally removed
+# [AUTO]     pass
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+# [AUTO] orphan except/finally removed
+# [AUTO]             pass
+# [AUTO]         _main = globals().get("main")
+# [AUTO]         if callable(_main):
+# [AUTO]             try:
+# [AUTO]                 _main(args)
+# [AUTO]             except Exception:
+# [AUTO]                 pass
+# [AUTO]             except Exception:
+# [AUTO]                 pass
+# [AUTO]             except SystemExit:
+# [AUTO]                 raise
+# [AUTO]             except Exception as e:
+# [AUTO]                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+# [AUTO]                 traceback.print_exc()
+# [AUTO]                 sys.exit(1)
+# [AUTO]     _mcgt_cli_seed()

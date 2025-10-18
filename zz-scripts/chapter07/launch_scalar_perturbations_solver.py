@@ -2,7 +2,7 @@
 """
 launch_scalar_perturbations_solver.py
 
-Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapter 7 — Perturbations scalaires MCGT.
+Génération du scan brut c_s²(k,a) et δφ/φ(k,a) pour le Chapter 7 - Perturbations scalaires MCGT.
 
 Ce script :
  - lit une configuration INI (grilles, knobs, tolérances, lissage),
@@ -12,8 +12,8 @@ Ce script :
  - (optionnel) écrit des matrices 2D CS2 / delta_phi,
  - journalise et contrôle les erreurs.
 """
-
 from __future__ import annotations
+
 
 import argparse
 import configparser

@@ -1,0 +1,165 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+# -*- coding: utf-8 -*-
+"""
+plot_fig04_dcs2_vs_k.py
+
+Figure 04 - Dérivée lissée ∂c_s²/∂k
+Chapitre 7 - Perturbations scalaires MCGT.
+"""
+
+
+import argparse
+import json
+import logging
+import sys
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.ticker import FuncFormatter, LogLocator
+
+# ---------------------------------------------------------------------
+# Configuration générale
+# ---------------------------------------------------------------------
+
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+plt.style.use("classic")
+
+ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = ROOT / "zz-data" / "chapter07"
+FIG_DIR = ROOT / "zz-figures" / "chapter07"
+META_JSON = DATA_DIR / "07_meta_perturbations.json"
+CSV_DCS2 = DATA_DIR / "07_dcs2_dk.csv"
+
+
+def pow_fmt(x, pos):
+    """Formatter: affiche 10^n pour les puissances exactes de 10, sinon rien."""
+    if x <= 0 or not np.isfinite(x):
+        return ""
+    exp = int(np.log10(x))
+    return rf"$10^{{{exp}}}$" if np.isclose(x, 10 ** exp) else ""
+
+
+def build_figure(k_vals: np.ndarray, dcs2: np.ndarray, k_split: float):
+    """Construit la figure matplotlib et retourne (fig, ax)."""
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    # |∂ₖ c_s²|
+    ax.loglog(k_vals, np.abs(dcs2), color="C1", lw=2, label=r"$|\partial_k\,c_s^2|$")
+
+    # Ligne verticale k_split
+    ax.axvline(k_split, color="k", ls="--", lw=1)
+    ax.text(
+        k_split,
+        0.85,
+        r"$k_{\rm split}$",
+        transform=ax.get_xaxis_transform(),
+        rotation=90,
+        va="bottom",
+        ha="right",
+        fontsize=9,
+    )
+
+    # Labels et titre
+    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
+    ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
+    ax.set_title(r"Dérivée lissée $\partial_k\,c_s^2(k)$")
+
+    # Grilles
+    ax.grid(which="major", ls=":", lw=0.6)
+    ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
+
+    # Locators/formatters log
+    ax.xaxis.set_major_locator(LogLocator(base=10))
+    ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+    ax.yaxis.set_major_locator(LogLocator(base=10))
+    ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+    ax.xaxis.set_major_formatter(FuncFormatter(pow_fmt))
+    ax.yaxis.set_major_formatter(FuncFormatter(pow_fmt))
+
+    # Limite inférieure sur Y pour aérer
+    ax.set_ylim(1e-8, None)
+
+    # Légende
+    ax.legend(loc="upper right", frameon=False)
+
+    # Marges
+    fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
+    return fig, ax
+
+
+def load_inputs() -> tuple[np.ndarray, np.ndarray, float]:
+    """Charge le CSV et le meta JSON, retourne (k_vals, dcs2, k_split)."""
+    if not META_JSON.exists():
+        raise FileNotFoundError(f"Meta JSON introuvable: {META_JSON}")
+    if not CSV_DCS2.exists():
+        raise FileNotFoundError(f"CSV introuvable: {CSV_DCS2}")
+
+    meta = json.loads(META_JSON.read_text(encoding="utf-8"))
+    k_split = float(meta.get("x_split", 0.02))
+    logging.info("k_split = %.2e h/Mpc", k_split)
+
+    df = pd.read_csv(CSV_DCS2, comment="#")
+    if "k" not in df.columns:
+        raise ValueError(f"Colonne 'k' absente du CSV {CSV_DCS2}")
+    if df.shape[1] < 2:
+        raise ValueError(f"CSV {CSV_DCS2} doit contenir au moins 2 colonnes")
+
+    k_vals = df["k"].to_numpy()
+    dcs2 = df.iloc[:, 1].to_numpy()
+    logging.info("Loaded %d points from %s", len(df), CSV_DCS2.name)
+    return k_vals, dcs2, k_split
+
+
+def default_outpath(fmt: str = "png") -> Path:
+    """Chemin par défaut dans zz-figures/chapter07, format choisi."""
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
+    return FIG_DIR / f"fig_04_dcs2_vs_k.{fmt}"
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Figure 04 - dérivée lissée ∂c_s²/∂k (chapitre 7, MCGT).",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+
+parser.add_argument("--out", type=Path, default=None, help="Chemin du fichier de sortie")
+
+parser.add_argument("--dpi", type=int, default=300, help="DPI pour la sauvegarde")
+
+parser.add_argument("--format", default="png", choices=["png", "pdf", "svg"], help="Format de sortie (si --out absent)")
+
+parser.add_argument("--transparent", action="store_true", help="Arrière-plan transparent")
+
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosité cumulable")
+
+args = parser.parse_args(argv)
+
+    # Logging level
+    if args.verbose >= 2:
+        logging.getLogger().setLevel(logging.DEBUG)
+    elif args.verbose == 1:
+        logging.getLogger().setLevel(logging.INFO)
+    else:
+        logging.getLogger().setLevel(logging.WARNING)
+
+    try:
+        k_vals, dcs2, k_split = load_inputs()
+        fig, _ = build_figure(k_vals, dcs2, k_split)
+
+        outpath = args.out if args.out is not None else default_outpath(args.format)
+        outpath.parent.mkdir(parents=True, exist_ok=True)
+
+        fig.savefig(outpath, dpi=args.dpi, transparent=args.transparent)
+        plt.close(fig)
+        print(f"[INFO] Figure saved → {outpath}")
+        return 0
+    except Exception as e:
+        print(f"[ERROR] {e}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

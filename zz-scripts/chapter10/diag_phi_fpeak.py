@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 # zz-scripts/chapter10/diag_phi_fpeak.py
 """
 Diagnostic pour lignes problématiques lors du calcul de phi_ref_fpeak / phi_mcgt_fpeak.
@@ -11,7 +12,6 @@ python zz-scripts/chapter10/diag_phi_fpeak.py \
   --thresh 1e3
 """
 
-from __future__ import annotations
 
 import argparse
 import csv

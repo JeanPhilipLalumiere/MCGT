@@ -30,7 +30,7 @@ DONNEES_CSV = RACINE / "zz-data" / "chapter07" / "07_cs2_matrix.csv"
 META_JSON = RACINE / "zz-data" / "chapter07" / "07_meta_perturbations.json"
 FIGURE_SORTIE = RACINE / "zz-figures" / "chapter07" / "fig_01_cs2_heatmap_k_a.png"
 
-logging.info("Début du tracé de la figure 01 – Carte de chaleur de c_s²(k,a)")
+logging.info("Début du tracé de la figure 01 - Carte de chaleur de c_s²(k,a)")
 
 # --- MÉTA-PARAMÈTRES ---
 if not META_JSON.exists():
@@ -128,20 +128,29 @@ logging.info("Tracé de la figure 01 terminé ✔")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
 
-        args = parser.parse_args()
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
+
+args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
         os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
+import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
         mpl.rcParams["savefig.format"] = args.format
         mpl.rcParams["savefig.transparent"] = args.transparent

@@ -18,8 +18,8 @@ Sorties :
  - CSV résultats : id,θ,k,mean_20_300,p95_20_300,max_20_300,n_20_300,status,error_code,wall_time_s,worker_id,model,score
  - JSON top-K : top-K trié par 'score' (ici = p95 par défaut)
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -76,7 +76,7 @@ def safe_write_csv(
 ) -> None:
     if os.path.exists(path) and not overwrite:
         raise SystemExit(
-            f"Refuse d'écraser {path} — relancer avec --overwrite ou supprimer le fichier."
+            f"Refuse d'écraser {path} - relancer avec --overwrite ou supprimer le fichier."
         )
     tmp = path + ".part"
     df.to_csv(tmp, index=False, float_format="%.6f", **kwargs)
@@ -86,7 +86,7 @@ def safe_write_csv(
 def safe_write_json(obj: Any, path: str, overwrite: bool = False) -> None:
     if os.path.exists(path) and not overwrite:
         raise SystemExit(
-            f"Refuse d'écraser {path} — relancer avec --overwrite ou supprimer le fichier."
+            f"Refuse d'écraser {path} - relancer avec --overwrite ou supprimer le fichier."
         )
     tmp = path + ".part"
     with open(tmp, "w", encoding="utf-8") as f:
@@ -105,7 +105,7 @@ def compute_rebranch_k(
     f_hz: np.ndarray,
     window: tuple[float, float] = WINDOW_DEFAULT,
 ) -> int:
-    """Calcul de k via median((φ_mcgt − φ_ref)/2π) sur la fenêtre window."""
+    """Calcul de k via median((φ_mcgt - φ_ref)/2π) sur la fenêtre window."""
     fmin, fmax = window
     mask = (
         (f_hz >= fmin) & (f_hz <= fmax) & np.isfinite(phi_mcgt) & np.isfinite(phi_ref)
@@ -275,7 +275,7 @@ def parse_args(argv=None):
     p.add_argument(
         "--ref-grid",
         required=True,
-        help="CSV grille de référence (f_Hz [, phi_ref]) — nous utilisons f_Hz pour calculer phi_ref via backend",
+        help="CSV grille de référence (f_Hz [, phi_ref]) - nous utilisons f_Hz pour calculer phi_ref via backend",
     )
     p.add_argument(
         "--out-results",
@@ -301,7 +301,7 @@ def parse_args(argv=None):
     p.add_argument(
         "--jalons",
         default=None,
-        help="(optionnel) fichier jalons — non utilisé ici, penalty via aggregate",
+        help="(optionnel) fichier jalons - non utilisé ici, penalty via aggregate",
     )
     p.add_argument(
         "--overwrite",

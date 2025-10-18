@@ -1,3 +1,4 @@
+from _common.postparse import ensure_std_args
 import argparse
 import fnmatch
 import pathlib
@@ -16,6 +17,7 @@ parser.add_argument("--keys", nargs="*", default=["timeout-minutes", "python-ver
 parser.add_argument("--include-archive", action="store_true")
 parser.add_argument("--apply", action="store_true")
 args = parser.parse_args()
+args = ensure_std_args(args)
 
 ignore_globs = [] if args.include_archive else [".ci-archive/**"]
 

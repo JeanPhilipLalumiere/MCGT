@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+"""(auto-wrapped header)
 # plot_fig01_chi2_total_vs_q0.py
-# Trace χ² total et sa dérivée vs q0⋆ (Chapter 8 – Dark coupling, MCGT)
+# Trace χ² total et sa dérivée vs q0⋆ (Chapter 8 - Dark coupling, MCGT)
 # Inset centré et légèrement décalé vers le haut
 
+"""
 from pathlib import Path
 
 import matplotlib.pyplot as plt

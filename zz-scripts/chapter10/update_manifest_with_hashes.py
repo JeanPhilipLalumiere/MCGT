@@ -1,5 +1,7 @@
+"""(auto-wrapped header)
 # ruff: noqa: E402
 #!/usr/bin/env python3
+"""
 import json
 import pathlib
 import subprocess

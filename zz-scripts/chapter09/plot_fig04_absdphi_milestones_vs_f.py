@@ -16,7 +16,7 @@ Points clés corrigés:
 * Les MILESTONES sont calculés en **différence principale** modulo 2*π, PAS abs(diff) brute.
 * On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
 est reconstruit depuis --csv) pour cohérence scientifique.
-* Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
+* Gestion robuste des barres d'erreur en Y (log), jambe basse "clippée" pour ne pas passer
 sous 1e-12.
 
 Exemple:
@@ -59,7 +59,7 @@ def setup_logger(level: str):
     return logging.getLogger("fig04")
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
+    """((a-b+π) mod 2π) - π  ∈ (-π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
 
 out[bad] = eps
@@ -76,6 +76,7 @@ def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
 
 
 def _auto_xlim(f_all: np.ndarray, xmin_hint: float = 10.0):
+    pass
 f = np.asarray(f_all, float)
 f = f[np.isfinite(f) & (f > 0)]
 if f.size ==== 0:
@@ -120,7 +121,7 @@ def pick_variant(df: pd.DataFrame) -> str:
 
 def parse_args():
     ap = argparse.ArgumentParser(
-        description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)"
+        description="fig_04 - |Δφ|(f) + milestones (principal, calage cohérent)"
     )
     ap.add_argument(
         "--diff",
@@ -267,7 +268,7 @@ def main():
 
     # --- FOND |Δφ|(f) :
     # 1) si --diff OK: on suppose cohérent (abs_dphi déjà principal). Sinon:
-    # 2) reconstruire depuis --csv avec principal + calage identique + rebranch k (20–300) pour compat.
+    # 2) reconstruire depuis --csv avec principal + calage identique + rebranch k (20-300) pour compat.
     f_bg = np.array([])
     ad_bg = np.array([])
     if args.diff.exists():
@@ -297,7 +298,7 @@ def main():
         if apply_cal:
             mc = mc + phi0_hat + 2.0 * np.pi * f * tc_hat
 
-        # rebranch k fond: médiane cycles sur 20–300 (cohérent avec nos autres figures)
+        # rebranch k fond: médiane cycles sur 20-300 (cohérent avec nos autres figures)
         mask_win = (
             (f >= fmin_shade) & (f <= fmax_shade) & np.isfinite(mc) & np.isfinite(ref)
         )
@@ -349,14 +350,14 @@ def main():
     fig = plt.figure(figsize=(11.5, 7.4))
     ax = fig.add_subplot(111)
 
-    # Bande 20–300
+    # Bande 20-300
     ax.axvspan(
         fmin_shade,
         fmax_shade,
         color="0.88",
         alpha=0.6,
         zorder=0,
-        label=f"Bande {int(fmin_shade)}–{int(fmax_shade)} Hz",
+        label=f"Bande {int(fmin_shade)}-{int(fmax_shade)} Hz",
     )
 
     # Fond
@@ -378,7 +379,7 @@ def main():
     m_o2 = cls == "ordre2"
     m_aut = ~(m_pri | m_o2)
 
-    def plot_group(mask, marker, color, label, z=4):
+def plot_group(mask, marker, color, label, z=4):
         if not np.any(mask):
             return
         x = fpk[mask]
@@ -450,8 +451,8 @@ def main():
     )
     fig.suptitle(title, fontsize=18, fontweight="semibold", y=0.98)
     subtitle = (
-        f"Comparaison MCGT vs milestones GWTC-3 — N_milestones={int(fpk.size)}"
-        + ("" if not apply_cal else " — calage appliqué")
+        f"Comparaison MCGT vs milestones GWTC-3 - N_milestones={int(fpk.size)}"
+        + ("" if not apply_cal else " - calage appliqué")
     )
     fig.text(0.5, 0.905, subtitle, ha="center", fontsize=13)
 

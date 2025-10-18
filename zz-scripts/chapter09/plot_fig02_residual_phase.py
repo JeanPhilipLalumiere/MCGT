@@ -7,7 +7,7 @@ CHANGEMENTS CLÉS
 - Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k.2*π) - φ_ref + π) mod 2*π - π
 avec k = median((φ_mcgt - φ_ref)/(2*π)) sur la bande 20-300 Hz.
 - Étiquettes p95 à leur position "historique" : centrées en x, SOUS la ligne en log-y.
-- Plus d’espace vertical entre le titre et le 1er panneau.
+- Plus d'espace vertical entre le titre et le 1er panneau.
 
 Exemple:
   python zz-scripts/chapter09/tracer_fig02_residual_phase.py \
@@ -18,8 +18,8 @@ Exemple:
     --dpi 300 --marker-size 3 --line-width 0.9 \
     --gap-thresh-log10 0.12 --log-level INFO
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -95,7 +95,7 @@ def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     return [tuple(sorted((float(a), float(b)))) for a, b in zip(it, it, strict=False)]
 
 def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
-    """Index runs contigus en log10(f) d’après un seuil de 'trou'."""
+    """Index runs contigus en log10(f) d'après un seuil de 'trou'."""
     if f_band.size == 0:
         return []
     logf = np.log10(f_band)
@@ -118,13 +118,13 @@ def load_meta(meta_path: Path) -> dict:
     return {}
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    """Δφ_principal ∈ (−π, π]"""
+    """Δφ_principal ∈ (-π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
 
 def k_rebranch_median(
     phi_m: np.ndarray, phi_r: np.ndarray, f: np.ndarray, f1: float, f2: float
 ) -> int:
-    """k = round(median((φ_m − φ_r)/2π)) sur [f1,f2]."""
+    """k = round(median((φ_m - φ_r)/2π)) sur [f1,f2]."""
     two_pi = 2.0 * np.pi
     m = (f >= f1) & (f <= f2) & np.isfinite(phi_m) & np.isfinite(phi_r)
     if not np.any(m):
@@ -134,7 +134,7 @@ def k_rebranch_median(
 # -------------------- script --------------------
 def main():
     ap = argparse.ArgumentParser(
-        description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
+        description="Figure 02 - Résidu |Δφ| par bandes + panneau compact"
     )
     ap.add_argument("--csv", type=Path, required=True)
     ap.add_argument(
@@ -186,26 +186,26 @@ def main():
     m = np.isfinite(f) & np.isfinite(ref) & np.isfinite(mcg)
     f, ref, mcg = f[m], ref[m], mcg[m]
 
-    # bandes et k sur 20–300
+    # bandes et k sur 20-300
     bands = parse_bands(args.bands)
     if len(bands) > 3:
         bands = bands[:3]
     (f20, f300) = bands[0]
     k = k_rebranch_median(mcg, ref, f, f20, f300)
-    log.info("Rebranch k (20–300 Hz) = %d cycles", k)
+    log.info("Rebranch k (20-300 Hz) = %d cycles", k)
 
     # résidu canonique = |Δφ_principal| après rebranch k
     absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
-    # eps pour échelle log (affichage uniquement) — les stats sont calculées AVANT ce remplacement
+    # eps pour échelle log (affichage uniquement) - les stats sont calculées AVANT ce remplacement
     eps = 1e-12
     absd_plot = np.where((~np.isfinite(absd_full)) | (absd_full <= 0), eps, absd_full)
 
-    # stats 20–300 pour panneau compact
+    # stats 20-300 pour panneau compact
     m20300 = (f >= f20) & (f <= f300) & np.isfinite(absd_full)
     mean20 = float(np.nanmean(absd_full[m20300])) if m20300.any() else float("nan")
     p9520 = float(p95(absd_full[m20300])) if m20300.any() else float("nan")
     log.info(
-        "Stats 20–300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
+        "Stats 20-300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
         mean20,
         p9520,
         float(np.nanmax(absd_full[m20300])) if m20300.any() else float("nan"),
@@ -231,7 +231,7 @@ def main():
         y=0.985,
     )
     # pousse les sous-graphiques plus bas pour laisser un gap sous le titre
-    fig.subplots_adjust(top=0.88, bottom=0.08)  # <— plus d’espace que précédemment
+    fig.subplots_adjust(top=0.88, bottom=0.08)  # <- plus d'espace que précédemment
 
     # styles
     shade_color = "0.92"
@@ -256,7 +256,7 @@ def main():
         max_b = float(np.nanmax(db)) if n_pts else float("nan")
 
         ax.set_title(
-            f"{int(blo)}-{int(bhi)} Hz  n={n_pts} — mean={mean_b:.3f}  "
+            f"{int(blo)}-{int(bhi)} Hz  n={n_pts} - mean={mean_b:.3f}  "
             f"p95={p95_b:.3f}  max={max_b:.3f}",
             loc="left",
             fontsize=11,
@@ -265,7 +265,7 @@ def main():
         ax.set_yscale("log")
         ax.grid(True, which="both", ls=":", alpha=0.35)
 
-        # ombrage 20–300 dans le panneau (a)
+        # ombrage 20-300 dans le panneau (a)
         if i == 0:
             ax.axvspan(f20, f300, color=shade_color, zorder=1, alpha=1.0)
 
@@ -281,7 +281,7 @@ def main():
                 p95_b if np.isfinite(p95_b) else np.nan, color="r", lw=1.0, ls=":"
             )
 
-            # étiquette p95 — géométrique au centre, SOUS la ligne (coords log-y)
+            # étiquette p95 - géométrique au centre, SOUS la ligne (coords log-y)
             if np.isfinite(p95_b):
                 x_p = (
                     10 ** ((np.log10(blo) + np.log10(bhi)) / 2.0)
@@ -345,7 +345,7 @@ def main():
     )
     h_p95 = Line2D([], [], color="r", lw=1.0, linestyle=":", label="p95 (bandes)")
     h_shade = Line2D(
-        [], [], color=shade_color, lw=6, label=f"Bande {int(f20)}–{int(f300)} Hz"
+        [], [], color=shade_color, lw=6, label=f"Bande {int(f20)}-{int(f300)} Hz"
     )
 
     leg1 = box_styles.legend(
@@ -361,10 +361,10 @@ def main():
     for t in leg1.get_texts():
         t.set_fontsize(10)
 
-    # 2) panneau compact "Calage + stats 20–300 Hz" (plus bas, avec air au bas)
+    # 2) panneau compact "Calage + stats 20-300 Hz" (plus bas, avec air au bas)
     box_meta = ax_right.inset_axes(
         [0.14, 0.37, 0.72, 0.20]
-    )  # abaissé pour laisser de l’espace au panneau du bas
+    )  # abaissé pour laisser de l'espace au panneau du bas
     box_meta.axis("off")
 
     cal = meta.get("calibration", {}) if isinstance(meta, dict) else {}
@@ -385,7 +385,7 @@ def main():
     meta_text = (
         f"Calage: {cal_model} (enabled={cal_enabled})\n"
         f"{s_phi0},  {s_tc}\n\n"
-        f"|Δφ| {int(f20)}–{int(f300)} Hz :\n"
+        f"|Δφ| {int(f20)}-{int(f300)} Hz :\n"
         f"mean={mean20:.3f} rad ;  p95={p9520:.3f} rad"
     )
 

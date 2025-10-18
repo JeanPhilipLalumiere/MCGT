@@ -81,7 +81,7 @@ def main(args):
         ax.hist(
             df.loc[(df.f_Hz >= 20) & (df.f_Hz <= 300), "abs_dphi_principal"], bins=30
         )
-        ax.set_xlabel("|Δφ_principal| (20–300 Hz) [rad]")
+        ax.set_xlabel("|Δφ_principal| (20-300 Hz) [rad]")
         ax.set_ylabel("counts")
         fig.savefig(os.path.join(args.out_dir, f"dphi_hist_id{id_:d}.png"), dpi=150)
         plt.close(fig)

@@ -1,0 +1,231 @@
+# MCGT Audit Report (summary)
+
+- scripts: 61 scanned
+- blocking findings: 41
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py", line 61
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py", line 46
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py", line 42
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py", line 47
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig05_I1_vs_T.py", line 39
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py", line 44
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig00_spectrum.py", line 49
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py", line 46
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig02_calibration.py", line 46
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig03_relative_errors.py", line 59
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py", line 60
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter04/plot_fig04_relative_deviations.py
+    -> Sorry: IndentationError: expected an indented block after 'for' statement on line 26 (plot_fig04_relative_deviations.py, line 27)
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py", line 96
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter05/plot_fig04_chi2_vs_T.py", line 158
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py", line 126
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py", line 138
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig03_delta_cls_relative.py", line 90
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py", line 80
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py", line 93
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig01_cs2_heatmap.py", line 136
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py", line 142
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py", line 102
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
+    -> {'offenders': [10]}
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py", line 110
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
+    -> {'offenders': [10]}
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py
+    -> Sorry: IndentationError: unexpected indent (plot_fig06_comparison.py, line 98)
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter07/plot_fig06_comparison.py
+    -> {'offenders': [10]}
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig03_mu_vs_z.py", line 76
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter08/plot_fig04_chi2_heatmap.py", line 114
+    parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+                                                                                                                    ^^^^^^
+SyntaxError: invalid syntax
+
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig01_phase_overlay.py
+    -> {'offenders': [11]}
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py", line 89
+    return float(np.percentile(a, 95.0)) if a.size else float("nan")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: 'return' outside function
+
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig02_residual_phase.py
+    -> {'offenders': [22]}
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py
+    -> Sorry: IndentationError: expected an indented block after function definition on line 97 (plot_fig03_hist_absdphi_20_300.py, line 98)
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py
+    -> Sorry: IndentationError: expected an indented block after function definition on line 78 (plot_fig04_absdphi_milestones_vs_f.py, line 79)
+
+* compile: /home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py
+    ->   File "/home/jplal/MCGT/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py", line 75
+    description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
+                                                          ^
+SyntaxError: unmatched ')'
+
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig01_iso_p95_maps.py
+    -> {'offenders': [9]}
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
+    -> {'offenders': [16]}
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py
+    -> {'offenders': [7]}
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py
+    -> {'offenders': [7]}
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py
+    -> {'offenders': [9]}
+
+* future-import: /home/jplal/MCGT/zz-scripts/chapter10/plot_fig07_synthesis.py
+    -> {'offenders': [7]}

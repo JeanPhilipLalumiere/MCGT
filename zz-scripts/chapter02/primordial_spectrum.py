@@ -5,8 +5,8 @@ Module `primordial_spectrum.py`
 Définit une petite API pour le spectre primordial MCGT et permet de générer
 un fichier JSON de métadonnées (commande CLI).
 """
-
 from __future__ import annotations
+
 
 import json
 from pathlib import Path
@@ -58,7 +58,7 @@ def generate_spec() -> None:
     spec = {
         "label_eq": "eq:spec_prim",
         "formula": "P_R(k; α) = A_s(α) k^{n_s(α)-1}",
-        "description": "Spectre primordial modifié MCGT — paramètres de référence (Planck 2018).",
+        "description": "Spectre primordial modifié MCGT - paramètres de référence (Planck 2018).",
         "constants": {"A_s0": A_S0, "ns0": NS0},
         "coefficients": {"c1": C1, "c2": C2, "c1_2": 0.0, "c2_2": 0.0},
     }

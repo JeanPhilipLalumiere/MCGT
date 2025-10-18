@@ -1,3 +1,6 @@
+
+from __future__ import annotations
+parser.add_argument("--manifest", default="zz-manifests/figure_manifest.json")
 #!/usr/bin/env python3
 # zz-scripts/manifest_tools/verify_manifest.py
 """
@@ -9,7 +12,6 @@ Usage:
   python3 verify_manifest.py zz-manifests/manifest_publication.json --repo-root . --output report.json
 """
 
-from __future__ import annotations
 
 import argparse
 import hashlib

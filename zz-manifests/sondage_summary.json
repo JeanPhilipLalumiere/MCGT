@@ -1,0 +1,1507 @@
+[
+  {
+    "path": "zz-scripts/_common/cli.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/_common/postparse.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": true,
+    "has_main_guard": false,
+    "indent_suspects": [
+      8
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/_common/style.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/generate_data_chapter01.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      63
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig01_early_plateau.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      78
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      63
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      59
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      64
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      56
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      61
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/generate_data_chapter02.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      124
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig00_spectrum.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      66
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      63
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig02_calibration.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      63
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      76
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      77
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig05_FG_series.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      60,
+      65
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      32,
+      42,
+      140,
+      145
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter02/primordial_spectrum.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/generate_data_chapter03.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      54,
+      72
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      145,
+      185,
+      190
+    ],
+    "indent_suspects_count": 5,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      121,
+      169,
+      174
+    ],
+    "indent_suspects_count": 5,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      129,
+      139,
+      165,
+      170
+    ],
+    "indent_suspects_count": 6,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      162,
+      167
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      191,
+      196
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig06_grid_quality.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      167,
+      172
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter03/utils/convert_milestones.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter04/generate_data_chapter04.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      32,
+      42
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      27,
+      31,
+      129,
+      134
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      32,
+      42,
+      128,
+      133
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      27,
+      31,
+      108,
+      113
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      96
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter05/generate_data_chapter05.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      144
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      20,
+      24,
+      86,
+      120,
+      125
+    ],
+    "indent_suspects_count": 5,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      113
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      77,
+      82
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      175
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/generate_data_chapter06.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      138,
+      379
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      84
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      143
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      155
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      107
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      97
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      110
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/generate_data_chapter07.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      153
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      159
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      119
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      127
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      153
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      22,
+      26,
+      165,
+      170
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/tests/test_chapter07.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      31,
+      41
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/utils/test_kgrid.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      24,
+      28
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter07/utils/toy_model.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      24,
+      28
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      70
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/generate_data_chapter08.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig02_dv_vs_z.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      93
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      131
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig05_residuals.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      106,
+      111,
+      136,
+      140
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      129,
+      134,
+      159,
+      163
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      24,
+      28,
+      139,
+      144
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/cosmo.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      42
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/coupling_example_model.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/extract_bao_data.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/extract_pantheon_plus_data.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/generate_coupling_milestones.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      32,
+      42
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter08/utils/verify_z_grid.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/apply_poly_unwrap_rebranch.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/check_p95_methods.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/extract_phenom_phase.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      32,
+      42
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/flag_jalons.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/generate_data_chapter09.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      101,
+      147,
+      673
+    ],
+    "indent_suspects_count": 3,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/opt_poly_rebranch.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig02_residual_phase.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      381
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": true,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      348,
+      353
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/add_phi_at_fpeak.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      274
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/bootstrap_topk_p95.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/check_metrics_consistency.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/diag_phi_fpeak.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/generate_data_chapter10.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      331,
+      362,
+      424,
+      473
+    ],
+    "indent_suspects_count": 4,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/inspect_topk_residuals.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      16,
+      120,
+      123
+    ],
+    "indent_suspects_count": 3,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      78,
+      81
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      73,
+      83,
+      215,
+      250,
+      253,
+      424
+    ],
+    "indent_suspects_count": 6,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      78,
+      81
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      80,
+      83
+    ],
+    "indent_suspects_count": 2,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig06_residual_map.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [
+      73,
+      83,
+      223,
+      270,
+      273,
+      355
+    ],
+    "indent_suspects_count": 6,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/plot_fig07_synthesis.py",
+    "has_savefig": true,
+    "has_ax_table": true,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [
+      27
+    ],
+    "indent_suspects_count": 1,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/recompute_p95_circular.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+    "has_savefig": true,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/chapter10/update_manifest_with_hashes.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": false,
+    "has_main_guard": false,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/manifest_tools/populate_manifest.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  },
+  {
+    "path": "zz-scripts/manifest_tools/verify_manifest.py",
+    "has_savefig": false,
+    "has_ax_table": false,
+    "guarded_table": true,
+    "uses_postparse": false,
+    "has_cli": true,
+    "has_main_guard": true,
+    "indent_suspects": [],
+    "indent_suspects_count": 0,
+    "mix_tabs_spaces": false
+  }
+]

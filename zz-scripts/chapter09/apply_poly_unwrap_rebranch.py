@@ -11,7 +11,7 @@ But
   3) fit un polynôme de degré D en fonction de x = log10(f) dans une fenêtre de fit [Ffit_lo, Ffit_hi],
   4) rebranche la tendance sur la même branche 2π que le résidu brut dans la fenêtre de fit,
   5) soustrait la tendance rebranchée à phi_mcgt,
-  6) recalcule les métriques @20–300 Hz (ou fenètre demandée) sur unwrap(Δφ),
+  6) recalcule les métriques @20-300 Hz (ou fenètre demandée) sur unwrap(Δφ),
   7) met à jour le JSON méta (metrics_active + bloc poly_correction), en préservant les autres champs (calibration incl.).
 
 Entrées
@@ -20,7 +20,7 @@ Entrées
 --meta       : JSON méta (facultatif; sera créé/mergé si absent)
 --degree     : degré du polynôme (défaut: 4)
 --fit-window : fenêtre [Hz] de fit (défaut: 30 250)
---metrics-window : fenêtre [Hz] d’évaluation des métriques (défaut: 20 300)
+--metrics-window : fenêtre [Hz] d'évaluation des métriques (défaut: 20 300)
 --basis      : base pour x (log10 | hz). Recommandé: log10 (défaut)
 --from-column: colonne source pour repartir (défaut: phi_mcgt_cal)
 --backup     : si fourni, copie le CSV original vers <CSV>.backup avant écriture
@@ -39,8 +39,8 @@ python zz-scripts/chapter09/apply_poly_unwrap_rebranch.py \\
   --degree 4 --basis log10 --fit-window 30 250 --metrics-window 20 300 --backup
 
 """
-
 from __future__ import annotations
+
 
 import argparse
 import json
@@ -108,7 +108,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument(
         "--dry-run",
         action="store_true",
-        help="N’écrit pas, affiche seulement métriques",
+        help="N'écrit pas, affiche seulement métriques",
     )
     ap.add_argument(
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
@@ -145,7 +145,7 @@ def main():
             f"Colonnes manquantes dans {args.csv} (requis: {sorted(need)})"
         )
 
-    # Repartir d’une base saine (pas d’empilement)
+    # Repartir d'une base saine (pas d'empilement)
     df["phi_mcgt"] = df[args.from_column].to_numpy(float)
 
     f = df["f_Hz"].to_numpy(float)
@@ -191,7 +191,7 @@ def main():
         "Rebranch: k=%d cycles (soustraction de %.6f rad à la tendance).", k, k * two_pi
     )
     log.info(
-        "Metrics %g–%g Hz: mean=%.3f  p95=%.3f  max=%.3f  (n=%d)",
+        "Metrics %g-%g Hz: mean=%.3f  p95=%.3f  max=%.3f  (n=%d)",
         mlo,
         mhi,
         mean_abs,
@@ -210,7 +210,7 @@ def main():
             shutil.copyfile(args.csv, bck)
             log.info("Backup écrit → %s", bck)
         except Exception as e:
-            log.warning("Backup impossible (%s) — on continue sans.", e)
+            log.warning("Backup impossible (%s) - on continue sans.", e)
 
     # Écrire CSV (phi_mcgt corrigée)
     df["phi_mcgt"] = phi_corr

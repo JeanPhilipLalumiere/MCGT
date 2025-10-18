@@ -1,0 +1,5884 @@
+{
+  "root": "/home/jplal/MCGT",
+  "files": [
+    {
+      "path": "zz-scripts/_common/cli.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "fmt",
+        "outdir",
+        "style",
+        "transparent"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "fmt": 6,
+        "dpi": 7,
+        "outdir": 8,
+        "transparent": 9,
+        "style": 10
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/_common/figio.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/_common/postparse.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/_common/style.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 2,
+        "offset": 17,
+        "msg": "invalid syntax"
+      },
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/generate_data_chapter01.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "csv",
+        "grid",
+        "poly",
+        "step",
+        "tmax",
+        "tmin",
+        "window"
+      ],
+      "args_defined": [
+        "csv",
+        "grid",
+        "poly",
+        "step",
+        "tmax",
+        "tmin",
+        "window"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 73,
+        "tmin": 82,
+        "tmax": 84,
+        "step": 86,
+        "grid": 88,
+        "window": 90,
+        "poly": 92
+      },
+      "where_used": {
+        "csv": [
+          110,
+          112
+        ],
+        "window": [
+          118,
+          126
+        ],
+        "poly": [
+          118,
+          126
+        ],
+        "tmin": [
+          124
+        ],
+        "tmax": [
+          124
+        ],
+        "step": [
+          124
+        ],
+        "grid": [
+          124
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig01_early_plateau.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 75,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 58,
+        "dry_run": 60,
+        "seed": 62,
+        "force": 64,
+        "verbose": 66,
+        "dpi": 68,
+        "format": 70,
+        "transparent": 72
+      },
+      "where_used": {
+        "outdir": [
+          76,
+          77
+        ],
+        "dpi": [
+          79
+        ],
+        "format": [
+          80
+        ],
+        "transparent": [
+          81
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 60,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 43,
+        "dry_run": 45,
+        "seed": 47,
+        "force": 49,
+        "verbose": 51,
+        "dpi": 53,
+        "format": 55,
+        "transparent": 57
+      },
+      "where_used": {
+        "outdir": [
+          61,
+          62
+        ],
+        "dpi": [
+          64
+        ],
+        "format": [
+          65
+        ],
+        "transparent": [
+          66
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 56,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 39,
+        "dry_run": 41,
+        "seed": 43,
+        "force": 45,
+        "verbose": 47,
+        "dpi": 49,
+        "format": 51,
+        "transparent": 53
+      },
+      "where_used": {
+        "outdir": [
+          57,
+          58
+        ],
+        "dpi": [
+          60
+        ],
+        "format": [
+          61
+        ],
+        "transparent": [
+          62
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 61,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 44,
+        "dry_run": 46,
+        "seed": 48,
+        "force": 50,
+        "verbose": 52,
+        "dpi": 54,
+        "format": 56,
+        "transparent": 58
+      },
+      "where_used": {
+        "outdir": [
+          62,
+          63
+        ],
+        "dpi": [
+          65
+        ],
+        "format": [
+          66
+        ],
+        "transparent": [
+          67
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 55,
+        "offset": 48,
+        "msg": "unindent does not match any outer indentation level"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 36,
+        "dry_run": 38,
+        "seed": 40,
+        "force": 42,
+        "verbose": 44,
+        "dpi": 46,
+        "format": 48,
+        "transparent": 50
+      },
+      "where_used": {
+        "outdir": [
+          54,
+          55
+        ],
+        "dpi": [
+          57
+        ],
+        "format": [
+          58
+        ],
+        "transparent": [
+          59
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 58,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 41,
+        "dry_run": 43,
+        "seed": 45,
+        "force": 47,
+        "verbose": 49,
+        "dpi": 51,
+        "format": 53,
+        "transparent": 55
+      },
+      "where_used": {
+        "outdir": [
+          59,
+          60
+        ],
+        "dpi": [
+          62
+        ],
+        "format": [
+          63
+        ],
+        "transparent": [
+          64
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/generate_data_chapter02.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 100,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "spectre"
+      ],
+      "args_defined": [
+        "spectre"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "spectre": 95
+      },
+      "where_used": {
+        "spectre": [
+          283
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig00_spectrum.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 63,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 46,
+        "dry_run": 48,
+        "seed": 50,
+        "force": 52,
+        "verbose": 54,
+        "dpi": 56,
+        "format": 58,
+        "transparent": 60
+      },
+      "where_used": {
+        "outdir": [
+          64,
+          65
+        ],
+        "dpi": [
+          67
+        ],
+        "format": [
+          68
+        ],
+        "transparent": [
+          69
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 60,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 43,
+        "dry_run": 45,
+        "seed": 47,
+        "force": 49,
+        "verbose": 51,
+        "dpi": 53,
+        "format": 55,
+        "transparent": 57
+      },
+      "where_used": {
+        "outdir": [
+          61,
+          62
+        ],
+        "dpi": [
+          64
+        ],
+        "format": [
+          65
+        ],
+        "transparent": [
+          66
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig02_calibration.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 60,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 43,
+        "dry_run": 45,
+        "seed": 47,
+        "force": 49,
+        "verbose": 51,
+        "dpi": 53,
+        "format": 55,
+        "transparent": 57
+      },
+      "where_used": {
+        "outdir": [
+          61,
+          62
+        ],
+        "dpi": [
+          64
+        ],
+        "format": [
+          65
+        ],
+        "transparent": [
+          66
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 73,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 56,
+        "dry_run": 58,
+        "seed": 60,
+        "force": 62,
+        "verbose": 64,
+        "dpi": 66,
+        "format": 68,
+        "transparent": 70
+      },
+      "where_used": {
+        "outdir": [
+          74,
+          75
+        ],
+        "dpi": [
+          77
+        ],
+        "format": [
+          78
+        ],
+        "transparent": [
+          79
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 74,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 57,
+        "dry_run": 59,
+        "seed": 61,
+        "force": 63,
+        "verbose": 65,
+        "dpi": 67,
+        "format": 69,
+        "transparent": 71
+      },
+      "where_used": {
+        "outdir": [
+          75,
+          76
+        ],
+        "dpi": [
+          78
+        ],
+        "format": [
+          79
+        ],
+        "transparent": [
+          80
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig05_FG_series.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/plot_fig06_alpha_fit.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 13,
+        "dpi": 14,
+        "show": 15
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter02/primordial_spectrum.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/generate_data_chapter03.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "config",
+        "copy_jalons",
+        "dry_run",
+        "npts"
+      ],
+      "args_defined": [
+        "config",
+        "copy_jalons",
+        "dry_run",
+        "npts"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "config": 117,
+        "npts": 118,
+        "copy_jalons": 119,
+        "dry_run": 120
+      },
+      "where_used": {
+        "config": [
+          329
+        ],
+        "npts": [
+          332
+        ],
+        "copy_jalons": [
+          335,
+          335
+        ],
+        "dry_run": [
+          348,
+          351
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig06_grid_quality.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 10,
+        "offset": 25,
+        "msg": "invalid decimal literal"
+      },
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 10,
+        "offset": 25,
+        "msg": "invalid decimal literal"
+      },
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter03/utils/convert_milestones.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "dst",
+        "src"
+      ],
+      "args_defined": [
+        "dst",
+        "src"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "src": 14,
+        "dst": 17
+      },
+      "where_used": {
+        "src": [
+          24
+        ],
+        "dst": [
+          30,
+          31
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter04/generate_data_chapter04.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 13,
+        "dpi": 14,
+        "show": 15
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter04/plot_fig01_invariants_schematic.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter04/plot_fig02_invariants_histogram.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 13,
+        "dpi": 14,
+        "show": 15
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter04/plot_fig03_invariants_vs_T.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 32,
+        "offset": 12,
+        "msg": "unexpected indent"
+      },
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter05/generate_data_chapter05.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 141,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 124,
+        "dry_run": 126,
+        "seed": 128,
+        "force": 130,
+        "verbose": 132,
+        "dpi": 134,
+        "format": 136,
+        "transparent": 138
+      },
+      "where_used": {
+        "outdir": [
+          142,
+          143
+        ],
+        "dpi": [
+          145
+        ],
+        "format": [
+          146
+        ],
+        "transparent": [
+          147
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 110,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 93,
+        "dry_run": 95,
+        "seed": 97,
+        "force": 99,
+        "verbose": 101,
+        "dpi": 103,
+        "format": 105,
+        "transparent": 107
+      },
+      "where_used": {
+        "outdir": [
+          111,
+          112
+        ],
+        "dpi": [
+          114
+        ],
+        "format": [
+          115
+        ],
+        "transparent": [
+          116
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 174,
+        "offset": 48,
+        "msg": "unindent does not match any outer indentation level"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 155,
+        "dry_run": 157,
+        "seed": 159,
+        "force": 161,
+        "verbose": 163,
+        "dpi": 165,
+        "format": 167,
+        "transparent": 169
+      },
+      "where_used": {
+        "outdir": [
+          173,
+          174
+        ],
+        "dpi": [
+          176
+        ],
+        "format": [
+          177
+        ],
+        "transparent": [
+          178
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/generate_data_chapter06.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 155,
+        "offset": 37,
+        "msg": "unindent does not match any outer indentation level"
+      },
+      "args_used": [
+        "alpha",
+        "dpi",
+        "format",
+        "outdir",
+        "q0star",
+        "transparent"
+      ],
+      "args_defined": [
+        "alpha",
+        "dpi",
+        "dry_run",
+        "export_derivative",
+        "force",
+        "format",
+        "outdir",
+        "q0star",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "alpha": 22,
+        "q0star": 24,
+        "export_derivative": 31,
+        "outdir": 359,
+        "dry_run": 361,
+        "seed": 363,
+        "force": 365,
+        "verbose": 367,
+        "dpi": 369,
+        "format": 371,
+        "transparent": 373
+      },
+      "where_used": {
+        "alpha": [
+          37
+        ],
+        "q0star": [
+          38
+        ],
+        "outdir": [
+          377,
+          378
+        ],
+        "dpi": [
+          380
+        ],
+        "format": [
+          381
+        ],
+        "transparent": [
+          382
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 81,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "npoints",
+        "outdir",
+        "transparent",
+        "zmax",
+        "zmin"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "npoints",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose",
+        "zmax",
+        "zmin"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "zmin": 29,
+        "zmax": 31,
+        "npoints": 33,
+        "outdir": 64,
+        "dry_run": 66,
+        "seed": 68,
+        "force": 70,
+        "verbose": 72,
+        "dpi": 74,
+        "format": 76,
+        "transparent": 78
+      },
+      "where_used": {
+        "zmin": [
+          38
+        ],
+        "zmax": [
+          38
+        ],
+        "npoints": [
+          38
+        ],
+        "outdir": [
+          82,
+          83
+        ],
+        "dpi": [
+          85
+        ],
+        "format": [
+          86
+        ],
+        "transparent": [
+          87
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 140,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 123,
+        "dry_run": 125,
+        "seed": 127,
+        "force": 129,
+        "verbose": 131,
+        "dpi": 133,
+        "format": 135,
+        "transparent": 137
+      },
+      "where_used": {
+        "outdir": [
+          141,
+          142
+        ],
+        "dpi": [
+          144
+        ],
+        "format": [
+          145
+        ],
+        "transparent": [
+          146
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 152,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 135,
+        "dry_run": 137,
+        "seed": 139,
+        "force": 141,
+        "verbose": 143,
+        "dpi": 145,
+        "format": 147,
+        "transparent": 149
+      },
+      "where_used": {
+        "outdir": [
+          153,
+          154
+        ],
+        "dpi": [
+          156
+        ],
+        "format": [
+          157
+        ],
+        "transparent": [
+          158
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 104,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 87,
+        "dry_run": 89,
+        "seed": 91,
+        "force": 93,
+        "verbose": 95,
+        "dpi": 97,
+        "format": 99,
+        "transparent": 101
+      },
+      "where_used": {
+        "outdir": [
+          105,
+          106
+        ],
+        "dpi": [
+          108
+        ],
+        "format": [
+          109
+        ],
+        "transparent": [
+          110
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 94,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 77,
+        "dry_run": 79,
+        "seed": 81,
+        "force": 83,
+        "verbose": 85,
+        "dpi": 87,
+        "format": 89,
+        "transparent": 91
+      },
+      "where_used": {
+        "outdir": [
+          95,
+          96
+        ],
+        "dpi": [
+          98
+        ],
+        "format": [
+          99
+        ],
+        "transparent": [
+          100
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 107,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 90,
+        "dry_run": 92,
+        "seed": 94,
+        "force": 96,
+        "verbose": 98,
+        "dpi": 100,
+        "format": 102,
+        "transparent": 104
+      },
+      "where_used": {
+        "outdir": [
+          108,
+          109
+        ],
+        "dpi": [
+          111
+        ],
+        "format": [
+          112
+        ],
+        "transparent": [
+          113
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/generate_data_chapter07.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 7,
+        "offset": 28,
+        "msg": "invalid character '²' (U+00B2)"
+      },
+      "args_used": [
+        "dry_run",
+        "export_2d",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "n_a",
+        "n_k"
+      ],
+      "args_defined": [
+        "dry_run",
+        "export_2d",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "n_a",
+        "n_k"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "ini": 206,
+        "export_raw": 207,
+        "export_2d": 208,
+        "n_k": 209,
+        "n_a": 210,
+        "dry_run": 211,
+        "log_level": 212,
+        "log_file": 218
+      },
+      "where_used": {
+        "log_level": [
+          231
+        ],
+        "log_file": [
+          232,
+          233
+        ],
+        "ini": [
+          240
+        ],
+        "n_k": [
+          247,
+          248
+        ],
+        "n_a": [
+          250,
+          251
+        ],
+        "dry_run": [
+          258
+        ],
+        "export_raw": [
+          268
+        ],
+        "export_2d": [
+          282
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "dry_run",
+        "export_2d",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "n_a",
+        "n_k"
+      ],
+      "args_defined": [
+        "dry_run",
+        "export_2d",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "n_a",
+        "n_k"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "ini": 264,
+        "export_raw": 267,
+        "export_2d": 272,
+        "n_k": 275,
+        "n_a": 276,
+        "dry_run": 277,
+        "log_level": 280,
+        "log_file": 285
+      },
+      "where_used": {
+        "log_level": [
+          299
+        ],
+        "log_file": [
+          300,
+          301
+        ],
+        "ini": [
+          308
+        ],
+        "n_k": [
+          319,
+          320
+        ],
+        "n_a": [
+          325,
+          326
+        ],
+        "dry_run": [
+          341
+        ],
+        "export_raw": [
+          363
+        ],
+        "export_2d": [
+          377,
+          414
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 150,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 133,
+        "dry_run": 135,
+        "seed": 137,
+        "force": 139,
+        "verbose": 141,
+        "dpi": 143,
+        "format": 145,
+        "transparent": 147
+      },
+      "where_used": {
+        "outdir": [
+          151,
+          152
+        ],
+        "dpi": [
+          154
+        ],
+        "format": [
+          155
+        ],
+        "transparent": [
+          156
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 156,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 139,
+        "dry_run": 141,
+        "seed": 143,
+        "force": 145,
+        "verbose": 147,
+        "dpi": 149,
+        "format": 151,
+        "transparent": 153
+      },
+      "where_used": {
+        "outdir": [
+          157,
+          158
+        ],
+        "dpi": [
+          160
+        ],
+        "format": [
+          161
+        ],
+        "transparent": [
+          162
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 116,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 99,
+        "dry_run": 101,
+        "seed": 103,
+        "force": 105,
+        "verbose": 107,
+        "dpi": 109,
+        "format": 111,
+        "transparent": 113
+      },
+      "where_used": {
+        "outdir": [
+          117,
+          118
+        ],
+        "dpi": [
+          120
+        ],
+        "format": [
+          121
+        ],
+        "transparent": [
+          122
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 141,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "out",
+        "transparent",
+        "verbose"
+      ],
+      "args_defined": [
+        "dpi",
+        "format",
+        "out",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 128,
+        "dpi": 130,
+        "format": 132,
+        "transparent": 134,
+        "verbose": 136
+      },
+      "where_used": {
+        "verbose": [
+          141,
+          143
+        ],
+        "out": [
+          152,
+          152
+        ],
+        "format": [
+          152
+        ],
+        "dpi": [
+          155
+        ],
+        "transparent": [
+          155
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 124,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 107,
+        "dry_run": 109,
+        "seed": 111,
+        "force": 113,
+        "verbose": 115,
+        "dpi": 117,
+        "format": 119,
+        "transparent": 121
+      },
+      "where_used": {
+        "outdir": [
+          125,
+          126
+        ],
+        "dpi": [
+          128
+        ],
+        "format": [
+          129
+        ],
+        "transparent": [
+          130
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 98,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "out",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "out",
+        "outdir",
+        "results",
+        "seed",
+        "title",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 70,
+        "out": 71,
+        "dpi": 72,
+        "title": 73,
+        "outdir": 133,
+        "dry_run": 135,
+        "seed": 137,
+        "force": 139,
+        "verbose": 141,
+        "format": 145,
+        "transparent": 147
+      },
+      "where_used": {
+        "out": [
+          98,
+          99,
+          100
+        ],
+        "dpi": [
+          99,
+          154
+        ],
+        "outdir": [
+          151,
+          152
+        ],
+        "format": [
+          155
+        ],
+        "transparent": [
+          156
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/tests/test_chapter07.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 12,
+        "dpi": 13,
+        "show": 14
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/utils/test_kgrid.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter07/utils/toy_model.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 67,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 50,
+        "dry_run": 52,
+        "seed": 54,
+        "force": 56,
+        "verbose": 58,
+        "dpi": 60,
+        "format": 62,
+        "transparent": 64
+      },
+      "where_used": {
+        "outdir": [
+          68,
+          69
+        ],
+        "dpi": [
+          71
+        ],
+        "format": [
+          72
+        ],
+        "transparent": [
+          73
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/generate_data_chapter08.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "export_derivative",
+        "export_heatmap",
+        "n_param2",
+        "n_points",
+        "param2_max",
+        "param2_min",
+        "q0star_max",
+        "q0star_min"
+      ],
+      "args_defined": [
+        "export_derivative",
+        "export_heatmap",
+        "n_param2",
+        "n_points",
+        "param2_max",
+        "param2_min",
+        "q0star_max",
+        "q0star_min"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "q0star_min": 36,
+        "q0star_max": 39,
+        "n_points": 42,
+        "export_derivative": 45,
+        "export_heatmap": 52,
+        "param2_min": 59,
+        "param2_max": 64,
+        "n_param2": 69
+      },
+      "where_used": {
+        "q0star_min": [
+          89
+        ],
+        "q0star_max": [
+          90
+        ],
+        "n_points": [
+          91
+        ],
+        "export_heatmap": [
+          94,
+          207
+        ],
+        "param2_min": [
+          95,
+          99
+        ],
+        "param2_max": [
+          95,
+          100
+        ],
+        "n_param2": [
+          101
+        ],
+        "export_derivative": [
+          197
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig02_dv_vs_z.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 90,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 73,
+        "dry_run": 75,
+        "seed": 77,
+        "force": 79,
+        "verbose": 81,
+        "dpi": 83,
+        "format": 85,
+        "transparent": 87
+      },
+      "where_used": {
+        "outdir": [
+          91,
+          92
+        ],
+        "dpi": [
+          94
+        ],
+        "format": [
+          95
+        ],
+        "transparent": [
+          96
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 128,
+        "offset": 8,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dpi",
+        "format",
+        "outdir",
+        "transparent"
+      ],
+      "args_defined": [
+        "dpi",
+        "dry_run",
+        "force",
+        "format",
+        "outdir",
+        "seed",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "outdir": 111,
+        "dry_run": 113,
+        "seed": 115,
+        "force": 117,
+        "verbose": 119,
+        "dpi": 121,
+        "format": 123,
+        "transparent": 125
+      },
+      "where_used": {
+        "outdir": [
+          129,
+          130
+        ],
+        "dpi": [
+          132
+        ],
+        "format": [
+          133
+        ],
+        "transparent": [
+          134
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig05_residuals.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/plot_fig07_chi2_profile.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/cosmo.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/coupling_example_model.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/extract_bao_data.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/extract_pantheon_plus_data.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/generate_coupling_milestones.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [
+        "dpi",
+        "out",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 13,
+        "dpi": 14,
+        "show": 15
+      },
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter08/utils/verify_z_grid.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/apply_poly_unwrap_rebranch.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "backup",
+        "basis",
+        "csv",
+        "degree",
+        "dry_run",
+        "fit_window",
+        "from_column",
+        "log_level",
+        "meta",
+        "metrics_window"
+      ],
+      "args_defined": [
+        "backup",
+        "basis",
+        "csv",
+        "degree",
+        "dry_run",
+        "fit_window",
+        "from_column",
+        "log_level",
+        "meta",
+        "metrics_window"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 68,
+        "meta": 69,
+        "degree": 75,
+        "fit_window": 78,
+        "metrics_window": 85,
+        "basis": 92,
+        "from_column": 98,
+        "backup": 103,
+        "dry_run": 108,
+        "log_level": 113
+      },
+      "where_used": {
+        "log_level": [
+          136
+        ],
+        "csv": [
+          138,
+          139,
+          141,
+          145,
+          208,
+          208,
+          210,
+          217,
+          218
+        ],
+        "from_column": [
+          142,
+          149,
+          249
+        ],
+        "basis": [
+          152,
+          184,
+          244,
+          250
+        ],
+        "fit_window": [
+          156
+        ],
+        "degree": [
+          159,
+          165,
+          185,
+          244,
+          251
+        ],
+        "metrics_window": [
+          177
+        ],
+        "dry_run": [
+          203
+        ],
+        "backup": [
+          207
+        ],
+        "meta": [
+          222,
+          222,
+          224,
+          258,
+          259
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/check_p95_methods.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 8,
+        "offset": 62,
+        "msg": "invalid decimal literal"
+      },
+      "args_used": [
+        "bins",
+        "csv",
+        "dpi",
+        "out_dir",
+        "plot",
+        "window",
+        "xscale"
+      ],
+      "args_defined": [
+        "bins",
+        "csv",
+        "dpi",
+        "out_dir",
+        "plot",
+        "window",
+        "xscale"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 31,
+        "window": 34,
+        "bins": 41,
+        "plot": 48,
+        "out_dir": 53,
+        "xscale": 59,
+        "dpi": 65
+      },
+      "where_used": {
+        "csv": [
+          115
+        ],
+        "window": [
+          127,
+          127
+        ],
+        "plot": [
+          194
+        ],
+        "bins": [
+          195
+        ],
+        "out_dir": [
+          197,
+          207
+        ],
+        "xscale": [
+          203
+        ],
+        "dpi": [
+          204
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/extract_phenom_phase.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "dist",
+        "dlogf",
+        "fmax",
+        "fmin",
+        "m1",
+        "m2",
+        "outcsv",
+        "phi0"
+      ],
+      "args_defined": [
+        "dist",
+        "dlogf",
+        "dpi",
+        "fmax",
+        "fmin",
+        "m1",
+        "m2",
+        "out",
+        "outcsv",
+        "phi0",
+        "show"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "out": 13,
+        "dpi": 14,
+        "show": 15,
+        "fmin": 75,
+        "fmax": 76,
+        "dlogf": 77,
+        "m1": 78,
+        "m2": 79,
+        "phi0": 80,
+        "dist": 81,
+        "outcsv": 82
+      },
+      "where_used": {
+        "m1": [
+          95
+        ],
+        "m2": [
+          96
+        ],
+        "dist": [
+          97
+        ],
+        "fmin": [
+          106,
+          106,
+          107,
+          108,
+          121
+        ],
+        "dlogf": [
+          106,
+          121
+        ],
+        "fmax": [
+          109,
+          121
+        ],
+        "phi0": [
+          111
+        ],
+        "outcsv": [
+          126,
+          127
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/flag_jalons.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "csv",
+        "meta",
+        "metrics_window",
+        "out",
+        "sigma_fail",
+        "sigma_warn"
+      ],
+      "args_defined": [
+        "csv",
+        "meta",
+        "metrics_window",
+        "out",
+        "sigma_fail",
+        "sigma_warn"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 34,
+        "meta": 35,
+        "out": 36,
+        "metrics_window": 41,
+        "sigma_warn": 48,
+        "sigma_fail": 49
+      },
+      "where_used": {
+        "csv": [
+          52
+        ],
+        "meta": [
+          53
+        ],
+        "out": [
+          54,
+          54
+        ],
+        "metrics_window": [
+          83
+        ],
+        "sigma_fail": [
+          150,
+          152
+        ],
+        "sigma_warn": [
+          153,
+          155
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/generate_data_chapter09.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "auto_tighten",
+        "calib_weight",
+        "calib_window",
+        "calibrate",
+        "export_anomalies",
+        "export_diff",
+        "export_heatmap",
+        "ini",
+        "log_level",
+        "metrics_window",
+        "overwrite",
+        "refresh_ref",
+        "tighten_threshold_p95",
+        "tighten_window"
+      ],
+      "args_defined": [
+        "alpha",
+        "auto_tighten",
+        "calib_weight",
+        "calib_window",
+        "calibrate",
+        "dlog",
+        "export_anomalies",
+        "export_diff",
+        "export_heatmap",
+        "fmax",
+        "fmin",
+        "ini",
+        "log_level",
+        "m1",
+        "m2",
+        "metrics_window",
+        "overwrite",
+        "phi0",
+        "q0star",
+        "refresh_ref",
+        "tc",
+        "tighten_threshold_p95",
+        "tighten_window",
+        "tol"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "ini": 381,
+        "log_level": 388,
+        "overwrite": 391,
+        "refresh_ref": 396,
+        "metrics_window": 402,
+        "calibrate": 410,
+        "calib_window": 416,
+        "calib_weight": 424,
+        "auto_tighten": 431,
+        "tighten_window": 444,
+        "tighten_threshold_p95": 452,
+        "export_diff": 459,
+        "export_anomalies": 464,
+        "export_heatmap": 469,
+        "fmin": 475,
+        "fmax": 476,
+        "dlog": 477,
+        "m1": 478,
+        "m2": 479,
+        "q0star": 480,
+        "alpha": 481,
+        "phi0": 482,
+        "tc": 483,
+        "tol": 484
+      },
+      "where_used": {
+        "log_level": [
+          493
+        ],
+        "ini": [
+          509,
+          821
+        ],
+        "refresh_ref": [
+          545
+        ],
+        "calibrate": [
+          568,
+          571,
+          572,
+          853
+        ],
+        "calib_window": [
+          574
+        ],
+        "calib_weight": [
+          580,
+          593,
+          622
+        ],
+        "metrics_window": [
+          599,
+          670
+        ],
+        "tighten_threshold_p95": [
+          607,
+          610,
+          861
+        ],
+        "auto_tighten": [
+          610
+        ],
+        "tighten_window": [
+          611
+        ],
+        "overwrite": [
+          647,
+          695
+        ],
+        "export_diff": [
+          694,
+          869
+        ],
+        "export_anomalies": [
+          719
+        ],
+        "export_heatmap": [
+          764
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 133,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "dry_run",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "npts"
+      ],
+      "args_defined": [
+        "dry_run",
+        "export_raw",
+        "ini",
+        "log_file",
+        "log_level",
+        "npts"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "ini": 107,
+        "dry_run": 111,
+        "export_raw": 117,
+        "npts": 121,
+        "log_level": 125,
+        "log_file": 132
+      },
+      "where_used": {
+        "log_level": [
+          152,
+          227
+        ],
+        "log_file": [
+          152
+        ],
+        "ini": [
+          158
+        ],
+        "npts": [
+          178,
+          179
+        ],
+        "dry_run": [
+          197
+        ],
+        "export_raw": [
+          205
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/opt_poly_rebranch.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "backup",
+        "bases",
+        "csv",
+        "degrees",
+        "fit_window",
+        "k_range",
+        "meta",
+        "metrics_window",
+        "out_csv",
+        "out_poly_json"
+      ],
+      "args_defined": [
+        "backup",
+        "bases",
+        "csv",
+        "degrees",
+        "fit_window",
+        "k_range",
+        "meta",
+        "metrics_window",
+        "out_csv",
+        "out_poly_json"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 25,
+        "meta": 31,
+        "fit_window": 32,
+        "metrics_window": 33,
+        "degrees": 34,
+        "bases": 35,
+        "k_range": 38,
+        "out_csv": 45,
+        "out_poly_json": 51,
+        "backup": 57
+      },
+      "where_used": {
+        "csv": [
+          91
+        ],
+        "meta": [
+          92
+        ],
+        "out_csv": [
+          101,
+          101
+        ],
+        "backup": [
+          102,
+          250
+        ],
+        "fit_window": [
+          111
+        ],
+        "metrics_window": [
+          112
+        ],
+        "k_range": [
+          137
+        ],
+        "bases": [
+          139
+        ],
+        "degrees": [
+          147
+        ],
+        "out_poly_json": [
+          239,
+          242
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/plot_fig01_phase_overlay.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "anchor_policy",
+        "csv",
+        "display_variant",
+        "dpi",
+        "force_fit",
+        "ini",
+        "log_level",
+        "meta",
+        "out",
+        "save_pdf",
+        "shade",
+        "show_residual"
+      ],
+      "args_defined": [
+        "anchor_policy",
+        "csv",
+        "display_variant",
+        "dpi",
+        "force_fit",
+        "ini",
+        "log_level",
+        "meta",
+        "out",
+        "save_pdf",
+        "shade",
+        "show_residual"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 181,
+        "meta": 182,
+        "ini": 183,
+        "out": 184,
+        "display_variant": 185,
+        "force_fit": 191,
+        "shade": 196,
+        "show_residual": 199,
+        "anchor_policy": 200,
+        "dpi": 205,
+        "save_pdf": 206,
+        "log_level": 207
+      },
+      "where_used": {
+        "log_level": [
+          216
+        ],
+        "csv": [
+          218,
+          219,
+          220
+        ],
+        "display_variant": [
+          226
+        ],
+        "meta": [
+          247
+        ],
+        "ini": [
+          247
+        ],
+        "shade": [
+          269
+        ],
+        "anchor_policy": [
+          289,
+          290
+        ],
+        "force_fit": [
+          291
+        ],
+        "out": [
+          332,
+          413,
+          415,
+          416
+        ],
+        "show_residual": [
+          379
+        ],
+        "dpi": [
+          413,
+          415
+        ],
+        "save_pdf": [
+          414
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/plot_fig02_residual_phase.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "bands",
+        "csv",
+        "dpi",
+        "gap_thresh_log10",
+        "line_width",
+        "log_level",
+        "marker_size",
+        "meta",
+        "out"
+      ],
+      "args_defined": [
+        "bands",
+        "csv",
+        "dpi",
+        "gap_thresh_log10",
+        "line_width",
+        "log_level",
+        "marker_size",
+        "meta",
+        "out"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "csv": 139,
+        "meta": 140,
+        "out": 143,
+        "dpi": 144,
+        "bands": 145,
+        "marker_size": 148,
+        "line_width": 149,
+        "gap_thresh_log10": 150,
+        "log_level": 151
+      },
+      "where_used": {
+        "log_level": [
+          156
+        ],
+        "meta": [
+          157
+        ],
+        "csv": [
+          159,
+          160,
+          163
+        ],
+        "bands": [
+          190
+        ],
+        "marker_size": [
+          240,
+          339
+        ],
+        "line_width": [
+          246,
+          344
+        ],
+        "gap_thresh_log10": [
+          275
+        ],
+        "out": [
+          403,
+          404,
+          405
+        ],
+        "dpi": [
+          404
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 107,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "bins",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "mode",
+        "no_lines",
+        "out",
+        "svg",
+        "window",
+        "xscale"
+      ],
+      "args_defined": [
+        "bins",
+        "csv",
+        "diff",
+        "dpi",
+        "legend_loc",
+        "log_level",
+        "meta",
+        "mode",
+        "no_lines",
+        "out",
+        "svg",
+        "window",
+        "xscale"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "diff": 49,
+        "csv": 55,
+        "meta": 58,
+        "out": 64,
+        "svg": 65,
+        "bins": 66,
+        "window": 67,
+        "xscale": 75,
+        "mode": 78,
+        "no_lines": 84,
+        "legend_loc": 87,
+        "dpi": 88,
+        "log_level": 89
+      },
+      "where_used": {
+        "log_level": [
+          100
+        ],
+        "diff": [
+          107,
+          108,
+          112,
+          113,
+          116,
+          125
+        ],
+        "csv": [
+          121,
+          126,
+          127,
+          131,
+          169,
+          171
+        ],
+        "window": [
+          146,
+          175
+        ],
+        "mode": [
+          150,
+          154,
+          171
+        ],
+        "xscale": [
+          220,
+          254
+        ],
+        "bins": [
+          224,
+          243
+        ],
+        "no_lines": [
+          254
+        ],
+        "meta": [
+          285,
+          285,
+          287
+        ],
+        "out": [
+          344,
+          346,
+          347,
+          349,
+          350
+        ],
+        "dpi": [
+          346
+        ],
+        "svg": [
+          348
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 82,
+        "offset": 13,
+        "msg": "invalid syntax"
+      },
+      "args_used": [
+        "apply_calibration",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "milestones",
+        "out",
+        "show_autres",
+        "window",
+        "with_errorbar",
+        "xlim",
+        "ylim"
+      ],
+      "args_defined": [
+        "apply_calibration",
+        "csv",
+        "diff",
+        "dpi",
+        "log_level",
+        "meta",
+        "milestones",
+        "out",
+        "show_autres",
+        "window",
+        "with_errorbar",
+        "xlim",
+        "ylim"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "diff": 126,
+        "csv": 132,
+        "meta": 138,
+        "milestones": 141,
+        "out": 147,
+        "log_level": 148,
+        "window": 152,
+        "xlim": 160,
+        "ylim": 168,
+        "with_errorbar": 177,
+        "show_autres": 180,
+        "apply_calibration": 183,
+        "dpi": 189
+      },
+      "where_used": {
+        "log_level": [
+          198
+        ],
+        "meta": [
+          201
+        ],
+        "apply_calibration": [
+          215,
+          216
+        ],
+        "window": [
+          226
+        ],
+        "milestones": [
+          229,
+          230,
+          231,
+          234
+        ],
+        "diff": [
+          274,
+          275,
+          281,
+          284
+        ],
+        "csv": [
+          287,
+          291
+        ],
+        "xlim": [
+          326,
+          329
+        ],
+        "ylim": [
+          334,
+          337
+        ],
+        "with_errorbar": [
+          387
+        ],
+        "show_autres": [
+          436
+        ],
+        "out": [
+          474,
+          476,
+          477
+        ],
+        "dpi": [
+          476
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 81,
+        "offset": 55,
+        "msg": "unmatched ')'"
+      },
+      "args_used": [
+        "align",
+        "dpi",
+        "log_level",
+        "milestones",
+        "out",
+        "pdf"
+      ],
+      "args_defined": [
+        "align",
+        "dpi",
+        "fmt",
+        "log_level",
+        "milestones",
+        "out",
+        "outdir",
+        "pdf",
+        "style",
+        "transparent",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "style": 67,
+        "fmt": 69,
+        "dpi": 71,
+        "outdir": 73,
+        "transparent": 75,
+        "verbose": 79,
+        "milestones": 124,
+        "out": 130,
+        "pdf": 131,
+        "align": 134,
+        "log_level": 141
+      },
+      "where_used": {
+        "log_level": [
+          151
+        ],
+        "milestones": [
+          153,
+          154,
+          156,
+          160
+        ],
+        "align": [
+          190,
+          293
+        ],
+        "out": [
+          211,
+          326,
+          327,
+          329
+        ],
+        "dpi": [
+          326
+        ],
+        "pdf": [
+          328
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/add_phi_at_fpeak.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 89,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "backup",
+        "out",
+        "ref_grid",
+        "results",
+        "thresh"
+      ],
+      "args_defined": [
+        "backup",
+        "out",
+        "ref_grid",
+        "results",
+        "thresh"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 58,
+        "ref_grid": 59,
+        "out": 62,
+        "thresh": 65,
+        "backup": 71
+      },
+      "where_used": {
+        "results": [
+          86,
+          90,
+          92,
+          260,
+          266
+        ],
+        "backup": [
+          89
+        ],
+        "ref_grid": [
+          97,
+          99,
+          267
+        ],
+        "thresh": [
+          142,
+          143,
+          231,
+          232
+        ],
+        "out": [
+          260,
+          260
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/bootstrap_topk_p95.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "B",
+        "best",
+        "log_level",
+        "out",
+        "resid_dir",
+        "results",
+        "seed"
+      ],
+      "args_defined": [
+        "B",
+        "best",
+        "log_level",
+        "out",
+        "resid_dir",
+        "results",
+        "seed"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "best": 129,
+        "results": 130,
+        "B": 135,
+        "seed": 141,
+        "resid_dir": 144,
+        "out": 149,
+        "log_level": 150
+      },
+      "where_used": {
+        "log_level": [
+          154
+        ],
+        "best": [
+          158
+        ],
+        "out": [
+          159
+        ],
+        "resid_dir": [
+          160
+        ],
+        "B": [
+          177,
+          198
+        ],
+        "seed": [
+          178,
+          197,
+          307
+        ],
+        "results": [
+          189,
+          190
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/check_metrics_consistency.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 82,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "atol",
+        "manifest",
+        "results",
+        "rtol"
+      ],
+      "args_defined": [
+        "atol",
+        "manifest",
+        "results",
+        "rtol"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 61,
+        "manifest": 62,
+        "rtol": 63,
+        "atol": 64
+      },
+      "where_used": {
+        "results": [
+          67
+        ],
+        "manifest": [
+          68
+        ],
+        "rtol": [
+          177
+        ],
+        "atol": [
+          177
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/diag_phi_fpeak.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 66,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "out_diagnostics",
+        "ref_grid",
+        "results",
+        "thresh"
+      ],
+      "args_defined": [
+        "out_diagnostics",
+        "ref_grid",
+        "results",
+        "thresh"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 50,
+        "ref_grid": 51,
+        "out_diagnostics": 52,
+        "thresh": 55
+      },
+      "where_used": {
+        "results": [
+          63
+        ],
+        "ref_grid": [
+          66
+        ],
+        "thresh": [
+          89,
+          90,
+          141
+        ],
+        "out_diagnostics": [
+          176,
+          183
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "K",
+        "batch",
+        "log_level",
+        "n_test",
+        "n_workers",
+        "out_best",
+        "out_results",
+        "overwrite",
+        "ref_grid",
+        "samples"
+      ],
+      "args_defined": [
+        "K",
+        "batch",
+        "jalons",
+        "log_level",
+        "n_test",
+        "n_workers",
+        "out_best",
+        "out_results",
+        "overwrite",
+        "ref_grid",
+        "samples"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "samples": 272,
+        "ref_grid": 275,
+        "out_results": 280,
+        "out_best": 285,
+        "batch": 290,
+        "n_workers": 293,
+        "K": 294,
+        "n_test": 295,
+        "jalons": 301,
+        "overwrite": 306,
+        "log_level": 311
+      },
+      "where_used": {
+        "log_level": [
+          318
+        ],
+        "ref_grid": [
+          334,
+          337
+        ],
+        "samples": [
+          348
+        ],
+        "n_test": [
+          349,
+          350
+        ],
+        "batch": [
+          360
+        ],
+        "n_workers": [
+          361,
+          364
+        ],
+        "out_results": [
+          402,
+          404
+        ],
+        "overwrite": [
+          402,
+          430
+        ],
+        "K": [
+          416
+        ],
+        "out_best": [
+          430,
+          431
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/generate_data_chapter10.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 333,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "K",
+        "batch",
+        "best_json",
+        "config",
+        "jalons",
+        "jalons_out",
+        "lmbda",
+        "log_level",
+        "n",
+        "n_workers",
+        "overwrite",
+        "ref_grid",
+        "refine",
+        "refine_n",
+        "refine_shrink",
+        "results_agg_csv",
+        "results_csv",
+        "samples_csv",
+        "scramble",
+        "seed",
+        "skip_aggregate",
+        "skip_jalons",
+        "skip_metrics",
+        "skip_samples",
+        "sobol_offset",
+        "summary"
+      ],
+      "args_defined": [
+        "K",
+        "batch",
+        "best_json",
+        "config",
+        "jalons",
+        "jalons_out",
+        "lmbda",
+        "log_level",
+        "n",
+        "n_workers",
+        "overwrite",
+        "ref_grid",
+        "refine",
+        "refine_n",
+        "refine_shrink",
+        "results_agg_csv",
+        "results_csv",
+        "samples_csv",
+        "scramble",
+        "seed",
+        "skip_aggregate",
+        "skip_jalons",
+        "skip_metrics",
+        "skip_samples",
+        "sobol_offset",
+        "summary"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "config": 516,
+        "ref_grid": 517,
+        "jalons": 518,
+        "samples_csv": 519,
+        "results_csv": 520,
+        "results_agg_csv": 521,
+        "best_json": 522,
+        "jalons_out": 523,
+        "summary": 524,
+        "log_level": 527,
+        "overwrite": 530,
+        "skip_samples": 533,
+        "skip_metrics": 534,
+        "skip_jalons": 535,
+        "skip_aggregate": 536,
+        "n": 539,
+        "scramble": 540,
+        "seed": 541,
+        "sobol_offset": 542,
+        "batch": 550,
+        "n_workers": 551,
+        "K": 552,
+        "lmbda": 553,
+        "refine": 556,
+        "refine_n": 561,
+        "refine_shrink": 562
+      },
+      "where_used": {
+        "ref_grid": [
+          162,
+          230,
+          264,
+          439,
+          484
+        ],
+        "skip_jalons": [
+          166,
+          254,
+          306,
+          487
+        ],
+        "jalons": [
+          167,
+          180,
+          262,
+          486
+        ],
+        "config": [
+          171,
+          194,
+          399,
+          490
+        ],
+        "skip_samples": [
+          186
+        ],
+        "samples_csv": [
+          188,
+          204,
+          211,
+          266
+        ],
+        "n": [
+          196
+        ],
+        "scramble": [
+          200,
+          414
+        ],
+        "seed": [
+          202,
+          416
+        ],
+        "overwrite": [
+          206,
+          244,
+          308
+        ],
+        "sobol_offset": [
+          208,
+          209
+        ],
+        "skip_metrics": [
+          217
+        ],
+        "results_csv": [
+          220,
+          232,
+          247
+        ],
+        "best_json": [
+          221,
+          234,
+          248,
+          287,
+          298,
+          312
+        ],
+        "batch": [
+          236,
+          445
+        ],
+        "n_workers": [
+          238,
+          447
+        ],
+        "K": [
+          240,
+          300,
+          449
+        ],
+        "log_level": [
+          242,
+          272,
+          304,
+          451,
+          578
+        ],
+        "jalons_out": [
+          270,
+          275
+        ],
+        "skip_aggregate": [
+          283
+        ],
+        "results_agg_csv": [
+          286,
+          296,
+          311
+        ],
+        "lmbda": [
+          302
+        ],
+        "refine": [
+          385
+        ],
+        "refine_shrink": [
+          396
+        ],
+        "refine_n": [
+          410
+        ],
+        "summary": [
+          503,
+          504
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/inspect_topk_residuals.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "best_json",
+        "ids",
+        "k",
+        "out_dir",
+        "ref_grid",
+        "samples"
+      ],
+      "args_defined": [
+        "best_json",
+        "ids",
+        "k",
+        "out_dir",
+        "ref_grid",
+        "samples"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "samples": 92,
+        "ref_grid": 93,
+        "best_json": 94,
+        "ids": 95,
+        "k": 96,
+        "out_dir": 97
+      },
+      "where_used": {
+        "samples": [
+          39
+        ],
+        "ref_grid": [
+          40
+        ],
+        "ids": [
+          41,
+          42
+        ],
+        "best_json": [
+          44
+        ],
+        "k": [
+          45
+        ],
+        "out_dir": [
+          46,
+          57,
+          76,
+          86
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "cmap",
+        "dpi",
+        "levels",
+        "m1_col",
+        "m2_col",
+        "no_clip",
+        "out",
+        "p95_col",
+        "results",
+        "title"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "levels",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "no_clip",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 57,
+        "x_col": 58,
+        "y_col": 58,
+        "sigma_col": 59,
+        "group_col": 59,
+        "n_col": 60,
+        "p95_col": 60,
+        "orig_col": 61,
+        "recalc_col": 61,
+        "m1_col": 62,
+        "m2_col": 62,
+        "dpi": 64,
+        "out": 64,
+        "format": 65,
+        "transparent": 65,
+        "npoints": 67,
+        "hires2000": 67,
+        "change_eps": 68,
+        "ref_p95": 69,
+        "metric": 70,
+        "bins": 70,
+        "alpha": 70,
+        "boot_iters": 71,
+        "seed": 71,
+        "trim": 71,
+        "minN": 72,
+        "point_size": 72,
+        "zoom_w": 73,
+        "zoom_h": 73,
+        "abs": 74,
+        "B": 76,
+        "M": 76,
+        "outer": 76,
+        "cmap": 77,
+        "zoom_x": 78,
+        "zoom_dx": 78,
+        "scale_exp": 79,
+        "zoom_center_n": 80,
+        "inner": 81,
+        "title": 82,
+        "zoom_y": 83,
+        "zoom_dy": 83,
+        "vclip": 84,
+        "angular": 85,
+        "hist_scale": 86,
+        "threshold": 87,
+        "title_left": 88,
+        "title_right": 89,
+        "hist_x": 90,
+        "hist_y": 91,
+        "figsize": 92,
+        "with_zoom": 94,
+        "gridsize": 95,
+        "levels": 248,
+        "no_clip": 254
+      },
+      "where_used": {
+        "results": [
+          26,
+          260,
+          261,
+          264
+        ],
+        "m1_col": [
+          200,
+          203,
+          264,
+          266,
+          295
+        ],
+        "m2_col": [
+          204,
+          264,
+          266,
+          296
+        ],
+        "p95_col": [
+          205,
+          262
+        ],
+        "levels": [
+          270
+        ],
+        "no_clip": [
+          272
+        ],
+        "cmap": [
+          281
+        ],
+        "title": [
+          299
+        ],
+        "out": [
+          319,
+          320,
+          326
+        ],
+        "dpi": [
+          319
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "alpha",
+        "annotate_top_k",
+        "boot_ci",
+        "clip_pi",
+        "cmap",
+        "dpi",
+        "group_col",
+        "hexbin_alpha",
+        "hexbin_gridsize",
+        "out",
+        "p95_ref",
+        "pi_ticks",
+        "point_size",
+        "results",
+        "seed",
+        "title",
+        "with_hexbin",
+        "x_col",
+        "y_col"
+      ],
+      "args_defined": [
+        "alpha",
+        "annotate_top_k",
+        "boot_ci",
+        "clip_pi",
+        "cmap",
+        "dpi",
+        "group_col",
+        "hexbin_alpha",
+        "hexbin_gridsize",
+        "out",
+        "p95_ref",
+        "pi_ticks",
+        "point_size",
+        "results",
+        "seed",
+        "sigma_col",
+        "title",
+        "with_hexbin",
+        "x_col",
+        "y_col"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 98,
+        "x_col": 101,
+        "y_col": 104,
+        "sigma_col": 107,
+        "group_col": 110,
+        "out": 113,
+        "dpi": 116,
+        "title": 117,
+        "point_size": 122,
+        "alpha": 125,
+        "cmap": 128,
+        "clip_pi": 131,
+        "p95_ref": 136,
+        "annotate_top_k": 142,
+        "with_hexbin": 150,
+        "hexbin_gridsize": 153,
+        "hexbin_alpha": 156,
+        "pi_ticks": 161,
+        "boot_ci": 168,
+        "seed": 174
+      },
+      "where_used": {
+        "results": [
+          179
+        ],
+        "x_col": [
+          198
+        ],
+        "y_col": [
+          199
+        ],
+        "group_col": [
+          200,
+          200
+        ],
+        "p95_ref": [
+          218,
+          303
+        ],
+        "boot_ci": [
+          223,
+          225
+        ],
+        "seed": [
+          225
+        ],
+        "with_hexbin": [
+          239
+        ],
+        "hexbin_gridsize": [
+          243
+        ],
+        "hexbin_alpha": [
+          246
+        ],
+        "point_size": [
+          256
+        ],
+        "alpha": [
+          257
+        ],
+        "cmap": [
+          258
+        ],
+        "clip_pi": [
+          266
+        ],
+        "title": [
+          286
+        ],
+        "pi_ticks": [
+          291
+        ],
+        "annotate_top_k": [
+          322,
+          322,
+          323
+        ],
+        "out": [
+          344,
+          345
+        ],
+        "dpi": [
+          344
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "B",
+        "dpi",
+        "npoints",
+        "out",
+        "p95_col",
+        "results",
+        "seed",
+        "trim",
+        "zoom_center_n",
+        "zoom_h",
+        "zoom_w"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 15,
+        "x_col": 16,
+        "y_col": 16,
+        "sigma_col": 17,
+        "group_col": 17,
+        "n_col": 18,
+        "p95_col": 18,
+        "orig_col": 19,
+        "recalc_col": 19,
+        "m1_col": 20,
+        "m2_col": 20,
+        "dpi": 22,
+        "out": 22,
+        "format": 23,
+        "transparent": 23,
+        "npoints": 25,
+        "hires2000": 25,
+        "change_eps": 26,
+        "ref_p95": 27,
+        "metric": 28,
+        "bins": 28,
+        "alpha": 28,
+        "boot_iters": 29,
+        "seed": 29,
+        "trim": 29,
+        "minN": 30,
+        "point_size": 30,
+        "zoom_w": 31,
+        "zoom_h": 31,
+        "abs": 32,
+        "B": 34,
+        "M": 34,
+        "outer": 34,
+        "cmap": 35,
+        "zoom_x": 36,
+        "zoom_dx": 36,
+        "scale_exp": 37,
+        "zoom_center_n": 38,
+        "inner": 39,
+        "title": 40,
+        "zoom_y": 41,
+        "zoom_dy": 41,
+        "vclip": 42,
+        "angular": 43,
+        "hist_scale": 44,
+        "threshold": 45,
+        "title_left": 46,
+        "title_right": 47,
+        "hist_x": 48,
+        "hist_y": 49,
+        "figsize": 50,
+        "with_zoom": 52,
+        "gridsize": 53
+      },
+      "where_used": {
+        "results": [
+          216,
+          223
+        ],
+        "p95_col": [
+          234
+        ],
+        "npoints": [
+          241
+        ],
+        "trim": [
+          247,
+          250,
+          262,
+          304,
+          375,
+          396
+        ],
+        "B": [
+          250,
+          262,
+          377,
+          395
+        ],
+        "seed": [
+          250,
+          262,
+          377
+        ],
+        "zoom_w": [
+          317
+        ],
+        "zoom_h": [
+          317
+        ],
+        "zoom_center_n": [
+          320,
+          320
+        ],
+        "out": [
+          402,
+          403
+        ],
+        "dpi": [
+          402
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "M",
+        "alpha",
+        "angular",
+        "dpi",
+        "hires2000",
+        "inner",
+        "make_sensitivity",
+        "minN",
+        "npoints",
+        "out",
+        "outer",
+        "p95_col",
+        "results",
+        "seed",
+        "sens_B_list",
+        "sens_N",
+        "sens_mode",
+        "title_left",
+        "title_right",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "make_sensitivity",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sens_B_list",
+        "sens_N",
+        "sens_mode",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "ymax_coverage",
+        "ymin_coverage",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 172,
+        "x_col": 173,
+        "y_col": 173,
+        "sigma_col": 174,
+        "group_col": 174,
+        "n_col": 175,
+        "p95_col": 175,
+        "orig_col": 176,
+        "recalc_col": 176,
+        "m1_col": 177,
+        "m2_col": 177,
+        "dpi": 179,
+        "out": 179,
+        "format": 180,
+        "transparent": 180,
+        "npoints": 182,
+        "hires2000": 182,
+        "change_eps": 183,
+        "ref_p95": 184,
+        "metric": 185,
+        "bins": 185,
+        "alpha": 185,
+        "boot_iters": 186,
+        "seed": 186,
+        "trim": 186,
+        "minN": 187,
+        "point_size": 187,
+        "zoom_w": 188,
+        "zoom_h": 188,
+        "abs": 189,
+        "B": 191,
+        "M": 191,
+        "outer": 191,
+        "cmap": 192,
+        "zoom_x": 193,
+        "zoom_dx": 193,
+        "scale_exp": 194,
+        "zoom_center_n": 195,
+        "inner": 196,
+        "title": 197,
+        "zoom_y": 198,
+        "zoom_dy": 198,
+        "vclip": 199,
+        "angular": 200,
+        "hist_scale": 201,
+        "threshold": 202,
+        "title_left": 203,
+        "title_right": 204,
+        "hist_x": 205,
+        "hist_y": 206,
+        "figsize": 207,
+        "with_zoom": 209,
+        "gridsize": 210,
+        "ymin_coverage": 376,
+        "ymax_coverage": 379,
+        "make_sensitivity": 400,
+        "sens_mode": 405,
+        "sens_N": 411,
+        "sens_B_list": 417
+      },
+      "where_used": {
+        "npoints": [
+          106,
+          117,
+          472,
+          616
+        ],
+        "minN": [
+          107,
+          471,
+          615
+        ],
+        "p95_col": [
+          135,
+          150,
+          152,
+          217,
+          225,
+          227,
+          426,
+          434,
+          436,
+          457
+        ],
+        "ymin_coverage": [
+          161,
+          543,
+          545,
+          545,
+          618,
+          618
+        ],
+        "ymax_coverage": [
+          162,
+          543,
+          548,
+          548,
+          621,
+          621
+        ],
+        "results": [
+          439,
+          446,
+          609
+        ],
+        "hires2000": [
+          464
+        ],
+        "outer": [
+          465,
+          477
+        ],
+        "inner": [
+          466,
+          479,
+          492,
+          556,
+          596,
+          612,
+          663
+        ],
+        "M": [
+          467,
+          468,
+          477,
+          477
+        ],
+        "alpha": [
+          479,
+          492,
+          537,
+          613,
+          663,
+          673,
+          698
+        ],
+        "seed": [
+          479,
+          482,
+          557,
+          597,
+          614,
+          654
+        ],
+        "angular": [
+          484,
+          570,
+          623
+        ],
+        "title_left": [
+          542
+        ],
+        "title_right": [
+          591
+        ],
+        "out": [
+          601,
+          602,
+          603,
+          605,
+          642,
+          707
+        ],
+        "dpi": [
+          602,
+          708
+        ],
+        "make_sensitivity": [
+          648
+        ],
+        "sens_mode": [
+          649
+        ],
+        "sens_N": [
+          650,
+          650
+        ],
+        "sens_B_list": [
+          651
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "alpha",
+        "bins",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "orig_col",
+        "out",
+        "point_size",
+        "recalc_col",
+        "results",
+        "title",
+        "with_zoom",
+        "zoom_center_x",
+        "zoom_center_y",
+        "zoom_h",
+        "zoom_w"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_center_x",
+        "zoom_center_y",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 15,
+        "x_col": 16,
+        "y_col": 16,
+        "sigma_col": 17,
+        "group_col": 17,
+        "n_col": 18,
+        "p95_col": 18,
+        "orig_col": 19,
+        "recalc_col": 19,
+        "m1_col": 20,
+        "m2_col": 20,
+        "dpi": 22,
+        "out": 22,
+        "format": 23,
+        "transparent": 23,
+        "npoints": 25,
+        "hires2000": 25,
+        "change_eps": 26,
+        "ref_p95": 27,
+        "metric": 28,
+        "bins": 28,
+        "alpha": 28,
+        "boot_iters": 29,
+        "seed": 29,
+        "trim": 29,
+        "minN": 30,
+        "point_size": 30,
+        "zoom_w": 31,
+        "zoom_h": 31,
+        "abs": 32,
+        "B": 34,
+        "M": 34,
+        "outer": 34,
+        "cmap": 35,
+        "zoom_x": 36,
+        "zoom_dx": 36,
+        "scale_exp": 37,
+        "zoom_center_n": 38,
+        "inner": 39,
+        "title": 40,
+        "zoom_y": 41,
+        "zoom_dy": 41,
+        "vclip": 42,
+        "angular": 43,
+        "hist_scale": 44,
+        "threshold": 45,
+        "title_left": 46,
+        "title_right": 47,
+        "hist_x": 48,
+        "hist_y": 49,
+        "figsize": 50,
+        "with_zoom": 52,
+        "gridsize": 53,
+        "zoom_center_x": 152,
+        "zoom_center_y": 158
+      },
+      "where_used": {
+        "results": [
+          197,
+          204
+        ],
+        "orig_col": [
+          215,
+          215
+        ],
+        "recalc_col": [
+          216,
+          216
+        ],
+        "change_eps": [
+          235,
+          281
+        ],
+        "point_size": [
+          254,
+          360
+        ],
+        "alpha": [
+          255,
+          361
+        ],
+        "cmap": [
+          256,
+          362
+        ],
+        "title": [
+          269
+        ],
+        "hist_scale": [
+          299,
+          300
+        ],
+        "hist_x": [
+          301
+        ],
+        "hist_y": [
+          302
+        ],
+        "bins": [
+          325
+        ],
+        "with_zoom": [
+          331
+        ],
+        "zoom_center_x": [
+          332,
+          335
+        ],
+        "zoom_center_y": [
+          336,
+          339
+        ],
+        "zoom_w": [
+          345
+        ],
+        "zoom_h": [
+          346
+        ],
+        "out": [
+          380,
+          381
+        ],
+        "dpi": [
+          380
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "bins",
+        "dpi",
+        "out",
+        "results",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "metric",
+        "minN",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 17,
+        "x_col": 18,
+        "y_col": 18,
+        "sigma_col": 19,
+        "group_col": 19,
+        "n_col": 20,
+        "p95_col": 20,
+        "orig_col": 21,
+        "recalc_col": 21,
+        "m1_col": 22,
+        "m2_col": 22,
+        "dpi": 24,
+        "out": 24,
+        "format": 25,
+        "transparent": 25,
+        "npoints": 27,
+        "hires2000": 27,
+        "change_eps": 28,
+        "ref_p95": 29,
+        "metric": 30,
+        "bins": 30,
+        "alpha": 30,
+        "boot_iters": 31,
+        "seed": 31,
+        "trim": 31,
+        "minN": 32,
+        "point_size": 32,
+        "zoom_w": 33,
+        "zoom_h": 33,
+        "abs": 34,
+        "B": 36,
+        "M": 36,
+        "outer": 36,
+        "cmap": 37,
+        "zoom_x": 38,
+        "zoom_dx": 38,
+        "scale_exp": 39,
+        "zoom_center_n": 40,
+        "inner": 41,
+        "title": 42,
+        "zoom_y": 43,
+        "zoom_dy": 43,
+        "vclip": 44,
+        "angular": 45,
+        "hist_scale": 46,
+        "threshold": 47,
+        "title_left": 48,
+        "title_right": 49,
+        "hist_x": 50,
+        "hist_y": 51,
+        "figsize": 52,
+        "with_zoom": 54,
+        "gridsize": 55
+      },
+      "where_used": {
+        "results": [
+          163,
+          170
+        ],
+        "bins": [
+          207,
+          291
+        ],
+        "zoom_w": [
+          280
+        ],
+        "zoom_h": [
+          281
+        ],
+        "zoom_x": [
+          285,
+          285
+        ],
+        "zoom_dx": [
+          285,
+          285
+        ],
+        "zoom_y": [
+          286,
+          286,
+          296
+        ],
+        "zoom_dy": [
+          286,
+          286,
+          296
+        ],
+        "out": [
+          325,
+          326
+        ],
+        "dpi": [
+          325
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig06_residual_map.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "abs",
+        "cmap",
+        "dpi",
+        "figsize",
+        "gridsize",
+        "m1_col",
+        "m2_col",
+        "manifest",
+        "metric",
+        "minN",
+        "mincnt",
+        "npoints",
+        "orig_col",
+        "out",
+        "phi_mcgt_col",
+        "phi_ref_col",
+        "recalc_col",
+        "results",
+        "scale_exp",
+        "threshold",
+        "vclip"
+      ],
+      "args_defined": [
+        "B",
+        "M",
+        "abs",
+        "alpha",
+        "angular",
+        "bins",
+        "boot_iters",
+        "change_eps",
+        "cmap",
+        "dpi",
+        "figsize",
+        "format",
+        "gridsize",
+        "group_col",
+        "hires2000",
+        "hist_scale",
+        "hist_x",
+        "hist_y",
+        "inner",
+        "m1_col",
+        "m2_col",
+        "manifest",
+        "metric",
+        "minN",
+        "mincnt",
+        "n_col",
+        "npoints",
+        "orig_col",
+        "out",
+        "outer",
+        "p95_col",
+        "phi_mcgt_col",
+        "phi_ref_col",
+        "point_size",
+        "recalc_col",
+        "ref_p95",
+        "results",
+        "scale_exp",
+        "seed",
+        "sigma_col",
+        "threshold",
+        "title",
+        "title_left",
+        "title_right",
+        "transparent",
+        "trim",
+        "vclip",
+        "with_zoom",
+        "x_col",
+        "y_col",
+        "zoom_center_n",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 180,
+        "x_col": 181,
+        "y_col": 181,
+        "sigma_col": 182,
+        "group_col": 182,
+        "n_col": 183,
+        "p95_col": 183,
+        "orig_col": 184,
+        "recalc_col": 184,
+        "m1_col": 185,
+        "m2_col": 185,
+        "dpi": 187,
+        "out": 187,
+        "format": 188,
+        "transparent": 188,
+        "npoints": 190,
+        "hires2000": 190,
+        "change_eps": 191,
+        "ref_p95": 192,
+        "metric": 193,
+        "bins": 193,
+        "alpha": 193,
+        "boot_iters": 194,
+        "seed": 194,
+        "trim": 194,
+        "minN": 195,
+        "point_size": 195,
+        "zoom_w": 196,
+        "zoom_h": 196,
+        "abs": 197,
+        "B": 199,
+        "M": 199,
+        "outer": 199,
+        "cmap": 200,
+        "zoom_x": 201,
+        "zoom_dx": 201,
+        "scale_exp": 202,
+        "zoom_center_n": 203,
+        "inner": 204,
+        "title": 205,
+        "zoom_y": 206,
+        "zoom_dy": 206,
+        "vclip": 207,
+        "angular": 208,
+        "hist_scale": 209,
+        "threshold": 210,
+        "title_left": 211,
+        "title_right": 212,
+        "hist_x": 213,
+        "hist_y": 214,
+        "figsize": 215,
+        "with_zoom": 217,
+        "gridsize": 218,
+        "phi_ref_col": 328,
+        "phi_mcgt_col": 329,
+        "mincnt": 331,
+        "manifest": 352
+      },
+      "where_used": {
+        "npoints": [
+          97,
+          108
+        ],
+        "minN": [
+          98
+        ],
+        "m1_col": [
+          126,
+          155,
+          157,
+          225,
+          233,
+          235,
+          357,
+          365,
+          367,
+          383,
+          401,
+          557
+        ],
+        "m2_col": [
+          128,
+          159,
+          237,
+          245,
+          247,
+          369,
+          377,
+          379,
+          383,
+          402,
+          558
+        ],
+        "mincnt": [
+          168,
+          461,
+          481,
+          503,
+          530,
+          535,
+          570
+        ],
+        "gridsize": [
+          169,
+          459,
+          490,
+          530,
+          569
+        ],
+        "figsize": [
+          170,
+          441
+        ],
+        "results": [
+          383,
+          390,
+          556
+        ],
+        "metric": [
+          405,
+          561
+        ],
+        "orig_col": [
+          406,
+          563
+        ],
+        "recalc_col": [
+          407,
+          564
+        ],
+        "phi_ref_col": [
+          411,
+          565
+        ],
+        "phi_mcgt_col": [
+          412,
+          566
+        ],
+        "abs": [
+          418,
+          472,
+          562
+        ],
+        "scale_exp": [
+          425,
+          467,
+          575
+        ],
+        "vclip": [
+          429
+        ],
+        "threshold": [
+          438,
+          515,
+          576
+        ],
+        "dpi": [
+          443,
+          547,
+          578
+        ],
+        "cmap": [
+          464,
+          571
+        ],
+        "out": [
+          546,
+          547,
+          548,
+          551,
+          588
+        ],
+        "manifest": [
+          550
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/plot_fig07_synthesis.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "dpi",
+        "figsize",
+        "label_a",
+        "label_b",
+        "manifest_a",
+        "manifest_b",
+        "out",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_defined": [
+        "dpi",
+        "figsize",
+        "label_a",
+        "label_b",
+        "manifest_a",
+        "manifest_b",
+        "out",
+        "ymax_coverage",
+        "ymin_coverage"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "manifest_a": 377,
+        "label_a": 378,
+        "manifest_b": 379,
+        "label_b": 380,
+        "out": 381,
+        "dpi": 382,
+        "figsize": 383,
+        "ymin_coverage": 384,
+        "ymax_coverage": 385
+      },
+      "where_used": {
+        "figsize": [
+          388
+        ],
+        "manifest_a": [
+          392
+        ],
+        "label_a": [
+          393
+        ],
+        "manifest_b": [
+          398,
+          400
+        ],
+        "label_b": [
+          401
+        ],
+        "out": [
+          405,
+          411
+        ],
+        "dpi": [
+          413
+        ],
+        "ymin_coverage": [
+          414
+        ],
+        "ymax_coverage": [
+          415
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 27,
+        "offset": 1,
+        "msg": "expected 'except' or 'finally' block"
+      },
+      "args_used": [
+        "best",
+        "k",
+        "outdir",
+        "ref_grid",
+        "results",
+        "samples"
+      ],
+      "args_defined": [
+        "best",
+        "k",
+        "outdir",
+        "ref_grid",
+        "results",
+        "samples"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "best": 120,
+        "samples": 124,
+        "results": 126,
+        "ref_grid": 130,
+        "k": 132,
+        "outdir": 134
+      },
+      "where_used": {
+        "samples": [
+          142
+        ],
+        "results": [
+          143
+        ],
+        "ref_grid": [
+          144,
+          152
+        ],
+        "best": [
+          145
+        ],
+        "k": [
+          145
+        ],
+        "outdir": [
+          152,
+          172
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/recompute_p95_circular.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 49,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "out",
+        "ref_grid",
+        "results",
+        "samples"
+      ],
+      "args_defined": [
+        "out",
+        "ref_grid",
+        "results",
+        "samples"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 39,
+        "samples": 41,
+        "ref_grid": 43,
+        "out": 45
+      },
+      "where_used": {
+        "results": [
+          49,
+          79,
+          83
+        ],
+        "samples": [
+          50,
+          84
+        ],
+        "ref_grid": [
+          51,
+          85
+        ],
+        "out": [
+          79
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+      "compile": "ERROR",
+      "error": {
+        "type": "SyntaxError",
+        "lineno": 83,
+        "offset": 4,
+        "msg": "unexpected indent"
+      },
+      "args_used": [
+        "bins",
+        "dpi",
+        "out",
+        "ref_p95",
+        "results",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_defined": [
+        "bins",
+        "dpi",
+        "out",
+        "ref_p95",
+        "results",
+        "zoom_dx",
+        "zoom_dy",
+        "zoom_h",
+        "zoom_w",
+        "zoom_x",
+        "zoom_y"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "results": 45,
+        "out": 48,
+        "ref_p95": 51,
+        "bins": 57,
+        "dpi": 58,
+        "zoom_x": 60,
+        "zoom_y": 61,
+        "zoom_dx": 64,
+        "zoom_dy": 67,
+        "zoom_w": 71,
+        "zoom_h": 74
+      },
+      "where_used": {
+        "results": [
+          80
+        ],
+        "ref_p95": [
+          101,
+          122,
+          124,
+          126
+        ],
+        "bins": [
+          109,
+          192
+        ],
+        "zoom_w": [
+          182
+        ],
+        "zoom_h": [
+          183
+        ],
+        "zoom_x": [
+          187,
+          187
+        ],
+        "zoom_dx": [
+          187,
+          187
+        ],
+        "zoom_y": [
+          188,
+          188,
+          196
+        ],
+        "zoom_dy": [
+          188,
+          188,
+          196
+        ],
+        "out": [
+          222,
+          223
+        ],
+        "dpi": [
+          222
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/chapter10/update_manifest_with_hashes.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [],
+      "args_defined": [],
+      "args_missing": [],
+      "where_defined": {},
+      "where_used": {},
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/manifest_tools/populate_manifest.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "exclude",
+        "force",
+        "manifest",
+        "no_backup",
+        "repo_root",
+        "search",
+        "sign"
+      ],
+      "args_defined": [
+        "exclude",
+        "force",
+        "manifest",
+        "no_backup",
+        "repo_root",
+        "search",
+        "sign"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "manifest": 3,
+        "repo_root": 214,
+        "force": 219,
+        "search": 224,
+        "exclude": 229,
+        "sign": 234,
+        "no_backup": 239
+      },
+      "where_used": {
+        "manifest": [
+          244
+        ],
+        "repo_root": [
+          245
+        ],
+        "no_backup": [
+          251
+        ],
+        "force": [
+          258
+        ],
+        "exclude": [
+          259
+        ],
+        "search": [
+          260
+        ],
+        "sign": [
+          270,
+          271,
+          273,
+          281
+        ]
+      },
+      "future_misordered": false
+    },
+    {
+      "path": "zz-scripts/manifest_tools/verify_manifest.py",
+      "compile": "OK",
+      "error": {},
+      "args_used": [
+        "manifest",
+        "output",
+        "repo_root",
+        "verbose"
+      ],
+      "args_defined": [
+        "manifest",
+        "output",
+        "repo_root",
+        "verbose"
+      ],
+      "args_missing": [],
+      "where_defined": {
+        "manifest": 3,
+        "repo_root": 110,
+        "output": 115,
+        "verbose": 116
+      },
+      "where_used": {
+        "manifest": [
+          119
+        ],
+        "repo_root": [
+          128
+        ],
+        "verbose": [
+          150
+        ],
+        "output": [
+          154,
+          161,
+          163
+        ]
+      },
+      "future_misordered": false
+    }
+  ],
+  "global_issues": [],
+  "summary": {
+    "total_files": 108,
+    "compile_errors": 48,
+    "args_missing": 0,
+    "future_misordered": 0
+  }
+}

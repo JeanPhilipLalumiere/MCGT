@@ -9,7 +9,8 @@ from __future__ import annotations
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
+    import sys as _sys
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -93,10 +94,9 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+from zz_tools import common_io as ci
 
 def detect_p95_column(df: pd.DataFrame, hint: str | None):
     if hint and hint in df.columns:
@@ -115,7 +115,6 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None):
             return c
     raise KeyError("Aucune colonne 'p95' détectée dans le fichier results.")
 
-
 def trimmed_mean(arr: np.ndarray, alpha: float) -> float:
     """Moyenne tronquée bilatérale: retire alpha de chaque côté (mod 2π déjà géré en amont)."""
     if alpha <= 0:
@@ -126,7 +125,6 @@ def trimmed_mean(arr: np.ndarray, alpha: float) -> float:
         return float(np.mean(arr))
     a = np.sort(arr)
     return float(np.mean(a[k : n - k]))
-
 
 def compute_bootstrap_convergence(
     p95: np.ndarray, N_list: np.ndarray, B: int, seed: int, trim_alpha: float
@@ -173,7 +171,6 @@ def compute_bootstrap_convergence(
         tmean_low,
         tmean_high,
     )
-
 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -222,7 +219,6 @@ except NameError:
     try:
         _res = args.results
     except Exception:
-        import sys as _sys
         for _j,_a in enumerate(_sys.argv):
             if _a == "--results" and _j+1 < len(_sys.argv):
                 _res = _sys.argv[_j+1]
@@ -401,7 +397,6 @@ fig.text(
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 fig.savefig(args.out, dpi=args.dpi)
 print(f"Wrote: {args.out}")
-
 
 if __name__ == "__main__":
     main()

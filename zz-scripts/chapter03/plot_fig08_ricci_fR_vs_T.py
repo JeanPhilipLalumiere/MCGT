@@ -35,7 +35,6 @@ DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_T.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
 FIG_PATH = FIG_DIR / "fig_08_ricci_fR_vs_T.png"
 
-
 def main() -> None:
     # 1. Lecture des données
     if not DATA_FILE.exists():
@@ -103,7 +102,6 @@ def main() -> None:
     fig.savefig(FIG_PATH)
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
-
 
 if __name__ == "__main__":
     main()

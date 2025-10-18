@@ -9,7 +9,6 @@ Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)
 """
 from __future__ import annotations
 
-
 import argparse
 import configparser
 import json
@@ -18,8 +17,7 @@ from pathlib import Path
 
 def _load_meta(path):
     try:
-        import json, logging
-        with open(REF_META, 'r') as f:
+        with open(REF_META) as f:
             try:
                 meta = json.load(f)
                 if not isinstance(meta, dict):
@@ -31,7 +29,6 @@ def _load_meta(path):
             return {}
         return meta
     except Exception as e:
-        import logging
         logging.warning("Lecture JSON méta échouée (%s).", e)
         return {}
 
@@ -47,7 +44,6 @@ DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
 DEF_INI = Path("zz-configuration/gw_phase.ini")
 DEF_OUT = Path("zz-figures/chapter09/09_fig_01_phase_overlay.png")
 
-
 # ---------------- utils
 def setup_logger(level="INFO"):
     logging.basicConfig(
@@ -57,16 +53,13 @@ def setup_logger(level="INFO"):
     )
     return logging.getLogger("fig01")
 
-
 def p95(a: np.ndarray) -> float:
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
     return float(np.percentile(a, 95.0)) if a.size else float("nan")
 
-
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     return (a - b + np.pi) % (2.0 * np.pi) - np.pi
-
 
 def enforce_monotone_freq(f, arrays, log):
     f = np.asarray(f, float)
@@ -80,7 +73,6 @@ def enforce_monotone_freq(f, arrays, log):
         )
     out = {k: np.asarray(v, float)[order][keep] for k, v in arrays.items()}
     return f_sorted[keep], out
-
 
 def mask_flat_tail(y: np.ndarray, min_run=3, atol=1e-12):
     y = np.asarray(y, float)
@@ -102,19 +94,16 @@ def mask_flat_tail(y: np.ndarray, min_run=3, atol=1e-12):
         return yy, last
     return y, n - 1
 
-
 def pick_anchor_frequency(f: np.ndarray, fmin: float, fmax: float) -> float:
     if fmin <= 100.0 and fmax >= 100.0:
         return 100.0
     return float(np.exp(0.5 * (np.log(max(fmin, 1e-12)) + np.log(max(fmax, 1e-12)))))
-
 
 def interp_at(x, xp, fp):
     xp = np.asarray(xp, float)
     fp = np.asarray(fp, float)
     m = np.isfinite(xp) & np.isfinite(fp)
     return float(np.interp(x, xp[m], fp[m])) if np.any(m) else float("nan")
-
 
 def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
     grid = {"fmin_Hz": 10.0, "fmax_Hz": 2048.0, "dlog10": 0.01}
@@ -172,7 +161,6 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
             log.warning("Lecture INI échouée (%s).", e)
     return grid, calib, variant
 
-
 # ---------------- CLI
 def parse_args():
     ap = argparse.ArgumentParser(
@@ -208,7 +196,6 @@ def parse_args():
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
     )
     return ap.parse_args()
-
 
 # ---------------- main
 def main():
@@ -414,7 +401,6 @@ def main():
     if args.save_pdf:
         fig.savefig(args.out.with_suffix(".pdf"), dpi=int(args.dpi))
     log.info("Figure écrite → %s", str(args.out))
-
 
 if __name__ == "__main__":
     main()

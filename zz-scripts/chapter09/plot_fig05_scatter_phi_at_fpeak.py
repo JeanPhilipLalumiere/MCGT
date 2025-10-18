@@ -45,7 +45,6 @@ import pandas as pd
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
 DEF_OUT = Path("zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png")
 
-
 # ---------- Utils ----------
 def setup_logger(level: str) -> logging.Logger:
     logging.basicConfig(
@@ -83,10 +82,8 @@ return apap.add_argument(
 # "--outdir",
 # MCGT(fixed): type=str,
 
-
 def class_color_map() -> dict[str, str]:
     return {"primaire": "C0", "ordre2": "C1", "autres": "C2"}
-
 
 def normalize_class(c) -> str:
     if c is None:
@@ -98,14 +95,12 @@ def normalize_class(c) -> str:
         return "ordre2"
     return "autres"
 
-
 def finite_mask(*arrs) -> np.ndarray:
     m = np.ones_like(np.asarray(arrs[0], float), dtype=bool)
     for a in arrs:
         aa = np.asarray(a, float)
         m &= np.isfinite(aa)
     return m
-
 
 def robust_stats(residual: np.ndarray) -> tuple[float, float, float, float, int]:
     a = np.asarray(residual, float)
@@ -117,7 +112,6 @@ def robust_stats(residual: np.ndarray) -> tuple[float, float, float, float, int]
     p95 = float(np.nanpercentile(a, 95))
     mx = float(np.nanmax(a))
     return (mean, med, p95, mx, a.size)
-
 
 def parse_args():
     ap = argparse.ArgumentParser(description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
@@ -142,7 +136,6 @@ def parse_args():
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
     )
     return ap.parse_args()
-
 
 # ---------- Main ----------
 
@@ -329,7 +322,6 @@ if args.pdf:
 out_pdf = args.out.with_suffix(".pdf")
 fig.savefig(out_pdf, bbox_inches="tight")
 log.info("PDF écrit → %s", out_pdf)
-
 
 if __name__ == "__main__":
     pass

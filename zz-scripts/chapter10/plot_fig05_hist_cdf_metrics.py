@@ -11,7 +11,8 @@ from __future__ import annotations
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
+    import sys as _sys
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -97,10 +98,9 @@ import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
+from zz_tools import common_io as ci
 
 # ---------- utils ----------
 def detect_p95_column(df: pd.DataFrame) -> str:
@@ -118,7 +118,6 @@ def detect_p95_column(df: pd.DataFrame) -> str:
     for c in df.columns:
         if "p95" in c.lower(): return c
     raise KeyError("Aucune colonne 'p95' détectée dans le CSV results.")
-
 
 # ---------- main ----------
 def main():
@@ -169,7 +168,6 @@ except NameError:
     try:
         _res = args.results
     except Exception:
-        import sys as _sys
         for _j,_a in enumerate(_sys.argv):
             if _a == "--results" and _j+1 < len(_sys.argv):
                 _res = _sys.argv[_j+1]
@@ -324,7 +322,6 @@ fig.text(0.5, 0.04, foot, ha="center", va="bottom", fontsize=9)
 
 fig.savefig(args.out, dpi=args.dpi)
 print(f"Wrote : {args.out}")
-
 
 if __name__ == "__main__":
     main()

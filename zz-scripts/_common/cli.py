@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 import argparse
+
 
 def add_common_cli(parser: argparse.ArgumentParser) -> None:
     parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None)

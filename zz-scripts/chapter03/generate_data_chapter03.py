@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 # generer_donnees_chapitre3.py
 
 """

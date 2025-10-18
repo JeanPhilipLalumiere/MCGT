@@ -3,7 +3,10 @@
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
 """
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -63,7 +66,6 @@ Sortie  :
 import logging
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import pandas as pd
 
 # ----------------------------------------------------------------------
@@ -78,7 +80,6 @@ log = logging.getLogger(__name__)
 DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
 FIG_PATH = FIG_DIR / "fig_03_ms2_R0_vs_R.png"
-
 
 def main() -> None:
     # 1. Chargement
@@ -154,15 +155,12 @@ def main() -> None:
     plt.close(fig)
     log.info("Figure enregistrée → %s", FIG_PATH)
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

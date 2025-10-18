@@ -20,7 +20,6 @@ Sorties :
 """
 from __future__ import annotations
 
-
 import argparse
 import json
 import logging
@@ -31,8 +30,6 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from joblib import Parallel, delayed
 
 # Importer les backends locaux (doivent exister dans le dépôt)

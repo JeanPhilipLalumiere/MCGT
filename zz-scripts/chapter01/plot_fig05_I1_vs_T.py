@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Fig. 05 — Invariant adimensionnel I1(T)
 """
 
-from pathlib import Path
 import argparse
 import os
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -50,7 +47,6 @@ def main():
 
     fig.savefig(outpath, transparent=args.transparent)
     print(f"[OK] Figure enregistrée → {outpath}")
-
 
 if __name__ == "__main__":
     main()

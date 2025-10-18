@@ -13,7 +13,6 @@ import pandas as pd
 from matplotlib.ticker import MaxNLocator
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
-
 def main():
     # --- Répertoires ---
     ROOT = Path(__file__).resolve().parents[2]
@@ -111,7 +110,6 @@ def main():
     outpath = FIG_DIR / "fig_01_chi2_total_vs_q0.png"
     plt.savefig(outpath, dpi=300)
     print(f"✅ Figure enregistrée → {outpath}")
-
 
 if __name__ == "__main__":
     main()

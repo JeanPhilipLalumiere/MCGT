@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 # --- cli global proxy v7 ---
-import sys as _sys, types as _types, re as _re
+import sys as _sys
+import types as _types
+
 try:
     args  # noqa: F821  # peut ne pas exister
 except NameError:
@@ -96,7 +99,6 @@ def _int_or_none(x):
         return None
 # --- end util ---
 
-
 # --- cli global proxy v7 coalesce defaults ---
 try:
     args
@@ -106,7 +108,6 @@ else:
     if getattr(args, 'npoints', None) is None: args.npoints = 50
     if getattr(args, 'minN', None) is None: args.minN = 10
 # --- end cli global proxy v7 coalesce defaults ---
-
 
 # --- cli global proxy v7 local tweak ---
 try:
@@ -118,7 +119,7 @@ else:
 # --- end cli global proxy v7 local tweak ---
 
 # --- cli global backfill v6 ---
-import sys as _sys, types as _types
+
 try:
     args  # noqa: F821  # peut ne pas exister
 except NameError:
@@ -140,17 +141,9 @@ plot_fig03b_coverage_bootstrap_vs_n.py
 
 """
 
-
-
-
-
-
-
-
 # --- compat: ensure args.p95_col exists ---
 if 'args' in globals() and not hasattr(args, 'p95_col'):
     args.p95_col = None  # trigger detect_p95_column(...)
-
 
 # --- AUTO-FALLBACKS (ch10: fig03b) ---
 try:
@@ -166,7 +159,7 @@ if not hasattr(args, 'ymax_coverage'): args.ymax_coverage = None
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -269,12 +262,11 @@ from dataclasses import dataclass
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-# ----------------------------- utilitaires ---------------------------------
+from zz_tools import common_io as ci
 
+# ----------------------------- utilitaires ---------------------------------
 
 def detect_p95_column(df: pd.DataFrame, hint: str | None) -> str:
     if hint and hint in df.columns:
@@ -294,7 +286,6 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None) -> str:
             return c
     raise KeyError("Aucune colonne p95 détectée (utiliser --p95-col).")
 
-
 def wilson_err95(p: float, n: int) -> tuple[float, float]:
     """Retourne (err_bas, err_haut) Wilson 95% pour une proportion p sur n."""
     if n <= 0:
@@ -306,7 +297,6 @@ def wilson_err95(p: float, n: int) -> tuple[float, float]:
     lo = max(0.0, center - half)
     hi = min(1.0, center + half)
     return (p - lo, hi - p)
-
 
 def bootstrap_percentile_ci(
     vals: np.ndarray, B: int, rng: np.random.Generator, alpha: float = 0.05
@@ -321,12 +311,10 @@ def bootstrap_percentile_ci(
     hi = float(np.percentile(boots, 100 * (1 - alpha / 2)))
     return lo, hi
 
-
 def circ_mean_rad(angles: np.ndarray) -> float:
     """Moyenne circulaire d'angles (radians)."""
     z = np.mean(np.exp(1j * angles))
     return float(np.angle(z))
-
 
 @dataclass
 class RowRes:
@@ -338,9 +326,7 @@ class RowRes:
     n_hits: int
     method: str
 
-
 # ------------------------------- coeur --------------------------------------
-
 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -421,7 +407,6 @@ def main():
     )
     args = p.parse_args()
     # --- cli post-parse backfill (auto v2) ---
-    import sys as _sys  # backfill
     try:
         args.p95_col
     except AttributeError:
@@ -445,7 +430,6 @@ except NameError:
     try:
         _res = args.results
     except Exception:
-        import sys as _sys
         for _j,_a in enumerate(_sys.argv):
             if _a == "--results" and _j+1 < len(_sys.argv):
                 _res = _sys.argv[_j+1]
@@ -724,7 +708,6 @@ if args.make_sensitivity:
         with open(sens_path, "w", encoding="utf-8") as f:
             json.dump(manifest_sens, f, indent=2)
         print(f"[OK] Manifest annexe écrit: {sens_path}")
-
 
 if __name__ == "__main__":
     main()

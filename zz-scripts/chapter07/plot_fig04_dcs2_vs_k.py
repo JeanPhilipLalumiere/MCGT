@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Fig. 04 — Dérivée lissée ∂c_s²/∂k (chapitre 7)
@@ -19,20 +18,17 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter, LogLocator
 
-
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter07"
 FIG_DIR = ROOT / "zz-figures" / "chapter07"
 META_JSON = DATA_DIR / "07_meta_perturbations.json"
 CSV_DCS2 = DATA_DIR / "07_dcs2_dk.csv"
 
-
 def pow_fmt(x, pos):
     if x <= 0 or not np.isfinite(x):
         return ""
     e = int(np.log10(x))
     return rf"$10^{{{e}}}$" if np.isclose(x, 10 ** e) else ""
-
 
 def build_figure(k_vals: np.ndarray, dcs2: np.ndarray, k_split: float):
     fig, ax = plt.subplots(figsize=(8, 5))
@@ -57,7 +53,6 @@ def build_figure(k_vals: np.ndarray, dcs2: np.ndarray, k_split: float):
     fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
     return fig, ax
 
-
 def load_inputs() -> tuple[np.ndarray, np.ndarray, float]:
     if not META_JSON.exists():
         raise FileNotFoundError(f"Meta JSON introuvable: {META_JSON}")
@@ -73,7 +68,6 @@ def load_inputs() -> tuple[np.ndarray, np.ndarray, float]:
     k_vals = pd.to_numeric(df["k"], errors="coerce").to_numpy()
     dcs2 = pd.to_numeric(df.iloc[:, 1], errors="coerce").to_numpy()
     return k_vals, dcs2, k_split
-
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
@@ -106,7 +100,6 @@ def main(argv: list[str] | None = None) -> int:
     plt.close(fig)
     print(f"[INFO] Figure saved → {outpath}")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

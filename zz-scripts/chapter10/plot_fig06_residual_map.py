@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 # --- cli global proxy v7 ---
-import sys as _sys, types as _types, re as _re
+import sys as _sys
+import types as _types
+
 try:
     args  # noqa: F821  # peut ne pas exister
 except NameError:
@@ -98,7 +101,6 @@ else:
     if getattr(args, 'minN', None) is None: args.minN = 10
 # --- end cli global proxy v7 coalesce defaults ---
 
-
 # --- cli global proxy v7 local tweak ---
 try:
     args
@@ -109,7 +111,7 @@ else:
 # --- end cli global proxy v7 local tweak ---
 
 # --- cli global backfill v6 ---
-import sys as _sys, types as _types
+
 try:
     args  # noqa: F821  # peut ne pas exister
 except NameError:
@@ -145,19 +147,11 @@ python zz-scripts/chapter10/plot_fig06_residual_map.py \
   --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
 """
 
-
-
-
-
-
-
-
 # --- compat: ensure args.m1_col/m2_col exist ---
 if 'args' in globals() and not hasattr(args, 'm1_col'):
     args.m1_col = 'phi0'
 if 'args' in globals() and not hasattr(args, 'm2_col'):
     args.m2_col = 'phi_ref_fpeak'
-
 
 # --- AUTO-FALLBACKS (ch10: fig06) ---
 try:
@@ -174,7 +168,7 @@ if not hasattr(args, 'figsize'): args.figsize = '6,5'
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -287,16 +281,14 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from matplotlib.ticker import MaxNLocator
 
+from zz_tools import common_io as ci
 
 # ------------------------- utilitaires -------------------------------------
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Ramène les angles en radians dans (-π, π]."""
     return (x + np.pi) % (2 * np.pi) - np.pi
-
 
 def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
     """Trouve une colonne par nom exact ou par inclusion insensible à la casse."""
@@ -307,7 +299,6 @@ def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
         for cand in candidates:
             if cand and cand.lower() in lc: return c
     raise KeyError(f"Impossible de trouver l'une des colonnes : {candidates}")
-
 
 # --------------------------- script principal ------------------------------
 def main():
@@ -352,7 +343,6 @@ def main():
     ap.add_argument("--manifest", action="store_true")
     args = ap.parse_args()
     # --- cli post-parse backfill (auto v2) ---
-    import sys as _sys  # backfill
     try:
         args.m1_col
     except AttributeError:
@@ -389,7 +379,6 @@ except NameError:
     try:
         _res = args.results
     except Exception:
-        import sys as _sys
         for _j,_a in enumerate(_sys.argv):
             if _a == "--results" and _j+1 < len(_sys.argv):
                 _res = _sys.argv[_j+1]
@@ -590,7 +579,6 @@ if args.manifest:
         with open(man_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
         print(f"[OK] Manifest écrit: {man_path}")
-
 
 if __name__ == "__main__":
     main()

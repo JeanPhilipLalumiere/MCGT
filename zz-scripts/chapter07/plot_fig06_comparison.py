@@ -8,7 +8,6 @@ plot_fig06_comparison.py - STUB TEMPORAIRE (homogénisation CLI)
   et sera réintégrée après normalisation (parser/main-guard/fonctions pures).
 """
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -47,7 +46,6 @@ k3, ddp = df_ddp["k"].values, df_ddp.iloc[:, 1].values
 # Mask zeros for derivative of delta phi/phi
 ddp_mask = np.ma.masked_where(np.abs(ddp) <= 0, np.abs(ddp))
 
-
 # Function to annotate the plateau region
 def zoom_plateau(ax, k, y):
     sel = k < k_split
@@ -72,7 +70,6 @@ def zoom_plateau(ax, k, y):
     p.add_argument("--dpi", type=int, default=120, help="Résolution figure (par défaut: 120).")
     p.add_argument("--title", default="Figure 6 - stub CLI", help="Titre visuel temporaire.")
     return p
-
 
 # --- Create figure ---
 fig, axs = plt.subplots(3, 1, figsize=(8, 14), sharex=True)

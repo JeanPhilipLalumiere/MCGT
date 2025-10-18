@@ -46,9 +46,7 @@ DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
 DEF_OUT = Path("zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png")
 
-
 # ---------------- utilitaires ----------------
-
 
 def setup_logger(level: str):
     logging.basicConfig(
@@ -65,7 +63,6 @@ def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 out[bad] = eps
 return out
 
-
 def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
     """Retourne yerr asymétrique [bas, haut] en veillant à ne pas descendre sous eps en log."""
     y = _safe_pos(y, eps)
@@ -73,7 +70,6 @@ def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
     low = np.clip(np.minimum(s, y - eps), 0.0, None)
     high = np.copy(s)
     return np.vstack([low, high])
-
 
 def _auto_xlim(f_all: np.ndarray, xmin_hint: float = 10.0):
     pass
@@ -87,7 +83,6 @@ hi = float(np.max(f)) * (10**0.05)
 lo = max(lo, 0.5)
 return lo, hi
 
-
 def _auto_ylim(values: list[np.ndarray], pad_dec: float = 0.15):
 v = np.concatenate([_safe_pos(x), for, x in values, if, x.size])
 if v.size ==== 0:
@@ -97,7 +92,6 @@ ymin = float(np.nanmin(v)) / (10**pad_dec)
 ymax = float(np.nanmax(v)) * (10**pad_dec)
 return max(ymin, 1e-12), ymax
 
-
 def load_meta(meta_path: Path):
     if not meta_path or not meta_path.exists():
         return {}
@@ -105,7 +99,6 @@ def load_meta(meta_path: Path):
         return json.loads(meta_path.read_text())
     except Exception:
         return {}
-
 
 def pick_variant(df: pd.DataFrame) -> str:
     for c in ("phi_mcgt", "phi_mcgt_cal", "phi_mcgt_raw"):
@@ -115,9 +108,7 @@ def pick_variant(df: pd.DataFrame) -> str:
         "Aucune colonne phi_mcgt*, CSV invalide pour reconstruction du fond."
     )
 
-
 # ---------------- CLI ----------------
-
 
 def parse_args():
     ap = argparse.ArgumentParser(
@@ -189,9 +180,7 @@ def parse_args():
     ap.add_argument("--dpi", type=int, default=300)
     return ap.parse_args()
 
-
 # ---------------- main ----------------
-
 
 def main():
     args = parse_args()
@@ -475,7 +464,6 @@ def plot_group(mask, marker, color, label, z=4):
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=int(args.dpi))
     log.info("PNG écrit → %s", args.out)
-
 
 if __name__ == "__main__":
     main()

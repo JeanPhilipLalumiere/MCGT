@@ -22,7 +22,6 @@ DATA_CSV = ROOT / "zz-data" / "chapter07" / "07_scalar_invariants.csv"
 JSON_META = ROOT / "zz-data" / "chapter07" / "07_meta_perturbations.json"
 FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_03_invariant_I1.png"
 
-
 # ─────────────────── Chargement
 df = pd.read_csv(DATA_CSV, comment="#")
 k = df["k"].to_numpy()

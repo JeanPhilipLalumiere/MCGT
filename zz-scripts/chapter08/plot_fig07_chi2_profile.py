@@ -7,7 +7,10 @@ avec annotations des niveaux 1σ, 2σ, 3σ (1 degré de liberté).
 """
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -53,9 +56,7 @@ if any(arg.startswith("--out") for arg in sys.argv):
 
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import pandas as pd
-
 
 def main():
     # Répertoires
@@ -128,15 +129,12 @@ def main():
     fig.savefig(out, dpi=300)
     print(f"✅ {out.name} générée")
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

@@ -8,7 +8,6 @@ Figure 05 - Dérivée lissée ∂ₖ(δφ/φ)(k)
 Chapitre 7 - Perturbations scalaires MCGT
 """
 
-
 import json
 import logging
 import sys

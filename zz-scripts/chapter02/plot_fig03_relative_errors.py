@@ -7,9 +7,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-import matplotlib.pyplot as plt
-import pandas as pd
-
 # Paths
 ROOT = Path( __file__).resolve().parents[ 2]
 DATA_DIR = ROOT / "zz-data" / "chapter02"

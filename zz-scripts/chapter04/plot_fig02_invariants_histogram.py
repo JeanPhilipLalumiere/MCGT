@@ -4,7 +4,9 @@
 """
 if __name__ == "__main__":
     try:
-        import sys, os, atexit
+        import atexit
+        import os
+        import sys
         _argv = sys.argv[1:]
         # 1) Shim --help universel
         if any(a in ("-h","--help") for a in _argv):
@@ -63,10 +65,8 @@ Script corrigé de tracé de l'histogramme des invariants I2 et I3
 - Sauvegarde la figure 800×500 px DPI 300
 """
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 
 def main():
     # ----------------------------------------------------------------------
@@ -117,15 +117,12 @@ def main():
     plt.savefig(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

@@ -20,7 +20,6 @@ DATA_DIR = ROOT / "zz-data" / "chapter08"
 FIG_DIR = ROOT / "zz-figures" / "chapter08"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-
 def main():
     # --- Chargement des données BAO + théorique ---
     bao = pd.read_csv(DATA_DIR / "08_bao_data.csv", encoding="utf-8")
@@ -95,7 +94,6 @@ def main():
     fig.savefig(outpath, dpi=300)
     print(f"✅ {outpath.name} générée")
 
-
 if __name__ == "__main__":
     main()
 
@@ -119,7 +117,8 @@ except Exception:
     pass
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -132,7 +131,6 @@ if any(x in sys.argv for x in ("-h", "--help")):
 if any(arg.startswith("--out") for arg in sys.argv):
     os.environ.setdefault("MPLBACKEND", "Agg")
     try:
-        import matplotlib.pyplot as plt
         def _no_show(*a, **k): pass
         if hasattr(plt, "show"):
             plt.show = _no_show

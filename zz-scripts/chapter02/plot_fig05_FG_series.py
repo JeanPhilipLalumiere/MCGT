@@ -23,7 +23,6 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_IN = ROOT / "zz-data" / "chapter02" / "02_As_ns_vs_alpha.csv"
 OUT_PLOT = ROOT / "zz-figures" / "chapter02" / "fig_05_FG_series.png"
 
-
 def main():
     # Lecture des données
     df = pd.read_csv(DATA_IN)
@@ -49,7 +48,6 @@ def main():
     plt.savefig(OUT_PLOT, dpi=300)
     plt.close()
     print(f"Figure enregistrée → {OUT_PLOT}")
-
 
 if __name__ == "__main__":
     main()

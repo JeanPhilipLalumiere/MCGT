@@ -10,7 +10,10 @@ Script de tracé des invariants adimensionnels I1, I2 et I3 en fonction de T
 """
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -54,9 +57,7 @@ if any(arg.startswith("--out") for arg in sys.argv):
         pass
 # === [/PASS5B-SHIM] ===
 
-import matplotlib.pyplot as plt
 import pandas as pd
-
 
 def main():
     # 1. Chargement des données
@@ -97,15 +98,12 @@ def main():
     plt.savefig(out)
     print(f"Figure enregistrée : {out}")
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

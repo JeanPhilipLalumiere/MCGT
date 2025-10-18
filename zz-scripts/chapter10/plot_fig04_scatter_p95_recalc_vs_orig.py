@@ -9,7 +9,8 @@ from __future__ import annotations
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
+    import sys as _sys
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -93,10 +94,9 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
+from zz_tools import common_io as ci
 
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
     if hint and hint in df.columns:
@@ -108,7 +108,6 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
         if cand and cand.lower() in low: return df.columns[low.index(cand.lower())]
     raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (hint={hint})")
 
-
 def fmt_sci_power(v: float) -> tuple[float, int]:
     """Return (scaled_value, exponent) where scaled_value = v / 10**exp and exp is power of ten."""
     if v == 0:
@@ -116,7 +115,6 @@ def fmt_sci_power(v: float) -> tuple[float, int]:
     exp = int(np.floor(np.log10(abs(v))))
     scale = 10.0**exp
     return v / scale, exp
-
 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -203,7 +201,6 @@ except NameError:
     try:
         _res = args.results
     except Exception:
-        import sys as _sys
         for _j,_a in enumerate(_sys.argv):
             if _a == "--results" and _j+1 < len(_sys.argv):
                 _res = _sys.argv[_j+1]
@@ -379,7 +376,6 @@ fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 fig.savefig(args.out, dpi=args.dpi)
 print(f"Wrote: {args.out}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import argparse
 import logging
@@ -11,11 +10,9 @@ import pandas as pd
 from matplotlib.patches import FancyArrowPatch
 from scipy.signal import savgol_filter
 
-
 # --- Répertoires ---
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter05"
-
 
 def load_series():
     """Charge χ²(T) et dχ²/dT depuis les CSV, aligne les grilles, lisse la dérivée.
@@ -76,7 +73,6 @@ def load_series():
 
     return T, chi2, sigma, dchi_scaled
 
-
 def make_figure(T, chi2, sigma, dchi_scaled):
     plt.rcParams.update({"font.size": 11})
     fig, ax1 = plt.subplots(figsize=(6.5, 4.5))
@@ -118,7 +114,6 @@ def make_figure(T, chi2, sigma, dchi_scaled):
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     return fig
 
-
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description="Fig. 04 — χ²(T) et dχ²/dT (Chapitre 5)")
     p.add_argument("--outdir", default="zz-figures/chapter05", help="Dossier de sortie")
@@ -148,7 +143,6 @@ def main(argv=None) -> int:
     print(f"✓ {rel} généré.")
 
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

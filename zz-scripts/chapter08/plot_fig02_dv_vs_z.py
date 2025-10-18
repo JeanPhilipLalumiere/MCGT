@@ -14,7 +14,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 def main():
     # --- Directories (translated to English names) ---
     ROOT = Path(__file__).resolve().parents[2]
@@ -83,7 +82,6 @@ def main():
     out_file = FIG_DIR / "fig_02_dv_vs_z.png"
     plt.savefig(out_file, dpi=300)
     print(f"✅ Figure saved : {out_file}")
-
 
 if __name__ == "__main__":
     main()

@@ -7,13 +7,14 @@ Carte iso-valeurs d'un p95 (ou métrique équivalente) sur (m1, m2) à partir d'
 """
 from __future__ import annotations
 
-
 def ensure_fig01_cols(df):
     """Charge/valide les colonnes (m1,m2,p95) et retourne un DataFrame nettoyé.
     - Si df est None, lit --results (via args ou argv).
     - Noms par défaut: m1, m2, p95_20_300 (surchargés via args si présents).
     """
-    import pandas as pd, sys as _sys
+    import sys as _sys
+
+    import pandas as pd
     try:
         args  # fourni par le shim
     except NameError:
@@ -51,7 +52,7 @@ def ensure_fig01_cols(df):
 try:
     args
 except NameError:
-    import argparse as _argparse, sys as _sys
+    import argparse as _argparse
     _shim = _argparse.ArgumentParser(add_help=False)
     # I/O & colonnes
     _shim.add_argument('--results')
@@ -137,13 +138,9 @@ import warnings
 import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import numpy as np
-import pandas as pd
-from zz_tools import common_io as ci
-
 from matplotlib import colors
 
 # ---------- utilities ----------
-
 
 def detect_p95_column(df: pd.DataFrame, hint: str | None):
     """Try to find the p95 column using hint or sensible defaults."""
@@ -164,9 +161,7 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None):
         if "p95" in c.lower(): return c
     raise KeyError("Aucune colonne 'p95' détectée dans le fichier results.")
 
-
 def read_and_validate(path, m1_col=None, m2_col=None, p95_col=None):
-    import pandas as pd
     # charge le CSV
     df = pd.read_csv(path)
 
@@ -226,9 +221,7 @@ def make_triangulation_and_mask(x, y):
         pass
     return triang
 
-
 # ---------- main ----------
-
 
 def main():
     ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -325,7 +318,6 @@ def main():
     except Exception as e:
         print(f"[ERROR] cannot write output file '{args.out}': {e}", file=sys.stderr)
         sys.exit(2)
-
 
 if __name__ == "__main__":
     main()

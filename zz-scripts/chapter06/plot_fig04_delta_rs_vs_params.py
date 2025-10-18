@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-import os
 import argparse
+import os
+
 """
 Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)
 ───────────────────────────────────────────────────────────────
@@ -72,7 +73,7 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
+        pass
 parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
 parser.add_argument("--outdir", default="zz-figures/chapter06")
 parser.add_argument("--dry-run", action="store_true")
@@ -90,28 +91,8 @@ try:
     os.environ["MCGT_OUTDIR"] = args.outdir
 except Exception:
     pass
-# [AUTO] orphan except/finally removed
-# [AUTO]     pass
-# [AUTO] orphan except/finally removed
-# [AUTO]     pass
 import matplotlib as mpl
+
 mpl.rcParams["savefig.dpi"] = args.dpi
 mpl.rcParams["savefig.format"] = args.format
 mpl.rcParams["savefig.transparent"] = args.transparent
-# [AUTO] orphan except/finally removed
-# [AUTO]             pass
-# [AUTO]         _main = globals().get("main")
-# [AUTO]         if callable(_main):
-# [AUTO]             try:
-# [AUTO]                 _main(args)
-# [AUTO]             except Exception:
-# [AUTO]                 pass
-# [AUTO]             except Exception:
-# [AUTO]                 pass
-# [AUTO]             except SystemExit:
-# [AUTO]                 raise
-# [AUTO]             except Exception as e:
-# [AUTO]                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-# [AUTO]                 traceback.print_exc()
-# [AUTO]                 sys.exit(1)
-# [AUTO]     _mcgt_cli_seed()

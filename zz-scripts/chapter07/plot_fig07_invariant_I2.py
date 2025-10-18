@@ -5,7 +5,10 @@ Chapitre 7 - Perturbations scalaires (MCGT).
 """
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -53,10 +56,8 @@ import json
 import logging
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 
 def main():
     # --- chemins ---
@@ -154,15 +155,12 @@ def main():
     fig.savefig(FIG_OUT, dpi=300)
     logging.info("Figure enregistrée → %s", FIG_OUT)
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

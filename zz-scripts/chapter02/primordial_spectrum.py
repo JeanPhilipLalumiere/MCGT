@@ -7,7 +7,6 @@ un fichier JSON de métadonnées (commande CLI).
 """
 from __future__ import annotations
 
-
 import json
 from pathlib import Path
 

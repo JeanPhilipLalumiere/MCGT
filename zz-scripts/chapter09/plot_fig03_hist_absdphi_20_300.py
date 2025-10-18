@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Fig. 03 — Histogramme du résidu de phase |Δφ| sur 20–300 Hz.
@@ -14,13 +13,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-
 ROOT = Path(__file__).resolve().parents[2]
 DEF_CSV = ROOT / "zz-data/chapter09/09_phases_mcgt.csv"
 DEF_DIFF = ROOT / "zz-data/chapter09/09_phase_diff.csv"
 DEF_META = ROOT / "zz-data/chapter09/09_metrics_phase.json"
 DEF_OUTDIR = ROOT / "zz-figures/chapter09"
-
 
 def setup_logger(level: str):
     logging.basicConfig(
@@ -30,11 +27,9 @@ def setup_logger(level: str):
     )
     return logging.getLogger("fig03")
 
-
 def principal_phase_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) - π  ∈ (-π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2 * np.pi) - np.pi
-
 
 def parse_args():
     p = argparse.ArgumentParser(description="Fig. 03 — Histogramme |Δφ| (20–300 Hz)")
@@ -53,7 +48,6 @@ def parse_args():
     p.add_argument("--dpi", type=int, default=300)
     p.add_argument("--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO")
     return p.parse_args()
-
 
 def main():
     args = parse_args()
@@ -228,7 +222,6 @@ def main():
     if args.svg and args.fmt != "svg":
         fig.savefig(outpath.with_suffix(".svg"), bbox_inches="tight")
         logging.info("SVG écrit → %s", outpath.with_suffix(".svg"))
-
 
 if __name__ == "__main__":
     main()

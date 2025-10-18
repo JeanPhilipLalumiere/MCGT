@@ -5,7 +5,6 @@ plot_fig07_summary.py - Figure 7 (synthèse)
 """
 from __future__ import annotations
 
-
 import argparse
 import csv
 import json
@@ -35,9 +34,6 @@ def safe_make_table(ax_tab, cell_text, col_labels):
     except IndexError:
         return None
 
-
-
-
 # ---------- utils ----------
 def parse_figsize(s: str) -> tuple[float, float]:
     try:
@@ -48,11 +44,9 @@ def parse_figsize(s: str) -> tuple[float, float]:
             "figsize doit être 'largeur,hauteur' (ex: 14,6)"
         ) from e
 
-
 def load_manifest(path: str) -> dict[str, Any]:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
-
 
 def _first(d: dict[str, Any], keys: list[str], default=np.nan):
     for k in keys:
@@ -60,10 +54,8 @@ def _first(d: dict[str, Any], keys: list[str], default=np.nan):
             return d[k]
     return default
 
-
 def _param(params: dict[str, Any], candidates: list[str], default=np.nan):
     return _first(params, candidates, default)
-
 
 @dataclass
 class Series:
@@ -75,7 +67,6 @@ class Series:
     width_mean: np.ndarray
     alpha: float
     params: dict[str, Any]
-
 
 def series_from_manifest(
     man: dict[str, Any], label_override: str | None = None
@@ -114,7 +105,6 @@ def series_from_manifest(
         params=params,
     )
 
-
 def detect_reps_params(params: dict[str, Any]) -> tuple[float, float, float]:
     M = _param(
         params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan
@@ -126,7 +116,6 @@ def detect_reps_params(params: dict[str, Any]) -> tuple[float, float, float]:
         params, ["inner_B", "inner", "B_inner", "innerB", "Binner"], np.nan
     )
     return float(M), float(outer_B), float(inner_B)
-
 
 # ---------- stats & résumé ----------
 def compute_summary_rows(series_list: list[Series]) -> list[list[Any]]:
@@ -155,14 +144,12 @@ def compute_summary_rows(series_list: list[Series]) -> list[list[Any]]:
         )
     return rows
 
-
 def powerlaw_slope(N: np.ndarray, W: np.ndarray) -> float:
     m = np.isfinite(N) & np.isfinite(W) & (N > 0) & (W > 0)
     if m.sum() < 2:
         return np.nan
     p = np.polyfit(np.log(N[m]), np.log(W[m]), 1)
     return float(p[0])
-
 
 # ---------- CSV ----------
 def save_summary_csv(series_list: list[Series], out_csv: str) -> None:
@@ -209,7 +196,6 @@ def save_summary_csv(series_list: list[Series], out_csv: str) -> None:
                         "alpha": s.alpha,
                     }
                 )
-
 
 # ---------- tracé ----------
 def plot_synthese(
@@ -370,7 +356,6 @@ def plot_synthese(
     fig.savefig(out_png, dpi=dpi, bbox_inches="tight")
     print(f"[OK] Figure écrite : {out_png}")
 
-
 # ---------- CLI ----------
 def main(argv=None):
     ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -414,7 +399,6 @@ def main(argv=None):
         ymin_cov=args.ymin_coverage,
         ymax_cov=args.ymax_coverage,
     )
-
 
 if __name__ == "__main__":
     main()

@@ -14,7 +14,6 @@ Exemple d'usage (recommandé) à la fin du fichier.
 """
 from __future__ import annotations
 
-
 import argparse
 
 import matplotlib.pyplot as plt

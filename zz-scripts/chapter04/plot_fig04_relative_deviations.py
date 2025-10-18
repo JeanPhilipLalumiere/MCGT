@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Fig. 04 — Écarts relatifs des invariants I2 et I3 : ε_i = (I_i - I_i,ref)/I_i,ref
 Affiche un zoom |ε_i| ≤ 0.2 avec seuils ±1% et ±10% et T en log.
 """
 
-from pathlib import Path
 import argparse
 import os
+from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "zz-data" / "chapter04" / "04_dimensionless_invariants.csv"
 TP_GYR = 0.087  # point de transition (Gyr)
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -84,7 +81,6 @@ def main():
 
     fig.savefig(outpath, transparent=args.transparent)
     print(f"[OK] Figure sauvegardée : {outpath}")
-
 
 if __name__ == "__main__":
     main()

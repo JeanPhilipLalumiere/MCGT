@@ -9,6 +9,7 @@ args = parser.parse_args()
     args = ensure_std_args(args)
 """
 from __future__ import annotations
+
 from pathlib import Path
 
 DEFAULTS = {

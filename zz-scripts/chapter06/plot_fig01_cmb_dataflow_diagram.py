@@ -61,15 +61,12 @@ for key, (x, y, label, color) in blocks.items():
         family="monospace",
     )
 
-
 # --- Arrow helpers ---
 def east_center(x, y):
     return (x + W, y + H / 2)
 
-
 def west_center(x, y):
     return (x, y + H / 2)
-
 
 def draw_arrow(start, end, text, x_off=0, y_off=0):
     ax.add_patch(
@@ -80,7 +77,6 @@ def draw_arrow(start, end, text, x_off=0, y_off=0):
     xm = 0.5 * (start[0] + end[0]) + x_off
     ym = 0.5 * (start[1] + end[1]) + y_off
     ax.text(xm, ym, text, ha="center", va="center", fontsize=9)
-
 
 # --- Draw arrows with adjusted offsets ---
 # 1) input -> script : label déplacé vers le bas

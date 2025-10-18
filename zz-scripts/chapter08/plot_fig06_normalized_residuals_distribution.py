@@ -20,7 +20,6 @@ UTILS = ROOT / "zz-scripts" / "chapter08" / "utils"
 sys.path.insert(0, str(UTILS))
 from cosmo import DV, distance_modulus  # noqa: E402  # noqa: E402
 
-
 def main():
     # Répertoires
     DATA_DIR = ROOT / "zz-data" / "chapter08"
@@ -118,7 +117,6 @@ def main():
     fig.savefig(out_path, dpi=300, bbox_inches="tight")
     print(f"✅ {out_path.name} générée")
 
-
 if __name__ == "__main__":
     main()
 
@@ -126,7 +124,6 @@ if __name__ == "__main__":
 # (compact) delegate to common helper; best-effort wrapper
 try:
     import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
@@ -142,7 +139,8 @@ except Exception:
     pass
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -155,7 +153,6 @@ if any(x in sys.argv for x in ("-h", "--help")):
 if any(arg.startswith("--out") for arg in sys.argv):
     os.environ.setdefault("MPLBACKEND", "Agg")
     try:
-        import matplotlib.pyplot as plt
         def _no_show(*a, **k): pass
         if hasattr(plt, "show"):
             plt.show = _no_show

@@ -3,7 +3,10 @@
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
 """
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
@@ -49,9 +52,7 @@ if any(arg.startswith("--out") for arg in sys.argv):
 # zz-scripts/chapter05/tracer_fig01_schema_reactions_bbn.py
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
-
 
 def draw_bbn_schema(
     save_path="zz-figures/chapter05/05_fig_01_bbn_reaction_network.png",
@@ -109,15 +110,12 @@ def draw_bbn_schema(
     plt.savefig(save_path, dpi=300)
     plt.close()
 
-
 if __name__ == "__main__":
     draw_bbn_schema()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

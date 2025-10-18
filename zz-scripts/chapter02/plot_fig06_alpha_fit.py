@@ -4,7 +4,9 @@
 """
 if __name__ == "__main__":
     try:
-        import sys, os, atexit
+        import atexit
+        import os
+        import sys
         _argv = sys.argv[1:]
         # 1) Shim --help universel
         if any(a in ("-h","--help") for a in _argv):
@@ -67,7 +69,6 @@ Données sources :
 import json
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import pandas as pd
 
 # Répertoires racine
@@ -77,7 +78,6 @@ FIG_DIR = ROOT / "zz-figures" / "chapter02"
 DATA_IN = DATA_DIR / "02_As_ns_vs_alpha.csv"
 SPEC_JS = DATA_DIR / "02_primordial_spectrum_spec.json"
 OUT_PLOT = FIG_DIR / "fig_06_fit_alpha.png"
-
 
 def main():
     # Lecture des données Brutes
@@ -129,15 +129,12 @@ def main():
     plt.close()
     print(f"Figure enregistrée → {OUT_PLOT}")
 
-
 if __name__ == "__main__":
     main()
 
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:

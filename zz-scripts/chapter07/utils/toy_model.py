@@ -7,7 +7,10 @@ en lisant k_min, k_max et dlog depuis le JSON de méta-paramètres.
 """
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
+import atexit
+import os
+import sys
+
 if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse

@@ -41,7 +41,6 @@ python zz-scripts/chapter09/apply_poly_unwrap_rebranch.py \\
 """
 from __future__ import annotations
 
-
 import argparse
 import json
 import logging

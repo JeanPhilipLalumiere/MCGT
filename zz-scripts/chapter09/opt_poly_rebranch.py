@@ -5,7 +5,6 @@ Applique la meilleure correction au CSV (backup) et met à jour le JSON métriqu
 """
 from __future__ import annotations
 
-
 import argparse
 import json
 from pathlib import Path

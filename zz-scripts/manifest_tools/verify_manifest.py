@@ -1,5 +1,6 @@
 
 from __future__ import annotations
+
 parser.add_argument("--manifest", default="zz-manifests/figure_manifest.json")
 #!/usr/bin/env python3
 # zz-scripts/manifest_tools/verify_manifest.py

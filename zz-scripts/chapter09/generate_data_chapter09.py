@@ -1,5 +1,6 @@
 
 from __future__ import annotations
+
 #!/usr/bin/env python3
 """
 Chapitre 9 - Pipeline principal : accord homogène 20-300 Hz

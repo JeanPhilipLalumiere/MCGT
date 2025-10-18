@@ -3,7 +3,9 @@
 """
 if __name__ == "__main__":
     try:
-        import sys, os, atexit
+        import atexit
+        import os
+        import sys
         _argv = sys.argv[1:]
         # 1) Shim --help universel
         if any(a in ("-h","--help") for a in _argv):

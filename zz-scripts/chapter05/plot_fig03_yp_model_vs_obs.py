@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-
 def tracer_fig03_yp_modele_contre_obs(
     save_path="zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png",
 ):
@@ -65,7 +64,6 @@ def tracer_fig03_yp_modele_contre_obs(
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(save_path, dpi=300)
     plt.close()
-
 
 if __name__ == "__main__":
     tracer_fig03_yp_modele_contre_obs()

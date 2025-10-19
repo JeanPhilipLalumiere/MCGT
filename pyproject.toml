@@ -1,24 +1,31 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT"
 name = "zz-tools"
-version = "0.2.71"
+version = "0.2.72"
 description = "MCGT utilities"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { file = "LICENSE" }   # ← conforme PEP 621
 requires-python = ">=3.9"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["zz_tools*"]
 
-
 [project.urls]
 Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
 Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
 
+# (facultatif) Tu avais ces règles de build hatch pour l'inclusion/exclusion ;
+# je les laisse inchangées pour conserver ton packaging source.
 [tool.hatch.build]
 include = [
   "/**/*.py",

@@ -5,7 +5,8 @@ on:
       - 'v*'
 permissions:
   contents: read
-  id-token: write
+  id-token: write   # requis pour OIDC -> PyPI
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -19,5 +20,5 @@ jobs:
       - name: Publish to PyPI (Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          # fail if files already exist -> garantit l’atomicité d’un tag/version
-          skip-existing: false
+          packages-dir: dist
+          skip-existing: true

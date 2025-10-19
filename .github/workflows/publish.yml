@@ -1,63 +1,24 @@
-name: Publish to PyPI
-
+name: Publish
 on:
   push:
     tags:
       - "v*"
-  release:
-    types: [published]
-  workflow_dispatch: {}
-
-permissions:
-  contents: read
-  id-token: write  # requis pour Trusted Publishing (OIDC)
-
-concurrency:
-  group: publish-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
-  build-and-publish:
-    name: Build & publish
+  publish:
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - name: Check out
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-          cache: "pip"
-
-      - name: Upgrade build tooling
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install build backend
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade build twine
-
-      - name: Build sdist & wheel
-        run: |
-          python -m build
-
-      # Vérif locale des métadonnées si ton script existe (ne casse pas le build sinon)
-      - name: Metadata hygiene (optional)
-        shell: bash
-        run: |
-          if [[ -x scripts/check_metadata_clean.sh ]]; then
-            ./scripts/check_metadata_clean.sh || true
-          else
-            echo "scripts/check_metadata_clean.sh not found; skipping."
-          fi
-
-      # twine check peut ne pas comprendre PEP 639 selon la version; on ne bloque pas la publication
-      - name: Twine check (non-blocking)
-        continue-on-error: true
-        run: |
-          python -m twine check dist/*
-
-      - name: Publish to PyPI (Trusted Publishing)
+          python -m pip install -U pip build
+      - name: Build
+        run: python -m build
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        # Aucun token requis : l'action utilise OIDC (id-token: write ci-dessus)
-        # Si tu veux publier les préversions vers TestPyPI à la place,
-        # configure un autre job/environnement et 'repository-url'.
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

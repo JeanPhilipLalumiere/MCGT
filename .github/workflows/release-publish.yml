@@ -1,76 +1,33 @@
-name: release-publish
+name: publish to PyPI
 on:
   push:
     tags:
-      - "v*"
-concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: true
+      - "v*.*.*"
 
 permissions:
-  contents: write
-  attestations: write
-  id-token: write
+  id-token: write   # OIDC -> Trusted Publishing
+  contents: read
 
 jobs:
-  release:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+      - uses: actions/checkout@v4
 
-      - name: Setup Python (cache pip si besoin)
-        uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-
-      - name: Cache pip (best-effort)
-        uses: actions/cache@v4
+      - uses: actions/setup-python@v5
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          python-version: "3.12"
 
-      - name: Install deps (best-effort)
+      - name: Build sdist & wheel (+ post-fixers) & checks
         run: |
-          set -e
-          if ls requirements*.txt >/dev/null 2>&1; then
-            python -m pip install -U pip
-            pip install -r requirements.txt || true
-          fi
+          python -m pip install --upgrade pip build twine
+          rm -rf dist build *.egg-info
+          python -m build
+          python tools/repair_wheel_metadata.py dist/*.whl || true
+          python tools/repair_sdist_metadata.py dist/*.tar.gz || true
+          twine check dist/*
 
-      - name: Build artifacts (dist-all)
-        run: |
-          make dist-all || make dist || true
-          ls -l dist || true
-
-      - name: Generate SBOM via Anchore (CycloneDX)
-        uses: anchore/sbom-action@v0
+      - name: Publish to PyPI (Trusted Publishing)
+        uses: pypa/gh-action-pypi-publish@v1.9.0
         with:
-          path: .
-          format: cyclonedx-json
-          output-file: dist/sbom.cdx.repo.json
-
-      - name: Compute checksums (fallback si Makefile incomplet)
-        run: |
-          set -e
-          cd dist || exit 0
-          if [ ! -f *.sha256 ] 2>/dev/null; then
-            rm -f ALL.sha256
-            for f in *; do [ "$f" = "ALL.sha256" ] && continue; sha256sum "$f" >> ALL.sha256; done
-          fi
-          ls -l
-
-      - name: Upload Release (assets)
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/**
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Attest build provenance (DSSE)
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-path: "dist/**"
+          skip-existing: true

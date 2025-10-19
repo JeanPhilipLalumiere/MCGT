@@ -4,18 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zz-tools"
-version = "0.2.74"                       # bump pour éviter le conflit PyPI
+version = "0.2.75"                       # bump pour éviter le "file already exists"
 description = "MCGT utilities"
 readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT"                           # SPDX recommandé
-license-files = ["LICENSE*", "COPYING*"]  # ✅ PEP 621 (setuptools>=77)
+license = "MIT"                           # SPDX, pas de license-files
 requires-python = ">=3.9"
 classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Operating System :: OS Independent",
 ]
-# note: on NE met PAS de classifier "License :: ..." (déprécié par setuptools)
 
 [tool.setuptools.packages.find]
 where = ["."]

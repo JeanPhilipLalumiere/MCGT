@@ -3,9 +3,11 @@ on:
   push:
     tags:
       - 'v*'
+
 permissions:
   contents: read
   id-token: write   # requis pour OIDC -> PyPI
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest

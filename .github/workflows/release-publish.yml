@@ -3,10 +3,11 @@ on:
   push:
     tags:
       - "v*.*.*"
+  workflow_dispatch:
 
 permissions:
-  id-token: write   # OIDC -> Trusted Publishing
   contents: read
+  id-token: write   # OIDC → Trusted Publishing
 
 jobs:
   build-and-publish:
@@ -23,13 +24,13 @@ jobs:
           python -m pip install --upgrade pip build twine
           rm -rf dist build *.egg-info
           python -m build
-          # Post-build fixers (idempotent)
-          python tools/repair_wheel_metadata.py dist/*.whl || true
-          python tools/repair_sdist_metadata.py dist/*.tar.gz || true
-          # Packaging sanity checks
+          # Post-build fixers (idempotents)
+          if [ -f tools/repair_wheel_metadata.py ]; then python tools/repair_wheel_metadata.py dist/*.whl || true; fi
+          if [ -f tools/repair_sdist_metadata.py ]; then python tools/repair_sdist_metadata.py dist/*.tar.gz || true; fi
           twine check dist/*
 
-      - name: Publish to PyPI (Trusted Publishing)
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+      - name: Publish to PyPI via OIDC (Trusted Publishing)
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          skip-existing: true
+          verbose: true
+          print-hash: true

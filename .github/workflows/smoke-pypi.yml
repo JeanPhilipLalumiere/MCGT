@@ -1,0 +1,43 @@
+name: smoke-from-pypi
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show context
+        run: |
+          echo "GITHUB_REF_NAME=${GITHUB_REF_NAME}"
+          echo "Tag: ${GITHUB_REF_NAME}"
+          echo "Derived version (strip leading 'v'): ${GITHUB_REF_NAME#v}"
+
+      - name: Install exact version from PyPI
+        run: |
+          python -m pip install -U pip
+          VERSION="${GITHUB_REF_NAME#v}"
+          python -m pip install --no-cache-dir "zz-tools==${VERSION}"
+
+      - name: Import checks (deps & public API)
+        run: |
+          python - <<'PY'
+          import zz_tools, numpy, pandas as pd
+          import zz_tools.common_io as cio
+          print("zz_tools file:", zz_tools.__file__)
+          print("__version__ :", getattr(zz_tools, "__version__", "?"))
+          print("numpy       :", numpy.__version__)
+          print("pandas      :", pd.__version__)
+          pub = [n for n in dir(cio) if not n.startswith("_")]
+          print("common_io symbols (subset):", pub[:10])
+          PY

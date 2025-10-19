@@ -4,20 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zz-tools"
-version = "0.2.73"
+version = "0.2.74"                       # bump pour éviter le conflit PyPI
 description = "MCGT utilities"
 readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT"                      # SPDX, recommandé (setuptools>=77)
+license = "MIT"                           # SPDX recommandé
+license-files = ["LICENSE*", "COPYING*"]  # ✅ PEP 621 (setuptools>=77)
 requires-python = ">=3.9"
 classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Operating System :: OS Independent",
 ]
-# (on retire le classifier "License :: …" comme le suggère l’avertissement)
-
-[tool.setuptools]
-license-files = ["LICENSE*"]        # remplace les vieux "license_file(s)"
+# note: on NE met PAS de classifier "License :: ..." (déprécié par setuptools)
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -26,20 +24,3 @@ include = ["zz_tools*"]
 [project.urls]
 Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
 Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
-
-# Tu avais ces règles hatch; je les remets correctement formées.
-[tool.hatch.build]
-include = [
-  "/**/*.py",
-  "/zz-data/**/*",
-  "/zz-figures/**/*",
-  "/README.md",
-  "/LICENSE*",
-]
-exclude = [
-  "/.ci-logs/**/*",
-  "/.ci-out/**/*",
-  "/_tmp-figs/**/*",
-  "/zz-out/**/*",
-  "/.github/**/*",
-]

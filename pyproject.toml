@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zz-tools"
-version = "0.2.76"                       # bump pour éviter le "file already exists"
+version = "0.2.79"                       # bump pour éviter le "file already exists"
 description = "MCGT utilities"
 readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT"                           # SPDX, pas de license-files
+license = "MIT"
 requires-python = ">=3.9"
 classifiers = [
   "Programming Language :: Python :: 3",

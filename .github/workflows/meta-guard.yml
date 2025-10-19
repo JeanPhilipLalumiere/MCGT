@@ -9,7 +9,7 @@ jobs:
   export-ignore:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Verify .ci-out is not in source archive
         run: |
           git archive -o /tmp/test.zip HEAD

@@ -2,6 +2,7 @@ name: smoke-from-pypi
 on:
   release:
     types: [published]
+
 jobs:
   smoke:
     runs-on: ubuntu-latest
@@ -9,17 +10,20 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.9','3.10','3.11','3.12','3.13']
+
     steps:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install tagged version from PyPI
         run: |
           set -euxo pipefail
           VERSION="${GITHUB_REF_NAME#v}"
           python -m pip install -U pip
           python -m pip install --no-cache-dir "zz-tools==${VERSION}"
-      - name: Import & runtime deps sanity
+
+      - name: Import & deps sanity
         run: |
           python - <<'PY'
           import zz_tools, numpy, pandas as pd

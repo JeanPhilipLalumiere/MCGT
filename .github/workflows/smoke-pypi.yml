@@ -11,6 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+
     steps:
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -21,7 +22,7 @@ jobs:
         run: |
           echo "GITHUB_REF_NAME=${GITHUB_REF_NAME}"
           echo "Tag: ${GITHUB_REF_NAME}"
-          echo "Derived version (strip leading 'v'): ${GITHUB_REF_NAME#v}"
+          echo "Derived version (strip 'v'): ${GITHUB_REF_NAME#v}"
 
       - name: Install exact version from PyPI
         run: |

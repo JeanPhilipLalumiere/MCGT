@@ -23,10 +23,10 @@ jobs:
           python -m pip install --upgrade pip build twine
           rm -rf dist build *.egg-info
           python -m build
-          # Post-build fixers (idempotents)
+          # Post-build fixers (idempotent)
           python tools/repair_wheel_metadata.py dist/*.whl || true
           python tools/repair_sdist_metadata.py dist/*.tar.gz || true
-          # Sanity packaging checks
+          # Packaging sanity checks
           twine check dist/*
 
       - name: Publish to PyPI (Trusted Publishing)

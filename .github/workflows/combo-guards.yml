@@ -24,6 +24,6 @@ jobs:
   guard:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run combo guards
         run: bash tools/ci_combo_guards.sh

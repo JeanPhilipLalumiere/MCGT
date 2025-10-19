@@ -101,3 +101,4 @@ zz-out/
 _tmp-figs/
 .ci-logs/
 .ci-out/
+_pyproject.legacy.toml

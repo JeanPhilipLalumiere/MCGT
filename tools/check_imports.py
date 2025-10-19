@@ -1,3 +1,5 @@
+# Copyright (c) 2025 MCGT Authors
+# SPDX-License-Identifier: MIT
 #!/usr/bin/env python3
 import sys, importlib
 

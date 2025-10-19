@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright (c) 2025 MCGT Authors
+# SPDX-License-Identifier: MIT
 set -euo pipefail
 VER="${1:-}"
 if [ -z "${VER}" ]; then

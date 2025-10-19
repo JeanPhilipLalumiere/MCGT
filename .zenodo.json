@@ -1,0 +1,9 @@
+{
+  "title": "MCGT",
+  "upload_type": "software",
+  "description": "MCGT: tools and pipelines",
+  "creators": [
+    {"name": "MCGT Team"}
+  ],
+  "license": "MIT"
+}

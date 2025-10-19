@@ -1,37 +1,31 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
+name = "zz-tools"
+version = "0.2.83"
+description = "MCGT utilities"
 readme = { file = "README.md", content-type = "text/markdown" }
 license = "MIT"
-name = "zz-tools"
-version = "0.2.73"
-description = "MCGT utilities"
 requires-python = ">=3.9"
-dependencies = ["numpy>=1.26", "pandas>=2.0"]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.0",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+license-files = ["LICENSE*"]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["zz_tools*"]
 
-
 [project.urls]
 Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
 Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
-
-[tool.hatch.build]
-include = [
-  "/**/*.py",
-  "/zz-data/**/*",
-  "/zz-figures/**/*",
-  "/README.md",
-  "/LICENSE*",
-]
-exclude = [
-  "/.ci-logs/**/*",
-  "/.ci-out/**/*",
-  "/_tmp-figs/**/*",
-  "/zz-out/**/*",
-  "/.github/**/*",
-]

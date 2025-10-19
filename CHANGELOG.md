@@ -46,9 +46,11 @@
 - Publication OK ; probe `/simple` et smoke isolée validées.
 
 ## 0.2.76 — Public release
-- Packaging: en-têtes METADATA/PKG-INFO nettoyés (License-Expression/License-File/Dynamic).
-- Wheel: RECORD unique garanti (post-build fixer).
-- QA: twine check OK, tests de garde-fous (wheel/sdist) ajoutés.
-- Manifeste repo: diag_consistency=OK (0 error / 0 warning).
+
+## 0.2.76 — Public release
+- Packaging: nettoyage des en-têtes METADATA/PKG-INFO (suppression `License-Expression`, `License-File`, `Dynamic: license-file`).
+- Wheel: garantie d’un **seul** fichier `RECORD` (post-build fixers).
+- QA: `twine check` OK, tests de garde-fous wheel/sdist ajoutés et verts.
+- Manifeste: `diag_consistency` = 0 error / 0 warning.
 - Publication: TestPyPI & PyPI validées, smoke install OK.
 

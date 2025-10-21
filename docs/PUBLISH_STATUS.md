@@ -48,3 +48,7 @@
 ## MAIN-refresh-final — 2025-10-21T12:59:56
 - master errors=0, warnings=371
 - publication errors=0, warnings=69
+
+## Bloc AB — 2025-10-21T13:02:52
+- Milestone v0.3.3 créée (ou existante).
+- Issue ouverte pour remplacer le stub ch10 et ajouter README-REPRO.

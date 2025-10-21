@@ -122,3 +122,5 @@ smoke-ch10:
 
 .PHONY: smoke-all
 smoke-all: smoke-ch09 smoke-ch10
+
+-include make/smoke.mk

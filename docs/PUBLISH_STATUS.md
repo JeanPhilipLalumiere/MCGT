@@ -36,3 +36,7 @@
 ## ch10 fix tentative (2025-10-21 11:29:07)
 - Autofix indentation appliqué: YES/NO (voir commits ci-dessus)
 - Smoke ch10 officiel: tenté (voir logs)
+
+## Post-Bloc Y
+- master: errors=0, warnings=371
+- publication: errors=0, warnings=69

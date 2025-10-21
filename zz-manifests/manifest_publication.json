@@ -168,7 +168,7 @@
       "role": "data",
       "size_bytes": 104,
       "sha256": "38b3670afff8ec61d96e0e277fb1a2ed3126a5c94871ba08c5eb3a8baba7df3f",
-      "mtime_iso": "2025-10-21T15:21:04Z",
+      "mtime_iso": "2025-10-21T15:28:46Z",
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
@@ -276,7 +276,7 @@
       "role": "artifact",
       "size_bytes": 927,
       "sha256": "189c7b62e6a42b2a6c006fbdf561e22582880a8060074e9ffb323d9c2bd5a752",
-      "mtime_iso": "2025-10-21T15:21:04Z",
+      "mtime_iso": "2025-10-21T15:28:46Z",
       "media_type": "application/octet-stream",
       "git_hash": "3977c9b3d057429217d00f53429e65197e958fb8"
     },

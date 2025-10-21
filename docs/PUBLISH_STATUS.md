@@ -62,3 +62,6 @@
 
 ## Bloc AE — 2025-10-21T13:34:22
 - PR #15 prêtée pour review (Fixes #14 ajouté).
+
+## Post-rebase main — 2025-10-21T14:21:43
+- Rebase terminé, refresh manifests poussé.

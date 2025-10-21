@@ -62,3 +62,7 @@ IndentationError: unexpected indent
 - Le correctif heuristique n'a pas suffi (RC=1).
 - Voir traces: _snapshots/ch10_fix/run_after.stderr
 - Pistes: vérifier le bloc englobant (if/for/def) et l'alignement de toutes les lignes du bloc.
+## TODO (proper upstream fix for ch10)
+- Restore the full original logic in `generate_data_chapter10.py` (now saved as `*.broken.YYYYMMDDTHHMMSS`).
+- Re-indent/clean the function surrounding former line ~366; verify with py_compile and run.
+- Replace the minimal stub with the fixed implementation, keep the same CLI.

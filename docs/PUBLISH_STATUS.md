@@ -68,3 +68,6 @@
 
 ## Packaging 2025-10-21T18:35:37
 - sdist/wheel OK, twine check PASS, artefacts uploadés sur v0.3.3.
+
+## Release verify — 2025-10-21T18:52:36
+- Assets listés, SHA256 calculés.

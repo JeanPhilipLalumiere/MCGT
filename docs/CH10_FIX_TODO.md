@@ -58,3 +58,7 @@ IndentationError: unexpected indent
     if "id" not in df.columns:
 IndentationError: unexpected indent
 ```
+# CH10_FIX_TODO
+- Le correctif heuristique n'a pas suffi (RC=1).
+- Voir traces: _snapshots/ch10_fix/run_after.stderr
+- Pistes: vérifier le bloc englobant (if/for/def) et l'alignement de toutes les lignes du bloc.

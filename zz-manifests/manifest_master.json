@@ -1033,9 +1033,9 @@
     {
       "path": ".gitignore",
       "role": "artifact",
-      "size_bytes": 1430,
-      "sha256": "5dfc739484803c62bec42a8fc943a9a4e24813e1ef82967dacfdd16833d9bb10",
-      "mtime_iso": "2025-10-21T16:57:36Z",
+      "size_bytes": 1584,
+      "sha256": "58af7a6ddcf2fd12ccdafa1db81a46ce5ad3f26844b2dc0636eeb7bb4f2dd8aa",
+      "mtime_iso": "2025-10-21T20:16:26Z",
       "media_type": "application/octet-stream"
     },
     {

@@ -32,3 +32,7 @@
 ## PR v0.3.1 → main (2025-10-21 11:25:51)
 - PR: (à créer/voir GitHub)
 - Diagnostics: 0 erreur (master & publication)
+
+## ch10 fix tentative (2025-10-21 11:29:07)
+- Autofix indentation appliqué: YES/NO (voir commits ci-dessus)
+- Smoke ch10 officiel: tenté (voir logs)

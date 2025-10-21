@@ -109,3 +109,7 @@ _diag*.json
 _snapshots/
 *.bak.*
 *.broken.*
+
+# data & outils locaux
+zz-data/**/*.csv
+tools/update_manifest_git_hashes.py

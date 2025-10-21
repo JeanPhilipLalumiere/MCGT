@@ -40,3 +40,7 @@
 ## Post-Bloc Y
 - master: errors=0, warnings=371
 - publication: errors=0, warnings=69
+
+## v0.3.2 — Release rapide
+- master: errors=0, warnings=371
+- publication: errors=0, warnings=69

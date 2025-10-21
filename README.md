@@ -295,3 +295,7 @@ Voir aussi `CITATION.cff`.
 
 
 
+
+---
+
+▶ Guide de reproduction rapide : [docs/README-REPRO.md](docs/README-REPRO.md)

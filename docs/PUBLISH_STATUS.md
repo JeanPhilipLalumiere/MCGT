@@ -44,3 +44,7 @@
 ## v0.3.2 — Release rapide
 - master: errors=0, warnings=371
 - publication: errors=0, warnings=69
+
+## Post-merge v0.3.2
+- main: master errors=0, warnings=372
+- main: publication errors=0, warnings=70

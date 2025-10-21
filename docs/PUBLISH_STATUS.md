@@ -28,3 +28,7 @@
 - DOI: 10.5281/zenodo.15186836
 - Release: v0.3.1 (tarball attaché)
 - ch09: OK ; ch10: fallback, correctif à venir.
+
+## PR v0.3.1 → main (2025-10-21 11:25:51)
+- PR: (à créer/voir GitHub)
+- Diagnostics: 0 erreur (master & publication)

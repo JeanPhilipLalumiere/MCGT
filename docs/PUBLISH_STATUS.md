@@ -44,3 +44,7 @@
 ## v0.3.2 — Release rapide
 - master: errors=0, warnings=371
 - publication: errors=0, warnings=69
+
+## MAIN-refresh-final — 2025-10-21T12:59:56
+- master errors=0, warnings=371
+- publication errors=0, warnings=69

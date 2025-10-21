@@ -1,0 +1,26 @@
+{
+  "upload_type": "software",
+  "title": "MCGT — Modèle de Courbure Gravitationnelle Temporelle",
+  "description": "Corpus (10 chapitres) + scripts + données + figures + manifestes assurant la reproductibilité. Inclut pipelines ch09 (phase GW) et ch10 (MC global 8D).",
+  "creators": [
+    {
+      "name": "Lalumière, Jean-Philip",
+      "orcid": "0009-0006-0961-9004",
+      "affiliation": ""
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": ["cosmologie", "ondes gravitationnelles", "CMB", "f(R)", "reproductibilité", "MCGT"],
+  "notes": "Archive générée automatiquement depuis la Release GitHub correspondante.",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT",
+      "scheme": "url"
+    }
+  ],
+  "communities": [],
+  "contributors": [],
+  "language": "fra"
+}

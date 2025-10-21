@@ -166,9 +166,9 @@
     {
       "path": "zz-data/chapter10/10_mc_results.csv",
       "role": "data",
-      "size_bytes": 106,
-      "sha256": "5870d777bf60a5a9fbe897da01ba6adf8765d31efa2e44f31fc3bb53479ccd88",
-      "mtime_iso": "2025-10-21T02:00:27Z",
+      "size_bytes": 104,
+      "sha256": "897f7d802e93b985a0a98aec7106df2d458755e15da8c8fe117e3b0391b7becb",
+      "mtime_iso": "2025-10-21T14:15:42Z",
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
@@ -269,14 +269,14 @@
       "size_bytes": 3801,
       "sha256": "6a1c551d0a343bfae4059e07153f44c341270442f43e4fe6cc740dda593b6977",
       "mtime_iso": "2025-10-21T02:03:10Z",
-      "git_hash": "3977c9b3d057429217d00f53429e65197e958fb8"
+      "git_hash": "6fdd2260af131487004673c1031fecfbe1fb1325"
     },
     {
       "path": "pyproject.toml",
       "role": "artifact",
       "size_bytes": 927,
       "sha256": "189c7b62e6a42b2a6c006fbdf561e22582880a8060074e9ffb323d9c2bd5a752",
-      "mtime_iso": "2025-10-21T01:58:02Z",
+      "mtime_iso": "2025-10-21T14:15:42Z",
       "media_type": "application/octet-stream",
       "git_hash": "3977c9b3d057429217d00f53429e65197e958fb8"
     },
@@ -655,10 +655,10 @@
     {
       "path": "README.md",
       "role": "source",
-      "size_bytes": 9820,
-      "sha256": "0bab80a35870599ff724fd2b61c1a984d78b354894339c78518bc14a0d97c663",
-      "mtime_iso": "2025-10-21T01:33:04Z",
-      "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
+      "size_bytes": 10116,
+      "sha256": "b9cbf518d9455729f408920c9a99ce0ede788edafdad325427dc2c814c76e936",
+      "mtime_iso": "2025-10-21T14:13:07Z",
+      "git_hash": "576345c83d54c9fc62e4776c843ba101e09e9ed5"
     }
   ],
   "total_entries": 417,

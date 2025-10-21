@@ -1,0 +1,41 @@
+   346	    cfg_base: Path, cfg_out: Path, boite: dict, log: logging.Logger
+   347	):
+   348	    base = load_json(cfg_base)
+   349	    # Adapter les bornes uniquement sur les 4 paramètres libres
+   350	    for key in ["m1", "m2", "q0star", "alpha"]:
+   351	        if key in base.get("priors", {}):
+   352	            base["priors"][key]["min"] = float(boite[key]["min"])
+   353	            base["priors"][key]["max"] = float(boite[key]["max"])
+   354	    save_json(base, cfg_out)
+   355	    log.info("   ↪ Config de raffinement écrite : %s", bref(cfg_out))
+   356	
+   357	
+   358	def _assurer_ids_uniques(samples_path: Path, id_offset: int, log: logging.Logger):
+   359	    """
+   360	    Re-numérotation simple : id := id + id_offset (garantit unicité lors de fusions).
+   361	    """
+   362	    import pandas as pd
+   363	
+   364	from zz_tools import common_io as ci
+   365	
+   366	    df = pd.read_csv(samples_path)
+   367	df = ci.ensure_fig02_cols(df)
+   368	
+   369	    if "id" not in df.columns:
+   370	        raise RuntimeError("Le fichier d'échantillons n'a pas de colonne 'id'.")
+   371	    df["id"] = df["id"].astype(int) + int(id_offset)
+   372	    tmp = samples_path.with_suffix(".tmp.csv")
+   373	    df.to_csv(tmp, index=False, float_format="%.6f")
+   374	    os.replace(tmp, samples_path)
+   375	    log.info("   ↪ IDs décalés de +%d dans %s", id_offset, bref(samples_path))
+   376	
+   377	
+   378	def etape_6_raffinement(
+   379	    args,
+   380	    log: logging.Logger,
+   381	    best_json_final: Path,
+   382	    samples_global: Path,
+   383	    results_global: Path,
+   384	):
+   385	    if not args.refine:
+   386	        log.info("6) Raffinement global — SKIP (désactivé)")

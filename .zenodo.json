@@ -1,0 +1,30 @@
+{
+  "title": "MCGT: Monte Carlo Global Toolkit",
+  "upload_type": "software",
+  "description": "Toolkit de publication/reproductibilité pour les chapitres MCGT (figures/data/scripts). Version v0.3.0 avec manifestes, tarball de publication et pipelines smoke (ch09 stable, ch10 en progression).",
+  "creators": [
+    {
+      "name": "Lalumière, Jean-Philip",
+      "orcid": "0009-0006-0961-9004",
+      "affiliation": "Indépendant"
+    }
+  ],
+  "license": "MIT",
+  "version": "v0.3.0",
+  "keywords": ["MCGT", "cosmologie", "publication", "reproductibilite", "logiciel", "figures", "datasets"],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v0.3.0",
+      "scheme": "url"
+    },
+    {
+      "relation": "isAlternateIdentifier",
+      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT",
+      "scheme": "url"
+    }
+  ],
+  "contributors": [],
+  "notes": "Publication rapide avec manifest_publication et artefacts minimaux. Le DOI exact sera réinjecté dans README/CITATION via tools/backfill_zenodo_doi.py après mint.",
+  "language": "fra"
+}

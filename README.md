@@ -1,1278 +1,296 @@
 <!-- BEGIN BADGES -->
 [![Docs](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml)
-[![CodeQL](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/codeql.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/codeql.yml)
+[![CI](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml)
+[![Pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
 [![Release](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml)
-[![CI accel](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-accel.yml)
 <!-- END BADGES -->
 
-[![ci-pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
 # Modèle de Courbure Gravitationnelle Temporelle (MCGT)
-## Résumé
-MCGT est un corpus structuré en chapitres, accompagné de scripts, données, figures et manifestes assurant la reproductibilité.
 
+> Corpus scientifique structuré (10 chapitres LaTeX) + **scripts**, **données**, **figures** et **manifestes** assurant la **reproductibilité** de bout en bout.
 
-### CI (Workflows canoniques)
+- **Langue du dépôt** : Français  
+- **Python** : 3.9 → 3.13 (CI principale sur 3.12)  
+- **Licence** : MIT (cf. `LICENSE`)  
+- **Sous-projet Python** : `zz-tools` (utilitaires MCGT)
 
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
+---
 
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
- chapitres (conceptuel + détails) accompagné d’un ensemble de scripts, données, figures et manifestes pour assurer la reproductibilité complète (génération des données, tracés, contrôles de cohérence). Ce README dresse l’index des ressources, précise les points d’entrée (runbook, Makefile, configs) et documente les conventions.
 ## Sommaire
-1. Arborescence du projet
-2. Contenu des chapitres (LaTeX)
-3. Configurations & package Python
-4. Données (zz-data/)
-5. Scripts (zz-scripts/)
-6. Figures (zz-figures/)
-7. Manifests & repro (zz-manifests/, README-REPRO.md, RUNBOOK.md)
-8. Conventions & styles (conventions.md)
-9. Environnements & dépendances (requirements.txt, environment.yml)
 
-## 1) Arborescence du projet
-Racine :
-* main.tex — Document LaTeX principal.
+1. Objectifs & périmètre  
+2. Arborescence minimale  
+3. Installation (venv ou conda)  
+4. Variables transverses  
+5. Reproduire les résultats (quickstart)  
+6. Données, figures & manifestes  
+7. Qualité & CI  
+8. Tests  
+9. Publication & empaquetage  
+10. Licence, remerciements, citation
 
-## 2) Contenu des chapitres (LaTeX)
-Chaque dossier de chapitre contient :
-* <prefix>\_conceptuel.tex
-* <prefix>\_details.tex (ou \_calibration\_conceptuel.tex pour le chap. 1)
-* CHAPTERXX\_GUIDE.txt (notes, exigences, jalons spécifiques)
-* Chapitre 1 – Introduction conceptuelle
-
-## 3) Configurations & package Python
-* zz-configuration/mcgt-global-config.ini : paramètres transverses (chemins de données/figures, tolérances, seeds, options graphiques, etc.).
-* zz-configuration/\*.ini spécifiques (ex. camb\_exact\_plateau.ini, scalar\_perturbations.ini, gw\_phase.ini).
-* zz-configuration/GWTC-3-confident-events.json ; zz-configuration/pdot\_plateau\_vs\_z.dat ; zz-configuration/meta\_template.json ; zz-configuration/mcgt-global-config.ini.template ; zz-configuration/README.md.
-* mcgt/ : API Python interne (ex. calculs de phase, solveurs de perturbations, backends de référence). mcgt/backends/ref\_phase.py fournit la phase de ref.
-* mcgt/CHANGELOG.md ; mcgt/pyproject.toml.
 ---
-## 4) Données (zz-data/)
-Organisation par chapitre, exemples (liste non exhaustive) :
-* zz-data/chapter…
 
-## 5) Scripts (zz-scripts/)
-Chaque chapitre dispose de générateurs de données generate\_data\_chapterXX.py et de traceurs plot\_fig\*.py. Exemples :
-* zz-scripts/chapter…
+## 1) Objectifs & périmètre
 
-## 6) Figures (zz-figures/)
-Par chapitre : fig\_\*.png (noms explicites, FR).
-* chapitres
+MCGT regroupe :
+- **Chapitres LaTeX** (conceptuel + détails) : bases théoriques et résultats.
+- **Scripts** (`zz-scripts/`) : génération de données et tracés.
+- **Données** (`zz-data/`) et **figures** (`zz-figures/`) nommées canoniquement.
+- **Manifeste** (`zz-manifests/`) : inventaire des artefacts + rapports de cohérence.
+- **Schémas** (`zz-schemas/`) : validation JSON/CSV.
+- **Utilitaires Python** (`zz-tools/`) : IO, conventions, métriques simples.
 
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
+**Ce README** donne un chemin rapide vers l’installation, la reproduction, la validation et la publication. Le détail exhaustif des pipelines est dans **`README-REPRO.md`**.
 
-Voir `docs/CI.md`.
-<!-- CI:END -->1 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_early\_plateau.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_logistic\_calibration.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_relative\_error\_timeline.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_P\_vs\_T\_evolution.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_I1\_vs\_T.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_P\_derivative\_comparison.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END --><!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->\_spectrum.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_P\_vs\_T\_evolution.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_calibration.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_relative\_errors.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_pipeline\_diagram.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_FG\_series.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_fit\_alpha.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_fR\_stability\_domain.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_fR\_fRR\_vs\_R.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_ms2\_R<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->\_vs\_R.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_fR\_fRR\_vs\_R.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_interpolated\_milestones.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_grid\_quality.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->7\_ricci\_fR\_vs\_z.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->8\_ricci\_fR\_vs\_T.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_invariants\_schematic.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_invariants\_histogram.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_invariants\_vs\_T.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_relative\_deviations.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_bbn\_reaction\_network.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_dh\_model\_vs\_obs.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_yp\_model\_vs\_obs.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_chi2\_vs\_T.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_cmb\_dataflow\_diagram.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_cls\_lcdm\_vs\_mcgt.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_delta\_cls\_relative.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_delta\_rs\_vs\_params.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_delta\_chi2\_heatmap.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->7 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END --><!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->\_loglog\_sampling\_test.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_cs2\_heatmap\_k\_a.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_delta\_phi\_heatmap\_k\_a.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_invariant\_I1.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_dcs2\_dk\_vs\_k.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_ddelta\_phi\_dk\_vs\_k.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_comparison.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->7\_invariant\_I2.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->8 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_chi2\_total\_vs\_q<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_dv\_vs\_z.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_mu\_vs\_z.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_chi2\_heatmap.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_residuals.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_pulls.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->7\_chi2\_profile.png
-* chap.<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->9 :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_phase\_overlay.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_residual\_phase.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_hist\_absdphi\_2<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->\_3<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END --><!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_absdphi\_milestones\_vs\_f.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_scatter\_phi\_at\_fpeak.png, p95\_methods/ (fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_raw\_bins3<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_raw\_bins5<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_raw\_bins8<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_rebranch\_k\_bins3<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_rebranch\_k\_bins5<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_rebranch\_k\_bins8<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_unwrap\_bins3<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_unwrap\_bins5<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png, fig<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_unwrap\_bins8<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->.png), p95\_check\_control.png
-* chap.1<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END --> :
-  * fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->1\_iso\_p95\_maps.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->2\_scatter\_phi\_at\_fpeak.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3b\_coverage\_bootstrap\_vs\_n\_hires.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->3\_convergence\_p95\_vs\_n.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->4\_scatter\_p95\_recalc\_vs\_orig.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->5\_hist\_cdf\_metrics.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->6\_heatmap\_absdp95\_m1m2.png, fig\_<!-- CI:BEGIN -->
-### CI (Workflows canoniques)
-
-[![sanity-main](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-main.yml)
-[![sanity-echo](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/sanity-echo.yml)
-[![ci-yaml-check](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml/badge.svg?branch=main)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-yaml-check.yml)
-
-- **sanity-main.yml** : diag quotidien / dispatch / push (artefacts)
-- **sanity-echo.yml** : smoke déclenchable manuellement
-- **ci-yaml-check.yml** : lint/validité YAML
-
-Voir `docs/CI.md`.
-<!-- CI:END -->7\_summary\_comparison.png
 ---
-## 7) Manifests & repro
-* zz-manifests/manifest\_master.json — inventaire complet (source maître).
-* zz-manifests/manifest\_publication.json — sous-ensemble pour remise publique.
-* zz-manifests/manifest\_report.json — rapport généré par diag\_consistency.py.
-* zz-manifests/manifest\_report.md — rapport lisible.
-* zz-manifests/figure\_manifest.csv — index des figures.
-* zz-manifests/add\_to\_manifest.py ; zz-manifests/migration\_map.json.
-* zz-manifests/meta\_template.json — gabarit de métadonnées (source maître).
-* zz-manifests/README\_manifest.md — documentation manifeste.
-* zz-manifests/diag\_consistency.py — diagnostic (présence/format/empreintes).
-* zz-manifests/chapters/chapter\_manifest\_{
 
-## 8) Conventions & styles
-* conventions.md : normes de nommage (FR), unités (SI), précision numérique, format CSV/DAT/JSON, styles de figures, seuils de QA, sémantique des colonnes, règles pour jalons et classes (primaire/ordre2), etc.
-* Cohérence inter-chapitres : les paramètres transverses (p. ex. alpha, q
+## 2) Arborescence minimale
 
-## 9) Environnements & dépendances
-* Python ≥ 3.1
+```
+MCGT/
+├─ main.tex
+├─ README.md
+├─ README-REPRO.md
+├─ RUNBOOK.md
+├─ conventions.md
+├─ LICENSE
+├─ zz-configuration/
+│  └─ mcgt-global-config.ini (et .template)
+├─ zz-scripts/
+│  └─ chapter{01..10}/...
+├─ zz-data/
+│  └─ chapter{01..10}/...
+├─ zz-figures/
+│  └─ chapter{01..10}/...
+├─ zz-manifests/
+│  ├─ manifest_master.json
+│  ├─ manifest_publication.json
+│  ├─ manifest_report.md
+│  └─ diag_consistency.py
+├─ zz-schemas/
+│  └─ *.schema.json, validate_*.py, consistency_rules.json
+└─ zz-tools/
+   ├─ pyproject.toml  (version ≥ 0.2.99)
+   └─ zz_tools/
+      ├─ __init__.py
+      └─ common_io.py
+```
 
-## 1
+---
 
-## 11) Licence / Contact
-* Licence : à préciser (interne / publique) — voir fichier LICENSE.
-* Contact scientifique : responsable MCGT.
-* Contact technique : mainteneur des scripts / CI.
+## 3) Installation
+
+### Option A — venv + pip
+
+```
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -U pip
+pip install -r requirements.txt
+```
+
+### Option B — conda/mamba
+
+```
+mamba env create -f environment.yml   # ou: conda env create -f environment.yml
+conda activate mcgt
+```
+
+### Utilitaires `zz-tools` (facultatif si non inclus dans `requirements.txt`)
+
+```
+pip install zz-tools
+```
+
+---
+
+## 4) Variables transverses
+
+```
+export MCGT_CONFIG=zz-configuration/mcgt-global-config.ini
+# optionnel (recommandé)
+export MCGT_RULES=zz-schemas/consistency_rules.json
+```
+
+Conventions d’unités (rappel) : fréquence `f_Hz` (Hz), angles en radians (`_rad`), multipôles `ell`, distances `dist` (Mpc). Voir **`conventions.md`**.
+
+---
+
+## 5) Reproduire les résultats (quickstart)
+
+Le guide complet est dans **`README-REPRO.md`**. Ci-dessous, deux pipelines courants.
+
+### 5.1 Chapitre 09 — Phase d’ondes gravitationnelles
+
+```
+# (0) Générer la référence si besoin
+python zz-scripts/chapter09/extract_phenom_phase.py \
+  --out zz-data/chapter09/09_phases_imrphenom.csv
+
+# (1) Prétraitement + résidus
+python zz-scripts/chapter09/generate_data_chapter09.py \
+  --ref zz-data/chapter09/09_phases_imrphenom.csv \
+  --out-prepoly zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+  --out-diff    zz-data/chapter09/09_phase_diff.csv \
+  --log-level INFO
+
+# (2) Optimisation base/degré + rebranch k
+python zz-scripts/chapter09/opt_poly_rebranch.py \
+  --csv zz-data/chapter09/09_phases_mcgt_prepoly.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --fit-window 30 250 --metrics-window 20 300 \
+  --degrees 3 4 5 --bases log10 hz --k-range -10 10 \
+  --out-csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --out-best zz-data/chapter09/09_best_params.json \
+  --backup --log-level INFO
+
+# (3) Figures
+python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_01_phase_overlay.png \
+  --shade 20 300 --show-residual --dpi 300
+python zz-scripts/chapter09/plot_fig02_residual_phase.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_02_residual_phase.png \
+  --bands 20 300 300 1000 1000 2000 --dpi 300
+python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
+  --csv  zz-data/chapter09/09_phases_mcgt.csv \
+  --meta zz-data/chapter09/09_metrics_phase.json \
+  --out  zz-figures/chapter09/fig_03_hist_absdphi_20_300.png \
+  --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
+```
+
+### 5.2 Chapitre 10 — Monte Carlo global 8D
+
+```
+# (1) Config
+cat zz-data/chapter10/10_mc_config.json
+
+# (2) Échantillonnage et évaluation
+python zz-scripts/chapter10/generate_data_chapter10.py \
+  --config zz-data/chapter10/10_mc_config.json \
+  --out-results zz-data/chapter10/10_mc_results.csv \
+  --out-results-circ zz-data/chapter10/10_mc_results.circ.csv \
+  --out-samples zz-data/chapter10/10_mc_samples.csv \
+  --log-level INFO
+
+# (3) Diagnostics
+python zz-scripts/chapter10/add_phi_at_fpeak.py \
+  --results zz-data/chapter10/10_mc_results.circ.csv \
+  --out     zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
+python zz-scripts/chapter10/inspect_topk_residuals.py \
+  --results zz-data/chapter10/10_mc_results.csv \
+  --jalons  zz-data/chapter10/10_mc_milestones_eval.csv \
+  --out-dir zz-data/chapter10/topk_residuals
+python zz-scripts/chapter10/bootstrap_topk_p95.py \
+  --results zz-data/chapter10/10_mc_results.csv \
+  --topk-json zz-data/chapter10/10_mc_best.json \
+  --out-json  zz-data/chapter10/10_mc_best_bootstrap.json \
+  --B 1000 --seed 12345
+
+# (4) Figures
+python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py        --out zz-figures/chapter10/fig_01_iso_p95_maps.png
+python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py --out zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png
+python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py --out zz-figures/chapter10/fig_03_convergence_p95_vs_n.png
+python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py --out zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.png
+python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py --out zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png
+python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py     --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png
+python zz-scripts/chapter10/plot_fig06_residual_map.py         --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
+python zz-scripts/chapter10/plot_fig07_synthesis.py            --out zz-figures/chapter10/fig_07_summary_comparison.png
+```
+
+---
+
+## 6) Données, figures & manifestes
+
+- **Données** : `zz-data/chapterXX/` — CSV/DAT/JSON ; colonnes et unités documentées dans `conventions.md`.  
+- **Figures** : `zz-figures/chapterXX/` — PNG (300 dpi mini), noms `fig_XX_*`.  
+- **Manifestes** : inventaire, rapports et corrections :
+  - `zz-manifests/manifest_master.json` (source maître)
+  - `zz-manifests/manifest_publication.json` (sous-ensemble public)
+  - `zz-manifests/diag_consistency.py` (audit; options `--report md`, `--fix`)
+
+---
+
+## 7) Qualité & CI
+
+Workflows principaux (GitHub Actions) :
+- `sanity-main.yml` : diagnostics quotidiens et sur push
+- `ci-pre-commit.yml` : format/linters
+- `ci-yaml-check.yml` : validation YAML
+- `release-publish.yml` : build + publication (artefacts/wheel)
+
+Référence : `docs/CI.md`.
+
+---
+
+## 8) Tests
+
+```
+pytest -q
+```
+
+Tests rapides disponibles pour `zz-tools` (imports, CLI, API publique, IO et figures de base).
+
+---
+
+## 9) Publication & empaquetage
+
+### Paquet `zz-tools`
+
+```
+sed -i 's/^version\s*=\s*".*"/version = "0.2.99"/' pyproject.toml
+python -m build
+twine check dist/*
+```
+
+Contrôle du contenu des artefacts :
+```
+WHEEL=$(ls -1 dist/*.whl | tail -n1)
+python - <<PY
+import sys, zipfile
+w=sys.argv[1]
+with zipfile.ZipFile(w) as z:
+    meta=[n for n in z.namelist() if n.endswith("METADATA")][0]
+    t=z.read(meta).decode("utf-8","ignore")
+    print("\n".join([l for l in t.splitlines() if l.startswith(("Metadata-Version","Name","Version","Requires-Python","Requires-Dist"))]))
+PY "$WHEEL"
+
+unzip -Z1 "$WHEEL" | grep -E '\.bak$|\.env$|\.pem$|\.key$|(^|/)zz-figures/|(^|/)zz-data/' || echo "OK wheel clean"
+SDIST=$(ls -1 dist/*.tar.gz | tail -n1)
+tar -tzf "$SDIST" | grep -E '\.venv|\.env$|\.pem$|\.key$|(^|/)zz-out/|(^|/)\.ci-|(^|/)\.ruff_cache' || echo "OK sdist clean"
+```
+
+Tag & push :
+```
+git add -A
+git commit -m "release: zz-tools 0.2.99"
+git tag v0.2.99
+git push origin HEAD --tags
+```
+
+---
+
+## 10) Licence, remerciements, citation
+
+- **Licence** : MIT (cf. `LICENSE`).
+- **Contact scientifique** : responsable MCGT.  
+- **Contact technique** : mainteneur CI/scripts.
+
+Pour citer : *MCGT — Modèle de Courbure Gravitationnelle Temporelle, v0.2.99, 2025.*
 
 
+---
+<!-- ZENODO_BADGE_START -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15186836.svg)](https://doi.org/10.5281/zenodo.15186836)
 
-
-
+### Citation
+Si vous utilisez MCGT, merci de citer la version DOI : **10.5281/zenodo.15186836**.
+Voir aussi `CITATION.cff`.
+<!-- ZENODO_BADGE_END -->
 
 
 

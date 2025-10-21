@@ -1,0 +1,494 @@
+{
+  "errors": 0,
+  "warnings": 69,
+  "issues": [
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=cad94986e24d6fdf76b49b46f5543b9dfd9d1b47)",
+      "entry_index": 0,
+      "path": "zz-data/chapter09/09_best_params.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=29d014919e7c48d21eed6218339fa1ff9e11958e, git=78a951c08034812e03c1038cce0b40efabd09865)",
+      "entry_index": 1,
+      "path": "zz-data/chapter09/09_comparison_milestones.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=29d014919e7c48d21eed6218339fa1ff9e11958e, git=703f6d7159be93d8f9d0b906bb35b88b322a7f5b)",
+      "entry_index": 2,
+      "path": "zz-data/chapter09/09_comparison_milestones.flagged.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=1b0475888b25ce6c6d44fef5029bfd776aebf3dc)",
+      "entry_index": 3,
+      "path": "zz-data/chapter09/09_comparison_milestones.meta.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=b55b50f6ae045a126c16ba71779f45f2d096a10d, git=0c96995cab6dec5e9a278aecf7e413d17701e66b)",
+      "entry_index": 4,
+      "path": "zz-data/chapter09/09_metrics_phase.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=a8aab2a02215273103434eaa4926cc817602085a)",
+      "entry_index": 5,
+      "path": "zz-data/chapter09/09_phase_diff.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=6eac87d32cd1a69ab5d0de3691f223c32ab80d50)",
+      "entry_index": 6,
+      "path": "zz-data/chapter09/09_phases_imrphenom.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=6f03bce7ad3edb1519a826695b2ce5f6e5f6211c)",
+      "entry_index": 7,
+      "path": "zz-data/chapter09/09_phases_imrphenom.meta.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=40ac553f7dadc0180fc505e1df1c1e4848da84f4)",
+      "entry_index": 8,
+      "path": "zz-data/chapter09/09_phases_mcgt.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=344b7a5b5471e6c3ec06ef1525d9b17daf218585)",
+      "entry_index": 9,
+      "path": "zz-data/chapter09/09_phases_mcgt_prepoly.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=33fc3d8fc908ebd40c5e289ed79428e783f24d6e, git=00608bd4b343fa0de00eed8ae3ff6ec330dd5deb)",
+      "entry_index": 10,
+      "path": "zz-data/chapter09/gwtc3_confident_parameters.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=3f3e3d43b21c449b4c190b568e385b6bef8ba162)",
+      "entry_index": 11,
+      "path": "zz-data/chapter10/10_mc_best.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=b0184472a170ab704887d8cf44183b9f3de85fab)",
+      "entry_index": 12,
+      "path": "zz-data/chapter10/10_mc_best_bootstrap.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=4fb9106b52331041971e9eb0185b4e29f7961bb2, git=94cbcf316f808e87c40277abc5e08d7556463166)",
+      "entry_index": 13,
+      "path": "zz-data/chapter10/10_mc_config.json"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=d9fa6d4d9fd71604cf287de968780cd0dcefec25)",
+      "entry_index": 14,
+      "path": "zz-data/chapter10/10_mc_milestones_eval.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=e26277c5c104d3c39486b669191bb93e629c0614)",
+      "entry_index": 15,
+      "path": "zz-data/chapter10/10_mc_results.agg.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=47f0cd38cacad433bdaa082108de8c97630c56e6)",
+      "entry_index": 16,
+      "path": "zz-data/chapter10/10_mc_results.circ.agg.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=03fc9d1a580a5d9bbc4ffe42c6df6627c3c08fed)",
+      "entry_index": 17,
+      "path": "zz-data/chapter10/10_mc_results.circ.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=8fe17d81793455e115a082d332629fbbaeb66c9e)",
+      "entry_index": 18,
+      "path": "zz-data/chapter10/10_mc_results.circ.with_fpeak.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=bd59bdfd2f62ade6f24c8c5a4382ef9d29c9d9a0, git=2356bdb360c6fb6697c6b0b366a9fd46d6dd66ee)",
+      "entry_index": 19,
+      "path": "zz-data/chapter10/10_mc_results.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=1969c5d386ccfbf0e04a92c389718d0152c97ee8, git=81ffafdfd3bb7e281d5aaff54fa012ab91bc71a9)",
+      "entry_index": 20,
+      "path": "zz-data/chapter10/10_mc_samples.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=7ae5bb80a389b01137fe0b868cc2edf4c374cc61, git=8f1af956f2079eafb9206504fc9c4cb023d2e2aa)",
+      "entry_index": 21,
+      "path": "zz-data/chapter10/example_results.csv"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=64b805360b13ceb34522ce3c787f2c1ca3eb72aa)",
+      "entry_index": 22,
+      "path": "zz-figures/chapter09/09_fig_01_phase_overlay.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=1923fbdb68c820abf53fffd802a54ea0bd3a23df)",
+      "entry_index": 23,
+      "path": "zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=b0b0884878fa74680335ae740a809465d73ed6d7)",
+      "entry_index": 24,
+      "path": "zz-figures/chapter10/10_fig_01_iso_p95_maps.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=111ffd9d84f713855e9a203fcc02a2851cc1681a)",
+      "entry_index": 25,
+      "path": "zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=8ad0721129ae3a7a3526a7d025640fdb6a3541dc)",
+      "entry_index": 26,
+      "path": "zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=c1b0788412b9c2cc087ea96dcadbc3844c552972)",
+      "entry_index": 27,
+      "path": "zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=2d508a5017a79cc48e0c2049d18ca52894194905)",
+      "entry_index": 28,
+      "path": "zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=e57cf042c9240e61129c6d7da93b2a5fe49df3a5, git=8c444b82b54d74c7fd6a6486d895291ffdc4eb82)",
+      "entry_index": 29,
+      "path": "zz-manifests/diag_consistency.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=aa628ced02a430f0dadccd28658b46d49a48017b, git=49acf9fc675af2160664231c09e8040329e59cdd)",
+      "entry_index": 30,
+      "path": "LICENSE"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=6fdd2260af131487004673c1031fecfbe1fb1325, git=27905ab5f58008047ed1f777898e1dfc9a76e206)",
+      "entry_index": 31,
+      "path": "Makefile"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=3977c9b3d057429217d00f53429e65197e958fb8, git=4736f83850f5ac9049e1885425de69af4020bbbf)",
+      "entry_index": 32,
+      "path": "pyproject.toml"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=25be59e84b0d3242019a9b81329cc8293dd9a6e1, git=7f1a1763ca9cebc7bc16576d353d3284ee5d3c7d)",
+      "entry_index": 33,
+      "path": "setup.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=25be59e84b0d3242019a9b81329cc8293dd9a6e1, git=0dc99cf2c86cd5c9e0c844a6ac1aa3d0c75ed350)",
+      "entry_index": 34,
+      "path": "zz-scripts/chapter09/apply_poly_unwrap_rebranch.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=c6509edeb54ea12608299030188cef5b413bd838, git=46e245d1591097a71dcfc905435f0f315351a932)",
+      "entry_index": 35,
+      "path": "zz-scripts/chapter09/check_p95_methods.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=33fc3d8fc908ebd40c5e289ed79428e783f24d6e, git=fd524a4cfb11184d960228e101e86fe9f867b3b1)",
+      "entry_index": 36,
+      "path": "zz-scripts/chapter09/extract_phenom_phase.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=ab8e9a6aba5494936418ed74dd28e35852852a5d, git=d170c7269d16c3fc75205830917a0badfa955be6)",
+      "entry_index": 37,
+      "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=e57cf042c9240e61129c6d7da93b2a5fe49df3a5, git=ba44e726352e9782b29badec55e8f69e5737c56d)",
+      "entry_index": 38,
+      "path": "zz-scripts/chapter09/flag_jalons.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=3fd3904b2bb679bf89dd697047d40ee5af06c9a3)",
+      "entry_index": 39,
+      "path": "zz-scripts/chapter09/generate_data_chapter09.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=ab8e9a6aba5494936418ed74dd28e35852852a5d, git=d4bc911694102fbcd917d79850a54c06177b0e0b)",
+      "entry_index": 40,
+      "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=25be59e84b0d3242019a9b81329cc8293dd9a6e1, git=36562352ef12c4f576643ebded87bda981ecbab2)",
+      "entry_index": 41,
+      "path": "zz-scripts/chapter09/opt_poly_rebranch.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=e14d26b24ae6dc4806630fe6cf25d7bc46c2077e)",
+      "entry_index": 42,
+      "path": "zz-scripts/chapter09/plot_fig01_phase_overlay.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=fc08fd924d58d86e500ed31672a3ef02e12244a8)",
+      "entry_index": 43,
+      "path": "zz-scripts/chapter09/plot_fig02_residual_phase.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=6963411f521931f92bfa55ee273d8f50e4c674fc)",
+      "entry_index": 44,
+      "path": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=183bd443d8728b6613e00c69aba7e020b94dfc31)",
+      "entry_index": 45,
+      "path": "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=8d0404aed47061b07c5cd9a37756387e8c14a344)",
+      "entry_index": 46,
+      "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=55256b2acae81e0ae3dddc4402cc6b4c2d7701ae, git=b9e34243ba242b56c020969f8b658159d52c7dee)",
+      "entry_index": 47,
+      "path": "zz-scripts/chapter09/requirements.txt"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=6d414f8a7b0e602bbc70d8373313d39531008254)",
+      "entry_index": 48,
+      "path": "zz-scripts/chapter10/add_phi_at_fpeak.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=9c19a952ffa8904d7388b4e022f45e0060e5cee9)",
+      "entry_index": 49,
+      "path": "zz-scripts/chapter10/bootstrap_topk_p95.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=060134c2061506dc3caf34fa7a0acb75ae750f11)",
+      "entry_index": 50,
+      "path": "zz-scripts/chapter10/check_metrics_consistency.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=e9639fe1b02ecfca55f4d075a90b436a1a36c8b6)",
+      "entry_index": 51,
+      "path": "zz-scripts/chapter10/diag_phi_fpeak.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=730dbbeca2a4370ebae6b9ecc1abc7640188c2b5)",
+      "entry_index": 52,
+      "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=bd59bdfd2f62ade6f24c8c5a4382ef9d29c9d9a0, git=8d2aa428c2a7feddd976ea9544ccce24c1b44f59)",
+      "entry_index": 53,
+      "path": "zz-scripts/chapter10/generate_data_chapter10.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=d24e4c3b75ee0cf60a8b393a2ee4860904e1def0)",
+      "entry_index": 54,
+      "path": "zz-scripts/chapter10/inspect_topk_residuals.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=f372adf6b67a3f32a27e5e530f3252a3be162cff)",
+      "entry_index": 55,
+      "path": "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=7a63834e501e1eaa8080b82c624073551590f69d, git=74759d84e438e0fbfde2a4f3f4135a4ad76b6e33)",
+      "entry_index": 56,
+      "path": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=c3cc939f61f4273f787e20fe3b2d635fa2e9efb3)",
+      "entry_index": 57,
+      "path": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=2cc9feebcd00962fe0e7a5507b711652a510fa0d)",
+      "entry_index": 58,
+      "path": "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=1b19c3e9b92982d9e89bf4ced4f9a3d23a50ca81)",
+      "entry_index": 59,
+      "path": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=bb1c20980f498754a08fce18b1defdfa991076c8)",
+      "entry_index": 60,
+      "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=663b4101585b55fb0ec642c0cb8912a214b470f9)",
+      "entry_index": 61,
+      "path": "zz-scripts/chapter10/plot_fig06_residual_map.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=ab8e9a6aba5494936418ed74dd28e35852852a5d, git=1a2dc8a3c473637611817db537d9ed5939afaf28)",
+      "entry_index": 62,
+      "path": "zz-scripts/chapter10/plot_fig07_synthesis.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=0aea6b91e4fcf38cd30a6460b892bc3e89e2d704)",
+      "entry_index": 63,
+      "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=2c6d7ce44b591564226c78cc16d3427996a12666, git=00d9faacaa59a01d417b5bad231f23dc18600702)",
+      "entry_index": 64,
+      "path": "zz-scripts/chapter10/recompute_p95_circular.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=67198d9abd39737da0be1b2f70c46c5264215d91, git=5b1f6656d722dcd5afe3cc2345e6dabde16aeb08)",
+      "entry_index": 65,
+      "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=024f14fc134b8e8163c065bcce39aeabb6bebd81, git=346067e09e6eea97bb497c2437e5a4dc2233fc37)",
+      "entry_index": 66,
+      "path": "zz-scripts/chapter10/requirements.txt"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=ab8e9a6aba5494936418ed74dd28e35852852a5d, git=ea1e33914082f006608cc70b8860256e49444d6a)",
+      "entry_index": 67,
+      "path": "zz-scripts/chapter10/update_manifest_with_hashes.py"
+    },
+    {
+      "severity": "WARN",
+      "code": "GIT_HASH_DIFFERS",
+      "message": "git_hash diffère (manifest=576345c83d54c9fc62e4776c843ba101e09e9ed5, git=fd373c2e00f32e4ff67e5b62e961616ed014d4dc)",
+      "entry_index": 68,
+      "path": "README.md"
+    }
+  ],
+  "rules": {
+    "rules_path": "zz-schemas/consistency_rules.json",
+    "schema_version": "1.0.0",
+    "aliases": true
+  }
+}

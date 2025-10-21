@@ -147,9 +147,9 @@
     {
       "path": "zz-data/chapter10/10_mc_results.csv",
       "role": "data",
-      "size_bytes": 2087,
-      "sha256": "c30ff2dfb0d08c8511eeef668e00cfe229396ba15d4cbf629e035b1720815af8",
-      "mtime_iso": "2025-10-21T17:23:30Z"
+      "size_bytes": 2291,
+      "sha256": "499dfce7d973a9e55fa83f656cbb3ddfd1d64e48bb9ff8284a804c523a002c4b",
+      "mtime_iso": "2025-10-21T17:26:39Z"
     },
     {
       "path": "zz-data/chapter10/10_mc_samples.csv",
@@ -434,9 +434,9 @@
     {
       "path": "zz-scripts/chapter10/generate_data_chapter10.py",
       "role": "script",
-      "size_bytes": 3078,
-      "sha256": "aa1e35ab240400a77d3aa1653cc1024d63322a7a47e89028bbb74356e8dae7d7",
-      "mtime_iso": "2025-10-21T17:23:29Z",
+      "size_bytes": 2588,
+      "sha256": "ef254b8a36d7eaa16b68ef9b10578de5f9fe437a8a22cad4a8512426f968b1c3",
+      "mtime_iso": "2025-10-21T17:26:38Z",
       "media_type": "text/x-python",
       "tags": [
         "chapter10"

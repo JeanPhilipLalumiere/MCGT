@@ -59,3 +59,6 @@
 
 ## Labels ch10 — 2025-10-21T13:09:27
 - Ajout labels 'release' + 'tech-debt' sur https://github.com/JeanPhilipLalumiere/MCGT/issues/14
+
+## Bloc AE — 2025-10-21T13:34:22
+- PR #15 prêtée pour review (Fixes #14 ajouté).

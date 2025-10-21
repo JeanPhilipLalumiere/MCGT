@@ -104,3 +104,8 @@ _tmp-figs/
 _pyproject.legacy.toml
 _pyproject.legacy.toml
 _pyproject.legacy.toml
+MCGT-*.tar.gz
+_diag*.json
+_snapshots/
+*.bak.*
+*.broken.*

@@ -285,12 +285,13 @@ Pour citer : *MCGT — Modèle de Courbure Gravitationnelle Temporelle, v0.2.99,
 
 ---
 <!-- ZENODO_BADGE_START -->
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.TBD.svg)](https://doi.org/10.5281/zenodo.TBD)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15186836.svg)](https://doi.org/10.5281/zenodo.15186836)
 
 ### Citation
-Si vous utilisez MCGT, merci de citer la version DOI : **10.5281/zenodo.TBD**.
+Si vous utilisez MCGT, merci de citer la version DOI : **10.5281/zenodo.15186836**.
 Voir aussi `CITATION.cff`.
 <!-- ZENODO_BADGE_END -->
+
 
 
 

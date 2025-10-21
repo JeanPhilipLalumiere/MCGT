@@ -695,7 +695,7 @@
       "role": "data",
       "size_bytes": 2469,
       "sha256": "e274240c68a8c598e2197cec19366dc76b54242f82755bb9171c74e282875584",
-      "mtime_iso": "2025-10-21T16:50:45Z"
+      "mtime_iso": "2025-10-21T17:36:33Z"
     },
     {
       "path": "zz-data/chapter10/10_mc_samples.csv",
@@ -2495,7 +2495,7 @@
       "role": "script",
       "size_bytes": 2034,
       "sha256": "44a548ede35d07e4b79ab14338863a3f6d648f05056322275977bf4facfc648f",
-      "mtime_iso": "2025-10-21T16:50:45Z",
+      "mtime_iso": "2025-10-21T17:36:33Z",
       "media_type": "text/x-python",
       "tags": [
         "chapter10"

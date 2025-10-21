@@ -56,3 +56,6 @@
 ## Bloc AB-fix(API) — 2025-10-21T13:07:54
 - Milestone v0.3.3 OK.
 - Issue rattachée: https://github.com/JeanPhilipLalumiere/MCGT/issues/14
+
+## Labels ch10 — 2025-10-21T13:09:27
+- Ajout labels 'release' + 'tech-debt' sur https://github.com/JeanPhilipLalumiere/MCGT/issues/14

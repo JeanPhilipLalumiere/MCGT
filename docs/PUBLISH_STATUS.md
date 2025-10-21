@@ -23,3 +23,8 @@
 - Horodatage: 2025-10-21T10:15:32
 - Branche poussée: homogenize/v0.3
 - DOI: 10.5281/zenodo.15186836
+
+## 2025-10-21T15:20:54Z — v0.3.1 publication rapide
+- DOI: 10.5281/zenodo.15186836
+- Release: v0.3.1 (tarball attaché)
+- ch09: OK ; ch10: fallback, correctif à venir.

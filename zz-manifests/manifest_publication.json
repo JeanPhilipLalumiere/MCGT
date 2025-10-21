@@ -659,6 +659,18 @@
       "sha256": "b9cbf518d9455729f408920c9a99ce0ede788edafdad325427dc2c814c76e936",
       "mtime_iso": "2025-10-21T16:50:45Z",
       "git_hash": "a3e24e75e75364311e9cd84aff9e8cc1ddade88d"
+    },
+    {
+      "path": "dist/zz_tools-0.2.99-py3-none-any.whl",
+      "size": 7436,
+      "sha256": "8b586f43df7c1fa8b6da86ebdeb9a54a28b6eda2d2cd0b32a091bf58d06261fa",
+      "git_hash": "d2bc06f184fab70cc27c6ed66c40d470536a84d0"
+    },
+    {
+      "path": "dist/zz_tools-0.2.99.tar.gz",
+      "size": 12325,
+      "sha256": "77e01930d58c296b0c9a5c8cdda663a0cf1593d79096bdc1f0d3a535be473160",
+      "git_hash": "d2bc06f184fab70cc27c6ed66c40d470536a84d0"
     }
   ],
   "total_entries": 417,

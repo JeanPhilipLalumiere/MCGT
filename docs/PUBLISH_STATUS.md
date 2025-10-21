@@ -65,3 +65,6 @@
 
 ## Post-rebase main — 2025-10-21T14:21:43
 - Rebase terminé, refresh manifests poussé.
+
+## Packaging 2025-10-21T18:35:37
+- sdist/wheel OK, twine check PASS, artefacts uploadés sur v0.3.3.

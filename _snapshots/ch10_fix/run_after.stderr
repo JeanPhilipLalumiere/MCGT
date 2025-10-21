@@ -1,0 +1,3 @@
+  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py", line 368
+    if "id" not in df.columns:
+IndentationError: unexpected indent

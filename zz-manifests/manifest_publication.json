@@ -42,9 +42,9 @@
     {
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "size_bytes": 1839,
-      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
-      "mtime_iso": "2025-10-13T15:21:12Z",
+      "size_bytes": 214,
+      "sha256": "638068dbc43a8fe024041f3d06250e511a0447e6eb4fc919ddeb304a4961cdc8",
+      "mtime_iso": "2025-10-22T11:44:32Z",
       "media_type": "application/json",
       "tags": [
         "chapter09"

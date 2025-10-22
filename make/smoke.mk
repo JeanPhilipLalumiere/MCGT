@@ -15,3 +15,7 @@ smoke-ch10:
 	  --config zz-data/chapter10/10_mc_config.json \
 	  --out-results zz-data/chapter10/10_mc_results.csv || true
 
+# ch09 : wrapper sans warnings
+.PHONY: smoke-ch09-nowarn
+smoke-ch09-nowarn:
+	@bash zz-scripts/chapter09/run_fig01_nowarn.sh

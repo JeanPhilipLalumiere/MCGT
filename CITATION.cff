@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "MCGT — Modèle de Courbure Gravitationnelle Temporelle"
-doi: 10.5281/zenodo.15186836
+doi: 
 message: "Si vous utilisez ce travail, veuillez citer ainsi :"
 type: software
 authors:
@@ -15,3 +15,4 @@ keywords:
   - CMB
   - f(R)
   - reproduction scientifique
+url: 

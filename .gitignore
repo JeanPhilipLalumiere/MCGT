@@ -117,3 +117,8 @@ tools/update_manifest_git_hashes.py
 # data & outils locaux
 zz-data/**/*.csv
 tools/update_manifest_git_hashes.py
+
+# logs locaux
+_logs/
+*LOG
+*.log

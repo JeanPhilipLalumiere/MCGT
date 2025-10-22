@@ -5,7 +5,7 @@
 [![Release](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml)
 <!-- END BADGES -->
 
-# Modèle de Courbure Gravitationnelle Temporelle (MCGT)
+# MCGT : Modèle de la Courbure Gravitationnelle Temporelle
 
 > Corpus scientifique structuré (10 chapitres LaTeX) + **scripts**, **données**, **figures** et **manifestes** assurant la **reproductibilité** de bout en bout.
 

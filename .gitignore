@@ -122,3 +122,6 @@ tools/update_manifest_git_hashes.py
 _logs/
 *LOG
 *.log
+
+# garde-fou local
+/garde_fou_universal_v5.sh

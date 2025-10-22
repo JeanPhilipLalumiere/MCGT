@@ -17,3 +17,9 @@ Sortie attendue : `zz-data/chapter10/10_mc_results.csv` (en-têtes : `sample_id,
 **Raccourcis Make (si dispos)**
 - `make -f Makefile -f make/smoke.mk smoke-ch09`
 - `make -f Makefile -f make/smoke.mk smoke-ch10`
+
+### Astuce : exécution sans warning (ch09)
+Pour éviter le message de warning lors de la lecture du méta JSON, vous pouvez utiliser le wrapper :
+```bash
+bash zz-scripts/chapter09/run_fig01_nowarn.sh
+```

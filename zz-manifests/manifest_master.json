@@ -36,31 +36,31 @@
     {
       "path": "zz-configuration/gw_phase.ini",
       "role": "config",
-      "size_bytes": 292,
-      "sha256": "d7173363883d52535b5dbafda630d9d25e3652d4f743f6d48a744af8a7bc2420",
-      "mtime_iso": "2025-09-12T22:19:24Z",
-      "size": 292,
-      "mtime": 1757715564,
+      "size_bytes": 282,
+      "sha256": "78f00ba7e603b87295cc719f2cc42acd729032ada8b364971d12cd86fedfc2a0",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 282,
+      "mtime": 1761222870,
       "git_hash": "c7e651ac6f2a287cc8ab9a4130ca6c24a5377b0d"
     },
     {
       "path": "zz-configuration/mcgt-global-config.ini",
       "role": "config",
-      "size_bytes": 5110,
-      "sha256": "33b44443b69025f563e7a487f78ef154acd8fcf8d98632062f9daf87407dab85",
-      "mtime_iso": "2025-09-12T22:19:24Z",
-      "size": 5110,
-      "mtime": 1757715564,
+      "size_bytes": 4901,
+      "sha256": "a784a60400d3108f24c68170d0fc6c1432bf9ddf336b1a8e74d855855fd78e8e",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 4901,
+      "mtime": 1761222870,
       "git_hash": "c7e651ac6f2a287cc8ab9a4130ca6c24a5377b0d"
     },
     {
       "path": "zz-configuration/mcgt-global-config.ini.template",
       "role": "config",
-      "size_bytes": 2025,
-      "sha256": "3ab2e76cdd464c8528a80dc50c22a59c79efb8fe37909d0e14483169574b9f88",
-      "mtime_iso": "2025-09-12T22:19:24Z",
-      "size": 2025,
-      "mtime": 1757715564,
+      "size_bytes": 1942,
+      "sha256": "d1780b9eff425a662feb5d2604179872a2df50c8e98d12894700607be9f01a92",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 1942,
+      "mtime": 1761222870,
       "git_hash": "c7e651ac6f2a287cc8ab9a4130ca6c24a5377b0d"
     },
     {
@@ -96,11 +96,11 @@
     {
       "path": "zz-configuration/scalar_perturbations.ini",
       "role": "config",
-      "size_bytes": 5329,
-      "sha256": "7fdf0ad7c1b700a3ab0c9a68422d35cd8b73511e71e9b3bbf6cbd1121926aafa",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "size": 5329,
-      "mtime": 1757715563,
+      "size_bytes": 5205,
+      "sha256": "7cb1c06c14f73ecd6dc6c726c396328daebd7c4885b16786e74a8ad4922db515",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 5205,
+      "mtime": 1761222870,
       "git_hash": "c7e651ac6f2a287cc8ab9a4130ca6c24a5377b0d"
     },
     {
@@ -306,11 +306,11 @@
     {
       "path": "zz-data/chapter03/03_ricci_fR_milestones.csv",
       "role": "data",
-      "size_bytes": 2448,
-      "sha256": "57c63da4d9d72bbb5e69f6283d42dac423f37522a6155a56c580293f5732372e",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "size": 2448,
-      "mtime": 1758665053,
+      "size_bytes": 2347,
+      "sha256": "fab57e40cd7b73cc2ff6f10d49df08ec9759e543a806f2c1a6f7ff22cd2b8353",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 2347,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -406,11 +406,11 @@
     {
       "path": "zz-data/chapter05/05_chi2_bbn_vs_T.csv",
       "role": "data",
-      "size_bytes": 87,
-      "sha256": "dff0736e1ed96a30fef36595138a8f80c229baeeda06ca4cab640dbad890a029",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "size": 87,
-      "mtime": 1758665053,
+      "size_bytes": 79,
+      "sha256": "6bb473d48167a8ff95aa4c7b1b2c563b5843600aa454de9b158913fa767f3d2c",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 79,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -446,11 +446,11 @@
     {
       "path": "zz-data/chapter06/06_cmb_full_results.csv",
       "role": "data",
-      "size_bytes": 208216,
-      "sha256": "276a01d95dc282ab214ce063e8c6762a86e2a941d367a91adb532d69954b9908",
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "size": 208216,
-      "mtime": 1758665053,
+      "size_bytes": 205714,
+      "sha256": "ec4e310d4fce9aa7ec8d62ead1f0a6730f8ffefd321af2779707235598d119f2",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 205714,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -796,21 +796,21 @@
     {
       "path": "zz-data/chapter09/09_comparison_milestones.csv",
       "role": "data",
-      "size_bytes": 6305,
-      "sha256": "ab4ace20f245bf23e51c14f814d36198bf17c5d604d46d746e3835ed1d03fed2",
-      "mtime_iso": "2025-10-04T01:44:01Z",
-      "size": 6305,
-      "mtime": 1759542241,
+      "size_bytes": 6270,
+      "sha256": "d3345fdfdf2bd1ddd86a20a2e84993e60ea0bfa93ebc752f88d9507f9ef9cb5e",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 6270,
+      "mtime": 1761222870,
       "git_hash": "29d014919e7c48d21eed6218339fa1ff9e11958e"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.flagged.csv",
       "role": "data",
-      "size_bytes": 7793,
-      "sha256": "07b24a776b608600e763852260c5b6c23e598c15b850a8994bfac994c5058d0d",
-      "mtime_iso": "2025-10-04T01:44:01Z",
-      "size": 7793,
-      "mtime": 1759542241,
+      "size_bytes": 7758,
+      "sha256": "8bf497d974ef393e6e35a1b861bf6042972f5e4c5f2912ae66afdd02e987ca31",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 7758,
+      "mtime": 1761222870,
       "git_hash": "29d014919e7c48d21eed6218339fa1ff9e11958e"
     },
     {
@@ -826,15 +826,15 @@
     {
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "size_bytes": 214,
-      "sha256": "638068dbc43a8fe024041f3d06250e511a0447e6eb4fc919ddeb304a4961cdc8",
-      "mtime_iso": "2025-10-22T22:59:27Z",
+      "size_bytes": 1839,
+      "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
+      "mtime_iso": "2025-10-23T12:34:30Z",
       "media_type": "application/json",
       "tags": [
         "chapter09"
       ],
       "size": 1839,
-      "mtime": 1760368872,
+      "mtime": 1761222870,
       "git_hash": "b55b50f6ae045a126c16ba71779f45f2d096a10d"
     },
     {
@@ -1470,10 +1470,10 @@
       "role": "artifact",
       "size_bytes": 1781,
       "sha256": "e0a226772cb3b00c3b50d925629dae8f6a273f7d72977c7f9bbfe353ccc73bcb",
-      "mtime_iso": "2025-10-22T10:13:32Z",
+      "mtime_iso": "2025-10-23T01:31:00Z",
       "media_type": "application/octet-stream",
       "size": 1781,
-      "mtime": 1761092045,
+      "mtime": 1761183060,
       "git_hash": "006b2301bf792cc0517726d01b16d9bdb97090b5"
     },
     {
@@ -1791,11 +1791,11 @@
     {
       "path": "requirements.txt",
       "role": "document",
-      "size_bytes": 2058,
-      "sha256": "8bcf39cd89f5c14cd80974219129d9a17f585c25e112e0d9b6448a171b7d3b88",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "size": 2058,
-      "mtime": 1757715563,
+      "size_bytes": 2003,
+      "sha256": "fc565c073ae2022f5bb7d403b9e010c7b2a33340693b8748ddd4f3864983322e",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 2003,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -1911,81 +1911,81 @@
     {
       "path": "zz-checklists/CHAPTER01_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 5025,
-      "sha256": "85e2bf6ce1c5c493e84ee6bd57be8d391fa4b1466d34731879ef65908f5bd0b6",
-      "mtime_iso": "2025-09-23T02:43:14Z",
-      "size": 5025,
-      "mtime": 1758595394,
+      "size_bytes": 4939,
+      "sha256": "30bc1cf4a57f4ff2d26933b120cf0cb1a5b6e93d4d3a9ffc4eb4c9118cfbe888",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 4939,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER02_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 6583,
-      "sha256": "470f7c4751896bcba7621777e330382dadc7cd9223e688dc57ab637695ef0a69",
-      "mtime_iso": "2025-09-23T02:43:14Z",
-      "size": 6583,
-      "mtime": 1758595394,
+      "size_bytes": 6471,
+      "sha256": "caa113801011e08a3ae1f53475ddf23ca28acc0bfa1c12ea44be3a09f487f8f5",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 6471,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER03_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 6258,
-      "sha256": "10f307348401ece4570c223b1f55f0cca52e86e03e852b6ccb1a78a9105a06ca",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "size": 6258,
-      "mtime": 1757715563,
+      "size_bytes": 6127,
+      "sha256": "24e4fcb1689ad0fabd5ad6282091fda0cbe8303a6463d2b986b9a70d95820beb",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 6127,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER04_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 5428,
-      "sha256": "f292307544b9b194b2222df5bf4f3ce9dfe932499bd93d66a5560e4daaa0e57a",
-      "mtime_iso": "2025-09-23T02:43:14Z",
-      "size": 5428,
-      "mtime": 1758595394,
+      "size_bytes": 5322,
+      "sha256": "2152f8f30999ea2c7b334e030bd1f8fc1b96622617f94b81a61853b5270a0b3d",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 5322,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER05_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 5988,
-      "sha256": "076a615b6a3cf2af239fc7624336c35a68048da66dab2c65852a9b13ca92ef2e",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "size": 5988,
-      "mtime": 1757715563,
+      "size_bytes": 5871,
+      "sha256": "a365feab3b4e4318e638115fca8091d349416a18d97f9c42310dfe43645f680b",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 5871,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER06_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 6616,
-      "sha256": "1801ac83962113f30ed013392c298d3c86a51a51df3d65b3696176d2f31d425c",
-      "mtime_iso": "2025-09-12T22:19:23Z",
-      "size": 6616,
-      "mtime": 1757715563,
+      "size_bytes": 6478,
+      "sha256": "ea9a3cfe32eae3e7d4b61506687c768b6320a3b6cbf6c2f4a20e582e2c07ddcb",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 6478,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER07_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 8094,
-      "sha256": "f033ac4a37ae15f7d40315e1163cc72d39af72fa21c3f1700d413bf28134aeec",
-      "mtime_iso": "2025-09-23T02:43:14Z",
-      "size": 8094,
-      "mtime": 1758595394,
+      "size_bytes": 7935,
+      "sha256": "5a04e9120ff827ac91fcefc683897995f7e3d4f1fed2a89081d1f0bb9ed7e9bd",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 7935,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
       "path": "zz-checklists/CHAPTER08_CHECKLIST.txt",
       "role": "document",
-      "size_bytes": 9000,
-      "sha256": "e5d92b3eca15c745fba5f9acdd0ef25b49ea2c23e1fcbb3d327c1bcff72fcd0f",
-      "mtime_iso": "2025-09-23T02:43:14Z",
-      "size": 9000,
-      "mtime": 1758595394,
+      "size_bytes": 8829,
+      "sha256": "f2f23be96204289cea3bca7202759586a794df82360326e6db569de235430a2a",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 8829,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -2535,11 +2535,11 @@
     {
       "path": "zz-scripts/chapter03/utils/03_ricci_fR_milestones_enhanced.csv",
       "role": "document",
-      "size_bytes": 6954,
-      "sha256": "b9c99cd8cb911dcfc337ba63b9ad191d822a6acbb3fd7fe1f4f80a12c1fa3efe",
-      "mtime_iso": "2025-09-12T22:19:25Z",
-      "size": 6954,
-      "mtime": 1757715565,
+      "size_bytes": 6853,
+      "sha256": "1172c9699837ceaf6a5c8ee7d39636909fa3678a0f7c401afe35dcc6d919bf7a",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 6853,
+      "mtime": 1761222870,
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
@@ -3659,11 +3659,11 @@
     {
       "path": "zz-tests/pytest.ini",
       "role": "code",
-      "size_bytes": 681,
-      "sha256": "2063518f7bc4cb7e3e3839821d151421658fd420b001e2f5cccc534cac972080",
-      "mtime_iso": "2025-09-12T22:19:26Z",
-      "size": 681,
-      "mtime": 1757715566,
+      "size_bytes": 657,
+      "sha256": "46d4cfad93dbae197fd6573d330465d90cf06873eb44741d236e923bcdd8754d",
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "size": 657,
+      "mtime": 1761222870,
       "git_hash": "c7e651ac6f2a287cc8ab9a4130ca6c24a5377b0d"
     },
     {
@@ -3952,8 +3952,8 @@
       "size_bytes": 10205,
       "sha256": "5c70a4105f607710eab2187426a0d2ddcaa3fe05950a64bbec1cb7ee433499fd",
       "mtime_iso": "2025-10-22T22:59:13Z",
-      "size": 10202,
-      "mtime": 1761091054,
+      "size": 10205,
+      "mtime": 1761173953,
       "git_hash": "b8044a93dc65d2710c492a428f1cac47c8bb2740"
     },
     {

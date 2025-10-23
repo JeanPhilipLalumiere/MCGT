@@ -1468,13 +1468,13 @@
     {
       "path": ".gitignore",
       "role": "artifact",
-      "size_bytes": 1781,
-      "sha256": "69d784bfa76c5521e7ebc93305bf9bd0385c547080b5c7ebb6e32df765f5f650",
-      "mtime_iso": "2025-10-23T15:29:16Z",
+      "size_bytes": 5273,
+      "sha256": "cabfbbfc26c129670284a48472eaa18f00e6490e2377d1c77510d5c43d4688a7",
+      "mtime_iso": "2025-10-23T17:35:40Z",
       "media_type": "application/octet-stream",
-      "size": 1781,
-      "mtime": 1761233356,
-      "git_hash": "06a5df4cc5235e3fd5ff1a60172d5bbbad4d4272"
+      "size": 5099,
+      "mtime": 1761235257,
+      "git_hash": "5a32d8594b399d78a8e78085f2061df2aa88d0bf"
     },
     {
       "path": ".pre-commit-config.yaml",
@@ -4035,6 +4035,506 @@
       "size": 883,
       "mtime": 1759504962,
       "git_hash": "bd8ad9ad3f2facd4ebbb664278309eacafc661e2"
+    },
+    {
+      "path": "config/defaults.yml",
+      "role": "artifact",
+      "size_bytes": 89,
+      "size": 89,
+      "sha256": "e9e2c20d55934e3fc64e875532ab915e04b71400a5607c143ee8d8d59335b631",
+      "mtime": 1759516992,
+      "mtime_iso": "2025-10-03T18:43:12Z",
+      "git_hash": "0c050023b3f4b9d04f961dd1323ebb28dad57bd0"
+    },
+    {
+      "path": "mcgt/__main__.py",
+      "role": "artifact",
+      "size_bytes": 626,
+      "size": 626,
+      "sha256": "289c8ba2926a4acad98ee3c29edadad2721896782179ec12bcece1b813e7ceba",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "fbf992db695cf5f635dc07721b8640e8de70cef6"
+    },
+    {
+      "path": "mcgt/constants.py",
+      "role": "artifact",
+      "size_bytes": 1961,
+      "size": 1961,
+      "sha256": "4a129cc69bf2d17bd94d1433f7e2dba4d11da8b5395cf322a5758937f3b25f98",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "a299f725b51658df06e54cab2538928db076f5a4"
+    },
+    {
+      "path": "policies/cli_extensions.json",
+      "role": "artifact",
+      "size_bytes": 222,
+      "size": 222,
+      "sha256": "0d1a5a6dbb61789b62f3ba6312b8c61ddab2403dafb5402a0c7ca300d229fabd",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "529e3d4b7249e265211733c46de5aa594b493514"
+    },
+    {
+      "path": "policies/env_whitelist.json",
+      "role": "artifact",
+      "size_bytes": 312,
+      "size": 312,
+      "sha256": "b0245f4ae55e1daca7d3cfd09a96f2fc728ac7d23e694a25422abe3087831c73",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "6a9d85fb64ebf5c932157033f576ae1b7bc55a8e"
+    },
+    {
+      "path": "policies/figure_layout.json",
+      "role": "artifact",
+      "size_bytes": 344,
+      "size": 344,
+      "sha256": "f7f586f7a8f9ba9a1088383cdab902e54eecd084353731f12e1e47278c585084",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "bebe28a53d97d3b3d2441157a316b8d9b07da620"
+    },
+    {
+      "path": "policies/plot_style.json",
+      "role": "artifact",
+      "size_bytes": 280,
+      "size": 280,
+      "sha256": "37fdf14304e86b0809dd2eb2904b361aef78018f6610a12b201e796e5a3cb069",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "8c4cea344f749d494b6c6103059711c3d40e0167"
+    },
+    {
+      "path": "policies/retention.json",
+      "role": "artifact",
+      "size_bytes": 172,
+      "size": 172,
+      "sha256": "f07bf5b340264ce40f4ab37760fd829d38d58087c0590e1b41a75e043f411c49",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "63a32d26958545f3f11f6eaf9b6500f328dfe60d"
+    },
+    {
+      "path": "policies/runtime_spec.json",
+      "role": "artifact",
+      "size_bytes": 513,
+      "size": 513,
+      "sha256": "217853bcdee944efbae11374c61754ee307b0b3cd27f3b0b4b5c4a747988d605",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "0d04d5c561e6e06084ed4a82e5a12e86fe3e4ba2"
+    },
+    {
+      "path": "policies/units_registry.json",
+      "role": "artifact",
+      "size_bytes": 165,
+      "size": 165,
+      "sha256": "fe77f22782b61ef860de1e1ec6db0eb9a2a3f8e134af85e807d31ff380b589c0",
+      "mtime": 1760119015,
+      "mtime_iso": "2025-10-10T17:56:55Z",
+      "git_hash": "9318e73a7b33a2ee3d10c35bd0c40934aa913ba6"
+    },
+    {
+      "path": "tools/_eq_ifpass_fix.py",
+      "role": "artifact",
+      "size_bytes": 6323,
+      "size": 6323,
+      "sha256": "276a967a05dd7cf5203887d2833fcdef8bd6c1d3b4d7814e00c0ed1a144beca0",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "1db63605529ef8e1f68774739497969ba15f4a02"
+    },
+    {
+      "path": "tools/_lib_trap_exit.sh",
+      "role": "artifact",
+      "size_bytes": 323,
+      "size": 323,
+      "sha256": "f5f874fbbde85ba2ff214bbcb90c28f7ac0d0578142152ecda286c737e499d5c",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "05119f1cb45dbff9377a247b1ea1af3aa4a0ae12"
+    },
+    {
+      "path": "tools/_safe_move_untracked.sh",
+      "role": "artifact",
+      "size_bytes": 822,
+      "size": 822,
+      "sha256": "dd11b2625cd3c9f8bdaab5972c29252891d8c41c89e1da6616ade59f2edf513d",
+      "mtime": 1761233092,
+      "mtime_iso": "2025-10-23T15:24:52Z",
+      "git_hash": "6e76b3321fd71be3468c98211e5134a04d0f22d5"
+    },
+    {
+      "path": "tools/add_shfmt_hook.sh",
+      "role": "artifact",
+      "size_bytes": 541,
+      "size": 541,
+      "sha256": "900a13efc155e4e2e26a176b2d2b6dc7f19cb1686c66901da7e0ea2c3a92e122",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "29388b3cc18fd23e223329f67f0b84ccafbca871"
+    },
+    {
+      "path": "tools/apply_ciout_guards.sh",
+      "role": "artifact",
+      "size_bytes": 4655,
+      "size": 4655,
+      "sha256": "e335f26d5564001cbdbedc5762ae155e443fc009706048a92757eda25634491d",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "95a9b89d9c982d2ab84fa0f9fd527358390fc2eb"
+    },
+    {
+      "path": "tools/apply_figure_renames_and_fix_refs.py",
+      "role": "artifact",
+      "size_bytes": 10630,
+      "size": 10630,
+      "sha256": "8748474cc72eff5211361d19de3b3a534341c2722a175907f1292eac3dce7546",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "d0a0503ace4607a7848ff99297430be1c0a403e3"
+    },
+    {
+      "path": "tools/apply_param_defaults.py",
+      "role": "artifact",
+      "size_bytes": 2986,
+      "size": 2986,
+      "sha256": "19e6d71ecb5f80c322561afaf87c26a8f59e7630f62b401aeaeb533aab7e7650",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "941e55fbcfe8f898902cf73e7683094c9650a526"
+    },
+    {
+      "path": "tools/apply_series3.sh",
+      "role": "artifact",
+      "size_bytes": 7006,
+      "size": 7006,
+      "sha256": "18e2517ef01d01960f12cda4563bea5dc6c651150df0ddb90334affe78dbb75e",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "bc4c29e669382da815e16bf4bc455c3396b596bc"
+    },
+    {
+      "path": "tools/apply_series3_1.sh",
+      "role": "artifact",
+      "size_bytes": 8056,
+      "size": 8056,
+      "sha256": "1e064f4e51eab15b799bc6065e3a087aa686b4fd556513f73a2ae8dcd00a5d9e",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "3bd4aa7d5766d7cf5b8b8a24b64c0f1a79b552b0"
+    },
+    {
+      "path": "tools/apply_series4.sh",
+      "role": "artifact",
+      "size_bytes": 5633,
+      "size": 5633,
+      "sha256": "e52da3b10b58038369d9257988215ebf10a8b8fee906d8bd596f3784072718cc",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "2049c9159480547fcef8c0b3d1426838378d022a"
+    },
+    {
+      "path": "tools/apply_series4_1.sh",
+      "role": "artifact",
+      "size_bytes": 5625,
+      "size": 5625,
+      "sha256": "d326f6f61b87d022defc6e3b0034f4dbd7d20902569884c5e83bbae0260b56db",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "7d9e6bf46f45bb7316c94ee8bb9fcc6c1aec76ef"
+    },
+    {
+      "path": "tools/apply_series5.sh",
+      "role": "artifact",
+      "size_bytes": 6518,
+      "size": 6518,
+      "sha256": "752b9a4bbc6182c7ab68200808dd1a1de8a8162dac4533bf1f73657cdd0fede2",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "17a28213ec6922b20204525ab3560346c30b8aad"
+    },
+    {
+      "path": "tools/apply_series6.sh",
+      "role": "artifact",
+      "size_bytes": 7321,
+      "size": 7321,
+      "sha256": "4ca109ee7d05218c8112aeaf77dfd3ef01194a2869c0f8b67e52ea117ef5267b",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "204deef04ab30990293fa3c672879059dd31a295"
+    },
+    {
+      "path": "tools/apply_series7.sh",
+      "role": "artifact",
+      "size_bytes": 6705,
+      "size": 6705,
+      "sha256": "020480088d7120f4c615a8c2347f80ff07b13cbe7db1a72454928bd9107cd93e",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "a119840235212a2bd666ad980a83da0d1e62daff"
+    },
+    {
+      "path": "tools/apply_series8.sh",
+      "role": "artifact",
+      "size_bytes": 4906,
+      "size": 4906,
+      "sha256": "dcb88a4d455c8f01a39f7a2ba71c0d4e1d2efe287da82e653e5bf2e4ba20b795",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "5e4f62571089203e5c2b9bc8d8e2e4558f61b93f"
+    },
+    {
+      "path": "tools/apply_series9.sh",
+      "role": "artifact",
+      "size_bytes": 8577,
+      "size": 8577,
+      "sha256": "4340dfc70ff71aa00e72ab16bf12249ba52bfb9f0fac8d537deaf6e4eeda7228",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "379d1ee3fe9e4ecaf8101e45f0e2f763ca7c4667"
+    },
+    {
+      "path": "tools/archive_large.sh",
+      "role": "artifact",
+      "size_bytes": 753,
+      "size": 753,
+      "sha256": "68d4a9da922dca3e8450761e5dfd4a71978ad3cebaef3a1ee85f080075138507",
+      "mtime": 1761182939,
+      "mtime_iso": "2025-10-23T01:28:59Z",
+      "git_hash": "8122a2864ba11c2e8b62d48d606fc1d440b2b589"
+    },
+    {
+      "path": "tools/audit_manifest_files.sh",
+      "role": "artifact",
+      "size_bytes": 3306,
+      "size": 3306,
+      "sha256": "e8185238e0724a049e936994f8391c7c6bfd52382403094d3315fc41ff18b89c",
+      "mtime": 1761226679,
+      "mtime_iso": "2025-10-23T13:37:59Z",
+      "git_hash": "40fb5d5daccff60211ea3429b45086def19fc2f5"
+    },
+    {
+      "path": "tools/audit_workflows.sh",
+      "role": "artifact",
+      "size_bytes": 2777,
+      "size": 2777,
+      "sha256": "fa8a523354eb79a7a93edae027fa208e8d7643602fa4a91aa193bf28f6ef5682",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "cf52bdc99963a375cc0ad29188e17d085b8484a9"
+    },
+    {
+      "path": "tools/backfill_zenodo_doi.py",
+      "role": "artifact",
+      "size_bytes": 2522,
+      "size": 2522,
+      "sha256": "83ccaa3771e35260a097910e61eaed8886868aec68f679c30b063989ba46467f",
+      "mtime": 1761065445,
+      "mtime_iso": "2025-10-21T16:50:45Z",
+      "git_hash": "7f7a8deacd517aa580126b5e6a88f824cdb19369"
+    },
+    {
+      "path": "tools/banish_tex_from_chapters_and_manifest.sh",
+      "role": "artifact",
+      "size_bytes": 2347,
+      "size": 2347,
+      "sha256": "01ef405a60b19c1da45d3a49b4d7bc6a61d81680f7db5574ebee854d00e81f53",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "c4fbe5b067c6163f7f55e750c84492689abbad05"
+    },
+    {
+      "path": "tools/build_data_manifests.sh",
+      "role": "artifact",
+      "size_bytes": 1603,
+      "size": 1603,
+      "sha256": "114458511f568e3280683fb33d4934dbf22497331f7722eb11c24721d4722a41",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "091744c1a80cec195d1a17e22b7fb32e9787e6ac"
+    },
+    {
+      "path": "tools/build_figures_index.sh",
+      "role": "artifact",
+      "size_bytes": 2893,
+      "size": 2893,
+      "sha256": "2be7c8fa4859d0d269bdae661b35717e5f325c7904244be4b5defc6103119bdf",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "407ed4aedfa92c8bb1ca9cca8be1df82805fc57b"
+    },
+    {
+      "path": "tools/build_prepub_bundle.sh",
+      "role": "artifact",
+      "size_bytes": 3356,
+      "size": 3356,
+      "sha256": "f23b808f00e43d0c30a6b2e6554b8f26095ae9dfca309f1387a09e93aee8877d",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "44f3671f43b5bc57de60cbf6f02e046e8fb2d3e1"
+    },
+    {
+      "path": "tools/ch10_afterfix.sh",
+      "role": "artifact",
+      "size_bytes": 1651,
+      "size": 1651,
+      "sha256": "dfae2438a1877d320561485b58f1468f1ae9246aa22c6ef5671ff048c53e4ff9",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "8cf7f97cdd3254b9457ec0011a5a779f8c1135cc"
+    },
+    {
+      "path": "tools/ch10_fix_fig02_scatter.sh",
+      "role": "artifact",
+      "size_bytes": 9414,
+      "size": 9414,
+      "sha256": "bec84ed57559e2fecb464d2995ff24a3af5883aed843da8fb6ec769d099bb0e4",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "2bfd110c194b96204eae6951c889a52a7a00579e"
+    },
+    {
+      "path": "tools/ch10_fix_fig05_footer.sh",
+      "role": "artifact",
+      "size_bytes": 2450,
+      "size": 2450,
+      "sha256": "add889a0ba6cb94b3a456bd027e8d4a07e9450bcbcb635500bd375a3c893256d",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "45a821853ed535dcf3ca1e00805c722b4781ec9a"
+    },
+    {
+      "path": "tools/ch10_fix_fig05_indent.sh",
+      "role": "artifact",
+      "size_bytes": 3568,
+      "size": 3568,
+      "sha256": "32e2b9e74328d06689e02be54823cd2416e358a8639ea14fcfc959b203c2bb35",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "6fa18187f2b913a8e2e7651f9ed4e82c3d60d84e"
+    },
+    {
+      "path": "tools/ch10_fix_fig05_restore.sh",
+      "role": "artifact",
+      "size_bytes": 4738,
+      "size": 4738,
+      "sha256": "a650bde1c6862aa8f92ba6a9b6301c8f36ddc132d57d246f3df8f6e5da953a2c",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "4f6927977d8a94cbdddf4864877a79b267f320cd"
+    },
+    {
+      "path": "tools/ch10_fix_fig05_tightlayout.sh",
+      "role": "artifact",
+      "size_bytes": 887,
+      "size": 887,
+      "sha256": "382d0e19316cd033cfab1ab3cc2105e2b0685f6f21fadb9e3b3086cc6c61c7f7",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "f7d449d6987430ec9c2f7020df35f4e55800b45c"
+    },
+    {
+      "path": "tools/ch10_fix_fig07_alias_indent.sh",
+      "role": "artifact",
+      "size_bytes": 1939,
+      "size": 1939,
+      "sha256": "d13d109dd151f0e9390076d398893599c305d902e83b0dab985e07a79c3254d2",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "7fa18cde46db9cff6ebafde3d2ebf88bacdb6205"
+    },
+    {
+      "path": "tools/ch10_fix_fig07_and_smoke.sh",
+      "role": "artifact",
+      "size_bytes": 3629,
+      "size": 3629,
+      "sha256": "daf87890fe143cbc73298599db1584d1ced3dd651eb97469ce8d762336662cb1",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "027735a09d76d3b634a0facb96d9c08efde2e008"
+    },
+    {
+      "path": "tools/ch10_fix_fig07_insert_opts.sh",
+      "role": "artifact",
+      "size_bytes": 3411,
+      "size": 3411,
+      "sha256": "451afab1eca0367d37408c3265d95b289352f4450fcd50a55c65791d07507f82",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "473b4ac9b9873365cf06a22de7a7934c8ef2f678"
+    },
+    {
+      "path": "tools/ch10_fix_fig07_rewrite.sh",
+      "role": "artifact",
+      "size_bytes": 8530,
+      "size": 8530,
+      "sha256": "0e6a0872297d7f8961426fc6888d5ea8f019c14e28581277ecbd22b622fd2ada",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "9461d3d76c0cca7b339884b60c2997b2fb72fbbb"
+    },
+    {
+      "path": "tools/ch10_patch_and_test.sh",
+      "role": "artifact",
+      "size_bytes": 52050,
+      "size": 52050,
+      "sha256": "9c06b708d0f7df8c11ce7aab3503c610a949bfce314cbf5736ecf1b53a57ec8d",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "824923cadd3af06afa071ac39034cb9dec2f62e8"
+    },
+    {
+      "path": "tools/ch10_purge_tightlayout.sh",
+      "role": "artifact",
+      "size_bytes": 2072,
+      "size": 2072,
+      "sha256": "21bbee27b86d8c33600c3365fa5d24f974a2e20d036dfecbe74d9f9c5cfa1531",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "b1dea83a5ac715cad773b5a478be7cbb304e1533"
+    },
+    {
+      "path": "tools/ch10_smoke.sh",
+      "role": "artifact",
+      "size_bytes": 2153,
+      "size": 2153,
+      "sha256": "ef4912511ecbb89615ac2ff791a7931670e4e00e9a1c232740a3d98002b6f809",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "445846f9896e2af1893d42ba93f2d39f50644394"
+    },
+    {
+      "path": "tools/check_figures_index.sh",
+      "role": "artifact",
+      "size_bytes": 1820,
+      "size": 1820,
+      "sha256": "34979517a8edf5cb20cb2649faaacd390b6f642711c87ba1603a7e90590badf6",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "1ece5ab0256750e39a6828bd35bdfef96955128c"
+    },
+    {
+      "path": "tools/check_integrity.py",
+      "role": "artifact",
+      "size_bytes": 2004,
+      "size": 2004,
+      "sha256": "f979c65ed958a3269435ab890a02dc16ff3971a7872517cc62d5a2483083bae9",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "9bae5a3d9c4bd7ab8eede30908280010e789f172"
+    },
+    {
+      "path": "tools/check_param_drift.py",
+      "role": "artifact",
+      "size_bytes": 3138,
+      "size": 3138,
+      "sha256": "1541ff8f35133401715127934216afd3d9d8d98afe1d869111579116b6d11d1d",
+      "mtime": 1760880221,
+      "mtime_iso": "2025-10-19T13:23:41Z",
+      "git_hash": "70177151f865ff9ccb78d20f52d6040c726e8ecd"
     }
   ],
   "total_entries": 371,

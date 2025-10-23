@@ -4506,14 +4506,6 @@
       "git_hash": "bd07a339ec20e41e1c4268d52ff2e50e7562a462"
     },
     {
-      "path": ".gitignore",
-      "role": "artifact",
-      "size_bytes": 6839,
-      "sha256": "f69c94722b61b84b982aedaff8ff42bc0a28149676b40e773d66760ed180dfe3",
-      "mtime_iso": "2025-10-23T18:58:11Z",
-      "git_hash": "7eff038b4aa9ff5ec9086fb3431281a2c9ad373f"
-    },
-    {
       "path": ".githooks/pre-commit",
       "role": "config",
       "size_bytes": 350,
@@ -4540,6 +4532,14 @@
       "sha256": "37d2b12d5d9abc2a364ef9448767ee03938e383c0284193477dc7618f4b7c6c2",
       "mtime_iso": "2025-10-07T23:04:49Z",
       "git_hash": "f4d7fa5708df9abf399ec9dd3983329857da3d25"
+    },
+    {
+      "path": ".gitignore",
+      "role": "artifact",
+      "size_bytes": 6839,
+      "sha256": "f69c94722b61b84b982aedaff8ff42bc0a28149676b40e773d66760ed180dfe3",
+      "mtime_iso": "2025-10-23T18:58:11Z",
+      "git_hash": "7eff038b4aa9ff5ec9086fb3431281a2c9ad373f"
     }
   ],
   "total_entries": 371,

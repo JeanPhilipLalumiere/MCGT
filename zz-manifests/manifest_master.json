@@ -1469,12 +1469,12 @@
       "path": ".gitignore",
       "role": "artifact",
       "size_bytes": 1781,
-      "sha256": "e0a226772cb3b00c3b50d925629dae8f6a273f7d72977c7f9bbfe353ccc73bcb",
-      "mtime_iso": "2025-10-23T01:31:00Z",
+      "sha256": "80083dceff9fd82242cd5bcfe648a9dfb86de4c3f117d0cee14f318f8ea5bf1f",
+      "mtime_iso": "2025-10-23T13:27:18Z",
       "media_type": "application/octet-stream",
       "size": 1781,
-      "mtime": 1761183060,
-      "git_hash": "1d3b37efd9595ef63c86b70c5c8f50291a69aa59"
+      "mtime": 1761226038,
+      "git_hash": "3ec10f33e655a254dddc0625e365518057f7442f"
     },
     {
       "path": ".pre-commit-config.yaml",

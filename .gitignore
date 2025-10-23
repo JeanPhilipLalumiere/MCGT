@@ -10,19 +10,16 @@ build/
 dist/
 *.egg-info/
 .venv-wheel-test/
-
 # === Python bytecode / caches ===
 __pycache__/
 *.py[cod]
 *.pyo
-
 # Tool caches
 .ruff_cache/
 .mypy_cache/
 .pytype/
 .cache/
 .pytest_cache/
-
 # === Tests / coverage ===
 !.github/
 !tests/
@@ -30,39 +27,29 @@ __pycache__/
 .coverage.*
 coverage.xml
 htmlcov/
-
 # === Editor / IDE files ===
 .vscode/
 .idea/
 *.swp
-
 # === OS / system files ===
 .DS_Store
 Thumbs.db
-
 # === Jupyter ===
 .ipynb_checkpoints/
-
 # === Logs & temporary files ===
 *.log
 *.tmp
-
 # === Backups & miscellaneous ===
 *.bak
 zz-trash/
-
 # === Local preview / generated figures (not part of publication) ===
 zz-figures/
-
 # === Misc binary / compiled ===
 *.so
-
 # Local only
 MCGT-clean/
 _reports/
-
 # cleanup patterns (dédupliqués)
-dist/
 dist_*/
 dist_from_*/
 artifacts_*/
@@ -75,23 +62,16 @@ artifacts_*/
 actionlint.tar.gz
 archive/
 archive/cleanup_*.tar.gz
-
 # CI artifacts / miscellanea
 legacy-tex/
 zz-configuration/parameters_registry.json
 tools/*.before_psx
 tools/*.new
-
 # local diagnostics
 # generated / transient
-
 # caches
-__pycache__/
 *.pyc
-.pytest_cache/
-
 # scaffolding / backups
-*.bak
 *_bak_*
 *before_*
 *.pass*
@@ -102,30 +82,19 @@ _tmp-figs/
 .ci-logs/
 .ci-out/
 _pyproject.legacy.toml
-_pyproject.legacy.toml
-_pyproject.legacy.toml
 MCGT-*.tar.gz
 _diag*.json
 _snapshots/
 *.bak.*
 *.broken.*
-
 # data & outils locaux
 zz-data/**/*.csv
 tools/update_manifest_git_hashes.py
-
-# data & outils locaux
-zz-data/**/*.csv
-tools/update_manifest_git_hashes.py
-
 # logs locaux
 _logs/
 *LOG
-*.log
-
 # garde-fou local
 /garde_fou_universal_v5.sh
-
 # Virtualenvs and build artifacts
 .venv-*
 .venv*/
@@ -136,10 +105,12 @@ venv*/
 *.whl
 _archives_preclean/
 _archives/
-
 # Local cache & editor
 _tmp/
-_tmp-figs/
 nano.*.save
-*.swp
 *~
+# --- housekeeping (auto) ---
+._*
+# ignore backfilled manifests & local archives
+zz-manifests/manifest_master.backfilled*.json
+_attic_untracked/

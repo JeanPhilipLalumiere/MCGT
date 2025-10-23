@@ -1470,11 +1470,11 @@
       "role": "artifact",
       "size_bytes": 1781,
       "sha256": "80083dceff9fd82242cd5bcfe648a9dfb86de4c3f117d0cee14f318f8ea5bf1f",
-      "mtime_iso": "2025-10-23T13:27:18Z",
+      "mtime_iso": "2025-10-23T15:25:04Z",
       "media_type": "application/octet-stream",
       "size": 1781,
-      "mtime": 1761226038,
-      "git_hash": "3ec10f33e655a254dddc0625e365518057f7442f"
+      "mtime": 1761233104,
+      "git_hash": "2433037e5f41d1af4f7afb893fbafaa352782dbf"
     },
     {
       "path": ".pre-commit-config.yaml",

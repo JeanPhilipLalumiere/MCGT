@@ -1,10 +1,20 @@
+
+# --- housekeeping (auto) ---
+_tmp/
+_tmp-figs/
+nano.*.save
+*.swp
+*~
+._*
+zz-manifests/manifest_master.backfilled*.json
+_archives_preclean/
+_attic_untracked/
 # === Virtualenvs / build artefacts ===
 .venv/
 .venv-*/
 venv/
 env/
 .Python
-
 # Build / distribution
 build/
 dist/
@@ -30,7 +40,6 @@ htmlcov/
 # === Editor / IDE files ===
 .vscode/
 .idea/
-*.swp
 # === OS / system files ===
 .DS_Store
 Thumbs.db
@@ -78,7 +87,6 @@ tools/*.new
 site/
 zz-out/
 # === Generated artefacts (guard) ===
-_tmp-figs/
 .ci-logs/
 .ci-out/
 _pyproject.legacy.toml
@@ -103,14 +111,6 @@ env*/
 venv*/
 *.tar.gz
 *.whl
-_archives_preclean/
 _archives/
 # Local cache & editor
-_tmp/
-nano.*.save
-*~
-# --- housekeeping (auto) ---
-._*
 # ignore backfilled manifests & local archives
-zz-manifests/manifest_master.backfilled*.json
-_attic_untracked/

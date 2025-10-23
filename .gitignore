@@ -125,3 +125,14 @@ _logs/
 
 # garde-fou local
 /garde_fou_universal_v5.sh
+
+# Virtualenvs and build artifacts
+.venv-*
+.venv*/
+_venv*/
+env*/
+venv*/
+*.tar.gz
+*.whl
+_archives_preclean/
+_archives/

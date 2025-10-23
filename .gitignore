@@ -136,3 +136,10 @@ venv*/
 *.whl
 _archives_preclean/
 _archives/
+
+# Local cache & editor
+_tmp/
+_tmp-figs/
+nano.*.save
+*.swp
+*~

@@ -4535,6 +4535,18 @@
       "mtime": 1760880221,
       "mtime_iso": "2025-10-19T13:23:41Z",
       "git_hash": "70177151f865ff9ccb78d20f52d6040c726e8ecd"
+    },
+    {
+      "path": "tools/shims/sh",
+      "role": "code",
+      "size_bytes": 4,
+      "sha256": "37d2b12d5d9abc2a364ef9448767ee03938e383c0284193477dc7618f4b7c6c2"
+    },
+    {
+      "path": "tools/shims/sh",
+      "role": "code",
+      "size_bytes": 4,
+      "sha256": "37d2b12d5d9abc2a364ef9448767ee03938e383c0284193477dc7618f4b7c6c2"
     }
   ],
   "total_entries": 371,

@@ -114,3 +114,106 @@ venv*/
 _archives/
 # Local cache & editor
 # ignore backfilled manifests & local archives
+# --- auto-ignore (apply_candidates 20251023T160057Z) ---
+.pre-commit-config.yaml.psx_bak
+scripts/check_wheel_metadata.py.save
+tools/dallidbsx.sh.bak_20251005T021005Z.pre_cp_n_repl.bak
+tools/dallidbsx.sh.pre_cp_n_repl.bak
+tools/homog_pass2_purge_fig_tightlayout.sh.pre_cp_n_repl.bak
+tools/homog_pass3_finish_purge_and_scan.sh.pre_cp_n_repl.bak
+tools/homog_pass5_autofix.sh.pre_cp_n_repl.bak
+tools/homog_scan_all.sh.pre_cp_n_repl.bak
+tools/hotfix_ch7_fig06_repair_syntax.sh.pre_cp_n_repl.bak
+tools/pass11_destubify_ch10.sh.pre_cp_n_repl.bak
+tools/pass11b_destubify_ch01_ch02.sh.pre_cp_n_repl.bak
+tools/pass11c_destubify_ch06_07_09.sh.pre_cp_n_repl.bak
+tools/pass11d_destubify_ch05_04_03_08.sh.pre_cp_n_repl.bak
+tools/pass12_remove_shims_and_verify.sh.pre_cp_n_repl.bak
+tools/pass7_ch10_quickfix.sh.pre_cp_n_repl.bak
+tools/patch_pass14_arg_fix.sh.pre_cp_n_repl.bak
+tools/patch_pass14_runner_fix.sh.pre_cp_n_repl.bak
+tools/trace_env_source.sh.bak
+tools/trace_env_source.sh.bak.pre_cp_n_repl.bak
+zz-scripts/chapter10/add_phi_at_fpeak.py.pass11bak
+zz-scripts/chapter10/add_phi_at_fpeak.py.pass7bak
+zz-scripts/chapter10/bootstrap_topk_p95.py.pass11bak
+zz-scripts/chapter10/bootstrap_topk_p95.py.pass7bak
+zz-scripts/chapter10/check_metrics_consistency.py.pass11bak
+zz-scripts/chapter10/check_metrics_consistency.py.pass7bak
+zz-scripts/chapter10/diag_phi_fpeak.py.pass11bak
+zz-scripts/chapter10/diag_phi_fpeak.py.pass7bak
+zz-scripts/chapter10/eval_primary_metrics_20_300.py.pass11bak
+zz-scripts/chapter10/eval_primary_metrics_20_300.py.pass7bak
+zz-scripts/chapter10/generate_data_chapter10.py.pass11bak
+zz-scripts/chapter10/generate_data_chapter10.py.pass7bak
+zz-scripts/chapter10/inspect_topk_residuals.py.pass11bak
+zz-scripts/chapter10/inspect_topk_residuals.py.pass7bak
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py.pass11bak
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py.pass7bak
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py.pass11bak
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py.pass7bak
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py.pass11bak
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py.pass7bak
+zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py.pass11bak
+zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py.pass7bak
+zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py.pass11bak
+zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py.pass7bak
+zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py.pass11bak
+zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py.pass7bak
+zz-scripts/chapter10/plot_fig06_residual_map.py.pass11bak
+zz-scripts/chapter10/plot_fig06_residual_map.py.pass7bak
+zz-scripts/chapter10/plot_fig07_synthesis.py.pass11bak
+zz-scripts/chapter10/plot_fig07_synthesis.py.pass7bak
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py.pass11bak
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py.pass7bak
+zz-scripts/chapter10/recompute_p95_circular.py.pass11bak
+zz-scripts/chapter10/recompute_p95_circular.py.pass7bak
+zz-scripts/chapter10/regen_fig05_using_circp95.py.pass11bak
+zz-scripts/chapter10/regen_fig05_using_circp95.py.pass7bak
+zz-scripts/chapter10/update_manifest_with_hashes.py.pass11bak
+zz-scripts/chapter10/update_manifest_with_hashes.py.pass7bak
+zz-tools/smoke_all_skeleton.sh.save
+zz-tools/validate_ch09_artifacts.py.save
+# --- auto-ignore (apply_candidates 20251023T162300Z) ---
+# --- auto-ignore (apply_candidates 20251023T172508Z) ---
+# --- auto-ignore (apply_candidates 20251023T173540Z) ---
+
+# BEGIN AUTO-IGNORED_BY_MANIFEST_CLEANUP
+# Thu Oct 23 18:58:11 UTC 2025
+.pre-commit-config.yaml.bak_20251005T021005Z
+_diag_master_after_Y.json
+_diag_master_after_Z.json
+_diag_master_after_ch10_stub.json
+_diag_master_after_smoke.json
+_diag_publication_after_Y.json
+_diag_publication_after_Z.json
+_diag_publication_after_ch10_stub.json
+_diag_publication_after_smoke.json
+_pyproject.backup.20251019T154431.toml
+_pyproject.rewrite.backup.toml
+pyproject.toml.bak.1758902208
+pyproject.toml.bak.20250925-221018
+pyproject.toml.bak.20250925-221248
+pyproject.toml.bak.20250925-221903
+pyproject.toml.bak.20250925-222104
+pyproject.toml.bak.20250925-222720
+setup.py.bak.20250925-221024
+setup.py.bak.20250925-221248
+setup.py.bak.20250925-221903
+tools/dallidbsx.sh.bak_20251005T021005Z
+tools/dallidbsx.sh.bak_20251005T021005Z.pre_cp_n_repl.bak
+tools/dallidbsx.sh.pre_cp_n_repl.bak
+tools/homog_pass2_purge_fig_tightlayout.sh.pre_cp_n_repl.bak
+tools/homog_pass3_finish_purge_and_scan.sh.pre_cp_n_repl.bak
+tools/homog_pass5_autofix.sh.pre_cp_n_repl.bak
+tools/homog_scan_all.sh.pre_cp_n_repl.bak
+tools/hotfix_ch7_fig06_repair_syntax.sh.pre_cp_n_repl.bak
+tools/lib_psx.sh.bak_20251005T010649Z
+tools/lib_psx.sh.bak_20251005T011554Z
+tools/lib_psx.sh.bak_20251005T014048Z
+tools/pass11_destubify_ch10.sh.pre_cp_n_repl.bak
+tools/pass11b_destubify_ch01_ch02.sh.pre_cp_n_repl.bak
+tools/pass11c_destubify_ch06_07_09.sh.pre_cp_n_repl.bak
+tools/pass11d_destubify_ch05_04_03_08.sh.pre_cp_n_repl.bak
+tools/pass12_remove_shims_and_verify.sh.pre_cp_n_repl.bak
+# END AUTO-IGNORED_BY_MANIFEST_CLEANUP

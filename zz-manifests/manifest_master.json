@@ -4536,10 +4536,10 @@
     {
       "path": "tools/shims/sh",
       "role": "code",
-      "size_bytes": 4,
-      "sha256": "37d2b12d5d9abc2a364ef9448767ee03938e383c0284193477dc7618f4b7c6c2",
-      "mtime_iso": "2025-10-07T23:04:49Z",
-      "git_hash": "f4d7fa5708df9abf399ec9dd3983329857da3d25"
+      "size_bytes": 57,
+      "sha256": "3cb5c89646ae0868ef3ba2a63fe043b47139dea6534c7d06e189b593b9eda320",
+      "mtime_iso": "2025-10-23T20:19:25Z",
+      "git_hash": "637f5d83b90abbc636f4d6d1fa38a0413bda5d4a"
     }
   ],
   "total_entries": 371,

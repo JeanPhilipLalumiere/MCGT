@@ -1474,7 +1474,7 @@
       "media_type": "application/octet-stream",
       "size": 1781,
       "mtime": 1761183060,
-      "git_hash": "006b2301bf792cc0517726d01b16d9bdb97090b5"
+      "git_hash": "769a7b53add4b5361f7af1ec98f6ab1b26caae1b"
     },
     {
       "path": ".pre-commit-config.yaml",

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-# Purpose: housekeeping robuste qui ne ferme jamais la fenêtre.
-# - pas de 'set -e' pour éviter un arrêt brutal
-# - journal dans _tmp/housekeeping.safe.log
-# - pause en fin d'exécution pour garder la fenêtre ouverte
+# Housekeeping robuste qui ne ferme jamais la fenêtre automatiquement.
 set -uo pipefail
 mkdir -p _tmp
 LOG="_tmp/housekeeping.safe.log"
@@ -10,12 +7,11 @@ LOG="_tmp/housekeeping.safe.log"
 ts() { date -u +'%Y-%m-%dT%H:%M:%SZ'; }
 log() { echo "[$(ts)] $*" | tee -a "$LOG"; }
 
-# pause finale pour ne jamais fermer la fenêtre
 trap 'st=$?; echo | tee -a "$LOG"; log "END status=$st — log: $LOG"; read -rp "Appuyez sur Entrée pour quitter..."; exit $st' EXIT
 
 log "== housekeeping_safe_noclose.sh: start =="
 
-# 1) normalisation .gitignore (append + dédoublonnage)
+# 1) normalisation .gitignore
 log "normalize .gitignore"
 {
   echo ""
@@ -33,16 +29,18 @@ log "normalize .gitignore"
 awk '!a[$0]++' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
 log ".gitignore updated (deduped)"
 
-# 2) ranger les non-suivis de manière sûre
+# 2) ranger les non-suivis (compte simple par préfixe)
 log "move untracked to safe places"
 mkdir -p _attic_untracked tools
-moved=0 skipped=0
+moved=0; skipped=0
 while IFS= read -r line; do
-  # on réutilise la logique du script pour être certain de ne pas casser le flux
-  case "$line" in
-    skip\ (*) ) ((skipped++)) ;;
-    moved:* )   ((moved++)) ;;
-  esac
+  [[ -z "$line" ]] && continue
+  echo "$line" | tee -a "$LOG"
+  if [[ "$line" == MOVED:* ]]; then
+    moved=$((moved+1))
+  elif [[ "$line" == SKIP:* ]]; then
+    skipped=$((skipped+1))
+  fi
 done < <(bash tools/_safe_move_untracked.sh)
 log "SUMMARY moved=$moved skipped=$skipped"
 
@@ -50,12 +48,12 @@ log "SUMMARY moved=$moved skipped=$skipped"
 log "running audit"
 ./tools/audit_manifest_files.sh --all | tee -a "$LOG"
 
-# 4) diag (warnings tolérés ici)
+# 4) diag (warnings tolérés)
 log "running diag (warnings tolerated)"
 python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
   --report json --normalize-paths --apply-aliases --strip-internal --content-check \
   > _tmp/diag_housekeeping.json 2>&1 || true
-cat _tmp/diag_housekeeping.json | head -n 200 | tee -a "$LOG"
+head -n 200 _tmp/diag_housekeeping.json | tee -a "$LOG"
 
 # 5) tests (tolérant)
 log "running pytest (tolerant)"

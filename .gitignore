@@ -217,3 +217,7 @@ tools/pass11c_destubify_ch06_07_09.sh.pre_cp_n_repl.bak
 tools/pass11d_destubify_ch05_04_03_08.sh.pre_cp_n_repl.bak
 tools/pass12_remove_shims_and_verify.sh.pre_cp_n_repl.bak
 # END AUTO-IGNORED_BY_MANIFEST_CLEANUP
+
+# Local backups
+backups/
+zz-manifests/manifest_master.json.conflict.backup.*

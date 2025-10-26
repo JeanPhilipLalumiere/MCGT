@@ -1,0 +1,62 @@
+# Auto-generated from ignore_ere.FINAL.txt — V3FINAL
+# Politique : inclure seulement le code paquet + fichiers de base, tout le reste exclu.
+
+# ---- Inclus minimalistes (si présents) ----
+include README* LICENSE* COPYING* CITATION.cff pyproject.toml setup.cfg
+
+# ---- Découverte de paquets : on laisse setuptools gérer (pyproject) ----
+
+# ---- Exclusions fortes (générées) ----
+# [unmapped from ERE] (^|/).*\.bak(\.[0-9]{8}T[0-9]{6}Z?)?$
+# [unmapped from ERE] (^|/).*\.broken\.[0-9TtZz:_-]+$
+# [unmapped from ERE] (^|/).*\.cache(/|$)
+# [unmapped from ERE] (^|/).*\.dist-info(/|$)
+# [unmapped from ERE] (^|/).*\.egg-info(/|$)
+# [unmapped from ERE] (^|/).*\.pass[0-9]+[A-Za-z0-9_-]*$
+# [unmapped from ERE] (^|/).*_bak(_[0-9TtZz:\.-]+)?$
+# [unmapped from ERE] (^|/).*before_.*ruff.*$
+# [unmapped from ERE] (^|/).*publish\.yml\.before_.*$
+# [unmapped from ERE] (^|/)86605LOG$
+# [unmapped from ERE] (^|/)MD$
+# [unmapped from ERE] (^|/)\.git/objects(/|$)
+# [unmapped from ERE] (^|/)\.ipynb_checkpoints(/|$)
+# [unmapped from ERE] (^|/)\.mypy_cache(/|$)
+# [unmapped from ERE] (^|/)\.pytest_cache(/|$)
+# [unmapped from ERE] (^|/)\.ruff_cache(/|$)
+# [unmapped from ERE] (^|/)\.venv([A-Za-z0-9._-])*(/|$)
+# [unmapped from ERE] (^|/)__pycache__(/|$)
+# [unmapped from ERE] (^|/)_archives_preclean(/|$)
+# [unmapped from ERE] (^|/)_attic_untracked(/|$)
+# [unmapped from ERE] (^|/)_tmp(/|$)
+# [unmapped from ERE] (^|/)build(/|$)|(^|/)dist(/|$)
+# [unmapped from ERE] (^|/)legacy-tex(/|$)
+# [unmapped from ERE] (^|/)nano\.[0-9]+\.(save|tmp)$
+# [unmapped from ERE] (^|/)pyproject\.toml\.before_.*$
+# [unmapped from ERE] (^|/)venv([A-Za-z0-9._-])*(/|$)
+# [unmapped from ERE] (^|/)zz-data(/|$)
+# [unmapped from ERE] (^|/)zz-figures(/|$)
+# [unmapped from ERE] \.(png|svg|pdf|jpg|jpeg|gif|eps)$
+# [unmapped from ERE] \.(so|dll|dylib|exe|o|a)$
+# [unmapped from ERE] \.(tar|tar\.gz|tgz|zip|whl)$
+# [unmapped from ERE] ^tools/shims(/|$)
+# [unmapped from ERE] ^zz-tools(/|$)
+exclude (create_and_run_smoke_workflow|garde_fou_universal_v5|restore_add_safe|run_housekeeping_capture|script_patch_publish_safe).sh
+exclude .diag_last_failed.json
+exclude make/.*
+exclude requirements-prepub.txt
+exclude sitecustomize.py
+exclude step-01-candidates.txt
+exclude zz-scripts/chapter09/run_fig01_nowarn.sh
+exclude zz-tools/.*
+global-exclude *.disabled
+global-exclude *.json
+global-exclude *.last_run_id
+global-exclude *.pyc
+global-exclude *.save
+global-exclude *.sh
+global-exclude *.tex
+global-exclude *.toml
+global-exclude *.txt
+
+# ---- Défense en profondeur (types globaux) ----
+global-exclude *.log *.tmp *.bak *.swp *~ ._* Thumbs.db .DS_Store

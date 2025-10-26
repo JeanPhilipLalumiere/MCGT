@@ -1,13 +1,15 @@
-# Binaires (pas de diff texte)
+* text=auto eol=lf
+*.csv text eol=lf
+*.tsv text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.py text eol=lf
+# Binaires
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
-*.npz binary
-*.gz  binary
-
-# Normalisation des EOL
-* text=auto eol=lf
 *.pdf binary
-zz-figures/_legacy_conflicts/ export-ignore
-zz-figures/_legacy_conflicts/** -diff
+*.ipynb binary

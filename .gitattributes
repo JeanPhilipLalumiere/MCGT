@@ -1,15 +1,15 @@
 * text=auto eol=lf
-*.csv text eol=lf
-*.tsv text eol=lf
+*.csv  text eol=lf
+*.tsv  text eol=lf
 *.json text eol=lf
-*.md text eol=lf
-*.yml text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf
 *.yaml text eol=lf
-*.py text eol=lf
+*.py   text eol=lf
 # Binaires
-*.png binary
-*.jpg binary
+*.png  binary
+*.jpg  binary
 *.jpeg binary
-*.gif binary
-*.pdf binary
+*.gif  binary
+*.pdf  binary
 *.ipynb binary

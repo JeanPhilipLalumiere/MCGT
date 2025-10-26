@@ -1,116 +1,62 @@
+# --- Environnements virtuels / caches Python
+.venv*/
+venv*/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
 
-# --- housekeeping (auto) ---
+# --- Artefacts internes au projet / temporaires / archives
 _tmp/
-_tmp-figs/
-nano.*.save
-*.swp
-*~
-._*
-zz-manifests/manifest_master.backfilled*.json
 _archives_preclean/
-_attic_untracked/
-# === Virtualenvs / build artefacts ===
-.venv/
-.venv-*/
-venv/
-env/
-.Python
-# Build / distribution
+zz-figures/
+legacy-tex/
+*.dist-info/
+*.egg-info/
 build/
 dist/
-*.egg-info/
-.venv-wheel-test/
-# === Python bytecode / caches ===
-__pycache__/
-*.py[cod]
-*.pyo
-# Tool caches
-.ruff_cache/
-.mypy_cache/
-.pytype/
-.cache/
-.pytest_cache/
-# === Tests / coverage ===
-!.github/
-!tests/
-.coverage
-.coverage.*
-coverage.xml
-htmlcov/
-# === Editor / IDE files ===
-.vscode/
-.idea/
-# === OS / system files ===
-.DS_Store
-Thumbs.db
-# === Jupyter ===
-.ipynb_checkpoints/
-# === Logs & temporary files ===
-*.log
-*.tmp
-# === Backups & miscellaneous ===
-*.bak
-zz-trash/
-# === Local preview / generated figures (not part of publication) ===
-zz-figures/
-# === Misc binary / compiled ===
-*.so
-# Local only
-MCGT-clean/
-_reports/
-# cleanup patterns (dédupliqués)
-dist_*/
-dist_from_*/
-artifacts_*/
-.tmp-*/
-.tmp_*/
-.tmp-ci/
-.tmp-gh-dist/
-.tmp-cleanup-logs/
-.ci_poke/
-actionlint.tar.gz
-archive/
-archive/cleanup_*.tar.gz
-# CI artifacts / miscellanea
-legacy-tex/
-zz-configuration/parameters_registry.json
-tools/*.before_psx
-tools/*.new
-# local diagnostics
-# generated / transient
-# caches
+
+# --- Fichiers compilés / binaires / archives
 *.pyc
-# scaffolding / backups
-*_bak_*
-*before_*
-*.pass*
-site/
-zz-out/
-# === Generated artefacts (guard) ===
-.ci-logs/
-.ci-out/
-_pyproject.legacy.toml
-MCGT-*.tar.gz
-_diag*.json
-_snapshots/
-*.bak.*
-*.broken.*
-# data & outils locaux
-zz-data/**/*.csv
-tools/update_manifest_git_hashes.py
-# logs locaux
-_logs/
-*LOG
-# garde-fou local
-/garde_fou_universal_v5.sh
-# Virtualenvs and build artifacts
-.venv-*
-.venv*/
-_venv*/
-env*/
-venv*/
+*.so
+*.dll
+*.dylib
+*.o
+*.a
+*.tar
 *.tar.gz
+*.tgz
+*.zip
 *.whl
-_archives/
-# Local cache & editor
-# ignore backfilled manifests & local archives
+
+# --- Visuels lourds (générés)
+*.png
+*.svg
+*.pdf
+*.jpg
+*.jpeg
+*.gif
+*.eps
+
+# --- Backups / passes / fichiers atelier (conservateur)
+*.bak
+*.bak.*
+*.pass*
+zz-tools/
+create_and_run_smoke_workflow.sh
+garde_fou_universal_v5.sh
+restore_add_safe.sh
+run_housekeeping_capture.sh
+script_patch_publish_safe.sh
+zz-scripts/chapter09/run_fig01_nowarn.sh
+step-01-candidates.txt
+
+# --- Artefacts ponctuels locaux de diag
+.diag_last_failed.json
+.last_run_id
+.purge_check.txt
+
+# --- Historiques/variantes CI (si présents)
+.github/workflows/publish.yml.before_*
+.pre-commit-config.yaml.*_bak*

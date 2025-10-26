@@ -67,3 +67,12 @@ _logs/
 *.log
 *.stderr
 *.stdout
+# env & artefacts locaux
+.venv/
+_tmp/
+backups/
+*.bak
+*.bak.*
+*.save
+*.swp
+.ci-archive/

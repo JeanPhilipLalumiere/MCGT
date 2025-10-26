@@ -1,5 +1,6 @@
 name: build-publish
 on:
+  pull_request:
   workflow_dispatch:
 concurrency:
   group: .github/workflows/build-publish.yml-${{ github.ref }}

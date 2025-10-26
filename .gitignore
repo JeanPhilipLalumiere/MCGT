@@ -60,3 +60,10 @@ step-01-candidates.txt
 # --- Historiques/variantes CI (si présents)
 .github/workflows/publish.yml.before_*
 .pre-commit-config.yaml.*_bak*
+# Logs & artefacts locaux (ne pas versionner)
+_logs/
+.ci-logs/
+.ci-out/
+*.log
+*.stderr
+*.stdout

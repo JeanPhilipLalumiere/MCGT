@@ -1,0 +1,4 @@
+*** hint (non appliqué) ***
+- 
+    df = pd.read_csv(samples_path)
++ df = pd.read_csv(samples_path)

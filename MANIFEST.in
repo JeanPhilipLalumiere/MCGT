@@ -1,10 +1,7 @@
-# SAFE MANIFEST.in — conservateur
-# Inclure le paquet + fichiers racine utiles ; exclure envs/caches/artefacts bruyants.
-
-# ---- Inclus usuels (si présents) ----
+# SAFE MANIFEST.in — conservateur (zz-tools)
 include README* LICENSE* COPYING* CITATION.cff pyproject.toml setup.cfg
 
-# ---- Répertoires bruyants (pas utiles au sdist) ----
+# Répertoires bruyants
 prune .git
 prune .venv*
 prune venv*
@@ -18,21 +15,25 @@ prune zz-data
 prune build
 prune dist
 
-# ---- Caches & bytecode ----
+# Caches & bytecode
 recursive-exclude * __pycache__ *
 recursive-exclude * .pytest_cache *
 recursive-exclude * .mypy_cache *
 recursive-exclude * .ruff_cache *
 global-exclude *.pyc *.pyo *.pyd
 
-# ---- Exclusions ciblées (spécifiques projet) ----
+# Code du paquet (zz_tools)
+recursive-include zz_tools *.py *.pyi *.typed
+
+# Exclusions projet
 exclude .diag_last_failed.json
 exclude requirements-prepub.txt
 exclude step-01-candidates.txt
 exclude zz-scripts/chapter09/run_fig01_nowarn.sh
 exclude make/smoke.mk
 
-# ---- Défense en profondeur (artefacts génériques) ----
+# Nettoyage documents de backup / bruit
+global-exclude README*.bak.*
 global-exclude *.log *.tmp *.bak *.swp *~ ._* Thumbs.db .DS_Store
-# (Optionnel si tu veux un sdist purement source) :
+# Optionnel pour sdist purement source:
 # global-exclude *.so *.dll *.dylib

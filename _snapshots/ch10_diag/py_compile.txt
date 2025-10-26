@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/py_compile.py", line 144, in compile
+    code = loader.source_to_code(source_bytes, dfile or file,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1063, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "zz-scripts/chapter10/generate_data_chapter10.py", line 366
+    df = pd.read_csv(samples_path)
+IndentationError: unexpected indent
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/home/jplal/miniforge3/envs/mcgt-dev/lib/python3.12/py_compile.py", line 150, in compile
+    raise py_exc
+py_compile.PyCompileError: Sorry: IndentationError: unexpected indent (generate_data_chapter10.py, line 366)

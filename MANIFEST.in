@@ -1,39 +1,13 @@
-# SAFE MANIFEST.in — conservateur (zz-tools)
-include README* LICENSE* COPYING* CITATION.cff pyproject.toml setup.cfg
+include pyproject.toml
+include README.md
+include README.rst
+include LICENSE
+recursive-include src *.py
+recursive-include msrc *.py
 
-# Répertoires bruyants
-prune .git
-prune .venv*
-prune venv*
+# Exclusions: artefacts & archives
+global-exclude *.log
 prune _tmp
-prune _archives_preclean
-prune _logs
-prune _snapshots
-prune legacy-tex
-prune zz-figures
-prune zz-data
-prune build
-prune dist
-
-# Caches & bytecode
-recursive-exclude * __pycache__ *
-recursive-exclude * .pytest_cache *
-recursive-exclude * .mypy_cache *
-recursive-exclude * .ruff_cache *
-global-exclude *.pyc *.pyo *.pyd
-
-# Code du paquet (zz_tools)
-recursive-include zz_tools *.py *.pyi *.typed
-
-# Exclusions projet
-exclude .diag_last_failed.json
-exclude requirements-prepub.txt
-exclude step-01-candidates.txt
-exclude zz-scripts/chapter09/run_fig01_nowarn.sh
-exclude make/smoke.mk
-
-# Nettoyage documents de backup / bruit
-global-exclude README*.bak.*
-global-exclude *.log *.tmp *.bak *.swp *~ ._* Thumbs.db .DS_Store
-# Optionnel pour sdist purement source:
-# global-exclude *.so *.dll *.dylib
+prune backups
+prune .ci-archive
+global-exclude *.zip *.tar *.tar.gz *.tar.bz2 *.tar.xz

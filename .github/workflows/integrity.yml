@@ -1,3 +1,6 @@
+# added by policies_guard_common_fixes
+permissions:
+  contents: read
 name: integrity
 on: [push, pull_request]
 concurrency:

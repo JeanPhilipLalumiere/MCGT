@@ -3,6 +3,8 @@ permissions:
   contents: read
 name: guard-generated
 on: [push, pull_request]
+  workflow_dispatch:
+  pull_request:
 concurrency:
   group: .github/workflows/guard-generated.yml-${{ github.ref }}
   cancel-in-progress: true

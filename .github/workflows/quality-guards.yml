@@ -3,6 +3,8 @@ permissions:
   contents: read
 name: quality-guards
 on: [push, pull_request]
+  workflow_dispatch:
+  pull_request:
 concurrency:
   group: .github/workflows/quality-guards.yml-${{ github.ref }}
   cancel-in-progress: true

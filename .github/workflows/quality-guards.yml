@@ -9,6 +9,7 @@ concurrency:
 jobs:
   perms-and-shebang:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'push' || !startsWith(github.ref, 'refs/heads/rewrite/') }}
     steps:
       - uses: actions/checkout@v4
         with:

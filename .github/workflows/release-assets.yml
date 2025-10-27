@@ -1,3 +1,6 @@
+# added by policies_guard_common_fixes
+permissions:
+  contents: read
 name: release-assets
 on:
 concurrency:

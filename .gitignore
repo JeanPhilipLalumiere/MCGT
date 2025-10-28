@@ -16,7 +16,6 @@ legacy-tex/
 *.egg-info/
 build/
 dist/
-
 # --- Fichiers compilés / binaires / archives
 *.pyc
 *.so
@@ -29,7 +28,6 @@ dist/
 *.tgz
 *.zip
 *.whl
-
 # --- Visuels lourds (générés)
 *.png
 *.svg
@@ -38,7 +36,6 @@ dist/
 *.jpeg
 *.gif
 *.eps
-
 # --- Backups / passes / fichiers atelier (conservateur)
 *.bak
 *.bak.*
@@ -51,12 +48,10 @@ run_housekeeping_capture.sh
 script_patch_publish_safe.sh
 zz-scripts/chapter09/run_fig01_nowarn.sh
 step-01-candidates.txt
-
 # --- Artefacts ponctuels locaux de diag
 .diag_last_failed.json
 .last_run_id
 .purge_check.txt
-
 # --- Historiques/variantes CI (si présents)
 .github/workflows/publish.yml.before_*
 .pre-commit-config.yaml.*_bak*
@@ -69,10 +64,29 @@ _logs/
 *.stdout
 # env & artefacts locaux
 .venv/
-_tmp/
 backups/
-*.bak
-*.bak.*
 *.save
 *.swp
 .ci-archive/
+# --- Round2 (20251028T181638Z) additions ---
+# === Proposition complémentaire (Round2: 20251028T181549Z) ===
+**/*.bak*
+**/*.err
+**/*.log
+**/*.out
+**/*.tar.gz
+**/*.zip
+zz_tools.egg-info/
+# === Proposition complémentaire (Round2: 20251028T182912Z) ===
+# === Proposition complémentaire (Round2: 20251028T182855Z) ===
+# ---- mcgt: merged from _tmp/inventaires/gitignore_proposition_round2.txt (2025-10-28)
+# === Proposition complémentaire (Round2: 20251028T192430Z) ===
+./.ci-out
+./_logs
+./_snapshots
+./_tmp
+./_tmp-figs
+./backups
+./dist
+./zz-out
+./zz_tools.egg-info

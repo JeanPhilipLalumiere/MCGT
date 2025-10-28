@@ -1,0 +1,8 @@
+# === Proposition complémentaire (Round2: 20251028T183602Z) ===
+**/*.bak*
+**/*.err
+**/*.log
+**/*.out
+**/*.tar.gz
+**/*.zip
+.ci-out/

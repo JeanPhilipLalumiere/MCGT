@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-precommit-
 
       - name: Install pre-commit
-        run: python -m pip install -U pip pre-commit
+        run: python -m pip install -U pip pre-commit -c constraints/security-pins.txt
 
       - name: Run pre-commit (avec cache)
         uses: pre-commit/action@v3.0.1

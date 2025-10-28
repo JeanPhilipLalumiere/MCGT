@@ -1,0 +1,11 @@
+./_tmp
+./dist
+./zz_tools.egg-info
+.ci-out
+.github/workflows/build-publish.yml.bak
+.github/workflows/ci-accel.yml.bak
+.github/workflows/guard-generated.yml.bak
+.github/workflows/integrity.yml.bak
+.github/workflows/pdf.yml.bak
+.github/workflows/pip-audit.yml.bak
+.github/workflows/quality-guards.yml.bak

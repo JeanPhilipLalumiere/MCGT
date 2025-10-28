@@ -17,8 +17,8 @@ jobs:
           python-version: '3.12'
       - name: Install deps
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
+          python -m pip install --upgrade pip -c constraints/security-pins.txt
+          pip install -r requirements.txt || true -c constraints/security-pins.txt
       - name: Run diag_consistency (fail on warnings)
         run: |
           python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \

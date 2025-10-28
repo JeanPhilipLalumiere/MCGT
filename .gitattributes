@@ -13,3 +13,23 @@
 *.gif  binary
 *.pdf  binary
 *.ipynb binary
+30
+_attic_untracked/** export-ignore
+_tmp/** export-ignore
+_tmp-* export-ignore
+*.bak export-ignore
+*.bak_* export-ignore
+*.lock.json export-ignore
+*.tmp export-ignore
+*.tmp.* export-ignore
+*.swp export-ignore
+*.log export-ignore
+_logs/** export-ignore
+arborescence.txt export-ignore
+purge_plan_dryrun.txt export-ignore
+gitignore_proposition_round2.txt export-ignore
+add_list_round2.txt export-ignore
+ignore_list_round2.txt export-ignore
+review_list_round2.txt export-ignore
+README-REPRO.md export-ignore
+# --- end export-ignore (MCGT round2) ---

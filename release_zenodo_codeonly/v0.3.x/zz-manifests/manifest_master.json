@@ -7145,14 +7145,6 @@
       "git_hash": "a3b0d790309d4db07b6762298d0fbffc244e226f"
     },
     {
-      "path": "docs/CH10_FIX_TODO.md",
-      "role": "document",
-      "size_bytes": 2412,
-      "sha256": "a243396163873ecb72f384a28a0c64609a40f5bf984dbcd61e6d0168fd8bf51d",
-      "mtime_iso": "2025-10-21T16:50:45Z",
-      "git_hash": "3b3a1a6d5875c0b918eb4c191241d9678abf4128"
-    },
-    {
       "path": "conventions.md",
       "role": "source",
       "size_bytes": 13509,

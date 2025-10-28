@@ -305,3 +305,5 @@ Voir aussi `CITATION.cff`.
 # ci-nudge-2
 
 # ci-nudge-3
+
+# ci-nudge-pypi

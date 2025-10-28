@@ -101,3 +101,8 @@ zz_tools.egg-info/
 *.rej
 *.lock.json
 *~
+# ---- mcgt: merged suffix patterns (20251028T203652Z)
+# step11 suffix patterns (idempotent)
+*.swo
+.DS_Store
+*.ipynb_checkpoints*

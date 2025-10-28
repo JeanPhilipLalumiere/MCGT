@@ -33,10 +33,10 @@ jobs:
 
       - name: Install pre-commit + pytest
         run: |
-          python -m pip install --upgrade pip
-          pip install pre-commit pytest
+          python -m pip install --upgrade pip -c constraints/security-pins.txt
+          pip install pre-commit pytest -c constraints/security-pins.txt
           # Installer tous les requirements.txt s’ils existent
-          find . -name "requirements.txt" -maxdepth 4 -print0 | xargs -0 -r -I{} bash -lc 'pip install -r "{}"'
+          find . -name "requirements.txt" -maxdepth 4 -print0 | xargs -0 -r -I{} bash -lc 'pip install -r "{}"' -c constraints/security-pins.txt
 
       - name: Run pre-commit (all files)
         run: pre-commit run -a

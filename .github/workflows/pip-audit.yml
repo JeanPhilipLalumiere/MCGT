@@ -14,8 +14,8 @@ concurrency:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ github.event_name == 'pull_request' }}
-    if: ${{ github.event_name != 'push' || !startsWith(github.ref, 'refs/heads/rewrite/') }}
+    continue-on-error: false
+    # removed temporary soften (rewrite/*)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

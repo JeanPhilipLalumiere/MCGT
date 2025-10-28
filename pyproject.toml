@@ -34,3 +34,5 @@ Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
 Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
 
 [tool.setuptools]
+
+# ci-nudge

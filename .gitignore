@@ -90,3 +90,14 @@ zz_tools.egg-info/
 ./dist
 ./zz-out
 ./zz_tools.egg-info
+# ---- mcgt: merged step9 (2025-10-28)
+# ---- mcgt: auto-added (step9) backups/tmp patterns
+.github/workflows/*tmp*
+.github/workflows/*before_*
+*.tmp
+*.disabled
+*.old
+*.orig
+*.rej
+*.lock.json
+*~

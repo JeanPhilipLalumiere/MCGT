@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     # removed temporary soften (rewrite/*)
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Vérifier que rien de généré n’est suivi

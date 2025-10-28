@@ -1,5 +1,6 @@
 name: pypi-build
 on:
+  workflow_dispatch:
   push:
     branches: ["**"]
   pull_request:

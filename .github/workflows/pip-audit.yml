@@ -23,12 +23,12 @@ jobs:
       - name: Install project (best-effort)
         run: |
           set -e
-          python -m pip install -U pip
+          python -m pip install -U pip -c constraints/security-pins.txt
           if ls requirements*.txt >/dev/null 2>&1; then
-            pip install -r requirements.txt || true
+            pip install -r requirements.txt || true -c constraints/security-pins.txt
           fi
       - name: Install pip-audit
-        run: pip install pip-audit
+        run: pip install pip-audit -c constraints/security-pins.txt
       - name: Run pip-audit
         run: |
           set -e

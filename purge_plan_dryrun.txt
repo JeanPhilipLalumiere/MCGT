@@ -1,11 +1,2 @@
-# rm -f -- './_tmp'
-# rm -f -- './dist'
-# rm -f -- './zz_tools.egg-info'
-# rm -f -- '.ci-out'
-# rm -f -- '.github/workflows/build-publish.yml.bak'
-# rm -f -- '.github/workflows/ci-accel.yml.bak'
-# rm -f -- '.github/workflows/guard-generated.yml.bak'
-# rm -f -- '.github/workflows/integrity.yml.bak'
-# rm -f -- '.github/workflows/pdf.yml.bak'
-# rm -f -- '.github/workflows/pip-audit.yml.bak'
-# rm -f -- '.github/workflows/quality-guards.yml.bak'
+.diag_last_failed.json
+.last_run_id

@@ -1,4 +1,5 @@
 name: pypi-build
+name: pypi-build
 true:
   workflow_dispatch: null
   push:

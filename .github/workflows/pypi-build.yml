@@ -2,6 +2,10 @@ name: pypi-build
 
 on:
   push:
+    branches: ["*"]
+  pull_request:
+  workflow_dispatch:
+  push:
     branches: [ main, 'cleanup/**' ]
   pull_request:
     branches: [ main ]

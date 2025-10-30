@@ -1,0 +1,14 @@
+**/*.lock.json
+**/*.lock.lock.json
+**/*.npz.lock.lock.json
+/zz-data/chapter07/07_cs2_matrix.csv
+/zz-data/chapter07/07_delta_phi_matrix.csv
+/zz-data/chapter08/08_chi2_scan2D.csv
+/zz-data/chapter10/10_mc_results.agg.csv
+/zz-data/chapter10/10_mc_results.circ.agg.csv
+/zz-data/chapter10/10_mc_results.circ.csv
+/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
+/zz-data/chapter10/10_mc_results.csv
+tools/*.bak_*
+tools/*/*.bak_*
+zz-scripts/chapter10/*.broken.*

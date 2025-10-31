@@ -26,8 +26,6 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
-
 # imports from your package
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
@@ -84,8 +82,6 @@ def main():
 
     # read files
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
-
     if args.backup:
         bak = args.results + ".bak"
         if not os.path.exists(bak):
@@ -282,3 +278,33 @@ df = ci.ensure_fig02_cols(df)
 
 if __name__ == "__main__":
     main()
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Surtout ne rien casser si l'environnement matplotlib n'est pas prêt
+        pass
+    return args
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

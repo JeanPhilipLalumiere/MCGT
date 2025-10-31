@@ -1,0 +1,20 @@
+name: ci-cli-policy
+on:
+  pull_request:
+  push:
+jobs:
+  cli-policy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        py: ["3.10","3.11","3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.py }}
+      - name: Run policy checkers
+        run: |
+          python tools/check_cli_common.py || { echo "::error ::check_cli_common.py manquant ou en échec"; exit 1; }
+          python tools/check_cli_policy.py
+          python tools/check_no_safe_runners.py

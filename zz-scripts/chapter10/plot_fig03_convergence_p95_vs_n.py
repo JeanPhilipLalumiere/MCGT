@@ -132,7 +132,7 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)
 
     p95_col = detect_p95_column(df, args.p95_col)
     p95 = df[p95_col].dropna().astype(float).values

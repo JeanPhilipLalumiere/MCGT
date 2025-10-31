@@ -113,7 +113,7 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)
 
     orig_col = detect_column(df, args.orig_col, [args.orig_col])
     recalc_col = detect_column(df, args.recalc_col, [args.recalc_col])

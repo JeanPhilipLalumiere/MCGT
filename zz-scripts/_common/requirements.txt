@@ -1,0 +1,5 @@
+# Base commune minimale (à affiner/pinner)
+numpy
+scipy
+matplotlib
+pandas

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Figure 02 - Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
-Version publication - panneau de droite compact (Option A)
+Figure 02 — Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
+Version publication – panneau de droite compact (Option A)
 
 CHANGEMENTS CLÉS
-- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k.2*π) - φ_ref + π) mod 2*π - π
-avec k = median((φ_mcgt - φ_ref)/(2*π)) sur la bande 20-300 Hz.
+- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k·2π) - φ_ref + π) mod 2π − π
+  avec k = median((φ_mcgt − φ_ref)/(2π)) sur la bande 20–300 Hz.
 - Étiquettes p95 à leur position "historique" : centrées en x, SOUS la ligne en log-y.
 - Plus d’espace vertical entre le titre et le 1er panneau.
 
@@ -76,17 +76,18 @@ def _ensure_standard_cols(df):
 from matplotlib.lines import Line2D
 
 # -------------------- utils --------------------
+def setup_logger(level: str = "INFO") -> logging.Logger:
+    logging.basicConfig(
+        level=getattr(logging, level.upper(), logging.INFO),
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    return logging.getLogger("fig02")
 
 def p95(a: np.ndarray) -> float:
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
-    if a.size == 0:
-        return float('nan')
-    return float(np.percentile(a, 95.0))
-
-a = np.asarray(a, float)
-a = a[np.isfinite(a)]
-return float(np.percentile(a, 95.0)) if a.size else float("nan")
+    return float(np.percentile(a, 95.0)) if a.size else float("nan")
 
 def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
@@ -134,13 +135,6 @@ def k_rebranch_median(
 # -------------------- script --------------------
 def main():
     ap = argparse.ArgumentParser(
-ap.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
-ap.add_argument('--dpi', type=float, default=150.0, help='DPI figure.')
-ap.add_argument('--format', default='png', choices=['png','pdf','svg'], help='Format de sortie.')
-ap.add_argument('--transparent', action='store_true', help='Fond transparent.')
-ap.add_argument('--style', default=None, help='Style Matplotlib (ex.: seaborn-v0_8).')
-ap.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
-
         description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
     )
     ap.add_argument("--csv", type=Path, required=True)
@@ -159,31 +153,6 @@ ap.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
     )
     args = ap.parse_args()
-
-# === [CLI-INJECT BEGIN] ===
-try:
-    import matplotlib.pyplot as plt  # type: ignore
-    import logging
-    if 'args' not in globals():
-        args = None  # fallback si parse_args() n'assigne pas
-    if args is None:
-        pass
-    else:
-        if getattr(args, 'verbose', False):
-            logging.basicConfig(level=logging.INFO)
-        try: plt.rcParams['savefig.dpi'] = getattr(args, 'dpi', 150.0)
-        except Exception: pass
-        try: plt.rcParams['savefig.format'] = getattr(args, 'format', 'png')
-        except Exception: pass
-        try: plt.rcParams['savefig.transparent'] = bool(getattr(args, 'transparent', False))
-        except Exception: pass
-        st = getattr(args, 'style', None)
-        if st:
-            try: plt.style.use(st)
-            except Exception: pass
-except Exception:
-    pass
-# === [CLI-INJECT END] ===
 
     log = setup_logger(args.log_level)
     meta = load_meta(args.meta)

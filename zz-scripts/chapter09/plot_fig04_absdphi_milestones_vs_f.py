@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """
-fig_04 - Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
+fig_04 – Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
 
 Entrées:
-- (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi
-- (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ...
-- (--meta) 09_metrics_phase.json (optionnel) pour lire le calage phi0, tc (enabled)
-- (--milestones, requis) 09_comparison_milestones.csv :
-event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,obs_phase,sigma_phase,epsilon_rel,classe
+  - (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi
+  - (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ...
+  - (--meta) 09_metrics_phase.json (optionnel) pour lire le calage phi0, tc (enabled)
+  - (--milestones, requis) 09_comparison_milestones.csv :
+        event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,obs_phase,sigma_phase,epsilon_rel,classe
 
 Sortie:
-- PNG unique (et optionnellement PDF/SVG si tu veux étendre)
+  - PNG unique (et optionnellement PDF/SVG si tu veux étendre)
 
 Points clés corrigés:
-* Les MILESTONES sont calculés en **différence principale** modulo 2*π, PAS abs(diff) brute.
-* On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
-est reconstruit depuis --csv) pour cohérence scientifique.
-* Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
-sous 1e-12.
+  * Les MILESTONES sont calculés en **différence principale** modulo 2π, PAS abs(diff) brute.
+  * On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
+    est reconstruit depuis --csv) pour cohérence scientifique.
+  * Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
+    sous 1e-12.
 
 Exemple:
   python tracer_fig04_milestones_absdphi_vs_f.py \
@@ -58,12 +58,18 @@ def setup_logger(level: str):
     )
     return logging.getLogger("fig04")
 
+
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
 
-out[bad] = eps
-return out
+
+def _safe_pos(arr: np.ndarray, eps: float = 1e-12) -> np.ndarray:
+    out = np.array(arr, dtype=float)
+    bad = ~np.isfinite(out) | (out <= 0)
+    if np.any(bad):
+        out[bad] = eps
+    return out
 
 
 def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
@@ -76,25 +82,23 @@ def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
 
 
 def _auto_xlim(f_all: np.ndarray, xmin_hint: float = 10.0):
-f = np.asarray(f_all, float)
-f = f[np.isfinite(f) & (f > 0)]
-if f.size ==== 0:
-    pass
-return xmin_hint, 2000.0
-lo = float(np.min(f)) / (10**0.05)
-hi = float(np.max(f)) * (10**0.05)
-lo = max(lo, 0.5)
-return lo, hi
+    f = np.asarray(f_all, float)
+    f = f[np.isfinite(f) & (f > 0)]
+    if f.size == 0:
+        return xmin_hint, 2000.0
+    lo = float(np.min(f)) / (10**0.05)
+    hi = float(np.max(f)) * (10**0.05)
+    lo = max(lo, 0.5)
+    return lo, hi
 
 
 def _auto_ylim(values: list[np.ndarray], pad_dec: float = 0.15):
-v = np.concatenate([_safe_pos(x), for, x in values, if, x.size])
-if v.size ==== 0:
-    pass
-return 1e-4, 1e2
-ymin = float(np.nanmin(v)) / (10**pad_dec)
-ymax = float(np.nanmax(v)) * (10**pad_dec)
-return max(ymin, 1e-12), ymax
+    v = np.concatenate([_safe_pos(x) for x in values if x.size])
+    if v.size == 0:
+        return 1e-4, 1e2
+    ymin = float(np.nanmin(v)) / (10**pad_dec)
+    ymax = float(np.nanmax(v)) * (10**pad_dec)
+    return max(ymin, 1e-12), ymax
 
 
 def load_meta(meta_path: Path):
@@ -120,13 +124,6 @@ def pick_variant(df: pd.DataFrame) -> str:
 
 def parse_args():
     ap = argparse.ArgumentParser(
-ap.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
-ap.add_argument('--dpi', type=float, default=150.0, help='DPI figure.')
-ap.add_argument('--format', default='png', choices=['png','pdf','svg'], help='Format de sortie.')
-ap.add_argument('--transparent', action='store_true', help='Fond transparent.')
-ap.add_argument('--style', default=None, help='Style Matplotlib (ex.: seaborn-v0_8).')
-ap.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
-
         description="fig_04 – |Δφ|(f) + milestones (principal, calage cohérent)"
     )
     ap.add_argument(

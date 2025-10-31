@@ -72,6 +72,31 @@ parser.add_argument('--transparent', action='store_true', help='Fond transparent
 parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
 parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
 args = ap.parse_args()
+# === [CLI-INJECT BEGIN] ===
+try:
+    import matplotlib.pyplot as plt  # type: ignore
+    import logging
+    if 'args' not in globals():
+        args = None  # fallback si parse_args() n'assigne pas
+    if args is None:
+        pass
+    else:
+        if getattr(args, 'verbose', False):
+            logging.basicConfig(level=logging.INFO)
+        try: plt.rcParams['savefig.dpi'] = getattr(args, 'dpi', 150.0)
+        except Exception: pass
+        try: plt.rcParams['savefig.format'] = getattr(args, 'format', 'png')
+        except Exception: pass
+        try: plt.rcParams['savefig.transparent'] = bool(getattr(args, 'transparent', False))
+        except Exception: pass
+        st = getattr(args, 'style', None)
+        if st:
+            try: plt.style.use(st)
+            except Exception: pass
+except Exception:
+    pass
+# === [CLI-INJECT END] ===
+
 description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
 return apap.add_argument(
 # "--outdir",

@@ -176,6 +176,13 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
 # ---------------- CLI
 def parse_args():
     ap = argparse.ArgumentParser(
+ap.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
+ap.add_argument('--dpi', type=float, default=150.0, help='DPI figure.')
+ap.add_argument('--format', default='png', choices=['png','pdf','svg'], help='Format de sortie.')
+ap.add_argument('--transparent', action='store_true', help='Fond transparent.')
+ap.add_argument('--style', default=None, help='Style Matplotlib (ex.: seaborn-v0_8).')
+ap.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
+
         description="Figure 01 — Overlay φ_ref vs φ_MCGT + inset résidu"
     )
     ap.add_argument("--csv", type=Path, default=DEF_IN)

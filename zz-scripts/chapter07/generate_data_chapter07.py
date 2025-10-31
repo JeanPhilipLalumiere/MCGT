@@ -251,7 +251,7 @@ def main():
     # Construire grilles
     k_grid = np.logspace(np.log10(p.k_min), np.log10(p.k_max), p.n_k)
     a_vals = np.linspace(p.a_min, p.a_max, p.n_a)
-    logger.info("Grilles : %d k-points × %d a-points", len(k_grid), len(a_vals))
+    logger.info("Grilles : %s k-points × %s a-points", len(k_grid), len(a_vals))
 
     if args.dry_run:
         logger.info("Dry-run uniquement : pas de calcul.")

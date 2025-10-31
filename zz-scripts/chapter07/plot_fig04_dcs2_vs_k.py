@@ -42,7 +42,7 @@ logging.info( "k_split = %.2e h/Mpc", k_split)
 df = pd.read_csv( CSV_DCS2, comment="#")
 k_vals = df[ "k"].to_numpy()
 dcs2 = df.iloc[:, 1].to_numpy()
-logging.info( "Loaded %d points from %s", len( df ), CSV_DCS2.name)
+logging.info( "Loaded %s points from %s", len( df ), CSV_DCS2.name)
 
 # --- Création de la figure ---
 FIG_DIR.mkdir( parents=True, exist_ok=True)
@@ -87,7 +87,7 @@ ax.yaxis.set_minor_locator( LogLocator( base=10, subs=( 2.5 ) ))
 def pow_fmt(x, pos):
     if x <= 0 or not np.isfinite(x):
         return ""
-    return r"$10^{%d}$" % int(np.log10(x))
+    return r"$10^{%s}$" % int(np.log10(x))
 
 
 

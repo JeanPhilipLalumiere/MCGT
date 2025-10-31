@@ -56,7 +56,7 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level.upper(), logging.INFO),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("apply_poly_unwrap_rebranch")
 
@@ -180,7 +180,7 @@ def main():
     )
 
     log.info(
-        "Fit: basis=%s, degree=%d, window=[%.1f, %.1f] Hz, points=%d",
+        "Fit: basis=%s, degree=%s, window=[%s, %s] Hz, points=%s",
         args.basis,
         args.degree,
         flo,
@@ -188,10 +188,10 @@ def main():
         nfit,
     )
     log.info(
-        "Rebranch: k=%d cycles (soustraction de %.6f rad à la tendance).", k, k * two_pi
+        "Rebranch: k=%s cycles (soustraction de %s rad à la tendance).", k, k * two_pi
     )
     log.info(
-        "Metrics %g–%g Hz: mean=%.3f  p95=%.3f  max=%.3f  (n=%d)",
+        "Metrics %g–%g Hz: mean=%s  p95=%s  max=%s  (n=%s)",
         mlo,
         mhi,
         mean_abs,

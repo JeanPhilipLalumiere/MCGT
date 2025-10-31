@@ -54,7 +54,7 @@ def bootstrap_circ_mean_ci(
 
     Technique: calcule la moyenne circulaire θ̂. Pour chaque bootstrap, calcule θ_b.
     Étant sur un cercle, on centre puis "wrap" : Δ_b = wrap(θ_b - θ̂).
-    On prend les percentiles 2.5% et 97.5% de Δ_b, puis on réapplique autour de θ̂.
+    On prend les percentiles 2.5% et 97.5%se Δ_b, puis on réapplique autour de θ̂.
 
     Retourne: (theta_hat, ci_low, ci_high) en radians dans [-π, π).
     """
@@ -169,7 +169,7 @@ def main():
         "--boot-ci",
         type=int,
         default=1000,
-        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
+        help="B (réplicats) pour IC bootstrap 95%se la moyenne circulaire de Δφ. 0 = off.",
     )
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
 

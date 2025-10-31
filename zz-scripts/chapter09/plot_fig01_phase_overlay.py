@@ -53,7 +53,7 @@ def setup_logger(level="INFO"):
     logging.basicConfig(
         level=getattr(logging, level.upper(), logging.INFO),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("fig01")
 
@@ -76,7 +76,7 @@ def enforce_monotone_freq(f, arrays, log):
     keep[1:] = np.diff(f_sorted) > 0
     if np.any(~keep):
         log.warning(
-            "Fréquences dupliquées → %d doublons supprimés.", int((~keep).sum())
+            "Fréquences dupliquées → %s doublons supprimés.", int((~keep).sum())
         )
     out = {k: np.asarray(v, float)[order][keep] for k, v in arrays.items()}
     return f_sorted[keep], out
@@ -263,7 +263,7 @@ def main():
     ref_u = np.unwrap(ref) if np.isfinite(ref).any() else ref
     ref_u, last_valid = mask_flat_tail(ref_u, min_run=3, atol=1e-12)
     if last_valid < ref_u.size - 1:
-        log.info("Plateau terminal φ_ref: masquage > f=%.3f Hz", float(f[last_valid]))
+        log.info("Plateau terminal φ_ref: masquage > f=%s Hz", float(f[last_valid]))
 
     # --- Rebranch canonique (k par médiane des cycles) ---
     f1, f2 = sorted(map(float, args.shade))
@@ -272,7 +272,7 @@ def main():
         raise SystemExit("Aucun point dans la bande métriques.")
     two_pi = 2.0 * np.pi
     k = int(np.round(np.nanmedian((mcg[mask_band] - ref[mask_band]) / two_pi)))
-    log.info("k (médiane des cycles) = %d", k)
+    log.info("k (médiane des cycles) = %s", k)
 
     mcg_rebran = (
         mcg - k * two_pi
@@ -318,7 +318,7 @@ def main():
     p95_abs = float(p95(np.abs(dphi[m2])))
     max_abs = float(np.nanmax(np.abs(dphi[m2])))
     log.info(
-        "|Δφ| %g–%g Hz (après rebranch k=%d): mean=%.3f ; p95=%.3f ; max=%.3f (n=%d)",
+        "|Δφ| %g–%g Hz (après rebranch k=%s): mean=%s ; p95=%s ; max=%s (n=%s)",
         f1,
         f2,
         k,

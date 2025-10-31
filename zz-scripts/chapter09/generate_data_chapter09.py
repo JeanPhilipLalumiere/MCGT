@@ -70,7 +70,7 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level.upper(), logging.INFO),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("chapitre9.pipeline")
 
@@ -260,7 +260,7 @@ def load_or_build_reference(
                 f_ref = df["f_Hz"].to_numpy(float)
                 p_ref = df["phi_ref"].to_numpy(float)
                 if finite_ratio(p_ref) >= 0.9 and np.all(np.diff(f_ref) > 0):
-                    logger.info("Référence existante utilisée (%d pts).", f_ref.size)
+                    logger.info("Référence existante utilisée (%s pts).", f_ref.size)
                     return f_ref, p_ref, "file_existing"
                 logger.warning("Référence existante invalide → régénération.")
         except Exception as e:
@@ -330,7 +330,7 @@ def fit_alignment_phi0_tc(
     n = int(np.sum(mask))
     if n < 2:
         logger.warning(
-            "Calage: trop peu de points dans [%.1f, %.1f] Hz (n=%d).", fmin, fmax, n
+            "Calage: trop peu de points dans [%s, %s] Hz (n=%s).", fmin, fmax, n
         )
         return 0.0, 0.0, n
 
@@ -360,7 +360,7 @@ def fit_alignment_phi0_tc(
     tc_hat = float(beta[1]) if (model == "phi0_tc" and len(beta) > 1) else 0.0
 
     logger.info(
-        "Calage %s (poids=%s): φ0=%.6e rad, t_c=%.6e s (n=%d, window=[%.1f, %.1f])",
+        "Calage %s (poids=%s): φ0=%.6e rad, t_c=%.6e s (n=%s, window=[%s, %s])",
         model,
         weight,
         phi0_hat,
@@ -557,7 +557,7 @@ def main() -> None:
         )
     if np.sum(~mask_ok) > 0:
         logger.warning(
-            "Points non finis supprimés: %d / %d", int(np.sum(~mask_ok)), int(len(f))
+            "Points non finis supprimés: %s / %s", int(np.sum(~mask_ok)), int(len(f))
         )
 
     f = f[mask_ok]
@@ -600,7 +600,7 @@ def main() -> None:
         band_mask = (f >= band_lo) & (f <= band_hi)
         p95_check_before = p95(np.abs(phi_mcgt_cal[band_mask] - phi_ref[band_mask]))
         logger.info(
-            "Contrôle p95 avant resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad (seuil=%.3f)",
+            "Contrôle p95 avant resserrage: p95(|Δφ|)@[%s-%s]=%s rad (seuil=%s)",
             band_lo,
             band_hi,
             p95_check_before,
@@ -610,7 +610,7 @@ def main() -> None:
         if args.auto_tighten and (p95_check_before > float(args.tighten_threshold_p95)):
             tlo, thi = map(float, args.tighten_window)
             logger.info(
-                "Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi
+                "Resserrement automatique: refit sur [%s, %s] Hz.", tlo, thi
             )
             phi0_hat, tc_hat, n_cal = fit_alignment_phi0_tc(
                 f,
@@ -627,7 +627,7 @@ def main() -> None:
             tightened = True
             p95_check_after = p95(np.abs(phi_mcgt_cal[band_mask] - phi_ref[band_mask]))
             logger.info(
-                "Après resserrage: p95(|Δφ|)@[%.1f-%.1f]=%.6f rad",
+                "Après resserrage: p95(|Δφ|)@[%s-%s]=%s rad",
                 band_lo,
                 band_hi,
                 p95_check_after,
@@ -883,7 +883,7 @@ def main() -> None:
     logger.info("Écrit → %s", OUT_DIR / "09_metrics_phase.json")
 
     logger.info(
-        "Terminé. Variante ACTIVE: %s | p95(|Δφ|)@%g–%g = %.6f rad",
+        "Terminé. Variante ACTIVE: %s | p95(|Δφ|)@%g–%g = %s rad",
         active_variant,
         mw_lo,
         mw_hi,

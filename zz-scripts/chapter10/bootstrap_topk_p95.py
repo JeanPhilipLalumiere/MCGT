@@ -203,12 +203,12 @@ def main(argv=None):
         # standardize entry as dict
         ent = dict(entry)
         id_ = int(ent.get("id") or ent.get("index") or ent.get("idx"))
-        _logger.info("Processing id=%d", id_)
+        _logger.info("Processing id=%s", id_)
 
         resid_file = find_resid_file(resid_dir, id_)
         if resid_file is None:
             _logger.warning(
-                "Fichier de résidus non trouvé pour id=%d (cherche dans %s). Fallback p95 si dispo.",
+                "Fichier de résidus non trouvé pour id=%s (cherche dans %s). Fallback p95 si dispo.",
                 id_,
                 resid_dir,
             )
@@ -235,7 +235,7 @@ def main(argv=None):
             dfr = pd.read_csv(resid_file)
         except Exception as e:
             _logger.exception(
-                "Impossible de lire %s pour id=%d : %s", resid_file, id_, e
+                "Impossible de lire %s pour id=%s : %s", resid_file, id_, e
             )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
@@ -246,7 +246,7 @@ def main(argv=None):
         col = detect_abscol(dfr)
         if col is None:
             _logger.warning(
-                "Impossible de détecter colonne |Δφ| dans %s pour id=%d",
+                "Impossible de détecter colonne |Δφ| dans %s pour id=%s",
                 resid_file,
                 id_,
             )
@@ -259,7 +259,7 @@ def main(argv=None):
         arr = dfr[col].to_numpy(dtype=float)
         n_points = arr.size
         if n_points == 0:
-            _logger.warning("Tableau vide pour id=%d (fichier %s).", id_, resid_file)
+            _logger.warning("Tableau vide pour id=%s (fichier %s).", id_, resid_file)
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
             ent["n_points_resid"] = 0
@@ -291,7 +291,7 @@ def main(argv=None):
         ent["resid_file"] = str(resid_file)
         enriched.append(ent)
         _logger.info(
-            "id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d",
+            "id=%s: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%s",
             id_,
             med,
             low,

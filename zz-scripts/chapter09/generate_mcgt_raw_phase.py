@@ -134,7 +134,7 @@ def setup_logger(level: str, logfile: Path = None):
     logging.basicConfig(
         level=getattr(logging, level),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
         handlers=handlers,
     )
     return logging.getLogger(__name__)
@@ -175,7 +175,7 @@ def main():
         freqs = build_loglin_grid(fmin, fmax, dlog)
     if not check_log_spacing(freqs, atol=tol):
         raise RuntimeError("Espacement log non constant !")
-    logger.info("Grille : %d points de %g à %g Hz", len(freqs), freqs[0], freqs[-1])
+    logger.info("Grille : %s points de %g à %g Hz", len(freqs), freqs[0], freqs[-1])
 
     # Calcul de la phase MCGT
     phi_mcgt = solve_mcgt(freqs, params, fmin)

@@ -51,7 +51,7 @@ def setup_logger(level: str) -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("fig05")
 
@@ -159,7 +159,7 @@ def main():
         m_fin &= np.isfinite(sigma)
     n_drop = int((~m_fin).sum())
     if n_drop:
-        log.warning("Lignes ignorées (valeurs non finies) : %d", n_drop)
+        log.warning("Lignes ignorées (valeurs non finies) : %s", n_drop)
     x, y, cls = x[m_fin], y[m_fin], cls[m_fin]
     if sigma is not None:
         sigma = sigma[m_fin]
@@ -180,7 +180,7 @@ def main():
     abs_res = np.abs(res_principal)
     mean_abs, med_abs, p95_abs, max_abs, n_eff = robust_stats(abs_res)
     log.info(
-        "Métriques |Δφ|_principal : mean=%.3f  median=%.3f  p95=%.3f  max=%.3f  (N=%d)",
+        "Métriques |Δφ|_principal : mean=%s  median=%s  p95=%s  max=%s  (N=%s)",
         mean_abs,
         med_abs,
         p95_abs,

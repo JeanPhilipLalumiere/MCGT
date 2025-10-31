@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+"""
+generate_data_chapter01.py
 
 Pipeline Chapitre 1 - génération des données
 - Lecture robuste des jalons
@@ -30,23 +33,6 @@ def read_jalons(path):
     return df["T"].values, df["P_ref"].values
 
 
-def read_jalons( path):
-    pass
-df = pd.read_csv( path)
-if "T_i" in df.columns and "T" not in df.columns:
-    pass
-df = df.rename( columns={"T_i": "T"})
-if "Pref" in df.columns and "P_ref" not in df.columns:
-    pass
-df = df.rename( columns={"Pref": "P_ref"})
-if not set( [ "T", "P_ref" ]).issubset( df.columns):
-    pass
-df = pd.read_csv( path, header=None, names=[ "T", "P_ref" ])
-df[ "T"] = pd.to_numeric( df[ "T" ], errors="coerce")
-df[ "P_ref"] = pd.to_numeric( df[ "P_ref" ], errors="coerce")
-df = df.dropna().sort_values( "T")
-T_vals = df["T"].values
-P_vals = df["P_ref"].values
 def build_grid(tmin, tmax, step, spacing):
     if spacing == "log":
         n = int((log10(tmax) - log10(tmin)) / step) + 1
@@ -57,12 +43,14 @@ def build_grid(tmin, tmax, step, spacing):
 
 
 def compute_p(T_j, P_j, T_grid):
-    import numpy as np
-    from scipy.interpolate import PchipInterpolator
     logT = np.log10(T_j)
     logP = np.log10(P_j)
-    pchip = PchipInterpolator(logT, logP, extrapolate=True)
-    return 10 ** pchip(np.log10(T_grid))
+    pchip = PchipInterpolator(logT, logP)
+    logTg = np.log10(T_grid)
+    logPg = pchip(logTg)
+    Pg = 10**logPg
+    dPg = np.gradient(Pg, T_grid)
+    return Pg, dPg
 
 
 def main():
@@ -83,19 +71,9 @@ def main():
     parser.add_argument("--poly", type=int, default=3)
     args = parser.parse_args()
 
-
-
-parser.add_argument("--tmin", type=float, default=1e-6)
-parser.add_argument("--tmax", type=float, default=14.0)
-parser.add_argument("--step", type=float, default=0.01)
-parser.add_argument("--grid", choices=[ "log", "lin" ], default="log")
-parser.add_argument("--window", type=int, default=21)
-parser.add_argument("--poly", type=int, default=3)
-args = parser.parse_args()
-
-base = args.csv.parent
+    base = args.csv.parent
     # Lecture des jalons
-T_j, P_ref = read_jalons( args.csv)
+    T_j, P_ref = read_jalons(args.csv)
 
     # Lecture P_init et dérivée initiale lissée
     init_dat = np.loadtxt(base / "01_initial_grid_data.dat")
@@ -107,9 +85,9 @@ T_j, P_ref = read_jalons( args.csv)
     )
 
     # Grille et interpolation optimisée
-T_grid = build_grid( args.tmin, args.tmax, args.step, args.grid)
-P_opt, dP_opt_raw = compute_p( T_j, P_ref, T_grid)
-dP_opt = savgol_filter( dP_opt_raw, window_length=args.window, polyorder=args.poly)
+    T_grid = build_grid(args.tmin, args.tmax, args.step, args.grid)
+    P_opt, dP_opt_raw = compute_p(T_j, P_ref, T_grid)
+    dP_opt = savgol_filter(dP_opt_raw, window_length=args.window, polyorder=args.poly)
 
     # Exports
     pd.DataFrame({"T": T_grid, "P_calc": P_opt}).to_csv(
@@ -138,4 +116,38 @@ dP_opt = savgol_filter( dP_opt_raw, window_length=args.window, polyorder=args.po
 
 if __name__ == "__main__":
     main()
-main()
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

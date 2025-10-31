@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-import os
 """
 zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
-Carte de chaleur χ2(q0⋆, p2) avec contours de confiance
+Carte de chaleur χ²(q0⋆, p2) avec contours de confiance
 """
 
 from pathlib import Path
@@ -21,7 +20,7 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 # --- importer le scan 2D ---
 csv2d = DATA_DIR / "08_chi2_scan2D.csv"
 if not csv2d.exists():
-    raise FileNotFoundError(f"Scan 2D χ2 introuvable : {csv2d}")
+    raise FileNotFoundError(f"Scan 2D χ² introuvable : {csv2d}")
 df = pd.read_csv(csv2d)
 
 # extraire les grilles
@@ -45,7 +44,7 @@ chi2_min = M[i_min, j_min]
 
 # tracer
 plt.rcParams.update({"font.size": 12})
-fig, ax = plt.subplots(figsize=(7.5))
+fig, ax = plt.subplots(figsize=(7, 5))
 
 # heatmap en lognorm pour renforcer le contraste
 pcm = ax.pcolormesh(
@@ -84,7 +83,6 @@ txt = f"min χ² = {chi2_min:.1f}\nq₀⋆ = {q0_min:.3f}, p₂ = {p2_min:.3f}"
 ax.text(0.98, 0.95, txt, transform=ax.transAxes, va="top", ha="right", bbox=bbox)
 
 # axes et titre
-
 ax.set_xlabel(r"$q_0^\star$")
 ax.set_ylabel(r"$p_2$")
 ax.set_title(r"Carte de chaleur $\chi^2$ (scan 2D)")
@@ -98,11 +96,11 @@ cbar.set_label(r"$\chi^2$ (log)", labelpad=10)
 cbar.ax.yaxis.set_label_position("right")
 cbar.ax.tick_params(labelsize=10)
 
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+fig.tight_layout()
 fig.savefig(FIG_DIR / "fig_04_chi2_heatmap.png", dpi=300)
 print(f"✅ fig_04_chi2_heatmap.png générée dans {FIG_DIR}")
 
-# === MCGT CLI SEED v2 ===
+# === MCGT CLI SEED v1 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
@@ -111,18 +109,10 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
         except Exception:
             pass
         _main = globals().get("main")
@@ -136,3 +126,38 @@ if __name__ == "__main__":
                 traceback.print_exc()
                 sys.exit(1)
     _mcgt_cli_seed()
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

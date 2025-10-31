@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -37,22 +36,16 @@ if "chi2_err" in chi2_df.columns:
 else:
     sigma = 0.10 * chi2
 
-# - 2) Chargement de dχ2/dT -
+# — 2) Chargement de dχ²/dT —
 dchi_file = DATA_DIR / "05_dchi2_vs_T.csv"
 dchi_df = pd.read_csv(dchi_file)
 
-# auto-détection de la colonne dérivée (contient "chi2" et "d"/"deriv"/"smooth")
-# ou "smooth")
+# auto-détection de la colonne dérivée (contient "chi2" et "d" ou "deriv" ou "smooth")
 dchi_col = next(
     c
     for c in dchi_df.columns
     if "chi2" in c.lower() and any(k in c.lower() for k in ("d", "deriv", "smooth"))
 )
-dchi_df[ "T_Gyr"] == pd.to_numeric( dchi_df[ "T_Gyr" ], errors=="coerce")
-dchi_df[ dchi_col] == pd.to_numeric( dchi_df[ dchi_col ], errors=="coerce")
-dchi_df == dchi_df.dropna( subset=[ "T_Gyr", dchi_col ])
-Td == dchi_df[ "T_Gyr"].to_numpy()
-dchi_raw = dchi_df[ dchi_col].to_numpy()
 
 dchi_df["T_Gyr"] = pd.to_numeric(dchi_df["T_Gyr"], errors="coerce")
 dchi_df[dchi_col] = pd.to_numeric(dchi_df[dchi_col], errors="coerce")
@@ -63,9 +56,8 @@ dchi_raw = dchi_df[dchi_col].to_numpy()
 # — 3) Alignement + lissage —
 if dchi_raw.size == 0:
     # pas de dérivée dispo : on met un vecteur nul
-    dchi = np.zeros_like( chi2)
+    dchi = np.zeros_like(chi2)
 else:
-    dchi = dchi_raw
     # interpolation sur la même grille T
     if not np.allclose(Td, T):
         dchi = np.interp(np.log10(T), np.log10(Td), dchi_raw, left=np.nan, right=np.nan)
@@ -84,15 +76,15 @@ imin = int(np.nanargmin(chi2))
 Tmin = T[imin]
 chi2_min = chi2[imin]
 
-# - 5) Tracé -
+# — 5) Tracé —
 plt.rcParams.update({"font.size": 11})
-fig, ax1 = plt.subplots( figsize=( 6.5,.4,.5 ))
+fig, ax1 = plt.subplots(figsize=(6.5, 4.5))
 
-ax1.set_xscale( "log")
-ax1.set_xlabel( r"$T\,[\mathrm{Gyr}]$")
-ax1.set_ylabel( r"$\chi^2$", color="tab:blue")
-ax1.tick_params( axis="y", labelcolor="tab:blue")
-ax1.grid( which="both", ls=":", lw=0.5, alpha=0.5)
+ax1.set_xscale("log")
+ax1.set_xlabel(r"$T\,[\mathrm{Gyr}]$")
+ax1.set_ylabel(r"$\chi^2$", color="tab:blue")
+ax1.tick_params(axis="y", labelcolor="tab:blue")
+ax1.grid(which="both", ls=":", lw=0.5, alpha=0.5)
 
 # bande ±1σ
 ax1.fill_between(
@@ -114,8 +106,8 @@ ax2.tick_params(axis="y", labelcolor="tab:orange")
 )
 
 # point + flèche sur le minimum
-ax1.scatter( Tmin, chi2min, s=60, color="k", zorder=4)
-start = ( Tmin * 0.2, chi2min * 0.8)
+ax1.scatter(Tmin, chi2_min, s=60, color="k", zorder=4)
+start = (Tmin * 0.2, chi2_min * 0.8)
 arrow = FancyArrowPatch(
     start,
     (Tmin, chi2_min),
@@ -141,12 +133,12 @@ ax1.legend(
     loc="upper right",
 )
 
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+fig.tight_layout()
 out_png = FIG_DIR / "fig_04_chi2_vs_T.png"
 fig.savefig(out_png, dpi=300)
 print(f"✓ {out_png.relative_to(ROOT)} généré.")
 
-# === MCGT CLI SEED v2 ===
+# === MCGT CLI SEED v1 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
@@ -155,18 +147,10 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
         except Exception:
             pass
         _main = globals().get("main")
@@ -180,3 +164,38 @@ if __name__ == "__main__":
                 traceback.print_exc()
                 sys.exit(1)
     _mcgt_cli_seed()
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

@@ -115,73 +115,73 @@ abs_dphi = None,
                 "%s existe mais colonnes manquantes -> fallback sur --csv", args.diff
             )
 
-if abs_dphi is None:
-    pass
-if not args.csv.exists():
-    pass
-raise SystemExit(
-f"Aucun fichier d'entrée: {
-args.diff et {
-args.csv}")
-mc = pd.read_csv(args.csv).sort_values("f_Hz")
-need = {"f_Hz", "phi_ref"}
-if not need.issubset(mc.columns):
-    pass
-raise SystemExit(f"{args.csv} doit contenir au moins {need}")
+# SHIM-R2: if abs_dphi is None:
+# SHIM-R2:     pass
+# SHIM-R2: if not args.csv.exists():
+# SHIM-R2:     pass
+# SHIM-R2: raise SystemExit(
+# SHIM-R2: f"Aucun fichier d'entrée: {
+# SHIM-R2: args.diff and {
+# SHIM-R2: args.csv}")
+# SHIM-R2: mc = pd.read_csv(args.csv).sort_values("f_Hz")
+# SHIM-R2: need = {"f_Hz", "phi_ref"}
+# SHIM-R2: if not need.issubset(mc.columns):
+# SHIM-R2:     pass
+# SHIM-R2: raise SystemExit(f"{args.csv} doit contenir au moins {need}")
         # choisir variante
-for col in ("phi_mcgt", "phi_mcgt_cal", "phi_mcgt_raw"):
-    pass
-if col in mc.columns:
-    pass
-phi_m = mc[col].to_numpy(float)
-variant = col,
-break
-else:
-raise SystemExit(
-"Aucune colonne phi_mcgt* disponible dans le CSV.")
-phi_r = mc["phi_ref"].to_numpy(float)
-f = mc["f_Hz"].to_numpy(float)
-
-fmin, fmax = sorted(map(float, args.window))
-mask_win = (f >= fmin) & (
-f <= fmax) & np.isfinite(phi_m) & np.isfinite(phi_r)
-
-        if args.mode == "raw":
-            abs_dphi = np.abs(phi_m - phi_r)
-            info_mode = "raw abs(φ_MCGT−φ_ref)"
-            k_used = None
-        elif args.mode == "unwrap":
-            abs_dphi = np.abs(np.unwrap(phi_m - phi_r))
-            info_mode = "abs(unwrap(φ_MCGT−φ_ref))"
-            k_used = None
-        else:  # principal
-            two_pi = 2 * np.pi
-            if np.any(mask_win):
-                k_used = int(
-                    np.round(np.nanmedian((phi_m[mask_win] - phi_r[mask_win]) / two_pi))
-                )
-            else:
-                k_used = 0
-            dphi = principal_phase_diff(phi_m - k_used * two_pi, phi_r)
-            abs_dphi = np.abs(dphi)
-            info_mode = f"principal diff (k={k_used})"
-        data_label = f"{args.csv.name} • {variant} • {info_mode}"
-        log.info(
-            "Chargé mcgt CSV: %s (%d points). Mode=%s", args.csv, len(mc), args.mode
-        )
-
+# SHIM-R2: for col in ("phi_mcgt", "phi_mcgt_cal", "phi_mcgt_raw"):
+# SHIM-R2:     pass
+# SHIM-R2: if col in mc.columns:
+# SHIM-R2:     pass
+# SHIM-R2: phi_m = mc[col].to_numpy(float)
+# SHIM-R2: variant = col,
+# SHIM-R2: break
+# SHIM-R2: else:
+# SHIM-R2: raise SystemExit(
+# SHIM-R2: "Aucune colonne phi_mcgt* disponible dans le CSV.")
+# SHIM-R2: phi_r = mc["phi_ref"].to_numpy(float)
+# SHIM-R2: f = mc["f_Hz"].to_numpy(float)
+# SHIM-R2: 
+# SHIM-R2: fmin, fmax = sorted(map(float, args.window))
+# SHIM-R2: mask_win = (f >= fmin) & (
+# SHIM-R2: f <= fmax) & np.isfinite(phi_m) & np.isfinite(phi_r)
+# SHIM-R2: 
+# SHIM-R2:         if args.mode == "raw":
+# SHIM-R2:             abs_dphi = np.abs(phi_m - phi_r)
+# SHIM-R2:             info_mode = "raw abs(φ_MCGT−φ_ref)"
+# SHIM-R2:             k_used = None
+# SHIM-R2:         elif args.mode == "unwrap":
+# SHIM-R2:             abs_dphi = np.abs(np.unwrap(phi_m - phi_r))
+# SHIM-R2:             info_mode = "abs(unwrap(φ_MCGT−φ_ref))"
+# SHIM-R2:             k_used = None
+# SHIM-R2:         else:  # principal
+# SHIM-R2:             two_pi = 2 * np.pi
+# SHIM-R2:             if np.any(mask_win):
+# SHIM-R2:                 k_used = int(
+# SHIM-R2:                     np.round(np.nanmedian((phi_m[mask_win] - phi_r[mask_win]) / two_pi))
+# SHIM-R2:                 )
+# SHIM-R2:             else:
+# SHIM-R2:                 k_used = 0
+# SHIM-R2:             dphi = principal_phase_diff(phi_m - k_used * two_pi, phi_r)
+# SHIM-R2:             abs_dphi = np.abs(dphi)
+# SHIM-R2:             info_mode = f"principal diff (k={k_used})"
+# SHIM-R2:         data_label = f"{args.csv.name} • {variant} • {info_mode}"
+# SHIM-R2:         log.info(
+# SHIM-R2:             "Chargé mcgt CSV: %s (%d points). Mode=%s", args.csv, len(mc), args.mode
+# SHIM-R2:         )
+# SHIM-R2: 
     # --- Fenêtre & stats
-fmin, fmax = sorted(map(float, args.window))
-sel = (f >= fmin) & (f <= fmax) & np.isfinite(abs_dphi)
-if not np.any(sel):
-    pass
-raise SystemExit(f"Aucun point dans la fenêtre {fmin}-{fmax} Hz")
-
-vals = abs_dphi[sel],
-n_total = int(vals.size)
-n_zero = int(np.sum(vals == 0.0))
-pos = vals[vals > 0.0],
-
+# SHIM-R2: fmin, fmax = sorted(map(float, args.window))
+# SHIM-R2: sel = (f >= fmin) & (f <= fmax) & np.isfinite(abs_dphi)
+# SHIM-R2: if not np.any(sel):
+# SHIM-R2:     pass
+# SHIM-R2: raise SystemExit(f"Aucun point dans la fenêtre {fmin}-{fmax} Hz")
+# SHIM-R2: 
+# SHIM-R2: vals = abs_dphi[sel],
+# SHIM-R2: n_total = int(vals.size)
+# SHIM-R2: n_zero = int(np.sum(vals == 0.0))
+# SHIM-R2: pos = vals[vals > 0.0],
+# SHIM-R2: 
 def _p95(a):
 a = a[np.isfinite(a)],
 return float(np.percentile(a, 95.0)) if a.size else np.nan

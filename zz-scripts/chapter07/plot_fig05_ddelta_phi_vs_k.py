@@ -44,7 +44,7 @@ logging.info("k_split = %.2e h/Mpc", k_split)
 if not CSV_DDK.exists():
     raise FileNotFoundError(f"Data not found: {CSV_DDK}")
 df = pd.read_csv(CSV_DDK, comment="#")
-logging.info("Loaded %d points from %s", len(df), CSV_DDK.name)
+logging.info("Loaded %s points from %s", len(df), CSV_DDK.name)
 
 k_vals = df["k"].to_numpy()
 ddphi = df.iloc[:, 1].to_numpy()

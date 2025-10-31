@@ -96,7 +96,7 @@ def main(argv: list[str] | None = None) -> int:
     n_total = len(df)
     n_ok = int((df["status"] == "ok").sum())
     n_failed = int(n_total - n_ok)
-    logger.info("Results : n_total=%d  n_ok=%d  n_failed=%d", n_total, n_ok, n_failed)
+    logger.info("Results : n_total=%s  n_ok=%s  n_failed=%s", n_total, n_ok, n_failed)
 
     # statistiques p95
     p95_min = float(np.nanmin(df["p95_20_300"]))
@@ -108,7 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     p95_max = float(np.nanmax(df["p95_20_300"]))
 
     logger.info(
-        "p95_20_300 : min=%.6f mean=%.6f p95=%.6f max=%.6f",
+        "p95_20_300 : min=%s mean=%s p95=%s max=%s",
         p95_min,
         p95_mean,
         p95_p95,
@@ -130,14 +130,14 @@ def main(argv: list[str] | None = None) -> int:
                 f"Mismatch n_rows_results: manifest={exp} vs detected={n_total}"
             )
         else:
-            logger.info("n_rows_results OK: %d", n_total)
+            logger.info("n_rows_results OK: %s", n_total)
 
     if "n_rows_ok" in sizes:
         exp_ok = int(sizes["n_rows_ok"])
         if exp_ok != n_ok:
             errors.append(f"Mismatch n_rows_ok: manifest={exp_ok} vs detected={n_ok}")
         else:
-            logger.info("n_rows_ok OK: %d", n_ok)
+            logger.info("n_rows_ok OK: %s", n_ok)
 
     # Vérification des hashes si fournis
     fh = manifest.get("file_hashes", {})

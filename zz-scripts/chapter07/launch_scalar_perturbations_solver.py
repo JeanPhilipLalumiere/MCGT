@@ -329,7 +329,7 @@ def main():
     k_grid = build_log_grid(params.k_min, params.k_max, n_points=params.n_k)
     a_vals = np.linspace(params.a_min, params.a_max, params.n_a)
     logger.info(
-        "Grilles : %d k-points entre [%g, %g], %d a-points entre [%g, %g]",
+        "Grilles : %s k-points entre [%g, %g], %s a-points entre [%g, %g]",
         len(k_grid),
         params.k_min,
         params.k_max,
@@ -371,7 +371,7 @@ def main():
         }
     )
     df_raw.to_csv(out_raw, index=False)
-    logger.info("Raw unifié écrit → %s (%d lignes)", out_raw, len(df_raw))
+    logger.info("Raw unifié écrit → %s (%s lignes)", out_raw, len(df_raw))
 
     # export matrices 2D si demandé (format long k,a,val)
     if args.export_2d:

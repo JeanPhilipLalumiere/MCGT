@@ -63,7 +63,7 @@ def main(args):
                 "abs_dphi_principal": abs_dphi,
             }
         )
-        df.to_csv(outcsv, index=False, float_format="%.12f")
+        df.to_csv(outcsv, index=False, float_format="%s")
         print(f"Wrote {outcsv} (k={k})")
         # overlay PNG
         fig, ax = plt.subplots(figsize=(8, 4))

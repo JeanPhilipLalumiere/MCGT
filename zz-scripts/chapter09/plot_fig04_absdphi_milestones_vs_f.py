@@ -54,7 +54,7 @@ def setup_logger(level: str):
     logging.basicConfig(
         level=getattr(logging, level),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("fig04")
 
@@ -264,7 +264,7 @@ def main():
     # garder uniquement points finis
     mfin = np.isfinite(fpk) & np.isfinite(dphi)
     if not np.all(mfin):
-        log.warning("Milestones ignorés pour non-finitude: %d", int((~mfin).sum()))
+        log.warning("Milestones ignorés pour non-finitude: %s", int((~mfin).sum()))
     fpk, dphi, cls = fpk[mfin], dphi[mfin], cls[mfin]
     if sigma is not None:
         sigma = sigma[mfin]
@@ -281,7 +281,7 @@ def main():
             ad_bg = D["abs_dphi"].to_numpy(float)
             m = np.isfinite(f_bg) & np.isfinite(ad_bg) & (f_bg > 0)
             f_bg, ad_bg = f_bg[m], ad_bg[m]
-            log.info("Fond chargé depuis --diff: %s (%d pts).", args.diff, f_bg.size)
+            log.info("Fond chargé depuis --diff: %s (%s pts).", args.diff, f_bg.size)
         else:
             log.warning(
                 "%s ne contient pas (f_Hz, abs_dphi) -> reconstruction", args.diff
@@ -317,7 +317,7 @@ def main():
         m = np.isfinite(f) & np.isfinite(ad) & (f > 0)
         f_bg, ad_bg = f[m], ad[m]
         log.info(
-            "Fond reconstruit depuis --csv (var=%s, k=%d, apply_cal=%s) → %d pts.",
+            "Fond reconstruit depuis --csv (var=%s, k=%s, apply_cal=%s) → %s pts.",
             var,
             k,
             apply_cal,
@@ -341,7 +341,7 @@ def main():
         ymin = max(ymin, 1e-12)
 
     log.info(
-        "xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_milestones=%d",
+        "xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_milestones=%s",
         xmin,
         xmax,
         ymin,

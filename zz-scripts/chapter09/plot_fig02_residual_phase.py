@@ -80,7 +80,7 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     logging.basicConfig(
         level=getattr(logging, level.upper(), logging.INFO),
         format="%(asctime)s [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("fig02")
 
@@ -193,7 +193,7 @@ def main():
         bands = bands[:3]
     (f20, f300) = bands[0]
     k = k_rebranch_median(mcg, ref, f, f20, f300)
-    log.info("Rebranch k (20–300 Hz) = %d cycles", k)
+    log.info("Rebranch k (20–300 Hz) = %s cycles", k)
 
     # résidu canonique = |Δφ_principal| après rebranch k
     absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
@@ -206,7 +206,7 @@ def main():
     mean20 = float(np.nanmean(absd_full[m20300])) if m20300.any() else float("nan")
     p9520 = float(p95(absd_full[m20300])) if m20300.any() else float("nan")
     log.info(
-        "Stats 20–300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
+        "Stats 20–300 Hz: mean=%s  p95=%s  max=%s",
         mean20,
         p9520,
         float(np.nanmax(absd_full[m20300])) if m20300.any() else float("nan"),

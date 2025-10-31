@@ -317,7 +317,7 @@ def main():
     manifest_path = os.path.splitext(args.out)[0] + ".manifest.json"
     manifest = {
         "script": "plot_fig03b_coverage_bootstrap_vs_n.py",
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "generated_at": time.strftime("%Y-%m-%sT%H:%M:%SZ", time.gmtime()),
         "inputs": {"results": args.results, "p95_col": p95_col},
         "params": {
             "outer": int(outer_for_cov),
@@ -423,7 +423,7 @@ def main():
         manifest_sens = {
             "script": "plot_fig03b_coverage_bootstrap_vs_n.py",
             "annex": "sensitivity",
-            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "generated_at": time.strftime("%Y-%m-%sT%H:%M:%SZ", time.gmtime()),
             "mode": mode,
             "N": int(sensN),
             "B_list": [int(b) for b in B_list],

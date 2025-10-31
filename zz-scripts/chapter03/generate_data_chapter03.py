@@ -159,7 +159,7 @@ def build_T_z_R_grids(fmin: float, fmax: float, dlog: float, npts: int | None):
     z_grid = z_full[indices]
 
     log.info(
-        "Grille R/R₀ unique prête : %d points (%.3e → %.3e).",
+        "Grille R/R₀ unique prête : %s points (%.3e → %.3e).",
         R_unique.size,
         R_unique.min(),
         R_unique.max(),
@@ -291,7 +291,7 @@ def exporter_jalons_inverses(
     jal_z["z"] = jal_z["z"].cummax()
 
     jal_z.to_csv(out / "03_ricci_fR_vs_z.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_z.csv généré (%d jalons)", len(jal_z))
+    log.info("→ 03_ricci_fR_vs_z.csv généré (%s jalons)", len(jal_z))
 
     # ------------------------------------------------------------------
     # 9-B  Interpolation R → T  (log-log, toujours définie : extrapolate=True)
@@ -318,7 +318,7 @@ def exporter_jalons_inverses(
     jal_T["T_Gyr"] = T_vals
 
     jal_T.to_csv(out / "03_ricci_fR_vs_T.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_T.csv généré (%d jalons)", len(jal_T))
+    log.info("→ 03_ricci_fR_vs_T.csv généré (%s jalons)", len(jal_T))
 
 
 # ----------------------------------------------------------------------

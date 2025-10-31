@@ -29,7 +29,7 @@ ax.legend(loc="upper right")
 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
 # Ajuster les marges pour que tout soit visible
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+plt.tight_layout()
 
 # Sauvegarde
 OUT = ROOT / "zz-figures" / "chapter02" / "fig_00_spectrum.png"
@@ -40,34 +40,137 @@ print(f"Figure enregistrée → {OUT}")
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
     def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+        import os
+        import argparse
+        import sys
+        import traceback
 
-        args = parser.parse_args()
+if __name__ == "__main__":
+    import argparse
+    import os
+    import sys
+    import logging
+    import matplotlib
+    import matplotlib.pyplot as plt
+    parser = argparse.ArgumentParser(description="MCGT CLI")
+    parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+    parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
+    parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+    parser.add_argument('--outdir', type=str, default=None, help='Dossier pour copier la figure (fallback $MCGT_OUTDIR)')
+    parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+    parser.add_argument('--verbose', action='store_true', help='Verbosity CLI (logs supplémentaires)')
+    args = parser.parse_args()
+
+    # [smoke] OUTDIR+copy
+    OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")
+    if OUTDIR_ENV:
+        args.outdir = OUTDIR_ENV
+    os.makedirs(args.outdir, exist_ok=True)
+    import atexit
+    import glob
+    import shutil
+    import time
+    _ch = os.path.basename(os.path.dirname(__file__))
+    _repo = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            ".."))
+    _default_dir = os.path.join(_repo, "zz-figures", _ch)
+    _t0 = time.time()
+
+    def _smoke_copy_latest():
         try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
+            pngs = sorted(
+                glob.glob(
+                    os.path.join(
+                        _default_dir,
+                        "*.png")),
+                key=os.path.getmtime,
+                reverse=True)
+            for _p in pngs:
+                if os.path.getmtime(_p) >= _t0 - 10:
+                    _dst = os.path.join(args.outdir, os.path.basename(_p))
+                    if not os.path.exists(_dst):
+                        shutil.copy2(_p, _dst)
+                    break
         except Exception:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+    atexit.register(_smoke_copy_latest)
+    if args.verbose:
+        level = logging.INFO if args.verbose == 1 else logging.DEBUG
+        logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
+
+    if args.outdir:
+        try:
+            os.makedirs(args.outdir, exist_ok=True)
+        except Exception:
+            pass
+
+    try:
+        matplotlib.rcParams.update({"savefig.dpi": args.dpi,
+                                    "savefig.format": args.fmt,
+                                    "savefig.transparent": bool(args.transparent)})
+    except Exception:
+        pass
+
+    # Laisse le code existant agir; la plupart des fichiers exécutent du code top-level.
+    # Si une fonction main(...) est fournie, tu peux la dé-commenter :
+    # rc = main(args) if "main" in globals() else 0
+    rc = 0
+    sys.exit(rc)
+
+
+# [MCGT POSTPARSE EPILOGUE v2]
+# (compact) delegate to common helper; best-effort wrapper
+try:
+    import os
+    import sys
+    _here = os.path.abspath(os.path.dirname(__file__))
+    _zz = os.path.abspath(os.path.join(_here, ".."))
+    if _zz not in sys.path:
+        sys.path.insert(0, _zz)
+    from _common.postparse import apply as _mcgt_postparse_apply
+except Exception:
+    def _mcgt_postparse_apply(*_a, **_k):
+        pass
+try:
+    if "args" in globals():
+        _mcgt_postparse_apply(args, caller_file=__file__)
+except Exception:
+    pass
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

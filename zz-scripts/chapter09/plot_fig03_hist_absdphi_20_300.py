@@ -10,6 +10,13 @@ import matplotlib.pyplot as plt
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
+p.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
+p.add_argument('--dpi', type=float, default=150.0, help='DPI figure.')
+p.add_argument('--format', default='png', choices=['png','pdf','svg'], help='Format de sortie.')
+p.add_argument('--transparent', action='store_true', help='Fond transparent.')
+p.add_argument('--style', default=None, help='Style Matplotlib (ex.: seaborn-v0_8).')
+p.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
+
         description="Histogramme |Δφ| — bande 20–300 Hz (prefer --diff, fallback --csv)."
     )
     p.add_argument("--diff", type=Path, default=None,

@@ -134,6 +134,13 @@ def k_rebranch_median(
 # -------------------- script --------------------
 def main():
     ap = argparse.ArgumentParser(
+ap.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
+ap.add_argument('--dpi', type=float, default=150.0, help='DPI figure.')
+ap.add_argument('--format', default='png', choices=['png','pdf','svg'], help='Format de sortie.')
+ap.add_argument('--transparent', action='store_true', help='Fond transparent.')
+ap.add_argument('--style', default=None, help='Style Matplotlib (ex.: seaborn-v0_8).')
+ap.add_argument('--verbose', action='store_true', help='Verbosity (INFO).')
+
         description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
     )
     ap.add_argument("--csv", type=Path, required=True)
@@ -152,6 +159,31 @@ def main():
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
     )
     args = ap.parse_args()
+
+# === [CLI-INJECT BEGIN] ===
+try:
+    import matplotlib.pyplot as plt  # type: ignore
+    import logging
+    if 'args' not in globals():
+        args = None  # fallback si parse_args() n'assigne pas
+    if args is None:
+        pass
+    else:
+        if getattr(args, 'verbose', False):
+            logging.basicConfig(level=logging.INFO)
+        try: plt.rcParams['savefig.dpi'] = getattr(args, 'dpi', 150.0)
+        except Exception: pass
+        try: plt.rcParams['savefig.format'] = getattr(args, 'format', 'png')
+        except Exception: pass
+        try: plt.rcParams['savefig.transparent'] = bool(getattr(args, 'transparent', False))
+        except Exception: pass
+        st = getattr(args, 'style', None)
+        if st:
+            try: plt.style.use(st)
+            except Exception: pass
+except Exception:
+    pass
+# === [CLI-INJECT END] ===
 
     log = setup_logger(args.log_level)
     meta = load_meta(args.meta)

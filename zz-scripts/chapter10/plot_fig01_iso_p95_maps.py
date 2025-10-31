@@ -47,7 +47,7 @@ def read_and_validate(path, m1_col, m2_col, p95_col):
     """Read CSV and validate presence of required columns. Return trimmed DataFrame."""
     try:
         df = pd.read_csv(path)
-df = ci.ensure_fig02_cols(df)
+        df = ci.ensure_fig02_cols(df)
 
     except Exception as e:
         raise SystemExit(f"Erreur lecture CSV '{path}': {e}")
@@ -93,7 +93,7 @@ def main():
     ap.add_argument("--m2-col", default="m2", help="column name for m2")
     ap.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png",
+        default="zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
         help="output PNG file",
     )
     ap.add_argument("--levels", type=int, default=16, help="number of contour levels")

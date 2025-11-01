@@ -1,5 +1,8 @@
 name: ci-fig-manifest
+permissions:
+  contents: read
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - "zz-manifests/figure_manifest.csv"

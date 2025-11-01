@@ -9,6 +9,12 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"; cd "$ROOT"
 echo "[INFO] repo=$ROOT  new_version=$NEWVER  push=$PUSH"
 
 command -v git >/dev/null || { echo "[ERR] git manquant"; exit 3; }
+
+# Montrer l'état avant check (diagnostic)
+echo "[INFO] Etat avant bump:"
+git status --porcelain || true
+
+# Exiger propreté (les untracked ne comptent pas ici)
 if ! git diff --quiet || ! git diff --cached --quiet; then
   echo "[ERR] Working tree non propre (utilise tools/release_clean_and_run.sh)"; exit 4;
 fi
@@ -20,7 +26,6 @@ import re, sys, pathlib
 ver = sys.argv[1]
 p = pathlib.Path("pyproject.toml")
 s = p.read_text(encoding="utf-8")
-# remplace version = "x.y.z" sans backrefs numériques piégées
 pat = re.compile(r'(?m)^(?P<k>version\s*=\s*")(?P<v>[^"]+)(?P<q>")\s*$')
 s2 = pat.sub(lambda m: f"{m.group('k')}{ver}{m.group('q')}", s)
 p.write_text(s2, encoding="utf-8")
@@ -49,7 +54,6 @@ try:
     data = json.loads(p.read_text(encoding="utf-8"))
     if isinstance(data, dict):
         data["version"] = ver
-        # Optionnel: maj de la date de publication
         data.setdefault("publication_date", datetime.date.today().isoformat())
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 except Exception:
@@ -70,7 +74,6 @@ LAST_LOG="$(ls -1 _tmp/smoke_help_*/run.log    2>/dev/null | tail -n1 || true)"
 REL_TITLE="MCGT ${NEWVER}"
 NOTES="Automated release for ${NEWVER}
 - Smoke --help: 61/61 OK
-- CI: smoke-help.yml
 - pre-commit: smoke-help-changed, ban 'cp -n'
 "
 

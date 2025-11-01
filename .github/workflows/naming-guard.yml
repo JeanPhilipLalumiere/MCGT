@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: naming-guard
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/naming-guard.yml-${{ github.ref }}
   cancel-in-progress: true

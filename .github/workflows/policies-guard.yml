@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: policies-guard
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/policies-guard.yml-${{ github.ref }}
   cancel-in-progress: true

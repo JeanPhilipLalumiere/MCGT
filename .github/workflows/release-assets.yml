@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: release-assets
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/release-assets.yml-${{ github.ref }}
   cancel-in-progress: true

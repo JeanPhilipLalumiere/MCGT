@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: Manifest drift check
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/manifest-drift.yml-${{ github.ref }}
   cancel-in-progress: true

@@ -24,6 +24,7 @@ concurrency:
       - 'tools/ci_step3_validate_manifests.sh'
       - '.github/workflows/manifests-guard.yml'
       - '!**/*.md'
+  workflow_dispatch:
 
 jobs:
   guard:

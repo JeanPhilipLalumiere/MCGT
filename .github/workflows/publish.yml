@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'   # déclenche sur tout tag "vX.Y.Z"
+  workflow_dispatch:
 
 permissions:
   contents: read

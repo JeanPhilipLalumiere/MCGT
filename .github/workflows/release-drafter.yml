@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: release-drafter
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/release-drafter.yml-${{ github.ref }}
   cancel-in-progress: true

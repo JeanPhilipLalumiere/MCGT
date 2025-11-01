@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: meta-guard
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/meta-guard.yml-${{ github.ref }}
   cancel-in-progress: true

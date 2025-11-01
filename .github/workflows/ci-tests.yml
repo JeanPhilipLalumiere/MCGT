@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: CI tests
 on:
+  workflow_dispatch:
 concurrency:
   group: .github/workflows/ci-tests.yml-${{ github.ref }}
   cancel-in-progress: true

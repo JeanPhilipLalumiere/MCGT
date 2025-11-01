@@ -1,5 +1,8 @@
 name: ci-smoke
+permissions:
+  contents: read
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [ fix/ch09-fig03-parse ]

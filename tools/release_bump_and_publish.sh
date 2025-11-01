@@ -74,7 +74,7 @@ LAST_LOG="$(ls -1 _tmp/smoke_help_*/run.log    2>/dev/null | tail -n1 || true)"
 REL_TITLE="MCGT ${NEWVER}"
 NOTES="Automated release for ${NEWVER}
 - Smoke --help: 61/61 OK
-- pre-commit: smoke-help-changed, ban 'cp -n'
+- pre-commit: smoke-help-changed, ban 'install -D -m 0644'
 "
 
 if [[ "$PUSH" == "1" ]] && command -v gh >/dev/null; then

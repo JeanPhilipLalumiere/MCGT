@@ -20,10 +20,9 @@ import re, sys, pathlib
 ver = sys.argv[1]
 p = pathlib.Path("pyproject.toml")
 s = p.read_text(encoding="utf-8")
-# remplace explicitement version = "x.y.z"
-s2 = re.sub(r'(?m)^(version\s*=\s*")[0-9]+\.[0-9]+\.[0-9]+(")\s*$', r'\1'+ver+r'\2', s)
-if s2 == s:
-    s2 = re.sub(r'(?m)^(?P<k>\s*version\s*=\s*")[^"]+(")', lambda m: m.group('k')+ver+m.group(2), s)
+# remplace version = "x.y.z" sans backrefs numériques piégées
+pat = re.compile(r'(?m)^(?P<k>version\s*=\s*")(?P<v>[^"]+)(?P<q>")\s*$')
+s2 = pat.sub(lambda m: f"{m.group('k')}{ver}{m.group('q')}", s)
 p.write_text(s2, encoding="utf-8")
 PY
 fi
@@ -35,7 +34,7 @@ import re, sys, pathlib
 ver = sys.argv[1]
 p = pathlib.Path("CITATION.cff")
 s = p.read_text(encoding="utf-8")
-s2 = re.sub(r'(?m)^(version:\s*)(.+)$', r'\1'+ver, s)
+s2 = re.sub(r'(?m)^(version:\s*)(.+)$', r'\1' + ver, s)
 p.write_text(s2, encoding="utf-8")
 PY
 fi
@@ -43,13 +42,15 @@ fi
 # --- Bump .zenodo.json ("version") si présent ---
 if [[ -f .zenodo.json ]]; then
 python3 - "$NEWVER" <<'PY'
-import json, sys, pathlib
+import json, sys, pathlib, datetime
 ver = sys.argv[1]
 p = pathlib.Path(".zenodo.json")
 try:
     data = json.loads(p.read_text(encoding="utf-8"))
-    if isinstance(data, dict) and "version" in data:
+    if isinstance(data, dict):
         data["version"] = ver
+        # Optionnel: maj de la date de publication
+        data.setdefault("publication_date", datetime.date.today().isoformat())
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 except Exception:
     pass

@@ -10,7 +10,7 @@
     }
   ],
   "license": "MIT",
-  "version": "v0.3.0",
+  "version": "0.3.12",
   "keywords": [
     "MCGT",
     "cosmologie",
@@ -34,5 +34,6 @@
   ],
   "contributors": [],
   "notes": "Publication rapide avec manifest_publication et artefacts minimaux. Le DOI exact sera réinjecté dans README/CITATION via tools/backfill_zenodo_doi.py après mint.",
-  "language": "fra"
+  "language": "fra",
+  "publication_date": "2025-11-01"
 }

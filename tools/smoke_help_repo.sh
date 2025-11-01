@@ -29,3 +29,25 @@ set -e
 printf "TOTAL\t%d\nOK\t%d\nFAIL\t%d\n" "${#FILES[@]}" "$ok" "$fail" | tee -a "$LOG"
 echo "Rapport TSV : $REPORT"
 echo "Log complet : $LOG"
+# --- enforce non-zero exit on FAIL lines in TSV (idempotent) ---
+REPORT_TSV="${REPORT_TSV:-$(ls -1 _tmp/smoke_help_*/report.tsv 2>/dev/null | tail -n1)}"
+if [[ -z "${REPORT_TSV}" || ! -f "${REPORT_TSV}" ]]; then
+  echo "[ERR] REPORT_TSV introuvable — lance d’abord le test pour générer un TSV"; exit 2;
+fi
+if grep -q '^FAIL\t' "$REPORT_TSV"; then
+  echo "[ERR] FAIL détectés dans $REPORT_TSV"
+  exit 1
+fi
+# --- enforce non-zero exit on FAIL lines in TSV (idempotent) ---
+if grep -q '^FAIL\t' "$REPORT_TSV"; then
+  echo "[ERR] FAIL détectés dans $REPORT_TSV"
+  exit 1
+fi
+
+# == Résumé & sortie stricte ==
+FAILS="$(grep -c '^FAIL\t' "${REPORT_TSV}" || true)"
+OKS="$(grep -c '^OK\t'   "${REPORT_TSV}" || true)"
+echo "OK=${OKS}  FAIL=${FAILS}"
+if [[ "${FAILS}" -ne 0 ]]; then
+  echo "[FAIL] --help: ${FAILS} échec(s) détecté(s)"; exit 1;
+fi

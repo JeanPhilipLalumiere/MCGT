@@ -1,0 +1,11 @@
+name: smoke-help
+on: [push, pull_request]
+jobs:
+  help:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/smoke_help_repo.sh

@@ -18,3 +18,23 @@ repos:
     pass_filenames: false
 - repo: local
   hooks: []
+
+# --- local hook: smoke --help on changed plot scripts ---
+repos:
+  - repo: local
+    hooks:
+      - id: smoke-help-changed-OLD
+        entry: bash -lc "exit 0"
+        name: smoke --help on changed plot scripts
+        language: system
+        pass_filenames: false
+# disabled:         entry: bash -lc 'git diff --name-only --cached | grep -E "^zz-scripts/.+/plot_.*\.py$" | xargs -r -n1 -P4 python -- --help >/dev/null'
+
+  - repo: local
+    hooks:
+      - id: smoke-help-changed
+        name: smoke --help on changed plot scripts
+        entry: tools/hooks/smoke_help_changed.sh
+        language: system
+        pass_filenames: false
+        stages: [commit]

@@ -3,6 +3,7 @@ permissions:
   contents: read
 name: semantic-pr
 on:
+  workflow_dispatch:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 concurrency:

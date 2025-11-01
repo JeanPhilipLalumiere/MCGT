@@ -1,0 +1,16 @@
+zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png
+zz-figures/chapter10/10_fig_01_iso_p95_maps.png
+zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
+zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png
+zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png
+zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
+zz-scripts/chapter01/requirements.txt
+zz-scripts/chapter02/requirements.txt
+zz-scripts/chapter03/requirements.txt
+zz-scripts/chapter04/requirements.txt
+zz-scripts/chapter05/requirements.txt
+zz-scripts/chapter06/requirements.txt
+zz-scripts/chapter07/requirements.txt
+zz-scripts/chapter08/requirements.txt
+zz-scripts/chapter09/requirements.txt
+zz-scripts/chapter10/requirements.txt

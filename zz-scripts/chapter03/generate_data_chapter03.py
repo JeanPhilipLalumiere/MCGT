@@ -159,7 +159,7 @@ def build_T_z_R_grids(fmin: float, fmax: float, dlog: float, npts: int | None):
     z_grid = z_full[indices]
 
     log.info(
-        "Grille R/R₀ unique prête : %d points (%.3e → %.3e).",
+        "Grille R/R₀ unique prête : %s points (%.3e → %.3e).",
         R_unique.size,
         R_unique.min(),
         R_unique.max(),
@@ -291,7 +291,7 @@ def exporter_jalons_inverses(
     jal_z["z"] = jal_z["z"].cummax()
 
     jal_z.to_csv(out / "03_ricci_fR_vs_z.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_z.csv généré (%d jalons)", len(jal_z))
+    log.info("→ 03_ricci_fR_vs_z.csv généré (%s jalons)", len(jal_z))
 
     # ------------------------------------------------------------------
     # 9-B  Interpolation R → T  (log-log, toujours définie : extrapolate=True)
@@ -318,7 +318,7 @@ def exporter_jalons_inverses(
     jal_T["T_Gyr"] = T_vals
 
     jal_T.to_csv(out / "03_ricci_fR_vs_T.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_T.csv généré (%d jalons)", len(jal_T))
+    log.info("→ 03_ricci_fR_vs_T.csv généré (%s jalons)", len(jal_T))
 
 
 # ----------------------------------------------------------------------
@@ -355,3 +355,38 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

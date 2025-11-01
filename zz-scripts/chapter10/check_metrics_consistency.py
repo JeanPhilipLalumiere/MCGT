@@ -28,8 +28,6 @@ import sys
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
-
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
@@ -76,8 +74,6 @@ def main(argv: list[str] | None = None) -> int:
 
     logger.info("Chargement results: %s", results_p)
     df = pd.read_csv(results_p)
-df = ci.ensure_fig02_cols(df)
-
     # normalisation noms colonnes courants (tolérance)
     _df_cols = {c: c for c in df.columns}
     # required metrics expected
@@ -100,7 +96,7 @@ df = ci.ensure_fig02_cols(df)
     n_total = len(df)
     n_ok = int((df["status"] == "ok").sum())
     n_failed = int(n_total - n_ok)
-    logger.info("Results : n_total=%d  n_ok=%d  n_failed=%d", n_total, n_ok, n_failed)
+    logger.info("Results : n_total=%s  n_ok=%s  n_failed=%s", n_total, n_ok, n_failed)
 
     # statistiques p95
     p95_min = float(np.nanmin(df["p95_20_300"]))
@@ -112,7 +108,7 @@ df = ci.ensure_fig02_cols(df)
     p95_max = float(np.nanmax(df["p95_20_300"]))
 
     logger.info(
-        "p95_20_300 : min=%.6f mean=%.6f p95=%.6f max=%.6f",
+        "p95_20_300 : min=%s mean=%s p95=%s max=%s",
         p95_min,
         p95_mean,
         p95_p95,
@@ -134,14 +130,14 @@ df = ci.ensure_fig02_cols(df)
                 f"Mismatch n_rows_results: manifest={exp} vs detected={n_total}"
             )
         else:
-            logger.info("n_rows_results OK: %d", n_total)
+            logger.info("n_rows_results OK: %s", n_total)
 
     if "n_rows_ok" in sizes:
         exp_ok = int(sizes["n_rows_ok"])
         if exp_ok != n_ok:
             errors.append(f"Mismatch n_rows_ok: manifest={exp_ok} vs detected={n_ok}")
         else:
-            logger.info("n_rows_ok OK: %d", n_ok)
+            logger.info("n_rows_ok OK: %s", n_ok)
 
     # Vérification des hashes si fournis
     fh = manifest.get("file_hashes", {})
@@ -193,3 +189,33 @@ df = ci.ensure_fig02_cols(df)
 if __name__ == "__main__":
     rc = main()
     sys.exit(rc)
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Surtout ne rien casser si l'environnement matplotlib n'est pas prêt
+        pass
+    return args
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

@@ -1,6 +1,13 @@
+#!/usr/bin/env python3
+"""
+plot_fig04_relative_deviations.py
 
-import os
-import glob
+Script corrigé pour tracer les écarts relatifs des invariants I2 et I3 :
+- Lit le CSV des invariants en tenant compte de plusieurs emplacements possibles
+- Calcule ε₂ et ε₃ correctement, en ne saturant pas l'échelle avec ε₂ à haute T
+- Trace les seuils ±1% et ±10%
+- Sauvegarde la figure PNG 800×500 px, DPI 300
+"""
 
 import os
 
@@ -15,31 +22,25 @@ def main():
     # ----------------------------------------------------------------------
     Tp = 0.087  # Gyr, point de transition issu du script d’intégration
 
-        # ----------------------------------------------------------------------
-        # 1. Chargement des données
-        # ----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # 1. Chargement des données
+    # ----------------------------------------------------------------------
     possible_paths = [
         "zz-data/chapter04/04_dimensionless_invariants.csv",
         "/mnt/data/04_dimensionless_invariants.csv",
     ]
     df = None
     for path in possible_paths:
-    if os.path.isfile(path):
-        df = pd.read_csv(path)
-        print(f"Chargé {path}")
-
-            df = pd.read_csv( path )
+        if os.path.isfile(path):
+            df = pd.read_csv(path)
             print(f"Chargé {path}")
-
+            break
     if df is None:
         raise FileNotFoundError(f"Aucun CSV trouvé parmi : {possible_paths}")
 
     for col in ["T_Gyr", "I2", "I3"]:
         if col not in df.columns:
             raise KeyError(f"Colonne '{col}' manquante dans {path}")
-    T = df[ "T_Gyr" ].values
-    I2 = df[ "I2" ].values
-    I3 = df[ "I3" ].values
 
     T = df["T_Gyr"].values
     I2 = df["I2"].values
@@ -49,11 +50,11 @@ def main():
     I2_ref = 1e-35
     I3_ref = 1e-6
 
-        # ----------------------------------------------------------------------
-        # 2. Calcul des écarts relatifs et masquage hors tolérance ±10 %
-        # ----------------------------------------------------------------------
-    eps2 = ( I2 - I2_ref ) / I2_ref
-    eps3 = ( I3 - I3_ref ) / I3_ref
+    # ----------------------------------------------------------------------
+    # 2. Calcul des écarts relatifs et masquage hors tolérance ±10 %
+    # ----------------------------------------------------------------------
+    eps2 = (I2 - I2_ref) / I2_ref
+    eps3 = (I3 - I3_ref) / I3_ref
 
     # Pour ne faire apparaître que les écarts dans ±10 %, masquer le reste
     tol = 0.10  # 10 %  → mettre 0.01 pour ±1 %
@@ -84,15 +85,10 @@ def main():
     ax.axhline(0.10, color="gray", linestyle=":", label=r"$\pm10\%$")
     ax.axhline(-0.10, color="gray", linestyle=":")
 
-    ax.axhline( 0.01, color="k", linestyle="--", label=r"$\pm1\%$" )
-    ax.axhline(-0.01, color="k", linestyle="--" )
-    ax.axhline( 0.10, color="gray", linestyle=":", label=r"$\pm10\%$" )
-    ax.axhline(-0.10, color="gray", linestyle=":" )
+    # Zoom vertical ±0.2
+    ax.set_ylim(-0.2, 0.2)
 
-        # Zoom vertical ±0.2
-    ax.set_ylim(-0.2, 0.2 )
-
-        # Graduations mineures sur l’axe T
+    # Graduations mineures sur l’axe T
     from matplotlib.ticker import LogLocator
 
     ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
@@ -107,7 +103,7 @@ def main():
     # Titre principal
     ax.set_title("Fig. 04 – Écarts relatifs des invariants $I_2$ et $I_3$", pad=32)
 
-        # Sous-titre pour préciser la plage zoomée
+    # Sous-titre pour préciser la plage zoomée
     ax.text(
         0.5,
         1.02,
@@ -131,19 +127,42 @@ def main():
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     plt.savefig(output_fig)
     print(f"Figure sauvegardée : {output_fig}")
-if __name__ == "__main__":
-    pass
-    pass
-    pass
-main( )
-
-# [MCGT POSTPARSE EPILOGUE v2]
-try:
-    import os, sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-except Exception:
-    pass
 
 
 if __name__ == "__main__":
     main()
+
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

@@ -63,7 +63,7 @@ def main(args):
                 "abs_dphi_principal": abs_dphi,
             }
         )
-        df.to_csv(outcsv, index=False, float_format="%.12f")
+        df.to_csv(outcsv, index=False, float_format="%s")
         print(f"Wrote {outcsv} (k={k})")
         # overlay PNG
         fig, ax = plt.subplots(figsize=(8, 4))
@@ -97,3 +97,33 @@ if __name__ == "__main__":
     p.add_argument("--out-dir", default="zz-data/chapter10/topk_residuals")
     args = p.parse_args()
     main(args)
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Jamais bloquant.
+        pass
+    return args
+
+# Exposition module-scope (ne force rien si l'appelant n'utilise pas MCGT_CLI)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

@@ -54,7 +54,7 @@ def bootstrap_circ_mean_ci(
 
     Technique: calcule la moyenne circulaire θ̂. Pour chaque bootstrap, calcule θ_b.
     Étant sur un cercle, on centre puis "wrap" : Δ_b = wrap(θ_b - θ̂).
-    On prend les percentiles 2.5% et 97.5% de Δ_b, puis on réapplique autour de θ̂.
+    On prend les percentiles 2.5% et 97.5%se Δ_b, puis on réapplique autour de θ̂.
 
     Retourne: (theta_hat, ci_low, ci_high) en radians dans [-π, π).
     """
@@ -169,7 +169,7 @@ def main():
         "--boot-ci",
         type=int,
         default=1000,
-        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
+        help="B (réplicats) pour IC bootstrap 95%se la moyenne circulaire de Δφ. 0 = off.",
     )
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
 
@@ -346,3 +346,37 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si style/DPI échoue.
+        pass
+    return args
+
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

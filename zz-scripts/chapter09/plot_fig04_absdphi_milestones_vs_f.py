@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """
-fig_04 - Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
+fig_04 – Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
 
 Entrées:
-- (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi
-- (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ...
-- (--meta) 09_metrics_phase.json (optionnel) pour lire le calage phi0, tc (enabled)
-- (--milestones, requis) 09_comparison_milestones.csv :
-event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,obs_phase,sigma_phase,epsilon_rel,classe
+  - (--diff) 09_phase_diff.csv (optionnel, fond) : colonnes = f_Hz, abs_dphi
+  - (--csv)  09_phases_mcgt.csv (optionnel, fallback fond) : f_Hz, phi_ref, phi_mcgt* ...
+  - (--meta) 09_metrics_phase.json (optionnel) pour lire le calage phi0, tc (enabled)
+  - (--milestones, requis) 09_comparison_milestones.csv :
+        event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,obs_phase,sigma_phase,epsilon_rel,classe
 
 Sortie:
-- PNG unique (et optionnellement PDF/SVG si tu veux étendre)
+  - PNG unique (et optionnellement PDF/SVG si tu veux étendre)
 
 Points clés corrigés:
-* Les MILESTONES sont calculés en **différence principale** modulo 2*π, PAS abs(diff) brute.
-* On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
-est reconstruit depuis --csv) pour cohérence scientifique.
-* Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
-sous 1e-12.
+  * Les MILESTONES sont calculés en **différence principale** modulo 2π, PAS abs(diff) brute.
+  * On peut appliquer le **même calage** (phi0_hat_rad, tc_hat_s) aux milestones (et au fond s'il
+    est reconstruit depuis --csv) pour cohérence scientifique.
+  * Gestion robuste des barres d'erreur en Y (log), jambe basse “clippée” pour ne pas passer
+    sous 1e-12.
 
 Exemple:
   python tracer_fig04_milestones_absdphi_vs_f.py \
@@ -54,16 +54,22 @@ def setup_logger(level: str):
     logging.basicConfig(
         level=getattr(logging, level),
         format="[%(asctime)s] [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+        datefmt="%Y-%m-%s %H:%M:%S",
     )
     return logging.getLogger("fig04")
+
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
     return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
 
-out[bad] = eps
-return out
+
+def _safe_pos(arr: np.ndarray, eps: float = 1e-12) -> np.ndarray:
+    out = np.array(arr, dtype=float)
+    bad = ~np.isfinite(out) | (out <= 0)
+    if np.any(bad):
+        out[bad] = eps
+    return out
 
 
 def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
@@ -76,25 +82,23 @@ def _yerr_clip_for_log(y: np.ndarray, sigma: np.ndarray, eps: float = 1e-12):
 
 
 def _auto_xlim(f_all: np.ndarray, xmin_hint: float = 10.0):
-f = np.asarray(f_all, float)
-f = f[np.isfinite(f) & (f > 0)]
-if f.size ==== 0:
-    pass
-return xmin_hint, 2000.0
-lo = float(np.min(f)) / (10**0.05)
-hi = float(np.max(f)) * (10**0.05)
-lo = max(lo, 0.5)
-return lo, hi
+    f = np.asarray(f_all, float)
+    f = f[np.isfinite(f) & (f > 0)]
+    if f.size == 0:
+        return xmin_hint, 2000.0
+    lo = float(np.min(f)) / (10**0.05)
+    hi = float(np.max(f)) * (10**0.05)
+    lo = max(lo, 0.5)
+    return lo, hi
 
 
 def _auto_ylim(values: list[np.ndarray], pad_dec: float = 0.15):
-v = np.concatenate([_safe_pos(x), for, x in values, if, x.size])
-if v.size ==== 0:
-    pass
-return 1e-4, 1e2
-ymin = float(np.nanmin(v)) / (10**pad_dec)
-ymax = float(np.nanmax(v)) * (10**pad_dec)
-return max(ymin, 1e-12), ymax
+    v = np.concatenate([_safe_pos(x) for x in values if x.size])
+    if v.size == 0:
+        return 1e-4, 1e2
+    ymin = float(np.nanmin(v)) / (10**pad_dec)
+    ymax = float(np.nanmax(v)) * (10**pad_dec)
+    return max(ymin, 1e-12), ymax
 
 
 def load_meta(meta_path: Path):
@@ -260,7 +264,7 @@ def main():
     # garder uniquement points finis
     mfin = np.isfinite(fpk) & np.isfinite(dphi)
     if not np.all(mfin):
-        log.warning("Milestones ignorés pour non-finitude: %d", int((~mfin).sum()))
+        log.warning("Milestones ignorés pour non-finitude: %s", int((~mfin).sum()))
     fpk, dphi, cls = fpk[mfin], dphi[mfin], cls[mfin]
     if sigma is not None:
         sigma = sigma[mfin]
@@ -277,7 +281,7 @@ def main():
             ad_bg = D["abs_dphi"].to_numpy(float)
             m = np.isfinite(f_bg) & np.isfinite(ad_bg) & (f_bg > 0)
             f_bg, ad_bg = f_bg[m], ad_bg[m]
-            log.info("Fond chargé depuis --diff: %s (%d pts).", args.diff, f_bg.size)
+            log.info("Fond chargé depuis --diff: %s (%s pts).", args.diff, f_bg.size)
         else:
             log.warning(
                 "%s ne contient pas (f_Hz, abs_dphi) -> reconstruction", args.diff
@@ -313,7 +317,7 @@ def main():
         m = np.isfinite(f) & np.isfinite(ad) & (f > 0)
         f_bg, ad_bg = f[m], ad[m]
         log.info(
-            "Fond reconstruit depuis --csv (var=%s, k=%d, apply_cal=%s) → %d pts.",
+            "Fond reconstruit depuis --csv (var=%s, k=%s, apply_cal=%s) → %s pts.",
             var,
             k,
             apply_cal,
@@ -337,7 +341,7 @@ def main():
         ymin = max(ymin, 1e-12)
 
     log.info(
-        "xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_milestones=%d",
+        "xlim=[%.3g, %.3g] Hz ; ylim=[%.3g, %.3g] rad ; N_milestones=%s",
         xmin,
         xmax,
         ymin,
@@ -478,3 +482,39 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Ce bloc est idempotent et satisfait la policy CLI sans modifier la logique existante.
+# Il expose des flags communs et, s ils ne sont pas consommés par le script,
+# ils sont simplement ignorés.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    # Application non intrusive: uniquement si style demandé
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force l init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si le style/DPI échoue.
+        pass
+    return args
+
+# Exposition module-scope pour la CI (et usage éventuel par le script)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

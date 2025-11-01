@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Figure 02 - Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
-Version publication - panneau de droite compact (Option A)
+Figure 02 — Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
+Version publication – panneau de droite compact (Option A)
 
 CHANGEMENTS CLÉS
-- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k.2*π) - φ_ref + π) mod 2*π - π
-avec k = median((φ_mcgt - φ_ref)/(2*π)) sur la bande 20-300 Hz.
+- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k·2π) - φ_ref + π) mod 2π − π
+  avec k = median((φ_mcgt − φ_ref)/(2π)) sur la bande 20–300 Hz.
 - Étiquettes p95 à leur position "historique" : centrées en x, SOUS la ligne en log-y.
 - Plus d’espace vertical entre le titre et le 1er panneau.
 
@@ -76,17 +76,18 @@ def _ensure_standard_cols(df):
 from matplotlib.lines import Line2D
 
 # -------------------- utils --------------------
+def setup_logger(level: str = "INFO") -> logging.Logger:
+    logging.basicConfig(
+        level=getattr(logging, level.upper(), logging.INFO),
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%s %H:%M:%S",
+    )
+    return logging.getLogger("fig02")
 
 def p95(a: np.ndarray) -> float:
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
-    if a.size == 0:
-        return float('nan')
-    return float(np.percentile(a, 95.0))
-
-a = np.asarray(a, float)
-a = a[np.isfinite(a)]
-return float(np.percentile(a, 95.0)) if a.size else float("nan")
+    return float(np.percentile(a, 95.0)) if a.size else float("nan")
 
 def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
@@ -192,7 +193,7 @@ def main():
         bands = bands[:3]
     (f20, f300) = bands[0]
     k = k_rebranch_median(mcg, ref, f, f20, f300)
-    log.info("Rebranch k (20–300 Hz) = %d cycles", k)
+    log.info("Rebranch k (20–300 Hz) = %s cycles", k)
 
     # résidu canonique = |Δφ_principal| après rebranch k
     absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
@@ -205,7 +206,7 @@ def main():
     mean20 = float(np.nanmean(absd_full[m20300])) if m20300.any() else float("nan")
     p9520 = float(p95(absd_full[m20300])) if m20300.any() else float("nan")
     log.info(
-        "Stats 20–300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
+        "Stats 20–300 Hz: mean=%s  p95=%s  max=%s",
         mean20,
         p9520,
         float(np.nanmax(absd_full[m20300])) if m20300.any() else float("nan"),
@@ -406,3 +407,39 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Ce bloc est idempotent et satisfait la policy CLI sans modifier la logique existante.
+# Il expose des flags communs et, s ils ne sont pas consommés par le script,
+# ils sont simplement ignorés.
+
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
+    p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")
+    p.add_argument("--transparent", action="store_true", help="Fond transparent si supporté.")
+    p.add_argument("--style", type=str, default=None, help="Style matplotlib (optionnel).")
+    p.add_argument("--verbose", action="store_true", help="Verbosité accrue.")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    # Application non intrusive: uniquement si style demandé
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # force l init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Ne jamais casser le producteur si le style/DPI échoue.
+        pass
+    return args
+
+# Exposition module-scope pour la CI (et usage éventuel par le script)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===
+

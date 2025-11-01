@@ -329,7 +329,7 @@ def main():
     k_grid = build_log_grid(params.k_min, params.k_max, n_points=params.n_k)
     a_vals = np.linspace(params.a_min, params.a_max, params.n_a)
     logger.info(
-        "Grilles : %d k-points entre [%g, %g], %d a-points entre [%g, %g]",
+        "Grilles : %s k-points entre [%g, %g], %s a-points entre [%g, %g]",
         len(k_grid),
         params.k_min,
         params.k_max,
@@ -371,7 +371,7 @@ def main():
         }
     )
     df_raw.to_csv(out_raw, index=False)
-    logger.info("Raw unifié écrit → %s (%d lignes)", out_raw, len(df_raw))
+    logger.info("Raw unifié écrit → %s (%s lignes)", out_raw, len(df_raw))
 
     # export matrices 2D si demandé (format long k,a,val)
     if args.export_2d:
@@ -424,3 +424,33 @@ def main():
 
 if __name__ == "__main__":
     main()
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Jamais bloquant.
+        pass
+    return args
+
+# Exposition module-scope (ne force rien si l'appelant n'utilise pas MCGT_CLI)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

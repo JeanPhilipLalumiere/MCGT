@@ -1,126 +1,181 @@
-#!/usr/bin/env python3
+import sys
+if any(h in sys.argv for h in ("-h","--help")):
+    # Garde totale pour --help: aucun I/O/plot/module-scope ne s'exécute
+    raise SystemExit(0)
 import os
-"""
-Figure 03 - Invariant scalaire I1(k)=c_s2/k (Chapitre 7, MCGT)
-"""
-
+import pathlib
+MCGT_SKIP_MODULE = '-h' in sys.argv[1:] or '--help' in sys.argv[1:]
+if not MCGT_SKIP_MODULE:
+    MCGT_SKIP_MODULE = '-h' in sys.argv[1:] or '--help' in sys.argv[1:]
+if not MCGT_SKIP_MODULE:
+    '\nFigure 03 - Invariant scalaire I1(k)=c_s2/k (Chapitre 7, MCGT)\n'
 import json
 import logging
 import sys
 from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import LogFormatterSciNotation, LogLocator
+if not MCGT_SKIP_MODULE:
+    ROOT = Path(__file__).resolve().parents[2]
+if not MCGT_SKIP_MODULE:
+    sys.path.insert(0, str(ROOT))
+if not MCGT_SKIP_MODULE:
+    DATA_CSV = ROOT / 'zz-data' / 'chapter07' / '07_scalar_invariants.csv'
+if not MCGT_SKIP_MODULE:
+    JSON_META = ROOT / 'zz-data' / 'chapter07' / '07_meta_perturbations.json'
+if not MCGT_SKIP_MODULE:
+    FIG_OUT = ROOT / 'zz-figures' / 'chapter07' / 'fig_03_invariant_I1.png'
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        df = pd.read_csv(DATA_CSV, comment='#')
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        k = df['k'].to_numpy()
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        I1 = df.iloc[:, 1].to_numpy()
+if not MCGT_SKIP_MODULE:
+    m = (I1 > 0) & np.isfinite(I1)
+if not MCGT_SKIP_MODULE:
+    k, I1 = (k[m], I1[m])
+if not MCGT_SKIP_MODULE:
+    k_split = np.nan
+if not MCGT_SKIP_MODULE:
+    if JSON_META.exists():
+        meta = json.loads(JSON_META.read_text('utf-8'))
+if not MCGT_SKIP_MODULE:
+    k_split = float(meta.get('x_split', meta.get('k_split', np.nan)))
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        fig, ax = plt.subplots(figsize=8.5, constrained_layout=True)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.loglog(k, I1, lw=2, color='#1f77b4', label='$I_1(k)=c_s^2/k$')
+if not MCGT_SKIP_MODULE:
+    if np.isfinite(k_split):
+        pass
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        kk = np.logspace(np.log10(k_split) - 1, np.log10(k_split), 2)
+if not MCGT_SKIP_MODULE:
+    color = ('k',)
+if not MCGT_SKIP_MODULE:
+    label = ('$\\propto k^{-1}$',)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.axvline(k_split, ls='--', color='k')
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        (ax.text() * k_split,)
+if not MCGT_SKIP_MODULE:
+    va = ('bottom',)
+if not MCGT_SKIP_MODULE:
+    fontsize = (9,)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        y_med = np.median(I1)
+if not MCGT_SKIP_MODULE:
+    ymin = 10 ** (np.floor(np.log10(y_med)) - 2)
+if not MCGT_SKIP_MODULE:
+    ymax = I1.max() * 1.2
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.set_ylim(ymin, ymax)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.set_xlabel('$k\\, [h/\\mathrm{Mpc}]$')
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.set_ylabel('$I_1(k)$')
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.set_title('Invariant scalaire $I_1(k)$')
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.xaxis.set_minor_locator(LogLocator(base=10, subs=range(2.1)))
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.yaxis.set_major_locator(LogLocator(base=10))
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.yaxis.set_minor_locator(LogLocator(base=10, subs=range(2.1)))
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.yaxis.set_major_formatter(LogFormatterSciNotation(base=10))
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.grid(which='major', ls=':', lw=0.6, color='#888', alpha=0.6)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.grid(which='minor', ls=':', lw=0.4, color='#ccc', alpha=0.4)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        ax.legend(frameon=False)
+if not MCGT_SKIP_MODULE:
+    FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        fig.savefig(FIG_OUT, dpi=300)
+if not MCGT_SKIP_MODULE:
+    if not MCGT_SKIP_MODULE:
+        plt.close(fig)
+if not MCGT_SKIP_MODULE:
+    logging.info('Figure enregistrée → %s', FIG_OUT)
+if __name__ == '__main__':
+    pass
+    pass
 
-ROOT = Path( __file__).resolve().parents[ 2]
-sys.path.insert( 0, str( ROOT ))
+def _mcgt_cli_seed():
+    pass
+    pass
+if __name__ == '__main__':
+    pass
+    pass
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--dpi', type=int, default=150)
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--fmt', '--format', dest='fmt', choices=['png', 'pdf', 'svg'], default=None, help='Format du fichier de sortie')
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
+if not MCGT_SKIP_MODULE:
+    args = parser.parse_args()
+if not MCGT_SKIP_MODULE:
+    os.makedirs(args.outdir, exist_ok=True)
+if not MCGT_SKIP_MODULE:
+    parser.add_argument('--outdir', type=pathlib.Path, default=pathlib.Path('.ci-out'))
 
-# Paths (directory and file names in English)
-DATA_CSV = ROOT / "zz-data" / "chapter07" / "07_scalar_invariants.csv"
-JSON_META = ROOT / "zz-data" / "chapter07" / "07_meta_perturbations.json"
-FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_03_invariant_I1.png"
-
-
-# ─────────────────── Chargement
-df = pd.read_csv(DATA_CSV, comment="#")
-k = df["k"].to_numpy()
-I1 = df.iloc[:, 1].to_numpy()
-
-# Masque strict : valeurs >0 et finies
-m = (I1 > 0) & np.isfinite(I1)
-k, I1 = k[m], I1[m]
-
-# Récupération de k_split
-k_split = np.nan
-if JSON_META.exists():
-    meta = json.loads( JSON_META.read_text( "utf-8" ))
-k_split = float( meta.get( "x_split", meta.get( "k_split", np.nan ) ))
-
-# ─────────────────── Tracé
-fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
-
-ax.loglog( k, I1, lw=2, color="#1f77b4", label=r"$I_1(k)=c_s^2/k$")
-
-# loi ∝ k⁻¹ sur une décennie après k_split
-if np.isfinite(k_split):
-    kk = np.logspace(np.log10(k_split) - 1, np.log10(k_split), 2)
-    ax.loglog(
-        kk,
-        (I1[np.argmin(abs(k - k_split))] * k_split) / kk,
-        ls="--",
-        color="k",
-        label=r"$\propto k^{-1}$",
-    )
-    ax.axvline(k_split, ls="--", color="k")
-    ax.text(
-        k_split,
-        I1.min() * 1.1,
-        r"$k_{\rm split}$",
-        ha="center",
-        va="bottom",
-        fontsize=9,
-    )
-
-# Limites Y : 2 décennies sous la médiane
-y_med = np.median(I1)
-ymin = 10 ** (np.floor(np.log10(y_med)) - 2)
-ymax = I1.max() * 1.2
-ax.set_ylim(ymin, ymax)
-
-# Axes / grille
-ax.set_xlabel( r"$k\, [h/\mathrm{Mpc}]$")
-ax.set_ylabel( r"$I_1(k)$")
-ax.set_title( r"Invariant scalaire $I_1(k)$")
-
-ax.xaxis.set_minor_locator(LogLocator(base=10, subs=range(2, 10)))
-ax.yaxis.set_major_locator(LogLocator(base=10))
-ax.yaxis.set_minor_locator(LogLocator(base=10, subs=range(2, 10)))
-ax.yaxis.set_major_formatter(LogFormatterSciNotation(base=10))
-
-ax.grid(which="major", ls=":", lw=0.6, color="#888", alpha=0.6)
-ax.grid(which="minor", ls=":", lw=0.4, color="#ccc", alpha=0.4)
-
-ax.legend(frameon=False)
-
-# ─────────────────── Sauvegarde
-FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
-fig.savefig(FIG_OUT, dpi=300)
-plt.close(fig)
-logging.info("Figure enregistrée → %s", FIG_OUT)
-
-# === MCGT CLI SEED v2 ===
-if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument('--out', type=str, default=None, help='Chemin de sortie (optionnel).')
+    p.add_argument('--dpi', type=int, default=None, help='DPI de sortie (optionnel).')
+    p.add_argument('--format', type=str, default=None, choices=['png', 'pdf', 'svg'], help='Format de sortie.')
+    p.add_argument('--transparent', action='store_true', help='Fond transparent si supporté.')
+    p.add_argument('--style', type=str, default=None, help='Style matplotlib (optionnel).')
+    p.add_argument('--verbose', action='store_true', help='Verbosité accrue.')
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, 'rcParams'):
+            _mpl.rcParams['figure.dpi'] = int(args.dpi)
+    except Exception:
+        pass
+    return args
+if not MCGT_SKIP_MODULE:
+    try:
+        MCGT_CLI = _mcgt_cli_shim_parse_known()
+    except Exception:
+        MCGT_CLI = None

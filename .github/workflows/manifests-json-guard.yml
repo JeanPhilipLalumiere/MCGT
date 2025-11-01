@@ -20,6 +20,7 @@ concurrency:
       - 'tools/ci_step5_validate_manifests_json.sh'
       - '.github/workflows/manifests-json-guard.yml'
       - '!**/*.md'
+  workflow_dispatch:
 
 jobs:
   validate:

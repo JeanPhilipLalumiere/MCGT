@@ -203,12 +203,12 @@ def main(argv=None):
         # standardize entry as dict
         ent = dict(entry)
         id_ = int(ent.get("id") or ent.get("index") or ent.get("idx"))
-        _logger.info("Processing id=%d", id_)
+        _logger.info("Processing id=%s", id_)
 
         resid_file = find_resid_file(resid_dir, id_)
         if resid_file is None:
             _logger.warning(
-                "Fichier de résidus non trouvé pour id=%d (cherche dans %s). Fallback p95 si dispo.",
+                "Fichier de résidus non trouvé pour id=%s (cherche dans %s). Fallback p95 si dispo.",
                 id_,
                 resid_dir,
             )
@@ -235,7 +235,7 @@ def main(argv=None):
             dfr = pd.read_csv(resid_file)
         except Exception as e:
             _logger.exception(
-                "Impossible de lire %s pour id=%d : %s", resid_file, id_, e
+                "Impossible de lire %s pour id=%s : %s", resid_file, id_, e
             )
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
@@ -246,7 +246,7 @@ def main(argv=None):
         col = detect_abscol(dfr)
         if col is None:
             _logger.warning(
-                "Impossible de détecter colonne |Δφ| dans %s pour id=%d",
+                "Impossible de détecter colonne |Δφ| dans %s pour id=%s",
                 resid_file,
                 id_,
             )
@@ -259,7 +259,7 @@ def main(argv=None):
         arr = dfr[col].to_numpy(dtype=float)
         n_points = arr.size
         if n_points == 0:
-            _logger.warning("Tableau vide pour id=%d (fichier %s).", id_, resid_file)
+            _logger.warning("Tableau vide pour id=%s (fichier %s).", id_, resid_file)
             ent["p95_boot_median"] = None
             ent["p95_ci"] = None
             ent["n_points_resid"] = 0
@@ -291,7 +291,7 @@ def main(argv=None):
         ent["resid_file"] = str(resid_file)
         enriched.append(ent)
         _logger.info(
-            "id=%d: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%d",
+            "id=%s: p95_boot_median=%.6g  p95_ci=[%.6g, %.6g]  n=%s",
             id_,
             med,
             low,
@@ -319,3 +319,33 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Jamais bloquant.
+        pass
+    return args
+
+# Exposition module-scope (ne force rien si l'appelant n'utilise pas MCGT_CLI)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

@@ -79,7 +79,7 @@ def safe_write_csv(
             f"Refuse d'écraser {path} — relancer avec --overwrite ou supprimer le fichier."
         )
     tmp = path + ".part"
-    df.to_csv(tmp, index=False, float_format="%.6f", **kwargs)
+    df.to_csv(tmp, index=False, float_format="%s", **kwargs)
     os.replace(tmp, path)
 
 
@@ -338,7 +338,7 @@ def main(argv=None):
         )
     f_hz = np.asarray(df_ref["f_Hz"].values, dtype=float)
     logging.info(
-        "Grille de référence : %d pts (%.3f..%.3f Hz)",
+        "Grille de référence : %s pts (%s..%s Hz)",
         f_hz.size,
         float(f_hz.min()),
         float(f_hz.max()),
@@ -349,14 +349,14 @@ def main(argv=None):
     if args.n_test:
         samples = samples.head(args.n_test)
     n_samples = len(samples)
-    logging.info("Nombre d'échantillons à évaluer : %d", n_samples)
+    logging.info("Nombre d'échantillons à évaluer : %s", n_samples)
 
     # prepare parallel evaluation
     window = WINDOW_DEFAULT
     _work = []
     # joblib Parallel with chunksize automatic
     logging.info(
-        "Démarrage évaluation en parallèle : batch=%d n_workers=%d",
+        "Démarrage évaluation en parallèle : batch=%s n_workers=%s",
         args.batch,
         args.n_workers,
     )
@@ -401,7 +401,7 @@ def main(argv=None):
     # safe write CSV
     safe_write_csv(df_out, args.out_results, overwrite=args.overwrite)
     logging.info(
-        "Écriture des résultats (%d lignes) -> %s", len(df_out), args.out_results
+        "Écriture des résultats (%s lignes) -> %s", len(df_out), args.out_results
     )
 
     # top-K (tri par score ascendant : petite p95 = meilleur)
@@ -428,7 +428,7 @@ def main(argv=None):
     }
     out_best = {"meta": meta, "top_k": topk}
     safe_write_json(out_best, args.out_best, overwrite=args.overwrite)
-    logging.info("Écriture top-K (%d) -> %s", len(topk), args.out_best)
+    logging.info("Écriture top-K (%s) -> %s", len(topk), args.out_best)
 
     logging.info("Terminé.")
     return 0
@@ -436,3 +436,33 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Jamais bloquant.
+        pass
+    return args
+
+# Exposition module-scope (ne force rien si l'appelant n'utilise pas MCGT_CLI)
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

@@ -5,11 +5,11 @@ Recalcule p95_20_300 en utilisant la distance angulaire minimale (circular diff)
 Input: results.csv et samples.csv et grille de référence.
 Output: results.{suffix}.csv (par défaut suffix='circ') et manifeste JSON.
 Usage:
-python zz-scripts/chapter10/recompute_p95_circular.py \
---results zz-data/chapter10/10_mc_results.csv \
---samples zz-data/chapter10/10_mc_samples.csv \
---ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
---out zz-data/chapter10/10_mc_results.circ.csv
+  python zz-scripts/chapter10/recompute_p95_circular.py \
+    --results zz-data/chapter10/10_mc_results.csv \
+    --samples zz-data/chapter10/10_mc_samples.csv \
+    --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
+    --out zz-data/chapter10/10_mc_results.circ.csv
 """
 
 from __future__ import annotations
@@ -35,18 +35,17 @@ def circ_diff(a, b):
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-
     parser.add_argument("--results", required=True)
     parser.add_argument("--samples", required=True)
     parser.add_argument("--ref-grid", required=True)
     parser.add_argument("--out", default=None)
-args = parser.parse_args( argv)
+    args = parser.parse_args(argv)
 
     df_res = pd.read_csv(args.results)
     df_samp = pd.read_csv(args.samples)
     fgrid = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
 
-mask = ( fgrid >= 20.0) & ( fgrid <= 300.0)
+    mask = (fgrid >= 20.0) & (fgrid <= 300.0)
 
     # prepare output df copy
     df_out = df_res.copy()
@@ -72,8 +71,8 @@ mask = ( fgrid >= 20.0) & ( fgrid <= 300.0)
     # optionally replace existing column:
     df_out["p95_20_300_recalc"] = df_out["p95_20_300_circ"]
 
-outpath = args.out or args.results.replace( ".csv", ".circ.csv")
-df_out.to_csv( outpath, index=False)
+    outpath = args.out or args.results.replace(".csv", ".circ.csv")
+    df_out.to_csv(outpath, index=False)
     # petit manifeste
     man = {
         "src_results": os.path.abspath(args.results),
@@ -90,11 +89,34 @@ df_out.to_csv( outpath, index=False)
 
 
 if __name__ == "__main__":
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
-raise SystemExit( main( ))
+    raise SystemExit(main())
+
+# === MCGT:CLI-SHIM-BEGIN ===
+# Idempotent. Expose: --out/--dpi/--format/--transparent/--style/--verbose
+# Ne modifie pas la logique existante : parse_known_args() au module-scope.
+def _mcgt_cli_shim_parse_known():
+    import argparse, sys
+    p = argparse.ArgumentParser(add_help=False)
+    p.add_argument("--out", type=str, default=None)
+    p.add_argument("--dpi", type=int, default=None)
+    p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"])
+    p.add_argument("--transparent", action="store_true")
+    p.add_argument("--style", type=str, default=None)
+    p.add_argument("--verbose", action="store_true")
+    args, _ = p.parse_known_args(sys.argv[1:])
+    try:
+        import matplotlib as _mpl
+        if args.style:
+            import matplotlib.pyplot as _plt  # init si besoin
+            _mpl.style.use(args.style)
+        if args.dpi and hasattr(_mpl, "rcParams"):
+            _mpl.rcParams["figure.dpi"] = int(args.dpi)
+    except Exception:
+        # Surtout ne rien casser si l'environnement matplotlib n'est pas prêt
+        pass
+    return args
+try:
+    MCGT_CLI = _mcgt_cli_shim_parse_known()
+except Exception:
+    MCGT_CLI = None
+# === MCGT:CLI-SHIM-END ===

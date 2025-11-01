@@ -19,7 +19,7 @@ set -euo pipefail
 # A: Auto-commit/push when YAML is valid
 # L: Install lib PSX
 # L: Link lib into tools/step*.sh (inject psx_install)
-# I: Install local hooks (ban cp -n, ban PSX banner dup)
+# I: Install local hooks (ban cp --no-clobber --update=none, ban PSX banner dup)
 # D: (2nd) Double-check YAML & run pre-commit
 # B: Replace safe_cp "with" "POSIX" idempotent backup logic
 # S: Sanity run pre-commit
@@ -108,7 +108,7 @@ fi
 
 # --------------------- (I) Hooks locaux (scripts shell) ---------------------
 if has I; then
-  # Interdit 'cp -n' dans tools/*.sh
+  # Interdit 'cp --no-clobber --update=none' dans tools/*.sh
   cat > tools/hooks/forbid_cp_n.sh <<'H1'
 #!/usr/bin/env bash
 set -euo pipefail

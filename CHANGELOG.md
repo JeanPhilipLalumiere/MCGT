@@ -44,3 +44,7 @@
 
 ## 0.2.71
 - Publication OK ; probe `/simple` et smoke isolée validées.
+## [0.3.12] - 2025-11-01
+- Homogénisation CLI round3 (61/61 scripts `--help` OK).
+- Bump versions: pyproject.toml, .zenodo.json (CITATION.cff sans clé `version:` → ignoré).
+- Release guard scripts (safe logging, anti-fermeture, stash/unstash contrôlé).

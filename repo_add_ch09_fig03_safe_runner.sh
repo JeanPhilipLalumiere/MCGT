@@ -109,7 +109,7 @@ echo "== COPIE PRUDENTE =="
 if [ -f "$TMP/09_fig_03_hist_absdphi_20_300.png" ]; then
   mkdir -p "$(dirname "$OUTPNG")"
   # copie non destructive
-  cp -n "$TMP/09_fig_03_hist_absdphi_20_300.png" "$OUTPNG" || true
+  cp --no-clobber --update=none "$TMP/09_fig_03_hist_absdphi_20_300.png" "$OUTPNG" || true
   echo "[OK] Figure dispo sous: $OUTPNG"
 fi
 

@@ -22,7 +22,7 @@ patch_push_only_if() {
   [[ -f "$f" ]] || { warn "absent: $f"; return; }
 
   # Sauvegarde
-  cp -n "$f" "$f.bak" 2>/dev/null || true
+  cp --no-clobber --update=none "$f" "$f.bak" 2>/dev/null || true
 
   # 1) élargir les conditions "push-only" les plus courantes
   #    - if: github.event_name == 'push'

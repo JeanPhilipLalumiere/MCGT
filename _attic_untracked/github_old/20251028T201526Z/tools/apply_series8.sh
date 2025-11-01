@@ -112,7 +112,7 @@ jobs:
         run: |
           mkdir -p dist
           # Copie tous les PDF générés plausibles
-          find . -maxdepth 4 -type f -name '*.pdf' -not -path './dist/*' -print -exec cp -n '{}' dist/ \; || true
+          find . -maxdepth 4 -type f -name '*.pdf' -not -path './dist/*' -print -exec cp --no-clobber --update=none '{}' dist/ \; || true
           ls -l dist || true
 
       - name: Upload PDF artefacts

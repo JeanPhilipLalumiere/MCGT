@@ -19,7 +19,7 @@ git checkout -B "$BRANCH" "origin/$BRANCH" 2>/dev/null || git checkout "$BRANCH"
 changed=0
 for f in "${FILES[@]}"; do
   [[ -f "$f" ]] || { echo "[INFO] Skip (absent): $f"; continue; }
-  cp -n "$f" "$f.bak" || true
+  cp --no-clobber --update=none "$f" "$f.bak" || true
 
   # Ajoute 'workflow_dispatch:' si absent
   if ! grep -Eq '^[[:space:]]*workflow_dispatch:' "$f"; then

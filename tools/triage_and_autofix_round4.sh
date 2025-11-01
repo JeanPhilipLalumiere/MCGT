@@ -20,7 +20,7 @@ printf '%s\n' "${FAILS[@]}" | nl -ba | sed 's/^/[FAIL] /'
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 
 # 3) Helpers
-backup(){ [[ -f "$1" ]] && cp -n -- "$1" "${1}.bak_${TS}" || true; }
+backup(){ [[ -f "$1" ]] && cp --no-clobber --update=none -- "$1" "${1}.bak_${TS}" || true; }
 have(){ command -v "$1" >/dev/null 2>&1; }
 
 # 4) Tire des patterns d’exception depuis le log (simple et robuste)

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 F="zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py"
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 [[ -f "$F" ]] || { echo "[ERR] introuvable: $F"; exit 1; }
-cp -n -- "$F" "${F}.bak_${TS}" || true
+cp --no-clobber --update=none -- "$F" "${F}.bak_${TS}" || true
 
 python - <<'PY' "$F"
 import ast, io, sys, pathlib

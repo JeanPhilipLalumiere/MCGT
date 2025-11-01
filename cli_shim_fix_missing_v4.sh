@@ -99,7 +99,7 @@ for f in "${files[@]}"; do
     echo "  ↳ [SKIP] Shim déjà présent"
     continue
   fi
-  cp -n -- "$f" "${f}.bak_${ts}" || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${ts}" || true
   # Ensure file ends with a newline, then append shim
   if [ -s "$f" ] && [ -n "$(tail -c1 "$f" | tr -d '\n')" ]; then
     printf '\n' >> "$f"

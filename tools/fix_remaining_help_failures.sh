@@ -14,7 +14,7 @@ FG_SERIES="zz-scripts/chapter02/plot_fig05_FG_series.py"
 FUTURE_TOP="zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py"
 
 ts="$(date -u +%Y%m%dT%H%M%SZ)"
-backup(){ [[ -f "$1" ]] && cp -n -- "$1" "${1}.bak_${ts}" || true; }
+backup(){ [[ -f "$1" ]] && cp --no-clobber --update=none -- "$1" "${1}.bak_${ts}" || true; }
 
 # 2) Ajout idempotent de `import sys`
 for f in "${NEED_SYS_IMPORT[@]}"; do

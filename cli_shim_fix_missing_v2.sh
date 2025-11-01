@@ -80,7 +80,7 @@ add_shim_if_missing() {
   local f="$1"
   if ! grep -q "^# === MCGT:CLI-SHIM-BEGIN ===" "$f" 2>/dev/null; then
     echo "[PATCH] $f — ajout shim"
-    cp -n -- "$f" "${f}.bak_$(UTC)" || true
+    cp --no-clobber --update=none -- "$f" "${f}.bak_$(UTC)" || true
     ensure_trailing_newline "$f"
     printf "%s\n" "$SHIM" >> "$f"
     return 0

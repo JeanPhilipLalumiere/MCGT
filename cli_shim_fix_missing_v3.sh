@@ -92,7 +92,7 @@ for f in "${TARGETS[@]}"; do
     continue
   fi
   # Backup
-  cp -n -- "${f}" "${f}.bak_${TS}" || true
+  cp --no-clobber --update=none -- "${f}" "${f}.bak_${TS}" || true
   # S'assurer d'un \n final puis append le shim en colonne 1
   # (printf garantit le \n final)
   if tail -c1 "${f}" | od -An -t x1 | grep -qi '0a' >/dev/null 2>&1; then

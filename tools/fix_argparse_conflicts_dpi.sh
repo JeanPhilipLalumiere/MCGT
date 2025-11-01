@@ -14,7 +14,7 @@ patched=0
 
 for f in "${FILES[@]}"; do
   [[ -f "$f" ]] || { echo "[SKIP] $f (absent)"; continue; }
-  cp -n -- "$f" "${f}.bak_${ts}" || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${ts}" || true
 
   # Patch: ArgumentParser( ... ) -> ArgumentParser(conflict_handler='resolve', ... )
   # uniquement si pas déjà présent

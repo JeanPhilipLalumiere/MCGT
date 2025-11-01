@@ -11,8 +11,8 @@ copy_if_found () {
   local src="$1" dst="$2"
   if [[ -f "$src" ]]; then
     mkdir -p "$(dirname "$dst")"
-    # Remplacer 'install -n' (non portable) par cp -n
-    cp -n "$src" "$dst" && echo "[COPIED] $src -> $dst" || echo "[SKIP] $dst existe déjà"
+    # Remplacer 'install -n' (non portable) par cp --no-clobber --update=none
+    cp --no-clobber --update=none "$src" "$dst" && echo "[COPIED] $src -> $dst" || echo "[SKIP] $dst existe déjà"
   else
     echo "[MISS] $src"
   fi

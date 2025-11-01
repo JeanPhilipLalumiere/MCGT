@@ -45,7 +45,7 @@ patch_workflow_if_needed() {
     return 0
   fi
 
-  cp -n "$file" "$file.bak" 2>/dev/null || true
+  cp --no-clobber --update=none "$file" "$file.bak" 2>/dev/null || true
 
   if grep -q 'runs-on:' "$file"; then
     # indentation de la 1ère ligne runs-on:

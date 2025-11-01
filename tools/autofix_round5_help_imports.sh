@@ -25,7 +25,7 @@ insert_import_sys() {
     say "[OK] import sys déjà présent: $f"
     return
   fi
-  cp -n -- "$f" "${f}.bak_${TS}" || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${TS}" || true
   # Insérer après éventuels __future__/imports existants, sinon tout en tête
   awk '
     BEGIN{done=0}
@@ -49,7 +49,7 @@ insert_import_sys() {
 help_short_circuit() {
   local f="$1"
   [[ -f "$f" ]] || { say "[SKIP] absent: $f"; return; }
-  cp -n -- "$f" "${f}.bak_${TS}" || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${TS}" || true
   # Ajoute un court-circuit très tôt si -h/--help présent
   # (sans casser l'existant si déjà présent)
   if rg -n 'sys\.argv' "$f" >/dev/null 2>&1 && rg -n '\-h|--help' "$f" >/dev/null 2>&1; then

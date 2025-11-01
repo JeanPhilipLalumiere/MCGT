@@ -84,7 +84,7 @@ for g in "${GEN_PATTERNS[@]}"; do
   for f in ${tracked[@]+"${tracked[@]}"}; do
     if [[ "$f" == $g ]]; then
       mkdir -p ".ci-archive/$(dirname "$f")"
-      if [[ -f "$f" ]]; then cp -n "$f" ".ci-archive/$f" 2>/dev/null || true; fi
+      if [[ -f "$f" ]]; then cp --no-clobber --update=none "$f" ".ci-archive/$f" 2>/dev/null || true; fi
       git rm -q --cached "$f" 2>/dev/null || true
       mark
     fi

@@ -79,7 +79,7 @@ fi
 
 for f in "${WF[@]}"; do
   # Sauvegarde
-  cp -n "$f" "backups/$(basename "$f").bak" || true
+  cp --no-clobber --update=none "$f" "backups/$(basename "$f").bak" || true
 
   # Ajoute permissions top-level si absentes
   if ! grep -qE '^[[:space:]]*permissions:' "$f"; then

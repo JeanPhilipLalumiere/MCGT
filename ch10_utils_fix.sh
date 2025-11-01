@@ -85,7 +85,7 @@ for f in "${targets[@]}"; do
 
   # Sauvegarde et restauration
   ts="$(date -u +%Y%m%dT%H%M%SZ)"
-  cp -n -- "$f" "${f}.bak_${ts}" || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${ts}" || true
   git show "$found:$f" > "$f"
 
   # Assure une fin de ligne avant append

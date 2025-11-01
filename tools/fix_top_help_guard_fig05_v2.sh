@@ -4,7 +4,7 @@ F="zz-scripts/chapter02/plot_fig05_FG_series.py"
 [[ -f "$F" ]] || { echo "[ERR] introuvable: $F"; exit 1; }
 
 ts="$(date -u +%Y%m%dT%H%M%SZ)"
-cp -n -- "$F" "${F}.bak_${ts}" || true
+cp --no-clobber --update=none -- "$F" "${F}.bak_${ts}" || true
 
 python - <<'PY'
 import ast, io, pathlib, sys

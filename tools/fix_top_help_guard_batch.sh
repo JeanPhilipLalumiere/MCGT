@@ -17,7 +17,7 @@ patched=0
 patch_file () {
   local F="$1"
   [[ -f "$F" ]] || { echo "[SKIP] $F (absent)"; return; }
-  cp -n -- "$F" "${F}.bak_${TS}" || true
+  cp --no-clobber --update=none -- "$F" "${F}.bak_${TS}" || true
 
   python - "$F" <<'PY'
 import ast, pathlib, sys

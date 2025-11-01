@@ -37,4 +37,13 @@ repos:
         entry: tools/hooks/smoke_help_changed.sh
         language: system
         pass_filenames: false
-        stages: [commit]
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: forbid-cp-n
+        name: forbid 'cp -n' in shell scripts
+        entry: tools/hooks/forbid_cp_n.sh
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]

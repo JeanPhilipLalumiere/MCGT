@@ -32,7 +32,7 @@ soften_one_file() {
 
   # Sauvegarde unique par exécution
   local b="_tmp/ci-soften-backups/$(basename "$f").bak"
-  [[ -f "$b" ]] || cp -n "$f" "$b" || true
+  [[ -f "$b" ]] || cp --no-clobber --update=none "$f" "$b" || true
 
   # 1) Inject 'on: pull_request' si absent (pour PRs)
   if ! grep -Eq '^\s*pull_request\s*:' "$f"; then

@@ -73,7 +73,7 @@ for f in "${targets[@]}"; do
     continue
   fi
   # Backup (no overwrite)
-  cp -n -- "$f" "${f}.bak_${ts}" 2>/dev/null || true
+  cp --no-clobber --update=none -- "$f" "${f}.bak_${ts}" 2>/dev/null || true
   # Already shimmed?
   if grep -q '^# === MCGT:CLI-SHIM-BEGIN ===' "$f"; then
     echo "  ↳ [SKIP] Shim déjà présent"

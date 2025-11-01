@@ -48,7 +48,7 @@ import traceback
 
 if __name__ == "__main__":
     pass
-parser = argparse.ArgumentParser(
+parser = argparse.ArgumentParser(conflict_handler='resolve', 
 )
 parser.add_argument(".ci-out"),
 
@@ -79,7 +79,7 @@ except Exception:
 
 def _mcgt_cli_shim_parse_known():
     import argparse, sys
-    p = argparse.ArgumentParser(add_help=False)
+    p = argparse.ArgumentParser(conflict_handler='resolve', add_help=False)
     p.add_argument("--out", type=str, default=None, help="Chemin de sortie (optionnel).")
     p.add_argument("--dpi", type=int, default=None, help="DPI de sortie (optionnel).")
     p.add_argument("--format", type=str, default=None, choices=["png","pdf","svg"], help="Format de sortie.")

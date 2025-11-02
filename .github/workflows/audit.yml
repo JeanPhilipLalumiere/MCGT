@@ -1,36 +1,33 @@
 name: audit
-
 on:
   pull_request:
     paths:
+      - ".github/audit/**"
+      - "tools/pip_audit_runtime.sh"
+      - "requirements*.txt"
       - "pyproject.toml"
-      - "requirements.txt"
-      - "tools/**"
-      - "zz-scripts/**"
-      - "**/*.py"
-  push:
-    branches: [ main ]
-    paths:
-      - "pyproject.toml"
-      - "requirements.txt"
-      - "tools/**"
-      - "zz-scripts/**"
-      - "**/*.py"
+      - "poetry.lock"
   workflow_dispatch: {}
-
-permissions:
-  contents: read
-
 jobs:
   audit:
-    name: audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install pip-audit (+ jq)
+        run: python -m pip install --upgrade pip pip-audit jq
+      - name: Run pip-audit (JSON + summary)
+        run: tools/pip_audit_runtime.sh
+      - name: Upload audit.json
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          python-version: "3.12"
-      - name: Install pip-audit
-        run: python -m pip install --upgrade pip pip-audit
-      - name: Audit runtime deps (allowlist-aware)
-        run: bash tools/pip_audit_runtime.sh
+          name: audit-json
+          path: .github/audit/out/audit.json
+      - name: Upload audit summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-summary
+          path: .github/audit/out/summary.txt

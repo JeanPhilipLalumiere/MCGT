@@ -1,0 +1,9 @@
+# Seuils initiaux (à resserrer plus tard)
+max_file_mb: 50
+max_dir_mb: 300
+paths:
+  - "zz-figures"
+  - "chapters"
+  - "chapter"
+  - "figures"
+  - "assets"

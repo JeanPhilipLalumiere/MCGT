@@ -1,0 +1,2 @@
+# Vulnérabilités tolérées TEMPORAIREMENT (une par ligne) — ex. GHSA-xxxx-xxxx-xxxx ou CVE-2024-12345
+# Ajoutez uniquement avec justification et ticket de remédiation.

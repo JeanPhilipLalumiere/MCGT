@@ -4,6 +4,8 @@
 [![Pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
 [![Release](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml)
 <!-- END BADGES -->
+<!-- ci:touch 20251102T020342Z -->
+
 # MCGT : Modèle de la Courbure Gravitationnelle du Temps
 
 

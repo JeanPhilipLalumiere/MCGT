@@ -28,6 +28,7 @@ jobs:
           TITLE="MCGT : Modèle de la Courbure Gravitationnelle du Temps"
           ERR=0
 
+          # README
           if [ ! -f README.md ] || ! grep -qF "$TITLE" README.md; then
             echo "::error title=README non canonique::README.md ne contient pas le titre canonique"
             ERR=1
@@ -35,6 +36,7 @@ jobs:
             echo "[OK] README"
           fi
 
+          # CITATION.cff
           if [ ! -f CITATION.cff ] || ! awk '/^title:/ {print; found=1} END{exit found?0:1}' CITATION.cff | grep -qF "$TITLE"; then
             echo "::error title=CITATION non canonique::CITATION.cff:title n est pas canonique"
             ERR=1
@@ -42,6 +44,7 @@ jobs:
             echo "[OK] CITATION"
           fi
 
+          # .zenodo.json (optionnel)
           if [ -f .zenodo.json ]; then
             python3 - <<'PY'
 import json,io,sys

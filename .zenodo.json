@@ -1,5 +1,5 @@
 {
-  "title": "MCGT : Modèle de la Courbure Gravitationnelle Temporelle",
+  "title": "MCGT : Modèle de la Courbure Gravitationnelle du Temps",
   "upload_type": "software",
   "description": "Toolkit de publication/reproductibilité pour les chapitres MCGT (figures/data/scripts). Version v0.3.0 avec manifestes, tarball de publication et pipelines smoke (ch09 stable, ch10 en progression).",
   "creators": [

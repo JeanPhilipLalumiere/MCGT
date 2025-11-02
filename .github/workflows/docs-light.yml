@@ -1,0 +1,34 @@
+name: docs-light
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - "CITATION.cff"
+      - ".zenodo.json"
+permissions:
+  contents: read
+jobs:
+  verify-docs-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify canonical title
+        run: |
+          set -Eeuo pipefail
+          TITLE="MCGT : Modèle de la Courbure Gravitationnelle du Temps"
+          ERR=0
+          if ! grep -q "$TITLE" README.md; then
+            echo "::error ::README.md n'affiche pas le titre canonique."; ERR=1
+          fi
+          if ! grep -E '^title:' CITATION.cff | grep -q "$TITLE"; then
+            echo "::error ::CITATION.cff:title n'est pas canonique."; ERR=1
+          fi
+          if [ -f .zenodo.json ]; then
+            python3 - <<'PY'
+import json,sys,io
+obj=json.load(io.open(".zenodo.json","r",encoding="utf-8"))
+sys.exit(0 if obj.get("title")=="MCGT : Modèle de la Courbure Gravitationnelle du Temps" else 2)
+PY
+            rc=$?; if [ $rc -ne 0 ]; then echo "::error ::.zenodo.json:title n'est pas canonique."; ERR=1; fi
+          fi
+          exit $ERR

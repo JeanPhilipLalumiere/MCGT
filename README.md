@@ -4,8 +4,8 @@
 [![Pre-commit](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci-pre-commit.yml)
 [![Release](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/release-publish.yml)
 <!-- END BADGES -->
+# MCGT : Modèle de la Courbure Gravitationnelle du Temps
 
-# MCGT : Le Modèle de la Courbure Gravitationnelle du Temps
 
 > Corpus scientifique structuré (10 chapitres LaTeX) + **scripts**, **données**, **figures** et **manifestes** assurant la **reproductibilité** de bout en bout.
 

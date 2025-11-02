@@ -313,3 +313,4 @@ Voir aussi `CITATION.cff`.
 
 # ci-nudge-pypi
 <!-- ci:touch docs-light -->
+<!-- ci:touch docs-light run -->

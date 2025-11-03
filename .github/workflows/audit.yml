@@ -4,13 +4,13 @@ on:
     paths:
       - "requirements.txt"
       - ".github/workflows/audit.yml"
-      - "[bash bash tools/pip_audit_runtime.sh]
+      - "[bash bash bash tools/pip_audit_runtime.sh]
       - ".github/audit/**"
   pull_request:
     paths:
       - "requirements.txt"
       - ".github/workflows/audit.yml"
-      - "[bash bash tools/pip_audit_runtime.sh]
+      - "[bash bash bash tools/pip_audit_runtime.sh]
       - ".github/audit/**"
   workflow_dispatch: {}
 
@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
       - name: Run pip-audit (JSON + summary)
         run: |
-          [bash bash tools/pip_audit_runtime.sh]
+          [bash bash bash tools/pip_audit_runtime.sh]
       - name: Upload audit.json
         if: always()
         uses: actions/upload-artifact@v4

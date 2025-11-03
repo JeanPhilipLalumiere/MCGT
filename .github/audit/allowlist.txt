@@ -1,0 +1,1 @@
+# temporary allowlist (put GHSA/CVE here; add expiry + issue links)

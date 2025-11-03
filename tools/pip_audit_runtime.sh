@@ -1,43 +1,49 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-echo "[audit] Python: $(python3 --version 2>&1 || true)"
-python3 -m pip install --upgrade pip >/dev/null
-python3 -m pip install pip-audit jq >/dev/null
-# Resolver : env 'runtime' (pas de dev extras)
-# Sortie JSON pour artifacts + résumé textuel
-python3 - <<'PY'
-import json,subprocess,sys,os,shutil
-out_json="audit.json"
-allow=os.environ.get("AUDIT_ALLOWLIST",".github/audit/allowlist.txt")
-cmd=["pip-audit","-r","requirements.txt","--format","json"]
-try:
-    res=subprocess.run(cmd, capture_output=True, text=True, check=False)
-    data=res.stdout.strip() or "[]"
-    try:
-        items=json.loads(data)
-    except Exception:
-        items=[]
-    ignored=set()
-    if os.path.isfile(allow):
-        with open(allow,"r",encoding="utf-8") as f:
-            for line in f:
-                line=line.strip()
-                if not line or line.startswith("#"): continue
-                ignored.add(line)
-    findings=[]
-    # pip-audit JSON peut être {dependencies:[{vulns:[{id:GHSA-..|CVE-..}]}]}
-    try:
-        for dep in (items.get("dependencies",[]) if isinstance(items,dict) else []):
-            for v in dep.get("vulns",[]):
-                vid=v.get("id","").strip()
-                if vid and vid not in ignored:
-                    findings.append(vid)
-    except Exception:
-        pass
-    with open(out_json,"w",encoding="utf-8") as f: f.write(res.stdout)
-    print("[audit] findings(not-ignored):", ", ".join(findings) if findings else "<none>")
-    sys.exit(1 if findings else 0)
-except Exception as e:
-    print("[audit] runtime error:",e)
-    sys.exit(2)
+
+cd "${GITHUB_WORKSPACE:-.}"
+
+ALLOW="${ALLOWLIST:-.github/audit/allowlist.txt}"
+OUT_JSON="audit.json"
+
+python -m pip install --upgrade pip >/dev/null
+python -m pip install --upgrade pip-audit >/dev/null
+
+# Génére un snapshot de l'environnement courant
+python - "$@" > ._req.txt <<'PY'
+import pkg_resources
+for d in sorted(pkg_resources.working_set, key=lambda d: d.project_name.lower()):
+    print(f"{d.project_name}=={d.version}")
 PY
+
+# Lance pip-audit (JSON). Exit code non-zéro si vulnérabilités.
+set +e
+pip-audit -r ._req.txt -f json -o "${OUT_JSON}"
+rc=$?
+set -e
+
+# Si allowlist, filtre les vulns listées (par id GHSA/CVE)
+if command -v jq >/dev/null 2>&1 && [[ -s "${OUT_JSON}" && -f "${ALLOW}" ]]; then
+  jq --argfile wl <(tr -d '\r' < "${ALLOW}" | sed '/^[[:space:]]*#/d;/^[[:space:]]*$/d' | jq -R . | jq -s .) '
+    # wl = ["GHSA-xxx","CVE-YYYY-zzzz",...]
+    def WL: $wl;
+    # conserve les éléments dont au moins UNE vuln n’est PAS allowlistée
+    [ .[] as $p
+      | ($p.vulns // []) as $vv
+      | [ $vv[]? | select( ( .id // .advisory.id ) as $id | (WL | index($id)) | not ) ] as $remain
+      | if ($remain|length) > 0 then
+          $p | .vulns = $remain
+        else empty end
+    ]' "${OUT_JSON}" > "${OUT_JSON}.filtered" 2>/dev/null \
+  && mv "${OUT_JSON}.filtered" "${OUT_JSON}"
+fi
+
+# Si des vulnérabilités restent, fail (rc=1). Sinon success.
+if command -v jq >/dev/null 2>&1 && [[ -s "${OUT_JSON}" ]]; then
+  n="$(jq '[ .[] | (.vulns // [])[] ] | length' "${OUT_JSON}")"
+  if [[ "${n}" -gt 0 ]]; then
+    echo "[audit] ${n} vuln(s) détectée(s) après allowlist"
+    exit 1
+  fi
+fi
+exit 0

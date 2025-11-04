@@ -18,3 +18,13 @@ repos:
     pass_filenames: false
 - repo: local
   hooks: []
+
+repos:
+  - repo: local
+    hooks:
+      - id: assets-budgets
+        name: assets-budgets
+        entry: python3 tools/scan_assets_budget.py
+        language: system
+        pass_filenames: false
+        stages: [commit, push, manual]

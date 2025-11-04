@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig05_hist_cdf_metrics.py
 

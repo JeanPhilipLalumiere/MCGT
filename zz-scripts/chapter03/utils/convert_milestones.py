@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter03/utils/convert_milestones.py
+# répertoire : zz-scripts/chapter03/utils
 # zz-scripts/chapter03/utils/convert_jalons.py
 import argparse
 from pathlib import Path

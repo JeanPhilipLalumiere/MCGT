@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter02/generate_data_chapter02.py
+# répertoire : zz-scripts/chapter02
 """
 Pipeline d'intégration chronologique corrigé pour Chapitre 2 (MCGT)
 Avec option --spectre pour générer 02_primordial_spectrum_spec.json et fig_00_spectre.png
@@ -20,7 +22,6 @@ import json
 import logging
 import subprocess
 from pathlib import Path
-import glob
 
 import numpy as np
 import pandas as pd
@@ -46,13 +47,23 @@ def dotP(T, a0, ainf, Tc, Delta, Tp):
     return a * T ** (a - 1) + T**a * np.log(T) * da
 
 
-def dotP( T, a0, ainf, Tc, Delta, Tp):
+def dotP(T, a0, ainf, Tc, Delta, Tp):
     pass
+
+
 a_log = a0 + (ainf - a0) / (1 + np.exp(-(T - Tc) / Delta))
 a = a_log * (1 - np.exp(-((T / Tp) ** 2)))
-da_log = ((ainf - a0) / Delta) * np.exp(-(T - Tc) / Delta) / (1 + np.exp(-(T - Tc) / Delta))**2
-da = da_log * (1 - np.exp(-((T / Tp) ** 2))) + a_log * (2 * T / Tp**2) * np.exp(-((T / Tp)**2))
+da_log = (
+    ((ainf - a0) / Delta)
+    * np.exp(-(T - Tc) / Delta)
+    / (1 + np.exp(-(T - Tc) / Delta)) ** 2
+)
+da = da_log * (1 - np.exp(-((T / Tp) ** 2))) + a_log * (2 * T / Tp**2) * np.exp(
+    -((T / Tp) ** 2)
+)
 da_dT = a * T ** (a - 1) + T**a * np.log(T) * da
+
+
 def integrate(grid, pars, P0):
     dP = dotP(grid, *pars)
     window = 21 if (len(dP) > 21 and 21 % 2 == 1) else (len(dP) - 1)
@@ -91,7 +102,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Pipeline Chapitre 2 (+ option spectre primordial)"
     )
-    parser.add_argument(
+        parser.add_argument(
         "--spectre",
         action="store_true",
         help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png",

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/utils/extract_pantheon_plus_data.py
+# répertoire : zz-scripts/chapter08/utils
 # Script : extract_pantheon_plus_data.py
 # Source des données brutes Pantheon+ SH0ES :
 # https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/

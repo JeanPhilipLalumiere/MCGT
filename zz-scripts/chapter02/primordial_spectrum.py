@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter02/primordial_spectrum.py
+# répertoire : zz-scripts/chapter02
 """
 Module `primordial_spectrum.py`
 

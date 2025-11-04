@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# fichier : zz-scripts/chapter07/launch_solver_chapter07.sh
+# répertoire : zz-scripts/chapter07
 #------------------------------------------------------------------------------#
 # launch_solver_chapter7.sh                                                    #
 # Generation of raw data for Chapter 7 – Scalar perturbations                  #

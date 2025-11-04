@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-import re, sys, os, time, shutil
+import re
+import sys
+import os
+import time
+import shutil
 
 README = "README.md"
-CFF    = "CITATION.cff"
+CFF = "CITATION.cff"
+
 
 def backup(p: str) -> None:
     if os.path.exists(p):
@@ -13,6 +18,7 @@ def backup(p: str) -> None:
             pass
         print(f"[backup] {p} -> {b}")
 
+
 def upsert_readme(doi: str) -> None:
     if not os.path.exists(README):
         print(f"[warn] {README} introuvable — skip")
@@ -22,14 +28,17 @@ def upsert_readme(doi: str) -> None:
 
     badge = f"[![DOI](https://zenodo.org/badge/DOI/{doi}.svg)](https://doi.org/{doi})"
     block_start = "<!-- ZENODO_BADGE_START -->"
-    block_end   = "<!-- ZENODO_BADGE_END -->"
+    block_end = "<!-- ZENODO_BADGE_END -->"
     block = (
-        block_start + "\n"
-        + badge + "\n\n"
+        block_start
+        + "\n"
+        + badge
+        + "\n\n"
         + "### Citation\n"
         + f"Si vous utilisez MCGT, merci de citer la version DOI : **{doi}**.\n"
         + "Voir aussi `CITATION.cff`.\n"
-        + block_end + "\n"
+        + block_end
+        + "\n"
     )
 
     if block_start in txt and block_end in txt:
@@ -37,7 +46,7 @@ def upsert_readme(doi: str) -> None:
             rf"{re.escape(block_start)}.*?{re.escape(block_end)}",
             block,
             txt,
-            flags=re.DOTALL
+            flags=re.DOTALL,
         )
         print("[readme] bloc Zenodo mis à jour")
     else:
@@ -47,6 +56,7 @@ def upsert_readme(doi: str) -> None:
         print("[readme] bloc Zenodo ajouté en fin de README")
 
     open(README, "w", encoding="utf-8").write(txt)
+
 
 def upsert_cff(doi: str) -> None:
     if not os.path.exists(CFF):
@@ -60,22 +70,32 @@ def upsert_cff(doi: str) -> None:
         print("[cff] doi mis à jour")
     else:
         if re.search(r"^title:\s*.*$", txt, flags=re.MULTILINE):
-            txt = re.sub(r"^(title:.*\n)", r"\1doi: "+doi+"\n", txt, count=1, flags=re.MULTILINE)
+            txt = re.sub(
+                r"^(title:.*\n)",
+                r"\1doi: " + doi + "\n",
+                txt,
+                count=1,
+                flags=re.MULTILINE,
+            )
             print("[cff] doi inséré après title")
         else:
-            txt = "doi: "+doi+"\n"+txt
+            txt = "doi: " + doi + "\n" + txt
             print("[cff] doi inséré en tête")
 
     open(CFF, "w", encoding="utf-8").write(txt)
 
+
 def main() -> None:
     if len(sys.argv) < 2:
-        print("usage: backfill_zenodo_doi.py DOI\nex:   backfill_zenodo_doi.py 10.5281/zenodo.1234567")
+        print(
+            "usage: backfill_zenodo_doi.py DOI\nex:   backfill_zenodo_doi.py 10.5281/zenodo.1234567"
+        )
         sys.exit(2)
     doi = sys.argv[1].strip()
     upsert_readme(doi)
     upsert_cff(doi)
     print("[ok] backfill DOI terminé.")
+
 
 if __name__ == "__main__":
     main()

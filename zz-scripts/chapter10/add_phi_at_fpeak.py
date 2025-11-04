@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/add_phi_at_fpeak.py
+# répertoire : zz-scripts/chapter10
 # zz-scripts/chapter10/add_phi_at_fpeak.py
 """
 Ajoute/garantit les colonnes phi_ref_fpeak et phi_mcgt_fpeak dans un CSV results.

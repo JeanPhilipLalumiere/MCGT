@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/regen_fig05_using_circp95.py
+# répertoire : zz-scripts/chapter10
 """
 regen_fig05_using_circp95.py
 

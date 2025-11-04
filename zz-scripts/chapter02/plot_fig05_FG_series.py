@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter02/plot_fig05_FG_series.py
+# répertoire : zz-scripts/chapter02
 """
 Tracer les séries brutes F(α)−1 et G(α) pour le Chapitre 2 (MCGT)
 
@@ -58,14 +60,18 @@ if __name__ == "__main__":
 try:
     import os
     import sys
+
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
         sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
 except Exception:
+
     def _mcgt_postparse_apply(*_a, **_k):
         pass
+
+
 try:
     if "args" in globals():
         _mcgt_postparse_apply(args, caller_file=__file__)

@@ -1,5 +1,6 @@
-
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/generate_data_chapter09.py
+# répertoire : zz-scripts/chapter09
 """
 Chapitre 9 — Pipeline principal : accord homogène 20–300 Hz
 -----------------------------------------------------------
@@ -23,6 +24,7 @@ Conventions:
 
 from __future__ import annotations
 
+
 # === MCGT Hotfix: robust defaults when cfg has None/"" ===
 def _mcgt_safe_float(x, default):
     try:
@@ -31,6 +33,7 @@ def _mcgt_safe_float(x, default):
         return float(x)
     except Exception:
         return float(default)
+
 
 import argparse
 import configparser
@@ -74,6 +77,7 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     )
     return logging.getLogger("chapitre9.pipeline")
 
+
 def git_hash() -> str | None:
     try:
         return (
@@ -84,9 +88,11 @@ def git_hash() -> str | None:
     except Exception:
         return None
 
+
 def ensure_dirs() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def load_ini(path: Path | None) -> dict:
     cfg = {}
@@ -118,6 +124,7 @@ def load_ini(path: Path | None) -> dict:
             }
     return cfg
 
+
 def p95(arr: np.ndarray) -> float:
     a = np.asarray(arr, float)
     a = a[np.isfinite(a)]
@@ -125,16 +132,19 @@ def p95(arr: np.ndarray) -> float:
         return float("nan")
     return float(np.percentile(a, 95.0))
 
+
 def finite_ratio(arr: np.ndarray) -> float:
     arr = np.asarray(arr, float)
     if arr.size == 0:
         return 0.0
     return float(np.mean(np.isfinite(arr)))
 
+
 def clamp_min_frequencies(f: np.ndarray, fmin: float) -> np.ndarray:
     f = np.asarray(f, float).copy()
     f[f < fmin] = fmin
     return f
+
 
 # -----------------------
 # Reference generation via LALSuite or fallback
@@ -208,6 +218,7 @@ def _try_lalsuite_phi_ref(
         logger.warning("Échec LALSuite IMRPhenomD: %s", e)
         return None
 
+
 def _try_external_script_for_ref(
     freqs: np.ndarray, logger: logging.Logger
 ) -> np.ndarray | None:
@@ -239,6 +250,7 @@ def _try_external_script_for_ref(
     except Exception as e:
         logger.warning("Fallback script a échoué: %s", e)
     return None
+
 
 def load_or_build_reference(
     freqs_cfg: np.ndarray, logger: logging.Logger, refresh: bool
@@ -311,6 +323,7 @@ def load_or_build_reference(
 
     return f, np.asarray(phi_ref, float), tag
 
+
 # -----------------------
 # Fit alignment WLS
 # -----------------------
@@ -370,6 +383,7 @@ def fit_alignment_phi0_tc(
         fmax,
     )
     return phi0_hat, tc_hat, n
+
 
 # -----------------------
 # CLI
@@ -484,6 +498,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--tol", type=float, default=None)
 
     return ap.parse_args()
+
 
 # -----------------------
 # Main
@@ -889,6 +904,7 @@ def main() -> None:
         mw_hi,
         p95_abs,
     )
+
 
 if __name__ == "__main__":
     main()

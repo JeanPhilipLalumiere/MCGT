@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/utils/coupling_example_model.py
+# répertoire : zz-scripts/chapter08/utils
 # toy_model_couplage.py
 # Génère un toy-model pour tester l’interpolation PCHIP en log-log
 

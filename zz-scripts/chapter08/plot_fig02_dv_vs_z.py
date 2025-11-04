@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/plot_fig02_dv_vs_z.py
+# répertoire : zz-scripts/chapter08
 # plot_fig02_dv_vs_z.py
 # ---------------------------------------------------------------
 # zz-scripts/chapter08/plot_fig02_dv_vs_z.py

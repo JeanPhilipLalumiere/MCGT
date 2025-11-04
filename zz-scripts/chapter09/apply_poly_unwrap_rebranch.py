@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/apply_poly_unwrap_rebranch.py
+# répertoire : zz-scripts/chapter09
 """
 apply_poly_unwrap_rebranch.py
 Correction polynomiale du résidu de phase via fit sur unwrap(Δφ) et rebranchage 2π.

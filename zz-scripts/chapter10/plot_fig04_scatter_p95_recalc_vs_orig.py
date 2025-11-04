@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig04_scatter_p95_recalc_vs_orig.py
 

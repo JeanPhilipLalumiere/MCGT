@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig07_synthesis.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig07_summary.py — Figure 7 (synthèse)
 

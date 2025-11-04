@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/fetch_gwtc3_confident.py
+# répertoire : zz-scripts/chapter09
 """
 zz-scripts/chapter09/fetch_gwtc3_confident.py
 

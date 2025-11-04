@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/check_p95_methods.py
+# répertoire : zz-scripts/chapter09
 # check_p95_methods.py
 """
 Compare p95 (et autres stats) pour trois traitements du résidu de phase:

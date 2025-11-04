@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter08/utils/cosmo.py
+# répertoire : zz-scripts/chapter08/utils
 # cosmo.py
 # Version robuste pour Chapitre 8 Couplage sombre – MCGT
 

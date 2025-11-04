@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/utils/verify_z_grid.py
+# répertoire : zz-scripts/chapter08/utils
 # verify_z_grid.py
 # Vérifie que la grille en z (ou q0⋆) correspond aux paramètres minimum, maximum et pas attendus.
 

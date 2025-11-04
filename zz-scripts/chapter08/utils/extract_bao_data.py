@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/utils/extract_bao_data.py
+# répertoire : zz-scripts/chapter08/utils
 # Script   : extract_bao_data.py
 # Objectif : extraire et formater les données BAO pour le Chapitre 8
 # Source   : https://raw.githubusercontent.com/SDSS-Science-Archive-Server/BOSS-LSS/

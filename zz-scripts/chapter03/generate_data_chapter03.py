@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter03/generate_data_chapter03.py
+# répertoire : zz-scripts/chapter03
 # generer_donnees_chapitre3.py
 
 """

@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
+# répertoire : zz-scripts/chapter06
 import os
 import argparse
 import logging
@@ -25,9 +27,9 @@ tau = 0.06
 
 # --- CLI ---
 parser = argparse.ArgumentParser(description="Génère pdot_plateau_z.dat")
-parser.add_argument("--zmin", type=float, default=1e-4, help="Redshift minimal")
-parser.add_argument("--zmax", type=float, default=1e5, help="Redshift maximal")
-parser.add_argument("--npoints", type=int, default=1000, help="Nombre de points")
+        parser.add_argument("--zmin", type=float, default=1e-4, help="Redshift minimal")
+        parser.add_argument("--zmax", type=float, default=1e5, help="Redshift maximal")
+        parser.add_argument("--npoints", type=int, default=1000, help="Nombre de points")
 args = parser.parse_args()
 
 # --- Grille de redshift log-uniforme ---
@@ -60,7 +62,8 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
         parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
 

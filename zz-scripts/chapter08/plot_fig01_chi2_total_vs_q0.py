@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py
+# répertoire : zz-scripts/chapter08
 # plot_fig01_chi2_total_vs_q0.py
 # Trace χ² total et sa dérivée vs q0⋆ (Chapter 8 – Dark coupling, MCGT)
 # Inset centré et légèrement décalé vers le haut

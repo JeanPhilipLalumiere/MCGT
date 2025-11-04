@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py
+# répertoire : zz-scripts/chapter09
 """
 fig_04 - Validation par milestones : |Δφ|(f) + points aux f_peak par classe (publication)
 

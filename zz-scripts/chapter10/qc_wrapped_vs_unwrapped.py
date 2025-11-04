@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py
+# répertoire : zz-scripts/chapter10
 """
 qc_wrapped_vs_unwrapped.py
 Vérification rapide : calcul p95 des résidus φ_ref - φ_mcgt
@@ -19,7 +21,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
 
 # import fonctions existantes
 try:
@@ -116,16 +117,16 @@ def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="QC: wrapped vs unwrapped p95")
-    parser.add_argument(
+        parser.add_argument(
         "--best", required=True, help="json top-K (zz-data/chapter10/10_mc_best.json)"
     )
-    parser.add_argument("--samples", required=True, help="csv samples")
-    parser.add_argument(
+        parser.add_argument("--samples", required=True, help="csv samples")
+        parser.add_argument(
         "--results", required=True, help="csv results (pour median/worst)"
     )
-    parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
-    parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
-    parser.add_argument(
+        parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
+        parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
+        parser.add_argument(
         "--outdir", default="zz-data/chapter10/qc_wrapped", help="répertoire de sortie"
     )
     args = parser.parse_args(argv)
@@ -170,4 +171,4 @@ if __name__ == "__main__":
     pass
     pass
     pass
-raise SystemExit( main())
+raise SystemExit(main())

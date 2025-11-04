@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter10/update_manifest_with_hashes.py
+# répertoire : zz-scripts/chapter10
 # ruff: noqa: E402
 #!/usr/bin/env python3
 import json

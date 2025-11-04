@@ -105,7 +105,7 @@ for runlogs in "$ROOT"/run_*_logs; do
   echo "" >> "$OUT"
 
   # Chaque ZIP décompresse un répertoire par job avec des fichiers *.txt
-  find "$runlogs" -type d -maxdepth 1 -mindepth 1 | while read -r jd; do
+  find "$runlogs" -maxdepth 1 -type d -mindepth 1 | while read -r jd; do
     scan_job_dir "$jd"
   done
 done

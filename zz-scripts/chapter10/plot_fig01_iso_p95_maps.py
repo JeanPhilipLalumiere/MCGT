@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig01_iso_p95_maps.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig01_iso_p95_maps.py
 Carte iso-valeurs d'un p95 (ou métrique équivalente) sur (m1, m2) à partir d'un CSV.

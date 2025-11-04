@@ -106,3 +106,4 @@ zz_tools.egg-info/
 *.swo
 .DS_Store
 *.ipynb_checkpoints*
+release_zenodo_codeonly/

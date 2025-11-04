@@ -1,16 +1,34 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter04/generate_data_chapter04.py
+# répertoire : zz-scripts/chapter04
 # === [PASS5-AUTOFIX-SHIM] ===
 if __name__ == "__main__":
     try:
-        import sys, os, atexit
+        import sys
+        import os
+        import atexit
+
         _argv = sys.argv[1:]
         # 1) Shim --help universel
-        if any(a in ("-h","--help") for a in _argv):
+        if any(a in ("-h", "--help") for a in _argv):
             import argparse
-            _p = argparse.ArgumentParser(description="MCGT (shim auto-injecté Pass5)", add_help=True, allow_abbrev=False)
-            _p.add_argument("--out", help="Chemin de sortie pour fig.savefig (optionnel)")
-            _p.add_argument("--dpi", type=int, default=120, help="DPI (par défaut: 120)")
-            _p.add_argument("--show", action="store_true", help="Force plt.show() en fin d'exécution")
+
+            _p = argparse.ArgumentParser(
+                description="MCGT (shim auto-injecté Pass5)",
+                add_help=True,
+                allow_abbrev=False,
+            )
+            _p.add_argument(
+                "--out", help="Chemin de sortie pour fig.savefig (optionnel)"
+            )
+            _p.add_argument(
+                "--dpi", type=int, default=120, help="DPI (par défaut: 120)"
+            )
+            _p.add_argument(
+                "--show",
+                action="store_true",
+                help="Force plt.show() en fin d'exécution",
+            )
             # parse_known_args() affiche l'aide et gère les options de base
             _p.parse_known_args()
             sys.exit(0)
@@ -19,23 +37,27 @@ if __name__ == "__main__":
         if "--out" in _argv:
             try:
                 i = _argv.index("--out")
-                _out = _argv[i+1] if i+1 < len(_argv) else None
+                _out = _argv[i + 1] if i + 1 < len(_argv) else None
             except Exception:
                 _out = None
         if _out:
             os.environ.setdefault("MPLBACKEND", "Agg")
             try:
                 import matplotlib.pyplot as plt
+
                 # Neutralise show() pour éviter le blocage en headless
-                def _shim_show(*a, **k): pass
+                def _shim_show(*a, **k):
+                    pass
+
                 plt.show = _shim_show
                 # Récupère le dpi si fourni
                 _dpi = 120
                 if "--dpi" in _argv:
                     try:
-                        _dpi = int(_argv[_argv.index("--dpi")+1])
+                        _dpi = int(_argv[_argv.index("--dpi") + 1])
                     except Exception:
                         _dpi = 120
+
                 @atexit.register
                 def _pass5_save_last_figure():
                     try:
@@ -44,6 +66,7 @@ if __name__ == "__main__":
                         print(f"[PASS5] Wrote: {_out}")
                     except Exception as _e:
                         print(f"[PASS5] savefig failed: {_e}")
+
             except Exception:
                 # matplotlib indisponible: ignorer silencieusement
                 pass

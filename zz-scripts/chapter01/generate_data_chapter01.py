@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter01/generate_data_chapter01.py
+# répertoire : zz-scripts/chapter01
 
 Pipeline Chapitre 1 - génération des données
 - Lecture robuste des jalons
@@ -67,7 +69,7 @@ def compute_p(T_j, P_j, T_grid):
 
 def main():
     parser = argparse.ArgumentParser(description="Chap1 data gen")
-    parser.add_argument(
+        parser.add_argument(
         "--csv",
         type=pathlib.Path,
         default=pathlib.Path(__file__).resolve().parents[2]
@@ -75,22 +77,19 @@ def main():
         / "chapter01"
         / "01_timeline_milestones.csv",
     )
-    parser.add_argument("--tmin", type=float, default=1e-6)
-    parser.add_argument("--tmax", type=float, default=14.0)
-    parser.add_argument("--step", type=float, default=0.01)
-    parser.add_argument("--grid", choices=["log", "lin"], default="log")
-    parser.add_argument("--window", type=int, default=21)
-    parser.add_argument("--poly", type=int, default=3)
+        parser.add_argument("--tmin", type=float, default=1e-6)
+        parser.add_argument("--tmax", type=float, default=14.0)
+        parser.add_argument("--step", type=float, default=0.01)
+        parser.add_argument("--grid", choices=["log", "lin"], default="log")
+        parser.add_argument("--window", type=int, default=21)
+        parser.add_argument("--poly", type=int, default=3)
     args = parser.parse_args()
-
-
-
-parser.add_argument("--tmin", type=float, default=1e-6)
-parser.add_argument("--tmax", type=float, default=14.0)
-parser.add_argument("--step", type=float, default=0.01)
-parser.add_argument("--grid", choices=[ "log", "lin" ], default="log")
-parser.add_argument("--window", type=int, default=21)
-parser.add_argument("--poly", type=int, default=3)
+        parser.add_argument("--tmin", type=float, default=1e-6)
+        parser.add_argument("--tmax", type=float, default=14.0)
+        parser.add_argument("--step", type=float, default=0.01)
+        parser.add_argument("--grid", choices=[ "log", "lin" ], default="log")
+        parser.add_argument("--window", type=int, default=21)
+        parser.add_argument("--poly", type=int, default=3)
 args = parser.parse_args()
 
 base = args.csv.parent

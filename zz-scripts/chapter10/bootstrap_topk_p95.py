@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/bootstrap_topk_p95.py
+# répertoire : zz-scripts/chapter10
 """
 bootstrap_topk_p95.py
 ---------------------
@@ -36,7 +38,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
 
 # -----------------------
 # Helpers

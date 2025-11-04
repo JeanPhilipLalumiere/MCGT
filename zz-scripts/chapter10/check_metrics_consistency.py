@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/check_metrics_consistency.py
+# répertoire : zz-scripts/chapter10
 """
 zz-scripts/chapter09/check_metrics_consistency.py
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py
+# répertoire : zz-scripts/chapter09
 """
 plot_fig03hist_absdphi_20300.py
 Histogramme du résidu de phase |Δφ| sur une fenêtre (par défaut 20-300 Hz).

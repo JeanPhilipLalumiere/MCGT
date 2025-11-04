@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter07/generate_data_chapter07.py
+# répertoire : zz-scripts/chapter07
 # ruff: noqa: E402
 """
 generate_data_chapter07.py

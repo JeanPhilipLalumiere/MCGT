@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+# répertoire : zz-scripts/chapter06
 import os
 import logging
 from pathlib import Path
@@ -123,7 +125,8 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
         parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
 

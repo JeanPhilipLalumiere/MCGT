@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# fichier : zz-scripts/chapter09/run_fig01_nowarn.sh
+# répertoire : zz-scripts/chapter09
 set -euo pipefail
 mkdir -p _tmp zz-figures/chapter09
 SRC="zz-data/chapter09/09_metrics_phase.json"

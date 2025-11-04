@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/diag_phi_fpeak.py
+# répertoire : zz-scripts/chapter10
 # zz-scripts/chapter10/diag_phi_fpeak.py
 """
 Diagnostic pour lignes problématiques lors du calcul de phi_ref_fpeak / phi_mcgt_fpeak.

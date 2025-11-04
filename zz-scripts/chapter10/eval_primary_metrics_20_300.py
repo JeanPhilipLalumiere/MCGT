@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/eval_primary_metrics_20_300.py
+# répertoire : zz-scripts/chapter10
 """
 eval_metrics_principal_20_300.py
 ================================
@@ -31,7 +33,6 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
 
 from joblib import Parallel, delayed
 

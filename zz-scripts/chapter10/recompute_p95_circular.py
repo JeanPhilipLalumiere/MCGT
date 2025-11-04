@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/recompute_p95_circular.py
+# répertoire : zz-scripts/chapter10
 """
 recompute_p95_circular.py
 Recalcule p95_20_300 en utilisant la distance angulaire minimale (circular diff).
@@ -35,11 +37,10 @@ def circ_diff(a, b):
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-
-    parser.add_argument("--results", required=True)
-    parser.add_argument("--samples", required=True)
-    parser.add_argument("--ref-grid", required=True)
-    parser.add_argument("--out", default=None)
+        parser.add_argument("--results", required=True)
+        parser.add_argument("--samples", required=True)
+        parser.add_argument("--ref-grid", required=True)
+        parser.add_argument("--out", default=None)
 args = parser.parse_args( argv)
 
     df_res = pd.read_csv(args.results)

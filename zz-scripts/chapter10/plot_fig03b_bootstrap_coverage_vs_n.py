@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig03b_coverage_bootstrap_vs_n.py
 

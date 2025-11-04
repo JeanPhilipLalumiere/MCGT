@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter04/plot_fig04_relative_deviations.py
+# répertoire : zz-scripts/chapter04
 
 import os
 import glob

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/manifest_tools/populate_manifest.py
+# répertoire : zz-scripts/manifest_tools
 # zz-scripts/manifest_tools/remplir_manifest.py
 """
 Remplir / mettre à jour un manifest JSON (mise à jour size_bytes, sha256, mtime_iso, git_hash).

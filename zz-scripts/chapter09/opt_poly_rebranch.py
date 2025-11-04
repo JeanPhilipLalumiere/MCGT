@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/opt_poly_rebranch.py
+# répertoire : zz-scripts/chapter09
 """opt_poly_rebranch.py
 Recherche automatique : polynôme (sur unwrap diff) + rebranch entier k optimisé.
 Applique la meilleure correction au CSV (backup) et met à jour le JSON métriques.

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig06_residual_map.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig06_residual_map.py  —  Figure 6 finale
 

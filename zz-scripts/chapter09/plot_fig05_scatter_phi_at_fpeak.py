@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py
+# répertoire : zz-scripts/chapter09
 """
 plot_fig05_scatter_phi_at_fpeak.py
 Fig. 05 - Comparaison ponctuelle aux f_peak : φ_ref vs φ_MCGT (±σ)
@@ -65,12 +67,12 @@ def principal_align(y: np.ndarray, x: np.ndarray) -> np.ndarray:
     return y - 2*np.pi * np.round((y - x) / (2*np.pi))
 
 ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
-parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
-parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
-parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
-parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
-parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
-parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
+        parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
+        parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
+        parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
+        parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
+        parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
+        parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
 args = ap.parse_args()
 description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
 return apap.add_argument(

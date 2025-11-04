@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/manifest_tools/verify_manifest.py
+# répertoire : zz-scripts/manifest_tools
 # zz-scripts/manifest_tools/verify_manifest.py
 """
 Vérifier un manifest JSON :

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/plot_fig01_phase_overlay.py
+# répertoire : zz-scripts/chapter09
 """
 Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)
 
@@ -16,10 +18,13 @@ import json
 import logging
 from pathlib import Path
 
+
 def _load_meta(path):
     try:
-        import json, logging
-        with open(REF_META, 'r') as f:
+        import json
+        import logging
+
+        with open(REF_META, "r") as f:
             try:
                 meta = json.load(f)
                 if not isinstance(meta, dict):
@@ -27,13 +32,17 @@ def _load_meta(path):
             except Exception:
                 meta = {}
         if not isinstance(meta, dict):
-            logging.warning("Lecture JSON méta: objet non-dict (%s).", type(meta).__name__)
+            logging.warning(
+                "Lecture JSON méta: objet non-dict (%s).", type(meta).__name__
+            )
             return {}
         return meta
     except Exception as e:
         import logging
+
         logging.warning("Lecture JSON méta échouée (%s).", e)
         return {}
+
 
 import matplotlib.pyplot as plt
 import numpy as np

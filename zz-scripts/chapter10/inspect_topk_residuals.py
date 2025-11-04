@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/inspect_topk_residuals.py
+# répertoire : zz-scripts/chapter10
 """
 Inspect top-K / best candidates:
 - calcule Δφ_principal selon la règle canonique (k@20-300)
@@ -15,7 +17,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
 
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt

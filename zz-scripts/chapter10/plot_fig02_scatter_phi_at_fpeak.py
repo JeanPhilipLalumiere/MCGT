@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
+# répertoire : zz-scripts/chapter10
 """
 plot_fig02_scatter_phi_at_fpeak
 
@@ -27,24 +29,29 @@ from zz_tools import common_io as ci
 
 TWOPI = 2.0 * np.pi
 
+
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Réduit sur l'intervalle [-π, π)."""
     return (x + np.pi) % TWOPI - np.pi
 
+
 def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ = wrap( b - a ) dans [-π, π)."""
     return wrap_pi(b - a)
+
 
 def circ_mean_rad(angles: np.ndarray) -> float:
     """Moyenne circulaire (angle) en radians [-π, π)."""
     z = np.mean(np.exp(1j * angles))
     return float(np.angle(z))
 
+
 def circ_std_rad(angles: np.ndarray) -> float:
     """Écart-type circulaire (radians). Définition basée sur R = |E[e^{iθ}]|."""
     R = np.abs(np.mean(np.exp(1j * angles)))
     # std circulaire : sqrt(-2 ln R)
     return float(np.sqrt(max(0.0, -2.0 * np.log(max(R, 1e-12)))))
+
 
 def bootstrap_circ_mean_ci(
     angles: np.ndarray, B: int = 1000, seed: int = 12345
@@ -78,7 +85,9 @@ def bootstrap_circ_mean_ci(
     ci_high = wrap_pi(theta_hat + hi)
     return theta_hat, ci_low, ci_high
 
+
 # ------------------------- Parsing & plotting -------------------------
+
 
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
     if hint and hint in df.columns:
@@ -92,6 +101,7 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
         if cand.lower() in lowcols:
             return df.columns[lowcols.index(cand.lower())]
     raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (ou hint={hint})")
+
 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -343,6 +353,7 @@ def main():
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=args.dpi)
     print(f"Wrote: {args.out}")
+
 
 if __name__ == "__main__":
     main()

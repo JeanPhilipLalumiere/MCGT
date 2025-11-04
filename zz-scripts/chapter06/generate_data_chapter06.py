@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter06/generate_data_chapter06.py
+# répertoire : zz-scripts/chapter06
 import os
 # ---IMPORTS & CONFIGURATION---
 
@@ -18,14 +20,14 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 parser = argparse.ArgumentParser(
     description="Chapter 6 pipeline: generate CMB spectra for MCGT"
 )
-parser.add_argument("--alpha", type=float, default=0.0, help="Modulation amplitude α")
-parser.add_argument(
+        parser.add_argument("--alpha", type=float, default=0.0, help="Modulation amplitude α")
+        parser.add_argument(
     "--q0star",
     type=float,
     default=0.0,
     help="Effective curvature parameter q0star (Ω_k)",
 )
-parser.add_argument(
+        parser.add_argument(
     "--export-derivative", action="store_true", help="Export derivative Δχ²/Δℓ"
 )
 args = parser.parse_args()
@@ -355,7 +357,8 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
         parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
 

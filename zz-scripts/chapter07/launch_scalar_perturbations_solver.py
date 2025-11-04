@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter07/launch_scalar_perturbations_solver.py
+# répertoire : zz-scripts/chapter07
 """
 launch_scalar_perturbations_solver.py
 

@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-import json, sys, hashlib, os
+import json
+import sys
+import hashlib
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 EXCLUDE_PREFIXES = [
     "zz-figures/_legacy_conflicts/",
 ]
+
+
 def excluded(rel: str) -> bool:
     rp = rel.replace("\\", "/")
     return any(rp.startswith(pref) for pref in EXCLUDE_PREFIXES)
+
 
 mf = ROOT / "zz-manifests" / "integrity.json"
 if not mf.exists():
@@ -33,25 +39,30 @@ for rel, e in sorted(want_entries.items()):
         continue
     h = hashlib.sha256()
     with open(p, "rb") as f:
-        for chunk in iter(lambda: f.read(1<<20), b""):
+        for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     have_sha = h.hexdigest()
     have_bytes = p.stat().st_size
     if have_sha != e["sha256"] or have_bytes != e["bytes"]:
-        print(f"❌ Divergence: {rel}\n   attendu: {e['sha256']} ({e['bytes']}o)\n   obtenu : {have_sha} ({have_bytes}o)")
+        print(
+            f"❌ Divergence: {rel}\n   attendu: {e['sha256']} ({e['bytes']}o)\n   obtenu : {have_sha} ({have_bytes}o)"
+        )
         bad = 1
+
 
 def collect_targets():
     paths = []
     for base in ("zz-figures", "zz-data"):
         bp = ROOT / base
-        if not bp.exists(): continue
+        if not bp.exists():
+            continue
         for p in bp.rglob("*"):
             if p.is_file():
                 rel = p.relative_to(ROOT).as_posix()
                 if not excluded(rel):
                     paths.append(rel)
     return paths
+
 
 have = set(collect_targets())
 extra = sorted(have - set(want_entries.keys()))
@@ -60,7 +71,9 @@ for rel in extra:
     bad = 1
 
 if bad:
-    print("\nConseil: mettez à jour le manifeste → make integrity-update", file=sys.stderr)
+    print(
+        "\nConseil: mettez à jour le manifeste → make integrity-update", file=sys.stderr
+    )
     sys.exit(1)
 else:
     print("✅ Intégrité OK")

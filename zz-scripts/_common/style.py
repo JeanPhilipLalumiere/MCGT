@@ -1,9 +1,12 @@
+# fichier : zz-scripts/_common/style.py
+# répertoire : zz-scripts/_common
 """
 MCGT common figure styles (opt-in).
 Usage:
     import zz-scripts._common.style  # via postparse loader
     style.apply(theme="paper")       # or "talk", "mono"
 """
+
 from __future__ import annotations
 import matplotlib
 
@@ -30,6 +33,7 @@ _THEMES = {
         grid=True,
     ),
 }
+
 
 def apply(theme: str | None) -> None:
     if not theme or theme == "none":

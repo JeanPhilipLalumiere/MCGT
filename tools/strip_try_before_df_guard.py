@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-import sys, re
+import sys
+import re
 from pathlib import Path
 
-TRY_RE = re.compile(r'^(\s*)try:\s*$')
+TRY_RE = re.compile(r"^(\s*)try:\s*$")
 IF_GUARD_RE = re.compile(r'^\s*if\s+"df"\s+not\s+in\s+globals\(\):\s*$')
+
 
 def fix(path: Path) -> bool:
     lines = path.read_text(encoding="utf-8").splitlines(True)
@@ -31,6 +33,7 @@ def fix(path: Path) -> bool:
             bak.write_text("".join(lines), encoding="utf-8")
         path.write_text("".join(out), encoding="utf-8")
     return changed
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

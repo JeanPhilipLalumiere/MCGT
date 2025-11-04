@@ -1,3 +1,5 @@
+# fichier : zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py
+# répertoire : zz-scripts/chapter05
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -75,14 +77,18 @@ if __name__ == "__main__":
 try:
     import os
     import sys
+
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
         sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
 except Exception:
+
     def _mcgt_postparse_apply(*_a, **_k):
         pass
+
+
 try:
     if "args" in globals():
         _mcgt_postparse_apply(args, caller_file=__file__)

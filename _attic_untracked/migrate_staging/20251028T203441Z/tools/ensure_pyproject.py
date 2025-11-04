@@ -1,26 +1,33 @@
 #!/usr/bin/env python3
-import sys, re, json
+import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 ppy = root / "pyproject.toml"
 backup = root / "pyproject.toml.before_series9.bak"
 
+
 def read_text(p: Path) -> str:
-    try: return p.read_text(encoding="utf-8")
-    except FileNotFoundError: return ""
+    try:
+        return p.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return ""
+
 
 def write_text(p: Path, s: str):
     p.write_text(s, encoding="utf-8")
 
+
 content = read_text(ppy)
 original = content
 
+
 def ensure_block(s: str, header: str, body_lines: list[str]) -> str:
-    if re.search(rf'^\s*\[{re.escape(header)}\]\s*$', s, flags=re.M):
+    if re.search(rf"^\s*\[{re.escape(header)}\]\s*$", s, flags=re.M):
         return s
     addition = "\n\n[" + header + "]\n" + "\n".join(body_lines) + "\n"
     return s + addition
+
 
 if not content:
     content = """# pyproject généré par Série 9 (idempotent)
@@ -44,14 +51,14 @@ Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
 """
 else:
     # S'assurer d'un build-system présent
-    if not re.search(r'^\s*\[build-system\]\s*$', content, flags=re.M):
+    if not re.search(r"^\s*\[build-system\]\s*$", content, flags=re.M):
         content += """
 [build-system]
 requires = ["hatchling>=1.23"]
 build-backend = "hatchling.build"
 """
     # S'assurer que [project] existe
-    if not re.search(r'^\s*\[project\]\s*$', content, flags=re.M):
+    if not re.search(r"^\s*\[project\]\s*$", content, flags=re.M):
         content += """
 [project]
 name = "mcgt"
@@ -64,10 +71,14 @@ license = {text = "MIT"}
 dependencies = []
 """
     # Ajouter quelques URLs si absentes (non intrusif)
-    content = ensure_block(content, "project.urls", [
-        'Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"',
-        'Repository = "https://github.com/JeanPhilipLalumiere/MCGT"',
-    ])
+    content = ensure_block(
+        content,
+        "project.urls",
+        [
+            'Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"',
+            'Repository = "https://github.com/JeanPhilipLalumiere/MCGT"',
+        ],
+    )
 
 # S’assurer d’un layout acceptable (src/ ou paquet plat) via hatchling include
 if "[tool.hatch.build]" not in content:

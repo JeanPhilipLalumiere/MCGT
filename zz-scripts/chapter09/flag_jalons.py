@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter09/flag_jalons.py
+# répertoire : zz-scripts/chapter09
 """
 Flag milestones de comparaison (chapitre 9).
 Usage:

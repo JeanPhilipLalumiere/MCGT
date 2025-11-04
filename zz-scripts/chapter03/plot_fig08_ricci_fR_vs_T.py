@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# fichier : zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+# répertoire : zz-scripts/chapter03
 # tracer_fig08_ricci_fR_contre_T.py
 
 """

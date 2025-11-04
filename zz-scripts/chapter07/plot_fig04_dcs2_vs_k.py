@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
 # répertoire : zz-scripts/chapter07
+from __future__ import annotations
 import os
 """
 plot_fig04_dcs2_vs_k.py
@@ -9,7 +10,6 @@ Figure 04 – Dérivée lissée ∂c_s²/∂k
 Chapitre 7 – Perturbations scalaires MCGT.
 """
 
-from __future__ import annotations
 
 import json
 import logging
@@ -106,9 +106,12 @@ plt.close(fig)
 logging.info("Figure saved → %s", FIG_OUT)
 
 # === MCGT CLI SEED v2 ===
+
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
+        import matplotlib as mpl
+
         parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
         parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
@@ -116,27 +119,27 @@ if __name__ == "__main__":
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
         parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
         parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+        parser.add_argument("--format", choices=["png", "pdf", "svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
+            os.environ["MCGT_OUTDIR"] = args.outdir
+            mpl.rcParams["savefig.dpi"] = args.dpi
+            mpl.rcParams["savefig.format"] = args.format
+            mpl.rcParams["savefig.transparent"] = args.transparent
         except Exception:
             pass
-        _main = globals().get("main")
-        if callable(_main):
+
+        main_fn = globals().get("main")
+        if callable(main_fn):
             try:
-                _main(args)
+                main_fn(args)
             except SystemExit:
                 raise
             except Exception as e:
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
                 traceback.print_exc()
-                sys.exit(1)
+
     _mcgt_cli_seed()

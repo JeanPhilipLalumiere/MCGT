@@ -27,4 +27,4 @@ repos:
         entry: python3 tools/scan_assets_budget.py
         language: system
         pass_filenames: false
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]

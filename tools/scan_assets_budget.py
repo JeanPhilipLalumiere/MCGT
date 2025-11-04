@@ -26,7 +26,7 @@ def main(argv):
             # Ici tu pourrais faire de vrais contrôles si besoin.
             break
     print("[assets-budgets] (stub) OK — outil réel absent, aucune contrainte appliquée.")
-    return 0
+    return int(bool(os.environ.get('MCGT_ASSETS_BUDGET_STRICT')))  # 0=OK (défaut), 1=fail en mode strict
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

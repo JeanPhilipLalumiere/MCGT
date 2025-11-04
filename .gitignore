@@ -107,3 +107,12 @@ zz_tools.egg-info/
 .DS_Store
 *.ipynb_checkpoints*
 release_zenodo_codeonly/
+
+# local backups
+*.bak
+*.bak.*
+.pre-commit-config.yaml.bak
+
+# local helpers
+one_fix_*.py
+fix_*_cli_seed.sh

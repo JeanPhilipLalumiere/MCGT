@@ -1,27 +1,49 @@
-# added by policies_guard_common_fixes
-permissions:
-  contents: read
 name: pre-commit autoupdate
+
 on:
-concurrency:
-  group: .github/workflows/pre-commit-autoupdate.yml-${{ github.ref }}
-  cancel-in-progress: true
   schedule:
-    - cron: "0 5 * * 1" # Lundi 05:00 UTC
-  workflow_dispatch: {}
+    - cron: '0 5 * * 1'  # Lundi 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   autoupdate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - run: pipx install pre-commit
-      - run: pre-commit autoupdate
-      - name: Crée la PR
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pre-commit
+        run: python -m pip install --upgrade pip pre-commit
+
+      - name: Run pre-commit autoupdate
+        run: pre-commit autoupdate
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B ci/pre-commit-autoupdate
+          git add -A
+          git commit -m "chore(pre-commit): autoupdate" || echo "no changes"
+
+      - name: Create PR
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "chore(pre-commit): autoupdate hooks"
-          branch: chore/pre-commit-autoupdate
-          title: "chore(pre-commit): autoupdate hooks"
-          body: "MAJ automatique des hooks pre-commit hebdomadaire."
+          branch: ci/pre-commit-autoupdate
+          title: "chore(pre-commit): autoupdate"
+          commit-message: "chore(pre-commit): autoupdate"
+          body: "Weekly pre-commit autoupdate"
+          delete-branch: true

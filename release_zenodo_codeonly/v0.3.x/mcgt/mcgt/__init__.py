@@ -14,10 +14,6 @@ But : rester non-intrusif (pas d'I/O obligatoire à l'import).
 """
 
 from __future__ import annotations
-# mcgt/__init__.py
-# -----------------------------------------------------------------------------
-
-
 __all__ = [
     "__version__",
     "load_config",

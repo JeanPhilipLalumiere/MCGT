@@ -182,6 +182,7 @@ def main():
         help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
     )
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
+p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 
     args = p.parse_args()
 

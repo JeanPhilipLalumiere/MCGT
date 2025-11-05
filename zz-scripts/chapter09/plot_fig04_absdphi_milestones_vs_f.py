@@ -189,6 +189,7 @@ default="auto",
 help="Appliquer (phi0, tc) aux milestones et au fond si reconstruit. 'auto' => selon meta.enabled.",
 )
 ap.add_argument("--dpi", type=int, default=300)
+ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 pass
 
 

@@ -214,6 +214,7 @@ def parse_args():
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--save-pdf", action="store_true")
     ap.add_argument(
+ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
     )
     return ap.parse_args()

@@ -107,6 +107,7 @@ help="Scale factor for histogram inset size (1.0 = base size; >1 = larger)",
 )
 p.add_argument("--bins", type=int, default=50, help="Histogram bins")
 p.add_argument(
+p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--title",
 default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
 help="Figure title (fontsize=15)",

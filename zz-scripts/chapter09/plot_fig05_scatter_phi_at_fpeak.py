@@ -134,6 +134,7 @@ help="Alignement visuel de y sur x modulo 2π (défaut=principal)",
 )
 ap.add_argument("--dpi", type=int, default=300, help="DPI du PNG")
 ap.add_argument(
+ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 pass

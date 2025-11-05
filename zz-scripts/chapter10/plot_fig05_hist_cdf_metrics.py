@@ -75,6 +75,7 @@ ap.add_argument(
 "--zoom-w", type=float, default=0.35, help="largeur du zoom (fraction)"
 )
 ap.add_argument(
+ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--zoom-h", type=float, default=0.25, help="hauteur du zoom (fraction)"
 )
 args = ap.parse_args()

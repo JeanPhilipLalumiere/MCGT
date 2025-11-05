@@ -25,6 +25,7 @@ if __name__ == "__main__":
                 "--dpi", type=int, default=120, help="DPI (par défaut: 120)"
             )
             _p.add_argument(
+_p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
                 "--show",
                 action="store_true",
                 help="Force plt.show() en fin d'exécution",

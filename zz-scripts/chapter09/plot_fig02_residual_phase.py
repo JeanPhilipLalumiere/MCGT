@@ -152,6 +152,7 @@ ap.add_argument("--marker-size", type=float, default=3.0)
 ap.add_argument("--line-width", type=float, default=0.9)
 ap.add_argument("--gap-thresh-log10", type=float, default=0.12)
 ap.add_argument(
+ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 args = ap.parse_args()

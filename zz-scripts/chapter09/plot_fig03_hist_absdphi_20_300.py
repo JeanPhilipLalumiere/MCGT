@@ -90,6 +90,7 @@ p.add_argument(
 p.add_argument("--legend-loc", default="upper right", help="loc Matplotlib")
 p.add_argument("--dpi", type=int, default=300, help="DPI de sortie")
 p.add_argument(
+p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 raise SystemExit(p.parse_args())

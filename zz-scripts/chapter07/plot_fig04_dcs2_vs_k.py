@@ -121,6 +121,8 @@ if __name__ == "__main__":
         parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
         parser.add_argument("--format", choices=["png", "pdf", "svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser.add_argument("--out", default="plot.png", help="output image path")
+parser.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 
         args = parser.parse_args()
         try:

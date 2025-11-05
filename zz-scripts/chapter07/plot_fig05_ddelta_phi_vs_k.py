@@ -9,7 +9,6 @@ plot_fig05_ddelta_phi_vs_k.py
 Figure 05 — Dérivée lissée ∂ₖ(δφ/φ)(k)
 Chapitre 7 – Perturbations scalaires MCGT
 """
-# auto-rescue v3c (future-not-top): 
 
 import json
 import logging
@@ -130,18 +129,10 @@ except Exception:
             pass
 _main = globals().get("main")
 if callable(_main):
-            if True:  # auto-rescue: try→if
+            if True:
                 _main(args)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-# auto-rescue: commented → traceback.print_exc()
-# auto-rescue: commented → sys.exit(1)
-# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

@@ -9,7 +9,6 @@ plot_fig06_comparison.py — STUB TEMPORAIRE (homogénisation CLI)
 - L'implémentation scientifique complète est conservée dans plot_fig06_comparison.py.bak
   et sera réintégrée après normalisation (parser/main-guard/fonctions pures).
 """
-# auto-rescue v3c (future-not-top): 
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -55,8 +54,7 @@ def zoom_plateau(ax, k, y):
     sel = k < k_split
 ysel = y[sel]
 if ysel.size == 0:
-    pass  # auto-rescue v3d: missing block
-        # auto-rescue v3c (syntax): return
+    pass
 lo, hi = ysel.min(), ysel.max()
 ax.set_ylim(lo * 0.8, hi * 1.2)
 xm = k[sel][len(ysel) // 2]
@@ -74,7 +72,7 @@ p.add_argument("--results", help="Chemin CSV/NPY optionnel (ignoré par le stub)
 p.add_argument("--out", help="PNG/PDF de sortie (facultatif).")
 p.add_argument("--dpi", type=int, default=120, help="Résolution figure (par défaut: 120).")
 p.add_argument("--title", default="Figure 6 — stub CLI", help="Titre visuel temporaire.")
-pass  # auto-rescue v3d (return-at-module): return p
+pass
 
 
 # --- Create figure ---
@@ -101,7 +99,7 @@ ax.grid(True, which="both", ls=":", linewidth=0.5)
 if args.out:
         fig.savefig(args.out, dpi=args.dpi)
 print(f"Wrote: {args.out}")
-if True:  # auto-rescue: orphan else
+if True:
         # Pas de show() en mode homogénéisation/CI
         print("No --out provided; stub generated but not saved.")
 
@@ -157,18 +155,10 @@ except Exception:
             pass
 _main = globals().get("main")
 if callable(_main):
-            if True:  # auto-rescue: try→if
+            if True:
                 _main(args)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-# auto-rescue: commented → traceback.print_exc()
-# auto-rescue: commented → sys.exit(1)
-# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

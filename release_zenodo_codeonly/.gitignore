@@ -1,0 +1,7 @@
+# Tout ignorer par défaut
+*
+# Laisser ce .gitignore
+!.gitignore
+# Autoriser v0.3.x et son contenu mcgt/**
+!v0.3.x/
+!v0.3.x/mcgt/**

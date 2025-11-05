@@ -116,3 +116,8 @@ release_zenodo_codeonly/
 # local helpers
 one_fix_*.py
 fix_*_cli_seed.sh
+
+# Allow code-only snapshot for Zenodo (re-include, even if parent ignored)
+!release_zenodo_codeonly/
+!release_zenodo_codeonly/v0.3.x/
+!release_zenodo_codeonly/v0.3.x/mcgt/**

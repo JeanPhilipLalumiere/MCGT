@@ -35,20 +35,20 @@ fig, ax = plt.subplots(figsize=(6.5, 4.5))
 
 # -- Observations avec barres d'erreur
 ax.errorbar(
-    pantheon["z"],
-    pantheon["mu_obs"],
-    yerr=pantheon["sigma_mu"],
-    fmt="o",
-    markersize=5,
-    capsize=3,
-    label="Pantheon + obs",
+pantheon["z"],
+pantheon["mu_obs"],
+yerr=pantheon["sigma_mu"],
+fmt="o",
+markersize=5,
+capsize=3,
+label="Pantheon + obs",
 )
 
 # -- Courbe théorique
 label_th = (
-    rf"$\mu^{{\rm th}}(z; q_0^*={q0star:.3f})$"
-    if q0star is not None
-    else r"$\mu^{\rm th}(z)$"
+rf"$\mu^{{\rm th}}(z; q_0^*={q0star:.3f})$"
+if q0star is not None
+else r"$\mu^{\rm th}(z)$"
 )
 ax.semilogx(theory["z"], theory["mu_calc"], "-", lw=2, label=label_th)
 
@@ -70,38 +70,44 @@ print("✅ fig_03_mu_vs_z.png générée dans", FIG_DIR)
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

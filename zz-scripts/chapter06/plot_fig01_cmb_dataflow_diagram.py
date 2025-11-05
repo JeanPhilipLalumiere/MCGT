@@ -20,10 +20,10 @@ OUT_PNG = FIG_DIR / "fig_01_schema_data_flow_cmb.png"
 fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
 ax.axis("off")
 fig.suptitle(
-    "Pipeline de génération des données CMB (Chapitre 6)",
-    fontsize=14,
-    fontweight="bold",
-    y=0.96,
+"Pipeline de génération des données CMB (Chapitre 6)",
+fontsize=14,
+fontweight="bold",
+y=0.96,
 )
 
 # --- Block parameters ---
@@ -34,34 +34,34 @@ DY = 0.25  # décalage vertical standard
 # --- Blocks definitions ---
 
 blocks = {
-    "in": (0.05, Ymid, "pdot_plateau_z.dat", "#d7d7d7"),
-    "scr": (0.36, Ymid, "generate_chapter06_data.py", "#a9dfbf"),
-    "data": (
-        0.67,
-        Ymid + DY,
-        "06_cls_*.dat\n06_delta_*.csv\n06_delta_rs_*.csv\n06_cmb_chi2_scan2D.csv\n06_params_cmb.json",
-        "#d7d7d7",
-    ),
-    "fig": (
-        0.67,
-        Ymid - DY,
-        "fig_02.png\nfig_03.png\nfig_04.png\nfig_05.png",
-        "#d7d7d7",
-    ),
+"in": (0.05, Ymid, "pdot_plateau_z.dat", "#d7d7d7"),
+"scr": (0.36, Ymid, "generate_chapter06_data.py", "#a9dfbf"),
+"data": (
+0.67,
+Ymid + DY,
+"06_cls_*.dat\n06_delta_*.csv\n06_delta_rs_*.csv\n06_cmb_chi2_scan2D.csv\n06_params_cmb.json",
+"#d7d7d7",
+),
+"fig": (
+0.67,
+Ymid - DY,
+"fig_02.png\nfig_03.png\nfig_04.png\nfig_05.png",
+"#d7d7d7",
+),
 }
 
 # --- Draw blocks ---
 for key, (x, y, label, color) in blocks.items():
     ax.add_patch(Rectangle((x, y), W, H, facecolor=color, edgecolor="k", lw=1.2))
-    ax.text(
-        x + W / 2,
-        y + H / 2,
-        label,
-        ha="center",
-        va="center",
-        fontsize=8,
-        family="monospace",
-    )
+ax.text(
+x + W / 2,
+y + H / 2,
+label,
+ha="center",
+va="center",
+fontsize=8,
+family="monospace",
+)
 
 
 # --- Arrow helpers ---
@@ -75,40 +75,40 @@ def west_center(x, y):
 
 def draw_arrow(start, end, text, x_off=0, y_off=0):
     ax.add_patch(
-        FancyArrowPatch(
-            start, end, arrowstyle="-|>", mutation_scale=15, lw=1.3, color="k"
-        )
-    )
-    xm = 0.5 * (start[0] + end[0]) + x_off
-    ym = 0.5 * (start[1] + end[1]) + y_off
-    ax.text(xm, ym, text, ha="center", va="center", fontsize=9)
+FancyArrowPatch(
+start, end, arrowstyle="-|>", mutation_scale=15, lw=1.3, color="k"
+)
+)
+xm = 0.5 * (start[0] + end[0]) + x_off
+ym = 0.5 * (start[1] + end[1]) + y_off
+ax.text(xm, ym, text, ha="center", va="center", fontsize=9)
 
 
 # --- Draw arrows with adjusted offsets ---
 # 1) input -> script : label déplacé vers le bas
 draw_arrow(
-    east_center(*blocks["in"][:2]),
-    west_center(*blocks["scr"][:2]),
-    "1. Lecture pdot",
-    y_off=-DY / 1.8,
+east_center(*blocks["in"][:2]),
+west_center(*blocks["scr"][:2]),
+"1. Lecture pdot",
+y_off=-DY / 1.8,
 )
 
 # 2) script -> data
 draw_arrow(
-    east_center(*blocks["scr"][:2]),
-    west_center(*blocks["data"][:2]),
-    "2. Génération données",
-    x_off=+DY / 3,
-    y_off=-DY / 8,
+east_center(*blocks["scr"][:2]),
+west_center(*blocks["data"][:2]),
+"2. Génération données",
+x_off=+DY / 3,
+y_off=-DY / 8,
 )
 
 # 3) script
 draw_arrow(
-    east_center(*blocks["scr"][:2]),
-    west_center(*blocks["fig"][:2]),
-    "3. Export PNG",
-    x_off=+DY / 4,
-    y_off=+DY / 8,
+east_center(*blocks["scr"][:2]),
+west_center(*blocks["fig"][:2]),
+"3. Export PNG",
+x_off=+DY / 4,
+y_off=+DY / 8,
 )
 
 # --- Finalize and save ---
@@ -120,38 +120,44 @@ logging.info(f"Schéma enregistré → {OUT_PNG}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

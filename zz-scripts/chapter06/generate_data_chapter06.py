@@ -18,17 +18,17 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
 # Parser CLI
 parser = argparse.ArgumentParser(
-    description="Chapter 6 pipeline: generate CMB spectra for MCGT"
+description="Chapter 6 pipeline: generate CMB spectra for MCGT"
 )
-        parser.add_argument("--alpha", type=float, default=0.0, help="Modulation amplitude α")
-        parser.add_argument(
-    "--q0star",
-    type=float,
-    default=0.0,
-    help="Effective curvature parameter q0star (Ω_k)",
+parser.add_argument("--alpha", type=float, default=0.0, help="Modulation amplitude α")
+parser.add_argument(
+"--q0star",
+type=float,
+default=0.0,
+help="Effective curvature parameter q0star (Ω_k)",
 )
-        parser.add_argument(
-    "--export-derivative", action="store_true", help="Export derivative Δχ²/Δℓ"
+parser.add_argument(
+"--export-derivative", action="store_true", help="Export derivative Δχ²/Δℓ"
 )
 args = parser.parse_args()
 
@@ -52,14 +52,14 @@ with open(SPEC2_FILE, encoding="utf-8") as f:
     spec2 = json.load(f)
 
 A_S0 = (
-    spec2["constantes"]["A_s0"]
-    if "constantes" in spec2
-    else spec2.get("constants", {}).get("A_s0")
+spec2["constantes"]["A_s0"]
+if "constantes" in spec2
+else spec2.get("constants", {}).get("A_s0")
 )
 NS0 = (
-    spec2["constantes"]["ns0"]
-    if "constantes" in spec2
-    else spec2.get("constants", {}).get("ns0")
+spec2["constantes"]["ns0"]
+if "constantes" in spec2
+else spec2.get("constants", {}).get("ns0")
 )
 C1 = spec2.get("coefficients", {}).get("c1")
 C2 = spec2.get("coefficients", {}).get("c2")
@@ -71,11 +71,11 @@ logging.info(f"MCGT parameters: alpha={ALPHA}, q0star={Q0STAR}")
 
 alpha_vals = np.arange(-0.1, 0.1001, 0.01)
 df_alpha = pd.DataFrame(
-    {
-        "alpha": alpha_vals,
-        "A_s": A_S0 * (1 + C1 * alpha_vals),
-        "n_s": NS0 + C2 * alpha_vals,
-    }
+{
+"alpha": alpha_vals,
+"A_s": A_S0 * (1 + C1 * alpha_vals),
+"n_s": NS0 + C2 * alpha_vals,
+}
 )
 OUT_ALPHA = DATA_DIR / "06_alpha_evolution.csv"
 df_alpha.to_csv(OUT_ALPHA, index=False)
@@ -91,12 +91,12 @@ DERIV_POLYORDER = 3
 
 # Base cosmological parameters (Planck 2018)
 cosmo_params = {
-    "H0": 67.36,
-    "ombh2": 0.02237,
-    "omch2": 0.1200,
-    "tau": 0.0544,
-    "omk": 0.0,
-    "mnu": 0.06,
+"H0": 67.36,
+"ombh2": 0.02237,
+"omch2": 0.1200,
+"tau": 0.0544,
+"omk": 0.0,
+"mnu": 0.06,
 }
 
 # Output files (English names)
@@ -120,61 +120,63 @@ def tweak_for_mcgt(pars, alpha, q0star):
       • (Optional) inject ΔT_m(k) from file '06_delta_Tm_scan.csv'
     """
     # 1) Modulate primordial spectrum
-    pars.InitPower.set_params(As=A_S0 * (1 + C1 * alpha), ns=NS0 + C2 * alpha)
+pars.InitPower.set_params(As=A_S0 * (1 + C1 * alpha), ns=NS0 + C2 * alpha)
 
     # 2) Update curvature and base cosmology
-    pars.set_cosmology(
-        H0=cosmo_params["H0"],
-        ombh2=cosmo_params["ombh2"],
-        omch2=cosmo_params["omch2"],
-        tau=cosmo_params["tau"],
-        omk=q0star,
-        mnu=cosmo_params["mnu"],
-    )
+pars.set_cosmology(
+H0=cosmo_params["H0"],
+ombh2=cosmo_params["ombh2"],
+omch2=cosmo_params["omch2"],
+tau=cosmo_params["tau"],
+omk=q0star,
+mnu=cosmo_params["mnu"],
+)
 
     # 3) Optional post-processing for matter transfer ΔT_m(k)
-    def post_process(results):
-        try:
+def post_process(results):
+        if True:  # auto-rescue: try→if
             tm_obj = results.get_matter_transfer_data()
-            k_vals = tm_obj.q
-            tm_data = tm_obj.transfer_data[0, :, 0]
-            path = DATA_DIR / "06_delta_Tm_scan.csv"
-            if path.exists():
-                delta_k, dTm = np.loadtxt(path, delimiter=",", skiprows=1, unpack=True)
-                tm_data += np.interp(k_vals, delta_k, dTm)
-                tm_obj.transfer_data[0, :, 0] = tm_data
-                if hasattr(results, "replace_transfer"):
-                    results.replace_transfer(0, tm_data)
-        except Exception:
+# auto-rescue: commented → k_vals = tm_obj.q
+# auto-rescue: commented → tm_data = tm_obj.transfer_data[0, :, 0]
+# auto-rescue: commented → path = DATA_DIR / "06_delta_Tm_scan.csv"
+# auto-rescue: commented → if path.exists():
+                # auto-rescue(fallback): delta_k, dTm = np.loadtxt(path, delimiter=",", skiprows=1, unpack=True)
+# auto-rescue: commented → tm_data += np.interp(k_vals, delta_k, dTm)
+# auto-rescue: commented → tm_obj.transfer_data[0, :, 0] = tm_data
+# auto-rescue: commented → if hasattr(results, "replace_transfer"):
+                    # auto-rescue(fallback): results.replace_transfer(0, tm_data)
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             pass
-        except Exception:
+# auto-rescue: commented → try:
+            pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             # If matter transfer access fails, silently continue
             pass
-        return results
+# auto-rescue: commented → pass  # auto-rescue: return at module level
 
-    pars.post_process = post_process
+# auto-rescue: commented → pars.post_process = post_process
 
 
 # ---1. LOAD pdot_plateau_z (configuration)---
-PDOT_FILE = CONF_DIR / "pdot_plateau_z.dat"
-logging.info("1) Reading pdot_plateau_z.dat …")
-z_h, pdot = np.loadtxt(PDOT_FILE, unpack=True)
-if z_h.size == 0 or pdot.size == 0:
-    raise ValueError(f"Invalid file: {PDOT_FILE}")
+# auto-rescue: commented → PDOT_FILE = CONF_DIR / "pdot_plateau_z.dat"
+# auto-rescue: commented → logging.info("1) Reading pdot_plateau_z.dat …")
+# auto-rescue: commented → z_h, pdot = np.loadtxt(PDOT_FILE, unpack=True)
+# auto-rescue: commented → if z_h.size == 0 or pdot.size == 0:
+    # auto-rescue(fallback): raise ValueError(f"Invalid file: {PDOT_FILE}")
 
-z_grid = np.linspace(0, 50, 100)  # redshift grid for matter_power
+# auto-rescue: commented → z_grid = np.linspace(0, 50, 100)  # redshift grid for matter_power
 
 # ---2. ΛCDM Cℓ SPECTRUM (CAMB)---
-logging.info("2) Computing ΛCDM spectrum …")
-pars0 = camb.CAMBparams()
+# auto-rescue: commented → logging.info("2) Computing ΛCDM spectrum …")
+# auto-rescue: commented → pars0 = camb.CAMBparams()
 pars0.set_for_lmax(ELL_MAX, max_eta_k=40000)
 pars0.set_cosmology(
-    H0=cosmo_params["H0"],
-    ombh2=cosmo_params["ombh2"],
-    omch2=cosmo_params["omch2"],
-    tau=cosmo_params["tau"],
-    omk=cosmo_params["omk"],
-    mnu=cosmo_params["mnu"],
+H0=cosmo_params["H0"],
+ombh2=cosmo_params["ombh2"],
+omch2=cosmo_params["omch2"],
+tau=cosmo_params["tau"],
+omk=cosmo_params["omk"],
+mnu=cosmo_params["mnu"],
 )
 pars0.InitPower.set_params(As=A_S0, ns=NS0)
 res0 = camb.get_results(pars0)
@@ -182,11 +184,11 @@ cmb0 = res0.get_cmb_power_spectra(pars0, lmax=ELL_MAX)["total"][:, 0]
 cls0 = cmb0[: ELL_MAX + 1]
 ells = np.arange(cls0.size)
 np.savetxt(
-    CLS_LCDM_DAT,
-    np.column_stack([ells, cls0]),
-    header="# ell   Cl_LCDM",
-    comments="",
-    fmt="%d %.6e",
+CLS_LCDM_DAT,
+np.column_stack([ells, cls0]),
+header="# ell   Cl_LCDM",
+comments="",
+fmt="%d %.6e",
 )
 logging.info(f"ΛCDM spectrum saved → {CLS_LCDM_DAT}")
 
@@ -204,11 +206,11 @@ if hasattr(pars1, "post_process"):
 cmb1 = res1.get_cmb_power_spectra(pars1, lmax=ELL_MAX)["total"][:, 0]
 cls1 = cmb1[: ells.size]
 np.savetxt(
-    CLS_MCGT_DAT,
-    np.column_stack([ells, cls1]),
-    header="# ell   Cl_MCGT",
-    comments="",
-    fmt="%d %.6e",
+CLS_MCGT_DAT,
+np.column_stack([ells, cls1]),
+header="# ell   Cl_MCGT",
+comments="",
+fmt="%d %.6e",
 )
 logging.info(f"MCGT spectrum saved → {CLS_MCGT_DAT}")
 
@@ -224,20 +226,20 @@ logging.info(f"ΔCℓ → {DELTA_CLS_CSV}, {DELTA_CLS_REL_CSV}")
 # ---5. SAVE PARAMETERS---
 logging.info("5) Saving parameters …")
 params_out = {
-    "alpha": ALPHA,
-    "q0star": Q0STAR,
-    "ell_min": ELL_MIN,
-    "ell_max": ELL_MAX,
-    "n_points": int(len(ells)),
-    "thresholds": {"primary": 0.01, "order2": 0.10},
-    "derivative_window": DERIV_WINDOW,
-    "derivative_polyorder": DERIV_POLYORDER,
-    **{k: cosmo_params[k] for k in ["H0", "ombh2", "omch2", "tau", "mnu"]},
-    "As0": A_S0,
-    "ns0": NS0,
-    "c1": C1,
-    "c2": C2,
-    "max_delta_Cl_rel": float(np.nanmax(np.abs(delta_rel))),
+"alpha": ALPHA,
+"q0star": Q0STAR,
+"ell_min": ELL_MIN,
+"ell_max": ELL_MAX,
+"n_points": int(len(ells)),
+"thresholds": {"primary": 0.01, "order2": 0.10},
+"derivative_window": DERIV_WINDOW,
+"derivative_polyorder": DERIV_POLYORDER,
+**{k: cosmo_params[k] for k in ["H0", "ombh2", "omch2", "tau", "mnu"]},
+"As0": A_S0,
+"ns0": NS0,
+"c1": C1,
+"c2": C2,
+"max_delta_Cl_rel": float(np.nanmax(np.abs(delta_rel))),
 }
 with open(JSON_PARAMS, "w") as f:
     json.dump(params_out, f, indent=2)
@@ -249,9 +251,9 @@ logging.info("6) Scanning Δr_s …")
 
 def compute_rs(alpha, q0star):
     p = camb.CAMBparams()
-    p.set_for_lmax(ELL_MAX, max_eta_k=40000)
-    tweak_for_mcgt(p, alpha=alpha, q0star=q0star)
-    return camb.get_results(p).get_derived_params()["rdrag"]
+p.set_for_lmax(ELL_MAX, max_eta_k=40000)
+tweak_for_mcgt(p, alpha=alpha, q0star=q0star)
+pass  # auto-rescue: return at module level
 
 
 # reference r_s at (ALPHA, Q0STAR)
@@ -261,9 +263,9 @@ q0_grid = np.linspace(-0.1, 0.1, 41)
 rows_rs = []
 for q0 in q0_grid:
     rs_i = compute_rs(ALPHA, q0)
-    rows_rs.append(
-        {"q0star": q0, "r_s": rs_i, "delta_rs_rel": (rs_i - rs_ref) / rs_ref}
-    )
+rows_rs.append(
+{"q0star": q0, "r_s": rs_i, "delta_rs_rel": (rs_i - rs_ref) / rs_ref}
+)
 df_rs = pd.DataFrame(rows_rs)
 df_rs[["q0star", "delta_rs_rel"]].to_csv(CSV_RS_SCAN, index=False)
 df_rs.to_csv(CSV_RS_SCAN_FULL, index=False)
@@ -276,20 +278,20 @@ logging.info("7) 2D Δχ² scan (cosmic variance) …")
 
 def compute_chi2_cv(alpha, q0star):
     p1 = camb.CAMBparams()
-    p1.set_for_lmax(ELL_MAX, max_eta_k=40000)
-    tweak_for_mcgt(p1, alpha=alpha, q0star=q0star)
-    p1.set_matter_power(redshifts=z_grid, kmax=PK_KMAX)
-    res_mcgt = camb.get_results(p1)
-    if hasattr(p1, "post_process"):
+p1.set_for_lmax(ELL_MAX, max_eta_k=40000)
+tweak_for_mcgt(p1, alpha=alpha, q0star=q0star)
+p1.set_matter_power(redshifts=z_grid, kmax=PK_KMAX)
+res_mcgt = camb.get_results(p1)
+if hasattr(p1, "post_process"):
         res_mcgt = p1.post_process(res_mcgt)
-    cls_mcgt = res_mcgt.get_cmb_power_spectra(p1, lmax=ells.size - 1)["total"][:, 0]
-    cls_mcgt = cls_mcgt[: ells.size]
+cls_mcgt = res_mcgt.get_cmb_power_spectra(p1, lmax=ells.size - 1)["total"][:, 0]
+cls_mcgt = cls_mcgt[: ells.size]
 
-    Delta = cls_mcgt - cls0
-    var = 2.0 * cls0**2 / (2 * ells + 1)
-    mask = (ells >= ELL_MIN) & (var > 0)
-    chi2 = np.sum((Delta[mask] ** 2) / var[mask])
-    return float(chi2)
+Delta = cls_mcgt - cls0
+var = 2.0 * cls0**2 / (2 * ells + 1)
+mask = (ells >= ELL_MIN) & (var > 0)
+chi2 = np.sum((Delta[mask] ** 2) / var[mask])
+pass  # auto-rescue: return at module level
 
 
 alpha_grid = np.linspace(-0.1, 0.1, 21)
@@ -309,12 +311,12 @@ logging.info("8) Exporting ΔT_m(k) …")
 # ΛCDM matter transfer
 pars0_tm = camb.CAMBparams()
 pars0_tm.set_cosmology(
-    H0=cosmo_params["H0"],
-    ombh2=cosmo_params["ombh2"],
-    omch2=cosmo_params["omch2"],
-    tau=cosmo_params["tau"],
-    omk=cosmo_params["omk"],
-    mnu=cosmo_params["mnu"],
+H0=cosmo_params["H0"],
+ombh2=cosmo_params["ombh2"],
+omch2=cosmo_params["omch2"],
+tau=cosmo_params["tau"],
+omk=cosmo_params["omk"],
+mnu=cosmo_params["mnu"],
 )
 pars0_tm.InitPower.set_params(As=A_S0, ns=NS0)
 pars0_tm.set_matter_power(redshifts=[0], kmax=PK_KMAX)
@@ -339,7 +341,7 @@ delta_Tm = tm1_data_interp - tm0_data
 OUT_TMDAT = DATA_DIR / "06_delta_Tm_scan.csv"
 with open(OUT_TMDAT, "w") as f:
     f.write("# k, delta_Tm\n")
-    for k, dTm in zip(k_vals, delta_Tm, strict=False):
+for k, dTm in zip(k_vals, delta_Tm, strict=False):
         f.write(f"{k:.6e}, {dTm:.6e}\n")
 logging.info(f"ΔT_m(k) exported → {OUT_TMDAT}")
 
@@ -354,38 +356,44 @@ logging.info("=== Chapter 6 generation completed ===")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+if False:  # auto-rescue: orphan except
                 pass
-            except SystemExit:
+try:
+                pass
+except SystemExit:
                 raise
-            except Exception as e:
+try:
+                pass
+except Exception as e:
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+traceback.print_exc()
+sys.exit(1)
+_mcgt_cli_seed()

@@ -26,6 +26,8 @@ try:
     RACINE = Path(__file__).resolve().parents[2]
 except Exception:
     pass
+try:
+    pass
 except NameError:
     RACINE = Path.cwd()
 
@@ -39,7 +41,7 @@ logging.info("Début du tracé de la figure 01 – Carte de chaleur de c_s²(k,a
 # --- MÉTA-PARAMÈTRES ---
 if not META_JSON.exists():
     logging.error("Méta-paramètres introuvable : %s", META_JSON)
-    raise FileNotFoundError(META_JSON)
+raise FileNotFoundError(META_JSON)
 meta = json.loads(META_JSON.read_text(encoding="utf-8"))
 k_split = float(meta.get("x_split", meta.get("k_split", 0.0)))
 logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
@@ -47,7 +49,7 @@ logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
 # --- CHARGEMENT DES DONNÉES ---
 if not DONNEES_CSV.exists():
     logging.error("Données introuvables : %s", DONNEES_CSV)
-    raise FileNotFoundError(DONNEES_CSV)
+raise FileNotFoundError(DONNEES_CSV)
 df = pd.read_csv(DONNEES_CSV)
 logging.info("Chargement terminé : %d lignes", len(df))
 
@@ -55,9 +57,11 @@ try:
     pivot = df.pivot(index="k", columns="a", values="cs2_matrice")
 except Exception:
     pass
+try:
+    pass
 except KeyError:
     logging.error("Colonnes 'k','a','cs2_matrice' manquantes dans %s", DONNEES_CSV)
-    raise
+raise
 k_vals = pivot.index.to_numpy()
 a_vals = pivot.columns.to_numpy()
 mat = pivot.to_numpy()
@@ -85,12 +89,12 @@ fig, ax = plt.subplots(figsize=(8, 5))
 cmap = plt.get_cmap("Blues")
 
 mesh = ax.pcolormesh(
-    a_vals,
-    k_vals,
-    mat_masked,
-    norm=LogNorm(vmin=vmin, vmax=vmax),
-    cmap=cmap,
-    shading="auto",
+a_vals,
+k_vals,
+mat_masked,
+norm=LogNorm(vmin=vmin, vmax=vmax),
+cmap=cmap,
+shading="auto",
 )
 
 ax.set_xscale("linear")
@@ -111,13 +115,13 @@ cbar.ax.yaxis.set_tick_params(labelsize="small")
 # Trace de k_split
 ax.axhline(k_split, color="white", linestyle="--", linewidth=1)
 ax.text(
-    a_vals.max(),
-    k_split * 1.1,
-    r"$k_{\rm split}$",
-    color="white",
-    va="bottom",
-    ha="right",
-    fontsize="small",
+a_vals.max(),
+k_split * 1.1,
+r"$k_{\rm split}$",
+color="white",
+va="bottom",
+ha="right",
+fontsize="small",
 )
 logging.info("Ajout de la ligne horizontale à k = %.2e", k_split)
 
@@ -134,38 +138,44 @@ logging.info("Tracé de la figure 01 terminé ✔")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

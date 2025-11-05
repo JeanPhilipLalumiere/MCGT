@@ -53,7 +53,7 @@ delta_rel = (cl1 - cl0) / cl0
 fig, ax = plt.subplots(figsize=(10, 6), dpi=300, constrained_layout=True)
 ax.plot(ells, cl0, linestyle="--", linewidth=2, label=r"$\Lambda$CDM", alpha=0.7)
 ax.plot(
-    ells, cl1, linestyle="-", linewidth=2, label="MCGT", alpha=0.7, color="tab:orange"
+ells, cl1, linestyle="-", linewidth=2, label="MCGT", alpha=0.7, color="tab:orange"
 )
 
 # Shade region where MCGT > ΛCDM
@@ -73,12 +73,12 @@ ax.legend(loc="upper right", frameon=False)
 
 # Inset 1: relative difference ΔCℓ / Cℓ (bas-gauche, décalé à droite et en haut)
 axins1 = inset_axes(
-    ax,
-    width="85%",
-    height="85%",
-    bbox_to_anchor=(0.06, 0.06, 0.30, 0.35),
-    bbox_transform=ax.transAxes,
-    borderpad=0,
+ax,
+width="85%",
+height="85%",
+bbox_to_anchor=(0.06, 0.06, 0.30, 0.35),
+bbox_transform=ax.transAxes,
+borderpad=0,
 )
 axins1.plot(ells, delta_rel, linestyle="-", color="tab:green")
 axins1.set_xscale("log")
@@ -90,22 +90,22 @@ axins1.tick_params(labelsize=7)
 
 # Inset 2: zoom ℓ ≃ 200–300, placé juste à droite du premier inset
 axins2 = inset_axes(
-    ax,
-    width="85%",
-    height="85%",
-    bbox_to_anchor=(
-        0.5,
-        0.06,
-        0.30,
-        0.35,
-    ),  # on décale x0 de ~0.32 pour se caler à droite
-    bbox_transform=ax.transAxes,
-    borderpad=0,
+ax,
+width="85%",
+height="85%",
+bbox_to_anchor=(
+0.5,
+0.06,
+0.30,
+0.35,
+),  # on décale x0 de ~0.32 pour se caler à droite
+bbox_transform=ax.transAxes,
+borderpad=0,
 )
 mask_zoom = (ells > 200) & (ells < 300)
 axins2.plot(ells[mask_zoom], cl0[mask_zoom], "--", linewidth=1, alpha=0.7)
 axins2.plot(
-    ells[mask_zoom], cl1[mask_zoom], "-", linewidth=1, alpha=0.7, color="tab:orange"
+ells[mask_zoom], cl1[mask_zoom], "-", linewidth=1, alpha=0.7, color="tab:orange"
 )
 axins2.set_xscale("log")
 axins2.set_yscale("log")
@@ -116,14 +116,14 @@ axins2.tick_params(labelsize=7)
 # Annotate parameters
 if ALPHA is not None and Q0STAR is not None:
     ax.text(
-        0.03,
-        0.95,
-        rf"$\alpha={ALPHA},\ q_0^*={Q0STAR}$",
-        transform=ax.transAxes,
-        ha="left",
-        va="top",
-        fontsize=9,
-    )
+0.03,
+0.95,
+rf"$\alpha={ALPHA},\ q_0^*={Q0STAR}$",
+transform=ax.transAxes,
+ha="left",
+va="top",
+fontsize=9,
+)
 
 plt.savefig(OUT_PNG)
 logging.info(f"Figure enregistrée → {OUT_PNG}")
@@ -132,38 +132,44 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

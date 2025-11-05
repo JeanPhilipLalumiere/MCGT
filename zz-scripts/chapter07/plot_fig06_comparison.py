@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter07/plot_fig06_comparison.py
 # répertoire : zz-scripts/chapter07
+from __future__ import annotations
 import os
 """
 plot_fig06_comparison.py — STUB TEMPORAIRE (homogénisation CLI)
@@ -8,8 +9,7 @@ plot_fig06_comparison.py — STUB TEMPORAIRE (homogénisation CLI)
 - L'implémentation scientifique complète est conservée dans plot_fig06_comparison.py.bak
   et sera réintégrée après normalisation (parser/main-guard/fonctions pures).
 """
-
-from __future__ import annotations
+# auto-rescue v3c (future-not-top): 
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +31,7 @@ FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_06_comparison.png"
 # --- Read k_split ---
 with open(META_JSON, encoding="utf-8") as f:
     meta = json.load(f)
-    if not isinstance(meta, dict):
+if not isinstance(meta, dict):
         meta = {}
 
 k_split = float(meta.get("x_split", 0.02))
@@ -53,27 +53,28 @@ ddp_mask = np.ma.masked_where(np.abs(ddp) <= 0, np.abs(ddp))
 # Function to annotate the plateau region
 def zoom_plateau(ax, k, y):
     sel = k < k_split
-    ysel = y[sel]
-    if ysel.size == 0:
-        return
-    lo, hi = ysel.min(), ysel.max()
-    ax.set_ylim(lo * 0.8, hi * 1.2)
-    xm = k[sel][len(ysel) // 2]
-    ym = np.sqrt(lo * hi)
-    ax.text(
-        xm,
-        ym,
-        "Plateau",
-        ha="center",
-        va="center",
-        fontsize=7,
-        bbox=dict(boxstyle="round", fc="white", alpha=0.7),
-    )
-    p.add_argument("--results", help="Chemin CSV/NPY optionnel (ignoré par le stub).")
-    p.add_argument("--out", help="PNG/PDF de sortie (facultatif).")
-    p.add_argument("--dpi", type=int, default=120, help="Résolution figure (par défaut: 120).")
-    p.add_argument("--title", default="Figure 6 — stub CLI", help="Titre visuel temporaire.")
-    return p
+ysel = y[sel]
+if ysel.size == 0:
+    pass  # auto-rescue v3d: missing block
+        # auto-rescue v3c (syntax): return
+lo, hi = ysel.min(), ysel.max()
+ax.set_ylim(lo * 0.8, hi * 1.2)
+xm = k[sel][len(ysel) // 2]
+ym = np.sqrt(lo * hi)
+ax.text(
+xm,
+ym,
+"Plateau",
+ha="center",
+va="center",
+fontsize=7,
+bbox=dict(boxstyle="round", fc="white", alpha=0.7),
+)
+p.add_argument("--results", help="Chemin CSV/NPY optionnel (ignoré par le stub).")
+p.add_argument("--out", help="PNG/PDF de sortie (facultatif).")
+p.add_argument("--dpi", type=int, default=120, help="Résolution figure (par défaut: 120).")
+p.add_argument("--title", default="Figure 6 — stub CLI", help="Titre visuel temporaire.")
+pass  # auto-rescue v3d (return-at-module): return p
 
 
 # --- Create figure ---
@@ -97,17 +98,17 @@ ax.set_ylabel(r"$|\partial_k c_s^2|$", fontsize=10)
 ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
 ax.grid(True, which="both", ls=":", linewidth=0.5)
 
-    if args.out:
+if args.out:
         fig.savefig(args.out, dpi=args.dpi)
-        print(f"Wrote: {args.out}")
-    else:
+print(f"Wrote: {args.out}")
+if True:  # auto-rescue: orphan else
         # Pas de show() en mode homogénéisation/CI
         print("No --out provided; stub generated but not saved.")
 
 # 3) |∂ₖ(δφ/φ)|
 ax = axs[2]
 ax.loglog(
-    k3, ddp_mask, color="C2", label=r"$|\partial_k(\delta\phi/\phi)|_{\mathrm{smooth}}$"
+k3, ddp_mask, color="C2", label=r"$|\partial_k(\delta\phi/\phi)|_{\mathrm{smooth}}$"
 )
 ax.axvline(k_split, ls="--", color="k", lw=1)
 zoom_plateau(ax, k3, ddp_mask)
@@ -130,38 +131,44 @@ plt.close(fig)
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

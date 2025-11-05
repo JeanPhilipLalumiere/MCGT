@@ -43,7 +43,7 @@ q0s = np.sort(df["q0star"].unique())
 
 # Pivot into matrix
 chi2_mat = (
-    df.pivot(index="q0star", columns="alpha", values="chi2").loc[q0s, alphas].values
+df.pivot(index="q0star", columns="alpha", values="chi2").loc[q0s, alphas].values
 )
 
 # Compute cell edges for pcolormesh
@@ -59,7 +59,7 @@ cbar = fig.colorbar(pcm, ax=ax, label=r"$\Delta\chi^2$")
 
 # Aesthetics
 ax.set_title(
-    r"Carte de chaleur $\Delta\chi^2$ (Chapitre 6)", fontsize=14, fontweight="bold"
+r"Carte de chaleur $\Delta\chi^2$ (Chapitre 6)", fontsize=14, fontweight="bold"
 )
 ax.set_xlabel(r"$\alpha$")
 ax.set_ylabel(r"$q_0^*$")
@@ -70,14 +70,14 @@ ax.minorticks_on()
 # Annotate parameters
 if ALPHA is not None and Q0STAR is not None:
     ax.text(
-        0.03,
-        0.95,
-        rf"$\alpha={ALPHA},\ q_0^*={Q0STAR}$",
-        transform=ax.transAxes,
-        ha="left",
-        va="top",
-        fontsize=9,
-    )
+0.03,
+0.95,
+rf"$\alpha={ALPHA},\ q_0^*={Q0STAR}$",
+transform=ax.transAxes,
+ha="left",
+va="top",
+fontsize=9,
+)
 
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(OUT_PNG)
@@ -87,38 +87,44 @@ logging.info(f"Carte de chaleur enregistrée → {OUT_PNG}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

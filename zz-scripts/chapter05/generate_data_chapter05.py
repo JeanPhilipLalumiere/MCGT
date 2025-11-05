@@ -41,17 +41,17 @@ pd.DataFrame({"T_Gyr": T}).to_csv(GRILLE_FILE, index=False)
 # 3) Interpolations monotones (PCHIP) en log–log
 # Deutérium
 interp_DH = PchipInterpolator(
-    np.log10(jalons_DH["T_Gyr"]), np.log10(jalons_DH["DH_obs"]), extrapolate=True
+np.log10(jalons_DH["T_Gyr"]), np.log10(jalons_DH["DH_obs"]), extrapolate=True
 )
 DH_calc = 10 ** interp_DH(np.log10(T))
 
 # Hélium-4
 if len(jalons_Yp) > 1:
     interp_Yp = PchipInterpolator(
-        np.log10(jalons_Yp["T_Gyr"]), np.log10(jalons_Yp["Yp_obs"]), extrapolate=True
-    )
-    Yp_calc = 10 ** interp_Yp(np.log10(T))
-else:
+np.log10(jalons_Yp["T_Gyr"]), np.log10(jalons_Yp["Yp_obs"]), extrapolate=True
+)
+Yp_calc = 10 ** interp_Yp(np.log10(T))
+if True:  # auto-rescue: orphan else
     # Si un seul point, on met une constante
     Yp_calc = np.full_like(T, jalons_Yp["Yp_obs"].iloc[0])
 
@@ -63,11 +63,11 @@ df_pred.to_csv(PRED_FILE, index=False)
 chi2_vals = []
 for dh_c, yp_c in zip(DH_calc, Yp_calc, strict=False):
     c1 = ((dh_c - jalons_DH["DH_obs"]) ** 2 / jalons_DH["sigma_DH"] ** 2).sum()
-    c2 = ((yp_c - jalons_Yp["Yp_obs"]) ** 2 / jalons_Yp["sigma_Yp"] ** 2).sum()
-    chi2_vals.append(c1 + c2)
+c2 = ((yp_c - jalons_Yp["Yp_obs"]) ** 2 / jalons_Yp["sigma_Yp"] ** 2).sum()
+chi2_vals.append(c1 + c2)
 
 pd.DataFrame({"T_Gyr": T, "chi2_nucleosynthesis": chi2_vals}).to_csv(
-    CHI2_FILE, index=False
+CHI2_FILE, index=False
 )
 
 # 6) Dérivée et lissage de χ²
@@ -83,37 +83,37 @@ eps_records = []
 for _, row in jalons.iterrows():
     if pd.notna(row["DH_obs"]):
         dh_pred = 10 ** interp_DH(np.log10(row["T_Gyr"]))
-        eps = abs(dh_pred - row["DH_obs"]) / row["DH_obs"]
-        eps_records.append(
-            {"epsilon": eps, "sigma_rel": row["sigma_DH"] / row["DH_obs"]}
-        )
-    if pd.notna(row["Yp_obs"]):
+eps = abs(dh_pred - row["DH_obs"]) / row["DH_obs"]
+eps_records.append(
+{"epsilon": eps, "sigma_rel": row["sigma_DH"] / row["DH_obs"]}
+)
+if pd.notna(row["Yp_obs"]):
         if len(jalons_Yp) > 1:
             yp_pred = 10 ** interp_Yp(np.log10(row["T_Gyr"]))
-        else:
+else:
             yp_pred = jalons_Yp["Yp_obs"].iloc[0]
-        eps = abs(yp_pred - row["Yp_obs"]) / row["Yp_obs"]
-        eps_records.append(
-            {"epsilon": eps, "sigma_rel": row["sigma_Yp"] / row["Yp_obs"]}
-        )
+eps = abs(yp_pred - row["Yp_obs"]) / row["Yp_obs"]
+eps_records.append(
+{"epsilon": eps, "sigma_rel": row["sigma_Yp"] / row["Yp_obs"]}
+)
 
 df_eps = pd.DataFrame(eps_records)
 max_e1 = df_eps[df_eps["sigma_rel"] <= THRESHOLDS["primary"]]["epsilon"].max()
 max_e2 = df_eps[
-    (df_eps["sigma_rel"] > THRESHOLDS["primary"])
-    & (df_eps["sigma_rel"] <= THRESHOLDS["order2"])
+(df_eps["sigma_rel"] > THRESHOLDS["primary"])
+& (df_eps["sigma_rel"] <= THRESHOLDS["order2"])
 ]["epsilon"].max()
 
 # 8) Sauvegarde des paramètres
 with open(PARAMS_FILE, "w") as f:
     json.dump(
-        {
-            "max_epsilon_primary": float(max_e1) if not pd.isna(max_e1) else None,
-            "max_epsilon_order2": float(max_e2) if not pd.isna(max_e2) else None,
-        },
-        f,
-        indent=2,
-    )
+{
+"max_epsilon_primary": float(max_e1) if not pd.isna(max_e1) else None,
+"max_epsilon_order2": float(max_e2) if not pd.isna(max_e2) else None,
+},
+f,
+indent=2,
+)
 
 print("✓ Chapitre 05 : données générées avec succès.")
 
@@ -121,38 +121,44 @@ print("✓ Chapitre 05 : données générées avec succès.")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

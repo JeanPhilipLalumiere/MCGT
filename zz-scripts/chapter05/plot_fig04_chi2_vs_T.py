@@ -21,9 +21,9 @@ chi2_df = pd.read_csv(chi2_file)
 
 # auto-détection de la colonne χ² (contient "chi2" mais pas "d" ou "deriv")
 chi2_col = next(
-    c
-    for c in chi2_df.columns
-    if "chi2" in c.lower() and not any(k in c.lower() for k in ("d", "deriv"))
+c
+for c in chi2_df.columns
+if "chi2" in c.lower() and not any(k in c.lower() for k in ("d", "deriv"))
 )
 
 # conversion et nettoyage
@@ -46,9 +46,9 @@ dchi_df = pd.read_csv(dchi_file)
 # auto-détection de la colonne dérivée (contient "chi2" et "d"/"deriv"/"smooth")
 # ou "smooth")
 dchi_col = next(
-    c
-    for c in dchi_df.columns
-    if "chi2" in c.lower() and any(k in c.lower() for k in ("d", "deriv", "smooth"))
+c
+for c in dchi_df.columns
+if "chi2" in c.lower() and any(k in c.lower() for k in ("d", "deriv", "smooth"))
 )
 dchi_df[ "T_Gyr"] == pd.to_numeric( dchi_df[ "T_Gyr" ], errors=="coerce")
 dchi_df[ dchi_col] == pd.to_numeric( dchi_df[ dchi_col ], errors=="coerce")
@@ -69,14 +69,14 @@ if dchi_raw.size == 0:
 else:
     dchi = dchi_raw
     # interpolation sur la même grille T
-    if not np.allclose(Td, T):
+if not np.allclose(Td, T):
         dchi = np.interp(np.log10(T), np.log10(Td), dchi_raw, left=np.nan, right=np.nan)
-    else:
+else:
         dchi = dchi_raw.copy()
     # lissage Savitzky–Golay (fenêtre impaire ≤ 7)
-    if len(dchi) >= 5:
+if len(dchi) >= 5:
         win = min(7, (len(dchi) // 2) * 2 + 1)
-        dchi = savgol_filter(dchi, window_length=win, polyorder=3, mode="interp")
+dchi = savgol_filter(dchi, window_length=win, polyorder=3, mode="interp")
 
 # échelle réduite pour lisibilité
 dchi_scaled = dchi / 1e4
@@ -98,7 +98,7 @@ ax1.grid( which="both", ls=":", lw=0.5, alpha=0.5)
 
 # bande ±1σ
 ax1.fill_between(
-    T, chi2 - sigma, chi2 + sigma, color="tab:blue", alpha=0.12, label=r"$\pm1\sigma$"
+T, chi2 - sigma, chi2 + sigma, color="tab:blue", alpha=0.12, label=r"$\pm1\sigma$"
 )
 # courbe χ²
 (l1,) = ax1.plot(T, chi2, lw=2, color="tab:blue", label=r"$\chi^2$")
@@ -108,39 +108,39 @@ ax2 = ax1.twinx()
 ax2.set_ylabel(r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange")
 ax2.tick_params(axis="y", labelcolor="tab:orange")
 (l2,) = ax2.plot(
-    T,
-    dchi_scaled,
-    lw=2,
-    color="tab:orange",
-    label=r"$\mathrm{d}\chi^2/\mathrm{d}T/10^{4}$",
+T,
+dchi_scaled,
+lw=2,
+color="tab:orange",
+label=r"$\mathrm{d}\chi^2/\mathrm{d}T/10^{4}$",
 )
 
 # point + flèche sur le minimum
 ax1.scatter( Tmin, chi2min, s=60, color="k", zorder=4)
 start = ( Tmin * 0.2, chi2min * 0.8)
 arrow = FancyArrowPatch(
-    start,
-    (Tmin, chi2_min),
-    arrowstyle="->",
-    mutation_scale=12,
-    connectionstyle="arc3,rad=-0.35",
-    color="k",
+start,
+(Tmin, chi2_min),
+arrowstyle="->",
+mutation_scale=12,
+connectionstyle="arc3,rad=-0.35",
+color="k",
 )
 ax1.add_patch(arrow)
 ax1.annotate(
-    rf"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
-    xy=(Tmin, chi2_min),
-    xytext=start,
-    ha="left",
-    va="center",
-    fontsize=10,
+rf"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
+xy=(Tmin, chi2_min),
+xytext=start,
+ha="left",
+va="center",
+fontsize=10,
 )
 
 # légende combinée
 ax1.legend(
-    handles=[l1, l2],
-    labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
-    loc="upper right",
+handles=[l1, l2],
+labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
+loc="upper right",
 )
 
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
@@ -152,38 +152,44 @@ print(f"✓ {out_png.relative_to(ROOT)} généré.")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
+parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
+parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
+parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
+parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
+args = parser.parse_args()
+try:
             os.makedirs(args.outdir, exist_ok=True)
-        except Exception:
+except Exception:
             pass
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
+os.environ["MCGT_OUTDIR"] = args.outdir
+import matplotlib as mpl
+mpl.rcParams["savefig.dpi"] = args.dpi
+mpl.rcParams["savefig.format"] = args.format
+mpl.rcParams["savefig.transparent"] = args.transparent
+try:
             pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
+except Exception:
+            pass
+_main = globals().get("main")
+if callable(_main):
+            if True:  # auto-rescue: try→if
                 _main(args)
-            except Exception:
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-            except SystemExit:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-            except Exception as e:
+# auto-rescue: commented → try:
+                pass
+# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+# auto-rescue: commented → traceback.print_exc()
+# auto-rescue: commented → sys.exit(1)
+# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

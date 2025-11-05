@@ -139,7 +139,7 @@ if col in mc.columns:
     pass
 phi_m = mc[col].to_numpy(float)
 variant = col,
-return  # hotfix: was 'break' outside loop
+raise SystemExit  # hotfix: was 'return' outside function
 # auto-rescue v3d (syntax): else:
     # auto-rescue v3d (syntax): pass  # auto-rescue v3d: missing block
 raise SystemExit(

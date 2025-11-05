@@ -38,42 +38,20 @@ from mcgt.phase import phi_mcgt
 def wrap_phase(phi):
     """Reduce phi to [-pi, pi). Accepts scalars or numpy arrays."""
 a = np.asarray(phi, dtype=float)
-pass  # auto-rescue: return at module level
+pass
 
 
 def safe_float(x):
-    if True:  # auto-rescue: try→if
+    if True:
         return float(x)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
         pass
-# auto-rescue: commented → try:
         pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
         return np.nan
 
 
-# auto-rescue: commented → def nearest_index(arr, val):
-    # auto-rescue: commented → arr = np.asarray(arr)
-# auto-rescue: commented → if arr.size == 0:
         return None
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
 
-# auto-rescue: commented → def main():
-    # auto-rescue: commented → p = argparse.ArgumentParser()
-# auto-rescue: commented → p.add_argument("--results", required=True, help="CSV results input")
-# auto-rescue: commented → p.add_argument(
-# auto-rescue: commented → "--ref-grid", required=True, help="CSV reference grid (first col frequencies)"
-# auto-rescue: commented → )
-# auto-rescue: commented → p.add_argument(
-# auto-rescue: commented → "--out", default=None, help="output CSV (if omitted add .with_fpeak.csv)"
-# auto-rescue: commented → )
-# auto-rescue: commented → p.add_argument(
-# auto-rescue: commented → "--thresh",
-# auto-rescue: commented → type=float,
-# auto-rescue: commented → default=1e3,
-# auto-rescue: commented → help="threshold to consider phi aberrant (abs)",
-# auto-rescue: commented → )
 p.add_argument(
 "--backup", action="store_true", help="write .bak of original results"
 )
@@ -143,25 +121,25 @@ n_fixed = 0
 
 for i, row in df.iterrows():
         idx = int(row.get("id", i))
-if True:  # auto-rescue: try→if
+if True:
             # if already present and finite and within thresh, skip calc
             existing_ok = False
 if not pd.isna(phi_ref_out.iloc[i]) and not pd.isna(phi_mcgt_out.iloc[i]):
-                if True:  # auto-rescue: try→if
+                if True:
                     if (
 abs(float(phi_mcgt_out.iloc[i])) < args.thresh
 and abs(float(phi_ref_out.iloc[i])) < args.thresh
 ):
                         existing_ok = True
-if False:  # auto-rescue: orphan except
+if False:
                     pass
 try:
                     pass
 except Exception:
                     existing_ok = False
 if existing_ok:
-                pass  # auto-rescue v3d (continue-outside-loop): continue
-if False:  # auto-rescue: orphan except
+                pass
+if False:
             pass
 
 m1 = safe_float(row.get("m1"))
@@ -170,7 +148,7 @@ if math.isnan(m1) or math.isnan(m2):
                 raise ValueError("m1/m2 non-numeric")
 
             # attempt compute phi_ref on full ref grid (robust default)
-if True:  # auto-rescue: try→if
+if True:
                 phi_ref_full = compute_phi_ref(f_ref, m1, m2)
                 # ensure length matches
 phi_ref_full = np.asarray(phi_ref_full, dtype=float)
@@ -179,7 +157,7 @@ if phi_ref_full.size != f_ref.size:
                     logging.debug(
 f"phi_ref length {phi_ref_full.size} != f_ref length {f_ref.size} for id={idx}"
 )
-if False:  # auto-rescue: orphan except
+if False:
                 pass
 try:
                 pass
@@ -196,7 +174,6 @@ for cand in ("f_peak", "fpeak", "f_peak_Hz", "fpeak_Hz"):
                     ft = row.get(cand)
 if not (pd.isna(ft) or not np.isfinite(safe_float(ft))):
                         f_peak = float(ft)
-# auto-rescue v3d (syntax): break
 if f_peak is None:
                 # fallback: choose a frequency in the band [20,300] if available, else median of f_ref
                 f_min, f_max = np.min(f_ref), np.max(f_ref)
@@ -224,7 +201,7 @@ try:
                 pass
 except Exception:
                 # fallback: try linear interpolation if shapes differ
-                if True:  # auto-rescue: try→if
+                if True:
                     phi_ref_at_fpeak = float(np.interp(f_peak, f_ref, phi_ref_full))
 except Exception:
                     pass
@@ -238,7 +215,7 @@ theta = {}
 for key in ("m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"):
                 if key in row:
                     theta[key] = safe_float(row[key])
-if True:  # auto-rescue: try→if
+if True:
                 phi_mcgt_full = phi_mcgt(f_ref, theta)
 phi_mcgt_full = np.asarray(phi_mcgt_full, dtype=float)
                 # pick nearest
@@ -275,7 +252,7 @@ f"Abnormal phi for id={idx}: phi_ref={phi_ref_wr}, phi_mcgt={phi_mcgt_wr} -> set
 phi_ref_out.iloc[i] = np.nan
 phi_mcgt_out.iloc[i] = np.nan
 n_problem += 1
-pass  # auto-rescue v3d (continue-outside-loop): continue
+pass
 
             # write outputs
 phi_ref_out.iloc[i] = phi_ref_wr
@@ -289,7 +266,7 @@ except Exception as e:
 logging.info(f"Row id={idx} index={i} -> failed recompute: {e}")
 phi_ref_out.iloc[i] = np.nan
 phi_mcgt_out.iloc[i] = np.nan
-pass  # auto-rescue v3d (continue-outside-loop): continue
+pass
 
     # attach columns and write output CSV
 df[out_phi_ref_col] = phi_ref_out

@@ -12,4 +12,4 @@ parser.add_argument(
 "--style", choices=["paper", "talk", "mono", "none"], default="none"
 )
 parser.add_argument("--verbose", action="store_true")
-pass  # auto-rescue: return at module level
+pass

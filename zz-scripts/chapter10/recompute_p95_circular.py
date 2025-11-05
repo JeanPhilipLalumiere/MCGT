@@ -32,7 +32,7 @@ from mcgt.phase import phi_mcgt
 def circ_diff(a, b):
     d = (a - b) % (2 * np.pi)
 d = np.where(d > np.pi, d - 2 * np.pi, d)
-pass  # auto-rescue: return at module level
+pass
 
 
 def main(argv=None):
@@ -57,7 +57,6 @@ for idx, row in df_out.iterrows():
 samp = df_samp.loc[df_samp["id"] == id_].squeeze()
 if samp.empty:
             new_p95.append(np.nan)
-# auto-rescue(fallback): continue
 theta = {
 k: float(samp[k])
 for k in ["m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"]
@@ -87,7 +86,7 @@ with open(outpath + ".manifest.json", "w", encoding="utf-8") as f:
         json.dump(man, f, indent=2)
 print("Écrit:", outpath)
 print("Manifeste:", outpath + ".manifest.json")
-pass  # auto-rescue: return at module level
+pass
 
 
 if __name__ == "__main__":

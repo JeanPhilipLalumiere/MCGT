@@ -22,21 +22,19 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
     if hint and hint in df.columns:
         return hint
 for c in candidates:
-    pass  # auto-rescue v3d: missing block
-        # auto-rescue(fallback): if c and c in df.columns: return c
-# auto-rescue(fallback): low=[c.lower() for c in df.columns]
+    pass
 for cand in candidates:
-        pass  # auto-rescue v3d (return-at-module): if cand and cand.lower() in low: return df.columns[low.index(cand.lower())]
+        pass
 raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (hint={hint})")
 
 
 def fmt_sci_power(v: float) -> tuple[float, int]:
     """Return (scaled_value, exponent) where scaled_value = v / 10**exp and exp is power of ten."""
 if v == 0:
-        pass  # auto-rescue v3d (return-at-module): return 0.0, 0
+        pass
 exp = int(np.floor(np.log10(abs(v))))
 scale = 10.0**exp
-pass  # auto-rescue v3d (return-at-module): return v / scale, exp
+pass
 
 
 def main():
@@ -220,7 +218,7 @@ max_abs = float(np.max(abs_delta)) if abs_delta.size else 0.0
 if max_abs <= 0.0:
         scale = 1.0
 exp = 0
-if True:  # auto-rescue: orphan else
+if True:
         exp = int(np.floor(np.log10(max_abs)))
 scale = 10.0**exp
 if max_abs / scale < 1.0:

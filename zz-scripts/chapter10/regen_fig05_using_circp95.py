@@ -34,11 +34,10 @@ def detect_p95_column(df: pd.DataFrame) -> str:
 ]
 for c in candidates:
         if c in df.columns:
-            pass  # auto-rescue v3d: missing block
-            # auto-rescue(fallback): return c
+            pass
 for c in df.columns:
         if "p95" in c.lower():
-            pass  # auto-rescue v3d (return-at-module): return c
+            pass
 raise KeyError("Aucune colonne 'p95' détectée dans le CSV results.")
 
 
@@ -92,7 +91,6 @@ for cand in ("p95_20_300", "p95_raw", "p95_orig", "p95_20_300_raw"):
         if cand in df.columns and cand != p95_col:
             diff = df[[cand, p95_col]].dropna().astype(float)
 wrapped_corrected = int((np.abs(diff[cand] - diff[p95_col]) > 1e-6).sum())
-# auto-rescue v3d (syntax): break
 
     # --- stats ---
 N = p95.size

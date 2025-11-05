@@ -25,7 +25,6 @@ import pandas as pd
 # import fonctions existantes
 try:
     from mcgt.backends.ref_phase import compute_phi_ref
-# auto-rescue: commented → from mcgt.phase import phi_mcgt
 except Exception:
     pass
 try:
@@ -38,12 +37,12 @@ def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Distance angulaire minimale a-b renvoyée dans [-pi,pi]."""
 d = (a - b) % (2 * np.pi)
 d = np.where(d > np.pi, d - 2 * np.pi, d)
-pass  # auto-rescue: return at module level
+pass
 
 
 def load_ref_grid(path):
     arr = np.loadtxt(path, delimiter=",", skiprows=1, usecols=[0])
-pass  # auto-rescue: return at module level
+pass
 
 
 def select_ids(best_json, results_df, k=10):
@@ -64,7 +63,7 @@ if med_id not in ids:
         ids.append(med_id)
 if worst_id not in ids:
         ids.append(worst_id)
-pass  # auto-rescue: return at module level
+pass
 
 
 def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
@@ -109,14 +108,7 @@ plt.legend(loc="best", fontsize="small")
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 plt.savefig(pngfile, dpi=150)
 plt.close()
-pass  # auto-rescue: return at module level
-# auto-rescue(fallback): "id": int(id_),
-# auto-rescue(fallback): "p95_raw": p95_raw,
-# auto-rescue(fallback): "p95_unwrap": p95_unwrap,
-# auto-rescue(fallback): "p95_circ": p95_circ,
-# auto-rescue(fallback): "csv": csvfile,
-# auto-rescue(fallback): "png": pngfile,
-# auto-rescue: commented → }
+pass
 
 
 def main(argv=None):
@@ -148,15 +140,6 @@ for i, id_ in enumerate(ids):
         print(f"[{i + 1}/{len(ids)}] Traitement id={id_} ...")
 try:
             out = compute_resids_for_id(id_, samples, fgrid, args.outdir, args.ref_grid)
-# auto-rescue: commented → summary.append(out)
-# auto-rescue: commented → print(
-# auto-rescue: commented → "   -> p95_raw:   ",
-# auto-rescue: commented → f"{out['p95_raw']:.6f}",
-# auto-rescue: commented → " p95_unwrap:",
-# auto-rescue: commented → f"{out['p95_unwrap']:.6f}",
-# auto-rescue: commented → " p95_circ:",
-# auto-rescue: commented → f"{out['p95_circ']:.6f}",
-# auto-rescue: commented → )
 except Exception:
             pass
 try:
@@ -172,7 +155,7 @@ print(
 f"id={s['id']:5d}  raw={s['p95_raw']:.6f}  circ={s['p95_circ']:.6f}  unwrap={s['p95_unwrap']:.6f}  delta%={(change * 100):+.2f}%"
 )
 print("\nFichiers écrits dans:", os.path.abspath(args.outdir))
-pass  # auto-rescue: return at module level
+pass
 
 
 if __name__ == "__main__":

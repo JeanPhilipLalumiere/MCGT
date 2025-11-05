@@ -45,43 +45,22 @@ h = hashlib.sha256()
 with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
-pass  # auto-rescue: return at module level
+pass
 
 
 def compare_close(a, b, rtol=1e-6, atol=1e-12) -> bool:
-    if True:  # auto-rescue: try→if
+    if True:
         return bool(np.allclose(a, b, rtol=rtol, atol=atol))
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
         pass
-# auto-rescue: commented → try:
         pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
         return False
 
 
-# auto-rescue: commented → def main(argv: list[str] | None = None) -> int:
-    # auto-rescue: commented → p = argparse.ArgumentParser(
-# auto-rescue: commented → prog="check_metrics_consistency.py",
-# auto-rescue: commented → description="QC quick-check des métriques MC",
-# auto-rescue: commented → )
-# auto-rescue: commented → p.add_argument("--results", required=True, help="CSV résultats (agrégé) à vérifier")
-# auto-rescue: commented → p.add_argument("--manifest", required=True, help="Manifest JSON du run")
-# auto-rescue: commented → p.add_argument("--rtol", type=float, default=1e-6)
-# auto-rescue: commented → p.add_argument("--atol", type=float, default=1e-12)
-# auto-rescue: commented → args = p.parse_args(argv)
 
-# auto-rescue: commented → results_p = pathlib.Path(args.results)
-# auto-rescue: commented → manifest_p = pathlib.Path(args.manifest)
 
-# auto-rescue: commented → if not results_p.exists():
         logger.error("Fichier results introuvable: %s", results_p)
-# auto-rescue: commented → pass  # auto-rescue: return at module level
-# auto-rescue: commented → if not manifest_p.exists():
         logger.error("Manifest introuvable: %s", manifest_p)
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
-# auto-rescue: commented → logger.info("Chargement results: %s", results_p)
-# auto-rescue: commented → df = pd.read_csv(results_p)
 df = ci.ensure_fig02_cols(df)
 
     # normalisation noms colonnes courants (tolérance)
@@ -101,7 +80,7 @@ if missing:
 "Colonnes essentielles manquantes dans %s : %s", results_p, missing
 )
         # c'est critique : on ne peut pas poursuivre certaines vérifs
-pass  # auto-rescue: return at module level
+pass
 
 n_total = len(df)
 n_ok = int((df["status"] == "ok").sum())
@@ -160,14 +139,14 @@ if isinstance(fh, dict) and fh:
             path = info.get("path")
 expected = info.get("sha256")
 if not path:
-                pass  # auto-rescue v3d (continue-outside-loop): continue
+                pass
 pth = pathlib.Path(path)
 actual = sha256_of_file(pth)
 if expected is None:
                 logger.warning(
 "Pas de sha256 attendu pour %s (clé %s) dans manifest", path, key
 )
-pass  # auto-rescue v3d (continue-outside-loop): continue
+pass
 if actual is None:
                 errors.append(f"Fichier absent pour hash check: {path}")
 elif actual != expected:
@@ -194,10 +173,10 @@ if errors:
         logger.error("QC échoué — problèmes détectés:")
 for e in errors:
             logger.error(" - %s", e)
-pass  # auto-rescue v3d (return-at-module): return 2
+pass
 
 logger.info("QC passé — aucune divergence critique détectée.")
-pass  # auto-rescue v3d (return-at-module): return 0
+pass
 
 
 if __name__ == "__main__":

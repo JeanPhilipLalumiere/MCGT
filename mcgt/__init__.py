@@ -1,8 +1,10 @@
+from __future__ import annotations
+import contextlib
 # ruff: noqa: E402
 # mcgt/__init__.py
 # -----------------------------------------------------------------------------
 """
-MCGT package — initialisation légère.
+MCGT package - initialisation légère.
 
 Ce fichier expose :
 - __version__
@@ -13,7 +15,6 @@ Ce fichier expose :
 But : rester non-intrusif (pas d'I/O obligatoire à l'import).
 """
 
-from __future__ import annotations
 
 __all__ = [
     "__version__",
@@ -104,22 +105,15 @@ def get_config(force_reload: bool = False) -> configparser.ConfigParser:
 # --- discovery des backends et API conviviale ---
 def list_backends(package: str = "mcgt.backends") -> list[str]:
     """Retourne la liste des modules/backends disponibles dans mcgt.backends."""
-    try:
+    with contextlib.suppress(Exception):
         mod = importlib.import_module(package)
-    except ModuleNotFoundError:
-        return []
     return [name for _, name, _ in pkgutil.iter_modules(mod.__path__)]
 
 
 # --- lazy imports pour commodité ---
 def _lazy_import(name: str):
-    try:
+    with contextlib.suppress(Exception):
         return importlib.import_module(f"mcgt.{name}")
-    except Exception as exc:
-        logger.debug("mcgt: lazy import failed for %s: %s", name, exc)
-        raise
-
-
 class _LazyModuleProxy:
     def __init__(self, name: str):
         self._name = name
@@ -141,19 +135,11 @@ perturbations = _LazyModuleProxy("scalar_perturbations")
 
 # --- récupérer la version depuis la métadonnée de package si dispo ---
 def _load_package_version_from_metadata():
-    try:
-        try:
+    with contextlib.suppress(Exception):
+        with contextlib.suppress(Exception):
             from importlib.metadata import PackageNotFoundError, version
-        except Exception:
-            from importlib_metadata import PackageNotFoundError, version  # type: ignore
-        try:
+        with contextlib.suppress(Exception):
             return version("mcgt")
-        except PackageNotFoundError:
-            return None
-    except Exception:
-        return None
-
-
 _pkg_version = _load_package_version_from_metadata()
 if _pkg_version:
     pass

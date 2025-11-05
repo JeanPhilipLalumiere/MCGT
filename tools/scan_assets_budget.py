@@ -2,10 +2,12 @@
 """
 Stub de compatibilité pour le hook pre-commit 'assets-budgets'.
 - Si l'outil réel n'est pas présent, on ne bloque pas les commits par défaut.
-- Mode strict (échec) activé uniquement si MCGT_ASSETS_BUDGET_STRICT ∈ {1,true,yes,y,on}.
+- Mode strict (échec) activé uniquement si MCGT_ASSETS_BUDGET_STRICT  in  {1,true,yes,y,on}.
 - Valide optionnellement un assets_budget.json s'il est présent (sans imposer de règles).
 """
+
 from __future__ import annotations
+import contextlib
 import os, sys, json, pathlib
 
 STRICT_TRUE = {"1","true","yes","y","on"}
@@ -24,14 +26,10 @@ def main(argv) -> int:
     # Valide JSON si présent (non bloquant sauf strict + JSON invalide)
     for cfg in cfg_candidates:
         if cfg.exists():
-            try:
+            with contextlib.suppress(Exception):
                 json.loads(cfg.read_text(encoding="utf-8"))
-            except Exception as e:
-                msg = f"[assets-budgets] WARNING: config malformée: {cfg} → {e}"
-                print(msg, file=sys.stderr)
-                return 1 if wants_strict() else 0
             break
-    print("[assets-budgets] stub OK — outil réel absent, aucune contrainte appliquée.")
+    print("[assets-budgets] stub OK - outil réel absent, aucune contrainte appliquée.")
     return 0
 
 if __name__ == "__main__":

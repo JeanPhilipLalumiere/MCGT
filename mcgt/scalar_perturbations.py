@@ -1,7 +1,8 @@
+from __future__ import annotations
 # mcgt/scalar_perturbations.py
 # -----------------------------------------------------------------------------
 """
-MCGT — Perturbations scalaires (Chap. 7)
+MCGT - Perturbations scalaires (Chap. 7)
 ========================================
 
 Fonctionnalités :
@@ -16,7 +17,6 @@ Remarques :
   le contenu textuel (commentaires/docstrings) reste en français.
 """
 
-from __future__ import annotations
 
 import pathlib
 from dataclasses import dataclass
@@ -165,7 +165,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
 
 
 # -----------------------------------------------------------------------------#
-# 4)  Équation de Klein–Gordon perturbée
+# 4)  Équation de Klein-Gordon perturbée
 # -----------------------------------------------------------------------------#
 def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
     r"""

@@ -1,3 +1,5 @@
+from __future__ import annotations
+import contextlib
 # mcgt/backends/ref_phase.py
 # -----------------------------------------------------------------------------
 # Wrapper pour calculer la phase de référence φ_ref(f | m1, m2) en domaine
@@ -7,7 +9,6 @@
 # - Cache mémoire LRU (taille limitée)
 # - Cache disque atomique (.npz) avec verrouillage fichier
 
-from __future__ import annotations
 
 import hashlib
 import logging
@@ -21,28 +22,19 @@ import numpy as np
 _have_pyc = False
 _have_lal = False
 _have_filelock = False
-try:
+with contextlib.suppress(Exception):
     from filelock import FileLock
 
     _have_filelock = True
-except Exception:
-    FileLock = None
-
-try:
+with contextlib.suppress(Exception):
     from pycbc.waveform import get_fd_waveform
 
     _have_pyc = True
-except Exception:
-    _have_pyc = False
-
-try:
+with contextlib.suppress(Exception):
     import lal
     import lalsimulation as lalsim
 
     _have_lal = True
-except Exception:
-    _have_lal = False
-
 # Logging
 logger = logging.getLogger("mcgt.ref_phase")
 if not logger.handlers:
@@ -54,7 +46,7 @@ if not logger.handlers:
 logger.setLevel(logging.INFO)
 
 # Constantes / paramètres de cache
-CACHE_DIR_DEFAULT = os.path.join("zz-data", "chapter10", ".cache_ref")  # <— anglais
+CACHE_DIR_DEFAULT = os.path.join("zz-data", "chapter10", ".cache_ref")  # <- anglais
 CACHE_MAX_ENTRIES_MEM = 128
 CACHE_DISK_QUOTA_BYTES = int(2 * 1024**3)  # 2 Go
 CACHE_FILE_SUFFIX = ".npz"
@@ -92,31 +84,20 @@ def _atomic_write_npz(path: str, data: dict):
     parent = os.path.dirname(part)
     if parent:
         os.makedirs(parent, exist_ok=True)
-    try:
+    with contextlib.suppress(Exception):
         with open(part, "wb") as fh:
             np.savez_compressed(fh, **data)  # pas d’ajout d’extension en file-like
         os.replace(part, path)
-    finally:
-        # si le .part demeure pour une raison quelconque
-        try:
-            if os.path.exists(part):
-                os.remove(part)
-        except Exception:
-            pass
-
-
 def _evict_cache_if_needed(cache_dir: str, quota_bytes: int = CACHE_DISK_QUOTA_BYTES):
     """Supprime les fichiers les plus anciens jusqu'à respecter le quota."""
-    try:
+    with contextlib.suppress(Exception):
         files = []
         total = 0
         for fn in os.listdir(cache_dir):
             if fn.endswith(CACHE_FILE_SUFFIX):
                 p = os.path.join(cache_dir, fn)
-                try:
+                with contextlib.suppress(Exception):
                     st = os.stat(p)
-                except FileNotFoundError:
-                    continue
                 files.append((st.st_mtime, p, st.st_size))
                 total += st.st_size
         if total <= quota_bytes:
@@ -124,17 +105,11 @@ def _evict_cache_if_needed(cache_dir: str, quota_bytes: int = CACHE_DISK_QUOTA_B
         files.sort(key=lambda x: x[0])  # plus ancien d'abord
         logger.info("Cache disque: dépassement quota (%d bytes). Eviction…", total)
         for _, p, size in files:
-            try:
+            with contextlib.suppress(Exception):
                 os.remove(p)
                 total -= size
                 if total <= quota_bytes:
                     break
-            except Exception as e:
-                logger.warning("Impossible de supprimer %s : %s", p, e)
-    except Exception as e:
-        logger.warning("Échec de l'éviction du cache: %s", e)
-
-
 def _acquire_lock(path: str, timeout: float = LOCK_TIMEOUT):
     """Retourne un context manager de verrou. FileLock si dispo, sinon fallback simple."""
     lock_path = path + CACHE_LOCK_SUFFIX
@@ -150,22 +125,12 @@ def _acquire_lock(path: str, timeout: float = LOCK_TIMEOUT):
         def __enter__(self):
             t0 = time.time()
             while True:
-                try:
+                with contextlib.suppress(Exception):
                     os.mkdir(self.lockdir)
                     return self
-                except FileExistsError:
-                    if (time.time() - t0) > self.timeout:
-                        raise TimeoutError(
-                            f"Timeout acquiring simple lock: {self.lockdir}"
-                        )
-                    time.sleep(0.1)
-
         def __exit__(self, exc_type, exc, tb):
-            try:
+            with contextlib.suppress(Exception):
                 os.rmdir(self.lockdir)
-            except Exception:
-                pass
-
     return _SimpleLock(lock_path, timeout)
 
 
@@ -186,7 +151,7 @@ def _phi_ref_via_pyc(
     f_lower = float(f_Hz[0])
     f_final = float(f_Hz[-1])
 
-    try:
+    with contextlib.suppress(Exception):
         hp, _hc = get_fd_waveform(
             approximant=approximant,
             mass1=float(m1),
@@ -200,20 +165,9 @@ def _phi_ref_via_pyc(
             f_final=f_final,
             delta_f=delta_f,
         )
-    except Exception as e:
-        raise RuntimeError(f"REF_COMPUTE_FAIL (PyCBC) : {e}")
-
     # Récupérer phase sur la grille source, puis interpoler sur f_Hz
-    try:
+    with contextlib.suppress(Exception):
         f_src = np.asarray(hp.sample_frequencies, dtype=np.float64)
-    except Exception:
-        try:
-            f_src = np.asarray(hp.sample_frequencies(), dtype=np.float64)
-        except Exception:
-            raise RuntimeError(
-                "REF_COMPUTE_FAIL: impossible d'extraire sample_frequencies de PyCBC waveform"
-            )
-
     data = np.asarray(hp.data, dtype=np.complex128)
     phase_src = np.unwrap(np.angle(data))
     phi_on_grid = np.interp(f_Hz, f_src, phase_src).astype(np.float64)
@@ -231,13 +185,13 @@ def _phi_ref_via_lalsim(
     if f_Hz.size < 2 or not np.all(np.diff(f_Hz) > 0):
         raise ValueError("f_Hz doit être 1D strictement croissant (≥2 points).")
 
-    try:
+    with contextlib.suppress(Exception):
         m1_si = float(m1) * lal.MSUN_SI
         m2_si = float(m2) * lal.MSUN_SI
         approximant_map = {"IMRPhenomD": lalsim.IMRPhenomD}
         approx_enum = approximant_map.get(approximant, lalsim.IMRPhenomD)
 
-        # NB : Interface indicative — peut varier suivant la version.
+        # NB : Interface indicative - peut varier suivant la version.
         hp_fd = lalsim.SimInspiralChooseFDWaveform(
             m1_si,
             m2_si,
@@ -252,16 +206,12 @@ def _phi_ref_via_lalsim(
             0.0,
             approx_enum,
         )
-        # Extraction (indicative) — adapter si nécessaire
+        # Extraction (indicative) - adapter si nécessaire
         f_src = np.arange(len(hp_fd.data), dtype=float)
         data = np.asarray(hp_fd.data, dtype=np.complex128)
         phase_src = np.unwrap(np.angle(data))
         phi_on_grid = np.interp(f_Hz, f_src, phase_src).astype(np.float64)
         return phi_on_grid
-    except Exception as e:
-        raise RuntimeError(f"REF_COMPUTE_FAIL (LALSuite) : {e}")
-
-
 # ------------------------- Interface publique ------------------------- #
 def compute_phi_ref(
     f_Hz: np.ndarray,
@@ -319,7 +269,7 @@ def compute_phi_ref(
 
     # 2) cache disque
     if not force_recompute and os.path.exists(cache_path):
-        try:
+        with contextlib.suppress(Exception):
             with _acquire_lock(cache_path):
                 data = np.load(cache_path)
                 if "phi_on_grid" in data:
@@ -328,16 +278,11 @@ def compute_phi_ref(
                     while len(_memcache) > CACHE_MAX_ENTRIES_MEM:
                         _memcache.popitem(last=False)
                     return phi
-        except Exception as e:
-            logger.warning(
-                "Cache disque illisible (%s), on recalcule : %s", cache_path, e
-            )
-
     # 3) calcul (avec verrou pour éviter courses multiples)
     with _acquire_lock(cache_path):
         # re-check (un autre worker a pu écrire)
         if not force_recompute and os.path.exists(cache_path):
-            try:
+            with contextlib.suppress(Exception):
                 data = np.load(cache_path)
                 if "phi_on_grid" in data:
                     phi = np.array(data["phi_on_grid"], dtype=np.float64)
@@ -345,26 +290,15 @@ def compute_phi_ref(
                     while len(_memcache) > CACHE_MAX_ENTRIES_MEM:
                         _memcache.popitem(last=False)
                     return phi
-            except Exception:
-                logger.warning("Lecture cache échouée après lock; recalcul.")
-
         last_exc = None
         phi_on_grid = None
 
         if _have_pyc:
-            try:
+            with contextlib.suppress(Exception):
                 phi_on_grid = _phi_ref_via_pyc(f_Hz, m1, m2, approximant=approximant)
-            except Exception as e:
-                last_exc = e
-                logger.warning("PyCBC a échoué (m1=%s, m2=%s) : %s", m1, m2, e)
-
         if phi_on_grid is None and _have_lal:
-            try:
+            with contextlib.suppress(Exception):
                 phi_on_grid = _phi_ref_via_lalsim(f_Hz, m1, m2, approximant=approximant)
-            except Exception as e:
-                last_exc = e
-                logger.warning("LALSuite a échoué (m1=%s, m2=%s) : %s", m1, m2, e)
-
         if phi_on_grid is None:
             if not (_have_pyc or _have_lal):
                 raise RuntimeError(
@@ -375,16 +309,13 @@ def compute_phi_ref(
             )
 
         # Écriture cache disque + LRU mémoire
-        try:
+        with contextlib.suppress(Exception):
             _atomic_write_npz(
                 cache_path, {"phi_on_grid": np.asarray(phi_on_grid, dtype=np.float64)}
             )
             _evict_cache_if_needed(
                 cache_dir=cache_dir, quota_bytes=CACHE_DISK_QUOTA_BYTES
             )
-        except Exception as e:
-            logger.warning("Écriture cache disque impossible (%s) : %s", cache_path, e)
-
         _memcache[mem_key] = np.asarray(phi_on_grid, dtype=np.float64)
         while len(_memcache) > CACHE_MAX_ENTRIES_MEM:
             _memcache.popitem(last=False)
@@ -401,13 +332,9 @@ def clear_ref_cache(cache_dir: str | None = None):
         return
     for fn in os.listdir(cache_dir):
         p = os.path.join(cache_dir, fn)
-        try:
+        with contextlib.suppress(Exception):
             if os.path.isfile(p):
                 os.remove(p)
-        except Exception as e:
-            logger.warning("clear_ref_cache: impossible de supprimer %s : %s", p, e)
-
-
 def ref_cache_info(cache_dir: str | None = None) -> dict:
     """Retourne des informations sommaires sur le cache disque (taille, n fichiers)."""
     if cache_dir is None:
@@ -418,15 +345,13 @@ def ref_cache_info(cache_dir: str | None = None) -> dict:
     for fn in os.listdir(cache_dir):
         if fn.endswith(CACHE_FILE_SUFFIX):
             p = os.path.join(cache_dir, fn)
-            try:
+            with contextlib.suppress(Exception):
                 st = os.stat(p)
                 info["n_files"] += 1
                 info["total_bytes"] += st.st_size
                 info["entries"].append(
                     {"file": fn, "size": st.st_size, "mtime": st.st_mtime}
                 )
-            except Exception:
-                continue
     return info
 
 
@@ -455,7 +380,7 @@ if __name__ == "__main__":
         args.m1,
         args.m2,
     )
-    try:
+    with contextlib.suppress(Exception):
         phi = compute_phi_ref(
             fgrid,
             args.m1,
@@ -469,5 +394,3 @@ if __name__ == "__main__":
             float(np.min(phi)),
             float(np.max(phi)),
         )
-    except Exception as e:
-        logger.exception("Échec compute_phi_ref (test) : %s", e)

@@ -13,9 +13,9 @@ WFs=(
   ".github/workflows/quality-guards.yml"
 )
 
-log(){ printf '\033[1;34m[INFO]\033[0m %s\n' "$*"; }
-ok(){ printf  '\033[1;32m[OK ]\033[0m %s\n' "$*"; }
-warn(){ printf '\033[1;33m[WARN]\033[0m %s\n' "$*"; }
+log() { printf '\033[1;34m[INFO]\033[0m %s\n' "$*"; }
+ok() { printf  '\033[1;32m[OK ]\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33m[WARN]\033[0m %s\n' "$*"; }
 
 patch_push_only_if() {
   local f="$1"

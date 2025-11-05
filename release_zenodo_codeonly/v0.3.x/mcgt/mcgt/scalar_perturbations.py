@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 # mcgt/scalar_perturbations.py
 # -----------------------------------------------------------------------------
 """
-MCGT — Perturbations scalaires (Chap. 7)
+MCGT - Perturbations scalaires (Chap. 7)
 ========================================
 
 Fonctionnalités :
@@ -11,12 +12,14 @@ Fonctionnalités :
 * Mini-tests pytest de régression (facultatifs)
 
 Remarques :
-- Le code accepte des grilles 1D en k (h Mpc⁻¹) et a (facteur d’échelle).
+- Le code accepte des grilles 1D en k (h Mpc⁻¹) et a (facteur d'échelle).
 - Les chemins et noms de fichiers doivent être en anglais côté I/O ; seul
   le contenu textuel (commentaires/docstrings) reste en français.
 """
 
 from __future__ import annotations
+# -----------------------------------------------------------------------------
+
 
 import pathlib
 from dataclasses import dataclass
@@ -60,14 +63,14 @@ class PertParams:
     m_phi: float
     m_eff_const: float
 
-    # “Knobs” pour son & perturbations
+    # "Knobs" pour son & perturbations
     cs2_param: float
     delta_phi_param: float
     k0: float
     k_split: float
 
     # Dynamique Φ & gel progressif
-    a_eq: float  # facteur d’échelle à l’égalité rad−mat
+    a_eq: float  # facteur d'échelle à l'égalité rad-mat
     freeze_scale: float  # ~1e5 (plus petit ⇒ gel plus doux)
     Phi0: float  # Φ(k≈0, a≪a_eq)
 
@@ -103,7 +106,7 @@ def H_of_a(a: np.ndarray | float, p: PertParams) -> np.ndarray:
 
 
 def rho_phi_of_a(a: np.ndarray | float, p: PertParams) -> np.ndarray:
-    """Densité d’énergie du champ effectif (ansatz quadratique)."""
+    """Densité d'énergie du champ effectif (ansatz quadratique)."""
     a = np.asarray(a, dtype=float)
     dφ_da = dphi0_da(a, p)
     H = H_of_a(a, p)
@@ -131,7 +134,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
 
     Stratégie :
       c_s²(a) ≈ p'(a) / ρ'(a) (pente locale lissée par PCHIP),
-      pondéré par un filtre gaussien en k de largeur k0, puis mis à l’échelle
+      pondéré par un filtre gaussien en k de largeur k0, puis mis à l'échelle
       par cs2_param.
 
     Exceptions
@@ -165,7 +168,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
 
 
 # -----------------------------------------------------------------------------#
-# 4)  Équation de Klein–Gordon perturbée
+# 4)  Équation de Klein-Gordon perturbée
 # -----------------------------------------------------------------------------#
 def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
     r"""

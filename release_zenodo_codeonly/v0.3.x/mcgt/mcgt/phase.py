@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # mcgt/phase.py
 # -----------------------------------------------------------------------------
 """
@@ -9,14 +10,16 @@ Module central pour le calcul de la phase fréquentielle MCGT.
 Fonctions exposées
 ------------------
 - PhaseParams            : dataclass des paramètres physiques / numériques
-- build_loglin_grid()    : grille log–uniforme entre fmin et fmax
-- check_log_spacing()    : validation de l’espacement log uniforme
-- phi_gr()               : phase GR (SPA) jusqu’à 3.5-PN (approximation)
+- build_loglin_grid()    : grille log-uniforme entre fmin et fmax
+- check_log_spacing()    : validation de l'espacement log uniforme
+- phi_gr()               : phase GR (SPA) jusqu'à 3.5-PN (approximation)
 - corr_phase()           : correcteur analytique δφ(f) = ∫δt(f) df
-- solve_mcgt()           : phase MCGT = φ_GR − δφ
+- solve_mcgt()           : phase MCGT = φ_GR - δφ
 """
 
 from __future__ import annotations
+# -----------------------------------------------------------------------------
+
 
 from dataclasses import dataclass
 
@@ -49,7 +52,7 @@ class PhaseParams:
 
 
 # ----------------------------------------------------------------------#
-# 1. Outils grille log–uniforme
+# 1. Outils grille log-uniforme
 # ----------------------------------------------------------------------#
 def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
     """Grille log-uniforme entre fmin et fmax avec pas Δlog₁₀=dlog (bornes incluses)."""
@@ -61,7 +64,7 @@ def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
     logf_max = np.log10(float(fmax))
     n = int(np.floor((logf_max - logf_min) / dlog)) + 1
     grid = 10 ** (logf_min + np.arange(n) * dlog)
-    # garantir l’inclusion exacte de fmax si la division tombe pile
+    # garantir l'inclusion exacte de fmax si la division tombe pile
     if grid[-1] < fmax * (1 - 1e-14):
         grid = np.append(grid, fmax)
     return grid.astype(float)
@@ -78,7 +81,7 @@ def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
 
 
 # ----------------------------------------------------------------------#
-# 2. Coefficients PN (0 → 3.5 PN) — schéma simple (illustratif)
+# 2. Coefficients PN (0 -> 3.5 PN) - schéma simple (illustratif)
 # ----------------------------------------------------------------------#
 _CPN = {
     0: 1.0,
@@ -94,7 +97,7 @@ _CPN = {
 
 
 def _symmetric_eta(m1: float, m2: float) -> float:
-    """Rapport de masse symétrique η = m1 m2 / (m1+m2)^2 (∈ (0,0.25])."""
+    """Rapport de masse symétrique η = m1 m2 / (m1+m2)^2 ( in  (0,0.25])."""
     return m1 * m2 / (m1 + m2) ** 2
 
 
@@ -103,7 +106,7 @@ def _symmetric_eta(m1: float, m2: float) -> float:
 # ----------------------------------------------------------------------#
 def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
     """
-    Phase fréquentielle GR (SPA) jusqu’à 3.5-PN (schéma illustratif).
+    Phase fréquentielle GR (SPA) jusqu'à 3.5-PN (schéma illustratif).
 
     Parameters
     ----------
@@ -121,7 +124,7 @@ def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
     if freqs.ndim != 1 or not np.all(np.diff(freqs) > 0):
         raise ValueError("La grille freqs doit être 1D et strictement croissante.")
 
-    # Conversion masse solaire → secondes (G = c = 1)
+    # Conversion masse solaire -> secondes (G = c = 1)
     M_s = (p.m1 + p.m2) * 4.925490947e-6  # masse totale (s)
     eta = _symmetric_eta(p.m1, p.m2)
     v = (np.pi * M_s * freqs) ** (1 / 3)  # vitesse PN
@@ -136,16 +139,16 @@ def phi_gr(freqs: np.ndarray, p: PhaseParams) -> np.ndarray:
 
 
 # ----------------------------------------------------------------------#
-# 4. Correcteur analytique δφ (δt(f) = q0★ · f^(−α))
+# 4. Correcteur analytique δφ (δt(f) = q0★ · f^(-α))
 # ----------------------------------------------------------------------#
 def corr_phase(
     freqs: np.ndarray, fmin: float, q0star: float, alpha: float
 ) -> np.ndarray:
     """
-    Correction δφ(f) induite par un décalage temporel δt(f)=q0★·f^(−α).
+    Correction δφ(f) induite par un décalage temporel δt(f)=q0★·f^(-α).
 
     cas α=1 : δφ(f) = 2π q0★ ln(f/fmin)
-    cas α≠1 : δφ(f) = 2π q0★/(1−α) [ f^(1−α) − fmin^(1−α) ]
+    cas α≠1 : δφ(f) = 2π q0★/(1-α) [ f^(1-α) - fmin^(1-α) ]
     """
     freqs = np.asarray(freqs, dtype=float)
     if np.isclose(alpha, 1.0):
@@ -164,7 +167,7 @@ def solve_mcgt(
     """
     Calcule la phase MCGT sur `freqs` :
 
-        φ_MCGT(f) = φ_GR(f) − δφ(f)
+        φ_MCGT(f) = φ_GR(f) - δφ(f)
 
     Paramètres
     ----------

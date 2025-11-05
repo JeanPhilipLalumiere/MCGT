@@ -1,16 +1,13 @@
+import contextlib
 import argparse
 
 
 # Version découverte de manière robuste
 def get_version():
-    try:
+    with contextlib.suppress(Exception):
         from . import __version__ as v
 
         return v
-    except Exception:
-        return "0"
-
-
 def main(argv=None):
     p = argparse.ArgumentParser(prog="mcgt", description="mcgt command-line")
     p.add_argument("--version", action="store_true", help="print version and exit")

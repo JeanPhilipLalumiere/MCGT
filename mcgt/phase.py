@@ -1,3 +1,4 @@
+from __future__ import annotations
 # mcgt/phase.py
 # -----------------------------------------------------------------------------
 """
@@ -9,14 +10,13 @@ Module central pour le calcul de la phase fréquentielle MCGT.
 Fonctions exposées
 ------------------
 - PhaseParams            : dataclass des paramètres physiques / numériques
-- build_loglin_grid()    : grille log–uniforme entre fmin et fmax
+- build_loglin_grid()    : grille log-uniforme entre fmin et fmax
 - check_log_spacing()    : validation de l’espacement log uniforme
 - phi_gr()               : phase GR (SPA) jusqu’à 3.5-PN (approximation)
 - corr_phase()           : correcteur analytique δφ(f) = ∫δt(f) df
 - solve_mcgt()           : phase MCGT = φ_GR − δφ
 """
 
-from __future__ import annotations
 
 from dataclasses import dataclass
 
@@ -49,7 +49,7 @@ class PhaseParams:
 
 
 # ----------------------------------------------------------------------#
-# 1. Outils grille log–uniforme
+# 1. Outils grille log-uniforme
 # ----------------------------------------------------------------------#
 def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
     """Grille log-uniforme entre fmin et fmax avec pas Δlog₁₀=dlog (bornes incluses)."""
@@ -78,7 +78,7 @@ def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
 
 
 # ----------------------------------------------------------------------#
-# 2. Coefficients PN (0 → 3.5 PN) — schéma simple (illustratif)
+# 2. Coefficients PN (0 → 3.5 PN) - schéma simple (illustratif)
 # ----------------------------------------------------------------------#
 _CPN = {
     0: 1.0,

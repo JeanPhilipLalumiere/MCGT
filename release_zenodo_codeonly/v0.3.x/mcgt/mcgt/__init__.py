@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 # ruff: noqa: E402
 # mcgt/__init__.py
-# -----------------------------------------------------------------------------
 """
-MCGT package — initialisation légère.
+MCGT package - initialisation légère.
 
 Ce fichier expose :
 - __version__
@@ -14,6 +14,9 @@ But : rester non-intrusif (pas d'I/O obligatoire à l'import).
 """
 
 from __future__ import annotations
+# mcgt/__init__.py
+# -----------------------------------------------------------------------------
+
 
 __all__ = [
     "__version__",

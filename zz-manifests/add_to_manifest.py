@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-# add_to_manifest.py — ajoute/actualise/supprime des entrées dans zz-manifests/manifest_master.json
+from __future__ import annotations
+import contextlib
+# add_to_manifest.py - ajoute/actualise/supprime des entrées dans zz-manifests/manifest_master.json
 # Objectif : outiller l’inventaire reproductible des artefacts MCGT.
 # - Aligne la structure du manifest avec diag_consistency.py (liste "entries", chemins RELATIFS).
 # - Calcule sha256, taille, mtime ISO-UTC, (optionnel) git hash.
@@ -17,7 +19,6 @@
 # Codes retour :
 #   0 OK | 1 aucun fichier traité | 2 erreur arguments/lecture/écriture
 
-from __future__ import annotations
 
 import argparse
 import datetime
@@ -62,7 +63,7 @@ def sha256_of_file(path: Path) -> str:
 
 
 def git_hash_of(path: Path) -> str | None:
-    try:
+    with contextlib.suppress(Exception):
         res = subprocess.run(
             ["git", "hash-object", str(path)],
             stdout=subprocess.PIPE,
@@ -72,8 +73,6 @@ def git_hash_of(path: Path) -> str | None:
         )
         if res.returncode == 0:
             return res.stdout.strip()
-    except Exception:
-        pass
     return None
 
 
@@ -148,7 +147,7 @@ def manifest_skeleton() -> dict[str, Any]:
 
 def load_manifest(path_manifest: Path) -> dict[str, Any]:
     if path_manifest.exists():
-        try:
+        with contextlib.suppress(Exception):
             obj = json.loads(path_manifest.read_text(encoding="utf-8"))
             # Migration legacy: si "files" utilisé, convertir -> "entries"
             if isinstance(obj, dict) and "entries" not in obj and "files" in obj:
@@ -161,11 +160,6 @@ def load_manifest(path_manifest: Path) -> dict[str, Any]:
                 obj["entries"] = ent
                 obj.pop("files", None)
             return obj
-        except Exception as e:
-            print(
-                f"ERROR: cannot parse manifest: {path_manifest} -> {e}", file=sys.stderr
-            )
-            sys.exit(2)
     return manifest_skeleton()
 
 
@@ -234,11 +228,8 @@ def read_list_file(path: Path) -> list[Path]:
 
 
 def to_rel_repo(p: Path) -> str:
-    try:
+    with contextlib.suppress(Exception):
         rel = p.relative_to(REPO_ROOT)
-    except Exception:
-        # si hors dépôt, on garde un chemin relatif "propre" si possible
-        rel = Path(os.path.relpath(str(p), str(REPO_ROOT)))
     return rel.as_posix()
 
 

@@ -142,7 +142,6 @@ main( )
 # [MCGT POSTPARSE EPILOGUE v2]
 try:
     import os, sys
-# auto-rescue: commented → _here = os.path.abspath(os.path.dirname(__file__))
 except Exception:
     pass
 try:

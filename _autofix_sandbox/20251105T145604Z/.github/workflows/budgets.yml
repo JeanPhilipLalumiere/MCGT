@@ -1,0 +1,15 @@
+# added by policies_guard_common_fixes
+permissions:
+  contents: read
+name: budgets
+on: [push, pull_request]
+concurrency:
+  group: .github/workflows/budgets.yml-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  budgets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Budgets & shebang
+        run: python3 tools/scan_assets_budget.py

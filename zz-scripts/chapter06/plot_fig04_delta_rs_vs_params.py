@@ -87,6 +87,8 @@ if __name__ == "__main__":
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
+        except Exception:
+            pass
         os.environ["MCGT_OUTDIR"] = args.outdir
         import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
@@ -98,6 +100,8 @@ if __name__ == "__main__":
         if callable(_main):
             try:
                 _main(args)
+            except Exception:
+                pass
             except SystemExit:
                 raise
             except Exception as e:

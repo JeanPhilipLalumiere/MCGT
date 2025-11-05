@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re, pathlib, sys
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
@@ -25,7 +26,7 @@ def _mcgt_safe_float(x, default):
         return float(default)
 """
 
-# B) Trouver l’emplacement d’insertion correct
+# B) Trouver l'emplacement d'insertion correct
 #    - Après bloc de docstring initial éventuel
 #    - Puis après TOUTES les lignes `from __future__ import ...` consécutives
 i = 0
@@ -60,7 +61,7 @@ while j < len(lines) and is_future(lines[j]):
 
 insert_pos = sum(len(l) for l in lines[:j])
 
-# C) Injecter le helper s’il n’existe pas déjà
+# C) Injecter le helper s'il n'existe pas déjà
 if "def _mcgt_safe_float(" not in src:
     src = src[:insert_pos] + helper + src[insert_pos:]
 

@@ -1,0 +1,118 @@
+# --- Environnements virtuels / caches Python
+.venv*/
+venv*/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# --- Artefacts internes au projet / temporaires / archives
+_tmp/
+_archives_preclean/
+zz-figures/
+legacy-tex/
+*.dist-info/
+*.egg-info/
+build/
+dist/
+# --- Fichiers compilés / binaires / archives
+*.pyc
+*.so
+*.dll
+*.dylib
+*.o
+*.a
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.whl
+# --- Visuels lourds (générés)
+*.png
+*.svg
+*.pdf
+*.jpg
+*.jpeg
+*.gif
+*.eps
+# --- Backups / passes / fichiers atelier (conservateur)
+*.bak
+*.bak.*
+*.pass*
+zz-tools/
+create_and_run_smoke_workflow.sh
+garde_fou_universal_v5.sh
+restore_add_safe.sh
+run_housekeeping_capture.sh
+script_patch_publish_safe.sh
+zz-scripts/chapter09/run_fig01_nowarn.sh
+step-01-candidates.txt
+# --- Artefacts ponctuels locaux de diag
+.diag_last_failed.json
+.last_run_id
+.purge_check.txt
+# --- Historiques/variantes CI (si présents)
+.github/workflows/publish.yml.before_*
+.pre-commit-config.yaml.*_bak*
+# Logs & artefacts locaux (ne pas versionner)
+_logs/
+.ci-logs/
+.ci-out/
+*.log
+*.stderr
+*.stdout
+# env & artefacts locaux
+.venv/
+backups/
+*.save
+*.swp
+.ci-archive/
+# --- Round2 (20251028T181638Z) additions ---
+# === Proposition complémentaire (Round2: 20251028T181549Z) ===
+**/*.bak*
+**/*.err
+**/*.log
+**/*.out
+**/*.tar.gz
+**/*.zip
+zz_tools.egg-info/
+# === Proposition complémentaire (Round2: 20251028T182912Z) ===
+# === Proposition complémentaire (Round2: 20251028T182855Z) ===
+# ---- mcgt: merged from _tmp/inventaires/gitignore_proposition_round2.txt (2025-10-28)
+# === Proposition complémentaire (Round2: 20251028T192430Z) ===
+./.ci-out
+./_logs
+./_snapshots
+./_tmp
+./_tmp-figs
+./backups
+./dist
+./zz-out
+./zz_tools.egg-info
+# ---- mcgt: merged step9 (2025-10-28)
+# ---- mcgt: auto-added (step9) backups/tmp patterns
+.github/workflows/*tmp*
+.github/workflows/*before_*
+*.tmp
+*.disabled
+*.old
+*.orig
+*.rej
+*.lock.json
+*~
+# ---- mcgt: merged suffix patterns (20251028T203652Z)
+# step11 suffix patterns (idempotent)
+*.swo
+.DS_Store
+*.ipynb_checkpoints*
+release_zenodo_codeonly/
+
+# local backups
+*.bak
+*.bak.*
+.pre-commit-config.yaml.bak
+
+# local helpers
+one_fix_*.py
+fix_*_cli_seed.sh

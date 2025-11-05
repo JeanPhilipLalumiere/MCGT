@@ -1,0 +1,108 @@
+file,status,reason,elapsed_sec,out_path,out_size
+zz-scripts/_common/cli.py,OK,,0.03,zz-out/pass14_run/zz-scripts/_common/cli.out,0
+zz-scripts/_common/postparse.py,OK,,0.02,zz-out/pass14_run/zz-scripts/_common/postparse.out,0
+zz-scripts/_common/style.py,OK,,0.18,zz-out/pass14_run/zz-scripts/_common/style.out,0
+zz-scripts/chapter01/generate_data_chapter01.py,FAIL,NameError: name 'path' is not defined,0.66,zz-out/pass14_run/zz-scripts/chapter01/generate_data_chapter01.out,0
+zz-scripts/chapter01/plot_fig01_early_plateau.py,OK,,1.29,zz-out/pass14_run/zz-scripts/chapter01/plot_fig01_early_plateau.out,0
+zz-scripts/chapter01/plot_fig02_logistic_calibration.py,FAIL,argparse.ArgumentError: argument --dpi: conflicting option string: --dpi,1.28,zz-out/pass14_run/zz-scripts/chapter01/plot_fig02_logistic_calibration.out,0
+zz-scripts/chapter01/plot_fig03_relative_error_timeline.py,FAIL,argparse.ArgumentError: argument --dpi: conflicting option string: --dpi,1.09,zz-out/pass14_run/zz-scripts/chapter01/plot_fig03_relative_error_timeline.out,0
+zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py,FAIL,KeyError: 'T',0.61,zz-out/pass14_run/zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.out,0
+zz-scripts/chapter01/plot_fig05_I1_vs_T.py,FAIL,argparse.ArgumentError: argument --dpi: conflicting option string: --dpi,1.08,zz-out/pass14_run/zz-scripts/chapter01/plot_fig05_I1_vs_T.out,0
+zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py,FAIL,KeyError: 'T',0.54,zz-out/pass14_run/zz-scripts/chapter01/plot_fig06_P_derivative_comparison.out,0
+zz-scripts/chapter02/generate_data_chapter02.py,FAIL,NameError: name 'a0' is not defined,0.69,zz-out/pass14_run/zz-scripts/chapter02/generate_data_chapter02.out,0
+zz-scripts/chapter02/plot_fig00_spectrum.py,FAIL,IndentationError: expected an indented block after function definition on line 82,0.02,zz-out/pass14_run/zz-scripts/chapter02/plot_fig00_spectrum.out,0
+zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py,FAIL,TypeError: scatter() missing 2 required positional arguments: 'x' and 'y',0.73,zz-out/pass14_run/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.out,0
+zz-scripts/chapter02/plot_fig02_calibration.py,FAIL,argparse.ArgumentError: argument --dpi: conflicting option string: --dpi,0.91,zz-out/pass14_run/zz-scripts/chapter02/plot_fig02_calibration.out,0
+zz-scripts/chapter02/plot_fig03_relative_errors.py,FAIL,TypeError: scatter() missing 2 required positional arguments: 'x' and 'y',0.92,zz-out/pass14_run/zz-scripts/chapter02/plot_fig03_relative_errors.out,0
+zz-scripts/chapter02/plot_fig04_pipeline_diagram.py,OK,,0.65,zz-out/pass14_run/zz-scripts/chapter02/plot_fig04_pipeline_diagram.out,0
+zz-scripts/chapter02/plot_fig05_FG_series.py,OK,,0.97,zz-out/pass14_run/zz-scripts/chapter02/plot_fig05_FG_series.out,83
+zz-scripts/chapter02/plot_fig06_alpha_fit.py,FAIL,KeyError: 'constantes',0.55,zz-out/pass14_run/zz-scripts/chapter02/plot_fig06_alpha_fit.out,0
+zz-scripts/chapter02/primordial_spectrum.py,OK,,0.08,zz-out/pass14_run/zz-scripts/chapter02/primordial_spectrum.out,96
+zz-scripts/chapter03/generate_data_chapter03.py,FAIL,[ERROR] Impossible de lire la section [scan] de gw_phase.ini,0.46,zz-out/pass14_run/zz-scripts/chapter03/generate_data_chapter03.out,0
+zz-scripts/chapter03/plot_fig01_fR_stability_domain.py,OK,,0.90,zz-out/pass14_run/zz-scripts/chapter03/plot_fig01_fR_stability_domain.out,0
+zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py,OK,,1.09,zz-out/pass14_run/zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.out,0
+zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py,OK,,0.90,zz-out/pass14_run/zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.out,0
+zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py,OK,,0.93,zz-out/pass14_run/zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.out,0
+zz-scripts/chapter03/plot_fig05_interpolated_milestones.py,OK,,1.32,zz-out/pass14_run/zz-scripts/chapter03/plot_fig05_interpolated_milestones.out,0
+zz-scripts/chapter03/plot_fig06_grid_quality.py,OK,,0.88,zz-out/pass14_run/zz-scripts/chapter03/plot_fig06_grid_quality.out,0
+zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py,OK,,0.03,zz-out/pass14_run/zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.out,0
+zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py,OK,,0.03,zz-out/pass14_run/zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.out,0
+zz-scripts/chapter03/utils/convert_milestones.py,NEEDS_INPUT,convert_milestones.py: error: the following arguments are required: --src,0.38,zz-out/pass14_run/zz-scripts/chapter03/utils/convert_milestones.out,0
+zz-scripts/chapter04/generate_data_chapter04.py,FAIL,ValueError: `x` must be strictly increasing sequence.,0.72,zz-out/pass14_run/zz-scripts/chapter04/generate_data_chapter04.out,233
+zz-scripts/chapter04/plot_fig01_invariants_schematic.py,OK,,1.25,zz-out/pass14_run/zz-scripts/chapter04/plot_fig01_invariants_schematic.out,76
+zz-scripts/chapter04/plot_fig02_invariants_histogram.py,FAIL,ParseFatalException: Unknown symbol: \bigl, found '\'  (at char 9), (line:1, col:10),0.86,zz-out/pass14_run/zz-scripts/chapter04/plot_fig02_invariants_histogram.out,0
+zz-scripts/chapter04/plot_fig03_invariants_vs_T.py,OK,,1.32,zz-out/pass14_run/zz-scripts/chapter04/plot_fig03_invariants_vs_T.out,73
+zz-scripts/chapter04/plot_fig04_relative_deviations.py,FAIL,IndentationError: expected an indented block after 'for' statement on line 26,0.02,zz-out/pass14_run/zz-scripts/chapter04/plot_fig04_relative_deviations.out,0
+zz-scripts/chapter05/generate_data_chapter05.py,FAIL,IndentationError: expected an indented block after 'with' statement on line 115,0.02,zz-out/pass14_run/zz-scripts/chapter05/generate_data_chapter05.out,0
+zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py,OK,,0.68,zz-out/pass14_run/zz-scripts/chapter05/plot_fig01_bbn_reaction_network.out,0
+zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py,OK,,0.03,zz-out/pass14_run/zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.out,0
+zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py,OK,,0.97,zz-out/pass14_run/zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.out,0
+zz-scripts/chapter05/plot_fig04_chi2_vs_T.py,FAIL,SyntaxError: invalid syntax,0.02,zz-out/pass14_run/zz-scripts/chapter05/plot_fig04_chi2_vs_T.out,0
+zz-scripts/chapter06/generate_data_chapter06.py,FAIL,ModuleNotFoundError: No module named 'camb',0.04,zz-out/pass14_run/zz-scripts/chapter06/generate_data_chapter06.out,0
+zz-scripts/chapter06/generate_pdot_plateau_vs_z.py,FAIL,ImportError: cannot import name 'H0KM_S_PER_MPC' from 'mcgt.constants' (/home/jplal/MCGT/mcgt/constants.py). Did you mean: 'H0_KM_S_PER_MPC'?,0.13,zz-out/pass14_run/zz-scripts/chapter06/generate_pdot_plateau_vs_z.out,0
+zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py,FAIL,SyntaxError: invalid syntax,0.02,zz-out/pass14_run/zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.out,0
+zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py,FAIL,TypeError: expected str, bytes or os.PathLike object, not NoneType,1.47,zz-out/pass14_run/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.out,0
+zz-scripts/chapter06/plot_fig03_delta_cls_relative.py,OK,,1.00,zz-out/pass14_run/zz-scripts/chapter06/plot_fig03_delta_cls_relative.out,0
+zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py,FAIL,ValueError: I/O operation on closed file.,0.59,zz-out/pass14_run/zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.out,0
+zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py,FAIL,SyntaxError: '(' was never closed,0.02,zz-out/pass14_run/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.out,0
+zz-scripts/chapter07/generate_data_chapter07.py,FAIL,ModuleNotFoundError: No module named 'mcgt.perturbations_scalaires',0.41,zz-out/pass14_run/zz-scripts/chapter07/generate_data_chapter07.out,0
+zz-scripts/chapter07/launch_scalar_perturbations_solver.py,FAIL,ImportError: Impossible d'importer compute_cs2 / compute_delta_phi depuis mcgt. Vérifiez l'installation du package mcgt.,0.39,zz-out/pass14_run/zz-scripts/chapter07/launch_scalar_perturbations_solver.out,0
+zz-scripts/chapter07/plot_fig01_cs2_heatmap.py,OK,,0.62,zz-out/pass14_run/zz-scripts/chapter07/plot_fig01_cs2_heatmap.out,0
+zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py,OK,,0.61,zz-out/pass14_run/zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.out,0
+zz-scripts/chapter07/plot_fig03_invariant_I1.py,FAIL,TypeError: Value after * must be an iterable, not float,0.75,zz-out/pass14_run/zz-scripts/chapter07/plot_fig03_invariant_I1.out,0
+zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py,FAIL,NameError: name 'plt' is not defined,0.03,zz-out/pass14_run/zz-scripts/chapter07/plot_fig04_dcs2_vs_k.out,0
+zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py,FAIL,SyntaxError: invalid syntax,0.02,zz-out/pass14_run/zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.out,0
+zz-scripts/chapter07/plot_fig06_comparison.py,OK,,0.44,zz-out/pass14_run/zz-scripts/chapter07/plot_fig06_comparison.out,49
+zz-scripts/chapter07/plot_fig07_invariant_I2.py,OK,,1.24,zz-out/pass14_run/zz-scripts/chapter07/plot_fig07_invariant_I2.out,0
+zz-scripts/chapter07/tests/test_chapter07.py,FAIL,Skipped: missing 07_phase_run.csv (chapter07); skipping data-dependent tests,0.12,zz-out/pass14_run/zz-scripts/chapter07/tests/test_chapter07.out,0
+zz-scripts/chapter07/utils/test_kgrid.py,OK,,0.10,zz-out/pass14_run/zz-scripts/chapter07/utils/test_kgrid.out,62
+zz-scripts/chapter07/utils/toy_model.py,OK,,2.70,zz-out/pass14_run/zz-scripts/chapter07/utils/toy_model.out,0
+zz-scripts/chapter08/generate_coupling_milestones.py,FAIL,TypeError: concat() missing 1 required positional argument: 'objs',0.33,zz-out/pass14_run/zz-scripts/chapter08/generate_coupling_milestones.out,0
+zz-scripts/chapter08/generate_data_chapter08.py,NEEDS_INPUT,generate_data_chapter08.py: error: the following arguments are required: --q0star_min, --q0star_max, --n_points,0.73,zz-out/pass14_run/zz-scripts/chapter08/generate_data_chapter08.out,0
+zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py,OK,,0.99,zz-out/pass14_run/zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.out,94
+zz-scripts/chapter08/plot_fig02_dv_vs_z.py,OK,,1.05,zz-out/pass14_run/zz-scripts/chapter08/plot_fig02_dv_vs_z.out,76
+zz-scripts/chapter08/plot_fig03_mu_vs_z.py,FAIL,SyntaxError: unexpected character after line continuation character,0.03,zz-out/pass14_run/zz-scripts/chapter08/plot_fig03_mu_vs_z.out,0
+zz-scripts/chapter08/plot_fig04_chi2_heatmap.py,FAIL,SyntaxError: invalid syntax,0.03,zz-out/pass14_run/zz-scripts/chapter08/plot_fig04_chi2_heatmap.out,0
+zz-scripts/chapter08/plot_fig05_residuals.py,OK,,1.42,zz-out/pass14_run/zz-scripts/chapter08/plot_fig05_residuals.out,36
+zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py,OK,,1.78,zz-out/pass14_run/zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.out,32
+zz-scripts/chapter08/plot_fig07_chi2_profile.py,OK,,0.90,zz-out/pass14_run/zz-scripts/chapter08/plot_fig07_chi2_profile.out,39
+zz-scripts/chapter08/utils/cosmo.py,OK,,0.36,zz-out/pass14_run/zz-scripts/chapter08/utils/cosmo.out,1009
+zz-scripts/chapter08/utils/coupling_example_model.py,OK,,1.02,zz-out/pass14_run/zz-scripts/chapter08/utils/coupling_example_model.out,112
+zz-scripts/chapter08/utils/extract_bao_data.py,FAIL,FileNotFoundError: [Errno 2] No such file or directory: '/home/jplal/MCGT/zz-data/chapter08/bao_distances_DR12v5.dat',0.36,zz-out/pass14_run/zz-scripts/chapter08/utils/extract_bao_data.out,0
+zz-scripts/chapter08/utils/extract_pantheon_plus_data.py,FAIL,FileNotFoundError: [Errno 2] No such file or directory: '/home/jplal/MCGT/zz-data/chapter08/pantheon_plus_sh0es.dat',0.33,zz-out/pass14_run/zz-scripts/chapter08/utils/extract_pantheon_plus_data.out,0
+zz-scripts/chapter08/utils/generate_coupling_milestones.py,FAIL,FileNotFoundError: [Errno 2] No such file or directory: '/home/jplal/MCGT/zz-scripts/zz-data/chapter08/08_bao_data.csv',0.35,zz-out/pass14_run/zz-scripts/chapter08/utils/generate_coupling_milestones.out,0
+zz-scripts/chapter08/utils/verify_z_grid.py,FAIL,,0.09,zz-out/pass14_run/zz-scripts/chapter08/utils/verify_z_grid.out,111
+zz-scripts/chapter09/apply_poly_unwrap_rebranch.py,NEEDS_INPUT,apply_poly_unwrap_rebranch.py: error: the following arguments are required: --csv,0.32,zz-out/pass14_run/zz-scripts/chapter09/apply_poly_unwrap_rebranch.out,0
+zz-scripts/chapter09/check_p95_methods.py,NEEDS_INPUT,check_p95_methods.py: error: the following arguments are required: --csv,0.61,zz-out/pass14_run/zz-scripts/chapter09/check_p95_methods.out,0
+zz-scripts/chapter09/extract_phenom_phase.py,FAIL,ModuleNotFoundError: No module named 'pycbc',0.31,zz-out/pass14_run/zz-scripts/chapter09/extract_phenom_phase.out,0
+zz-scripts/chapter09/fetch_gwtc3_confident.py,OK,,0.75,zz-out/pass14_run/zz-scripts/chapter09/fetch_gwtc3_confident.out,484
+zz-scripts/chapter09/flag_jalons.py,NEEDS_INPUT,flag_jalons.py: error: the following arguments are required: --csv, --meta,0.37,zz-out/pass14_run/zz-scripts/chapter09/flag_jalons.out,0
+zz-scripts/chapter09/generate_data_chapter09.py,FAIL,TypeError: float() argument must be a string or a real number, not 'NoneType',0.41,zz-out/pass14_run/zz-scripts/chapter09/generate_data_chapter09.out,0
+zz-scripts/chapter09/generate_mcgt_raw_phase.py,FAIL,SyntaxError: unmatched ')',0.03,zz-out/pass14_run/zz-scripts/chapter09/generate_mcgt_raw_phase.out,0
+zz-scripts/chapter09/opt_poly_rebranch.py,NEEDS_INPUT,opt_poly_rebranch.py: error: the following arguments are required: --csv, --meta,0.38,zz-out/pass14_run/zz-scripts/chapter09/opt_poly_rebranch.out,0
+zz-scripts/chapter09/plot_fig01_phase_overlay.py,FAIL,IndentationError: expected an indented block after function definition on line 48,0.03,zz-out/pass14_run/zz-scripts/chapter09/plot_fig01_phase_overlay.out,0
+zz-scripts/chapter09/plot_fig02_residual_phase.py,FAIL,IndentationError: expected an indented block after 'if' statement on line 59,0.03,zz-out/pass14_run/zz-scripts/chapter09/plot_fig02_residual_phase.out,0
+zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py,FAIL,SyntaxError: invalid syntax,0.03,zz-out/pass14_run/zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.out,0
+zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py,FAIL,IndentationError: expected an indented block after function definition on line 68,0.03,zz-out/pass14_run/zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.out,0
+zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py,FAIL,SyntaxError: unmatched ')',0.02,zz-out/pass14_run/zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.out,0
+zz-scripts/chapter10/add_phi_at_fpeak.py,FAIL,ImportError: cannot import name 'phi_mcgt' from 'mcgt.phase' (/home/jplal/MCGT/mcgt/phase.py),0.40,zz-out/pass14_run/zz-scripts/chapter10/add_phi_at_fpeak.out,0
+zz-scripts/chapter10/bootstrap_topk_p95.py,NEEDS_INPUT,bootstrap_topk_p95.py: error: the following arguments are required: --best, --out,0.32,zz-out/pass14_run/zz-scripts/chapter10/bootstrap_topk_p95.out,0
+zz-scripts/chapter10/check_metrics_consistency.py,NEEDS_INPUT,check_metrics_consistency.py: error: the following arguments are required: --results, --manifest,0.33,zz-out/pass14_run/zz-scripts/chapter10/check_metrics_consistency.out,0
+zz-scripts/chapter10/diag_phi_fpeak.py,FAIL,ImportError: cannot import name 'phi_mcgt' from 'mcgt.phase' (/home/jplal/MCGT/mcgt/phase.py),0.50,zz-out/pass14_run/zz-scripts/chapter10/diag_phi_fpeak.out,0
+zz-scripts/chapter10/eval_primary_metrics_20_300.py,FAIL,ModuleNotFoundError: No module named 'joblib',0.31,zz-out/pass14_run/zz-scripts/chapter10/eval_primary_metrics_20_300.out,0
+zz-scripts/chapter10/generate_data_chapter10.py,FAIL,FileNotFoundError: Script manquant (samples) : /home/jplal/MCGT/zz-scripts/chapter10/generate_8d_samples.py,0.07,zz-out/pass14_run/zz-scripts/chapter10/generate_data_chapter10.out,0
+zz-scripts/chapter10/inspect_topk_residuals.py,FAIL,ImportError: cannot import name 'phi_mcgt' from 'mcgt.phase' (/home/jplal/MCGT/mcgt/phase.py),0.72,zz-out/pass14_run/zz-scripts/chapter10/inspect_topk_residuals.out,0
+zz-scripts/chapter10/plot_fig01_iso_p95_maps.py,NEEDS_INPUT,plot_fig01_iso_p95_maps.py: error: the following arguments are required: --results, --out,0.57,zz-out/pass14_run/zz-scripts/chapter10/plot_fig01_iso_p95_maps.out,0
+zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py,NEEDS_INPUT,plot_fig02_scatter_phi_at_fpeak.py: error: the following arguments are required: --results, --out,0.64,zz-out/pass14_run/zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.out,0
+zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py,NEEDS_INPUT,plot_fig03_convergence_p95_vs_n.py: error: the following arguments are required: --results, --out,0.71,zz-out/pass14_run/zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.out,0
+zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py,NEEDS_INPUT,plot_fig03b_bootstrap_coverage_vs_n.py: error: the following arguments are required: --results, --out,0.60,zz-out/pass14_run/zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.out,0
+zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py,NEEDS_INPUT,plot_fig04_scatter_p95_recalc_vs_orig.py: error: the following arguments are required: --results, --out,0.66,zz-out/pass14_run/zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.out,0
+zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py,NEEDS_INPUT,plot_fig05_hist_cdf_metrics.py: error: the following arguments are required: --results, --out,0.57,zz-out/pass14_run/zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.out,0
+zz-scripts/chapter10/plot_fig06_residual_map.py,NEEDS_INPUT,plot_fig06_residual_map.py: error: the following arguments are required: --results, --out,0.61,zz-out/pass14_run/zz-scripts/chapter10/plot_fig06_residual_map.out,0
+zz-scripts/chapter10/plot_fig07_synthesis.py,NEEDS_INPUT,plot_fig07_synthesis.py: error: the following arguments are required: --manifests, --out,0.43,zz-out/pass14_run/zz-scripts/chapter10/plot_fig07_synthesis.out,0
+zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py,FAIL,SyntaxError: unterminated string literal (detected at line 29),0.02,zz-out/pass14_run/zz-scripts/chapter10/qc_wrapped_vs_unwrapped.out,0
+zz-scripts/chapter10/recompute_p95_circular.py,FAIL,IndentationError: expected an indented block after 'if' statement on line 54,0.02,zz-out/pass14_run/zz-scripts/chapter10/recompute_p95_circular.out,0
+zz-scripts/chapter10/regen_fig05_using_circp95.py,NEEDS_INPUT,regen_fig05_using_circp95.py: error: the following arguments are required: --results,0.63,zz-out/pass14_run/zz-scripts/chapter10/regen_fig05_using_circp95.out,0
+zz-scripts/chapter10/update_manifest_with_hashes.py,FAIL,,0.06,zz-out/pass14_run/zz-scripts/chapter10/update_manifest_with_hashes.out,60
+zz-scripts/manifest_tools/populate_manifest.py,NEEDS_INPUT,populate_manifest.py: error: the following arguments are required: manifest,0.04,zz-out/pass14_run/zz-scripts/manifest_tools/populate_manifest.out,0
+zz-scripts/manifest_tools/verify_manifest.py,NEEDS_INPUT,verify_manifest.py: error: the following arguments are required: manifest,0.04,zz-out/pass14_run/zz-scripts/manifest_tools/verify_manifest.out,0

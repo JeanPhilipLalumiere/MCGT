@@ -347,3 +347,5 @@ try:
     if _zz not in sys.path:
     sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
+except Exception:
+    pass

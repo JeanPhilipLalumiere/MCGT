@@ -1,0 +1,231 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export PYTHONPATH="${PYTHONPATH:-}:$PWD"
+CSV="zz-out/homog_smoke_pass14.csv"
+
+echo "[STEP30] 0) Smoke de référence"
+tools/pass14_smoke_with_mapping.sh
+
+echo "[STEP30] 1) Parser-guided fixer (== in heads + add pass if body missing)"
+python3 - <<'PY'
+from pathlib import Path
+import csv, re
+
+CSV_PATH = Path("zz-out/homog_smoke_pass14.csv")
+rows = list(csv.reader(CSV_PATH.open(encoding="utf-8")))
+rows = rows[1:]  # skip header
+
+def reason(row):
+    # join middle columns back (messages may contain commas)
+    return ",".join(row[2:-3]) if len(row) >= 6 else (row[2] if len(row)>=3 else "")
+
+targets = []
+for r in rows:
+    if not r or len(r) < 3: continue
+    msg = reason(r)
+    if ("SyntaxError" in msg or "IndentationError" in msg):
+        p = r[0]
+        if p and Path(p).suffix == ".py" and Path(p).exists():
+            targets.append(p)
+
+targets = sorted(set(targets))
+if not targets:
+    print("[STEP30] no failing python files found")
+    raise SystemExit(0)
+
+OPEN, CLOSE = "([{" , ")]}"
+HEAD_RE    = re.compile(r'^\s*(if|elif|while)\b')
+NEXT_KWS   = re.compile(r'^\s*(elif|else|except|finally)\b')
+
+def find_head_end(lines, i, look=200):
+    """Return (end_idx, chunk_text, colon_idx_in_chunk)."""
+    depth = 0; sq = False; dq = False
+    cum = [0]
+    for j in range(i, min(len(lines), i+look)):
+        s = lines[j]
+        cum.append(cum[-1] + len(s))
+        k = 0
+        while k < len(s):
+            c = s[k]
+            if sq:
+                if c == "\\" and k+1 < len(s): k += 2; continue
+                if c == "'": sq = False
+                k += 1; continue
+            if dq:
+                if c == "\\" and k+1 < len(s): k += 2; continue
+                if c == '"': dq = False
+                k += 1; continue
+            if c == '#': break
+            if c in OPEN: depth += 1
+            elif c in CLOSE: depth = max(0, depth-1)
+            elif c == "'": sq = True
+            elif c == '"': dq = True
+            elif c == ':' and depth == 0:
+                chunk = "".join(lines[i:j+1])
+                colon_idx = cum[j-i] + k
+                return j, chunk, colon_idx
+            k += 1
+    return None, None, None
+
+def lone_eq_positions(txt):
+    """Indices of '=' not part of ==, !=, <=, >=, := or => and outside quotes/comments."""
+    pos=[]; depth=0; sq=False; dq=False
+    i=0
+    while i < len(txt):
+        c = txt[i]
+        if sq:
+            if c == "\\" and i+1 < len(txt): i += 2; continue
+            if c == "'": sq = False
+            i += 1; continue
+        if dq:
+            if c == "\\" and i+1 < len(txt): i += 2; continue
+            if c == '"': dq = False
+            i += 1; continue
+        if c == '#': break
+        if c in OPEN: depth += 1
+        elif c in CLOSE: depth = max(0, depth-1)
+        elif c == "'": sq = True
+        elif c == '"': dq = True
+        elif c == '=':
+            prev = txt[i-1] if i>0 else ''
+            nxt  = txt[i+1] if i+1<len(txt) else ''
+            if nxt in ('=','>') or prev in ('=','!','<','>') or (prev==':' and nxt==' '):
+                i += 1; continue
+            pos.append(i)
+        i += 1
+    return pos
+
+def call_paren_map(txt):
+    """Return set of indices that lie inside (...) of a function/method call."""
+    stack=[]; call_ranges=[]; i=0; sq=False; dq=False
+    while i < len(txt):
+        c=txt[i]
+        if sq:
+            if c=="\\" and i+1<len(txt): i+=2; continue
+            if c=="'": sq=False
+            i+=1; continue
+        if dq:
+            if c=="\\" and i+1<len(txt): i+=2; continue
+            if c=='"': dq=False
+            i+=1; continue
+        if c=="'": sq=True; i+=1; continue
+        if c=='"': dq=True; i+=1; continue
+        if c in OPEN:
+            if c=='(':
+                k=i-1
+                while k>=0 and txt[k].isspace(): k-=1
+                is_call = k>=0 and (txt[k].isalnum() or txt[k] in '._])}')
+                stack.append(('(', i, is_call))
+            else:
+                stack.append((c, i, False))
+            i+=1; continue
+        if c in CLOSE and stack:
+            op, start, is_call = stack.pop()
+            if op=='(' and is_call:
+                call_ranges.append((start, i))
+            i+=1; continue
+        i+=1
+    inside=set()
+    for a,b in call_ranges:
+        inside.update(range(a, b+1))
+    return inside
+
+def replace_eq_in_head(head_txt):
+    call_inside = call_paren_map(head_txt)
+    eqs = set(lone_eq_positions(head_txt))
+    if not eqs: return head_txt, 0
+    out=[]; last=0; changed=0
+    for idx,ch in enumerate(head_txt):
+        if idx in eqs and idx not in call_inside:
+            out.append(head_txt[last:idx]); out.append("==")
+            last = idx+1; changed += 1
+    out.append(head_txt[last:])
+    return "".join(out), changed
+
+def insert_pass_if_needed(lines, head_i, head_j):
+    base = len(lines[head_i]) - len(lines[head_i].lstrip(" "))
+    k = head_j + 1
+    while k < len(lines) and (lines[k].strip()=="" or lines[k].lstrip().startswith("#")):
+        k += 1
+    need = (k>=len(lines) or (len(lines[k]) - len(lines[k].lstrip(" ")) <= base) or NEXT_KWS.match(lines[k]))
+    if need:
+        lines.insert(head_j+1, " "*(base+4) + "pass\n")
+        return True
+    return False
+
+def fix_file(path:str):
+    p = Path(path)
+    txt = p.read_text(encoding="utf-8")
+    lines = txt.splitlines(keepends=True)
+    changed=False; eqc=0; passc=0
+
+    # iterate up to N times trying to resolve equality-in-head or missing body
+    for _ in range(16):
+        try:
+            compile("".join(lines), str(p), "exec")
+            break
+        except IndentationError as e:
+            msg = str(e)
+            if ("expected an indented block after 'if' statement" in msg or
+                "expected an indented block after 'elif' statement" in msg or
+                "expected an indented block after 'while' statement" in msg):
+                li = (e.lineno or 1) - 1
+                # find start of head above this line
+                j = li
+                while j >= 0 and not HEAD_RE.match(lines[j]):
+                    j -= 1
+                if j < 0: break
+                end, chunk, colon_idx = find_head_end(lines, j)
+                if end is None: break
+                if insert_pass_if_needed(lines, j, end):
+                    changed=True; passc+=1
+                    continue
+            # other indentation errors -> stop trying
+            break
+        except SyntaxError as e:
+            m = str(e)
+            if ("cannot assign to expression here" in m or
+                "Maybe you meant '=='" in m or
+                "invalid syntax. Maybe you meant '=='" in m):
+                li = (e.lineno or 1) - 1
+                # walk upwards to find the head start
+                j = li
+                while j >= 0 and not HEAD_RE.match(lines[j]):
+                    j -= 1
+                if j < 0:
+                    break
+                end, chunk, colon_idx = find_head_end(lines, j)
+                if end is None:
+                    break
+                # locate keyword inside chunk
+                km = re.search(r'\b(if|elif|while)\b', chunk)
+                if not km:
+                    break
+                head_txt = chunk[km.start():colon_idx]
+                new_head, c = replace_eq_in_head(head_txt)
+                if c:
+                    new_chunk = chunk[:km.start()] + new_head + ":" + chunk[colon_idx+1:]
+                    lines[j:end+1] = new_chunk.splitlines(keepends=True)
+                    changed=True; eqc+=c
+                    continue
+            # not our kind -> stop
+            break
+
+    if changed:
+        p.write_text("".join(lines), encoding="utf-8")
+    return changed, eqc, passc
+
+tot_files=tot_eq=tot_pass=0
+for f in targets:
+    ch, e, pa = fix_file(f)
+    if ch:
+        tot_files+=1; tot_eq+=e; tot_pass+=pa
+        print(f"[STEP30-FIX] {f}: eq+={e} pass+={pa}")
+
+print(f"[RESULT] step30_files_changed={tot_files} eq_changes={tot_eq} pass_inserted={tot_pass}")
+PY
+
+echo "[STEP30] 2) Re-smoke + top erreurs"
+tools/pass14_smoke_with_mapping.sh
+awk -F, 'NR>1{ n=NF; r=$3; for(i=4;i<=n-3;i++) r=r","$i; printf "%s: %s\n",$2,r }' "$CSV" \
+  | LC_ALL=C sort | uniq -c | LC_ALL=C sort -nr | head -25

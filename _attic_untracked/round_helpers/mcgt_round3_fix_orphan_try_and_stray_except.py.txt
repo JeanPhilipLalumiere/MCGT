@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import re, time
+from pathlib import Path
+
+ROOT = Path.cwd()
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+EXCLUDE = {".git", "__pycache__", ".ci-out", ".mypy_cache", ".tox", "_attic_untracked", "release_zenodo_codeonly"}
+ALLOW_PREFIX = ("zz-scripts/", "zz-tools/", "zz_tools/", "zz-manifests/", "tools/")  # pas mcgt/**
+
+def should_skip(p: Path) -> bool:
+    parts = set(p.parts)
+    return bool(parts & EXCLUDE)
+
+def path_ok(p: Path) -> bool:
+    rp = p.as_posix()
+    return any(rp.startswith(pref) for pref in ALLOW_PREFIX)
+
+def indent_width(s: str) -> int:
+    lead = s[:len(s) - len(s.lstrip(" \t"))]
+    return len(lead.expandtabs(4))
+
+def ensure_import_contextlib(lines: list[str]) -> list[str]:
+    head = "".join(lines[:120])
+    if ("import contextlib" in head) or ("from contextlib" in head):
+        return lines
+    i = 0; n = len(lines)
+    if i < n and lines[i].startswith("#!"): i += 1
+    if i < n and re.match(r'^\s*#\s*-\*-\s*coding:.*-\*-\s*$', lines[i] or ""): i += 1
+    # docstring module
+    triple = re.compile(r'^\s*(?:[rubfRUBF]?){0,2}("""|\'\'\')')
+    if i < n and triple.match(lines[i] or ""):
+        i += 1
+        while i < n and not triple.search(lines[i] or ""):
+            i += 1
+        if i < n: i += 1
+    # futures
+    while i < n and re.match(r'^\s*from\s+__future__\s+import\s+', lines[i] or ""):
+        i += 1
+    lines[i:i] = ["import contextlib\n"]
+    return lines
+
+def fix_future_concatenation(src: str) -> tuple[str, int]:
+    pat = re.compile(r'(from\s+__future__\s+import\s+annotations)(?=\S)')
+    src, n1 = pat.subn(r'\1\n', src)
+    pat2 = re.compile(r'(from\s+__future__\s+import\s+annotations);')
+    src, n2 = pat2.subn(r'\1\n', src)
+    return src, (n1 + n2)
+
+def process_file(p: Path) -> tuple[int, int, int]:
+    """
+    Retourne (joined_future, try_fixed, stray_removed)
+    """
+    try:
+        src = p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return (0, 0, 0)
+
+    # 0) sécuriser les collages __future__
+    src, joined = fix_future_concatenation(src)
+
+    # Si hors zones autorisées pour try/except → on s'arrête là
+    if not path_ok(p):
+        if joined:
+            bak = p.with_suffix(p.suffix + f".bak.{TS}")
+            bak.write_text(src, encoding="utf-8")
+            p.write_text(src, encoding="utf-8")
+        return (joined, 0, 0)
+
+    lines = src.splitlines(True)
+    n = len(lines)
+    changed_try = 0
+    removed_handlers = 0
+
+    # Stack des tries ouverts: éléments {"indent": int, "pos": int, "has_handler": bool}
+    stack: list[dict] = []
+
+    i = 0
+    while i < n:
+        s = lines[i]
+        stripped = s.lstrip()
+        iw = indent_width(s)
+
+        # On ferme les tries dont le bloc est terminé
+        while stack and iw < stack[-1]["indent"]:
+            top = stack.pop()
+            if not top["has_handler"]:
+                # try: orphelin → transformer la ligne en with suppress
+                pos = top["pos"]
+                lead = lines[pos][:len(lines[pos]) - len(lines[pos].lstrip(" \t"))]
+                lines[pos] = f"{lead}with contextlib.suppress(Exception):\n"
+                changed_try += 1
+
+        if stripped.startswith("try:"):
+            stack.append({"indent": iw, "pos": i, "has_handler": False})
+            i += 1
+            continue
+
+        if stripped.startswith("except") or stripped.startswith("finally:"):
+            # Cherche un try au même indent dans la stack
+            j = len(stack) - 1
+            found = None
+            while j >= 0:
+                if stack[j]["indent"] == iw:
+                    found = j
+                    break
+                elif stack[j]["indent"] < iw:
+                    break
+                j -= 1
+            if found is not None:
+                stack[found]["has_handler"] = True
+                i += 1
+                continue
+            # Handler stray → commenter ce header + son bloc
+            lead = s[:len(s) - len(stripped)]
+            lines[i] = f"{lead}# [mcgt-fix] STRAY {stripped}"
+            removed_handlers += 1
+            i += 1
+            # commenter le bloc qui suit
+            while i < n:
+                s2 = lines[i]
+                if s2.strip() == "":
+                    # garde les vides commentés pour éviter des surprises
+                    lines[i] = lead + "#\n"
+                    i += 1
+                    continue
+                iw2 = indent_width(s2)
+                if iw2 <= iw:
+                    break
+                lines[i] = "# " + s2
+                i += 1
+            continue
+
+        i += 1
+
+    # Fin de fichier: ferme les tries restants
+    while stack:
+        top = stack.pop()
+        if not top["has_handler"]:
+            pos = top["pos"]
+            lead = lines[pos][:len(lines[pos]) - len(lines[pos].lstrip(" \t"))]
+            lines[pos] = f"{lead}with contextlib.suppress(Exception):\n"
+            changed_try += 1
+
+    # Si on a inséré suppress → injecter import
+    if changed_try:
+        lines = ensure_import_contextlib(lines)
+
+    if joined or changed_try or removed_handlers:
+        new_src = "".join(lines)
+        bak = p.with_suffix(p.suffix + f".bak.{TS}")
+        bak.write_text(src, encoding="utf-8")
+        p.write_text(new_src, encoding="utf-8")
+
+    return (joined, changed_try, removed_handlers)
+
+def main():
+    scanned = 0; total_j = 0; total_tf = 0; total_rm = 0
+    for p in ROOT.rglob("*.py"):
+        if should_skip(p) or not p.is_file():
+            continue
+        scanned += 1
+        j, tf, rm = process_file(p)
+        total_j += j; total_tf += tf; total_rm += rm
+    print(f"[try/except-fix] scanned={scanned}, future_joined={total_j}, try2suppress={total_tf}, stray_handlers_removed={total_rm}")
+
+if __name__ == "__main__":
+    main()

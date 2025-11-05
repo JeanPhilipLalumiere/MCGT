@@ -1,0 +1,143 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import re, time
+from pathlib import Path
+
+ROOT = Path.cwd()
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+EXCLUDE_DIRS = {
+    ".git", "__pycache__", ".ci-out", ".mypy_cache", ".tox",
+    "_attic_untracked", "release_zenodo_codeonly"
+}
+# Nous évitons de transformer la lib coeur :
+TRY_FIX_ALLOWED_ROOTS = (
+    "zz-scripts/", "zz-tools/", "zz_tools/", "zz-manifests/", "tools/",
+)
+
+# --- utilitaires ---
+def should_skip(p: Path) -> bool:
+    parts = set(p.parts)
+    if parts & EXCLUDE_DIRS:
+        return True
+    return False
+
+def path_startswith(p: Path, prefixes: tuple[str, ...]) -> bool:
+    rp = p.as_posix()
+    return any(rp.startswith(pref) for pref in prefixes)
+
+def ensure_import_contextlib(lines: list[str]) -> list[str]:
+    # insère "import contextlib" après les éventuels __future__/shebang/encoding/docstring
+    has = any(l.strip() == "import contextlib" or l.strip().startswith("from contextlib") for l in lines[:80])
+    if has:
+        return lines
+    i = 0
+    n = len(lines)
+    if i < n and lines[i].startswith("#!"): i += 1
+    if i < n and re.match(r'^\s*#\s*-\*-\s*coding:.*-\*-\s*$', lines[i] or ""): i += 1
+    # docstring module triple quotes
+    triple = re.compile(r'^\s*(?:[rubfRUBF]?){0,2}("""|\'\'\')')
+    if i < n and triple.match(lines[i] or ""):
+        i += 1
+        while i < n and not triple.search(lines[i] or ""):
+            i += 1
+        if i < n: i += 1
+    # __future__ au tout début si présent
+    while i < n and re.match(r'^\s*from\s+__future__\s+import\s+', lines[i] or ""):
+        i += 1
+    lines[i:i] = ["import contextlib\n"]
+    return lines
+
+def fix_future_concatenation(src: str) -> tuple[str, int]:
+    # Sépare proprement les collages "annotationsimport"/"annotationsfrom"
+    pat = re.compile(r'(from\s+__future__\s+import\s+annotations)(?=\S)')
+    new, n1 = pat.subn(r'\1\n', src)
+    # cas pathologique avec ';' (rare) — on force aussi un saut de ligne
+    pat2 = re.compile(r'(from\s+__future__\s+import\s+annotations);')
+    new, n2 = pat2.subn(r'\1\n', new)
+    return new, (n1 + n2)
+
+def fix_try_without_handler(src: str) -> tuple[str, int]:
+    """
+    Remplace 'try:' sans except/finally au même indent par
+    'with contextlib.suppress(Exception):'
+    """
+    lines = src.splitlines(True)
+    changed = 0
+    i = 0
+    n = len(lines)
+    # petit helper d'indent
+    def indent_width(s: str) -> int:
+        lead = s[:len(s) - len(s.lstrip(" \t"))]
+        return len(lead.expandtabs(4))
+
+    while i < n:
+        s = lines[i]
+        t = s.lstrip()
+        if t.startswith("try:"):
+            base = indent_width(s)
+            # Chercher dans le bloc si un except/finally au même indent apparaît
+            j = i + 1
+            found = False
+            while j < n:
+                sj = lines[j]
+                if sj.strip() == "" or sj.lstrip().startswith("#"):
+                    j += 1; continue
+                w = indent_width(sj)
+                if w < base:
+                    break  # fin du bloc au même niveau
+                if w == base and (sj.lstrip().startswith("except") or sj.lstrip().startswith("finally:")):
+                    found = True
+                    break
+                j += 1
+            if not found:
+                lead = s[:len(s) - len(t)]
+                lines[i] = f"{lead}with contextlib.suppress(Exception):\n"
+                changed += 1
+        i += 1
+    return "".join(lines), changed
+
+def process_file(p: Path) -> tuple[int, int]:
+    try:
+        src = p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return (0, 0)
+    # 1) future join fix (global, y.c. mcgt/**)
+    src2, nj = fix_future_concatenation(src)
+
+    # 2) try-fix limité aux roots autorisés
+    nt = 0
+    if path_startswith(p, TRY_FIX_ALLOWED_ROOTS):
+        src3, nt = fix_try_without_handler(src2)
+        # si modifié, assurer import contextlib
+        if nt > 0:
+            lines = src3.splitlines(True)
+            lines = ensure_import_contextlib(lines)
+            src2 = "".join(lines)
+        else:
+            src2 = src3
+
+    if (nj + nt) > 0:
+        bak = p.with_suffix(p.suffix + f".bak.{TS}")
+        try:
+            bak.write_text(src, encoding="utf-8")
+            p.write_text(src2, encoding="utf-8")
+        except Exception:
+            return (0, 0)
+    return (nj, nt)
+
+def main():
+    scanned = 0
+    joined = 0
+    tryfix = 0
+    for p in ROOT.rglob("*.py"):
+        if should_skip(p) or not p.is_file():
+            continue
+        scanned += 1
+        nj, nt = process_file(p)
+        joined += nj
+        tryfix += nt
+    print(f"[repair] scanned={scanned}, future_newlines={joined}, try2suppress={tryfix}")
+
+if __name__ == "__main__":
+    main()

@@ -130,6 +130,8 @@ def load_meta(meta_path: Path) -> dict:
         try:
             return json.loads(meta_path.read_text())
         except Exception:
+            pass
+        except Exception:
             return {}
     return {}
 

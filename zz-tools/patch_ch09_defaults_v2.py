@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re, pathlib, sys
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
@@ -15,7 +16,7 @@ src = re.sub(
     flags=re.MULTILINE
 )
 
-# --- Calculer l’endroit correct d’injection: après shebang/coding + bloc future-imports
+# --- Calculer l'endroit correct d'injection: après shebang/coding + bloc future-imports
 lines = src.splitlines(keepends=True)
 insert_idx = 0
 
@@ -55,7 +56,7 @@ def _mcgt_safe_float(x, default):
         return float(default)
 """
 
-# Injecter le helper s’il n’existe pas
+# Injecter le helper s'il n'existe pas
 if "def _mcgt_safe_float(" not in src:
     src = "".join(lines[:insert_idx] + [helper] + lines[insert_idx:])
 
@@ -85,7 +86,7 @@ for k, dv in defaults.items():
 
     # float(cfg.get("k"))  /  float( cfg . get ( 'k' ) )
     pat2 = rf'float\(\s*cfg\s*\.s*get\s*\(\s*["\']{re.escape(k)}["\']\s*\)\s*\)'
-    # le \.s*get n’est pas valide → utilisons un groupe permissif
+    # le \.s*get n'est pas valide -> utilisons un groupe permissif
     pat2 = rf'float\(\s*cfg\s*\.\s*get\s*\(\s*["\']{re.escape(k)}["\']\s*\)\s*\)'
     src, _ = _re_sub(pat2, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
 

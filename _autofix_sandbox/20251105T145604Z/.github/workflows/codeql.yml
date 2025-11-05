@@ -1,0 +1,41 @@
+name: codeql
+on:
+  push: { branches: ["**"] }
+  pull_request: { branches: ["**"] }
+  schedule:
+    - cron: "19 3 * * 2"
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  analyze:
+    name: Analyze (CodeQL)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [python]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+      - name: Setup Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install deps (best-effort)
+        if: matrix.language == 'python'
+        run: |
+          set -e
+          if ls requirements*.txt >/dev/null 2>&1; then
+            python -m pip install -U pip -c constraints/security-pins.txt
+            pip install -r requirements.txt || true -c constraints/security-pins.txt
+          fi
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3
+        with: { category: "/language:${{matrix.language}}" }

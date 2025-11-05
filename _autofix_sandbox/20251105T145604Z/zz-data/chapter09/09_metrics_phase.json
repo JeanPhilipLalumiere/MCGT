@@ -1,0 +1,78 @@
+{
+  "ini": "zz-configuration/gw_phase.ini",
+  "params": {
+    "m1": 30.0,
+    "m2": 25.0,
+    "q0star": 0.0,
+    "alpha": 0.0,
+    "phi0": 0.0,
+    "tc": 0.0,
+    "tol": 1e-06
+  },
+  "reference": {
+    "csv": "zz-data/chapter09/09_phases_imrphenom.csv",
+    "meta": "zz-data/chapter09/09_phases_imrphenom.meta.json",
+    "source_tag": "file_existing"
+  },
+  "grid_used": {
+    "fmin_Hz": 10.0,
+    "fmax_Hz": 2041.7379446695293,
+    "dlog10": 0.01,
+    "n_points_used": 232
+  },
+  "metrics_window_Hz": [
+    20.0,
+    300.0
+  ],
+  "metrics_active": {
+    "mean_abs_20_300": 26.831599861688545,
+    "max_abs_20_300": 93.7503296126555,
+    "p95_abs_20_300": 81.29194862161798,
+    "variant": "calibrated"
+  },
+  "metrics_raw": {
+    "mean_abs_20_300": 29.13754874877777,
+    "max_abs_20_300": 141.7454716684315,
+    "p95_abs_20_300": 110.38826055552936
+  },
+  "metrics_cal": {
+    "mean_abs_20_300": 26.831599861688545,
+    "max_abs_20_300": 93.7503296126555,
+    "p95_abs_20_300": 81.29194862161798
+  },
+  "calibration": {
+    "enabled": true,
+    "mode": "phi0,tc",
+    "model_used": "phi0_tc",
+    "phi0_hat_rad": -58.94512065649389,
+    "tc_hat_s": 0.07323215807767205,
+    "initial_window_Hz": [
+      20.0,
+      300.0
+    ],
+    "used_window_Hz": [
+      30.0,
+      250.0
+    ],
+    "weight": "1/f2",
+    "auto_tightened": true,
+    "tighten_threshold_p95_rad": 5.0,
+    "p95_check_before_rad": 164.41347534829,
+    "p95_check_after_rad": 81.29194862161798,
+    "n_points": 92
+  },
+  "outputs": {
+    "phases_mcgt_csv": "zz-data/chapter09/09_phases_mcgt.csv",
+    "diff_phase_csv": null,
+    "comparison_milestones_csv": null,
+    "fisher_scan2D_csv": null
+  },
+  "repro": {
+    "git_hash": "fca9a2ed089a02d8e2bae99eddd2ed9817a94ad3",
+    "python": "3.12.11",
+    "libs": {
+      "numpy": "2.2.2",
+      "pandas": "2.3.1"
+    }
+  }
+}

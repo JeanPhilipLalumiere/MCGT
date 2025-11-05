@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import re, time, subprocess
+from pathlib import Path
+
+def repo_root()->Path:
+    try:
+        return Path(subprocess.check_output(["git","rev-parse","--show-toplevel"], text=True).strip())
+    except Exception:
+        return Path.cwd()
+
+ROOT = repo_root()
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+ATTIC = ROOT / "_attic_untracked" / "round3_helpers"
+ATTIC.mkdir(parents=True, exist_ok=True)
+
+HELPERS = [
+    "mcgt_round3_autofix_try_future_and_sh.py",
+    "mcgt_round3_fix_cli_try_blocks.py",
+    "mcgt_round3_fix_try_handlers_v2.py",
+    "mcgt_round3_future_and_except_cleanup.py",
+    "mcgt_round3_try2suppress.py",
+    "one_fix_fig04_cli_seed.py",
+    "sitecustomize.py",
+]
+
+ALLOW_PREFIX = ("zz-scripts/", "zz-tools/", "zz_tools/", "zz-manifests/", "tools/", "mcgt/")
+
+EXCLUDE_DIRS = {".git","__pycache__", ".ci-out", ".mypy_cache", ".tox",
+                "_attic_untracked", "release_zenodo_codeonly"}
+
+def rel(p:Path)->str:
+    try: return p.relative_to(ROOT).as_posix()
+    except Exception: return p.as_posix()
+
+def in_excluded(p:Path)->bool:
+    parts = set(p.relative_to(ROOT).parts if p.is_relative_to(ROOT) else p.parts)
+    return bool(parts & EXCLUDE_DIRS)
+
+def allowed(p:Path)->bool:
+    rp = rel(p)
+    return any(rp.startswith(pref) for pref in ALLOW_PREFIX)
+
+def iw(s:str)->int:
+    lead = s[:len(s)-len(s.lstrip(" \t"))]
+    return len(lead.expandtabs(4))
+
+def ensure_import_contextlib(lines:list[str])->list[str]:
+    head = "".join(lines[:120])
+    if "import contextlib" in head or "from contextlib" in head:
+        return lines
+    i=0; n=len(lines)
+    if i<n and lines[i].startswith("#!"): i+=1
+    if i<n and re.match(r'^\s*#\s*-\*-\s*coding:.*-\*-\s*$', lines[i]): i+=1
+    tri = re.compile(r'^\s*(?:[rubfRUBF]?){0,2}("""|\'\'\')')
+    if i<n and tri.match(lines[i] or ""):
+        i+=1
+        while i<n and not tri.search(lines[i] or ""): i+=1
+        if i<n: i+=1
+    while i<n and re.match(r'^\s*from\s+__future__\s+import\s+', lines[i] or ""): i+=1
+    lines[i:i] = ["import contextlib\n"]
+    return lines
+
+def fix_future_concat(src:str)->tuple[str,int]:
+    n=0
+    src, a = re.subn(r'(from\s+__future__\s+import\s+annotations)(?=\S)', r'\1\n', src); n+=a
+    src, b = re.subn(r'(from\s+__future__\s+import\s+annotations)\s*;?\s*import\b', r'\1\nimport', src); n+=b
+    return src, n
+
+def close_broken_future_string(lines:list[str])->int:
+    """Vise spécifiquement patch_ch09_header_v8/v9."""
+    nfix=0
+    for i,s in enumerate(lines):
+        if 'new_src +=' in s and 'from __future__ import annotations' in s and s.count('"')%2==1:
+            lines[i] = re.sub(r'new_src\s*\+=\s*".*annotations\s*$', 'new_src += "from __future__ import annotations\\n"', s)
+            nfix+=1
+        if 'futures.insert(0,' in s and 'from __future__ import annotations' in s and s.count('"')%2==1:
+            lines[i] = re.sub(r'futures\.insert\(\s*0\s*,\s*".*annotations\s*$', 'futures.insert(0, "from __future__ import annotations")', s)
+            nfix+=1
+        if 'FUTLINE = ' in s and 'from __future__ import annotations' in s and s.count('"')%2==1:
+            lines[i] = 'FUTLINE = "from __future__ import annotations\\n"\n'; nfix+=1
+    return nfix
+
+def patch_try_except(lines:list[str])->tuple[list[str],int,int,int]:
+    """try: -> with suppress; comment except/finally blocks; add import."""
+    ntry=nrm=nfur=0
+    for i,s in enumerate(lines):
+        if s.lstrip().startswith("try:"):
+            lead = s[:len(s)-len(s.lstrip(" \t"))]
+            lines[i] = f"{lead}with contextlib.suppress(Exception):\n"
+            ntry+=1
+    i=0
+    while i < len(lines):
+        s = lines[i]; stripped = s.lstrip()
+        if stripped.startswith("except") or stripped.startswith("finally:"):
+            lead = s[:len(s)-len(stripped)]
+            base = iw(s); i+=1
+            # remplace le header par un pass commenté
+            lines[i-1] = f"{lead}# [mcgt-fix] removed stray {stripped.rstrip()}\n{lead}# pass\n"
+            nrm += 1
+            # commente BLOCS fils
+            while i < len(lines):
+                s2 = lines[i]
+                if s2.strip()=="":
+                    lines[i] = lead + "#\n"; i+=1; continue
+                if iw(s2) <= base:
+                    break
+                lines[i] = "# " + s2; i+=1
+            continue
+        i+=1
+    # import contextlib si besoin
+    if ntry>0:
+        lines = ensure_import_contextlib(lines)
+    return lines, ntry, nrm, nfur
+
+def add_pass_after_bare_defs(lines:list[str])->int:
+    """Si def/class a un bloc vide (prochain non-vide à indent <= header), on insère 'pass'."""
+    nfix=0; i=0
+    pat = re.compile(r'^(\s*)(def|class)\s+[^\n]+:\s*(#.*)?$')
+    while i < len(lines):
+        m = pat.match(lines[i])
+        if not m: i+=1; continue
+        head_indent = len(m.group(1).expandtabs(4))
+        j=i+1
+        # skip blanks/comments
+        while j < len(lines) and (lines[j].strip()=="" or lines[j].lstrip().startswith("#")):
+            j+=1
+        if j>=len(lines) or len(lines[j][:len(lines[j])-len(lines[j].lstrip(" \t"))].expandtabs(4)) <= head_indent:
+            lines.insert(i+1, m.group(1)+"    pass\n")
+            nfix+=1; i+=2; continue
+        i+=1
+    return nfix
+
+def comment_top_level_returns(lines:list[str])->int:
+    n=0
+    for i,s in enumerate(lines):
+        if s.lstrip().startswith("return ") and iw(s)==0:
+            lines[i] = "# " + s; n+=1
+    return n
+
+def normalize_utf_dashes(src:str)->tuple[str,int]:
+    rep = {"\u2013":"-", "\u2014":"-"}
+    n=0
+    for k,v in rep.items():
+        if k in src:
+            n += src.count(k)
+            src = src.replace(k,v)
+    return src,n
+
+def process_file(p:Path)->tuple[int,int,int,int,int,int]:
+    """Retourne stats pour debug."""
+    try:
+        src = p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return (0,0,0,0,0,0)
+    src, nfut = fix_future_concat(src)
+    src, ndash = normalize_utf_dashes(src)
+    lines = src.splitlines(True)
+    nclose = 0
+    if p.name in ("patch_ch09_header_v8.py","patch_ch09_header_v9.py","one_fix_fig04_cli_seed.py"):
+        nclose = close_broken_future_string(lines)
+    lines, ntry, nrm, _nf = patch_try_except(lines)
+    ndefs = add_pass_after_bare_defs(lines)
+    nret  = comment_top_level_returns(lines)
+
+    if any([nfut, ntry, nrm, ndefs, nret, ndash, nclose]):
+        bak = p.with_suffix(p.suffix + f".bak.{TS}")
+        try: bak.write_text(p.read_text(encoding="utf-8", errors="ignore"), encoding="utf-8")
+        except Exception: pass
+        p.write_text("".join(lines), encoding="utf-8")
+    return (ntry, nrm, nfut, ndefs, nret, ndash+nclose)
+
+def move_helpers():
+    moved=0
+    for name in HELPERS:
+        src = ROOT / name
+        if src.exists():
+            dst = ATTIC / name
+            try:
+                src.replace(dst)
+                moved+=1
+            except Exception:
+                pass
+    print(f"[hotpatch] helpers_moved={moved} -> {rel(ATTIC)}")
+
+def main():
+    move_helpers()
+    stats = dict(nfiles=0, ntry=0, nrm=0, nfut=0, ndefs=0, nret=0, nminor=0)
+    for p in ROOT.rglob("*.py"):
+        if not p.is_file(): continue
+        if in_excluded(p): continue
+        if not allowed(p): continue
+        stats["nfiles"] += 1
+        a,b,c,d,e,f = process_file(p)
+        stats["ntry"]  += a
+        stats["nrm"]   += b
+        stats["nfut"]  += c
+        stats["ndefs"] += d
+        stats["nret"]  += e
+        stats["nminor"]+= f
+    print("[hotpatch] scanned={nfiles}, try2with={ntry}, rm_handlers={nrm}, future_fixed={nfut}, add_pass={ndefs}, top_return_commented={nret}, other_minor={nminor}".format(**stats))
+
+if __name__=="__main__":
+    main()

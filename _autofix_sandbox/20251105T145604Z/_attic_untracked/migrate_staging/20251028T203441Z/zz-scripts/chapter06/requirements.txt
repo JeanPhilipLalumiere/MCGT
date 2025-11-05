@@ -1,0 +1,118 @@
+# Exigences pour le Chapitre 6 (Rayonnement CMB)
+
+1. **Environnement système**
+
+   * Système : Ubuntu 20.04 (WSL ou natif) ou équivalent Linux
+   * Espace disque : ≥ 1 Go libre
+
+2. **Environnement Python**
+
+   * Python ≥ 3.9
+   * Créer et activer un environnement virtuel dédié :
+
+     ```
+     cd ~/MCGT
+     python3 -m venv venv6
+     source venv6/bin/activate
+     ```
+   * Installer les dépendances :
+
+     ```
+     pip install --upgrade pip
+     pip install numpy pandas scipy matplotlib camb contextlib2
+     ```
+
+3. **Données brutes & scripts d’extraction**
+
+   * **Expansion plateau**
+     – Génération du fichier `pdot_plateau_z.dat` (H(z)/H₀) via :
+
+     ```bash
+     zz-scripts/chapter06/generate_pdot_plateau_z.py
+     ```
+
+     – Résultat → `zz-config/pdot_plateau_z.dat`
+   * **Configuration CAMB**
+     – Fichier principal : `06-cmb-radiation/camb_plateau_exact.ini`
+     – Likelihoods Planck 2018 dans `06-cmb-radiation/`
+
+4. **Structure du dépôt**
+
+```
+MCGT/
+├─ 06-cmb-radiation/            # .ini, likelihoods, guide LaTeX
+├─ zz-config/                   # pdot_plateau_z.dat
+├─ zz-data/chapter06/           # .dat, .csv, .json produits
+├─ zz-scripts/chapter06/        # generate_*.py, plot_*.py
+├─ zz-figures/chapter06/        # .png générés
+└─ venv6/                       # environnement virtuel Python
+```
+
+5. **Exécution du pipeline**
+
+   1. Activez l’environnement Python :
+
+      ```bash
+      source venv6/bin/activate
+      ```
+   2. Générer l’expansion plateau :
+
+      ```bash
+      python zz-scripts/chapter06/generate_pdot_plateau_z.py
+      ```
+   3. Lancer CAMB pour spectres ΛCDM et MCGT :
+
+      ```bash
+      camb 06-cmb-radiation/camb_plateau_exact.ini \
+           output_root=mcgt_spectrum \
+           expansion_rate_file=zz-config/pdot_plateau_z.dat
+      ```
+   4. Pipeline complet de données :
+
+      ```bash
+      python zz-scripts/chapter06/generate_chapter06_data.py \
+           --alpha 0.10 --q0star -0.005 [--export-derivative]
+      ```
+   5. Tracer les figures :
+
+      ```bash
+      python zz-scripts/chapter06/plot_fig01_data_flow_cmb.py
+      python zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+      python zz-scripts/chapter06/plot_fig03_delta_cls_rel.py
+      python zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
+      python zz-scripts/chapter06/plot_fig05_heatmap_delta_chi2.py
+      ```
+
+6. **Compilation LaTeX**
+
+   ```bash
+   cd 06-cmb-radiation/
+   pdflatex -interaction=nonstopmode 06_cmb_conceptuel.tex
+   pdflatex -interaction=nonstopmode 06_cmb_details.tex
+   ```
+
+7. **Tests & validations**
+
+Vérifier présence et taille non nulle de :
+
+```
+zz-data/chapter06/06_cls_lcdm_spectrum.dat
+zz-data/chapter06/06_cls_spectrum.dat
+zz-data/chapter06/06_delta_cls.csv
+zz-data/chapter06/06_delta_cls_relative.csv
+zz-data/chapter06/06_delta_rs_scan.csv
+zz-data/chapter06/06_delta_rs_scan2D.csv
+zz-data/chapter06/06_cmb_chi2_scan2D.csv
+zz-data/chapter06/06_delta_Tm_scan.csv
+zz-data/chapter06/06_params_cmb.json
+```
+
+* S’assurer qu’il n’y a pas de `NaN` ou `Inf` dans les CSV
+
+* Vérifier :
+
+  * `max|ΔCℓ/Cℓ| < 10 %` (et `< 1 %` pour jalons primaires)
+  * `chi2 ≥ 0` partout
+  * Seuils sauvegardés `primary < 0.01`, `order2 < 0.10` dans `06_params_cmb.json`
+
+* Contrôle visuel de chaque figure PNG dans `zz-figures/chapter06/`

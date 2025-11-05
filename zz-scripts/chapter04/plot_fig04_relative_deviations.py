@@ -145,6 +145,8 @@ try:
     _here = os.path.abspath(os.path.dirname(__file__))
 except Exception:
     pass
+except Exception:
+    pass
 
 
 if __name__ == "__main__":

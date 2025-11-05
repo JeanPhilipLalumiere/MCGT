@@ -209,6 +209,8 @@ df = ci.ensure_fig02_cols(df)
         mark_inset(ax, inset_ax, loc1=2, loc2=4, fc="none", ec="0.5", lw=0.8)
     except Exception:
         pass
+    except Exception:
+        pass
 
     ax.set_title("Distribution de p95_20_300 (MC global)", fontsize=15)
 

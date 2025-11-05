@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "required_flags": [ "--dpi", "--fmt", "--outdir" ],
+  "recommended_flags": [ "--style", "--seed" ],
+  "allow_transparent": true,
+  "fmt_choices": ["png","pdf","svg"]
+}

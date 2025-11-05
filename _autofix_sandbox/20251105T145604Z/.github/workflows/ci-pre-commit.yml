@@ -1,0 +1,49 @@
+name: ci-pre-commit
+run-name: "pre-commit • ${{ github.event_name }} • ${{ github.ref_name }}"
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - '.ci-logs/**'
+      - '.ci-archive/**'
+
+concurrency:
+  group: ci-pre-commit-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install --upgrade pip -c constraints/security-pins.txt
+          pip install pre-commit -c constraints/security-pins.txt
+
+      - name: Show versions
+        run: |
+          python --version
+          pre-commit --version
+
+      - name: Validate config
+        run: |
+          pre-commit validate-config
+          pre-commit validate-manifest
+
+      - name: Run pre-commit (all files)
+        run: |
+          # pas de -f ici (non supporté) ; --all-files = -a
+          pre-commit run --all-files --show-diff-on-failure

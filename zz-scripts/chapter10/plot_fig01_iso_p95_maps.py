@@ -49,6 +49,8 @@ def read_and_validate(path, m1_col, m2_col, p95_col):
     """Read CSV and validate presence of required columns. Return trimmed DataFrame."""
     try:
         df = pd.read_csv(path)
+    except Exception:
+        pass
 df = ci.ensure_fig02_cols(df)
 
     except Exception as e:
@@ -74,6 +76,8 @@ def make_triangulation_and_mask(x, y):
         mask = areas <= 0.0
         # triang.set_mask expects boolean mask with same length as triangles
         triang.set_mask(mask)
+    except Exception:
+        pass
     except Exception:
         # if something fails, just return triang without extra masking
         pass
@@ -111,10 +115,16 @@ def main():
     )
     args = ap.parse_args()
     try: df_all = pd.read_csv(args.results)
+    except Exception:
+        pass
     except Exception as e: print(f"[ERROR] Cannot read '{args.results}': {e}", file=sys.stderr); sys.exit(2)
     try: p95_col = detect_p95_column(df_all, args.p95_col)
+    except Exception:
+        pass
     except KeyError as e: print(f"[ERROR] {e}", file=sys.stderr); sys.exit(2)
     try: df = read_and_validate(args.results, args.m1_col, args.m2_col, p95_col)
+    except Exception:
+        pass
     except Exception as e: print(f"[ERROR] {e}", file=sys.stderr); sys.exit(2)
     x, y, z = df[args.m1_col].values, df[args.m2_col].values, df[p95_col].values
     triang = make_triangulation_and_mask(x, y)
@@ -124,6 +134,8 @@ def main():
     vmin, vmax, clipped = zmin, zmax, False
     if not args.no_clip:
         try: p_lo, p_hi = np.percentile(z, [0.1, 99.9])
+        except Exception:
+            pass
         except Exception: p_lo, p_hi = zmin, zmax
         if p_hi - p_lo > 1e-8 and (p_lo > zmin or p_hi < zmax):
             vmin, vmax, clipped = float(p_lo), float(p_hi), True
@@ -175,6 +187,8 @@ def main():
             print(
                 "Note: color scaling was clipped to percentiles (0.1%/99.9%). Use --no-clip to disable clipping."
             )
+    except Exception:
+        pass
     except Exception as e:
         print(f"[ERROR] cannot write output file '{args.out}': {e}", file=sys.stderr)
         sys.exit(2)

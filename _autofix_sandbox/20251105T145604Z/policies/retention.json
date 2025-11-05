@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "ci_artifacts_days": 14,
+  "large_logs_max_mib": 50,
+  "purge_paths": [ ".ci-logs/_extracted" ],
+  "git_lfs": false
+}

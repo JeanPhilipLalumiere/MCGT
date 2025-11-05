@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/02_optimal_parameters.schema.json",
+  "title": "Paramètres optimaux — Chapitre 02",
+  "description": "Schéma JSON pour le fichier 02_optimal_parameters.json (découpage temporel, segments low/high, seuils, epsilons).",
+  "type": "object",
+  "$defs": {
+    "segmentParams": {
+      "type": "object",
+      "description": "Paramètres logistiques pour un segment temporel.",
+      "properties": {
+        "alpha0": {
+          "type": "number"
+        },
+        "alpha_inf": {
+          "type": "number"
+        },
+        "Tc": {
+          "type": "number",
+          "minimum": 0
+        },
+        "Delta": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "Tp": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "alpha0",
+        "alpha_inf",
+        "Tc",
+        "Delta",
+        "Tp"
+      ],
+      "additionalProperties": false
+    },
+    "thresholdPair": {
+      "type": "object",
+      "description": "Seuils de classification (primaire / ordre2).",
+      "properties": {
+        "primary": {
+          "type": "number",
+          "minimum": 0
+        },
+        "order2": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "primary",
+        "order2"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "T_split_Gyr": {
+      "description": "Temps de séparation entre segments (en Gyr).",
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "segments": {
+      "description": "Paramètres distincts pour les segments 'low' et 'high'.",
+      "type": "object",
+      "properties": {
+        "low": {
+          "$ref": "#/$defs/segmentParams"
+        },
+        "high": {
+          "$ref": "#/$defs/segmentParams"
+        }
+      },
+      "required": [
+        "low",
+        "high"
+      ],
+      "additionalProperties": false
+    },
+    "thresholds": {
+      "$ref": "#/$defs/thresholdPair"
+    },
+    "max_epsilon_primary": {
+      "description": "Epsilon maximal observé pour la classe primaire.",
+      "type": "number",
+      "minimum": 0
+    },
+    "max_epsilon_order2": {
+      "description": "Epsilon maximal observé pour la classe d'ordre2.",
+      "type": "number",
+      "minimum": 0
+    },
+    "provenance": {
+      "description": "Provenance (script, version, commande).",
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Ex.: zz-scripts/chapter2/generate_chapter2_data.py"
+        },
+        "version": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "description": "Notes optionnelles ou commentaires d'auteur.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "T_split_Gyr",
+    "segments",
+    "thresholds"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "T_split_Gyr": 0.15,
+      "segments": {
+        "low": {
+          "alpha0": 0.257717,
+          "alpha_inf": 0.999996,
+          "Tc": 0.20012,
+          "Delta": 0.018769,
+          "Tp": 0.243819
+        },
+        "high": {
+          "alpha0": 0.271173,
+          "alpha_inf": 1.006884,
+          "Tc": 0.195135,
+          "Delta": 0.011616,
+          "Tp": 0.220424
+        }
+      },
+      "thresholds": {
+        "primary": 0.01,
+        "order2": 0.1
+      },
+      "max_epsilon_primary": 0.000021947570587947003,
+      "max_epsilon_order2": 0.07194300543935292,
+      "provenance": {
+        "script": "zz-scripts/chapter2/generate_chapter2_data.py",
+        "version": "chap2-pipeline-1.2.0",
+        "command": "python3 zz-scripts/chapter2/generate_chapter2_data.py --recompute"
+      }
+    }
+  ]
+}

@@ -105,6 +105,8 @@ def load_meta(meta_path: Path):
     try:
         return json.loads(meta_path.read_text())
     except Exception:
+        pass
+    except Exception:
         return {}
 
 

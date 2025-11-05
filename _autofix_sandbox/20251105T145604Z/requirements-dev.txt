@@ -1,0 +1,7 @@
+# --- MCGT dev/test toolchain ---
+jsonschema>=4.22
+pandas>=2.0
+pytest>=7.4
+pytest-cov>=4.1
+build>=1.2
+twine>=5.1

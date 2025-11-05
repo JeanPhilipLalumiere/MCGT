@@ -1,0 +1,174 @@
+# mcgt_round11_preamble_wrap_fix_blocks.py
+python3 - <<'PY'
+from __future__ import annotations
+from pathlib import Path
+import re, time
+
+ROOT = Path.cwd()
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+TARGETS = [
+    "zz-scripts/_common/cli.py",
+    "zz-scripts/chapter02/generate_data_chapter02.py",
+    "zz-scripts/chapter06/generate_data_chapter06.py",
+    "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+    "zz-scripts/chapter07/plot_fig06_comparison.py",
+    "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
+    "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+    "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+    "zz-scripts/chapter10/add_phi_at_fpeak.py",
+    "zz-scripts/chapter10/check_metrics_consistency.py",
+    "zz-scripts/chapter10/diag_phi_fpeak.py",
+    "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+    "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+    "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+    "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+    "zz-scripts/chapter10/plot_fig06_residual_map.py",
+    "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+    "zz-scripts/chapter10/recompute_p95_circular.py",
+    "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+]
+
+RE_CODE_START = re.compile(r'^\s*(?:from\b|import\b|def\b|class\b|@|if\s+__name__\s*==|try:|for\s|while\s|with\s|\w+\s*=\s*[^=])')
+RE_BLOCK_HDR  = re.compile(r'^\s*(?:def|class|if|elif|else|for|while|with|try|except\b.*|finally)\b.*:\s*(?:#.*)?$')
+RE_ONLY_WS    = re.compile(r'^\s*$')
+RE_TRIPLE     = re.compile(r'("""|\'\'\')')
+RE_TEXTY      = re.compile(r'^\s*(?:--\w+|Figure\b|Fig\.\b|Carte\b|Vérification rapide\b|Génère\b|Comparaison\b|- |\u2022 )')
+RE_NONASCII   = re.compile(r'[^\x00-\x7F]')  # pour repérer du texte FR hors code
+RE_BAD_BULLET = re.compile(r'[\u2022\u2013\u2014]')  # • – —
+
+def read(p:Path)->str: return p.read_text(encoding="utf-8", errors="ignore")
+def write(p:Path,s:str): p.write_text(s, encoding="utf-8")
+def backup(p:Path,s:str): (p.parent / (p.name+f".r11.{TS}.bak")).write_text(s, encoding="utf-8")
+
+def norm(s:str)->str:
+    return (s.replace("\r\n","\n").replace("\r","\n")
+             .replace("\u00A0"," ")
+             .replace("\u00D7","x")
+             .replace("\u00B1","+/-")
+           )
+
+def find_first_code_idx(lines:list[str])->int:
+    for i,s in enumerate(lines):
+        if s.lstrip().startswith("#"): continue
+        if RE_TRIPLE.search(s): break  # si docstring ouvre de suite, on s'arrête avant
+        if RE_CODE_START.match(s): return i
+        if s.strip():  # ligne non vide et non code => on continue pour voir s'il y a un bloc de préambule
+            continue
+    # si on a rencontré un triple quote en tête, laissons tel quel
+    for i,s in enumerate(lines):
+        if RE_CODE_START.match(s): return i
+    return len(lines)
+
+def wrap_preamble(lines:list[str])->int:
+    """Enveloppe tout le préambule textuel dans une docstring."""
+    i = find_first_code_idx(lines)
+    pre = lines[:i]
+    if not any((x.strip() and not x.lstrip().startswith("#")) for x in pre):
+        return 0  # rien à emballer
+    blob = "".join(pre)
+    # choisir guillemets sûrs
+    if '"""' not in blob:
+        q = '"""'
+    elif "'''" not in blob:
+        q = "'''"
+    else:
+        # cas extrême: commenter ligne par ligne
+        for k in range(i):
+            if not lines[k].lstrip().startswith("#"):
+                lines[k] = "# " + lines[k]
+        return len(pre)
+    new = [q+"\n", blob, q+"\n"]
+    lines[:i] = new
+    return 1
+
+def comment_text_outside_docstring(lines:list[str])->int:
+    """Commente toute ligne texte/usage hors docstring ET hors code."""
+    n=0
+    in_trip=False; q=None
+    for idx,s in enumerate(lines):
+        # toggle docstring
+        for qq in ('"""',"'''"):
+            if s.count(qq) % 2 == 1:
+                if not in_trip: in_trip=True; q=qq
+                else:
+                    if q==qq: in_trip=False; q=None
+        if in_trip: continue
+        if s.lstrip().startswith("#") or RE_ONLY_WS.match(s): continue
+        st = s.lstrip()
+        # si c'est du code, ne pas toucher
+        if RE_CODE_START.match(s): continue
+        # si bullet/texte/FR non-ascii → commenter
+        if RE_TEXTY.match(st) or RE_NONASCII.search(st):
+            lines[idx] = "# " + st
+            n += 1
+    return n
+
+def ensure_block_bodies(lines:list[str])->int:
+    """Ajoute un 'pass' si un en-tête de bloc n'a pas de suite indentée."""
+    n=0
+    def indent_of(t:str)->int: return len(t) - len(t.lstrip(" "))
+    i=0; L=len(lines)
+    while i<L:
+        s=lines[i]
+        if RE_BLOCK_HDR.match(s):
+            base = indent_of(s)
+            j=i+1
+            # sauter vides/commentaires
+            while j<L and (RE_ONLY_WS.match(lines[j]) or lines[j].lstrip().startswith("#")):
+                j+=1
+            if j>=L or (len(lines[j]) - len(lines[j].lstrip(" ")) <= base):
+                lines.insert(j, " "*(base+4)+"pass\n"); n+=1; L+=1; i=j+1; continue
+        i+=1
+    return n
+
+def fix_cli_top_indent(lines:list[str])->int:
+    """Assainit l'indent en tête de _common/cli.py (les 20 premières lignes)."""
+    n=0
+    for k in range(min(20, len(lines))):
+        s=lines[k]
+        if s.startswith(" "):
+            lines[k]=s.lstrip()
+            if lines[k]!=s: n+=1
+    return n
+
+def sanitize_bullets(lines:list[str])->int:
+    n=0
+    for i,s in enumerate(lines):
+        ns = RE_BAD_BULLET.sub("- ", s)
+        if ns!=s: lines[i]=ns; n+=1
+    return n
+
+changed=0
+for rel in TARGETS:
+    p = ROOT/rel
+    if not p.exists(): 
+        print(f"[ECHO] skip missing: {rel}")
+        continue
+    src = norm(read(p)); bak = src
+    lines = src.splitlines(True)
+
+    b1 = sanitize_bullets(lines)
+    w1 = wrap_preamble(lines)
+    c1 = comment_text_outside_docstring(lines)
+    b2 = ensure_block_bodies(lines)
+    tfi = 0
+    if rel.endswith("_common/cli.py") or rel.endswith("/_common/cli.py"):
+        tfi = fix_cli_top_indent(lines)
+
+    new = "".join(lines)
+    if new != bak:
+        backup(p, bak)
+        write(p, new)
+        changed += 1
+        print(f"[ECHO] patched {rel}  | bullets={b1}, preamble_wrapped={w1}, text_commented={c1}, block_pass={b2}, topfix={tfi}")
+    else:
+        print(f"[ECHO] nochange {rel}")
+
+print(f"[ECHO] Round11 done. files_changed={changed}")
+PY
+
+# SONDAGE/ECHO post-patch + re-vérification
+bash mcgt_verify_repo_round3.sh
+

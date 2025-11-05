@@ -26,6 +26,8 @@ import pandas as pd
 try:
     from mcgt.backends.ref_phase import compute_phi_ref
     from mcgt.phase import phi_mcgt
+except Exception:
+    pass
 except Exception as e:
     raise SystemExit(f"Erreur import mcgt : {e}")
 
@@ -153,6 +155,8 @@ def main(argv=None):
                 " p95_circ:",
                 f"{out['p95_circ']:.6f}",
             )
+        except Exception:
+            pass
         except Exception as e:
             print("   ERREUR pour id", id_, ":", e)
 

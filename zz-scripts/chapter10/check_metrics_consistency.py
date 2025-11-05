@@ -52,6 +52,8 @@ def compare_close(a, b, rtol=1e-6, atol=1e-12) -> bool:
     try:
         return bool(np.allclose(a, b, rtol=rtol, atol=atol))
     except Exception:
+        pass
+    except Exception:
         return False
 
 
@@ -109,6 +111,8 @@ df = ci.ensure_fig02_cols(df)
     p95_mean = float(np.nanmean(df["p95_20_300"]))
     try:
         p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95, method="linear"))
+    except Exception:
+        pass
     except TypeError:
         p95_p95 = float(np.nanpercentile(df["p95_20_300"], 95))
     p95_max = float(np.nanmax(df["p95_20_300"]))

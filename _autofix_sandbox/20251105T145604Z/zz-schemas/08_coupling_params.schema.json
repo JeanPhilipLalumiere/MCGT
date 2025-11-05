@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/08_coupling_params.schema.json",
+  "title": "Coupling parameters (Chapter 08)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "thresholds",
+    "max_epsilon_primary",
+    "max_epsilon_order2",
+    "param2_min",
+    "param2_max",
+    "n_param2"
+  ],
+  "properties": {
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary",
+        "order2"
+      ],
+      "properties": {
+        "primary": {
+          "type": "number",
+          "minimum": 0
+        },
+        "order2": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "max_epsilon_primary": {
+      "type": "number",
+      "minimum": 0
+    },
+    "max_epsilon_order2": {
+      "type": "number",
+      "minimum": 0
+    },
+    "param2_min": {
+      "type": "number"
+    },
+    "param2_max": {
+      "type": "number"
+    },
+    "n_param2": {
+      "type": "integer",
+      "minimum": 2
+    }
+  },
+  "description": "Note: la contrainte param2_max > param2_min n'est pas exprimée ici (cross-field); elle reste à la charge des scripts.",
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "param2_min",
+          "param2_max"
+        ],
+        "properties": {
+          "param2_min": {
+            "type": "number"
+          },
+          "param2_max": {
+            "type": "number"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "param2_max": {
+            "exclusiveMinimum": {
+              "$data": "1/param2_min"
+            }
+          }
+        }
+      },
+      "$comment": "cross: param2_max > param2_min ($data)"
+    }
+  ]
+}

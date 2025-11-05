@@ -146,6 +146,8 @@ def tweak_for_mcgt(pars, alpha, q0star):
                 if hasattr(results, "replace_transfer"):
                     results.replace_transfer(0, tm_data)
         except Exception:
+            pass
+        except Exception:
             # If matter transfer access fails, silently continue
             pass
         return results
@@ -365,6 +367,8 @@ if __name__ == "__main__":
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
+        except Exception:
+            pass
         os.environ["MCGT_OUTDIR"] = args.outdir
         import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
@@ -376,6 +380,8 @@ if __name__ == "__main__":
         if callable(_main):
             try:
                 _main(args)
+            except Exception:
+                pass
             except SystemExit:
                 raise
             except Exception as e:

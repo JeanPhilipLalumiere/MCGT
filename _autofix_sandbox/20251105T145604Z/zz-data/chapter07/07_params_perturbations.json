@@ -1,0 +1,20 @@
+{
+  "cs2_param": 0.0,
+  "delta_phi_param": 0.0,
+  "k_min": 0.0001,
+  "k_max": 0.5,
+  "dlog": 0.01,
+  "n_k": 128,
+  "a_min": 1e-06,
+  "a_max": 1.0,
+  "n_a": 64,
+  "derivative_window": 5,
+  "derivative_polyorder": 3,
+  "thresholds": {
+    "primary": 0.1,
+    "order2": 0.05
+  },
+  "x_split": 0.1,
+  "k0": 0.05,
+  "alpha": 0.0
+}

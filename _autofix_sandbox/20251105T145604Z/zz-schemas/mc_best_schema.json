@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "zz-schemas/mc_best_schema.json",
+  "title": "Top-k résultats Monte Carlo (chap.10)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "top_k"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "generated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "B": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "lambda_penalty": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "n_ok": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "n_failed": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "n_total": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "pctl_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resid_dir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "seed": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "source_jalons": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_results": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "window": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "top_k": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "m1",
+          "m2",
+          "alpha",
+          "q0star",
+          "p95_20_300",
+          "model",
+          "n_20_300",
+          "score"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "k": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "m1": {
+            "type": "number"
+          },
+          "m2": {
+            "type": "number"
+          },
+          "q0star": {
+            "type": "number"
+          },
+          "alpha": {
+            "type": "number"
+          },
+          "phi0": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "tc": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "model": {
+            "type": "string"
+          },
+          "mean_20_300": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "p95_20_300": {
+            "type": "number"
+          },
+          "max_20_300": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "n_20_300": {
+            "type": "integer"
+          },
+          "n_points_resid": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "penalty_mean": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "score": {
+            "type": "number"
+          },
+          "p95_boot_median": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "p95_ci": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      }
+    }
+  }
+}

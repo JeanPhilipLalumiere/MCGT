@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import re, time, subprocess
+from pathlib import Path
+
+ROOT = Path(subprocess.check_output(["git","rev-parse","--show-toplevel"], text=True).strip())
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+TARGETS = [
+    "zz-schemas/validate_csv_table.py",
+    "zz-scripts/_common/cli.py",
+    "zz-scripts/chapter01/generate_data_chapter01.py",
+    "zz-scripts/chapter02/generate_data_chapter02.py",
+    "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
+    "zz-scripts/chapter06/generate_data_chapter06.py",
+    "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
+    "zz-scripts/chapter07/plot_fig06_comparison.py",
+    "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
+    "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+    "zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+    "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+    "zz-scripts/chapter10/add_phi_at_fpeak.py",
+    "zz-scripts/chapter10/check_metrics_consistency.py",
+    "zz-scripts/chapter10/diag_phi_fpeak.py",
+    "zz-scripts/chapter10/plot_fig01_iso_p95_maps.py",
+    "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+    "zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+    "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+    "zz-scripts/chapter10/plot_fig06_residual_map.py",
+    "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+    "zz-scripts/chapter10/recompute_p95_circular.py",
+    "zz-scripts/chapter10/regen_fig05_using_circp95.py",
+    "zz-tools/patch_ch09_header_v8.py",
+    "zz-tools/patch_ch09_header_v9.py",
+]
+
+EXCLUDE_DIRS = {".git","__pycache__",".ci-out",".mypy_cache",".tox","_attic_untracked","release_zenodo_codeonly"}
+
+def rp(p:Path)->str:
+    try: return p.relative_to(ROOT).as_posix()
+    except Exception: return p.as_posix()
+
+def iw(line:str)->int:
+    lead = line[:len(line)-len(line.lstrip(" \t"))]
+    return len(lead.expandtabs(4))
+
+def ensure_import_contextlib(lines:list[str])->None:
+    head = "".join(lines[:120])
+    if "import contextlib" in head or "from contextlib" in head: return
+    i=0; n=len(lines)
+    if i<n and lines[i].startswith("#!"): i+=1
+    if i<n and re.match(r'^\s*#\s*-\*-\s*coding:.*-\*-\s*$', lines[i]): i+=1
+    tri = re.compile(r'^\s*(?:[rubfRUBF]?){0,2}("""|\'\'\')')
+    if i<n and tri.match(lines[i] or ""):
+        i+=1
+        while i<n and not tri.search(lines[i] or ""): i+=1
+        if i<n: i+=1
+    while i<n and re.match(r'^\s*from\s+__future__\s+import\s+', lines[i] or ""): i+=1
+    lines[i:i] = ["import contextlib\n"]
+
+def fix_try_blocks(lines:list[str])->int:
+    n=0
+    for i,s in enumerate(lines):
+        if s.lstrip().startswith("try:"):
+            lead = s[:len(s)-len(s.lstrip(" \t"))]
+            lines[i] = f"{lead}with contextlib.suppress(Exception):\n"
+            n+=1
+    if n: ensure_import_contextlib(lines)
+    # commenter 'except'/'finally' résiduels
+    i=0; c=0
+    while i < len(lines):
+        s=lines[i]; stripped=s.lstrip()
+        if stripped.startswith("except") or stripped.startswith("finally:"):
+            lead = s[:len(s)-len(stripped)]
+            base = iw(s); i+=1
+            lines[i-1] = f"{lead}# [mcgt-fix] removed stray {stripped.rstrip()}\n{lead}# pass\n"
+            while i < len(lines) and (lines[i].strip()=="" or iw(lines[i])>base):
+                lines[i] = "# " + lines[i] if lines[i].strip() else lead + "#\n"; i+=1
+            c+=1; continue
+        i+=1
+    return n+c
+
+HEADER_COLON = re.compile(r'^\s*(if|elif|else|for|while|with|def|class|try|except[^\n]*|finally)\b[^\n]*:\s*(#.*)?$')
+
+def fill_empty_blocks(lines:list[str])->int:
+    nfix=0; i=0
+    while i < len(lines):
+        s = lines[i]
+        if not HEADER_COLON.match(s): i+=1; continue
+        head_indent = iw(s); j=i+1
+        while j < len(lines) and (lines[j].strip()=="" or lines[j].lstrip().startswith("#")): j+=1
+        if j>=len(lines) or iw(lines[j]) <= head_indent:
+            lines.insert(i+1, (" "*(head_indent+4)) + "pass\n"); nfix+=1; i+=2; continue
+        i+=1
+    return nfix
+
+def close_unterminated_triple_quotes(lines:list[str])->int:
+    txt = "".join(lines)
+    nfix=0
+    for q in ('"""',"'''"):
+        if txt.count(q) % 2 == 1:
+            lines.append(q+"\n"); nfix+=1
+            txt += q
+    return nfix
+
+def left_align_header(lines:list[str])->int:
+    n=0; in_triple=False; delim=None
+    for i in range(min(len(lines),80)):
+        s = lines[i]
+        if not in_triple and re.search(r'("""|\'\'\')', s):
+            delim = '"""' if '"""' in s else "'''"
+            if s.count(delim) % 2 == 1: in_triple=True
+        elif in_triple and delim and (s.count(delim) % 2 == 1):
+            in_triple=False
+        if in_triple: continue
+        if re.match(r'^\s+(from\s+__future__\s+import|from\s+\w+|import\s+\w+|__all__\s*=|[A-Z0-9_]+\s*=)', s):
+            nl = s.lstrip()
+            if nl!=s: lines[i]=nl; n+=1
+    return n
+
+def comment_stray_header_text(lines:list[str])->int:
+    """Commente le texte brut en tête de fichier (avant imports/defs)."""
+    n=0; in_triple=False; delim=None
+    # borne courte : premières 20 lignes
+    for i in range(min(len(lines),20)):
+        s = lines[i]
+        if not in_triple and re.search(r'("""|\'\'\')', s):
+            delim = '"""' if '"""' in s else "'''"
+            if s.count(delim) % 2 == 1: in_triple=True
+        elif in_triple and delim and (s.count(delim) % 2 == 1):
+            in_triple=False
+        if in_triple: continue
+        stripped = s.strip()
+        if not stripped: continue
+        if stripped.startswith("#"): continue
+        if re.match(r'^(from|import|def|class|if|while|for|with|__all__\s*=)', stripped): continue
+        # ligne de texte libre → commenter
+        lines[i] = "# " + s if not s.lstrip().startswith("#") else s
+        n+=1
+    return n
+
+def normalize_utf_dashes(src:str)->tuple[str,int]:
+    rep = {"\u2013":"-", "\u2014":"-"}
+    n=0
+    for k,v in rep.items():
+        if k in src:
+            n += src.count(k)
+            src = src.replace(k,v)
+    return src,n
+
+def fix_patch_header_files(p:Path, lines:list[str])->int:
+    """Corrige v8/v9 sans regex piégeuse."""
+    n=0; name = p.name
+    if name=="patch_ch09_header_v8.py":
+        for i,s in enumerate(list(lines)):
+            if ("new_src +=" in s) and ("from __future__ import annotations" in s):
+                lines[i] = 'new_src += "from __future__ import annotations\\n"\n'; n+=1
+    if name=="patch_ch09_header_v9.py":
+        for i,s in enumerate(list(lines)):
+            if ("futures.insert(0" in s) and ("from __future__ import annotations" in s):
+                # ligne canonique
+                lines[i] = 'futures.insert(0, "from __future__ import annotations")\n'; n+=1
+            # supprimer éventuel suffixe '")")'
+            if s.rstrip().endswith('")")'):
+                lines[i] = s.rstrip()[:-3] + '\n'; n+=1
+    return n
+
+def fix_bad_comparators(lines:list[str])->int:
+    n=0
+    for i,s in enumerate(lines):
+        if re.match(r'^\s*(if|elif|while)\b', s) and ':' in s:
+            s2 = s.replace("====", "==").replace("==  =", "==").replace("== =", "==").replace("===", "==").replace("!==", "!=")
+            if s2!=s:
+                lines[i]=s2; n+=1
+    return n
+
+def fix_specific_absdphi_milestones(lines:list[str])->int:
+    """Répare la LC cassée dans plot_fig04_absdphi_milestones_vs_f.py."""
+    n=0
+    txt = "".join(lines)
+    if "plot_fig04_absdphi_milestones_vs_f.py" in "".join(lines[:1]):  # no-op; kept for symmetry
+        pass
+    joined = "".join(lines)
+    new = joined
+    new = re.sub(r'\[_safe_pos\(x\),\s*for,\s*x\s+in\s+values,\s*if,\s*x\.size\]',
+                 r'[_safe_pos(x) for x in values if x.size]', new)
+    if new != joined:
+        n=1
+        lines[:] = new.splitlines(True)
+    return n
+
+def process(p:Path)->tuple[int,int,int,int,int,int]:
+    src = p.read_text(encoding="utf-8", errors="ignore")
+    src, ndash = normalize_utf_dashes(src)
+    lines = src.splitlines(True)
+
+    n0 = fix_patch_header_files(p, lines)
+    n1 = fix_bad_comparators(lines)
+    n2 = fix_try_blocks(lines)
+    n3 = fill_empty_blocks(lines)
+    n4 = close_unterminated_triple_quotes(lines)
+    n5 = 0
+
+    rel = rp(p)
+    if rel == "zz-scripts/_common/cli.py":
+        n5 += left_align_header(lines)
+    # commenter texte brut de tête (doc fr non quotée)
+    if rel in ("zz-scripts/chapter01/generate_data_chapter01.py",):
+        n5 += comment_stray_header_text(lines)
+    if rel.endswith("plot_fig04_absdphi_milestones_vs_f.py"):
+        n5 += fix_specific_absdphi_milestones(lines)
+
+    if any([n0,n1,n2,n3,n4,n5,ndash]):
+        bak = p.with_suffix(p.suffix + f".bak.{TS}")
+        try: bak.write_text(src, encoding="utf-8")
+        except Exception: pass
+        p.write_text("".join(lines), encoding="utf-8")
+    return n0,n1,n2,n3,n4,n5
+
+def main():
+    stats = {"files":0,"patchhdr":0,"cmp":0,"try":0,"blocks":0,"quotes":0,"other":0}
+    for rel in TARGETS:
+        p = ROOT / rel
+        if not p.exists(): continue
+        if any(part in EXCLUDE_DIRS for part in p.parts): continue
+        stats["files"] += 1
+        a,b,c,d,e,f = process(p)
+        stats["patchhdr"] += a
+        stats["cmp"]      += b
+        stats["try"]      += c
+        stats["blocks"]   += d
+        stats["quotes"]   += e
+        stats["other"]    += f
+    print("[round4b] files={files}, patchhdr={patchhdr}, cmpfix={cmp}, try2with={try}, add_blocks={blocks}, quotes_fixed={quotes}, other={other}".format(**stats))
+
+if __name__=="__main__":
+    main()

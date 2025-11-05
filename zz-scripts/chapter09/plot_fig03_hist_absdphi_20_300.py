@@ -301,6 +301,8 @@ return float(np.percentile(a, 95.0)) if a.size else np.nan
                     f"Grille: [{int(grid.get('fmin_Hz', fmin))}-{int(grid.get('fmax_Hz', fmax))}] Hz, "
                     f"dlog10={grid.get('dlog10', '?')}"
                 )
+        except Exception:
+            pass
         except Exception as e:
             cal_lines.append(f"(meta illisible: {e})")
     else:

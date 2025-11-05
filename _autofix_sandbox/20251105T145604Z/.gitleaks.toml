@@ -1,0 +1,9 @@
+title = "Allowlist ciblée pour archives & backups"
+
+[allowlist]
+paths = [
+  '''^\.ci-archive/''',
+  '''^_tmp/''',
+  '''^backups/'''
+]
+# N'ajoutez PAS de regex globales permissives. Limitez-vous aux dossiers d'archives.

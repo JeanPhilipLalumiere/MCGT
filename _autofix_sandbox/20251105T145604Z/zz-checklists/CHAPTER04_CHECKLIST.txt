@@ -1,0 +1,106 @@
+CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
+
+[OBJECTIF & PORTÉE]
+- [ ] Ce checklist couvre la production des données/figures et l’intégration LaTeX pour le Chapitre 4 (Invariants adimensionnels).
+- [ ] Harmoniser noms de fichiers (EN), formats (CSV/DAT/PNG), grilles et styles avec les chapitres 1–3.
+
+[PRÉ-REQUIS LOGICIELS]
+- [ ] Python ≥ 3.10 avec numpy, pandas, scipy, matplotlib.
+- [ ] LaTeX/pdflatex (amsmath, graphicx, siunitx, booktabs, hyperref).
+- [ ] (Optionnel) make pour automatiser.
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (04-invariants-adimensionnels/):
+      • 04_invariants_adimensionnels_conceptuel.tex
+      • 04_invariants_adimensionnels_details.tex
+- [ ] Données (zz-data/chapter04/):
+      • 04_P_vs_T.dat
+      • 04_dimensionless_invariants.csv
+- [ ] Figures (zz-figures/chapter04/):
+      • fig_01_invariants_schematic.png
+      • fig_02_invariants_histogram.png
+      • fig_03_invariants_vs_T.png
+      • fig_04_relative_deviations.png
+- [ ] Scripts (zz-scripts/chapter04/):
+      • generate_data_chapter04.py
+      • plot_fig01_invariants_schematic.py
+      • plot_fig02_invariants_histogram.py
+      • plot_fig03_invariants_vs_T.py
+      • plot_fig04_relative_deviations.py
+      • requirements.txt
+
+[ENTRÉES & SPÉCIFICATIONS]
+- [ ] 04_P_vs_T.dat (2 colonnes, séparateur espace/tab, UTF-8):
+      Colonnes et unités:
+      • T_Gyr  [Gyr]  — grille log-uniforme (Δlog10T = 0.01, domaine [1e−6, 14])
+      • P      [–]    — quantité P(T) harmonisée (cf. chap. 1–2), lissée/interpolée
+- [ ] Conventions:
+      • Interpolation PCHIP sur log10 P(T).
+      • Point décimal ‘.’ ; pas d’index ni d’entêtes superflues.
+
+[SORTIES ATTENDUES & COLONNES]
+- [ ] 04_dimensionless_invariants.csv (UTF-8, ‘,’):
+      • T_Gyr  [Gyr]
+      • I1     [ (unité P)/Gyr ]   = P / T
+      • I2     [ adimensionnel ]   = κ · T², avec κ = 1e−35 (valeur modèle)
+      • I3     [ adimensionnel ]   = f_R − 1  (f_R issu du Chapitre 3)
+- [ ] Règles:
+      • f_R est interpolé (linéaire) en fonction de R/R0 ; extrapolation courte autorisée et tracée.
+      • Tolérances de référence: |I2| ≪ 1 (±10 % sur domaine utile), I3 ≈ 0 (±1 %).
+
+[PARAMÈTRES & MÉTHODES]
+- [ ] Grille T: log-uniforme sur [1e−6, 14] Gyr, pas Δlog10T = 0.01.
+- [ ] Interpolations:
+      • P(T): PCHIP en log10 P.
+      • R/R0: PCHIP en log10(R/R0) si requis par l’import de f_R.
+      • f_R(R/R0): linéaire (contrôle des bornes).
+- [ ] Lissages (si dérivées calculées à des fins d’audit): Savitzky–Golay fenêtre 21, ordre 3.
+
+[GÉNÉRATION DES DONNÉES]
+- [ ] Exécuter:
+      python zz-scripts/chapter04/generate_data_chapter04.py
+- [ ] Vérifier la création de 04_dimensionless_invariants.csv ; journal sans erreurs.
+
+[PRODUCTION DES FIGURES]
+- [ ] Générer:
+      python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
+      python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
+      python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
+      python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+- [ ] Contrôler DPI≥300, axes/échelles (log si pertinent), légendes, unités, style cohérent multi-chapitres.
+
+[CONTRÔLES DE QUALITÉ & DRAPEAUX ROUGES]
+- [ ] 04_P_vs_T.dat:
+      • T_Gyr strictement croissant; domaine exact; pas log uniforme (tolérance ~1e−12).
+      • P non-NaN/Inf ; bornes numériques raisonnables (min/max).
+- [ ] 04_dimensionless_invariants.csv:
+      • Aucune valeur NaN/Inf ; en-têtes exacts: T_Gyr,I1,I2,I3.
+      • I2: max |I2| dans ±10 % de la consigne (ou documenter dépassements locaux).
+      • I3: proche de 0 (±1 %) sur la majorité du domaine; lister segments en écart.
+- [ ] Cohérences inter-chapitres:
+      • f_R importé du Chapitre 3 sur domaine compatible; signaler extrapolations.
+      • Unités et encodage stricts (UTF-8, virgule, ‘.’).
+
+[VALIDATION AUTOMATISÉE (RECOMMANDÉE)]
+- [ ] Tables:
+      • (Si schéma dédié disponible)  validate_csv_table.py avec schéma 04_*.
+      • À défaut, valider colonnes/typages via zz-tests/test_schemas.py (tests ad hoc).
+- [ ] Diagnostics optionnels:
+      • Statistiques (min/med/max) sur I1,I2,I3; histogrammes conformes.
+      • Rapport MD: enregistrer un bref résumé qualité/écarts.
+
+[COMPILATION LaTeX]
+- [ ] pdflatex -jobname=chap4_conceptuel  04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
+- [ ] pdflatex -jobname=chap4_details     04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
+- [ ] Figures incluses depuis zz-figures/chapter04/ ; chemins relatifs OK.
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] Mettre à jour zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.
+- [ ] Vérifier/synchroniser zz-manifests/chapters/chapter_manifest_04.json si des artefacts sont ajoutés/renommés.
+- [ ] Journaliser les changements (mcgt/CHANGELOG.md) et conserver encodage UTF-8.
+
+[COMMANDES RAPIDES]
+- [ ] Données   :  python zz-scripts/chapter04/generate_data_chapter04.py
+- [ ] Figures   :  exécuter les 4 scripts plot_fig**
+- [ ] Validation:  (schéma CSV si disponible) validate_csv_table.py ; sinon tests zz-tests
+- [ ] LaTeX     :  commandes pdflatex ci-dessus

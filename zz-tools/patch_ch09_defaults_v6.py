@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re, pathlib, sys, ast, textwrap
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
@@ -14,7 +15,7 @@ src = re.sub(
     src,
 )
 
-# B) Trouver l’emplacement correct: après docstring initiale (si présente) et après TOUTES les lignes `from __future__ import ...`
+# B) Trouver l'emplacement correct: après docstring initiale (si présente) et après TOUTES les lignes `from __future__ import ...`
 lines = src.splitlines(keepends=True)
 
 def is_shebang(l): return l.startswith("#!")

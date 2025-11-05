@@ -1,0 +1,56 @@
+name: Build & Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build sdist+wheel
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+
+      - name: Show dist tree
+        run: |
+          python - <<'PY'
+          import pathlib
+          p = pathlib.Path('dist')
+          print('DIST CONTENTS:')
+          for x in sorted(p.glob('*')):
+              print(' -', x, x.stat().st_size, 'bytes')
+          PY
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment: pypi
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Publish to PyPI (trusted publisher)
+        uses: pypa/gh-action-pypi-publish@v1.10.1
+        with:
+          packages-dir: dist

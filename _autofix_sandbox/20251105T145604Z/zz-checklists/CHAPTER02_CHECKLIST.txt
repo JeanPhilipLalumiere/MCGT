@@ -1,0 +1,112 @@
+CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
+
+[OBJECTIF & PORTÉE]
+- [ ] Ce checklist couvre la production des données/figures et l’exécution standard pour la validation chronologique (Chapitre 2).
+- [ ] Conformité aux conventions de grille, formats, lissage et schémas (reproductibilité + homogénéité avec Chap.1 & Chap.6).
+
+[ARBORESCENCE & FICHIERS ATTENDUS]
+- [ ] Sources LaTeX (02-validation-chronologique/):
+      • 02_validation_chronologique_conceptuel.tex
+      • 02_validation_chronologique_details.tex
+- [ ] Données (zz-data/chapter02/):
+      • 02_milestones_meta.csv
+      • 02_timeline_milestones.csv
+      • 02_P_vs_T_grid_data.dat
+      • 02_P_derivative_data.dat
+      • 02_relative_error_timeline.csv
+      • 02_optimal_parameters.json
+      • 02_P_R_sampling.csv
+      • 02_As_ns_vs_alpha.csv
+      • 02_FG_series.csv
+      • 02_primordial_spectrum_spec.json
+- [ ] Figures (zz-figures/chapter02/):
+      • fig_00_spectrum.png ; fig_01_P_vs_T_evolution.png ; fig_02_calibration.png
+      • fig_03_relative_errors.png ; fig_04_pipeline_diagram.png
+      • fig_05_FG_series.png ; fig_06_fit_alpha.png
+- [ ] Scripts (zz-scripts/chapter02/):
+      • generate_data_chapter02.py
+      • plot_fig00_spectrum.py … plot_fig06_alpha_fit.py
+      • requirements.txt
+
+[CONVENTIONS D’ENTRÉE & SPÉCIFICATIONS]
+- [ ] 02_milestones_meta.csv (UTF-8, séparateur virgule, sans index)
+      Colonnes exactes et unités:
+      • T_Gyr [Gyr] — monotone croissant (jalons)
+      • P_ref [–]
+      • classe ∈ {primary, order2}  (primary ≤1 %, order2 ≤10 %)
+- [ ] 02_primordial_spectrum_spec.json — champs requis:
+      • label_eq, formula (ou formule), description
+      • constants: A_s0, ns0
+      • coefficients: c1, c1_2, c2, c2_2
+- [ ] Homogénéisation: notation P_R(k;α), champs JSON, et seuils cohérents avec Chap.1 & Chap.6 (mcgt-global-config.ini).
+
+[PARAMÈTRES & MÉTHODES]
+- [ ] Grille temporelle T_Gyr: log-uniforme (Δlog10T=0.01 par défaut), domaine cohérent avec Chap.1.
+- [ ] Interpolation P_calc(T): PCHIP en log–log.
+- [ ] Lissage dérivée (Savitzky–Golay): fenêtre & ordre alignés à Chap.1 (p.ex. fenêtre=21, ordre=3).
+- [ ] Classes d’exigence: primary ≤1 %, order2 ≤10 % sur epsilon_i.
+
+[GÉNÉRATION DES DONNÉES]
+- [ ] Exécuter (tout produire):
+      python zz-scripts/chapter02/generate_data_chapter02.py --all
+      (Options usuelles: --spectrum --derivative --milestones)
+- [ ] Sorties attendues et colonnes:
+      • 02_timeline_milestones.csv: T_Gyr, P_ref, P_opt, epsilon_i, classe
+      • 02_P_vs_T_grid_data.dat: T_Gyr [Gyr], P_calc [–]
+      • 02_P_derivative_data.dat: T_Gyr [Gyr], dotP [adim/Gyr]
+      • 02_relative_error_timeline.csv: T_Gyr, epsilon_i
+      • 02_optimal_parameters.json: T_split_Gyr, segments.low|high{alpha0,alpha_inf,Tc,Delta,Tp},
+        thresholds{primary,order2}, max_epsilon_primary, max_epsilon_order2
+      • 02_P_R_sampling.csv: alpha, k [h Mpc^-1], P_R
+      • 02_As_ns_vs_alpha.csv: alpha, A_s, n_s
+      • 02_FG_series.csv: func∈{F,G}, order, coeff
+
+[PRODUCTION DES FIGURES]
+- [ ] Générer:
+      python zz-scripts/chapter02/plot_fig00_spectrum.py
+      python zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
+      python zz-scripts/chapter02/plot_fig02_calibration.py
+      python zz-scripts/chapter02/plot_fig03_relative_errors.py
+      python zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
+      python zz-scripts/chapter02/plot_fig05_FG_series.py
+      python zz-scripts/chapter02/plot_fig06_alpha_fit.py
+- [ ] Vérifier axes/échelles (log si requis), légendes, unités, DPI ≥300, cohérence couleurs/style.
+
+[CONTRÔLES DE QUALITÉ & CRITÈRES]
+- [ ] Chronologie: T_Gyr strictement croissant dans 02_timeline_milestones.csv ; T des jalons ⊂ domaine de la grille.
+- [ ] Dérivées: 02_P_derivative_data.dat lissé (SG), sans oscillations numériques ni NaN/Inf.
+- [ ] Écarts: max |epsilon_i| dans 02_relative_error_timeline.csv respecte:
+      • primary ≤ 0.01 ; order2 ≤ 0.10
+      • Consistance avec max_epsilon_primary / max_epsilon_order2 du JSON optimal.
+- [ ] Spectre: 02_primordial_spectrum_spec.json valide; 02_As_ns_vs_alpha.csv cohérent (tendances plausibles).
+- [ ] Intégrité fichiers: CSV (UTF-8, ‘,’), décimale ‘.’ ; JSON valides (schémas).
+
+[VALIDATION AUTOMATISÉE (RECOMMANDÉE)]
+- [ ] Schémas JSON:
+      python zz-schemas/validate_json.py zz-schemas/02_optimal_parameters.schema.json zz-data/chapter02/02_optimal_parameters.json
+      python zz-schemas/validate_json.py zz-schemas/02_spec_spectrum.schema.json       zz-data/chapter02/02_primordial_spectrum_spec.json
+- [ ] Schémas tabulaires:
+      python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json           zz-data/chapter02/02_timeline_milestones.csv
+      python zz-schemas/validate_csv_table.py zz-schemas/mc_results_table_schema.json           zz-data/chapter02/02_relative_error_timeline.csv
+      python zz-schemas/validate_csv_table.py zz-schemas/comparison_milestones_table_schema.json zz-data/chapter02/02_P_R_sampling.csv
+      (adapter le schéma si un autre gabarit spécifique est fourni)
+- [ ] Diagnostic manifeste (si applicable):
+      python zz-manifests/diag_consistency.py --chapter 02 --strict --report md > zz-manifests/reports/chap02.md
+      (fichier non vide + “errors: 0” attendu)
+
+[COMPILATION LaTeX]
+- [ ] pdflatex -jobname=chap2_conceptuel  02-validation-chronologique/02_validation_chronologique_conceptuel.tex
+- [ ] pdflatex -jobname=chap2_details     02-validation-chronologique/02_validation_chronologique_details.tex
+- [ ] Zéro références non définies ; figures incluses ; encodage UTF-8 OK.
+
+[MANIFESTES & TRAÇABILITÉ]
+- [ ] Mettre à jour zz-manifests/figure_manifest.csv pour les 7 figures.
+- [ ] Synchroniser zz-manifests/chapters/chapter_manifest_02.json si des fichiers ont été ajoutés/renommés.
+- [ ] Versionner les changements (mcgt/CHANGELOG.md); conserver chemins relatifs et encodage UTF-8.
+
+[COMMANDES RAPIDES]
+- [ ] Données   :  python zz-scripts/chapter02/generate_data_chapter02.py --all
+- [ ] Figures   :  exécuter les 7 scripts “plot_fig..”
+- [ ] Schémas   :  validate_json.py & validate_csv_table.py (voir bloc “Validation”)
+- [ ] LaTeX     :  commandes pdflatex ci-dessus
+- [ ] Diagnostic:  diag_consistency.py (report MD) + mise à jour manifeste des figures

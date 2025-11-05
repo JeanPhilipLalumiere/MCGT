@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import re, time, subprocess
+from pathlib import Path
+
+def repo_root() -> Path:
+    try:
+        out = subprocess.check_output(["git","rev-parse","--show-toplevel"], text=True).strip()
+        return Path(out)
+    except Exception:
+        return Path.cwd()
+
+ROOT = repo_root()
+TS   = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+
+ALLOW_PREFIX = ("zz-scripts/", "zz-tools/", "zz_tools/", "zz-manifests/", "tools/")
+EXCLUDE_DIRS = {".git","__pycache__", ".ci-out", ".mypy_cache", ".tox",
+                "_attic_untracked", "release_zenodo_codeonly"}
+
+def relpath(p: Path) -> str:
+    try:
+        return p.relative_to(ROOT).as_posix()
+    except Exception:
+        return p.as_posix()
+
+def path_allowed(p: Path) -> bool:
+    rp = relpath(p)
+    return any(rp.startswith(pref) for pref in ALLOW_PREFIX)
+
+def should_skip(p: Path) -> bool:
+    parts = set(p.relative_to(ROOT).parts if p.is_relative_to(ROOT) else p.parts)
+    return bool(parts & EXCLUDE_DIRS)
+
+def indent_width(s: str) -> int:
+    lead = s[:len(s) - len(s.lstrip(" \t"))]
+    return len(lead.expandtabs(4))
+
+def ensure_import_contextlib(lines: list[str]) -> list[str]:
+    # insère "import contextlib" après shebang/docstring/__future__
+    head = "".join(lines[:120])
+    if ("import contextlib" in head) or ("from contextlib" in head):
+        return lines
+    i = 0; n = len(lines)
+    if i < n and lines[i].startswith("#!"): i += 1
+    if i < n and re.match(r'^\s*#\s*-\*-\s*coding:.*-\*-\s*$', lines[i] or ""): i += 1
+    triple = re.compile(r'^\s*(?:[rubfRUBF]?){0,2}("""|\'\'\')')
+    if i < n and triple.match(lines[i] or ""):
+        i += 1
+        while i < n and not triple.search(lines[i] or ""):
+            i += 1
+        if i < n: i += 1
+    while i < n and re.match(r'^\s*from\s+__future__\s+import\s+', lines[i] or ""):
+        i += 1
+    lines[i:i] = ["import contextlib\n"]
+    return lines
+
+def fix_future_concatenation(src: str) -> tuple[str,int]:
+    nfix = 0
+    # manque de newline après future
+    patA = re.compile(r'(from\s+__future__\s+import\s+annotations)(?=\S)')
+    src, n = patA.subn(r'\1\n', src); nfix += n
+    # 'annotationsimport' (collé à 'import')
+    patB = re.compile(r'(from\s+__future__\s+import\s+annotations)\s*;?\s*import\b')
+    src, n = patB.subn(r'\1\nimport', src); nfix += n
+    return src, nfix
+
+def process_file(p: Path) -> tuple[int,int,int]:
+    """Retourne (n_try_replaced, n_handlers_commented, n_future_fixed)"""
+    try:
+        src = p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return (0,0,0)
+
+    src, nfut = fix_future_concatenation(src)
+    lines = src.splitlines(True)
+    n = len(lines)
+
+    # 1) remplace tous les 'try:' par suppress
+    ntry = 0
+    for i, s in enumerate(lines):
+        if s.lstrip().startswith("try:"):
+            lead = s[:len(s) - len(s.lstrip(" \t"))]
+            lines[i] = f"{lead}with contextlib.suppress(Exception):\n"
+            ntry += 1
+
+    # 2) commente 'except' / 'finally' + leur bloc
+    nrm = 0; i = 0
+    while i < len(lines):
+        s = lines[i]; stripped = s.lstrip()
+        if stripped.startswith("except") or stripped.startswith("finally:"):
+            lead = s[:len(s) - len(stripped)]
+            iw = indent_width(s)
+            lines[i] = f"{lead}# [mcgt-fix] STRAY {stripped}"
+            nrm += 1; i += 1
+            while i < len(lines):
+                s2 = lines[i]
+                if s2.strip() == "":
+                    lines[i] = lead + "#\n"; i += 1; continue
+                if indent_width(s2) <= iw:
+                    break
+                lines[i] = "# " + s2; i += 1
+            continue
+        i += 1
+
+    # 3) assure l'import contextlib si on a touché à des try
+    if ntry > 0:
+        lines = ensure_import_contextlib(lines)
+
+    if ntry or nrm or nfut:
+        bak = p.with_suffix(p.suffix + f".bak.{TS}")
+        bak.write_text(p.read_text(encoding="utf-8", errors="ignore"), encoding="utf-8")
+        p.write_text("".join(lines), encoding="utf-8")
+
+    return (ntry, nrm, nfut)
+
+def main():
+    scanned=Ttry=Trem=Tfur=0
+    for p in ROOT.rglob("*.py"):
+        if not p.is_file(): continue
+        if should_skip(p):  continue
+        if not path_allowed(p): continue
+        scanned += 1
+        a,b,c = process_file(p)
+        Ttry += a; Trem += b; Tfur += c
+    print(f"[hardfix-v2] scanned={scanned}, try_to_suppress={Ttry}, handlers_commented={Trem}, future_fixed={Tfur}")
+
+if __name__ == "__main__":
+    main()

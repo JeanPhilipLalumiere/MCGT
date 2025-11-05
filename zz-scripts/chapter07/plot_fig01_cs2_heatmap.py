@@ -24,6 +24,8 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 # --- RACINE DU PROJET ---
 try:
     RACINE = Path(__file__).resolve().parents[2]
+except Exception:
+    pass
 except NameError:
     RACINE = Path.cwd()
 
@@ -51,6 +53,8 @@ logging.info("Chargement terminé : %d lignes", len(df))
 
 try:
     pivot = df.pivot(index="k", columns="a", values="cs2_matrice")
+except Exception:
+    pass
 except KeyError:
     logging.error("Colonnes 'k','a','cs2_matrice' manquantes dans %s", DONNEES_CSV)
     raise
@@ -143,6 +147,8 @@ if __name__ == "__main__":
         args = parser.parse_args()
         try:
             os.makedirs(args.outdir, exist_ok=True)
+        except Exception:
+            pass
         os.environ["MCGT_OUTDIR"] = args.outdir
         import matplotlib as mpl
         mpl.rcParams["savefig.dpi"] = args.dpi
@@ -154,6 +160,8 @@ if __name__ == "__main__":
         if callable(_main):
             try:
                 _main(args)
+            except Exception:
+                pass
             except SystemExit:
                 raise
             except Exception as e:

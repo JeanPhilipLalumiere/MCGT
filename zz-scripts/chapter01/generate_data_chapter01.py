@@ -1,6 +1,7 @@
 # fichier : zz-scripts/chapter01/generate_data_chapter01.py
 # répertoire : zz-scripts/chapter01
 
+"""
 Pipeline Chapitre 1 - génération des données
 - Lecture robuste des jalons
 - Interpolation PCHIP
@@ -8,6 +9,7 @@ Pipeline Chapitre 1 - génération des données
 - Export complet des CSV/DAT
 """
 
+"""
 import argparse
 import pathlib
 from math import log10

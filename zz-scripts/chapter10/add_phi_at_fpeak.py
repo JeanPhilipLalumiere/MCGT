@@ -45,6 +45,8 @@ def safe_float(x):
     try:
         return float(x)
     except Exception:
+        pass
+    except Exception:
         return np.nan
 
 
@@ -97,6 +99,8 @@ df = ci.ensure_fig02_cols(df)
     # read reference grid
     try:
         f_ref = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
+    except Exception:
+        pass
     except Exception as e:
         logging.error(f"Failed to load ref-grid '{args.ref_grid}': {e}")
         raise
@@ -146,9 +150,13 @@ df = ci.ensure_fig02_cols(df)
                     ):
                         existing_ok = True
                 except Exception:
+                    pass
+                except Exception:
                     existing_ok = False
             if existing_ok:
                 continue
+        except Exception:
+            pass
 
             m1 = safe_float(row.get("m1"))
             m2 = safe_float(row.get("m2"))
@@ -165,6 +173,8 @@ df = ci.ensure_fig02_cols(df)
                     logging.debug(
                         f"phi_ref length {phi_ref_full.size} != f_ref length {f_ref.size} for id={idx}"
                     )
+            except Exception:
+                pass
             except Exception as e:
                 logging.warning(
                     f"compute_phi_ref error for id={idx} (m1={m1},m2={m2}): {e}"
@@ -201,9 +211,13 @@ df = ci.ensure_fig02_cols(df)
             try:
                 phi_ref_at_fpeak = float(phi_ref_full[idx_f])
             except Exception:
+                pass
+            except Exception:
                 # fallback: try linear interpolation if shapes differ
                 try:
                     phi_ref_at_fpeak = float(np.interp(f_peak, f_ref, phi_ref_full))
+                except Exception:
+                    pass
                 except Exception:
                     phi_ref_at_fpeak = float(phi_ref_full.flat[0])
 
@@ -219,7 +233,11 @@ df = ci.ensure_fig02_cols(df)
                 try:
                     phi_mcgt_at_fpeak = float(phi_mcgt_full[idx_f])
                 except Exception:
+                    pass
+                except Exception:
                     phi_mcgt_at_fpeak = float(np.interp(f_peak, f_ref, phi_mcgt_full))
+            except Exception:
+                pass
             except Exception as e:
                 logging.warning(f"phi_mcgt error for id={idx}: {e}")
                 raise

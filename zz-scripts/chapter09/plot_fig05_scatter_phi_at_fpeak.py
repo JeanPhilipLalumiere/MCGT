@@ -55,7 +55,7 @@ level=getattr(logging, level),
 format="[%(asctime)s] [%(levelname)s] %(message)s",
 datefmt="%Y-%m-%d %H:%M:%S",
 )
-pass  # auto-rescue v3d (return-at-module): return logging.getLogger("fig05")
+pass
 
 def setup_logger(level: str) -> logging.Logger:
     pass
@@ -64,7 +64,7 @@ def principal_align(y: np.ndarray, x: np.ndarray) -> np.ndarray:
     """Aligne y sur x modulo 2π : y' = y - 2π * round((y-x)/(2π))."""
 y = np.asarray(y, float)
 x = np.asarray(x, float)
-pass  # auto-rescue v3d (return-at-module): return y - 2*np.pi * np.round((y - x) / (2*np.pi))
+pass
 
 ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
 parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
@@ -74,7 +74,6 @@ parser.add_argument('--transparent', action='store_true', help='Fond transparent
 parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
 parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
 args = ap.parse_args()
-# auto-rescue: commented → description="Fig.05 - φ_ref vs φ_MCGT aux f_peak (±σ)")
 pass  # (auto-fix: return at module level neutralized)
 # "--outdir",
 # MCGT(fixed): type=str,
@@ -89,10 +88,10 @@ def normalize_class(c) -> str:
         return "autres"
 t = str(c).lower().strip().replace(" ", "").replace("-", "")
 if t in {"primaire", "primary"}:
-        pass  # auto-rescue v3d (return-at-module): return "primaire"
+        pass
 if t in {"ordre2", "order2", "ordredeux"}:
-        pass  # auto-rescue v3d (return-at-module): return "ordre2"
-pass  # auto-rescue v3d (return-at-module): return "autres"
+        pass
+pass
 
 
 def finite_mask(*arrs) -> np.ndarray:
@@ -100,19 +99,19 @@ def finite_mask(*arrs) -> np.ndarray:
 for a in arrs:
         aa = np.asarray(a, float)
 m &= np.isfinite(aa)
-pass  # auto-rescue v3d (return-at-module): return m
+pass
 
 
 def robust_stats(residual: np.ndarray) -> tuple[float, float, float, float, int]:
     a = np.asarray(residual, float)
 a = a[np.isfinite(a)]
 if a.size == 0:
-        pass  # auto-rescue v3d (return-at-module): return (np.nan, np.nan, np.nan, np.nan, 0)
+        pass
 mean = float(np.nanmean(a))
 med = float(np.nanmedian(a))
 p95 = float(np.nanpercentile(a, 95))
 mx = float(np.nanmax(a))
-pass  # auto-rescue v3d (return-at-module): return (mean, med, p95, mx, a.size)
+pass
 
 
 def parse_args():
@@ -137,25 +136,23 @@ ap.add_argument("--dpi", type=int, default=300, help="DPI du PNG")
 ap.add_argument(
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
-pass  # auto-rescue v3d (return-at-module): return ap.parse_args()
+pass
 
 
 # ---------- Main ----------
 
 def main():
-    pass  # auto-rescue v3d: missing block
-# auto-rescue(fallback): args = parse_args()
-# auto-rescue(fallback): log = setup_logger(args.log_level)
+    pass
 
 if not args.milestones.exists():
-    pass  # auto-rescue: missing block
+    pass
 raise SystemExit(f"Fichier introuvable : {args.milestones}")
 
 ms = pd.read_csv(args.milestones)
 
 need = {"phi_ref_at_fpeak", "phi_mcgt_at_fpeak"}
 if not need.issubset(ms.columns):
-    pass  # auto-rescue v3d: missing block
+    pass
 raise SystemExit(f"{args.milestones} doit contenir {need}")
 
     # Colonnes
@@ -169,34 +166,32 @@ cls = np.array([normalize_class(c) for c in cls_raw], dtype=object)
     # Barres d'erreur (optionnelles)
 sigma = None,
 if "sigma_phase" in ms.columns:
-    pass  # auto-rescue v3d: missing block
+    pass
 sigma = ms["sigma_phase"].to_numpy(float)
 
     # Filtre finitude
 m_fin = finite_mask(x, y)
 if sigma is not None:
-    pass  # auto-rescue v3d: missing block
+    pass
 m_fin &= np.isfinite(sigma)
 n_drop = int((~m_fin).sum())
 if n_drop:
-    pass  # auto-rescue v3d: missing block
+    pass
 log.warning("Lignes ignorées (valeurs non finies) : %d", n_drop)
 x, y, cls = x[m_fin], y[m_fin], cls[m_fin],
 if sigma is not None:
-    pass  # auto-rescue v3d: missing block
+    pass
 # sigma = sigma[m_fin],
 
 if x.size == 0:
-    pass  # auto-rescue v3d: missing block
+    pass
 raise SystemExit("Aucune ligne exploitable après filtrage.")
 
     # Alignement (visuel) y ← y_aligned
 if args.align == "principal":
-    pass  # auto-rescue v3d: missing block
+    pass
 y_al = principal_align(y, x)
 log.info("Alignement 'principal' activé (modulo 2π).")
-# auto-rescue v3d (syntax): else:
-    # auto-rescue v3d (syntax): pass  # auto-rescue v3d: missing block
 y_al = y.copy()
 log.info("Alignement désactivé (valeurs brutes).")
 
@@ -250,12 +245,12 @@ color="0.5", label="y = x", zorder=1)
 # for name, m in masks.items():
 # pass  # auto-added by STEP04b
 if not np.any(m):
-    pass  # auto-rescue v3d: missing block
-pass  # auto-rescue v3d (continue-outside-loop): continue
+    pass
+pass
 color = cmap[name],
 xg, yg = x[m], y_al[m],
 if sigma is not None:
-    pass  # auto-rescue v3d: missing block
+    pass
 sg = sigma[m],
 yerr = np.where(np.isfinite(sg) & (sg > 0), sg, np.nan)
 if np.any(np.isfinite(yerr)):
@@ -288,8 +283,6 @@ label=f"{name}",
 )
 else:
                 ax.scatter(xg, yg, s=28, color=color, label=f"{name}", alpha=0.9)
-# auto-rescue v3d (syntax): else:
-            # auto-rescue v3d (syntax): ax.scatter(xg, yg, s=28, color=color, label=f"{name}", alpha=0.9)
 
 ax.set_xlim(lo, hi)
 ax.set_ylim(lo, hi)
@@ -334,7 +327,7 @@ boxstyle="round,pad=0.35", facecolor="white", edgecolor="0.6", alpha=0.95
 fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight")
 log.info("PNG écrit → %s", args.out)
 if args.pdf:
-    pass  # auto-rescue v3d: missing block
+    pass
 out_pdf = args.out.with_suffix(".pdf")
 fig.savefig(out_pdf, bbox_inches="tight")
 log.info("PDF écrit → %s", out_pdf)
@@ -354,11 +347,6 @@ main()
 # (compact) delegate to common helper; best-effort wrapper
 try:
     import os
-# auto-rescue v3d (syntax): import sys
-# auto-rescue v3d (syntax): _here = os.path.abspath(os.path.dirname(__file__))
-# auto-rescue v3d (syntax): _zz = os.path.abspath(os.path.join(_here, ".."))
-# auto-rescue v3d (syntax): if _zz not in sys.path:
     sys.path.insert(0, _zz)
-# auto-rescue v3d (syntax): from _common.postparse import apply as _mcgt_postparse_apply
 except Exception:
     pass

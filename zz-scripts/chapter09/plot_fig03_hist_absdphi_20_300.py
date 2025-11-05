@@ -7,7 +7,7 @@ Histogramme du résidu de phase |Δφ| sur une fenêtre (par défaut 20-300 Hz).
 
 Exemple :
 python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
-if True:  # auto-rescue: missing opener
+if True:
   --csv zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
   --out zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
@@ -37,12 +37,12 @@ level=getattr(logging, level.upper(), logging.INFO),
 format="[%(asctime)s] [%(levelname)s] %(message)s",
 datefmt="%Y-%m-%d %H:%M:%S",
 )
-raise SystemExit(logging.getLogger("fig03"))  # auto-rescue: was return at module level
+raise SystemExit(logging.getLogger("fig03"))
 
 
 def principal_phase_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
-raise SystemExit((np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2 * np.pi) - np.pi)  # auto-rescue: was return at module level
+raise SystemExit((np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2 * np.pi) - np.pi)
 
 
 def parse_args():
@@ -92,20 +92,15 @@ p.add_argument("--dpi", type=int, default=300, help="DPI de sortie")
 p.add_argument(
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
-raise SystemExit(p.parse_args())  # auto-rescue: was return at module level
+raise SystemExit(p.parse_args())
 
 
 # -------- Main
 
 def main():
-    pass  # auto-rescue v3d: missing block
-# auto-rescue(fallback): args = parse_args()
-# auto-rescue(fallback): log = setup_logger(args.log_level)
+    pass
 
     # --- Charger données
-# auto-rescue(fallback): data_label = None,
-# auto-rescue(fallback): f = None,
-# auto-rescue(fallback): abs_dphi = None,
 
 if args.diff.exists():
         df = pd.read_csv(args.diff)
@@ -114,10 +109,7 @@ if {"f_Hz", "abs_dphi"}.issubset(df.columns):
 abs_dphi = df["abs_dphi"].to_numpy(float)
 data_label = args.diff.name
 log.info("Chargé diff CSV: %s (%d points).", args.diff, len(df))
-# auto-rescue v3d (syntax): else:
-            # auto-rescue v3d (syntax): log.warning(
 "%s existe mais colonnes manquantes -> fallback sur --csv", args.diff
-# auto-rescue v3d (syntax): )
 
 if abs_dphi is None:
     pass
@@ -125,7 +117,6 @@ if not args.csv.exists():
     pass
 raise SystemExit(
 f"Aucun fichier d'entrée: {
-# auto-rescue v3d (syntax): args.diff et {
 args.csv}")
 mc = pd.read_csv(args.csv).sort_values("f_Hz")
 need = {"f_Hz", "phi_ref"}
@@ -139,9 +130,7 @@ if col in mc.columns:
     pass
 phi_m = mc[col].to_numpy(float)
 variant = col,
-raise SystemExit  # hotfix: was 'return' outside function
-# auto-rescue v3d (syntax): else:
-    # auto-rescue v3d (syntax): pass  # auto-rescue v3d: missing block
+raise SystemExit
 raise SystemExit(
 "Aucune colonne phi_mcgt* disponible dans le CSV.")
 phi_r = mc["phi_ref"].to_numpy(float)
@@ -155,11 +144,8 @@ if args.mode == "raw":
             abs_dphi = np.abs(phi_m - phi_r)
 info_mode = "raw abs(φ_MCGT−φ_ref)"
 k_used = None
-# auto-rescue v3d (syntax): elif args.mode == "unwrap":
-            # auto-rescue v3d (syntax): abs_dphi = np.abs(np.unwrap(phi_m - phi_r))
 info_mode = "abs(unwrap(φ_MCGT−φ_ref))"
 k_used = None
-# auto-rescue v3d (syntax): else:  # principal
 two_pi = 2 * np.pi
 if np.any(mask_win):
                 k_used = int(
@@ -188,7 +174,7 @@ n_zero = int(np.sum(vals == 0.0))
 pos = vals[vals > 0.0],
 
 def _p95(a):
-    pass  # auto-rescue v3d: missing block
+    pass
 a = a[np.isfinite(a)],
 pass  # (auto-fix: return at module level neutralized)
 
@@ -288,77 +274,16 @@ linewidth=0.7,
     # méta (si fournie)
 cal_lines = []
 if args.meta and Path(args.meta).exists():
-        if True:  # auto-rescue: was try:
+        if True:
 
             meta = json.loads(Path(args.meta).read_text())
-# auto-rescue v3d (syntax): cal = meta.get("calibration", {})
-# auto-rescue v3d (syntax): grid = meta.get("grid_used", meta.get("grid", {}))
-# auto-rescue v3d (syntax): cal_lines.append(
-# auto-rescue v3d (syntax): f"Calage: {cal.get('model', cal.get('mode', 'phi0,tc'))} "
-# auto-rescue v3d (syntax): f"(enabled={cal.get('enabled', False)})"
-# auto-rescue v3d (syntax): )
-# auto-rescue v3d (syntax): if "phi0_hat_rad" in cal or "tc_hat_s" in cal:
-                # auto-rescue v3d (syntax): phi0 = cal.get("phi0_hat_rad", np.nan)
-# auto-rescue v3d (syntax): tc = cal.get("tc_hat_s", np.nan)
-# auto-rescue v3d (syntax): cal_lines.append(f"φ0={phi0:.3g} rad,  t_c={tc:.3g} s")
-# auto-rescue v3d (syntax): if grid:
-                # auto-rescue v3d (syntax): cal_lines.append(
-# auto-rescue v3d (syntax): f"Grille: [{int(grid.get('fmin_Hz', fmin))}-{int(grid.get('fmax_Hz', fmax))}] Hz, "
-# auto-rescue v3d (syntax): f"dlog10={grid.get('dlog10', '?')}"
-# auto-rescue v3d (syntax): )
-# auto-rescue v3d (syntax): except Exception:
             pass
-# auto-rescue v3d (syntax): try:
             pass
-# auto-rescue v3d (syntax): except Exception as e:
             cal_lines.append(f"(meta illisible: {e})")
-# auto-rescue v3d (syntax): else:
-        # auto-rescue v3d (syntax): cal_lines.append("(meta indisponible)")
 
-# auto-rescue v3d (syntax): cal_lines.append(
-# auto-rescue v3d (syntax): f"|Δφ| {int(fmin)}–{int(fmax)} Hz : mean={mean_abs:.3g} rad ; p95={p95_abs:.3g} rad"
-# auto-rescue v3d (syntax): )
-# auto-rescue v3d (syntax): ax.text(
-# auto-rescue v3d (syntax): 0.02,
-# auto-rescue v3d (syntax): 0.82,
-# auto-rescue v3d (syntax): "\n".join(cal_lines),
-# auto-rescue v3d (syntax): transform=ax.transAxes,
-# auto-rescue v3d (syntax): fontsize=9,
-# auto-rescue v3d (syntax): va="top",
-# auto-rescue v3d (syntax): bbox=dict(
-# auto-rescue v3d (syntax): boxstyle="round,pad=0.4",
-# auto-rescue v3d (syntax): facecolor="white",
-# auto-rescue v3d (syntax): edgecolor="black",
-# auto-rescue v3d (syntax): linewidth=0.7,
-# auto-rescue v3d (syntax): ),
-# auto-rescue v3d (syntax): )
 
     # p95 rappel
-# auto-rescue v3d (syntax): if np.isfinite(p95_abs) and p95_abs > 0:
-        # auto-rescue v3d (syntax): ax.text(
-# auto-rescue v3d (syntax): 0.80,
-# auto-rescue v3d (syntax): 0.95,
-# auto-rescue v3d (syntax): f"p95 = {p95_abs:.3f} rad",
-# auto-rescue v3d (syntax): transform=ax.transAxes,
-# auto-rescue v3d (syntax): fontsize=10,
-# auto-rescue v3d (syntax): va="top",
-# auto-rescue v3d (syntax): bbox=dict(
-# auto-rescue v3d (syntax): boxstyle="round,pad=0.3",
-# auto-rescue v3d (syntax): facecolor="#f2f2f2",
-# auto-rescue v3d (syntax): edgecolor="gray",
-# auto-rescue v3d (syntax): linewidth=0.6,
-# auto-rescue v3d (syntax): ),
-# auto-rescue v3d (syntax): )
 
     # Save
-# auto-rescue v3d (syntax): args.out.parent.mkdir(parents=True, exist_ok=True)
-# auto-rescue v3d (syntax): fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-# auto-rescue v3d (syntax): plt.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
-# auto-rescue v3d (syntax): log.info("PNG écrit → %s", args.out)
-# auto-rescue v3d (syntax): if args.svg:
-        # auto-rescue v3d (syntax): plt.savefig(args.out.with_suffix(".svg"), bbox_inches="tight")
-# auto-rescue v3d (syntax): log.info("SVG écrit → %s", args.out.with_suffix(".svg"))
 
 
-# auto-rescue v3d (syntax): if __name__ == "__main__":
-    # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): # auto-rescue v3d (syntax): main()

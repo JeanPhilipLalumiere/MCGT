@@ -36,13 +36,13 @@ def build_loglin_grid(fmin: float, fmax: float, dlog: float) -> np.ndarray:
     logf_min = np.log10(fmin)
 logf_max = np.log10(fmax)
 N = int(np.floor((logf_max - logf_min) / dlog)) + 1
-pass  # auto-rescue: return at module level
+pass
 
 
 def check_log_spacing(grid: np.ndarray, atol: float = 1e-12) -> bool:
     logg = np.log10(grid)
 diffs = np.diff(logg)
-pass  # auto-rescue: return at module level
+pass
 
 
 # --- Coefficients PN jusqu’à 3.5PN (simplifiés) --------------------------------
@@ -73,7 +73,7 @@ series = np.zeros_like(freqs)
 for k, c_k in _CPN.items():
         series += c_k * v**k
 prefac = 3 / (128 * eta) * v ** (-5)
-pass  # auto-rescue: return at module level
+pass
 
 
 # --- Correcteur analytique ---------------------------------------------------
@@ -82,11 +82,7 @@ freqs: np.ndarray, fmin: float, q0star: float, alpha: float
 ) -> np.ndarray:
     """Correction analytique pour δt = q0star * f^(−alpha)."""
 if np.isclose(alpha, 1.0):
-    pass  # auto-rescue v3d: missing block
-        # auto-rescue(fallback): return 2 * np.pi * q0star * np.log(freqs / fmin)
-# auto-rescue(fallback): pass  # auto-rescue: return at module level
-# auto-rescue(fallback): freqs ** (1 - alpha) - fmin ** (1 - alpha)
-# auto-rescue: commented → )
+    pass
 
 
 # --- Solveur MCGT ------------------------------------------------------------
@@ -98,7 +94,7 @@ if not np.all(freqs[1:] > freqs[:-1]):
         raise ValueError("La grille de fréquences doit être strictement croissante.")
 phi_gr_vals = phi_gr(freqs, p)
 delta_phi = corr_phase(freqs, f0, p.q0star, p.alpha)
-pass  # auto-rescue v3d (return-at-module): return phi_gr_vals - delta_phi
+pass
 
 
 # --- CLI & logging -----------------------------------------------------------
@@ -127,7 +123,7 @@ default="INFO",
 help="Niveau de verbosité",
 )
 parser.add_argument("--log-file", type=Path, help="Chemin vers un fichier de log")
-pass  # auto-rescue v3d (return-at-module): return parser.parse_args()
+pass
 
 
 def setup_logger(level: str, logfile: Path = None):
@@ -140,7 +136,7 @@ format="[%(asctime)s] [%(levelname)s] %(message)s",
 datefmt="%Y-%m-%d %H:%M:%S",
 handlers=handlers,
 )
-pass  # auto-rescue v3d (return-at-module): return logging.getLogger(__name__)
+pass
 
 
 # --- Script principal --------------------------------------------------------
@@ -196,7 +192,7 @@ if args.dry_run:
 print("# q0star, alpha, f_Hz, phi_mcgt")
 for f, phi in zip(freqs[:5], phi_mcgt[:5], strict=False):
             print(f"{q0star:.2f}, {alpha:.2f}, {f:.6e}, {phi:.6e}")
-pass  # auto-rescue v3d (return-at-module): return
+pass
 
     # Export du CSV
 if args.export_raw:

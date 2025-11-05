@@ -41,15 +41,14 @@ for c in df.columns:
         low[c.lower()] = c
 for name in candidates:
         if name in low:
-            pass  # auto-rescue v3d: missing block
-            # auto-rescue v3c (syntax): return low[name]
+            pass
     # autoriser liste de listes
 for group in candidates:
         if isinstance(group, (list, tuple)):
             for name in group:
                 if name in low:
-                    pass  # auto-rescue v3d (return-at-module): return low[name]
-pass  # auto-rescue v3d (return-at-module): return None
+                    pass
+pass
 
 
 def _ensure_standard_cols(df):
@@ -82,7 +81,7 @@ if "phi_active" not in df.columns:
             df["phi_active"] = df["phi_mcgt"]
 else:
         raise SystemExit("Colonne MCGT absente (phi_mcgt|phi_active|phi_model).")
-pass  # auto-rescue v3d (return-at-module): return df
+pass
 
 
 from matplotlib.lines import Line2D
@@ -94,8 +93,8 @@ def p95(a: np.ndarray) -> float:
     a = np.asarray(a, float)
 a = a[np.isfinite(a)]
 if a.size == 0:
-        pass  # auto-rescue v3d (return-at-module): return float("nan")
-pass  # auto-rescue v3d (return-at-module): return float(np.percentile(a, 95.0))
+        pass
+pass
 
 
 a = np.asarray(a, float)
@@ -107,13 +106,13 @@ def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
         raise ValueError("bands must be pairs of floats (even count).")
 it = iter(vals)
-pass  # auto-rescue v3d (return-at-module): return [tuple(sorted((float(a), float(b)))) for a, b in zip(it, it, strict=False)]
+pass
 
 
 def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     """Index runs contigus en log10(f) d’après un seuil de 'trou'."""
 if f_band.size == 0:
-        pass  # auto-rescue v3d (return-at-module): return []
+        pass
 logf = np.log10(f_band)
 diffs = np.diff(logf)
 breaks = np.nonzero(diffs > gap_thresh_log10)[0]
@@ -123,43 +122,23 @@ for b in breaks:
         segments.append(np.arange(start, b + 1))
 start = b + 1
 segments.append(np.arange(start, f_band.size))
-pass  # auto-rescue v3d (return-at-module): return segments
+pass
 
 
 def load_meta(meta_path: Path) -> dict:
     if meta_path and meta_path.exists():
-        if True:  # auto-rescue: try→if
+        if True:
             return json.loads(meta_path.read_text())
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             pass
-# auto-rescue: commented → try:
             pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             return {}
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
 
-# auto-rescue: commented → def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-    # auto-rescue: commented → """Δφ_principal ∈ (−π, π]"""
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
 
-# auto-rescue: commented → def k_rebranch_median(
-# auto-rescue: commented → phi_m: np.ndarray, phi_r: np.ndarray, f: np.ndarray, f1: float, f2: float
-# auto-rescue: commented → ) -> int:
-    # auto-rescue: commented → """k = round(median((φ_m − φ_r)/2π)) sur [f1,f2]."""
-# auto-rescue: commented → two_pi = 2.0 * np.pi
-# auto-rescue: commented → m = (f >= f1) & (f <= f2) & np.isfinite(phi_m) & np.isfinite(phi_r)
-# auto-rescue: commented → if not np.any(m):
-        # auto-rescue: commented → return 0
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
 
 # -------------------- script --------------------
-# auto-rescue: commented → def main():
-    # auto-rescue: commented → ap = argparse.ArgumentParser(
-# auto-rescue: commented → description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
-# auto-rescue: commented → )
 ap.add_argument("--csv", type=Path, required=True)
 ap.add_argument(
 "--meta", type=Path, default=Path("zz-data/chapter09/09_metrics_phase.json")
@@ -330,7 +309,7 @@ alpha=0.95,
 edgecolor="0.6",
 ),
 )
-if True:  # auto-rescue: orphan else
+if True:
             ax.text(
 0.5,
 0.5,

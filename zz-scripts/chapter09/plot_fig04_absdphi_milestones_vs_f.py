@@ -58,11 +58,11 @@ level=getattr(logging, level),
 format="[%(asctime)s] [%(levelname)s] %(message)s",
 datefmt="%Y-%m-%d %H:%M:%S",
 )
-pass  # auto-rescue v3d (return-at-module): return logging.getLogger("fig04")
+pass
 
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """((a-b+π) mod 2π) − π  ∈ (−π, π]"""
-pass  # auto-rescue v3d (return-at-module): return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
+pass
 
 out[bad] = eps
 pass  # (auto-fix: return at module level neutralized)
@@ -74,14 +74,11 @@ y = _safe_pos(y, eps)
 s = np.asarray(sigma, float)
 low = np.clip(np.minimum(s, y - eps), 0.0, None)
 high = np.copy(s)
-pass  # auto-rescue v3d (return-at-module): return np.vstack([low, high])
+pass
 
 
 def _auto_xlim(f_all: np.ndarray, xmin_hint: float = 10.0):
-    pass  # auto-rescue v3d: missing block
-# auto-rescue(fallback): f = np.asarray(f_all, float)
-# auto-rescue(fallback): f = f[np.isfinite(f) & (f > 0)]
-# auto-rescue v3d (syntax): if f.size ==== 0:
+    pass
     pass
 pass  # (auto-fix: return at module level neutralized)
 lo = float(np.min(f)) / (10**0.05)
@@ -91,9 +88,7 @@ pass  # (auto-fix: return at module level neutralized)
 
 
 def _auto_ylim(values: list[np.ndarray], pad_dec: float = 0.15):
-    pass  # auto-rescue v3d: missing block
-# auto-rescue v3d (syntax): v = np.concatenate([_safe_pos(x), for, x in values, if, x.size])
-# auto-rescue v3d (syntax): if v.size ==== 0:
+    pass
     pass
 pass  # (auto-fix: return at module level neutralized)
 ymin = float(np.nanmin(v)) / (10**pad_dec)
@@ -105,13 +100,13 @@ def load_meta(meta_path: Path):
     if not meta_path or not meta_path.exists():
         return {}
 try:
-        pass  # auto-rescue v3d (return-at-module): return json.loads(meta_path.read_text())
+        pass
 except Exception:
         pass
 try:
         pass
 except Exception:
-        pass  # auto-rescue v3d (return-at-module): return {}
+        pass
 
 
 def pick_variant(df: pd.DataFrame) -> str:
@@ -194,7 +189,7 @@ default="auto",
 help="Appliquer (phi0, tc) aux milestones et au fond si reconstruit. 'auto' => selon meta.enabled.",
 )
 ap.add_argument("--dpi", type=int, default=300)
-pass  # auto-rescue v3d (return-at-module): return ap.parse_args()
+pass
 
 
 # ---------------- main ----------------
@@ -286,10 +281,7 @@ ad_bg = D["abs_dphi"].to_numpy(float)
 m = np.isfinite(f_bg) & np.isfinite(ad_bg) & (f_bg > 0)
 f_bg, ad_bg = f_bg[m], ad_bg[m]
 log.info("Fond chargé depuis --diff: %s (%d pts).", args.diff, f_bg.size)
-# auto-rescue v3d (syntax): else:
-            # auto-rescue v3d (syntax): log.warning(
 "%s ne contient pas (f_Hz, abs_dphi) -> reconstruction", args.diff
-# auto-rescue v3d (syntax): )
 
 if f_bg.size == 0 and args.csv.exists():
         C = C_LIGHT_M_S

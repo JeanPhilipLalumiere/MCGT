@@ -1,7 +1,13 @@
-# Tout ignorer par défaut
+# Ignore all by default
 *
-# Laisser ce .gitignore
 !.gitignore
-# Autoriser v0.3.x et son contenu mcgt/**
 !v0.3.x/
 !v0.3.x/mcgt/**
+
+# Re-ignore build/backup artifacts inside mcgt/**
+v0.3.x/mcgt/**/__pycache__/
+v0.3.x/mcgt/**/*.pyc
+v0.3.x/mcgt/**/*.pyo
+v0.3.x/mcgt/**/*.bak
+v0.3.x/mcgt/**/*RoundFUT*.pre.*
+v0.3.x/mcgt/**/*autofix.*.bak

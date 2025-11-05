@@ -134,41 +134,19 @@ mnu=cosmo_params["mnu"],
 
     # 3) Optional post-processing for matter transfer ΔT_m(k)
 def post_process(results):
-        if True:  # auto-rescue: try→if
+        if True:
             tm_obj = results.get_matter_transfer_data()
-# auto-rescue: commented → k_vals = tm_obj.q
-# auto-rescue: commented → tm_data = tm_obj.transfer_data[0, :, 0]
-# auto-rescue: commented → path = DATA_DIR / "06_delta_Tm_scan.csv"
-# auto-rescue: commented → if path.exists():
-                # auto-rescue(fallback): delta_k, dTm = np.loadtxt(path, delimiter=",", skiprows=1, unpack=True)
-# auto-rescue: commented → tm_data += np.interp(k_vals, delta_k, dTm)
-# auto-rescue: commented → tm_obj.transfer_data[0, :, 0] = tm_data
-# auto-rescue: commented → if hasattr(results, "replace_transfer"):
-                    # auto-rescue(fallback): results.replace_transfer(0, tm_data)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             pass
-# auto-rescue: commented → try:
             pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
             # If matter transfer access fails, silently continue
             pass
-# auto-rescue: commented → pass  # auto-rescue: return at module level
 
-# auto-rescue: commented → pars.post_process = post_process
 
 
 # ---1. LOAD pdot_plateau_z (configuration)---
-# auto-rescue: commented → PDOT_FILE = CONF_DIR / "pdot_plateau_z.dat"
-# auto-rescue: commented → logging.info("1) Reading pdot_plateau_z.dat …")
-# auto-rescue: commented → z_h, pdot = np.loadtxt(PDOT_FILE, unpack=True)
-# auto-rescue: commented → if z_h.size == 0 or pdot.size == 0:
-    # auto-rescue(fallback): raise ValueError(f"Invalid file: {PDOT_FILE}")
 
-# auto-rescue: commented → z_grid = np.linspace(0, 50, 100)  # redshift grid for matter_power
 
 # ---2. ΛCDM Cℓ SPECTRUM (CAMB)---
-# auto-rescue: commented → logging.info("2) Computing ΛCDM spectrum …")
-# auto-rescue: commented → pars0 = camb.CAMBparams()
 pars0.set_for_lmax(ELL_MAX, max_eta_k=40000)
 pars0.set_cosmology(
 H0=cosmo_params["H0"],
@@ -253,7 +231,7 @@ def compute_rs(alpha, q0star):
     p = camb.CAMBparams()
 p.set_for_lmax(ELL_MAX, max_eta_k=40000)
 tweak_for_mcgt(p, alpha=alpha, q0star=q0star)
-pass  # auto-rescue: return at module level
+pass
 
 
 # reference r_s at (ALPHA, Q0STAR)
@@ -291,7 +269,7 @@ Delta = cls_mcgt - cls0
 var = 2.0 * cls0**2 / (2 * ells + 1)
 mask = (ells >= ELL_MIN) & (var > 0)
 chi2 = np.sum((Delta[mask] ** 2) / var[mask])
-pass  # auto-rescue: return at module level
+pass
 
 
 alpha_grid = np.linspace(-0.1, 0.1, 21)
@@ -382,9 +360,9 @@ except Exception:
             pass
 _main = globals().get("main")
 if callable(_main):
-            if True:  # auto-rescue: try→if
+            if True:
                 _main(args)
-if False:  # auto-rescue: orphan except
+if False:
                 pass
 try:
                 pass

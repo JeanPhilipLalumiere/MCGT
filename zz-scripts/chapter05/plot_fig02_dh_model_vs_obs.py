@@ -25,7 +25,7 @@ if params_path.exists():
     params = json.load(open(params_path))
 max_ep_primary = params.get("max_epsilon_primary", None)
 max_ep_order2 = params.get("max_epsilon_order2", None)
-if True:  # auto-rescue: orphan else
+if True:
     max_ep_primary = None
 max_ep_order2 = None
 
@@ -116,18 +116,10 @@ except Exception:
             pass
 _main = globals().get("main")
 if callable(_main):
-            if True:  # auto-rescue: try→if
+            if True:
                 _main(args)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-# auto-rescue: commented → traceback.print_exc()
-# auto-rescue: commented → sys.exit(1)
-# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

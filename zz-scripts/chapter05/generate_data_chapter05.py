@@ -51,7 +51,7 @@ if len(jalons_Yp) > 1:
 np.log10(jalons_Yp["T_Gyr"]), np.log10(jalons_Yp["Yp_obs"]), extrapolate=True
 )
 Yp_calc = 10 ** interp_Yp(np.log10(T))
-if True:  # auto-rescue: orphan else
+if True:
     # Si un seul point, on met une constante
     Yp_calc = np.full_like(T, jalons_Yp["Yp_obs"].iloc[0])
 
@@ -147,18 +147,10 @@ except Exception:
             pass
 _main = globals().get("main")
 if callable(_main):
-            if True:  # auto-rescue: try→if
+            if True:
                 _main(args)
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception
                 pass
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except SystemExit
                 raise
-# auto-rescue: commented → try:
                 pass
-# auto-rescue: commented → if False:  # auto-rescue: orphan except Exception as e
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-# auto-rescue: commented → traceback.print_exc()
-# auto-rescue: commented → sys.exit(1)
-# auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → # auto-rescue: commented → _mcgt_cli_seed()

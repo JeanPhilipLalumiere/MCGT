@@ -36,4 +36,4 @@ repos:
     entry: tools/guard_fail_on_placeholders.sh
     language: system
     pass_filenames: false
-    stages: [commit]
+    stages: [pre-commit]

@@ -53,17 +53,10 @@ def circ_std_rad(angles: np.ndarray) -> float:
     return float(np.sqrt(max(0.0, -2.0 * np.log(max(R, 1e-12)))))
 
 
-def bootstrap_circ_mean_ci(
-    angles: np.ndarray, B: int = 1000, seed: int = 12345
-) -> tuple[float, float, float]:
+def bootstrap_circ_mean_ci(angles: np.ndarray, B: int = 1000, seed: int = 12345) -> tuple[float, float, float]:
     """
     IC bootstrap (percentile, 95%) pour la moyenne circulaire de `angles`.
-
-    Technique: calcule la moyenne circulaire θ̂. Pour chaque bootstrap, calcule θ_b.
-    Étant sur un cercle, on centre puis "wrap" : Δ_b = wrap(θ_b - θ̂).
-    On prend les percentiles 2.5% et 97.5% de Δ_b, puis on réapplique autour de θ̂.
-
-    Retourne: (theta_hat, ci_low, ci_high) en radians dans [-π, π).
+    Retourne (theta_hat, ci_low, ci_high) en radians dans [-π, π).
     """
     n = len(angles)
     if n == 0 or B <= 0:
@@ -74,21 +67,16 @@ def bootstrap_circ_mean_ci(
     theta_hat = circ_mean_rad(angles)
     deltas = np.empty(B, dtype=float)
 
-    for b in range(B):
+    for _ in range(B):
         idx = rng.integers(0, n, size=n)
         th_b = circ_mean_rad(angles[idx])
-        deltas[b] = wrap_pi(th_b - theta_hat)
+        deltas[_] = wrap_pi(th_b - theta_hat)
 
     lo = np.percentile(deltas, 2.5)
     hi = np.percentile(deltas, 97.5)
     ci_low = wrap_pi(theta_hat + lo)
     ci_high = wrap_pi(theta_hat + hi)
     return theta_hat, ci_low, ci_high
-
-
-# ------------------------- Parsing & plotting -------------------------
-
-
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
     if hint and hint in df.columns:
         return hint
@@ -106,85 +94,93 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
 def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
-        "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
+    "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
     )
     p.add_argument(
-        "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
+    "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
     )
     p.add_argument(
-        "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
+    "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
     )
     p.add_argument(
-        "--sigma-col", default=None, help="Colonne sigma (erreurs sur X) optionnelle"
+    "--sigma-col", default=None, help="Colonne sigma (erreurs sur X) optionnelle"
     )
     p.add_argument(
-        "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
+    "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
     )
     p.add_argument(
-        "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
-    )
-    p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
-    p.add_argument(
-        "--title",
-        default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
-        help="Titre de la figure (fontsize=15)",
+    "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
     )
     p.add_argument(
-        "--point-size", type=float, default=12.0, help="Taille des points du scatter"
+    "--title",
+    default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
+    help="Titre de la figure (fontsize=15)",
     )
     p.add_argument(
-        "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
+    "--point-size", type=float, default=12.0, help="Taille des points du scatter"
+    )
+    p.add_argument(
+    "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
     )
     p.add_argument("--cmap", default="viridis", help="Colormap pour |Δφ|")
 
     # options de clipping / échelle
     p.add_argument(
-        "--clip_pi",
-        action="store_true",
-        help="Force axes X/Y dans [-π, π] (utile si phases wrapées).",
+    "--clip_pi",
+    action="store_true",
+    help="Force axes X/Y dans [-π, π] (utile si phases wrapées).",
     )
     p.add_argument(
-        "--p95-ref",
-        type=float,
-        default=0.7104087123286049,
-        help="Seuil de référence pour fraction |Δφ| < réf.",
+    "--p95-ref",
+    type=float,
+    default=0.7104087123286049,
+    help="Seuil de référence pour fraction |Δφ| < réf.",
     )
     p.add_argument(
-        "--annotate-top-k",
-        type=int,
-        default=0,
-        help="Annote les K pires |Δφ| (0 = désactivé).",
+    "--annotate-top-k",
+    type=int,
+    default=0,
+    help="Annote les K pires |Δφ| (0 = désactivé).",
     )
 
     # HEXBIN
     p.add_argument(
-        "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
+    "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
     )
     p.add_argument(
-        "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
+    "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
     )
     p.add_argument(
-        "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
+    "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
     )
 
     # Colorbar ticks π/4
     p.add_argument(
-        "--pi-ticks",
-        action="store_true",
-        help="Colorbar avec ticks à 0, π/4, π/2, 3π/4, π.",
+    "--pi-ticks",
+    action="store_true",
+    help="Colorbar avec ticks à 0, π/4, π/2, 3π/4, π.",
     )
 
     # Bootstrap IC sur la moyenne circulaire
     p.add_argument(
-        "--boot-ci",
-        type=int,
-        default=1000,
-        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
+    "--boot-ci",
+    type=int,
+    default=1000,
+    help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
     )
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
-p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
+    # core CLI normalized (round5c-fix3)
+    # core CLI normalized (round5c-fix4)
 
     args = p.parse_args()
+# round5e-fallback: ensure core CLI defaults
+    if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+    if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+    if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
+# round5d-fallback: ensure core CLI defaults
+    if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+    if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+    if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
 
     # lecture
     df = pd.read_csv(args.results)
@@ -192,18 +188,18 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
     df = ci.ensure_fig02_cols(df)
 
     x_candidates = [
-        "phi_ref_fpeak",
-        "phi_ref",
-        "phi_ref_f_peak",
-        "phi_ref_at_fpeak",
-        "phi_reference",
+    "phi_ref_fpeak",
+    "phi_ref",
+    "phi_ref_f_peak",
+    "phi_ref_at_fpeak",
+    "phi_reference",
     ]
     y_candidates = [
-        "phi_mcgt_fpeak",
-        "phi_mcgt",
-        "phi_mcg",
-        "phi_mcg_at_fpeak",
-        "phi_MCGT",
+    "phi_mcgt_fpeak",
+    "phi_mcgt",
+    "phi_mcg",
+    "phi_mcg_at_fpeak",
+    "phi_MCGT",
     ]
 
     xcol = detect_column(df, args.x_col, x_candidates)
@@ -220,28 +216,28 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
     dphi = circ_diff(x, y)
     abs_d = np.abs(dphi)
     N = len(abs_d)
-
+    
     # stats scalaires
     mean_abs = float(np.mean(abs_d))
     median_abs = float(np.median(abs_d))
     p95_abs = float(np.percentile(abs_d, 95))
     max_abs = float(np.max(abs_d))
     frac_below = float(np.mean(abs_d < args.p95_ref))
-
+    
     # stats circulaires
     cmean = circ_mean_rad(dphi)
-    cstd = circ_std_rad(dphi)
+    cstd  = circ_std_rad(dphi)
     if args.boot_ci > 0:
         cmean_hat, ci_lo, ci_hi = bootstrap_circ_mean_ci(
             dphi, B=args.boot_ci, seed=args.seed
         )
     else:
         cmean_hat, ci_lo, ci_hi = cmean, cmean, cmean
-
-    # -- NEW: largeur d'arc la plus courte entre les bornes d'IC, puis demi-largeur --
+    
+    # largeur d'arc (IC) et demi-largeur
     arc_width = float(np.abs(wrap_pi(ci_hi - ci_lo)))
-    half_arc = 0.5 * arc_width
-
+    half_arc  = 0.5 * arc_width
+    
     # Figure
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(8, 8))
@@ -249,26 +245,26 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
     # hexbin en fond
     if args.with_hexbin:
         ax.hexbin(
-            x,
-            y,
-            gridsize=args.hexbin_gridsize,
-            mincnt=1,
-            cmap="Greys",
-            alpha=args.hexbin_alpha,
-            linewidths=0,
-            zorder=0,
+        x,
+        y,
+        gridsize=args.hexbin_gridsize,
+        mincnt=1,
+        cmap="Greys",
+        alpha=args.hexbin_alpha,
+        linewidths=0,
+        zorder=0,
         )
 
     # scatter par-dessus
     sc = ax.scatter(
-        x,
-        y,
-        c=abs_d,
-        s=args.point_size,
-        alpha=args.alpha,
-        cmap=args.cmap,
-        edgecolor="none",
-        zorder=1,
+    x,
+    y,
+    c=abs_d,
+    s=args.point_size,
+    alpha=args.alpha,
+    cmap=args.cmap,
+    edgecolor="none",
+    zorder=1,
     )
 
     # limites
@@ -306,27 +302,27 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 
     # stats box
     stat_lines = [
-        f"N = {N}",
-        f"|Δφ| mean = {mean_abs:.3f}",
-        f"median = {median_abs:.3f}",
-        f"p95 = {p95_abs:.3f}",
-        f"max = {max_abs:.3f}",
-        f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
-        f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
-        f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
-        f"circ-std(Δφ) = {cstd:.3f} rad",
+    f"N = {N}",
+    f"|Δφ| mean = {mean_abs:.3f}",
+    f"median = {median_abs:.3f}",
+    f"p95 = {p95_abs:.3f}",
+    f"max = {max_abs:.3f}",
+    f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
+    f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
+    f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
+    f"circ-std(Δφ) = {cstd:.3f} rad",
     ]
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
     ax.text(
-        0.02,
-        0.98,
-        "\n".join(stat_lines),
-        transform=ax.transAxes,
-        fontsize=9,
-        va="top",
-        ha="left",
-        bbox=bbox,
-        zorder=5,
+    0.02,
+    0.98,
+    "\n".join(stat_lines),
+    transform=ax.transAxes,
+    fontsize=9,
+    va="top",
+    ha="left",
+    bbox=bbox,
+    zorder=5,
     )
 
     # annotation top-K pires |Δφ|
@@ -335,19 +331,19 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
         idx = np.argsort(-abs_d)[:k]
         for i in idx:
             ax.annotate(
-                f"{abs_d[i]:.3f}",
-                (x[i], y[i]),
-                xytext=(4, 4),
-                textcoords="offset points",
-                fontsize=7,
-                color="black",
-                alpha=0.8,
+            f"{abs_d[i]:.3f}",
+            (x[i], y[i]),
+            xytext=(4, 4),
+            textcoords="offset points",
+            fontsize=7,
+            color="black",
+            alpha=0.8,
             )
 
     # pied de figure
     foot = (
-        r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
-        r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
+    r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
+    r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
     )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
@@ -356,5 +352,6 @@ p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
     print(f"Wrote: {args.out}")
 
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
+        pass
     main()

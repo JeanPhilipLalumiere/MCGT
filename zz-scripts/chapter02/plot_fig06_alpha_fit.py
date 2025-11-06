@@ -2,78 +2,17 @@
 # fichier : zz-scripts/chapter02/plot_fig06_alpha_fit.py
 # répertoire : zz-scripts/chapter02
 # === [PASS5-AUTOFIX-SHIM] ===
-if __name__ == "__main__":
-    try:
-        import sys
-        import os
-        import atexit
-
-        _argv = sys.argv[1:]
-        # 1) Shim --help universel
-        if any(a in ("-h", "--help") for a in _argv):
-            import argparse
-
-            _p = argparse.ArgumentParser(
-                description="MCGT (shim auto-injecté Pass5)",
-                add_help=True,
-                allow_abbrev=False,
-            )
-            _p.add_argument(
-                "--out", help="Chemin de sortie pour fig.savefig (optionnel)"
-            )
-            _p.add_argument(
-                "--dpi", type=int, default=120, help="DPI (par défaut: 120)"
-            )
-            _p.add_argument(
-_p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
-                "--show",
-                action="store_true",
-                help="Force plt.show() en fin d'exécution",
-            )
-            # parse_known_args() affiche l'aide et gère les options de base
-            _p.parse_known_args()
-            sys.exit(0)
-        # 2) Shim sauvegarde figure si --out présent (sans bloquer)
-        _out = None
-        if "--out" in _argv:
-            try:
-                i = _argv.index("--out")
-                _out = _argv[i + 1] if i + 1 < len(_argv) else None
-            except Exception:
-                _out = None
-        if _out:
-            os.environ.setdefault("MPLBACKEND", "Agg")
-            try:
-                import matplotlib.pyplot as plt
-
-                # Neutralise show() pour éviter le blocage en headless
-                def _shim_show(*a, **k):
-                    pass
-
-                plt.show = _shim_show
-                # Récupère le dpi si fourni
-                _dpi = 120
-                if "--dpi" in _argv:
-                    try:
-                        _dpi = int(_argv[_argv.index("--dpi") + 1])
-                    except Exception:
-                        _dpi = 120
-
-                @atexit.register
-                def _pass5_save_last_figure():
-                    try:
-                        fig = plt.gcf()
-                        fig.savefig(_out, dpi=_dpi)
-                        print(f"[PASS5] Wrote: {_out}")
-                    except Exception as _e:
-                        print(f"[PASS5] savefig failed: {_e}")
-
-            except Exception:
-                # matplotlib indisponible: ignorer silencieusement
-                pass
-    except Exception:
-        # N'empêche jamais le script original d'exécuter
-        pass
+import sys
+_argv = sys.argv[1:]
+# 1) Shim --help universel
+if any(a in ("-h","--help") for a in _argv):
+    import argparse
+    _p = argparse.ArgumentParser(description="MCGT (shim auto-injecté Pass5)", add_help=True, allow_abbrev=False)
+    _p.add_argument("--out", help="Chemin de sortie pour fig.savefig (optionnel)")
+    _p.add_argument("--dpi", type=int, default=120, help="DPI (par défaut: 120)")
+    _p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
+    _p.parse_args(_argv)
+    raise SystemExit(0)
 # === [/PASS5-AUTOFIX-SHIM] ===
 """
 Tracer l'ajustement polynomial de A_s(α) et n_s(α) pour le Chapitre 2 (MCGT)
@@ -142,14 +81,14 @@ def main():
     ax2.grid(True, which="both", ls=":")
     ax2.legend()
 
-    plt.suptitle("Ajustement polynomial de $A_s(\\alpha)$ et $n_s(\\alpha)$", y=0.98)
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+plt.suptitle("Ajustement polynomial de $A_s(\\alpha)$ et $n_s(\\alpha)$", y=0.98)
+fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Sauvegarde
-    FIG_DIR.mkdir(parents=True, exist_ok=True)
-    plt.savefig(OUT_PLOT, dpi=300)
-    plt.close()
-    print(f"Figure enregistrée → {OUT_PLOT}")
+FIG_DIR.mkdir(parents=True, exist_ok=True)
+plt.savefig(OUT_PLOT, dpi=300)
+plt.close()
+print(f"Figure enregistrée → {OUT_PLOT}")
 
 
 if __name__ == "__main__":
@@ -158,22 +97,12 @@ if __name__ == "__main__":
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
-
+    import os, sys
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
         sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-
-    def _mcgt_postparse_apply(*_a, **_k):
-        pass
-
-
-try:
-    if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
+    _mcgt_postparse_apply()
 except Exception:
     pass

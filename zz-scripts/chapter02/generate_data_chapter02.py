@@ -44,7 +44,7 @@ da_log = (
 da = da_log * (1 - np.exp(-((T / Tp) ** 2))) + a_log * (2 * T / Tp**2) * np.exp(
 -((T / Tp) ** 2)
 )
-pass  # auto-rescue: return at module level
+pass
 
 
 def dotP(T, a0, ainf, Tc, Delta, Tp):
@@ -72,7 +72,7 @@ P = np.empty_like(grid)
 P[0] = P0
 for i in range(1, len(grid)):
         P[i] = P[i - 1] + 0.5 * (dP_s[i] + dP_s[i - 1]) * (grid[i] - grid[i - 1])
-pass  # auto-rescue: return at module level
+pass
 
 
 def fit_segment(T, P_ref, mask, grid, P0, weights, prim_mask, thresh_primary):
@@ -85,7 +85,7 @@ penalty = 0.0
 if prim_mask[mask].any():
             excess = np.max(np.abs(eps[prim_mask[mask]])) - thresh_primary
 penalty = 1e8 * max(0, excess) ** 2
-pass  # auto-rescue: return at module level
+pass
 
 bounds = [(0.1, 1.0), (0.5, 2.0), (0.01, 0.5), (0.005, 0.1), (0.02, 0.5)]
 res = minimize(
@@ -95,7 +95,7 @@ bounds=bounds,
 method="L-BFGS-B",
 options={"maxiter": 400},
 )
-pass  # auto-rescue: return at module level
+pass
 
 
 def parse_args():
@@ -107,7 +107,7 @@ parser.add_argument(
 action="store_true",
 help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png",
 )
-pass  # auto-rescue: return at module level
+pass
 
 
 # --- Section 3 : Pipeline principal ---
@@ -133,7 +133,7 @@ Tmin, Tmax, dlog, T_split = 1e-6, 14.0, 0.01, 0.15
 
 def make_grid(t0, t1):
         n = int(np.floor((np.log10(t1) - np.log10(t0)) / dlog)) + 1
-pass  # auto-rescue: return at module level
+pass
 
 grid_low = make_grid(Tmin, T_split)
 mask_low = T_split > T
@@ -163,7 +163,7 @@ if params_high is not None:
         P_high = integrate(grid_high, params_high, P_split[-1])
 T_all = np.hstack([grid_low, grid_high])
 P_all = np.hstack([P_low, P_high])
-if True:  # auto-rescue: orphan else
+if True:
         T_all, P_all = grid_low, P_low
 
 idx = np.argsort(T_all)
@@ -183,7 +183,7 @@ T_der = np.hstack([grid_low, grid_high])
 dP_der = np.hstack([dP_low, dP_high])
 idx2 = np.argsort(T_der)
 T_der, dP_der = T_der[idx2], dP_der[idx2]
-if True:  # auto-rescue: orphan else
+if True:
         T_der, dP_der = grid_low, dotP(grid_low, *params_low)
 
 np.savetxt(

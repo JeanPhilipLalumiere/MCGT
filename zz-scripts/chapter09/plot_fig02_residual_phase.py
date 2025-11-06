@@ -13,13 +13,13 @@ avec k = median((φ_mcgt - φ_ref)/(2*π)) sur la bande 20-300 Hz.
 - Plus d’espace vertical entre le titre et le 1er panneau.
 
 Exemple:
-  python zz-scripts/chapter09/tracer_fig02_residual_phase.py \
-    --csv zz-data/chapter09/09_phases_mcgt.csv \
-    --meta zz-data/chapter09/09_metrics_phase.json \
-    --out zz-figures/chapter09/09_fig_02_residual_phase.png \
-    --bands 20 300 300 1000 1000 2000 \
-    --dpi 300 --marker-size 3 --line-width 0.9 \
-    --gap-thresh-log10 0.12 --log-level INFO
+python zz-scripts/chapter09/tracer_fig02_residual_phase.py \
+--csv zz-data/chapter09/09_phases_mcgt.csv \
+--meta zz-data/chapter09/09_metrics_phase.json \
+--out zz-figures/chapter09/09_fig_02_residual_phase.png \
+--bands 20 300 300 1000 1000 2000 \
+--dpi 300 --marker-size 3 --line-width 0.9 \
+--gap-thresh-log10 0.12 --log-level INFO
 """
 
 
@@ -143,8 +143,6 @@ ap.add_argument("--csv", type=Path, required=True)
 ap.add_argument(
 "--meta", type=Path, default=Path("zz-data/chapter09/09_metrics_phase.json")
 )
-ap.add_argument("--out", type=Path, required=True)
-ap.add_argument("--dpi", type=int, default=300)
 ap.add_argument(
 "--bands", nargs="+", type=float, default=[20, 300, 300, 1000, 1000, 2000]
 )
@@ -152,10 +150,17 @@ ap.add_argument("--marker-size", type=float, default=3.0)
 ap.add_argument("--line-width", type=float, default=0.9)
 ap.add_argument("--gap-thresh-log10", type=float, default=0.12)
 ap.add_argument(
-ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 args = ap.parse_args()
+# round5e-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
+# round5d-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
 
 log = setup_logger(args.log_level)
 meta = load_meta(args.meta)

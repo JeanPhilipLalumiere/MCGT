@@ -53,7 +53,6 @@ p.add_argument(
 default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
 help="Output PNG",
 )
-p.add_argument("--dpi", type=int, default=300, help="PNG dpi")
 p.add_argument("--point-size", type=float, default=10.0, help="scatter marker size")
 p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
 p.add_argument("--cmap", default="viridis", help="colormap")
@@ -107,12 +106,21 @@ help="Scale factor for histogram inset size (1.0 = base size; >1 = larger)",
 )
 p.add_argument("--bins", type=int, default=50, help="Histogram bins")
 p.add_argument(
-p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
+    # core CLI normalized (round5c-fix3)
+    # core CLI normalized (round5c-fix4)
 "--title",
 default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
 help="Figure title (fontsize=15)",
 )
 args = p.parse_args()
+# round5e-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
+# round5d-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
 
 df = pd.read_csv(args.results)
 df = ci.ensure_fig02_cols(df)

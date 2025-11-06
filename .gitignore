@@ -121,3 +121,9 @@ fix_*_cli_seed.sh
 !release_zenodo_codeonly/
 !release_zenodo_codeonly/v0.3.x/
 !release_zenodo_codeonly/v0.3.x/mcgt/**
+# BEGIN round3 attic ignore
+_attic_untracked/
+*.round3bak-*
+*.preclean-*.py
+_tmp/round3_audit_*/
+# END round3 attic ignore

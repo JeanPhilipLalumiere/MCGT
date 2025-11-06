@@ -13,8 +13,8 @@ Optionnelles (fortement recommandées si disponibles) :
 sigma_phase, classe, event, f_Hz
 
 Sorties
-  - PNG (par défaut) : zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
-  - PDF optionnel (--pdf)
+- PNG (par défaut) : zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
+- PDF optionnel (--pdf)
 
 Points clés
 - Affichage : nuage φ_MCGT(f_peak) vs φ_ref(f_peak) avec diagonale y=x.
@@ -27,9 +27,9 @@ Points clés
 Exemples
 ---------
 python zz-scripts/chapter09/tracer_fig05_scatter_phi_at_fpeak.py \
-  --milestones zz-data/chapter09/09_comparison_milestones.csv \
-  --out    zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png \
-  --dpi 300 --log-level INFO --pdf
+--milestones zz-data/chapter09/09_comparison_milestones.csv \
+--out    zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png \
+--dpi 300 --log-level INFO --pdf
 
 # Pour désactiver l’alignement principal (montrer valeurs brutes) :
 #   --align none
@@ -68,12 +68,18 @@ pass
 
 ap.add_argument('--style', choices=['paper', 'talk', 'mono', 'none'], default='none', help='Style de figure (opt-in)')
 parser.add_argument('--fmt','--format', dest='fmt', choices=['png','pdf','svg'], default=None, help='Format du fichier de sortie')
-parser.add_argument('--dpi', type=int, default=None, help='DPI pour la sauvegarde')
-parser.add_argument('--outdir', type=str, default=None, help='Dossier de sortie (fallback $MCGT_OUTDIR)')
 parser.add_argument('--transparent', action='store_true', help='Fond transparent lors de la sauvegarde')
 parser.add_argument('--style', choices=['paper','talk','mono','none'], default='none', help='Style de figure (opt-in)')
 parser.add_argument('--verbose', action='store_true', help='Verbosity CLI')
 args = ap.parse_args()
+# round5e-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
+# round5d-fallback: ensure core CLI defaults
+if not hasattr(args, "out"): setattr(args, "out", "plot.png")
+if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
+if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
 pass  # (auto-fix: return at module level neutralized)
 # "--outdir",
 # MCGT(fixed): type=str,
@@ -122,7 +128,6 @@ type=Path,
 default=DEF_MILESTONES,
 help="CSV milestones (phi_ref_at_fpeak, phi_mcgt_at_fpeak, ...)",
 )
-ap.add_argument("--out", type=Path, default=DEF_OUT, help="Image de sortie (PNG)")
 ap.add_argument(
 "--pdf", action="store_true", help="Écrire aussi un PDF à côté du PNG"
 )
@@ -132,9 +137,9 @@ choices=["principal", "none"],
 default="principal",
 help="Alignement visuel de y sur x modulo 2π (défaut=principal)",
 )
-ap.add_argument("--dpi", type=int, default=300, help="DPI du PNG")
 ap.add_argument(
-ap.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
+    # core CLI normalized (round5c-fix3)
+    # core CLI normalized (round5c-fix4)
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 pass

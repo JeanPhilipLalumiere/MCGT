@@ -9,9 +9,9 @@ Exemple :
 python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
 if True:
   --csv zz-data/chapter09/09_phases_mcgt.csv \
-  --meta zz-data/chapter09/09_metrics_phase.json \
-  --out zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
-  --mode principal --bins 50 --window 20 300 --xscale log --dpi 300 --log-level INFO
+--meta zz-data/chapter09/09_metrics_phase.json \
+--out zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
+--mode principal --bins 50 --window 20 300 --xscale log --dpi 300 --log-level INFO
 """
 
 import argparse
@@ -64,7 +64,6 @@ type=Path,
 default=DEF_META,
 help="JSON méta (calage/grille) pour annotation",
 )
-p.add_argument("--out", type=Path, default=DEF_OUT, help="PNG de sortie")
 p.add_argument("--svg", action="store_true", help="Écrire aussi un .svg")
 p.add_argument("--bins", type=int, default=50, help="Nombre de bins")
 p.add_argument(
@@ -88,9 +87,9 @@ p.add_argument(
 "--no-lines", action="store_true", help="Ne pas tracer les lignes des stats"
 )
 p.add_argument("--legend-loc", default="upper right", help="loc Matplotlib")
-p.add_argument("--dpi", type=int, default=300, help="DPI de sortie")
 p.add_argument(
-p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
+    # core CLI normalized (round5c-fix3)
+    # core CLI normalized (round5c-fix4)
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
 raise SystemExit(p.parse_args())

@@ -28,3 +28,12 @@ repos:
         language: system
         pass_filenames: false
         stages: [pre-commit, pre-push, manual]
+repos:
+- repo: local
+  hooks:
+  - id: guard-placeholders
+    name: guard placeholders
+    entry: tools/guard_fail_on_placeholders.sh
+    language: system
+    pass_filenames: false
+    stages: [commit]

@@ -1,39 +1,46 @@
-# added by policies_guard_common_fixes
-permissions:
-  contents: read
-name: pip-audit --progress-spinner off
+name: pip-audit
 on:
   workflow_dispatch:
   push: { branches: ["**"] }
   pull_request: { branches: ["**"] }
   schedule:
     - cron: "11 4 * * 5"
+permissions:
+  contents: read
 concurrency:
   group: deps-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   audit:
     runs-on: ubuntu-latest
-    continue-on-error: false
-    # removed temporary soften (rewrite/*)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
+        with:
+          python-version: "3.12"
       - name: Install project (best-effort)
+        env:
+          PIP_CONSTRAINT: constraints/security-pins.txt
         run: |
-          set -e
-          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip -c constraints/security-pins.txt
-          if ls requirements*.txt >/dev/null 2>&1; then
-            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
+          python -m pip install -U pip -c "$PIP_CONSTRAINT"
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt -c "$PIP_CONSTRAINT" || true
           fi
-      - name: Install pip-audit --progress-spinner off
-        run: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit --progress-spinner off -c constraints/security-pins.txt
-      - name: Run pip-audit --progress-spinner off
+          if [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt -c "$PIP_CONSTRAINT" || true
+          fi
+      - name: Install pip-audit
+        env:
+          PIP_CONSTRAINT: constraints/security-pins.txt
+        run: pip install pip-audit -c "$PIP_CONSTRAINT"
+      - name: Run pip-audit
         run: |
-          set -e
-          if ls requirements*.txt >/dev/null 2>&1; then
-            pip-audit --progress-spinner off -r requirements.txt
+          if [ -f requirements.txt ]; then
+            if [ -f requirements-dev.txt ]; then
+              pip-audit --progress-spinner off -r requirements.txt -r requirements-dev.txt
+            else
+              pip-audit --progress-spinner off -r requirements.txt
+            fi
           else
             pip-audit --progress-spinner off
           fi

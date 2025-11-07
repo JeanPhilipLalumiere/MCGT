@@ -4,6 +4,8 @@ on:
   pull_request: { branches: ["**"] }
   schedule:
     - cron: "19 3 * * 2"
+permissions:
+  contents: read
 concurrency:
   group: codeql-${{ github.ref }}
   cancel-in-progress: true
@@ -15,27 +17,24 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [python]
     steps:
       - uses: actions/checkout@v4
       - uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
+          languages: python
       - name: Setup Python
-        if: matrix.language == 'python'
         uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
+        with:
+          python-version: "3.12"
       - name: Install deps (best-effort)
-        if: matrix.language == 'python'
+        env:
+          PIP_CONSTRAINT: constraints/security-pins.txt
         run: |
-          set -e
-          if ls requirements*.txt >/dev/null 2>&1; then
-            python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip -c constraints/security-pins.txt
-            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
+          if [ -f requirements.txt ]; then
+            python -m pip install -U pip -c "$PIP_CONSTRAINT"
+            pip install -r requirements.txt -c "$PIP_CONSTRAINT" || true
           fi
       - uses: github/codeql-action/autobuild@v3
       - uses: github/codeql-action/analyze@v3
-        with: { category: "/language:${{matrix.language}}" }
+        with:
+          category: "/language:python"

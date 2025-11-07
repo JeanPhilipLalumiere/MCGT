@@ -1,3 +1,4 @@
 # Pins de sécurité centralisés (appliqués via PIP_CONSTRAINT)
 requests==2.32.5
 jupyterlab==4.4.8
+setuptools==78.1.1

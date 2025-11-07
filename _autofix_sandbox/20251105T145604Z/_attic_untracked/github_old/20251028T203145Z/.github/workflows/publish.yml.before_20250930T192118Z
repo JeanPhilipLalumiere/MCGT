@@ -36,7 +36,7 @@ jobs:
 
       - name: Install project deps (best-effort)
         run: |
-          if [ -f requirements.txt ]; then pip install -r requirements.txt || true; fi
+          if [ -f requirements.txt ]; then PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true; fi
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt || true; fi
 
       - name: Build sdist/wheel

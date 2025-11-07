@@ -40,7 +40,7 @@ Commandes (une des deux options) :
   ```
   python3 -m venv .venv
   . .venv/bin/activate
-  PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
+  PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
   ```
 
 Points de contrôle :

@@ -25,7 +25,7 @@ jobs:
           set -e
           python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip -c constraints/security-pins.txt
           if ls requirements*.txt >/dev/null 2>&1; then
-            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
+            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
           fi
       - name: Install pip-audit
         run: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit -c constraints/security-pins.txt

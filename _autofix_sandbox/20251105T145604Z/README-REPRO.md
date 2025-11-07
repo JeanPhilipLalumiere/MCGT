@@ -24,7 +24,7 @@ Ce document explique comment (re)générer les données, figures et diagnostics 
    python3 -m venv .venv
    . .venv/bin/activate
    PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
-   PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
+   PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
    Vérification rapide
    python -V
    python -c "import numpy,pandas,matplotlib,scipy,jsonschema; print('OK')"

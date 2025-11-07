@@ -127,3 +127,12 @@ _attic_untracked/
 *.preclean-*.py
 _tmp/round3_audit_*/
 # END round3 attic ignore
+
+# === MCGT standard ignores ===
+.ci-out_*
+_autofix_sandbox/
+tools/sitecustomize.py
+list_cli_like.sh
+rebase_sentinels_common_guarded.sh
+sweep_help_and_smoke_guarded.sh
+sweep_help_and_smoke_guarded_v2.sh

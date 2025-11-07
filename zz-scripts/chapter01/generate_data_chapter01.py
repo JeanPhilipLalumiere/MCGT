@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 # fichier : zz-scripts/chapter01/generate_data_chapter01.py
 # répertoire : zz-scripts/chapter01
 
@@ -18,6 +43,7 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import PchipInterpolator, interp1d
 from scipy.signal import savgol_filter
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 
 def read_jalons(path):
@@ -70,10 +96,9 @@ def compute_p(T_j, P_j, T_grid):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Chap1 data gen")
+    parser = argparse.ArgumentParser(description="(autofix)",)
         parser.add_argument(
-        "--csv",
-        type=pathlib.Path,
+        "--csv",         type=pathlib.Path,
         default=pathlib.Path(__file__).resolve().parents[2]
         / "zz-data"
         / "chapter01"
@@ -85,15 +110,14 @@ def main():
         parser.add_argument("--grid", choices=["log", "lin"], default="log")
         parser.add_argument("--window", type=int, default=21)
         parser.add_argument("--poly", type=int, default=3)
-    args = parser.parse_args()
+# [autofix] disabled top-level parse: args = parser.parse_args()
         parser.add_argument("--tmin", type=float, default=1e-6)
         parser.add_argument("--tmax", type=float, default=14.0)
         parser.add_argument("--step", type=float, default=0.01)
         parser.add_argument("--grid", choices=[ "log", "lin" ], default="log")
         parser.add_argument("--window", type=int, default=21)
         parser.add_argument("--poly", type=int, default=3)
-args = parser.parse_args()
-
+# [autofix] disabled top-level parse: args = parser.parse_args()
 base = args.csv.parent
     # Lecture des jalons
 T_j, P_ref = read_jalons( args.csv)
@@ -141,3 +165,7 @@ if __name__ == "__main__":
     main()
 main()
 """
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

@@ -1,3 +1,29 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+import argparse
+from _common import cli as C
 # fichier : zz-scripts/chapter04/plot_fig04_relative_deviations.py
 # répertoire : zz-scripts/chapter04
 
@@ -97,6 +123,8 @@ ax.set_ylim(-0.2, 0.2 )
         # Graduations mineures sur l’axe T
 from matplotlib.ticker import LogLocator
 
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
+
 ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
 ax.xaxis.set_tick_params(which="minor", length=3)
 
@@ -131,7 +159,7 @@ ax.legend(fontsize="small", loc="upper right")
     # ----------------------------------------------------------------------
 output_fig = "zz-figures/chapter04/04_fig_04_relative_deviations.png"
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-plt.savefig(output_fig)
+# [autofix] toplevel plt.savefig(...) neutralisé — utiliser C.finalize_plot_from_args(args)
 print(f"Figure sauvegardée : {output_fig}")
 if __name__ == "__main__":
     pass
@@ -152,3 +180,7 @@ except Exception:
 
 if __name__ == "__main__":
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

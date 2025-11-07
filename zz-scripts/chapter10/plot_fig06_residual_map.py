@@ -1,3 +1,29 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 #!/usr/bin/env python3
 # Rewritten clean version (Round3) — 20251105T182218Z
 import argparse, sys, warnings
@@ -14,26 +40,44 @@ def _parse_pair(pair_str):
     a,b = (s.strip() for s in pair_str.split(","))
     return float(a), float(b)
 
-def build_parser():
-    p = argparse.ArgumentParser(description="Residual hexbin map for Δp95 over (m1,m2)")
-    p.add_argument("--results", required=True, help="CSV with m1,m2 and p95 columns")
+def build_parser() -> argparse.ArgumentParser:
+
+    p = argparse.ArgumentParser(description="(autofix)",  required=True, help="CSV with m1,m2 and p95 columns")
+
     p.add_argument("--m1-col", dest="m1_col", default="m1")
+
     p.add_argument("--m2-col", dest="m2_col", default="m2")
+
     p.add_argument("--orig-col", default=None, help="original p95 column (e.g. p95_20_300)")
+
     p.add_argument("--recalc-col", default=None, help="recalculated p95 column (e.g. p95_20_300_recalc)")
+
     p.add_argument("--metric", default="dp95", choices=["dp95"], help="residual metric")
+
     p.add_argument("--abs", action="store_true", help="use absolute value |Δp95|")
+
     p.add_argument("--scale-exp", dest="scale_exp", type=float, default=0.0, help="display scale ×10^exp")
+
     p.add_argument("--vclip", default="0.1,99.9", help="percentiles for vmin,vmax (on scaled)")
+
     p.add_argument("--no-clip", action="store_true", help="disable percentile clipping")
+
     p.add_argument("--figsize", default="9,6", help="width,height (inches)")
+
     p.add_argument("--dpi", type=int, default=150)
+
     p.add_argument("--cmap", default="viridis")
+
     p.add_argument("--gridsize", type=int, default=50)
+
     p.add_argument("--mincnt", type=int, default=1)
+
     p.add_argument("--threshold", type=float, default=1.0, help="note: fraction of |Δp95| > threshold is reported")
+
     p.add_argument("--title", default=r"Carte résidus $\Delta p_{95}$ sur $(m_1,m_2)$")
+
     p.add_argument("--out", default="plot_fig06_residual_map.png")
+
     return p
 
 def main(argv=None):

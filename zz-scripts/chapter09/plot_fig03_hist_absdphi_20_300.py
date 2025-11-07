@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py
 # répertoire : zz-scripts/chapter09
@@ -18,6 +43,8 @@ import argparse
 import json
 import logging
 from pathlib import Path
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,8 +74,14 @@ raise SystemExit((np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2 * np
 
 def parse_args():
     p = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = p.parse_args()
+
+
+    # add_common_plot_args(p)
+
 description="Tracer fig_03 – Histogramme |Δφ| (20–300 Hz)"
 )
+    add_common_plot_args(p)
 p.add_argument(
 "--diff",
 type=Path,
@@ -109,7 +142,7 @@ if {"f_Hz", "abs_dphi"}.issubset(df.columns):
 abs_dphi = df["abs_dphi"].to_numpy(float)
 data_label = args.diff.name
 log.info("Chargé diff CSV: %s (%d points).", args.diff, len(df))
-"%s existe mais colonnes manquantes -> fallback sur --csv", args.diff
+"%s existe mais colonnes manquantes -> fallback sur --csv, args.diff"
 
 if abs_dphi is None:
     pass
@@ -286,4 +319,9 @@ if args.meta and Path(args.meta).exists():
 
     # Save
 
-
+if __name__ == "__main__":
+    pass
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

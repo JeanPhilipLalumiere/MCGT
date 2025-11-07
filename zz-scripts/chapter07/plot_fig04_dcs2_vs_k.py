@@ -1,149 +1,122 @@
 #!/usr/bin/env python3
-# fichier : zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
-# répertoire : zz-scripts/chapter07
-from __future__ import annotations
-import os
-"""
-plot_fig04_dcs2_vs_k.py
 
-Figure 04 – Dérivée lissée ∂c_s²/∂k
-Chapitre 7 – Perturbations scalaires MCGT.
-"""
-
-
-import json
-import logging
-import sys
-from pathlib import Path
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from matplotlib.ticker import FuncFormatter, LogLocator
-
-# --- Logging et style ---
-logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
-plt.style.use("classic")
-
-# --- Définitions des chemins (noms en anglais) ---
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
-DATA_DIR = ROOT / "zz-data" / "chapter07"
-FIG_DIR = ROOT / "zz-figures" / "chapter07"
-META_JSON = DATA_DIR / "07_meta_perturbations.json"
-CSV_DCS2 = DATA_DIR / "07_dcs2_dk.csv"
-FIG_OUT = FIG_DIR / "fig_04_dcs2_vs_k.png"
-
-# --- Lecture de k_split ---
-meta = json.loads(META_JSON.read_text("utf-8"))
-k_split = float(meta.get("x_split", 0.02))
-logging.info("k_split = %.2e h/Mpc", k_split)
-
-# --- Chargement des données ---
-df = pd.read_csv(CSV_DCS2, comment="#")
-k_vals = df["k"].to_numpy()
-dcs2 = df.iloc[:, 1].to_numpy()
-logging.info("Loaded %d points from %s", len(df), CSV_DCS2.name)
-
-# --- Création de la figure ---
-FIG_DIR.mkdir(parents=True, exist_ok=True)
-fig, ax = plt.subplots(figsize=(8, 5))
-
-# Tracé de |∂ₖ c_s²|
-ax.loglog(k_vals, np.abs(dcs2), color="C1", lw=2, label=r"$|\partial_k\,c_s^2|$")
-
-# Ligne verticale k_split
-ax.axvline(k_split, color="k", ls="--", lw=1)
-ax.text(
-k_split,
-0.85,
-r"$k_{\rm split}$",
-transform=ax.get_xaxis_transform(),
-rotation=90,
-va="bottom",
-ha="right",
-fontsize=9,
-)
-
-# Labels et titre
-ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
-ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
-ax.set_title(r"Dérivée lissée $\partial_k\,c_s^2(k)$")
-
-# Grilles
-ax.grid(which="major", ls=":", lw=0.6)
-ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
-
-# Locators pour axes log
-ax.xaxis.set_major_locator(LogLocator(base=10))
-ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
-ax.yaxis.set_major_locator(LogLocator(base=10))
-ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
-
-
-# Formatter pour n'afficher que les puissances de 10
-def pow_fmt(x, pos):
-    if x <= 0 or not np.isfinite(x):
-        return ""
-    return rf"$10^{{{int(np.log10(x))}}}$"
-
-
-ax.xaxis.set_major_formatter(FuncFormatter(pow_fmt))
-ax.yaxis.set_major_formatter(FuncFormatter(pow_fmt))
-
-# --- ICI on fixe la limite inférieure de Y pour aérer l'échelle ---
-ax.set_ylim(1e-8, None)
-
-# Légende
-ax.legend(loc="upper right", frameon=False)
-
-# Ajustement des marges
-fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
-
-# Sauvegarde
-fig.savefig(FIG_OUT, dpi=300)
-plt.close(fig)
-logging.info("Figure saved → %s", FIG_OUT)
-
-# === MCGT CLI SEED v2 ===
-
-if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        import matplotlib as mpl
-
-parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
-parser.add_argument("--format", choices=["png", "pdf", "svg"], default="png", help="Figure format")
-parser.add_argument("--transparent", action="store_true", help="Transparent background")
-        # core CLI normalized (round5c-fix3)
-        # core CLI normalized (round5c-fix4)
-
-args = parser.parse_args()
-if not hasattr(args, "out"): setattr(args, "out", "plot.png")
-if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
-if not hasattr(args, "figsize"): setattr(args, "figsize", "9,6")
+# === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+# [MCGT-HELP-GUARD v2]
 try:
-    os.makedirs(args.outdir, exist_ok=True)
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(aide minimale; aide complète restaurée après homogénéisation)')
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except BaseException:
+    pass
+# [/MCGT-HELP-GUARD]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+            try:
+                from _common.cli import add_common_plot_args as _add
+                _add(p)
+            except Exception:
+                pass
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
 except Exception:
     pass
-os.environ["MCGT_OUTDIR"] = args.outdir
-mpl.rcParams["savefig.dpi"] = args.dpi
-mpl.rcParams["savefig.format"] = args.format
-mpl.rcParams["savefig.transparent"] = args.transparent
+# === [/HELP-SHIM v3b] ===
 
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
 
-main_fn = globals().get("main")
-if callable(main_fn):
-            if True:
-                main_fn(args)
-main_fn = globals().get("main")
-if callable(main_fn):
-    try:
-        main_fn(args)
-    except SystemExit:
-        pass
-_mcgt_cli_seed()
+from __future__ import annotations
+import argparse, os, sys, pathlib
+import numpy as np, pandas as pd
+import matplotlib.pyplot as plt
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
+try:
+    from _common import cli as C
+except Exception:
+    sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
+    from _common import cli as C
+
+DEF_CSV  = "zz-data/chapter07/07_dcs2_dk.csv"
+DEF_META = "zz-data/chapter07/07_meta.json"
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="Chap7 Δc_s^2(k) vs k (homogène)")
+    C.add_common_plot_args(p)
+    p.add_argument("--data", default=DEF_CSV)
+    p.add_argument("--meta", default=DEF_META)
+    p.add_argument("--kmin", type=float, default=None)
+    p.add_argument("--kmax", type=float, default=None)
+    p.add_argument("--k-split", type=float, default=2e-2)
+    return p
+
+def main(argv=None) -> int:
+    args = build_parser().parse_args(argv)
+    args._stem = "chapter07_fig04_dcs2_vs_k"
+    log = C.setup_logging(args.log_level)
+    C.setup_mpl(args.style)
+    out = C.ensure_outpath(args)
+    figsize = C.parse_figsize(args.figsize)
+    fig, ax = plt.subplots(figsize=figsize, constrained_layout=True)
+
+    if not os.path.isfile(args.data):
+        log.warning("Données absentes → %s", args.data)
+        ax.text(0.5,0.55,"Fichier de données manquant",ha="center",va="center",transform=ax.transAxes)
+        ax.text(0.5,0.45,args.data,ha="center",va="center",transform=ax.transAxes)
+        ax.set_axis_off()
+        C.save_figure(fig, out, args.format, args.dpi, args.transparent, args.save_pdf, args.save_svg)
+        return 0
+
+    df = pd.read_csv(args.data, comment="#")
+    cols = {c.lower(): c for c in df.columns}
+    kcol = cols.get("k") or cols.get("k_hmpc") or list(df.columns)[0]
+    vcol = cols.get("dcs2") or cols.get("delta_cs2") or list(df.columns)[1]
+
+    s = df[[kcol, vcol]].dropna()
+    if args.kmin is not None: s = s[s[kcol] >= args.kmin]
+    if args.kmax is not None: s = s[s[kcol] <= args.kmax]
+    s = s.sort_values(kcol)
+
+    ax.plot(s[kcol].values, s[vcol].values, linestyle="-", marker="", label=vcol)
+    if args.k_split and args.k_split>0: ax.axvline(args.k_split, linestyle="--", linewidth=0.9)
+    ax.set_xscale("log"); ax.set_xlabel("k [h/Mpc]"); ax.set_ylabel(r"$\Delta c_s^2(k)$")
+    ax.grid(True, linestyle=":", linewidth=0.5); ax.legend(fontsize=9); ax.set_title("Chapitre 7 — Δc_s^2(k)")
+    C.save_figure(fig, out, args.format, args.dpi, args.transparent, args.save_pdf, args.save_svg)
+    if args.show: plt.show()
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

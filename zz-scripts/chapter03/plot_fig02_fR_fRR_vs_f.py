@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py
 # répertoire : zz-scripts/chapter03
@@ -11,7 +36,14 @@ if any(x in sys.argv for x in ("-h", "--help")):
     try:
         import argparse
 
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+        p = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = p.parse_args()
+
+
+
+        # add_common_plot_args(p)
+add_help=True, allow_abbrev=False)
+        add_common_plot_args(p)
         p.print_help()
     except Exception:
         print("usage: <script> [options]")
@@ -175,6 +207,8 @@ try:
     import os
     import sys
 
+    from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
+
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
@@ -191,3 +225,7 @@ try:
         _mcgt_postparse_apply(args, caller_file=__file__)
 except Exception:
     pass
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

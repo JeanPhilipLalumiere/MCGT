@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter02/plot_fig06_alpha_fit.py
 # répertoire : zz-scripts/chapter02
@@ -7,7 +32,13 @@ _argv = sys.argv[1:]
 # 1) Shim --help universel
 if any(a in ("-h","--help") for a in _argv):
     import argparse
-    _p = argparse.ArgumentParser(description="MCGT (shim auto-injecté Pass5)", add_help=True, allow_abbrev=False)
+    _p = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = _p.parse_args()
+
+
+    # add_common_plot_args(_p)
+description="MCGT (shim auto-injecté Pass5)", add_help=True, allow_abbrev=False)
+    add_common_plot_args(_p)
     _p.add_argument("--out", help="Chemin de sortie pour fig.savefig (optionnel)")
     _p.add_argument("--dpi", type=int, default=120, help="DPI (par défaut: 120)")
     _p.add_argument("--figsize", default="9,6", help="figure size W,H (inches)")
@@ -27,6 +58,8 @@ Données sources :
 
 import json
 from pathlib import Path
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -86,7 +119,7 @@ fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Sauvegarde
 FIG_DIR.mkdir(parents=True, exist_ok=True)
-plt.savefig(OUT_PLOT, dpi=300)
+# [mcgt-homog] plt.savefig(OUT_PLOT, dpi=300)
 plt.close()
 print(f"Figure enregistrée → {OUT_PLOT}")
 
@@ -106,3 +139,9 @@ try:
     _mcgt_postparse_apply()
 except Exception:
     pass
+
+__mcgt_out = finalize_plot_from_args(args)
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

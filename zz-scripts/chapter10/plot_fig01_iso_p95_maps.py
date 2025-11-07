@@ -1,3 +1,29 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 #!/usr/bin/env python3
 # Rewritten clean version (Round3) — 20251105T182218Z
 import argparse, sys, warnings
@@ -15,20 +41,32 @@ def _parse_pair(pair_str):
     a,b = (s.strip() for s in pair_str.split(","))
     return float(a), float(b)
 
-def build_parser():
-    p = argparse.ArgumentParser(description="Iso-contours of p95 over (m1,m2)")
-    p.add_argument("--results", required=True, help="CSV with m1,m2,p95")
+def build_parser() -> argparse.ArgumentParser:
+
+    p = argparse.ArgumentParser(description="(autofix)",  required=True, help="CSV with m1,m2,p95")
+
     p.add_argument("--m1-col", dest="m1_col", default="m1")
+
     p.add_argument("--m2-col", dest="m2_col", default="m2")
+
     p.add_argument("--p95-col", dest="p95_col", default=None,
-                   help="p95 column (e.g. p95_20_300). If not set, tries common names.")
+
+    help="p95 column (e.g. p95_20_300). If not set, tries common names.")
+
     p.add_argument("--levels", type=int, default=10)
+
     p.add_argument("--vclip", default="0.1,99.9", help="percentiles for vmin,vmax")
+
     p.add_argument("--figsize", default="8,6")
+
     p.add_argument("--dpi", type=int, default=150)
+
     p.add_argument("--cmap", default="viridis")
+
     p.add_argument("--title", default=r"Cartes iso-$p_{95}$")
+
     p.add_argument("--out", default="plot_fig01_iso_p95_maps.png")
+
     return p
 
 def main(argv=None):

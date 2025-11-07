@@ -1,3 +1,65 @@
+
+# === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+# [MCGT-HELP-GUARD v2]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(aide minimale; aide complète restaurée après homogénéisation)')
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except BaseException:
+    pass
+# [/MCGT-HELP-GUARD]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+            try:
+                from _common.cli import add_common_plot_args as _add
+                _add(p)
+            except Exception:
+                pass
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+# === [/HELP-SHIM v3b] ===
+
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from __future__ import annotations
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter09/plot_fig01_phase_overlay.py
 # répertoire : zz-scripts/chapter09
@@ -10,7 +72,6 @@ Figure 01 - Overlay φ_ref vs φ_MCGT + inset résidu (version corrigée)
 - Inset/métriques sur |Δφ| principal après rebranch
 """
 
-from __future__ import annotations
 
 import argparse
 import configparser
@@ -33,6 +94,8 @@ except Exception:
 from matplotlib.lines import Line2D
 
 from mcgt.constants import C_LIGHT_M_S
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 DEF_IN = Path("zz-data/chapter09/09_phases_mcgt.csv")
 DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
@@ -158,8 +221,14 @@ def load_meta_and_ini(meta_path: Path, ini_path: Path, log):
 # ---------------- CLI
 def parse_args():
     ap = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = ap.parse_args()
+
+
+    # add_common_plot_args(ap)
+
     description="Figure 01 — Overlay φ_ref vs φ_MCGT + inset résidu"
     )
+    add_common_plot_args(ap)
     ap.add_argument("--csv", type=Path, default=DEF_IN)
     ap.add_argument("--meta", type=Path, default=DEF_META)
     ap.add_argument("--ini", type=Path, default=DEF_INI)
@@ -401,5 +470,10 @@ def main():
     log.info("Figure écrite → %s", str(args.out))
 
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
+        pass
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

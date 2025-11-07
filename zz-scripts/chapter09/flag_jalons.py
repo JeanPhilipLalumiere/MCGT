@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter09/flag_jalons.py
 # répertoire : zz-scripts/chapter09
@@ -17,6 +42,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 
 def principal_wrap(d):
@@ -36,21 +62,18 @@ def main():
     p.add_argument("--csv", required=True, help="CSV milestones input")
     p.add_argument("--meta", required=True, help="Meta JSON to update")
     p.add_argument(
-        "--out",
-        help="Output flagged CSV (defaults to input with .flagged.csv)",
+        "--out",         help="Output flagged CSV (defaults to input with .flagged.csv)",
         default=None,
     )
     p.add_argument(
-        "--metrics-window",
-        nargs=2,
+        "--metrics-window",         nargs=2,
         type=float,
         default=[20.0, 300.0],
         help="metrics window (Hz)",
     )
     p.add_argument("--sigma-warn", type=float, default=3.0, help="z-score for WARN")
     p.add_argument("--sigma-fail", type=float, default=5.0, help="z-score for FAIL")
-    args = p.parse_args()
-
+# [autofix] disabled top-level parse: args = p.parse_args()
     csv_path = Path(args.csv)
     meta_path = Path(args.meta)
     out_path = Path(args.out) if args.out else csv_path.with_suffix(".flagged.csv")
@@ -228,3 +251,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

@@ -1,9 +1,36 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
+import argparse
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter08/generate_coupling_milestones.py
 # répertoire : zz-scripts/chapter08
 import os
 
 import pandas as pd
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 # Directories (translated to English)
 BASE_DIR = os.path.dirname(__file__)
@@ -47,7 +74,7 @@ print(f"✅ 08_coupling_milestones.csv generated: {out_csv}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser = argparse.ArgumentParser(description="(autofix)",)
 parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
 parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
 parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
@@ -56,8 +83,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosit
 parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
 parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
 parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-args = parser.parse_args()
+# [autofix] disabled top-level parse: args = parser.parse_args()
 try:
             os.makedirs(args.outdir, exist_ok=True)
 except Exception:
@@ -80,3 +106,7 @@ if callable(_main):
                 raise
                 pass
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

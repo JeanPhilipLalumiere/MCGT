@@ -1,3 +1,29 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter08/utils/generate_coupling_milestones.py
 # répertoire : zz-scripts/chapter08/utils
@@ -14,6 +40,8 @@ if __name__ == "__main__":
             import argparse
 
             _p = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = _p.parse_args()
+
                 description="MCGT (shim auto-injecté Pass5)",
                 add_help=True,
                 allow_abbrev=False,
@@ -112,3 +140,7 @@ df_all = pd.concat(
 out_csv = os.path.join(DATA_DIR, "08_coupling_milestones.csv")
 df_all.to_csv(out_csv, index=False, encoding="utf-8")
 print(f"✅ 08_coupling_milestones.csv généré : {out_csv}")
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

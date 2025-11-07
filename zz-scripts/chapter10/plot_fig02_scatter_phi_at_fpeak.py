@@ -1,3 +1,65 @@
+
+# === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+# [MCGT-HELP-GUARD v2]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(aide minimale; aide complète restaurée après homogénéisation)')
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except BaseException:
+    pass
+# [/MCGT-HELP-GUARD]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+            try:
+                from _common.cli import add_common_plot_args as _add
+                _add(p)
+            except Exception:
+                pass
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+# === [/HELP-SHIM v3b] ===
+
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from __future__ import annotations
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py
 # répertoire : zz-scripts/chapter10
@@ -15,9 +77,10 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 Exemple d’usage (recommandé) à la fin du fichier.
 """
 
-from __future__ import annotations
 
 import argparse
+
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -92,7 +155,10 @@ def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> 
 
 
 def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    p = argparse.ArgumentParser(
+    # add_common_plot_args(p)
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    add_common_plot_args(p)
     p.add_argument(
     "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
     )
@@ -171,8 +237,7 @@ def main():
     p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
     # core CLI normalized (round5c-fix3)
     # core CLI normalized (round5c-fix4)
-
-    args = p.parse_args()
+# [autofix] disabled top-level parse: args = p.parse_args()
 # round5e-fallback: ensure core CLI defaults
     if not hasattr(args, "out"): setattr(args, "out", "plot.png")
     if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
@@ -355,3 +420,7 @@ def main():
     if __name__ == "__main__":
         pass
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

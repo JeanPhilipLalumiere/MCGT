@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 # fichier : zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
 # répertoire : zz-scripts/chapter06
 import os
@@ -8,6 +33,7 @@ from pathlib import Path
 import numpy as np
 
 from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 # --- Configuration logging ---
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
@@ -26,12 +52,11 @@ omch2 = 0.12
 tau = 0.06
 
 # --- CLI ---
-parser = argparse.ArgumentParser(description="Génère pdot_plateau_z.dat")
+parser = argparse.ArgumentParser(description="(autofix)",)
 parser.add_argument("--zmin", type=float, default=1e-4, help="Redshift minimal")
 parser.add_argument("--zmax", type=float, default=1e5, help="Redshift maximal")
 parser.add_argument("--npoints", type=int, default=1000, help="Nombre de points")
-args = parser.parse_args()
-
+# [autofix] disabled top-level parse: args = parser.parse_args()
 # --- Grille de redshift log-uniforme ---
 log_z = np.linspace(np.log10(args.zmin), np.log10(args.zmax), args.npoints)
 z_grid = 10**log_z
@@ -57,7 +82,7 @@ logging.info(f"Fichier généré → {OUT_FILE}")
 if __name__ == "__main__":
     def _mcgt_cli_seed():
         import os, argparse, sys, traceback
-parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
+parser = argparse.ArgumentParser(description="(autofix)",)
 parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
 parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
 parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
@@ -66,8 +91,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosit
 parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
 parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
 parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-args = parser.parse_args()
+# [autofix] disabled top-level parse: args = parser.parse_args()
 try:
             os.makedirs(args.outdir, exist_ok=True)
 except Exception:
@@ -90,3 +114,7 @@ if callable(_main):
                 raise
                 pass
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

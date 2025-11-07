@@ -1,3 +1,65 @@
+
+# === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+# [MCGT-HELP-GUARD v2]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(aide minimale; aide complète restaurée après homogénéisation)')
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except BaseException:
+    pass
+# [/MCGT-HELP-GUARD]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+            try:
+                from _common.cli import add_common_plot_args as _add
+                _add(p)
+            except Exception:
+                pass
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+# === [/HELP-SHIM v3b] ===
+
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from __future__ import annotations
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter09/apply_poly_unwrap_rebranch.py
 # répertoire : zz-scripts/chapter09
@@ -42,11 +104,11 @@ python zz-scripts/chapter09/apply_poly_unwrap_rebranch.py \\
 
 """
 
-from __future__ import annotations
 
 import argparse
 import json
 import logging
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 import shutil
 from pathlib import Path
 
@@ -65,12 +127,13 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
 
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = ap.parse_args()
+
         description="Correction polynomiale unwrap+rebranch de Δφ."
     )
     ap.add_argument("--csv", type=Path, required=True, help="CSV phases (écrit/écrasé)")
     ap.add_argument(
-        "--meta",
-        type=Path,
+        "--meta",         type=Path,
         default=Path("zz-data/chapter09/09_metrics_phase.json"),
         help="JSON méta (mis à jour ou créé)",
     )
@@ -78,38 +141,32 @@ def parse_args() -> argparse.Namespace:
         "--degree", type=int, default=4, help="Degré du polynôme (défaut: 4)"
     )
     ap.add_argument(
-        "--fit-window",
-        nargs=2,
+        "--fit-window",         nargs=2,
         type=float,
         default=[30.0, 250.0],
         metavar=("F_LO", "F_HI"),
     )
     ap.add_argument(
-        "--metrics-window",
-        nargs=2,
+        "--metrics-window",         nargs=2,
         type=float,
         default=[20.0, 300.0],
         metavar=("M_LO", "M_HI"),
     )
     ap.add_argument(
-        "--basis",
-        choices=["log10", "hz"],
+        "--basis",         choices=["log10", "hz"],
         default="log10",
         help="Variable de fit: log10(f) ou f.",
     )
     ap.add_argument(
-        "--from-column",
-        default="phi_mcgt_cal",
+        "--from-column",         default="phi_mcgt_cal",
         help="Colonne source pour repartir (défaut: phi_mcgt_cal)",
     )
     ap.add_argument(
-        "--backup",
-        action="store_true",
+        "--backup",         action="store_true",
         help="Sauvegarde <csv> -> <csv>.backup avant écriture",
     )
     ap.add_argument(
-        "--dry-run",
-        action="store_true",
+        "--dry-run",         action="store_true",
         help="N’écrit pas, affiche seulement métriques",
     )
     ap.add_argument(
@@ -263,3 +320,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

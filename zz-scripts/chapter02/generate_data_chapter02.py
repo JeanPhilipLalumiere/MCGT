@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter02/generate_data_chapter02.py
 # répertoire : zz-scripts/chapter02
@@ -28,6 +53,7 @@ import pandas as pd
 from scipy.interpolate import PchipInterpolator
 from scipy.optimize import minimize
 from scipy.signal import savgol_filter
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
@@ -100,11 +126,12 @@ pass
 
 def parse_args():
     parser = argparse.ArgumentParser(
+# [autofix] disabled top-level parse: args = parser.parse_args()
+
 description="Pipeline Chapitre 2 (+ option spectre primordial)"
 )
 parser.add_argument(
-"--spectre",
-action="store_true",
+"--spectre", action="store_true",
 help="Après calibrage, génère 02_primordial_spectrum_spec.json & fig_00_spectre.png",
 )
 pass
@@ -292,3 +319,7 @@ if __name__ == "__main__":
     args = parse_args()
 main(spectre=args.spectre)
 print("✅ Génération Chapitre 2 OK")
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

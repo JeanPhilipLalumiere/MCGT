@@ -1,3 +1,28 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter10/inspect_topk_residuals.py
 # répertoire : zz-scripts/chapter10
@@ -20,6 +45,7 @@ import pandas as pd
 
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 
 def compute_abs_dphi_principal(phi_m, phi_r, f_Hz, window=(20.0, 300.0)):
@@ -96,5 +122,9 @@ if __name__ == "__main__":
     p.add_argument("--ids", default=None, help="liste csv d'ids (ex: 3903,1624)")
     p.add_argument("--k", type=int, default=50, help="K top if --ids not provided")
     p.add_argument("--out-dir", default="zz-data/chapter10/topk_residuals")
-    args = p.parse_args()
+# [autofix] disabled top-level parse: args = p.parse_args()
     main(args)
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

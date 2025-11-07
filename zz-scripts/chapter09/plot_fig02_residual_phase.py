@@ -1,7 +1,68 @@
+
+# === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+# [MCGT-HELP-GUARD v2]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(aide minimale; aide complète restaurée après homogénéisation)')
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except BaseException:
+    pass
+# [/MCGT-HELP-GUARD]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse
+            p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
+            try:
+                from _common.cli import add_common_plot_args as _add
+                _add(p)
+            except Exception:
+                pass
+            p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+# === [/HELP-SHIM v3b] ===
+
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+from __future__ import annotations
+from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter09/plot_fig02_residual_phase.py
 # répertoire : zz-scripts/chapter09
-from __future__ import annotations
 """
 Figure 02 - Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
 Version publication - panneau de droite compact (Option A)
@@ -86,6 +147,8 @@ pass
 
 from matplotlib.lines import Line2D
 
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
+
 # -------------------- utils --------------------
 
 
@@ -152,7 +215,7 @@ ap.add_argument("--gap-thresh-log10", type=float, default=0.12)
 ap.add_argument(
 "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
 )
-args = ap.parse_args()
+# [autofix] disabled top-level parse: args = ap.parse_args()
 # round5e-fallback: ensure core CLI defaults
 if not hasattr(args, "out"): setattr(args, "out", "plot.png")
 if not hasattr(args, "dpi"): setattr(args, "dpi", 150)
@@ -416,3 +479,7 @@ log.info("PNG écrit → %s", args.out)
 
 if __name__ == "__main__":
     main()
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

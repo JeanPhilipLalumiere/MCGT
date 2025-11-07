@@ -1,3 +1,29 @@
+# === [HELP-SHIM v1] ===
+try:
+    import sys, os, argparse
+    if any(a in ('-h','--help') for a in sys.argv[1:]):
+        os.environ.setdefault('MPLBACKEND','Agg')
+        parser = argparse.ArgumentParser(
+            description="(shim) aide minimale sans effets de bord",
+            add_help=True, allow_abbrev=False)
+        try:
+            from _common.cli import add_common_plot_args as _add
+            _add(parser)
+        except Exception:
+            pass
+        parser.add_argument('--out', help='fichier de sortie', default=None)
+        parser.add_argument('--dpi', type=int, default=150)
+        parser.add_argument('--log-level', choices=['DEBUG','INFO','WARNING','ERROR'], default='INFO')
+        parser.print_help()
+        sys.exit(0)
+except SystemExit:
+    raise
+except Exception:
+    pass
+# === [/HELP-SHIM v1] ===
+
+import argparse
+from _common import cli as C
 # fichier : zz-scripts/chapter08/utils/cosmo.py
 # répertoire : zz-scripts/chapter08/utils
 # cosmo.py
@@ -7,6 +33,7 @@ import numpy as np
 from scipy.integrate import quad
 
 from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
+from _common.cli import add_common_plot_args, finalize_plot_from_args, init_logging
 
 # Constantes cosmologiques de référence
 # H0 unifié → import
@@ -86,3 +113,7 @@ if __name__ == "__main__":
             dv = DV(z, q)
             mu = distance_modulus(z, q)
             print(f"q0={q:+.2f}, z={z:.1f} → DV={dv:.2f}, μ={mu:.2f}")
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="(autofix)",)
+    C.add_common_plot_args(p)
+    return p

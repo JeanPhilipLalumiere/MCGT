@@ -1,0 +1,25 @@
+name: cli-help-sweep
+on:
+  push:
+    paths:
+      - 'zz-scripts/**'
+      - 'tools/ci_help_sweep.py'
+      - '.github/workflows/cli-help-sweep.yml'
+  pull_request:
+    paths:
+      - 'zz-scripts/**'
+      - 'tools/ci_help_sweep.py'
+      - '.github/workflows/cli-help-sweep.yml'
+concurrency:
+  group: cli-help-sweep-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run cli-help-sweep
+        run: python tools/ci_help_sweep.py

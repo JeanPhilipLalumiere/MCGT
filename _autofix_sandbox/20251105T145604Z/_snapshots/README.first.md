@@ -303,7 +303,7 @@ Ex. chap.09 : fig\_01\_phase\_overlay.png, fig\_02\_residual\_phase.png, fig\_03
 
 * Python ≥ 3.10 recommandé.
   Installation (pip) :
-  pip install -r requirements.txt
+  PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
   Environnement Conda :
   conda env create -f environment.yml
   conda activate mcgt

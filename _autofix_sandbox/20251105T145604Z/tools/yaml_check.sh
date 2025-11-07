@@ -7,7 +7,7 @@ import glob, sys
 try:
     import yaml  # type: ignore
 except Exception:
-    print("PyYAML absent; essaye: pip install pyyaml", file=sys.stderr); sys.exit(1)
+    print("PyYAML absent; essaye: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pyyaml", file=sys.stderr); sys.exit(1)
 
 files = glob.glob(".github/workflows/*.yml")
 if not files:

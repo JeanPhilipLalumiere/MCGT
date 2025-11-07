@@ -23,8 +23,8 @@ Ce document explique comment (re)générer les données, figures et diagnostics 
    Option B — Environnement virtuel Python (venv + pip)
    python3 -m venv .venv
    . .venv/bin/activate
-   pip install -U pip
-   pip install -r requirements.txt
+   PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
+   PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
    Vérification rapide
    python -V
    python -c "import numpy,pandas,matplotlib,scipy,jsonschema; print('OK')"

@@ -104,12 +104,12 @@ if [ "$CHANGED" -eq 0 ]; then
   WFPATCH=0
   for wf in .github/workflows/*.yml .github/workflows/*.yaml; do
     [ -f "$wf" ] || continue
-    if grep -Eq 'pip install( .*)?( -r | [a-zA-Z0-9_.-]+)' "$wf"; then
-      sed -i -E 's#pip install(.*)#pip install\1 -c constraints/security-pins.txt#g' "$wf" || true
+    if grep -Eq 'PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install( .*)?( -r | [a-zA-Z0-9_.-]+)' "$wf"; then
+      sed -i -E 's#PIP_CONSTRAINT=constraints/security-pins.txt pip install(.*)#PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install\1 -c constraints/security-pins.txt#g' "$wf" || true
       WFPATCH=1
     fi
   done
-  [ "$WFPATCH" -eq 1 ] && ok "Workflows patchés (pip install … -c constraints/security-pins.txt)" || info "Aucun workflow pip à patcher détecté (OK)."
+  [ "$WFPATCH" -eq 1 ] && ok "Workflows patchés (PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install … -c constraints/security-pins.txt)" || info "Aucun workflow pip à patcher détecté (OK)."
 fi
 
 # 3) Commit

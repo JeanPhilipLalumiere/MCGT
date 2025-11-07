@@ -36,8 +36,8 @@ jobs:
         run: |
           set -e
           if ls requirements*.txt >/dev/null 2>&1; then
-            python -m pip install -U pip -c constraints/security-pins.txt
-            pip install -r requirements.txt || true -c constraints/security-pins.txt
+            python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip -c constraints/security-pins.txt
+            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
           fi
 
       - name: Build artifacts (dist-all)

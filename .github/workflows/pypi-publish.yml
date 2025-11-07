@@ -21,7 +21,7 @@ jobs:
 
       - name: Build sdist & wheel (+ fixers) & checks
         run: |
-          python -m pip install --upgrade pip build twine -c constraints/security-pins.txt
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip build twine -c constraints/security-pins.txt
           rm -rf dist build *.egg-info
           python -m build
           if [ -f tools/repair_wheel_metadata.py ]; then python tools/repair_wheel_metadata.py dist/*.whl || true; fi

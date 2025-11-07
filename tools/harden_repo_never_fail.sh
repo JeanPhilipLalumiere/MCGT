@@ -131,7 +131,7 @@ if [[ "$DO_PURGE" != "1" ]]; then
   yellow "Purge désactivée (défaut). Pour activer : DO_PURGE=1 [PURGE_LOGS=1] [REDACT_PYPI=1] bash tools/harden_repo_never_fail.sh"
 else
   if ! command -v git-filter-repo >/dev/null 2>&1; then
-    yellow "git-filter-repo non trouvé. Recommandé : 'pipx install git-filter-repo' ou 'python -m pip install --user git-filter-repo'. Skip purge."
+    yellow "git-filter-repo non trouvé. Recommandé : 'pipx install git-filter-repo' ou 'python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --user git-filter-repo'. Skip purge."
   else
     # On sépare volontairement les passes pour des logs plus clairs
     if [[ "$PURGE_LOGS" == "1" ]]; then

@@ -125,8 +125,8 @@ PY
 
 # ---------- 5) Twine à jour + check ----------
 run "Installer/maj twine/pkginfo/readme_renderer/rfc3986" bash -lc '
-  python -m pip install -q --upgrade pip &&
-  python -m pip install -q --upgrade "twine>=6.2.0" "pkginfo>=1.11.0" "readme_renderer>=44.0" "rfc3986>=2.0.0"
+  python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q --upgrade pip &&
+  python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q --upgrade "twine>=6.2.0" "pkginfo>=1.11.0" "readme_renderer>=44.0" "rfc3986>=2.0.0"
 '
 
 TWINE_ERR=0

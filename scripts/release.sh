@@ -20,7 +20,7 @@ sed -i -E "s/^(__version__\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/
 
 # 2) Build local rapide (sanity)
 echo "==> Build local (sanity)"
-python -m pip install -U pip build >/dev/null
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip build >/dev/null
 rm -rf dist build *.egg-info
 python -m build
 

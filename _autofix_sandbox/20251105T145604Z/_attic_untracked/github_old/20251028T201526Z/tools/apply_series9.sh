@@ -132,10 +132,10 @@ if ! grep -q '^# BEGIN PY DIST TARGETS$' Makefile 2>/dev/null; then
 # BEGIN PY DIST TARGETS
 .PHONY: dist clean-dist twine-check
 dist:
-	@python -m pip install -U build twine >/dev/null
+	@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U build twine >/dev/null
 	@python -m build
 twine-check:
-	@python -m pip install -U twine >/dev/null
+	@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U twine >/dev/null
 	@python -m twine check dist/*
 clean-dist:
 	@rm -rf dist build *.egg-info || true
@@ -173,7 +173,7 @@ jobs:
 
       - name: Build sdist/wheel
         run: |
-          python -m pip install -U pip build twine
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip build twine
           python -m build
           python -m twine check dist/*
 
@@ -211,7 +211,7 @@ jobs:
           cache: "pip"
       - name: Build
         run: |
-          python -m pip install -U pip build twine
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip build twine
           python -m build
           python -m twine check dist/*
       - name: Publish to TestPyPI (si token dispo)

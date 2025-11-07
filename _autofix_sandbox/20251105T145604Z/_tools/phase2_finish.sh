@@ -12,7 +12,7 @@ ruff --version 2>/dev/null | tee -a "${REPORTS}/ruff.txt" || true
 pytest --version 2>/dev/null | tee -a "${REPORTS}/pytest.txt" || true
 
 log "==[1] Déps tests (idempotent) =="
-python -m pip install -q pytest pytest-cov >/dev/null 2>&1 || true
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q pytest pytest-cov >/dev/null 2>&1 || true
 
 log "==[2] Patch pytest.ini (couverture + découverte tests) =="
 python - <<'PY'

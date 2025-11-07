@@ -87,8 +87,8 @@ MCGT/
 ```
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -U pip
-pip install -r requirements.txt
+PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
+PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
 ```
 
 ### Option B — conda/mamba
@@ -101,7 +101,7 @@ conda activate mcgt
 ### Utilitaires `zz-tools` (facultatif si non inclus dans `requirements.txt`)
 
 ```
-pip install zz-tools
+PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install zz-tools
 ```
 
 ---

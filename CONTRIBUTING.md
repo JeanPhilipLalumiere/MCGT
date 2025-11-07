@@ -1,7 +1,7 @@
 # Contribuer à MCGT
 
 ## Pré-requis
-- Git, Python 3.11+, `pre-commit` installé (`pipx install pre-commit` ou `pip install pre-commit`).
+- Git, Python 3.11+, `pre-commit` installé (`pipx install pre-commit` ou `PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pre-commit`).
 - (Optionnel) GitHub CLI `gh` pour déclencher/suivre la CI localement.
 
 ## Première installation

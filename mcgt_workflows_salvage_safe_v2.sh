@@ -98,7 +98,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install pre-commit
-        run: python -m pip install --upgrade pip pre-commit
+        run: python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip pre-commit
 
       - name: Run pre-commit autoupdate
         run: pre-commit autoupdate
@@ -192,7 +192,7 @@ jobs:
 
       - name: Build sdist+wheel
         run: |
-          python -m pip install --upgrade pip build
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip build
           python -m build
 
       - name: Show dist tree

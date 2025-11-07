@@ -21,7 +21,7 @@ jobs:
         with: { fetch-depth: 0 }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12", cache: "pip" }
-      - run: python -m pip install -U pip && python -m pip install -r docs/requirements-docs.txt -c constraints/security-pins.txt
+      - run: python -m PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip && python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r docs/requirements-docs.txt -c constraints/security-pins.txt
       - run: mkdocs build --clean
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }

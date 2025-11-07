@@ -112,7 +112,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install deps (optional)
-        run: python -m pip install -U pip pyyaml || true
+        run: python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip pyyaml || true
         shell: bash
       - name: Guard: no .RECIPEPREFIX
         run: bash tools/guard_no_recipeprefix.sh

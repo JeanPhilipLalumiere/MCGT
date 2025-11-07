@@ -80,10 +80,10 @@ ci-fast:
 # BEGIN PY DIST TARGETS
 .PHONY: dist clean-dist twine-check
 dist:
-	@python -m pip install -U build twine >/dev/null
+	@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U build twine >/dev/null
 	@python -m build
 twine-check:
-	@python -m pip install -U twine >/dev/null
+	@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U twine >/dev/null
 	@python -m twine check dist/*
 clean-dist:
 	@rm -rf dist build *.egg-info || true
@@ -92,10 +92,10 @@ clean-dist:
 # BEGIN DOCS TARGETS
 .PHONY: docs-serve docs-build docs-clean
 docs-serve:
-	\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+	\t@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U mkdocs mkdocs-material >/dev/null
 	\t@mkdocs serve -a 0.0.0.0:8000
 docs-build:
-	\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
+	\t@python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U mkdocs mkdocs-material >/dev/null
 	\t@mkdocs build --clean
 docs-clean:
 	\t@rm -rf site || true

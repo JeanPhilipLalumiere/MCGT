@@ -11,8 +11,8 @@ log "==[0] Contexte =="
 python -V 2>&1 | tee -a "${REPORTS}/python.txt"
 
 # 0bis) Déps build
-python -m pip install -q --upgrade pip >/dev/null 2>&1 || true
-python -m pip install -q build twine >/dev/null 2>&1 || true
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q --upgrade pip >/dev/null 2>&1 || true
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q build twine >/dev/null 2>&1 || true
 
 # 1) pyproject.toml (PEP 621 + setuptools, version dynamique depuis mcgt.__version__)
 python - <<'PY'
@@ -160,8 +160,8 @@ log "==[smoke] import & CLI=="
 rm -rf .venv-mcgt-wheel 2>/dev/null || true
 python -m venv .venv-mcgt-wheel
 . .venv-mcgt-wheel/bin/activate
-python -m pip install -q --upgrade pip >/dev/null 2>&1 || true
-python -m pip install dist/*.whl 2>&1 | tee -a "${REPORTS}/install_wheel.txt"
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -q --upgrade pip >/dev/null 2>&1 || true
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install dist/*.whl 2>&1 | tee -a "${REPORTS}/install_wheel.txt"
 python - <<'PY' 2>&1 | tee -a "${REPORTS}/smoke.txt"
 import mcgt, subprocess, sys
 print("import mcgt OK; __version__ =", getattr(mcgt, "__version__", "n/a"))
@@ -185,7 +185,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: python -m pip install --upgrade pip build twine
+      - run: python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip build twine
       - run: python -m build
       - run: python -m twine check dist/*
       - uses: actions/upload-artifact@v4

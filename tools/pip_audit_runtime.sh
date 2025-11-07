@@ -5,11 +5,11 @@ cd "${GITHUB_WORKSPACE:-.}"
 
 # Info env
 python -VV || true
-python -m pip install --upgrade pip wheel >/dev/null
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip wheel >/dev/null
 
 # Installer pip-audit (verrou souple)
-if ! python -m pip install "pip-audit>=2,<3" >/dev/null 2>&1; then
-  python -m pip install pip-audit >/dev/null
+if ! python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install "pip-audit>=2,<3" >/dev/null 2>&1; then
+  python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit >/dev/null
 fi
 
 OUT="audit.json"

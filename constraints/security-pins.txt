@@ -1,4 +1,3 @@
-# généré automatiquement — bornes minimales sûres
-requests>=2.32.4
-jupyterlab>=4.4.8
-
+# Pins de sécurité centralisés (appliqués via PIP_CONSTRAINT)
+requests==2.32.5
+jupyterlab==4.4.8

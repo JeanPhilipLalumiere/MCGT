@@ -268,12 +268,12 @@ python -m venv "$tmpdir/.venv-smoke"
 # shellcheck disable=SC1090
 source "$tmpdir/.venv-smoke/bin/activate"
 python -m pip cache purge || true
-python -m pip install -U pip
+python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
 
 OK=0
 for i in $(seq 1 "${RELEASE_SMOKE_RETRIES}"); do
-  echo "[try $i/${RELEASE_SMOKE_RETRIES}] pip install zz-tools==${VER_NEXT} (no-cache)…"
-  if python -m pip install --no-cache-dir --index-url https://pypi.org/simple "zz-tools==${VER_NEXT}"; then
+  echo "[try $i/${RELEASE_SMOKE_RETRIES}] PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install zz-tools==${VER_NEXT} (no-cache)…"
+  if python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --no-cache-dir --index-url https://pypi.org/simple "zz-tools==${VER_NEXT}"; then
     OK=1
     break
   fi

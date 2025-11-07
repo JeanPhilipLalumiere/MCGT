@@ -54,8 +54,8 @@ jobs:
         run: |
           set -e
           if ls requirements*.txt >/dev/null 2>&1; then
-            python -m pip install -U pip
-            pip install -r requirements.txt || true
+            python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
+            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true
           fi
       - uses: github/codeql-action/autobuild@v3
       - uses: github/codeql-action/analyze@v3
@@ -170,12 +170,12 @@ jobs:
       - name: Install project (best-effort)
         run: |
           set -e
-          python -m pip install -U pip
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip
           if ls requirements*.txt >/dev/null 2>&1; then
-            pip install -r requirements.txt || true
+            PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true
           fi
       - name: Install pip-audit
-        run: pip install pip-audit
+        run: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit
       - name: Run pip-audit
         run: |
           set -e

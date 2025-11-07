@@ -89,8 +89,8 @@ if [ -n "$VER" ]; then
   if [ -x "$TMPVENV/bin/pip" ]; then
     "$TMPVENV/bin/pip" install -U pip >/dev/null 2>&1 || true
     ( cd /tmp && "$TMPVENV/bin/pip" install "${PKG}==${VER}" ) \
-      && ok "pip install ${PKG}==${VER} OK" \
-      || warn "pip install ${PKG}==${VER} a échoué (peut-être pas publié encore)."
+      && ok "PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install ${PKG}==${VER} OK" \
+      || warn "PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install ${PKG}==${VER} a échoué (peut-être pas publié encore)."
     "$TMPVENV/bin/python" -c "import mcgt,sys; print('import mcgt ->', mcgt.__version__, 'from', mcgt.__file__)" \
       || warn "import mcgt a échoué dans le venv de test."
     "$TMPVENV/bin/python" -m mcgt --version \

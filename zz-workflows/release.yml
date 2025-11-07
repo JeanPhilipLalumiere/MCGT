@@ -22,7 +22,7 @@ jobs:
 
       - name: Install build deps
         run: |
-          python -m pip install --upgrade pip build wheel
+          python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --upgrade pip build wheel
 
       - name: Build sdist & wheel
         run: |

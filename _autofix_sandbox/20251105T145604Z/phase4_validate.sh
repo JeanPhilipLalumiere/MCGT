@@ -27,10 +27,10 @@ hold_window() {
   rm -rf "${VENV_DIR}"
   python3 -m venv "${VENV_DIR}"
   . "${VENV_DIR}/bin/activate"
-  python -m pip install -U pip >/dev/null
+  python -m PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -U pip >/dev/null
 
   log "[2/6] Installation PyPI (sans cache) : mcgt-core==${VER}"
-  pip install --no-cache-dir "mcgt-core==${VER}"
+  PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --no-cache-dir "mcgt-core==${VER}"
 
   log "[3/6] Vérification version + chemin (site-packages attendu)"
   "$VENV_PY" - <<'PY'
@@ -61,7 +61,7 @@ PY
     if grep -q '^MISSING:' <<<"$out"; then
       pkg="$(echo "$out" | sed -n 's/^MISSING://p' | tail -n1)"
       echo "MISSING:$pkg -> tentative d'installation..." | tee -a "$LOG_FILE"
-      pip install --no-cache-dir "$pkg"
+      PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install --no-cache-dir "$pkg"
     else
       echo "Import non résolu, abandon." | tee -a "$LOG_FILE"; exit 1
     fi

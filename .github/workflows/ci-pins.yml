@@ -1,0 +1,54 @@
+name: ci-pins
+on:
+  push:
+  pull_request:
+jobs:
+  constraint-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: Fail if unconstrained "PIP_CONSTRAINT=constraints/security-pins.txt pip install" exists in repo files
+        run: |
+          python - <<'PY'
+import re,sys,os
+bad=[]
+skip_dirs = {'.git','_tmp','venv','.venv','.mypy_cache','.pytest_cache','.ruff_cache'}
+def wanted_dir(root, d):
+  return d not in skip_dirs
+for root,dirs,files in os.walk('.'):
+  dirs[:] = [d for d in dirs if wanted_dir(root,d)]
+  for f in files:
+    if f.endswith(('.sh','.bash','.zsh','.ps1','.py','.md','.yml','.yaml')) or f.startswith('Makefile'):
+      p=os.path.join(root,f)
+      try:
+        t=open(p,errors='ignore').read()
+      except Exception:
+        continue
+      for i,line in enumerate(t.splitlines(),1):
+        if re.search(r'\\bpip\\s+install\\b', line) and 'PIP_CONSTRAINT=' not in line:
+          bad.append(f"{p}:{i}: {line.strip()}")
+if bad:
+  print("Unconstrained PIP_CONSTRAINT=constraints/security-pins.txt pip install found:")
+  print("\\n".join(bad))
+  sys.exit(1)
+print("OK: no unconstrained PIP_CONSTRAINT=constraints/security-pins.txt pip install")
+PY
+
+      - name: Install runtime (constrained)
+        run: PIP_CONSTRAINT=constraints/security-pins.txt python -m PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt
+
+      - name: Install dev (constrained)
+        run: PIP_CONSTRAINT=constraints/security-pins.txt python -m PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements-dev.txt
+
+      - name: pip-audit runtime
+        uses: pypa/gh-action-pip-audit@v1
+        with:
+          requirements: requirements.txt
+
+      - name: pip-audit dev
+        uses: pypa/gh-action-pip-audit@v1
+        with:
+          requirements: requirements-dev.txt

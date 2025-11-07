@@ -1,6 +1,50 @@
 
 # === [HELP-SHIM v3b] auto-inject — neutralise l'exécution en mode --help ===
+from __future__ import annotations
+
 # [MCGT-HELP-GUARD v2]
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse as _A
+            _p=_A.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(placeholder --help sans import du projet)')
+            _p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse as _A
+            _p=_A.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(placeholder --help sans import du projet)')
+            _p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+
+try:
+    import sys
+    if any(x in sys.argv for x in ('-h','--help')):
+        try:
+            import argparse as _A
+            _p=_A.ArgumentParser(add_help=True, allow_abbrev=False,
+                description='(placeholder --help sans import du projet)')
+            _p.print_help()
+        except Exception:
+            print('usage: <script> [options]')
+        raise SystemExit(0)
+except Exception:
+    pass
+
 try:
     import sys
     if any(x in sys.argv for x in ('-h','--help')):
@@ -58,7 +102,6 @@ except Exception:
     pass
 # === [/HELP-SHIM v1] ===
 
-from __future__ import annotations
 from _common import cli as C
 #!/usr/bin/env python3
 # fichier : zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py

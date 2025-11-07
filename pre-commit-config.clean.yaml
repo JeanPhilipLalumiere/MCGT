@@ -1,0 +1,54 @@
+# Pre-commit configuration — cleaned and normalized
+# See https://pre-commit.com for details
+repos:
+  - repo: local
+    hooks:
+      - id: assets-budgets
+        name: assets-budgets
+        entry: python3 tools/scan_assets_budget.py
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: gitleaks-protect
+        name: gitleaks protect (skip si non installé)
+        entry: bash -lc 'command -v gitleaks >/dev/null || exit 0; gitleaks protect --staged --no-banner --redact'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: guard-placeholders
+        name: guard placeholders
+        entry: tools/guard_fail_on_placeholders.sh
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: guard-no-jupyterlab-in-runtime
+        name: guard: jupyterlab must stay in dev
+        entry: bash -lc 'grep -q "^jupyterlab" requirements.txt && {{ echo "jupyterlab doit rester dans requirements-dev.txt"; exit 1; }} || exit 0'
+        language: system
+        files: ^requirements\.txt$
+
+      - id: guard-pip-constraint
+        name: guard: pip installs must use constraints (env or inline)
+        entry: bash -lc '
+          files=$(git diff --cached --name-only); fail=0;
+          for f in $files; do
+            test -f "$f" || continue
+            if grep -qE "pip +install +-r +requirements\.txt" "$f"; then
+              if ! grep -q "PIP_CONSTRAINT" "$f"; then
+                echo "::error file=$f::ajoute PIP_CONSTRAINT=constraints/security-pins.txt (ou env: PIP_CONSTRAINT)"; fail=1;
+              fi
+            fi
+          done
+          exit $fail
+        '
+        language: system
+        files: ^(.*\.(sh|bash|zsh|ps1|py|md|yml|yaml)|Makefile)$

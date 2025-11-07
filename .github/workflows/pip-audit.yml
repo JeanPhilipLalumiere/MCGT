@@ -1,7 +1,7 @@
 # added by policies_guard_common_fixes
 permissions:
   contents: read
-name: pip-audit
+name: pip-audit --progress-spinner off
 on:
   workflow_dispatch:
   push: { branches: ["**"] }
@@ -27,13 +27,13 @@ jobs:
           if ls requirements*.txt >/dev/null 2>&1; then
             PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install -r requirements.txt || true -c constraints/security-pins.txt
           fi
-      - name: Install pip-audit
-        run: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit -c constraints/security-pins.txt
-      - name: Run pip-audit
+      - name: Install pip-audit --progress-spinner off
+        run: PIP_CONSTRAINT=constraints/security-pins.txt PIP_CONSTRAINT=constraints/security-pins.txt pip install pip-audit --progress-spinner off -c constraints/security-pins.txt
+      - name: Run pip-audit --progress-spinner off
         run: |
           set -e
           if ls requirements*.txt >/dev/null 2>&1; then
-            pip-audit -r requirements.txt
+            pip-audit --progress-spinner off -r requirements.txt
           else
-            pip-audit
+            pip-audit --progress-spinner off
           fi

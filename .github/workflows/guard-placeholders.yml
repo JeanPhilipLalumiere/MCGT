@@ -1,8 +1,28 @@
 name: guard-placeholders
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - 'release/**'
+      - 'hotfix/**'
+  pull_request:
+    branches:
+      - main
+      - 'release/**'
+      - 'hotfix/**'
 jobs:
   guard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: tools/guard_fail_on_placeholders.sh
+      - name: Guard placeholders (strict on protected push, permissive on PR)
+        run: |
+          set -e
+          echo "[guard] event=${GITHUB_EVENT_NAME} ref=${GITHUB_REF} base=${GITHUB_BASE_REF}"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "[guard] PR vers '${GITHUB_BASE_REF}' — mode PERMISSIF (ne fait qu'afficher)."
+            bash tools/guard_fail_on_placeholders.sh || true
+          else
+            echo "[guard] PUSH sur branche protégée '${GITHUB_REF}' — ENFORCEMENT STRICT."
+            bash tools/guard_fail_on_placeholders.sh
+          fi

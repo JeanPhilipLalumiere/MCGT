@@ -1,3 +1,4 @@
+
 import json, os, re, sys, collections
 
 ALLOW_MISSING_REGEX = os.getenv(
@@ -36,7 +37,7 @@ by_code = collections.Counter(k["code"] for k in kept)
 errors = [k for k in kept if k["severity"] == "ERROR"]
 warns  = [k for k in kept if k["severity"] != "ERROR"]
 
-# Soft-pass si TOUTES les erreurs sont dans le set "soft"
+# Soft-pass si TOUTES les erreurs matchent SOFT_RGX
 if errors and SOFT_RGX and all(SOFT_RGX.search(e["code"]) for e in errors):
     for e in errors:
         warns.append({"code": e["code"], "severity": "WARN", "path": e["path"], "message": e["message"]})

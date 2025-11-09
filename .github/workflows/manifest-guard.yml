@@ -40,11 +40,12 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-import json, os, sys
-p = os.environ["MANIFEST"]
-with open(p,'rb') as f: json.load(f)
-print("[OK] JSON syntax:", p)
-PY
+          import json, os, sys
+          p = os.environ["MANIFEST"]
+          with open(p,'rb') as f:
+              json.load(f)
+          print("[OK] JSON syntax:", p)
+          PY
 
       - name: Run diag_consistency (collect JSON)
         shell: bash
@@ -71,18 +72,18 @@ PY
         run: |
           set -euo pipefail
           python3 - <<'PY'
-import json, re, sys
-with open('diag_report.json','rb') as f:
-    rep = json.load(f)
-issues = rep.get("issues", [])
-IGN = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
-kept = [it for it in issues if not IGN.search(it.get("path",""))]
-errors = [it for it in kept if it.get("severity","").upper()=="ERROR"]
-warns  = [it for it in kept if it.get("severity","").upper()=="WARN"]
-print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
-for it in errors[:20]:
-    print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
-for it in warns[:10]:
-    print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
-sys.exit(1 if errors else 0)
-PY
+          import json, re, sys
+          with open('diag_report.json','rb') as f:
+              rep = json.load(f)
+          issues = rep.get("issues", [])
+          IGN = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
+          kept = [it for it in issues if not IGN.search(it.get("path",""))]
+          errors = [it for it in kept if it.get("severity","").upper()=="ERROR"]
+          warns  = [it for it in kept if it.get("severity","").upper()=="WARN"]
+          print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
+          for it in errors[:20]:
+              print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
+          for it in warns[:10]:
+              print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
+          sys.exit(1 if errors else 0)
+          PY

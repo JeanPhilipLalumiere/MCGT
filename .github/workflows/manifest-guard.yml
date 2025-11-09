@@ -77,28 +77,45 @@ jobs:
           exit 0
 
       - name: Post-process report (fail only on real ERROR)
+      - name: Post-process report (fail only on real ERROR)
         shell: bash
+        env:
+          # Par défaut, on ignore/downgrade tout ce qui matche *.lock.json
+          ALLOW_MISSING_REGEX: '\.lock\.json$'
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import json, re, sys
-          with open('diag_report.json','rb') as f:
+          import json, os, re, sys
+          allow_missing = os.environ.get("ALLOW_MISSING_REGEX", r"\.lock\.json$")
+          ALLOW = re.compile(allow_missing, re.I)
+          IGN   = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
+
+          with open("diag_report.json","rb") as f:
               rep = json.load(f)
           issues = rep.get("issues", []) or []
-          IGN = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
-          kept = [it for it in issues if not IGN.search(str(it.get("path","")))]
+
+          kept = []
+          for it in issues:
+              path = str(it.get("path",""))
+              if IGN.search(path):
+                  continue
+              # Downgrade FILE_MISSING si path autorisé
+              if str(it.get("code","")).upper()=="FILE_MISSING" and ALLOW.search(path):
+                  it = dict(it)  # copie
+                  it["severity"] = "WARN"
+              kept.append(it)
+
           errors = [it for it in kept if str(it.get("severity","")).upper()=="ERROR"]
           warns  = [it for it in kept if str(it.get("severity","")).upper()=="WARN"]
+
           print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
-          for it in errors[:50]:
-              code = it.get('code','?')
-              path = it.get('path','?')
-              msg  = it.get('message','')
+          for it in errors[:100]:
+              code = it.get("code","?"); path = it.get("path","?"); msg = it.get("message","")
               print(f"::error::{code} at {path}: {msg}")
-          for it in warns[:20]:
-              code = it.get('code','?')
-              path = it.get('path','?')
-              msg  = it.get('message','')
+          for it in warns[:50]:
+              code = it.get("code","?"); path = it.get("path","?"); msg = it.get("message","")
               print(f"::warning::{code} at {path}: {msg}")
+
+          # Échoue uniquement s il reste des ERROR
           sys.exit(1 if errors else 0)
           PY

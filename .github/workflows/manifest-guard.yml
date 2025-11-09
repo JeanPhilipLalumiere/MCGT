@@ -10,6 +10,7 @@ permissions:
 concurrency:
   group: manifest-guard-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   guard:
     name: guard
@@ -44,23 +45,21 @@ jobs:
           python3 - <<'PY'
 import json, os
 p = os.environ["MANIFEST"]
-with open(p,'rb') as f:
-    json.load(f)
+with open(p,'rb') as f: json.load(f)
 print("[OK] JSON syntax:", p)
 PY
 
-      - name: Run diag_consistency (non-blocking, always writes report)
+      - name: Run diag_consistency (non-blocking; always write report)
         shell: bash
         env:
           MANIFEST: ${{ steps.pick.outputs.manifest }}
         run: |
-          set -euo pipefail
           set +e
           if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
           elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
           else
             echo "[SKIP] diag_consistency.py not found"
-            printf '{"issues":[],"rules":{}}' > diag_report.json
+            echo '{"issues":[],"rules":{}}' > diag_report.json
             echo "[INFO] diag exit code: 0 (no diag script)"
             exit 0
           fi
@@ -70,14 +69,13 @@ PY
             > diag_report.json
           RC=$?
           echo "[INFO] diag exit code: $RC"
-          # Ne pas échouer ici: le step suivant décide
-          exit 0
+          # on ne fait pas échouer ici; la post-analyse décidera
 
       - name: Post-process report (python runner)
         shell: bash
         env:
-          ALLOW_MISSING_REGEX: "(\\.lock\\.json$|^zz-data\\/chapter0[8-9]\\/|^zz-data\\/chapter10\\/)"
-          SOFT_PASS_IF_ONLY_CODES_REGEX: "^(FILE_MISSING)$"
+          ALLOW_MISSING_REGEX: '(\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)'
+          SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING)$'
         run: |
           set -euo pipefail
           python3 zz-tools/manifest_postprocess.py

@@ -25,7 +25,6 @@ for it in issues:
     code = str(it.get("code","")).upper()
     sev  = (str(it.get("severity","")) or "ERROR").upper()
     msg  = str(it.get("message",""))
-    # Downgrade FILE_MISSING si le chemin matche ALLOW_MISSING
     if code == "FILE_MISSING" and ALLOW_MISSING.search(path):
         sev = "WARN"
     kept.append({"code":code, "severity":sev, "path":path, "message":msg})
@@ -34,12 +33,11 @@ by_code = collections.Counter(k["code"] for k in kept)
 errors = [k for k in kept if k["severity"] == "ERROR"]
 warns  = [k for k in kept if k["severity"] != "ERROR"]
 
-# Si toutes les erreurs sont "soft", on les requalifie en WARN et on passe en 0
-soft_only = False
 if errors and SOFT_RGX and all(SOFT_RGX.search(e["code"]) for e in errors):
-    warns.extend({"code":e["code"],"severity":"WARN","path":e["path"],"message":e["message"]} for e in errors)
+    # si toutes les erreurs sont "soft" -> on les rétrograde en WARN
+    for e in errors:
+        warns.append({"code":e["code"], "severity":"WARN", "path":e["path"], "message":e["message"]})
     errors = []
-    soft_only = True
 
 print(f"[INFO] total={len(issues)} kept={len(kept)} warn={len(warns)} error={len(errors)}")
 print(f"[INFO] codes={dict(by_code)}")

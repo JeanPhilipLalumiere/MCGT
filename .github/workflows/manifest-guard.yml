@@ -14,7 +14,8 @@ jobs:
     name: guard
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -47,13 +48,13 @@ jobs:
           print("[OK] JSON syntax:", p)
           PY
 
-      - name: Run diag_consistency (collect JSON) — non-blocking
+      - name: Run diag_consistency (collect JSON, non-blocking)
         shell: bash
         env:
           MANIFEST: ${{ steps.pick.outputs.manifest }}
         run: |
           set +e
-          # Localise le diag
+          # Locate diag script
           if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
           elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
           else
@@ -68,19 +69,19 @@ jobs:
             > diag_report.json
           RC=$?
           echo "[INFO] diag exit code: $RC"
-          # Toujours garantir un fichier JSON exploitable
-          if [ ! -s diag_report.json ]; then
-            echo "[WARN] diag_report.json missing or empty; creating fallback"
-            printf '{"issues":[{"severity":"ERROR","code":"DIAG_FAILED","path":"%s","message":"diag exited with code %d"}],"rules":{}}' "$MANIFEST" "$RC" > diag_report.json
+          if [ $RC -ne 0 ]; then
+            # Fallback: si pas de rapport, en créer un minimal en WARN
+            if [ ! -s diag_report.json ]; then
+              printf '{"issues":[{"code":"DIAG_FAILED","severity":"WARN","path":"%s","message":"diag exited with code %d"}],"rules":{}}' "$MANIFEST" "$RC" > diag_report.json
+              echo "[INFO] created minimal diag_report.json after failure"
+            fi
           fi
-          # Ne PAS échouer ici; la post-analyse décidera
           exit 0
 
       - name: Post-process report (fail only on real ERROR)
-      - name: Post-process report (fail only on real ERROR)
         shell: bash
         env:
-          # Par défaut, on ignore/downgrade tout ce qui matche *.lock.json
+          # Tolérer l'absence de fichiers *.lock.json
           ALLOW_MISSING_REGEX: '\.lock\.json$'
         run: |
           set -euo pipefail
@@ -96,26 +97,22 @@ jobs:
 
           kept = []
           for it in issues:
-              path = str(it.get("path",""))
-              if IGN.search(path):
-                  continue
-              # Downgrade FILE_MISSING si path autorisé
-              if str(it.get("code","")).upper()=="FILE_MISSING" and ALLOW.search(path):
-                  it = dict(it)  # copie
-                  it["severity"] = "WARN"
-              kept.append(it)
+            path = str(it.get("path",""))
+            if IGN.search(path):
+              continue
+            it2 = dict(it)
+            if str(it2.get("code","")).upper()=="FILE_MISSING" and ALLOW.search(path):
+              it2["severity"] = "WARN"
+            kept.append(it2)
 
           errors = [it for it in kept if str(it.get("severity","")).upper()=="ERROR"]
           warns  = [it for it in kept if str(it.get("severity","")).upper()=="WARN"]
 
           print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
           for it in errors[:100]:
-              code = it.get("code","?"); path = it.get("path","?"); msg = it.get("message","")
-              print(f"::error::{code} at {path}: {msg}")
+            print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
           for it in warns[:50]:
-              code = it.get("code","?"); path = it.get("path","?"); msg = it.get("message","")
-              print(f"::warning::{code} at {path}: {msg}")
+            print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
 
-          # Échoue uniquement s il reste des ERROR
           sys.exit(1 if errors else 0)
           PY

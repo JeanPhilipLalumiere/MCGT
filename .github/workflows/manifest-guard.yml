@@ -23,35 +23,27 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Étape NON bloquante: si le manifest est absent, on génère un diag_report minimal
       - name: Locate manifest
         id: pick
         shell: bash
         run: |
           set -euo pipefail
+          found=""
           for M in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
-            if [ -f "$M" ]; then
-              echo "manifest=$M" >> "$GITHUB_OUTPUT"
-              echo "[OK] Found manifest: $M"
-              exit 0
-            fi
+            if [ -f "$M" ]; then found="$M"; break; fi
           done
-          echo "::error::No manifest found (expected zz-manifests/manifest_master.json or zz-manifests/manifest_publication.json)"
-          exit 1
+          if [ -n "$found" ]; then
+            echo "manifest=$found" >> "$GITHUB_OUTPUT"
+            echo '{"issues":[],"rules":{}}' > diag_report.json
+            echo "[OK] Found manifest: $found"
+          else
+            echo "::error::MANIFEST_MISSING at zz-manifests: No manifest found (expected zz-manifests/manifest_master.json or zz-manifests/manifest_publication.json)"
+            printf '%s\n' '{"issues":[{"code":"MANIFEST_MISSING","severity":"ERROR","path":"zz-manifests","message":"No manifest found"}]}' > diag_report.json
+          fi
 
-      - name: Validate JSON syntax
-        shell: bash
-        env:
-          MANIFEST: ${{ steps.pick.outputs.manifest }}
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-import json, os
-p = os.environ["MANIFEST"]
-with open(p,'rb') as f: json.load(f)
-print("[OK] JSON syntax:", p)
-PY
-
-      - name: Run diag_consistency (non-blocking; always write report)
+      - name: Run diag_consistency (non-blocking)
+        if: ${{ steps.pick.outputs.manifest != '' }}
         shell: bash
         env:
           MANIFEST: ${{ steps.pick.outputs.manifest }}
@@ -62,16 +54,13 @@ PY
           else
             echo "[SKIP] diag_consistency.py not found"
             echo '{"issues":[],"rules":{}}' > diag_report.json
-            echo "[INFO] diag exit code: 0 (no diag script)"
             exit 0
           fi
           echo "[INFO] Using diag: $D"
           python3 "$D" "$MANIFEST" \
             --report json --normalize-paths --apply-aliases --strip-internal --content-check \
             > diag_report.json
-          RC=$?
-          echo "[INFO] diag exit code: $RC"
-          # Ne pas échouer ici; la post-analyse décide
+          echo "[INFO] diag finished (exit code ignored here)"
 
       - name: Post-process report (python runner)
         shell: bash

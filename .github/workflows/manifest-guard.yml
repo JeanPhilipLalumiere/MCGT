@@ -65,7 +65,7 @@ PY
             --apply-aliases \
             --strip-internal \
             --content-check \
-            --fail-on warnings
+            --fail-on errors
 
       - name: Summary
         if: ${{ always() }}

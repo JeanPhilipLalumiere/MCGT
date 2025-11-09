@@ -41,20 +41,20 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import json, os
-          p = os.environ["MANIFEST"]
-          with open(p,'rb') as f:
-              json.load(f)
-          print("[OK] JSON syntax:", p)
-          PY
+import json, os
+p = os.environ["MANIFEST"]
+with open(p,'rb') as f:
+    json.load(f)
+print("[OK] JSON syntax:", p)
+PY
 
-      - name: Run diag_consistency (collect JSON, non-blocking)
+      - name: Run diag_consistency (non-blocking, always writes report)
         shell: bash
         env:
           MANIFEST: ${{ steps.pick.outputs.manifest }}
         run: |
+          set -euo pipefail
           set +e
-          # Locate diag script
           if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
           elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
           else
@@ -69,19 +69,13 @@ jobs:
             > diag_report.json
           RC=$?
           echo "[INFO] diag exit code: $RC"
-          if [ $RC -ne 0 ]; then
-            # Fallback: si pas de rapport, en créer un minimal en WARN
-            if [ ! -s diag_report.json ]; then
-              printf '{"issues":[{"code":"DIAG_FAILED","severity":"WARN","path":"%s","message":"diag exited with code %d"}],"rules":{}}' "$MANIFEST" "$RC" > diag_report.json
-              echo "[INFO] created minimal diag_report.json after failure"
-            fi
-          fi
+          # Ne pas échouer ici: le step suivant décide
           exit 0
 
       - name: Post-process report (python runner)
         shell: bash
         env:
-          ALLOW_MISSING_REGEX: "(\\.lock\\.json$|^zz-data\/chapter0[8-9]\/|^zz-data\/chapter10\/)"
+          ALLOW_MISSING_REGEX: "(\\.lock\\.json$|^zz-data\\/chapter0[8-9]\\/|^zz-data\\/chapter10\\/)"
           SOFT_PASS_IF_ONLY_CODES_REGEX: "^(FILE_MISSING)$"
         run: |
           set -euo pipefail

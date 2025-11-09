@@ -5,8 +5,10 @@ on:
     branches: [release/zz-tools-0.3.1]
   pull_request:
     branches: [release/zz-tools-0.3.1]
+
 permissions:
   contents: read
+
 concurrency:
   group: manifest-guard-${{ github.ref }}
   cancel-in-progress: true
@@ -69,7 +71,7 @@ PY
             > diag_report.json
           RC=$?
           echo "[INFO] diag exit code: $RC"
-          # on ne fait pas échouer ici; la post-analyse décidera
+          # Ne pas échouer ici; la post-analyse décide
 
       - name: Post-process report (python runner)
         shell: bash
@@ -79,3 +81,11 @@ PY
         run: |
           set -euo pipefail
           python3 zz-tools/manifest_postprocess.py
+
+      - name: Upload diag report (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-guard-diag
+          path: diag_report.json
+          if-no-files-found: warn

@@ -40,7 +40,6 @@ dist/
 *.bak
 *.bak.*
 *.pass*
-zz-tools/
 create_and_run_smoke_workflow.sh
 garde_fou_universal_v5.sh
 restore_add_safe.sh
@@ -109,3 +108,15 @@ zz_tools.egg-info/
 _attic_untracked/
 _autofix_sandbox/
 .ci-out*
+/zz-out/
+/zz-out/**
+/_attic_untracked/
+/_attic_untracked/**
+# === MCGT canonical ignores (artefacts uniquement) ===
+**/__pycache__/
+**/*.py[co]
+**/*.pyo
+**/*.tmp
+**/*.save
+**/*.bak
+**/*.autofix.*.bak

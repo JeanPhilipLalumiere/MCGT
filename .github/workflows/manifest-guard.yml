@@ -8,6 +8,7 @@ permissions:
 concurrency:
   group: manifest-guard-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   guard:
     name: guard
@@ -16,12 +17,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Check manifest presence
         shell: bash
         run: |
           set -euo pipefail
-          test -f zz-manifests/manifest_master.json || { echo "::error::zz-manifests/manifest_master.json manquant"; exit 1; }
-          echo "[OK] manifest présent"
+          M="zz-manifests/manifest_master.json"
+          if [ ! -f "$M" ]; then
+            echo "::error::Manifeste absent: $M"
+            exit 1
+          fi
+          echo "[OK] Présence confirmée: $M"
+          echo "[INFO] Taille: $(wc -c < "$M") bytes"
+          echo "[INFO] Head:"
+          head -n 20 "$M" || true
+
       - name: Validate JSON syntax (python stdlib)
         shell: bash
         run: |
@@ -32,12 +42,36 @@ p="zz-manifests/manifest_master.json"
 with open(p,'rb') as f: json.load(f)
 print("JSON OK:", p)
 PY
-      - name: Optional diag_consistency.py if present
+
+      - name: Run diag_consistency if available (two locations)
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f zz-scripts/diag_consistency.py ]; then
-            python3 zz-scripts/diag_consistency.py || { echo "::error::diag_consistency a échoué"; exit 1; }
+          M="zz-manifests/manifest_master.json"
+          # Cherche l'outil à deux emplacements possibles
+          if [ -f "zz-manifests/diag_consistency.py" ]; then
+            D="zz-manifests/diag_consistency.py"
+          elif [ -f "zz-scripts/diag_consistency.py" ]; then
+            D="zz-scripts/diag_consistency.py"
           else
-            echo "[SKIP] zz-scripts/diag_consistency.py absent"
+            echo "[SKIP] diag_consistency.py introuvable (zz-manifests/ ou zz-scripts/)."
+            exit 0
           fi
+          echo "[INFO] Using diag: $D"
+          # Exécution stricte: fail on warnings
+          python3 "$D" "$M" \
+            --report json \
+            --normalize-paths \
+            --apply-aliases \
+            --strip-internal \
+            --content-check \
+            --fail-on warnings
+
+      - name: Summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          echo "::group::Manifest summary"
+          echo "[GIT] $(git rev-parse --short HEAD) on ${{ github.ref }}"
+          ls -l zz-manifests/manifest_master.json || true
+          echo "::endgroup::"

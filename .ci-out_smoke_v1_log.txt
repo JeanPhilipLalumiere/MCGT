@@ -1,0 +1,4 @@
+[FAIL(1)] zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py  ( 0.0s)
+[FAIL(1)] zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py  ( 0.0s)
+[FAIL(1)] zz-scripts/chapter04/plot_fig02_invariants_histogram.py  ( 0.0s)
+[FAIL(1)] zz-scripts/chapter03/plot_fig01_fR_stability_domain.py  ( 0.0s)

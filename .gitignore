@@ -106,3 +106,6 @@ zz_tools.egg-info/
 *.swo
 .DS_Store
 *.ipynb_checkpoints*
+_attic_untracked/
+_autofix_sandbox/
+.ci-out*

@@ -28,7 +28,7 @@ jobs:
             pip install -r requirements.txt || true -c constraints/security-pins.txt
           fi
       - name: Install pip-audit
-        run: pip install pip-audit -c constraints/security-pins.txt
+        run: pip install pip-audit
       - name: Run pip-audit
         run: |
           set -e

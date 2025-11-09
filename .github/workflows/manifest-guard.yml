@@ -40,32 +40,41 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import json, os, sys
+          import json, os
           p = os.environ["MANIFEST"]
           with open(p,'rb') as f:
               json.load(f)
           print("[OK] JSON syntax:", p)
           PY
 
-      - name: Run diag_consistency (collect JSON)
+      - name: Run diag_consistency (collect JSON) — non-blocking
         shell: bash
         env:
           MANIFEST: ${{ steps.pick.outputs.manifest }}
         run: |
-          set -euo pipefail
+          set +e
           # Localise le diag
           if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
           elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
           else
             echo "[SKIP] diag_consistency.py not found"
-            echo '{"issues":[],"rules":{}}' > diag_report.json
+            printf '{"issues":[],"rules":{}}' > diag_report.json
+            echo "[INFO] diag exit code: 0 (no diag script)"
             exit 0
           fi
           echo "[INFO] Using diag: $D"
           python3 "$D" "$MANIFEST" \
             --report json --normalize-paths --apply-aliases --strip-internal --content-check \
             > diag_report.json
-          echo "[OK] diag report written: diag_report.json"
+          RC=$?
+          echo "[INFO] diag exit code: $RC"
+          # Toujours garantir un fichier JSON exploitable
+          if [ ! -s diag_report.json ]; then
+            echo "[WARN] diag_report.json missing or empty; creating fallback"
+            printf '{"issues":[{"severity":"ERROR","code":"DIAG_FAILED","path":"%s","message":"diag exited with code %d"}],"rules":{}}' "$MANIFEST" "$RC" > diag_report.json
+          fi
+          # Ne PAS échouer ici; la post-analyse décidera
+          exit 0
 
       - name: Post-process report (fail only on real ERROR)
         shell: bash
@@ -75,15 +84,21 @@ jobs:
           import json, re, sys
           with open('diag_report.json','rb') as f:
               rep = json.load(f)
-          issues = rep.get("issues", [])
+          issues = rep.get("issues", []) or []
           IGN = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
-          kept = [it for it in issues if not IGN.search(it.get("path",""))]
-          errors = [it for it in kept if it.get("severity","").upper()=="ERROR"]
-          warns  = [it for it in kept if it.get("severity","").upper()=="WARN"]
+          kept = [it for it in issues if not IGN.search(str(it.get("path","")))]
+          errors = [it for it in kept if str(it.get("severity","")).upper()=="ERROR"]
+          warns  = [it for it in kept if str(it.get("severity","")).upper()=="WARN"]
           print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
-          for it in errors[:20]:
-              print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
-          for it in warns[:10]:
-              print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
+          for it in errors[:50]:
+              code = it.get('code','?')
+              path = it.get('path','?')
+              msg  = it.get('message','')
+              print(f"::error::{code} at {path}: {msg}")
+          for it in warns[:20]:
+              code = it.get('code','?')
+              path = it.get('path','?')
+              msg  = it.get('message','')
+              print(f"::warning::{code} at {path}: {msg}")
           sys.exit(1 if errors else 0)
           PY

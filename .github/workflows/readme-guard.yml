@@ -1,15 +1,31 @@
 name: readme-guard
 on:
-  workflow_dispatch:
-  push:
-    branches: [ "main" ]
   pull_request:
-permissions: { contents: read }
+    types: [opened, synchronize, reopened]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: readme-guard-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   guard:
+    name: guard
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Vérifier qu'aucun badge orphelin n'est présent entre END BADGES et le premier H1
+        with:
+          fetch-depth: 0
+      - name: README badge guard (works on PR & dispatch)
+        shell: bash
         run: |
-          awk 'BEGIN{a=0;h=0}/<!-- END BADGES -->/{a=1}/^# /{h=1}{if(a==1 && h==0 && $0 ~ /^[[:space:]]*\\[!\\[/) {print; bad=1}} END{exit bad?1:0}' README.md
+          set -euo pipefail
+          # Si le pattern "badges orphelins après H1" est détecté → échec.
+          if awk 'BEGIN{a=0;h=0} /<!-- END BADGES -->/{a=1} /^# /{h=1}
+                   { if(a==1&&h==0&&index($0,"[![")>0){ print; bad=1 } }
+                   END{ exit bad?0:1 }' README.md; then
+            echo "::error::README contient des badges orphelins sous le H1."
+            exit 1
+          else
+            echo "README OK"
+          fi

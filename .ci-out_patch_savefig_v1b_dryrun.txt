@@ -1,0 +1,64 @@
+# patch_savefig_finalize_v1b — DRY_RUN
+Targets: 61 | Changed: 40 | NO_PARSER_DEF: 9
+Diffs -> .ci-out/patch_savefig_v1b_20251105T222741Z/
+- zz-scripts/chapter01/plot_fig01_early_plateau.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter01/plot_fig02_logistic_calibration.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter01/plot_fig03_relative_error_timeline.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter01/plot_fig05_I1_vs_T.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig00_spectrum.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig02_calibration.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig03_relative_errors.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig04_pipeline_diagram.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter02/plot_fig05_FG_series.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter02/plot_fig06_alpha_fit.py :: mods=['ADD_PARSE_ARGS', 'COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter03/plot_fig01_fR_stability_domain.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig05_interpolated_milestones.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig06_grid_quality.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter04/plot_fig01_invariants_schematic.py :: mods=['ADD_PARSE_ARGS', 'COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter04/plot_fig02_invariants_histogram.py :: mods=['ADD_PARSE_ARGS', 'COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter04/plot_fig03_invariants_vs_T.py :: mods=['ADD_PARSE_ARGS', 'COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter04/plot_fig04_relative_deviations.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py :: mods=['ADD_PARSE_ARGS', 'COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter05/plot_fig04_chi2_vs_T.py :: OK
+- zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter06/plot_fig03_delta_cls_relative.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py :: mods=['COMMENT_SAVEFIG:1', 'ADD_FINALIZE']
+- zz-scripts/chapter07/plot_fig01_cs2_heatmap.py :: OK
+- zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py :: OK
+- zz-scripts/chapter07/plot_fig03_invariant_I1.py :: OK
+- zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py :: OK
+- zz-scripts/chapter07/plot_fig06_comparison.py :: OK
+- zz-scripts/chapter07/plot_fig07_invariant_I2.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter08/plot_fig02_dv_vs_z.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter08/plot_fig03_mu_vs_z.py :: OK
+- zz-scripts/chapter08/plot_fig04_chi2_heatmap.py :: OK
+- zz-scripts/chapter08/plot_fig05_residuals.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter08/plot_fig07_chi2_profile.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter09/plot_fig01_phase_overlay.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter09/plot_fig02_residual_phase.py :: OK
+- zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py :: OK
+- zz-scripts/chapter10/plot_fig01_iso_p95_maps.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py :: OK
+- zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py :: issues=['NO_PARSER_DEF']
+- zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py :: OK
+- zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter10/plot_fig06_residual_map.py :: mods=['ADD_PARSE_ARGS']
+- zz-scripts/chapter10/plot_fig07_synthesis.py :: mods=['ADD_PARSE_ARGS']

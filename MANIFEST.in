@@ -1,6 +1,6 @@
 include pyproject.toml
 include README.md
-include README.rst
+include README.md
 include LICENSE
 recursive-include src *.py
 recursive-include msrc *.py
@@ -16,3 +16,4 @@ global-exclude *.log *.bak *.bak.* *.tmp *.swp *.save
 prune dist
 prune build
 prune docs/_build
+include LICENSE-data

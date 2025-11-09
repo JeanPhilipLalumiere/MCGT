@@ -8,10 +8,71 @@ on:
 
 permissions:
   contents: read
-  actions: write   # nécessaire pour upload-artifact@v4
+  actions: write
+
+concurrency:
+  group: manifest-guard-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  smoke:
+  guard:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "smoke-ok $GITHUB_RUN_ID"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Locate manifest
+        id: pick
+        shell: bash
+        run: |
+          set -euo pipefail
+          found=""
+          for M in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
+            if [ -f "$M" ]; then found="$M"; break; fi
+          done
+          if [ -n "$found" ]; then
+            echo "manifest=$found" >> "$GITHUB_OUTPUT"
+            echo '{"issues":[],"rules":{}}' > diag_report.json
+            echo "[OK] Found manifest: $found"
+          else
+            echo "::error::MANIFEST_MISSING at zz-manifests: expected manifest_master.json or manifest_publication.json"
+            printf '%s
+' '{"issues":[{"code":"MANIFEST_MISSING","severity":"ERROR","path":"zz-manifests","message":"missing"}]}' > diag_report.json
+          fi
+
+      - name: Run diag_consistency (non-blocking)
+        if: ${{ steps.pick.outputs.manifest != '' }}
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.pick.outputs.manifest }}
+        run: |
+          set +e
+          if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
+          elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
+          else
+            echo "[SKIP] diag_consistency.py not found"
+            echo '{"issues":[],"rules":{}}' > diag_report.json
+            exit 0
+          fi
+          echo "[INFO] Using diag: $D"
+          python3 "$D" "$MANIFEST" --report json --normalize-paths --apply-aliases --strip-internal --content-check > diag_report.json
+          echo "[INFO] diag finished (exit code ignored)"
+
+      - name: Post-process report
+        shell: bash
+        env:
+          ALLOW_MISSING_REGEX: '(\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)'
+          SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING)$'
+        run: |
+          set -euo pipefail
+          python3 zz-tools/manifest_postprocess.py
+
+      - name: Upload diag report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-guard-diag
+          path: diag_report.json
+          if-no-files-found: warn

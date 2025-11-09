@@ -7436,306 +7436,306 @@
     {
       "path": ".github/workflows/smoke-pypi.yml",
       "role": "code",
-      "size_bytes": 1030,
-      "sha256": "13a02e1ab5daf7469295a33fe6dc684768c7eb64c7172c71d4629eab5c852f8a",
-      "mtime_iso": "2025-10-19T19:35:40Z",
-      "git_hash": "dc66e7b1e3d70a3c0b6b744db53b52419a9972cf"
+      "size_bytes": 1165,
+      "sha256": "a41c2de37aa1025b1df2a3e5c2490d4f9bb95ab190d689ad2251d58c4f018eae",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/semantic-pr.yml",
       "role": "code",
-      "size_bytes": 507,
-      "sha256": "1cdbf90e93b022ca64c32b2908802a7e1d34d5d8c552aa8280ecbb09f6291507",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "84109ece26b2ef696d4d65a3fd48d19e021335ac"
+      "size_bytes": 576,
+      "sha256": "80428147ada2bb2b293c8332971d122d01db9b5d9233c8b39000e2aa20e8b6e5",
+      "mtime_iso": "2025-11-01T15:13:38Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/secret-scan.yml",
       "role": "code",
-      "size_bytes": 513,
-      "sha256": "c9c12d07ff1bd54c039f22dc7363ce9e057767b80dbadca21d41617031b22f6b",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "257ef5d71b7bf3ec6fd82f3f93982a23388d60bf"
+      "size_bytes": 340,
+      "sha256": "5dfe88d2e8c36a9d7d32b1dbb07c07cf4a50a678d2e060baed5ef47a61b63d02",
+      "mtime_iso": "2025-11-01T15:13:38Z",
+      "git_hash": "e94c2b41b77feb1e7f50170273e30266f36ac085"
     },
     {
       "path": ".github/workflows/sanity-main.yml",
       "role": "code",
       "size_bytes": 6318,
       "sha256": "5445172c1e7758fad8b0bf978ac9694142fc8d9d9a2f010303208f8a70fb8ee6",
-      "mtime_iso": "2025-10-03T18:43:12Z",
-      "git_hash": "e5fd526a2b0b7e04fe0949b6774f6d9b6364fc6b"
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "72573373db139f0e81b063e3cf4dbe18ad897668"
     },
     {
       "path": ".github/workflows/sanity-echo.yml",
       "role": "code",
-      "size_bytes": 274,
-      "sha256": "f2c7fab7924ca9369de839d56f0d624f8a24f33f3d186a1ec1c485a907cb85c9",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "0602d706a67af3512f73bd37aeacc9916a5fd416"
+      "size_bytes": 343,
+      "sha256": "5125f89c6ad929c2252834dca627f5cd35b0850034ae53fa8cb9856bd5f260b9",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/release-publish.yml",
       "role": "code",
-      "size_bytes": 1975,
-      "sha256": "cc96211c8d10c7f65382ff6fac822241509a7571d35ce488178b3fa79c504774",
-      "mtime_iso": "2025-10-19T13:23:41Z",
-      "git_hash": "c1820ad05c18753dfac6d89493940a29f8b5bb38"
+      "size_bytes": 2041,
+      "sha256": "2fcb6bf61a3e9897b9f8fa0020dbdfcf2f1ca79b2ae8e12b5a27eec58b99aabe",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/release-drafter.yml",
       "role": "code",
-      "size_bytes": 451,
-      "sha256": "9e55cea0f4956985b5caa4a08c17db5ec3ae2ac0f2c4d6b55ef2a2d6f1963c58",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "f9a8e47e3f6939f951b75e071e18cd1195f41e7e"
+      "size_bytes": 520,
+      "sha256": "5193f5cf4cccd2b8047d306361439dd14d1db9bfddc88dbbdf57ba05639774ef",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/release-assets.yml",
       "role": "code",
-      "size_bytes": 675,
-      "sha256": "95f219f0fdc263ccd351d50216aa5d9514e175de57c761f5748bdd3bcf7335d7",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "3fb6aaed6355b58fe12e22f23b2794d4780601cf"
+      "size_bytes": 744,
+      "sha256": "7d4af55c195d97a9ef76cb653caa6bb720f1a47c73a694057578b486e50a3d51",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/readme-guard.yml",
       "role": "code",
-      "size_bytes": 462,
-      "sha256": "cfb04e5476e1cbf419a1be90b0465fea52deb3ef2c1622960f2c554c6b19ec65",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "13a358cd14d0a491e1b65d3efd69b2757ba90db6"
+      "size_bytes": 483,
+      "sha256": "450469ea7165ad3593699e6f27760501aa658051897dc42bbfb8ab1827521fb9",
+      "mtime_iso": "2025-11-09T01:19:26Z",
+      "git_hash": "0886ecdec2bc61416f73d03bfedfb4c7fffbfe12"
     },
     {
       "path": ".github/workflows/quality-guards.yml",
       "role": "code",
-      "size_bytes": 1213,
-      "sha256": "590b663bf4e9a447cb60b464263100a0eb0b0f9f444ede3978874f0f91dc826e",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "941cdbc8e0bbd6ef7e540d903d0b2c4fc7246bf7"
+      "size_bytes": 1362,
+      "sha256": "07b56e833eef2f39099ba387d1ddc8a9c456e5ac468089a756c32ac6567c308f",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "3a6d22a7e2f202dd2d4ebabfac7370d24f94eb3a"
     },
     {
       "path": ".github/workflows/pypi-publish.yml",
       "role": "code",
-      "size_bytes": 954,
-      "sha256": "20dea409cc0ce2314c7d02f534ec61c5f2bdc5955964ff8b712f29f9991c9816",
-      "mtime_iso": "2025-10-19T13:41:31Z",
-      "git_hash": "a0ead75faac1a943684a40261e7680e4e5d204b5"
+      "size_bytes": 987,
+      "sha256": "98217caf26bf920b06559991dcbf3906e47d63cccf815722522174af0d4a7cf4",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/pypi-build.yml",
       "role": "code",
-      "size_bytes": 675,
-      "sha256": "d46ad92d6b61f1586f46e4d09b92a7ff956877a1c6b4733963bf8a7894fcc446",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "6dc52111ccade9aeab009ae3d706b06654a2c071"
+      "size_bytes": 302,
+      "sha256": "4b0cacf6631153a1c03a69ce1496c7251df0762e980668afbebec1de6affcfe0",
+      "mtime_iso": "2025-11-01T15:13:38Z",
+      "git_hash": "e94c2b41b77feb1e7f50170273e30266f36ac085"
     },
     {
       "path": ".github/workflows/publish.yml",
       "role": "code",
-      "size_bytes": 2331,
-      "sha256": "81ad60b0c0b7a27d4408da26501c2451c62335d5bc6a59bfe5c3110338c9e52c",
-      "mtime_iso": "2025-10-20T18:48:29Z",
-      "git_hash": "6ce4a3a12b1324483bfcae3f3241269204a70b23"
+      "size_bytes": 2364,
+      "sha256": "d4a90f5f7cc4284fb9067ae79e26ac4c26ed7adb5d4775df66ecb2cc9153ad85",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/prepub-dry-run.yml",
       "role": "code",
-      "size_bytes": 1013,
-      "sha256": "8869c57859c3853ddeb21a9226fb51406465ce682f28e6f73aa99abc8c8ba86b",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "68327990a0cdfb30e886a7c8d743217583957855"
+      "size_bytes": 1082,
+      "sha256": "ec54dbf7599d85d1d87aa69a63c45a37fdcf125f23756bacf8f32e726492125f",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/pre-commit-autoupdate.yml",
       "role": "code",
-      "size_bytes": 747,
-      "sha256": "0453c272923b08828d0127186d4ac42190ae278d4a372fb95257f617a412e524",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "e10a28b88aab7986e1b190d2e95de6b22fbac717"
+      "size_bytes": 816,
+      "sha256": "1a37de1ea8f16261421b46cfc070fa9a5712a555d3cb4a78ebbf06db5a0deaa2",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/policies-guard.yml",
       "role": "code",
-      "size_bytes": 631,
-      "sha256": "cb00bcb46ad2d05d81d496095d3a9733d515bf46c1c88d2c5fe4d94aee09be72",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "f6b941fb85a9193f1ca4bcae36426b10175e63c2"
+      "size_bytes": 700,
+      "sha256": "af705cb0312c2c1aaf7560fae000f854565b56a5c3ab533aaee869280b45f746",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/pip-audit.yml",
       "role": "code",
-      "size_bytes": 872,
-      "sha256": "d6183029794de6b56d29dddabb64b636fac75b77a2f5b75c11bf0075bb16214e",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "a125efad9ee100f3300a31fac8ea3b8541f27c84"
+      "size_bytes": 1322,
+      "sha256": "7f572bd4303789599e91cc6580207933f7f7e2ade4607e5afcb2ebb7ad063132",
+      "mtime_iso": "2025-11-09T01:15:55Z",
+      "git_hash": "59955f59cc67152643a56d40252d1c7348d888f9"
     },
     {
       "path": ".github/workflows/pdf.yml",
       "role": "code",
-      "size_bytes": 541,
-      "sha256": "aabd19890c9152e854ec37b1efc2023c1a984df219c410370a987ca662d03e43",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "ede9912bd5f597cb25bfe702ed87cb5109ec68cc"
+      "size_bytes": 690,
+      "sha256": "e84b67341deb9f9f2c36067d1e764dfab30d2b02297bb97ce81e16bbd74ea33f",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "3a6d22a7e2f202dd2d4ebabfac7370d24f94eb3a"
     },
     {
       "path": ".github/workflows/nightly.yml",
       "role": "code",
       "size_bytes": 752,
       "sha256": "0bb7aa4b750e6b1d88570a8099dabc36b6be66b258f60fbfd596c05dfa3cdbd6",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "cd88dc5b26a6c11b9df2899eb537c6179a14e5c6"
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "dadeee539401c020e3eda5c9ba786e28db435d45"
     },
     {
       "path": ".github/workflows/naming-guard.yml",
       "role": "code",
-      "size_bytes": 805,
-      "sha256": "0778c5355d2256f41db989b56e1da1f411ea6059400401590f74c478e01cde2e",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "3a1db94eaf4efda991ba51b3e2d55ce530a880a4"
+      "size_bytes": 874,
+      "sha256": "b514ff1cad3982c0763b554b4ccfeb2bf65d239b8a2a068a78e812f91c16bd9b",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/meta-guard.yml",
       "role": "code",
-      "size_bytes": 505,
-      "sha256": "956e7cca7c96a699da4c994eae028741bd28635b98305c56bd160a07a4e47133",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "e0d869842e9ba709f8fcc833e57fee411dc4a3d0"
+      "size_bytes": 574,
+      "sha256": "172791df7d508ccbb64bd356516d01647f4645b273b82365c463847c2fca3e25",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/manifests-json-guard.yml",
       "role": "code",
-      "size_bytes": 810,
-      "sha256": "746eb4e2c42c0231f57c4d156f2a70eb912be88f9ad33fa3cba26b5ffdba850a",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "1e37dcdb5ad6b12581c64cab5cf4f3739434dc14"
+      "size_bytes": 879,
+      "sha256": "2ec4378db702759d7e79f4d188f1e944e4662c47eb0bd339c160bb27147fbf62",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/manifests-guard.yml",
       "role": "code",
-      "size_bytes": 859,
-      "sha256": "34c7bf6a5dd5ef65eeb02351c60e9f6fd741daae910c5f9f7cced1c7bc99d036",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "3b48d3fcce2e9875eb27a204f230aa8f0b3565cf"
+      "size_bytes": 928,
+      "sha256": "ac1b1473808dd0e6d97993c391df96f46168d01f8198d16043e34809460af12a",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/manifest-guard.yml",
       "role": "code",
-      "size_bytes": 710,
-      "sha256": "fcc6f05182c89d7335096860641b84e39223627e7d723bba3bf9baef06993dbf",
-      "mtime_iso": "2025-10-23T12:58:24Z",
-      "git_hash": "1705982eb1dc84b04c1b09c7a4f20d20d85c2630"
+      "size_bytes": 866,
+      "sha256": "2d4f82026f8d9018d274f76bc84103728c658f8716b360846a5efed51a2251f2",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "0886ecdec2bc61416f73d03bfedfb4c7fffbfe12"
     },
     {
       "path": ".github/workflows/manifest-drift.yml",
       "role": "code",
-      "size_bytes": 1136,
-      "sha256": "1fafe24f9994378b4a9815c83675127d3d357b49d9e6d51d46899fc29301a469",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "ae90968651e8766a572c9df352589f214e888ef8"
+      "size_bytes": 1238,
+      "sha256": "691bfb9e0fcfb4c99b0879b8eda31cf832dfe38855491d05a662bc8dbc676492",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/integrity.yml",
       "role": "code",
-      "size_bytes": 313,
-      "sha256": "5ba71af62b965ef3d6c17e6cf9e1b23cd800d3e789418eaf24a09c0bb4d8997d",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "b63a5a744c06c3936ebe7bd96c4304ae7259b579"
+      "size_bytes": 462,
+      "sha256": "a887f86d57df0b049914bba94b4296cf70b37ffe1a66c22551c54d5020a46d71",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "3a6d22a7e2f202dd2d4ebabfac7370d24f94eb3a"
     },
     {
       "path": ".github/workflows/guard-generated.yml",
       "role": "code",
-      "size_bytes": 630,
-      "sha256": "682b7421ccfef23143abc5931059e6acda90067fbac6f30fbf179530551e5e1d",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "13591f58ee1263a88d59a62f54e12bb7dde9a27e"
+      "size_bytes": 779,
+      "sha256": "131894f8022d03239ffb8fb0c46bf72f6aafaf0a7d2f7b44245c81875da3d3d3",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "3a6d22a7e2f202dd2d4ebabfac7370d24f94eb3a"
     },
     {
       "path": ".github/workflows/figures-guard.yml",
       "role": "code",
-      "size_bytes": 556,
-      "sha256": "5cc42a804c6ba1204594042db8b559b3bfb8586fb988a88d9b95c0d7f2f01658",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "17564b17575e4801f66162286897798ab12c6cd5"
+      "size_bytes": 625,
+      "sha256": "4d65dc2fb028db33efa7b0f3a4259b31c18581efe756c049ea7992e599efbdc8",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/docs.yml",
       "role": "code",
-      "size_bytes": 847,
-      "sha256": "256563aee45e58a8de38eb724a90d23acc20442e0ce4f8d57eba815cd96fb41b",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "6a753d250fe6b8869e7948359fdfa5e8bddb8f16"
+      "size_bytes": 880,
+      "sha256": "baa3a9c66880c98926368dccaf63be33f04a5bd54bf4ec108a9c12298a879d04",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/combo-guards.yml",
       "role": "code",
-      "size_bytes": 677,
-      "sha256": "7689b73276af9981a018f4bf7eb7fccdd5be89dbba8d234da42581ed58982f27",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "47d526de6987768b59fd88b24b93f6eec53fc8f6"
+      "size_bytes": 746,
+      "sha256": "08553111b3b177d3fa7bed7a97b659345b1d2a009f42f14ebf58419045ca76e1",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "bf1bbbe9e4ba95570d78d76da9cfae5e97158740"
     },
     {
       "path": ".github/workflows/codeql.yml",
       "role": "code",
-      "size_bytes": 1152,
-      "sha256": "5cdb0f3a71ba7c4a1b228e50ab3f911452be471d961c618196f5720d613bc125",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "c27d3b7e5630ba7dcab14572fb200fd1405fdac0"
+      "size_bytes": 1218,
+      "sha256": "d3797b257b55b81346fe372a3e64f44955f4afbc38cd693f4561b65e76011800",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/ci.yml",
       "role": "code",
-      "size_bytes": 1354,
-      "sha256": "d1e5d3987fe4301ece85e4b884c2790264f36bfa6c25ee36fbd5ecff0004bafb",
-      "mtime_iso": "2025-10-19T13:23:41Z",
-      "git_hash": "44e6311f2c1f813d285b52b6bef37f0577b7be73"
+      "size_bytes": 1522,
+      "sha256": "47b4518b080fdb26b131300ed58709794acee97f3b96c47a8ec182cb754b1834",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/ci-yaml-check.yml",
       "role": "code",
-      "size_bytes": 490,
-      "sha256": "5fdc030e8a7d6c63a045f5457f4c96f92b37f54c94a81ae54671000ca480562b",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "42c0b8582eeffac1cfacbd616b1456d19b4e6eab"
+      "size_bytes": 592,
+      "sha256": "d99c0dc36f8b700bb0784da7015e6e100e728507a5b8411404c4ee0aeaa968be",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/ci-tests.yml",
       "role": "code",
-      "size_bytes": 604,
-      "sha256": "72e8a5b95151eff945d0a916d547330d343a056a8fb2e4a644edcbe45606f2b1",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "e050ff2692b4c3d69a0a8538b8d9734bc4e098ca"
+      "size_bytes": 739,
+      "sha256": "ea715221a4e78e741801ae4f66413097d91b1b0c95239aeb0d70a195bda00c6a",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/ci-pre-commit.yml",
       "role": "code",
-      "size_bytes": 1143,
-      "sha256": "4d2ee4655adb9c0f6fe5c9721b2482e6514252bad267467481e5549677eb1747",
-      "mtime_iso": "2025-10-03T18:13:34Z",
-      "git_hash": "70722a687b05cb8da6f2c3ed873b7ad6955e98db"
+      "size_bytes": 1209,
+      "sha256": "630fde696d9dcf47c37345de084c8cad2c299d96833e7c13a70f24aa816a148c",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/ci-accel.yml",
       "role": "code",
-      "size_bytes": 2274,
-      "sha256": "ab62fb0e7c22ac94c2f26d93f535bba4c6d62fe5687ea1dbbaa220609b878a4e",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "6d5641a7759356a9872f4ab85ea0ba8fa67b3007"
+      "size_bytes": 2328,
+      "sha256": "b1fc9aa52a18f909eea574325c7a36d15caafb9968b2dfe3fdd55c0617de175c",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/build-publish.yml",
       "role": "code",
-      "size_bytes": 1682,
-      "sha256": "62e8d13042e4275ce7cb2c05597c25f31b9d48e368b2b4dd3cc110440fca52eb",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "5bab9f5f583794d5223a632fa10da551a92542fc"
+      "size_bytes": 1785,
+      "sha256": "ac88db7710a4f4f7f136b01f8ed731594a897d86b67ce7398753aee84aa3a772",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "93a1f1723b68d2e53e18d6308ebb98efbd4a3556"
     },
     {
       "path": ".github/workflows/budgets.yml",
       "role": "code",
-      "size_bytes": 306,
-      "sha256": "613a11dda27204ab12b2d84296628978dd70d153d512091cede54f4f059dca5d",
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "ea31fd2c6aa53be36979a2ed6a98493ffa8b0235"
+      "size_bytes": 361,
+      "sha256": "7beaef42d94ac75feb3e2861e9223034ad821702c48edec462dbf4f5f2308b6b",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "f60d644cd9d32ebaa4b0e69c93936d8970dca37a"
     },
     {
       "path": ".githooks/pre-commit",
@@ -7745,15 +7745,15 @@
       "mtime_iso": "2025-09-19T03:20:28Z",
       "size": 350,
       "mtime": 1758252028,
-      "git_hash": "b2deb0fd87f8998b95e9dad5528f84ab20dbd35c"
+      "git_hash": "7b7454dfd2715c0ee359ba66643025d50b83e7db"
     },
     {
       "path": ".gitattributes",
       "role": "code",
-      "sha256": "dc7c5f0a94cd0c5651d7a13dcc275a3e0f26fa73860c1ea5209e9c8aa2a50866",
-      "size_bytes": 249,
-      "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "66686993099d6e1826734a9256cdab5d5c2d8ea0"
+      "sha256": "b4b2920f21518a2f08ff37223d8923e099638a4b15fe0168ee9294841ff2c66a",
+      "size_bytes": 795,
+      "mtime_iso": "2025-10-29T00:25:41Z",
+      "git_hash": "d620c1ff851c84a6b3373a40fcfc75ed1227c26c"
     },
     {
       "path": ".editorconfig",
@@ -7761,7 +7761,7 @@
       "sha256": "13c453d98722807b0c694efbc90b61176ebb82bce6022c4d9391c17993c6a886",
       "size_bytes": 191,
       "mtime_iso": "2025-10-13T15:21:12Z",
-      "git_hash": "36beeaba10a874a8b7d4ceb82884c52587b6e5ee"
+      "git_hash": "b0c11c8762e1b23f8d129e932965c8f78ab5d7f0"
     },
     {
       "path": ".coveragerc",
@@ -7771,7 +7771,35 @@
       "mtime_iso": "2025-09-23T21:19:17Z",
       "size": 328,
       "mtime": 1758662357,
-      "git_hash": "8bc82bb94f3b1d73710b200872423a111d55b51e"
+      "git_hash": "f083ad9df1e922231f37595cc0e0af12c9f6d278"
+    },
+    {
+      "path": ".github/workflows/audit.yml",
+      "size_bytes": 792,
+      "sha256": "6c5950b727b7f4f89d9b6ace9ebc1d7d58bf479ed9331d40c1754a39032c74d2",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "f60d644cd9d32ebaa4b0e69c93936d8970dca37a"
+    },
+    {
+      "path": ".github/workflows/docs-light.yml",
+      "size_bytes": 1459,
+      "sha256": "9180b19f18e5270ea77d33e0a48b49f3e63068513fa243c6c440a82f9fa6ae29",
+      "mtime_iso": "2025-11-02T14:50:22Z",
+      "git_hash": "2f36ff19b190a913e023d7fc5b80ac199fd0735b"
+    },
+    {
+      "path": ".github/workflows/guard-ignore-and-sdist.yml",
+      "size_bytes": 512,
+      "sha256": "cefdd559d3a9c4f9744c8ec1f38701c8a3671c1fc5789be5d98e27eb96c2f71a",
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "0886ecdec2bc61416f73d03bfedfb4c7fffbfe12"
+    },
+    {
+      "path": ".github/workflows/title-canon.yml",
+      "size_bytes": 547,
+      "sha256": "b08d3406e475b261722312b7db31b50650a97a05a2e59a256aaddf8fb6b45335",
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "f60d644cd9d32ebaa4b0e69c93936d8970dca37a"
     }
   ],
   "total_entries": 371,

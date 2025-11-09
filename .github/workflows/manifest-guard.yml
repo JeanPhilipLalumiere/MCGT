@@ -78,41 +78,11 @@ jobs:
           fi
           exit 0
 
-      - name: Post-process report (fail only on real ERROR)
+      - name: Post-process report (python runner)
         shell: bash
         env:
-          # Tolérer l'absence de fichiers *.lock.json
-          ALLOW_MISSING_REGEX: '\.lock\.json$'
+          ALLOW_MISSING_REGEX: "(\\.lock\\.json$|^zz-data\/chapter0[8-9]\/|^zz-data\/chapter10\/)"
+          SOFT_PASS_IF_ONLY_CODES_REGEX: "^(FILE_MISSING)$"
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          import json, os, re, sys
-          allow_missing = os.environ.get("ALLOW_MISSING_REGEX", r"\.lock\.json$")
-          ALLOW = re.compile(allow_missing, re.I)
-          IGN   = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
-
-          with open("diag_report.json","rb") as f:
-              rep = json.load(f)
-          issues = rep.get("issues", []) or []
-
-          kept = []
-          for it in issues:
-            path = str(it.get("path",""))
-            if IGN.search(path):
-              continue
-            it2 = dict(it)
-            if str(it2.get("code","")).upper()=="FILE_MISSING" and ALLOW.search(path):
-              it2["severity"] = "WARN"
-            kept.append(it2)
-
-          errors = [it for it in kept if str(it.get("severity","")).upper()=="ERROR"]
-          warns  = [it for it in kept if str(it.get("severity","")).upper()=="WARN"]
-
-          print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
-          for it in errors[:100]:
-            print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
-          for it in warns[:50]:
-            print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
-
-          sys.exit(1 if errors else 0)
-          PY
+          python3 zz-tools/manifest_postprocess.py

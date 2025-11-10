@@ -7,7 +7,7 @@ IGNORE_PATHS = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
 ALLOW_MISSING = re.compile(ALLOW_MISSING_REGEX, re.I)
 SOFT_RGX = re.compile(SOFT_PASS_IF_ONLY_CODES_REGEX) if SOFT_PASS_IF_ONLY_CODES_REGEX else None
 
-with open('diag_report.json', 'rb') as f:
+with open('diag_report.json','rb') as f:
     rep = json.load(f)
 
 issues = rep.get("issues") or []

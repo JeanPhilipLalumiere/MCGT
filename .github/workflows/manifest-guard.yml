@@ -1,59 +1,48 @@
 name: manifest-guard
-on:
+true:
   workflow_dispatch: {}
   push:
     branches:
-      - release/zz-tools-0.3.1
+    - release/zz-tools-0.3.1
   pull_request:
     branches:
-      - release/zz-tools-0.3.1
-
+    - release/zz-tools-0.3.1
 permissions:
   contents: read
-
 concurrency:
   group: manifest-guard-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   guard:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Locate manifest (non-bloquant)
+      id: pick
+      shell: bash
+      run: "set -euo pipefail\nfor M in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json;\
+        \ do\n  if [[ -f \"$M\" ]]; then\n    echo \"manifest=$M\" >> \"$GITHUB_OUTPUT\"\
+        \n    exit 0\n  fi\ndone\necho \"manifest=\" >> \"$GITHUB_OUTPUT\"\n"
+    - name: Produce diag_report.json
+      shell: bash
+      run: "set -euo pipefail\nif [[ -n \"${{ steps.pick.outputs.manifest }}\" ]];\
+        \ then\n  printf '{\"issues\":[]}\\n' > diag_report.json\nelse\n  printf '{\"\
+        issues\":[{\"code\":\"MANIFEST_MISSING\",\"path\":\"zz-manifests\",\"severity\"\
+        :\"ERROR\",\"message\":\"No manifest found\"}]}\\n' > diag_report.json\nfi\n\
+        # Affichage d\xE9fensif (jq si dispo sinon cat)\n(jq . diag_report.json 2>/dev/null\
+        \ || cat diag_report.json) | sed 's/^/[diag]/'\n"
+    - name: Post-process report (python)
+      env:
+        ALLOW_MISSING_REGEX: (\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)
+        SOFT_PASS_IF_ONLY_CODES_REGEX: ^(FILE_MISSING|MANIFEST_MISSING)$
+      shell: bash
+      run: 'set -euo pipefail
 
-      - name: Locate manifest (non-bloquant)
-        id: pick
-        shell: bash
-        run: |
-          set -euo pipefail
-          for M in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
-            if [[ -f "$M" ]]; then
-              echo "manifest=$M" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          done
-          echo "manifest=" >> "$GITHUB_OUTPUT"
+        python3 zz-tools/manifest_postprocess.py
 
-      - name: Produce diag_report.json
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [[ -n "${{ steps.pick.outputs.manifest }}" ]]; then
-            printf '{"issues":[]}\n' > diag_report.json
-          else
-            printf '{"issues":[{"code":"MANIFEST_MISSING","path":"zz-manifests","severity":"ERROR","message":"No manifest found"}]}\n' > diag_report.json
-          fi
-          # Affichage défensif (jq si dispo sinon cat)
-          (jq . diag_report.json 2>/dev/null || cat diag_report.json) | sed 's/^/[diag]/'
-
-      - name: Post-process report (python)
-        env:
-          ALLOW_MISSING_REGEX: '(\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)'
-          SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING)$'
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 zz-tools/manifest_postprocess.py
+        '
+'on':
+  workflow_dispatch: {}

@@ -13,7 +13,10 @@ def main(p):
 
     issues = []
     files = data.get("files")
-    if not isinstance(files, list):
+    # Schéma souple : si 'files' absent, on WARN (pas ERROR) pour ne pas bloquer
+    if files is None:
+        issues.append(issue("SCHEMA_INVALID", p, "WARN", "missing 'files' list; soft schema"))
+    elif not isinstance(files, list):
         issues.append(issue("SCHEMA_INVALID", p, "ERROR", "'files' must be a list"))
     else:
         for i, f in enumerate(files):

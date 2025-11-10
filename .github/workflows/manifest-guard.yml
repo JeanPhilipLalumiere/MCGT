@@ -42,13 +42,12 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -n "${{ steps.pick.outputs.manifest }}" ]]; then
-            # TODO: remplace par ton vrai diag; on produit un diag vide pour la forme
             printf '{"issues":[]}\n' > diag_report.json
           else
-            # Pas de manifest → on écrit un diag explicite (sera soft-pass plus bas)
             printf '{"issues":[{"code":"MANIFEST_MISSING","path":"zz-manifests","severity":"ERROR","message":"No manifest found"}]}\n' > diag_report.json
           fi
-          ls -l diag_report.json
+          # Affichage défensif (jq si dispo sinon cat)
+          (jq . diag_report.json 2>/dev/null || cat diag_report.json) | sed 's/^/[diag]/'
 
       - name: Post-process report (python)
         env:

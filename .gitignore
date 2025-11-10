@@ -120,3 +120,4 @@ _autofix_sandbox/
 **/*.save
 **/*.bak
 **/*.autofix.*.bak
+diag_report.json

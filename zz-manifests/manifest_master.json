@@ -28,6 +28,36 @@
       "path": "pyproject.toml"
     },
     {
+      "path": "zz-manifests/chapters/chapter_manifest_01.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_02.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_03.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_04.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_05.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_06.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_07.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_08.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_09.json"
+    },
+    {
+      "path": "zz-manifests/chapters/chapter_manifest_10.json"
+    },
+    {
       "path": "zz-manifests/integrity.json"
     },
     {
@@ -55,63 +85,6 @@
       "path": "zz-manifests/migration_map.json"
     },
     {
-      "path": "zz-schemas/02_optimal_parameters.schema.json"
-    },
-    {
-      "path": "zz-schemas/02_spec_spectrum.schema.json"
-    },
-    {
-      "path": "zz-schemas/03_meta_stability_fR.schema.json"
-    },
-    {
-      "path": "zz-schemas/05_nucleosynthesis_parameters.schema.json"
-    },
-    {
-      "path": "zz-schemas/06_cmb_params.schema.json"
-    },
-    {
-      "path": "zz-schemas/07_meta_perturbations.schema.json"
-    },
-    {
-      "path": "zz-schemas/07_params_perturbations.schema.json"
-    },
-    {
-      "path": "zz-schemas/08_coupling_params.schema.json"
-    },
-    {
-      "path": "zz-schemas/09_best_params.schema.json"
-    },
-    {
-      "path": "zz-schemas/09_phases_imrphenom.meta.schema.json"
-    },
-    {
-      "path": "zz-schemas/comparison_milestones_table_schema.json"
-    },
-    {
-      "path": "zz-schemas/consistency_rules.json"
-    },
-    {
-      "path": "zz-schemas/mc_best_schema.json"
-    },
-    {
-      "path": "zz-schemas/mc_config_schema.json"
-    },
-    {
-      "path": "zz-schemas/mc_results_table_schema.json"
-    },
-    {
-      "path": "zz-schemas/meta_schema.json"
-    },
-    {
-      "path": "zz-schemas/metrics_phase_schema.json"
-    },
-    {
-      "path": "zz-schemas/results_schema_examples.json"
-    },
-    {
-      "path": "zz-schemas/validation_globals.json"
-    },
-    {
       "path": "zz-tools/build_fig02_input.py"
     },
     {
@@ -125,9 +98,6 @@
     },
     {
       "path": "zz-tools/diag_fig02_input.py"
-    },
-    {
-      "path": "zz-tools/generate_manifest_from_repo.py"
     },
     {
       "path": "zz-tools/hotfix_fig02_indent.py"

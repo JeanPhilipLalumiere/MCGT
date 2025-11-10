@@ -2,9 +2,13 @@
 import json, sys, os
 
 def issue(code, path, severity="ERROR", message=""):
-    return {"code": code, "path": path, "severity": severity, "message": message}
+    return {"code": str(code), "path": str(path), "severity": str(severity), "message": str(message)}
 
-def main(p):
+def main():
+    if len(sys.argv) < 2:
+        print(json.dumps({"issues":[issue("MANIFEST_MISSING", "zz-manifests", "ERROR", "no path provided")]}))
+        return
+    p = sys.argv[1]
     try:
         data = json.load(open(p, "rb"))
     except Exception as e:
@@ -19,15 +23,17 @@ def main(p):
         issues.append(issue("SCHEMA_INVALID", p, "ERROR", "'files' must be a list"))
     else:
         for i, f in enumerate(files):
-            path = (f or {}).get("path")
+            if not isinstance(f, dict):
+                issues.append(issue("SCHEMA_INVALID", f"files[{i}]", "ERROR", "entry must be an object"))
+                continue
+            path = f.get("path")
             if not path or not isinstance(path, str):
                 issues.append(issue("SCHEMA_INVALID", f"files[{i}]", "ERROR", "missing 'path' string"))
                 continue
             if not os.path.exists(path):
                 issues.append(issue("FILE_MISSING", path, "ERROR", "not found"))
 
-    print(json.dumps({"issues": issues}))
-
+    print(json.dumps({"issues": issues}, ensure_ascii=False))
+    # Toujours exit 0. Le gating se fait dans le post-process.
 if __name__ == "__main__":
-    p = sys.argv[1] if len(sys.argv) > 1 else "zz-manifests/manifest_master.json"
-    main(p)
+    main()

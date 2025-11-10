@@ -36,48 +36,42 @@ jobs:
           echo "manifest=$M" >> "$GITHUB_OUTPUT"
 
       - name: Produce diag_report.json (validate)
-        if: always()
         run: |
           set -euo pipefail
           M="${{ steps.pick.outputs.manifest }}"
-          M="${M:-zz-manifests/manifest_master.json}"
-          if [[ -f "$M" ]]; then
+          if [[ -n "$M" && -f "$M" ]]; then
             python3 zz-tools/validate_manifest.py "$M" > diag_report.json
           else
             printf '{"issues":[{"code":"MANIFEST_MISSING","path":"zz-manifests","severity":"ERROR","message":"No manifest found"}]}\n' > diag_report.json
           fi
-          # echo défensif pour log
           (jq . diag_report.json 2>/dev/null || cat diag_report.json) | sed 's/^/[diag]/'
 
       - name: Post-process report (python → WARN/ERROR)
         id: pp
         continue-on-error: true
         env:
-          # Tolérances actuelles
           ALLOW_MISSING_REGEX: '(\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)'
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
-          # Codes à forcer en "hard error" (laisser vide pour le comportement souple)
-          HARD_FAIL_CODES: ''
         run: |
           set -euo pipefail
           python3 zz-tools/manifest_postprocess.py
 
       - name: Job summary
         run: |
-          echo "### manifest-guard summary" >> "$GITHUB_STEP_SUMMARY"
-          echo "\`\`\`json" >> "$GITHUB_STEP_SUMMARY"
-          (jq . diag_report.json 2>/dev/null || cat diag_report.json) >> "$GITHUB_STEP_SUMMARY"
-          echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+          echo '### manifest-guard summary' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat diag_report.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload diag_report.json
         uses: actions/upload-artifact@v4
         with:
           name: manifest-guard-${{ github.run_id }}
           path: diag_report.json
-          retention-days: 14
+          retention-days: 7
 
       - name: Fail on hard errors only
-        # Avec continue-on-error, 'outcome' est fiable ; 'conclusion' peut être vide/étonnant.
         if: ${{ steps.pp.outcome == 'failure' }}
         run: |
           echo "Hard errors detected by postprocess → failing job."

@@ -1,4 +1,3 @@
-# .github/workflows/manifest-guard.yml
 name: manifest-guard
 on:
   workflow_dispatch: {}
@@ -39,15 +38,17 @@ jobs:
           set -euo pipefail
           M="${{ steps.pick.outputs.manifest }}"
           if [[ -n "${M}" && -f "${M}" ]]; then
-            printf '{"issues":[]}\n' > diag_report.json
+            printf '{"issues":[]}
+' > diag_report.json
           else
-            printf '{"issues":[{"code":"MANIFEST_MISSING","path":"zz-manifests","severity":"ERROR","message":"No manifest found"}]}\n' > diag_report.json
+            printf '{"issues":[{"code":"MANIFEST_MISSING","path":"zz-manifests","severity":"ERROR","message":"No manifest found"}]}
+' > diag_report.json
           fi
           (jq . diag_report.json 2>/dev/null || cat diag_report.json) | sed 's/^/[diag]/'
 
       - name: Post-process report (python)
         id: pp
-        continue-on-error: true   # on laisse le step finir pour évaluer l'issue gating
+        continue-on-error: true
         env:
           ALLOW_MISSING_REGEX: '(\.lock\.json$|^zz-data/chapter0[8-9]/|^zz-data/chapter10/)'
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING)$'

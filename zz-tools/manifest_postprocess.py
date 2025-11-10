@@ -35,5 +35,5 @@ for e in errors:
 print(f"[INFO] total={len(kept)} warn={len(warns)} error={len(errors)}")
 print(f"[INFO] codes={dict(by_code)}")
 
-soft_only = (SOFT_RGX is not None) and bool(kept) and all(SOFT_RGX.search(k["code"] or "") for k in kept)
+soft_only = (SOFT_RGX is not None) and bool(kept) and all(SOFT_RGX.search(k['code'] or '') for k in kept)
 sys.exit(0 if soft_only or not errors else 1)

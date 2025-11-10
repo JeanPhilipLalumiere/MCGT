@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ts="$(date -u +%Y%m%dT%H%M%SZ)"
+
+WF=".github/workflows/manifest-guard.yml"
+cp -a "$WF" "${WF}.bak.${ts}"
+
+cat > "$WF" <<'YAML'
+name: manifest-guard
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: manifest-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check manifest presence
+        shell: bash
+        run: |
+          set -euo pipefail
+          M="zz-manifests/manifest_master.json"
+          if [ ! -f "$M" ]; then
+            echo "::error::Manifeste absent: $M"
+            exit 1
+          fi
+          echo "[OK] Présence confirmée: $M"
+          echo "[INFO] Taille: $(wc -c < "$M") bytes"
+          echo "[INFO] Head:"
+          head -n 20 "$M" || true
+
+      - name: Validate JSON syntax (python stdlib)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+import json,sys
+p="zz-manifests/manifest_master.json"
+with open(p,'rb') as f: json.load(f)
+print("JSON OK:", p)
+PY
+
+      - name: Run diag_consistency if available (two locations)
+        shell: bash
+        run: |
+          set -euo pipefail
+          M="zz-manifests/manifest_master.json"
+          # Cherche l'outil à deux emplacements possibles
+          if [ -f "zz-manifests/diag_consistency.py" ]; then
+            D="zz-manifests/diag_consistency.py"
+          elif [ -f "zz-scripts/diag_consistency.py" ]; then
+            D="zz-scripts/diag_consistency.py"
+          else
+            echo "[SKIP] diag_consistency.py introuvable (zz-manifests/ ou zz-scripts/)."
+            exit 0
+          fi
+          echo "[INFO] Using diag: $D"
+          # Exécution stricte: fail on warnings
+          python3 "$D" "$M" \
+            --report json \
+            --normalize-paths \
+            --apply-aliases \
+            --strip-internal \
+            --content-check \
+            --fail-on warnings
+
+      - name: Summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          echo "::group::Manifest summary"
+          echo "[GIT] $(git rev-parse --short HEAD) on ${{ github.ref }}"
+          ls -l zz-manifests/manifest_master.json || true
+          echo "::endgroup::"
+YAML
+
+echo "[BAK] ${WF}.bak.${ts}"
+git add "$WF"
+echo
+read -rp "Commit & push ce patch ? [y/N] " ans
+if [[ "${ans:-N}" =~ ^[Yy]$ ]]; then
+  git commit -m "ci(manifest-guard): robust diag path & strict fail-on warnings [SAFE ${ts}Z]" && git push
+  echo "[GIT] Changements poussés."
+else
+  echo "[SKIP] Commit annulé."
+fi

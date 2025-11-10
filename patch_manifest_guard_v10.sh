@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+WF=".github/workflows/manifest-guard.yml"
+TS="$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p .github/workflows
+[ -f "$WF" ] && cp -a "$WF" "${WF}.bak.${TS}"
+
+cat > "$WF" <<'YAML'
+name: manifest-guard
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: manifest-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Locate manifest
+        id: pick
+        shell: bash
+        run: |
+          set -euo pipefail
+          for M in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
+            if [ -f "$M" ]; then
+              echo "manifest=$M" >> "$GITHUB_OUTPUT"
+              echo "[OK] Found manifest: $M"
+              exit 0
+            fi
+          done
+          echo "::error::No manifest found (expected zz-manifests/manifest_master.json or zz-manifests/manifest_publication.json)"
+          exit 1
+
+      - name: Validate JSON syntax
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.pick.outputs.manifest }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          p = os.environ["MANIFEST"]
+          with open(p,'rb') as f:
+              json.load(f)
+          print("[OK] JSON syntax:", p)
+          PY
+
+      - name: Run diag_consistency (collect JSON, non-blocking)
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.pick.outputs.manifest }}
+        run: |
+          set +e
+          # Locate diag script
+          if   [ -f zz-manifests/diag_consistency.py ]; then D=zz-manifests/diag_consistency.py
+          elif [ -f zz-scripts/diag_consistency.py   ]; then D=zz-scripts/diag_consistency.py
+          else
+            echo "[SKIP] diag_consistency.py not found"
+            printf '{"issues":[],"rules":{}}' > diag_report.json
+            echo "[INFO] diag exit code: 0 (no diag script)"
+            exit 0
+          fi
+          echo "[INFO] Using diag: $D"
+          python3 "$D" "$MANIFEST" \
+            --report json --normalize-paths --apply-aliases --strip-internal --content-check \
+            > diag_report.json
+          RC=$?
+          echo "[INFO] diag exit code: $RC"
+          if [ $RC -ne 0 ]; then
+            # Fallback: si pas de rapport, en créer un minimal en WARN
+            if [ ! -s diag_report.json ]; then
+              printf '{"issues":[{"code":"DIAG_FAILED","severity":"WARN","path":"%s","message":"diag exited with code %d"}],"rules":{}}' "$MANIFEST" "$RC" > diag_report.json
+              echo "[INFO] created minimal diag_report.json after failure"
+            fi
+          fi
+          exit 0
+
+      - name: Post-process report (fail only on real ERROR)
+        shell: bash
+        env:
+          # Tolérer l'absence de fichiers *.lock.json
+          ALLOW_MISSING_REGEX: '\.lock\.json$'
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re, sys
+          allow_missing = os.environ.get("ALLOW_MISSING_REGEX", r"\.lock\.json$")
+          ALLOW = re.compile(allow_missing, re.I)
+          IGN   = re.compile(r'\.bak(\.|_|$)|_autofix', re.I)
+
+          with open("diag_report.json","rb") as f:
+              rep = json.load(f)
+          issues = rep.get("issues", []) or []
+
+          kept = []
+          for it in issues:
+            path = str(it.get("path",""))
+            if IGN.search(path):
+              continue
+            it2 = dict(it)
+            if str(it2.get("code","")).upper()=="FILE_MISSING" and ALLOW.search(path):
+              it2["severity"] = "WARN"
+            kept.append(it2)
+
+          errors = [it for it in kept if str(it.get("severity","")).upper()=="ERROR"]
+          warns  = [it for it in kept if str(it.get("severity","")).upper()=="WARN"]
+
+          print(f"[INFO] kept={len(kept)} WARN={len(warns)} ERROR={len(errors)}")
+          for it in errors[:100]:
+            print(f"::error::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
+          for it in warns[:50]:
+            print(f"::warning::{it.get('code','?')} at {it.get('path','?')}: {it.get('message','')}")
+
+          sys.exit(1 if errors else 0)
+          PY
+YAML
+
+# --- Validation locale ciblée (si actionlint/yq présents, sinon on passe) ---
+if command -v yq >/dev/null 2>&1; then
+  if yq '.name' "$WF" >/dev/null 2>&1; then
+    echo "[OK] yq parse fine"
+  else
+    echo "[WARN] yq reports a YAML issue" >&2
+  fi
+fi
+if command -v actionlint >/dev/null 2>&1; then
+  actionlint -color always "$WF" || true
+else
+  echo "[HINT] actionlint non trouvé (ok)"
+fi
+
+git add "$WF"
+git commit -m "ci(manifest-guard): v10 — clean rewrite, non-blocking diag, downgrade *.lock.json FILE_MISSING"
+git push

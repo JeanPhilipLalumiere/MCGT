@@ -13,7 +13,6 @@ def main(p):
 
     issues = []
     files = data.get("files")
-    # Schéma souple : si 'files' absent, on WARN (pas ERROR) pour ne pas bloquer
     if files is None:
         issues.append(issue("SCHEMA_INVALID", p, "WARN", "missing 'files' list; soft schema"))
     elif not isinstance(files, list):
@@ -27,7 +26,8 @@ def main(p):
             if not os.path.exists(path):
                 issues.append(issue("FILE_MISSING", path, "ERROR", "not found"))
 
-    print(json.dumps({"issues": issues}, ensure_ascii=False))
+    print(json.dumps({"issues": issues}))
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "zz-manifests/manifest_master.json")
+    p = sys.argv[1] if len(sys.argv) > 1 else "zz-manifests/manifest_master.json"
+    main(p)

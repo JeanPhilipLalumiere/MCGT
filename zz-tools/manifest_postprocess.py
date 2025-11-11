@@ -2,67 +2,78 @@
 #!/usr/bin/env python3
 import json, os, re, sys
 
-ALLOW_RX  = os.environ.get("ALLOW_MISSING_REGEX", "")
-SOFT_RX   = os.environ.get("SOFT_PASS_IF_ONLY_CODES_REGEX", "")
-HARDLIST  = [c.strip() for c in os.environ.get("HARD_FAIL_CODES","").split(",") if c.strip()]
-IGNORE_RX = os.environ.get("IGNORE_PATHS_REGEX", "")
+REPORT_PATH = os.environ.get("REPORT_PATH", "diag_report.json")
+IGNORE_PATHS_REGEX = os.environ.get("IGNORE_PATHS_REGEX", "")
+SOFT_PASS_IF_ONLY_CODES_REGEX = os.environ.get("SOFT_PASS_IF_ONLY_CODES_REGEX", r"^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$")
+HARD_FAIL_CODES = os.environ.get("HARD_FAIL_CODES", r"^(JSON_INVALID)$")
 
-def rx(pat: str):
-    if not pat:
-        return None
+ignore_re = re.compile(IGNORE_PATHS_REGEX) if IGNORE_PATHS_REGEX else None
+soft_codes_re = re.compile(SOFT_PASS_IF_ONLY_CODES_REGEX) if SOFT_PASS_IF_ONLY_CODES_REGEX else None
+hard_codes_re = re.compile(HARD_FAIL_CODES) if HARD_FAIL_CODES else None
+
+def gh_annot(kind, msg, path=None):
+    # kind: "error" or "warning"
+    if path:
+        print(f"::{kind} file={path}::{msg}")
+    else:
+        print(f"::{kind}::{msg}")
+
+def set_output(key, value):
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a", encoding="utf-8") as f:
+            f.write(f"{key}={value}\n")
+
+def main():
+    if not os.path.exists(REPORT_PATH):
+        gh_annot("error", f"{REPORT_PATH} not found")
+        set_output("hard_fail", "1")
+        return
+
     try:
-        return re.compile(pat)
-    except re.error:
-        return None
+        data = json.load(open(REPORT_PATH, "rb"))
+    except Exception as e:
+        gh_annot("error", f"Invalid JSON in {REPORT_PATH}: {e}")
+        set_output("hard_fail", "1")
+        return
 
-allow_re  = rx(ALLOW_RX)
-soft_re   = rx(SOFT_RX)
-ignore_re = rx(IGNORE_RX)
+    raw = data.get("issues", []) or []
+    # Filter ignored paths
+    kept = []
+    for it in raw:
+        p = it.get("path") or ""
+        if ignore_re and p and ignore_re.search(p):
+            continue
+        kept.append(it)
 
-try:
-    data = json.load(open("diag_report.json","rb"))
-    issues = data.get("issues", [])
-except Exception as e:
-    print(f"::error::POSTPROCESS JSON_INVALID: {e}")
-    sys.exit(1)
+    total = len(kept)
+    errors = [i for i in kept if (i.get("severity") or "").upper() == "ERROR"]
+    warns  = [i for i in kept if (i.get("severity") or "").upper() != "ERROR"]
 
-# Masquer des chemins non-pertinents si demandé
-if ignore_re:
-    issues = [
-        i for i in issues
-        if not (isinstance(i.get("path"), str) and ignore_re.search(i["path"]))
-    ]
+    # Annotations
+    for w in warns:
+        gh_annot("warning", f"{w.get('code','')} : {w.get('message','')}", w.get("path"))
+    for e in errors:
+        gh_annot("error", f"{e.get('code','')} : {e.get('message','')}", e.get("path"))
 
-# Downgrade en WARN selon ALLOW_MISSING_REGEX
-for i in issues:
-    p = i.get("path", "")
-    if allow_re and isinstance(p, str) and allow_re.search(p):
-        i["severity"] = "WARN"
+    # Decide hard_fail
+    hard = 0
+    if any(hard_codes_re and hard_codes_re.search(i.get("code","")) for i in kept):
+        hard = 1
+    else:
+        if errors:
+            only_soft = all(soft_codes_re and soft_codes_re.search(i.get("code","")) for i in errors)
+            if not only_soft:
+                hard = 1
 
-codes, warns, hard_hit = {}, 0, False
-for i in issues:
-    c = i.get("code","UNKNOWN")
-    codes[c] = codes.get(c,0) + 1
-    if i.get("severity") == "WARN":
-        warns += 1
-    if HARDLIST and c in HARDLIST:
-        hard_hit = True
+    # Summary to stdout (step summary is handled in workflow)
+    print(f"[INFO] total={total} warn={len(warns)} error={len(errors)}")
+    codes = {}
+    for i in kept:
+        codes[i.get("code","UNKNOWN")] = codes.get(i.get("code","UNKNOWN"), 0) + 1
+    print(f"[INFO] codes={codes}")
 
-total = len(issues); errors = total - warns
-print(f"[INFO] total={total} warn={warns} error={errors}")
-print(f"[INFO] codes={codes}")
+    set_output("hard_fail", "1" if hard else "0")
 
-only_codes = set(codes.keys())
-soft_pass = False
-if soft_re and total > 0 and all(soft_re.search(c or "") for c in only_codes):
-    soft_pass = True
-
-with open("diag_report.json","w",encoding="utf-8") as f:
-    json.dump({"issues": issues}, f, indent=2)
-
-if hard_hit and not soft_pass:
-    print("::error::HARD_FAIL triggered")
-    sys.exit(1)
-
-print("[INFO] Postprocess exit=0")
-sys.exit(0)
+if __name__ == "__main__":
+    main()

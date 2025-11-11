@@ -36,7 +36,9 @@ jobs:
       - name: Set HARD_FAIL_CODES by branch
         id: branch
         run: |
-          if [[ "${GITHUB_REF}" =~ ^refs/heads/(main|release/) ]]; then
+          set -Eeuo pipefail
+          ref="${GITHUB_REF#refs/heads/}"
+          if [[ "$ref" == "main" || "$ref" =~ ^release/ ]]; then
             echo "HARD_FAIL_CODES=JSON_INVALID,SCHEMA_INVALID" >> "$GITHUB_ENV"
           else
             echo "HARD_FAIL_CODES=" >> "$GITHUB_ENV"
@@ -45,50 +47,47 @@ jobs:
       - name: Locate manifest (only authority files)
         id: locate
         run: |
-          set -Euo pipefail
+          set -Eeuo pipefail
           MANIFS=()
           for m in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
             [[ -f "$m" ]] && MANIFS+=("$m")
           done
-          printf '%s\n' "${MANIFS[@]}" | sed 's/^/[loc]/'
-          echo "count=${#MANIFS[@]}" >> "$GITHUB_OUTPUT"
-          # Sauvegarde pour l'étape suivante
+          printf '%s\n' "${MANIFS[@]}" | sed 's/^/[loc]/' || true
           printf '%s\0' "${MANIFS[@]}" > manif.list
+          echo "count=${#MANIFS[@]}" >> "$GITHUB_OUTPUT"
 
       - name: Produce diag_report.json (validate)
         run: |
-          set -Euo pipefail
-          : > diag_report.json
+          set -Eeuo pipefail
           echo '{"issues":[]}' > diag_report.json
           if [[ -s manif.list ]]; then
             python3 - <<'PY'
-import json,sys,subprocess,os
+import json,subprocess,sys
 issues=[]
 with open("manif.list","rb") as f:
-    blobs=f.read().split(b'\0')
-for p in [b.decode() for b in blobs if b]:
-    try:
-        out=subprocess.check_output(["python3","zz-tools/validate_manifest.py",p],stderr=subprocess.STDOUT)
-        j=json.loads(out.decode())
-        issues.extend(j.get("issues",[]))
-    except subprocess.CalledProcessError as e:
+    for raw in f.read().split(b'\0'):
+        p=raw.decode().strip()
+        if not p: continue
         try:
-            j=json.loads(e.output.decode())
+            out=subprocess.check_output(["python3","zz-tools/validate_manifest.py",p],stderr=subprocess.STDOUT)
+            j=json.loads(out.decode())
             issues.extend(j.get("issues",[]))
-        except Exception:
-            issues.append({"code":"JSON_INVALID","path":p,"severity":"ERROR","message":"validator crashed"})
+        except subprocess.CalledProcessError as e:
+            try:
+                j=json.loads(e.output.decode())
+                issues.extend(j.get("issues",[]))
+            except Exception:
+                issues.append({"code":"JSON_INVALID","path":p,"severity":"ERROR","message":"validator crashed"})
 json.dump({"issues":issues},open("diag_report.json","w"))
 PY
           fi
-          jq '.issues|length as $n | "[info] issues="+($n|tostring)' diag_report.json -r
+          jq -r '.issues|length as $n | "[info] issues="+($n|tostring)' diag_report.json || true
 
       - name: Post-process report (python → WARN/ERROR)
         id: pp
         env:
           HARD_FAIL_CODES: ${{ env.HARD_FAIL_CODES }}
-          # Autorise ces codes sans faire échouer le job
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
-          # Masque totalement (ne pas annoter) les entrées sur des manifests non-autorité (au cas où)
           IGNORE_PATHS_REGEX: '^zz-manifests/(?!manifest_(master|publication)\.json).+'
         run: python3 zz-tools/manifest_postprocess.py
 

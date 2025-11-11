@@ -3,6 +3,21 @@ name: manifest-guard
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main", "release/**" ]
+    paths:
+      - "zz-manifests/**"
+      - "zz-tools/**"
+      - ".github/workflows/manifest-guard.yml"
+  pull_request:
+    branches: [ "main", "release/**" ]
+    paths:
+      - "zz-manifests/**"
+      - "zz-tools/**"
+      - ".github/workflows/manifest-guard.yml"
+
+permissions:
+  contents: read
 
 jobs:
   guard:
@@ -18,10 +33,11 @@ jobs:
 
       - name: Produce diag_report.json (validate)
         env:
+          # Manifests d’autorité uniquement
           AUTHORITY_MANIFESTS: "zz-manifests/manifest_master.json,zz-manifests/manifest_publication.json"
-          # On ignore les chemins d’attic, fichiers de backup/temporaires,
-          # ET les anciens manifests non-canoniques déplacés en attic/.
-          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|^zz-manifests/(manifest_master\.backfilled(\.force)?\.json|manifest_report\.json|master\.json|meta_template\.json|migration_map\.json)$)'
+          # Chemins ignorés (attic, backups, tmp, swap)
+          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
+          # Pas de tolérance spécifique ici (on durcit ensuite)
           ALLOW_MISSING_REGEX: ''
           OUTPUT: "diag_report.json"
         run: python3 zz-tools/guard_runner.py
@@ -38,10 +54,11 @@ jobs:
         id: post
         env:
           REPORT_PATH: "diag_report.json"
-          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|^zz-manifests/(manifest_master\.backfilled(\.force)?\.json|manifest_report\.json|master\.json|meta_template\.json|migration_map\.json)$)'
-          SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
-          HARD_FAIL_CODES: '^(JSON_INVALID)$'
-        run: python3 zz-tools/manifest_postprocess.py
+          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
+          # On rend "dur" toute apparition future de chemins fantômes ou JSON cassé
+          HARD_FAIL_CODES: '^(FILE_MISSING|JSON_INVALID|SCHEMA_INVALID)$'
+        run: |
+          python3 zz-tools/manifest_postprocess.py
 
       - name: Fail on hard errors only
         if: ${{ steps.post.outputs.hard_fail == '1' }}

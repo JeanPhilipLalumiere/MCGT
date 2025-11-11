@@ -2,7 +2,7 @@
 name: manifest-guard
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   push:
     branches: [ "main", "release/**" ]
     paths:
@@ -20,14 +20,6 @@ permissions:
   contents: read
   actions: write
 
-defaults:
-  run:
-    shell: bash
-
-concurrency:
-  group: manifest-guard-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   guard:
     runs-on: ubuntu-latest
@@ -41,17 +33,12 @@ jobs:
           python-version: "3.12"
 
       - name: Produce diag_report.json (validate)
-        run: |
-          python3 zz-tools/guard_runner.py
         env:
-          # Manifests d’autorité
           AUTHORITY_MANIFESTS: "zz-manifests/manifest_master.json,zz-manifests/manifest_publication.json"
-          # Chemins ignorés au post-traitement (regex Python)
           IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
-          # Fichiers manquants tolérés (soft) par motif (regex Python sur le path)
           ALLOW_MISSING_REGEX: ''
-          # Emplacement du rapport
           OUTPUT: "diag_report.json"
+        run: python3 zz-tools/guard_runner.py
 
       - name: Upload diag_report.json
         uses: actions/upload-artifact@v4
@@ -63,47 +50,12 @@ jobs:
 
       - name: Post-process report (python → WARN/ERROR)
         id: post
-        run: |
-          python3 zz-tools/manifest_postprocess.py
         env:
           REPORT_PATH: "diag_report.json"
           IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
           HARD_FAIL_CODES: '^(JSON_INVALID)$'
-
-      - name: Job summary
-        if: always()
-        run: |
-          echo "### manifest-guard summary" >> "$GITHUB_STEP_SUMMARY"
-          if [[ -f diag_report.json ]]; then
-            python3 - <<'PY'
-import json, os, sys
-p="diag_report.json"
-d=json.load(open(p,"rb")) if os.path.exists(p) else {"issues":[]}
-issues=d.get("issues",[])
-print(f"Total issues: {len(issues)}")
-bycode={}
-for it in issues:
-    bycode[it.get("code","UNKNOWN")]=bycode.get(it.get("code","UNKNOWN"),0)+1
-print("By code:", ", ".join(f"{k}={v}" for k,v in bycode.items()))
-PY
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "| code | severity | path | message |" >> "$GITHUB_STEP_SUMMARY"
-            echo "|------|----------|------|---------|" >> "$GITHUB_STEP_SUMMARY"
-            python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-import json, os, sys
-p="diag_report.json"
-d=json.load(open(p,"rb")) if os.path.exists(p) else {"issues":[]}
-for it in d.get("issues",[]):
-    code=it.get("code","")
-    sev=it.get("severity","")
-    path=it.get("path","")
-    msg=(it.get("message","") or "").replace("|","\\|")
-    print(f"| {code} | {sev} | {path} | {msg} |")
-PY
-          else
-            echo "_diag_report.json absent._" >> "$GITHUB_STEP_SUMMARY"
-          fi
+        run: python3 zz-tools/manifest_postprocess.py
 
       - name: Fail on hard errors only
         if: ${{ steps.post.outputs.hard_fail == '1' }}

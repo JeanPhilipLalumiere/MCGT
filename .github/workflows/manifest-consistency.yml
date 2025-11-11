@@ -1,5 +1,6 @@
 name: manifest-consistency
 on:
+  workflow_dispatch: {}
   push:
     branches: [ "main", "release/**" ]
     paths:
@@ -13,7 +14,6 @@ on:
       - "zz-manifests/manifest_master.json"
       - "zz-manifests/manifest_publication.json"
       - "zz-tools/check_manifest_consistency.py"
-  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -28,5 +28,5 @@ jobs:
           python-version: "3.x"
       - name: Consistency (publication vs master)
         env:
-          CONSISTENCY_MODE: equal   # change à "subset" si souhaité
+          CONSISTENCY_MODE: equal   # mettre "subset" si publication ⊆ master suffit
         run: python3 zz-tools/check_manifest_consistency.py

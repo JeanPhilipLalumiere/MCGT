@@ -19,7 +19,6 @@ def load_paths(p):
 
 m = load_paths(MASTER)
 p = load_paths(PUB)
-
 set_m, set_p = set(m), set(p)
 
 ok = False
@@ -43,7 +42,7 @@ print(f"[INFO] master={len(m)} publication={len(p)} mode={MODE} ok={ok} {detail}
 summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
 if summary_path:
     with open(summary_path, "a", encoding="utf-8") as fh:
-        fh.write(f"### Manifest consistency\n")
+        fh.write("### Manifest consistency\n")
         fh.write(f"- mode: `{MODE}`\n")
         fh.write(f"- master: `{len(m)}` paths\n")
         fh.write(f"- publication: `{len(p)}` paths\n")

@@ -1,0 +1,44 @@
+name: no-backups
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ "main", "release/**" ]
+  pull_request:
+    branches: [ "main", "release/**" ]
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan for backup/parasite files tracked by Git
+        shell: bash
+        run: |
+          set -euo pipefail
+          RGX='(\.bak([_.-].*)?$|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
+          git ls-files | egrep "$RGX" > matches.txt || true
+          if [[ -s matches.txt ]]; then
+            echo "### no-backups: fichiers parasites détectés" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`text" >> "$GITHUB_STEP_SUMMARY"
+            cat matches.txt >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::Found backup/parasite files tracked by Git. See matches.txt artifact."
+            exit 1
+          else
+            echo "### no-backups: OK — aucun fichier parasite suivi" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload matches.txt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: no-backups-${{ github.run_id }}
+          path: matches.txt
+          if-no-files-found: warn
+          retention-days: 7

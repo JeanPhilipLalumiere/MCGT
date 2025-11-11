@@ -18,13 +18,11 @@ jobs:
 
       - name: Produce diag_report.json (validate)
         env:
-          # Seuls ces manifests d'autorité seront évalués.
           AUTHORITY_MANIFESTS: "zz-manifests/manifest_master.json,zz-manifests/manifest_publication.json"
-          # Ignore visuel/compte-rendu pour ces chemins (regex Python sur le path)
-          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
-          # Tolérer (ne pas signaler) les FILE_MISSING qui matchent ce motif
+          # On ignore les chemins d’attic, fichiers de backup/temporaires,
+          # ET les anciens manifests non-canoniques déplacés en attic/.
+          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|^zz-manifests/(manifest_master\.backfilled(\.force)?\.json|manifest_report\.json|master\.json|meta_template\.json|migration_map\.json)$)'
           ALLOW_MISSING_REGEX: ''
-          # Fichier de sortie
           OUTPUT: "diag_report.json"
         run: python3 zz-tools/guard_runner.py
 
@@ -40,10 +38,8 @@ jobs:
         id: post
         env:
           REPORT_PATH: "diag_report.json"
-          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
-          # Si les SEULES issues sont parmi ces codes, on passe en "soft pass"
+          IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|^zz-manifests/(manifest_master\.backfilled(\.force)?\.json|manifest_report\.json|master\.json|meta_template\.json|migration_map\.json)$)'
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
-          # Ces codes forcent l'échec
           HARD_FAIL_CODES: '^(JSON_INVALID)$'
         run: python3 zz-tools/manifest_postprocess.py
 

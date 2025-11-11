@@ -33,6 +33,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Set HARD_FAIL_CODES by branch
         id: branch
         run: |
@@ -44,44 +49,8 @@ jobs:
             echo "HARD_FAIL_CODES=" >> "$GITHUB_ENV"
           fi
 
-      - name: Locate manifest (only authority files)
-        id: locate
-        run: |
-          set -Eeuo pipefail
-          MANIFS=()
-          for m in zz-manifests/manifest_master.json zz-manifests/manifest_publication.json; do
-            [[ -f "$m" ]] && MANIFS+=("$m")
-          done
-          printf '%s\n' "${MANIFS[@]}" | sed 's/^/[loc]/' || true
-          printf '%s\0' "${MANIFS[@]}" > manif.list
-          echo "count=${#MANIFS[@]}" >> "$GITHUB_OUTPUT"
-
-      - name: Produce diag_report.json (validate)
-        run: |
-          set -Eeuo pipefail
-          echo '{"issues":[]}' > diag_report.json
-          if [[ -s manif.list ]]; then
-            python3 - <<'PY'
-import json,subprocess
-issues=[]
-with open("manif.list","rb") as f:
-    for raw in f.read().split(b'\0'):
-        p=raw.decode().strip()
-        if not p: continue
-        try:
-            out=subprocess.check_output(["python3","zz-tools/validate_manifest.py",p],stderr=subprocess.STDOUT)
-            j=json.loads(out.decode())
-            issues.extend(j.get("issues",[]))
-        except subprocess.CalledProcessError as e:
-            try:
-                j=json.loads(e.output.decode())
-                issues.extend(j.get("issues",[]))
-            except Exception:
-                issues.append({"code":"JSON_INVALID","path":p,"severity":"ERROR","message":"validator crashed"})
-json.dump({"issues":issues},open("diag_report.json","w"))
-PY
-          fi
-          jq -r '.issues|length as $n | "[info] issues="+($n|tostring)' diag_report.json || true
+      - name: Locate manifests & validate (produce diag_report.json)
+        run: python3 zz-tools/guard_runner.py
 
       - name: Post-process report (python → WARN/ERROR)
         id: pp

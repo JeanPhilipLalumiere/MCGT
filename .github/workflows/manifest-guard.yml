@@ -1,3 +1,4 @@
+# .github/workflows/manifest-guard.yml
 name: manifest-guard
 on:
   workflow_dispatch: {}
@@ -54,6 +55,7 @@ jobs:
 
       - name: Post-process report (python → WARN/ERROR)
         id: pp
+        continue-on-error: true
         env:
           HARD_FAIL_CODES: ${{ env.HARD_FAIL_CODES }}
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
@@ -62,8 +64,21 @@ jobs:
 
       - name: Job summary
         run: |
-          echo "### manifest-guard — résumé" >> "$GITHUB_STEP_SUMMARY"
-          jq -r '.issues[] | "- **\(.severity)** \(.code) at \(.path): \(.message)"' diag_report.json | head -200 >> "$GITHUB_STEP_SUMMARY" || true
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+import json, sys
+print("### manifest-guard — résumé")
+try:
+    data = json.load(open("diag_report.json","r",encoding="utf-8"))
+    issues = data.get("issues", [])
+    for i in issues[:200]:
+        sev = i.get("severity","")
+        code = i.get("code","")
+        path = i.get("path","")
+        msg  = i.get("message","")
+        print(f"- **{sev}** {code} at {path}: {msg}")
+except Exception as e:
+    print(f"_Impossible de lire diag_report.json_: {e}")
+PY
 
       - name: Upload diag_report.json
         uses: actions/upload-artifact@v4

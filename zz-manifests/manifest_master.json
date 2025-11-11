@@ -61,28 +61,10 @@
       "path": "zz-manifests/integrity.json"
     },
     {
-      "path": "zz-manifests/manifest_master.backfilled.force.json"
-    },
-    {
-      "path": "zz-manifests/manifest_master.backfilled.json"
-    },
-    {
       "path": "zz-manifests/manifest_master.json"
     },
     {
       "path": "zz-manifests/manifest_publication.json"
-    },
-    {
-      "path": "zz-manifests/manifest_report.json"
-    },
-    {
-      "path": "zz-manifests/master.json"
-    },
-    {
-      "path": "zz-manifests/meta_template.json"
-    },
-    {
-      "path": "zz-manifests/migration_map.json"
     },
     {
       "path": "zz-tools/build_fig02_input.py"

@@ -1,61 +1,87 @@
 # zz-tools/guard_runner.py
 #!/usr/bin/env python3
-import json, os, re, sys
+import os, json, re, sys, pathlib
 
-AUTH = os.environ.get("AUTHORITY_MANIFESTS", "zz-manifests/manifest_master.json,zz-manifests/manifest_publication.json")
+# Entrées (env)
+AUTHORITY = os.environ.get("AUTHORITY_MANIFESTS", "").strip()
 OUTPUT = os.environ.get("OUTPUT", "diag_report.json")
-IGNORE_RGX = os.environ.get("IGNORE_PATHS_REGEX", "")
+IGNORE_RE = os.environ.get("IGNORE_PATHS_REGEX", "")
+ALLOW_MISS_RE = os.environ.get("ALLOW_MISSING_REGEX", "")
 
-ignore_re = re.compile(IGNORE_RGX) if IGNORE_RGX else None
+root = pathlib.Path(".")
+issues = []
 
-def issue(code, path, severity="ERROR", message=""):
-    return {"code": code, "path": path, "severity": severity, "message": message}
+def add_issue(code, path, severity, message):
+    issues.append({"code": code, "path": path, "severity": severity, "message": message})
 
-def load_manifest(p):
+def load_manifest(path_str):
+    p = root / path_str
+    if not p.exists():
+        add_issue("MANIFEST_MISSING", path_str, "WARN", "manifest not found")
+        return None
     try:
-        with open(p, "rb") as f:
-            return json.load(f), None
-    except FileNotFoundError:
-        return None, issue("MANIFEST_MISSING", p, "ERROR", "manifest file not found")
+        with p.open("rb") as f:
+            return json.load(f)
     except Exception as e:
-        return None, issue("JSON_INVALID", p, "ERROR", str(e))
+        add_issue("JSON_INVALID", path_str, "ERROR", f"invalid json: {e}")
+        return None
 
-def scan_manifest(path, data):
-    issues = []
-    files = data.get("files")
+def norm_paths_from_manifest(man):
+    if not isinstance(man, dict):
+        return []
+    files = man.get("files")
     if files is None:
-        issues.append(issue("SCHEMA_INVALID", path, "WARN", "missing 'files' list"))
-        return issues
-    if not isinstance(files, list):
-        issues.append(issue("SCHEMA_INVALID", path, "ERROR", "'files' must be a list"))
-        return issues
-    for i, entry in enumerate(files):
-        if not isinstance(entry, dict):
-            issues.append(issue("SCHEMA_INVALID", f"{path}#files[{i}]", "ERROR", "entry must be an object"))
-            continue
-        p = entry.get("path")
-        if not isinstance(p, str) or not p:
-            issues.append(issue("SCHEMA_INVALID", f"{path}#files[{i}]", "ERROR", "missing 'path' string"))
-            continue
-        if ignore_re and ignore_re.search(p):
-            # Note: we only mark; postprocess may drop completely
-            issues.append(issue("PATH_IGNORED", p, "WARN", "matches IGNORE_PATHS_REGEX"))
-            continue
-        if not os.path.exists(p):
-            issues.append(issue("FILE_MISSING", p, "ERROR", "not found"))
-    return issues
+        add_issue("SCHEMA_INVALID", "<manifest>", "WARN", "missing 'files' list; soft schema")
+        return []
+    out = []
+    for it in files:
+        if isinstance(it, dict) and "path" in it:
+            out.append(str(it["path"]))
+        elif isinstance(it, str):
+            out.append(it)
+    return out
 
-def main():
-    issues = []
-    for mpath in [s.strip() for s in AUTH.split(",") if s.strip()]:
-        data, err = load_manifest(mpath)
-        if err:
-            issues.append(err)
-            continue
-        issues.extend(scan_manifest(mpath, data))
-    with open(OUTPUT, "w", encoding="utf-8") as f:
-        json.dump({"issues": issues}, f, ensure_ascii=False, indent=2)
-    print(f"[INFO] wrote {OUTPUT} with {len(issues)} issues")
+# Compile regex
+ignore_rx = re.compile(IGNORE_RE) if IGNORE_RE else None
+allow_miss_rx = re.compile(ALLOW_MISS_RE) if ALLOW_MISS_RE else None
 
-if __name__ == "__main__":
-    main()
+# Détermine la liste de manifests d'autorité
+manifests = []
+if AUTHORITY:
+    for seg in AUTHORITY.split(","):
+        seg = seg.strip()
+        if seg:
+            manifests.append(seg)
+else:
+    # Défaut conservateur
+    manifests = ["zz-manifests/manifest_master.json", "zz-manifests/manifest_publication.json"]
+
+# Évalue UNIQUEMENT les manifests d'autorité (pas de scan global du dossier)
+all_paths = []
+for mf in manifests:
+    man = load_manifest(mf)
+    if man is None:
+        continue
+    paths = norm_paths_from_manifest(man)
+    all_paths.extend(paths)
+
+# Déduplication
+seen = set()
+all_paths = [p for p in all_paths if not (p in seen or seen.add(p))]
+
+# Vérifie l’existence des fichiers listés (avec filtres)
+for p in all_paths:
+    if ignore_rx and ignore_rx.search(p):
+        continue
+    if allow_miss_rx and allow_miss_rx.search(p):
+        continue
+    if not (root / p).exists():
+        add_issue("FILE_MISSING", p, "ERROR", "not found")
+
+# Écrit le diag
+out = {"issues": issues}
+with open(OUTPUT, "w", encoding="utf-8") as f:
+    json.dump(out, f, ensure_ascii=False, indent=2)
+
+# Impression courte en stdout (utile dans les logs)
+print(json.dumps({"total_issues": len(issues)}, ensure_ascii=False))

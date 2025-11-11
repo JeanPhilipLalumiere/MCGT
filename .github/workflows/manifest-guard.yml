@@ -1,3 +1,4 @@
+# .github/workflows/manifest-guard.yml
 name: manifest-guard
 
 on:
@@ -17,9 +18,13 @@ jobs:
 
       - name: Produce diag_report.json (validate)
         env:
+          # Seuls ces manifests d'autorité seront évalués.
           AUTHORITY_MANIFESTS: "zz-manifests/manifest_master.json,zz-manifests/manifest_publication.json"
+          # Ignore visuel/compte-rendu pour ces chemins (regex Python sur le path)
           IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
+          # Tolérer (ne pas signaler) les FILE_MISSING qui matchent ce motif
           ALLOW_MISSING_REGEX: ''
+          # Fichier de sortie
           OUTPUT: "diag_report.json"
         run: python3 zz-tools/guard_runner.py
 
@@ -36,7 +41,9 @@ jobs:
         env:
           REPORT_PATH: "diag_report.json"
           IGNORE_PATHS_REGEX: '(^attic/|/attic/|\.bak($|[_.-])|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
+          # Si les SEULES issues sont parmi ces codes, on passe en "soft pass"
           SOFT_PASS_IF_ONLY_CODES_REGEX: '^(FILE_MISSING|MANIFEST_MISSING|SCHEMA_INVALID)$'
+          # Ces codes forcent l'échec
           HARD_FAIL_CODES: '^(JSON_INVALID)$'
         run: python3 zz-tools/manifest_postprocess.py
 

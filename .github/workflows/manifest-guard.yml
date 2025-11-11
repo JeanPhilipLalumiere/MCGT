@@ -62,7 +62,7 @@ jobs:
           echo '{"issues":[]}' > diag_report.json
           if [[ -s manif.list ]]; then
             python3 - <<'PY'
-import json,subprocess,sys
+import json,subprocess
 issues=[]
 with open("manif.list","rb") as f:
     for raw in f.read().split(b'\0'):

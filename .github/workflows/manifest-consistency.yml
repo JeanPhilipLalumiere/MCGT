@@ -1,1 +1,32 @@
-# (COLLE ICI le contenu complet du workflow ci-dessus)
+name: manifest-consistency
+on:
+  push:
+    branches: [ "main", "release/**" ]
+    paths:
+      - "zz-manifests/manifest_master.json"
+      - "zz-manifests/manifest_publication.json"
+      - ".github/workflows/manifest-consistency.yml"
+      - "zz-tools/check_manifest_consistency.py"
+  pull_request:
+    branches: [ "main", "release/**" ]
+    paths:
+      - "zz-manifests/manifest_master.json"
+      - "zz-manifests/manifest_publication.json"
+      - "zz-tools/check_manifest_consistency.py"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Consistency (publication vs master)
+        env:
+          CONSISTENCY_MODE: equal   # change à "subset" si souhaité
+        run: python3 zz-tools/check_manifest_consistency.py

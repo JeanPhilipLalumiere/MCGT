@@ -13,8 +13,7 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Scan for backup/parasite files tracked by Git
         shell: bash
@@ -23,11 +22,10 @@ jobs:
           RGX='(\.bak([_.-].*)?$|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
           git ls-files | egrep "$RGX" > matches.txt || true
           if [[ -s matches.txt ]]; then
-            echo "### no-backups: fichiers parasites détectés" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "\`\`\`text" >> "$GITHUB_STEP_SUMMARY"
+            printf "### no-backups: fichiers parasites détectés\n\n" >> "$GITHUB_STEP_SUMMARY"
+            printf '```text\n' >> "$GITHUB_STEP_SUMMARY"
             cat matches.txt >> "$GITHUB_STEP_SUMMARY"
-            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+            printf '\n```\n' >> "$GITHUB_STEP_SUMMARY"
             echo "::error::Found backup/parasite files tracked by Git. See matches.txt artifact."
             exit 1
           else

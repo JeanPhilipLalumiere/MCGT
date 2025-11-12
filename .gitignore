@@ -109,3 +109,18 @@ zz_tools.egg-info/
 _attic_untracked/
 _autofix_sandbox/
 .ci-out*
+# >>> no-backups guard
+# Ignorer backups/parasites partout (non destructif pour le working tree)
+*.bak
+*.bak_*
+*.old
+*.orig
+*.tmp
+*~
+# Emacs autosave/locks
+#*#
+.*~
+# Vim swaps
+*.swp
+*.swo
+# <<< no-backups guard

@@ -121,3 +121,19 @@ _autofix_sandbox/
 **/*.bak
 **/*.autofix.*.bak
 diag_report.json
+
+# >>> no-backups guard
+# Ignorer backups/parasites suivis accidentellement
+*.bak
+*.bak_*
+*.old
+*.orig
+*.tmp
+*~
+# Vim/Emacs swap & autosave
+*.swp
+*.swo
+# Emacs lockfiles
+#*#
+.*~
+# <<< no-backups guard

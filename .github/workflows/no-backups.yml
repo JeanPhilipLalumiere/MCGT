@@ -19,8 +19,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          RGX='(\.bak([_.-].*)?$|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$)'
-          git ls-files | egrep "$RGX" > matches.txt || true
+          # Aligné sur le garde .gitignore (inclut Emacs #*# et dotfiles *~)
+          RGX='(\.bak([_.-].*)?$|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|(^|/)#.*#$|(^|/)\..*~$)'
+          git ls-files | egrep -E "$RGX" > matches.txt || true
           if [[ -s matches.txt ]]; then
             printf "### no-backups: fichiers parasites détectés\n\n" >> "$GITHUB_STEP_SUMMARY"
             printf '```text\n' >> "$GITHUB_STEP_SUMMARY"

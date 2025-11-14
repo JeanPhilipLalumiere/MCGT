@@ -1,19 +1,9 @@
-include pyproject.toml
-include README.md
-include README.md
 include LICENSE
-recursive-include src *.py
-recursive-include msrc *.py
-
-# Exclusions: artefacts & archives
-global-exclude *.log
+include README.md
+include pyproject.toml
+include zz-manifests/manifest_publication.json
+graft zz_tools
 prune _tmp
-prune backups
-prune .ci-archive
-global-exclude *.zip *.tar *.tar.gz *.tar.bz2 *.tar.xz
-include LICENSE*
-global-exclude *.log *.bak *.bak.* *.tmp *.swp *.save
-prune dist
-prune build
-prune docs/_build
-include LICENSE-data
+prune .github
+global-exclude *.bak *.sha256sum *.sig *.py[cod] __pycache__/
+exclude local/*

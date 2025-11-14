@@ -229,60 +229,6 @@
       "size_bytes": 224
     },
     {
-      "mtime": 1760821750,
-      "mtime_iso": "2025-10-31T01:57:35Z",
-      "path": "zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
-      "role": "figure",
-      "sha256": "31568d670b56aa66f10e982127ed646e8cd05cad7e7abe3e56dc2686174acde5",
-      "size": 380510,
-      "size_bytes": 23977
-    },
-    {
-      "mtime": 1760716385,
-      "mtime_iso": "2025-10-31T01:44:13Z",
-      "path": "zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
-      "role": "figure",
-      "sha256": "2fdcac25a213de8beb9a8924824dac19dce89bf2474d6a87edaaa63e3821f857",
-      "size": 1891203,
-      "size_bytes": 696862
-    },
-    {
-      "mtime": 1760716386,
-      "mtime_iso": "2025-10-30T20:15:01Z",
-      "path": "zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
-      "role": "figure",
-      "sha256": "de708d3e732a5a1871c8a7595c3d555f3ac62ceb22dc28d014d7740295969295",
-      "size": 1612242,
-      "size_bytes": 783488
-    },
-    {
-      "mtime": 1760716393,
-      "mtime_iso": "2025-10-31T01:44:33Z",
-      "path": "zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
-      "role": "figure",
-      "sha256": "e464af1ba5ed5a2308f2d84cecc1c5c0dfe4b915a86bf040e59d17ebac83ff3b",
-      "size": 185545,
-      "size_bytes": 192116
-    },
-    {
-      "mtime": 1760716521,
-      "mtime_iso": "2025-10-31T01:44:34Z",
-      "path": "zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
-      "role": "figure",
-      "sha256": "4d28e161525556873d1164e3904e2a7641ba9d4ff9f39daa706770c553160430",
-      "size": 319257,
-      "size_bytes": 361737
-    },
-    {
-      "mtime": 1760716522,
-      "mtime_iso": "2025-10-31T01:44:35Z",
-      "path": "zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
-      "role": "figure",
-      "sha256": "87b40e7137f930565f893df4e71548ed1e0b475d7edb0e942cdaf8af57c89891",
-      "size": 184148,
-      "size_bytes": 153944
-    },
-    {
       "git_hash": "8c444b82b54d74c7fd6a6486d895291ffdc4eb82",
       "mtime": 1760880221,
       "mtime_iso": "2025-11-09T00:30:15Z",
@@ -746,14 +692,14 @@
       "size_bytes": 1715
     },
     {
-      "git_hash": "0226ffee574b541b18a5982ccbe5b1390906f6ae",
+      "git_hash": "7609d976ffe697ebc1155538f12b4b981618be7b",
       "mtime": 1761091054,
-      "mtime_iso": "2025-11-09T01:43:25Z",
+      "mtime_iso": "2025-11-14T02:24:58Z",
       "path": "README.md",
       "role": "source",
-      "sha256": "a58268fa6dc6a525a72a8bf95bf32773643e7830236293f4b4591c6d8d4b4f99",
+      "sha256": "be0297f3f1071711f77218fac18c99c6da35cd1d9daae26a4a7cbf887118a7dc",
       "size": 10202,
-      "size_bytes": 10670
+      "size_bytes": 10812
     }
   ],
   "entries_updated": 376,

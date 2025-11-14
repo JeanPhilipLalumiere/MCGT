@@ -336,3 +336,15 @@ Code: MIT. Données/figures: voir en-têtes ou LICENSE-data le cas échéant.
 ## Citation
 
 Citez : Lalumière, J.-P. (MCGT). DOI/Zenodo (à compléter).
+
+## Overview
+Instantané minimal de publication (manifeste propre, figures référencées).
+
+## Usage
+Scripts et manifestes dans `zz-*`. Voir `zz-manifests/diag_consistency.py --help`.
+
+## License
+Code MIT, données/figures CC BY 4.0 (voir LICENSE, LICENSE-data).
+
+## Reproducibility
+Rebuild best-effort; voir workflows CI et `README-REPRO` si présent.

@@ -692,9 +692,8 @@
       "size_bytes": 1715
     },
     {
-      "git_hash": "7609d976ffe697ebc1155538f12b4b981618be7b",
       "mtime": 1761091054,
-      "mtime_iso": "2025-11-14T02:24:58Z",
+      "mtime_iso": "2025-11-14T20:08:36Z",
       "path": "README.md",
       "role": "source",
       "sha256": "be0297f3f1071711f77218fac18c99c6da35cd1d9daae26a4a7cbf887118a7dc",

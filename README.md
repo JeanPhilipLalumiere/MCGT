@@ -328,3 +328,11 @@ Voir `zz-manifests/manifest_publication.json` et le script `zz-manifests/diag_co
 ## Licence
 
 Code: MIT. Données/figures: voir en-têtes ou LICENSE-data le cas échéant.
+
+## Utilisation rapide
+
+```bash\npython -m zz_tools --help\n```\n
+
+## Citation
+
+Citez : Lalumière, J.-P. (MCGT). DOI/Zenodo (à compléter).

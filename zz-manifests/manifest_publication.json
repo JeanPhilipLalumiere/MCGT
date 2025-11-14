@@ -698,7 +698,8 @@
       "role": "source",
       "sha256": "be0297f3f1071711f77218fac18c99c6da35cd1d9daae26a4a7cbf887118a7dc",
       "size": 10202,
-      "size_bytes": 10812
+      "size_bytes": 10812,
+      "git_hash": "70a3bc43255005c28d9c88244fc9f2e443926277"
     }
   ],
   "entries_updated": 376,

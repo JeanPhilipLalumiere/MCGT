@@ -1,9 +1,9 @@
 include LICENSE
 include README.md
 include pyproject.toml
-include zz-manifests/manifest_publication.json
-graft zz_tools
-prune _tmp
+recursive-include zz-manifests manifest_publication.json diag_consistency.py
+recursive-include zz-scripts *.py
+recursive-exclude zz-figures *
+recursive-exclude .github *
 prune .github
-global-exclude *.bak *.sha256sum *.sig *.py[cod] __pycache__/
-exclude local/*
+global-exclude *.bak *~ *.tmp .DS_Store Thumbs.db

@@ -314,3 +314,17 @@ Voir aussi `CITATION.cff`.
 # ci-nudge-pypi
 <!-- ci:touch docs-light -->
 <!-- ci:touch docs-light run -->
+
+## Installation
+
+```bash
+pip install zz-tools
+```
+
+## Reproductibilité
+
+Voir `zz-manifests/manifest_publication.json` et le script `zz-manifests/diag_consistency.py` (0 erreur attendu).
+
+## Licence
+
+Code: MIT. Données/figures: voir en-têtes ou LICENSE-data le cas échéant.

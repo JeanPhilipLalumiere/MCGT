@@ -8,3 +8,9 @@ global-exclude *.png *.jpg *.jpeg *.gif *.svg *.pdf *.zip *.tar.gz *.tgz *.bak *
 prune _tmp
 prune .github
 prune zz-figures
+include CITATION.cff
+include zz-manifests/manifest_publication.json
+prune .git
+prune tests
+global-exclude *.png *.jpg *.jpeg *.gif *.pdf
+global-exclude *.bak *.tmp *~ *.pyc __pycache__ .DS_Store *.lock.json

@@ -1,9 +1,10 @@
-include LICENSE
 include README.md
+include LICENSE
+include LICENSE-data
 include pyproject.toml
-recursive-include zz-manifests manifest_publication.json diag_consistency.py
+recursive-include zz-manifests *.json *.py
 recursive-include zz-scripts *.py
-recursive-exclude zz-figures *
-recursive-exclude .github *
+global-exclude *.png *.jpg *.jpeg *.gif *.svg *.pdf *.zip *.tar.gz *.tgz *.bak *.tmp *~
+prune _tmp
 prune .github
-global-exclude *.bak *~ *.tmp .DS_Store Thumbs.db
+prune zz-figures

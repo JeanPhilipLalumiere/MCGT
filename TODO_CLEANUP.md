@@ -1,123 +1,84 @@
-# MCGT — Inventaire de nettoyage (lecture seule)
-*Run:* 20251028T180203Z
-*Racine détectée:* /home/jplal/MCGT
+# TODO_CLEANUP – 20251114T002816Z
 
-## Résumé quantifié
-- Logs & traces candidates : 483
-- Caches & artefacts build : 4
-- Temp/Sauvegardes         : 66
-- Dossiers non obligatoires : 2
-- Gros fichiers (≥30 MiB)   : 0
-- Archives/Bundles suspects : 41
-- Figures multi-format      : 0
+## Fichiers volumineux (>10MB) suivis par Git
+- 569931294 B  e9b7969883f3e64a45b884afed0ba9d7232336ce
+- 32831251 B  c6124aa95a14f0e666eba4fa44735a460f5107ac
+- 25050385 B  d6449096b01ecc38d4693856e30c8351d96bd559
+- 24817849 B  d10bfcb5b4a299191883022d75b8a52a2041aa74
+- 10808937 B  4507334689552ad74f65683cca24554e047ce654
 
-## Propositions (à valider, **aucune suppression automatique**)
-1) Construire une **IGNORE LIST** des familles ci-dessus (après revue).
-2) Consolider une **ADD LIST** pour tout fichier d’autorité (manifests, LICENSE, CITATION, README-REPRO).
-3) Définir la règle **REVIEW = INVENTAIRE – IGNORE + ADD** (priorité **ADD** > **IGNORE**).
-4) Spécifier repo-wide les **valeurs par défaut CLI** (--format, --dpi, --outdir, --transparent, --style, --verbose).
+## Artefacts temporaires & bruits à retirer du dépôt (si présents)
+- __pycache__/, .pytest_cache/, .mypy_cache/, .ipynb_checkpoints/
+- *.pyc, *.pyo, *~, *.bak, *.tmp, .DS_Store
+- .env, .venv/, .vscode/, .idea/
+- _tmp/, .ci-out/ (déplacer en artefacts CI)
+- *.lock.json (si non requis pour traçabilité publique)
 
-## Pistes d'attentions
-- Vérifier les *gros fichiers* : si données sources/publication, documenter; sinon planifier purge ou externalisation.
-- Vérifier *figures multi-format* : choisir le set canonique (e.g., PNG+SVG) et ignorer le reste.
+## Dossiers potentiellement non canoniques (naming)
 
-## Step 2 — Listes Round2 (20251028T180433Z)
-- **IGNORE** : 92 motifs/chemins
-- **ADD**    : 47 chemins d'autorité
-- **REVIEW** : 11 éléments à inspection manuelle
+## Fichiers non indexés utiles à .gitignore
+- diff_tags_conflicts_guard.sh
+- diff_tags_conflicts_guard_v3.sh
+- post_merge_verify.sh
+- push_only_new_tags_guard.sh
+- push_only_new_tags_guard_v2.sh
+- push_only_new_tags_guard_v3.sh
+- resolve_tag_conflicts_v1.sh
+- smoke_admin_merge_guard.sh
+- smoke_admin_merge_guard_v2.sh
+- smoke_admin_merge_guard_v3.sh
+- smoke_admin_merge_guard_v4.sh
 
-### Règle rappel
-`REVIEW = (INVENTAIRE – IGNORE) ∪ ADD` avec priorité **ADD > IGNORE**.
+## Actions proposées
+- Déplacer archives/anciens assets sous attic/ ou en Release assets.
+- Harmoniser zero-padding (chapterNN) et slugs (a-z0-9_).
+- Purger les gros fichiers non requis par la publication (après copie sécurisée).
 
-### Prochaines actions
-1) Parcourir *review_list_round2.txt* et soit déplacer vers **IGNORE**, soit vers **ADD**.
-2) Après tri, geler les patterns IGNORE dans *.gitignore* et documenter les exceptions.
-3) Lancer Step 3 (dé-dup Makefiles + profil QUIET) — je te fournirai le script.
+## Diag manif — Probe 20251114T004257Z
+- Script : `zz-manifests/diag_consistency.py`
+- Meilleur essai : `help_dash_h` (rc=0)
+- Dossier logs : `_tmp/manifest_diag_probe_20251114T004257Z`
+- Tips : si l’aide mentionne des flags spécifiques (ex. --manifest, --config), relance en conséquence.
 
-## Step 3 — Assistant de tri (20251028T181143Z)
-- REVIEW total: 11
-- IGNORE motifs: 92
-- ADD chemins: 47
-- Propositions: `gitignore_proposition_round2.txt`, plan sec: `purge_plan_dryrun.txt`
-- Histogramme par racine: `_tmp/review_hist_20251028T181143Z.txt`
+## Diag publication — 20251114T004912Z
+- Entrée : zz-manifests/manifest_publication.json
+- Sortie : _tmp/diag_publication_20251114T004912Z/diag.txt
+- Artifacts : _tmp/diag_publication_20251114T004912Z/errors.csv · _tmp/diag_publication_20251114T004912Z/errors_sizesha.csv · _tmp/diag_publication_20251114T004912Z/plan_remediation.md
+- Prochain choix par type :
+  - FILE_MISSING → regénérer/ajouter OU retirer du manifeste
+  - SIZE/SHA_MISMATCH → mettre à jour le manifeste OU regénérer l’artefact
+  - Warnings (MTIME/GIT_HASH_MISSING) → tolérés si documentés
 
-## Step 3 — Assistant de tri (20251028T181549Z)
-- REVIEW total: 11
-- IGNORE motifs: 99
-- ADD chemins: 47
-- Propositions: `gitignore_proposition_round2.txt`, plan sec: `purge_plan_dryrun.txt`
-- Histogramme par racine: `_tmp/review_hist_20251028T181549Z.txt`
+## Fast-fix — 20251114T005639Z
+- Mode: dry-run
+- Triage: _tmp/diag_publication_20251114T004912Z
+- Sorties: _tmp/fastfix_20251114T005639Z/plan.json, _tmp/fastfix_20251114T005639Z/post_diag.txt
 
-## Step 3 — Assistant de tri (20251028T182855Z)
-- REVIEW total: 11
-- IGNORE motifs: 99
-- ADD chemins: 47
-- Propositions: `gitignore_proposition_round2.txt`, plan sec: `purge_plan_dryrun.txt`
-- Histogramme par racine: `_tmp/review_hist_20251028T182855Z.txt`
+## Fast-fix — 20251114T005712Z
+- Mode: apply
+- Triage: _tmp/diag_publication_20251114T004912Z
+- Sorties: _tmp/fastfix_20251114T005712Z/plan.json, _tmp/fastfix_20251114T005712Z/post_diag.txt
 
-## Step 3 — Assistant de tri (20251028T182953Z)
-- REVIEW total: 11
-- IGNORE motifs: 99
-- ADD chemins: 47
-- Propositions: `gitignore_proposition_round2.txt`, plan sec: `purge_plan_dryrun.txt`
-- Histogramme par racine: `_tmp/review_hist_20251028T182953Z.txt`
+## Dedupe — 20251114T010153Z
+- Mode: dry-run
+- Sorties: _tmp/dedupe_20251114T010153Z/dedupe_report.json, _tmp/dedupe_20251114T010153Z/post_diag.txt
 
-## Step 3 — Assistant de tri (20251028T183602Z)
-- REVIEW total: 11
-- IGNORE motifs: 99
-- ADD chemins: 47
-- Propositions: `gitignore_proposition_round2.txt`, plan sec: `purge_plan_dryrun.txt`
-- Histogramme par racine: `_tmp/review_hist_20251028T183602Z.txt`
+## Dedupe — 20251114T010157Z
+- Mode: apply
+- Sorties: _tmp/dedupe_20251114T010157Z/dedupe_report.json, _tmp/dedupe_20251114T010157Z/post_diag.txt
 
-## Focus Round2 — 20251028T194855Z
+## Warnfix — 20251114T010616Z
+- Mode: dry-run
+- Sorties: _tmp/warnfix_20251114T010616Z/warnfix_stats.json, _tmp/warnfix_20251114T010616Z/post_errors.txt, _tmp/warnfix_20251114T010616Z/post_full.txt
 
-- **tools/** : 389 fichier(s) à classifier `keep/migrate→zz_tools/attic`
-- **zz-scripts/** : 236 script(s) à normaliser (CLI `--help`, args communs, reproductibilité)
+## Warnfix — 20251114T010626Z
+- Mode: apply
+- Sorties: _tmp/warnfix_20251114T010626Z/warnfix_stats.json, _tmp/warnfix_20251114T010626Z/post_errors.txt, _tmp/warnfix_20251114T010626Z/post_full.txt
 
-### Checklist (à cocher manuellement)
-- [ ] Parcourir `./_tmp/inventaires/focus_tools.txt` et marquer *attic* vs *migrate→zz_tools* vs *keep*
-- [ ] Parcourir `./_tmp/inventaires/focus_zzscripts.txt` et vérifier `-h/--help` + conventions (fmt/dpi/outdir/transparent/style/verbose)
-- [ ] Déplacer les utilitaires génériques vers le package `zz_tools` (points d’entrée CLI)
-- [ ] Mettre à jour `ignore_list_round2.txt` pour les outils obsolètes/attic
-- [ ] Rejouer `step3_regen_strict.sh` pour mesurer l’effet sur la REVIEW
+## Gitmark — 20251114T011845Z
+- Mode: dry-run
+- Sorties: _tmp/gitmark_20251114T011845Z/gitmark_stats.txt, _tmp/gitmark_20251114T011845Z/post_diag.txt
 
-## Focus Round2 — 20251028T194951Z
-
-- **tools/** : 389 fichier(s) à classifier `keep/migrate→zz_tools/attic`
-- **zz-scripts/** : 236 script(s) à normaliser (CLI `--help`, args communs, reproductibilité)
-
-### Checklist (à cocher manuellement)
-- [ ] Parcourir `./_tmp/inventaires/focus_tools.txt` et marquer *attic* vs *migrate→zz_tools* vs *keep*
-- [ ] Parcourir `./_tmp/inventaires/focus_zzscripts.txt` et vérifier `-h/--help` + conventions (fmt/dpi/outdir/transparent/style/verbose)
-- [ ] Déplacer les utilitaires génériques vers le package `zz_tools` (points d’entrée CLI)
-- [ ] Mettre à jour `ignore_list_round2.txt` pour les outils obsolètes/attic
-- [ ] Rejouer `step3_regen_strict.sh` pour mesurer l’effet sur la REVIEW
-
-## Preclass Round2 — 20251028T201214Z
-
-- Total préclassés (tools + zz-scripts): 625
-  - keep: 80
-  - migrate→zz_tools/env: 34
-  - attic-suggest: 120
-  - review: 391
-
-### Actions proposées (non destructives)
-- [ ] Valider **preclass_keep.txt** (conserver tels quels)
-- [ ] Valider **preclass_migrate.txt** (migrer vers `zz_tools` ou env centralisé)
-- [ ] Valider **preclass_attic_suggest.txt** (rétrograder dans IGN ou attic après confirmation)
-- [ ] Parcourir **preclass_review.txt** (doute/edge-cases)
-- [ ] Rejouer `step3_regen_strict.sh` pour mesurer la baisse de REVIEW après décisions
-
-## Simulation d'impact (attic-suggest → IGN virtuel) — 20251028T201401Z
-
-- REVIEW actuelle : 1171
-- REVIEW simulée  : 1051
-- Réduction simulée : 120
-- Rapport: ./_tmp/inventaires/review_sim_report_20251028T201401Z.txt
-
-## Simulation d'impact (attic-suggest → IGN virtuel) — 20251028T202554Z
-
-- REVIEW actuelle : 1051
-- REVIEW simulée  : 1051
-- Réduction simulée : 0
-- Rapport: ./_tmp/inventaires/review_sim_report_20251028T202554Z.txt
+## Gitmark — 20251114T011854Z
+- Mode: apply
+- Sorties: _tmp/gitmark_20251114T011854Z/gitmark_stats.txt, _tmp/gitmark_20251114T011854Z/post_diag.txt

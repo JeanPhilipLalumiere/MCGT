@@ -1,0 +1,15 @@
+titleOnly: true
+types:
+  - feat
+  - fix
+  - docs
+  - chore
+  - ci
+  - refactor
+  - style
+  - test
+scopes:
+  - readme
+  - manifests
+  - sdist
+  - build

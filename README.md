@@ -348,3 +348,10 @@ Code MIT, données/figures CC BY 4.0 (voir LICENSE, LICENSE-data).
 
 ## Reproducibility
 Rebuild best-effort; voir workflows CI et `README-REPRO` si présent.
+
+### Installation (depuis TestPyPI)
+```bash
+pip install --index-url https://test.pypi.org/simple \
+            --extra-index-url https://pypi.org/simple \
+            zz-tools==0.3.1
+```

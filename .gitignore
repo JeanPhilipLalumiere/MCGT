@@ -126,3 +126,12 @@ _autofix_sandbox/
 # <<< no-backups guard
 *.sha256sum
 local/
+# Local packaging helpers
+resolve_twine_license_error.sh
+twine_fix_v2.sh
+finalize_packaging.sh
+finalize_packaging_v2.sh
+dist_doctor.sh
+sanitize_metadata.sh
+repair_pkg_metadata.sh
+spdx_futureproof_patch.sh

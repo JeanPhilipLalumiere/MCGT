@@ -355,3 +355,10 @@ pip install --index-url https://test.pypi.org/simple \
             --extra-index-url https://pypi.org/simple \
             zz-tools==0.3.1
 ```
+
+### Installation (version stable, PyPI)
+```bash
+pip install -U zz-tools
+# ou version spécifique
+# pip install zz-tools==0.3.1.post1
+```

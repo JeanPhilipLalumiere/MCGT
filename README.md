@@ -1,3 +1,4 @@
+[![PyPI](https://img.shields.io/pypi/v/zz-tools.svg)](https://pypi.org/project/zz-tools/) 
 <!-- BEGIN BADGES -->
 [![Docs](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/docs.yml)
 [![CI](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml/badge.svg)](https://github.com/JeanPhilipLalumiere/MCGT/actions/workflows/ci.yml)

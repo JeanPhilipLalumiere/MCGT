@@ -135,3 +135,16 @@ dist_doctor.sh
 sanitize_metadata.sh
 repair_pkg_metadata.sh
 spdx_futureproof_patch.sh
+
+# local helpers
+add_testpypi_readme.sh
+add_pypi_stable_install_and_badge.sh
+bump_*_and_publish.sh
+publish_pypi_release.sh
+pypi_upload_*.sh
+dist_doctor.sh
+finalize_packaging.sh
+resolve_twine_license_error.sh
+sanitize_metadata.sh
+spdx_futureproof_patch.sh
+repair_pkg_metadata.sh

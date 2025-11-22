@@ -1,0 +1,3 @@
+# Placeholder requirements for chapter10.
+# Conservé pour cohérence avec manifest_master.
+# Les dépendances réelles sont maintenant gérées via pyproject.toml / environnements.

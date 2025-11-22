@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-11-22T16:01:25Z",
+  "generated_at": "2025-11-22T16:14:18Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -14,10 +14,10 @@
     {
       "path": "zz_tools/__init__.py",
       "role": "code",
-      "size_bytes": 227,
-      "sha256": "cea4f32dfad07ae3522e7d053bf80062105e1a5f6063eec4a8bbe4b51ce25ee1",
-      "mtime_iso": "2025-11-22T14:47:41Z",
-      "git_hash": "7da726c116bc20c79da963f1cfe63ce2a2741ff8"
+      "size_bytes": 237,
+      "sha256": "407dd5696733358ce87a18d2359cbfea5e1be2a0a4e7573c8ccf648533f3f23a",
+      "mtime_iso": "2025-11-22T16:09:08Z",
+      "git_hash": "755d29e84dbfb4f5800974c27c8e31d2b462c6ae"
     },
     {
       "path": "zz-workflows/release.yml",
@@ -392,7 +392,7 @@
       "role": "document",
       "size_bytes": 182,
       "sha256": "7270726407094dfe3b217a85afde5a59547e1544ae3dce9157c7de625c5c22e9",
-      "mtime_iso": "2025-11-22T15:27:02Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 9881,
       "mtime": 1759526593,
       "git_hash": "e30292c556962098ba7133bfee2a346a72ec524a"
@@ -620,7 +620,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "0ccf881cbd52c29c628a1f56f35dc8917038be9b5889c5fe3c794374cf1d3c9f",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 3319,
       "mtime": 1758476132,
       "git_hash": "3f2403cba4bcfbb167d7bc26ec8d9af2f3c9c743"
@@ -796,7 +796,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "47f8b5462a6047f468d6eff297209cba99bcf0262ab62585c2261ff4745c5db7",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 3476,
       "mtime": 1758473518,
       "git_hash": "2ecd01c1f64634534a555a299304d78bbe419fae"
@@ -944,7 +944,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "a6aed137c11c9ca1d391e161bc1846e47a6f749479b4a9791f29e41a0e795533",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 3379,
       "mtime": 1758472029,
       "git_hash": "0da8961b9a55c7b27bee9c46000ca9f7a756967d"
@@ -1052,7 +1052,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "2be986a8e13c7fb1c5bbbda1be44194c48df7b25d5ad70ee08eacd2c8015e9bf",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 2800,
       "mtime": 1758595394,
       "git_hash": "31d17d25a9710e9261f4204acad5fe1bc4c732c7"
@@ -1132,7 +1132,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "6a9fb12309939ff69c1762881542af00dff8bf92f8bb2aa82c7be2a7cf803444",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 4331,
       "mtime": 1758595394,
       "git_hash": "e7df67aab21c972f1583eb33d2226ad6fef91e66"
@@ -1228,7 +1228,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "eea38b103bbd17d57a0cf2926a42d83606125d38ae2cda71042c9aa3e8ddc33e",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 3458,
       "mtime": 1758595394,
       "git_hash": "eb6d7b21e22d69a36a7f9303d38bffa816e21773"
@@ -1360,7 +1360,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "51e556e220c8d24cdff1f861bdc2096d123776a74c5a432487c032433cdd7b70",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 3700,
       "mtime": 1758595394,
       "git_hash": "53a8c95d66d9c4382f267ea16207b23b908f3a46"
@@ -1498,7 +1498,7 @@
       "role": "document",
       "size_bytes": 171,
       "sha256": "c8afcbddd8c4fa0888902daf67311df9b144c427cfa85ac83133c21090f996d0",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 2938,
       "mtime": 1758595394,
       "git_hash": "a4915a669ae7f8ee12a84cab03cc60d4c1082e61"
@@ -1930,7 +1930,7 @@
       "role": "figure",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "mtime_iso": "2025-11-22T15:32:28Z",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "media_type": "image/png",
       "tags": [
         "chapter09"
@@ -5776,13 +5776,13 @@
     {
       "path": "pyproject.toml",
       "role": "artifact",
-      "size_bytes": 1020,
-      "sha256": "ba7a81fb1ab1961f8586a0dcc337a0663d6592ca23b99e07a10cb8279a9ae459",
-      "mtime_iso": "2025-11-22T14:47:41Z",
+      "size_bytes": 1027,
+      "sha256": "12b5c525e64f8b0c2c81ea8efd500f0bc8aa394bbf788f4b3a3226c9eeca09e5",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "media_type": "application/octet-stream",
       "size": 933,
       "mtime": 1761085107,
-      "git_hash": "fec5c599f9dd5cb05cd1c8d217e57b7abff54733"
+      "git_hash": "a42957429a51f07d36571ceb13875a51996edf91"
     },
     {
       "path": "pyproject-local-pytest.toml",
@@ -6155,12 +6155,12 @@
     {
       "path": "README.md",
       "role": "source",
-      "size_bytes": 10391,
-      "sha256": "428d1765b45bae104ae764c60d530d372cccf4f99b8c1040ad4aa878d223a39f",
-      "mtime_iso": "2025-11-22T14:47:41Z",
+      "size_bytes": 11582,
+      "sha256": "6d9b6fd19b8a8032d28771e6b76b96f4dd933ae7ebd7e1545996f62311530117",
+      "mtime_iso": "2025-11-22T16:09:08Z",
       "size": 10205,
       "mtime": 1761173953,
-      "git_hash": "0226ffee574b541b18a5982ccbe5b1390906f6ae"
+      "git_hash": "7cfdad81149026b7b0817df857d6cb71be3f9d4c"
     },
     {
       "path": "README-REPRO.md",
@@ -6350,10 +6350,10 @@
     {
       "path": ".gitignore",
       "role": "artifact",
-      "size_bytes": 2284,
-      "sha256": "3db158f7399822b2847458a3ec3ff0c4bb8b9e1794ba45bca5af7ee2cc90c518",
-      "mtime_iso": "2025-11-22T14:47:41Z",
-      "git_hash": "3713c80a67797293227e426e3650448814620bc5"
+      "size_bytes": 2786,
+      "sha256": "ec45e12b01d10da9c52af6a1a29ca17e41d160de27fa17b5f363d151187147aa",
+      "mtime_iso": "2025-11-22T16:09:08Z",
+      "git_hash": "944969968f2e8adae88c2a6d8f68df966f21040c"
     },
     {
       "path": ".github/workflows/smoke-pypi.yml",
@@ -6422,10 +6422,10 @@
     {
       "path": ".github/workflows/readme-guard.yml",
       "role": "code",
-      "size_bytes": 483,
-      "sha256": "450469ea7165ad3593699e6f27760501aa658051897dc42bbfb8ab1827521fb9",
-      "mtime_iso": "2025-11-22T02:56:46Z",
-      "git_hash": "2c2cf889ce16efb5e61922129012d04e1238ba09"
+      "size_bytes": 582,
+      "sha256": "b0cc2fc3037ade259e9a03203a789678d1413a7b9c44411016d2c6990dacc049",
+      "mtime_iso": "2025-11-22T16:09:08Z",
+      "git_hash": "5b3120eb14db393a81c7cca269d15566847b7c3e"
     },
     {
       "path": ".github/workflows/quality-guards.yml",
@@ -6703,7 +6703,7 @@
     "homepage": ""
   },
   "repository_root": ".",
-  "total_size_bytes": 18927114,
-  "entries_updated": 0,
+  "total_size_bytes": 18928923,
+  "entries_updated": 30,
   "generated_by": "jplal"
 }

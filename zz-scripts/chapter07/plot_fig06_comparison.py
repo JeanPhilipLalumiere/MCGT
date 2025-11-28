@@ -1,160 +1,326 @@
 #!/usr/bin/env python3
-import os
-"""
-plot_fig06_comparison.py — STUB TEMPORAIRE (homogénisation CLI)
-- Objectif: rendre --help et un rendu rapide (--out) 100% sûrs et non-bloquants.
-- L'implémentation scientifique complète est conservée dans plot_fig06_comparison.py.bak
-  et sera réintégrée après normalisation (parser/main-guard/fonctions pures).
+"""Fig. 06 — Comparaison des invariants et dérivées (Chapitre 7).
+
+Trace trois panneaux en k :
+
+1. I1(k) (invariant scalaire)
+2. |∂ₖ c_s²(k)|
+3. |∂ₖ(δφ/φ)(k)|
+
+Tous en échelle log-log, avec repère k_split issu de 07_meta_perturbations.json.
 """
 
 from __future__ import annotations
 
+import argparse
+import json
+import logging
+from pathlib import Path
+from typing import Optional, Sequence, List
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
-# Forcer backend non interactif le plus tôt possible
-os.environ.setdefault("MPLBACKEND", "Agg")
-
-import matplotlib.pyplot as plt  # import après MPLBACKEND
-
-# --- Paths (English names for directories and files) ---
-DATA_DIR = ROOT / "zz-data" / "chapter07"
-INV_CSV = DATA_DIR / "07_scalar_invariants.csv"
-DCS2_CSV = DATA_DIR / "07_derivative_cs2_dk.csv"
-DDPHI_CSV = DATA_DIR / "07_derivative_ddelta_phi_dk.csv"
-META_JSON = DATA_DIR / "07_meta_perturbations.json"
-FIG_OUT = ROOT / "zz-figures" / "chapter07" / "fig_06_comparison.png"
-
-# --- Read k_split ---
-with open(META_JSON, encoding="utf-8") as f:
-    meta = json.load(f)
-    if not isinstance(meta, dict):
-        meta = {}
-
-k_split = float(meta.get("x_split", 0.02))
-logger.info("k_split = %.2e h/Mpc", k_split)
-
-# --- Load data ---
-df_inv = pd.read_csv(INV_CSV)
-df_dcs2 = pd.read_csv(DCS2_CSV)
-df_ddp = pd.read_csv(DDPHI_CSV)
-
-k1, I1 = df_inv["k"].values, df_inv.iloc[:, 1].values
-k2, dcs2 = df_dcs2["k"].values, df_dcs2.iloc[:, 1].values
-k3, ddp = df_ddp["k"].values, df_ddp.iloc[:, 1].values
-
-# Mask zeros for derivative of delta phi/phi
-ddp_mask = np.ma.masked_where(np.abs(ddp) <= 0, np.abs(ddp))
+from matplotlib.ticker import LogLocator, FuncFormatter
 
 
-# Function to annotate the plateau region
-def zoom_plateau(ax, k, y):
-    sel = k < k_split
-    ysel = y[sel]
-    if ysel.size == 0:
-        return
-    lo, hi = ysel.min(), ysel.max()
-    ax.set_ylim(lo * 0.8, hi * 1.2)
-    xm = k[sel][len(ysel) // 2]
-    ym = np.sqrt(lo * hi)
-    ax.text(
-        xm,
-        ym,
-        "Plateau",
-        ha="center",
-        va="center",
-        fontsize=7,
-        bbox=dict(boxstyle="round", fc="white", alpha=0.7),
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+
+def setup_logging(verbose: int = 0) -> None:
+    if verbose >= 2:
+        level = logging.DEBUG
+    elif verbose == 1:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
+
+
+def detect_value_column(
+    df: pd.DataFrame,
+    explicit: Optional[str],
+    preferred: Sequence[str],
+) -> str:
+    """Choisit une colonne numérique pour un tracé 1D (k, valeur).
+
+    Priorité :
+    1) `explicit` si fournie et présente
+    2) première colonne trouvée dans `preferred`
+    3) s'il n'y a qu'une seule colonne numérique (hors 'k'), on la prend
+    """
+    cols = list(df.columns)
+
+    if explicit:
+        if explicit in df.columns:
+            logging.info("Colonne explicite utilisée : %s", explicit)
+            return explicit
+        else:
+            raise KeyError(
+                f"Colonne explicite '{explicit}' absente. Colonnes disponibles : {cols}"
+            )
+
+    for name in preferred:
+        if name in df.columns:
+            logging.info("Colonne détectée automatiquement : %s", name)
+            return name
+
+    numeric_candidates: List[str] = []
+    for c in df.columns:
+        if c == "k":
+            continue
+        if np.issubdtype(df[c].dtype, np.number):
+            numeric_candidates.append(c)
+
+    if len(numeric_candidates) == 1:
+        logging.info("Colonne numérique unique sélectionnée : %s", numeric_candidates[0])
+        return numeric_candidates[0]
+
+    raise RuntimeError(
+        "Impossible de déterminer la colonne à tracer. "
+        f"Colonnes : {cols}"
     )
-    p.add_argument("--results", help="Chemin CSV/NPY optionnel (ignoré par le stub).")
-    p.add_argument("--out", help="PNG/PDF de sortie (facultatif).")
-    p.add_argument("--dpi", type=int, default=120, help="Résolution figure (par défaut: 120).")
-    p.add_argument("--title", default="Figure 6 — stub CLI", help="Titre visuel temporaire.")
+
+
+def format_pow10(x: float, pos: int) -> str:
+    if x <= 0 or not np.isfinite(x):
+        return ""
+    power = int(np.round(np.log10(x)))
+    return rf"$10^{{{power}}}$"
+
+
+def auto_log_limits(values: np.ndarray) -> tuple[float, float]:
+    mask = np.isfinite(values) & (values > 0)
+    if mask.sum() == 0:
+        raise ValueError("Aucune valeur positive finie pour fixer les limites log.")
+    v = values[mask]
+    vmin = v.min()
+    vmax = v.max()
+    pmin = int(np.floor(np.log10(vmin)))
+    pmax = int(np.ceil(np.log10(vmax)))
+    return 10.0**pmin, 10.0**pmax
+
+
+# ---------------------------------------------------------------------------
+# Coeur du tracé
+# ---------------------------------------------------------------------------
+
+
+def plot_comparison(
+    *,
+    inv_csv: Path,
+    dcs2_csv: Path,
+    ddphi_csv: Path,
+    meta_json: Path,
+    inv_col: Optional[str],
+    dcs2_col: Optional[str],
+    ddphi_col: Optional[str],
+    out_png: Path,
+    dpi: int,
+) -> None:
+    logging.info("Début du tracé de la figure 06 – Comparaison I1 / dcs2/dk / d(δφ/φ)/dk")
+    logging.info("CSV invariants : %s", inv_csv)
+    logging.info("CSV dcs2       : %s", dcs2_csv)
+    logging.info("CSV ddphi      : %s", ddphi_csv)
+    logging.info("JSON méta      : %s", meta_json)
+    logging.info("Figure out     : %s", out_png)
+
+    # Méta
+    if not meta_json.exists():
+        raise FileNotFoundError(f"Méta-paramètres introuvables : {meta_json}")
+    meta = json.loads(meta_json.read_text(encoding="utf-8"))
+    k_split = float(meta.get("x_split", meta.get("k_split", 0.02)))
+    logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
+
+    # Invariant I1
+    if not inv_csv.exists():
+        raise FileNotFoundError(inv_csv)
+    df_inv = pd.read_csv(inv_csv, comment="#")
+    if "k" not in df_inv.columns:
+        raise KeyError(f"Colonne 'k' absente de {inv_csv}")
+    col_inv = detect_value_column(df_inv, inv_col, ["I1_cs2", "I1"])
+    k1 = df_inv["k"].to_numpy()
+    I1 = df_inv[col_inv].to_numpy()
+
+    # dcs2/dk
+    if not dcs2_csv.exists():
+        raise FileNotFoundError(dcs2_csv)
+    df_dcs2 = pd.read_csv(dcs2_csv, comment="#")
+    if "k" not in df_dcs2.columns:
+        raise KeyError(f"Colonne 'k' absente de {dcs2_csv}")
+    col_dcs2 = detect_value_column(df_dcs2, dcs2_col, ["d_cs2_dk", "dcs2_dk", "dcs2_vs_k"])
+    k2 = df_dcs2["k"].to_numpy()
+    dcs2 = np.abs(df_dcs2[col_dcs2].to_numpy())
+
+    # d(δφ/φ)/dk
+    if not ddphi_csv.exists():
+        raise FileNotFoundError(ddphi_csv)
+    df_ddp = pd.read_csv(ddphi_csv, comment="#")
+    if "k" not in df_ddp.columns:
+        raise KeyError(f"Colonne 'k' absente de {ddphi_csv}")
+    col_ddp = detect_value_column(
+        df_ddp,
+        ddphi_col,
+        ["d_delta_phi_dk", "ddelta_phi_dk", "ddelta_phi_vs_k"],
+    )
+    k3 = df_ddp["k"].to_numpy()
+    ddp = np.abs(df_ddp[col_ddp].to_numpy())
+
+    # Nettoyage / masques de base
+    mask1 = np.isfinite(k1) & np.isfinite(I1) & (I1 > 0)
+    mask2 = np.isfinite(k2) & np.isfinite(dcs2) & (dcs2 > 0)
+    mask3 = np.isfinite(k3) & np.isfinite(ddp) & (ddp > 0)
+
+    k1, I1 = k1[mask1], I1[mask1]
+    k2, dcs2 = k2[mask2], dcs2[mask2]
+    k3, ddp = k3[mask3], ddp[mask3]
+
+    plt.style.use("classic")
+    fig, axs = plt.subplots(3, 1, figsize=(8, 14), sharex=True)
+
+    # 1) I1(k)
+    ax = axs[0]
+    ax.loglog(k1, I1, color="C0", lw=2, label=rf"$I_1(k)$ ({col_inv})")
+    ax.axvline(k_split, ls="--", color="k", lw=1)
+    ax.set_ylabel(r"$I_1(k)$")
+    ax.set_title("Invariant scalaire et dérivées (Chapitre 7)")
+    ax.grid(which="both", ls=":", lw=0.5)
+
+    # 2) |∂ₖ c_s²|
+    ax = axs[1]
+    ax.loglog(k2, dcs2, color="C1", lw=2, label=rf"$|\partial_k c_s^2|$ ({col_dcs2})")
+    ax.axvline(k_split, ls="--", color="k", lw=1)
+    ax.set_ylabel(r"$|\partial_k c_s^2|$")
+    ax.grid(which="both", ls=":", lw=0.5)
+
+    # 3) |∂ₖ(δφ/φ)|
+    ax = axs[2]
+    ax.loglog(k3, ddp, color="C2", lw=2, label=rf"$|\partial_k(\delta\phi/\phi)|$ ({col_ddp})")
+    ax.axvline(k_split, ls="--", color="k", lw=1)
+    ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$")
+    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
+    ax.grid(which="both", ls=":", lw=0.5)
+
+    # Limites X/Y globales
+    k_all = np.concatenate([k1, k2, k3])
+    k_mask = np.isfinite(k_all) & (k_all > 0)
+    if k_mask.sum() == 0:
+        raise ValueError("Aucune valeur positive pour k.")
+    k_min = k_all[k_mask].min()
+    k_max = k_all[k_mask].max()
+
+    axs[-1].set_xlim(k_min, k_max)
+
+    for ax in axs:
+        ax.xaxis.set_major_locator(LogLocator(base=10))
+        ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+        ax.yaxis.set_major_locator(LogLocator(base=10))
+        ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+        ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
+        ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
+
+    fig.subplots_adjust(top=0.93, bottom=0.07, left=0.12, right=0.97, hspace=0.30)
+
+    out_png.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_png, dpi=dpi)
+    plt.close(fig)
+
+    logging.info("Figure sauvegardée : %s", out_png)
+    logging.info("Tracé de la figure 06 terminé ✔")
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+
+def build_arg_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        description="Fig. 06 — Comparaison I1 / dcs2/dk / d(δφ/φ)/dk – Chapitre 7.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    p.add_argument(
+        "--inv-csv",
+        default="zz-data/chapter07/07_scalar_invariants.csv",
+        help="CSV de l'invariant I1(k).",
+    )
+    p.add_argument(
+        "--dcs2-csv",
+        default="zz-data/chapter07/07_dcs2_vs_k.csv",
+        help="CSV pour la dérivée dcs2/dk.",
+    )
+    p.add_argument(
+        "--ddphi-csv",
+        default="zz-data/chapter07/07_ddelta_phi_vs_k.csv",
+        help="CSV pour la dérivée d(δφ/φ)/dk.",
+    )
+    p.add_argument(
+        "--meta-json",
+        default="zz-data/chapter07/07_meta_perturbations.json",
+        help="JSON méta contenant x_split/k_split.",
+    )
+    p.add_argument(
+        "--out",
+        default="zz-figures/chapter07/07_fig_06_comparison.png",
+        help="Chemin de la figure de sortie.",
+    )
+    p.add_argument(
+        "--inv-col",
+        default=None,
+        help="Nom explicite de la colonne d'invariant I1 (sinon auto-détection).",
+    )
+    p.add_argument(
+        "--dcs2-col",
+        default=None,
+        help="Nom explicite de la colonne de dérivée c_s² (sinon auto-détection).",
+    )
+    p.add_argument(
+        "--ddphi-col",
+        default=None,
+        help="Nom explicite de la colonne de dérivée δφ/φ (sinon auto-détection).",
+    )
+    p.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="Résolution de la figure.",
+    )
+    p.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity cumulable (-v, -vv).",
+    )
     return p
 
 
-# --- Create figure ---
-fig, axs = plt.subplots(3, 1, figsize=(8, 14), sharex=True)
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    parser = build_arg_parser()
+    args = parser.parse_args(argv)
 
-# 1) I₁ = c_s²/k
-ax = axs[0]
-ax.loglog(k1, I1, color="C0", label=r"$I_1 = c_s^2/k$")
-ax.axvline(k_split, ls="--", color="k", lw=1)
-zoom_plateau(ax, k1, I1)
-ax.set_ylabel(r"$I_1(k)$", fontsize=10)
-ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
-ax.grid(True, which="both", ls=":", linewidth=0.5)
+    setup_logging(args.verbose)
 
-# 2) |∂ₖ c_s²|
-ax = axs[1]
-ax.loglog(k2, np.abs(dcs2), color="C1", label=r"$|\partial_k c_s^2|$")
-ax.axvline(k_split, ls="--", color="k", lw=1)
-zoom_plateau(ax, k2, np.abs(dcs2))
-ax.set_ylabel(r"$|\partial_k c_s^2|$", fontsize=10)
-ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
-ax.grid(True, which="both", ls=":", linewidth=0.5)
+    inv_csv = Path(args.inv_csv)
+    dcs2_csv = Path(args.dcs2_csv)
+    ddphi_csv = Path(args.ddphi_csv)
+    meta_json = Path(args.meta_json)
+    out_png = Path(args.out)
 
-    if args.out:
-        fig.savefig(args.out, dpi=args.dpi)
-        print(f"Wrote: {args.out}")
-    else:
-        # Pas de show() en mode homogénéisation/CI
-        print("No --out provided; stub generated but not saved.")
+    plot_comparison(
+        inv_csv=inv_csv,
+        dcs2_csv=dcs2_csv,
+        ddphi_csv=ddphi_csv,
+        meta_json=meta_json,
+        inv_col=args.inv_col,
+        dcs2_col=args.dcs2_col,
+        ddphi_col=args.ddphi_col,
+        out_png=out_png,
+        dpi=args.dpi,
+    )
 
-# 3) |∂ₖ(δφ/φ)|
-ax = axs[2]
-ax.loglog(
-    k3, ddp_mask, color="C2", label=r"$|\partial_k(\delta\phi/\phi)|_{\mathrm{smooth}}$"
-)
-ax.axvline(k_split, ls="--", color="k", lw=1)
-zoom_plateau(ax, k3, ddp_mask)
-ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$", fontsize=10)
-ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$", fontsize=10)
-ax.legend(loc="upper right", fontsize=8, framealpha=0.8)
-ax.grid(True, which="both", ls=":", linewidth=0.5)
 
-# --- Title and layout ---
-fig.suptitle("Comparaison des invariants et dérivées", fontsize=14)
-fig.subplots_adjust(top=0.92, bottom=0.07, left=0.10, right=0.95, hspace=0.30)
-
-# --- Save ---
-FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
-fig.savefig(FIG_OUT, dpi=300)
-logger.info("Figure saved → %s", FIG_OUT)
-plt.close(fig)
-
-# === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+    main()

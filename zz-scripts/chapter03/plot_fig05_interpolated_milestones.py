@@ -78,11 +78,12 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_DIR = Path("zz-data") / "chapter03"
+ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = ROOT / "zz-data" / "chapter03"
 RAW_FILE = DATA_DIR / "03_ricci_fR_milestones.csv"
 GRID_FILE = DATA_DIR / "03_fR_stability_data.csv"
-FIG_DIR = Path("zz-figures") / "chapter03"
-FIG_PATH = FIG_DIR / "fig_05_interpolated_milestones.png"
+FIG_DIR = ROOT / "zz-figures" / "chapter03"
+FIG_PATH = FIG_DIR / "03_fig_05_interpolated_milestones.png"
 
 
 def main() -> None:
@@ -92,6 +93,7 @@ def main() -> None:
         return
 
     jalons = pd.read_csv(RAW_FILE)
+    # Chargement de la grille de stabilité (non utilisée ici, mais vérifie la présence des données)
     pd.read_csv(GRID_FILE)
 
     # On garde seulement R>0 pour log–log
@@ -185,18 +187,18 @@ if __name__ == "__main__":
 # [MCGT POSTPARSE EPILOGUE v2]
 # (compact) delegate to common helper; best-effort wrapper
 try:
-    import os
-    import sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-    _zz = os.path.abspath(os.path.join(_here, ".."))
-    if _zz not in sys.path:
-        sys.path.insert(0, _zz)
+    import os as _os
+    import sys as _sys
+    _here = _os.path.abspath(_os.path.dirname(__file__))
+    _zz = _os.path.abspath(_os.path.join(_here, ".."))
+    if _zz not in _sys.path:
+        _sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
-except Exception:
-    def _mcgt_postparse_apply(*_a, **_k):
+except Exception:  # pragma: no cover - best-effort
+    def _mcgt_postparse_apply(*_a, **_k):  # type: ignore[redef]
         pass
 try:
     if "args" in globals():
-        _mcgt_postparse_apply(args, caller_file=__file__)
+        _mcgt_postparse_apply(args, caller_file=__file__)  # type: ignore[name-defined]
 except Exception:
     pass

@@ -1,83 +1,182 @@
 #!/usr/bin/env python3
-import os
-"""Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2"""
+"""
+Fig. 03 – Écarts relatifs ε_i – Chapitre 2
 
+Nuage de points des écarts relatifs ε_i en fonction de T (Gyr),
+avec distinction jalons primaires / ordre 2 et seuils 1 % / 10 %.
+
+Entrée par défaut :
+    zz-data/chapter02/02_timeline_milestones.csv
+
+Sortie par défaut :
+    zz-figures/chapter02/02_fig_03_relative_errors.png
+"""
+
+from __future__ import annotations
+
+import argparse
+import logging
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-import matplotlib.pyplot as plt
-import pandas as pd
 
-# Paths
-ROOT = Path( __file__).resolve().parents[ 2]
-DATA_DIR = ROOT / "zz-data" / "chapter02"
-FIG_DIR = ROOT / "zz-figures" / "chapter02"
-FIG_DIR.mkdir( parents=True, exist_ok=True)
+# ---------------------------------------------------------------------------
+# Chemins de base
+# ---------------------------------------------------------------------------
+ROOT = Path(__file__).resolve().parents[2]
+DEF_CSV = ROOT / "zz-data" / "chapter02" / "02_timeline_milestones.csv"
+DEF_OUT = ROOT / "zz-figures" / "chapter02" / "02_fig_03_relative_errors.png"
 
-# Load data
-df = pd.read_csv( DATA_DIR / "02_timeline_milestones.csv")
-T = df[ "T"]
-eps = df[ "epsilon_i"]
-cls = df[ "classe"]
 
-# Masks
-primary = cls == "primaire"
-order2 = cls != "primaire"
+# ---------------------------------------------------------------------------
+# Logger
+# ---------------------------------------------------------------------------
+def setup_logger(verbosity: int) -> logging.Logger:
+    if verbosity <= 0:
+        level = logging.WARNING
+    elif verbosity == 1:
+        level = logging.INFO
+    else:
+        level = logging.DEBUG
 
-# Plot
-plt.figure(dpi=300)
-plt.scatter(
-    T[primary], eps[primary], marker="o", label="Jalons primaires", color="black"
-)
-plt.scatter(T[order2], eps[order2], marker="s", label="Jalons ordre 2", color="grey")
-plt.xscale("log")
-plt.yscale("symlog", linthresh=1e-3)
-# Threshold lines
-plt.axhline(0.01, linestyle="--", linewidth=0.8, color="blue", label="Seuil 1%")
-plt.axhline(-0.01, linestyle="--", linewidth=0.8, color="blue")
-plt.axhline(0.10, linestyle=":", linewidth=0.8, color="red", label="Seuil 10%")
-plt.axhline(-0.10, linestyle=":", linewidth=0.8, color="red")
-plt.xlabel("T (Gyr)")
-plt.ylabel(r"$\varepsilon_i$")
-plt.title("Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2")
-plt.grid(True, which="both", linestyle=":", linewidth=0.5)
-plt.legend()
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-plt.savefig(FIG_DIR / "fig_03_relative_errors.png")
+    logging.basicConfig(
+        level=level,
+        format="[%(asctime)s] [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    return logging.getLogger("fig03_relative_errors")
 
-# === MCGT CLI SEED v2 ===
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Fig. 03 – Écarts relatifs ε_i – Chapitre 2"
+    )
+    parser.add_argument(
+        "--timeline-csv",
+        type=Path,
+        default=DEF_CSV,
+        help="CSV des jalons (par défaut: zz-data/chapter02/02_timeline_milestones.csv)",
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=DEF_OUT,
+        help="Image de sortie (par défaut: zz-figures/chapter02/02_fig_03_relative_errors.png)",
+    )
+    parser.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="Résolution de la figure (DPI, défaut: 300)",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity cumulable (-v, -vv).",
+    )
+    return parser.parse_args(argv)
+
+
+# ---------------------------------------------------------------------------
+# Coeur du script
+# ---------------------------------------------------------------------------
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    log = setup_logger(args.verbose)
+
+    csv_path: Path = args.timeline_csv
+    out_path: Path = args.out
+
+    if not csv_path.exists():
+        raise SystemExit(f"CSV introuvable : {csv_path}")
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    log.info("Lecture des données depuis %s", csv_path)
+    df = pd.read_csv(csv_path)
+
+    # Colonnes attendues
+    for col in ["T", "epsilon_i", "classe"]:
+        if col not in df.columns:
+            raise SystemExit(f"Colonne manquante dans {csv_path} : {col}")
+
+    T = pd.to_numeric(df["T"], errors="coerce")
+    eps = pd.to_numeric(df["epsilon_i"], errors="coerce")
+    cls = df["classe"].astype(str)
+
+    # Masque de validité de base
+    m_valid = T.notna() & eps.notna()
+    T = T[m_valid]
+    eps = eps[m_valid]
+    cls = cls[m_valid]
+
+    # Masks de classe
+    m_primary = cls == "primaire"
+    m_order2 = cls != "primaire"
+
+    log.debug("Points primaires : %d", int(m_primary.sum()))
+    log.debug("Points ordre 2  : %d", int(m_order2.sum()))
+
+    # ------------------------------------------------------------------
+    # Figure
+    # ------------------------------------------------------------------
+    fig, ax = plt.subplots(figsize=(7.0, 5.0), dpi=args.dpi)
+
+    ax.scatter(
+        T[m_primary],
+        eps[m_primary],
+        marker="o",
+        label="Jalons primaires",
+        color="black",
+    )
+    ax.scatter(
+        T[m_order2],
+        eps[m_order2],
+        marker="s",
+        label="Jalons ordre 2",
+        color="grey",
+    )
+
+    ax.set_xscale("log")
+    ax.set_yscale("symlog", linthresh=1e-3)
+
+    # Lignes de seuil
+    ax.axhline(
+        0.01,
+        linestyle="--",
+        linewidth=0.8,
+        color="blue",
+        label="Seuil 1 %",
+    )
+    ax.axhline(-0.01, linestyle="--", linewidth=0.8, color="blue")
+    ax.axhline(
+        0.10,
+        linestyle=":",
+        linewidth=0.8,
+        color="red",
+        label="Seuil 10 %",
+    )
+    ax.axhline(-0.10, linestyle=":", linewidth=0.8, color="red")
+
+    ax.set_xlabel("T (Gyr)")
+    ax.set_ylabel(r"$\varepsilon_i$")
+    ax.set_title(r"Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2")
+
+    ax.grid(True, which="both", linestyle=":", linewidth=0.5, alpha=0.7)
+    ax.legend()
+
+    fig.subplots_adjust(left=0.12, right=0.98, bottom=0.10, top=0.93)
+
+    fig.savefig(out_path, dpi=args.dpi, bbox_inches="tight")
+    log.info("Figure enregistrée → %s", out_path)
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+    main()

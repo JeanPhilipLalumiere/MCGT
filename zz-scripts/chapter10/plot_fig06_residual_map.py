@@ -20,79 +20,98 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from matplotlib.ticker import MaxNLocator
 
 
-# ------------------------- utilitaires -------------------------------------
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Ramène les angles en radians dans (-π, π]."""
-    return (x + np.pi) % (2 * np.pi) - np.pi
+    return (x + np.pi) % (2.0 * np.pi) - np.pi
 
 
 def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
     """Trouve une colonne par nom exact ou par inclusion insensible à la casse."""
-    for c in candidates:
-        if c and c in df.columns: return c
+    for cand in candidates:
+        if cand and cand in df.columns:
+            return cand
+    lower_map = {c.lower(): c for c in df.columns}
+    for cand in candidates:
+        if not cand:
+            continue
+        key = cand.lower()
+        if key in lower_map:
+            return lower_map[key]
+    # fallback: recherche par sous-chaîne
     for c in df.columns:
-        lc=c.lower()
+        lc = c.lower()
         for cand in candidates:
-            if cand and cand.lower() in lc: return c
+            if cand and cand.lower() in lc:
+                return c
     raise KeyError(f"Impossible de trouver l'une des colonnes : {candidates}")
 
 
-# --------------------------- script principal ------------------------------
-def main():
-    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument("--results", required=True, help="CSV d'entrée.")
-    ap.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
-    ap.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
-    ap.add_argument("--m1-col", default="m1")
-    ap.add_argument("--m2-col", default="m2")
-    ap.add_argument(
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument("--results", type=Path, required=True, help="CSV d'entrée.")
+    parser.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
+    parser.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
+    parser.add_argument("--m1-col", default="m1")
+    parser.add_argument("--m2-col", default="m2")
+    parser.add_argument(
         "--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95)."
     )
-    ap.add_argument(
+    parser.add_argument(
         "--recalc-col",
         default="p95_20_300_recalc",
         help="Colonne p95 recalculée (dp95).",
     )
-    ap.add_argument("--phi-ref-col", default=None, help="Colonne phi_ref (dphi).")
-    ap.add_argument("--phi-mcgt-col", default=None, help="Colonne phi_mcgt (dphi).")
-    ap.add_argument("--gridsize", type=int, default=36)
-    ap.add_argument(
+    parser.add_argument("--phi-ref-col", default=None, help="Colonne phi_ref (dphi).")
+    parser.add_argument(
+        "--phi-mcgt-col", default=None, help="Colonne phi_mcgt (dphi)."
+    )
+    parser.add_argument("--gridsize", type=int, default=36)
+    parser.add_argument(
         "--mincnt", type=int, default=3, help="Masque les hexagones avec nb<mincnt."
     )
-    ap.add_argument("--cmap", default="viridis")
-    ap.add_argument(
+    parser.add_argument("--cmap", default="viridis")
+    parser.add_argument(
         "--vclip", default="1,99", help="Percentiles pour vmin,vmax (ex: '1,99')."
     )
-    ap.add_argument(
-        "--scale-exp", type=int, default=-7, help="Exponent pour l'échelle ×10^exp rad."
+    parser.add_argument(
+        "--scale-exp",
+        type=int,
+        default=-7,
+        help="Exposant pour l'échelle ×10^exp rad.",
     )
-    ap.add_argument(
+    parser.add_argument(
         "--threshold",
         type=float,
         default=1e-6,
         help="Seuil pour fraction |metric|>threshold [rad].",
     )
-    ap.add_argument(
+    parser.add_argument(
         "--figsize", default="15,9", help="Largeur,hauteur en pouces (ex: '15,9')."
     )
-    ap.add_argument("--dpi", type=int, default=300)
-    ap.add_argument("--out", default="fig_06_residual_map.png")
-    ap.add_argument("--manifest", action="store_true")
-    args = ap.parse_args()
+    parser.add_argument("--dpi", type=int, default=300)
+    parser.add_argument("--out", type=Path, default=Path("fig_06_residual_map.png"))
+    parser.add_argument("--manifest", action="store_true")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = build_parser()
+    args = parser.parse_args(argv)
 
     # ------------------------------------------------------------------ data
+    if not args.results.exists():
+        raise SystemExit(f"CSV d'entrée introuvable: {args.results}")
     df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])
-df = ci.ensure_fig02_cols(df)
 
     x = df[args.m1_col].astype(float).values
     y = df[args.m2_col].astype(float).values
@@ -118,11 +137,14 @@ df = ci.ensure_fig02_cols(df)
         metric_label = rf"{metric_name}"
 
     # Pré-scaling pour l'affichage : valeurs en unités “×10^exp rad”
-    scale_factor = 10.0**args.scale_exp
+    scale_factor = 10.0 ** args.scale_exp
     scaled = raw / scale_factor
 
     # vmin/vmax via percentiles sur *scaled*
-    p_lo, p_hi = (float(t) for t in args.vclip.split(","))
+    try:
+        p_lo, p_hi = (float(t) for t in str(args.vclip).split(","))
+    except Exception as exc:  # garde-fou CLI
+        raise SystemExit(f"Argument --vclip invalide: {args.vclip!r}") from exc
     vmin = float(np.percentile(scaled, p_lo))
     vmax = float(np.percentile(scaled, p_hi))
 
@@ -134,7 +156,7 @@ df = ci.ensure_fig02_cols(df)
     frac_over = float(np.mean(np.abs(raw) > args.threshold))
 
     # ------------------------------ figure & axes ---------------------------
-    fig_w, fig_h = (float(s) for s in args.figsize.split(","))
+    fig_w, fig_h = (float(s) for s in str(args.figsize).split(","))
     plt.style.use("classic")
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
@@ -239,17 +261,19 @@ df = ci.ensure_fig02_cols(df)
     fig.text(0.5, 0.032, foot_stats + f"{n_active}/{N}.", ha="center", fontsize=10)
 
     # ------------------------------- sortie ---------------------------------
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    fig.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
-    print(f"[OK] Figure écrite: {args.out}")
+    out_path = Path(args.out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=args.dpi, bbox_inches="tight")
+    print(f"[OK] Figure écrite: {out_path}")
 
     if args.manifest:
-        man_path = os.path.splitext(args.out)[0] + ".manifest.json"
+        man_path = out_path.with_suffix("")  # strip extension
+        man_path = man_path.with_suffix(".manifest.json")
         manifest = {
             "script": "plot_fig06_residual_map.py",
             "generated_at": pd.Timestamp.utcnow().isoformat() + "Z",
             "inputs": {
-                "csv": args.results,
+                "csv": str(args.results),
                 "m1_col": args.m1_col,
                 "m2_col": args.m2_col,
             },
@@ -261,32 +285,20 @@ df = ci.ensure_fig02_cols(df)
                 "phi_ref_col": args.phi_ref_col,
                 "phi_mcgt_col": args.phi_mcgt_col,
             },
-            "plot_params": {
+            "scale": {
+                "scale_exp": int(args.scale_exp),
+                "threshold": float(args.threshold),
+                "vclip": str(args.vclip),
+            },
+            "hexbin": {
                 "gridsize": int(args.gridsize),
                 "mincnt": int(args.mincnt),
-                "cmap": args.cmap,
-                "vclip_percentiles": [p_lo, p_hi],
-                "vmin_scaled": float(vmin),
-                "vmax_scaled": float(vmax),
-                "scale_exp": int(args.scale_exp),
-                "threshold_rad": float(args.threshold),
-                "figsize": [fig_w, fig_h],
-                "dpi": int(args.dpi),
             },
-            "dataset": {"N": int(N), "n_active_points": int(n_active)},
-            "stats_scaled": {
-                "median": med,
-                "mean": mean,
-                "std": std,
-                "p95": p95,
-                "fraction_abs_gt_threshold": frac_over,
-            },
-            "figure_path": args.out,
         }
         with open(man_path, "w", encoding="utf-8") as f:
-            json.dump(manifest, f, indent=2)
+            json.dump(manifest, f, indent=2, sort_keys=True)
         print(f"[OK] Manifest écrit: {man_path}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

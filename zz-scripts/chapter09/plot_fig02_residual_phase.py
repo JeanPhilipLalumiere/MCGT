@@ -4,13 +4,14 @@ Figure 02 - Résidu de phase |Δφ| par bande de fréquence (φ_ref vs φ_MCGT)
 Version publication - panneau de droite compact (Option A)
 
 CHANGEMENTS CLÉS
-- Résidu = |Δφ_principal| où Δφ_principal = ((φ_mcgt - k.2*π) - φ_ref + π) mod 2*π - π
-avec k = median((φ_mcgt - φ_ref)/(2*π)) sur la bande 20-300 Hz.
-- Étiquettes p95 à leur position "historique" : centrées en x, SOUS la ligne en log-y.
-- Plus d’espace vertical entre le titre et le 1er panneau.
+- Résidu = |Δφ_principal| où
+    Δφ_principal = ((φ_mcgt - k·2π) - φ_ref + π) mod 2π − π
+  avec k = median((φ_mcgt - φ_ref)/(2π)) sur la bande 20–300 Hz.
+- Étiquettes p95 et stats par bande.
+- Panneau de droite compact avec récapitulatif.
 
 Exemple:
-  python zz-scripts/chapter09/tracer_fig02_residual_phase.py \
+  python zz-scripts/chapter09/plot_fig02_residual_phase.py \
     --csv zz-data/chapter09/09_phases_mcgt.csv \
     --meta zz-data/chapter09/09_metrics_phase.json \
     --out zz-figures/chapter09/09_fig_02_residual_phase.png \
@@ -30,69 +31,45 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
-# === MCGT alias helpers ===
-def _pick_col(df, candidates):
-    low = {}
-    for c in df.columns:
-        low[c.lower()] = c
-    for name in candidates:
-        if name in low:
-            return low[name]
-    # autoriser liste de listes
-    for group in candidates:
-        if isinstance(group, (list, tuple)):
-            for name in group:
-                if name in low: return low[name]
-    return None
-
-def _ensure_standard_cols(df):
-    # fréquence
-    fcol = _pick_col(df, ["f_hz","f","freq","frequency_hz","frequency","nu","nu_hz"])
-    if fcol and fcol != "f_Hz":
-        df["f_Hz"] = df[fcol]
-    elif "f_Hz" not in df.columns:
-        raise SystemExit("Colonne fréquence absente (f_Hz|f|freq|frequency|nu).")
-
-    # ref
-    rcol = _pick_col(df, ["phi_ref","phi_imr","phi_ref_cal","phi_ref_raw","phi_ref_model"])
-    if rcol and rcol != "phi_ref":
-        df["phi_ref"] = df[rcol]
-    elif "phi_ref" not in df.columns:
-        raise SystemExit("Colonne phi_ref absente.")
-
-    # active/mcgt
-    acol = _pick_col(df, ["phi_mcgt","phi_mcgt_cal","phi_active","phi_model","phi_mcgt_active"])
-    if acol:
-        if "phi_mcgt" not in df.columns:
-            df["phi_mcgt"] = df[acol]
-        if "phi_active" not in df.columns:
-            df["phi_active"] = df["phi_mcgt"]
-    else:
-        raise SystemExit("Colonne MCGT absente (phi_mcgt|phi_active|phi_model).")
-    return df
-
 from matplotlib.lines import Line2D
 
-# -------------------- utils --------------------
+from zz_tools import common_io as ci
 
+
+# ----------------------------------------------------------------------
+# Logging
+# ----------------------------------------------------------------------
+def setup_logger(level: str) -> logging.Logger:
+    lvl = getattr(logging, level.upper(), logging.INFO)
+    logging.basicConfig(
+        level=lvl,
+        format="[%(asctime)s] [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    return logging.getLogger("fig02_residual_phase")
+
+
+# ----------------------------------------------------------------------
+# Utils
+# ----------------------------------------------------------------------
 def p95(a: np.ndarray) -> float:
+    """Percentile 95 robuste (ignore NaN / inf)."""
     a = np.asarray(a, float)
     a = a[np.isfinite(a)]
     if a.size == 0:
-        return float('nan')
+        return float("nan")
     return float(np.percentile(a, 95.0))
 
-a = np.asarray(a, float)
-a = a[np.isfinite(a)]
-return float(np.percentile(a, 95.0)) if a.size else float("nan")
 
 def parse_bands(vals: list[float]) -> list[tuple[float, float]]:
     if len(vals) == 0 or len(vals) % 2:
         raise ValueError("bands must be pairs of floats (even count).")
     it = iter(vals)
-    return [tuple(sorted((float(a), float(b)))) for a, b in zip(it, it, strict=False)]
+    out: list[tuple[float, float]] = []
+    for a, b in zip(it, it, strict=False):
+        out.append(tuple(sorted((float(a), float(b)))))
+    return out
+
 
 def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     """Index runs contigus en log10(f) d’après un seuil de 'trou'."""
@@ -101,7 +78,7 @@ def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     logf = np.log10(f_band)
     diffs = np.diff(logf)
     breaks = np.nonzero(diffs > gap_thresh_log10)[0]
-    segments = []
+    segments: list[np.ndarray] = []
     start = 0
     for b in breaks:
         segments.append(np.arange(start, b + 1))
@@ -109,17 +86,21 @@ def contiguous_segments(f_band: np.ndarray, gap_thresh_log10: float):
     segments.append(np.arange(start, f_band.size))
     return segments
 
+
 def load_meta(meta_path: Path) -> dict:
     if meta_path and meta_path.exists():
         try:
-            return json.loads(meta_path.read_text())
+            return json.loads(meta_path.read_text(encoding="utf-8"))
         except Exception:
             return {}
     return {}
 
+
 def principal_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ_principal ∈ (−π, π]"""
-    return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (2.0 * np.pi) - np.pi
+    two_pi = 2.0 * np.pi
+    return (np.asarray(a, float) - np.asarray(b, float) + np.pi) % (two_pi) - np.pi
+
 
 def k_rebranch_median(
     phi_m: np.ndarray, phi_r: np.ndarray, f: np.ndarray, f1: float, f2: float
@@ -131,8 +112,11 @@ def k_rebranch_median(
         return 0
     return int(np.round(np.nanmedian((phi_m[m] - phi_r[m]) / two_pi)))
 
-# -------------------- script --------------------
-def main():
+
+# ----------------------------------------------------------------------
+# Main
+# ----------------------------------------------------------------------
+def main() -> None:
     ap = argparse.ArgumentParser(
         description="Figure 02 — Résidu |Δφ| par bandes + panneau compact"
     )
@@ -154,20 +138,21 @@ def main():
     args = ap.parse_args()
 
     log = setup_logger(args.log_level)
-    meta = load_meta(args.meta)
+    meta = load_meta(args.meta)  # pas forcément utilisé, mais inoffensif
 
     if not args.csv.exists():
         raise SystemExit(f"CSV introuvable: {args.csv}")
 
-    # --- lecture CSV + normalisation colonnes (fig02)
+    # --- lecture CSV + normalisation colonnes (via zz_tools.common_io) ---
     df = pd.read_csv(args.csv)
-    df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)  # assure f_Hz, phi_ref, phi_mcgt*, etc.
+
     required = ["f_Hz", "phi_ref"]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise SystemExit(f"Colonnes manquantes pour fig02: {missing}")
 
-    # variante active
+    # Variante active (phi_mcgt*)
     if "phi_mcgt" in df:
         phi_col = "phi_mcgt"
     elif "phi_mcgt_cal" in df:
@@ -178,51 +163,66 @@ def main():
         raise SystemExit("Aucune colonne phi_mcgt* disponible.")
     log.info("Variante active: %s", phi_col)
 
-    # tri / nettoyage basique
+    # Tri / nettoyage
     order = np.argsort(df["f_Hz"].to_numpy(float))
     f = df["f_Hz"].to_numpy(float)[order]
     ref = df["phi_ref"].to_numpy(float)[order]
     mcg = df[phi_col].to_numpy(float)[order]
+
     m = np.isfinite(f) & np.isfinite(ref) & np.isfinite(mcg)
     f, ref, mcg = f[m], ref[m], mcg[m]
+    if f.size == 0:
+        raise SystemExit("Aucune ligne exploitable après filtrage de base.")
 
-    # bandes et k sur 20–300
+    # Bandes
     bands = parse_bands(args.bands)
+    if len(bands) == 0:
+        raise SystemExit("Aucune bande valide fournie via --bands.")
     if len(bands) > 3:
+        log.warning("Plus de 3 bandes fournies, seules les 3 premières seront tracées.")
         bands = bands[:3]
-    (f20, f300) = bands[0]
-    k = k_rebranch_median(mcg, ref, f, f20, f300)
-    log.info("Rebranch k (20–300 Hz) = %d cycles", k)
 
-    # résidu canonique = |Δφ_principal| après rebranch k
+    # k de rebranch sur la première bande (20–300 typiquement)
+    f20, f300 = bands[0]
+    k = k_rebranch_median(mcg, ref, f, f20, f300)
+    log.info("Rebranch k (%.1f–%.1f Hz) = %d cycles", f20, f300, k)
+
+    # Résidu principal + version plot-safe (eps pour log)
     absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
-    # eps pour échelle log (affichage uniquement) — les stats sont calculées AVANT ce remplacement
     eps = 1e-12
     absd_plot = np.where((~np.isfinite(absd_full)) | (absd_full <= 0), eps, absd_full)
 
-    # stats 20–300 pour panneau compact
+    # Stats globales sur 20–300
     m20300 = (f >= f20) & (f <= f300) & np.isfinite(absd_full)
     mean20 = float(np.nanmean(absd_full[m20300])) if m20300.any() else float("nan")
     p9520 = float(p95(absd_full[m20300])) if m20300.any() else float("nan")
+    max20 = float(np.nanmax(absd_full[m20300])) if m20300.any() else float("nan")
     log.info(
         "Stats 20–300 Hz: mean=%.3f  p95=%.3f  max=%.3f",
         mean20,
         p9520,
-        float(np.nanmax(absd_full[m20300])) if m20300.any() else float("nan"),
+        max20,
     )
 
-    # ---------------- figure & layout ----------------
-    fig = plt.figure(figsize=(12.6, 8.2))
+    # ------------------------------------------------------------------
+    # Figure & layout
+    # ------------------------------------------------------------------
+    n_bands = len(bands)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+
+    fig = plt.figure(figsize=(12.6, 8.2), dpi=args.dpi)
     gs = gridspec.GridSpec(
-        nrows=3, ncols=2, width_ratios=[1.0, 0.38], wspace=0.08, hspace=0.30
+        nrows=n_bands,
+        ncols=2,
+        width_ratios=[1.0, 0.42],
+        wspace=0.08,
+        hspace=0.30,
     )
 
-    # axes
-    axs = [fig.add_subplot(gs[i, 0]) for i in range(3)]
+    axs = [fig.add_subplot(gs[i, 0]) for i in range(n_bands)]
     ax_right = fig.add_subplot(gs[:, 1])
     ax_right.axis("off")
 
-    # titre + espace vertical accru
     fig.suptitle(
         r"Résidu de phase $|\Delta\phi|$ par bande de fréquence  "
         r"($\phi_{\rm ref}$ vs $\phi_{\rm MCGT}$)",
@@ -230,11 +230,10 @@ def main():
         weight="bold",
         y=0.985,
     )
-    # pousse les sous-graphiques plus bas pour laisser un gap sous le titre
-    fig.subplots_adjust(top=0.88, bottom=0.08)  # <— plus d’espace que précédemment
+    # plus d’espace sous le titre
+    fig.subplots_adjust(top=0.88, bottom=0.08, left=0.08, right=0.96)
 
-    # styles
-    shade_color = "0.92"
+    # Styles
     marker_kw = dict(
         marker="o",
         markersize=float(args.marker_size),
@@ -243,166 +242,144 @@ def main():
         linestyle="",
         zorder=4,
     )
-    line_kw = dict(lw=float(args.line_width), solid_capstyle="butt", zorder=3)
+    line_kw = dict(
+        lw=float(args.line_width),
+        solid_capstyle="butt",
+        zorder=3,
+        color="C0",
+    )
 
-    # ---------------- tracé panneaux ----------------
+    # Limites globales en y (pour homogénéité)
+    valid_absd = absd_plot[np.isfinite(absd_plot)]
+    if valid_absd.size:
+        ymin = max(float(valid_absd.min()) * 0.8, eps)
+        ymax = float(valid_absd.max()) * 1.2
+    else:
+        ymin, ymax = eps, 1.0
+
+    band_stats: list[tuple[float, float, int, float, float, float]] = []
+
+    # ------------------------------------------------------------------
+    # Panneaux par bande
+    # ------------------------------------------------------------------
     for i, (ax, (blo, bhi)) in enumerate(zip(axs, bands, strict=False)):
         mb = (f >= blo) & (f <= bhi) & np.isfinite(absd_full)
-        fb, db = f[mb], absd_full[mb]
+        fb = f[mb]
+        db = absd_full[mb]
         db_plot = absd_plot[mb]
         n_pts = int(mb.sum())
-        mean_b = float(np.nanmean(db)) if n_pts else float("nan")
-        p95_b = float(p95(db)) if n_pts else float("nan")
-        max_b = float(np.nanmax(db)) if n_pts else float("nan")
 
-        ax.set_title(
-            f"{int(blo)}-{int(bhi)} Hz  n={n_pts} — mean={mean_b:.3f}  "
-            f"p95={p95_b:.3f}  max={max_b:.3f}",
-            loc="left",
-            fontsize=11,
-        )
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.grid(True, which="both", ls=":", alpha=0.35)
-
-        # ombrage 20–300 dans le panneau (a)
-        if i == 0:
-            ax.axvspan(f20, f300, color=shade_color, zorder=1, alpha=1.0)
-
-        # points + lignes contigües
-        if fb.size:
-            ax.plot(fb, db_plot, color="#1f77b4", **marker_kw)
-            for seg in contiguous_segments(fb, args.gap_thresh_log10):
-                if seg.size >= 2:
-                    ax.plot(fb[seg], db_plot[seg], color="#1f77b4", **line_kw)
-
-            # ligne p95
-            ax.axhline(
-                p95_b if np.isfinite(p95_b) else np.nan, color="r", lw=1.0, ls=":"
-            )
-
-            # étiquette p95 — géométrique au centre, SOUS la ligne (coords log-y)
-            if np.isfinite(p95_b):
-                x_p = (
-                    10 ** ((np.log10(blo) + np.log10(bhi)) / 2.0)
-                    if fb.size >= 2
-                    else fb[0]
-                )
-                y_p = p95_b / (
-                    1.15 if i != 2 else 1.10
-                )  # même placement que la version validée
-                ax.text(
-                    x_p,
-                    y_p,
-                    f"$p95={p95_b:.3f}\\,\\mathrm{{rad}}$",
-                    color="r",
-                    ha="center",
-                    va="top",
-                    fontsize=9,
-                    bbox=dict(
-                        boxstyle="round,pad=0.25",
-                        facecolor=(shade_color if i == 0 else "white"),
-                        alpha=0.95,
-                        edgecolor="0.6",
-                    ),
-                )
-        else:
+        if n_pts == 0:
             ax.text(
                 0.5,
                 0.5,
-                "no data",
+                "Aucun point dans cette bande",
                 transform=ax.transAxes,
                 ha="center",
                 va="center",
-                fontsize=10,
+                fontsize=11,
+            )
+            ax.set_xscale("log")
+            ax.set_yscale("log")
+            ax.set_xlim(blo, bhi)
+            ax.set_ylim(ymin, ymax)
+            ax.grid(True, which="both", ls=":", alpha=0.3)
+            continue
+
+        mean_b = float(np.nanmean(db))
+        p95_b = float(p95(db))
+        max_b = float(np.nanmax(db))
+        band_stats.append((blo, bhi, n_pts, mean_b, p95_b, max_b))
+
+        # segments contigus (en log-f) pour des lignes propres
+        segments = contiguous_segments(fb, args.gap_thresh_log10)
+        for seg in segments:
+            ax.plot(fb[seg], db_plot[seg], **line_kw)
+
+        # Nuage de points par-dessus
+        ax.plot(fb, db_plot, **marker_kw)
+
+        ax.set_xscale("log")
+        ax.set_yscale("log")
+        ax.set_xlim(blo, bhi)
+        ax.set_ylim(ymin, ymax)
+        ax.grid(True, which="both", ls=":", alpha=0.3)
+
+        ax.set_title(
+            f"{int(blo)}–{int(bhi)} Hz  n={n_pts} — "
+            f"mean={mean_b:.3f}  p95={p95_b:.3f}  max={max_b:.3f}",
+            fontsize=12,
+        )
+
+        if i == n_bands - 1:
+            ax.set_xlabel("Fréquence [Hz]")
+        ax.set_ylabel(r"$|\Delta\phi_{\rm principal}|$  [rad]")
+
+    # ------------------------------------------------------------------
+    # Panneau de droite : résumé texte
+    # ------------------------------------------------------------------
+    lines: list[str] = []
+    lines.append(r"$\bf Statistiques\ globales$ (20–300 Hz)")
+    lines.append(f"mean = {mean20:.3f} rad")
+    lines.append(f"p95  = {p9520:.3f} rad")
+    lines.append(f"max  = {max20:.3f} rad")
+    lines.append("")
+    lines.append(r"$\bf Bandes\ individuelles$")
+
+    if not band_stats:
+        lines.append("(aucune bande avec points valides)")
+    else:
+        for (blo, bhi, n_pts, mean_b, p95_b, max_b) in band_stats:
+            lines.append(
+                f"{int(blo)}–{int(bhi)} Hz : n={n_pts}, "
+                f"mean={mean_b:.3f}, p95={p95_b:.3f}, max={max_b:.3f}"
             )
 
-        # axes & labels
-        ax.set_xlim(max(10.0, blo / 1.1), min(2048.0, bhi * 1.1))
-        ax.set_ylabel(r"$|\Delta\phi|$ [rad]")
-        if i == 2:
-            ax.set_xlabel("Fréquence $f$ [Hz]")
-        ax.tick_params(labelsize=9)
+    # éventuels méta (facultatif)
+    if meta:
+        lines.append("")
+        lines.append(r"$\bf Méta\ (résumé)$")
+        for k, v in meta.items():
+            lines.append(f"{k}: {v}")
 
-    # ---------------- panneau droit (Option A) ----------------
-    # 1) légende des styles (légèrement plus haut)
-    box_styles = ax_right.inset_axes([0.08, 0.64, 0.84, 0.18])  # x,y,w,h (en coord. ax)
-    box_styles.axis("off")
-
-    h_points = Line2D(
-        [],
-        [],
-        marker="o",
-        linestyle="",
-        markeredgecolor="k",
-        markeredgewidth=0.25,
-        markersize=args.marker_size,
-        color="#1f77b4",
-        label="données (points)",
-    )
-    h_line = Line2D(
-        [], [], color="#1f77b4", lw=args.line_width, label="runs contigus (ligne)"
-    )
-    h_p95 = Line2D([], [], color="r", lw=1.0, linestyle=":", label="p95 (bandes)")
-    h_shade = Line2D(
-        [], [], color=shade_color, lw=6, label=f"Bande {int(f20)}–{int(f300)} Hz"
+    ax_right.text(
+        0.0,
+        1.0,
+        "\n".join(lines),
+        transform=ax_right.transAxes,
+        ha="left",
+        va="top",
+        fontsize=11.5,
     )
 
-    leg1 = box_styles.legend(
-        [h_points, h_line, h_p95, h_shade],
-        [h.get_label() for h in [h_points, h_line, h_p95, h_shade]],
-        loc="upper center",
+    # Légende générique (pour rappeler marker/ligne)
+    legend_handles = [
+        Line2D(
+            [], [],
+            **{k: v for k, v in line_kw.items() if k in {"color", "lw"}},
+            label="courbe |Δφ|",
+        ),
+        Line2D(
+            [], [],
+            linestyle="",
+            marker=marker_kw["marker"],
+            markeredgecolor=marker_kw["markeredgecolor"],
+            markerfacecolor="C0",
+            markersize=marker_kw["markersize"],
+            label="points individuels",
+        ),
+    ]
+    axs[0].legend(
+        handles=legend_handles,
+        loc="upper right",
+        fontsize=10,
         frameon=True,
-        fontsize=10,
-        borderpad=0.6,
-        handlelength=2.8,
-        ncol=1,
-    )
-    for t in leg1.get_texts():
-        t.set_fontsize(10)
-
-    # 2) panneau compact "Calage + stats 20–300 Hz" (plus bas, avec air au bas)
-    box_meta = ax_right.inset_axes(
-        [0.14, 0.37, 0.72, 0.20]
-    )  # abaissé pour laisser de l’espace au panneau du bas
-    box_meta.axis("off")
-
-    cal = meta.get("calibration", {}) if isinstance(meta, dict) else {}
-    cal_model = cal.get("model", cal.get("mode", "phi0,tc"))
-    cal_enabled = cal.get("enabled", False)
-    phi0_hat = cal.get("phi0_hat_rad", cal.get("phi0_hat", "N/A"))
-    tc_hat = cal.get("tc_hat_s", cal.get("tc_hat", "N/A"))
-
-    if isinstance(phi0_hat, (int, float)):
-        s_phi0 = f"φ₀={phi0_hat:.3e} rad"
-    else:
-        s_phi0 = f"φ₀={phi0_hat}"
-    if isinstance(tc_hat, (int, float)):
-        s_tc = f"t_c={tc_hat:.3e} s"
-    else:
-        s_tc = f"t_c={tc_hat}"
-
-    meta_text = (
-        f"Calage: {cal_model} (enabled={cal_enabled})\n"
-        f"{s_phi0},  {s_tc}\n\n"
-        f"|Δφ| {int(f20)}–{int(f300)} Hz :\n"
-        f"mean={mean20:.3f} rad ;  p95={p9520:.3f} rad"
+        framealpha=0.85,
     )
 
-    box_meta.text(
-        0.5,
-        0.5,
-        meta_text,
-        ha="center",
-        va="center",
-        fontsize=10,
-        bbox=dict(boxstyle="round", facecolor="white", alpha=0.96, edgecolor="0.6"),
-    )
+    fig.savefig(args.out, dpi=args.dpi)
+    log.info("Figure enregistrée → %s", args.out)
 
-    # ---------------- sortie ----------------
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight", pad_inches=0.06)
-    log.info("PNG écrit → %s", args.out)
 
 if __name__ == "__main__":
     main()

@@ -1,63 +1,151 @@
 #!/usr/bin/env python3
-import os
 """Fig. 05 – Invariant adimensionnel I1(T)"""
 
 from pathlib import Path
+import argparse
+import os
+import sys
+import traceback
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-base = Path(__file__).resolve().parents[2]
-data_file = base / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
-output_file = base / "zz-figures" / "chapter01" / "fig_05_I1_vs_T.png"
+# Base du projet
+BASE = Path(__file__).resolve().parents[2]
 
-df = pd.read_csv(data_file)
-T = df["T"]
-I1 = df["I1"]
+# Fichier de données (identique à la version originale)
+DATA_FILE = BASE / "zz-data" / "chapter01" / "01_dimensionless_invariants.csv"
 
-plt.figure(dpi=300)
-plt.plot(T, I1, color="orange", label=r"$I_1 = P(T)/T$")
-plt.xscale("log")
-plt.yscale("log")
-plt.xlabel("T (Gyr)")
-plt.ylabel(r"$I_1$")
-plt.title("Fig. 05 – Invariant adimensionnel $I_1$ en fonction de $T$")
-plt.grid(True, which="both", ls=":", lw=0.5)
-plt.legend()
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-plt.savefig(output_file)
+# Convention de sortie pour la figure publique
+# (homogène avec les checks de rebuild : 01_fig_05_i1_vs_t.png)
+DEFAULT_FIGNAME = "01_fig_05_i1_vs_t"
 
-# === MCGT CLI SEED v2 ===
+# Dossier de sortie par défaut :
+#   - $MCGT_OUTDIR si présent
+#   - sinon zz-figures/chapter01
+DEFAULT_OUTDIR = Path(
+    os.environ.get("MCGT_OUTDIR", BASE / "zz-figures" / "chapter01")
+)
+
+
+def make_figure(
+    outdir: Path,
+    dpi: int = 300,
+    fmt: str = "png",
+    transparent: bool = False,
+    verbose: int = 0,
+    dry_run: bool = False,
+) -> Path:
+    """
+    Génère la figure I1(T) dans le dossier donné.
+
+    La logique scientifique est celle de la version originale :
+      - on lit 01_dimensionless_invariants.csv
+      - on trace I1(T) en log-log
+    """
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    output_path = outdir / f"{DEFAULT_FIGNAME}.{fmt}"
+
+    if verbose:
+        print(f"[plot_fig05_I1_vs_T] lecture DATA_FILE={DATA_FILE}")
+        print(f"[plot_fig05_I1_vs_T] sortie -> {output_path}")
+
+    if dry_run:
+        return output_path
+
+    # === Partie scientifique (inchangée sur le fond) ===
+    df = pd.read_csv(DATA_FILE)
+    T = df["T"]
+    I1 = df["I1"]
+
+    # On explicite fig/ax pour éviter le bug 'fig' non défini
+    fig, ax = plt.subplots(dpi=dpi)
+    ax.plot(T, I1, color="orange", label=r"$I_1 = P(T)/T$")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("T (Gyr)")
+    ax.set_ylabel(r"$I_1$")
+    ax.set_title("Fig. 05 – Invariant adimensionnel $I_1$ en fonction de $T$")
+    ax.grid(True, which="both", ls=":", lw=0.5)
+    ax.legend()
+
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    fig.savefig(output_path, transparent=transparent)
+
+    return output_path
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Standard CLI seed (non-intrusif) pour Fig. 05 – invariant adimensionnel I1(T)."
+    )
+    parser.add_argument(
+        "--outdir",
+        default=str(DEFAULT_OUTDIR),
+        help="Dossier de sortie (par défaut: zz-figures/chapter01 ou $MCGT_OUTDIR).",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Ne rien écrire, juste afficher les actions.",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Graine aléatoire (optionnelle, non utilisée ici, pour homogénéité).",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Écraser les sorties existantes si nécessaire (non utilisé explicitement, "
+             "mais conservé pour homogénéité CLI).",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity cumulable (-v, -vv).",
+    )
+    parser.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="Figure DPI (default: 300).",
+    )
+    parser.add_argument(
+        "--format",
+        choices=["png", "pdf", "svg"],
+        default="png",
+        help="Figure format (default: png).",
+    )
+    parser.add_argument(
+        "--transparent",
+        action="store_true",
+        help="Fond transparent pour la figure.",
+    )
+
+    args = parser.parse_args(argv)
+
+    try:
+        make_figure(
+            outdir=Path(args.outdir),
+            dpi=args.dpi,
+            fmt=args.format,
+            transparent=args.transparent,
+            verbose=args.verbose or 0,
+            dry_run=args.dry_run,
+        )
+    except Exception as e:
+        print(f"[plot_fig05_I1_vs_T] ERREUR : {e}", file=sys.stderr)
+        traceback.print_exc()
+        return 1
+
+    return 0
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
-
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+    raise SystemExit(main())

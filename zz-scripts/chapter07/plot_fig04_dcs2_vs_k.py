@@ -1,139 +1,260 @@
 #!/usr/bin/env python3
-import os
-"""
+r"""
 plot_fig04_dcs2_vs_k.py
 
 Figure 04 – Dérivée lissée ∂c_s²/∂k
 Chapitre 7 – Perturbations scalaires MCGT.
+
+Trace |∂_k c_s²| en fonction de k, avec un repère vertical à k_split.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import logging
-import sys
 from pathlib import Path
+from typing import Optional, Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter, LogLocator
 
-# --- Logging et style ---
-logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
-plt.style.use("classic")
 
-# --- Définitions des chemins (noms en anglais) ---
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
-DATA_DIR = ROOT / "zz-data" / "chapter07"
-FIG_DIR = ROOT / "zz-figures" / "chapter07"
-META_JSON = DATA_DIR / "07_meta_perturbations.json"
-CSV_DCS2 = DATA_DIR / "07_dcs2_dk.csv"
-FIG_OUT = FIG_DIR / "fig_04_dcs2_vs_k.png"
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
-# --- Lecture de k_split ---
-meta = json.loads(META_JSON.read_text("utf-8"))
-k_split = float(meta.get("x_split", 0.02))
-logging.info("k_split = %.2e h/Mpc", k_split)
-
-# --- Chargement des données ---
-df = pd.read_csv(CSV_DCS2, comment="#")
-k_vals = df["k"].to_numpy()
-dcs2 = df.iloc[:, 1].to_numpy()
-logging.info("Loaded %d points from %s", len(df), CSV_DCS2.name)
-
-# --- Création de la figure ---
-FIG_DIR.mkdir(parents=True, exist_ok=True)
-fig, ax = plt.subplots(figsize=(8, 5))
-
-# Tracé de |∂ₖ c_s²|
-ax.loglog(k_vals, np.abs(dcs2), color="C1", lw=2, label=r"$|\partial_k\,c_s^2|$")
-
-# Ligne verticale k_split
-ax.axvline(k_split, color="k", ls="--", lw=1)
-ax.text(
-    k_split,
-    0.85,
-    r"$k_{\rm split}$",
-    transform=ax.get_xaxis_transform(),
-    rotation=90,
-    va="bottom",
-    ha="right",
-    fontsize=9,
-)
-
-# Labels et titre
-ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
-ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
-ax.set_title(r"Dérivée lissée $\partial_k\,c_s^2(k)$")
-
-# Grilles
-ax.grid(which="major", ls=":", lw=0.6)
-ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
-
-# Locators pour axes log
-ax.xaxis.set_major_locator(LogLocator(base=10))
-ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
-ax.yaxis.set_major_locator(LogLocator(base=10))
-ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+def setup_logging(verbose: int = 0) -> None:
+    if verbose >= 2:
+        level = logging.DEBUG
+    elif verbose == 1:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
 
 
-# Formatter pour n'afficher que les puissances de 10
-def pow_fmt(x, pos):
-    if x <= 0 or not np.isfinite(x):
-        return ""
-    return rf"$10^{{{int(np.log10(x))}}}$"
+def detect_project_root() -> Path:
+    try:
+        return Path(__file__).resolve().parents[2]
+    except NameError:
+        return Path.cwd()
 
 
-ax.xaxis.set_major_formatter(FuncFormatter(pow_fmt))
-ax.yaxis.set_major_formatter(FuncFormatter(pow_fmt))
+def detect_value_column(df: pd.DataFrame) -> str:
+    """
+    Pour 07_dcs2_dk.csv :
+      - on s'attend à 'k' + une colonne numérique pour dcs2/dk.
+    On choisit :
+      1) la 2e colonne si elle est numérique,
+      2) sinon la première colonne numérique ≠ 'k'.
+    """
+    cols = list(df.columns)
+    logging.debug("Colonnes CSV: %s", cols)
 
-# --- ICI on fixe la limite inférieure de Y pour aérer l'échelle ---
-ax.set_ylim(1e-8, None)
+    if len(cols) >= 2 and pd.api.types.is_numeric_dtype(df[cols[1]]):
+        logging.info("Colonne '%s' utilisée (2e colonne du CSV)", cols[1])
+        return cols[1]
 
-# Légende
-ax.legend(loc="upper right", frameon=False)
+    candidates = [
+        c for c in cols if c != "k" and pd.api.types.is_numeric_dtype(df[c])
+    ]
+    if len(candidates) == 1:
+        logging.info(
+            "Colonne numérique '%s' sélectionnée automatiquement pour dcs2/dk", candidates[0]
+        )
+        return candidates[0]
 
-# Ajustement des marges
-fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
+    logging.error(
+        "Impossible de déterminer la colonne dcs2/dk.\n"
+        "Colonnes disponibles : %s\n"
+        "Candidats numériques hors 'k' : %s",
+        cols,
+        candidates,
+    )
+    raise RuntimeError(
+        f"Impossible de déterminer la colonne dcs2/dk "
+        f"(colonnes: {cols}, candidats: {candidates})"
+    )
 
-# Sauvegarde
-fig.savefig(FIG_OUT, dpi=300)
-plt.close(fig)
-logging.info("Figure saved → %s", FIG_OUT)
 
-# === MCGT CLI SEED v2 ===
+# ---------------------------------------------------------------------------
+# Core
+# ---------------------------------------------------------------------------
+
+def plot_dcs2_vs_k(
+    *,
+    data_csv: Path,
+    meta_json: Path,
+    out_png: Path,
+    dpi: int = 300,
+) -> None:
+    """Trace |∂_k c_s²| en fonction de k, en log-log."""
+
+    logging.info("Début du tracé de la figure 04 – dcs2/dk vs k")
+    logging.info("CSV dérivée : %s", data_csv)
+    logging.info("JSON méta   : %s", meta_json)
+    logging.info("Figure out  : %s", out_png)
+
+    if not meta_json.exists():
+        logging.error("Fichier méta introuvable : %s", meta_json)
+        raise FileNotFoundError(meta_json)
+    meta = json.loads(meta_json.read_text(encoding="utf-8"))
+    k_split = float(meta.get("x_split", 0.02))
+    logging.info("k_split = %.2e h/Mpc", k_split)
+
+    if not data_csv.exists():
+        logging.error("CSV introuvable : %s", data_csv)
+        raise FileNotFoundError(data_csv)
+
+    df = pd.read_csv(data_csv, comment="#")
+    logging.info("Loaded %d points from %s", len(df), data_csv.name)
+    if "k" not in df.columns:
+        raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
+
+    val_col = detect_value_column(df)
+
+    k_vals = df["k"].to_numpy(dtype=float)
+    dcs2 = df[val_col].to_numpy(dtype=float)
+
+    # Filtre log-log : k>0, |dcs2|>0, finites
+    mask = np.isfinite(k_vals) & np.isfinite(dcs2) & (k_vals > 0) & (np.abs(dcs2) > 0)
+    k_vals = k_vals[mask]
+    dcs2 = dcs2[mask]
+    logging.info("Points retenus après filtrage : %d", k_vals.size)
+
+    if k_vals.size == 0:
+        raise ValueError("Aucun point valide pour tracer |∂_k c_s²| en log-log.")
+
+    plt.style.use("classic")
+    plt.rc("font", family="serif")
+
+    out_png.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=dpi)
+
+    # Tracé de |∂ₖ c_s²|
+    ax.loglog(k_vals, np.abs(dcs2), color="C1", lw=2, label=r"$|\partial_k\,c_s^2|$")
+
+    # Ligne verticale k_split
+    ax.axvline(k_split, color="k", ls="--", lw=1)
+    ax.text(
+        k_split,
+        0.85,
+        r"$k_{\rm split}$",
+        transform=ax.get_xaxis_transform(),
+        rotation=90,
+        va="bottom",
+        ha="right",
+        fontsize=9,
+    )
+
+    # Labels et titre
+    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
+    ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
+    ax.set_title(r"Dérivée lissée $\partial_k\,c_s^2(k)$")
+
+    # Grilles
+    ax.grid(which="major", ls=":", lw=0.6)
+    ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
+
+    # Locators pour axes log
+    ax.xaxis.set_major_locator(LogLocator(base=10))
+    ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+    ax.yaxis.set_major_locator(LogLocator(base=10))
+    ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+
+    # Formatter pour afficher les puissances de 10
+    def pow_fmt(x, pos):
+        if x <= 0 or not np.isfinite(x):
+            return ""
+        return rf"$10^{{{int(np.log10(x))}}}$"
+
+    ax.xaxis.set_major_formatter(FuncFormatter(pow_fmt))
+    ax.yaxis.set_major_formatter(FuncFormatter(pow_fmt))
+
+    # Limite Y inf pour aérer un peu
+    ymin, ymax = ax.get_ylim()
+    if ymin <= 0:
+        ymin = 1e-8
+    ax.set_ylim(max(1e-8, ymin), ymax)
+
+    ax.legend(loc="upper right", frameon=False)
+
+    fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
+    fig.savefig(out_png, dpi=dpi)
+    plt.close(fig)
+    logging.info("Figure enregistrée : %s", out_png)
+    logging.info("Tracé de la figure 04 terminé ✔")
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+def build_arg_parser() -> argparse.ArgumentParser:
+    root = detect_project_root()
+    default_data = root / "zz-data" / "chapter07" / "07_dcs2_dk.csv"
+    default_meta = root / "zz-data" / "chapter07" / "07_meta_perturbations.json"
+    default_out = root / "zz-figures" / "chapter07" / "07_fig_04_dcs2_vs_k.png"
+
+    p = argparse.ArgumentParser(
+        description=(
+            "Figure 04 – |∂_k c_s²|(k).\n"
+            "Lit un CSV avec colonnes k + dcs2/dk et génère la figure PNG."
+        ),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    p.add_argument(
+        "--data-csv",
+        default=str(default_data),
+        help="CSV contenant 'k' et la dérivée dcs2/dk.",
+    )
+    p.add_argument(
+        "--meta-json",
+        default=str(default_meta),
+        help="JSON méta (k_split/x_split).",
+    )
+    p.add_argument(
+        "--out",
+        default=str(default_out),
+        help="Chemin de sortie de la figure PNG.",
+    )
+    p.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="Résolution de la figure.",
+    )
+    p.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity cumulable (-v, -vv).",
+    )
+    return p
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    parser = build_arg_parser()
+    args = parser.parse_args(argv)
+
+    setup_logging(args.verbose)
+
+    data_csv = Path(args.data_csv)
+    meta_json = Path(args.meta_json)
+    out_png = Path(args.out)
+
+    plot_dcs2_vs_k(
+        data_csv=data_csv,
+        meta_json=meta_json,
+        out_png=out_png,
+        dpi=args.dpi,
+    )
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+    main()
 
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()

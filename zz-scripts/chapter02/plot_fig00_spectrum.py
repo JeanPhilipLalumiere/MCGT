@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""Fig. 00 – Spectre primordial P_R(k; α) pour quelques valeurs de α."""
+from __future__ import annotations
+
+import argparse
 import os
 # ruff: noqa: E402
 import sys
@@ -6,68 +11,130 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Ajouter le module primordial_spectrum au PYTHONPATH
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
 
-from primordial_spectrum import P_R
+from primordial_spectrum import P_R  # noqa: E402
 
-# Grille de k et valeurs de alpha
-k = np.logspace(-4, 2, 100)
-alphas = [0.0, 0.05, 0.1]
+FIG_BASENAME = "02_fig_00_spectrum"
+DEFAULT_CHAPTER_OUTDIR = ROOT / "zz-figures" / "chapter02"
 
-# Création de la figure
-fig, ax = plt.subplots(figsize=(6, 4))
 
-for alpha in alphas:
-    ax.loglog(k, P_R(k, alpha), label=f"α = {alpha}")
+def main(args: argparse.Namespace) -> None:
+    # Dossier de sortie : priorité à l'argument, sinon $MCGT_OUTDIR, sinon zz-figures/chapter02
+    outdir_str = args.outdir or os.environ.get("MCGT_OUTDIR") or str(DEFAULT_CHAPTER_OUTDIR)
+    outdir = Path(outdir_str).expanduser()
+    outdir.mkdir(parents=True, exist_ok=True)
 
-ax.set_xlabel("k [h·Mpc⁻¹]")
-ax.set_ylabel("P_R(k; α)", labelpad=12)  # labelpad pour décaler plus à droite
-ax.set_title("Spectre primordial MCGT")
-ax.legend(loc="upper right")
-ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+    fname = f"{FIG_BASENAME}.{args.format}"
+    output_path = outdir / fname
 
-# Ajuster les marges pour que tout soit visible
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    if args.verbose:
+        print(f"[plot_fig00_spectrum] outdir       = {outdir}")
+        print(f"[plot_fig00_spectrum] output_path = {output_path}")
 
-# Sauvegarde
-OUT = ROOT / "zz-figures" / "chapter02" / "fig_00_spectrum.png"
-OUT.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(OUT, dpi=300)
-print(f"Figure enregistrée → {OUT}")
+    if args.dry_run:
+        if args.verbose:
+            print("[plot_fig00_spectrum] dry-run -> aucune figure générée.")
+        return
 
-# === MCGT CLI SEED v2 ===
+    # --- Logique scientifique inchangée ---
+    # Grille de k et valeurs de alpha
+    k = np.logspace(-4, 2, 100)
+    alphas = [0.0, 0.05, 0.1]
+
+    # Création de la figure
+    fig, ax = plt.subplots(figsize=(6, 4))
+
+    for alpha in alphas:
+        ax.loglog(k, P_R(k, alpha), label=f"α = {alpha}")
+
+    ax.set_xlabel("k [h·Mpc⁻¹]")
+    ax.set_ylabel("P_R(k; α)", labelpad=12)  # labelpad pour décaler plus à droite
+    ax.set_title("Spectre primordial MCGT")
+    ax.legend(loc="upper right")
+    ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+
+    # Ajuster les marges pour que tout soit visible
+    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+
+    # Sauvegarde
+    plt.savefig(
+        output_path,
+        dpi=args.dpi,
+        transparent=args.transparent,
+    )
+    plt.close(fig)
+
+    if args.verbose:
+        print("[plot_fig00_spectrum] done.")
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+
+    def _mcgt_cli_seed() -> None:
+        import traceback
+
+        parser = argparse.ArgumentParser(
+            description="Standard CLI seed (non-intrusif) pour Fig. 00 – spectre primordial MCGT.",
+        )
+
+        default_outdir = os.environ.get("MCGT_OUTDIR") or str(DEFAULT_CHAPTER_OUTDIR)
+        parser.add_argument(
+            "--outdir",
+            default=default_outdir,
+            help="Dossier de sortie (par défaut: zz-figures/chapter02 ou $MCGT_OUTDIR).",
+        )
+        parser.add_argument(
+            "--dry-run",
+            action="store_true",
+            help="Ne rien écrire, juste afficher les actions.",
+        )
+        parser.add_argument(
+            "--seed",
+            type=int,
+            default=None,
+            help="Graine aléatoire (optionnelle, non utilisée ici, pour homogénéité).",
+        )
+        parser.add_argument(
+            "--force",
+            action="store_true",
+            help="Écraser les sorties existantes si nécessaire.",
+        )
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            action="count",
+            default=0,
+            help="Verbosity cumulable (-v, -vv).",
+        )
+        parser.add_argument(
+            "--dpi",
+            type=int,
+            default=300,
+            help="Figure DPI (default: 300).",
+        )
+        parser.add_argument(
+            "--format",
+            choices=["png", "pdf", "svg"],
+            default="png",
+            help="Figure format (default: png).",
+        )
+        parser.add_argument(
+            "--transparent",
+            action="store_true",
+            help="Fond transparent pour la figure.",
+        )
 
         args = parser.parse_args()
+
         try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
+            main(args)
+        except SystemExit:
+            raise
+        except Exception as e:  # noqa: BLE001
+            print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
+            traceback.print_exc()
+            sys.exit(1)
+
     _mcgt_cli_seed()

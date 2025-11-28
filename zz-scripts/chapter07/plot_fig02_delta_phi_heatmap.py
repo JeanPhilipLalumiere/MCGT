@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import os
 r"""
 plot_fig02_delta_phi_heatmap.py
 
@@ -7,160 +6,294 @@ Figure 02 – Carte de chaleur de $\delta\phi/\phi(k,a)$
 pour le Chapitre 7 (Perturbations scalaires) du projet MCGT.
 """
 
+from __future__ import annotations
+
+import argparse
 import json
 import logging
-import sys
 from pathlib import Path
+from typing import Optional, Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.colors import PowerNorm
 
-# --- CONFIGURATION DU LOGGING ---
-logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
-# --- RACINE DU PROJET ---
-try:
-    RACINE = Path(__file__).resolve().parents[2]
-except NameError:
-    RACINE = Path.cwd()
-sys.path.insert(0, str(RACINE))
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
-# --- PATHS (directory and file names in English) ---
-DONNEES_DIR = RACINE / "zz-data" / "chapter07"
-FIG_DIR = RACINE / "zz-figures" / "chapter07"
-CSV_MATRICE = DONNEES_DIR / "07_delta_phi_matrix.csv"
-JSON_META = DONNEES_DIR / "07_meta_perturbations.json"
-FIG_OUT = FIG_DIR / "fig_02_delta_phi_heatmap_k_a.png"
+def setup_logging(verbose: int = 0) -> None:
+    """Configure le niveau de logging en fonction de -v / -vv."""
+    if verbose >= 2:
+        level = logging.DEBUG
+    elif verbose == 1:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
 
-logging.info("Début du tracé de la figure 02 – Carte de chaleur de δφ/φ")
 
-# --- MÉTA-PARAMÈTRES ---
-if not JSON_META.exists():
-    logging.error("Méta-paramètres introuvable : %s", JSON_META)
-    raise FileNotFoundError(JSON_META)
-meta = json.loads(JSON_META.read_text(encoding="utf-8"))
-k_split = float(meta.get("x_split", meta.get("k_split", 0.0)))
-logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
+def detect_project_root() -> Path:
+    """Détecte la racine du dépôt à partir du chemin du script."""
+    try:
+        return Path(__file__).resolve().parents[2]
+    except NameError:
+        return Path.cwd()
 
-# --- CHARGEMENT DES DONNÉES 2D ---
-if not CSV_MATRICE.exists():
-    logging.error("CSV introuvable : %s", CSV_MATRICE)
-    raise FileNotFoundError(CSV_MATRICE)
-df = pd.read_csv(CSV_MATRICE)
-logging.info("Chargement terminé : %d lignes", len(df))
 
-try:
-    pivot = df.pivot(index="k", columns="a", values="delta_phi_matrice")
-except KeyError:
+def detect_value_column(
+    df: pd.DataFrame,
+    preferred: Sequence[str],
+    context: str,
+) -> str:
+    """
+    Détecte la colonne de valeur pour le heatmap.
+
+    - Essaie d'abord les noms préférés dans l'ordre.
+    - Sinon, cherche les colonnes numériques ≠ {'k','a'}.
+      * Si une seule, on la prend.
+      * Sinon, on lève une erreur explicite.
+    """
+    cols = list(df.columns)
+    for name in preferred:
+        if name in df.columns:
+            logging.info("Colonne %s détectée automatiquement pour %s", name, context)
+            return name
+
+    numeric_cols = [
+        c for c in df.columns
+        if c not in {"k", "a"} and pd.api.types.is_numeric_dtype(df[c])
+    ]
+    if len(numeric_cols) == 1:
+        logging.info(
+            "Colonne unique numérique '%s' sélectionnée automatiquement pour %s",
+            numeric_cols[0],
+            context,
+        )
+        return numeric_cols[0]
+
     logging.error(
-        "Colonnes 'k','a','delta_phi_matrice' manquantes dans %s", CSV_MATRICE
+        "Impossible de déterminer la colonne de valeurs pour %s.\n"
+        "Colonnes disponibles : %s\n"
+        "Colonnes numériques candidates (hors k,a) : %s",
+        context,
+        cols,
+        numeric_cols,
     )
-    raise
-k_vals = pivot.index.to_numpy()
-a_vals = pivot.columns.to_numpy()
-mat_raw = pivot.to_numpy()
-logging.info("Matrice brute : %d×%d (k×a)", mat_raw.shape[0], mat_raw.shape[1])
+    raise RuntimeError(
+        f"Impossible de déterminer la colonne de valeurs pour {context} "
+        f"(colonnes: {cols}, candidates numériques: {numeric_cols})"
+    )
 
-# Masquage des non-finis et ≤0
-mask = ~np.isfinite(mat_raw) | (mat_raw <= 0)
-mat = np.ma.array(mat_raw, mask=mask)
-logging.info("%% masqués : %.1f%%", 100 * mask.mean())
 
-# --- ÉCHELLE COULEUR & PALETTE ---
-# bornes choisies pour mettre en évidence la transition
-vmin, vmax = 1e-6, 1e-5
-logging.info("Colorbar fixed range: [%.1e, %.1e]", vmin, vmax)
+# ---------------------------------------------------------------------------
+# Cœur du tracé
+# ---------------------------------------------------------------------------
 
-norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
-cmap = plt.get_cmap("Oranges")
-cmap.set_bad(color="lightgrey", alpha=0.8)
+def plot_delta_phi_heatmap(
+    *,
+    data_csv: Path,
+    meta_json: Path,
+    out_png: Path,
+    dpi: int = 300,
+) -> None:
+    """Trace la carte de chaleur de δφ/φ(k,a) et enregistre la figure."""
 
-# --- FONTS (mathtext natif) ---
-plt.rc("font", family="serif")
+    logging.info("Début du tracé de la figure 02 – Carte de chaleur de δφ/φ")
+    logging.info("CSV matrice : %s", data_csv)
+    logging.info("JSON méta   : %s", meta_json)
+    logging.info("Figure out  : %s", out_png)
 
-# --- TRACÉ ---
-FIG_DIR.mkdir(parents=True, exist_ok=True)
-fig, ax = plt.subplots(figsize=(8, 5))
+    # --- Métadonnées ---
+    if not meta_json.exists():
+        logging.error("Fichier de méta-paramètres introuvable : %s", meta_json)
+        raise FileNotFoundError(meta_json)
 
-mesh = ax.pcolormesh(a_vals, k_vals, mat, cmap=cmap, norm=norm, shading="auto")
+    meta = json.loads(meta_json.read_text(encoding="utf-8"))
+    k_split = float(meta.get("x_split", meta.get("k_split", 0.0)))
+    logging.info("Lecture de k_split = %.3e [h/Mpc]", k_split)
 
-ax.set_xscale("linear")
-ax.set_yscale("log")
-ax.set_xlabel(r"$a$ (facteur d’échelle)", fontsize="small")
-ax.set_ylabel(r"$k$ [h/Mpc]", fontsize="small")
-ax.set_title(r"Carte de chaleur de $\delta\phi/\phi(k,a)$", fontsize="small")
+    # --- Chargement des données ---
+    if not data_csv.exists():
+        logging.error("CSV introuvable : %s", data_csv)
+        raise FileNotFoundError(data_csv)
 
-# Ticks en taille small
-for lbl in ax.xaxis.get_ticklabels() + ax.yaxis.get_ticklabels():
-    lbl.set_fontsize("small")
+    df = pd.read_csv(data_csv)
+    logging.info("Chargement terminé : %d lignes", len(df))
+    logging.debug("Colonnes du CSV : %s", list(df.columns))
 
-# Contours guides (en blanc, semi-opaques)
-levels = np.logspace(np.log10(vmin), np.log10(vmax), 5)
-ax.contour(
-    a_vals, k_vals, mat_raw, levels=levels, colors="white", linewidths=0.5, alpha=0.7
-)
+    value_col = detect_value_column(
+        df,
+        preferred=["delta_phi_matrice", "delta_phi_over_phi", "delta_phi_phi"],
+        context="delta_phi/phi(k,a)",
+    )
+    logging.info("Colonne utilisée pour δφ/φ : %s", value_col)
 
-# Repère k_split en haut à droite
-ax.axhline(k_split, color="black", linestyle="--", linewidth=1)
-ax.text(
-    a_vals.max(),
-    k_split * 1.1,
-    r"$k_{\rm split}$",
-    va="bottom",
-    ha="right",
-    fontsize="small",
-    color="black",
-)
+    try:
+        pivot = df.pivot(index="k", columns="a", values=value_col)
+    except KeyError:
+        logging.error(
+            "Colonnes 'k','a',%r manquantes dans %s (colonnes présentes: %s)",
+            value_col,
+            data_csv,
+            list(df.columns),
+        )
+        raise
 
-# --- BARRE DE COULEUR ---
-cbar = fig.colorbar(mesh, ax=ax, pad=0.02, extend="both")
-cbar.set_label(r"$\delta\phi/\phi$", rotation=270, labelpad=15, fontsize="small")
-ticks = np.logspace(np.log10(vmin), np.log10(vmax), 5)
-cbar.set_ticks(ticks)
-cbar.set_ticklabels([f"$10^{{{int(np.round(np.log10(t)))}}}$" for t in ticks])
-cbar.ax.yaxis.set_tick_params(labelsize="small")
+    k_vals = pivot.index.to_numpy(dtype=float)
+    a_vals = pivot.columns.to_numpy(dtype=float)
+    mat_raw = pivot.to_numpy(dtype=float)
+    logging.info("Matrice brute : %d×%d (k×a)", mat_raw.shape[0], mat_raw.shape[1])
 
-# --- SAUVEGARDE ---
-fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-fig.savefig(FIG_OUT, dpi=300)
-plt.close(fig)
+    # Masquage des non-finis et <= 0
+    mask = ~np.isfinite(mat_raw) | (mat_raw <= 0)
+    mat = np.ma.array(mat_raw, mask=mask)
+    logging.info("Fraction de valeurs masquées : %.1f %%", 100.0 * mask.mean())
 
-logging.info("Figure sauvegardée → %s", FIG_OUT)
-logging.info("Tracé de la figure 02 terminé ✔")
+    # --- Échelle couleur ---
+    # Bornes choisies pour mettre en évidence la transition
+    vmin, vmax = 1e-6, 1e-5
+    logging.info("Colorbar fixed range: [%.1e, %.1e]", vmin, vmax)
 
-# === MCGT CLI SEED v2 ===
+    norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
+    cmap = plt.get_cmap("Oranges").copy()
+    cmap.set_bad(color="lightgrey", alpha=0.8)
+
+    plt.rc("font", family="serif")
+
+    # --- Tracé ---
+    out_png.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=dpi)
+
+    mesh = ax.pcolormesh(
+        a_vals,
+        k_vals,
+        mat,
+        cmap=cmap,
+        norm=norm,
+        shading="auto",
+    )
+
+    ax.set_xscale("linear")
+    ax.set_yscale("log")
+    ax.set_xlabel(r"$a$ (facteur d'échelle)", fontsize="small")
+    ax.set_ylabel(r"$k$ \,[h/Mpc]", fontsize="small")
+    ax.set_title(r"Carte de chaleur de $\delta\phi/\phi(k,a)$", fontsize="small")
+
+    # Ticks en petite taille
+    for lbl in list(ax.xaxis.get_ticklabels()) + list(ax.yaxis.get_ticklabels()):
+        lbl.set_fontsize("small")
+
+    # Contours guides (en blanc, semi-opaques)
+    levels = np.logspace(np.log10(vmin), np.log10(vmax), 5)
+    mat_for_contour = np.where(mask, np.nan, mat_raw)
+    ax.contour(
+        a_vals,
+        k_vals,
+        mat_for_contour,
+        levels=levels,
+        colors="white",
+        linewidths=0.5,
+        alpha=0.7,
+    )
+
+    # Repère k_split
+    ax.axhline(k_split, color="black", linestyle="--", linewidth=1)
+    ax.text(
+        float(a_vals.max()),
+        k_split * 1.1,
+        r"$k_{\rm split}$",
+        va="bottom",
+        ha="right",
+        fontsize="small",
+        color="black",
+    )
+
+    # --- Barre de couleur ---
+    cbar = fig.colorbar(mesh, ax=ax, pad=0.02, extend="both")
+    cbar.set_label(r"$\delta\phi/\phi$", rotation=270, labelpad=15, fontsize="small")
+    ticks = np.logspace(np.log10(vmin), np.log10(vmax), 5)
+    cbar.set_ticks(ticks)
+    cbar.set_ticklabels([f"$10^{{{int(np.round(np.log10(t)))}}}$" for t in ticks])
+    cbar.ax.yaxis.set_tick_params(labelsize="small")
+
+    # Sauvegarde
+    fig.subplots_adjust(left=0.08, right=0.98, bottom=0.08, top=0.96)
+    fig.savefig(out_png, dpi=dpi)
+    plt.close(fig)
+
+    logging.info("Figure sauvegardée : %s", out_png)
+    logging.info("Tracé de la figure 02 terminé ✔")
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+def build_arg_parser() -> argparse.ArgumentParser:
+    racine = detect_project_root()
+    default_data = racine / "zz-data" / "chapter07" / "07_delta_phi_matrix.csv"
+    default_meta = racine / "zz-data" / "chapter07" / "07_meta_perturbations.json"
+    default_out = racine / "zz-figures" / "chapter07" / "07_fig_02_delta_phi_heatmap.png"
+
+    p = argparse.ArgumentParser(
+        description=(
+            "Figure 02 – Carte de chaleur de δφ/φ(k,a) (Chapitre 7).\n"
+            "Génère la figure PNG à partir de la matrice delta_phi_matrice."
+        ),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    p.add_argument(
+        "--data-csv",
+        default=str(default_data),
+        help="CSV contenant la matrice δφ/φ (colonnes: k, a, valeur).",
+    )
+    p.add_argument(
+        "--meta-json",
+        default=str(default_meta),
+        help="JSON des méta-paramètres (contient notamment k_split).",
+    )
+    p.add_argument(
+        "--out",
+        default=str(default_out),
+        help="Chemin de sortie pour la figure PNG.",
+    )
+    p.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="Résolution de la figure.",
+    )
+    p.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Verbosity cumulable (-v, -vv).",
+    )
+    return p
+
+
+def main(argv: Optional[list[str]] = None) -> None:
+    parser = build_arg_parser()
+    args = parser.parse_args(argv)
+
+    setup_logging(args.verbose)
+
+    data_csv = Path(args.data_csv)
+    meta_json = Path(args.meta_json)
+    out_png = Path(args.out)
+
+    plot_delta_phi_heatmap(
+        data_csv=data_csv,
+        meta_json=meta_json,
+        out_png=out_png,
+        dpi=args.dpi,
+    )
+
+
 if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
+    main()
 
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Fig. 05 — Dérivée lissée ∂ₖ(δφ/φ)(k) – Chapitre 7.
+"""Fig. 07 — Second invariant I2(k) – Chapitre 7.
 
-- Lit un CSV 1D (k, valeur)
-- Trace |∂ₖ(δφ/φ)|(k) en log-log
-- Sauvegarde 07_fig_05_ddelta_phi_vs_k.png
+- Lit un CSV 1D (k, invariant)
+- Trace I2(k) en log-log avec repère k_split
+- Sauvegarde 07_fig_07_invariant_i2.png
+
+Remarque : on tente d'abord des noms de colonnes typiques (I2_cs2, I2, invariant_i2).
+Si aucune n'est trouvée, on tombe en repli sur l'unique colonne numérique (hors 'k').
 """
 
 from __future__ import annotations
@@ -40,29 +43,31 @@ def detect_value_column(
     explicit: Optional[str],
     preferred: Sequence[str],
 ) -> str:
-    """Choisit la colonne de dérivée à tracer.
+    """Choisit la colonne à utiliser pour I2(k).
 
     Priorité :
     1) `explicit` si fournie et présente
-    2) première colonne dans `preferred` trouvée
-    3) s'il n'y a qu'une seule colonne numérique (hors 'k'), on la prend
+    2) première colonne trouvée dans `preferred`
+    3) si une seule colonne numérique (hors 'k'), on la prend
     """
     cols = list(df.columns)
 
     if explicit:
         if explicit in df.columns:
-            logging.info("Colonne explicite utilisée : %s", explicit)
+            logging.info("Colonne explicite utilisée pour I2 : %s", explicit)
             return explicit
         else:
             raise KeyError(
                 f"Colonne explicite '{explicit}' absente. Colonnes disponibles : {cols}"
             )
 
+    # Essai sur la liste de préférences
     for name in preferred:
         if name in df.columns:
-            logging.info("Colonne détectée automatiquement : %s", name)
+            logging.info("Colonne I2 détectée automatiquement : %s", name)
             return name
 
+    # Fallback : unique colonne numérique (hors 'k')
     numeric_candidates: List[str] = []
     for c in df.columns:
         if c == "k":
@@ -71,11 +76,15 @@ def detect_value_column(
             numeric_candidates.append(c)
 
     if len(numeric_candidates) == 1:
-        logging.info("Colonne numérique unique sélectionnée : %s", numeric_candidates[0])
+        logging.warning(
+            "Aucune des colonnes préférées pour I2 n'a été trouvée. "
+            "Repli sur la seule colonne numérique disponible : %s",
+            numeric_candidates[0],
+        )
         return numeric_candidates[0]
 
     raise RuntimeError(
-        "Impossible de déterminer la colonne de dérivée à tracer. "
+        "Impossible de déterminer la colonne I2 à tracer. "
         f"Colonnes : {cols}"
     )
 
@@ -92,7 +101,7 @@ def format_pow10(x: float, pos: int) -> str:
 # ---------------------------------------------------------------------------
 
 
-def plot_ddelta_phi_vs_k(
+def plot_invariant_i2(
     *,
     data_csv: Path,
     meta_json: Path,
@@ -100,10 +109,10 @@ def plot_ddelta_phi_vs_k(
     out_png: Path,
     dpi: int,
 ) -> None:
-    logging.info("Début du tracé de la figure 05 – d/dk(δφ/φ)(k)")
-    logging.info("CSV dérivée : %s", data_csv)
-    logging.info("JSON méta   : %s", meta_json)
-    logging.info("Figure out  : %s", out_png)
+    logging.info("Début du tracé de la figure 07 – invariant I2(k)")
+    logging.info("CSV données  : %s", data_csv)
+    logging.info("JSON méta    : %s", meta_json)
+    logging.info("Figure sortie: %s", out_png)
 
     if not meta_json.exists():
         raise FileNotFoundError(f"Méta-paramètres introuvables : {meta_json}")
@@ -123,38 +132,35 @@ def plot_ddelta_phi_vs_k(
     col = detect_value_column(
         df,
         explicit=value_col,
-        preferred=["d_delta_phi_dk", "ddelta_phi_dk", "ddelta_phi_vs_k"],
+        preferred=["I2_cs2", "I2", "invariant_i2"],
     )
 
     k_vals = df["k"].to_numpy()
-    ddphi = df[col].to_numpy()
-    abs_dd = np.abs(ddphi)
+    i2_vals = df[col].to_numpy()
 
-    mask = np.isfinite(k_vals) & np.isfinite(abs_dd) & (abs_dd > 0)
+    # Masque : valeurs finies et strictement positives (pour log-log)
+    mask = np.isfinite(k_vals) & np.isfinite(i2_vals) & (i2_vals > 0)
     if mask.sum() == 0:
-        raise ValueError("Aucune valeur positive finie pour |∂ₖ(δφ/φ)|")
+        raise ValueError("Aucune valeur positive finie pour I2(k) après masquage.")
 
     k_vals = k_vals[mask]
-    abs_dd = abs_dd[mask]
+    i2_vals = i2_vals[mask]
 
-    # Bornes Y (log) déduites des données
-    y_min = abs_dd.min()
-    y_max = abs_dd.max()
-    y_min_dec = int(np.floor(np.log10(y_min)))
-    y_max_dec = int(np.ceil(np.log10(y_max)))
-    yticks = [10.0 ** p for p in range(y_min_dec, y_max_dec + 1)]
+    # Bornes Y log à partir des données
+    vmin = i2_vals.min()
+    vmax = i2_vals.max()
+    pmin = int(np.floor(np.log10(vmin)))
+    pmax = int(np.ceil(np.log10(vmax)))
+    yticks = [10.0**p for p in range(pmin, pmax + 1)]
 
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    ax.loglog(k_vals, abs_dd, color="C2", lw=2, label=r"$|\partial_k(\delta\phi/\phi)|$")
+    ax.loglog(k_vals, i2_vals, color="C3", lw=2, label=rf"$I_2(k)$ ({col})")
 
     # Repère k_split
-    ax.axvline(k_split, ls="--", color="gray", lw=1)
-    # Position du label légèrement au-dessus du bas de l'axe
-    ymin_plot = 10.0 ** y_min_dec
-    ymax_plot = 10.0 ** y_max_dec
-    y_text = 10.0 ** (y_min_dec + 0.05 * (y_max_dec - y_min_dec))
+    ax.axvline(k_split, ls="--", color="k", lw=1)
+    y_text = 10.0 ** (pmin + 0.05 * (pmax - pmin))
     ax.text(
         k_split * 1.05,
         y_text,
@@ -166,13 +172,14 @@ def plot_ddelta_phi_vs_k(
 
     # Limites
     ax.set_xlim(k_vals.min(), k_vals.max())
-    ax.set_ylim(ymin_plot, ymax_plot)
+    ax.set_ylim(10.0**pmin, 10.0**pmax)
 
-    # Labels
+    # Labels / titre
     ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
-    ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$")
+    ax.set_ylabel(r"$I_2(k)$")
+    ax.set_title("Second invariant scalaire $I_2(k)$")
 
-    # Grille et ticks
+    # Grille + ticks
     ax.grid(which="major", ls=":", lw=0.5)
     ax.grid(which="minor", ls=":", lw=0.3, alpha=0.7)
 
@@ -184,15 +191,15 @@ def plot_ddelta_phi_vs_k(
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)
 
-    ax.legend(loc="upper right", frameon=False)
+    ax.legend(loc="best", frameon=False)
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig.tight_layout()
     fig.savefig(out_png, dpi=dpi)
     plt.close(fig)
 
-    logging.info("Figure sauvegardée : %s", out_png)
-    logging.info("Tracé de la figure 05 terminé ✔")
+    logging.info("Figure enregistrée : %s", out_png)
+    logging.info("Tracé de la figure 07 terminé ✔")
 
 
 # ---------------------------------------------------------------------------
@@ -202,13 +209,13 @@ def plot_ddelta_phi_vs_k(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Fig. 05 — Dérivée lissée ∂ₖ(δφ/φ)(k) – Chapitre 7.",
+        description="Fig. 07 — Second invariant I2(k) – Chapitre 7.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
         "--data-csv",
-        default="zz-data/chapter07/07_ddelta_phi_vs_k.csv",
-        help="CSV contenant k et la dérivée d(δφ/φ)/dk.",
+        default="zz-data/chapter07/07_scalar_invariants.csv",
+        help="CSV contenant k et l'invariant I2(k).",
     )
     p.add_argument(
         "--meta-json",
@@ -217,13 +224,13 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png",
-        help="Chemin de sortie de la figure.",
+        default="zz-figures/chapter07/07_fig_07_invariant_i2.png",
+        help="Chemin de sortie de la figure PNG.",
     )
     p.add_argument(
         "--value-col",
         default=None,
-        help="Nom explicite de la colonne de dérivée (sinon auto-détection).",
+        help="Nom explicite de la colonne I2 (sinon auto-détection).",
     )
     p.add_argument(
         "--dpi",
@@ -251,7 +258,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     meta_json = Path(args.meta_json)
     out_png = Path(args.out)
 
-    plot_ddelta_phi_vs_k(
+    plot_invariant_i2(
         data_csv=data_csv,
         meta_json=meta_json,
         value_col=args.value_col,

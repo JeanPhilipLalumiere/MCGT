@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1",
-  "generated_at": "2025-11-29T19:13:50Z",
+  "generated_at": "2025-11-29T20:40:43Z",
   "manifest_tool_version": "diag_consistency.py v1",
   "entries": [
     {
@@ -1930,7 +1930,7 @@
       "role": "figure",
       "size_bytes": 302968,
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
-      "mtime_iso": "2025-11-29T19:00:28Z",
+      "mtime_iso": "2025-11-29T20:39:05Z",
       "media_type": "image/png",
       "tags": [
         "chapter09"
@@ -2165,15 +2165,15 @@
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
-      "sha256": "2549b5e48c2188ddea023bafdecbf5c4d24ad38f6e5b57534580c2100f2a4f12",
-      "mtime_iso": "2025-11-29T19:00:27Z",
+      "sha256": "3eae5f58c622d96a343fd2a165a29aa1cf3edfad8f1a1b8a7134822b6ad80df8",
+      "mtime_iso": "2025-11-29T20:39:04Z",
       "media_type": "application/json",
       "tags": [
         "chapter09"
       ],
       "size": 1839,
       "mtime": 1761222870,
-      "git_hash": "545796aa3991cea5b060ef45c9aabdb2dfd941c1"
+      "git_hash": "2b32f56b7c9f366e6c8dfbb9ad61b9395796028c"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.meta.json",
@@ -6704,6 +6704,6 @@
   },
   "repository_root": ".",
   "total_size_bytes": 19281701,
-  "entries_updated": 47,
+  "entries_updated": 4,
   "generated_by": "jplal"
 }

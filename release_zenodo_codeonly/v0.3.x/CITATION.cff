@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 version: "0.2.99"
-title: MCGT : Modèle de la Courbure Gravitationnelle Temporelle
+title: MCGT : Modèle de la Courbure Gravitationnelle du Temps
 doi: 10.5281/zenodo.15186836
 type: software
 authors:

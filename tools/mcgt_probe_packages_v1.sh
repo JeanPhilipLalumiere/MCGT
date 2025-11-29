@@ -30,7 +30,7 @@ echo "### (2) Arborescence des répertoires de package (profondeur 2)"
 for d in mcgt zz_tools zz-tools zz_tools.egg-info; do
   if [ -d "$d" ]; then
     echo "---- $d (profondeur 2) ----"
-    find "$d" -maxdepth 2 -mindepth 1 -maxdepth 2 -mindepth 1 -type d -o -type f | sort
+    find "$d" -maxdepth 2 -mindepth 1 -print | sort
     echo
   else
     echo "---- $d : [absent] ----"

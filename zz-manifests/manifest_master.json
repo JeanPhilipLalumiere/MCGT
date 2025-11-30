@@ -6294,10 +6294,12 @@
     {
       "path": ".gitignore",
       "role": "artifact",
-      "size_bytes": 2786,
-      "sha256": "ec45e12b01d10da9c52af6a1a29ca17e41d160de27fa17b5f363d151187147aa",
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "git_hash": "944969968f2e8adae88c2a6d8f68df966f21040c"
+      "size_bytes": 2794,
+      "sha256": "940ec9ba8e3e3e28507ef59b75c863b45420f2b7c80a56cea34305739fde2374",
+      "mtime_iso": "2025-11-30T02:24:20Z",
+      "git_hash": "0cbb1c3f04a3ff26adb68713ed3df5d1bdf4e815",
+      "size": 2794,
+      "mtime": 1764469460
     },
     {
       "path": ".github/workflows/smoke-pypi.yml",
@@ -6647,7 +6649,7 @@
     "homepage": ""
   },
   "repository_root": ".",
-  "total_size_bytes": 19265604,
-  "entries_updated": 13,
+  "total_size_bytes": 19265612,
+  "entries_updated": 14,
   "generated_by": "jplal"
 }

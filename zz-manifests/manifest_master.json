@@ -2109,15 +2109,15 @@
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
-      "sha256": "e59850e5d0443e9a7d2d8f7521b15308f5efc2f1681c0c86923730003302fd73",
-      "mtime_iso": "2025-11-30T01:43:08Z",
+      "sha256": "f3d564b8cbb2daab72e2686c07554be536a4cb3888c8a49ac5bf74ae5198f0ec",
+      "mtime_iso": "2025-11-30T03:15:06Z",
       "media_type": "application/json",
       "tags": [
         "chapter09"
       ],
       "size": 1839,
-      "mtime": 1764466988,
-      "git_hash": "b42e9c7f0e1a6b01c444511d2c377435f394d025"
+      "mtime": 1764472506,
+      "git_hash": "a345305f8dd23974151283464bacae6fe6f94d3f"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.meta.json",
@@ -6650,6 +6650,6 @@
   },
   "repository_root": ".",
   "total_size_bytes": 19265612,
-  "entries_updated": 16,
+  "entries_updated": 17,
   "generated_by": "jplal"
 }

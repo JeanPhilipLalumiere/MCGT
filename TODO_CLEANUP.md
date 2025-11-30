@@ -266,3 +266,64 @@ tools/mcgt_cleanup_step1.sh
 - Version de référence (manifest_master.project.version) : 0.2.99
 - CITATION.cff (racine) : champ version mis à jour.
 - CITATION.cff (release_zenodo_codeonly/v0.3.x) : champ version mis à jour.
+
+## Step07 – LOW_PRIORITY_DATA (classification et plan)
+
+_Date : 2025-11-30 02:39 UTC_
+
+### Fichiers à considérer comme **données officielles / obligatoires**
+
+- `zz-data/chapter10/dummy_results.csv`
+  - Dataset principal (≈1200 lignes, 6 colonnes) pour les figures et analyses du chapitre 10.
+  - Colonnes : `m1`, `m2`, `p95_20_300`, `p95_20_300_recalc`, `phi_ref_fpeak`, `phi_mcgt_fpeak`.
+  - Utilisé par :
+    - `tools/ch10_smoke.sh`
+    - `tools/ch10_afterfix.sh`
+    - plusieurs scripts `tools/ch10_fix_*.sh`
+    - `tools/ch10_patch_and_test.sh`
+  - → Statut : **CORE DATA CH10**, ne pas supprimer.
+
+- `zz-data/chapter10/example_results.csv`
+  - Petit dataset d'exemple (5 lignes, 6 colonnes) de type GW-A…E.
+  - Colonnes : `id`, `event`, `f_Hz`, `phi_mcgt_at_fpeak`, `obs_phase`, `sigma_phase`.
+  - Référencé par les diagnostics de publication (`_diag_publication_*.json`) et les manifests.
+  - → Statut : **EXAMPLE DATA OFFICIELLE**, à conserver comme jeu d'exemple.
+
+### Fichiers à considérer comme **placeholders structurels** (candidats ménage futur)
+
+- `zz-data/chapter03/placeholder.csv`
+- `zz-data/chapter07/placeholder.csv`
+
+Caractéristiques communes :
+- Fichiers CSV **vides** (`No columns to parse from file`).
+- Référencés dans :
+  - plusieurs `_diag_master_*.json`
+  - `zz-manifests/manifest_master.json`
+  - `zz-manifests/integrity.json`
+  - `zz-manifests/master.json`
+  - métadonnées locales (`03_meta_stability_fR.json`, `07_meta_perturbations.json`).
+- → Statut provisoire :
+  - **PLACEHOLDER STRUCTUREL**, sans contenu scientifique.
+  - Candidats à suppression ou déplacement dans `attic/data/` après refactor des méta/manifestes.
+
+### Plan futur (à exécuter plus tard)
+
+1. **Phase A – Analyse d'usage des placeholders**
+   - Confirmer qu'aucun script de production ne lit réellement ces fichiers CSV.
+   - Documenter la fonction précise de `03_meta_stability_fR.json` et `07_meta_perturbations.json`.
+
+2. **Phase B – Refactor méta & manifests**
+   - Adapter les JSON de méta pour ne plus dépendre de ces placeholders (ou les remplacer par de vraies données).
+   - Mettre à jour :
+     - `zz-manifests/manifest_master.json`
+     - `zz-manifests/integrity.json`
+     - (et snapshot `release_zenodo_codeonly/v0.3.x` si nécessaire).
+   - Vérifier que `diag_consistency` reste **sans erreurs**.
+
+3. **Phase C – Ménage**
+   - Déplacer les placeholders obsolètes vers `attic/data/chapter03/` et `attic/data/chapter07/`,
+     ou les supprimer si plus aucune référence active.
+   - Mettre à jour `TODO_CLEANUP.md` en conséquence.
+
+---
+

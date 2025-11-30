@@ -1874,13 +1874,13 @@
       "role": "figure",
       "size_bytes": 302968,
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
-      "mtime_iso": "2025-11-29T20:41:21Z",
+      "mtime_iso": "2025-11-30T01:30:04Z",
       "media_type": "image/png",
       "tags": [
         "chapter09"
       ],
       "size": 302968,
-      "mtime": 1760581347,
+      "mtime": 1764466204,
       "git_hash": "64b805360b13ceb34522ce3c787f2c1ca3eb72aa"
     },
     {
@@ -2109,15 +2109,15 @@
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
-      "sha256": "30521e55eeca18264ab69183bb355a3558bee994e4b793c99cc5657f633c09fe",
-      "mtime_iso": "2025-11-29T20:41:20Z",
+      "sha256": "e59850e5d0443e9a7d2d8f7521b15308f5efc2f1681c0c86923730003302fd73",
+      "mtime_iso": "2025-11-30T01:43:08Z",
       "media_type": "application/json",
       "tags": [
         "chapter09"
       ],
       "size": 1839,
-      "mtime": 1761222870,
-      "git_hash": "f08449a4c3ab486236927f77eee52a291ca582b5"
+      "mtime": 1764466988,
+      "git_hash": "b42e9c7f0e1a6b01c444511d2c377435f394d025"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.meta.json",
@@ -6647,7 +6647,7 @@
     "homepage": ""
   },
   "repository_root": ".",
-  "total_size_bytes": 19281701,
-  "entries_updated": 8,
+  "total_size_bytes": 19265604,
+  "entries_updated": 13,
   "generated_by": "jplal"
 }

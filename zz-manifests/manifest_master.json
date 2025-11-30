@@ -802,20 +802,6 @@
       "git_hash": "2ecd01c1f64634534a555a299304d78bbe419fae"
     },
     {
-      "path": "zz-scripts/chapter07/plot_fig07_invariant_I2.py",
-      "role": "script",
-      "size_bytes": 5629,
-      "sha256": "8a481272ad16e561ea0719984d56f9e5d8c49d12128bf3f71308f51d58a99dd2",
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "media_type": "text/x-python",
-      "tags": [
-        "chapter07"
-      ],
-      "size": 5629,
-      "mtime": 1760880221,
-      "git_hash": "ef5d72ffe737af869e78c6700f6efe30e88edf2c"
-    },
-    {
       "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
       "role": "script",
       "size_bytes": 10138,
@@ -856,20 +842,6 @@
       "size": 4669,
       "mtime": 1760880221,
       "git_hash": "5cecf4e3064c6b38d0f41db736c61523fa1f1d7e"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig03_invariant_I1.py",
-      "role": "script",
-      "size_bytes": 4556,
-      "sha256": "6cbaada74d3754e79e01398e8914e16dcf16d3ff9d9fe68933308cbc899adfe4",
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "media_type": "text/x-python",
-      "tags": [
-        "chapter07"
-      ],
-      "size": 4556,
-      "mtime": 1760880221,
-      "git_hash": "44e9a52f16ca193fee70c785c558000fc624c11d"
     },
     {
       "path": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
@@ -1504,20 +1476,6 @@
       "git_hash": "a4915a669ae7f8ee12a84cab03cc60d4c1082e61"
     },
     {
-      "path": "zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py",
-      "role": "script",
-      "size_bytes": 2922,
-      "sha256": "1fdc61294fde3f8c7e4dda8ee2e3caf99ddf97d9f0006ceb8b0ccfa5f499ae2e",
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "media_type": "text/x-python",
-      "tags": [
-        "chapter01"
-      ],
-      "size": 2922,
-      "mtime": 1760880221,
-      "git_hash": "4152f7d7efd55c12afcd03dc7b4dfbed08e44cbd"
-    },
-    {
       "path": "zz-scripts/chapter01/plot_fig05_I1_vs_T.py",
       "role": "script",
       "size_bytes": 4119,
@@ -1530,20 +1488,6 @@
       "size": 2634,
       "mtime": 1760880221,
       "git_hash": "730333d382a9f7b4968cab5f30f911bcc99a7f14"
-    },
-    {
-      "path": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
-      "role": "script",
-      "size_bytes": 2990,
-      "sha256": "e98be7143c6704aa669ccc37d2845fae0c2440446d2976900abee24bebbfaa65",
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "media_type": "text/x-python",
-      "tags": [
-        "chapter01"
-      ],
-      "size": 2990,
-      "mtime": 1760880221,
-      "git_hash": "3ac899f9866e9ce7ec1469e20c74d36fdc80c73d"
     },
     {
       "path": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
@@ -6704,6 +6648,6 @@
   },
   "repository_root": ".",
   "total_size_bytes": 19281701,
-  "entries_updated": 4,
+  "entries_updated": 8,
   "generated_by": "jplal"
 }

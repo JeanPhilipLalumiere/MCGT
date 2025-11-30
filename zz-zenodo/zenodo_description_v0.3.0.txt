@@ -3,3 +3,5 @@ Toolkit de publication et de reproductibilité pour le Modèle de la Courbure Gr
 Les pipelines de reproduction sont stabilisés pour le chapitre des phases d’ondes gravitationnelles (CH09) et en développement pour le chapitre bootstrap des métriques sur p95 (CH10). Les textes LaTeX des chapitres sont pour l’instant fournis sous forme de squelettes/placeholders ; une version ultérieure intégrera la monographie complète et la structure finale des chapitres.
 
 Ce dépôt Zenodo archive le tarball de publication correspondant au dépôt GitHub MCGT (branche main, série 0.3.x) et sert de point d’ancrage pour le DOI utilisé dans les travaux scientifiques fondés sur MCGT.
+
+Ce snapshot correspond au tag Git `v0.3.0-zenodo-snapshot-20251130T204410Z` dans le dépôt public MCGT (branche `main`).

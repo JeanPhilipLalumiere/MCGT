@@ -68,7 +68,7 @@
     "fisher_scan2D_csv": null
   },
   "repro": {
-    "git_hash": "83c41ebd68157c94b19a4325466ca43820011a2f",
+    "git_hash": "d95f60bc31fb9028b24e7da3273b51d0447d133a",
     "python": "3.12.11",
     "libs": {
       "numpy": "2.2.2",

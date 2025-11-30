@@ -495,5 +495,86 @@ hors vitrine.)
 - **Figures**
   - `zz-figures/chapter10/10_fig_01_iso_p95_maps.png`
   - `zz-figures/chapter10/10_fig_07_synthesis.png`
+---
+## Step14 – FRONT/BACKSTAGE (snapshot)
 
+_Dernière génération via Step14 (stats FRONT / BACKSTAGE par chapitre)._
+
+```text
+=== MCGT Step14 : stats FRONT / BACKSTAGE ===
+[INFO] Source Step12 : zz-logs/step12_backstage_candidates_20251130T034239Z.txt
+[INFO] Généré le (UTC) : 20251130T035910Z
+
+# Par chapitre : inventory, front, backstage, ratios (%)
+
+CH01 :
+  - inventory total : 20
+  - front_files     : 6
+  - backstage       : 14
+  - ratio FRONT     :  30.0%
+  - ratio BACKSTAGE :  70.0%
+
+CH02 :
+  - inventory total : 24
+  - front_files     : 6
+  - backstage       : 18
+  - ratio FRONT     :  25.0%
+  - ratio BACKSTAGE :  75.0%
+
+CH03 :
+  - inventory total : 26
+  - front_files     : 7
+  - backstage       : 19
+  - ratio FRONT     :  26.9%
+  - ratio BACKSTAGE :  73.1%
+
+CH04 :
+  - inventory total : 10
+  - front_files     : 4
+  - backstage       : 6
+  - ratio FRONT     :  40.0%
+  - ratio BACKSTAGE :  60.0%
+
+CH05 :
+  - inventory total : 16
+  - front_files     : 7
+  - backstage       : 9
+  - ratio FRONT     :  43.8%
+  - ratio BACKSTAGE :  56.2%
+
+CH06 :
+  - inventory total : 22
+  - front_files     : 7
+  - backstage       : 15
+  - ratio FRONT     :  31.8%
+  - ratio BACKSTAGE :  68.2%
+
+CH07 :
+  - inventory total : 31
+  - front_files     : 8
+  - backstage       : 23
+  - ratio FRONT     :  25.8%
+  - ratio BACKSTAGE :  74.2%
+
+CH08 :
+  - inventory total : 27
+  - front_files     : 7
+  - backstage       : 20
+  - ratio FRONT     :  25.9%
+  - ratio BACKSTAGE :  74.1%
+
+CH09 :
+  - inventory total : 29
+  - front_files     : 8
+  - backstage       : 21
+  - ratio FRONT     :  27.6%
+  - ratio BACKSTAGE :  72.4%
+
+CH10 :
+  - inventory total : 40
+  - front_files     : 8
+  - backstage       : 32
+  - ratio FRONT     :  20.0%
+  - ratio BACKSTAGE :  80.0%
+```
 

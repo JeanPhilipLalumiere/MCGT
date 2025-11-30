@@ -1870,7 +1870,7 @@
       "git_hash": "64b805360b13ceb34522ce3c787f2c1ca3eb72aa",
       "media_type": "image/png",
       "mtime": 1764472672,
-      "mtime_iso": "2025-11-30T17:53:44Z",
+      "mtime_iso": "2025-11-30T18:10:39Z",
       "path": "zz-figures/chapter09/09_fig_01_phase_overlay.png",
       "role": "figure",
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
@@ -2103,13 +2103,13 @@
       "size_bytes": 8752
     },
     {
-      "git_hash": "a6cac96dbda579858cf676d474d81b8a2d9e2f94",
+      "git_hash": "dbd7a9b65b2d6c962e2a3538c7ffa0953fbe1e6b",
       "media_type": "application/json",
       "mtime": 1764473436,
-      "mtime_iso": "2025-11-30T17:53:43Z",
+      "mtime_iso": "2025-11-30T18:10:38Z",
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "sha256": "b0ec80b9a3e70384f1f82820ee89cd7237fe44167fd11a1ca8a1c8e71dddb57f",
+      "sha256": "aa4ea4e0777a431853458c664682e6abf23080a033d6e4ac08701ba7f9797366",
       "size": 1839,
       "size_bytes": 1839,
       "tags": [

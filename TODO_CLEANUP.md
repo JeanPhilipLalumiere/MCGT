@@ -327,3 +327,173 @@ Caractéristiques communes :
 
 ---
 
+## Step11 – FRONT_FILES_PAR_CHAPITRE
+
+_Date : 2025-11-30 03:35 UTC_
+
+Cette section liste, pour chaque chapitre, les fichiers « vitrine » à garder au premier plan
+(scripts maîtres, données clés, figures principales). Le reste est considéré comme artefacts
+de second niveau (backstage) ou candidats à attic/ à moyen terme.
+
+### CH01 – Invariants thermiques & erreurs relatives
+
+- **Scripts**
+  - `zz-scripts/chapter01/generate_data_chapter01.py`
+  - `zz-scripts/chapter01/plot_fig03_relative_error_timeline.py`
+
+- **Données**
+  - `zz-data/chapter01/01_optimized_data.csv`
+  - `zz-data/chapter01/01_relative_error_timeline.csv`
+
+- **Figures**
+  - `zz-figures/chapter01/01_fig_01_early_plateau.png`
+  - `zz-figures/chapter01/01_fig_03_relative_error_timeline.png`
+
+
+### CH02 – Spectre primordial & calibration
+
+- **Scripts**
+  - `zz-scripts/chapter02/generate_data_chapter02.py`
+  - `zz-scripts/chapter02/plot_fig00_spectrum.py`
+
+- **Données**
+  - `zz-data/chapter02/02_primordial_spectrum_spec.json`
+  - `zz-data/chapter02/02_As_ns_vs_alpha.csv`
+
+- **Figures**
+  - `zz-figures/chapter02/02_fig_00_spectrum.png`
+  - `zz-figures/chapter02/02_fig_03_relative_errors.png`
+
+
+### CH03 – Stabilité f(R) & courbure de Ricci
+
+- **Scripts**
+  - `zz-scripts/chapter03/generate_data_chapter03.py`
+  - `zz-scripts/chapter03/plot_fig01_fR_stability_domain.py`
+
+- **Données**
+  - `zz-data/chapter03/03_fR_stability_domain.csv`
+  - `zz-data/chapter03/03_ricci_fR_vs_T.csv`
+
+- **Figures**
+  - `zz-figures/chapter03/03_fig_01_fr_stability_domain.png`
+  - `zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png`
+
+(Remarque : `zz-data/chapter03/placeholder.csv` reste classé comme placeholder structurel,
+hors vitrine.)
+
+
+### CH04 – Invariants sans dimension
+
+- **Scripts**
+  - `zz-scripts/chapter04/generate_data_chapter04.py`
+
+- **Données**
+  - `zz-data/chapter04/04_dimensionless_invariants.csv`
+
+- **Figures**
+  - `zz-figures/chapter04/04_fig_01_invariants_schematic.png`
+  - `zz-figures/chapter04/04_fig_03_invariants_vs_t.png`
+
+
+### CH05 – Nucléosynthèse primordiale (BBN)
+
+- **Scripts**
+  - `zz-scripts/chapter05/generate_data_chapter05.py`
+  - `zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py`
+
+- **Données**
+  - `zz-data/chapter05/05_bbn_data.csv`
+  - `zz-data/chapter05/05_bbn_invariants.csv`
+  - `zz-data/chapter05/05_chi2_bbn_vs_T.csv`
+
+- **Figures**
+  - `zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
+  - `zz-figures/chapter05/05_fig_04_chi2_vs_t.png`
+
+
+### CH06 – CMB & Δχ²
+
+- **Scripts**
+  - `zz-scripts/chapter06/generate_data_chapter06.py`
+  - `zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py`
+
+- **Données**
+  - `zz-data/chapter06/06_cmb_full_results.csv`
+  - `zz-data/chapter06/06_delta_cls_relative.csv`
+  - `zz-data/chapter06/06_cmb_chi2_scan2D.csv`
+
+- **Figures**
+  - `zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png`
+  - `zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png`
+
+
+### CH07 – Perturbations scalaires
+
+- **Scripts**
+  - `zz-scripts/chapter07/generate_data_chapter07.py`
+  - `zz-scripts/chapter07/launch_scalar_perturbations_solver.py`
+
+- **Données**
+  - `zz-data/chapter07/07_scalar_perturbations_results.csv`
+  - `zz-data/chapter07/07_scalar_invariants.csv`
+  - `zz-data/chapter07/07_cs2_matrix.csv`
+
+- **Figures**
+  - `zz-figures/chapter07/07_fig_01_cs2_heatmap.png`
+  - `zz-figures/chapter07/07_fig_06_comparison.png`
+
+(Remarque : `zz-data/chapter07/placeholder.csv` reste un placeholder structurel,
+hors vitrine.)
+
+
+### CH08 – BAO, SN Ia & couplage
+
+- **Scripts**
+  - `zz-scripts/chapter08/generate_data_chapter08.py`
+
+- **Données**
+  - `zz-data/chapter08/08_pantheon_data.csv`
+  - `zz-data/chapter08/08_bao_data.csv`
+  - `zz-data/chapter08/08_chi2_total_vs_q0.csv`
+  - `zz-data/chapter08/08_coupling_params.json`
+
+- **Figures**
+  - `zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
+  - `zz-figures/chapter08/08_fig_05_residuals.png`
+
+
+### CH09 – Phases IMRPhenom vs MCGT
+
+- **Scripts**
+  - `zz-scripts/chapter09/generate_data_chapter09.py`
+  - `zz-scripts/chapter09/plot_fig01_phase_overlay.py`
+
+- **Données**
+  - `zz-data/chapter09/09_best_params.json`
+  - `zz-data/chapter09/09_metrics_phase.json`
+  - `zz-data/chapter09/09_phases_imrphenom.csv`
+  - `zz-data/chapter09/09_phases_mcgt.csv`
+
+- **Figures**
+  - `zz-figures/chapter09/09_fig_01_phase_overlay.png`
+  - `zz-figures/chapter09/09_fig_02_residual_phase.png`
+
+
+### CH10 – Bootstrap & métriques sur p95
+
+- **Scripts**
+  - `zz-scripts/chapter10/generate_data_chapter10.py`
+  - `zz-scripts/chapter10/eval_primary_metrics_20_300.py`
+
+- **Données**
+  - `zz-data/chapter10/10_mc_results.circ.with_fpeak.csv`
+  - `zz-data/chapter10/10_mc_best_bootstrap.json`
+  - `zz-data/chapter10/dummy_results.csv`   (CORE DATA CH10)
+  - `zz-data/chapter10/example_results.csv` (EXAMPLE OFFICIELLE)
+
+- **Figures**
+  - `zz-figures/chapter10/10_fig_01_iso_p95_maps.png`
+  - `zz-figures/chapter10/10_fig_07_synthesis.png`
+
+

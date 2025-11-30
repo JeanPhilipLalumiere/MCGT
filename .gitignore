@@ -148,3 +148,4 @@ resolve_twine_license_error.sh
 sanitize_metadata.sh
 spdx_futureproof_patch.sh
 repair_pkg_metadata.sh
+zz-out/

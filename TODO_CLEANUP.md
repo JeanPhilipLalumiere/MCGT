@@ -578,3 +578,137 @@ CH10 :
   - ratio BACKSTAGE :  80.0%
 ```
 
+
+---
+## Step22 – HEALTH_CHECK_COMPLET (snapshot)
+
+_Dernière exécution Step22 (health-check complet) – log : `step22_health_20251130T172933Z.log`._
+
+```text
+=== MCGT Step22 : health-check complet (diag + smoke) ===
+[INFO] Repo root : /home/jplal/MCGT
+[INFO] Horodatage (UTC) : 20251130T172933Z
+------------------------------------------------------------
+[STEP] Smoke CH09 (fast)
+    -> bash zz-tools/smoke_ch09_fast.sh
+[INFO] Smoke CH09 (fast)
+[2025-11-30 12:29:33] [INFO] Paramètres MCGT: PhaseParams(m1=30.0, m2=25.0, q0star=0.0, alpha=0.0, phi0=0.0, tc=0.0, tol=1e-06)
+[2025-11-30 12:29:33] [INFO] Référence existante utilisée (232 pts).
+[2025-11-30 12:29:33] [INFO] Calage phi0_tc (poids=1/f2): φ0=-1.128308e+02 rad, t_c=1.628968e-01 s (n=117, window=[20.0, 300.0])
+[2025-11-30 12:29:33] [INFO] Contrôle p95 avant resserrage: p95(|Δφ|)@[20.0-300.0]=164.413475 rad (seuil=5.000)
+[2025-11-30 12:29:33] [INFO] Resserrement automatique: refit sur [30.0, 250.0] Hz.
+[2025-11-30 12:29:33] [INFO] Calage phi0_tc (poids=1/f2): φ0=-5.894512e+01 rad, t_c=7.323216e-02 s (n=92, window=[30.0, 250.0])
+[2025-11-30 12:29:33] [INFO] Après resserrage: p95(|Δφ|)@[20.0-300.0]=81.291949 rad
+[2025-11-30 12:29:33] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): zz-data/chapter09/09_phases_mcgt.csv
+[2025-11-30 12:29:33] [INFO] Écrit → zz-data/chapter09/09_metrics_phase.json
+[2025-11-30 12:29:33] [INFO] Terminé. Variante ACTIVE: calibrated | p95(|Δφ|)@20–300 = 81.291949 rad
+[2025-11-30 12:29:34] [WARNING] Lecture JSON méta échouée ('float' object has no attribute 'get').
+[2025-11-30 12:29:34] [INFO] Calibration meta: enabled=False, model=phi0,tc, window=[20.0, 300.0]
+[2025-11-30 12:29:34] [INFO] Plateau terminal φ_ref: masquage > f=1819.701 Hz
+[2025-11-30 12:29:34] [INFO] k (médiane des cycles) = 1
+[2025-11-30 12:29:34] [INFO] Fit visuel: dphi0=-3.231e+02 rad, dtc=8.940e-02 s
+[2025-11-30 12:29:34] [INFO] |Δφ| 20–300 Hz (après rebranch k=1): mean=1.671 ; p95=3.045 ; max=3.101 (n=117)
+[2025-11-30 12:29:34] [INFO] Figure écrite → zz-figures/chapter09/09_fig_01_phase_overlay.png
+[OK] fig02_input.csv → zz-out/chapter09/fig02_input.csv (n=232) ; IMR(f_Hz,phi_ref) vs MCGT(f_Hz,phi_mcgt)
+[OK] fig02_input normalisé
+[2025-11-30 12:29:35] [INFO] Variante active: phi_mcgt
+[2025-11-30 12:29:35] [INFO] Rebranch k (20.0–300.0 Hz) = 1 cycles
+[2025-11-30 12:29:35] [INFO] Stats 20–300 Hz: mean=1.671  p95=3.045  max=3.101
+[2025-11-30 12:29:36] [INFO] Figure enregistrée → zz-figures/chapter09/09_fig_02_residual_phase.png
+[OK] CH09 complet
+[INFO] Commande terminée avec code 0
+------------------------------------------------------------
+[STEP] Smoke global (squelette)
+    -> bash zz-tools/smoke_all_skeleton.sh
+[INFO] Smoke global (squelette)
+[INFO] Smoke CH09 (fast)
+[2025-11-30 12:29:36] [INFO] Paramètres MCGT: PhaseParams(m1=30.0, m2=25.0, q0star=0.0, alpha=0.0, phi0=0.0, tc=0.0, tol=1e-06)
+[2025-11-30 12:29:36] [INFO] Référence existante utilisée (232 pts).
+[2025-11-30 12:29:36] [INFO] Calage phi0_tc (poids=1/f2): φ0=-1.128308e+02 rad, t_c=1.628968e-01 s (n=117, window=[20.0, 300.0])
+[2025-11-30 12:29:36] [INFO] Contrôle p95 avant resserrage: p95(|Δφ|)@[20.0-300.0]=164.413475 rad (seuil=5.000)
+[2025-11-30 12:29:36] [INFO] Resserrement automatique: refit sur [30.0, 250.0] Hz.
+[2025-11-30 12:29:36] [INFO] Calage phi0_tc (poids=1/f2): φ0=-5.894512e+01 rad, t_c=7.323216e-02 s (n=92, window=[30.0, 250.0])
+[2025-11-30 12:29:36] [INFO] Après resserrage: p95(|Δφ|)@[20.0-300.0]=81.291949 rad
+[2025-11-30 12:29:36] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): zz-data/chapter09/09_phases_mcgt.csv
+[2025-11-30 12:29:36] [INFO] Écrit → zz-data/chapter09/09_metrics_phase.json
+[2025-11-30 12:29:36] [INFO] Terminé. Variante ACTIVE: calibrated | p95(|Δφ|)@20–300 = 81.291949 rad
+[2025-11-30 12:29:37] [WARNING] Lecture JSON méta échouée ('float' object has no attribute 'get').
+[2025-11-30 12:29:37] [INFO] Calibration meta: enabled=False, model=phi0,tc, window=[20.0, 300.0]
+[2025-11-30 12:29:37] [INFO] Plateau terminal φ_ref: masquage > f=1819.701 Hz
+[2025-11-30 12:29:37] [INFO] k (médiane des cycles) = 1
+[2025-11-30 12:29:37] [INFO] Fit visuel: dphi0=-3.231e+02 rad, dtc=8.940e-02 s
+[2025-11-30 12:29:37] [INFO] |Δφ| 20–300 Hz (après rebranch k=1): mean=1.671 ; p95=3.045 ; max=3.101 (n=117)
+[2025-11-30 12:29:37] [INFO] Figure écrite → zz-figures/chapter09/09_fig_01_phase_overlay.png
+[OK] fig02_input.csv → zz-out/chapter09/fig02_input.csv (n=232) ; IMR(f_Hz,phi_ref) vs MCGT(f_Hz,phi_mcgt)
+[OK] fig02_input normalisé
+[2025-11-30 12:29:38] [INFO] Variante active: phi_mcgt
+[2025-11-30 12:29:38] [INFO] Rebranch k (20.0–300.0 Hz) = 1 cycles
+[2025-11-30 12:29:38] [INFO] Stats 20–300 Hz: mean=1.671  p95=3.045  max=3.101
+[2025-11-30 12:29:39] [INFO] Figure enregistrée → zz-figures/chapter09/09_fig_02_residual_phase.png
+[OK] CH09 complet
+[INFO] Commande terminée avec code 0
+------------------------------------------------------------
+[STEP] Resync manifest CH09 (mcgt_step25_fix_manifest_ch09)
+    -> python zz-tools/mcgt_step25_fix_manifest_ch09.py
+=== STEP25 : resync CH09 metrics & fig dans le manifest ===
+[INFO] Repo root      : /home/jplal/MCGT
+[INFO] Manifest path  : /home/jplal/MCGT/zz-manifests/manifest_master.json
+[INFO] zz-data/chapter09/09_metrics_phase.json :
+       size_bytes = 1839
+       sha256     = eb1aa2bfff603ceb7c9d95ab9ea1de34e189fc7b60231422c67d48a99f683a7b
+       mtime_iso  = 2025-11-30T17:29:36Z
+       git_hash   = a5fb6e5415fdf039a2ef770f4453e6906d430589
+[INFO] Blocs patchés pour zz-data/chapter09/09_metrics_phase.json : 1
+[INFO] zz-figures/chapter09/09_fig_01_phase_overlay.png :
+       size_bytes = 302968
+       sha256     = d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac
+       mtime_iso  = 2025-11-30T17:29:37Z
+       git_hash   = 64b805360b13ceb34522ce3c787f2c1ca3eb72aa
+[INFO] Blocs patchés pour zz-figures/chapter09/09_fig_01_phase_overlay.png : 1
+[INFO] Manifest mis à jour : /home/jplal/MCGT/zz-manifests/manifest_master.json
+[INFO] Total blocs patchés : 2
+[INFO] Commande terminée avec code 0
+------------------------------------------------------------
+[STEP] Diagnostic de cohérence des manifests
+    -> python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json --report text
+Errors: 0  |  Warnings: 0
+OK: no problems detected.
+[INFO] Commande terminée avec code 0
+------------------------------------------------------------
+[STEP] Probe des versions (mcgt_probe_versions_v1)
+    -> python tools/mcgt_probe_versions_v1.py
+=== MCGT: probe versions v1 ===
+Root: /home/jplal/MCGT
+
+
+### Manifestes (root)
+---------------------
+root.manifest_master                          : name='mcgt-core', version='0.2.99', homepage=''
+root.manifest_publication                     : name='mcgt-core', version='0.2.99', homepage=''
+
+### Manifestes (release_zenodo_codeonly/v0.3.x)
+-----------------------------------------------
+snapshot.manifest_master                      : name='mcgt-core', version='0.2.99', homepage=''
+snapshot.manifest_publication                 : name='mcgt-core', version='0.2.99', homepage=''
+
+### pyproject.toml
+------------------
+root.pyproject                                : name='zz-tools', version='0.3.14'
+release_zenodo_codeonly/v0.3.x                : name='zz-tools', version='0.3.14'
+
+### __init__ (__version__)
+--------------------------
+mcgt.__init__                                 : version='0.3.0' (/home/jplal/MCGT/mcgt/__init__.py)
+zz_tools.__init__                             : version='0.3.14' (/home/jplal/MCGT/zz_tools/__init__.py)
+
+### CITATION.cff
+----------------
+root CITATION.cff                             : version='0.2.99' (/home/jplal/MCGT/CITATION.cff)
+release_zenodo_codeonly CITATION.cff          : version='0.2.99' (/home/jplal/MCGT/release_zenodo_codeonly/v0.3.x/CITATION.cff)
+
+[INFO] mcgt_probe_versions_v1 terminé.
+[INFO] Commande terminée avec code 0
+
+[INFO] Step22 terminé avec code 0.
+[INFO] Log complet : /home/jplal/MCGT/zz-logs/step22_health_20251130T172933Z.log
+```

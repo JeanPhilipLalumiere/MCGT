@@ -1870,7 +1870,7 @@
       "git_hash": "64b805360b13ceb34522ce3c787f2c1ca3eb72aa",
       "media_type": "image/png",
       "mtime": 1764472672,
-      "mtime_iso": "2025-11-30T03:17:52Z",
+      "mtime_iso": "2025-11-30T16:07:24Z",
       "path": "zz-figures/chapter09/09_fig_01_phase_overlay.png",
       "role": "figure",
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
@@ -2103,13 +2103,13 @@
       "size_bytes": 8752
     },
     {
-      "git_hash": "2e50b9b5ff257763567b75c468ec790e8ca57963",
+      "git_hash": "050266ed54b1ff54a9bd8b7b1e54f69384e9d26e",
       "media_type": "application/json",
       "mtime": 1764473436,
-      "mtime_iso": "2025-11-30T03:30:36Z",
+      "mtime_iso": "2025-11-30T16:07:23Z",
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "sha256": "f3d564b8cbb2daab72e2686c07554be536a4cb3888c8a49ac5bf74ae5198f0ec",
+      "sha256": "ff9fc9dc150afea53437265304167d473b61670ed77a99f1e2a77f36f6a7d7a2",
       "size": 1839,
       "size_bytes": 1839,
       "tags": [
@@ -6289,14 +6289,14 @@
       "size_bytes": 496
     },
     {
-      "git_hash": "d3e23bda5fc425afbeddb6c70aca2b997cff893b",
+      "git_hash": "5487770c2bb6e62c71be1b885ec63a0c41dbf971",
       "mtime": 1764469460,
-      "mtime_iso": "2025-11-30T02:24:20Z",
+      "mtime_iso": "2025-11-30T14:32:42Z",
       "path": ".gitignore",
       "role": "artifact",
-      "sha256": "940ec9ba8e3e3e28507ef59b75c863b45420f2b7c80a56cea34305739fde2374",
+      "sha256": "d8cdd4ae6a322aeb68d0ea1cb287550de2f4fc3ce2ec3d369e48f46e76aad199",
       "size": 2794,
-      "size_bytes": 2794
+      "size_bytes": 2853
     },
     {
       "git_hash": "8550fc77f0b2d7b473a1148530cebfbaf5831197",

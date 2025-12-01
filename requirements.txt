@@ -23,7 +23,7 @@ jsonschema[format-nongpl]==4.23.0
 tqdm==4.66.5
 click==8.1.7
 rich==13.7.1
-requests==2.32.3
+requests>=2.32.4,<3.0.0
 python-dateutil==2.9.0.post0
 packaging==24.1
 

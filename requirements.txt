@@ -30,7 +30,7 @@ packaging==24.1
 # --- Symbolique / notebooks
 sympy==1.13.2
 ipykernel==6.29.5
-jupyterlab==4.2.5
+jupyterlab>=4.4.8,<5
 
 # --- Cosmologie (CMB)
 # Préférer conda-forge ; cette ligne est fournie pour un usage pip pur.

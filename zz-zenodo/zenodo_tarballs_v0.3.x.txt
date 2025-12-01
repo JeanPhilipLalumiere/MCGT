@@ -1,0 +1,2 @@
+# MCGT v0.3.0 Zenodo snapshot tarball
+f2968d0e4371ece4d3eb6e3c92472bb52e889baea8a98c53d3e47d37f86c6fef  release_zenodo_codeonly/v0.3.x/MCGT-v0.3.0-zenodo-snapshot-20251130T204410Z.tar.gz

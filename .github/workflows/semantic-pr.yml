@@ -1,13 +1,17 @@
 # added by policies_guard_common_fixes
 permissions:
   contents: read
+
 name: semantic-pr
+
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+
 concurrency:
   group: semantic-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   semantic:
     runs-on: ubuntu-latest
@@ -17,6 +21,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           types: |
-            chore,ci,docs,feat,fix,perf,refactor,revert,style,test
+            chore
+            ci
+            docs
+            feat
+            fix
+            perf
+            refactor
+            revert
+            style
+            test
           requireScope: false
           validateSingleCommit: false

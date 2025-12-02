@@ -282,7 +282,7 @@ git push origin HEAD --tags
 - **Contact scientifique** : responsable MCGT.  
 - **Contact technique** : mainteneur CI/scripts.
 
-Pour citer : *MCGT — Modèle de Courbure Gravitationnelle Temporelle, v0.2.99, 2025.*
+Pour citer : *MCGT — Modèle de la Courbure Gravitationnelle du Temps, v0.2.99, 2025.*
 
 
 ---

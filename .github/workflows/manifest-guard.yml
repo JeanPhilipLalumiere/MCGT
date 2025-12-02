@@ -29,9 +29,64 @@ jobs:
       - name: Run diag_consistency on publication manifest
         run: |
           mkdir -p zz-logs
+
+          echo "=== [manifest-guard] ENV SNAPSHOT ==="
+          echo "GITHUB_REF=${GITHUB_REF}"
+          echo "GITHUB_SHA=${GITHUB_SHA}"
+          echo "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}"
+          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY}"
+          echo "CI=${CI}"
+          echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
+          echo "PWD=$(pwd)"
+          echo "====================================="
+          echo
+
+          # On désactive -e le temps d'exécuter diag, pour pouvoir logger proprement
+          set +e
           python zz-manifests/diag_consistency.py \
             --repo-root . \
             --rules zz-manifests/integrity.json \
             --report json \
             zz-manifests/manifest_publication.json \
             > zz-logs/diag_publication_ci.json
+          status=$?
+          set -e
+
+          echo
+          echo "=== [manifest-guard] diag_consistency exit code: ${status} ==="
+
+          echo
+          echo "=== [manifest-guard] diag_publication_ci.json summary ==="
+          python - << 'PY'
+          import json
+          from pathlib import Path
+          from collections import Counter
+
+          path = Path("zz-logs/diag_publication_ci.json")
+          if not path.exists():
+              print("[diag-dump] FILE MISSING:", path)
+          else:
+              try:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+              except Exception as exc:
+                  print("[diag-dump] ERROR: failed to load JSON:", exc)
+              else:
+                  summary = data.get("summary")
+                  entries = data.get("entries", [])
+                  levels = Counter(e.get("level", "UNKNOWN") for e in entries)
+                  print("[diag-dump] summary:", summary)
+                  print("[diag-dump] levels:", dict(levels))
+                  # Afficher quelques erreurs si jamais il y en a
+                  for e in entries:
+                      if e.get("level") not in {"ERROR", "FAIL"}:
+                          continue
+                      code = e.get("code")
+                      p = e.get("path")
+                      msg = e.get("message") or ""
+                      print(f"[diag-dump] [{e.get('level')}] {code} :: {p} :: {msg}")
+          PY
+          echo "=== [manifest-guard] end of diag_publication_ci.json summary ==="
+          echo
+
+          # On laisse le step échouer si diag renvoie non-zero
+          exit "${status}"

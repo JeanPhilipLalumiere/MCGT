@@ -174,9 +174,9 @@
       "mtime_iso": "2025-10-22T00:14:24Z",
       "path": "zz-data/chapter10/10_mc_results.csv",
       "role": "data",
-      "sha256": "499dfce7d973a9e55fa83f656cbb3ddfd1d64e48bb9ff8284a804c523a002c4b",
+      "sha256": "d5890bfd4cd996d0c46f71ae47546c7bf9e6f328bee65c30e719bf7cd7fafbc3",
       "size": 2291,
-      "size_bytes": 2291
+      "size_bytes": 2240
     },
     {
       "git_hash": "81ffafdfd3bb7e281d5aaff54fa012ab91bc71a9",

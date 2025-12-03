@@ -1,139 +1,253 @@
-CHAPTER 1 – GUIDE D’UTILISATION
+# CHAPITRE 1 — GUIDE D’UTILISATION
 Introduction & applications (MCGT)
 
-1. Objectif
-   Ce guide décrit la génération des données et figures, ainsi que la compilation LaTeX, pour le Chapitre 1 du projet MCGT. Il fixe les conventions (grilles, formats, lissage) afin d’assurer la reproductibilité.
+---
 
-2. Organisation des fichiers
-   2.1 Sources LaTeX  (dossier: 01-introduction-applications/)
-       - 01_introduction_conceptuel.tex
-       - 01_applications_calibration_conceptuel.tex
-       - CHAPTER01_GUIDE.txt
+## 1. Objet
 
-   2.2 Données d’entrée & sorties  (dossier: zz-data/chapter01/)
-       - Entrées : 01_timeline_milestones.csv, 01_initial_grid_data.dat
-       - Sorties  : 01_optimized_data.csv, 01_optimized_grid_data.dat,
-                   01_P_derivative_initial.csv, 01_P_derivative_optimized.csv,
-                   01_optimized_data_and_derivatives.csv,
-                   01_relative_error_timeline.csv, 01_dimensionless_invariants.csv
+Ce guide décrit la génération des données et figures, ainsi que la compilation LaTeX, pour le **Chapitre 1 : Introduction & applications** du projet MCGT.  
+Il fixe les conventions de grilles, de formats et de lissage pour garantir la **reproductibilité** des résultats.
 
-   2.3 Figures  (dossier: zz-figures/chapter01/)
-       - fig_01_early_plateau.png, fig_02_logistic_calibration.png,
-         fig_03_relative_error_timeline.png, fig_04_P_vs_T_evolution.png,
-         fig_05_I1_vs_T.png, fig_06_P_derivative_comparison.png
+---
 
-   2.4 Scripts  (dossier: zz-scripts/chapter01/)
-       - generate_data_chapter01.py
-       - plot_fig01_early_plateau.py
-       - plot_fig02_logistic_calibration.py
-       - plot_fig03_relative_error_timeline.py
-       - plot_fig04_P_vs_T_evolution.py
-       - plot_fig05_I1_vs_T.py
-       - plot_fig06_P_derivative_comparison.py
-       - requirements.txt
+## 2. Organisation des fichiers
 
-3. Données d’entrée (tables normalisées)
+### 2.1 Sources LaTeX  (`01-introduction-applications/`)
 
-   3.1 01_timeline_milestones.csv  (séparateur: virgule, encodage UTF-8, sans index)
-   | Colonne | Description                                | Unité | Source / remarque                             |
-   |:-------:|:-------------------------------------------|:-----:|:----------------------------------------------|
-   | T       | Âge propre du système                      |  Gyr  | Jalons de référence (grille non uniforme)     |
-   | P_ref   | Valeur de la fonction propre de référence  |   –   | Valeurs cibles pour l’étalonnage de P(T)      |
+- `01_introduction_conceptuel.tex`
+- `01_applications_calibration_conceptuel.tex`
+- `CHAPTER01_GUIDE.txt` (ce fichier)
 
-   3.2 01_initial_grid_data.dat  (deux colonnes, espace ou tabulation)
-   | Colonne | Description                          | Unité | Remarque                         |
-   |:-------:|:-------------------------------------|:-----:|:---------------------------------|
-   | T       | Grille temporelle (log-uniforme)     |  Gyr  | [T_min, T_max], pas Δlog10T      |
-   | P_init  | Valeur préliminaire de P             |   –   | Entrée pour l’optimisation       |
+### 2.2 Données (`zz-data/chapter01/`)
 
-   3.3 Conventions d’entrée
-   - Intervalle temporel : T_min = 1e-6 Gyr, T_max = 14 Gyr
-   - Grille log-uniforme : Δlog10T = 0.01 (valeur par défaut)
-   - Encodage : UTF-8 ; séparateur CSV = virgule ; point décimal = « . »
+- **Entrées principales**
+  - `01_timeline_milestones.csv`
+  - `01_initial_grid_data.dat`
+  - `01_P_vs_T.dat`  (courbe de référence P(T))
 
-4. Données produites (tables normalisées)
+- **Sorties principales**
+  - `01_optimized_data.csv`
+  - `01_optimized_grid_data.dat`
+  - `01_P_derivative_initial.csv`
+  - `01_P_derivative_optimized.csv`
+  - `01_optimized_data_and_derivatives.csv`
+  - `01_relative_error_timeline.csv`
+  - `01_dimensionless_invariants.csv`
 
-   4.1 01_optimized_data.csv
-   | Colonne | Description                               | Unité | Remarque                      |
-   |:-------:|:------------------------------------------|:-----:|:------------------------------|
-   | T       | Grille temporelle (log-uniforme)          |  Gyr  | Identique sur toutes sorties  |
-   | P_calc  | Valeur optimisée de la fonction propre    |   –   | Interpolation PCHIP log–log   |
+### 2.3 Figures (`zz-figures/chapter01/`)
 
-   4.2 01_optimized_grid_data.dat  (mêmes colonnes que 4.1, format DAT)
+- `01_fig_01_early_plateau.png`
+- `01_fig_02_logistic_calibration.png`
+- `01_fig_03_relative_error_timeline.png`
+- `01_fig_04_p_vs_t_evolution.png`
+- `01_fig_05_i1_vs_t.png`
+- `01_fig_06_p_derivative_comparison.png`
 
-   4.3 01_P_derivative_initial.csv
-   | Colonne | Description                  | Unité | Remarque                    |
-   |:-------:|:-----------------------------|:-----:|:----------------------------|
-   | T       | Grille temporelle            |  Gyr  |                             |
-   | dP_dT   | Dérivée initiale (lissée)    | Gyr⁻¹ | Filtre Savitzky–Golay (SG)  |
+### 2.4 Scripts (`zz-scripts/chapter01/`)
 
-   4.4 01_P_derivative_optimized.csv  (mêmes colonnes que 4.3, après optimisation)
+- `generate_data_chapter01.py`
+- `plot_fig01_early_plateau.py`
+- `plot_fig02_logistic_calibration.py`
+- `plot_fig03_relative_error_timeline.py`
+- `plot_fig04_P_vs_T_evolution.py`
+- `plot_fig04_p_vs_t_evolution.py`  (alias, même cible physique)
+- `plot_fig05_I1_vs_T.py`
+- `plot_fig06_p_derivative_comparison.py`
+- `requirements.txt`
 
-   4.5 01_optimized_data_and_derivatives.csv
-   | Colonne | Description                               | Unité | Remarque    |
-   |:-------:|:------------------------------------------|:-----:|:------------|
-   | T       | Grille temporelle                         |  Gyr  |             |
-   | P_calc  | Valeur optimisée de P                     |   –   |             |
-   | dP_dT   | Dérivée optimisée de P                    | Gyr⁻¹ |             |
+> Remarque : le dépôt contient aussi de nombreux fichiers `.bak` / `.rescue` / `.pyc` utilisés pour l’historique de développement. Ils **ne font pas partie** du flux standard documenté ici.
 
-   4.6 01_relative_error_timeline.csv
-   | Colonne | Description                            | Unité | Remarque                        |
-   |:-------:|:---------------------------------------|:-----:|:--------------------------------|
-   | T       | Jalons temporels                       |  Gyr  | Alignés sur 3.1                 |
-   | epsilon | Écart relatif ε = (P_calc−P_ref)/P_ref |   –   | Signe conservé, symlog possible |
+---
 
-   4.7 01_dimensionless_invariants.csv
-   | Colonne | Description                 | Unité | Définition           |
-   |:-------:|:----------------------------|:-----:|:---------------------|
-   | T       | Grille temporelle           |  Gyr  |                      |
-   | I1      | Invariant adimensionnel     |   –   | I1 = P_calc / T      |
+## 3. Données d’entrée (tables normalisées)
 
-5. Figures générées (PNG, 300 dpi)
-   - fig_01_early_plateau.png            : Plateau quasi-constant de P(T)
-   - fig_02_logistic_calibration.png     : P_ref vs P_calc (régression + identité)
-   - fig_03_relative_error_timeline.png  : ε(T) en échelle symlog
-   - fig_04_P_vs_T_evolution.png         : P_init vs P_calc sur la grille
-   - fig_05_I1_vs_T.png                  : Invariant I1 en log–log
-   - fig_06_P_derivative_comparison.png  : dP/dT initiale vs optimisée
+### 3.1 `01_timeline_milestones.csv`
 
-6. Scripts d’exécution
-   - generate_data_chapter01.py : génère toutes les sorties de la section 4
-   - plot_fig01_early_plateau.py
-   - plot_fig02_logistic_calibration.py
-   - plot_fig03_relative_error_timeline.py
-   - plot_fig04_P_vs_T_evolution.py
-   - plot_fig05_I1_vs_T.py
-   - plot_fig06_P_derivative_comparison.py
+- Format : CSV, séparateur virgule, encodage UTF-8, sans index.
+- Colonnes :
 
-7. Paramètres & conventions (par défaut)
-   - Grille : log-uniforme, Δlog10T = 0.01, [1e-6, 14] Gyr
-   - Lissage SG : fenêtre = 21 points, ordre = 3
-   - Interpolation : PCHIP en log–log pour P_calc
-   - Formats : CSV (séparateur virgule), DAT (colonnes T, valeur), UTF-8
+| Colonne  | Description                                | Unité | Source / remarque                         |
+|:--------:|:-------------------------------------------|:-----:|:------------------------------------------|
+| `T_Gyr`  | Âge propre du système                      | Gyr   | Jalons de référence (grille non uniforme) |
+| `P_ref`  | Valeur de la fonction propre de référence  |  –    | Valeurs cibles pour l’étalonnage de P(T)  |
 
-8. Contrôles de qualité (après génération)
-   - Taille de grille attendue : ~1401 points (selon Δlog10T et bornes)
-   - Bornes numériques : min/max sur P_calc, dP_dT, I1 non-NaN, non-inf
-   - Journal : vérifier l’absence d’erreurs/avertissements dans la console
-   - Cohérence jalons : T des jalons ⊂ [T_min, T_max]
+### 3.2 `01_initial_grid_data.dat`
 
-9. Reproductibilité & versionnage
-   - Dépendances : voir zz-scripts/chapter01/requirements.txt
-   - Versionner les changements dans mcgt/CHANGELOG.md
-   - Conserver les chemins relatifs au dépôt ; encodage UTF-8 partout
+- Format : fichier texte à deux colonnes, séparateur espace ou tabulation.
+- Colonnes :
 
-10. Commandes rapides
-   # Générer les données du chapitre 1
-   python zz-scripts/chapter01/generate_data_chapter01.py
+| Colonne  | Description                          | Unité | Remarque                      |
+|:--------:|:-------------------------------------|:-----:|:------------------------------|
+| `T_Gyr`  | Grille temporelle (log-uniforme)     | Gyr   | \[T_min, T_max], pas en log10 |
+| `P_init` | Valeur préliminaire de P             |  –    | Entrée pour l’optimisation    |
 
-   # Produire l’ensemble des figures
-   python zz-scripts/chapter01/plot_fig01_early_plateau.py
-   python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
-   python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
-   python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
-   python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
-   python zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+### 3.3 `01_P_vs_T.dat`
 
-11. Compilation LaTeX
-   pdflatex -jobname=chap1_conceptuel 01-introduction-applications/01_introduction_conceptuel.tex
-   pdflatex -jobname=chap1_applications 01-introduction-applications/01_applications_calibration_conceptuel.tex
+- Courbe de référence P(T) sur une grille temporelle (souvent plus grossière).
+- Utilisations typiques :
+  - **diagnostic** pour l’optimisation de P(T),
+  - **cross-check** avec les sorties `01_optimized_data.csv`.
+
+### 3.4 Conventions d’entrée
+
+- Intervalle temporel : `T_min = 1e-6` Gyr, `T_max = 14` Gyr.
+- Grille log-uniforme : `Δlog10T = 0.01` (valeur par défaut globale).
+- Encodage : UTF-8 ; séparateur CSV = virgule ; point décimal = `.`.
+
+---
+
+## 4. Données produites (tables normalisées)
+
+### 4.1 `01_optimized_data.csv`
+
+| Colonne  | Description                               | Unité | Remarque                            |
+|:--------:|:------------------------------------------|:-----:|:------------------------------------|
+| `T_Gyr`  | Grille temporelle (log-uniforme)          | Gyr   | Grille commune à tout le chapitre   |
+| `P_calc` | Valeur optimisée de la fonction propre    |  –    | Interpolation PCHIP en log–log      |
+
+### 4.2 `01_optimized_grid_data.dat`
+
+- Même contenu logique que `01_optimized_data.csv`, au format DAT (colonnes `T_Gyr`, `P_calc`).
+
+### 4.3 `01_P_derivative_initial.csv`
+
+| Colonne  | Description                  | Unité  | Remarque                        |
+|:--------:|:-----------------------------|:------:|:--------------------------------|
+| `T_Gyr`  | Grille temporelle            | Gyr    | Identique à la grille optimisée |
+| `dP_dT`  | Dérivée initiale (lissée)    | Gyr⁻¹  | Filtre Savitzky–Golay (SG)      |
+
+### 4.4 `01_P_derivative_optimized.csv`
+
+- Même structure que 4.3, après optimisation des coefficients P(T).
+
+### 4.5 `01_optimized_data_and_derivatives.csv`
+
+| Colonne  | Description                        | Unité | Remarque |
+|:--------:|:-----------------------------------|:-----:|:---------|
+| `T_Gyr`  | Grille temporelle                  | Gyr   |          |
+| `P_calc` | Valeur optimisée de P              |  –    |          |
+| `dP_dT`  | Dérivée optimisée de P             | Gyr⁻¹ |          |
+
+### 4.6 `01_relative_error_timeline.csv`
+
+| Colonne   | Description                                           | Unité | Remarque                                   |
+|:---------:|:------------------------------------------------------|:-----:|:-------------------------------------------|
+| `T_Gyr`   | Jalons temporels                                      | Gyr   | Alignés sur `01_timeline_milestones.csv`   |
+| `epsilon` | Écart relatif \((P_{\rm calc} - P_{\rm ref})/P_{\rm ref}\) |  –   | Signe conservé, échelle symlog possible    |
+
+### 4.7 `01_dimensionless_invariants.csv`
+
+| Colonne  | Description                 | Unité | Définition                                   |
+|:--------:|:----------------------------|:-----:|:---------------------------------------------|
+| `T_Gyr`  | Grille temporelle           | Gyr   |                                             |
+| `I1`     | Invariant adimensionnel     |  –    | Exemple : `I1 = P_calc / T_Gyr` (à préciser dans le texte) |
+
+---
+
+## 5. Figures générées (PNG, 300 dpi)
+
+- `01_fig_01_early_plateau.png`  
+  Plateau quasi-constant de P(T) sur les premiers âges.
+
+- `01_fig_02_logistic_calibration.png`  
+  Comparaison `P_ref` vs `P_calc` (régression + ligne d’identité).
+
+- `01_fig_03_relative_error_timeline.png`  
+  Évolution de `epsilon(T)` sur les jalons (échelle symlog recommandée).
+
+- `01_fig_04_p_vs_t_evolution.png`  
+  Comparaison `P_init` vs `P_calc` sur la grille complète.
+
+- `01_fig_05_i1_vs_t.png`  
+  Invariant `I1(T)` tracé en log–log.
+
+- `01_fig_06_p_derivative_comparison.png`  
+  Comparaison `dP/dT` initiale vs optimisée.
+
+---
+
+## 6. Scripts d’exécution
+
+### 6.1 Génération des données
+
+- `zz-scripts/chapter01/generate_data_chapter01.py`  
+  Génère l’ensemble des fichiers de la section 4 (grille optimisée, dérivées, erreurs, invariants).
+
+### 6.2 Tracé des figures
+
+- `zz-scripts/chapter01/plot_fig01_early_plateau.py`
+- `zz-scripts/chapter01/plot_fig02_logistic_calibration.py`
+- `zz-scripts/chapter01/plot_fig03_relative_error_timeline.py`
+- `zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py`
+- `zz-scripts/chapter01/plot_fig05_I1_vs_T.py`
+- `zz-scripts/chapter01/plot_fig06_p_derivative_comparison.py`
+
+> Remarque : `plot_fig04_P_vs_T_evolution.py` et `plot_fig04_p_vs_t_evolution.py` peuvent coexister. Le flux standard doit en privilégier **un seul** dans le texte scientifique (typiquement la version la plus récente).
+
+---
+
+## 7. Paramètres & conventions (par défaut)
+
+- **Grille temporelle** : log-uniforme, `Δlog10T = 0.01`, intervalle `[1e-6, 14]` Gyr.
+- **Lissage Savitzky–Golay** :
+  - Fenêtre : 21 points
+  - Ordre du polynôme : 3
+- **Interpolation** : PCHIP en log–log pour `P_calc`.
+- **Formats** :
+  - CSV : séparateur `,`, en-têtes explicites, point décimal `.`
+  - DAT : colonnes `T_Gyr`, valeur
+  - Encodage : UTF-8 partout
+
+---
+
+## 8. Contrôles de qualité (après génération)
+
+- **Taille de grille attendue** : ~1401 points (en fonction de `Δlog10T` et des bornes globales).
+- **Bornes numériques** :
+  - `P_calc`, `dP_dT`, `I1` : pas de `NaN`, pas d’infini.
+- **Journal d’exécution** :
+  - Absence d’erreurs Python.
+  - Avertissements limités et compris (log de convergence, etc.).
+- **Cohérence des jalons** :
+  - Toutes les valeurs de `T_Gyr` dans `01_timeline_milestones.csv` doivent appartenir à l’intervalle de la grille principale.
+
+---
+
+## 9. Reproductibilité & versionnage
+
+- **Dépendances Python** :  
+  Voir `zz-scripts/chapter01/requirements.txt` (version de NumPy, SciPy, Matplotlib, etc.).
+- **Versionnage** :
+  - Documenter tout changement significatif dans `mcgt/CHANGELOG.md`.
+  - Conserver les chemins **relatifs** au dépôt.
+- **Encodage** :  
+  UTF-8 sans BOM pour tous les fichiers texte.
+
+---
+
+## 10. Commandes rapides
+
+```bash
+# Générer les données du chapitre 1
+python zz-scripts/chapter01/generate_data_chapter01.py
+
+# Produire toutes les figures principales
+python zz-scripts/chapter01/plot_fig01_early_plateau.py
+python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
+python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
+python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
+python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
+python zz-scripts/chapter01/plot_fig06_p_derivative_comparison.py
+```
+
+---
+
+## 11. Compilation LaTeX
+
+```bash
+# Version conceptuelle du chapitre 1
+pdflatex -jobname=chap1_conceptuel 01-introduction-applications/01_introduction_conceptuel.tex
+
+# Applications et calibration (complément)
+pdflatex -jobname=chap1_applications 01-introduction-applications/01_applications_calibration_conceptuel.tex
+```

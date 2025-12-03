@@ -1,66 +1,66 @@
 {
-"chapter": 2,
-"title": "validation-chronologique",
-"paths": {
-"data_dir": "zz-data/chapter2",
-"scripts_dir": "zz-scripts/chapter2",
-"figures_dir": "zz-figures/chapter2",
-"configs": [
-"conventions.md",
-"zz-configuration/mcgt-global-config.ini"
-]
-},
-"files": {
-"data_inputs": [
-"zz-data/chapter2/02_As_ns_vs_alpha.csv",
-"zz-data/chapter2/02_P_R_sampling.csv",
-"zz-data/chapter2/02_chronology_milestones.csv",
-"zz-data/chapter2/02_derivative_P_data.dat",
-"zz-data/chapter2/02_grid_data_P_vs_T.dat",
-"zz-data/chapter2/02_milestones_meta.csv",
-"zz-data/chapter2/02_optimal_parameters.json",
-"zz-data/chapter2/02_primordial_spectrum.json",
-"zz-data/chapter2/02_relative_errors_chronology.csv"
-],
-"data_outputs": [],
-"figures": [
-"zz-figures/chapter2/fig_00_spectrum.png",
-"zz-figures/chapter2/fig_01_P_T_evolution.png",
-"zz-figures/chapter2/fig_02_calibration.png",
-"zz-figures/chapter2/fig_03_relative_errors.png",
-"zz-figures/chapter2/fig_04_pipeline_diagram.png",
-"zz-figures/chapter2/fig_05_FG_series.png",
-"zz-figures/chapter2/fig_06_fit_alpha.png"
-],
-"metas": [
-"zz-figures/chapter2/fig_*.meta.json",
-"zz-data/chapter2/02_derivative_P_data.meta.json",
-"zz-data/chapter2/02_chronology_milestones.meta.json"
-],
-"others": [
-"02-validation-chronologique/CHAPTER2_GUIDE.txt"
-]
-},
-"scripts": [
-"zz-scripts/chapter2/generate_chapter2_data.py",
-"zz-scripts/chapter2/plot_fig01_P_T_evolution.py",
-"zz-scripts/chapter2/plot_fig02_calibration.py",
-"zz-scripts/chapter2/plot_fig03_relative_errors.py",
-"zz-scripts/chapter2/plot_fig04_pipeline_diagram.py",
-"zz-scripts/chapter2/plot_fig05_FG_series.py",
-"zz-scripts/chapter2/plot_fig06_fit_alpha.py"
-],
-"meta_expected": [
-"zz-data/chapter2/02_derivative_P_data.meta.json",
-"zz-data/chapter2/02_chronology_milestones.meta.json",
-"zz-figures/chapter2/fig_*.meta.json"
-],
-"status": "ready",
-"qa_checks": [
-"Continuité P(T) et dP/dT à T_split_Gyr = 0.15.",
-"Aligner unités et signes des dérivées avec Chap.1.",
-"Seuils `primary/order2` = config globale, sauf dérogation documentée.",
-"Séries F/G: vérifier ordres et signes."
-],
-"notes": "Contrôler la jonction low/high autour du split; vérifier les écarts relatifs sur jalons."
+  "chapter": 2,
+  "title": "validation-chronologique",
+  "paths": {
+    "data_dir": "zz-data/chapter02",
+    "scripts_dir": "zz-scripts/chapter02",
+    "figures_dir": "zz-figures/chapter02",
+    "configs": [
+      "conventions.md",
+      "zz-configuration/mcgt-global-config.ini"
+    ]
+  },
+  "files": {
+    "data_inputs": [
+      "zz-data/chapter02/02_As_ns_vs_alpha.csv",
+      "zz-data/chapter02/02_P_R_sampling.csv",
+      "zz-data/chapter02/02_chronology_milestones.csv",
+      "zz-data/chapter02/02_derivative_P_data.dat",
+      "zz-data/chapter02/02_grid_data_P_vs_T.dat",
+      "zz-data/chapter02/02_milestones_meta.csv",
+      "zz-data/chapter02/02_optimal_parameters.json",
+      "zz-data/chapter02/02_primordial_spectrum.json",
+      "zz-data/chapter02/02_relative_errors_chronology.csv"
+    ],
+    "data_outputs": [],
+    "figures": [
+      "zz-figures/chapter02/fig_00_spectrum.png",
+      "zz-figures/chapter02/fig_01_P_T_evolution.png",
+      "zz-figures/chapter02/fig_02_calibration.png",
+      "zz-figures/chapter02/fig_03_relative_errors.png",
+      "zz-figures/chapter02/fig_04_pipeline_diagram.png",
+      "zz-figures/chapter02/fig_05_FG_series.png",
+      "zz-figures/chapter02/fig_06_fit_alpha.png"
+    ],
+    "metas": [
+      "zz-figures/chapter02/fig_*.meta.json",
+      "zz-data/chapter02/02_derivative_P_data.meta.json",
+      "zz-data/chapter02/02_chronology_milestones.meta.json"
+    ],
+    "others": [
+      "02-validation-chronologique/CHAPTER2_GUIDE.txt"
+    ]
+  },
+  "scripts": [
+    "zz-scripts/chapter02/generate_chapter2_data.py",
+    "zz-scripts/chapter02/plot_fig01_P_T_evolution.py",
+    "zz-scripts/chapter02/plot_fig02_calibration.py",
+    "zz-scripts/chapter02/plot_fig03_relative_errors.py",
+    "zz-scripts/chapter02/plot_fig04_pipeline_diagram.py",
+    "zz-scripts/chapter02/plot_fig05_FG_series.py",
+    "zz-scripts/chapter02/plot_fig06_fit_alpha.py"
+  ],
+  "meta_expected": [
+    "zz-data/chapter02/02_derivative_P_data.meta.json",
+    "zz-data/chapter02/02_chronology_milestones.meta.json",
+    "zz-figures/chapter02/fig_*.meta.json"
+  ],
+  "status": "ready",
+  "qa_checks": [
+    "Continuité P(T) et dP/dT à T_split_Gyr = 0.15.",
+    "Aligner unités et signes des dérivées avec Chap.1.",
+    "Seuils `primary/order2` = config globale, sauf dérogation documentée.",
+    "Séries F/G: vérifier ordres et signes."
+  ],
+  "notes": "Contrôler la jonction low/high autour du split; vérifier les écarts relatifs sur jalons."
 }

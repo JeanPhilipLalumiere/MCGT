@@ -219,16 +219,6 @@
       "size_bytes": 648288
     },
     {
-      "git_hash": "8f1af956f2079eafb9206504fc9c4cb023d2e2aa",
-      "mtime": 1758665053,
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "path": "zz-data/chapter10/example_results.csv",
-      "role": "data",
-      "sha256": "992e16edbe6788fa2c0686f42b1a275294e8a02165f1976669213b94ef03a53c",
-      "size": 224,
-      "size_bytes": 224
-    },
-    {
       "git_hash": "8c444b82b54d74c7fd6a6486d895291ffdc4eb82",
       "mtime": 1760880221,
       "mtime_iso": "2025-11-09T00:30:15Z",
@@ -703,7 +693,7 @@
     }
   ],
   "entries_updated": 0,
-  "generated_at": "2025-12-03T18:28:03Z",
+  "generated_at": "2025-12-03T18:34:39Z",
   "generated_by": "jplal",
   "lists": [],
   "manifest_tool_version": "diag_consistency.py v1",
@@ -714,6 +704,6 @@
     "version": "0.2.99"
   },
   "repository_root": ".",
-  "total_entries": 60,
-  "total_size_bytes": 4864892
+  "total_entries": 59,
+  "total_size_bytes": 4864668
 }

@@ -385,16 +385,6 @@
       ]
     },
     {
-      "git_hash": "e30292c556962098ba7133bfee2a346a72ec524a",
-      "mtime": 1759526593,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter09/requirements.txt",
-      "role": "document",
-      "sha256": "7270726407094dfe3b217a85afde5a59547e1544ae3dce9157c7de625c5c22e9",
-      "size": 9881,
-      "size_bytes": 182
-    },
-    {
       "git_hash": "40467aac1ca7562f73a8d4fd1f97d6ec6fb31c19",
       "mtime": 1760880221,
       "mtime_iso": "2025-11-28T16:47:42Z",
@@ -611,16 +601,6 @@
       "sha256": "aecd43f2b23793de0433a2001f2d1637639a8057f605b5bf49a832ec27cad45d",
       "size": 2178,
       "size_bytes": 2178
-    },
-    {
-      "git_hash": "3f2403cba4bcfbb167d7bc26ec8d9af2f3c9c743",
-      "mtime": 1758476132,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter08/requirements.txt",
-      "role": "document",
-      "sha256": "0ccf881cbd52c29c628a1f56f35dc8917038be9b5889c5fe3c794374cf1d3c9f",
-      "size": 3319,
-      "size_bytes": 171
     },
     {
       "git_hash": "1a65d96567be69508e3120e765a1b9aca21de7b2",
@@ -909,16 +889,6 @@
       "size_bytes": 1380
     },
     {
-      "git_hash": "0da8961b9a55c7b27bee9c46000ca9f7a756967d",
-      "mtime": 1758472029,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter06/requirements.txt",
-      "role": "document",
-      "sha256": "a6aed137c11c9ca1d391e161bc1846e47a6f749479b4a9791f29e41a0e795533",
-      "size": 3379,
-      "size_bytes": 171
-    },
-    {
       "git_hash": "21220c99aaaa22b7445bc57434db62319e862d15",
       "media_type": "text/x-python",
       "mtime": 1760880221,
@@ -1017,16 +987,6 @@
       ]
     },
     {
-      "git_hash": "31d17d25a9710e9261f4204acad5fe1bc4c732c7",
-      "mtime": 1758595394,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter05/requirements.txt",
-      "role": "document",
-      "sha256": "2be986a8e13c7fb1c5bbbda1be44194c48df7b25d5ad70ee08eacd2c8015e9bf",
-      "size": 2800,
-      "size_bytes": 171
-    },
-    {
       "git_hash": "fa977add1f34bd48272dcb8c0998da45d641a787",
       "media_type": "text/x-python",
       "mtime": 1760880221,
@@ -1095,16 +1055,6 @@
       "tags": [
         "chapter05"
       ]
-    },
-    {
-      "git_hash": "e7df67aab21c972f1583eb33d2226ad6fef91e66",
-      "mtime": 1758595394,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter04/requirements.txt",
-      "role": "document",
-      "sha256": "6a9fb12309939ff69c1762881542af00dff8bf92f8bb2aa82c7be2a7cf803444",
-      "size": 4331,
-      "size_bytes": 171
     },
     {
       "git_hash": "936c4d7de5d520cd04a7f370b3c187f7c7d84970",
@@ -1191,16 +1141,6 @@
       "sha256": "1172c9699837ceaf6a5c8ee7d39636909fa3678a0f7c401afe35dcc6d919bf7a",
       "size": 6853,
       "size_bytes": 6853
-    },
-    {
-      "git_hash": "eb6d7b21e22d69a36a7f9303d38bffa816e21773",
-      "mtime": 1758595394,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter03/requirements.txt",
-      "role": "document",
-      "sha256": "eea38b103bbd17d57a0cf2926a42d83606125d38ae2cda71042c9aa3e8ddc33e",
-      "size": 3458,
-      "size_bytes": 171
     },
     {
       "git_hash": "a7b0e4d1c1483b5b33e7e74c6f10a8c7d194e31b",
@@ -1323,16 +1263,6 @@
       "sha256": "3122dbd83d7bf11d5a08e0faccea0c11b59df2ff440d5dee442b7f3e7cd6b9a5",
       "size": 12627,
       "size_bytes": 12627
-    },
-    {
-      "git_hash": "53a8c95d66d9c4382f267ea16207b23b908f3a46",
-      "mtime": 1758595394,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter02/requirements.txt",
-      "role": "document",
-      "sha256": "51e556e220c8d24cdff1f861bdc2096d123776a74c5a432487c032433cdd7b70",
-      "size": 3700,
-      "size_bytes": 171
     },
     {
       "git_hash": "423c8d25d277bad2d0d3084013ee74c7b59cd207",
@@ -1461,16 +1391,6 @@
       "sha256": "7925aec4881b05b73cc68d4e516884bdee39e3cac6efbfa99945139e780b891b",
       "size": 3642,
       "size_bytes": 3642
-    },
-    {
-      "git_hash": "a4915a669ae7f8ee12a84cab03cc60d4c1082e61",
-      "mtime": 1758595394,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "path": "zz-scripts/chapter01/requirements.txt",
-      "role": "document",
-      "sha256": "c8afcbddd8c4fa0888902daf67311df9b144c427cfa85ac83133c21090f996d0",
-      "size": 2938,
-      "size_bytes": 171
     },
     {
       "git_hash": "730333d382a9f7b4968cab5f30f911bcc99a7f14",
@@ -6639,8 +6559,8 @@
       "size_bytes": 328
     }
   ],
-  "entries_updated": 58,
-  "generated_at": "2025-12-03T06:35:09Z",
+  "entries_updated": 0,
+  "generated_at": "2025-12-03T15:39:13Z",
   "generated_by": "jplal",
   "manifest_tool_version": "diag_consistency.py v1",
   "manifest_version": "1.1",
@@ -6650,6 +6570,6 @@
     "version": "0.2.99"
   },
   "repository_root": ".",
-  "total_entries": 699,
-  "total_size_bytes": 19284929
+  "total_entries": 691,
+  "total_size_bytes": 19283550
 }

@@ -259,15 +259,15 @@
       "size_bytes": 3801
     },
     {
-      "git_hash": "740b123849f301ce2137c35862330bce5a303a4e",
+      "git_hash": "a2f0529c07b4f38d89d9f62ffda6445d593af0e1",
       "media_type": "application/octet-stream",
       "mtime": 1761085107,
-      "mtime_iso": "2025-11-28T22:22:37Z",
+      "mtime_iso": "2025-12-03T15:56:07Z",
       "path": "pyproject.toml",
       "role": "artifact",
-      "sha256": "3f90f63f6ebcb6a90040db42b72cdbf3dd5863a8e1cd4380dbbbb98218c3171f",
+      "sha256": "d33f6afea346aaad4e41c521bf066b8c8115cca6589eb2be75d1b661ce0133d8",
       "size": 933,
-      "size_bytes": 1022
+      "size_bytes": 1161
     },
     {
       "git_hash": "7f1a1763ca9cebc7bc16576d353d3284ee5d3c7d",
@@ -702,8 +702,8 @@
       "size_bytes": 11582
     }
   ],
-  "entries_updated": 23,
-  "generated_at": "2025-12-03T06:35:54Z",
+  "entries_updated": 4,
+  "generated_at": "2025-12-03T16:05:55Z",
   "generated_by": "jplal",
   "lists": [],
   "manifest_tool_version": "diag_consistency.py v1",
@@ -715,5 +715,5 @@
   },
   "repository_root": ".",
   "total_entries": 60,
-  "total_size_bytes": 4864753
+  "total_size_bytes": 4864892
 }

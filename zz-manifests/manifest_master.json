@@ -6540,7 +6540,7 @@
     }
   ],
   "entries_updated": 0,
-  "generated_at": "2025-12-03T16:52:08Z",
+  "generated_at": "2025-12-03T17:00:34Z",
   "generated_by": "jplal",
   "manifest_tool_version": "diag_consistency.py v1",
   "manifest_version": "1.1",
@@ -6550,6 +6550,6 @@
     "version": "0.2.99"
   },
   "repository_root": ".",
-  "total_entries": 690,
+  "total_entries": 689,
   "total_size_bytes": 19280047
 }

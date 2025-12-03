@@ -2177,16 +2177,6 @@
       "size_bytes": 120
     },
     {
-      "git_hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
-      "mtime": 1758665053,
-      "mtime_iso": "2025-09-23T22:04:13Z",
-      "path": "zz-data/chapter07/placeholder.csv",
-      "role": "data",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0,
-      "size_bytes": 0
-    },
-    {
       "git_hash": "c14139213ba91c9e9201e433d3d0f6335a6d47d0",
       "mtime": 1757715564,
       "mtime_iso": "2025-09-12T22:19:24Z",

@@ -1,127 +1,230 @@
-CHAPITRE 4 — GUIDE D’UTILISATION
-(Invariants adimensionnels)
+# CHAPITRE 4 — GUIDE D’UTILISATION
+Invariants adimensionnels (MCGT)
 
-Objectif
-────────
-Ce guide décrit la génération des données et figures du Chapitre 4 (Invariants adimensionnels) et la compilation LaTeX associée. Il harmonise les noms de fichiers (anglais) et les conventions communes aux autres chapitres.
+---
 
-1) Dépendances logicielles minimales
-────────────────────────────────────
-• Python ≥ 3.10  (numpy, pandas, scipy, matplotlib)
-• LaTeX / pdflatex (packages usuels : amsmath, graphicx, siunitx, booktabs, hyperref)
-• (Optionnel) make pour l’automatisation
+## 1. Objet
 
-2) Organisation des fichiers
-────────────────────────────
-• Sources LaTeX (dossier : 04-invariants-adimensionnels/)
-  - 04_invariants_adimensionnels_conceptuel.tex
-  - 04_invariants_adimensionnels_details.tex
+Ce guide décrit, pour le **Chapitre 4**, la génération des données, la production des figures et la compilation LaTeX associées aux **invariants adimensionnels**.  
+Il fixe les chemins, fichiers et commandes à utiliser pour assurer la **reproductibilité** des résultats, en cohérence avec les chapitres 1–3.
 
-• Données (dossier : zz-data/chapter04/)
-  - 04_P_vs_T.dat                         (grille P(T) harmonisée)
-  - 04_dimensionless_invariants.csv       (sortie principale de ce chapitre)
+---
 
-• Figures (dossier : zz-figures/chapter04/)
-  - fig_01_invariants_schematic.png
-  - fig_02_invariants_histogram.png
-  - fig_03_invariants_vs_T.png
-  - fig_04_relative_deviations.png
+## 2. Organisation des fichiers
 
-• Scripts (dossier : zz-scripts/chapter04/)
-  - generate_data_chapter04.py
-  - plot_fig01_invariants_schematic.py
-  - plot_fig02_invariants_histogram.py
-  - plot_fig03_invariants_vs_T.py
-  - plot_fig04_relative_deviations.py
-  - requirements.txt
+### 2.1 Sources LaTeX (`04-invariants-adimensionnels/`)
 
-3) Données d’entrée & formats (zz-data/chapter04/)
-──────────────────────────────────────────────────
-3.1 04_P_vs_T.dat
-| Colonne | Description                              | Unité | Remarques                           |
-|:--------|:-----------------------------------------|:------|:------------------------------------|
-| T_Gyr   | Âge propre du système                    | Gyr   | grille log-uniforme (Δlog10T=0,01)  |
-| P       | Quantité P (définie au Chapitre 1–2)     | —     | lissée/interpolée de façon homogène |
+- `04_invariants_adimensionnels_conceptuel.tex`
+- `04_invariants_adimensionnels_details.tex`
+- `CHAPTER04_GUIDE.txt`  *(ce fichier)*
 
-• Domaine T : [1e−6, 14] Gyr (log-uniforme).
-• Interpolation recommandée : PCHIP sur log10 P(T).
-• Contrôle d’unités : cohérence avec les chapitres 1–2 (P adimensionné ou unifié).
+### 2.2 Données (`zz-data/chapter04/`)
 
-4) Données produites & qualité (zz-data/chapter04/)
-───────────────────────────────────────────────────
-4.1 04_dimensionless_invariants.csv
-| Colonne | Définition                                      | Dimension    |
-|:--------|:-------------------------------------------------|:-------------|
-| T_Gyr   | Grille T                                         | Gyr          |
-| I1      | I1 = P / T                                       | (unité P)/Gyr|
-| I2      | I2 = κ · T²                                      | adimensionnel|
-| I3      | I3 = f_R − 1                                     | adimensionnel|
+- `04_P_vs_T.dat`  
+  Grille P(T) harmonisée, utilisée comme **entrée** commune.
+- `04_dimensionless_invariants.csv`  
+  Table principale des invariants adimensionnels du chapitre.
 
-• Conventions numériques :
-  - κ (kappa) = 1e−35 (valeur de modèle) ; ajustable si révisé globalement.
-  - f_R (de Chapitre 3) interpolé linéairement en R/R0 (extrapolation contrôlée).
-• Critères qualité :
-  - max |I2| ≪ 1 (tolérance indicative ±10 % sur le domaine utile).
-  - I3 ≈ 0 (tolérance indicative ±1 %) ; tracer/inspecter les écarts résiduels.
+### 2.3 Figures (`zz-figures/chapter04/`)
 
-5) Figures générées (zz-figures/chapter04/)
-────────────────────────────────────────────
-• fig_01_invariants_schematic.png        — schéma conceptuel (I1, I2, I3)
-• fig_02_invariants_histogram.png        — histogrammes (log-valeurs de I2, I3)
-• fig_03_invariants_vs_T.png             — I1, I2, I3 en fonction de T
-• fig_04_relative_deviations.png         — écarts relatifs/contrôles (ε2, ε3)
+- `04_fig_01_invariants_schematic.png`
+- `04_fig_02_invariants_histogram.png`
+- `04_fig_03_invariants_vs_t.png`
+- `04_fig_04_relative_deviations.png`
 
-6) Scripts d’exécution (zz-scripts/chapter04/)
-──────────────────────────────────────────────
-• generate_data_chapter04.py
-  - Charge 04_P_vs_T.dat
-  - Applique lissages/interpolations (PCHIP log10 P, Savitzky–Golay pour dérivées si besoin)
-  - Récupère/importe f_R (Chapitre 3) sur le domaine commun
-  - Construit I1, I2, I3 et écrit 04_dimensionless_invariants.csv
+### 2.4 Scripts (`zz-scripts/chapter04/`)
 
-• plot_fig01_invariants_schematic.py     → fig_01_invariants_schematic.png
-• plot_fig02_invariants_histogram.py     → fig_02_invariants_histogram.png
-• plot_fig03_invariants_vs_T.py          → fig_03_invariants_vs_T.png
-• plot_fig04_relative_deviations.py      → fig_04_relative_deviations.png
+- `generate_data_chapter04.py`  
+- `plot_fig01_invariants_schematic.py`  
+- `plot_fig02_invariants_histogram.py`  
+- `plot_fig03_invariants_vs_T.py`  
+- `plot_fig04_relative_deviations.py`  
+- `requirements.txt`  *(environnement Python minimal pour ce chapitre)*
 
-7) Paramètres & conventions numériques
-──────────────────────────────────────
-• Grille T : log-uniforme sur [1e−6, 14] Gyr, pas Δlog10T = 0,01
-• Interpolations :
-  - P(T) : PCHIP sur log10 P
-  - R/R0 : PCHIP sur log10 (R/R0) si requis
-  - f_R(R/R0) : linéaire (extrapolation courte autorisée)
-• Lissage dérivées (si utilisé) : Savitzky–Golay (fenêtre 21, ordre 3)
-• Tolérances (repères) :
-  - I2 : ±10 % sur domaine utile
-  - I3 : ±1 % (sur la majorité du domaine ; signaler tout dépassement local)
+---
 
-8) Vérifications & diagnostics
-──────────────────────────────
-• Statistiques sur I1, I2, I3 (min/max/médiane) et présence de discontinuités
-• Contrôle I3≈0 : repérer tout écart systématique ; journaliser indices/segments en défaut
-• Rapports figure/table : vérifier légendes, unités, styles (cohérents avec chap. 1–3)
-• Export optionnel d’une dérivée lissée dP/dT (CSV auxiliaire) pour audit
+## 3. Données d’entrée
 
-9) Commandes d’exécution (racine du projet)
-───────────────────────────────────────────
-# Générer les données
+### 3.1 Grille P(T) — `04_P_vs_T.dat`
+
+**Chemin :** `zz-data/chapter04/04_P_vs_T.dat`  
+**Format :** fichier texte à 2 colonnes, séparateur = espace ou tabulation.
+
+| Colonne | Description                           | Unité | Remarques                                      |
+|:--------|:--------------------------------------|:------|:-----------------------------------------------|
+| `T_Gyr` | Âge propre du système                 | Gyr   | grille log-uniforme \([10^{-6}, 14]\) Gyr      |
+| `P`     | Quantité \(P(T)\) globale             | —     | lissée/interpolée de façon homogène (chap. 1–2)|
+
+- La table `04_P_vs_T.dat` est considérée comme **entrée partagée** : elle est produite et validée dans les chapitres précédents (1–2), puis réutilisée ici pour construire les invariants.  
+- Encodage attendu : UTF‑8, fin de ligne Unix (`\n`).
+
+---
+
+## 4. Données produites
+
+### 4.1 Invariants adimensionnels — `04_dimensionless_invariants.csv`
+
+**Chemin :** `zz-data/chapter04/04_dimensionless_invariants.csv`  
+**Format :** CSV (séparateur `,`, encodage UTF‑8, point décimal `.`).
+
+| Colonne | Définition                                      | Dimension     |
+|:--------|:------------------------------------------------|:--------------|
+| `T_Gyr` | Grille temporelle                               | Gyr           |
+| `I1`    | \(I_1 = P / T\)                                 | (unité P)/Gyr |
+| `I2`    | \(I_2 = \kappa \, T^2\)                         | adimensionnel |
+| `I3`    | \(I_3 = f_R - 1\)                               | adimensionnel |
+
+**Conventions numériques (référence) :**
+
+- \(\kappa = 1\times10^{-35}\) (valeur de modèle) — à tenir synchronisée avec la configuration globale (si révisée).  
+- \(f_R\) est importé du **Chapitre 3** (stabilité de \(f(R)\)) et interpolé sur le domaine temporel commun.  
+- La structure exacte du fichier est définie par les scripts Python du chapitre 4 et, le cas échéant, par les schémas CSV/JSON dans `zz-schemas/`.
+
+**Critères de qualité indicatifs :**
+
+- \(I_2\) reste \(|I_2| \ll 1\) sur le domaine utile (tolérance indicative ±10 %).  
+- \(I_3 \approx 0\) pour la majeure partie du domaine (tolérance indicative ±1 %) ; tout dépassement significatif doit être commenté dans le texte.
+
+---
+
+## 5. Figures générées
+
+**Chemin commun :** `zz-figures/chapter04/` — export PNG, 300 dpi, style cohérent multi‑chapitres.
+
+- `04_fig_01_invariants_schematic.png`  
+  Schéma conceptuel présentant \(I_1, I_2, I_3\) et leurs dépendances principales.
+
+- `04_fig_02_invariants_histogram.png`  
+  Histogrammes (éventuellement en log) des distributions de \(I_2\) et \(I_3\) sur le domaine étudié.
+
+- `04_fig_03_invariants_vs_t.png`  
+  Tracés de \(I_1(T)\), \(I_2(T)\), \(I_3(T)\) en fonction de \(T_{\rm Gyr}\).
+
+- `04_fig_04_relative_deviations.png`  
+  Courbes d’écarts relatifs ou de diagnostics (\(\varepsilon_2, \varepsilon_3\), etc.) utilisés pour l’analyse de stabilité/validité.
+
+---
+
+## 6. Scripts et exécution
+
+### 6.1 Génération des données
+
+**Script principal :**
+
+```bash
 python zz-scripts/chapter04/generate_data_chapter04.py
+```
 
-# Tracer les figures
+Rôle du script :
+
+- lit la table `04_P_vs_T.dat`,
+- applique les interpolations/lissages nécessaires,
+- importe les quantités dépendant de \(f_R\) (chapitre 3) sur le domaine commun,
+- calcule les colonnes `I1`, `I2`, `I3`,
+- écrit `04_dimensionless_invariants.csv` dans `zz-data/chapter04/`.
+
+### 6.2 Tracé des figures
+
+Scripts de tracé (un PNG produit par script) :
+
+```bash
 python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
 python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
 python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
 python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+```
 
-10) Compilation LaTeX du chapitre
-──────────────────────────────────
+Chaque script suppose que `04_dimensionless_invariants.csv` est à jour.
+
+### 6.3 Environnement Python (requirements)
+
+Fichier : `zz-scripts/chapter04/requirements.txt`  
+
+- Contient le sous‑ensemble minimal de dépendances Python pour exécuter le pipeline du chapitre 4 (typiquement `numpy`, `pandas`, `scipy`, `matplotlib`, etc.).  
+- Pour créer un environnement dédié (exemple) :
+
+```bash
+python -m venv .venv-chap4
+source .venv-chap4/bin/activate
+pip install -r zz-scripts/chapter04/requirements.txt
+```
+
+---
+
+## 7. Paramètres & conventions numériques
+
+- **Grille temporelle** : log‑uniforme sur \([10^{-6}, 14]\) Gyr avec un pas typique \(\Delta \log_{10} T \approx 0{,}01\).  
+- **Interpolations** :  
+  - \(P(T)\) : interpolateur de type PCHIP sur \(\log_{10} P\) (pour limiter les oscillations).  
+  - \(f_R\) : interpolations en variables adaptées (\(R/R_0\), \(T\), etc.), cohérentes avec le Chapitre 3.  
+- **Lissages** (si utilisés) : filtres de type Savitzky–Golay (fenêtre 21, ordre 3) pour les dérivées.  
+- **Tolérances indicatives** :  
+  - \(I_2\) : écarts relatifs \(\lesssim 10~\%\) sur le domaine utile.  
+  - \(I_3\) : \(|I_3| \lesssim 1~\%\) dans la plupart des cas ; tout comportement systématique doit être décrit dans le texte.
+
+Les valeurs exactes des paramètres numériques sont fixées dans les scripts Python et/ou dans les fichiers de configuration globaux (voir `mcgt-global-config.ini`).
+
+---
+
+## 8. Vérifications & diagnostics
+
+Après exécution du pipeline :
+
+1. **Intégrité des fichiers**  
+   - `04_P_vs_T.dat` et `04_dimensionless_invariants.csv` existent et sont non vides.  
+   - Absence de valeurs NaN/Inf dans les colonnes `I1`, `I2`, `I3`.
+
+2. **Statistiques basiques**  
+   - Calculer min, max, médiane de `I1`, `I2`, `I3` (via un petit script ou un notebook).  
+   - Vérifier l’absence de discontinuités non physiques (sauts brusques).
+
+3. **Cohérence temporelle**  
+   - `T_Gyr` strictement croissant dans les deux fichiers.  
+   - Cohérence de la grille avec celle des chapitres 1–3 (même domaine, même pas log).
+
+4. **Contrôle des figures**  
+   - Légendes, unités et styles cohérents avec les chapitres précédents.  
+   - Les diagnostics de la figure `04_fig_04_relative_deviations.png` sont compatibles avec les tolérances sur \(I_2\) et \(I_3\).
+
+5. **Validation automatisée (si disponible)**  
+   - Tests de schémas (CSV/JSON) via les scripts génériques de validation dans `zz-schemas/` ou `zz-tests/`.  
+
+---
+
+## 9. Commandes d’exécution (récapitulatif)
+
+Depuis la racine du dépôt :
+
+```bash
+# 1) Générer les données du chapitre 4
+python zz-scripts/chapter04/generate_data_chapter04.py
+
+# 2) Tracer les figures
+python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
+python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
+python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
+python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+```
+
+---
+
+## 10. Compilation LaTeX du chapitre
+
+Compilation des deux fichiers LaTeX du chapitre 4 depuis la racine du dépôt :
+
+```bash
 pdflatex -jobname=chap4_conceptuel  04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
 pdflatex -jobname=chap4_details     04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
+```
 
-11) Métadonnées & reproductibilité
-──────────────────────────────────
-• Config par défaut : zz-configuration/mcgt-global-config.ini
-• Intégration CI : zz-workflows/ci.yml (tests, validateurs, diagnostics)
-• Versionnage : numérotation cohérente (VERSION/CHANGELOG), hachage de données si pertinent
-• Manifeste : zz-manifests/manifest_master.json et manifest_publication.json (cohérence noms/chemins)
+S’assurer que le chemin des figures (`zz-figures/chapter04/04_fig_*.png`) est correctement référencé dans les sources LaTeX.
+
+---
+
+## 11. Métadonnées & reproductibilité
+
+- **Configuration globale** : `zz-configuration/mcgt-global-config.ini` (paramètres physiques et numériques partagés entre chapitres).  
+- **Environnement Python** : `zz-scripts/chapter04/requirements.txt` (liste minimale des dépendances).  
+- **Manifestes** : `zz-manifests/chapters/chapter_manifest_04.json` et manifestes globaux (`manifest_master.json`, `manifest_publication.json`) doivent référencer `04_P_vs_T.dat`, `04_dimensionless_invariants.csv`, les figures et les scripts de ce chapitre.  
+- **CI / Diagnostics globaux** : scripts de validation et de diagnostic (tests de schémas, cohérence inter‑chapitres) exécutés via la CI MCGT ou manuellement.
+

@@ -135,67 +135,49 @@ Compilation (voir §10).
 - Rôle : lit la config/échantillons, évalue les métriques, écrit `10_mc_results.csv`.
 - Entrées : `--config`, `--samples` ; sorties : `--out`.
 - Exemple :
-  python zz-scripts/chapter10/generate_data_chapter10.py \
-    --config  zz-data/chapter10/10_mc_config.json \
-    --samples zz-data/chapter10/10_mc_samples.csv \
-    --out     zz-data/chapter10/10_mc_results.csv
+  python zz-scripts/chapter10/generate_data_chapter10.py     --config  zz-data/chapter10/10_mc_config.json     --samples zz-data/chapter10/10_mc_samples.csv     --out     zz-data/chapter10/10_mc_results.csv
 
 3.2 `recompute_p95_circular.py` (recalcul circulaire)
 - Rôle : produit `10_mc_results.circ.csv` à partir de `10_mc_results.csv`.
 - Exemple :
-  python zz-scripts/chapter10/recompute_p95_circular.py \
-    --in  zz-data/chapter10/10_mc_results.csv \
-    --out zz-data/chapter10/10_mc_results.circ.csv
+  python zz-scripts/chapter10/recompute_p95_circular.py     --in  zz-data/chapter10/10_mc_results.csv     --out zz-data/chapter10/10_mc_results.circ.csv
 
 3.3 `add_phi_at_fpeak.py` / `diag_phi_fpeak.py` (jalons f_peak)
 - Rôle : ajoute les colonnes f_peak/φ_ref/φ_mcgt (si activé).
 - Exemple :
-  python zz-scripts/chapter10/add_phi_at_fpeak.py \
-    --in  zz-data/chapter10/10_mc_results.circ.csv \
-    --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
+  python zz-scripts/chapter10/add_phi_at_fpeak.py     --in  zz-data/chapter10/10_mc_results.circ.csv     --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
 
 3.4 `bootstrap_topk_p95.py` (sélection top-k + incertitudes)
 - Rôle : calcule top-k selon `p95_20_300_recalc`, exporte `10_mc_best_bootstrap.json`.
 - Exemple :
-  python zz-scripts/chapter10/bootstrap_topk_p95.py \
-    --in  zz-data/chapter10/10_mc_results.circ.csv \
-    --out zz-data/chapter10/10_mc_best_bootstrap.json \
-    --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
+  python zz-scripts/chapter10/bootstrap_topk_p95.py     --in  zz-data/chapter10/10_mc_results.circ.csv     --out zz-data/chapter10/10_mc_best_bootstrap.json     --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
 
 3.5 `eval_primary_metrics_20_300.py` (métriques primaires)
 - Rôle : évalue p95/moyenne/médiane/max sur [20,300] Hz (définition circulaire).
 - Exemple :
-  python zz-scripts/chapter10/eval_primary_metrics_20_300.py \
-    --in  zz-data/chapter10/10_mc_results.circ.csv \
-    --out zz-data/chapter10/10_mc_results.circ.agg.csv
+  python zz-scripts/chapter10/eval_primary_metrics_20_300.py     --in  zz-data/chapter10/10_mc_results.circ.csv     --out zz-data/chapter10/10_mc_results.circ.agg.csv
 
 3.6 `check_metrics_consistency.py` / `qc_wrapped_vs_unwrapped.py` / `inspect_topk_residuals.py`
 - Rôle : diagnostics qualité (cohérence métriques, wrapping/unwrapping, inspection outliers).
 - Exemples :
-  python zz-scripts/chapter10/check_metrics_consistency.py \
-    --csv zz-data/chapter10/10_mc_results.circ.csv --window 20 300
-  python zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py \
-    --csv zz-data/chapter10/10_mc_results.circ.csv
+  python zz-scripts/chapter10/check_metrics_consistency.py     --csv zz-data/chapter10/10_mc_results.circ.csv --window 20 300
+  python zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py     --csv zz-data/chapter10/10_mc_results.circ.csv
 
 3.7 `regen_fig05_using_circp95.py` (régénération Fig. 05)
 - Rôle : régénère la figure histogramme/CDF avec la colonne circulaire.
 - Exemple :
-  python zz-scripts/chapter10/regen_fig05_using_circp95.py \
-    --in zz-data/chapter10/10_mc_results.circ.csv \
-    --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
+  python zz-scripts/chapter10/regen_fig05_using_circp95.py     --in zz-data/chapter10/10_mc_results.circ.csv     --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png
 
 3.8 `update_manifest_with_hashes.py` (traçabilité)
 - Rôle : met à jour les manifests avec hash/checksum, date, taille.
 - Exemple :
-  python zz-scripts/chapter10/update_manifest_with_hashes.py \
-    --manifest zz-manifests/manifest_master.json \
-    --write
+  python zz-scripts/chapter10/update_manifest_with_hashes.py     --manifest zz-manifests/manifest_master.json     --write
 
 3.9 Génération/trace des figures (scripts `plot_*`)
 - `plot_fig01_iso_p95_maps.py`         → `fig_01_iso_p95_maps.png`
 - `plot_fig02_scatter_phi_at_fpeak.py` → `fig_02_scatter_phi_at_fpeak.png`
 - `plot_fig03_convergence_p95_vs_n.py` → `fig_03_convergence_p95_vs_n.png`
-- `plot_fig03b_bootstrap_coverage_vs_n.py` → `fig_03b_coverage_bootstrap_vs_n_hires.png`
+- `plot_fig03b_bootstrap_coverage_vs_n_hires.py` → `fig_03b_coverage_bootstrap_vs_n_hires.png`
 - `plot_fig04_scatter_p95_recalc_vs_orig.py` → `fig_04_scatter_p95_recalc_vs_orig.png`
 - `plot_fig05_hist_cdf_metrics.py`     → `fig_05_hist_cdf_metrics.png`
 - `plot_fig06_residual_map.py`         → `fig_06_heatmap_absdp95_m1m2.png`
@@ -343,75 +325,30 @@ python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json --repo
 10) COMMANDES D’EXÉCUTION (séquence type)
 --------------------------------------------------------------------
 # 1) Générer les échantillons (si besoin)
-python zz-scripts/chapter10/generate_data_chapter10.py \
-  --config  zz-data/chapter10/10_mc_config.json \
-  --samples zz-data/chapter10/10_mc_samples.csv \
-  --out     zz-data/chapter10/10_mc_results.csv
+python zz-scripts/chapter10/generate_data_chapter10.py   --config  zz-data/chapter10/10_mc_config.json   --samples zz-data/chapter10/10_mc_samples.csv   --out     zz-data/chapter10/10_mc_results.csv
 
 # 2) Recalcul « circular mean »
-python zz-scripts/chapter10/recompute_p95_circular.py \
-  --in  zz-data/chapter10/10_mc_results.csv \
-  --out zz-data/chapter10/10_mc_results.circ.csv
+python zz-scripts/chapter10/recompute_p95_circular.py   --in  zz-data/chapter10/10_mc_results.csv   --out zz-data/chapter10/10_mc_results.circ.csv
 
 # 3) Ajouter f_peak (si outputs.with_fpeak=true)
-python zz-scripts/chapter10/add_phi_at_fpeak.py \
-  --in  zz-data/chapter10/10_mc_results.circ.csv \
-  --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
+python zz-scripts/chapter10/add_phi_at_fpeak.py   --in  zz-data/chapter10/10_mc_results.circ.csv   --out zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
 
 # 4) Figures principales
-python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --p95-col p95_20_300_recalc \
-  --m1-col m1 --m2-col m2 \
-  --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
-  --levels 16 --dpi 300
+python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py   --results zz-data/chapter10/10_mc_results.circ.csv   --p95-col p95_20_300_recalc   --m1-col m1 --m2-col m2   --out zz-figures/chapter10/fig_01_iso_p95_maps.png   --levels 16 --dpi 300
 
-python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py \
-  --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
-  --x-col phi_ref_at_fpeak --y-col phi_mcgt_at_fpeak \
-  --out zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png \
-  --dpi 300 --clip-pi
+python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py   --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv   --x-col phi_ref_at_fpeak --y-col phi_mcgt_at_fpeak   --out zz-figures/chapter10/fig_02_scatter_phi_at_fpeak.png   --dpi 300 --clip-pi
 
-python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --p95-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png \
-  --B 2000 --seed 12345 --dpi 300
+python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py   --results zz-data/chapter10/10_mc_results.circ.csv   --p95-col p95_20_300_recalc   --out zz-figures/chapter10/fig_03_convergence_p95_vs_n.png   --B 2000 --seed 12345 --dpi 300
 
-python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --p95-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png \
-  --outer 2000 --inner 2000 --M 2000 --alpha 0.05 --seed 12345 \
-  --minN 100 --npoints 10 --dpi 300 \
-  --ymin-coverage 0.88 --ymax-coverage 1.01
+python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n_hires.py   --results zz-data/chapter10/10_mc_results.circ.csv   --p95-col p95_20_300_recalc   --out zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.png   --outer 2000 --inner 2000 --M 2000 --alpha 0.05 --seed 12345   --minN 100 --npoints 10 --dpi 300   --ymin-coverage 0.88 --ymax-coverage 1.01
 
-python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
-  --dpi 300 --bins 50
+python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py   --results zz-data/chapter10/10_mc_results.circ.csv   --orig-col p95_20_300 --recalc-col p95_20_300_recalc   --out zz-figures/chapter10/fig_04_scatter_p95_recalc_vs_orig.png   --dpi 300 --bins 50
 
-python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
-  --ref-p95 0.7104087123286049 --bins 50 --dpi 150
+python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py   --results zz-data/chapter10/10_mc_results.circ.csv   --out zz-figures/chapter10/fig_05_hist_cdf_metrics.png   --ref-p95 0.7104087123286049 --bins 50 --dpi 150
 
-python zz-scripts/chapter10/plot_fig06_residual_map.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --metric dp95 --abs \
-  --m1-col m1 --m2-col m2 \
-  --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --gridsize 36 --mincnt 3 --dpi 300 \
-  --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
+python zz-scripts/chapter10/plot_fig06_residual_map.py   --results zz-data/chapter10/10_mc_results.circ.csv   --metric dp95 --abs   --m1-col m1 --m2-col m2   --orig-col p95_20_300 --recalc-col p95_20_300_recalc   --gridsize 36 --mincnt 3 --dpi 300   --out zz-figures/chapter10/fig_06_heatmap_absdp95_m1m2.png
 
-python zz-scripts/chapter10/plot_fig07_synthesis.py \
-  --manifest-a zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.manifest.json \
-  --label-a "Percentile (outer=2000,inner=2000)" \
-  --manifest-b zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.manifest.json \
-  --label-b "Convergence p95 vs N" \
-  --out zz-figures/chapter10/10_fig_07_summary_comparison.png \
-  --dpi 300 --figsize 14,6
+python zz-scripts/chapter10/plot_fig07_synthesis.py   --manifest-a zz-figures/chapter10/fig_03b_coverage_bootstrap_vs_n_hires.manifest.json   --label-a "Percentile (outer=2000,inner=2000)"   --manifest-b zz-figures/chapter10/fig_03_convergence_p95_vs_n.manifest.json   --label-b "Convergence p95 vs N"   --out zz-figures/chapter10/fig_07_summary_comparison.png   --dpi 300 --figsize 14,6
 
 --------------------------------------------------------------------
 11) FIGURES (récapitulatif)
@@ -431,11 +368,9 @@ python zz-scripts/chapter10/plot_fig07_synthesis.py \
 - Mise à jour du **figure_manifest.csv** après génération des figures :
   • `path, chapter, figure_id, title, hash, bytes, updated_at`
 - Vérification centralisée :
-  python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
-    --report json --normalize-paths --content-check > zz-manifests/reports/diag_ch10.json
+  python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json     --report json --normalize-paths --content-check > zz-manifests/reports/diag_ch10.json
 - Ajout des empreintes :
-  python zz-scripts/chapter10/update_manifest_with_hashes.py \
-    --manifest zz-manifests/manifest_master.json --write
+  python zz-scripts/chapter10/update_manifest_with_hashes.py     --manifest zz-manifests/manifest_master.json --write
 - CI (rappel) : exécute `pytest`, validateurs JSON/CSV, diagnostics de manifestes (voir `zz-workflows/ci.yml`).
 
 --------------------------------------------------------------------

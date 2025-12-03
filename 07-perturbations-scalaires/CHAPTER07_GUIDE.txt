@@ -1,290 +1,428 @@
 CHAPITRE 7 – PERTURBATIONS SCALAIRES — GUIDE D’UTILISATION
+==========================================================
 
-Objectif :
-  Ce guide décrit de manière complète la génération des données, la production
-  des figures, l’emploi du solveur de perturbations scalaires MCGT et la
-  compilation LaTeX pour le Chapitre 7. Toutes les étapes et fichiers
-  nécessaires sont alignés sur la structure des autres chapitres.
+Objectif
+--------
+Ce guide décrit de manière complète la génération des données, la production
+des figures, l’emploi du solveur de perturbations scalaires MCGT et la
+compilation LaTeX pour le Chapitre 7. Toutes les étapes et tous les fichiers
+sont alignés sur la structure des autres chapitres MCGT (CH05, CH06, etc.).
 
-Dépendances logicielles minimales :
-  • Python ≥ 3.9 (numpy, pandas, scipy, matplotlib)
-  • LaTeX – pdflatex (packages : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox)
+Dépendances logicielles minimales
+---------------------------------
+• Python ≥ 3.9
+  – numpy, pandas, scipy, matplotlib
+• LaTeX – pdflatex
+  – packages : amsmath, graphicx, siunitx, booktabs, hyperref, adjustbox
 
-Constantes et tolérances clés :
-  • Grilles : k log-uniforme, a linéaire
-  • Lissage Savitzky–Golay : fenêtre = 7 points ; ordre = 3 ; mode='interp'
-  • Seuils jalons : ±1 % (primaires) ; ±10 % (ordre 2)
-  • Segmentation k (option) : x_split ≈ 0.02 avec sous-grilles {low, high}
+Constantes et tolérances clés
+-----------------------------
+• Grilles :
+  – k : log-uniforme
+  – a : linéaire
+• Lissage Savitzky–Golay :
+  – fenêtre = 7 points
+  – ordre = 3
+  – mode = 'interp'
+• Seuils jalons (cohérence inter-chapitres) :
+  – primaires : ±1 %
+  – ordre 2 : ±10 %
+• Segmentation k (optionnelle) :
+  – x_split ≈ 0.02 avec sous-grilles {low, high}
+
+Périmètre et résultats attendus
+-------------------------------
+Le Chapitre 7 met en œuvre le solveur de perturbations scalaires de MCGT pour
+construire :
+
+• des matrices (k, a) de c_s²(k, a) et δφ/φ(k, a) ;
+• des profils 1D dérivés (c_s²(k), δφ/φ(k), dérivées lissées) ;
+• des invariants scalaires I₁(k), I₂(k) ;
+• des cartes de domaine/bornes de validité ;
+• un ensemble de figures (cartes, dérivées, invariants, comparaisons).
+
+Le fichier de résultats principal pour les courbes 1D est
+`07_scalar_perturbations_results.csv`. Les matrices complètes et certains
+dérivés sont également exportés pour analyse détaillée et annexes.
+
 
 1. SOURCES LaTeX (dossier `07-perturbations-scalaires/`)
-  • 07_perturbations_scalaires_conceptuel.tex
-  • 07_perturbations_scalaires_details.tex
+--------------------------------------------------------
+• 07_perturbations_scalaires_conceptuel.tex
+• 07_perturbations_scalaires_details.tex
 
-2. DONNÉES D’ENTRÉE & SPÉCIFICATIONS (dossier `zz-data/chapter07/`)
+Ces fichiers sont compilés indépendamment (voir §8).
 
-2.1 Paramètres — « 07_perturbations_params.json »
-  Exemples de champs attendus (issus de la dernière exécution) :
-  {
-    "cs2_param": 1.0,
-    "delta_phi_param": 0.05,
-    "k_min": 1.0e-4, "k_max": 10.0, "dlog": 0.01, "n_k": 501,
-    "a_min": 0.05, "a_max": 1.0, "n_a": 20,
-    "derivative_window": 7, "derivative_polyorder": 3,
-    "thresholds": { "primary": 0.01, "order2": 0.1 },
-    "x_split": 0.02, "k0": 0.1, "alpha": 0.5,
-    "max_epsilon_primary_cs2": 8.5761001246317,
-    "max_epsilon_order2_cs2": 0.0,
-    "max_epsilon_primary_phi": 0.0,
-    "max_epsilon_order2_phi": 0.0,
-    "segments": {
-      "low":  { "k_max": 0.01995262314968881, "n_points": 231 },
-      "high": { "k_min": 0.020417379446695295, "n_points": 270 }
-    }
+
+2. DONNÉES (dossier `zz-data/chapter07/`)
+-----------------------------------------
+
+2.1 Paramètres de perturbations — `07_perturbations_params.json`
+----------------------------------------------------------------
+Fichier JSON principal regroupant les paramètres et options effectives du
+dernier run de post-traitement. Exemple de champs typiques :
+
+{
+  "cs2_param": 1.0,
+  "delta_phi_param": 0.05,
+  "k_min": 1.0e-4, "k_max": 10.0, "dlog": 0.01, "n_k": 501,
+  "a_min": 0.05, "a_max": 1.0, "n_a": 20,
+  "derivative_window": 7, "derivative_polyorder": 3,
+  "thresholds": { "primary": 0.01, "order2": 0.1 },
+  "x_split": 0.02, "k0": 0.1, "alpha": 0.5,
+  "segments": {
+    "low":  { "k_max": ..., "n_points": ... },
+    "high": { "k_min": ..., "n_points": ... }
   }
+}
 
-2.2 Métadonnées globales — « 07_perturbations_meta.json »
-  {
-    "git_hash": null,
-    "version": "chap7-v601.30",
-    "n_points": 18030,
-    "files": [
-      "07_dcs2_dk.csv",
-      "07_ddelta_phi_dk.csv",
-      "07_perturbations_main_data.csv",
-      "07_scalar_invariants.csv",
-      "07_perturbations_domain.csv",
-      "07_perturbations_boundary.csv",
-      "07_scalar_perturbations_results.csv",
-      "07_cs2_matrix.csv",
-      "07_delta_phi_matrix.csv"
-    ]
-  }
+Remarque :
+• `07_params_perturbations.json` et `07_meta_perturbations.json` sont des
+  variantes plus anciennes, conservées comme méta annexes.
 
-2.3 Matrices (k,a)
-  • « 07_cs2_matrix.csv » :
-    | Colonne | Description                 | Unité | Remarque                       |
-    |:------:|:----------------------------|:-----:|:--------------------------------|
-    | k      | Échelle d’onde (log-grid)   | h/Mpc | k ∈ [k_min, k_max]              |
-    | a      | Facteur d’échelle (linéaire)|  —    | a ∈ [a_min, a_max]              |
-    | cs2    | Valeur brute de c_s²(k,a)   |  —    | après application `cs2_param`   |
+2.2 Métadonnées globales — `07_perturbations_meta.json`
+-------------------------------------------------------
+Fichier de méta-information listant version, nombre de points et fichiers
+associés. Exemple :
 
-  • « 07_delta_phi_matrix.csv » :
-    | Colonne  | Description                | Unité | Remarque                          |
-    |:-------:|:---------------------------|:-----:|:-----------------------------------|
-    | k       | Échelle d’onde             | h/Mpc | même grille k                      |
-    | a       | Facteur d’échelle          |  —    | même grille a                      |
-    | delta_phi_matrix | δφ/φ brute        |  —    | après application `delta_phi_param`|
+{
+  "git_hash": null,
+  "version": "chap7-v601.30",
+  "n_points": 18030,
+  "files": [
+    "07_dcs2_vs_k.csv",
+    "07_ddelta_phi_vs_k.csv",
+    "07_perturbations_main_data.csv",
+    "07_scalar_invariants.csv",
+    "07_perturbations_domain.csv",
+    "07_perturbations_boundary.csv",
+    "07_scalar_perturbations_results.csv",
+    "07_cs2_matrix.csv",
+    "07_delta_phi_matrix.csv"
+  ]
+}
+
+2.3 Matrices (k, a)
+-------------------
+• `07_cs2_matrix.csv` :
+  | Colonne | Description                  | Unité | Remarque                      |
+  |:-------:|:-----------------------------|:-----:|:------------------------------|
+  | k       | Échelle d’onde (log-grid)    | h/Mpc | k ∈ [k_min, k_max]            |
+  | a       | Facteur d’échelle (linéaire) |  —    | a ∈ [a_min, a_max]            |
+  | cs2     | Valeur brute de c_s²(k, a)   |  —    | après application `cs2_param` |
+
+• `07_delta_phi_matrix.csv` :
+  | Colonne          | Description          | Unité | Remarque                         |
+  |:----------------:|:---------------------|:-----:|:----------------------------------|
+  | k                | Échelle d’onde       | h/Mpc | même grille k                     |
+  | a                | Facteur d’échelle    |  —    | même grille a                     |
+  | delta_phi_matrix | δφ/φ brute           |  —    | après application `delta_phi_param` |
+
+Versions compressées :
+• `07_cs2_matrix.csv.gz`
+• `07_delta_phi_matrix.csv.gz`
 
 2.4 Profils 1D & dérivées (k)
-  • « 07_phase_run.csv » : échantillons de contrôle (extraits k,a → cs2_raw, delta_phi_raw)
-  • « 07_dcs2_dk.csv » :
-    | Colonne | Description                    | Unité |
-    |:------:|:-------------------------------|:-----:|
-    | k      | Échelle d’onde                 | h/Mpc |
-    | d_cs2_dk | Dérivée lissée ∂(c_s²)/∂k   |  —    |
+-----------------------------
+• `07_dcs2_vs_k.csv` :
+  | Colonne   | Description                     | Unité |
+  |:---------:|:--------------------------------|:-----:|
+  | k         | Échelle d’onde                  | h/Mpc |
+  | d_cs2_dk  | Dérivée lissée ∂(c_s²)/∂k       |  —    |
 
-  • « 07_ddelta_phi_dk.csv » :
-    | Colonne       | Description                      | Unité |
-    |:-------------:|:---------------------------------|:-----:|
-    | k             | Échelle d’onde                   | h/Mpc |
-    | d_delta_phi_dk| Dérivée lissée ∂(δφ/φ)/∂k        |  —    |
+• `07_ddelta_phi_vs_k.csv` :
+  | Colonne         | Description                       | Unité |
+  |:---------------:|:----------------------------------|:-----:|
+  | k               | Échelle d’onde                    | h/Mpc |
+  | d_delta_phi_dk  | Dérivée lissée ∂(δφ/φ)/∂k         |  —    |
 
-2.5 Résultats principaux & invariants
-  • « 07_perturbations_main_data.csv » (ou « 07_scalar_perturbations_results.csv ») :
-    | Colonne        | Description                                 | Unité | Méthode                                  |
-    |:--------------:|:--------------------------------------------|:-----:|:-----------------------------------------|
-    | k              | Échelle d’onde                               | h/Mpc | grille log-uniforme                      |
-    | cs2_interp     | c_s²(k) interpolé                            |  —    | PCHIP en (log₁₀k, log₁₀c_s²), extrap.=True |
-    | d_cs2_dk       | dérivée lissée de c_s²                       |  —    | SavGol (fen.=7, ordre=3, mode='interp')  |
-    | phi_interp     | δφ/φ(k) interpolé                            |  —    | PCHIP linéaire en (k, δφ/φ)              |
-    | d_delta_phi_dk | dérivée lissée de δφ/φ                       |  —    | idem                                     |
+• `07_phase_run.csv` :
+  – Échantillons de contrôle (k, a, cs2_raw, delta_phi_raw) utilisés pour valider
+    visuellement le comportement du solveur.
 
-  • « 07_scalar_invariants.csv » :
-    | Colonne | Description (exemples d’invariants)                               |
-    |:------:|:-------------------------------------------------------------------|
-    | k      | Échelle d’onde                                                     |
-    | I1     | Invariant I₁ ≡ c_s²(k) / k^α (α configurable ; défaut α=0 → c_s²)  |
-    | I2     | Invariant I₂ (ex. k·|δφ/φ| ou autre déf. spécifique au modèle)     |
+2.5 Résultats principaux (1D)
+-----------------------------
+• `07_scalar_perturbations_results.csv` (DATA_OUTPUT=YES)  
+  Fichier 1D principal pour les courbes de perturbations scalaires :
 
-2.6 Domaine & frontière
-  • « 07_perturbations_domain.csv » : bornes valides d’évaluation (k_min,k_max,a_min,a_max)
-  • « 07_perturbations_boundary.csv » : enveloppes/limites utiles (ex. stabilité, validité)
+  | Colonne        | Description                                  | Unité |
+  |:--------------:|:---------------------------------------------|:-----:|
+  | k              | Échelle d’onde (log-grid)                    | h/Mpc |
+  | cs2_interp     | c_s²(k) interpolé                            |  —    |
+  | d_cs2_dk       | Dérivée lissée de c_s²(k)                    |  —    |
+  | phi_interp     | δφ/φ(k) interpolé                            |  —    |
+  | d_delta_phi_dk | Dérivée lissée de δφ/φ(k)                    |  —    |
 
-3. ORGANISATION DES FICHIERS
+• `07_perturbations_main_data.csv`  
+  Fichier proche de la structure précédente, conservé en ANNEX comme format
+  interne apparenté (mêmes grandeurs, organisation légèrement différente).
 
-3.1 Données (input/produites) — `zz-data/chapter07/`
-  • 07_cs2_matrix.csv ; 07_delta_phi_matrix.csv
-  • 07_phase_run.csv
-  • 07_dcs2_dk.csv ; 07_ddelta_phi_dk.csv
-  • 07_perturbations_main_data.csv (ou 07_scalar_perturbations_results.csv)
-  • 07_scalar_invariants.csv
-  • 07_perturbations_domain.csv ; 07_perturbations_boundary.csv
-  • 07_perturbations_params.json ; 07_perturbations_meta.json
+2.6 Invariants scalaires — `07_scalar_invariants.csv`
+------------------------------------------------------
+Fichier d’invariants dérivés à partir de cs2_interp et phi_interp :
 
-3.2 Figures — `zz-figures/chapter07/`
-  • fig_00_loglog_sampling_test.png
-  • fig_01_cs2_heatmap_k_a.png
-  • fig_02_delta_phi_heatmap_k_a.png
-  • fig_03_invariant_I1.png
-  • fig_04_dcs2_dk_vs_k.png
-  • fig_05_ddelta_phi_dk_vs_k.png
-  • fig_06_comparison.png
-  • fig_07_invariant_I2.png
+| Colonne | Description (exemples d’invariants)                               |
+|:------:|:-------------------------------------------------------------------|
+| k      | Échelle d’onde                                                     |
+| I1     | Invariant I₁ ≡ c_s²(k) / k^α (α configurable ; défaut α = 0)      |
+| I2     | Invariant I₂ (par ex. k·|δφ/φ| ou autre déf. spécifique au modèle)|
 
-3.3 Scripts — `zz-scripts/chapter07/`
-  • generate_data_chapter07.py
-  • launch_scalar_perturbations_solver.py
-  • launch_solver_chapter07.sh
-  • plot_fig01_cs2_heatmap.py
-  • plot_fig02_delta_phi_heatmap.py
-  • tracer_fig03_invariant_I1.py
-  • tracer_fig04_dcs2_vs_k.py
-  • tracer_fig05_ddelta_phi_vs_k.py
-  • plot_fig06_comparison.py
-  • tracer_fig07_invariant_I2.py
-  • requirements.txt
-  • (tests) tests/test_chapter07.py
-  • (utils) utils/test_kgrid.py ; utils/toy_model.py
+2.7 Domaine & frontière
+-----------------------
+• `07_perturbations_domain.csv` :
+  – Domaine d’évaluation valide (k_min, k_max, a_min, a_max) et paramètres
+    connexes (selon les versions du pipeline).
 
-4. TABLEAUX RÉCAPITULATIFS
+• `07_perturbations_boundary.csv` :
+  – Informations de frontière : enveloppes de stabilité/validité, bornes
+    de confiance sur les profils, etc.
 
-4.1 Grilles & lissage (exécution par défaut)
-| Paramètre              | Valeur              | Commentaire                                  |
-|:-----------------------|:--------------------|:---------------------------------------------|
-| k_min, k_max           | 1.0e-4, 10.0        | h/Mpc ; log-grid                             |
-| dlog                   | 0.01                | pas log₁₀k                                   |
-| n_k                    | 501                 | cohérent avec k_min/k_max/dlog               |
-| a_min, a_max           | 0.05, 1.0           | facteur d’échelle (lin.)                     |
-| n_a                    | 20                  |                                              |
-| x_split                | 0.02                | segmentation k (option)                      |
-| derivative_window      | 7                   | Savitzky–Golay                               |
-| derivative_polyorder   | 3                   | Savitzky–Golay                               |
-| thresholds.primary     | 0.01                | jalons primaires                             |
-| thresholds.order2      | 0.10                | jalons ordre 2                               |
+2.8 Fichiers techniques & placeholder
+-------------------------------------
+• `placeholder.csv` :
+  – Fichier technique sans contenu scientifique ; utilisé uniquement comme
+    placeholder dans certains scripts/tests.
 
-4.2 Fichiers clés (formats & colonnes)
-| Fichier                            | Colonnes principales                                   |
-|:-----------------------------------|:-------------------------------------------------------|
-| 07_cs2_matrix.csv                  | k, a, cs2                                              |
-| 07_delta_phi_matrix.csv            | k, a, delta_phi_matrix                                 |
-| 07_phase_run.csv                   | k, a, cs2_raw, delta_phi_raw                           |
-| 07_dcs2_dk.csv                     | k, d_cs2_dk                                            |
-| 07_ddelta_phi_dk.csv               | k, d_delta_phi_dk                                      |
-| 07_perturbations_main_data.csv     | k, cs2_interp, d_cs2_dk, phi_interp, d_delta_phi_dk    |
-| 07_scalar_invariants.csv           | k, I1, I2                                              |
-| 07_perturbations_domain.csv        | k_min, k_max, a_min, a_max                             |
-| 07_perturbations_boundary.csv      | champs de frontière (selon calcul)                     |
-| 07_perturbations_params.json       | paramètres d’exécution                                 |
-| 07_perturbations_meta.json         | méta : version, n_points, liste de fichiers            |
+• Fichiers JSON supplémentaires :
+  – `07_meta_perturbations.json`, `07_params_perturbations.json` :
+    méta et paramètres historiques, conservés comme ANNEX.
 
-5. PIPELINE — SOLVEUR & POST-TRAITEMENT
+Résumé des fichiers clés
+------------------------
+Fichiers au premier plan (pour un relecteur) :
+• Matrices : `07_cs2_matrix.csv`, `07_delta_phi_matrix.csv`
+• Profils 1D : `07_dcs2_vs_k.csv`, `07_ddelta_phi_vs_k.csv`
+• Résultats principaux : `07_scalar_perturbations_results.csv`
+• Invariants : `07_scalar_invariants.csv`
+• Domaine/bornes : `07_perturbations_domain.csv`, `07_perturbations_boundary.csv`
+• Paramètres & méta : `07_perturbations_params.json`, `07_perturbations_meta.json`
 
-5.1 Lancement du solveur (shell)
-  python zz-scripts/chapter07/launch_scalar_perturbations_solver.py \
-         --ini zz-configuration/scalar_perturbations.ini
 
-  • Lit l’INI et construit les grilles k,a.
-  • Évalue c_s²(k,a) et δφ/φ(k,a) (modèles internes MCGT).
-  • Exporte les matrices `07_cs2_matrix.csv` et `07_delta_phi_matrix.csv`.
-  • Peut produire un échantillon « 07_phase_run.csv » (contrôle).
+3. FIGURES (dossier `zz-figures/chapter07/`)
+--------------------------------------------
+Les figures principales utilisées dans le chapitre sont :
 
-5.2 Génération des jeux dérivés (post-traitement)
-  python zz-scripts/chapter07/generate_data_chapter07.py \
-         --ini zz-configuration/scalar_perturbations.ini \
-         [--cs2_param 1.0] [--delta_phi_param 0.05] \
-         [--export-derivative] [--export-matrix]
+• `07_fig_01_cs2_heatmap.png`
+  – Carte c_s²(k, a) sur la grille (k, a).
 
-  • Interpolation :
-      – c_s² : PCHIP en (log₁₀k, log₁₀c_s²), extrapolate=True.
-      – δφ/φ : PCHIP linéaire en (k, δφ/φ), extrapolate=True.
-  • Dérivées : Savitzky–Golay (fen.=7, ordre=3, mode='interp').
-  • Invariants : calcule I1, I2 et exporte `07_scalar_invariants.csv`.
-  • Domaine & frontière : exporte `07_perturbations_domain.csv` et `07_perturbations_boundary.csv`.
-  • Résultats principaux : `07_perturbations_main_data.csv` (alias `07_scalar_perturbations_results.csv`).
-  • Paramètres & méta : met à jour `07_perturbations_params.json` et `07_perturbations_meta.json`.
+• `07_fig_02_delta_phi_heatmap.png`
+  – Carte δφ/φ(k, a) sur la même grille.
 
-6. FIGURES (commande & contenu)
+• `07_fig_03_invariant_i1.png`
+  – Invariant I₁(k) en fonction de k.
 
+• `07_fig_04_dcs2_vs_k.png`
+  – Dérivée lissée ∂(c_s²)/∂k en fonction de k.
+
+• `07_fig_05_ddelta_phi_vs_k.png`
+  – Dérivée lissée ∂(δφ/φ)/∂k en fonction de k.
+
+• `07_fig_06_comparison.png`
+  – Comparaison de profils (par ex. cs2_interp vs phi_interp ou benchmarks).
+
+• `07_fig_07_invariant_i2.png`
+  – Invariant I₂(k) en fonction de k.
+
+
+4. SCRIPTS (dossier `zz-scripts/chapter07/`)
+--------------------------------------------
+
+4.1 Script principal de post-traitement
+---------------------------------------
+• `generate_data_chapter07.py` (SCRIPT_MAIN=YES)
+
+Ce script construit les profils 1D, dérivées, invariants et fichiers JSON
+de paramètres/méta à partir des matrices (k, a). Les fichiers de sortie
+incluent notamment :
+
+• `07_scalar_perturbations_results.csv`
+• `07_scalar_invariants.csv`
+• `07_dcs2_vs_k.csv`, `07_ddelta_phi_vs_k.csv`
+• `07_perturbations_domain.csv`, `07_perturbations_boundary.csv`
+• `07_perturbations_params.json`, `07_perturbations_meta.json`
+
+4.2 Solveur de perturbations scalaires
+--------------------------------------
+• `launch_scalar_perturbations_solver.py` (SCRIPT_HELPER)
+• `launch_solver_chapter07.sh` (wrapper shell)
+
+Rôle :
+• lire un fichier INI (par ex. `zz-configuration/scalar_perturbations.ini`) ;
+• construire les grilles k, a ;
+• évaluer c_s²(k, a) et δφ/φ(k, a) via le modèle interne MCGT ;
+• exporter les matrices `07_cs2_matrix.csv`, `07_delta_phi_matrix.csv`
+  ainsi que, le cas échéant, `07_phase_run.csv`.
+
+4.3 Scripts de figures
+----------------------
+Scripts de tracé utilisés pour générer les figures de la section 3 :
+
+• `plot_fig01_cs2_heatmap.py`
+• `plot_fig02_delta_phi_heatmap.py`
+• `plot_fig03_invariant_i1.py`
+• `plot_fig04_dcs2_vs_k.py`
+• `plot_fig05_ddelta_phi_vs_k.py`
+• `plot_fig06_comparison.py`
+• `plot_fig07_invariant_i2.py`
+
+4.4 Tests et utilitaires
+------------------------
+• `tests/test_chapter07.py`
+• `utils/test_kgrid.py`
+• `utils/toy_model.py`
+
+Ces scripts servent au contrôle de cohérence des grilles k, a, des formats
+de sortie et du comportement du solveur (tests unitaires et modèles jouets).
+
+4.5 Environnement
+-----------------
+• `requirements.txt`
+  – liste des dépendances Python spécifiques à ce chapitre (tests inclus).
+
+
+5. PARAMÈTRES, LISSAGE & INTERPOLATION
+--------------------------------------
+Grille k (par défaut) :
+• k_min = 1.0e-4, k_max = 10.0 (h/Mpc)
+• dlog = 0.01 → n_k ≈ 501
+• log-grid sur [k_min, k_max]
+
+Grille a :
+• a_min = 0.05, a_max = 1.0
+• n_a = 20
+• échantillonnage linéaire
+
+Segmentation (optionnelle) :
+• x_split = 0.02
+• segments.low/high documentés dans `07_perturbations_params.json`.
+
+Interpolation :
+• c_s²(k, a) :
+  – PCHIP en (log₁₀k, log₁₀c_s²), extrapolate=True pour les bords.
+• δφ/φ(k, a) :
+  – PCHIP linéaire en (k, δφ/φ), extrapolate=True.
+
+Lissage des dérivées :
+• Dérivées vs k calculées à partir des profils interpolés.
+• Filtre Savitzky–Golay :
+  – fenêtre = 7 points
+  – ordre = 3
+  – mode = 'interp'
+
+Seuils de jalons :
+• thresholds.primary = 0.01 (1 %)
+• thresholds.order2 = 0.10 (10 %)
+
+
+6. CONTRÔLES DE QUALITÉ (QC)
+----------------------------
+Les contrôles suivants doivent être vérifiés avant d’utiliser les résultats
+dans le texte LaTeX :
+
+Fichiers et formats
+• Fichiers non vides.
+• En-têtes conformes.
+• Colonnes numériques sans NaN/Inf.
+
+Cohérence des grilles
+• Longueurs des grilles k identiques entre :
+  – `07_dcs2_vs_k.csv`
+  – `07_ddelta_phi_vs_k.csv`
+  – `07_scalar_perturbations_results.csv`
+  – `07_scalar_invariants.csv`
+• Bornes k_min, k_max cohérentes avec `07_perturbations_domain.csv`.
+
+Dérivées et invariants
+• Dérivées lissées finies et raisonnablement régulières (pas
+  d’oscillations parasites extrêmes).
+• Invariants I1, I2 définis sur tout l’intervalle k, sans sauts non
+  physiques évidents.
+
+Segmentation
+• segments.low/high concaténés sans trou autour de x_split.
+• x_split cohérent entre `07_perturbations_params.json` et les fichiers
+  dérivés.
+
+Seuils jalons
+• max|ε_primary| ≤ thresholds.primary
+• max|ε_order2| ≤ thresholds.order2
+  (lorsque ces grandeurs sont calculées / exportées dans les JSON).
+
+Journalisation
+• Messages d’avertissement et d’erreur capturés dans les logs d’exécution
+  (solveur + post-traitement).
+• En CI, conserver au besoin les logs en artefacts pour audit.
+
+
+7. PIPELINE D’EXÉCUTION (EXEMPLES)
+----------------------------------
+
+7.1 Solveur → matrices (k, a)
+-----------------------------
+Depuis la racine du projet :
+
+  python zz-scripts/chapter07/launch_scalar_perturbations_solver.py          --ini zz-configuration/scalar_perturbations.ini
+
+Sorties attendues (au minimum) :
+• `zz-data/chapter07/07_cs2_matrix.csv`
+• `zz-data/chapter07/07_delta_phi_matrix.csv`
+• éventuellement `zz-data/chapter07/07_phase_run.csv`
+
+7.2 Post-traitement complet (1D + dérivées + invariants + méta)
+---------------------------------------------------------------
+  python zz-scripts/chapter07/generate_data_chapter07.py          --ini zz-configuration/scalar_perturbations.ini          --cs2_param 1.0 --delta_phi_param 0.05          --export-derivative --export-matrix
+
+Sorties principales :
+• `07_scalar_perturbations_results.csv`
+• `07_scalar_invariants.csv`
+• `07_dcs2_vs_k.csv`, `07_ddelta_phi_vs_k.csv`
+• `07_perturbations_domain.csv`, `07_perturbations_boundary.csv`
+• `07_perturbations_params.json`, `07_perturbations_meta.json`
+• (en option) versions compressées des matrices : `07_cs2_matrix.csv.gz`,
+  `07_delta_phi_matrix.csv.gz`.
+
+7.3 Tracé des figures
+---------------------
   python zz-scripts/chapter07/plot_fig01_cs2_heatmap.py
-    → fig_01_cs2_heatmap_k_a.png (carte c_s²(k,a))
-
   python zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
-    → fig_02_delta_phi_heatmap_k_a.png (carte δφ/φ(k,a))
-
-  python zz-scripts/chapter07/tracer_fig03_invariant_I1.py
-    → fig_03_invariant_I1.png (I₁ vs k)
-
-  python zz-scripts/chapter07/tracer_fig04_dcs2_vs_k.py
-    → fig_04_dcs2_dk_vs_k.png (∂(c_s²)/∂k vs k)
-
-  python zz-scripts/chapter07/tracer_fig05_ddelta_phi_vs_k.py
-    → fig_05_ddelta_phi_dk_vs_k.png (∂(δφ/φ)/∂k vs k)
-
+  python zz-scripts/chapter07/plot_fig03_invariant_i1.py
+  python zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
+  python zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
   python zz-scripts/chapter07/plot_fig06_comparison.py
-    → fig_06_comparison.png (superposition cs2 & δφ/φ, ou comparaison modèles)
+  python zz-scripts/chapter07/plot_fig07_invariant_i2.py
 
-  python zz-scripts/chapter07/tracer_fig07_invariant_I2.py
-    → fig_07_invariant_I2.png (I₂ vs k)
 
-7. PARAMÈTRES, LISSAGE & INTERPOLATION
+8. COMPILATION LaTeX
+--------------------
+Depuis la racine du projet :
 
-  • Grille k : log-uniforme (k_min=1e-4, k_max=10, dlog=0.01 → n_k=501).
-  • Grille a : linéaire (a_min=0.05, a_max=1.0, n_a=20).
-  • Segmentation : x_split=0.02 ; segments.low/.high (points selon `07_perturbations_params.json`).
-  • Interpolation :
-      – c_s² : PCHIP en log-log, extrapolate=True.
-      – δφ/φ : PCHIP linéaire, extrapolate=True.
-  • Lissage des dérivées : Savitzky–Golay (fen.=7, ordre=3, mode='interp').
-  • Seuils jalons : thresholds.primary = 0.01 ; thresholds.order2 = 0.10.
+  pdflatex -interaction=nonstopmode     07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex
 
-8. CONTRÔLES DE QUALITÉ (QC)
+  pdflatex -interaction=nonstopmode     07-perturbations-scalaires/07_perturbations_scalaires_details.tex
 
-  • Fichiers non vides ; entêtes conformes ; colonnes sans NaN/Inf.
-  • Cohérence des longueurs : grilles de k identiques entre fichiers 1D.
-  • Dérivées lissées finies ; absence d’oscillations parasites majeures.
-  • Invariants :
-      – I1, I2 définis sur tout l’intervalle ; comportement régulier vs k.
-  • Segmentation :
-      – segments.low/high concaténés sans trou (x_split respecté).
-  • Seuils :
-      – max|ε_primary| ≤ thresholds.primary ; max|ε_order2| ≤ thresholds.order2.
-  • Journalisation :
-      – messages d’avertissement/erreur capturés dans les logs d’exécution.
+Les figures listées en §3 (dossier `zz-figures/chapter07/`) doivent être
+référencées dans ces fichiers LaTeX conformément à la nomenclature du projet
+(figures `07_fig_0X_...`).
 
-9. COMMANDES D’EXÉCUTION (EXEMPLES)
 
-  # 1) Solveur → matrices (k,a)
-  python zz-scripts/chapter07/launch_scalar_perturbations_solver.py \
-         --ini zz-configuration/scalar_perturbations.ini
+9. VERSIONNAGE & REPRODUCTIBILITÉ
+---------------------------------
+• `07_perturbations_params.json` et `07_perturbations_meta.json` conservent
+  la trace des paramètres effectifs et des fichiers produits pour un run
+  donné du Chapitre 7.
 
-  # 2) Post-traitement complet (1D + dérivées + invariants + méta)
-  python zz-scripts/chapter07/generate_data_chapter07.py \
-         --ini zz-configuration/scalar_perturbations.ini \
-         --cs2_param 1.0 --delta_phi_param 0.05 \
-         --export-derivative --export-matrix
+• `CHANGELOG.md` (composant `mcgt/`) doit être mis à jour pour toute
+  modification affectant le pipeline du Chapitre 7 (logique de solveur,
+  paramètres par défaut, formats des sorties, tolérances, etc.).
 
-  # 3) Tracé des figures
-  python zz-scripts/chapter07/plot_fig01_cs2_heatmap.py
-  python zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
-  python zz-scripts/chapter07/tracer_fig03_invariant_I1.py
-  python zz-scripts/chapter07/tracer_fig04_dcs2_vs_k.py
-  python zz-scripts/chapter07/tracer_fig05_ddelta_phi_vs_k.py
-  python zz-scripts/chapter07/plot_fig06_comparison.py
-  python zz-scripts/chapter07/tracer_fig07_invariant_I2.py
+• Tags Git recommandés pour marquer les jalons majeurs :
+  – par exemple : `v1.0-ch7`, ou intégrés dans une release globale
+    MCGT (ex. `v1.0.0` incluant CH05–CH07 stabilisés).
 
-10. COMPILATION LaTeX
-
-  pdflatex -interaction=nonstopmode 07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex
-  pdflatex -interaction=nonstopmode 07-perturbations-scalaires/07_perturbations_scalaires_details.tex
-
-11. VERSIONNAGE & REPRODUCTIBILITÉ
-
-  • `07_perturbations_params.json` et `07_perturbations_meta.json` conservent la trace
-    des paramètres effectifs et des sorties.
-  • Mise à jour de `CHANGELOG.md` (composant `mcgt/`) pour toute modification
-    affectant le pipeline du chapitre 7.
-  • Recommandé : tag Git lors des jalons (ex. `v1.0-ch7`).
-
-Notes :
-  • Tous les chemins sont relatifs à la racine du projet.
-  • Vérifier la présence des dépendances Python et l’accès aux fichiers INI/JSON.
+Notes finales
+-------------
+• Tous les chemins indiqués dans ce guide sont relatifs à la racine du dépôt
+  MCGT.
+• Avant toute exécution, vérifier la présence des dépendances Python,
+  l’accès aux fichiers INI/JSON de configuration et la compatibilité de
+  l’environnement LaTeX.

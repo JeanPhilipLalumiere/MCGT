@@ -1,6 +1,6 @@
 # MCGT – Vue d’ensemble par chapitre
 
-_Généré automatiquement par `tools/generate_chapter_overview.py` le 2025-12-04T18:32:46Z._
+_Généré automatiquement par `tools/generate_chapter_overview.py` le 2025-12-04T18:55:36Z._
 
 > NOTE : ce document est auto-généré. Ne pas éditer à la main.
 

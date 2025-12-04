@@ -1,0 +1,26 @@
+{
+  "chapter": "01",
+  "name": "01_optimized_data",
+  "path": "zz-data/chapter01/01_optimized_data.csv",
+  "description": "Jeu de données optimisé pour le chapitre 1 après calibration du modèle (grille réduite/ajustée).",
+  "data_type": "table",
+  "columns": [
+    {
+      "name": "T",
+      "unit": "dimensionless",
+      "description": "Paramètre de contrôle (température ou équivalent) sur la grille optimisée."
+    },
+    {
+      "name": "P",
+      "unit": "dimensionless",
+      "description": "Valeur optimisée de P(T) associée à chaque point de la grille."
+    }
+  ],
+  "generated_by": "zz-scripts/chapter01/generate_chapter1_data.py",
+  "tags": [
+    "chapter01",
+    "optimized",
+    "calibration",
+    "data"
+  ]
+}

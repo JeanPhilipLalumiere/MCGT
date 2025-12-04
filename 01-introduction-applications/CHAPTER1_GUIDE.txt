@@ -1,0 +1,22 @@
+MCGT – Chapitre 1
+=================
+Titre : Introduction et applications qualitatives du modèle
+
+Résumé
+------
+Ce chapitre pose le cadre conceptuel du MCGT, introduit les paramètres principaux
+et illustre qualitativement les applications du modèle (plateau de P(T), invariants
+adimensionnels, structure temporelle).
+
+Contenu attendu (à détailler plus tard)
+---------------------------------------
+- Rappel synthétique des hypothèses du modèle.
+- Description des grandeurs P(T) et des invariants adimensionnels.
+- Lien entre les données numériques du chapitre (zz-data/chapter01/...) et les figures
+  associées (zz-figures/chapter01/...).
+- Applications qualitatives et interprétation physique.
+
+Statut
+------
+Ce document est un guide placeholder pour structurer la rédaction du chapitre 1.
+Il sera complété et affiné dans une phase suivante (rédaction scientifique).

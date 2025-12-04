@@ -1,0 +1,15 @@
+CHAPTER08_GUIDE
+=====================
+
+Ce fichier sert de guide pour le chapitre 08.
+
+TODO :
+  - résumer en quelques phrases les objectifs du chapitre ;
+  - lister les figures et tables “publiques” clés ;
+  - préciser les scripts principaux (zz-scripts/chapter08/...),
+    et comment reproduire les résultats essentiels.
+
+Chemin du guide :
+  - 08-couplage-sombre/CHAPTER8_GUIDE.txt
+
+Ce contenu est un gabarit initial et peut (doit) être édité librement.

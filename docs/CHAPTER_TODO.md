@@ -15,96 +15,37 @@ _Généré automatiquement, ne pas éditer à la main._
 
 ## Chapitre 1 — chapter_manifest_01.json
 
-- **files.metas** (2 manquants)
-  - `zz-data/chapter01/01_P_vs_T.meta.json`
-  - `zz-data/chapter01/01_optimized_data.meta.json`
+Section résolue (2025-12-03) : les metas et le guide existent dans le filesystem et sont couverts par les manifests globaux.
 
-- **files.others** (1 manquants)
-  - `01-introduction-applications/CHAPTER1_GUIDE.txt`
+- `zz-data/chapter01/01_P_vs_T.meta.json`
+- `zz-data/chapter01/01_optimized_data.meta.json`
+- `01-introduction-applications/CHAPTER1_GUIDE.txt`
+
+Aucun gap restant spécifique au chapitre 01.
 
 ## Chapitre 2 — chapter_manifest_02.json
 
-- **files.data_inputs** (5 manquants)
-  - `zz-data/chapter02/02_chronology_milestones.csv`
-  - `zz-data/chapter02/02_derivative_P_data.dat`
-  - `zz-data/chapter02/02_grid_data_P_vs_T.dat`
-  - `zz-data/chapter02/02_primordial_spectrum.json`
-  - `zz-data/chapter02/02_relative_errors_chronology.csv`
+Section résolue (2025-12-04) : les fichiers de données d’entrée, figures, metas, scripts
+et le guide du chapitre 02 existent dans le filesystem et sont couverts par les
+manifests globaux (`manifest_publication.json` et `manifest_master.json`).
 
-- **files.figures** (7 manquants)
-  - `zz-figures/chapter02/fig_00_spectrum.png`
-  - `zz-figures/chapter02/fig_01_P_T_evolution.png`
-  - `zz-figures/chapter02/fig_02_calibration.png`
-  - `zz-figures/chapter02/fig_03_relative_errors.png`
-  - `zz-figures/chapter02/fig_04_pipeline_diagram.png`
-  - `zz-figures/chapter02/fig_05_FG_series.png`
-  - `zz-figures/chapter02/fig_06_fit_alpha.png`
-
-- **files.metas** (2 manquants)
-  - `zz-data/chapter02/02_chronology_milestones.meta.json`
-  - `zz-data/chapter02/02_derivative_P_data.meta.json`
-
-- **files.others** (1 manquants)
-  - `02-validation-chronologique/CHAPTER2_GUIDE.txt`
-
-- **scripts** (3 manquants)
-  - `zz-scripts/chapter02/generate_chapter2_data.py`
-  - `zz-scripts/chapter02/plot_fig01_P_T_evolution.py`
-  - `zz-scripts/chapter02/plot_fig06_fit_alpha.py`
+Aucun gap restant spécifique au chapitre 02.
 
 ## Chapitre 3 — chapter_manifest_03.json
 
-- **files.data_inputs** (3 manquants)
-  - `zz-data/chapter03/03_stability_fR_boundary.csv`
-  - `zz-data/chapter03/03_stability_fR_data.csv`
-  - `zz-data/chapter03/03_stability_fR_domain.csv`
+Section résolue (2025-12-04) : les fichiers de données d’entrée, figures, metas,
+scripts et le guide du chapitre 03 existent dans le filesystem et sont couverts
+par les manifests globaux (`manifest_publication.json` et `manifest_master.json`).
 
-- **files.figures** (8 manquants)
-  - `zz-figures/chapter03/fig_01_stability_fR_domain.png`
-  - `zz-figures/chapter03/fig_02_fR_fRR_vs_R.png`
-  - `zz-figures/chapter03/fig_03_ms2_R0_vs_R.png`
-  - `zz-figures/chapter03/fig_04_fR_fRR_vs_R.png`
-  - `zz-figures/chapter03/fig_05_milestones_interpolation.png`
-  - `zz-figures/chapter03/fig_06_grid_quality.png`
-  - `zz-figures/chapter03/fig_07_ricci_fR_vs_z.png`
-  - `zz-figures/chapter03/fig_08_ricci_fR_vs_T.png`
-
-- **files.metas** (2 manquants)
-  - `zz-data/chapter03/03_stability_fR_boundary.meta.json`
-  - `zz-data/chapter03/03_stability_fR_domain.meta.json`
-
-- **files.others** (1 manquants)
-  - `03-stabilite-fR/CHAPTER3_GUIDE.txt`
-
-- **scripts** (6 manquants)
-  - `zz-scripts/chapter03/generate_chapter3_data.py`
-  - `zz-scripts/chapter03/plot_fig01_stability_fR_domain.py`
-  - `zz-scripts/chapter03/plot_fig02_fR_fRR_vs_R.py`
-  - `zz-scripts/chapter03/plot_fig03_ms2_R0_vs_R.py`
-  - `zz-scripts/chapter03/plot_fig04_fR_fRR_vs_R.py`
-  - `zz-scripts/chapter03/plot_fig05_milestones_interpolation.py`
+Aucun gap restant spécifique au chapitre 03.
 
 ## Chapitre 4 — chapter_manifest_04.json
 
-- **files.data_inputs** (1 manquants)
-  - `zz-data/chapter04/04_T_reference_grid.dat`
+Section résolue (2025-12-04) : les fichiers de données d’entrée, figures, metas,
+scripts et le guide du chapitre 04 existent dans le filesystem et sont couverts
+par les manifests globaux (`manifest_publication.json` et `manifest_master.json`).
 
-- **files.figures** (4 manquants)
-  - `zz-figures/chapter04/fig_01_invariants_diagram.png`
-  - `zz-figures/chapter04/fig_02_invariants_histogram.png`
-  - `zz-figures/chapter04/fig_03_invariants_vs_T.png`
-  - `zz-figures/chapter04/fig_04_relative_errors.png`
-
-- **files.metas** (1 manquants)
-  - `zz-data/chapter04/04_dimensionless_invariants.meta.json`
-
-- **files.others** (1 manquants)
-  - `04-invariants-adimensionnels/CHAPTER4_GUIDE.txt`
-
-- **scripts** (3 manquants)
-  - `zz-scripts/chapter04/generate_chapter4_data.py`
-  - `zz-scripts/chapter04/plot_fig01_invariants_diagram.py`
-  - `zz-scripts/chapter04/plot_fig04_relative_errors.py`
+Aucun gap restant spécifique au chapitre 04.
 
 ## Chapitre 5 — chapter_manifest_05.json
 

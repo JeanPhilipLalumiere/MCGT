@@ -1812,7 +1812,7 @@
     },
     {
       "git_hash": "27471d4737bbd62f67f00bce0fe063e6de9af0d6",
-      "mtime": 1760880221,
+      "mtime": 1762912269,
       "mtime_iso": "2025-11-12T01:51:09Z",
       "path": "zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
       "role": "figure",
@@ -1822,7 +1822,7 @@
     },
     {
       "git_hash": "00fd01ff43ab70dc69b408565d6db5457a919b77",
-      "mtime": 1760880221,
+      "mtime": 1762912269,
       "mtime_iso": "2025-11-12T01:51:09Z",
       "path": "zz-figures/chapter04/04_fig_01_invariants_schematic.png",
       "role": "figure",
@@ -2560,7 +2560,7 @@
     },
     {
       "git_hash": "2c90ff0d171175544a6cbf88431ad486bd517ea3",
-      "mtime": 1758843831,
+      "mtime": 1761768682,
       "mtime_iso": "2025-10-29T20:11:22Z",
       "path": "zz-data/chapter03/03_meta_stability_fR.json",
       "role": "data",
@@ -2570,7 +2570,7 @@
     },
     {
       "git_hash": "4d19e78021bbd8d0865fd9e6d4831fc905076baa",
-      "mtime": 1759330042,
+      "mtime": 1761768682,
       "mtime_iso": "2025-10-29T20:11:22Z",
       "path": "zz-data/chapter03/03_fR_stability_meta.json",
       "role": "data",
@@ -6411,88 +6411,88 @@
       "size_bytes": 328
     },
     {
+      "chapter": "01",
       "git_hash": "71a74f2ae0f19ad66112681871bbfdc48ee975a7",
+      "label": "chapter01_01_P_derivative_optimized.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_P_derivative_optimized.csv",
       "role": "data",
       "sha256": "fc522cd47dd865e678e7a2d877454e8d81e6b18159c3fe1c9d4c3899e18fb950",
       "size": 28484,
-      "size_bytes": 28484,
-      "chapter": "01",
-      "label": "chapter01_01_P_derivative_optimized.csv"
+      "size_bytes": 28484
     },
     {
+      "chapter": "01",
       "git_hash": "81dd8611b37304f7a9fdb381875cd25a593dfaa2",
+      "label": "chapter01_01_P_vs_T.dat",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_P_vs_T.dat",
       "role": "data",
       "sha256": "a5b1a3ed5e0273a6dd6497a708b4163ae7dfe9dcb774b16c994db451146a4209",
       "size": 18590,
-      "size_bytes": 18590,
-      "chapter": "01",
-      "label": "chapter01_01_P_vs_T.dat"
+      "size_bytes": 18590
     },
     {
+      "chapter": "01",
       "git_hash": "8301d77afc38f5f1c3be98f4eb874ae9d81bca5a",
+      "label": "chapter01_01_dimensionless_invariants.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_dimensionless_invariants.csv",
       "role": "data",
       "sha256": "9b6aa7e673c6dca663e9d01a4d4735d232aa5a8e85e269f6f85204f93e51d84e",
       "size": 28128,
-      "size_bytes": 28128,
-      "chapter": "01",
-      "label": "chapter01_01_dimensionless_invariants.csv"
+      "size_bytes": 28128
     },
     {
+      "chapter": "01",
       "git_hash": "604808b74b5be2a675827e98e128cbd9245b208e",
+      "label": "chapter01_01_optimized_data.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_optimized_data.csv",
       "role": "data",
       "sha256": "32e821af5e4ced63461f38d4b1564433ea08279ee8dedc99cfa631c09e7030bf",
       "size": 26900,
-      "size_bytes": 26900,
-      "chapter": "01",
-      "label": "chapter01_01_optimized_data.csv"
+      "size_bytes": 26900
     },
     {
+      "chapter": "01",
       "git_hash": "2f0a43ec3fe6d9ff49d457de0e941a59f68e2aec",
+      "label": "chapter01_01_optimized_data_and_derivatives.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_optimized_data_and_derivatives.csv",
       "role": "data",
       "sha256": "34967da651418374e75c39f6d64d21455778553c6c9851fe16a70fe94c350c50",
       "size": 41878,
-      "size_bytes": 41878,
-      "chapter": "01",
-      "label": "chapter01_01_optimized_data_and_derivatives.csv"
+      "size_bytes": 41878
     },
     {
+      "chapter": "01",
       "git_hash": "075376790a865e415871947021d53d211613fd37",
+      "label": "chapter01_01_relative_error_timeline.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_relative_error_timeline.csv",
       "role": "data",
       "sha256": "c9a78b6bd3f45da56f245fae184de7d483d166118b56659b349117075d0ccbf6",
       "size": 208,
-      "size_bytes": 208,
-      "chapter": "01",
-      "label": "chapter01_01_relative_error_timeline.csv"
+      "size_bytes": 208
     },
     {
+      "chapter": "01",
       "git_hash": "249b1f12dc479676b4160662e9383b0e39e614da",
+      "label": "chapter01_01_timeline_milestones.csv",
       "mtime": 1758665053,
       "mtime_iso": "2025-09-23T22:04:13Z",
       "path": "zz-data/chapter01/01_timeline_milestones.csv",
       "role": "data",
       "sha256": "6eddf48ab90b93ee34bb161efb48177647130fb57900784c4ae57a9bf58761ac",
       "size": 172,
-      "size_bytes": 172,
-      "chapter": "01",
-      "label": "chapter01_01_timeline_milestones.csv"
+      "size_bytes": 172
     }
   ],
   "entries_updated": 0,

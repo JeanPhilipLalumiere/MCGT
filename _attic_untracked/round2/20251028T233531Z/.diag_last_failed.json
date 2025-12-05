@@ -1,9 +1,0 @@
-{
-  "conclusion": "failure",
-  "createdAt": "2025-09-29T22:51:19Z",
-  "databaseId": 18112956583,
-  "event": "push",
-  "headBranch": "ci/testpypi-workflow-rmid",
-  "headSha": "ee2c6ed5e3d20e64dd51b953142f165c37f881d1",
-  "status": "completed"
-}

@@ -1,93 +1,60 @@
-#!/usr/bin/env python3
+"""Toy model de démonstration pour le Chapitre 07.
+
+Ce script ne dépend d’aucune donnée externe : il génère une courbe jouet
+en fonction de k et enregistre une figure PNG. Il est volontairement simple
+pour servir de cible de test dans homog_smoke.
 """
-zz-scripts/chapter07/utils/toy_model.py
 
-Trace un toy-model sur la grille k pour vérifier l’échantillonnage,
-en lisant k_min, k_max et dlog depuis le JSON de méta-paramètres.
-"""
-# === [PASS5B-SHIM] ===
-# Shim minimal pour rendre --help et --out sûrs sans effets de bord.
-import os, sys, atexit
-if any(x in sys.argv for x in ("-h", "--help")):
-    try:
-        import argparse
-        p = argparse.ArgumentParser(add_help=True, allow_abbrev=False)
-        p.print_help()
-    except Exception:
-        print("usage: <script> [options]")
-    sys.exit(0)
+from __future__ import annotations
 
-if any(arg.startswith("--out") for arg in sys.argv):
-    os.environ.setdefault("MPLBACKEND", "Agg")
-    try:
-        import matplotlib.pyplot as plt
-        def _no_show(*a, **k): pass
-        if hasattr(plt, "show"):
-            plt.show = _no_show
-        # sauvegarde automatique si l'utilisateur a oublié de savefig
-        def _auto_save():
-            out = None
-            for i, a in enumerate(sys.argv):
-                if a == "--out" and i+1 < len(sys.argv):
-                    out = sys.argv[i+1]
-                    break
-                if a.startswith("--out="):
-                    out = a.split("=",1)[1]
-                    break
-            if out:
-                try:
-                    fig = plt.gcf()
-                    if fig:
-                        # marges raisonnables par défaut
-                        try:
-                            fig.subplots_adjust(left=0.07, right=0.98, top=0.95, bottom=0.12)
-                        except Exception:
-                            pass
-                        fig.savefig(out, dpi=120)
-                except Exception:
-                    pass
-        atexit.register(_auto_save)
-    except Exception:
-        pass
-# === [/PASS5B-SHIM] ===
-
-import json
+import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_params():
-    # Déterminer la racine du projet
-    root = Path(__file__).resolve().parents[3]
-    json_path = root / "zz-data" / "chapter07" / "07_params_perturbations.json"
-    params = json.loads(json_path.read_text(encoding="utf-8"))
-    return params
+def build_toy_model(k: np.ndarray) -> np.ndarray:
+    """Retourne une courbe jouet lisse, bornée entre 0 et 1."""
+    # simple sigmoïde log10(k)
+    return 0.5 * (1.0 + np.tanh(np.log10(k + 1e-6)))
 
 
-def main():
-    params = load_params()
-    kmin = params["k_min"]
-    kmax = params["k_max"]
-    dlog = params["dlog"]
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Toy model pour les perturbations scalaires (Chapitre 07)."
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=Path("zz-out/smoke/chapter07/utils/toy_model.png"),
+        help="Chemin de sortie pour la figure (PNG).",
+    )
+    parser.add_argument(
+        "--dpi",
+        type=int,
+        default=96,
+        help="Résolution de la figure (dots per inch).",
+    )
+    args = parser.parse_args()
 
-    # Construction de la grille k log-uniforme
-    n_k = int((np.log10(kmax) - np.log10(kmin)) / dlog) + 1
-    kgrid = np.logspace(np.log10(kmin), np.log10(kmax), n_k)
+    # Assure que le répertoire de sortie existe
+    args.out.parent.mkdir(parents=True, exist_ok=True)
 
-    # Toy-model : sinus en log(k) pour voir les oscillations
-    toy = np.sin(np.log10(kgrid) * 10) ** 2 + 0.1
+    # Grille en k (log-uniforme)
+    k = np.logspace(-4, 0, 128)
+    y = build_toy_model(k)
 
-    # Tracé
-    plt.figure(figsize=(6, 4))
-    plt.loglog(kgrid, toy, ".", ms=4)
-    plt.xlabel("k [h/Mpc]")
-    plt.ylabel("Toy model")
-    plt.title("Test d'échantillonnage log–log")
-    plt.grid(True, which="both", ls=":")
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-    plt.show()
+    # Figure
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.plot(k, y)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$k$")
+    ax.set_ylabel(r"toy(k)")
+    ax.set_title("Toy model – Chapitre 07")
+    fig.tight_layout()
+
+    fig.savefig(args.out, dpi=args.dpi)
 
 
 if __name__ == "__main__":

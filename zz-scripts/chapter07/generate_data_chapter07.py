@@ -20,7 +20,7 @@ import pandas as pd
 # rendre mcgt importable
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from mcgt.perturbations_scalaires import (
+from mcgt.scalar_perturbations import (
     compute_cs2,
     compute_delta_phi,
 )  # noqa: E402  # noqa: E402
@@ -146,8 +146,8 @@ def load_config(ini_path: Path) -> PhaseParams:
     phi0_init = float(s["phi0_init"])
     phi_inf = float(s["phi_inf"])
     a_char = float(s["a_char"])
-    m_phi = float(s["m_phi"])
-    m_eff_const = float(s["m_eff_const"])
+    m_phi = float(s.get("m_phi", 1.0))
+    m_eff_const = float(s.get("m_eff_const", 1.0))
 
     # 7) dynamique phi (optionnel)
     if "dynamique_phi" in cfg:
@@ -244,12 +244,23 @@ def main():
     # Overrides grille
     if args.n_k:
         p.n_k = args.n_k
+        if p.k_min is None:
+            p.k_min = 1.0e-4
+        if p.k_max is None:
+            p.k_max = 1.0
+        if p.n_k is None or p.n_k < 2:
+            logger.warning("n_k absent ou invalide (n_k=%s); fallback n_k=32", p.n_k)
+            p.n_k = 32
         p.dlog = (np.log10(p.k_max) - np.log10(p.k_min)) / (p.n_k - 1)
     if args.n_a:
         p.n_a = args.n_a
 
     # Construire grilles
-    k_grid = np.logspace(np.log10(p.k_min), np.log10(p.k_max), p.n_k)
+    k_min = p.k_min if p.k_min is not None else 1e-4
+    k_max = p.k_max if p.k_max is not None else 1.0
+    if k_min <= 0 or k_max <= k_min:
+        raise ValueError(f"Invalid grid bounds: k_min={k_min}, k_max={k_max}")
+    k_grid = np.logspace(np.log10(k_min), np.log10(k_max), p.n_k)
     a_vals = np.linspace(p.a_min, p.a_max, p.n_a)
     logger.info("Grilles : %d k-points × %d a-points", len(k_grid), len(a_vals))
 

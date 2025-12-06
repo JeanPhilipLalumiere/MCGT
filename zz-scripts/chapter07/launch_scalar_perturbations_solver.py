@@ -34,7 +34,7 @@ sys.path.insert(0, str(ROOT))
 
 # fonctions fournies par le package mcgt (doit être disponible dans PYTHONPATH)
 try:
-    from mcgt.perturbations_scalaires import compute_cs2, compute_delta_phi
+    from mcgt.scalar_perturbations import compute_cs2, compute_delta_phi
 except Exception as e:
     raise ImportError(
         "Impossible d'importer compute_cs2 / compute_delta_phi depuis mcgt. "
@@ -112,19 +112,38 @@ def safe_git_hash(root: Path) -> str | None:
 
 
 def build_log_grid(
-    xmin: float, xmax: float, n_points: int | None = None, dlog: float | None = None
+    xmin: float | None,
+    xmax: float | None,
+    n_points: int | None = None,
+    dlog: float | None = None,
 ) -> np.ndarray:
-    """Construit une grille log-uniforme."""
+    """Construit une grille log-uniforme robuste.
+
+    Si xmin/xmax sont None, on applique des valeurs par défaut raisonnables
+    pour les cas de fallback (p.ex. smoke tests).
+    """
+    if xmin is None:
+        xmin = 1e-4
+    if xmax is None:
+        xmax = 1.0
+
     if xmin <= 0 or xmax <= xmin:
         raise ValueError("xmin doit être > 0 et xmax > xmin.")
-    if n_points is not None:
+
+    # Cas standard : n_points fourni
+    if n_points is not None and n_points > 0:
         return np.logspace(np.log10(xmin), np.log10(xmax), n_points)
+
+    # Alternative : dlog fourni
     if dlog is not None:
         n = int(np.floor((np.log10(xmax) - np.log10(xmin)) / dlog)) + 1
+        if n <= 0:
+            raise ValueError("Nombre de points nul ou négatif avec ce dlog.")
         return 10 ** (np.log10(xmin) + np.arange(n) * dlog)
-    raise ValueError("Fournir n_points ou dlog.")
 
-
+    # Fallback pour les configs incomplètes (p.ex. smoke sans n_k explicite)
+    n_points = 32
+    return np.logspace(np.log10(xmin), np.log10(xmax), n_points)
 def load_config(ini_path: Path) -> PhaseParams:
     """Lit un INI flexible et renvoie une PhaseParams."""
     cfg = configparser.ConfigParser(
@@ -172,7 +191,8 @@ def load_config(ini_path: Path) -> PhaseParams:
         s = cfg["scan"] if "scan" in cfg else {}
 
     # découpe / split
-    x_split = float(s.get("x_split", cfg.get("segmentation", {}).get("x_split", 1.0)))
+        seg_cfg = cfg['segmentation'] if cfg.has_section('segmentation') else {}
+        x_split = float(s.get('x_split', seg_cfg.get('x_split', 1.0)))
     k_split = x_split
 
     # lissage
@@ -327,6 +347,15 @@ def main():
 
     # construire grilles
     k_grid = build_log_grid(params.k_min, params.k_max, n_points=params.n_k)
+    # Auto-fix: s'assurer que params.k_min/k_max sont toujours définis pour le logging
+    try:
+        import numpy as _np  # au cas où
+        if hasattr(k_grid, "size") and k_grid.size > 0:
+            params.k_min = float(k_grid[0])
+            params.k_max = float(k_grid[-1])
+    except Exception:
+        # En cas de problème, on laisse params.k_min/k_max intacts pour ne pas casser l'exécution
+        pass
     a_vals = np.linspace(params.a_min, params.a_max, params.n_a)
     logger.info(
         "Grilles : %d k-points entre [%g, %g], %d a-points entre [%g, %g]",

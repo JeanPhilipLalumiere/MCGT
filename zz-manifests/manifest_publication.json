@@ -41,13 +41,13 @@
       "size_bytes": 547
     },
     {
-      "git_hash": "6ab35fc25c6b2f65a2a2faae16fbeae9ec67abb8",
+      "git_hash": "c06c897e92fc24a2dac6f08dea620842df66b79a",
       "media_type": "application/json",
       "mtime": 1760368872,
-      "mtime_iso": "2025-12-02T21:22:23Z",
+      "mtime_iso": "2025-12-06T19:07:40Z",
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "role": "data",
-      "sha256": "9902685b209f996793475ad91363814db608cf220f58585083a726d5c35e75d3",
+      "sha256": "40eaa43432d332934971e5221aca9a2a43404e0ad6c56d4ceb5ad26781f8d25e",
       "size": 1839,
       "size_bytes": 1839,
       "tags": [
@@ -109,12 +109,12 @@
       "size_bytes": 21233
     },
     {
-      "git_hash": "00608bd4b343fa0de00eed8ae3ff6ec330dd5deb",
+      "git_hash": "178c3bbf5d392c2bd4f3684e20aee027fd80dd4b",
       "mtime": 1760369822,
-      "mtime_iso": "2025-11-09T00:30:15Z",
+      "mtime_iso": "2025-12-06T19:07:40Z",
       "path": "zz-data/chapter09/gwtc3_confident_parameters.json",
       "role": "data",
-      "sha256": "20b3122f92ce9d613362e31a2420c3fe4ba465393cd8ca190ea0341b9a66f683",
+      "sha256": "0f7cb570273b3d6e3e56dcb1d427fe92b07b02fae227565f46aeba6d47f3045e",
       "size": 9728,
       "size_bytes": 9728
     },
@@ -918,30 +918,30 @@
     {
       "chapter": "04",
       "description": "",
-      "git_hash": "00fd01ff43ab70dc69b408565d6db5457a919b77",
+      "git_hash": "178c3bbf5d392c2bd4f3684e20aee027fd80dd4b",
       "kind": "figure",
       "label": "chapter04_04_fig_01_invariants_schematic.png",
       "mtime": 1762912269,
-      "mtime_iso": "2025-11-12T01:51:09Z",
+      "mtime_iso": "2025-12-06T19:07:06Z",
       "path": "zz-figures/chapter04/04_fig_01_invariants_schematic.png",
       "role": "chapter_figure",
-      "sha256": "b4e715dbb9e9e403901931953b41fe71cdbdb5e4f229c5293fb841b23a9fae38",
+      "sha256": "ce3bdb462c82078796d260c31ddd2eb41910dbbfa5acf2f2499571562d87d1e4",
       "size": 318679,
-      "size_bytes": 318679
+      "size_bytes": 315910
     },
     {
       "chapter": "04",
       "description": "",
-      "git_hash": "27471d4737bbd62f67f00bce0fe063e6de9af0d6",
+      "git_hash": "178c3bbf5d392c2bd4f3684e20aee027fd80dd4b",
       "kind": "figure",
       "label": "chapter04_04_fig_03_invariants_vs_t.png",
       "mtime": 1762912269,
-      "mtime_iso": "2025-11-12T01:51:09Z",
+      "mtime_iso": "2025-12-06T19:07:08Z",
       "path": "zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
       "role": "chapter_figure",
-      "sha256": "14ac06425ba7ed410525fa506258707cdb42dc51b00200c99b17391b969cb6df",
+      "sha256": "6b455bab1cbf7d6b2bdfa3a0409c36c50e73ac0b4e6c366886cb6c14f3bd9455",
       "size": 310334,
-      "size_bytes": 310334
+      "size_bytes": 307691
     }
   ],
   "entries_updated": 0,

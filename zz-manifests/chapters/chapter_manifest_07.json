@@ -23,13 +23,13 @@
     ],
     "data_outputs": [],
     "figures": [
-      "zz-figures/chapter07/fig_01_heatmap_cs2_k_a.png",
-      "zz-figures/chapter07/fig_02_heatmap_delta_phi_k_a.png",
-      "zz-figures/chapter07/fig_03_invariant_I1.png",
-      "zz-figures/chapter07/fig_04_dcs2_dk_vs_k.png",
-      "zz-figures/chapter07/fig_05_ddelta_phi_dk_vs_k.png",
-      "zz-figures/chapter07/fig_06_comparison.png",
-      "zz-figures/chapter07/fig_07_invariant_I2.png"
+      "zz-figures/chapter07/07_fig_01_cs2_heatmap.png",
+      "zz-figures/chapter07/07_fig_02_delta_phi_heatmap.png",
+      "zz-figures/chapter07/07_fig_03_invariant_i1.png",
+      "zz-figures/chapter07/07_fig_04_dcs2_vs_k.png",
+      "zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png",
+      "zz-figures/chapter07/07_fig_06_comparison.png",
+      "zz-figures/chapter07/07_fig_07_invariant_i2.png"
     ],
     "metas": [
       "zz-data/chapter07/07_perturbations_domain.meta.json",

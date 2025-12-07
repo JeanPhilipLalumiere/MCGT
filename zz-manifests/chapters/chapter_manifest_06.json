@@ -14,19 +14,19 @@
   "files": {
     "data_inputs": [
       "zz-data/chapter06/06_cls_spectrum.dat",
-      "zz-data/chapter06/06_cmb_chi2_scan2d.csv",
+      "zz-data/chapter06/06_cmb_chi2_scan2D.csv",
       "zz-data/chapter06/06_cmb_full_results.csv",
-      "zz-data/chapter06/06_delta_rs_full_scan.csv",
+      "zz-data/chapter06/06_delta_rs_scan_full.csv",
       "zz-data/chapter06/06_hubble_mcgt.dat",
       "zz-data/chapter06/06_params_cmb.json"
     ],
     "data_outputs": [],
     "figures": [
-      "zz-figures/chapter06/fig_01_cmb_dataflow_diagram.png",
-      "zz-figures/chapter06/fig_02_cls_lcdm_vs_mcgt.png",
-      "zz-figures/chapter06/fig_03_delta_cls_rel.png",
-      "zz-figures/chapter06/fig_04_delta_rs_vs_params.png",
-      "zz-figures/chapter06/fig_05_heatmap_delta_chi2.png"
+      "zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png",
+      "zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png",
+      "zz-figures/chapter06/06_fig_03_delta_cls_relative.png",
+      "zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png",
+      "zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png"
     ],
     "metas": [
       "zz-data/chapter06/06_cmb_full_results.meta.json",

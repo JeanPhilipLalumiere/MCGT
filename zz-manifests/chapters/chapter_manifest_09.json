@@ -16,18 +16,18 @@
       "zz-data/chapter09/09_comparison_milestones.csv",
       "zz-data/chapter09/09_comparison_milestones.meta.json",
       "zz-data/chapter09/09_metrics_phase.json",
-      "zz-data/chapter09/09_phase_difference.csv",
+      "zz-data/chapter09/09_phase_diff.csv",
       "zz-data/chapter09/09_phases_imrphenom.csv",
       "zz-data/chapter09/09_phases_imrphenom.meta.json",
       "zz-data/chapter09/09_phases_mcgt.csv"
     ],
     "data_outputs": [],
     "figures": [
-      "zz-figures/chapter09/fig_01_phase_overlay.png",
-      "zz-figures/chapter09/fig_02_residual_phase.png",
-      "zz-figures/chapter09/fig_03_hist_abs_dphi_20_300.png",
-      "zz-figures/chapter09/fig_04_milestones_abs_dphi_vs_f.png",
-      "zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png",
+      "zz-figures/chapter09/09_fig_01_phase_overlay.png",
+      "zz-figures/chapter09/09_fig_02_residual_phase.png",
+      "zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
+      "zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png",
+      "zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png",
       "zz-figures/chapter09/p95_methods/*.png"
     ],
     "metas": [

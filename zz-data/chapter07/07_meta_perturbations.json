@@ -1,7 +1,14 @@
 {
-  "generated_at": "1970-01-01T00:00:00Z",
-  "n_points": 1,
+  "generated_at": "2025-12-06T18:53:09Z",
+  "n_k": 32,
+  "n_a": 20,
+  "k_min": 0.0001,
+  "k_max": 1.0,
+  "dlog": 0.01,
+  "a_min": 0.05,
+  "a_max": 1.0,
   "files": [
-    "zz-data/chapter07/placeholder.csv"
-  ]
+    "07_phase_run.csv"
+  ],
+  "git_hash": "1228d221aa40dff69169846d7238f442b7b5fd86"
 }

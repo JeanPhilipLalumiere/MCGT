@@ -1,8 +1,4 @@
 {
-  "max_epsilon_primary": 0.0085,
-  "max_epsilon_order2": 0.00156,
-  "thresholds": {
-    "primary": 0.0,
-    "order2": 0.0
-  }
+  "max_epsilon_primary": 6.643395664739611e-16,
+  "max_epsilon_order2": 0.008163265306122344
 }

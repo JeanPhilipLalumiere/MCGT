@@ -45,7 +45,7 @@ def detect_project_root() -> Path:
 
 def detect_value_column(df: pd.DataFrame) -> str:
     """
-    Pour 07_dcs2_dk.csv :
+    Pour 07_dcs2_vs_k.csv :
       - on s'attend à 'k' + une colonne numérique pour dcs2/dk.
     On choisit :
       1) la 2e colonne si elle est numérique,
@@ -195,7 +195,7 @@ def plot_dcs2_vs_k(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     root = detect_project_root()
-    default_data = root / "zz-data" / "chapter07" / "07_dcs2_dk.csv"
+    default_data = root / "zz-data" / "chapter07" / "07_dcs2_vs_k.csv"
     default_meta = root / "zz-data" / "chapter07" / "07_meta_perturbations.json"
     default_out = root / "zz-figures" / "chapter07" / "07_fig_04_dcs2_vs_k.png"
 

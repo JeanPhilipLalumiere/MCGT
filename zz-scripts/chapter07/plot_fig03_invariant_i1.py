@@ -11,7 +11,7 @@ Ce script reste volontairement générique :
   ou, à défaut, parmi les colonnes numériques ≠ 'k'.
 
 Par défaut, il suppose un fichier :
-  zz-data/chapter07/07_invariant_i1.csv
+  zz-data/chapter07/07_scalar_invariants.csv
 mais tu peux surcharger avec --data-csv et --value-col.
 """
 
@@ -187,7 +187,7 @@ def plot_invariant_i1(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     root = detect_project_root()
-    default_data = root / "zz-data" / "chapter07" / "07_invariant_i1.csv"
+    default_data = root / "zz-data" / "chapter07" / "07_scalar_invariants.csv"
     default_meta = root / "zz-data" / "chapter07" / "07_meta_perturbations.json"
     default_out = root / "zz-figures" / "chapter07" / "07_fig_03_invariant_i1.png"
 

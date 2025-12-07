@@ -2251,10 +2251,10 @@
     {
       "git_hash": "e4293958df58e59595056e22927067e922d66043",
       "mtime": 1758843831,
-      "mtime_iso": "2025-12-06T18:58:40Z",
+      "mtime_iso": "2025-12-07T19:33:56Z",
       "path": "zz-data/chapter07/07_meta_perturbations.json",
       "role": "data",
-      "sha256": "67e0803e20e959f1ebe49bf250509aa45d147567736ffeaa9d953b8088f15080",
+      "sha256": "53dfc7e93534830125a6799107d7e47906cca2f185986aebdca3f9ec7db105f6",
       "size": 120,
       "size_bytes": 253
     },

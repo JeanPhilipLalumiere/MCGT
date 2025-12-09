@@ -1,129 +1,246 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 plot_fig04_scatter_p95_recalc_vs_orig.py
 
-"""
+Compare p95_orig vs p95_recalc : scatter coloré par |Δp95|, encart histogramme,
+optionnel encart zoom (--with-zoom). Title fontsize=15.
 
+Usage example (recommandé) :
+
+python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
+  --results zz-data/chapter10/10_results_global_scan.csv \
+  --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
+  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
+  --dpi 300 \
+  --point-size 10 --alpha 0.7 --cmap viridis \
+  --change-eps 1e-6 \
+  --hist-x 0.60 --hist-y 0.18 --hist-scale 3.0 --bins 50
+
+Pour le pipeline minimal, le script sait aussi travailler avec un seul
+champ p95 (par ex. 'p95_rad') : il utilise alors la même colonne comme
+“orig” et “recalc”, ce qui donne Δp95 = 0 mais garde la même esthétique.
+"""
 from __future__ import annotations
 
 import argparse
-
-import matplotlib.pyplot as plt
+import textwrap
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
+import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
+# ---------------------------------------------------------------------------
+#  Utils
+# ---------------------------------------------------------------------------
+
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
+    """
+    Détecte une colonne dans df :
+    - si hint est fourni et existe, on le prend;
+    - sinon on parcourt candidates;
+    - sinon on fait une recherche par sous-chaîne (case-insensitive).
+    """
     if hint and hint in df.columns:
         return hint
+
+    # candidats exacts
     for c in candidates:
-        if c and c in df.columns: return c
-    low=[c.lower() for c in df.columns]
+        if c in df.columns:
+            return c
+
+    # fallback substring match
+    lowcols = [c.lower() for c in df.columns]
     for cand in candidates:
-        if cand and cand.lower() in low: return df.columns[low.index(cand.lower())]
-    raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (hint={hint})")
+        lc = cand.lower()
+        for i, col in enumerate(lowcols):
+            if lc in col:
+                return df.columns[i]
+
+    raise KeyError(
+        f"Aucune colonne trouvée parmi : {candidates} (hint={hint}, "
+        f"colonnes présentes = {list(df.columns)})"
+    )
 
 
 def fmt_sci_power(v: float) -> tuple[float, int]:
-    """Return (scaled_value, exponent) where scaled_value = v / 10**exp and exp is power of ten."""
-    if v == 0:
+    """
+    Retourne (scaled_value, exp) avec v ≈ scaled_value * 10**exp.
+    Utile pour mettre l'axe en "×10^exp".
+    """
+    if v == 0 or not np.isfinite(v):
         return 0.0, 0
     exp = int(np.floor(np.log10(abs(v))))
-    scale = 10.0**exp
+    scale = 10.0 ** exp
     return v / scale, exp
 
 
-def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+# ---------------------------------------------------------------------------
+#  Main
+# ---------------------------------------------------------------------------
+
+def main() -> None:
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     p.add_argument(
         "--results",
-        required=True,
-        help="CSV results (must contain orig/recalc columns)",
+        default=None,
+        help="CSV results (doit contenir les colonnes p95 orig/recalc ou au moins une colonne p95).",
     )
-    p.add_argument("--orig-col", default="p95_20_300", help="Original p95 column")
     p.add_argument(
-        "--recalc-col", default="p95_20_300_recalc", help="Recalculated p95 column"
+        "--orig-col",
+        default="p95_20_300",
+        help="Nom de la colonne p95 'originale'. Auto-détection si absente.",
+    )
+    p.add_argument(
+        "--recalc-col",
+        default="p95_20_300_recalc",
+        help="Nom de la colonne p95 'recalculée'. Auto-détection si absente.",
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
-        help="Output PNG",
+        default="10_fig_04_scatter_p95_recalc_vs_orig.png",
+        help="PNG de sortie",
     )
-    p.add_argument("--dpi", type=int, default=300, help="PNG dpi")
-    p.add_argument("--point-size", type=float, default=10.0, help="scatter marker size")
-    p.add_argument("--alpha", type=float, default=0.7, help="scatter alpha")
-    p.add_argument("--cmap", default="viridis", help="colormap")
+    p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
+    p.add_argument(
+        "--point-size",
+        type=float,
+        default=10.0,
+        help="Taille des marqueurs du scatter",
+    )
+    p.add_argument(
+        "--alpha",
+        type=float,
+        default=0.7,
+        help="Alpha des points du scatter",
+    )
+    p.add_argument(
+        "--cmap",
+        default="viridis",
+        help="Colormap pour |Δp95|",
+    )
     p.add_argument(
         "--change-eps",
         type=float,
         default=1e-6,
-        help="threshold for 'changed' count (abs Δ > eps)",
+        help="Seuil pour considérer qu'un point a 'changé' (|Δ| > eps).",
     )
+
+    # Inset zoom (optionnel)
     p.add_argument(
         "--with-zoom",
         action="store_true",
-        help="Enable inset zoom box (disabled by default)",
+        help="Active l'encart zoom (sinon désactivé).",
     )
     p.add_argument(
         "--zoom-center-x",
         type=float,
         default=None,
-        help="Zoom center (x) in data units",
+        help="Centre X du zoom (unités data).",
     )
     p.add_argument(
         "--zoom-center-y",
         type=float,
         default=None,
-        help="Zoom center (y) in data units",
+        help="Centre Y du zoom (unités data).",
     )
     p.add_argument(
-        "--zoom-w", type=float, default=0.45, help="Inset zoom width (fraction fig)"
+        "--zoom-w",
+        type=float,
+        default=0.45,
+        help="Largeur de l'encart zoom (fraction fig).",
     )
     p.add_argument(
-        "--zoom-h", type=float, default=0.10, help="Inset zoom height (fraction fig)"
+        "--zoom-h",
+        type=float,
+        default=0.10,
+        help="Hauteur de l'encart zoom (fraction fig).",
     )
 
+    # Histogramme (position identique à ta version originale)
     p.add_argument(
         "--hist-x",
         type=float,
         default=0.60,
-        help="X (figure coords) de l’histogramme (réduit → plus à gauche)",
+        help="X (coords figure) de l'histogramme (plus petit = plus à gauche).",
     )
     p.add_argument(
         "--hist-y",
         type=float,
         default=0.18,
-        help="Y (figure coords) de l’histogramme (augmenté → plus haut)",
+        help="Y (coords figure) de l'histogramme (plus grand = plus haut).",
     )
     p.add_argument(
         "--hist-scale",
         type=float,
         default=3.0,
-        help="Scale factor for histogram inset size (1.0 = base size; >1 = larger)",
+        help="Facteur d'échelle de la taille de l'histogramme (1.0 = base).",
     )
-    p.add_argument("--bins", type=int, default=50, help="Histogram bins")
+    p.add_argument("--bins", type=int, default=50, help="Nombre de bins histogramme")
+
     p.add_argument(
         "--title",
         default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
-        help="Figure title (fontsize=15)",
+        help="Titre de la figure (fontsize=15).",
     )
+
     args = p.parse_args()
 
+    # Si --results non fourni (cas pipeline minimal), on prend le CSV standard
+    if not args.results:
+        args.results = "zz-data/chapter10/10_results_global_scan.csv"
+        print(f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'.")
+
+    # ------------------------------------------------------------------
+    # Lecture + détection des colonnes
+    # ------------------------------------------------------------------
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
 
-    orig_col = detect_column(df, args.orig_col, [args.orig_col])
-    recalc_col = detect_column(df, args.recalc_col, [args.recalc_col])
+    # Candidats pour l'original et le recalculé.
+    # On inclut p95_rad pour le pipeline minimal (10_results_global_scan.csv).
+    orig_candidates: list[str] = []
+    if args.orig_col:
+        orig_candidates.append(args.orig_col)
+    orig_candidates += [
+        "p95_20_300",
+        "p95_20_300_circ",
+        "p95",
+        "p95_rad",
+    ]
 
-    sub = df[[orig_col, recalc_col]].dropna().astype(float).copy()
-    x = sub[orig_col].values
-    y = sub[recalc_col].values
+    recalc_candidates: list[str] = []
+    if args.recalc_col:
+        recalc_candidates.append(args.recalc_col)
+    recalc_candidates += [
+        "p95_20_300_recalc",
+        "p95_20_300_circ",
+        "p95_20_300",
+        "p95",
+        "p95_rad",
+    ]
+
+    orig_col = detect_column(df, args.orig_col, orig_candidates)
+    recalc_col = detect_column(df, args.recalc_col, recalc_candidates)
+
+    # ------------------------------------------------------------------
+    # Extraction en évitant les problèmes si orig_col == recalc_col
+    # ------------------------------------------------------------------
+    s_orig = df[orig_col].astype(float)
+    s_recalc = df[recalc_col].astype(float)
+
+    mask = s_orig.notna() & s_recalc.notna()
+    x = s_orig[mask].to_numpy()  # original
+    y = s_recalc[mask].to_numpy()  # recalculé
+
     if x.size == 0:
-        raise SystemExit("Aucun point non-NA trouvé.")
+        raise SystemExit("Aucun point non-NA trouvé dans les colonnes p95.")
 
+    # ------------------------------------------------------------------
+    # Δp95 et stats
+    # ------------------------------------------------------------------
     delta = y - x
     abs_delta = np.abs(delta)
 
@@ -135,19 +252,24 @@ df = ci.ensure_fig02_cols(df)
     std_delta = float(np.std(delta, ddof=0))
     p95_abs = float(np.percentile(abs_delta, 95))
     max_abs = float(np.max(abs_delta))
-    n_changed = int(np.sum(abs_delta > args.change_eps))
-    frac_changed = 100.0 * n_changed / N
 
+    n_changed = int(np.sum(abs_delta > args.change_eps))
+    frac_changed = 100.0 * n_changed / float(N)
+
+    # ------------------------------------------------------------------
+    # Figure principale
+    # ------------------------------------------------------------------
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(10, 10))
 
+    # Échelle pour la couleur : clip haut pour éviter de brûler la colormap
     if abs_delta.size == 0:
         vmax = 1.0
     else:
         vmax = float(np.percentile(abs_delta, 99.9))
         if vmax <= 0.0:
             vmax = float(np.max(abs_delta))
-    if vmax <= 0.0:
+    if vmax <= 0.0 or not np.isfinite(vmax):
         vmax = 1.0
 
     sc = ax.scatter(
@@ -163,8 +285,9 @@ df = ci.ensure_fig02_cols(df)
         zorder=2,
     )
 
-    lo = min(np.min(x), np.min(y))
-    hi = max(np.max(x), np.max(y))
+    # diagonale y = x
+    lo = float(min(np.min(x), np.min(y)))
+    hi = float(max(np.max(x), np.max(y)))
     ax.plot([lo, hi], [lo, hi], color="gray", linestyle="--", linewidth=1.0, zorder=1)
 
     ax.set_xlabel(f"{orig_col} [rad]")
@@ -175,15 +298,23 @@ df = ci.ensure_fig02_cols(df)
     cbar = fig.colorbar(sc, ax=ax, extend=extend, pad=0.02)
     cbar.set_label(r"$|\Delta p95|$ [rad]")
 
-    stats = [
+    # ------------------------------------------------------------------
+    # Boîte de stats (en haut à gauche)
+    # ------------------------------------------------------------------
+    stats_lines = [
         f"N = {N}",
-        f"mean(orig) = {mean_x:.3f} rad",
+        f"mean(orig)   = {mean_x:.3f} rad",
         f"mean(recalc) = {mean_y:.3f} rad",
-        f"Δ = recalc - orig : mean = {mean_delta:.3e}, median = {med_delta:.3e}, std = {std_delta:.3e}",
-        f"p95(|Δ|) = {p95_abs:.3e} rad, max |Δ| = {max_abs:.3e} rad",
-        f"N_changed (|Δ| > {args.change_eps}) = {n_changed} ({frac_changed:.2f}%)",
+        f"Δ = recalc - orig :",
+        f"  mean   = {mean_delta:.3e}",
+        f"  median = {med_delta:.3e}",
+        f"  std    = {std_delta:.3e}",
+        f"p95(|Δ|) = {p95_abs:.3e} rad",
+        f"max |Δ|  = {max_abs:.3e} rad",
+        f"N_changed (|Δ| > {args.change_eps:g}) = {n_changed} "
+        f"({frac_changed:.2f}%)",
     ]
-    stats_text = "\n".join(stats)
+    stats_text = "\n".join(stats_lines)
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
     ax.text(
         0.02,
@@ -197,49 +328,49 @@ df = ci.ensure_fig02_cols(df)
         zorder=10,
     )
 
+    # ------------------------------------------------------------------
+    # Histogramme de |Δp95|
+    # ------------------------------------------------------------------
     hist_base_w = 0.18
     hist_base_h = 0.14
     hist_w = hist_base_w * args.hist_scale
     hist_h = hist_base_h * args.hist_scale
-    hist_x = args.hist_x
-    hist_y = args.hist_y
+
     hist_ax = inset_axes(
         ax,
         width=f"{hist_w * 100}%",
         height=f"{hist_h * 100}%",
-        bbox_to_anchor=(hist_x, hist_y, hist_w, hist_h),
+        bbox_to_anchor=(args.hist_x, args.hist_y, hist_w, hist_h),
         bbox_transform=fig.transFigure,
         loc="lower left",
         borderpad=1.0,
     )
 
     max_abs = float(np.max(abs_delta)) if abs_delta.size else 0.0
-    if max_abs <= 0.0:
-        scale = 1.0
-        exp = 0
-    else:
-        exp = int(np.floor(np.log10(max_abs)))
-        scale = 10.0**exp
-        if max_abs / scale < 1.0:
-            exp -= 1
-            scale = 10.0**exp
+    _, exp = fmt_sci_power(max_abs if max_abs > 0 else 1.0)
+    scale = 10.0 ** exp if max_abs > 0 else 1.0
 
     hist_vals = abs_delta / scale
     hist_ax.hist(hist_vals, bins=args.bins, color="tab:blue", edgecolor="black")
     hist_ax.axvline(0.0, color="red", linewidth=2.0)
-    hist_ax.set_title("Histogramme |Δp95|", fontsize=9)
-    hist_ax.set_xlabel(f"$\\times 10^{{{exp}}}$", fontsize=8)
+
+    hist_ax.set_title("|Δp95|", fontsize=9)
+    hist_ax.set_xlabel(f"× 10^{{{exp}}}", fontsize=8)
     hist_ax.tick_params(axis="both", which="major", labelsize=8)
 
+    # ------------------------------------------------------------------
+    # Zoom optionnel
+    # ------------------------------------------------------------------
     if args.with_zoom:
         if args.zoom_center_x is None:
-            zx_center = 3.0 if (np.max(x) > 3.0) else 0.5 * (lo + hi)
+            zx_center = 0.5 * (lo + hi)
         else:
             zx_center = args.zoom_center_x
         if args.zoom_center_y is None:
             zy_center = zx_center
         else:
             zy_center = args.zoom_center_y
+
         dx = 0.06 * (hi - lo) if (hi - lo) > 0 else 0.1
         dy = dx
         zx0, zx1 = zx_center - dx / 2.0, zx_center + dx / 2.0
@@ -256,6 +387,7 @@ df = ci.ensure_fig02_cols(df)
             loc="lower left",
             borderpad=1.0,
         )
+
         inz.scatter(
             x,
             y,
@@ -273,13 +405,18 @@ df = ci.ensure_fig02_cols(df)
         inz.set_title("zoom", fontsize=8)
         mark_inset(ax, inz, loc1=2, loc2=4, fc="none", ec="0.5", lw=0.8)
 
-    foot = (
-        r"$\Delta p95 = p95_{recalc} - p95_{orig}$. Couleur = $|\Delta p95|$. "
-        "Zoom optionnel (--with-zoom). Histogramme déplacé (place & taille paramétrables)."
-    )
+    # ------------------------------------------------------------------
+    # Pied de figure
+    # ------------------------------------------------------------------
+    foot = textwrap.dedent(
+        r"""
+        $\Delta p95 = p95_{\mathrm{recalc}} - p95_{\mathrm{orig}}$.
+        Couleur = $|\Delta p95|$. Histogramme en encart (position et taille configurables).
+        """
+    ).strip()
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    plt.tight_layout(rect=[0, 0.04, 1, 0.98])
     fig.savefig(args.out, dpi=args.dpi)
     print(f"Wrote: {args.out}")
 

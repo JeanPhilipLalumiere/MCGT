@@ -45,7 +45,7 @@ chi2_min = M[i_min, j_min]
 
 # tracer
 plt.rcParams.update({"font.size": 12})
-fig, ax = plt.subplots(figsize=(7.5))
+fig, ax = plt.subplots(figsize=(7.5, 5.0))
 
 # heatmap en lognorm pour renforcer le contraste
 pcm = ax.pcolormesh(
@@ -103,36 +103,29 @@ fig.savefig(FIG_DIR / "fig_04_chi2_heatmap.png", dpi=300)
 print(f"✅ fig_04_chi2_heatmap.png générée dans {FIG_DIR}")
 
 # === MCGT CLI SEED v2 ===
-if __name__ == "__main__":
-    def _mcgt_cli_seed():
-        import os, argparse, sys, traceback
-        parser = argparse.ArgumentParser(description="Standard CLI seed (non-intrusif).")
-        parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"), help="Dossier de sortie (par défaut: .ci-out)")
-        parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
-        parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
-        parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
-        parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
-        parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
-        args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
-        import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
-    _mcgt_cli_seed()
+if __name__ == "__main__":
+    # CLI simplifiée pour le pipeline minimal : le tracé est exécuté au
+    # niveau top-level, ici on se contente de configurer le dossier de sortie
+    # via MCGT_OUTDIR pour rester homogène avec les autres scripts.
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Entry point fig_04 χ² heatmap – pipeline minimal."
+    )
+    parser.add_argument(
+        "--outdir",
+        default=os.environ.get("MCGT_OUTDIR", str(FIG_DIR)),
+        help="Dossier de sortie (défaut: MCGT_OUTDIR ou zz-figures/chapter08).",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Niveau de verbosité (-v, -vv).",
+    )
+
+    args = parser.parse_args()
+    os.makedirs(args.outdir, exist_ok=True)
+    os.environ["MCGT_OUTDIR"] = args.outdir

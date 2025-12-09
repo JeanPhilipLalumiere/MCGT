@@ -45,7 +45,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 # ---LOAD CHAPTER-2 SPECTRUM COEFFICIENTS---
 
 # Note: chapter02 path uses English folder name 'chapter02' and spec file
-SPEC2_FILE = ROOT / "zz-data" / "chapter02" / "02_spec_spectrum.json"
+SPEC2_FILE = ROOT / "zz-data" / "chapter02" / "02_primordial_spectrum_spec.json"
 with open(SPEC2_FILE, encoding="utf-8") as f:
     spec2 = json.load(f)
 
@@ -355,28 +355,15 @@ if __name__ == "__main__":
         parser.add_argument("--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions.")
         parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire (optionnelle).")
         parser.add_argument("--force", action="store_true", help="Écraser les sorties existantes si nécessaire.")
-        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
+        parser.add_argument("-v", "--verbose", action="count", default=0, help="Verbosity cumulable (-v, -vv).")
+        parser.add_argument("--dpi", type=int, default=150, help="Figure DPI (default: 150)")
         parser.add_argument("--format", choices=["png","pdf","svg"], default="png", help="Figure format")
         parser.add_argument("--transparent", action="store_true", help="Transparent background")
 
         args = parser.parse_args()
-        try:
-            os.makedirs(args.outdir, exist_ok=True)
-        os.environ["MCGT_OUTDIR"] = args.outdir
+        import os
         import matplotlib as mpl
-        mpl.rcParams["savefig.dpi"] = args.dpi
-        mpl.rcParams["savefig.format"] = args.format
-        mpl.rcParams["savefig.transparent"] = args.transparent
-        except Exception:
-            pass
-        _main = globals().get("main")
-        if callable(_main):
-            try:
-                _main(args)
-            except SystemExit:
-                raise
-            except Exception as e:
-                print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
-                traceback.print_exc()
-                sys.exit(1)
+        os.makedirs(args.outdir, exist_ok=True)
+        os.environ['MCGT_OUTDIR'] = args.outdir
+        mpl.rcParams['savefig.dpi'] = args.dpi
     _mcgt_cli_seed()

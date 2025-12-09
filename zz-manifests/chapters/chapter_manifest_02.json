@@ -14,23 +14,24 @@
     "data_inputs": [
       "zz-data/chapter02/02_As_ns_vs_alpha.csv",
       "zz-data/chapter02/02_P_R_sampling.csv",
-      "zz-data/chapter02/02_chronology_milestones.csv",
-      "zz-data/chapter02/02_derivative_P_data.dat",
-      "zz-data/chapter02/02_grid_data_P_vs_T.dat",
+      "zz-data/chapter02/02_timeline_milestones.csv",
+      "zz-data/chapter02/02_P_derivative_data.dat",
+      "zz-data/chapter02/02_P_vs_T_grid_data.dat",
       "zz-data/chapter02/02_milestones_meta.csv",
       "zz-data/chapter02/02_optimal_parameters.json",
-      "zz-data/chapter02/02_primordial_spectrum.json",
-      "zz-data/chapter02/02_relative_errors_chronology.csv"
+      "zz-data/chapter02/02_primordial_spectrum_spec.json",
+      "zz-data/chapter02/02_relative_error_timeline.csv",
+      "zz-data/chapter02/02_FG_series.csv"
     ],
     "data_outputs": [],
     "figures": [
-      "zz-figures/chapter02/fig_00_spectrum.png",
-      "zz-figures/chapter02/fig_01_P_T_evolution.png",
-      "zz-figures/chapter02/fig_02_calibration.png",
-      "zz-figures/chapter02/fig_03_relative_errors.png",
-      "zz-figures/chapter02/fig_04_pipeline_diagram.png",
-      "zz-figures/chapter02/fig_05_FG_series.png",
-      "zz-figures/chapter02/fig_06_fit_alpha.png"
+      "zz-figures/chapter02/02_fig_00_spectrum.png",
+      "zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png",
+      "zz-figures/chapter02/02_fig_02_calibration.png",
+      "zz-figures/chapter02/02_fig_03_relative_errors.png",
+      "zz-figures/chapter02/02_fig_04_pipeline_diagram.png",
+      "zz-figures/chapter02/02_fig_05_fg_series.png",
+      "zz-figures/chapter02/02_fig_06_alpha_fit.png"
     ],
     "metas": [
       "zz-figures/chapter02/fig_*.meta.json",
@@ -57,10 +58,10 @@
   ],
   "status": "ready",
   "qa_checks": [
-    "Continuité P(T) et dP/dT à T_split_Gyr = 0.15.",
-    "Aligner unités et signes des dérivées avec Chap.1.",
-    "Seuils `primary/order2` = config globale, sauf dérogation documentée.",
-    "Séries F/G: vérifier ordres et signes."
+    "Continuit\u00e9 P(T) et dP/dT \u00e0 T_split_Gyr = 0.15.",
+    "Aligner unit\u00e9s et signes des d\u00e9riv\u00e9es avec Chap.1.",
+    "Seuils `primary/order2` = config globale, sauf d\u00e9rogation document\u00e9e.",
+    "S\u00e9ries F/G: v\u00e9rifier ordres et signes."
   ],
-  "notes": "Contrôler la jonction low/high autour du split; vérifier les écarts relatifs sur jalons."
+  "notes": "Contr\u00f4ler la jonction low/high autour du split; v\u00e9rifier les \u00e9carts relatifs sur jalons."
 }

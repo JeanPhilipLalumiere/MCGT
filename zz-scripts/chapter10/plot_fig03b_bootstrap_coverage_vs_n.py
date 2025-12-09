@@ -1,435 +1,589 @@
 #!/usr/bin/env python3
-"""Fig. 03b – Couverture bootstrap vs N – Chapitre 10.
-
-Script simplifié pour générer la figure 03b et un manifest JSON compatible
-avec plot_fig07_synthesis.py.
-
-- Entrée : un CSV avec au moins une colonne de métrique p95 (ex. p95_20_300_recalc)
-- Sorties :
-  * PNG : courbes couverture vs N + largeur moyenne d’IC vs N
-  * JSON : manifest avec les champs attendus par Series.from_manifest(...)
+# -*- coding: utf-8 -*-
 """
+plot_fig03b_bootstrap_coverage_vs_n.py
 
+CH10 – Figure 03b : couverture empirique (IC percentile 95%) vs N
++ largeur moyenne des IC, avec manifest JSON pour la synthèse (fig07).
+
+Basé sur : tracer_fig03b_coverage_bootstrap_vs_n.py
+
+Adaptations CH10 :
+- --results optionnel, défaut = zz-data/chapter10/10_results_global_scan.csv
+- --out par défaut = zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png
+- minN par défaut = 10 (plus de plantage quand Mtot=50)
+- detect_p95_column sait gérer p95_rad
+- manifest écrit à côté du PNG, même format que fig07_synthesis attend.
+
+Schéma Monte Carlo (notation M / outer_B / inner_B)
+---------------------------------------------------
+- M désigne le nombre de réplicats externes utilisés pour estimer la couverture,
+  et correspond à outer_B dans le manifeste.
+- Pour chaque taille d’échantillon N, on tire M sous-échantillons de taille N
+  (bootstrap « externe ») ; pour chacun, on construit un IC 95 % par bootstrap
+  interne avec inner_B ré-échantillonnages (bootstrap percentile).
+- Le manifeste associe donc :
+    * "M"        ≡ nombre de réalisations externes par point N (outer_B),
+    * "outer_B"  ≡ nombre de réplicats externes pour la couverture,
+    * "inner_B"  ≡ nombre de réplicats internes pour l’IC percentile.
+Ces trois champs sont lus ensuite par plot_fig07_synthesis.py pour reconstruire
+les courbes de couverture et les largeurs d’IC en fonction de N.
+
+"""
 from __future__ import annotations
 
 import argparse
 import json
-import logging
+import os
+import time
 from dataclasses import dataclass
-from math import sqrt
-from pathlib import Path
-from typing import List, Optional, Sequence, Tuple
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
+# ----------------------------- utilitaires ---------------------------------
 
 
-def setup_logging(verbose: int = 0) -> None:
-    if verbose >= 2:
-        level = logging.DEBUG
-    elif verbose == 1:
-        level = logging.INFO
-    else:
-        level = logging.WARNING
-    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
-
-
-def detect_p95_column(df: pd.DataFrame, explicit: Optional[str]) -> str:
-    """Détecte la colonne p95 à utiliser.
-
-    Priorité :
-    1) --p95-col explicite si présente
-    2) colonnes candidates usuelles
-    """
-    if explicit and explicit in df.columns:
-        logging.info("Colonne p95 explicite trouvée : %s", explicit)
-        return explicit
-
-    candidates = [
+def detect_p95_column(df: pd.DataFrame, hint: str | None) -> str:
+    """Détecte la colonne p95 dans le CSV (avec support de p95_rad)."""
+    if hint and hint in df.columns:
+        return hint
+    for c in [
+        "p95_rad",
         "p95_20_300_recalc",
+        "p95_20_300_circ",
         "p95_20_300",
+        "p95_circ",
+        "p95_recalc",
         "p95",
-    ]
-    for c in candidates:
+    ]:
         if c in df.columns:
-            logging.info("Colonne p95 détectée automatiquement : %s", c)
             return c
+    for c in df.columns:
+        if "p95" in c.lower():
+            return c
+    raise KeyError("Aucune colonne p95 détectée (utiliser --p95-col).")
 
-    raise RuntimeError(
-        f"Aucune colonne p95 trouvée (candidats : {candidates}, "
-        f"colonnes présentes : {list(df.columns)})"
-    )
 
+def wilson_err95(p: float, n: int) -> tuple[float, float]:
+    """
+    Retourne (err_bas, err_haut) Wilson 95% pour une proportion p sur n.
 
-def wilson_interval(p_hat: float, n: int, alpha: float) -> Tuple[float, float, float]:
-    """Intervalle de confiance binomial de Wilson (approx. 95 % si alpha=0.05).
-
-    Retourne (center, low, high).
+    NB : pour éviter le crash matplotlib ('yerr' must not contain negative values),
+    on CLAMPE les erreurs à >= 0 même si, numériquement, p sort légèrement de [lo, hi].
     """
     if n <= 0:
-        return np.nan, np.nan, np.nan
-    z = 1.959963984540054  # quantile ~N(0,1) pour 1 - alpha/2
-    z2 = z * z
-    denom = 1.0 + z2 / n
-    center = (p_hat + z2 / (2.0 * n)) / denom
-    half_width = (
-        z
-        * sqrt((p_hat * (1.0 - p_hat) + z2 / (4.0 * n)) / n)
-        / denom
-    )
-    low = center - half_width
-    high = center + half_width
-    return center, low, high
+        return 0.0, 0.0
+
+    z = 1.959963984540054  # 97.5e percentile
+    denom = 1.0 + (z * z) / n
+    center = (p + (z * z) / (2 * n)) / denom
+    half = (z / denom) * np.sqrt((p * (1 - p) / n) + (z * z) / (4 * n * n))
+    lo = max(0.0, center - half)
+    hi = min(1.0, center + half)
+
+    err_low = p - lo
+    err_high = hi - p
+
+    # Clamp de sécurité pour éviter les yerr négatifs
+    if err_low < 0.0:
+        err_low = 0.0
+    if err_high < 0.0:
+        err_high = 0.0
+
+    return err_low, err_high
+
+
+def bootstrap_percentile_ci(
+    vals: np.ndarray,
+    B: int,
+    rng: np.random.Generator,
+    alpha: float = 0.05,
+) -> tuple[float, float]:
+    """IC percentile (95% par défaut) pour la moyenne linéaire."""
+    n = len(vals)
+    boots = np.empty(B, dtype=float)
+    for b in range(B):
+        samp = rng.choice(vals, size=n, replace=True)
+        boots[b] = float(np.mean(samp))
+    lo = float(np.percentile(boots, 100 * (alpha / 2)))
+    hi = float(np.percentile(boots, 100 * (1 - alpha / 2)))
+    return lo, hi
+
+
+def circ_mean_rad(angles: np.ndarray) -> float:
+    """Moyenne circulaire d'angles (radians)."""
+    z = np.mean(np.exp(1j * angles))
+    return float(np.angle(z))
 
 
 @dataclass
-class CoveragePoint:
+class RowRes:
     N: int
-    coverage: float       # valeur utilisée pour le tracé (centre de Wilson)
-    err_low: float        # >= 0
-    err_high: float       # >= 0
+    coverage: float
+    cov_err95_low: float
+    cov_err95_high: float
     width_mean: float
+    n_hits: int
+    method: str
 
 
-def compute_coverage_curve(
-    values: np.ndarray,
-    *,
-    outer: int,
-    alpha: float,
-    minN: int,
-    npoints: int,
-    seed: Optional[int] = None,
-) -> List[CoveragePoint]:
-    """Calcule couverture et largeur moyenne d’IC en fonction de N.
-
-    Approche simplifiée :
-    - on tire pour chaque N des sous-échantillons bootstrap (outer répétitions)
-    - pour chaque sous-échantillon, on calcule un IC percentile (alpha/2, 1-alpha/2)
-    - on compte la proportion de fois où la "référence" (médiane globale)
-      est contenue dans l’IC
-    - on construit un IC de Wilson sur cette proportion
-    - on garde la largeur moyenne de cet IC percentile
-    """
-    rng = np.random.default_rng(seed)
-    values = np.asarray(values, dtype=float)
-    values = values[np.isfinite(values)]
-    if values.size < 2:
-        raise ValueError("Trop peu de valeurs finies pour le bootstrap.")
-
-    true_ref = float(np.median(values))
-    logging.info("Référence p95 utilisée (médiane globale) : %.6f", true_ref)
-
-    maxN = int(values.size)
-    if minN <= 0 or minN > maxN:
-        raise ValueError(f"minN doit être dans [1, {maxN}] (reçu: {minN})")
-
-    # Grille de N à explorer
-    N_values = np.linspace(minN, maxN, num=npoints, dtype=int)
-    N_values = np.unique(N_values)
-    logging.info("Grille N utilisée : %s", N_values)
-
-    points: List[CoveragePoint] = []
-    for N in N_values:
-        covers = 0
-        widths: List[float] = []
-        for _ in range(outer):
-            idx = rng.integers(0, values.size, size=N)
-            sample = values[idx]
-            q_low = float(np.quantile(sample, alpha / 2.0))
-            q_high = float(np.quantile(sample, 1.0 - alpha / 2.0))
-            if q_high < q_low:
-                q_low, q_high = q_high, q_low
-            if q_low <= true_ref <= q_high:
-                covers += 1
-            widths.append(q_high - q_low)
-
-        p_hat = covers / float(outer)
-        center, low, high = wilson_interval(p_hat, outer, alpha)
-
-        # On trace le centre de Wilson et on encode les barres comme distances
-        coverage = center
-        err_low = max(0.0, coverage - low)
-        err_high = max(0.0, high - coverage)
-        width_mean = float(np.mean(widths)) if widths else np.nan
-
-        logging.info(
-            "N=%d : p_hat=%.3f, coverage(center)=%.3f [%.3f, %.3f], width_mean=%.5f",
-            N,
-            p_hat,
-            coverage,
-            low,
-            high,
-            width_mean,
-        )
-
-        points.append(
-            CoveragePoint(
-                N=int(N),
-                coverage=coverage,
-                err_low=err_low,
-                err_high=err_high,
-                width_mean=width_mean,
-            )
-        )
-
-    return points
+# ------------------------------- coeur --------------------------------------
 
 
-def plot_coverage_and_width(
-    points: Sequence[CoveragePoint],
-    *,
-    alpha: float,
-    out_png: Path,
-    dpi: int,
-    ymin_cov: Optional[float] = None,
-    ymax_cov: Optional[float] = None,
-) -> None:
-    """Trace couverture vs N + largeur d’IC vs N (2 panneaux)."""
-    N = np.array([p.N for p in points], dtype=float)
-    cov = np.array([p.coverage for p in points], dtype=float)
-    err_low = np.array([p.err_low for p in points], dtype=float)
-    err_high = np.array([p.err_high for p in points], dtype=float)
-    width_mean = np.array([p.width_mean for p in points], dtype=float)
-
-    fig, (ax_cov, ax_width) = plt.subplots(1, 2, figsize=(10, 4.5), dpi=dpi)
-
-    yerr = np.vstack([err_low, err_high])
-    ax_cov.errorbar(
-        N,
-        cov,
-        yerr=yerr,
-        fmt="o-",
-        lw=1.6,
-        ms=5,
-        capsize=3,
-        label="Couverture empirique (centre Wilson)",
-    )
-    nominal = 1.0 - alpha
-    ax_cov.axhline(nominal, color="crimson", ls="--", lw=1.4, label="Niveau nominal")
-
-    ax_cov.set_xlabel("Taille d'échantillon N")
-    ax_cov.set_ylabel("Couverture (fréquence IC contenant la référence)")
-    ax_cov.set_title("Couverture bootstrap vs N")
-    if ymin_cov is not None or ymax_cov is not None:
-        ymin = ymin_cov if ymin_cov is not None else ax_cov.get_ylim()[0]
-        ymax = ymax_cov if ymax_cov is not None else ax_cov.get_ylim()[1]
-        ax_cov.set_ylim(ymin, ymax)
-    ax_cov.grid(True, which="both", linestyle=":", linewidth=0.5)
-    ax_cov.legend(loc="best", frameon=True)
-
-    ax_width.plot(N, width_mean, "o-", lw=1.8, ms=5)
-    ax_width.set_xlabel("Taille d'échantillon N")
-    ax_width.set_ylabel("Largeur moyenne IC (rad)")
-    ax_width.set_title("Largeur d'IC vs N")
-    ax_width.grid(True, which="both", linestyle=":", linewidth=0.5)
-
-    fig.tight_layout()
-    out_png.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_png, dpi=dpi)
-    logging.info("Figure écrite : %s", out_png)
-
-
-def write_manifest(
-    points: Sequence[CoveragePoint],
-    *,
-    results_csv: Path,
-    p95_col: str,
-    outer: int,
-    inner: int,
-    M: int,
-    alpha: float,
-    seed: Optional[int],
-    out_png: Path,
-) -> Path:
-    """Écrit un manifest JSON compatible avec plot_fig07_synthesis.py."""
-    out_manifest = out_png.with_suffix(out_png.suffix + ".manifest.json")
-
-    results: List[dict] = []
-    for p in points:
-        results.append(
-            {
-                "N": p.N,
-                "coverage": p.coverage,
-                "coverage_err95_low": p.err_low,
-                "coverage_err95_high": p.err_high,
-                "width_mean_rad": p.width_mean,
-            }
-        )
-
-    manifest = {
-        "meta": {
-            "script": "plot_fig03b_coverage_bootstrap_vs_n.py",
-            "version": 1,
-            "figure": out_png.name,
-        },
-        "params": {
-            "results_csv": str(results_csv),
-            "p95_col": p95_col,
-            "outer_B": outer,
-            "inner_B": inner,
-            "M": M,
-            "alpha": alpha,
-            "seed": seed,
-        },
-        "results": results,
-    }
-
-    out_manifest.parent.mkdir(parents=True, exist_ok=True)
-    with out_manifest.open("w", encoding="utf-8") as f:
-        json.dump(manifest, f, indent=2, ensure_ascii=False)
-    logging.info("Manifest écrit : %s", out_manifest)
-    return out_manifest
-
-
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
-
-
-def build_arg_parser() -> argparse.ArgumentParser:
+def main() -> None:
     p = argparse.ArgumentParser(
-        description=(
-            "Fig. 03b – Couverture bootstrap vs N (Chapitre 10).\n"
-            "Génère une figure + manifest JSON pour la synthèse (fig. 07)."
-        ),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
+
+    # NOTE: --results n'est plus "required": on a un défaut CH10.
     p.add_argument(
         "--results",
-        required=True,
-        help="CSV des résultats Monte-Carlo (avec colonne p95).",
+        default=None,
+        help="CSV avec colonne p95 (défaut CH10 si omis).",
     )
     p.add_argument(
         "--p95-col",
         default=None,
-        help="Nom explicite de la colonne p95 (sinon détection automatique).",
+        help="Nom exact de la colonne p95 (auto-détection si omis).",
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n.png",
-        help="Chemin de sortie de la figure PNG.",
+        default="zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png",
+        help="PNG de sortie",
     )
     p.add_argument(
         "--outer",
         type=int,
         default=400,
-        help="Nombre de répétitions bootstrap (courbe de couverture).",
+        help="Nombre de réplicats externes (couverture).",
+    )
+    p.add_argument(
+        "--M",
+        type=int,
+        default=None,
+        help="Alias de --outer (si précisé, remplace --outer).",
     )
     p.add_argument(
         "--inner",
         type=int,
         default=2000,
-        help="Paramètre décoratif pour manifest (non utilisé dans cette version).",
-    )
-    p.add_argument(
-        "--M",
-        type=int,
-        default=2000,
-        help="Paramètre décoratif pour manifest (non utilisé dans cette version).",
+        help="Nombre de réplicats internes (IC).",
     )
     p.add_argument(
         "--alpha",
         type=float,
         default=0.05,
-        help="Niveau d'erreur de l'IC (alpha).",
-    )
-    p.add_argument(
-        "--seed",
-        type=int,
-        default=12345,
-        help="Graine RNG.",
-    )
-    p.add_argument(
-        "--minN",
-        type=int,
-        default=100,
-        help="Taille N minimale.",
+        help="Niveau d'erreur pour IC (ex. 0.05).",
     )
     p.add_argument(
         "--npoints",
         type=int,
         default=10,
-        help="Nombre de points N sur la courbe.",
+        help="Nombre de points N.",
+    )
+    # IMPORTANT : minN=10 par défaut (et non 100) pour Mtot=50 en CH10.
+    p.add_argument(
+        "--minN",
+        type=int,
+        default=10,
+        help="Plus petit N (sera tronqué à [10, M]).",
+    )
+    p.add_argument(
+        "--seed",
+        type=int,
+        default=12345,
+        help="Seed RNG.",
     )
     p.add_argument(
         "--dpi",
         type=int,
         default=300,
-        help="Résolution de la figure.",
+        help="DPI PNG.",
     )
     p.add_argument(
         "--ymin-coverage",
         type=float,
         default=None,
-        help="Ymin explicite pour la couverture (facultatif).",
+        help="Ymin panneau couverture.",
     )
     p.add_argument(
         "--ymax-coverage",
         type=float,
         default=None,
-        help="Ymax explicite pour la couverture (facultatif).",
+        help="Ymax panneau couverture.",
     )
     p.add_argument(
-        "-v",
-        "--verbose",
-        action="count",
-        default=0,
-        help="Verbosity cumulable (-v, -vv).",
+        "--title-left",
+        default="Couverture IC vs N (estimateur: mean)",
+        help="Titre panneau gauche.",
     )
-    return p
+    p.add_argument(
+        "--title-right",
+        default="Largeur d'IC vs N",
+        help="Titre panneau droit.",
+    )
+    # options ajoutées
+    p.add_argument(
+        "--hires2000",
+        action="store_true",
+        help="Utiliser outer=2000, inner=2000 (ne change pas les défauts globaux).",
+    )
+    p.add_argument(
+        "--angular",
+        action="store_true",
+        help="Active l'encart comparant moyenne linéaire vs moyenne circulaire (p95 en radians).",
+    )
+    # figure annexe de sensibilité
+    p.add_argument(
+        "--make-sensitivity",
+        action="store_true",
+        help="Produit une figure annexe de sensibilité (coverage vs outer/inner).",
+    )
+    p.add_argument(
+        "--sens-mode",
+        choices=["outer", "inner"],
+        default="outer",
+        help="Paramètre de sensibilité (outer ou inner).",
+    )
+    p.add_argument(
+        "--sens-N",
+        type=int,
+        default=None,
+        help="N fixe utilisé pour la sensibilité (défaut: N max du dataset).",
+    )
+    p.add_argument(
+        "--sens-B-list",
+        default="100,200,400,800,1200,2000",
+        help="Liste de B séparés par virgules pour la sensibilité.",
+    )
+    args = p.parse_args()
 
+    # --------------------------- lecture des données -------------------------
+    if args.results is None:
+        args.results = "zz-data/chapter10/10_results_global_scan.csv"
+        print(
+            "[INFO] --results non fourni ; utilisation par défaut de "
+            "'zz-data/chapter10/10_results_global_scan.csv'."
+        )
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
-    parser = build_arg_parser()
-    args = parser.parse_args(argv)
-
-    setup_logging(args.verbose)
-
-    results_csv = Path(args.results)
-    if not results_csv.exists():
-        raise FileNotFoundError(f"CSV des résultats introuvable : {results_csv}")
-
-    logging.info("Lecture des résultats : %s", results_csv)
-    df = pd.read_csv(results_csv)
+    df = pd.read_csv(args.results)
     p95_col = detect_p95_column(df, args.p95_col)
-    values = df[p95_col].to_numpy()
+    vals_all = df[p95_col].dropna().astype(float).values
+    Mtot = len(vals_all)
+    if Mtot == 0:
+        raise SystemExit("Aucune donnée p95.")
+    print(f"[INFO] Dataset M={Mtot}, p95_col={p95_col}")
 
-    points = compute_coverage_curve(
-        values,
-        outer=args.outer,
-        alpha=args.alpha,
-        minN=args.minN,
-        npoints=args.npoints,
-        seed=args.seed,
+    # préréglage haute précision si demandé
+    if args.hires2000:
+        args.outer = 2000
+        args.inner = 2000
+        if args.M is None:
+            args.M = 2000
+        print("[INFO] Mode haute précision: outer=2000, inner=2000")
+
+    # --------------------------- grille en N ---------------------------------
+    minN = max(10, int(args.minN))
+    if minN > Mtot:
+        minN = max(1, Mtot)
+    N_list = np.unique(np.linspace(minN, Mtot, args.npoints, dtype=int))
+    if N_list[-1] != Mtot:
+        N_list = np.append(N_list, Mtot)
+    print(f"[INFO] N_list = {N_list.tolist()}")
+
+    outer_for_cov = int(args.M) if args.M is not None else int(args.outer)
+    print(
+        f"[INFO] outer={outer_for_cov}, inner={args.inner}, "
+        f"alpha={args.alpha}, seed={args.seed}"
     )
 
-    out_png = Path(args.out)
-    plot_coverage_and_width(
-        points,
-        alpha=args.alpha,
-        out_png=out_png,
-        dpi=args.dpi,
-        ymin_cov=args.ymin_coverage,
-        ymax_cov=args.ymax_coverage,
+    rng = np.random.default_rng(args.seed)
+    ref_value_lin = float(np.mean(vals_all))
+    ref_value_circ = float(circ_mean_rad(vals_all)) if args.angular else None
+
+    # --------------------------- boucle bootstrap ----------------------------
+    results: list[RowRes] = []
+    for idx, N in enumerate(N_list, start=1):
+        hits = 0
+        widths = np.empty(outer_for_cov, dtype=float)
+        for b in range(outer_for_cov):
+            samp = rng.choice(vals_all, size=int(N), replace=True)
+            lo, hi = bootstrap_percentile_ci(
+                samp, args.inner, rng, alpha=args.alpha
+            )
+            widths[b] = hi - lo
+            if (ref_value_lin >= lo) and (ref_value_lin <= hi):
+                hits += 1
+        p_hat = hits / outer_for_cov
+        e_lo, e_hi = wilson_err95(p_hat, outer_for_cov)
+        results.append(
+            RowRes(
+                N=int(N),
+                coverage=float(p_hat),
+                cov_err95_low=float(e_lo),
+                cov_err95_high=float(e_hi),
+                width_mean=float(np.mean(widths)),
+                n_hits=int(hits),
+                method="percentile",
+            )
+        )
+        print(
+            f"[{idx}/{len(N_list)}] N={N:5d}  "
+            f"coverage={p_hat:0.3f}  width_mean={np.mean(widths):0.5f} rad"
+        )
+
+    # ------------------------------- tracé principal -------------------------
+    plt.style.use("classic")
+    fig = plt.figure(figsize=(15, 6))
+    gs = fig.add_gridspec(1, 2, width_ratios=[5, 3], wspace=0.25)
+    ax1 = fig.add_subplot(gs[0, 0])  # couverture
+    ax2 = fig.add_subplot(gs[0, 1])  # largeur
+
+    # Couverture + barres d'erreur Wilson
+    xN = [r.N for r in results]
+    yC = [r.coverage for r in results]
+    yerr_low = [r.cov_err95_low for r in results]
+    yerr_high = [r.cov_err95_high for r in results]
+    ax1.errorbar(
+        xN,
+        yC,
+        yerr=[yerr_low, yerr_high],
+        fmt="o-",
+        lw=1.6,
+        ms=6,
+        color="tab:blue",
+        ecolor="tab:blue",
+        elinewidth=1.0,
+        capsize=3,
+        label="Couverture empirique",
+    )
+    ax1.axhline(
+        1 - args.alpha,
+        color="crimson",
+        ls="--",
+        lw=1.5,
+        label="Niveau nominal 95%",
     )
 
-    write_manifest(
-        points,
-        results_csv=results_csv,
-        p95_col=p95_col,
-        outer=args.outer,
-        inner=args.inner,
-        M=args.M,
-        alpha=args.alpha,
-        seed=args.seed,
-        out_png=out_png,
+    ax1.set_xlabel("Taille d'échantillon N")
+    ax1.set_ylabel("Couverture (IC 95% contient la référence)")
+    ax1.set_title(args.title_left)
+    if (args.ymin_coverage is not None) or (args.ymax_coverage is not None):
+        ymin = (
+            args.ymin_coverage
+            if args.ymin_coverage is not None
+            else ax1.get_ylim()[0]
+        )
+        ymax = (
+            args.ymax_coverage
+            if args.ymax_coverage is not None
+            else ax1.get_ylim()[1]
+        )
+        ax1.set_ylim(ymin, ymax)
+    ax1.legend(loc="lower right", frameon=True)
+
+    # Boîte d'info (haut gauche)
+    txt = (
+        f"N = {Mtot}\n"
+        f"mean(ref) = {ref_value_lin:0.3f} rad\n"
+        f"outer B = {outer_for_cov}, inner B = {args.inner}\n"
+        f"seed = {args.seed}\n"
+        f"note: IC = percentile (inner bootstrap)"
     )
+    ax1.text(
+        0.02,
+        0.97,
+        txt,
+        transform=ax1.transAxes,
+        va="top",
+        ha="left",
+        bbox=dict(boxstyle="round", fc="white", ec="black", alpha=0.95),
+    )
+
+    # Inset "moyenne linéaire vs circulaire" si demandé
+    if args.angular and (ref_value_circ is not None):
+        inset = inset_axes(
+            ax1,
+            width="33%",
+            height="27%",
+            loc="lower left",
+            bbox_to_anchor=(0.04, 0.08, 0.33, 0.27),
+            bbox_transform=ax1.transAxes,
+            borderpad=0.5,
+        )
+        bars = [ref_value_lin, ref_value_circ]
+        inset.bar([0, 1], bars)
+        inset.set_xticks([0, 1])
+        inset.set_xticklabels(["mean\n(lin)", "mean\n(circ)"])
+        inset.set_title("Référence N=max", fontsize=9)
+        inset.set_ylabel("[rad]", fontsize=8)
+        inset.tick_params(axis="both", labelsize=8)
+
+    # Panneau largeur
+    ax2.plot(xN, [r.width_mean for r in results], "-", lw=2.0, color="tab:green")
+    ax2.set_xlabel("Taille d'échantillon N")
+    ax2.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
+    ax2.set_title(args.title_right)
+
+    # >>> MARGIN BAS AJUSTÉE <<<
+    fig.subplots_adjust(
+        left=0.08, right=0.98, top=0.92, bottom=0.18, wspace=0.25
+    )
+
+    foot = (
+        f"Bootstrap imbriqué: outer={outer_for_cov}, inner={args.inner}. "
+        f"Référence = estimateur({Mtot}) = {ref_value_lin:0.3f} rad. "
+        f"Seed={args.seed}."
+    )
+    fig.text(0.5, 0.012, foot, ha="center", fontsize=10)
+
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    fig.savefig(args.out, dpi=args.dpi)
+    print(f"[OK] Figure écrite: {args.out}")
+
+    # ---------------------------- manifest JSON ----------------------------
+    manifest_path = os.path.splitext(args.out)[0] + ".manifest.json"
+    manifest = {
+        "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "inputs": {"results": args.results, "p95_col": p95_col},
+        "params": {
+            # Nombre de réalisations Monte Carlo par point N
+            "M": int(outer_for_cov),
+
+            # Synonymes pour compatibilité avec plot_fig07_synthesis
+            "outer_B": int(outer_for_cov),
+            "inner_B": int(args.inner),
+
+            # Noms historiques déjà utilisés dans ce script
+            "outer": int(outer_for_cov),
+            "inner": int(args.inner),
+
+            "alpha": float(args.alpha),
+            "seed": int(args.seed),
+            "minN": int(args.minN),
+            "npoints": int(args.npoints),
+            "ymin_coverage": None if args.ymin_coverage is None else float(args.ymin_coverage),
+            "ymax_coverage": None if args.ymax_coverage is None else float(args.ymax_coverage),
+            "angular_inset": bool(args.angular),
+        },
+        "ref_value_linear_rad": float(ref_value_lin),
+        "ref_value_circular_rad": None
+        if ref_value_circ is None
+        else float(ref_value_circ),
+        "N_list": [int(x) for x in np.asarray(N_list).tolist()],
+        "results": [
+            {
+                "N": int(r.N),
+                "coverage": float(r.coverage),
+                "coverage_err95_low": float(r.cov_err95_low),
+                "coverage_err95_high": float(r.cov_err95_high),
+                "width_mean_rad": float(r.width_mean),
+                "hits": int(r.n_hits),
+                "method": r.method,
+            }
+            for r in results
+        ],
+        "figure_path": args.out,
+    }
+    os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+    print(f"[OK] Manifest écrit: {manifest_path}")
+
+    # ------------------- Figure annexe: sensibilité -------------------------
+    if args.make_sensitivity:
+        mode = args.sens_mode
+        sensN = int(args.sens_N) if args.sens_N is not None else int(N_list[-1])
+        B_list = [int(x.strip()) for x in args.sens_B_list.split(",") if x.strip()]
+        print(f"[INFO] Sensibilité: mode={mode}, N={sensN}, B_list={B_list}")
+
+        rng2 = np.random.default_rng(args.seed + 7)
+        cov_list, lo_list, hi_list = [], [], []
+
+        for B in B_list:
+            if mode == "outer":
+                hits = 0
+                for b in range(B):
+                    samp = rng2.choice(vals_all, size=sensN, replace=True)
+                    lo, hi = bootstrap_percentile_ci(
+                        samp, args.inner, rng2, alpha=args.alpha
+                    )
+                    if (ref_value_lin >= lo) and (ref_value_lin <= hi):
+                        hits += 1
+                p_hat = hits / B
+                e_lo, e_hi = wilson_err95(p_hat, B)
+            else:
+                hits = 0
+                for b in range(outer_for_cov):
+                    samp = rng2.choice(vals_all, size=sensN, replace=True)
+                    lo, hi = bootstrap_percentile_ci(
+                        samp, B, rng2, alpha=args.alpha
+                    )
+                    if (ref_value_lin >= lo) and (ref_value_lin <= hi):
+                        hits += 1
+                p_hat = hits / outer_for_cov
+                e_lo, e_hi = wilson_err95(p_hat, outer_for_cov)
+
+            cov_list.append(float(p_hat))
+            lo_list.append(float(e_lo))
+            hi_list.append(float(e_hi))
+            print(f"[SENS] B={B:4d}  coverage={p_hat:0.3f}")
+
+        figS, axS = plt.subplots(figsize=(7.5, 4.2))
+        axS.errorbar(
+            B_list,
+            cov_list,
+            yerr=[lo_list, hi_list],
+            fmt="o-",
+            color="tab:blue",
+            ecolor="tab:blue",
+            capsize=3,
+            lw=1.6,
+            ms=6,
+            label="Couverture empirique",
+        )
+        axS.axhline(
+            1 - args.alpha,
+            color="crimson",
+            ls="--",
+            lw=1.5,
+            label="Niveau nominal 95%",
+        )
+        axS.set_xlabel("B (outer)" if mode == "outer" else "B (inner)")
+        axS.set_ylabel("Couverture (IC 95% contient la référence)")
+        axS.set_title(
+            f"Sensibilité de la couverture vs "
+            f"{'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
+        )
+        axS.legend(loc="lower right", frameon=True)
+        figS.tight_layout()
+        out_sens = os.path.splitext(args.out)[0] + f"_sensitivity_{mode}.png"
+        figS.savefig(out_sens, dpi=args.dpi)
+        print(f"[OK] Figure annexe écrite: {out_sens}")
+
+        manifest_sens = {
+            "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
+            "annex": "sensitivity",
+            "generated_at": time.strftime(
+                "%Y-%m-%dT%H:%M:%SZ", time.gmtime()
+            ),
+            "mode": mode,
+            "N": int(sensN),
+            "B_list": [int(b) for b in B_list],
+            "coverage": [float(c) for c in cov_list],
+            "err95_low": [float(e) for e in lo_list],
+            "err95_high": [float(e) for e in hi_list],
+            "figure_path": out_sens,
+        }
+        sens_path = os.path.splitext(out_sens)[0] + ".manifest.json"
+        with open(sens_path, "w", encoding="utf-8") as f:
+            json.dump(manifest_sens, f, indent=2)
+        print(f"[OK] Manifest annexe écrit: {sens_path}")
 
 
 if __name__ == "__main__":

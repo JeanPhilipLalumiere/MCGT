@@ -1,0 +1,8 @@
+{
+  "thresholds": {
+    "primary": 0.01,
+    "order2": 0.1
+  },
+  "max_epsilon_primary": 0.023928316657031032,
+  "max_epsilon_order2": 0.05657805601510205
+}

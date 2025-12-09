@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-plot_fig02_scatter_phi_at_fpeak
+plot_fig02_scatter_phi_at_fpeak.py
 
 Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 - Différence circulaire Δφ = wrap(φ_MCGT - φ_ref) dans [-π, π)
@@ -10,41 +11,52 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 - Statistiques incluant IC bootstrap (95%) de la moyenne circulaire de Δφ
 - Export PNG (DPI au choix)
 
-Exemple d’usage (recommandé) à la fin du fichier.
-"""
+Si --results n'est pas fourni, le script essaie automatiquement quelques chemins
+standards dans le dépôt :
 
+  1) zz-data/chapter10/10_mc_results.circ.with_fpeak.csv   (prioritaire)
+  2) zz-data/chapter10/10_phase_diff_fpeak.csv
+  3) zz-data/chapter09/09_phase_diff.csv
+  4) zz-data/chapter10/10_results_global_scan.csv
+"""
 from __future__ import annotations
 
 import argparse
+import sys
+from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
-from zz_tools import common_io as ci
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes  # (non utilisé ici, laissé si besoin futur)
 
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 
 TWOPI = 2.0 * np.pi
 
+
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Réduit sur l'intervalle [-π, π)."""
     return (x + np.pi) % TWOPI - np.pi
 
+
 def circ_diff(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     """Δφ = wrap( b - a ) dans [-π, π)."""
     return wrap_pi(b - a)
+
 
 def circ_mean_rad(angles: np.ndarray) -> float:
     """Moyenne circulaire (angle) en radians [-π, π)."""
     z = np.mean(np.exp(1j * angles))
     return float(np.angle(z))
 
+
 def circ_std_rad(angles: np.ndarray) -> float:
     """Écart-type circulaire (radians). Définition basée sur R = |E[e^{iθ}]|."""
     R = np.abs(np.mean(np.exp(1j * angles)))
     # std circulaire : sqrt(-2 ln R)
     return float(np.sqrt(max(0.0, -2.0 * np.log(max(R, 1e-12)))))
+
 
 def bootstrap_circ_mean_ci(
     angles: np.ndarray, B: int = 1000, seed: int = 12345
@@ -67,10 +79,10 @@ def bootstrap_circ_mean_ci(
     theta_hat = circ_mean_rad(angles)
     deltas = np.empty(B, dtype=float)
 
-    for b in range(B):
+    for _ in range(B):
         idx = rng.integers(0, n, size=n)
         th_b = circ_mean_rad(angles[idx])
-        deltas[b] = wrap_pi(th_b - theta_hat)
+        deltas[_] = wrap_pi(th_b - theta_hat)
 
     lo = np.percentile(deltas, 2.5)
     hi = np.percentile(deltas, 97.5)
@@ -78,40 +90,127 @@ def bootstrap_circ_mean_ci(
     ci_high = wrap_pi(theta_hat + hi)
     return theta_hat, ci_low, ci_high
 
-# ------------------------- Parsing & plotting -------------------------
+
+# ------------------------- Parsing & auto-détection -------------------------
+
 
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
+    """Détecte une colonne en utilisant un hint explicite ou une liste de candidats."""
     if hint and hint in df.columns:
         return hint
     for c in candidates:
         if c in df.columns:
             return c
-    # fallback: recherche par sous-chaîne
+    # fallback: recherche par sous-chaîne (case-insensitive)
     lowcols = [c.lower() for c in df.columns]
     for cand in candidates:
         if cand.lower() in lowcols:
             return df.columns[lowcols.index(cand.lower())]
     raise KeyError(f"Aucune colonne trouvée parmi : {candidates} (ou hint={hint})")
 
-def main():
-    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    p.add_argument(
-        "--results", required=True, help="CSV contenant les colonnes de phases à f_peak"
+
+def auto_find_results_csv(
+    args_results: str | None, x_hint: str | None, y_hint: str | None
+) -> str:
+    """
+    Si args_results est fourni, le renvoie tel quel.
+    Sinon essaie une liste de chemins standards et vérifie qu'on y trouve bien
+    les colonnes phi_ref_fpeak / phi_mcgt_fpeak (ou équivalents).
+    """
+    if args_results:
+        return args_results
+
+    search_paths = [
+        "zz-data/chapter10/10_mc_results.circ.with_fpeak.csv",
+        "zz-data/chapter10/10_phase_diff_fpeak.csv",
+        "zz-data/chapter09/09_phase_diff.csv",
+        "zz-data/chapter10/10_results_global_scan.csv",
+    ]
+
+    x_candidates = [
+        "phi_ref_fpeak",
+        "phi_ref",
+        "phi_ref_f_peak",
+        "phi_ref_at_fpeak",
+        "phi_reference",
+    ]
+    y_candidates = [
+        "phi_mcgt_fpeak",
+        "phi_mcgt",
+        "phi_mcg",
+        "phi_mcg_at_fpeak",
+        "phi_MCGT",
+    ]
+
+    last_err: str | None = None
+
+    for rel in search_paths:
+        path = Path(rel)
+        if not path.exists():
+            last_err = f"Fichier absent: {path}"
+            continue
+        try:
+            df_try = pd.read_csv(path)
+        except Exception as e:  # pragma: no cover - robust chemin d'erreur
+            last_err = f"Erreur lecture '{path}': {e}"
+            continue
+        try:
+            _ = detect_column(df_try, x_hint, x_candidates)
+            _ = detect_column(df_try, y_hint, y_candidates)
+        except Exception as e:
+            last_err = f"{e}"
+            continue
+
+        # Si on arrive ici, ce fichier contient des phases ref/MCGT utilisables.
+        return str(path)
+
+    # Rien de concluant
+    print(
+        "[ERROR] Impossible de trouver un CSV utilisable pour les phases ref/MCGT.",
+        file=sys.stderr,
+    )
+    print("Chemin(s) testé(s) :", file=sys.stderr)
+    for rel in search_paths:
+        print(f"  {Path(rel)}", file=sys.stderr)
+    if last_err is not None:
+        print(f"Dernier message d'erreur : {last_err}", file=sys.stderr)
+    sys.exit(2)
+
+
+# ------------------------- Plot principal -------------------------
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     p.add_argument(
-        "--x-col", default=None, help="Nom colonne phase ref (x). Auto-détect si omis."
+        "--results",
+        default=None,
+        help=(
+            "CSV contenant les colonnes de phases à f_peak. "
+            "Si omis, tente une auto-détection dans zz-data/."
+        ),
     )
     p.add_argument(
-        "--y-col", default=None, help="Nom colonne phase MCGT (y). Auto-détect si omis."
+        "--x-col",
+        default=None,
+        help="Nom colonne phase ref (x). Auto-détect si omis.",
     )
     p.add_argument(
-        "--sigma-col", default=None, help="Colonne sigma (erreurs sur X) optionnelle"
+        "--y-col",
+        default=None,
+        help="Nom colonne phase MCGT (y). Auto-détect si omis.",
     )
     p.add_argument(
-        "--group-col", default=None, help="Colonne de groupe optionnelle (marqueurs)"
+        "--group-col",
+        default=None,
+        help="Colonne de groupe optionnelle (marqueurs)",
     )
     p.add_argument(
-        "--out", default="fig_02_scatter_phi_at_fpeak.png", help="PNG de sortie"
+        "--out",
+        default="10_fig_02_scatter_phi_at_fpeak.png",
+        help="PNG de sortie",
     )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
@@ -125,7 +224,9 @@ def main():
     p.add_argument(
         "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
     )
-    p.add_argument("--cmap", default="viridis", help="Colormap pour |Δφ|")
+    p.add_argument(
+        "--cmap", default="viridis", help="Colormap pour |Δφ|"
+    )
 
     # options de clipping / échelle
     p.add_argument(
@@ -148,13 +249,21 @@ def main():
 
     # HEXBIN
     p.add_argument(
-        "--with-hexbin", action="store_true", help="Ajoute un hexbin de fond (densité)."
+        "--with-hexbin",
+        action="store_true",
+        help="Ajoute un hexbin de fond (densité).",
     )
     p.add_argument(
-        "--hexbin-gridsize", type=int, default=120, help="Grille hexbin (densité)."
+        "--hexbin-gridsize",
+        type=int,
+        default=120,
+        help="Grille hexbin (densité).",
     )
     p.add_argument(
-        "--hexbin-alpha", type=float, default=0.18, help="Alpha du hexbin de fond."
+        "--hexbin-alpha",
+        type=float,
+        default=0.18,
+        help="Alpha du hexbin de fond.",
     )
 
     # Colorbar ticks π/4
@@ -169,16 +278,22 @@ def main():
         "--boot-ci",
         type=int,
         default=1000,
-        help="B (réplicats) pour IC bootstrap 95% de la moyenne circulaire de Δφ. 0 = off.",
+        help=(
+            "B (réplicats) pour IC bootstrap 95% de la moyenne circulaire "
+            "de Δφ. 0 = off."
+        ),
     )
-    p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
+    p.add_argument(
+        "--seed", type=int, default=12345, help="Seed RNG bootstrap"
+    )
 
     args = p.parse_args()
 
-    # lecture
-    df = pd.read_csv(args.results)
+    # ---------- Résolution du CSV à utiliser ----------
+    results_path = auto_find_results_csv(args.results, args.x_col, args.y_col)
 
-    df = ci.ensure_fig02_cols(df)
+    # lecture
+    df = pd.read_csv(results_path)
 
     x_candidates = [
         "phi_ref_fpeak",
@@ -203,7 +318,7 @@ def main():
     sub = df[cols].dropna().copy()
     x = sub[xcol].astype(float).values
     y = sub[ycol].astype(float).values
-    _groups = sub[groupcol].values if groupcol else None
+    groups = sub[groupcol].values if groupcol else None
 
     # Δφ circulaire
     dphi = circ_diff(x, y)
@@ -227,7 +342,7 @@ def main():
     else:
         cmean_hat, ci_lo, ci_hi = cmean, cmean, cmean
 
-    # -- NEW: largeur d'arc la plus courte entre les bornes d'IC, puis demi-largeur --
+    # largeur d'arc la plus courte entre les bornes d'IC, puis demi-largeur
     arc_width = float(np.abs(wrap_pi(ci_hi - ci_lo)))
     half_arc = 0.5 * arc_width
 
@@ -272,7 +387,7 @@ def main():
         ax.set_xlim(xmin - pad_x, xmax + pad_x)
         ax.set_ylim(ymin - pad_y, ymax + pad_y)
 
-    # -- NEW: même échelle en X et Y pour que y=x soit à 45° --
+    # même échelle en X et Y pour que y=x soit à 45°
     ax.set_aspect("equal", adjustable="box")
 
     # y = x
@@ -291,7 +406,9 @@ def main():
     if args.pi_ticks:
         ticks = [0.0, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi]
         cbar.set_ticks(ticks)
-        cbar.set_ticklabels(["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
+        cbar.set_ticklabels(
+            ["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"]
+        )
 
     # stats box
     stat_lines = [
@@ -300,7 +417,7 @@ def main():
         f"median = {median_abs:.3f}",
         f"p95 = {p95_abs:.3f}",
         f"max = {max_abs:.3f}",
-        f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
+        f"|Δφ| < {args.p95_ref:.4f} : {100*frac_below:.2f}% (n={int(round(frac_below*N))})",
         f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
         f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
         f"circ-std(Δφ) = {cstd:.3f} rad",
@@ -335,14 +452,16 @@ def main():
 
     # pied de figure
     foot = (
-        r"$\Delta\phi$ calculé circulairement en radians (b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
+        r"$\Delta\phi$ calculé circulairement en radians "
+        r"(b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
         r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
     )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    plt.tight_layout(rect=[0, 0.04, 1, 0.98])
     fig.savefig(args.out, dpi=args.dpi)
     print(f"Wrote: {args.out}")
+
 
 if __name__ == "__main__":
     main()

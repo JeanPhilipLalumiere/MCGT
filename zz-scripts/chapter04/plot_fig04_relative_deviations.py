@@ -24,9 +24,9 @@ def main():
     ]
     df = None
     for path in possible_paths:
-    if os.path.isfile(path):
-        df = pd.read_csv(path)
-        print(f"Chargé {path}")
+        if os.path.isfile(path):
+            df = pd.read_csv(path)
+            print(f"Chargé {path}")
 
             df = pd.read_csv( path )
             print(f"Chargé {path}")

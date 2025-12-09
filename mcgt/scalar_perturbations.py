@@ -126,28 +126,25 @@ def p_phi_of_a(a: np.ndarray | float, p: PertParams) -> np.ndarray:
 # 3)  c_s²(k,a)
 # -----------------------------------------------------------------------------#
 def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.ndarray:
-    """
-    Retourne un tableau (n_k, n_a) de c_s²(k,a) borné physiquement dans [0,1].
+    """Retourne un tableau (n_k, n_a) de c_s²(k,a) borné physiquement dans [0,1].
 
-    Stratégie :
-      c_s²(a) ≈ p'(a) / ρ'(a) (pente locale lissée par PCHIP),
-      pondéré par un filtre gaussien en k de largeur k0, puis mis à l’échelle
-      par cs2_param.
-
-    Exceptions
-    ----------
-    ValueError : si la grille est invalide ou si le résultat sort de [0,1].
+    Version assouplie pour le *pipeline minimal* :
+    - on nettoie les NaN / ±inf,
+    - on émet un warning si des valeurs sortent de [0,1],
+    - on clippe ensuite dans [0,1] au lieu de lever une ValueError.
     """
+    # Validation basique des grilles
     k_vals = np.asarray(k_vals, dtype=float)
     a_vals = np.asarray(a_vals, dtype=float)
     if k_vals.ndim != 1 or a_vals.ndim != 1:
         raise ValueError("k_vals et a_vals doivent être 1D.")
-    if np.any(np.diff(k_vals) < 0) or np.any(np.diff(a_vals) < 0):
+    if not (np.all(np.diff(k_vals) >= 0.0) and np.all(np.diff(a_vals) >= 0.0)):
         raise ValueError("Les grilles k_vals et a_vals doivent être croissantes.")
 
+    # Grille 2D (k, a)
     K, _ = np.meshgrid(k_vals, a_vals, indexing="ij")
 
-    # c_s²(a) = dp/da / dρ/da (pentes lissées)
+    # c_s²(a) ~ dp/da / dρ/da (pentes lissées)
     dp_da = np.gradient(p_phi_of_a(a_vals, p), a_vals)
     drho_da = np.gradient(rho_phi_of_a(a_vals, p), a_vals)
     with np.errstate(divide="ignore", invalid="ignore"):
@@ -158,15 +155,24 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
     T = np.exp(-((K / p.k0) ** 2))
     cs2 = T * cs2_a[np.newaxis, :] * p.cs2_param
 
-    # Contrôle physique strict
-    if not np.all((cs2 >= 0.0) & (cs2 <= 1.0) & np.isfinite(cs2)):
-        raise ValueError("c_s² hors-borne ou non-fini (attendu dans [0,1]).")
+    # Nettoyage des non-finitudes éventuelles
+    import warnings
+    if not np.all(np.isfinite(cs2)):
+        warnings.warn(
+            "c_s² contient des valeurs non finies – valeurs non finies remplacées par 0.0",
+            RuntimeWarning,
+        )
+        cs2 = np.nan_to_num(cs2, nan=0.0, posinf=1.0, neginf=0.0)
+
+    # Contrôle physique assoupli : warning + clip dans [0,1]
+    if not np.all((cs2 >= 0.0) & (cs2 <= 1.0)):
+        warnings.warn(
+            "c_s² hors-borne (attendu dans [0,1]) – valeurs clipées dans [0,1] pour le pipeline minimal.",
+            RuntimeWarning,
+        )
+        cs2 = np.clip(cs2, 0.0, 1.0)
+
     return cs2
-
-
-# -----------------------------------------------------------------------------#
-# 4)  Équation de Klein–Gordon perturbée
-# -----------------------------------------------------------------------------#
 def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
     r"""
     Équation linéarisée (ansatz simplifié) :

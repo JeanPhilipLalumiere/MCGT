@@ -1,150 +1,331 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-plot_fig06_residual_map.py  —  Figure 6 finale
+plot_fig06_residual_map.py  —  Figure 6 (pipeline minimal CH10)
 
-- Carte hexbin des résidus sur (m1,m2) avec réduction par médiane.
-- Colorbar pré-scalée (affiche en ×10^exp rad ; défaut exp=-7).
+- Carte hexbin des résidus sur (m1,m2).
+- Mode "dp95" (par défaut) :
+    * si colonnes "orig" + "recalc" dispo -> Δp95 = p95_recalc - p95_orig
+    * sinon : résidu centré = p95_metric - median(p95_metric)
+- Mode "dphi" (optionnel, manuel) :
+    * Δφ = wrap(φ_MCGT - φ_ref) dans (-π, π].
 
-Exemple :
-python zz-scripts/chapter10/plot_fig06_residual_map.py \
-  --results zz-data/chapter10/10_mc_results.circ.csv \
-  --metric dp95 --abs --m1-col m1 --m2-col m2 \
-  --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --gridsize 36 --mincnt 3 --cmap viridis --vclip 1,99 \
-  --scale-exp -7 --threshold 1e-6 \
-  --figsize 15,9 --dpi 300 --manifest \
-  --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
+- Échelle colorbar en ×10^exp rad (defaut exp=-7).
+- Inserts à droite : Counts (par cellule) + histogramme global (avec stats).
+- Deux lignes de footer : échelle / stats globales & N_active.
+
+Compatible avec :
+  * ancien CSV : zz-data/chapitre10/10_mc_results.circ.csv
+  * nouveau CSV minimal : zz-data/chapter10/10_results_global_scan.csv
+
+Usage typique (ancien jeu de données) :
+  python zz-scripts/chapter10/plot_fig06_residual_map.py \
+    --results zz-data/chapter10/10_mc_results.circ.csv \
+    --metric dp95 --abs \
+    --m1-col m1 --m2-col m2 \
+    --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
+    --out zz-figures/chapter10/10_fig_06_residual_map.png
+
+Dans le pipeline minimal, le script est appelé sans arguments et
+utilise par défaut :
+    results = zz-data/chapter10/10_results_global_scan.csv
+    metric  = dp95 (absolu)
 """
-
 from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
+import os
+from typing import Tuple
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
+# ----------------------------------------------------------------------
+# utilitaires
+# ----------------------------------------------------------------------
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Ramène les angles en radians dans (-π, π]."""
-    return (x + np.pi) % (2.0 * np.pi) - np.pi
+    return (x + np.pi) % (2 * np.pi) - np.pi
 
 
-def detect_col(df: pd.DataFrame, candidates: list[str]) -> str:
-    """Trouve une colonne par nom exact ou par inclusion insensible à la casse."""
+def detect_column(df: pd.DataFrame, candidates) -> str:
+    """
+    Trouve une colonne par nom exact ou par inclusion insensible à la casse.
+
+    candidates peut être une liste de strings ou une string unique.
+    """
+    if isinstance(candidates, str):
+        candidates = [candidates]
+    # exact match d'abord
     for cand in candidates:
         if cand and cand in df.columns:
             return cand
-    lower_map = {c.lower(): c for c in df.columns}
+    # substring match ensuite
+    lowcols = [c.lower() for c in df.columns]
     for cand in candidates:
         if not cand:
             continue
-        key = cand.lower()
-        if key in lower_map:
-            return lower_map[key]
-    # fallback: recherche par sous-chaîne
-    for c in df.columns:
-        lc = c.lower()
-        for cand in candidates:
-            if cand and cand.lower() in lc:
-                return c
-    raise KeyError(f"Impossible de trouver l'une des colonnes : {candidates}")
+        lc = cand.lower()
+        for i, col in enumerate(lowcols):
+            if lc == col or lc in col:
+                return df.columns[i]
+    raise KeyError(f"Impossible de trouver l'une des colonnes : {candidates} (colonnes présentes : {list(df.columns)})")
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
+def build_dp95_metric(
+    df: pd.DataFrame,
+    orig_hint: str | None,
+    recalc_hint: str | None,
+) -> Tuple[np.ndarray, str, str, str]:
+    """
+    Construit le vecteur de métrique pour 'dp95'.
+
+    Retourne:
+      metric_raw  : np.ndarray (en rad)
+      desc_mode   : str  ("recalc-orig" ou "centered")
+      orig_used   : str ou "" (nom de colonne, éventuellement vide)
+      recalc_used : str (nom de colonne utilisée)
+    """
+    # candidats "origine"
+    orig_candidates = [
+        orig_hint,
+        "p95_20_300",
+        "p95",
+        "p95_raw",
+        "p95_orig",
+        "p95_20_300_raw",
+    ]
+    # candidats "recalc"
+    recalc_candidates = [
+        recalc_hint,
+        "p95_20_300_recalc",
+        "p95_recalc",
+        "p95_circ",
+        "p95_rad",  # format global_scan
+        "p95",
+    ]
+
+    orig_col = None
+    for c in orig_candidates:
+        if c and c in df.columns:
+            orig_col = c
+            break
+
+    recalc_col = None
+    for c in recalc_candidates:
+        if c and c in df.columns:
+            recalc_col = c
+            break
+
+    if recalc_col is None:
+        raise KeyError(
+            "Impossible de trouver une colonne 'p95' recalculée. "
+            f"Candidats testés : {recalc_candidates}. Colonnes: {list(df.columns)}"
+        )
+
+    if orig_col is not None and orig_col != recalc_col:
+        # vrai Δp95 = recalc - orig
+        raw = df[recalc_col].astype(float).values - df[orig_col].astype(float).values
+        desc = "recalc-orig"
+        orig_used = orig_col
+    else:
+        # on n'a qu'une métrique p95 → on centre par la médiane
+        vals = df[recalc_col].astype(float).values
+        raw = vals - float(np.median(vals))
+        desc = "centered (p95 - median(p95))"
+        orig_used = ""
+
+    return raw, desc, orig_used, recalc_col
+
+
+def build_dphi_metric(
+    df: pd.DataFrame,
+    phi_ref_hint: str | None,
+    phi_mcgt_hint: str | None,
+) -> Tuple[np.ndarray, str, str, str]:
+    """
+    Construit Δφ = wrap(phi_mcgt - phi_ref).
+
+    Si les colonnes manquent, lève une erreur explicite.
+    """
+    phi_ref_candidates = [
+        phi_ref_hint,
+        "phi_ref_fpeak",
+        "phi_ref",
+        "phi_ref_f_peak",
+    ]
+    phi_mcgt_candidates = [
+        phi_mcgt_hint,
+        "phi_mcgt_fpeak",
+        "phi_mcgt",
+        "phi_mcg_at_fpeak",
+    ]
+
+    phi_ref_col = detect_column(df, phi_ref_candidates)
+    phi_mcgt_col = detect_column(df, phi_mcgt_candidates)
+
+    ref = df[phi_ref_col].astype(float).values
+    mcg = df[phi_mcgt_col].astype(float).values
+    raw = wrap_pi(mcg - ref)
+    desc = "wrap(phi_mcgt - phi_ref)"
+    return raw, desc, phi_ref_col, phi_mcgt_col
+
+
+# ----------------------------------------------------------------------
+# script principal
+# ----------------------------------------------------------------------
+def main() -> None:
+    ap = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("--results", type=Path, required=True, help="CSV d'entrée.")
-    parser.add_argument("--metric", choices=["dp95", "dphi"], default="dp95")
-    parser.add_argument("--abs", action="store_true", help="Prendre la valeur absolue.")
-    parser.add_argument("--m1-col", default="m1")
-    parser.add_argument("--m2-col", default="m2")
-    parser.add_argument(
-        "--orig-col", default="p95_20_300", help="Colonne p95 originale (dp95)."
+    ap.add_argument(
+        "--results",
+        default=None,
+        help=(
+            "CSV d'entrée. "
+            "Par défaut (pipeline minimal) : zz-data/chapter10/10_results_global_scan.csv"
+        ),
     )
-    parser.add_argument(
+    ap.add_argument(
+        "--metric",
+        choices=["dp95", "dphi"],
+        default="dp95",
+        help="Type de métrique à cartographier.",
+    )
+    ap.add_argument(
+        "--abs",
+        action="store_true",
+        help="Prendre la valeur absolue de la métrique.",
+    )
+    ap.add_argument("--m1-col", default="m1", help="Nom de colonne pour m1.")
+    ap.add_argument("--m2-col", default="m2", help="Nom de colonne pour m2.")
+    ap.add_argument(
+        "--orig-col",
+        default="p95_20_300",
+        help="Colonne p95 originale (pour metric=dp95).",
+    )
+    ap.add_argument(
         "--recalc-col",
         default="p95_20_300_recalc",
-        help="Colonne p95 recalculée (dp95).",
+        help="Colonne p95 recalculée (pour metric=dp95).",
     )
-    parser.add_argument("--phi-ref-col", default=None, help="Colonne phi_ref (dphi).")
-    parser.add_argument(
-        "--phi-mcgt-col", default=None, help="Colonne phi_mcgt (dphi)."
+    ap.add_argument(
+        "--phi-ref-col",
+        default=None,
+        help="Colonne phi_ref (pour metric=dphi).",
     )
-    parser.add_argument("--gridsize", type=int, default=36)
-    parser.add_argument(
-        "--mincnt", type=int, default=3, help="Masque les hexagones avec nb<mincnt."
+    ap.add_argument(
+        "--phi-mcgt-col",
+        default=None,
+        help="Colonne phi_mcgt (pour metric=dphi).",
     )
-    parser.add_argument("--cmap", default="viridis")
-    parser.add_argument(
-        "--vclip", default="1,99", help="Percentiles pour vmin,vmax (ex: '1,99')."
+    ap.add_argument(
+        "--gridsize",
+        type=int,
+        default=36,
+        help="Taille de la grille hexbin.",
     )
-    parser.add_argument(
+    ap.add_argument(
+        "--mincnt",
+        type=int,
+        default=3,
+        help="Masque les hexagones avec nb < mincnt.",
+    )
+    ap.add_argument("--cmap", default="viridis", help="Colormap principale.")
+    ap.add_argument(
+        "--vclip",
+        default="1,99",
+        help="Percentiles pour vmin,vmax (ex: '1,99').",
+    )
+    ap.add_argument(
         "--scale-exp",
         type=int,
         default=-7,
         help="Exposant pour l'échelle ×10^exp rad.",
     )
-    parser.add_argument(
+    ap.add_argument(
         "--threshold",
         type=float,
         default=1e-6,
         help="Seuil pour fraction |metric|>threshold [rad].",
     )
-    parser.add_argument(
-        "--figsize", default="15,9", help="Largeur,hauteur en pouces (ex: '15,9')."
+    ap.add_argument(
+        "--figsize",
+        default="15,9",
+        help="Largeur,hauteur en pouces (ex: '15,9').",
     )
-    parser.add_argument("--dpi", type=int, default=300)
-    parser.add_argument("--out", type=Path, default=Path("fig_06_residual_map.png"))
-    parser.add_argument("--manifest", action="store_true")
-    return parser
+    ap.add_argument(
+        "--dpi",
+        type=int,
+        default=300,
+        help="DPI de sortie.",
+    )
+    ap.add_argument(
+        "--out",
+        default="10_fig_06_residual_map.png",
+        help="PNG de sortie.",
+    )
+    ap.add_argument(
+        "--manifest",
+        action="store_true",
+        help="Écrit un petit JSON manifest à côté de la figure.",
+    )
+    args = ap.parse_args()
 
-
-def main(argv: list[str] | None = None) -> None:
-    parser = build_parser()
-    args = parser.parse_args(argv)
+    # Fichier par défaut si non fourni (cas pipeline minimal)
+    if args.results is None:
+        args.results = "zz-data/chapter10/10_results_global_scan.csv"
+        print(f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'.")
 
     # ------------------------------------------------------------------ data
-    if not args.results.exists():
-        raise SystemExit(f"CSV d'entrée introuvable: {args.results}")
-    df = pd.read_csv(args.results).dropna(subset=[args.m1_col, args.m2_col])
+    df = pd.read_csv(args.results)
+    if args.m1_col not in df.columns or args.m2_col not in df.columns:
+        raise KeyError(
+            f"Colonnes {args.m1_col!r} et {args.m2_col!r} requises dans {args.results} "
+            f"(colonnes présentes : {list(df.columns)})"
+        )
 
+    df = df.dropna(subset=[args.m1_col, args.m2_col])
     x = df[args.m1_col].astype(float).values
     y = df[args.m2_col].astype(float).values
     N = len(df)
 
+    # ---------------------------------------------------------------- metric
     if args.metric == "dp95":
-        col_o = detect_col(df, [args.orig_col, "p95_20_300", "p95"])
-        col_r = detect_col(df, [args.recalc_col, "p95_20_300_recalc", "p95_recalc"])
-        raw = df[col_r].astype(float).values - df[col_o].astype(float).values
-        metric_name = r"\Delta p_{95}"
-    else:  # dphi
-        col_ref = detect_col(df, [args.phi_ref_col or "phi_ref_fpeak"])
-        col_mc = detect_col(df, [args.phi_mcgt_col or "phi_mcgt_fpeak", "phi_mcgt"])
-        raw = wrap_pi(
-            df[col_mc].astype(float).values - df[col_ref].astype(float).values
+        raw_metric, desc_mode, orig_used, recalc_used = build_dp95_metric(
+            df, args.orig_col, args.recalc_col
         )
-        metric_name = r"\Delta \phi"
+        metric_name_latex = r"\Delta p_{95}"
+    else:  # dphi
+        raw_metric, desc_mode, phi_ref_used, phi_mcgt_used = build_dphi_metric(
+            df, args.phi_ref_col, args.phi_mcgt_col
+        )
+        metric_name_latex = r"\Delta \phi"
+
+    # aligner sur x,y (au cas où)
+    raw_metric = np.asarray(raw_metric, dtype=float)
+    if raw_metric.shape[0] != N:
+        raise ValueError(
+            f"Taille métrique ({raw_metric.shape[0]}) différente de N={N}."
+        )
 
     if args.abs:
-        raw = np.abs(raw)
-        metric_label = rf"|{metric_name}|"
+        raw = np.abs(raw_metric)
+        metric_label = rf"|{metric_name_latex}|"
     else:
-        metric_label = rf"{metric_name}"
+        raw = raw_metric
+        metric_label = metric_name_latex
 
     # Pré-scaling pour l'affichage : valeurs en unités “×10^exp rad”
     scale_factor = 10.0 ** args.scale_exp
     scaled = raw / scale_factor
 
     # vmin/vmax via percentiles sur *scaled*
-    try:
-        p_lo, p_hi = (float(t) for t in str(args.vclip).split(","))
-    except Exception as exc:  # garde-fou CLI
-        raise SystemExit(f"Argument --vclip invalide: {args.vclip!r}") from exc
+    p_lo, p_hi = [float(t) for t in args.vclip.split(",")]
     vmin = float(np.percentile(scaled, p_lo))
     vmax = float(np.percentile(scaled, p_hi))
 
@@ -153,20 +334,20 @@ def main(argv: list[str] | None = None) -> None:
     mean = float(np.mean(scaled))
     std = float(np.std(scaled, ddof=0))
     p95 = float(np.percentile(scaled, 95.0))
-    frac_over = float(np.mean(np.abs(raw) > args.threshold))
+    frac_over = float(np.mean(np.abs(raw_metric) > args.threshold))
 
     # ------------------------------ figure & axes ---------------------------
-    fig_w, fig_h = (float(s) for s in str(args.figsize).split(","))
+    fig_w, fig_h = [float(s) for s in args.figsize.split(",")]
     plt.style.use("classic")
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
-    # -> plus d'espace horizontal entre carte/colorbar et inserts (left=0.75)
-    # -> moins d'espace vertical avec le footer (bottom abaissé)
-    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])  # left, bottom, width, height
+    # Axes : carte principale, colorbar et inserts à droite
+    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])   # left, bottom, width, height
     ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
+
     right_left = 0.75
-    right_w = 0.23
-    ax_cnt = fig.add_axes([right_left, 0.60, right_w, 0.30])
+    right_w    = 0.23
+    ax_cnt  = fig.add_axes([right_left, 0.60, right_w, 0.30])
     ax_hist = fig.add_axes([right_left, 0.20, right_w, 0.30])
 
     # ------------------------------- main hexbin ---------------------------
@@ -185,9 +366,10 @@ def main(argv: list[str] | None = None) -> None:
     exp_txt = f"× 10^{args.scale_exp}"  # ex: × 10^-7
     cbar.set_label(rf"{metric_label} {exp_txt} [rad]")
 
+    title_extra = " (absolu)" if args.abs else ""
     ax_main.set_title(
-        rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$"
-        + (" (absolu)" if args.abs else "")
+        rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$" + title_extra,
+        fontsize=14,
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
@@ -205,12 +387,21 @@ def main(argv: list[str] | None = None) -> None:
     )
 
     # ------------------------------- counts inset --------------------------
-    hb_counts = ax_cnt.hexbin(x, y, gridsize=args.gridsize, cmap="gray_r")
+    hb_counts = ax_cnt.hexbin(
+        x,
+        y,
+        gridsize=args.gridsize,
+        cmap="gray_r",
+    )
     cbar_cnt = fig.colorbar(
-        hb_counts, ax=ax_cnt, orientation="vertical", fraction=0.046, pad=0.03
+        hb_counts,
+        ax=ax_cnt,
+        orientation="vertical",
+        fraction=0.046,
+        pad=0.03,
     )
     cbar_cnt.set_label("Counts")
-    ax_cnt.set_title("Counts (par cellule)")
+    ax_cnt.set_title("Counts (par cellule)", fontsize=11)
     ax_cnt.set_xlabel("m1")
     ax_cnt.set_ylabel("m2")
     ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
@@ -221,8 +412,14 @@ def main(argv: list[str] | None = None) -> None:
     n_active = int(np.sum(counts_arr[counts_arr >= args.mincnt]))
 
     # ------------------------------- histogram inset -----------------------
-    ax_hist.hist(scaled, bins=40, color="#1f77b4", edgecolor="black", linewidth=0.6)
-    ax_hist.set_title("Distribution globale")
+    ax_hist.hist(
+        scaled,
+        bins=40,
+        color="#1f77b4",
+        edgecolor="black",
+        linewidth=0.6,
+    )
+    ax_hist.set_title("Distribution globale", fontsize=11)
     ax_hist.set_xlabel(rf"metric {exp_txt} [rad]")
     ax_hist.set_ylabel("fréquence")
 
@@ -248,57 +445,81 @@ def main(argv: list[str] | None = None) -> None:
         f"Réduction par médiane (gridsize={args.gridsize}, mincnt={args.mincnt}). "
         f"Échelle: vmin={vmin:.6g}, vmax={vmax:.6g}  (percentiles {p_lo}–{p_hi})."
     )
+
+    if args.metric == "dp95":
+        metric_source = f"mode={desc_mode}, orig='{orig_used or '-'}', recalc='{recalc_used}'."
+    else:
+        metric_source = f"mode={desc_mode}."
+
     foot_stats = (
         f"Stats globales: median={med:.2f}, mean={mean:.2f}, std={std:.2f}, "
         f"p95={p95:.2f} {exp_txt} [rad]. N={N}, cellules actives (≥{args.mincnt}) = "
+        f"{n_active}. {metric_source}"
     )
 
-    # (subplots_adjust n'affecte pas add_axes, on l'utilise juste pour la bbox globale)
     fig.subplots_adjust(
-        left=0.07, right=0.96, top=0.96, bottom=0.12, wspace=0.34, hspace=0.30
+        left=0.07,
+        right=0.96,
+        top=0.96,
+        bottom=0.12,
+        wspace=0.34,
+        hspace=0.30,
     )
     fig.text(0.5, 0.053, foot_scale, ha="center", fontsize=10)
-    fig.text(0.5, 0.032, foot_stats + f"{n_active}/{N}.", ha="center", fontsize=10)
+    fig.text(0.5, 0.032, foot_stats, ha="center", fontsize=10)
 
     # ------------------------------- sortie ---------------------------------
-    out_path = Path(args.out)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path, dpi=args.dpi, bbox_inches="tight")
-    print(f"[OK] Figure écrite: {out_path}")
+    out_dir = os.path.dirname(args.out)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    fig.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
+    print(f"[OK] Figure écrite: {args.out}")
 
     if args.manifest:
-        man_path = out_path.with_suffix("")  # strip extension
-        man_path = man_path.with_suffix(".manifest.json")
+        man_path = os.path.splitext(args.out)[0] + ".manifest.json"
         manifest = {
             "script": "plot_fig06_residual_map.py",
             "generated_at": pd.Timestamp.utcnow().isoformat() + "Z",
             "inputs": {
-                "csv": str(args.results),
+                "csv": args.results,
                 "m1_col": args.m1_col,
                 "m2_col": args.m2_col,
             },
             "metric": {
-                "name": args.metric,
+                "type": args.metric,
                 "absolute": bool(args.abs),
-                "orig_col": args.orig_col,
-                "recalc_col": args.recalc_col,
-                "phi_ref_col": args.phi_ref_col,
-                "phi_mcgt_col": args.phi_mcgt_col,
+                "orig_col_hint": args.orig_col,
+                "recalc_col_hint": args.recalc_col,
+                "phi_ref_col_hint": args.phi_ref_col,
+                "phi_mcgt_col_hint": args.phi_mcgt_col,
+                "mode_desc": desc_mode,
             },
-            "scale": {
-                "scale_exp": int(args.scale_exp),
-                "threshold": float(args.threshold),
-                "vclip": str(args.vclip),
-            },
-            "hexbin": {
+            "plot_params": {
                 "gridsize": int(args.gridsize),
                 "mincnt": int(args.mincnt),
+                "cmap": args.cmap,
+                "vclip_percentiles": [p_lo, p_hi],
+                "vmin_scaled": float(vmin),
+                "vmax_scaled": float(vmax),
+                "scale_exp": int(args.scale_exp),
+                "threshold_rad": float(args.threshold),
+                "figsize": [fig_w, fig_h],
+                "dpi": int(args.dpi),
             },
+            "dataset": {"N": int(N), "n_active_points": int(n_active)},
+            "stats_scaled": {
+                "median": med,
+                "mean": mean,
+                "std": std,
+                "p95": p95,
+                "fraction_abs_gt_threshold": frac_over,
+            },
+            "figure_path": args.out,
         }
         with open(man_path, "w", encoding="utf-8") as f:
-            json.dump(manifest, f, indent=2, sort_keys=True)
+            json.dump(manifest, f, indent=2)
         print(f"[OK] Manifest écrit: {man_path}")
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     main()

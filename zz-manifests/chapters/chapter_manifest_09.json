@@ -27,8 +27,7 @@
       "zz-figures/chapter09/09_fig_02_residual_phase.png",
       "zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
       "zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png",
-      "zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png",
-      "zz-figures/chapter09/p95_methods/*.png"
+      "zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png"
     ],
     "metas": [
       "zz-data/chapter09/09_metrics_phase.meta.json",
@@ -53,9 +52,9 @@
   ],
   "status": "ready",
   "qa_checks": [
-    "Chaîne metrics: raw → cal(phi0,tc) → poly → active (p95 décroissante).",
-    "Outlier `obs_phase ~ 604 rad`: vérification/traitement documenté.",
-    "Fenêtres et poids (fit/metrics) conformes au global."
+    "Cha\u00eene metrics: raw \u2192 cal(phi0,tc) \u2192 poly \u2192 active (p95 d\u00e9croissante).",
+    "Outlier `obs_phase ~ 604 rad`: v\u00e9rification/traitement document\u00e9.",
+    "Fen\u00eatres et poids (fit/metrics) conformes au global."
   ],
-  "notes": "Documenter la stabilité hors fenêtre de la poly-correction (base log10, degré 5)."
+  "notes": "Documenter la stabilit\u00e9 hors fen\u00eatre de la poly-correction (base log10, degr\u00e9 5)."
 }

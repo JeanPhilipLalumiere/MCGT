@@ -30,6 +30,23 @@ from scipy.signal import savgol_filter
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+# Paramètres logistiques pré-calibrés depuis 02_optimal_parameters.json
+with open("zz-data/chapter02/02_optimal_parameters.json") as f:
+    _params = json.load(f)
+
+_segments = _params["segments"]
+_low = _segments["low"]
+
+# Pour le pipeline minimal, on utilise le segment "low"
+a0 = _low["alpha0"]
+ainf = _low["alpha_inf"]
+Tc = _low["Tc"]
+Delta = _low["Delta"]
+Tp = _low["Tp"]
+
+# Grille temporelle T extraite du fichier P(T)
+_grid_PT = np.loadtxt("zz-data/chapter02/02_P_vs_T_grid_data.dat")
+T = _grid_PT[:, 0]
 
 # --- Section 2 : Fonctions utilitaires ---
 def dotP(T, a0, ainf, Tc, Delta, Tp):
@@ -46,13 +63,6 @@ def dotP(T, a0, ainf, Tc, Delta, Tp):
     return a * T ** (a - 1) + T**a * np.log(T) * da
 
 
-def dotP( T, a0, ainf, Tc, Delta, Tp):
-    pass
-a_log = a0 + (ainf - a0) / (1 + np.exp(-(T - Tc) / Delta))
-a = a_log * (1 - np.exp(-((T / Tp) ** 2)))
-da_log = ((ainf - a0) / Delta) * np.exp(-(T - Tc) / Delta) / (1 + np.exp(-(T - Tc) / Delta))**2
-da = da_log * (1 - np.exp(-((T / Tp) ** 2))) + a_log * (2 * T / Tp**2) * np.exp(-((T / Tp)**2))
-da_dT = a * T ** (a - 1) + T**a * np.log(T) * da
 def integrate(grid, pars, P0):
     dP = dotP(grid, *pars)
     window = 21 if (len(dP) > 21 and 21 % 2 == 1) else (len(dP) - 1)

@@ -118,8 +118,12 @@ def main():
     # 5. Interpolation de R/R0 vs T (extrapolation lisse)
     # ----------------------------------------------------------------------
     df_r = pd.read_csv(r_file)
-    logT_r = np.log10(df_r["T_Gyr"])
-    logR_data = np.log10(df_r["R_over_R0"])
+    # Harmonisation des types + tri et suppression des doublons pour T_Gyr
+    df_r = df_r.astype({"T_Gyr": float, "R_over_R0": float})
+    df_r = df_r.sort_values("T_Gyr")
+    df_r = df_r.drop_duplicates(subset="T_Gyr", keep="first")
+    logT_r = np.log10(df_r["T_Gyr"].values)
+    logR_data = np.log10(df_r["R_over_R0"].values)
     interp_logR = PchipInterpolator(logT_r, logR_data, extrapolate=True)
     logR = interp_logR(log_grid)
     R_R0 = 10**logR

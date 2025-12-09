@@ -1,9 +1,22 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 plot_fig01_iso_p95_maps.py
-Carte iso-valeurs d'un p95 (ou métrique équivalente) sur (m1, m2) à partir d'un CSV.
-- Détection robuste de la colonne p95 (ou --p95-col)
-- Tricontours + scatter des échantillons
+
+Trace une carte iso (contour filled) de la métrique p95 dans l'espace (m1,m2).
+Affiche les points d'échantillons superposés.
+Produit un PNG.
+
+Usage example (lancé depuis la racine du dépôt MCGT) :
+python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
+  --results zz-data/chapter10/10_results_global_scan.csv \
+  --p95-col p95_20_300_recalc \
+  --m1-col m1 --m2-col m2 \
+  --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
+  --levels 16 --cmap viridis --dpi 300
+
+Options notables:
+  --no-clip    : désactive le clipping en percentiles (montre toute la plage)
 """
 
 from __future__ import annotations
@@ -11,22 +24,23 @@ from __future__ import annotations
 import argparse
 import sys
 import warnings
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
-
 from matplotlib import colors
+
 
 # ---------- utilities ----------
 
 
-def detect_p95_column(df: pd.DataFrame, hint: str | None):
-    """Try to find the p95 column using hint or sensible defaults."""
+def detect_p95_column(df: pd.DataFrame, hint: str | None) -> str:
+    """Essaye de trouver la colonne p95 en utilisant un hint ou des noms usuels."""
     if hint and hint in df.columns:
         return hint
+
     candidates = [
         "p95_20_300_recalc",
         "p95_20_300_circ",
@@ -38,30 +52,63 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None):
     for c in candidates:
         if c in df.columns:
             return c
+
     for c in df.columns:
-        if "p95" in c.lower(): return c
+        if "p95" in c.lower():
+            return c
+
     raise KeyError("Aucune colonne 'p95' détectée dans le fichier results.")
 
 
-def read_and_validate(path, m1_col, m2_col, p95_col):
-    """Read CSV and validate presence of required columns. Return trimmed DataFrame."""
+def read_and_validate(path: Path, m1_col: str, m2_col: str, p95_col: str) -> pd.DataFrame:
+    """Lit le CSV et valide la présence des colonnes requises. Retourne un DataFrame épuré."""
     try:
         df = pd.read_csv(path)
-df = ci.ensure_fig02_cols(df)
-
-    except Exception as e:
+    except Exception as e:  # pragma: no cover - message utilisateur
         raise SystemExit(f"Erreur lecture CSV '{path}': {e}")
+
     for col in (m1_col, m2_col, p95_col):
-        if col not in df.columns: raise KeyError(f"Colonne attendue absente: {col}")
+        if col not in df.columns:
+            raise KeyError(f"Colonne attendue absente: {col}")
+
+    # on garde uniquement les colonnes utiles, sans NaN, en float
     df = df[[m1_col, m2_col, p95_col]].dropna().astype(float)
-    if df.shape[0] == 0: raise ValueError("Aucune donnée valide après suppression des NaN.")
+    if df.shape[0] == 0:
+        raise ValueError("Aucune donnée valide après suppression des NaN.")
     return df
 
 
-def make_triangulation_and_mask(x, y):
-    triang = tri.Triangulation(x, y)
+def make_triangulation_and_mask(x: np.ndarray, y: np.ndarray) -> tri.Triangulation | None:
+    """
+    Construit une triangulation pour des points (x,y) dispersés.
+    Si les points ne permettent pas une triangulation robuste, retourne None
+    (le code appelant basculera alors en mode scatter-only).
+    """
+    # Vérifie le nombre de points (m1,m2) réellement uniques
     try:
+        pts = np.column_stack([x, y])
+        unique = np.unique(pts, axis=0)
+        if unique.shape[0] < 3:
+            warnings.warn(
+                "Pas assez de points (m1,m2) uniques pour une triangulation – "
+                "fallback en scatter coloré.",
+                RuntimeWarning,
+            )
+            return None
+    except Exception:
+        # si même ça foire, on laissera le code appelant gérer le fallback
+        return None
+
+    try:
+        triang = tri.Triangulation(x, y)
+        # masque les triangles dégénérés
         tris = triang.triangles
+        if tris.size == 0:
+            warnings.warn(
+                "Triangulation vide ou dégénérée – fallback en scatter coloré.",
+                RuntimeWarning,
+            )
+            return None
         x1 = x[tris[:, 0]]
         x2 = x[tris[:, 1]]
         x3 = x[tris[:, 2]]
@@ -70,86 +117,220 @@ def make_triangulation_and_mask(x, y):
         y3 = y[tris[:, 2]]
         areas = 0.5 * np.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
         mask = areas <= 0.0
-        # triang.set_mask expects boolean mask with same length as triangles
         triang.set_mask(mask)
     except Exception:
-        # if something fails, just return triang without extra masking
-        pass
+        warnings.warn(
+            "Erreur lors de la triangulation – fallback en scatter coloré.",
+            RuntimeWarning,
+        )
+        return None
+
     return triang
 
 
 # ---------- main ----------
 
 
-def main():
-    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument(
-        "--results", required=True, help="CSV results (must contain m1,m2 and p95)."
+def main() -> None:
+    # Racine du dépôt (MCGT/)
+    root = Path(__file__).resolve().parents[2]
+    default_results = root / "zz-data" / "chapter10" / "10_results_global_scan.csv"
+    default_out = root / "zz-figures" / "chapter10" / "10_fig_01_iso_p95_maps.png"
+
+    ap = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Figure 01 – Carte iso de p95 (m1 vs m2) pour l'exploration globale (Chapitre 10).",
     )
     ap.add_argument(
-        "--p95-col", default=None, help="p95 column name (auto detect if omitted)"
+        "--results",
+        default=None,
+        help="Fichier CSV de résultats (doit contenir m1, m2 et p95). "
+        "Par défaut : zz-data/chapter10/10_results_global_scan.csv",
     )
-    ap.add_argument("--m1-col", default="m1", help="column name for m1")
-    ap.add_argument("--m2-col", default="m2", help="column name for m2")
+    ap.add_argument(
+        "--p95-col",
+        default=None,
+        help="Nom de la colonne p95 (auto-détection si omis).",
+    )
+    ap.add_argument(
+        "--m1-col",
+        default="m1",
+        help="Nom de la colonne pour m1.",
+    )
+    ap.add_argument(
+        "--m2-col",
+        default="m2",
+        help="Nom de la colonne pour m2.",
+    )
     ap.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_01_iso_p95_mapss.png",
-        help="output PNG file",
+        default=None,
+        help="Fichier PNG de sortie. "
+        "Par défaut : zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
     )
-    ap.add_argument("--levels", type=int, default=16, help="number of contour levels")
-    ap.add_argument("--cmap", default="viridis", help="colormap")
-    ap.add_argument("--dpi", type=int, default=150, help="png dpi")
     ap.add_argument(
-        "--title", default="Carte iso de p95 (m1 vs m2)", help="figure title"
+        "--levels",
+        type=int,
+        default=16,
+        help="Nombre de niveaux de contours.",
+    )
+    ap.add_argument(
+        "--cmap",
+        default="viridis",
+        help="Colormap matplotlib.",
+    )
+    ap.add_argument(
+        "--dpi",
+        type=int,
+        default=150,
+        help="DPI du PNG.",
+    )
+    ap.add_argument(
+        "--title",
+        default="Carte iso de p95 (m1 vs m2)",
+        help="Titre de la figure.",
     )
     ap.add_argument(
         "--no-clip",
         action="store_true",
-        help="do not clip color scale to percentiles (show full range)",
+        help="Ne pas clipper l'échelle de couleurs aux percentiles (affiche toute la plage).",
     )
     args = ap.parse_args()
-    try: df_all = pd.read_csv(args.results)
-    except Exception as e: print(f"[ERROR] Cannot read '{args.results}': {e}", file=sys.stderr); sys.exit(2)
-    try: p95_col = detect_p95_column(df_all, args.p95_col)
-    except KeyError as e: print(f"[ERROR] {e}", file=sys.stderr); sys.exit(2)
-    try: df = read_and_validate(args.results, args.m1_col, args.m2_col, p95_col)
-    except Exception as e: print(f"[ERROR] {e}", file=sys.stderr); sys.exit(2)
-    x, y, z = df[args.m1_col].values, df[args.m2_col].values, df[p95_col].values
+
+    # Résolution des chemins (avec valeurs par défaut compatibles pipeline minimal)
+    if args.results is None:
+        results_path = default_results
+    else:
+        results_path = Path(args.results)
+        if not results_path.is_absolute():
+            candidate = root / results_path
+            if candidate.exists():
+                results_path = candidate
+
+    if args.out is None:
+        out_path = default_out
+    else:
+        out_path = Path(args.out)
+        if not out_path.is_absolute():
+            out_path = root / out_path
+
+    # Lecture brute pour la détection de colonne p95
+    try:
+        df_all = pd.read_csv(results_path)
+    except Exception as e:
+        print(f"[ERROR] Cannot read results CSV '{results_path}': {e}", file=sys.stderr)
+        sys.exit(2)
+
+    try:
+        p95_col = detect_p95_column(df_all, args.p95_col)
+    except KeyError as e:
+        print(f"[ERROR] {e}", file=sys.stderr)
+        sys.exit(2)
+
+    # Lecture + validation stricte
+    try:
+        df = read_and_validate(results_path, args.m1_col, args.m2_col, p95_col)
+    except Exception as e:
+        print(f"[ERROR] {e}", file=sys.stderr)
+        sys.exit(2)
+
+    x = df[args.m1_col].values
+    y = df[args.m2_col].values
+    z = df[p95_col].values
+
+    # Triangulation (optionnelle) pour contours
     triang = make_triangulation_and_mask(x, y)
+
+    # Échelle des niveaux et clipping
     zmin, zmax = float(np.nanmin(z)), float(np.nanmax(z))
-    if zmax - zmin < 1e-8: zmax = zmin + 1e-6
+    if zmax - zmin < 1e-8:
+        zmax = zmin + 1e-6
     levels = np.linspace(zmin, zmax, args.levels)
-    vmin, vmax, clipped = zmin, zmax, False
+
+    vmin = zmin
+    vmax = zmax
+    clipped = False
     if not args.no_clip:
-        try: p_lo, p_hi = np.percentile(z, [0.1, 99.9])
-        except Exception: p_lo, p_hi = zmin, zmax
+        try:
+            p_lo, p_hi = np.percentile(z, [0.1, 99.9])
+        except Exception:
+            p_lo, p_hi = zmin, zmax
         if p_hi - p_lo > 1e-8 and (p_lo > zmin or p_hi < zmax):
-            vmin, vmax, clipped = float(p_lo), float(p_hi), True
-            warnings.warn(f"Clipping [{vmin:.4g}, {vmax:.4g}] (0.1%–99.9%).")
+            vmin, vmax = float(p_lo), float(p_hi)
+            clipped = True
+            warnings.warn(
+                (
+                    "Detected extreme p95 values: display clipped to "
+                    f"[{vmin:.4g}, {vmax:.4g}] (0.1% - 99.9% percentiles) "
+                    "to avoid burning the colormap."
+                ),
+                RuntimeWarning,
+            )
+
     norm = colors.Normalize(vmin=vmin, vmax=vmax, clip=True)
+
+    # Tracé
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(10, 8))
-    cf = ax.tricontourf(triang, z, levels=levels, cmap=args.cmap, alpha=0.95, norm=norm)
-    _cs = ax.tricontour(
-        triang, z, levels=levels, colors="k", linewidths=0.45, alpha=0.5
-    )
 
-    # scatter overlay (points) - smaller, semi-transparent
-    ax.scatter(
-        x, y, c="k", s=3, alpha=0.5, edgecolors="none", label="échantillons", zorder=5
-    )
-
-    # colorbar (respect the norm)
-    cbar = fig.colorbar(cf, ax=ax, shrink=0.8)
-    cbar.set_label(f"{p95_col} [rad]")
+    if triang is not None:
+        # Mode "plein luxe" : contours lissés
+        cf = ax.tricontourf(
+            triang,
+            z,
+            levels=levels,
+            cmap=args.cmap,
+            alpha=0.95,
+            norm=norm,
+        )
+        ax.tricontour(
+            triang,
+            z,
+            levels=levels,
+            colors="k",
+            linewidths=0.45,
+            alpha=0.5,
+        )
+        # points en overlay noir
+        ax.scatter(
+            x,
+            y,
+            c="k",
+            s=3,
+            alpha=0.5,
+            edgecolors="none",
+            label="échantillons",
+            zorder=5,
+        )
+        cbar = fig.colorbar(cf, ax=ax, shrink=0.8)
+        cbar.set_label(f"{p95_col} [rad]")
+    else:
+        # Fallback robuste : scatter coloré uniquement
+        print(
+            "[WARNING] Triangulation impossible – figure tracée en mode scatter coloré uniquement.",
+            file=sys.stderr,
+        )
+        sc = ax.scatter(
+            x,
+            y,
+            c=z,
+            s=25,
+            cmap=args.cmap,
+            norm=norm,
+            edgecolors="k",
+            linewidths=0.3,
+            alpha=0.9,
+            label="échantillons (p95)",
+            zorder=5,
+        )
+        cbar = fig.colorbar(sc, ax=ax, shrink=0.8)
+        cbar.set_label(f"{p95_col} [rad]")
 
     ax.set_xlabel(args.m1_col)
     ax.set_ylabel(args.m2_col)
-
-    # title size 15 exactly
     ax.set_title(args.title, fontsize=15)
 
-    # bounding box for full data (small margin)
+    # Cadre serré autour des données
     xmin, xmax = float(np.min(x)), float(np.max(x))
     ymin, ymax = float(np.min(y)), float(np.max(y))
     xpad = 0.02 * (xmax - xmin) if xmax > xmin else 0.5
@@ -157,24 +338,24 @@ def main():
     ax.set_xlim(xmin - xpad, xmax + xpad)
     ax.set_ylim(ymin - ypad, ymax + ypad)
 
-    # small legend
     leg = ax.legend(loc="upper right", frameon=True, fontsize=9)
     leg.set_zorder(20)
 
-    # tight layout and save
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+        plt.tight_layout()
 
     try:
-        fig.savefig(args.out, dpi=args.dpi)
-        print(f"Wrote: {args.out}")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(out_path, dpi=args.dpi)
+        print(f"[INFO] Wrote: {out_path}")
         if clipped:
             print(
-                "Note: color scaling was clipped to percentiles (0.1%/99.9%). Use --no-clip to disable clipping."
+                "Note: color scaling was clipped to percentiles (0.1%/99.9%). "
+                "Use --no-clip to disable clipping."
             )
     except Exception as e:
-        print(f"[ERROR] cannot write output file '{args.out}': {e}", file=sys.stderr)
+        print(f"[ERROR] cannot write output file '{out_path}': {e}", file=sys.stderr)
         sys.exit(2)
 
 

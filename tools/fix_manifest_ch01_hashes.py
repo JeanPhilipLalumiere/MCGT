@@ -69,7 +69,7 @@ def collect_fs_metadata(rel_path: str) -> dict | None:
 
     st = path.stat()
     mtime = int(st.st_mtime)
-    mtime_iso = dt.datetime.utcfromtimestamp(st.st_mtime).strftime(
+    mtime_iso = dt.datetime.fromtimestamp(st.st_mtime, dt.timezone.utc).strftime(
         "%Y-%m-%dT%H:%M:%SZ"
     )
     size_bytes = st.st_size

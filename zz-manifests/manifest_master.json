@@ -1846,7 +1846,10 @@
     },
     {
       "path": "zz-data/chapter06/06_cls_spectrum.dat",
-      "sha256": "153103a1fcfdd590a984562432191e8e956692de8ba8a6b601805da1e05efa2d"
+      "sha256": "e4ac819018bf129713654e4375bb3179aeb752bb889ca40deae0b06bec17d727",
+      "size_bytes": 52924,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "4e86e40415953bfe29def7f05ad3fbc10b6a0f5f"
     },
     {
       "path": "zz-data/chapter06/06_cls_spectrum_lcdm.dat",
@@ -1866,19 +1869,31 @@
     },
     {
       "path": "zz-data/chapter06/06_delta_Tm_scan.csv",
-      "sha256": "59ebc4739fe5827284d027d01c35722da73bdb035ec9606cfb537061c6a16b1c"
+      "sha256": "48d5b4b47a74e5b56c72eaffbbd5bdd7008277ad5bdb8c48992cde3c0efb95d1",
+      "size_bytes": 5896,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "23424a208402877567b09a0aad48b198b81ea886"
     },
     {
       "path": "zz-data/chapter06/06_delta_cls.csv",
-      "sha256": "84828f78d5c76592bbe9e4cd32e18efc9eb753f3df9a8b35e673f9f33653c603"
+      "sha256": "5ce97283770df2ebaa06b264d56a309eb21900c7b9ecb7200762ace1b23674fc",
+      "size_bytes": 83407,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "0272e85d2fc3aaddbc53b5104b7b528fd5970cba"
     },
     {
       "path": "zz-data/chapter06/06_delta_cls_relative.csv",
-      "sha256": "318083ace6e1dee10d4dc225afde0a4b8a44169b271e4ee87b53e76de65c6216"
+      "sha256": "cb13e680d02af2656e986faa422836e8a5d12ab34123fea24d76215a14870e85",
+      "size_bytes": 74483,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "c8bce87b754f10ef6f8c2d186542816535da25b9"
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan.csv",
-      "sha256": "5210c13bdaca6c622569176eca962f84b2956b6fe7844aaf8168d49d2f99f6ab"
+      "sha256": "a17306bc48582606b318c960d5c0b697bc13f829ca9ec1df5016f837162a5e68",
+      "size_bytes": 1511,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "299efae13e48362a2a064775957eebb108da5584"
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan2D.csv",
@@ -1886,7 +1901,10 @@
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan_2d.csv",
-      "sha256": "7daf861c47073fb41e960793bd59a3623d6d0ce7fd897bdac7905eabb740343b"
+      "sha256": "e8881fef35026971f7e1808bef67f23a2fc9c06dec90d517e532ac0b10018ba3",
+      "size_bytes": 2275,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "1089b79d5424e5a9aac63689126137dc0978275e"
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan_full.csv",
@@ -1898,7 +1916,10 @@
     },
     {
       "path": "zz-data/chapter06/06_params_cmb.json",
-      "sha256": "2afb07b02e57cb1ab81ba904f06faddcd9297a6b944a1235e656c27f01d9792d"
+      "sha256": "696ae2748466ede255734328fd5fabf9db56450d2daf9654b7048a8ac006dbd8",
+      "size_bytes": 397,
+      "mtime_iso": "2025-12-12T20:17:59Z",
+      "git_hash": "d07fedba0872354c32492583cb8b948b0a924ac0"
     },
     {
       "path": "zz-data/chapter07/07_cs2_matrix.csv",

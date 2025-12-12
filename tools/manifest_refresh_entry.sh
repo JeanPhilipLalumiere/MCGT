@@ -59,7 +59,7 @@ else
 fi
 
 # Ensure entry exists in manifest
-if ! jq -e --arg p "$P" '.entries | any(.path == $p)' "$M" >/dev/null; then
+if ! jq -e --arg p "$P" '.files | any(.path == $p)' "$M" >/dev/null; then
   say "ERROR: path '$P' not found in manifest entries"; exit 3;
 fi
 
@@ -91,7 +91,7 @@ jq --arg p "$P" \
    --argjson size "$SIZE" \
    --arg mt "$MTIME" \
    --arg gh "$GHASH" '
-  .entries |= map(
+  .files |= map(
     if .path == $p then
       . + {sha256:$sha, size_bytes:$size, mtime_iso:$mt}
       + (if ($gh|length) > 0 then {git_hash:$gh} else {} end)

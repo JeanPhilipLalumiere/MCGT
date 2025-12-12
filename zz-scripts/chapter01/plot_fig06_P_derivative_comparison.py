@@ -63,7 +63,7 @@ def main() -> None:
     plt.legend(loc="center right")
     plt.tight_layout()
 
-    out = fig_dir / "fig_06_P_derivative_comparison.png"
+    out = fig_dir / "01_fig_06_p_derivative_comparison.png"
     plt.savefig(out)
     plt.close()
 

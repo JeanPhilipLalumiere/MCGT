@@ -19,6 +19,13 @@ echo
 # ----------------------------------------------------------------------
 echo "[1/2] Génération des données..."
 python zz-scripts/chapter06/generate_data_chapter06.py
+
+# Bridge CH06 2D files si nécessaire (*_2d.csv -> *2D.csv)
+if [ -x "zz-tools/ch06_bridge_2d_files.sh" ]; then
+  echo "[INFO] Bridge CH06 2D files (*_2d -> *2D) si nécessaire..."
+  zz-tools/ch06_bridge_2d_files.sh || echo "[WARN] ch06_bridge_2d_files.sh a retourné un code non nul"
+fi
+
 echo "✅ Génération Chapitre 6 OK"
 echo
 

@@ -91,7 +91,7 @@ def main():
     fig.suptitle("Résidus en fonction du redshift", y=0.98)
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
-    outpath = FIG_DIR / "fig_05_residuals.png"
+    outpath = FIG_DIR / "08_fig_05_residuals.png"
     fig.savefig(outpath, dpi=300)
     print(f"✅ {outpath.name} générée")
 

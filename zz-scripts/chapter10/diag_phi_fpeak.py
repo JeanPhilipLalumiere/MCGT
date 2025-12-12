@@ -1,187 +1,145 @@
-#!/usr/bin/env python3
-# zz-scripts/chapter10/diag_phi_fpeak.py
-"""
-Diagnostic pour lignes problématiques lors du calcul de phi_ref_fpeak / phi_mcgt_fpeak.
-
-Usage:
-python zz-scripts/chapter10/diag_phi_fpeak.py \
-  --results zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
-  --ref-grid zz-data/chapter09/09_phases_imrphenom.csv \
-  --out-diagnostics zz-data/chapter10/10_diag_phi_fpeak_report.csv \
-  --thresh 1e3
-"""
-
+#!/usr/bin/env python
 from __future__ import annotations
 
 import argparse
-import csv
-import math
+import json
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
-from zz_tools import common_io as ci
-
-from mcgt.backends.ref_phase import compute_phi_ref
-from mcgt.phase import phi_mcgt
+import matplotlib.pyplot as plt
 
 
-def safe_float(x):
-    try:
-        return float(x)
-    except Exception:
-        return np.nan
+def wrap_phase(x: np.ndarray) -> np.ndarray:
+    """Ramène un angle en radians dans l'intervalle [-pi, pi)."""
+    return (x + np.pi) % (2.0 * np.pi) - np.pi
 
 
-def is_bad_phi(val, thresh):
-    if val is None:
-        return True
-    try:
-        v = float(val)
-    except Exception:
-        return True
-    if math.isnan(v) or math.isinf(v):
-        return True
-    return abs(v) > thresh
-
-
-def main():
-    p = argparse.ArgumentParser()
-    p.add_argument("--results", required=True)
-    p.add_argument("--ref-grid", required=True)
-    p.add_argument(
-        "--out-diagnostics", default="zz-data/chapter10/10_diag_phi_fpeak_report.csv"
-    )
-    p.add_argument(
-        "--thresh",
-        type=float,
-        default=1e3,
-        help="seuil pour considérer une phi aberrante",
-    )
-    args = p.parse_args()
-
-    df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
-
-    f_ref = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
-    # ensure sorted and finite
-    f_ref = np.asarray(f_ref)
-    f_ref = f_ref[np.isfinite(f_ref)]
-    if f_ref.size < 2:
-        raise SystemExit("La grille de référence contient <2 points après nettoyage.")
-
-    rows = []
-    for i, row in df.iterrows():
-        rec = dict(id=int(row.get("id", -1)))
-        # basic params
-        rec["idx"] = i
-        rec["m1"] = row.get("m1")
-        rec["m2"] = row.get("m2")
-        rec["k"] = row.get("k", "")
-        # existing recorded phi values
-        rec["phi_ref_fpeak_recorded"] = row.get("phi_ref_fpeak", "")
-        rec["phi_mcgt_fpeak_recorded"] = row.get("phi_mcgt_fpeak", "")
-
-        bad_flag = False
-        msg = ""
-
-        # quick detect recorded bad values
-        if is_bad_phi(rec["phi_mcgt_fpeak_recorded"], args.thresh) or is_bad_phi(
-            rec["phi_ref_fpeak_recorded"], args.thresh
-        ):
-            bad_flag = True
-            msg += "recorded_phi_bad;"
-
-        # Try to recompute using the full f_ref (do not slice it yet)
-        try:
-            m1 = safe_float(row.get("m1"))
-            m2 = safe_float(row.get("m2"))
-            if np.isnan(m1) or np.isnan(m2):
-                raise ValueError("m1/m2 not numeric")
-            # compute phi_ref on full grid (robust fallback)
-            phi_ref_full = compute_phi_ref(f_ref, m1, m2)
-            # pick f_peak estimate: if f_peak column exists use it, else use argmin|phi'|? for now try f_peak column
-            f_peak = None
-            for cand in ("f_peak", "fpeak", "f_peak_Hz"):
-                if cand in row:
-                    f_peak = row.get(cand)
-                    break
-            # if f_peak not present, fall back to single point (e.g. median of f_ref)
-            if f_peak is None or (
-                isinstance(f_peak, float) and (np.isnan(f_peak) or np.isinf(f_peak))
-            ):
-                f_peak = float(np.median(f_ref))
-            else:
-                f_peak = float(f_peak)
-
-            # find nearest index to f_peak
-            idx = (np.abs(f_ref - f_peak)).argmin()
-            phi_ref_at_fpeak = float(phi_ref_full[idx])
-
-            # compute phi_mcgt on full grid (use theta from row)
-            theta = {}
-            for key in ("m1", "m2", "q0star", "alpha", "phi0", "tc", "dist", "incl"):
-                if key in row:
-                    theta[key] = safe_float(row[key])
-            # compute phi_mcgt may raise; catch it
-            try:
-                phi_mcgt_full = phi_mcgt(f_ref, theta)
-                phi_mcgt_at_fpeak = float(phi_mcgt_full[idx])
-            except Exception as e:
-                phi_mcgt_at_fpeak = None
-                msg += f"phi_mcgt_error:{e};"
-                bad_flag = True
-
-            rec["f_peak_used"] = f_peak
-            rec["f_ref_len"] = int(f_ref.size)
-            rec["phi_ref_at_fpeak_recomputed"] = phi_ref_at_fpeak
-            rec["phi_mcgt_at_fpeak_recomputed"] = phi_mcgt_at_fpeak
-
-            # mark if recomputed values are bad
-            if phi_mcgt_at_fpeak is None or is_bad_phi(phi_mcgt_at_fpeak, args.thresh):
-                bad_flag = True
-                msg += "recomputed_phi_bad;"
-
-        except Exception as e:
-            bad_flag = True
-            msg += f"recompute_error:{e};"
-            rec["f_peak_used"] = None
-            rec["f_ref_len"] = int(f_ref.size)
-            rec["phi_ref_at_fpeak_recomputed"] = ""
-            rec["phi_mcgt_at_fpeak_recomputed"] = ""
-
-        rec["bad"] = bad_flag
-        rec["msg"] = msg
-        rows.append(rec)
-
-    # write diagnostics CSV of problematic rows only
-    out_rows = [r for r in rows if r["bad"]]
-    if not out_rows:
-        print("Aucun cas problématique détecté selon le seuil.")
-    else:
-        keys = [
-            "idx",
-            "id",
-            "m1",
-            "m2",
-            "k",
-            "f_peak_used",
-            "f_ref_len",
-            "phi_ref_fpeak_recorded",
-            "phi_ref_at_fpeak_recomputed",
-            "phi_mcgt_fpeak_recorded",
-            "phi_mcgt_at_fpeak_recomputed",
-            "msg",
-        ]
-        with open(args.out_diagnostics, "w", newline="") as fh:
-            w = csv.DictWriter(fh, fieldnames=keys)
-            w.writeheader()
-            for r in out_rows:
-                roww = {k: r.get(k, "") for k in keys}
-                w.writerow(roww)
-        print(
-            f"Wrote diagnostics ({len(out_rows)} problematic rows) -> {args.out_diagnostics}"
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Diagnostics sur les phases à f_peak : "
+            "Δphi(f_peak) = wrap(phi_mcgt_fpeak - phi_ref_fpeak)."
         )
+    )
+    parser.add_argument(
+        "--results",
+        required=True,
+        help="CSV de résultats (ex. zz-data/chapter10/10_mc_results.circ.with_fpeak.csv)",
+    )
+    parser.add_argument(
+        "--ref-grid",
+        required=False,
+        help=(
+            "Grille de référence des phases IMRPhenom (ex. zz-data/chapter09/09_phases_imrphenom.csv). "
+            "Actuellement utilisé uniquement à titre informatif."
+        ),
+    )
+    parser.add_argument(
+        "--outdir",
+        default="zz-figures/chapter10",
+        help="Répertoire de sortie pour les figures / fichiers diag (défaut: zz-figures/chapter10).",
+    )
+    parser.add_argument(
+        "--prefix",
+        default="10_diag_phi_fpeak",
+        help="Préfixe des fichiers de sortie (défaut: 10_diag_phi_fpeak).",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+
+    results_path = Path(args.results)
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    if not results_path.is_file():
+        raise SystemExit(f"[ERREUR] Fichier results introuvable: {results_path}")
+
+    print(f"[INFO] Lecture des résultats : {results_path}")
+    df = pd.read_csv(results_path)
+
+    required_cols = ["phi_ref_fpeak", "phi_mcgt_fpeak"]
+    missing = [c for c in required_cols if c not in df.columns]
+    if missing:
+        raise SystemExit(
+            f"[ERREUR] Colonnes manquantes dans {results_path} : {missing} "
+            f"(colonnes disponibles: {df.columns.tolist()})"
+        )
+
+    # Δphi(f_peak) avec wrap dans [-pi, pi)
+    dphi = df["phi_mcgt_fpeak"].to_numpy() - df["phi_ref_fpeak"].to_numpy()
+    dphi_wrapped = wrap_phase(dphi)
+    df["delta_phi_fpeak"] = dphi_wrapped
+
+    # Statistiques simples
+    n = len(dphi_wrapped)
+    abs_dphi = np.abs(dphi_wrapped)
+
+    stats = {
+        "n": int(n),
+        "mean_delta_phi": float(np.mean(dphi_wrapped)),
+        "std_delta_phi": float(np.std(dphi_wrapped, ddof=1)) if n > 1 else float("nan"),
+        "min_delta_phi": float(np.min(dphi_wrapped)),
+        "max_delta_phi": float(np.max(dphi_wrapped)),
+    }
+
+    quantiles = [0.5, 0.9, 0.95, 0.99]
+    q_vals = np.quantile(abs_dphi, quantiles)
+    for q, v in zip(quantiles, q_vals):
+        stats[f"abs_delta_phi_q{int(q * 100):02d}"] = float(v)
+
+    # Si une grille ref est fournie, on la lit juste pour info
+    if args.ref_grid:
+        ref_path = Path(args.ref_grid)
+        if ref_path.is_file():
+            try:
+                print(f"[INFO] Lecture de la grille de référence : {ref_path}")
+                f_ref = np.loadtxt(ref_path, delimiter=",", skiprows=1, usecols=[0])
+                stats["f_ref_min_Hz"] = float(np.min(f_ref))
+                stats["f_ref_max_Hz"] = float(np.max(f_ref))
+                stats["f_ref_n"] = int(len(f_ref))
+            except Exception as exc:  # noqa: BLE001
+                print(f"[WARN] Impossible de lire la grille de référence {ref_path}: {exc}")
+        else:
+            print(f"[WARN] Fichier ref-grid introuvable: {ref_path}")
+
+    # Impression console
+    print("\n=== Diagnostics Δphi(f_peak) ===")
+    for k in sorted(stats.keys()):
+        print(f"{k:>24} : {stats[k]}")
+
+    # Sauvegarde stats JSON
+    stats_path = outdir / f"{args.prefix}_stats.json"
+    with stats_path.open("w", encoding="utf-8") as f:
+        json.dump(stats, f, indent=2, sort_keys=True)
+    print(f"[INFO] Stats écrites dans : {stats_path}")
+
+    # Sauvegarde CSV enrichi (optionnel mais pratique)
+    csv_diag_path = outdir / f"{args.prefix}_samples.csv"
+    df.to_csv(csv_diag_path, index=False)
+    print(f"[INFO] Echantillons enrichis écrits dans : {csv_diag_path}")
+
+    # Histogramme de Δphi(f_peak)
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.hist(
+        dphi_wrapped,
+        bins=50,
+        density=True,
+        alpha=0.8,
+    )
+    ax.set_xlabel(r"$\Delta\phi(f_\mathrm{peak})$ [rad]")
+    ax.set_ylabel("PDF")
+    ax.set_title(r"Distribution de $\Delta\phi(f_\mathrm{peak})$ (wrap[-$\pi$,$\pi$))")
+    ax.axvline(0.0, color="k", linestyle="--", linewidth=1)
+
+    fig.tight_layout()
+    fig_path = outdir / f"{args.prefix}_hist.png"
+    fig.savefig(fig_path, dpi=150)
+    plt.close(fig)
+    print(f"[INFO] Figure écrite dans : {fig_path}")
 
 
 if __name__ == "__main__":

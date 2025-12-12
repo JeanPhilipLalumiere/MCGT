@@ -78,7 +78,7 @@ def main():
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     # Save
-    out_file = FIG_DIR / "fig_02_dv_vs_z.png"
+    out_file = FIG_DIR / "08_fig_02_dv_vs_z.png"
     plt.savefig(out_file, dpi=300)
     print(f"✅ Figure saved : {out_file}")
 

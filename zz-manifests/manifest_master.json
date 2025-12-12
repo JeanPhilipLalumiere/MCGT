@@ -3168,7 +3168,11 @@
       "role": "figure",
       "tags": [
         "chapter08"
-      ]
+      ],
+      "sha256": "3087528dfc15d582ba2c0512fe1b4d6613712d1d6605374a4729178ffd300f4e",
+      "git_hash": "5d1edcde5bfdad69d93c0d5be8ab3633b0c815c3",
+      "size_bytes": 232866,
+      "mtime_iso": "2025-12-11T00:56:50Z"
     },
     {
       "git_hash": "ffc76cfaabc75e44cedc40ed02eaa9c98ab4b849",

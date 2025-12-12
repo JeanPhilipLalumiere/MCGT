@@ -1845,11 +1845,11 @@
       "sha256": "fc73bb2b09d0081e92371d6bc0ed1b3e26c627ab94670ef98ee4e1ff55a70b7c"
     },
     {
+      "git_hash": "4e86e40415953bfe29def7f05ad3fbc10b6a0f5f",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_cls_spectrum.dat",
       "sha256": "e4ac819018bf129713654e4375bb3179aeb752bb889ca40deae0b06bec17d727",
-      "size_bytes": 52924,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "4e86e40415953bfe29def7f05ad3fbc10b6a0f5f"
+      "size_bytes": 52924
     },
     {
       "path": "zz-data/chapter06/06_cls_spectrum_lcdm.dat",
@@ -1868,43 +1868,43 @@
       "sha256": "ec4e310d4fce9aa7ec8d62ead1f0a6730f8ffefd321af2779707235598d119f2"
     },
     {
+      "git_hash": "23424a208402877567b09a0aad48b198b81ea886",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_delta_Tm_scan.csv",
       "sha256": "48d5b4b47a74e5b56c72eaffbbd5bdd7008277ad5bdb8c48992cde3c0efb95d1",
-      "size_bytes": 5896,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "23424a208402877567b09a0aad48b198b81ea886"
+      "size_bytes": 5896
     },
     {
+      "git_hash": "0272e85d2fc3aaddbc53b5104b7b528fd5970cba",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_delta_cls.csv",
       "sha256": "5ce97283770df2ebaa06b264d56a309eb21900c7b9ecb7200762ace1b23674fc",
-      "size_bytes": 83407,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "0272e85d2fc3aaddbc53b5104b7b528fd5970cba"
+      "size_bytes": 83407
     },
     {
+      "git_hash": "c8bce87b754f10ef6f8c2d186542816535da25b9",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_delta_cls_relative.csv",
       "sha256": "cb13e680d02af2656e986faa422836e8a5d12ab34123fea24d76215a14870e85",
-      "size_bytes": 74483,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "c8bce87b754f10ef6f8c2d186542816535da25b9"
+      "size_bytes": 74483
     },
     {
+      "git_hash": "299efae13e48362a2a064775957eebb108da5584",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_delta_rs_scan.csv",
       "sha256": "a17306bc48582606b318c960d5c0b697bc13f829ca9ec1df5016f837162a5e68",
-      "size_bytes": 1511,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "299efae13e48362a2a064775957eebb108da5584"
+      "size_bytes": 1511
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan2D.csv",
       "sha256": "38ded9df11692d3e1fa4c40d0fd49ef878c6928b32556ce33a4ad8590dbd162e"
     },
     {
+      "git_hash": "1089b79d5424e5a9aac63689126137dc0978275e",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_delta_rs_scan_2d.csv",
       "sha256": "e8881fef35026971f7e1808bef67f23a2fc9c06dec90d517e532ac0b10018ba3",
-      "size_bytes": 2275,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "1089b79d5424e5a9aac63689126137dc0978275e"
+      "size_bytes": 2275
     },
     {
       "path": "zz-data/chapter06/06_delta_rs_scan_full.csv",
@@ -1915,11 +1915,11 @@
       "sha256": "0279f4f9184cae6712913b7dc18a22ec83fbff96408f7ad847f165b34722cc16"
     },
     {
+      "git_hash": "d07fedba0872354c32492583cb8b948b0a924ac0",
+      "mtime_iso": "2025-12-12T20:17:59Z",
       "path": "zz-data/chapter06/06_params_cmb.json",
       "sha256": "696ae2748466ede255734328fd5fabf9db56450d2daf9654b7048a8ac006dbd8",
-      "size_bytes": 397,
-      "mtime_iso": "2025-12-12T20:17:59Z",
-      "git_hash": "d07fedba0872354c32492583cb8b948b0a924ac0"
+      "size_bytes": 397
     },
     {
       "path": "zz-data/chapter07/07_cs2_matrix.csv",
@@ -3156,14 +3156,16 @@
       ]
     },
     {
+      "git_hash": "ffc76cfaabc75e44cedc40ed02eaa9c98ab4b849",
       "media_type": "image/png",
+      "mtime_iso": "2025-12-11T00:56:51Z",
       "path": "zz-figures/chapter08/08_fig_07_chi2_profile.png",
       "role": "figure",
+      "sha256": "6aef990fd096f493118270ea3460bdaf9ff6bbb6351e9910d0e06c969765e6e7",
+      "size_bytes": 119654,
       "tags": [
         "chapter08"
-      ],
-      "size_bytes": 119654,
-      "mtime_iso": "2025-12-11T00:56:51Z"
+      ]
     }
   ],
   "generatedAt": "__LOCAL__",

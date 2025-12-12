@@ -48,7 +48,7 @@ def build_entry(rel_path: str) -> dict:
 
     st = p.stat()
     mtime = int(st.st_mtime)
-    mtime_iso = dt.datetime.utcfromtimestamp(st.st_mtime).strftime(
+    mtime_iso = dt.datetime.fromtimestamp(st.st_mtime, dt.timezone.utc).strftime(
         "%Y-%m-%dT%H:%M:%SZ"
     )
     sha = sha256_file(p)

@@ -3137,6 +3137,7 @@
     {
       "media_type": "image/png",
       "path": "zz-figures/chapter08/08_fig_07_chi2_profile.png",
+      "git_hash": "ffc76cfaabc75e44cedc40ed02eaa9c98ab4b849",
       "role": "figure",
       "tags": [
         "chapter08"

@@ -46,7 +46,7 @@ for i in range(len(steps) - 1):
 
 plt.title("Fig. 04 – Schéma de la chaîne de calibration\nChapitre 2", pad=20)
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-plt.savefig(FIG_DIR / "fig_04_schema_pipeline.png")
+plt.savefig(FIG_DIR / "02_fig_04_schema_pipeline.png")
 
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":

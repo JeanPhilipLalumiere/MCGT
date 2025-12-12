@@ -124,7 +124,7 @@ def main():
     ax.legend(loc="upper left", frameon=True)
 
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-    out = FIG_DIR / "fig_07_chi2_profile.png"
+    out = FIG_DIR / "08_fig_07_chi2_profile.png"
     fig.savefig(out, dpi=300)
     print(f"✅ {out.name} générée")
 

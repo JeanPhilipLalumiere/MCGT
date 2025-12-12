@@ -114,7 +114,7 @@ def main():
     fig.suptitle("Distribution des pulls (résidus normalisés)", y=1.02, fontsize=14)
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
-    out_path = FIG_DIR / "fig_06_pulls.png"
+    out_path = FIG_DIR / "08_fig_06_pulls.png"
     fig.savefig(out_path, dpi=300, bbox_inches="tight")
     print(f"✅ {out_path.name} générée")
 

@@ -61,7 +61,7 @@ ax.legend(loc="lower right")
 
 # -- Mise en page & sauvegarde
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-fig.savefig(FIG_DIR / "fig_03_mu_vs_z.png", dpi=300)
+fig.savefig(FIG_DIR / "08_fig_03_mu_vs_z.png", dpi=300)
 print("✅ fig_03_mu_vs_z.png générée dans", FIG_DIR)
 
 # === MCGT CLI SEED v2 ===

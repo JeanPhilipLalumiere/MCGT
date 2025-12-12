@@ -69,7 +69,7 @@ def main() -> None:
     plt.legend()
     plt.tight_layout()
 
-    output_file = fig_dir / "fig_04_P_vs_T_evolution.png"
+    output_file = fig_dir / "01_fig_04_p_vs_t_evolution.png"
     plt.savefig(output_file)
     plt.close()
 

@@ -2037,8 +2037,10 @@
       "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3"
     },
     {
+      "mtime_iso": "2025-12-12T00:32:58Z",
       "path": "zz-data/chapter09/09_metrics_phase.json",
-      "sha256": "032ad1934700c536bbfa4fd4d045dd132d5a0dd5fde7c80cecc753baba0db677"
+      "sha256": "091671f8c3d8dbdc9234090539374617747fdb8b424dfa9a0047e4de0d1022bf",
+      "size_bytes": 1839
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",

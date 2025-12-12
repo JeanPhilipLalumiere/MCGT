@@ -1964,7 +1964,7 @@
       "path": "tools/refresh_master_manifest_full.sh",
       "sha256": "ce266c227e828201331579dedb74d057562c37d6fb83d8a23b82e3e0d31f5ed5",
       "size_bytes": 5784,
-      "mtime_iso": "2025-12-12T23:26:16Z",
+      "mtime_iso": "2025-12-12T23:26:27Z",
       "git_hash": "43bceba7f6f010d0f4c00193401cb1aae1bc29e4"
     },
     {
@@ -4477,7 +4477,7 @@
       "path": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
       "sha256": "c7150974ad3a677d447296c28d69cf45fd753987df5cbffc32abfca7c60913ec",
       "size_bytes": 13773,
-      "mtime_iso": "2025-12-12T22:53:24Z",
+      "mtime_iso": "2025-12-12T23:26:27Z",
       "git_hash": "67e9c0d76e1e49340e094c980ee1469af4ef0a2e"
     },
     {
@@ -4498,21 +4498,21 @@
       "path": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
       "sha256": "6864568715d4607e883a48d633bd3c90fa52348cfe6092c5968761f1f12fe6da",
       "size_bytes": 13486,
-      "mtime_iso": "2025-12-12T22:53:24Z",
+      "mtime_iso": "2025-12-12T23:26:27Z",
       "git_hash": "33092b91eaaa52d2af39f163dccbcd17f7c75635"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
       "sha256": "ec59750db0992bbf61120bae9ff269e58659fd6595cd6c0692c89ea20f79e1dc",
       "size_bytes": 9390,
-      "mtime_iso": "2025-12-12T22:53:24Z",
+      "mtime_iso": "2025-12-12T23:26:27Z",
       "git_hash": "95e7da188843061fc342b8e8d361d783dee6d084"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig06_residual_map.py",
       "sha256": "0ab90d5255871caf670f42d5abdabd20d025c305e87a22b1ce87f085566846ad",
       "size_bytes": 16717,
-      "mtime_iso": "2025-12-12T22:53:24Z",
+      "mtime_iso": "2025-12-12T23:26:27Z",
       "git_hash": "787a28a5dff8e8f01bb7921b31137c6d800af1f0"
     },
     {

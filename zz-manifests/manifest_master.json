@@ -2043,49 +2043,80 @@
     },
     {
       "path": "zz-data/chapter09/09_best_params.json",
-      "sha256": "9b999c82a68bd9c3e382d47e54e902186137c6bef5bedb619e0e7beec6a99b22"
+      "sha256": "9b999c82a68bd9c3e382d47e54e902186137c6bef5bedb619e0e7beec6a99b22",
+      "size_bytes": 1076,
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "cad94986e24d6fdf76b49b46f5543b9dfd9d1b47"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.csv",
-      "sha256": "d3345fdfdf2bd1ddd86a20a2e84993e60ea0bfa93ebc752f88d9507f9ef9cb5e"
+      "sha256": "d3345fdfdf2bd1ddd86a20a2e84993e60ea0bfa93ebc752f88d9507f9ef9cb5e",
+      "size_bytes": 6270,
+      "mtime_iso": "2025-10-23T12:34:30Z",
+      "git_hash": "78a951c08034812e03c1038cce0b40efabd09865"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.flagged.csv",
-      "sha256": "8bf497d974ef393e6e35a1b861bf6042972f5e4c5f2912ae66afdd02e987ca31"
+      "sha256": "8bf497d974ef393e6e35a1b861bf6042972f5e4c5f2912ae66afdd02e987ca31",
+      "size_bytes": 7758,
+      "mtime_iso": "2025-12-02T21:22:23Z",
+      "git_hash": "703f6d7159be93d8f9d0b906bb35b88b322a7f5b"
     },
     {
       "path": "zz-data/chapter09/09_comparison_milestones.meta.json",
-      "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3"
+      "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3",
+      "size_bytes": 547,
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "1b0475888b25ce6c6d44fef5029bfd776aebf3dc"
     },
     {
       "mtime_iso": "2025-12-12T00:32:58Z",
       "path": "zz-data/chapter09/09_metrics_phase.json",
       "sha256": "091671f8c3d8dbdc9234090539374617747fdb8b424dfa9a0047e4de0d1022bf",
-      "size_bytes": 1839
+      "size_bytes": 1839,
+      "git_hash": "8952297e94942548771135d77d03e37817dc0ab3"
     },
     {
       "path": "zz-data/chapter09/09_phase_diff.csv",
-      "sha256": "20e730e6dee586d8501c23d120341bcb45a2ca585864a98dd48b59dade5fde72"
+      "sha256": "20e730e6dee586d8501c23d120341bcb45a2ca585864a98dd48b59dade5fde72",
+      "size_bytes": 13169,
+      "mtime_iso": "2025-12-08T21:50:05Z",
+      "git_hash": "db17e9fbbc7fc6c21204e79877de57258c6a072f"
     },
     {
       "path": "zz-data/chapter09/09_phases_imrphenom.csv",
-      "sha256": "6cce6d9e5e1f154c119d7d85006fbbacf0f565fa2f94eec3b6f691cafaec1e59"
+      "sha256": "6cce6d9e5e1f154c119d7d85006fbbacf0f565fa2f94eec3b6f691cafaec1e59",
+      "size_bytes": 8432,
+      "mtime_iso": "2025-09-25T19:11:32Z",
+      "git_hash": "6eac87d32cd1a69ab5d0de3691f223c32ab80d50"
     },
     {
       "path": "zz-data/chapter09/09_phases_imrphenom.meta.json",
-      "sha256": "4dd70fa564bc64bdb03bb59447990e9725cdd3f6aafdfa790bf34eb20add6184"
+      "sha256": "4dd70fa564bc64bdb03bb59447990e9725cdd3f6aafdfa790bf34eb20add6184",
+      "size_bytes": 249,
+      "mtime_iso": "2025-10-29T20:11:22Z",
+      "git_hash": "6f03bce7ad3edb1519a826695b2ce5f6e5f6211c"
     },
     {
       "path": "zz-data/chapter09/09_phases_mcgt.csv",
-      "sha256": "0578d1aa43ed75e4a36e29a516d5e69142a13bb3d75e5ff5de9eb0d084ee6ae7"
+      "sha256": "0578d1aa43ed75e4a36e29a516d5e69142a13bb3d75e5ff5de9eb0d084ee6ae7",
+      "size_bytes": 21217,
+      "mtime_iso": "2025-10-13T15:21:12Z",
+      "git_hash": "40ac553f7dadc0180fc505e1df1c1e4848da84f4"
     },
     {
       "path": "zz-data/chapter09/09_phases_mcgt_prepoly.csv",
-      "sha256": "e82356c544868303cba32c9c2a34fb85d581b6c185375c57d8b39cdd0026b2b8"
+      "sha256": "e82356c544868303cba32c9c2a34fb85d581b6c185375c57d8b39cdd0026b2b8",
+      "size_bytes": 21233,
+      "mtime_iso": "2025-09-25T19:11:32Z",
+      "git_hash": "344b7a5b5471e6c3ec06ef1525d9b17daf218585"
     },
     {
       "path": "zz-data/chapter09/gwtc3_confident_parameters.json",
-      "sha256": "0f7cb570273b3d6e3e56dcb1d427fe92b07b02fae227565f46aeba6d47f3045e"
+      "sha256": "0f7cb570273b3d6e3e56dcb1d427fe92b07b02fae227565f46aeba6d47f3045e",
+      "size_bytes": 9728,
+      "mtime_iso": "2025-12-07T14:58:08Z",
+      "git_hash": "1cb131980210075c15b7108c3fc71ded2f8553e3"
     },
     {
       "path": "zz-data/chapter10/10_mc_best.json",

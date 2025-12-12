@@ -449,7 +449,10 @@
     },
     {
       "path": "zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
-      "sha256": "f850d62746c7e2d8e19a701f1012489d087e152a8175c86c4e36836e664615e1"
+      "sha256": "c7150974ad3a677d447296c28d69cf45fd753987df5cbffc32abfca7c60913ec",
+      "size_bytes": 13773,
+      "mtime_iso": "2025-12-12T21:51:56Z",
+      "git_hash": "1181d46e54086606f509ed993d0d9f99ea67e716"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
@@ -461,19 +464,31 @@
     },
     {
       "path": "zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
-      "sha256": "1f3555c8f6f99f464a2ddffe7a8ac7602988477aa881bc8f399c1bbdc3042d84"
+      "sha256": "6864568715d4607e883a48d633bd3c90fa52348cfe6092c5968761f1f12fe6da",
+      "size_bytes": 13486,
+      "mtime_iso": "2025-12-12T21:51:56Z",
+      "git_hash": "1181d46e54086606f509ed993d0d9f99ea67e716"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
-      "sha256": "559cc9e7e7557532366bf303705696dbde25440a362d245d082380040f858dab"
+      "sha256": "ec59750db0992bbf61120bae9ff269e58659fd6595cd6c0692c89ea20f79e1dc",
+      "size_bytes": 9390,
+      "mtime_iso": "2025-12-12T21:51:56Z",
+      "git_hash": "1181d46e54086606f509ed993d0d9f99ea67e716"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig06_residual_map.py",
-      "sha256": "29e068dba9bb6166437af614ace7ded4fd74f1e4f185f262712799d92b65a833"
+      "sha256": "0ab90d5255871caf670f42d5abdabd20d025c305e87a22b1ce87f085566846ad",
+      "size_bytes": 16717,
+      "mtime_iso": "2025-12-12T21:51:56Z",
+      "git_hash": "1181d46e54086606f509ed993d0d9f99ea67e716"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig07_synthesis.py",
-      "sha256": "75153e167e986c5164b73898487d8661688e8c5e2de738a30f2f3ada42c1a733"
+      "sha256": "415040576962cac43ad35315edd0d32b922e9bcb1fde6c090e3bbd91d07a2bba",
+      "size_bytes": 16190,
+      "mtime_iso": "2025-12-12T21:49:40Z",
+      "git_hash": "5c00e57689c6eaddbbca915c392aaaa3975198c4"
     },
     {
       "media_type": "image/png",

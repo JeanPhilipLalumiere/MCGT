@@ -1,0 +1,129 @@
+{
+  "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
+  "generated_at": "2025-12-12T00:37:32Z",
+  "inputs": {
+    "results": "zz-data/chapter10/10_results_global_scan.csv",
+    "p95_col": "p95_rad"
+  },
+  "params": {
+    "M": 400,
+    "outer_B": 400,
+    "inner_B": 2000,
+    "outer": 400,
+    "inner": 2000,
+    "alpha": 0.05,
+    "seed": 12345,
+    "minN": 10,
+    "npoints": 10,
+    "ymin_coverage": null,
+    "ymax_coverage": null,
+    "angular_inset": false
+  },
+  "ref_value_linear_rad": 3.0061011000000004,
+  "ref_value_circular_rad": null,
+  "N_list": [
+    10,
+    14,
+    18,
+    23,
+    27,
+    32,
+    36,
+    41,
+    45,
+    50
+  ],
+  "results": [
+    {
+      "N": 10,
+      "coverage": 0.875,
+      "coverage_err95_low": 0.0360190975139586,
+      "coverage_err95_high": 0.028884876763236256,
+      "width_mean_rad": 0.6897612932874999,
+      "hits": 350,
+      "method": "percentile"
+    },
+    {
+      "N": 14,
+      "coverage": 0.9125,
+      "coverage_err95_low": 0.031760732614291354,
+      "coverage_err95_high": 0.023913089788496822,
+      "width_mean_rad": 0.6095721306651783,
+      "hits": 365,
+      "method": "percentile"
+    },
+    {
+      "N": 18,
+      "coverage": 0.92,
+      "coverage_err95_low": 0.030754576830675506,
+      "coverage_err95_high": 0.022764249589866448,
+      "width_mean_rad": 0.5445215953472221,
+      "hits": 368,
+      "method": "percentile"
+    },
+    {
+      "N": 23,
+      "coverage": 0.92,
+      "coverage_err95_low": 0.030754576830675506,
+      "coverage_err95_high": 0.022764249589866448,
+      "width_mean_rad": 0.4898220972527171,
+      "hits": 368,
+      "method": "percentile"
+    },
+    {
+      "N": 27,
+      "coverage": 0.93,
+      "coverage_err95_low": 0.029308946427750504,
+      "coverage_err95_high": 0.02112837330025541,
+      "width_mean_rad": 0.4511998411527775,
+      "hits": 372,
+      "method": "percentile"
+    },
+    {
+      "N": 32,
+      "coverage": 0.94,
+      "coverage_err95_low": 0.027722848900456176,
+      "coverage_err95_high": 0.019352029886275268,
+      "width_mean_rad": 0.419563218064453,
+      "hits": 376,
+      "method": "percentile"
+    },
+    {
+      "N": 36,
+      "coverage": 0.955,
+      "coverage_err95_low": 0.025004729190323816,
+      "coverage_err95_high": 0.016348541346114076,
+      "width_mean_rad": 0.3976635252656249,
+      "hits": 382,
+      "method": "percentile"
+    },
+    {
+      "N": 41,
+      "coverage": 0.945,
+      "coverage_err95_low": 0.026867447807973233,
+      "coverage_err95_high": 0.018401505850449307,
+      "width_mean_rad": 0.3724069278536584,
+      "hits": 378,
+      "method": "percentile"
+    },
+    {
+      "N": 45,
+      "coverage": 0.9475,
+      "coverage_err95_low": 0.026421975071274972,
+      "coverage_err95_high": 0.017908471642079538,
+      "width_mean_rad": 0.35567898287500005,
+      "hits": 379,
+      "method": "percentile"
+    },
+    {
+      "N": 50,
+      "coverage": 0.9425,
+      "coverage_err95_low": 0.02730083772811931,
+      "coverage_err95_high": 0.018882457242266892,
+      "width_mean_rad": 0.3394397194449999,
+      "hits": 377,
+      "method": "percentile"
+    }
+  ],
+  "figure_path": "zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png"
+}

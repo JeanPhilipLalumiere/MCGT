@@ -64,6 +64,7 @@ backups/
 *.rej
 *.bak
 *.bak_*
+*.bak.*
 *.save
 *.swp
 *.swo
@@ -77,6 +78,7 @@ backups/
 .github/workflows/*.tmp
 .github/workflows/*.bak*
 .github/workflows/*.before_*
+.github/workflows/*.disabled
 
 # -------------------------------------------------------------------
 # Sidecars / verrous générés (non versionnés)
@@ -118,3 +120,8 @@ pypi_upload_*.sh
 # Variantes/backups de configs
 .pre-commit-config.yaml.*
 environment.disabled
+
+# Archives locales de release / snapshots (ne pas versionner)
+release_zenodo_codeonly*/
+release_zenodo_codeonly_v*/
+release_*.tar.gz

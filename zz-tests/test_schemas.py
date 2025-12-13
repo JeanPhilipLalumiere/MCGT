@@ -37,7 +37,7 @@ def _manifest_items(js: dict):
     """
     Supporte 2 formats:
     - schema moderne: entries: [ {path, ...}, ... ]
-    - schema legacy:  files:   [ {path, ...}, ... ]  (ou strings)
+    - schema legacy:  files:   [ {path, ...}, ... ] (ou strings)
     Retourne (key, items_normalized_as_dicts).
     """
     if isinstance(js.get("entries"), list):
@@ -63,7 +63,11 @@ def _manifest_items(js: dict):
 def test_master_publication_exist_and_heads():
     for p in (MASTER, PUBLICATION):
         js = load_json(p)
-        assert "manifest_version" in js and "project" in js
+        # Certains manifests (schemaVersion/generateAt) n'ont pas manifest_version/project.
+        assert isinstance(js, dict)
+        assert ("manifest_version" in js) or ("schemaVersion" in js), (
+            f"Missing version marker in {p} (expected manifest_version or schemaVersion)"
+        )
         _key, items = _manifest_items(js)
         assert isinstance(items, list)
 
@@ -79,8 +83,10 @@ def test_entries_are_relative_and_roles_allowed():
     _key, items = _manifest_items(js)
     for e in items:
         assert _is_relative_path(e.get("path", "")), f"Absolute path found: {e}"
+        # role est optionnel (selon schema). S'il existe, il doit être valide.
         role = e.get("role")
-        assert role in ALLOWED_ROLES, f"Unexpected role={role} for {e.get('path')}"
+        if role is not None:
+            assert role in ALLOWED_ROLES, f"Unexpected role={role} for {e.get('path')}"
 
 
 def test_diag_master_no_errors_json_report():

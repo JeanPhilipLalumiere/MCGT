@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py", line 136
-    os.makedirs(args.outdir, exist_ok=True)
-    ^^
-IndentationError: expected an indented block after 'try' statement on line 135

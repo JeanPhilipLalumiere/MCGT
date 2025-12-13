@@ -1,4 +1,0 @@
-usage: flag_jalons.py [-h] --csv CSV --meta META [--out OUT]
-                      [--metrics-window METRICS_WINDOW METRICS_WINDOW]
-                      [--sigma-warn SIGMA_WARN] [--sigma-fail SIGMA_FAIL]
-flag_jalons.py: error: the following arguments are required: --csv, --meta

@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter05/generate_data_chapter05.py", line 116
-    json.dump(
-    ^^^^
-IndentationError: expected an indented block after 'with' statement on line 115

@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter02/plot_fig04_pipeline_diagram.py", line 24
-    width, height = 0.2, 0.15
-           ^^^^^^^^^^^^
-SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?

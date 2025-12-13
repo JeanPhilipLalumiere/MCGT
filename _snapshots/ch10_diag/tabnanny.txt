@@ -1,1 +1,0 @@
-'zz-scripts/chapter10/generate_data_chapter10.py': Clean bill of health.

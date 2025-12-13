@@ -1,9 +1,0 @@
-[INFO] Tracé fig_02 avec α=0.2, q0*=-0.1
-[WARNING] LCDM data /home/jplal/MCGT/zz-data/chapter06/06_cls_lcdm_spectrum.dat introuvable — dataset synthétique pour le smoke.
-[INFO] Figure enregistrée → /home/jplal/MCGT/zz-figures/chapter06/fig_02_cls_lcdm_vs_mcgt.png
-Traceback (most recent call last):
-  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py", line 349, in <module>
-    os.makedirs(args.outdir, exist_ok=True)
-  File "<frozen os>", line 210, in makedirs
-  File "<frozen posixpath>", line 103, in split
-TypeError: expected str, bytes or os.PathLike object, not NoneType

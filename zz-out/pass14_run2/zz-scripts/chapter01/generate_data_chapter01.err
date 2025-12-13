@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter01/generate_data_chapter01.py", line 58
-    if __name__ == "__main__":
-    ^^
-IndentationError: expected an indented block after function definition on line 56

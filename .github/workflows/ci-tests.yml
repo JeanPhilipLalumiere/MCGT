@@ -3,12 +3,12 @@ permissions:
   contents: read
 name: CI tests
 on:
-concurrency:
-  group: .github/workflows/ci-tests.yml-${{ github.ref }}
-  cancel-in-progress: true
   pull_request:
   push:
     branches: [ main ]
+concurrency:
+  group: .github/workflows/ci-tests.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   tests:
     runs-on: ubuntu-latest

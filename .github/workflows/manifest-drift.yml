@@ -3,12 +3,12 @@ permissions:
   contents: read
 name: Manifest drift check
 on:
-concurrency:
-  group: .github/workflows/manifest-drift.yml-${{ github.ref }}
-  cancel-in-progress: true
   pull_request:
   push:
     branches: [ main ]
+concurrency:
+  group: .github/workflows/manifest-drift.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   drift:
     runs-on: ubuntu-latest

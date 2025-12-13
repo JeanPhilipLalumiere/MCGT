@@ -3,12 +3,12 @@ permissions:
   contents: read
 name: ci
 on:
-concurrency:
-  group: .github/workflows/ci.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
   pull_request:
 
+concurrency:
+  group: .github/workflows/ci.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest

@@ -33,34 +33,39 @@ def load_json(p: Path):
         return json.load(f)
 
 
-def _get_manifest_items(js: dict):
+def _manifest_items(js: dict):
     """
     Supporte 2 formats:
-      - legacy: {"manifest_version":..., "project":..., "entries":[...]}
-      - nouveau: {"schemaVersion":..., "generatedAt":..., "files":[...]}
+    - schema moderne: entries: [ {path, ...}, ... ]
+    - schema legacy:  files:   [ {path, ...}, ... ]  (ou strings)
+    Retourne (key, items_normalized_as_dicts).
     """
-    if isinstance(js, dict):
-        if isinstance(js.get("entries"), list):
-            return "entries", js["entries"]
-        if isinstance(js.get("files"), list):
-            return "files", js["files"]
-    keys = list(js.keys()) if isinstance(js, dict) else [type(js).__name__]
-    pytest.fail(f"Unexpected manifest format (no 'entries' or 'files'). keys={keys}")
+    if isinstance(js.get("entries"), list):
+        key = "entries"
+        raw = js["entries"]
+    elif isinstance(js.get("files"), list):
+        key = "files"
+        raw = js["files"]
+    else:
+        pytest.fail("Manifest must contain 'entries'[] or 'files'[] at root")
+
+    items = []
+    for it in raw:
+        if isinstance(it, dict):
+            items.append(it)
+        elif isinstance(it, str):
+            items.append({"path": it})
+        else:
+            pytest.fail(f"Unexpected item type in manifest.{key}[]: {type(it).__name__}")
+    return key, items
 
 
 def test_master_publication_exist_and_heads():
     for p in (MASTER, PUBLICATION):
         js = load_json(p)
-        key, items = _get_manifest_items(js)
+        assert "manifest_version" in js and "project" in js
+        _key, items = _manifest_items(js)
         assert isinstance(items, list)
-
-        # Accepte l'un OU l'autre en-tête (on ne force pas une migration immédiate).
-        has_legacy_head = ("manifest_version" in js) and ("project" in js)
-        has_new_head = ("schemaVersion" in js) and ("generatedAt" in js)
-        assert has_legacy_head or has_new_head, (
-            f"Missing expected headers in {p}. "
-            f"Have key='{key}'. keys={list(js.keys())}"
-        )
 
 
 def _is_relative_path(path_str: str) -> bool:
@@ -71,24 +76,14 @@ def _is_relative_path(path_str: str) -> bool:
 
 def test_entries_are_relative_and_roles_allowed():
     js = load_json(MASTER)
-    _, items = _get_manifest_items(js)
-
+    _key, items = _manifest_items(js)
     for e in items:
         assert _is_relative_path(e.get("path", "")), f"Absolute path found: {e}"
-
-        # Le champ "role" existe surtout dans l'ancien schéma.
-        role = e.get("role", None)
-        if role is not None:
-            assert role in ALLOWED_ROLES, f"Unexpected role={role} for {e.get('path')}"
+        role = e.get("role")
+        assert role in ALLOWED_ROLES, f"Unexpected role={role} for {e.get('path')}"
 
 
 def test_diag_master_no_errors_json_report():
-    # diag_consistency a historiquement ciblé le schéma "entries".
-    js = load_json(MASTER)
-    key, _ = _get_manifest_items(js)
-    if key != "entries":
-        pytest.skip("diag_consistency test skipped for 'files' schema (temporary).")
-
     cmd = [
         sys.executable,
         str(MANIFEST_DIR / "diag_consistency.py"),

@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig03_relative_error_timeline.py", line 60
-    parser.add_argument(
-                       ^
-SyntaxError: '(' was never closed

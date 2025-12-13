@@ -1,3 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py", line 366
-    df = pd.read_csv(samples_path)
-IndentationError: unexpected indent

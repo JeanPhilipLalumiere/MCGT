@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/home/jplal/MCGT/zz-scripts/chapter06/generate_pdot_plateau_vs_z.py", line 9, in <module>
-    from mcgt.constants import H0KM_S_PER_MPC as H0  # unified
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ImportError: cannot import name 'H0KM_S_PER_MPC' from 'mcgt.constants' (/home/jplal/MCGT/mcgt/constants.py). Did you mean: 'H0_KM_S_PER_MPC'?

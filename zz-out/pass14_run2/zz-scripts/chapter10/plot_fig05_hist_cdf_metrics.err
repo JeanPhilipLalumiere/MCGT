@@ -1,7 +1,0 @@
-usage: plot_fig05_hist_cdf_metrics.py [-h] --results RESULTS --out OUT
-                                      [--ref-p95 REF_P95] [--bins BINS]
-                                      [--dpi DPI] [--zoom-x ZOOM_X]
-                                      [--zoom-y ZOOM_Y] [--zoom-dx ZOOM_DX]
-                                      [--zoom-dy ZOOM_DY] [--zoom-w ZOOM_W]
-                                      [--zoom-h ZOOM_H]
-plot_fig05_hist_cdf_metrics.py: error: the following arguments are required: --results, --out

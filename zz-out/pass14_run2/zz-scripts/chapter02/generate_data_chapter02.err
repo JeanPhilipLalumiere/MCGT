@@ -1,3 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter02/generate_data_chapter02.py", line 91
-    return parser.parse_args()
-IndentationError: unexpected indent

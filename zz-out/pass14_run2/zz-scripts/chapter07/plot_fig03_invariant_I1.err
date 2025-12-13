@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter07/plot_fig03_invariant_I1.py", line 114
-    parser.add_argument(
-                       ^
-SyntaxError: '(' was never closed

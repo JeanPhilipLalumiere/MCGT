@@ -1,3 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig01_early_plateau.py", line 80
-    OUTDIR_ENV = os.environ.get("MCGT_OUTDIR")
-IndentationError: unexpected indent

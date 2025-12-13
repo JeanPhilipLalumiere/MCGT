@@ -1,5 +1,6 @@
 name: readme-guard
-'on':
+
+on:
   workflow_dispatch:
     inputs:
       reason:
@@ -7,14 +8,51 @@ name: readme-guard
         required: false
   push:
     branches: ["main"]
-  pull_request: null
-permissions: {contents: read}
+  pull_request:
+
+permissions:
+  contents: read
+
 jobs:
   guard:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Vérifier qu'aucun badge orphelin n'est présent entre END BADGES et le
-          premier H1
+
+      - name: "Vérifier qu'aucun badge orphelin n'est présent entre END BADGES et le premier H1"
         run: |
-          awk 'BEGIN{a=0;h=0}/<!-- END BADGES -->/{a=1}/^# /{h=1}{if(a==1 && h==0 && $0 ~ /^[[:space:]]*\\[!\\[/) {print; bad=1}} END{exit bad?1:0}' README.md
+          awk '
+          function ltrim(s,   i,c) {
+            for (i=1; i<=length(s); i++) {
+              c = substr(s,i,1)
+              if (c!=" " && c!="\t" && c!="\r") return substr(s,i)
+            }
+            return ""
+          }
+          function starts_with(s,p) { return substr(s,1,length(p))==p }
+
+          BEGIN { after_end=0; seen_h1=0; bad=0 }
+
+          {
+            line = $0
+
+            if (!after_end) {
+              if (index(line, "<!-- END BADGES -->") > 0) after_end = 1
+              next
+            }
+
+            if (seen_h1) next
+
+            t = ltrim(line)
+
+            if (starts_with(t, "# ")) { seen_h1 = 1; next }
+
+            # Badge orphelin typique: [![...](...)](...)
+            if (starts_with(t, "[![")) {
+              printf("readme-guard: badge orphelin détecté (ligne %d): %s\n", NR, line) > "/dev/stderr"
+              bad = 1
+            }
+          }
+
+          END { exit (bad ? 1 : 0) }
+          ' README.md

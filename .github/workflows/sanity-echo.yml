@@ -1,12 +1,15 @@
-# added by policies_guard_common_fixes
+name: sanity-echo
+
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: sanity-echo-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
-name: sanity-echo
-on:
-concurrency:
-  group: .github/workflows/sanity-echo.yml-${{ github.ref }}
-  cancel-in-progress: true
-  workflow_dispatch: {}
+
 jobs:
   echo:
     runs-on: ubuntu-latest

@@ -125,3 +125,6 @@ environment.disabled
 release_zenodo_codeonly*/
 release_zenodo_codeonly_v*/
 release_*.tar.gz
+
+# leaks locaux (ne pas versionner)
+/zz-figures/**/_attic_root_leaks/

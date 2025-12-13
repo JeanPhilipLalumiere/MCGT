@@ -1,4 +1,5 @@
 name: ci-accel
+
 on:
   workflow_dispatch:
   push:
@@ -46,12 +47,27 @@ jobs:
     name: Build PDF (si des .tex existent)
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    if: ${{ hashFiles('**/*.tex') != '' }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
+      - name: Detect TeX
+        id: tex
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          files=( **/*.tex )
+          if (( ${#files[@]} > 0 )); then
+            echo "has_tex=1" >> "$GITHUB_OUTPUT"
+            echo "Found TeX files:"
+            printf ' - %s\n' "${files[@]}"
+          else
+            echo "has_tex=0" >> "$GITHUB_OUTPUT"
+            echo "No .tex files found."
+          fi
+
       - name: Cache Tectonic packages
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
         uses: actions/cache@v4
         with:
           path: ~/.cache/Tectonic
@@ -61,6 +77,7 @@ jobs:
 
       # Tectonic compile automatiquement et télécharge les paquets requis.
       - name: Typeset .tex via Tectonic (auto-détection)
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
         uses: tectonic-typesetting/tectonic-action@v1
         with:
           # Cherche un fichier principal plausible, sinon compile tout ce qu'il peut.
@@ -69,6 +86,8 @@ jobs:
           continue_on_error: true
 
       - name: Collecte PDF (best-effort)
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
+        shell: bash
         run: |
           mkdir -p dist
           # Copie tous les PDF générés plausibles
@@ -76,6 +95,7 @@ jobs:
           ls -l dist || true
 
       - name: Upload PDF artefacts
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
         uses: actions/upload-artifact@v4
         with:
           name: pdfs

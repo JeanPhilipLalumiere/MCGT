@@ -84,6 +84,7 @@ backups/
 # Sidecars / verrous générés (non versionnés)
 # -------------------------------------------------------------------
 *.sha256sum
+!zz-manifests/manifest_publication.sha256sum
 *.lock.json
 
 # -------------------------------------------------------------------

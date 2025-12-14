@@ -1962,10 +1962,10 @@
     },
     {
       "path": "tools/refresh_master_manifest_full.sh",
-      "sha256": "d4850d5fd94954eb078c54911c9e4feffe792aaead77cfb914c7bb2a3786dcde",
-      "size_bytes": 3467,
-      "mtime_iso": "2025-12-14T00:16:57Z",
-      "git_hash": "a149daad95b59b4ad6ca787870f46386937e709b"
+      "sha256": "62da055a2bbc55a9469bc5a5a567c539587edf23650d5133ded89486961a0cbe",
+      "size_bytes": 3990,
+      "mtime_iso": "2025-12-14T00:33:02Z",
+      "git_hash": "e4fde0adaa6342c9a9f58760d63f4c7f4d12594b"
     },
     {
       "path": "tools/refresh_master_manifest_git_hashes.sh",
@@ -5364,7 +5364,7 @@
       ]
     }
   ],
-  "generatedAt": "2025-12-14T00:17:01Z",
+  "generatedAt": "2025-12-14T00:33:08Z",
   "schemaVersion": 1,
   "files_updated": 719,
   "manifest_tool_version": "diag_consistency.py",

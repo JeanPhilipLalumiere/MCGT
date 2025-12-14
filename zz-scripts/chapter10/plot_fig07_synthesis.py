@@ -412,3 +412,11 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    from pathlib import Path as _Path
+    _outp = _Path(args.out)
+    if _outp.parent == _Path("."):
+        args.out = str(_Path("zz-figures/chapter10") / _outp.name)
+

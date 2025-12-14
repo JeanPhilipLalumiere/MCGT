@@ -209,7 +209,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="10_fig_02_scatter_phi_at_fpeak.png",
+        default="zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
         help="PNG de sortie",
     )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
@@ -289,6 +289,11 @@ def main() -> None:
 
     args = p.parse_args()
 
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    from pathlib import Path as _Path
+    _outp = _Path(args.out)
+    if _outp.parent == _Path('.'):
+        args.out = str(_Path('zz-figures/chapter10') / _outp.name)
     # ---------- Résolution du CSV à utiliser ----------
     results_path = auto_find_results_csv(args.results, args.x_col, args.y_col)
 
@@ -465,3 +470,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+

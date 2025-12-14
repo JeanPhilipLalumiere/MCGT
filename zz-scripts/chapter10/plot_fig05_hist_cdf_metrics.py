@@ -15,6 +15,8 @@ python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
 """
 from __future__ import annotations
 
+
+from pathlib import Path
 import argparse
 import textwrap
 import numpy as np
@@ -69,7 +71,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--out",
-        default="10_fig_05_hist_cdf_metrics.png",
+        default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
         help="PNG de sortie",
     )
     ap.add_argument(
@@ -129,6 +131,13 @@ def main() -> None:
         help="hauteur du zoom (fraction de l’axe principal)",
     )
     args = ap.parse_args()
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    outp = Path(args.out)
+    if outp.parent == Path("."):
+        outp = Path("zz-figures/chapter10") / outp.name
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    args.out = str(outp)
+
 
     # --- fichier par défaut si non fourni (pour le pipeline minimal) ---
     if args.results is None:

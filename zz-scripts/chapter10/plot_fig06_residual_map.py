@@ -33,6 +33,8 @@ utilise par défaut :
 """
 from __future__ import annotations
 
+
+from pathlib import Path
 import argparse
 import json
 import os
@@ -266,7 +268,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--out",
-        default="10_fig_06_residual_map.png",
+        default="zz-figures/chapter10/10_fig_06_residual_map.png",
         help="PNG de sortie.",
     )
     ap.add_argument(
@@ -275,6 +277,13 @@ def main() -> None:
         help="Écrit un petit JSON manifest à côté de la figure.",
     )
     args = ap.parse_args()
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    outp = Path(args.out)
+    if outp.parent == Path("."):
+        outp = Path("zz-figures/chapter10") / outp.name
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    args.out = str(outp)
+
 
     # Fichier par défaut si non fourni (cas pipeline minimal)
     if args.results is None:

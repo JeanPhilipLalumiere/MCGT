@@ -4503,17 +4503,17 @@
     },
     {
       "path": "zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
-      "sha256": "559cc9e7e7557532366bf303705696dbde25440a362d245d082380040f858dab",
-      "size_bytes": 9369,
-      "mtime_iso": "2025-12-12T23:30:15Z",
-      "git_hash": "95e7da188843061fc342b8e8d361d783dee6d084"
+      "sha256": "45a93922e63970dc7030b563de563f66b2fd0a1a1d6c530fa4934253cca08c07",
+      "size_bytes": 9709,
+      "mtime_iso": "2025-12-14T02:37:39Z",
+      "git_hash": "d166017390674de90813ca787bbb9d920322d237"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig06_residual_map.py",
-      "sha256": "29e068dba9bb6166437af614ace7ded4fd74f1e4f185f262712799d92b65a833",
-      "size_bytes": 16696,
-      "mtime_iso": "2025-12-12T23:30:15Z",
-      "git_hash": "787a28a5dff8e8f01bb7921b31137c6d800af1f0"
+      "sha256": "97624ca8271bf41c4ac66f5f7953627d498f63fea0827982429b16bd2ba63ed3",
+      "size_bytes": 17036,
+      "mtime_iso": "2025-12-14T02:37:39Z",
+      "git_hash": "d4ee9d34612d2790df67da503347265f9176e3b5"
     },
     {
       "path": "zz-scripts/chapter10/plot_fig07_synthesis.py",
@@ -4722,10 +4722,10 @@
       "tags": [
         "chapter10"
       ],
-      "size_bytes": 153944,
-      "mtime_iso": "2025-10-31T01:44:35Z",
-      "sha256": "87b40e7137f930565f893df4e71548ed1e0b475d7edb0e942cdaf8af57c89891",
-      "git_hash": "305534086618c2d958dc537568544529c37b23f8"
+      "size_bytes": 132429,
+      "mtime_iso": "2025-12-14T03:14:45Z",
+      "sha256": "ac6406f1a75f16594e6ce648c9df4472ca84ca3e281925355c1f337329065b23",
+      "git_hash": "6412e3605bb03e91315fc8042d357a67cb719f08"
     },
     {
       "media_type": "image/png",
@@ -4734,10 +4734,10 @@
       "tags": [
         "chapter10"
       ],
-      "size_bytes": 861896,
-      "mtime_iso": "2025-11-27T03:23:24Z",
-      "sha256": "cbc68bbdf934d709ac80cc9cf9f08cdbabaec1c78df6e18606c096173ae620e3",
-      "git_hash": "b0ac87953f8737c00317bf6deba50e6a8854cc99"
+      "size_bytes": 389168,
+      "mtime_iso": "2025-12-14T03:14:46Z",
+      "sha256": "2512ba7510f8d348dc58e62579b775b8579980f29ad0747c3f267fe5621a8706",
+      "git_hash": "1ad25c48f4168aee7e3283cc9d8e4263f6cd8580"
     },
     {
       "media_type": "image/png",
@@ -5364,7 +5364,7 @@
       ]
     }
   ],
-  "generatedAt": "2025-12-14T01:09:00Z",
+  "generatedAt": "2025-12-14T03:14:46Z",
   "schemaVersion": 1,
   "files_updated": 719,
   "manifest_tool_version": "diag_consistency.py",

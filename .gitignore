@@ -142,3 +142,8 @@ zz-figures/**/_attic_root_leaks/
 _autofix_sandbox/
 _tmp/
 zz-figures/**/_attic_root_leaks/
+
+# Exceptions: on versionne ces manifests sha256 malgré "*.sha256sum"
+!zz-manifests/manifest_data.sha256sum
+!zz-manifests/manifest_figures.sha256sum
+!zz-manifests/manifest_master.json.sha256sum

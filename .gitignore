@@ -137,3 +137,8 @@ zz-manifests/_backups/
 _autofix_sandbox/
 _tmp/
 zz-figures/**/_attic_root_leaks/
+
+# CI hygiene: sandboxes / temp
+_autofix_sandbox/
+_tmp/
+zz-figures/**/_attic_root_leaks/

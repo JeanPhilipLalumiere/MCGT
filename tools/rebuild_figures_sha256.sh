@@ -19,3 +19,10 @@ find "$FIGDIR" -path "$QUAR" -prune -o \
 echo "Wrote $OUT ($(
   awk 'END{print NR}' "$OUT"
 ) entries)"
+
+# Normalize sha256sum paths to repo-relative (CI determinism)
+if command -v python3 >/dev/null 2>&1; then
+  python3 tools/normalize_sha256sum_paths.py "zz-manifests/*.sha256sum"
+else
+  python tools/normalize_sha256sum_paths.py "zz-manifests/*.sha256sum"
+fi

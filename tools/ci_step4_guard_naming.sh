@@ -32,9 +32,9 @@ checks=(
   $'bad_03b\tzz-figures/chapter10/10_fig_03b_\tRenommer '\''03b'\'' -> '\''03_b'\'''
   # cible uniquement les variantes erronées (jamais ...p95_maps)
   $'bad_iso_map\t(zz-figures/chapter10/10_fig_01_iso_(map_p95|p95_map)\\.png|(^|[^A-Za-z0-9_])fig_01_iso_(map_p95|p95_map)\\.png($|[^A-Za-z0-9_]))\tUtiliser '\''10_fig_01_iso_p95_maps'\'''
-  $'bad_spectre\tzz-figures/chapter02/fig_00_spectre\tUtiliser '\''02_fig_00_spectrum'\'''
+  $'bad_spectre\tzz-figures/chapter02/02_fig_00_spectre\tUtiliser '\''02_fig_00_spectrum'\'''
   $'bad_p95_check\tzz-figures/chapter09/09_fig_p95_check_control\tUtiliser '\''09_fig_00_p95_check_control'\'''
-  $'bad_milestones\tzz-figures/chapter09/fig_04_milestones_absdphi_vs_f\tUtiliser '\''09_fig_04_absdphi_milestones_vs_f'\'''
+  $'bad_milestones\tzz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f\tUtiliser '\''09_fig_04_milestones_absdphi_vs_f'\'''
 )
 
 fail=0

@@ -217,8 +217,8 @@ chapter	kind	path	ext	basename	prefix	in_payload	cleanup_class
 7	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter07/07_scalar_invariants.csv.lock.json	.json	07_scalar_invariants.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 7	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter07/07_scalar_perturbations_results.csv.lock.json	.json	07_scalar_perturbations_results.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 7	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter07/placeholder.csv.lock.json	.json	placeholder.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-7	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter07/fig_03_invariant_I1.png	.png	fig_03_invariant_I1.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-7	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter07/fig_07_invariant_I2.png	.png	fig_07_invariant_I2.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
+7	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter07/07_fig_03_invariant_I1.png	.png	fig_03_invariant_I1.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
+7	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter07/07_fig_07_invariant_I2.png	.png	fig_07_invariant_I2.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 7	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter07/generate_data_chapter07.err	.err	generate_data_chapter07.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 7	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter07/generate_data_chapter07.out	.out	generate_data_chapter07.out	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 7	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter07/launch_scalar_perturbations_solver.err	.err	launch_scalar_perturbations_solver.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC

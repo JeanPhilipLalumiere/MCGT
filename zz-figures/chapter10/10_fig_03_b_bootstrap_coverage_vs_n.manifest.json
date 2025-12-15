@@ -125,5 +125,5 @@
       "method": "percentile"
     }
   ],
-  "figure_path": "zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png"
+  "figure_path": "zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png"
 }

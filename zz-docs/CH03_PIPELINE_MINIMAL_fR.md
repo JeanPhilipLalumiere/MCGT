@@ -238,14 +238,14 @@ Pour la relecture et la publication, les fichiers suivants sont considérés com
 
 ### 6.2. Figures
 
-- `zz-figures/chapter03/fig_01_fR_stability_domain.png`
-- `zz-figures/chapter03/fig_02_fR_fRR_vs_R.png`
-- `zz-figures/chapter03/fig_03_ms2_R0_vs_R.png`
-- `zz-figures/chapter03/fig_04_fR_fRR_vs_R.png`
+- `zz-figures/chapter03/03_fig_01_fR_stability_domain.png`
+- `zz-figures/chapter03/03_fig_02_fR_fRR_vs_R.png`
+- `zz-figures/chapter03/03_fig_03_ms2_R0_vs_R.png`
+- `zz-figures/chapter03/03_fig_04_fR_fRR_vs_R.png`
 - `zz-figures/chapter03/03_fig_05_interpolated_milestones.png`
-- `zz-figures/chapter03/fig_06_grid_quality.png`
-- `zz-figures/chapter03/fig_07_ricci_fR_vs_z.png`
-- `zz-figures/chapter03/fig_08_ricci_fR_vs_T.png`
+- `zz-figures/chapter03/03_fig_06_grid_quality.png`
+- `zz-figures/chapter03/03_fig_07_ricci_fR_vs_z.png`
+- `zz-figures/chapter03/03_fig_08_ricci_fR_vs_T.png`
 
 ---
 

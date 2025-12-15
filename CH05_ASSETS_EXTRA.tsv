@@ -77,7 +77,7 @@ chapter	kind	path	ext	basename	prefix	in_payload	cleanup_class
 5	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter05/05_dchi2_vs_T.csv.lock.json	.json	05_dchi2_vs_T.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 5	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png	.png	05_fig_01_bbn_reaction_network.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 5	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png	.png	05_fig_03_yp_model_vs_obs.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-5	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter05/fig_02_dh_model_vs_obs.png	.png	fig_02_dh_model_vs_obs.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
+5	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png	.png	fig_02_dh_model_vs_obs.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 5	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter05/generate_data_chapter05.err	.err	generate_data_chapter05.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 5	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter05/generate_data_chapter05.out	.out	generate_data_chapter05.out	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 5	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter05/plot_fig01_bbn_reaction_network.err	.err	plot_fig01_bbn_reaction_network.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC

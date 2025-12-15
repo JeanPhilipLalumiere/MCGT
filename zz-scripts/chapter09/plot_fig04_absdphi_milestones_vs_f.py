@@ -25,7 +25,7 @@ Exemple:
     --csv  zz-data/chapter09/09_phases_mcgt.csv \
     --meta zz-data/chapter09/09_metrics_phase.json \
     --milestones zz-data/chapter09/09_comparison_milestones.csv \
-    --out  zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png \
+    --out  zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png \
     --window 20 300 --with_errorbar --dpi 300 --log-level INFO
 """
 
@@ -44,7 +44,7 @@ DEF_DIFF = Path("zz-data/chapter09/09_phase_diff.csv")
 DEF_CSV = Path("zz-data/chapter09/09_phases_mcgt.csv")
 DEF_META = Path("zz-data/chapter09/09_metrics_phase.json")
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT = Path("zz-figures/chapter09/09_fig_04_milestones_absdphi_vs_f.png")
+DEF_OUT = Path("zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png")
 
 
 # ---------------- utilitaires ----------------

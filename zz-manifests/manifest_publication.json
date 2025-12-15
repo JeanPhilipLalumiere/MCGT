@@ -715,7 +715,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png",
+      "path": "zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png",
       "role": "figure",
       "tags": [
         "chapter10"
@@ -1027,7 +1027,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_01_fR_stability_domain.png",
+      "path": "zz-figures/chapter03/03_fig_01_fR_stability_domain.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1039,7 +1039,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_02_fR_fRR_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_02_fR_fRR_vs_R.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1051,7 +1051,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_03_ms2_R0_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_03_ms2_R0_vs_R.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1063,7 +1063,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_04_fR_fRR_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_04_fR_fRR_vs_R.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1075,7 +1075,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_06_grid_quality.png",
+      "path": "zz-figures/chapter03/03_fig_06_grid_quality.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1087,7 +1087,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_07_ricci_fR_vs_z.png",
+      "path": "zz-figures/chapter03/03_fig_07_ricci_fR_vs_z.png",
       "role": "figure",
       "tags": [
         "chapter03"
@@ -1099,7 +1099,7 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/fig_08_ricci_fR_vs_T.png",
+      "path": "zz-figures/chapter03/03_fig_08_ricci_fR_vs_T.png",
       "role": "figure",
       "tags": [
         "chapter03"

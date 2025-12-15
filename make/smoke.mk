@@ -3,8 +3,8 @@ smoke-all: smoke-ch09 smoke-ch10
 
 smoke-ch09:
 	@echo "[SMOKE ch09] Figure minimale (overlay phase)"
-	python zz-scripts/chapter09/plot_fig01_phase_overlay.py --csv zz-data/chapter09/09_phases_mcgt.csv --meta zz-data/chapter09/09_metrics_phase.json --out zz-figures/chapter09/fig_01_phase_overlay.png --dpi 150 || true
-	[ -f zz-figures/chapter09/fig_01_phase_overlay.png ] && echo "[OK] fig_01_phase_overlay.png" || true
+	python zz-scripts/chapter09/plot_fig01_phase_overlay.py --csv zz-data/chapter09/09_phases_mcgt.csv --meta zz-data/chapter09/09_metrics_phase.json --out zz-figures/chapter09/09_fig_01_phase_overlay.png --dpi 150 || true
+	[ -f zz-figures/chapter09/09_fig_01_phase_overlay.png ] && echo "[OK] fig_01_phase_overlay.png" || true
 
 smoke-ch10:
 	@echo "[SMOKE ch10] Essai sécurisé (fallback si erreur)"

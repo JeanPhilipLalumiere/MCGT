@@ -30,7 +30,7 @@
     ],
     "metas": [
       "zz-data/chapter06/06_cmb_full_results.meta.json",
-      "zz-figures/chapter06/fig_*.meta.json"
+      "zz-figures/chapter06/06_fig_*.meta.json"
     ],
     "others": [
       "06-rayonnement-cmb/CHAPTER6_GUIDE.txt"
@@ -45,7 +45,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter06/06_cmb_full_results.meta.json",
-    "zz-figures/chapter06/fig_*.meta.json"
+    "zz-figures/chapter06/06_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

@@ -34,7 +34,7 @@
     ],
     "metas": [
       "zz-data/chapter08/08_chi2_scan2d.meta.json",
-      "zz-figures/chapter08/fig_*.meta.json"
+      "zz-figures/chapter08/08_fig_*.meta.json"
     ],
     "others": [
       "08-couplage-sombre/CHAPTER8_GUIDE.txt"
@@ -53,7 +53,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter08/08_chi2_scan2d.meta.json",
-    "zz-figures/chapter08/fig_*.meta.json"
+    "zz-figures/chapter08/08_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

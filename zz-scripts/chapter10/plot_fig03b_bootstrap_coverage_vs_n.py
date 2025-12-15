@@ -10,7 +10,7 @@ Basé sur : tracer_fig03b_coverage_bootstrap_vs_n.py
 
 Adaptations CH10 :
 - --results optionnel, défaut = zz-data/chapter10/10_results_global_scan.csv
-- --out par défaut = zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png
+- --out par défaut = zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png
 - minN par défaut = 10 (plus de plantage quand Mtot=50)
 - detect_p95_column sait gérer p95_rad
 - manifest écrit à côté du PNG, même format que fig07_synthesis attend.
@@ -152,7 +152,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument(

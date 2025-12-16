@@ -5053,18 +5053,6 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_06_grid_quality.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 105550,
-      "mtime_iso": "2025-11-25T01:16:30Z",
-      "sha256": "51bc35b52ffeda80579da4395b86e02ea4363ec71a26ad700ccb2b9006826b8a",
-      "git_hash": "de75f02739bf5e83940538b38de71809f7bd3255"
-    },
-    {
-      "media_type": "image/png",
       "path": "zz-figures/chapter03/03_fig_07_ricci_fR_vs_z.png",
       "role": "figure",
       "tags": [

@@ -29,6 +29,7 @@ jobs:
           twine check dist/*
 
       - name: Publish to PyPI via OIDC
+        if: github.event_name != 'pull_request'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           verbose: true

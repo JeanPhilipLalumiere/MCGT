@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeo pipefail
+mkdir -p .ci-logs
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT"

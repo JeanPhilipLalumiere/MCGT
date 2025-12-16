@@ -68,6 +68,7 @@ jobs:
 
       # Publication sur PyPI via token (Secret: PYPI_API_TOKEN)
       - name: Publish to PyPI
+        if: github.event_name != 'pull_request'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}

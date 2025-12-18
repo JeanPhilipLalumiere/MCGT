@@ -95,22 +95,18 @@ if any(arg.startswith("--out") for arg in sys.argv):
     except Exception:
         pass
 # === [/PASS5B-SHIM] ===
-# tracer_fig04_fR_fRR_contre_R.py
+# tracer_fig03_ms2_R0_contre_R.py
 """
-Trace f_R et f_RR (double axe) en fonction de R/R₀ — Chapitre 3
-===============================================================
-
-Objectif : proposer une vue complémentaire à fig_02, avec deux axes Y pour
-rendre lisible la différence d’échelle entre f_R (≈O(1)) et f_RR (≈O(10⁻⁶)),
-et marquer le point pivot à R/R₀ = 1.
+Trace m_s²/R₀ en fonction de R/R₀ — Chapitre 3
+==============================================
 
 Entrée  :
     zz-data/chapter03/03_fR_stability_data.csv
 Colonnes requises :
-    R_over_R0, f_R, f_RR
+    R_over_R0, m_s2_over_R0
 
 Sortie  :
-    zz-figures/chapter03/03_fig_04_fr_frr_vs_r.png
+    zz-figures/chapter03/03_fig_03_ms2_r0_vs_r.png
 """
 
 import logging
@@ -120,7 +116,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # ----------------------------------------------------------------------
-# Configuration logging
+# Logging
 # ----------------------------------------------------------------------
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
@@ -130,69 +126,78 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
-FIG_PATH = FIG_DIR / "03_fig_04_fR_fRR_vs_R.png"
+FIG_PATH = FIG_DIR / "03_fig_03_ms2_r0_vs_f.png"
 
 
-# ----------------------------------------------------------------------
-# Main
-# ----------------------------------------------------------------------
 def main() -> None:
-    # 1. Lecture des données
+    # 1. Chargement
     if not DATA_FILE.exists():
         log.error("Fichier introuvable : %s", DATA_FILE)
         return
-
     df = pd.read_csv(DATA_FILE)
-    required = {"R_over_R0", "f_R", "f_RR"}
-    missing = required - set(df.columns)
-    if missing:
-        log.error("Colonnes manquantes dans %s : %s", DATA_FILE, missing)
+    if not {"R_over_R0", "m_s2_over_R0"}.issubset(df.columns):
+        log.error("Colonnes manquantes dans %s", DATA_FILE)
         return
 
     # 2. Préparation du dossier de sortie
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 3. Création de la figure
-    fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
-    fig.suptitle(r"$f_R$ and $f_{RR}$ Functions", y=0.98)
-
-    # axe X en log
-    ax1.set_xscale("log")
-    ax1.set_xlabel(r"$R/R_0$")
-
-    # 4. Tracé de f_R sur l'axe de gauche
-    (ln1,) = ax1.loglog(
-        df["R_over_R0"], df["f_R"], color="tab:blue", lw=1.5, label=r"$f_R(R)$"
+    # 3. Tracé principal (log-log)
+    fig, ax = plt.subplots(dpi=300, figsize=(6, 4))
+    ax.loglog(
+        df["R_over_R0"],
+        df["m_s2_over_R0"],
+        color="tab:blue",
+        lw=1.5,
+        label=r"$m_s^2/R_0$",
     )
-    ax1.set_ylabel(r"$f_R$", color="tab:blue")
-    ax1.tick_params(axis="y", labelcolor="tab:blue")
-    ax1.grid(True, which="both", ls="--", alpha=0.2)
+    ax.set_xlabel(r"$R/R_0$")
+    ax.set_ylabel(r"$m_s^{2}/R_0$")
+    ax.set_title("Curvature Evolution")
+    ax.grid(True, which="both", ls="--", alpha=0.2)
+    ax.legend(loc="upper right", framealpha=0.8, edgecolor="black")
 
-    # 5. Tracé de f_RR sur l'axe de droite
-    ax2 = ax1.twinx()
-    ax2.set_yscale("log")
-    (ln2,) = ax2.loglog(
-        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
-    )
-    ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
-    ax2.tick_params(axis="y", labelcolor="tab:orange")
+    # 4. Inset « haute courbure » : on cible la région critique [1e4, 1e6]
+    df_zoom = df[(df["R_over_R0"] >= 1e4) & (df["R_over_R0"] <= 1e6)]
+    if not df_zoom.empty:
+        # déplacer légèrement le zoom plus bas
+        ax_in = fig.add_axes([0.60, 0.25, 0.33, 0.33])
 
-    # 6. Marqueur vertical du pivot à R/R0 = 1
-    ln3 = ax1.axvline(1.0, color="gray", linestyle="--", lw=1.0, label=r"Pivot: $R/R_0=1$")
+        # tracé
+        ax_in.loglog(
+            df_zoom["R_over_R0"], df_zoom["m_s2_over_R0"], color="tab:blue", lw=1.2
+        )
 
-    # 7. Légende explicite
-    handles = [ln1, ln2, ln3]
-    labels = [h.get_label() for h in handles]
-    ax1.legend(
-        handles,
-        labels,
-        loc="upper left",
-        bbox_to_anchor=(0.25, 0.50),
-        framealpha=0.9,
-        edgecolor="black",
-    )
+        # limites
+        ax_in.set_xlim(1e4, 1e6)
+        ax_in.set_ylim(
+            df_zoom["m_s2_over_R0"].min() * 0.9, df_zoom["m_s2_over_R0"].max() * 1.1
+        )
 
-    # 8. Mise en forme finale et sauvegarde
+        # Graduations X : 3 points fixes [1e4,1e5,1e6]
+        from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
+
+        xticks = [1e4, 1e5, 1e6]
+        ax_in.xaxis.set_major_locator(FixedLocator(xticks))
+        ax_in.xaxis.set_minor_locator(NullLocator())
+        ax_in.xaxis.set_major_formatter(
+            FuncFormatter(lambda x, _: f"{int(x):.0e}"))
+        ax_in.tick_params(axis="x", which="major", pad=3, rotation=0)
+
+        # Graduations Y : 4 points log-uniformes
+        from matplotlib.ticker import LogLocator, ScalarFormatter
+
+        ax_in.yaxis.set_major_locator(LogLocator(base=10, numticks=4))
+        ax_in.yaxis.set_minor_locator(NullLocator())
+        sf = ScalarFormatter(useMathText=True)
+        sf.set_scientific(False)  # supprime le ×10ⁿ
+        ax_in.yaxis.set_major_formatter(sf)
+        ax_in.tick_params(axis="y", which="major", pad=2)
+
+        ax_in.set_title("High-curvature zoom", fontsize=8)
+        ax_in.grid(True, which="both", ls=":", alpha=0.3)
+
+    # 5. Finalisation
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(FIG_PATH)
     plt.close(fig)

@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -143,7 +154,7 @@ def main() -> None:
         df["gamma_max"],
         color="lightgray",
         alpha=0.5,
-        label="Domaine de stabilité",
+        label="Stability Domain",
     )
 
     # Repère β = 1
@@ -153,8 +164,8 @@ def main() -> None:
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"$\beta = R / R_0$")
-    ax.set_ylabel(r"$\gamma$ (sans dimension)")
-    ax.set_title("Domaine de stabilité de $f(R)$ (Chapitre 3)")
+    ax.set_ylabel(r"$\gamma$ (dimensionless)")
+    ax.set_title("Stability Domain of f(R) - Chapter 3")
 
     ax.grid(True, which="both", ls=":", alpha=0.2)
 

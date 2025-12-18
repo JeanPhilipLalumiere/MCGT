@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -103,7 +114,7 @@ def main() -> None:
     ax1.plot(df["T_Gyr"], df["f_R"], c=color1, lw=1, alpha=0.6)
     ax1.set_xscale("log")
     ax1.set_yscale("log")
-    ax1.set_xlabel("Âge de l’Univers $T$ (Gyr)")
+    ax1.set_xlabel(r"$T$ [Gyr]")
     ax1.set_ylabel(r"$f_R$", color=color1)
     ax1.tick_params(axis="y", labelcolor=color1)
     ax1.grid(True, which="both", ls=":", alpha=0.3)
@@ -130,9 +141,7 @@ def main() -> None:
 
     # 6. Titre
     Tmin, Tmax = df["T_Gyr"].min(), df["T_Gyr"].max()
-    ax1.set_title(
-        rf"Jalons $f_R$ et $f_{{RR}}$ vs âge $T\in[{Tmin:.2f},{Tmax:.2f}]\,$Gyr"
-    )
+    ax1.set_title("Node Distribution vs Redshift/Age")
 
     # 7. Finalisation
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

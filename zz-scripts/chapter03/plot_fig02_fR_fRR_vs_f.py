@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -145,7 +156,7 @@ def main() -> None:
 
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$f_R,\;f_{RR}$")
-    ax.set_title(r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$")
+    ax.set_title(r"$f_R$ and $f_{RR}$ vs $R/R_0$")
     ax.grid(True, which="both", ls=":", alpha=0.3)
 
     # 4. Légende à mi-hauteur complètement à gauche

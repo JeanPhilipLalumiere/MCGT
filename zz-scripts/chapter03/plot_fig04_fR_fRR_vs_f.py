@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -141,7 +152,7 @@ def main() -> None:
 
     # 3. Création de la figure
     fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
-    fig.suptitle(r"$f_R$ et $f_{RR}$ en fonction de $R/R_0$ (double axe)", y=0.98)
+    fig.suptitle(r"$f_R$ and $f_{RR}$ vs $R/R_0$ (dual axis)", y=0.98)
 
     # axe X en log
     ax1.set_xscale("log")
@@ -165,9 +176,7 @@ def main() -> None:
     ax2.tick_params(axis="y", labelcolor="tab:orange")
 
     # 6. Marqueur vertical du pivot à R/R0 = 1
-    ln3 = ax1.axvline(
-        1.0, color="gray", linestyle="--", lw=1.0, label="Pivot : $R/R_0=1$"
-    )
+    ln3 = ax1.axvline(1.0, color="gray", linestyle="--", lw=1.0, label=r"Pivot: $R/R_0=1$")
 
     # 7. Légende explicite
     handles = [ln1, ln2, ln3]

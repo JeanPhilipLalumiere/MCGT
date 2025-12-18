@@ -107,6 +107,17 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import PchipInterpolator
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # ----------------------------------------------------------------------
 # Configuration logging
 # ----------------------------------------------------------------------
@@ -158,10 +169,10 @@ def main() -> None:
     # 5. Tracé
     fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
 
-    #   5a. Courbe PCHIP fR
+    #   5a. PCHIP curve fR
     color1 = "tab:blue"
     ax1.plot(R_dense, fR_dense, color=color1, lw=1.5, label=r"PCHIP $f_R$")
-    #   5b. Points jalons fR
+    #   5b. Milestone points fR
     ax1.scatter(
         jalons["R_over_R0"],
         jalons["f_R"],
@@ -169,7 +180,7 @@ def main() -> None:
         marker="o",
         s=40,
         alpha=0.8,
-        label=r"Jalons $f_R$",
+        label=r"Milestone $f_R$",
     )
 
     ax1.set_xscale("log")
@@ -190,7 +201,7 @@ def main() -> None:
         linestyle="--",
         label=r"PCHIP $f_{RR}$",
     )
-    #   5d. Points jalons fRR
+    #   5d. Milestone points fRR
     ax2.scatter(
         jalons["R_over_R0"],
         jalons["f_RR"],
@@ -198,7 +209,7 @@ def main() -> None:
         marker="s",
         s=50,
         alpha=0.8,
-        label=r"Jalons $f_{RR}$",
+        label=r"Milestone $f_{RR}$",
     )
     ax2.set_yscale("log")
     ax2.set_ylabel(r"$f_{RR}$", color=color2)
@@ -210,7 +221,7 @@ def main() -> None:
     ax1.legend(h1 + h2, l1 + l2, loc="best", framealpha=0.8, edgecolor="black")
 
     # 7. Titre
-    ax1.set_title("Interpolation PCHIP vs points de jalons")
+    ax1.set_title("PCHIP interpolation vs milestone nodes")
 
     # 8. Finalisation et sauvegarde
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

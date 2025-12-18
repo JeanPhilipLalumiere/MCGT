@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,18 +46,18 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
 """
-plot_fig01_invariants_schematic.py
+plot_fig03_invariants_vs_T.py
 
-Script corrigé de tracé du schéma conceptuel des invariants adimensionnels
+Script de tracé des invariants adimensionnels I1, I2 et I3 en fonction de T
 – Lit 04_dimensionless_invariants.csv
-– Trace I1, I2, I3 vs log10(T) avec symlog pour I3
-– Marque les phases et les repères pour I2 et I3
-– Sauvegarde la figure 800x500 px DPI 300
+– Utilise une échelle log pour T, symlog pour gérer I3 négatif
+– Ajoute les repères pour I2≈10⁻³⁵, I3≈10⁻⁶ et la transition Tp
+– Sauvegarde la figure en PNG 800×500 px, DPI 300
 """
 # === [PASS5B-SHIM] ===
 # Shim minimal pour rendre --help et --out sûrs sans effets de bord.
@@ -97,64 +110,43 @@ import pandas as pd
 
 
 def main():
-    # ----------------------------------------------------------------------
     # 1. Chargement des données
-    # ----------------------------------------------------------------------
-    data_file = "zz-data/chapter04/04_dimensionless_invariants.csv"
-    df = pd.read_csv(data_file)
+    df = pd.read_csv("zz-data/chapter04/04_dimensionless_invariants.csv")
     T = df["T_Gyr"].values
     I1 = df["I1"].values
     I2 = df["I2"].values
     I3 = df["I3"].values
 
     # Valeurs clés
-    Tp = 0.087  # Gyr
+    Tp = 0.087
     I2_ref = 1e-35
     I3_ref = 1e-6
 
-    # ----------------------------------------------------------------------
     # 2. Création de la figure
-    # ----------------------------------------------------------------------
     fig, ax = plt.subplots(figsize=(8, 5), dpi=300)
-
-    # Axe X en log
     ax.set_xscale("log")
+    ax.set_yscale("symlog", linthresh=1e-7)
+    ax.plot(T, I1, color="C0", label=r"$I_1 = P/T$", linewidth=1.5)
+    ax.plot(T, I2, color="C1", label=r"$I_2 = \kappa T^2$", linewidth=1.5)
+    ax.plot(T, I3, color="C2", label=r"$I_3 = f_R - 1$", linewidth=1.5)
 
-    # Axe Y en symlog pour gérer I3 autour de zéro
-    ax.set_yscale("symlog", linthresh=1e-7, linscale=1)
-
-    # Tracés des invariants
-    ax.plot(T, I1, label=r"$I_1 = P/T$", color="C0", linewidth=1.5)
-    ax.plot(T, I2, label=r"$I_2 = \kappa\,T^2$", color="C1", linewidth=1.5)
-    ax.plot(T, I3, label=r"$I_3 = f_R - 1$", color="C2", linewidth=1.5)
-
-    # ----------------------------------------------------------------------
-    # 3. Repères horizontaux
-    # ----------------------------------------------------------------------
+    # 3. Repères
     ax.axhline(I2_ref, color="C1", linestyle="--", label=r"$I_2 \approx 10^{-35}$")
     ax.axhline(I3_ref, color="C2", linestyle="--", label=r"$I_3 \approx 10^{-6}$")
+    ax.axvline(Tp, color="orange", linestyle=":", label=r"$T_p = 0.087\ \mathrm{Gyr}$")
 
-    # ----------------------------------------------------------------------
-    # 4. Repère vertical de transition T_p
-    # ----------------------------------------------------------------------
-    ax.axvline(Tp, color="orange", linestyle=":", label=r"$T_p=0.087\ \mathrm{Gyr}$")
-
-    # ----------------------------------------------------------------------
-    # 5. Légendes, labels et grille
-    # ----------------------------------------------------------------------
-    ax.set_xlabel(r"$T\ (\mathrm{Gyr})$")
-    ax.set_ylabel("Valeurs adimensionnelles")
-    ax.set_title("Fig. 01 – Schéma conceptuel des invariants adimensionnels")
-    ax.legend(loc="best", fontsize="small")
+    # 4. Labels et légende
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$I_n$ [dimensionless]")
+    ax.set_title("Dimensionless Invariants Evolution")
+    ax.legend(fontsize="small")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
 
-    # ----------------------------------------------------------------------
-    # 6. Sauvegarde de la figure
-    # ----------------------------------------------------------------------
-    output_fig = "zz-figures/chapter04/04_fig_01_invariants_schematic.png"
+    # 5. Sauvegarde
+    out = "zz-figures/chapter04/04_fig_03_invariants.png"
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-    safe_save(output_fig)
-    print(f"Fig. sauvegardée : {output_fig}")
+    safe_save(out)
+    print(f"Figure enregistrée : {out}")
 
 
 if __name__ == "__main__":

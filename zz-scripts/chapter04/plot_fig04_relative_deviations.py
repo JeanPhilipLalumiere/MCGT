@@ -89,14 +89,25 @@ def main() -> None:
     fig, ax = plt.subplots(figsize=(8, 5), dpi=300)
     ax.set_xscale("log")
 
-    ax.plot(T, eps2_plot, label=r"$\varepsilon_2=\frac{I_2-I_{2,\mathrm{ref}}}{I_{2,\mathrm{ref}}}$")
-    ax.plot(T, eps3_plot, label=r"$\varepsilon_3=\frac{I_3-I_{3,\mathrm{ref}}}{I_{3,\mathrm{ref}}}$")
+    # Keep eps3 above to avoid visual gaps when NaNs are masked
+    ax.plot(
+        T,
+        eps2_plot,
+        label=r"$\varepsilon_2=\frac{I_2-I_{2,\mathrm{ref}}}{I_{2,\mathrm{ref}}}$",
+        zorder=2,
+    )
+    ax.plot(
+        T,
+        eps3_plot,
+        label=r"$\varepsilon_3=\frac{I_3-I_{3,\mathrm{ref}}}{I_{3,\mathrm{ref}}}$",
+        zorder=3,
+    )
 
     ax.axhline(0.01, color="k", linestyle="--", label=r"$\pm1\%$")
     ax.axhline(-0.01, color="k", linestyle="--")
     ax.axhline(0.10, color="gray", linestyle=":", label=r"$\pm10\%$")
     ax.axhline(-0.10, color="gray", linestyle=":")
-    ax.axvline(Tp, linestyle=":", label=rf"$T_p={Tp:.3f}\ \mathrm{{Gyr}}$")
+    ax.axvline(Tp, linestyle=":", label=rf"$T_p = {Tp:.3f}\ \mathrm{{Gyr}}$")
 
     ax.set_ylim(-0.2, 0.2)
     ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
@@ -116,7 +127,7 @@ def main() -> None:
     )
 
     ax.grid(True, which="both", linestyle=":", linewidth=0.5, zorder=0)
-    ax.legend(fontsize="small", loc="upper right")
+    ax.legend(fontsize="small", loc="lower left", bbox_to_anchor=(0.02, 0.02))
 
     fig.tight_layout()
     safe_save(OUT_FIG, fig=fig, dpi=300)

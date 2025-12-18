@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -140,7 +151,7 @@ def main() -> None:
     )
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$m_s^{2}/R_0$")
-    ax.set_title(r"Évolution de $m_s^{2}/R_0$ en fonction de $R/R_0$")
+    ax.set_title("Curvature Evolution - High Curvature Zoom")
     ax.grid(True, which="both", ls="--", alpha=0.2)
     ax.legend(loc="upper right", framealpha=0.8, edgecolor="black")
 
@@ -181,7 +192,7 @@ def main() -> None:
         ax_in.yaxis.set_major_formatter(sf)
         ax_in.tick_params(axis="y", which="major", pad=2)
 
-        ax_in.set_title("Zoom haute courbure", fontsize=8)
+        ax_in.set_title("High-curvature zoom", fontsize=8)
         ax_in.grid(True, which="both", ls=":", alpha=0.3)
 
     # 5. Finalisation

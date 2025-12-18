@@ -4,6 +4,17 @@ import tempfile
 import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
+_plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -166,7 +177,7 @@ def main() -> None:
         marker="o",
         linestyle="-",
         markersize=3,
-        label="Grille R↔z uniforme",
+        label="Uniform R↔z grid",
     )
 
     # ligne du pas théorique
@@ -176,12 +187,12 @@ def main() -> None:
         color="red",
         linestyle="--",
         linewidth=1.2,
-        label=rf"Pas théorique $\Delta\log_{{10}}={dlog_th:.3e}$",
+        label=rf"Theoretical step $\Delta\log_{{10}}={dlog_th:.3e}$",
     )
 
-    ax.set_xlabel("Index de la grille")
+    ax.set_xlabel("Grid index")
     ax.set_ylabel(r"$\Delta\log_{10}(R/R_0)$")
-    ax.set_title("Uniformité du pas en log₁₀(R/R₀) sur la grille")
+    ax.set_title("Log₁₀(R/R₀) step uniformity across grid")
     ax.grid(True, which="both", ls=":", alpha=0.3)
     ax.legend(loc="lower right", framealpha=0.8)
 

@@ -58,6 +58,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # ----------------------------------------------------------------------
 # Configuration logging
 # ----------------------------------------------------------------------
@@ -133,7 +144,7 @@ def main() -> None:
     ax2.set_yscale("log")
 
     # 6. Axes communs & grille
-    ax1.set_xlabel("Redshift $z$")
+    ax1.set_xlabel(r"$z$")
     ax1.grid(True, which="both", ls=":", alpha=0.3)
 
     # 7. Légende combinée
@@ -148,9 +159,7 @@ def main() -> None:
     )
 
     # 8. Titre avec plage effective
-    ax1.set_title(
-        rf"Jalons $f_R$ et $f_{{RR}}$ vs redshift $z\in[{zmin:.2f},\,{zmax:.2f}]$"
-    )
+    ax1.set_title("Node Distribution vs Redshift/Age")
 
     # 9. Finalisation
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

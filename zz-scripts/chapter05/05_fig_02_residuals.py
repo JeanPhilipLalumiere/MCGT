@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -71,7 +84,7 @@ DATA_DIR = ROOT / "zz-data" / "chapter05"
 FIG_DIR = ROOT / "zz-figures" / "chapter05"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-OUT_FIG = FIG_DIR / "05_fig_02_dh_model_vs_obs.png"
+OUT_FIG = FIG_DIR / "05_fig_02_residuals.png"
 
 
 def main(args=None) -> None:
@@ -105,24 +118,18 @@ def main(args=None) -> None:
     # Préparation du tracé
     # ------------------------------------------------------------------
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.set_xscale("log")
-    ax.set_yscale("log")
 
     # Barres d'erreur et points de calibration
     ax.errorbar(
-        jalons["DH_obs"],
-        jalons["DH_calc"],
+        jalons.index,
+        jalons["DH_calc"] - jalons["DH_obs"],
         yerr=jalons["sigma_DH"],
         fmt="o",
-        label="Points de calibration",
+        label=r"Residuals $\sigma$",
     )
 
     # Droite d'identité y = x
-    lims = [
-        min(jalons["DH_obs"].min(), jalons["DH_calc"].min()),
-        max(jalons["DH_obs"].max(), jalons["DH_calc"].max()),
-    ]
-    ax.plot(lims, lims, ls="--", color="black", label="Identité")
+    ax.axhline(0.0, ls="--", color="black", label="Noise threshold")
 
     # Annotation des métriques de calibration (si présentes)
     txt_lines = []
@@ -142,9 +149,9 @@ def main(args=None) -> None:
         )
 
     # Légendes et annotations
-    ax.set_xlabel("D/H observé")
-    ax.set_ylabel("D/H calculé")
-    ax.set_title("Diagramme D/H : modèle vs observations")
+    ax.set_xlabel("Sample index")
+    ax.set_ylabel("Residual value")
+    ax.set_title("Distribution of Residuals")
     ax.legend(framealpha=0.3, loc="upper left")
 
     # ------------------------------------------------------------------

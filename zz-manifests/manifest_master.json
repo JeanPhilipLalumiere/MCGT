@@ -4015,7 +4015,7 @@
       "path": "zz-scripts/chapter04/plot_fig04_relative_deviations.py",
       "sha256": "ff6adcba586388f10cef14334757a75fe3aea6600e378eca3373ae27690c6d78",
       "size_bytes": 3995,
-      "mtime_iso": "2025-12-17T02:37:04Z",
+      "mtime_iso": "2025-12-18T01:42:12Z",
       "git_hash": "0c7e580381791f7fb838e0bc87bf7c1d526c1e80"
     },
     {
@@ -4358,7 +4358,7 @@
       "path": "zz-scripts/chapter09/generate_data_chapter09.py",
       "sha256": "5da43c1c1c0773c2f9104ed9878539754b591e4ef88a288df15ce66144102c06",
       "size_bytes": 29623,
-      "mtime_iso": "2025-12-18T00:49:02Z",
+      "mtime_iso": "2025-12-18T01:42:12Z",
       "git_hash": "4b31d07571d125ba3d9c775814494432fb2df168"
     },
     {
@@ -5366,9 +5366,9 @@
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     }
   ],
-  "generatedAt": "2025-12-18T01:29:38Z",
+  "generatedAt": "2025-12-18T01:48:42Z",
   "schemaVersion": 1,
-  "files_updated": 20,
+  "files_updated": 2,
   "manifest_tool_version": "diag_consistency.py",
   "generated_by": "jplal"
 }

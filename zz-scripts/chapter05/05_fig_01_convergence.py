@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 
@@ -90,7 +103,7 @@ import numpy as np
 
 
 def draw_bbn_schema(
-    save_path="zz-figures/chapter05/05_fig_01_bbn_reaction_network.png",
+    save_path="zz-figures/chapter05/05_fig_01_convergence.png",
 ):
     fig, ax = plt.subplots(figsize=(8, 4.2), facecolor="white")
 
@@ -135,9 +148,7 @@ def draw_bbn_schema(
     arrow("He3", "He4")
 
     # Titre rapproché
-    ax.set_title(
-        "Schéma des réactions de la nucléosynthèse primordiale", fontsize=14, pad=6
-    )
+    ax.set_title("Algorithm Convergence History", fontsize=14, pad=6)
 
     ax.axis("off")
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

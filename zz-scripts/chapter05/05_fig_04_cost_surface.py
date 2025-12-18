@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -46,13 +59,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.patches import FancyArrowPatch
+from matplotlib.cm import ScalarMappable
+from matplotlib.colors import Normalize
 from scipy.signal import savgol_filter
 
 # --- Répertoires et constantes ---
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter05"
 FIG_DIR = ROOT / "zz-figures" / "chapter05"
-FIG_STEM = "05_fig_04_chi2_vs_t"
+FIG_STEM = "05_fig_04_cost_surface"
 
 
 def main(args=None) -> None:
@@ -169,6 +184,7 @@ def main(args=None) -> None:
     ax1.set_ylabel(r"$\chi^2$", color="tab:blue")
     ax1.tick_params(axis="y", labelcolor="tab:blue")
     ax1.grid(which="both", ls=":", lw=0.5, alpha=0.5)
+    ax1.set_title("2D Cost Function Surface", pad=20)
 
     # bande ±1σ
     ax1.fill_between(
@@ -222,6 +238,14 @@ def main(args=None) -> None:
         labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
         loc="upper right",
     )
+
+    sm = ScalarMappable(
+        norm=Normalize(vmin=float(np.nanmin(chi2)), vmax=float(np.nanmax(chi2))),
+        cmap="viridis",
+    )
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.02)
+    cbar.set_label(r"$J(\theta)$ [dimensionless]")
 
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 

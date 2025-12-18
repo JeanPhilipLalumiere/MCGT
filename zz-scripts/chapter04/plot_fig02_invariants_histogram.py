@@ -1,41 +1,3 @@
-import hashlib
-import shutil
-import tempfile
-import matplotlib.pyplot as _plt
-from pathlib import Path as _SafePath
-
-def _sha256(path: _SafePath) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-def safe_save(filepath, fig=None, **savefig_kwargs):
-    path = _SafePath(filepath)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists():
-        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
-            tmp_path = _SafePath(tmp.name)
-        try:
-            if fig is not None:
-                fig.savefig(tmp_path, **savefig_kwargs)
-            else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
-            if _sha256(tmp_path) == _sha256(path):
-                tmp_path.unlink()
-                return False
-            shutil.move(tmp_path, path)
-            return True
-        finally:
-            if tmp_path.exists():
-                tmp_path.unlink()
-    if fig is not None:
-        fig.savefig(path, **savefig_kwargs)
-    else:
-        _plt.savefig(path, **savefig_kwargs)
-    return True
-
 #!/usr/bin/env python3
 """
 plot_fig02_invariants_histogram.py
@@ -51,7 +13,10 @@ Fig. 02 – Histogramme des invariants adimensionnels (chapter 04).
 from __future__ import annotations
 
 import argparse
+import hashlib
 import logging
+import shutil
+import tempfile
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -67,6 +32,40 @@ FIG_DIR = ROOT / "zz-figures" / "chapter04"
 
 DEF_CSV = DATA_DIR / "04_dimensionless_invariants.csv"
 DEF_OUT = FIG_DIR / "04_fig_02_invariants_histogram.png"
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath, fig=None, **savefig_kwargs):
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        plt.savefig(path, **savefig_kwargs)
+    return True
 
 
 # ---------- logging ----------
@@ -177,9 +176,7 @@ def make_figure(logI2: np.ndarray, logI3: np.ndarray, bins: int, dpi: int):
         )
         return fig
 
-    all_vals = np.concatenate(
-        [v for v in (logI2, logI3) if v.size > 0]
-    )
+    all_vals = np.concatenate([v for v in (logI2, logI3) if v.size > 0])
     vmin, vmax = float(all_vals.min()), float(all_vals.max())
     if vmin == vmax:
         vmin -= 0.5
@@ -202,7 +199,6 @@ def make_figure(logI2: np.ndarray, logI3: np.ndarray, bins: int, dpi: int):
             bins=edges,
             density=True,
             alpha=0.7,
-            # NOTE: on évite \lvert / \rvert → utilisation simple de |I_3|
             label=r"$\log_{10}\,|I_3|$",
             color="C2",
         )
@@ -220,7 +216,6 @@ def make_figure(logI2: np.ndarray, logI3: np.ndarray, bins: int, dpi: int):
 def main():
     args = parse_args()
 
-    # verbose (-v) force DEBUG, sinon on respecte --log-level
     level = args.log_level
     if args.verbose >= 1:
         level = "DEBUG"
@@ -233,7 +228,7 @@ def main():
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     fig = make_figure(logI2, logI3, bins=args.bins, dpi=args.dpi)
 
-    safe_save(args.out, dpi=args.dpi)
+    safe_save(args.out, fig=fig, dpi=args.dpi)
     log.info("Figure sauvegardée → %s", args.out)
 
 

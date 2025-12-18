@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -43,8 +46,6 @@ plot_fig02_delta_phi_heatmap.py
 Figure 02 – Carte de chaleur de $\delta\phi/\phi(k,a)$
 pour le Chapitre 7 (Perturbations scalaires) du projet MCGT.
 """
-
-from __future__ import annotations
 
 import argparse
 import json
@@ -334,4 +335,3 @@ def main(argv: Optional[list[str]] = None) -> None:
 
 if __name__ == "__main__":
     main()
-

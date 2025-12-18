@@ -1,41 +1,3 @@
-import hashlib
-import shutil
-import tempfile
-import matplotlib.pyplot as _plt
-from pathlib import Path as _SafePath
-
-def _sha256(path: _SafePath) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-def safe_save(filepath, fig=None, **savefig_kwargs):
-    path = _SafePath(filepath)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists():
-        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
-            tmp_path = _SafePath(tmp.name)
-        try:
-            if fig is not None:
-                fig.savefig(tmp_path, **savefig_kwargs)
-            else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
-            if _sha256(tmp_path) == _sha256(path):
-                tmp_path.unlink()
-                return False
-            shutil.move(tmp_path, path)
-            return True
-        finally:
-            if tmp_path.exists():
-                tmp_path.unlink()
-    if fig is not None:
-        fig.savefig(path, **savefig_kwargs)
-    else:
-        _plt.savefig(path, **savefig_kwargs)
-    return True
-
 #!/usr/bin/env python3
 """
 Fig. 05 – Séries F/G – Chapitre 2
@@ -53,6 +15,9 @@ Logique :
 from __future__ import annotations
 
 import logging
+import hashlib
+import shutil
+import tempfile
 from pathlib import Path
 from typing import List
 
@@ -67,6 +32,40 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 CSV_PATH = DATA_DIR / "02_FG_series.csv"
 OUT_PNG = FIG_DIR / "02_fig_05_fg_series.png"
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath, fig=None, **savefig_kwargs):
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        plt.savefig(path, **savefig_kwargs)
+    return True
 
 
 def _numeric_columns(df: pd.DataFrame, min_frac: float = 0.8) -> List[str]:

@@ -1,3 +1,0 @@
-[tool.pytest.ini_options]
-addopts = -q --cov=mcgt --cov-report=term-missing --cov-config=.coveragerc
-testpaths = ["tests"]

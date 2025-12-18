@@ -1,3 +1,41 @@
+import hashlib
+import shutil
+import tempfile
+import matplotlib.pyplot as _plt
+from pathlib import Path as _SafePath
+
+def _sha256(path: _SafePath) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+def safe_save(filepath, fig=None, **savefig_kwargs):
+    path = _SafePath(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = _SafePath(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                _plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        _plt.savefig(path, **savefig_kwargs)
+    return True
+
 #!/usr/bin/env python3
 # === [PASS5-AUTOFIX-SHIM] ===
 if __name__ == "__main__":
@@ -60,7 +98,7 @@ if __name__ == "__main__":
                 def _pass5_save_last_figure():
                     try:
                         fig = plt.gcf()
-                        fig.savefig(_out, dpi=_dpi)
+                        safe_save(_out, dpi=_dpi)
                         print(f"[PASS5] Wrote: {_out}")
                     except Exception as _e:
                         print(f"[PASS5] savefig failed: {_e}")
@@ -169,7 +207,7 @@ def main():
     # ------------------------------------------------------------------
     # 5. Sauvegarde
     # ------------------------------------------------------------------
-    fig.savefig(OUT_PLOT, dpi=300)
+    safe_save(OUT_PLOT, dpi=300)
     plt.close(fig)
     print(f"Figure enregistrée → {OUT_PLOT}")
 

@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 Chapitre 9 — Pipeline principal : accord homogène 20–300 Hz
@@ -8,12 +7,12 @@ Chapitre 9 — Pipeline principal : accord homogène 20–300 Hz
 - Calage global WLS (φ0 / t_c) sur fenêtre configurable (par défaut 20–300 Hz)
 - Resserre automatiquement la fenêtre (par défaut 30–250 Hz) si p95(|Δφ|) en 20–300 dépasse un seuil
 - Exporte:
-    * 09_phases_imrphenom.csv
-    * 09_phases_mcgt.csv        (variante ACTIVE + raw + cal)
-    * 09_phase_diff.csv         (Δφ actif + variantes)
-    * 09_comparison_milestones.csv (si jalons présents)
-    * 09_fisher_scan2D.csv      (optionnel)
-    * 09_metrics_phase.json     (métriques + bloc calibration détaillé)
+  * 09_phases_imrphenom.csv
+  * 09_phases_mcgt.csv (variante ACTIVE + raw + cal)
+  * 09_phase_diff.csv (Δφ actif + variantes)
+  * 09_comparison_milestones.csv (si jalons présents)
+  * 09_fisher_scan2D.csv (optionnel)
+  * 09_metrics_phase.json (métriques + bloc calibration détaillé)
 
 Conventions:
 - Les phases sont en radians, unwrap (continues), sans réduction mod 2π.
@@ -31,6 +30,7 @@ def _mcgt_safe_float(x, default):
         return float(x)
     except Exception:
         return float(default)
+
 
 import argparse
 import configparser
@@ -74,6 +74,7 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
     )
     return logging.getLogger("chapitre9.pipeline")
 
+
 def git_hash() -> str | None:
     try:
         return (
@@ -84,12 +85,14 @@ def git_hash() -> str | None:
     except Exception:
         return None
 
+
 def ensure_dirs() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
+
 def load_ini(path: Path | None) -> dict:
-    cfg = {}
+    cfg: dict = {}
     if path and path.exists():
         parser = configparser.ConfigParser(
             inline_comment_prefixes=("#", ";"), interpolation=None
@@ -105,8 +108,8 @@ def load_ini(path: Path | None) -> dict:
                     return default
 
             cfg = {
-                "fmin": fget("fmin", 10.0),
-                "fmax": fget("fmax", 2048.0),
+                "fmin": fget("fmin", 20.0),
+                "fmax": fget("fmax", 300.0),
                 "dlog": fget("dlog", 0.01),
                 "m1": fget("m1", 30.0),
                 "m2": fget("m2", 30.0),
@@ -118,6 +121,7 @@ def load_ini(path: Path | None) -> dict:
             }
     return cfg
 
+
 def p95(arr: np.ndarray) -> float:
     a = np.asarray(arr, float)
     a = a[np.isfinite(a)]
@@ -125,23 +129,24 @@ def p95(arr: np.ndarray) -> float:
         return float("nan")
     return float(np.percentile(a, 95.0))
 
+
 def finite_ratio(arr: np.ndarray) -> float:
     arr = np.asarray(arr, float)
     if arr.size == 0:
         return 0.0
     return float(np.mean(np.isfinite(arr)))
 
+
 def clamp_min_frequencies(f: np.ndarray, fmin: float) -> np.ndarray:
     f = np.asarray(f, float).copy()
     f[f < fmin] = fmin
     return f
 
+
 # -----------------------
 # Reference generation via LALSuite or fallback
 # -----------------------
-def _try_lalsuite_phi_ref(
-    freqs: np.ndarray, logger: logging.Logger
-) -> np.ndarray | None:
+def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarray | None:
     try:
         import lal  # type: ignore
         import lalsimulation as lalsim  # type: ignore
@@ -159,11 +164,7 @@ def _try_lalsuite_phi_ref(
         fmin = _mcgt_safe_float(np.nanmin(f), 20.0)
         fmax = _mcgt_safe_float(np.nanmax(f), 300.0)
         df_candidates = np.diff(np.unique(f[np.isfinite(f)]))
-        df = (
-            float(np.nanmin(df_candidates))
-            if df_candidates.size
-            else max(1.0, fmin * 1e-3)
-        )
+        df = float(np.nanmin(df_candidates)) if df_candidates.size else max(1.0, fmin * 1e-3)
         if not np.isfinite(df) or df <= 0:
             df = max(1.0, fmin * 1e-3)
 
@@ -208,9 +209,8 @@ def _try_lalsuite_phi_ref(
         logger.warning("Échec LALSuite IMRPhenomD: %s", e)
         return None
 
-def _try_external_script_for_ref(
-    freqs: np.ndarray, logger: logging.Logger
-) -> np.ndarray | None:
+
+def _try_external_script_for_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarray | None:
     script = PROJECT_ROOT / "zz-scripts" / "chapter09" / "extract_phenom_phase.py"
     if not script.exists():
         logger.debug("Fallback script introuvable: %s", script)
@@ -231,14 +231,17 @@ def _try_external_script_for_ref(
                     f, df["f_Hz"].to_numpy(float), df["phi_ref"].to_numpy(float)
                 )
         logger.debug(
-            "extract_phenom_phase stdout: %s", proc.stdout.decode(errors="ignore")[:400]
+            "extract_phenom_phase stdout: %s",
+            proc.stdout.decode(errors="ignore")[:400],
         )
         logger.debug(
-            "extract_phenom_phase stderr: %s", proc.stderr.decode(errors="ignore")[:400]
+            "extract_phenom_phase stderr: %s",
+            proc.stderr.decode(errors="ignore")[:400],
         )
     except Exception as e:
         logger.warning("Fallback script a échoué: %s", e)
     return None
+
 
 def load_or_build_reference(
     freqs_cfg: np.ndarray, logger: logging.Logger, refresh: bool
@@ -262,7 +265,7 @@ def load_or_build_reference(
                 if finite_ratio(p_ref) >= 0.9 and np.all(np.diff(f_ref) > 0):
                     logger.info("Référence existante utilisée (%d pts).", f_ref.size)
                     return f_ref, p_ref, "file_existing"
-                logger.warning("Référence existante invalide → régénération.")
+            logger.warning("Référence existante invalide → régénération.")
         except Exception as e:
             logger.warning("Lecture référence existante échouée: %s", e)
 
@@ -275,8 +278,7 @@ def load_or_build_reference(
 
     if phi_ref is None:
         raise RuntimeError(
-            "Impossible de générer φ_ref : installez LALSuite ou fournissez "
-            + str(REF_CSV)
+            "Impossible de générer φ_ref : installez LALSuite ou fournissez " + str(REF_CSV)
         )
 
     # Save reference
@@ -304,12 +306,14 @@ def load_or_build_reference(
             meta["repro"]["lalsuite"] = getattr(_ls, "__version__", "present")
         except Exception:
             meta["repro"]["lalsuite"] = None
-        REF_META.write_text(json.dumps(meta, indent=2))
+
+        REF_META.write_text(json.dumps(meta, indent=2), encoding="utf-8")
         logger.info("Référence écrite → %s (source=%s)", REF_CSV, tag)
     except Exception as e:
         logger.warning("Impossible d'écrire REF CSV/meta: %s", e)
 
     return f, np.asarray(phi_ref, float), tag
+
 
 # -----------------------
 # Fit alignment WLS
@@ -370,6 +374,7 @@ def fit_alignment_phi0_tc(
         fmax,
     )
     return phi0_hat, tc_hat, n
+
 
 # -----------------------
 # CLI
@@ -485,6 +490,7 @@ def parse_args() -> argparse.Namespace:
 
     return ap.parse_args()
 
+
 # -----------------------
 # Main
 # -----------------------
@@ -495,8 +501,8 @@ def main() -> None:
 
     # Defaults + INI + overrides
     cfg = {
-        "fmin": 10.0,
-        "fmax": 2048.0,
+        "fmin": 20.0,
+        "fmax": 300.0,
         "dlog": 0.01,
         "m1": 30.0,
         "m2": 30.0,
@@ -557,7 +563,9 @@ def main() -> None:
         )
     if np.sum(~mask_ok) > 0:
         logger.warning(
-            "Points non finis supprimés: %d / %d", int(np.sum(~mask_ok)), int(len(f))
+            "Points non finis supprimés: %d / %d",
+            int(np.sum(~mask_ok)),
+            int(len(f)),
         )
 
     f = f[mask_ok]
@@ -609,9 +617,7 @@ def main() -> None:
 
         if args.auto_tighten and (p95_check_before > float(args.tighten_threshold_p95)):
             tlo, thi = map(float, args.tighten_window)
-            logger.info(
-                "Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi
-            )
+            logger.info("Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi)
             phi0_hat, tc_hat, n_cal = fit_alignment_phi0_tc(
                 f,
                 phi_ref,
@@ -721,9 +727,7 @@ def main() -> None:
             jal = pd.read_csv(JALONS_CSV)
             need = {"event", "f_Hz", "obs_phase", "sigma_phase"}
             if not need.issubset(jal.columns):
-                logger.warning(
-                    "Jalons: colonnes manquantes (attendues: %s).", sorted(need)
-                )
+                logger.warning("Jalons: colonnes manquantes (attendues: %s).", sorted(need))
             else:
                 fpk = np.asarray(jal["f_Hz"].to_numpy(float), float)
                 phi_ref_at = np.interp(fpk, f, phi_ref)
@@ -755,9 +759,7 @@ def main() -> None:
                 ).to_csv(out_jalons_cmp, index=False)
                 logger.info("Écrit → %s", out_jalons_cmp)
         else:
-            logger.warning(
-                "Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV
-            )
+            logger.warning("Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV)
 
     # Optional local Fisher-like heatmap (approx)
     out_fisher = None
@@ -768,6 +770,7 @@ def main() -> None:
                 sigma_phase = float(np.median(sj.values)) if len(sj) else 0.1
             else:
                 sigma_phase = 0.1
+
             param2_vals = np.linspace(
                 max(0.5, params.alpha - 0.5), min(2.0, params.alpha + 0.5), 51
             )
@@ -865,12 +868,8 @@ def main() -> None:
         },
         "outputs": {
             "phases_mcgt_csv": str(out_mcgt) if out_mcgt.exists() else None,
-            "diff_phase_csv": (
-                str(out_diff) if args.export_diff and out_diff.exists() else None
-            ),
-            "comparison_milestones_csv": (
-                str(out_jalons_cmp) if out_jalons_cmp else None
-            ),
+            "diff_phase_csv": str(out_diff) if args.export_diff and out_diff.exists() else None,
+            "comparison_milestones_csv": str(out_jalons_cmp) if out_jalons_cmp else None,
             "fisher_scan2D_csv": str(out_fisher) if out_fisher else None,
         },
         "repro": {
@@ -879,7 +878,9 @@ def main() -> None:
             "libs": {"numpy": np.__version__, "pandas": pd.__version__},
         },
     }
-    (OUT_DIR / "09_metrics_phase.json").write_text(json.dumps(meta, indent=2))
+    (OUT_DIR / "09_metrics_phase.json").write_text(
+        json.dumps(meta, indent=2), encoding="utf-8"
+    )
     logger.info("Écrit → %s", OUT_DIR / "09_metrics_phase.json")
 
     logger.info(
@@ -889,6 +890,7 @@ def main() -> None:
         mw_hi,
         p95_abs,
     )
+
 
 if __name__ == "__main__":
     main()

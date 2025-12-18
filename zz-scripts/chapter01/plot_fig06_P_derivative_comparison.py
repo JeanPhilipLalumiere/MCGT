@@ -3,9 +3,46 @@
 # Fig. 06 – comparative dP/dT initial vs optimisé (lissé)
 
 from pathlib import Path
+import hashlib
+import shutil
+import tempfile
 
 import pandas as pd
 import matplotlib.pyplot as plt
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig=None, **savefig_kwargs) -> bool:
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        plt.savefig(path, **savefig_kwargs)
+    return True
 
 
 def main() -> None:
@@ -64,10 +101,10 @@ def main() -> None:
     plt.tight_layout()
 
     out = fig_dir / "01_fig_06_p_derivative_comparison.png"
-    plt.savefig(out)
+    changed = safe_save(out)
     plt.close()
 
-    print(f"[CH01] Figure écrite → {out}")
+    print(f"[CH01] Figure {'écrite' if changed else 'inchangée (hash identique)'} → {out}")
 
 
 if __name__ == "__main__":

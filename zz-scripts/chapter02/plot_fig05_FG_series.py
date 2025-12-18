@@ -197,7 +197,8 @@ def main(args=None) -> None:
                 label=str(col),
             )
 
-        ax.set_xlabel(x_col)
+        xlabel = "Order" if x_col.lower() == "ordre" else x_col
+        ax.set_xlabel(xlabel)
         ax.set_ylabel("Amplitude")
         ax.set_title("Series F/G (generic fallback) - Chapter 2")
 

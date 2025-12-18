@@ -34,7 +34,7 @@
       "zz-figures/chapter02/02_fig_06_alpha_fit.png"
     ],
     "metas": [
-      "zz-figures/chapter02/fig_*.meta.json",
+      "zz-figures/chapter02/02_fig_*.meta.json",
       "zz-data/chapter02/02_derivative_P_data.meta.json",
       "zz-data/chapter02/02_chronology_milestones.meta.json"
     ],
@@ -54,7 +54,7 @@
   "meta_expected": [
     "zz-data/chapter02/02_derivative_P_data.meta.json",
     "zz-data/chapter02/02_chronology_milestones.meta.json",
-    "zz-figures/chapter02/fig_*.meta.json"
+    "zz-figures/chapter02/02_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

@@ -1,3 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter09/generate_mcgt_raw_phase.py", line 127
-    return parser.parse_args()
-IndentationError: unexpected indent

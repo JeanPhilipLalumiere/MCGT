@@ -3,11 +3,11 @@ permissions:
   contents: read
 name: meta-guard
 on:
+  push:
+  pull_request:
 concurrency:
   group: .github/workflows/meta-guard.yml-${{ github.ref }}
   cancel-in-progress: true
-  push:
-  pull_request:
 jobs:
   export-ignore:
     runs-on: ubuntu-latest

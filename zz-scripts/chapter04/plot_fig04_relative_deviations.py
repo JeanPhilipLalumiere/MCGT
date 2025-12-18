@@ -1,81 +1,116 @@
+import hashlib
+import shutil
+import tempfile
+import matplotlib.pyplot as _plt
+from pathlib import Path as _SafePath
 
-import os
-import glob
+def _sha256(path: _SafePath) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
-import os
+def safe_save(filepath, fig=None, **savefig_kwargs):
+    path = _SafePath(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = _SafePath(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                _plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        _plt.savefig(path, **savefig_kwargs)
+    return True
 
+cd "$(git rev-parse --show-toplevel)"
+
+cat > zz-scripts/chapter04/plot_fig04_relative_deviations.py <<'EOF'
+#!/usr/bin/env python3
+from __future__ import annotations
+
+from pathlib import Path
+
+import matplotlib
+matplotlib.use("Agg")  # CI/headless safe
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import LogLocator
 
 
-def main():
+def _load_csv(possible_paths: list[str]) -> tuple[pd.DataFrame, str]:
+    for p in possible_paths:
+        if Path(p).is_file():
+            df = pd.read_csv(p)
+            return df, p
+    raise FileNotFoundError(f"Aucun CSV trouvé parmi : {possible_paths}")
+
+
+def main() -> None:
     # ----------------------------------------------------------------------
-    # 1bis. Définition de la transition logistique
+    # 1. Chargement des données
     # ----------------------------------------------------------------------
-    Tp = 0.087  # Gyr, point de transition issu du script d’intégration
-
-        # ----------------------------------------------------------------------
-        # 1. Chargement des données
-        # ----------------------------------------------------------------------
     possible_paths = [
         "zz-data/chapter04/04_dimensionless_invariants.csv",
         "/mnt/data/04_dimensionless_invariants.csv",
     ]
-    df = None
-    for path in possible_paths:
-        if os.path.isfile(path):
-            df = pd.read_csv(path)
-            print(f"Chargé {path}")
+    df, used_path = _load_csv(possible_paths)
+    print(f"Chargé {used_path}")
 
-            df = pd.read_csv( path )
-            print(f"Chargé {path}")
+    needed = {"T_Gyr", "I2", "I3"}
+    missing = sorted(needed - set(df.columns))
+    if missing:
+        raise KeyError(f"Colonnes manquantes dans {used_path}: {missing}")
 
-    if df is None:
-        raise FileNotFoundError(f"Aucun CSV trouvé parmi : {possible_paths}")
+    T = df["T_Gyr"].to_numpy(float)
+    I2 = df["I2"].to_numpy(float)
+    I3 = df["I3"].to_numpy(float)
 
-    for col in ["T_Gyr", "I2", "I3"]:
-        if col not in df.columns:
-            raise KeyError(f"Colonne '{col}' manquante dans {path}")
-    T = df[ "T_Gyr" ].values
-    I2 = df[ "I2" ].values
-    I3 = df[ "I3" ].values
-
-    T = df["T_Gyr"].values
-    I2 = df["I2"].values
-    I3 = df["I3"].values
-
-    # Références théoriques
+    # ----------------------------------------------------------------------
+    # 2. Références théoriques + écarts relatifs
+    # ----------------------------------------------------------------------
     I2_ref = 1e-35
     I3_ref = 1e-6
 
-        # ----------------------------------------------------------------------
-        # 2. Calcul des écarts relatifs et masquage hors tolérance ±10 %
-        # ----------------------------------------------------------------------
-    eps2 = ( I2 - I2_ref ) / I2_ref
-    eps3 = ( I3 - I3_ref ) / I3_ref
+    eps2 = (I2 - I2_ref) / I2_ref
+    eps3 = (I3 - I3_ref) / I3_ref
 
-    # Pour ne faire apparaître que les écarts dans ±10 %, masquer le reste
-    tol = 0.10  # 10 %  → mettre 0.01 pour ±1 %
+    # Masquage hors tolérance ±10 %
+    tol = 0.10
     eps2_plot = np.where(np.abs(eps2) <= tol, eps2, np.nan)
     eps3_plot = np.where(np.abs(eps3) <= tol, eps3, np.nan)
 
     # ----------------------------------------------------------------------
-    # 3. Création de la figure (zoomée sur ε ∈ [−0.2, 0.2])
+    # 3. Figure
     # ----------------------------------------------------------------------
+    Tp = 0.087  # Gyr, point de transition (pipeline d’intégration)
+
     fig, ax = plt.subplots(figsize=(8, 5), dpi=300)
     ax.set_xscale("log")
+
     ax.plot(
         T,
         eps2_plot,
-        color="C1",
-        label=r"$\varepsilon_2 = \frac{I_2 - I_{2,\mathrm{ref}}}{I_{2,\mathrm{ref}}}$",
+        label=r"$\varepsilon_2=\frac{I_2-I_{2,\mathrm{ref}}}{I_{2,\mathrm{ref}}}$",
     )
     ax.plot(
         T,
         eps3_plot,
-        color="C2",
-        label=r"$\varepsilon_3 = \frac{I_3 - I_{3,\mathrm{ref}}}{I_{3,\mathrm{ref}}}$",
+        label=r"$\varepsilon_3=\frac{I_3-I_{3,\mathrm{ref}}}{I_{3,\mathrm{ref}}}$",
     )
 
     # Seuils ±1% et ±10%
@@ -84,66 +119,44 @@ def main():
     ax.axhline(0.10, color="gray", linestyle=":", label=r"$\pm10\%$")
     ax.axhline(-0.10, color="gray", linestyle=":")
 
-    ax.axhline( 0.01, color="k", linestyle="--", label=r"$\pm1\%$" )
-    ax.axhline(-0.01, color="k", linestyle="--" )
-    ax.axhline( 0.10, color="gray", linestyle=":", label=r"$\pm10\%$" )
-    ax.axhline(-0.10, color="gray", linestyle=":" )
+    # Transition
+    ax.axvline(Tp, linestyle=":", label=rf"$T_p={Tp:.3f}\ \mathrm{{Gyr}}$")
 
-        # Zoom vertical ±0.2
-    ax.set_ylim(-0.2, 0.2 )
+    # Zoom vertical
+    ax.set_ylim(-0.2, 0.2)
 
-        # Graduations mineures sur l’axe T
-    from matplotlib.ticker import LogLocator
-
+    # Graduations mineures sur l’axe T
     ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
     ax.xaxis.set_tick_params(which="minor", length=3)
 
-    # ----------------------------------------------------------------------
-    # 4. Titres, légende, grille
-    # ----------------------------------------------------------------------
+    # Labels / titre
     ax.set_xlabel(r"$T\ (\mathrm{Gyr})$")
     ax.set_ylabel(r"$\varepsilon_i$")
+    ax.set_title("Fig. 04 – Écarts relatifs des invariants $I_2$ et $I_3$", pad=26)
 
-    # Titre principal
-    ax.set_title("Fig. 04 – Écarts relatifs des invariants $I_2$ et $I_3$", pad=32)
-
-        # Sous-titre pour préciser la plage zoomée
     ax.text(
         0.5,
         1.02,
-        "Plage zoomée : |εᵢ| ≤ 0,10",
+        "Plage affichée : |εᵢ| ≤ 0,10 (les points hors tolérance sont masqués)",
         transform=ax.transAxes,
         ha="center",
         va="bottom",
         fontsize="small",
     )
-    ax.grid(True, which="both", linestyle=":", linewidth=0.5, zorder=0)
-    ax.axvline(
-        Tp, color="C3", linestyle=":", label=r"$T_p=0.087\ \mathrm{Gyr}$", zorder=5
-    )
 
+    ax.grid(True, which="both", linestyle=":", linewidth=0.5, zorder=0)
     ax.legend(fontsize="small", loc="upper right")
 
     # ----------------------------------------------------------------------
-    # 5. Sauvegarde
+    # 4. Sauvegarde
     # ----------------------------------------------------------------------
-    output_fig = "zz-figures/chapter04/04_fig_04_relative_deviations.png"
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-    plt.savefig(output_fig)
+    output_fig = Path("zz-figures/chapter04/04_fig_04_relative_deviations.png")
+    output_fig.parent.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout()
+    safe_save(output_fig)
     print(f"Figure sauvegardée : {output_fig}")
-if __name__ == "__main__":
-    pass
-    pass
-    pass
-main( )
-
-# [MCGT POSTPARSE EPILOGUE v2]
-try:
-    import os, sys
-    _here = os.path.abspath(os.path.dirname(__file__))
-except Exception:
-    pass
 
 
 if __name__ == "__main__":
     main()
+EOF

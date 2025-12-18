@@ -10,7 +10,7 @@ Basé sur : tracer_fig03b_coverage_bootstrap_vs_n.py
 
 Adaptations CH10 :
 - --results optionnel, défaut = zz-data/chapter10/10_results_global_scan.csv
-- --out par défaut = zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png
+- --out par défaut = zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png
 - minN par défaut = 10 (plus de plantage quand Mtot=50)
 - detect_p95_column sait gérer p95_rad
 - manifest écrit à côté du PNG, même format que fig07_synthesis attend.
@@ -31,7 +31,40 @@ les courbes de couverture et les largeurs d’IC en fonction de N.
 
 """
 from __future__ import annotations
+from pathlib import Path
 
+def _repro_generated_at_utc() -> str:
+    # Reproductible : SOURCE_DATE_EPOCH ou timestamp du dernier commit git
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if epoch:
+        try:
+            ts = int(float(epoch))
+            return datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        except Exception:
+            pass
+    try:
+        repo_root = Path(__file__).resolve().parents[2]
+        out = subprocess.check_output(["git", "log", "-1", "--format=%ct"], cwd=repo_root, text=True).strip()
+        ts = int(out)
+        return datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    except Exception:
+        return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def _carry_or_repro_generated_at(manifest_path: Path) -> str:
+    try:
+        if manifest_path.exists():
+            old = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if isinstance(old, dict):
+                ga = old.get("generated_at")
+                if isinstance(ga, str) and ga.strip():
+                    return ga
+    except Exception:
+        pass
+    return _repro_generated_at_utc()
+
+
+import datetime
+import subprocess
 import argparse
 import json
 import os
@@ -152,7 +185,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument(
@@ -446,7 +479,7 @@ def main() -> None:
     print(f"[OK] Figure écrite: {args.out}")
 
     # ---------------------------- manifest JSON ----------------------------
-    manifest_path = os.path.splitext(args.out)[0] + ".manifest.json"
+    manifest_path = Path(os.path.splitext(args.out)[0] + ".manifest.json")
     manifest = {
         "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -490,7 +523,8 @@ def main() -> None:
         ],
         "figure_path": args.out,
     }
-    os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest["generated_at"] = _carry_or_repro_generated_at(manifest_path)
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
     print(f"[OK] Manifest écrit: {manifest_path}")

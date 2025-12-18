@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter08/generate_coupling_milestones.py", line 62
-    os.makedirs(args.outdir, exist_ok=True)
-    ^^
-IndentationError: expected an indented block after 'try' statement on line 61

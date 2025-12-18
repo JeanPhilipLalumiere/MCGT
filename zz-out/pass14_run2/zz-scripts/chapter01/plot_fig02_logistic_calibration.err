@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter01/plot_fig02_logistic_calibration.py", line 58
-    parser.add_argument(
-                       ^
-SyntaxError: '(' was never closed

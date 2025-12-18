@@ -3,12 +3,12 @@ permissions:
   contents: read
 name: release-assets
 on:
-concurrency:
-  group: .github/workflows/release-assets.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     tags:
       - "v*.*.*"
+concurrency:
+  group: .github/workflows/release-assets.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   attach-pdf:
     runs-on: ubuntu-latest

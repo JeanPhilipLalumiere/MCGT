@@ -370,7 +370,7 @@ Dans le cadre du pipeline minimal calibré, les **produits principaux** de CH09 
 
 - `zz-figures/chapter09/09_fig_01_phase_overlay.png`
 - `zz-figures/chapter09/09_fig_02_residual_phase.png`
-- (diagnostic recommandé) `zz-figures/chapter09/p95_check_control.png` (si généré).
+- (diagnostic recommandé) `` (si généré).
 
 Les autres figures CH09 (`fig_03`, `fig_04`, `fig_05`) relèvent d’une analyse plus complète
 et ne sont pas strictement nécessaires pour le pipeline minimal calibré, même si elles sont

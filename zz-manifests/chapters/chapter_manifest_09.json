@@ -31,7 +31,7 @@
     ],
     "metas": [
       "zz-data/chapter09/09_metrics_phase.meta.json",
-      "zz-figures/chapter09/fig_*.meta.json"
+      "zz-figures/chapter09/09_fig_*.meta.json"
     ],
     "others": [
       "09-phase-ondes-gravitationnelles/CHAPTER9_GUIDE.txt"
@@ -48,7 +48,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter09/09_metrics_phase.meta.json",
-    "zz-figures/chapter09/fig_*.meta.json"
+    "zz-figures/chapter09/09_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

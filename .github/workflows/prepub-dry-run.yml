@@ -4,14 +4,14 @@ permissions:
 name: prepub-dry-run
 
 on:
-concurrency:
-  group: .github/workflows/prepub-dry-run.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     branches: [ "main" ]
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: .github/workflows/prepub-dry-run.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   prepub:
     runs-on: ubuntu-latest

@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py", line 109
-    parser.add_argument(
-                       ^
-SyntaxError: '(' was never closed

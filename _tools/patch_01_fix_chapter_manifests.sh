@@ -138,13 +138,13 @@ def patch_ch03(obj):
 
     changed |= replace_in(
         figures,
-        "zz-figures/chapter03/fig_01_stability_fR_domain.png",
-        "zz-figures/chapter03/fig_01_fR_stability_domain.png",
+        "zz-figures/chapter03/03_fig_01_stability_fR_domain.png",
+        "zz-figures/chapter03/03_fig_01_fR_stability_domain.png",
         "ch03:figures",
     )
     changed |= replace_in(
         figures,
-        "zz-figures/chapter03/fig_05_milestones_interpolation.png",
+        "zz-figures/chapter03/03_fig_05_milestones_interpolation.png",
         "zz-figures/chapter03/03_fig_05_interpolated_milestones.png",
         "ch03:figures",
     )

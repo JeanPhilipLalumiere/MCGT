@@ -35,7 +35,7 @@ for script in "${scripts[@]}"; do
     plot_fig03b_bootstrap_coverage_vs_n.py)
       python "${script}" \
         --results "${results_csv}" \
-        --out "zz-figures/chapter10/10_fig_03b_bootstrap_coverage_vs_n.png"
+        --out "zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png"
       ;;
     *)
       python "${script}"

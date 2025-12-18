@@ -4,13 +4,13 @@ permissions:
 name: figures-guard
 
 on:
-concurrency:
-  group: .github/workflows/figures-guard.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     branches: [ "main" ]
   pull_request:
 
+concurrency:
+  group: .github/workflows/figures-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   guard:
     runs-on: ubuntu-latest

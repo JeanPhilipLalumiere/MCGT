@@ -3,9 +3,6 @@ permissions:
   contents: read
 name: combo-guards
 on:
-concurrency:
-  group: .github/workflows/combo-guards.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:
@@ -23,6 +20,9 @@ concurrency:
       - 'tools/ci_step*.sh'
       - '.github/workflows/*guard*.yml'
       - '!**/*.md'
+concurrency:
+  group: .github/workflows/combo-guards.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   guard:
     runs-on: ubuntu-latest

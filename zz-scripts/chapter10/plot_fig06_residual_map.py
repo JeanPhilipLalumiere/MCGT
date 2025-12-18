@@ -33,10 +33,15 @@ utilise par défaut :
 """
 from __future__ import annotations
 
+
 import argparse
+import hashlib
 import json
 import os
+import shutil
+import tempfile
 from typing import Tuple
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -50,6 +55,40 @@ from matplotlib.ticker import MaxNLocator
 def wrap_pi(x: np.ndarray) -> np.ndarray:
     """Ramène les angles en radians dans (-π, π]."""
     return (x + np.pi) % (2 * np.pi) - np.pi
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde fig en conservant le mtime si le PNG généré est identique.
+    Retourne True si le fichier a été mis à jour, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
 
 
 def detect_column(df: pd.DataFrame, candidates) -> str:
@@ -266,7 +305,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--out",
-        default="10_fig_06_residual_map.png",
+        default="zz-figures/chapter10/10_fig_06_residual_map.png",
         help="PNG de sortie.",
     )
     ap.add_argument(
@@ -275,6 +314,13 @@ def main() -> None:
         help="Écrit un petit JSON manifest à côté de la figure.",
     )
     args = ap.parse_args()
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    outp = Path(args.out)
+    if outp.parent == Path("."):
+        outp = Path("zz-figures/chapter10") / outp.name
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    args.out = str(outp)
+
 
     # Fichier par défaut si non fourni (cas pipeline minimal)
     if args.results is None:
@@ -472,8 +518,9 @@ def main() -> None:
     out_dir = os.path.dirname(args.out)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    fig.savefig(args.out, dpi=args.dpi, bbox_inches="tight")
-    print(f"[OK] Figure écrite: {args.out}")
+    updated = safe_save(args.out, fig, dpi=args.dpi, bbox_inches="tight")
+    status = "écrite" if updated else "inchangée (identique)"
+    print(f"[OK] Figure {status}: {args.out}")
 
     if args.manifest:
         man_path = os.path.splitext(args.out)[0] + ".manifest.json"

@@ -1,23 +1,38 @@
-# added by policies_guard_common_fixes
-permissions:
-  contents: read
 name: pre-commit autoupdate
+
 on:
-concurrency:
-  group: .github/workflows/pre-commit-autoupdate.yml-${{ github.ref }}
-  cancel-in-progress: true
   schedule:
     - cron: "0 5 * * 1" # Lundi 05:00 UTC
   workflow_dispatch: {}
 
+concurrency:
+  group: pre-commit-autoupdate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   autoupdate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
-      - run: pipx install pre-commit
-      - run: pre-commit autoupdate
+        with:
+          python-version: "3.12"
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install -U pip -c constraints/security-pins.txt
+          python -m pip install pre-commit -c constraints/security-pins.txt
+
+      - name: pre-commit autoupdate
+        run: pre-commit autoupdate
+
       - name: Crée la PR
         uses: peter-evans/create-pull-request@v7
         with:

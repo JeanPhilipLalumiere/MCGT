@@ -29,7 +29,7 @@
     ],
     "metas": [
       "zz-data/chapter05/05_bbn_chi2_vs_T.meta.json",
-      "zz-figures/chapter05/fig_*.meta.json"
+      "zz-figures/chapter05/05_fig_*.meta.json"
     ],
     "others": [
       "05-nucleosynthese-primordiale/CHAPTER5_GUIDE.txt"
@@ -43,7 +43,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter05/05_bbn_chi2_vs_T.meta.json",
-    "zz-figures/chapter05/fig_*.meta.json"
+    "zz-figures/chapter05/05_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

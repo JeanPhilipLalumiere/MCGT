@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -43,8 +46,6 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
 - Trace |∂ₖ(δφ/φ)|(k) en log-log
 - Sauvegarde 07_fig_05_ddelta_phi_vs_k.png
 """
-
-from __future__ import annotations
 
 import argparse
 import json

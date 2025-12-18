@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -52,8 +55,6 @@ Par défaut, il suppose un fichier :
   zz-data/chapter07/07_scalar_invariants.csv
 mais tu peux surcharger avec --data-csv et --value-col.
 """
-
-from __future__ import annotations
 
 import argparse
 import json
@@ -293,4 +294,3 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
 if __name__ == "__main__":
     main()
-

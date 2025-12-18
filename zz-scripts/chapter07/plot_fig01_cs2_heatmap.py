@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -43,8 +46,6 @@ plot_fig01_cs2_heatmap.py
 Figure 01 - Carte de chaleur de $c_s^2(k,a)$
 pour le Chapitre 7 (Perturbations scalaires) du projet MCGT.
 """
-
-from __future__ import annotations
 
 import argparse
 import json
@@ -330,4 +331,3 @@ def main(argv: Optional[list[str]] = None) -> None:
 
 if __name__ == "__main__":
     main()
-

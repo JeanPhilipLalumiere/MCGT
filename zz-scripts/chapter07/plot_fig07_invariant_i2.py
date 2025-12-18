@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -46,8 +49,6 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
 Remarque : on tente d'abord des noms de colonnes typiques (I2_cs2, I2, invariant_i2).
 Si aucune n'est trouvée, on tombe en repli sur l'unique colonne numérique (hors 'k').
 """
-
-from __future__ import annotations
 
 import argparse
 import json

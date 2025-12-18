@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import hashlib
 import shutil
 import tempfile
@@ -47,8 +50,6 @@ Trace trois panneaux en k :
 
 Tous en échelle log-log, avec repère k_split issu de 07_meta_perturbations.json.
 """
-
-from __future__ import annotations
 
 import argparse
 import json

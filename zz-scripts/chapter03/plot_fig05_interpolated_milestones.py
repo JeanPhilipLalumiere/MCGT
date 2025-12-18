@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -180,7 +193,7 @@ def main() -> None:
         marker="o",
         s=40,
         alpha=0.8,
-        label=r"Milestone $f_R$",
+        label="Milestone nodes",
     )
 
     ax1.set_xscale("log")
@@ -209,7 +222,7 @@ def main() -> None:
         marker="s",
         s=50,
         alpha=0.8,
-        label=r"Milestone $f_{RR}$",
+        label="Milestone nodes",
     )
     ax2.set_yscale("log")
     ax2.set_ylabel(r"$f_{RR}$", color=color2)
@@ -221,7 +234,7 @@ def main() -> None:
     ax1.legend(h1 + h2, l1 + l2, loc="best", framealpha=0.8, edgecolor="black")
 
     # 7. Titre
-    ax1.set_title("PCHIP interpolation vs milestone nodes")
+    ax1.set_title("PCHIP Interpolation of Milestones")
 
     # 8. Finalisation et sauvegarde
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

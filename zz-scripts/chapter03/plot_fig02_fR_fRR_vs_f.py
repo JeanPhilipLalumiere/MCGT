@@ -1,16 +1,18 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
 
-_plt.rcParams.update(
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
     {
         "figure.autolayout": True,
         "figure.figsize": (10, 6),
-        "axes.titlepad": 20,
-        "axes.labelpad": 12,
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
         "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
         "font.family": "serif",
     }
 )
@@ -32,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -44,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -125,7 +127,7 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
-FIG_PATH = FIG_DIR / "fig_02_fR_fRR_vs_R.png"
+FIG_PATH = FIG_DIR / "03_fig_02_fR_fRR_vs_R.png"
 
 
 # ----------------------------------------------------------------------
@@ -156,7 +158,7 @@ def main() -> None:
 
     ax.set_xlabel(r"$R/R_0$")
     ax.set_ylabel(r"$f_R,\;f_{RR}$")
-    ax.set_title(r"$f_R$ and $f_{RR}$ vs $R/R_0$")
+    ax.set_title(r"$f_R$ and $f_{RR}$ Functions")
     ax.grid(True, which="both", ls=":", alpha=0.3)
 
     # 4. Légende à mi-hauteur complètement à gauche

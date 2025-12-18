@@ -15,6 +15,17 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import LogLocator
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 ROOT = Path(__file__).resolve().parents[2]
 DATA_CSV = ROOT / "zz-data" / "chapter04" / "04_dimensionless_invariants.csv"
 OUT_FIG = ROOT / "zz-figures" / "chapter04" / "04_fig_04_relative_deviations.png"
@@ -85,9 +96,6 @@ def main() -> None:
     eps2_plot = eps2
     eps3_plot = eps3
 
-    print(f"[DEBUG] eps2 min/max: {eps2_plot.min():.3e} / {eps2_plot.max():.3e}")
-    print(f"[DEBUG] eps3 min/max: {eps3_plot.min():.3e} / {eps3_plot.max():.3e}")
-
     Tp = 0.087  # Gyr
 
     fig, ax = plt.subplots(figsize=(8, 5), dpi=300)
@@ -117,27 +125,18 @@ def main() -> None:
     ax.axhline(-0.10, color="gray", linestyle=":")
     ax.axvline(Tp, linestyle=":", label=rf"$T_p = {Tp:.3f}\ \mathrm{{Gyr}}$")
 
-    ax.set_yscale('symlog', linthresh=0.1); ax.set_ylim(-2, 1e7)
+    ax.set_yscale("symlog", linthresh=0.1)
+    ax.set_ylim(-2, 1e7)
     ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
     ax.xaxis.set_tick_params(which="minor", length=3)
 
-    ax.set_xlabel(r"$T\ (\mathrm{Gyr})$")
+    ax.set_xlabel(r"$T$ [Gyr]")
     ax.set_ylabel(r"$\varepsilon_i$")
-    ax.set_title("Fig. 04 – Écarts relatifs des invariants $I_2$ et $I_3$", pad=26)
-    ax.text(
-        0.5,
-        1.02,
-        "Plage affichée : |εᵢ| ≤ 0,10 (les points hors tolérance sont masqués)",
-        transform=ax.transAxes,
-        ha="center",
-        va="bottom",
-        fontsize="small",
-    )
+    ax.set_title(r"Relative Deviations of Invariants $I_2$ and $I_3$", pad=26)
 
     ax.grid(True, which="both", linestyle=":", linewidth=0.5, zorder=0)
     ax.legend(fontsize="small", loc="lower left", bbox_to_anchor=(0.02, 0.02))
 
-    fig.tight_layout()
     safe_save(OUT_FIG, fig=fig, dpi=300)
     print(f"Figure sauvegardée : {OUT_FIG}")
 

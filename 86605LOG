@@ -1,254 +1,0 @@
-[refresh] size/sha/mtime…
-[master] total=371  exist=371  missing=0  written=zz-manifests/manifest_master.json
-[publication] kept=69  written=zz-manifests/manifest_publication.json
-[diag] strict…
-[commit] si diff…
-assets-budgets...........................................................Passed
-gitleaks protect (skip si non installé)..................................Passed
-[main 3d3099c0] chore: diag-clean refresh
- 3 files changed, 7 insertions(+), 54 deletions(-)
- delete mode 100644 zz-data/chapter10/10_mc_results.csv
-=== FIN diag-clean ===
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7m# Dump a full JSON report for master[27m
-[7mpython zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \[27m
-[7m  --report json --normalize-paths --apply-aliases --strip-internal --content-check \[27m
-[7m  > _logs/diag_master_full.json[27m
-
-[7m# Count ERRORs[27m
-[7mjq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_master_full.json[27m
-
-[7m# List code + path for each ERROR[27m
-[7mjq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_master_full.json[27m
-[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C# Dump a full JSON report for master
-python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
-  --report json --normalize-paths --apply-aliases --strip-internal --content-check \
-  > _logs/diag_master_full.json
-
-# Count ERRORs
-jq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_master_full.json
-
-# List code + path for each ERROR
-jq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_master_full.json
-[A
-[?2004l0
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mpython tools/fix_manifest_missing.py --refresh[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython tools/fix_manifest_missing.py --refresh
-[?2004l[master] total=371  exist=371  missing=0  written=zz-manifests/manifest_master.json
-[publication] kept=69  written=zz-manifests/manifest_publication.json
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mpython tools/fix_manifest_missing.py --refresh[27m
-[7m# If *.sha256sum exist and are stale, let the refresh rewrite them.[27m
-[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython tools/fix_manifest_missing.py --refresh
-# If *.sha256sum exist and are stale, let the refresh rewrite them.
-[A
-[?2004l[master] total=371  exist=371  missing=0  written=zz-manifests/manifest_master.json
-[publication] kept=69  written=zz-manifests/manifest_publication.json
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mpython - <<'PY'[27m
-[7mimport json, subprocess, pathlib, sys[27m
-[7mmf = pathlib.Path("zz-manifests/manifest_master.json")[27m
-[7mdata = json.loads(mf.read_text(encoding="utf-8"))[27m
-
-[7mdef git_hash_for(path):[27m
-[7m    try:[27m
-[7m        return subprocess.check_output([27m
-[7m            ["git","log","-n","1","--pretty=%H","--",path],[27m
-[7m            text=True[27m
-[7m        ).strip() or None[27m
-[7m    except Exception:[27m
-[7m        return None[27m
-
-[7mchanged = 0[27m
-[7mfor e in data.get("entries", []):[27m
-[7m    if not e.get("git_hash"):[27m
-[7m        h = git_hash_for(e["path"])[27m
-[7m        if h:[27m
-[7m            e["git_hash"] = h[27m
-[7m            changed += 1[27m
-
-[7mif changed:[27m
-[7m    mf.write_text(json.dumps(data, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")[27m
-[7m    print(f"[fill-git-hash] filled {changed} entries")[27m
-[7melse:[27m
-[7m    print("[fill-git-hash] nothing to fill")[27m
-[7mPY[27m
-[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython - <<'PY'
-import json, subprocess, pathlib, sys
-mf = pathlib.Path("zz-manifests/manifest_master.json")
-data = json.loads(mf.read_text(encoding="utf-8"))
-
-def git_hash_for(path):
-    try:
-        return subprocess.check_output(
-            ["git","log","-n","1","--pretty=%H","--",path],
-            text=True
-        ).strip() or None
-    except Exception:
-        return None
-
-changed = 0
-for e in data.get("entries", []):
-    if not e.get("git_hash"):
-        h = git_hash_for(e["path"])
-        if h:
-            e["git_hash"] = h
-            changed += 1
-
-if changed:
-    mf.write_text(json.dumps(data, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
-    print(f"[fill-git-hash] filled {changed} entries")
-else:
-    print("[fill-git-hash] nothing to fill")
-PY
-[A
-[?2004l[fill-git-hash] filled 371 entries
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ 
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mpython - <<'PY'[27m
-[7mimport json, subprocess, pathlib[27m
-[7mfor mfpath in ["zz-manifests/manifest_publication.json"]:[27m
-[7m    mf = pathlib.Path(mfpath); data = json.loads(mf.read_text(encoding="utf-8"))[27m
-[7m    def ghash(p):[27m
-[7m        try:[27m
-[7m            out = subprocess.check_output(["git","log","-n","1","--pretty=%H","--",p], text=True).strip()[27m
-[7m            return out or None[27m
-[7m        except Exception:[27m
-[7m            return None[27m
-[7m    changed = 0[27m
-[7m    for e in data.get("entries", []):[27m
-[7m        if not e.get("git_hash"):[27m
-[7m            h = ghash(e["path"])[27m
-[7m            if h:[27m
-[7m                e["git_hash"] = h; changed += 1[27m
-[7m    if changed:[27m
-[7m        mf.write_text(json.dumps(data, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")[27m
-[7m        print(f"[fill-git-hash publ] filled {changed} entries in {mfpath}")[27m
-[7m    else:[27m
-[7m        print(f"[fill-git-hash publ] nothing to fill in {mfpath}")[27m
-[7mPY[27m
-[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython - <<'PY'
-import json, subprocess, pathlib
-for mfpath in ["zz-manifests/manifest_publication.json"]:
-    mf = pathlib.Path(mfpath); data = json.loads(mf.read_text(encoding="utf-8"))
-    def ghash(p):
-        try:
-            out = subprocess.check_output(["git","log","-n","1","--pretty=%H","--",p], text=True).strip()
-            return out or None
-        except Exception:
-            return None
-    changed = 0
-    for e in data.get("entries", []):
-        if not e.get("git_hash"):
-            h = ghash(e["path"])
-            if h:
-                e["git_hash"] = h; changed += 1
-    if changed:
-        mf.write_text(json.dumps(data, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
-        print(f"[fill-git-hash publ] filled {changed} entries in {mfpath}")
-    else:
-        print(f"[fill-git-hash publ] nothing to fill in {mfpath}")
-PY
-[A
-[?2004l[fill-git-hash publ] filled 69 entries in zz-manifests/manifest_publication.json
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mpython zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \[27m
-[7m  --report json --normalize-paths --apply-aliases --strip-internal --content-check \[27m
-[7m  > _logs/diag_master_after.json[27m
-[7mjq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_master_after.json[27m
-
-[7mpython zz-manifests/diag_consistency.py zz-manifests/manifest_publication.json \[27m
-[7m  --report json --normalize-paths --apply-aliases --strip-internal --content-check \[27m
-[7m  > _logs/diag_publ_after.json[27m
-[7mjq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_publ_after.json[27m
-[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython zz-manifests/diag_consistency.py zz-manifests/manifest_master.json \
-  --report json --normalize-paths --apply-aliases --strip-internal --content-check \
-  > _logs/diag_master_after.json
-jq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_master_after.json
-
-python zz-manifests/diag_consistency.py zz-manifests/manifest_publication.json \
-  --report json --normalize-paths --apply-aliases --strip-internal --content-check \
-  > _logs/diag_publ_after.json
-jq '[.issues[] | select(.severity=="ERROR")] | length' _logs/diag_publ_after.json
-[A
-[?2004l0
-0
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mgit add zz-manifests/manifest_*.json zz-manifests/*.sha256sum 2>/dev/null || true[27m
-[7mgit commit -m "chore(main): fill git_hash in manifests; diag errors=0" || echo "(rien à committer)"[27m
-[7mpytest -q || true[27m
-[7mgit push[27m
-[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit add zz-manifests/manifest_*.json zz-manifests/*.sha256sum 2>/dev/null || true
-git commit -m "chore(main): fill git_hash in manifests; diag errors=0" || echo "(rien à committer)"
-pytest -q || true
-git push
-[A
-[?2004lassets-budgets...........................................................Passed
-gitleaks protect (skip si non installé)..................................Passed
-[main 088229f7] chore(main): fill git_hash in manifests; diag errors=0
- 2 files changed, 882 insertions(+), 442 deletions(-)
-..................                                                       [100%]
-To github.com:JeanPhilipLalumiere/MCGT.git
-   0d3d3e66..088229f7  main -> main
-[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [7mjq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_master_aft[27m[7me[27m[7mr.json [27m
-[7mjq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_publ_after.json[27m
-[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cjq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_master_after.json
-jq -r '.issues[] | select(.severity=="ERROR") | "\(.code)\t\(.path)"' _logs/diag_publ_after.json
-[A
-[?2004l[?2004h(mcgt-dev) ]0;jplal@JPL: ~/MCGT[01;32mjplal@JPL[00m:[01;34m~/MCGT[00m$ [?2004l[?2004l
-
-=== FIN FIX-GITHASH (code=0) ===

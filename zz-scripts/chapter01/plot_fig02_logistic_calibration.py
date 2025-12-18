@@ -91,19 +91,19 @@ def make_figure(output_path: Path, dpi: int = 300, transparent: bool = False, ve
     P_calc_ref = interp(df_ref["T"])
 
     fig, ax = plt.subplots(dpi=dpi)
-    ax.loglog(df_ref["P_ref"], P_calc_ref, "o", label="Données calibration")
+    ax.loglog(df_ref["P_ref"], P_calc_ref, "o", label="Calibration Data")
 
     minv = min(df_ref["P_ref"].min(), P_calc_ref.min())
     maxv = max(df_ref["P_ref"].max(), P_calc_ref.max())
-    ax.plot([minv, maxv], [minv, maxv], "--", label="Identité (y = x)")
+    ax.plot([minv, maxv], [minv, maxv], "--", label="Identity Line (y=x)")
 
-    ax.set_xlabel(r"$P_{\mathrm{ref}}$")
-    ax.set_ylabel(r"$P_{\mathrm{calc}}$")
-    ax.set_title("Fig. 02 – Calibration log–log")
+    ax.set_xlabel("Theoretical Invariant Value")
+    ax.set_ylabel("Measured Invariant Value")
+    ax.set_title("Log-Log Calibration – Identity Check")
     ax.grid(True, which="both", ls=":", lw=0.5)
     ax.legend()
 
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    plt.subplots_adjust(top=0.88, left=0.15, bottom=0.15)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     changed = safe_save(output_path, fig, transparent=transparent)

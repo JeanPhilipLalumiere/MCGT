@@ -751,17 +751,17 @@
     },
     {
       "path": "zz-scripts/chapter01/plot_fig02_logistic_calibration.py",
-      "sha256": "80e9e66de375fdf90ae067c9312c5464923984ff574de2f369efab4003562e45",
-      "size_bytes": 6140,
-      "mtime_iso": "2025-12-18T14:55:23Z",
-      "git_hash": "3699ff9571f215d8600758586eaba6906b092dcd"
+      "sha256": "a526c0cbb51b43778d9c3a6fc006a6662cfc8c972fd76173e1efa1571fd2eb67",
+      "size_bytes": 6143,
+      "mtime_iso": "2025-12-18T16:02:53Z",
+      "git_hash": "348b9e1f8593552384bb889531ee4dc4f7018a93"
     },
     {
       "path": "zz-scripts/chapter01/plot_fig03_relative_error_timeline.py",
-      "sha256": "28a7cfe609d4a1ad8c6e0da09166dc42ef13866c7fed6eb6b94b58bcf4969ce7",
-      "size_bytes": 5440,
-      "mtime_iso": "2025-12-18T14:55:28Z",
-      "git_hash": "b054bbd4b39d1f7c70093a16c84847972c698c7b"
+      "sha256": "c7fc1c5fcc394284570daf7d4c09a723953583b054239af0271819f42827680e",
+      "size_bytes": 5416,
+      "mtime_iso": "2025-12-18T16:03:00Z",
+      "git_hash": "e078fd92d9d58b9527fd2f0b3dd8226d91a17184"
     },
     {
       "path": "zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
@@ -1725,10 +1725,10 @@
       "tags": [
         "chapter01"
       ],
-      "size_bytes": 137095,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "51095ea6765a7343049447d682c4b27a98dd84b249ec607e0a798370159dce1d",
-      "git_hash": "832fca3f082ea20c44af93408318545005498637"
+      "size_bytes": 205045,
+      "mtime_iso": "2025-12-18T16:03:04Z",
+      "sha256": "0d829d36887b65f3e73eefc546855b6bd0e85663eee5516bf4a00b298cc58fd6",
+      "git_hash": "63e3b87173f9a293c4121ae793a4219c737fffff"
     },
     {
       "media_type": "image/png",
@@ -1737,10 +1737,10 @@
       "tags": [
         "chapter01"
       ],
-      "size_bytes": 165124,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "4db4a334f70f32143a93947ddeab1d59de944bf92cd64a379bf5126acb5b48c5",
-      "git_hash": "437e0a55a57298f60e4640fa54d4765c43add58e"
+      "size_bytes": 215310,
+      "mtime_iso": "2025-12-18T16:03:07Z",
+      "sha256": "0ef61bff334133cd3ec715d7788d9752d913488ab490cbe05f4aefb5aba14505",
+      "git_hash": "337e8821866f0f40608f5289040e131d769d7405"
     },
     {
       "media_type": "image/png",
@@ -2321,9 +2321,9 @@
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     }
   ],
-  "generatedAt": "2025-12-18T14:57:28Z",
+  "generatedAt": "2025-12-18T16:03:10Z",
   "schemaVersion": 1,
-  "files_updated": 52,
+  "files_updated": 16,
   "manifest_tool_version": "diag_consistency.py",
   "generated_by": "jplal"
 }

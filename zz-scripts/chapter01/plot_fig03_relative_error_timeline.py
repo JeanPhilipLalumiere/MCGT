@@ -82,16 +82,16 @@ def make_figure(output_path: Path, dpi: int = 300, transparent: bool = False, ve
     ax.set_yscale("symlog", linthresh=1e-4)
 
     # Seuil ±1 %
-    ax.axhline(0.01, linestyle="--", color="grey", linewidth=1, label="Seuil ±1 %")
+    ax.axhline(0.01, linestyle="--", color="grey", linewidth=1, label="Error threshold ±1%")
     ax.axhline(-0.01, linestyle="--", color="grey", linewidth=1)
 
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel("ε (écart relatif)")
-    ax.set_title("Fig. 03 – Écarts relatifs (échelle symlog)")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"Relative Error $\varepsilon_i$")
+    ax.set_title("Relative Error Timeline (SymLog Scale)")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend()
 
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    plt.tight_layout(pad=3.0)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     changed = safe_save(output_path, fig, transparent=transparent)

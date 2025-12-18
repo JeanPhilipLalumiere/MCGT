@@ -869,32 +869,32 @@
       "git_hash": "1562a0775748a84519ee9b853b4adfecaa4cdb24"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig01_fR_stability_domain.py",
-      "sha256": "0f9a7e6ade9598c268fc8a2fba7d08c1bd5f4177ef16c235538711f39f892323",
+      "path": "zz-scripts/chapter03/plot_fig01_fr_stability_domain.py",
+      "sha256": "9a161712ee9ff2eb76cd8332b8a693af0eac6e2d7b30f6b56edf26f464b2707e",
       "size_bytes": 7847,
-      "mtime_iso": "2025-12-18T20:38:17Z",
-      "git_hash": "9022e2495998fe97bdb930cae43ee1437c154e1b"
+      "mtime_iso": "2025-12-18T20:45:32Z",
+      "git_hash": "bc21de4cb6d633e3bfc1e6d3e950e073e41427e2"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
-      "sha256": "fe2ff08cf93273bec9e251a2dc046e07cc3f0195a5ed85c2332f614793508d8c",
+      "path": "zz-scripts/chapter03/plot_fig02_fr_frr_vs_f.py",
+      "sha256": "2d7a54e276ca61ec6b8fb108fa6d8d583c6921a773b04ac7d4e713e94bfb454f",
       "size_bytes": 7371,
-      "mtime_iso": "2025-12-18T20:38:21Z",
-      "git_hash": "f8b7531c7dd873e201c0ac99c7516aa53b3139dd"
+      "mtime_iso": "2025-12-18T20:45:43Z",
+      "git_hash": "3255c417ef61073cac851a438b990c80e166ad16"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
-      "sha256": "57024988a8b5fa34c20799ea935349789f2b988f124f2f1aa7ef50eb9adc1f0c",
+      "path": "zz-scripts/chapter03/plot_fig03_ms2_r0_vs_f.py",
+      "sha256": "387748670b28eaf3e72eb7ab96ec2c502c728e08b861e20464df0beecd7d68b4",
       "size_bytes": 7294,
-      "mtime_iso": "2025-12-18T20:38:26Z",
-      "git_hash": "2a69769b9af3ba0553224d3e5a1c623995eae170"
+      "mtime_iso": "2025-12-18T20:45:47Z",
+      "git_hash": "a21fa58863b3e99ee694dd8b5853a7039c86a5d1"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
-      "sha256": "b3a2d225e8b1856b12fea64e2ba463522096e50b8bb5db431033355bf0394654",
+      "path": "zz-scripts/chapter03/plot_fig04_fr_frr_vs_f.py",
+      "sha256": "b18219ad14996b58f5ed418ce79a1ad45f90f37852d67da40066406b25dced46",
       "size_bytes": 6983,
-      "mtime_iso": "2025-12-18T20:38:29Z",
-      "git_hash": "e058fb22fb8bcdb58302a5a865d690c475033710"
+      "mtime_iso": "2025-12-18T20:45:51Z",
+      "git_hash": "302f224cc72a81acf7c0ec43a07934fe93afb219"
     },
     {
       "path": "zz-scripts/chapter03/plot_fig05_interpolated_milestones.py",
@@ -911,18 +911,18 @@
       "git_hash": "ea1a2b4184daeabb955e9596ef823b2ebc7535fa"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
-      "sha256": "7e95e2d8c0df8e8e1d3906584722131e16c89d902145172cba0b65046eed9693",
+      "path": "zz-scripts/chapter03/plot_fig07_ricci_fr_vs_z.py",
+      "sha256": "b6a19b4fac45a5ebd2ef0fa959eb99a1f634b6182a9d9a942da079ddbe276156",
       "size_bytes": 5220,
-      "mtime_iso": "2025-12-18T20:38:36Z",
-      "git_hash": "9e79369411f75a217f37b780530640a234c5e9df"
+      "mtime_iso": "2025-12-18T20:45:55Z",
+      "git_hash": "a4aa23c625e7c54a1a7e48a8b9e52c27fc3551c8"
     },
     {
-      "path": "zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
-      "sha256": "4e8d716c4f32fc8f02ff097017494e91a742e6e763699739bd8b1f913bd0a1ab",
+      "path": "zz-scripts/chapter03/plot_fig08_ricci_fr_vs_t.py",
+      "sha256": "d17cda51dc5ecb4f0f229a31c74808bb029dfdb1d05b316487417d04bbe0a8b9",
       "size_bytes": 4755,
-      "mtime_iso": "2025-12-18T20:38:40Z",
-      "git_hash": "1471b89663998456271b60a6cdae8dd184dd87a2"
+      "mtime_iso": "2025-12-18T20:46:00Z",
+      "git_hash": "fff61a3089126a8f04b50e1feaad03cb044c9f25"
     },
     {
       "path": "zz-scripts/chapter03/utils/03_ricci_fR_milestones_enhanced.csv",
@@ -1960,73 +1960,73 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_01_fR_stability_domain.png",
+      "path": "zz-figures/chapter03/03_fig_01_fr_stability_domain.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 159975,
-      "mtime_iso": "2025-12-18T20:38:44Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "b5d280f4652c60f4ea9ec0ed8ce3b69554f116b4d7776becf672263901be107b",
       "git_hash": "7b27c0f723e3649e0825472afed4f483d1713faf"
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_02_fR_fRR_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_02_fr_frr_vs_f.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 147736,
-      "mtime_iso": "2025-12-18T20:38:49Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "873ce8fe7700509cce7c058a589a2b511895953affa772920ff2810945598bd6",
       "git_hash": "2e6a25f154ed0aa1ed43d910c615b9885a8dec98"
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_03_ms2_R0_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_03_ms2_r0_vs_f.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 101158,
-      "mtime_iso": "2025-12-18T20:38:54Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "fc5fc7c360c51ee0c37cc846649320aab74ffcd59a26cad8967fac7606885805",
       "git_hash": "752573c93a00896980b18b1f727f964337f4d658"
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_04_fR_fRR_vs_R.png",
+      "path": "zz-figures/chapter03/03_fig_04_fr_frr_vs_f.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 121240,
-      "mtime_iso": "2025-12-18T20:39:00Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "66dfc16e6b5984e23f967bdce5a1065db7a095195c3b0a8ae4db0720ca764aa3",
       "git_hash": "c4a061c5514d88a32479d7fe595a9b307224d924"
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_07_ricci_fR_vs_z.png",
+      "path": "zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 150256,
-      "mtime_iso": "2025-12-18T20:39:15Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "6a381b5cdd5ca8665131468f4ca64a7dfe2dafd31727bd9fc34580e1a96c1dcf",
       "git_hash": "7c21994e7c4493151217846ac9f67308c375807e"
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_08_ricci_fR_vs_T.png",
+      "path": "zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png",
       "role": "figure",
       "tags": [
         "chapter03"
       ],
       "size_bytes": 123146,
-      "mtime_iso": "2025-12-18T20:39:19Z",
+      "mtime_iso": "2025-12-18T20:39:37Z",
       "sha256": "2ab54449f543607f485564bc36ad4e9cca8ece861c9f30f3c7c88f4d23cdb767",
       "git_hash": "852da902e0fff7a0f2ca40d633e5bf82da9995f8"
     },
@@ -2321,7 +2321,7 @@
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     }
   ],
-  "generatedAt": "2025-12-18T20:39:41Z",
+  "generatedAt": "2025-12-18T20:47:45Z",
   "schemaVersion": 1,
   "files_updated": 24,
   "manifest_tool_version": "diag_consistency.py",

@@ -95,18 +95,20 @@ if any(arg.startswith("--out") for arg in sys.argv):
     except Exception:
         pass
 # === [/PASS5B-SHIM] ===
-# tracer_fig02_fR_fRR_contre_R.py
+# tracer_fig01_stabilite_fR_domaine.py
 """
-Trace f_R et f_RR en fonction de R/R₀ — Chapitre 3
-=================================================
+Trace le domaine de stabilité de f(R) — Chapitre 3
+===================================================
+
+Affiche la zone où γ ∈ [0, γ_max(β)] en fonction de β = R/R₀.
 
 Entrée :
-    zz-data/chapter03/03_fR_stability_data.csv
+    zz-data/chapter03/03_fR_stability_domain.csv
 Colonnes requises :
-    R_over_R0, f_R, f_RR
+    beta, gamma_min, gamma_max
 
 Sortie :
-    zz-figures/chapter03/03_fig_02_fr_frr_vs_r.png
+    zz-figures/chapter03/03_fig_01_fr_stability_domain.png
 """
 
 import logging
@@ -114,7 +116,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
 # ----------------------------------------------------------------------
 # Configuration logging
@@ -125,83 +126,98 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_data.csv"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_fR_stability_domain.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
-FIG_PATH = FIG_DIR / "03_fig_02_fR_fRR_vs_R.png"
+FIG_PATH = FIG_DIR / "03_fig_01_fr_stability_domain.png"
 
 
-# ----------------------------------------------------------------------
-# Main
-# ----------------------------------------------------------------------
 def main() -> None:
     # 1. Lecture des données
     if not DATA_FILE.exists():
-        log.error("Fichier introuvable : %s", DATA_FILE)
+        log.error("Fichier manquant : %s", DATA_FILE)
         return
-
     df = pd.read_csv(DATA_FILE)
-    required = {"R_over_R0", "f_R", "f_RR"}
+    required = {"beta", "gamma_min", "gamma_max"}
     missing = required - set(df.columns)
     if missing:
         log.error("Colonnes manquantes dans %s : %s", DATA_FILE, missing)
         return
 
-    # 2. Préparation du dossier de sortie
+    # 2. Création du dossier de sortie
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 3. Graphique principal
+    # 3. Tracé principal
     fig, ax = plt.subplots(dpi=300, figsize=(6, 4))
-    ax.loglog(df["R_over_R0"], df["f_R"], color="tab:blue", lw=1.5, label=r"$f_R(R)$")
-    ax.loglog(
-        df["R_over_R0"], df["f_RR"], color="tab:orange", lw=1.5, label=r"$f_{RR}(R)$"
+
+    # Zone de stabilité
+    ax.fill_between(
+        df["beta"],
+        df["gamma_min"],
+        df["gamma_max"],
+        color="lightgray",
+        alpha=0.5,
+        label="Stability Domain",
     )
 
-    ax.set_xlabel(r"$R/R_0$")
-    ax.set_ylabel(r"$f_R,\;f_{RR}$")
-    ax.set_title(r"$f_R$ and $f_{RR}$ Functions")
-    ax.grid(True, which="both", ls=":", alpha=0.3)
+    # Repère β = 1
+    ax.axvline(1.0, color="gray", linestyle="--", linewidth=1.0, label=r"$\beta = 1$")
 
-    # 4. Légende à mi-hauteur complètement à gauche
-    ax.legend(
-        loc="center left", bbox_to_anchor=(0.01, 0.5), framealpha=0.8, edgecolor="black"
-    )
+    # Échelles log-log
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(r"$\beta = R / R_0$")
+    ax.set_ylabel(r"$\gamma$ [dimensionless]")
+    ax.set_title("Stability Domain of f(R) - Chapter 3")
 
-    # 5. Inset zoom sur f_RR (premiers 50 points)
-    import numpy as np
+    ax.grid(True, which="both", ls=":", alpha=0.2)
 
-    df_zoom = df.iloc[:50]
-    ax_in = fig.add_axes([0.62, 0.30, 0.30, 0.30])
-    ax_in.loglog(
-        df_zoom["R_over_R0"],
-        df_zoom["f_RR"],
-        color="tab:orange",
-        lw=1.5)
+    legend = ax.legend(loc="upper right", framealpha=0.8)
+    legend.get_frame().set_edgecolor("black")
 
-    ax_in.set_xscale("log")
-    ax_in.set_yscale("linear")
-    ax_in.set_xlim(df_zoom["R_over_R0"].min(), df_zoom["R_over_R0"].max())
+    # ------------------------------------------------------------------
+    # 4. Inset : zoom β ∈ [0.5, 2] (X linéaire, Y log)
+    # ------------------------------------------------------------------
+    mask = (df["beta"] >= 0.5) & (df["beta"] <= 2.0)
+    if mask.any():
+        ax_in = fig.add_axes([0.60, 0.30, 0.35, 0.35])
 
-    # graduations x (4 points logarithmiques)
-    lmin, lmax = (
-        np.log10(df_zoom["R_over_R0"].min()),
-        np.log10(df_zoom["R_over_R0"].max()),
-    )
-    xticks = 10 ** np.linspace(lmin, lmax, 4)
-    ax_in.xaxis.set_major_locator(FixedLocator(xticks))
-    ax_in.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:.0f}"))
-    ax_in.xaxis.set_minor_locator(NullLocator())
+        # Tracé γ_max (et γ_min si ≠0)
+        ax_in.plot(
+            df.loc[mask, "beta"], df.loc[mask, "gamma_max"], color="black", lw=1.2
+        )
+        if (df.loc[mask, "gamma_min"] > 0).any():
+            ax_in.plot(
+                df.loc[mask, "beta"], df.loc[mask, "gamma_min"], color="black", lw=1.2
+            )
 
-    # graduations y (4 points linéaires)
-    ymin, ymax = df_zoom["f_RR"].min(), df_zoom["f_RR"].max()
-    yticks = np.linspace(ymin, ymax, 4)
-    ax_in.yaxis.set_major_locator(FixedLocator(yticks))
-    ax_in.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{y:.2e}"))
-    ax_in.yaxis.set_minor_locator(NullLocator())
+        # Échelles : X linéaire, Y log
+        from matplotlib.ticker import (
+            FixedLocator,
+            FuncFormatter,
+            LogLocator,
+            NullFormatter,
+            ScalarFormatter,
+        )
 
-    ax_in.set_title(r"Zoom $f_{RR}$", fontsize=8)
-    ax_in.grid(True, which="both", ls=":", alpha=0.3)
+        ax_in.set_xscale("linear")
+        ax_in.set_xlim(0.5, 2.0)
+        ax_in.xaxis.set_major_locator(FixedLocator([0.5, 1.0, 1.5, 2.0]))
+        ax_in.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:.1f}"))
+        ax_in.xaxis.set_minor_formatter(NullFormatter())
 
-    # 6. Sauvegarde
+        ax_in.set_yscale("log")
+        ax_in.yaxis.set_major_locator(LogLocator(numticks=4))
+        yfmt = ScalarFormatter()
+        yfmt.set_scientific(False)
+        yfmt.set_useOffset(False)
+        ax_in.yaxis.set_major_formatter(yfmt)
+
+        # Nettoyage des graduations superflues
+        ax_in.tick_params(axis="both", which="both", length=3)
+        ax_in.grid(True, which="both", ls=":", alpha=0.3)
+        ax_in.set_title(r"Zoom $\beta\in[0.5,2]$", fontsize=8, pad=2)
+
+    # 5. Finalisation et sauvegarde
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(FIG_PATH)
     plt.close(fig)

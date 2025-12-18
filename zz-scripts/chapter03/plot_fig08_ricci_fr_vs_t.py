@@ -50,19 +50,19 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     return True
 
 #!/usr/bin/env python3
-# tracer_fig07_ricci_fR_contre_z.py
+# tracer_fig08_ricci_fR_contre_T.py
 
 """
-Trace f_R et f_{RR} aux points jalons en fonction du redshift — Chapitre 3
-========================================================================
+Trace f_R et f_RR aux points jalons en fonction de l’âge de l’Univers (Gyr) — Chapitre 3
+=======================================================================================
 
 Entrée :
-    zz-data/chapter03/03_ricci_fR_vs_z.csv
+    zz-data/chapter03/03_ricci_fR_vs_T.csv
 Colonnes requises :
-    R_over_R0, f_R, f_RR, z
+    R_over_R0, f_R, f_RR, T_Gyr
 
 Sortie :
-    zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png
+    zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png
 """
 
 import logging
@@ -70,17 +70,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
-
-plt.rcParams.update(
-    {
-        "figure.autolayout": True,
-        "figure.figsize": (10, 6),
-        "axes.titlepad": 20,
-        "axes.labelpad": 12,
-        "savefig.bbox": "tight",
-        "font.family": "serif",
-    }
-)
 
 # ----------------------------------------------------------------------
 # Configuration logging
@@ -91,14 +80,11 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # Chemins
 # ----------------------------------------------------------------------
-DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_z.csv"
+DATA_FILE = Path("zz-data") / "chapter03" / "03_ricci_fR_vs_T.csv"
 FIG_DIR = Path("zz-figures") / "chapter03"
-FIG_PATH = FIG_DIR / "03_fig_07_ricci_fR_vs_z.png"
+FIG_PATH = FIG_DIR / "03_fig_08_ricci_fr_vs_t.png"
 
 
-# ----------------------------------------------------------------------
-# Main
-# ----------------------------------------------------------------------
 def main() -> None:
     # 1. Lecture des données
     if not DATA_FILE.exists():
@@ -106,75 +92,60 @@ def main() -> None:
         return
 
     df = pd.read_csv(DATA_FILE)
-    required = {"R_over_R0", "f_R", "f_RR", "z"}
+    required = {"R_over_R0", "f_R", "f_RR", "T_Gyr"}
     missing = required - set(df.columns)
     if missing:
         log.error("Colonnes manquantes dans %s : %s", DATA_FILE, missing)
         return
 
-    # 2. Filtrer z > 0 et trier
-    df = df[df["z"] > 0].sort_values("z")
+    # 2. Filtrer T>0 et trier
+    df = df[df["T_Gyr"] > 0].sort_values("T_Gyr")
     if df.empty:
-        log.error("Aucun jalon avec z>0.")
+        log.error("Aucune donnée positive pour T_Gyr dans %s", DATA_FILE)
         return
 
-    zmin, zmax = df["z"].iloc[0], df["z"].iloc[-1]
-
-    # 3. Préparer la figure
+    # 3. Préparation du dossier figure
     FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+    # 4. Tracé principal avec double axe Y
     fig, ax1 = plt.subplots(dpi=300, figsize=(6, 4))
 
-    # 4. Tracer f_R sur l'axe de gauche
-    ax1.scatter(
-        df["z"],
-        df["f_R"],
-        color="tab:blue",
-        marker="o",
-        s=40,
-        alpha=0.8,
-        label=r"$f_R$",
-    )
-    ax1.plot(df["z"], df["f_R"], color="tab:blue", lw=1, alpha=0.6)
-    ax1.set_ylabel(r"$f_R$", color="tab:blue")
-    ax1.tick_params(axis="y", colors="tab:blue")
-    ax1.set_yscale("log")
+    # Axe de gauche : f_R
+    color1 = "tab:blue"
+    ax1.scatter(df["T_Gyr"], df["f_R"], c=color1, marker="o", s=40, label=r"$f_R$")
+    ax1.plot(df["T_Gyr"], df["f_R"], c=color1, lw=1, alpha=0.6)
     ax1.set_xscale("log")
-
-    # 5. Tracer f_RR sur un second axe de droite
-    ax2 = ax1.twinx()
-    ax2.scatter(
-        df["z"],
-        df["f_RR"],
-        color="tab:orange",
-        marker="s",
-        s=40,
-        alpha=0.8,
-        label=r"$f_{RR}$",
-    )
-    ax2.plot(df["z"], df["f_RR"], color="tab:orange", lw=1, alpha=0.6, linestyle="--")
-    ax2.set_ylabel(r"$f_{RR}$", color="tab:orange")
-    ax2.tick_params(axis="y", colors="tab:orange")
-    ax2.set_yscale("log")
-
-    # 6. Axes communs & grille
-    ax1.set_xlabel(r"$z$")
+    ax1.set_yscale("log")
+    ax1.set_xlabel(r"$T$ [Gyr]")
+    ax1.set_ylabel(r"$f_R$", color=color1)
+    ax1.tick_params(axis="y", labelcolor=color1)
     ax1.grid(True, which="both", ls=":", alpha=0.3)
 
-    # 7. Légende combinée
+    # Axe de droite : f_RR
+    ax2 = ax1.twinx()
+    color2 = "tab:orange"
+    ax2.scatter(df["T_Gyr"], df["f_RR"], c=color2, marker="s", s=50, label=r"$f_{RR}$")
+    ax2.plot(df["T_Gyr"], df["f_RR"], c=color2, lw=1, alpha=0.6, linestyle="--")
+    ax2.set_yscale("log")
+    ax2.set_ylabel(r"$f_{RR}$", color=color2)
+    ax2.tick_params(axis="y", labelcolor=color2)
+
+    # 5. Légende commune
     handles1, labels1 = ax1.get_legend_handles_labels()
     handles2, labels2 = ax2.get_legend_handles_labels()
     ax1.legend(
         handles1 + handles2,
         labels1 + labels2,
-        loc="upper left",
+        loc="best",
         framealpha=0.8,
         edgecolor="black",
     )
 
-    # 8. Titre avec plage effective
+    # 6. Titre
+    Tmin, Tmax = df["T_Gyr"].min(), df["T_Gyr"].max()
     ax1.set_title("Node Distribution vs Redshift/Age")
 
-    # 9. Finalisation
+    # 7. Finalisation
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(FIG_PATH)
     plt.close(fig)

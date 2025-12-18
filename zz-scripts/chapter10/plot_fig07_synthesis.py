@@ -19,8 +19,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
+import shutil
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -38,6 +41,41 @@ def parse_figsize(s: str) -> Tuple[float, float]:
         return float(a), float(b)
     except Exception as e:
         raise argparse.ArgumentTypeError("figsize doit être 'largeur,hauteur' (ex: 14,6)") from e
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde fig en préservant le mtime si le contenu PNG est identique.
+
+    Retourne True si le fichier a été mis à jour, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
 
 
 def load_manifest(path: Path) -> Dict[str, Any]:
@@ -338,8 +376,9 @@ def plot_synthese(
     fig.subplots_adjust(left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35)
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(str(out_png), dpi=int(dpi), bbox_inches="tight")
-    print(f"[OK] Figure écrite : {out_png}")
+    updated = safe_save(out_png, fig, dpi=int(dpi), bbox_inches="tight")
+    status = "écrite" if updated else "inchangée (identique)"
+    print(f"[OK] Figure {status} : {out_png}")
 
 
 # ---------- CLI ----------
@@ -419,4 +458,3 @@ if __name__ == "__main__":
     _outp = _Path(args.out)
     if _outp.parent == _Path("."):
         args.out = str(_Path("zz-figures/chapter10") / _outp.name)
-

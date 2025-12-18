@@ -24,6 +24,9 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+import hashlib
+import shutil
+import tempfile
 
 import numpy as np
 import pandas as pd
@@ -33,6 +36,40 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes  # (non utilisé ic
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 
 TWOPI = 2.0 * np.pi
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde fig en évitant de toucher le mtime si le PNG est inchangé.
+    Retourne True si le fichier a été mis à jour, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
 
 
 def wrap_pi(x: np.ndarray) -> np.ndarray:
@@ -464,12 +501,10 @@ def main() -> None:
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 
     plt.tight_layout(rect=[0, 0.04, 1, 0.98])
-    fig.savefig(args.out, dpi=args.dpi)
-    print(f"Wrote: {args.out}")
+    updated = safe_save(args.out, fig, dpi=args.dpi)
+    status = "Wrote" if updated else "Unchanged (identique)"
+    print(f"{status}: {args.out}")
 
 
 if __name__ == "__main__":
     main()
-
-
-

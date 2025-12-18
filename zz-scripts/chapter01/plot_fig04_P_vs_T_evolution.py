@@ -11,6 +11,20 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 
 def _sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -84,7 +98,7 @@ def main() -> None:
             P_init,
             "--",
             color="grey",
-            label=r"$P_{\rm init}(T)$",
+            label="Initial P(T)",
         )
 
     # P_opt(T) (toujours tracé)
@@ -93,15 +107,15 @@ def main() -> None:
         P_opt,
         "-",
         color="orange",
-        label=r"$P_{\rm opt}(T)$",
+        label="Optimized P(T)",
     )
 
     plt.xscale("log")
     plt.yscale("linear")
 
-    plt.xlabel("T (Gyr)")
-    plt.ylabel("P(T)")
-    plt.title("Fig. 04 – Évolution de P(T) : initial vs optimisé")
+    plt.xlabel(r"$T$ [Gyr]")
+    plt.ylabel(r"$P$ [arbitrary units]")
+    plt.title("Evolution of Initial vs Optimized P(T) - Chapter 1")
     plt.grid(True, which="both", linestyle=":", linewidth=0.5)
     plt.legend()
     plt.tight_layout()

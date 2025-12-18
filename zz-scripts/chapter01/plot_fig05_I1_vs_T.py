@@ -13,6 +13,20 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 # Base du projet
 BASE = Path(__file__).resolve().parents[2]
 
@@ -96,9 +110,9 @@ def make_figure(
     ax.plot(T, I1, color="orange", label=r"$I_1 = P(T)/T$")
     ax.set_xscale("log")
     ax.set_yscale("log")
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel(r"$I_1$")
-    ax.set_title("Fig. 05 – Invariant adimensionnel $I_1$ en fonction de $T$")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$I_1 = P(T)/T$")
+    ax.set_title("Dimensionless Invariant $I_1$ vs Time")
     ax.grid(True, which="both", ls=":", lw=0.5)
     ax.legend()
 

@@ -41,6 +41,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -278,13 +292,13 @@ def main(args: Optional[argparse.Namespace] = None) -> None:
     # Tracé
     # ------------------------------------------------------------------
     fig, ax = plt.subplots(figsize=(8, 4.5), dpi=300)
-    ax.plot(T, P_init, "--", color="gray", linewidth=1.5, label="P(T) initiale")
-    ax.plot(T, P_opt, "-", color="tab:orange", linewidth=1.8, label="P(T) optimisée")
+    ax.plot(T, P_init, "--", color="gray", linewidth=1.5, label="Initial P(T)")
+    ax.plot(T, P_opt, "-", color="tab:orange", linewidth=1.8, label="Optimized P(T)")
 
     ax.set_xscale("log")
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel("P (unités arbitraires)")
-    ax.set_title("Fig. 04 – Évolution de P(T) initiale vs optimisée – Chapitre 1")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$P$ [arbitrary units]")
+    ax.set_title("Evolution of Initial vs Optimized P(T) - Chapter 1")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend(loc="best", frameon=False)
 

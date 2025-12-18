@@ -126,6 +126,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # Répertoires / chemins
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter02"
@@ -178,22 +189,22 @@ def main():
     )
 
     # 4.1 A_s(α)
-    ax1.plot(alpha, As, marker="o", linestyle="None", label="Données")
-    ax1.plot(alpha, As_fit, linestyle="-", linewidth=1.5, label="Fit ordre 2")
+    ax1.plot(alpha, As, marker="o", linestyle="None", label="Data")
+    ax1.plot(alpha, As_fit, linestyle="-", linewidth=1.5, label="2nd Order Fit")
     ax1.set_ylabel(r"$A_s(\alpha)$")
     ax1.grid(True, which="both", ls=":")
     ax1.legend()
 
     # 4.2 n_s(α)
-    ax2.plot(alpha, ns, marker="s", linestyle="None", label="Données")
-    ax2.plot(alpha, ns_fit, linestyle="-", linewidth=1.5, label="Fit ordre 2")
+    ax2.plot(alpha, ns, marker="s", linestyle="None", label="Data")
+    ax2.plot(alpha, ns_fit, linestyle="-", linewidth=1.5, label="2nd Order Fit")
     ax2.set_xlabel(r"$\alpha$")
     ax2.set_ylabel(r"$n_s(\alpha)$")
     ax2.grid(True, which="both", ls=":")
     ax2.legend()
 
     fig.suptitle(
-        r"Ajustement polynomial de $A_s(\alpha)$ et $n_s(\alpha)$",
+        r"Polynomial fit of $A_s(\alpha)$ and $n_s(\alpha)$",
         y=0.98,
     )
     fig.subplots_adjust(
@@ -201,7 +212,7 @@ def main():
         right=0.97,
         bottom=0.08,
         top=0.94,
-        hspace=0.30,
+        hspace=0.40,
     )
 
     # ------------------------------------------------------------------

@@ -45,6 +45,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # Racine du projet
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter02"
@@ -77,17 +88,17 @@ def main(args) -> None:
 
     # Tracé de la figure (log–log comme dans la version originale)
     fig, ax = plt.subplots()  # dpi géré via rcParams / args.dpi
-    ax.scatter(P_ref, P_calc, marker="o", color="grey", label="Jalons")
+    ax.scatter(P_ref, P_calc, marker="o", color="grey", label="Nodes")
 
     lim_min = min(P_ref.min(), P_calc.min())
     lim_max = max(P_ref.max(), P_calc.max())
-    ax.plot([lim_min, lim_max], [lim_min, lim_max], "--", color="black", label="Identité")
+    ax.plot([lim_min, lim_max], [lim_min, lim_max], "--", color="black", label="Identity")
 
     ax.set_xscale("log")
     ax.set_yscale("log")
-    ax.set_xlabel(r"$P_{\rm ref}$")
-    ax.set_ylabel(r"$P_{\rm calc}$")
-    ax.set_title("Fig. 02 – Diagramme de calibration – Chapitre 2")
+    ax.set_xlabel("Reference Value")
+    ax.set_ylabel("Calculated Value")
+    ax.set_title("Calibration Diagram - Chapter 2")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend()
 

@@ -23,6 +23,17 @@ from typing import Iterable
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # Répertoires
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter02"
@@ -153,23 +164,23 @@ def main(args=None) -> None:
             T[mask_primary],
             P[mask_primary],
             "o-",
-            label="Jalons primaires",
+            label="Primary nodes",
             linewidth=1.0,
         )
         ax.plot(
             T[mask_other],
             P[mask_other],
             "s-",
-            label="Jalons ordre 2",
+            label="Secondary nodes",
             linewidth=1.0,
         )
     else:
         ax.plot(T, P, "o-", label="P(T)")
 
     ax.set_xscale("log")
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel("P(T)")
-    ax.set_title("Fig. 01 – Évolution de P(T) – Chapitre 2")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$P(T)$")
+    ax.set_title("P(T) Evolution - Chapter 2")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend()
 

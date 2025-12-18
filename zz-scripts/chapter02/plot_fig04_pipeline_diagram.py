@@ -45,6 +45,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # Paths
 ROOT = Path( __file__).resolve().parents[ 2]
 FIG_DIR = ROOT / "zz-figures" / "chapter02"
@@ -55,10 +66,10 @@ ax.axis("off")
 
 # Define steps (text, x-center, y-center)
 steps = [
-    ("Lecture des jalons\n$(T_i, P_{\\rm ref})$", 0.1, 0.5),
-    ("Interpolation & intégration\n(02_P_vs_T_grid_data.dat)", 0.35, 0.5),
-    ("Optimisation\n(segmentation & pénalités)", 0.6, 0.5),
-    ("Export JSON &\nécarts", 0.85, 0.5),
+    ("Node Reading", 0.1, 0.5),
+    ("Interpolation & Integration", 0.35, 0.5),
+    ("Optimization", 0.6, 0.5),
+    ("JSON Export", 0.85, 0.5),
 ]
 width, height = 0.2, 0.15
 
@@ -82,7 +93,7 @@ for i in range(len(steps) - 1):
     y = steps[i][2]
     ax.annotate("", xy=(x1, y), xytext=(x0, y), arrowprops=dict(arrowstyle="->", lw=1))
 
-plt.title("Fig. 04 – Schéma de la chaîne de calibration\nChapitre 2", pad=20)
+plt.title("Calibration Pipeline Diagram - Chapter 2", pad=20)
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 safe_save(FIG_DIR / "02_fig_04_schema_pipeline.png")
 

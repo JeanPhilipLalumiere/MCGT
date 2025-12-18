@@ -24,6 +24,17 @@ from typing import List
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 # Répertoires
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter02"
@@ -147,9 +158,9 @@ def main(args=None) -> None:
             label = label_map.get(str(s), f"{s}")
             ax.plot(x, y, "-o", linewidth=1.3, markersize=3, label=label)
 
-        ax.set_xlabel(r"Ordre $n$")
+        ax.set_xlabel(r"Order $n$")
         ax.set_ylabel("Coefficient")
-        ax.set_title("Fig. 05 – Séries $F_n$ et $G_n$ – Chapitre 2")
+        ax.set_title("Series $F_n$ and $G_n$ - Chapter 2")
 
     else:
         # ------------------------------------------------------------------
@@ -188,7 +199,7 @@ def main(args=None) -> None:
 
         ax.set_xlabel(x_col)
         ax.set_ylabel("Amplitude")
-        ax.set_title("Fig. 05 – Séries F/G (fallback générique) – Chapitre 2")
+        ax.set_title("Series F/G (generic fallback) - Chapter 2")
 
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend()

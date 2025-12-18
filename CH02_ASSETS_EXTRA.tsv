@@ -167,8 +167,8 @@ chapter	kind	path	ext	basename	prefix	in_payload	cleanup_class
 2	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter02/02_primordial_spectrum_spec.json.lock.json	.json	02_primordial_spectrum_spec.json.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter02/02_relative_error_timeline.csv.lock.json	.json	02_relative_error_timeline.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	data	_autofix_sandbox/20251105T145604Z/attic/cleanup_20251029T134449Z/_attic_untracked/suffix_staging/20251028T203652Z/zz-data/chapter02/02_timeline_milestones.csv.lock.json	.json	02_timeline_milestones.csv.lock.json	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-2	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter02/fig_00_spectrum.png	.png	fig_00_spectrum.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-2	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter02/fig_04_schema_pipeline.png	.png	fig_04_schema_pipeline.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
+2	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter02/02_fig_00_spectrum.png	.png	fig_00_spectrum.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
+2	figures	_autofix_sandbox/20251105T145604Z/zz-figures/chapter02/02_fig_04_schema_pipeline.png	.png	fig_04_schema_pipeline.png	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter02/generate_data_chapter02.err	.err	generate_data_chapter02.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter02/generate_data_chapter02.out	.out	generate_data_chapter02.out	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-out/pass14_run/zz-scripts/chapter02/plot_fig00_spectrum.err	.err	plot_fig00_spectrum.err	_autofix_sandbox	False	SANDBOX_OR_ATTIC
@@ -214,7 +214,7 @@ chapter	kind	path	ext	basename	prefix	in_payload	cleanup_class
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-scripts/chapter02/__pycache__/plot_fig05_FG_series.cpython-312.pyc	.pyc	plot_fig05_FG_series.cpython-312.pyc	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-scripts/chapter02/__pycache__/plot_fig06_alpha_fit.cpython-312.pyc	.pyc	plot_fig06_alpha_fit.cpython-312.pyc	_autofix_sandbox	False	SANDBOX_OR_ATTIC
 2	scripts	_autofix_sandbox/20251105T145604Z/zz-scripts/chapter02/__pycache__/primordial_spectrum.cpython-312.pyc	.pyc	primordial_spectrum.cpython-312.pyc	_autofix_sandbox	False	SANDBOX_OR_ATTIC
-2	figures	_tmp/patch_cli_v1/zz-figures/chapter02/fig_04_schema_pipeline.png	.png	fig_04_schema_pipeline.png	_tmp	False	SANDBOX_OR_ATTIC
+2	figures	_tmp/patch_cli_v1/zz-figures/chapter02/02_fig_04_schema_pipeline.png	.png	fig_04_schema_pipeline.png	_tmp	False	SANDBOX_OR_ATTIC
 2	scripts	_tmp/patch_cli_v1/zz-scripts/chapter02/plot_fig00_spectrum.py	.py	plot_fig00_spectrum.py	_tmp	False	SANDBOX_OR_ATTIC
 2	scripts	_tmp/patch_cli_v1/zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py	.py	plot_fig01_P_vs_T_evolution.py	_tmp	False	SANDBOX_OR_ATTIC
 2	scripts	_tmp/patch_cli_v1/zz-scripts/chapter02/plot_fig02_calibration.py	.py	plot_fig02_calibration.py	_tmp	False	SANDBOX_OR_ATTIC

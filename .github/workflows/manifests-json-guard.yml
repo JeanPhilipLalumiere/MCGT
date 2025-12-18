@@ -4,9 +4,6 @@ permissions:
 name: manifests-json-guard
 
 on:
-concurrency:
-  group: .github/workflows/manifests-json-guard.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:
@@ -21,6 +18,9 @@ concurrency:
       - '.github/workflows/manifests-json-guard.yml'
       - '!**/*.md'
 
+concurrency:
+  group: .github/workflows/manifests-json-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest

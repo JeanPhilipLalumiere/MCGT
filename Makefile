@@ -110,7 +110,7 @@ docs-clean:
 # 	@echo "[SMOKE ch09] Figures minimales"
 # 	python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
 # 		--csv zz-data/chapter09/09_phases_mcgt.csv --meta zz-data/chapter09/09_metrics_phase.json \
-# 		--out zz-figures/chapter09/fig_01_phase_overlay.png --dpi 150 || true
+# 		--out zz-figures/chapter09/09_fig_01_phase_overlay.png --dpi 150 || true
 # 
 .PHONY: smoke-ch10
 # smoke-ch10:

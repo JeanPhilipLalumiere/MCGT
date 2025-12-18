@@ -15,8 +15,13 @@ python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
 """
 from __future__ import annotations
 
+
 import argparse
+import hashlib
+import shutil
+import tempfile
 import textwrap
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -54,6 +59,40 @@ def detect_p95_column(df: pd.DataFrame) -> str:
     )
 
 
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde fig en évitant de toucher le mtime si le PNG est identique.
+    Retourne True si le fichier a changé, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
+
+
 # ---------- main ----------
 def main() -> None:
     ap = argparse.ArgumentParser(
@@ -69,7 +108,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--out",
-        default="10_fig_05_hist_cdf_metrics.png",
+        default="zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
         help="PNG de sortie",
     )
     ap.add_argument(
@@ -129,6 +168,13 @@ def main() -> None:
         help="hauteur du zoom (fraction de l’axe principal)",
     )
     args = ap.parse_args()
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
+    outp = Path(args.out)
+    if outp.parent == Path("."):
+        outp = Path("zz-figures/chapter10") / outp.name
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    args.out = str(outp)
+
 
     # --- fichier par défaut si non fourni (pour le pipeline minimal) ---
     if args.results is None:
@@ -316,8 +362,9 @@ def main() -> None:
     plt.tight_layout(rect=[0, 0.14, 1, 0.98])
     fig.text(0.5, 0.04, foot, ha="center", va="bottom", fontsize=9)
 
-    fig.savefig(args.out, dpi=args.dpi)
-    print(f"Wrote : {args.out}")
+    updated = safe_save(args.out, fig, dpi=args.dpi)
+    status = "Wrote" if updated else "Unchanged (identique)"
+    print(f"{status} : {args.out}")
 
 
 if __name__ == "__main__":

@@ -33,3 +33,6 @@ ignore_list_round2.txt export-ignore
 review_list_round2.txt export-ignore
 README-REPRO.md export-ignore
 # --- end export-ignore (MCGT round2) ---
+*.csv text eol=lf
+*.tsv text eol=lf
+*.md  text eol=lf

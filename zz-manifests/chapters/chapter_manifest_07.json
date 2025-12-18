@@ -33,7 +33,7 @@
     ],
     "metas": [
       "zz-data/chapter07/07_perturbations_domain.meta.json",
-      "zz-figures/chapter07/fig_*.meta.json"
+      "zz-figures/chapter07/07_fig_*.meta.json"
     ],
     "others": [
       "07-perturbations-scalaires/CHAPTER7_GUIDE.txt"
@@ -50,7 +50,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter07/07_perturbations_domain.meta.json",
-    "zz-figures/chapter07/fig_*.meta.json"
+    "zz-figures/chapter07/07_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

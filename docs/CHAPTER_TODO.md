@@ -55,10 +55,10 @@ Aucun gap restant spécifique au chapitre 04.
   - `zz-data/chapter05/05_chi2_derivative.csv`
 
 - **files.figures** (4 manquants)
-  - `zz-figures/chapter05/fig_01_bbn_reaction_network.png`
-  - `zz-figures/chapter05/fig_02_dh_model_vs_obs.png`
-  - `zz-figures/chapter05/fig_03_yp_model_vs_obs.png`
-  - `zz-figures/chapter05/fig_04_chi2_vs_T.png`
+  - `zz-figures/chapter05/05_fig_01_bbn_reaction_network.png`
+  - `zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
+  - `zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png`
+  - `zz-figures/chapter05/05_fig_04_chi2_vs_T.png`
 
 - **files.metas** (1 manquants)
   - `zz-data/chapter05/05_bbn_chi2_vs_T.meta.json`
@@ -76,11 +76,11 @@ Aucun gap restant spécifique au chapitre 04.
   - `zz-data/chapter06/06_delta_rs_full_scan.csv`
 
 - **files.figures** (5 manquants)
-  - `zz-figures/chapter06/fig_01_cmb_dataflow_diagram.png`
-  - `zz-figures/chapter06/fig_02_cls_lcdm_vs_mcgt.png`
-  - `zz-figures/chapter06/fig_03_delta_cls_rel.png`
-  - `zz-figures/chapter06/fig_04_delta_rs_vs_params.png`
-  - `zz-figures/chapter06/fig_05_heatmap_delta_chi2.png`
+  - `zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png`
+  - `zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png`
+  - `zz-figures/chapter06/06_fig_03_delta_cls_rel.png`
+  - `zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png`
+  - `zz-figures/chapter06/06_fig_05_heatmap_delta_chi2.png`
 
 - **files.metas** (1 manquants)
   - `zz-data/chapter06/06_cmb_full_results.meta.json`
@@ -104,13 +104,13 @@ Aucun gap restant spécifique au chapitre 04.
   - `zz-data/chapter07/07_scalar_perturbations_params.json`
 
 - **files.figures** (7 manquants)
-  - `zz-figures/chapter07/fig_01_heatmap_cs2_k_a.png`
-  - `zz-figures/chapter07/fig_02_heatmap_delta_phi_k_a.png`
-  - `zz-figures/chapter07/fig_03_invariant_I1.png`
-  - `zz-figures/chapter07/fig_04_dcs2_dk_vs_k.png`
-  - `zz-figures/chapter07/fig_05_ddelta_phi_dk_vs_k.png`
-  - `zz-figures/chapter07/fig_06_comparison.png`
-  - `zz-figures/chapter07/fig_07_invariant_I2.png`
+  - `zz-figures/chapter07/07_fig_01_heatmap_cs2_k_a.png`
+  - `zz-figures/chapter07/07_fig_02_heatmap_delta_phi_k_a.png`
+  - `zz-figures/chapter07/07_fig_03_invariant_I1.png`
+  - `zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png`
+  - `zz-figures/chapter07/07_fig_05_ddelta_phi_dk_vs_k.png`
+  - `zz-figures/chapter07/07_fig_06_comparison.png`
+  - `zz-figures/chapter07/07_fig_07_invariant_I2.png`
 
 - **files.metas** (1 manquants)
   - `zz-data/chapter07/07_perturbations_domain.meta.json`
@@ -134,13 +134,13 @@ Aucun gap restant spécifique au chapitre 04.
   - `zz-data/chapter08/08_mu_theory_vs_z.csv`
 
 - **files.figures** (7 manquants)
-  - `zz-figures/chapter08/fig_01_chi2_total_vs_q0.png`
-  - `zz-figures/chapter08/fig_02_dv_vs_z.png`
-  - `zz-figures/chapter08/fig_03_mu_vs_z.png`
-  - `zz-figures/chapter08/fig_04_heatmap_chi2.png`
-  - `zz-figures/chapter08/fig_05_residuals.png`
-  - `zz-figures/chapter08/fig_06_pulls.png`
-  - `zz-figures/chapter08/fig_07_chi2_profile.png`
+  - `zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
+  - `zz-figures/chapter08/08_fig_02_dv_vs_z.png`
+  - `zz-figures/chapter08/08_fig_03_mu_vs_z.png`
+  - `zz-figures/chapter08/08_fig_04_heatmap_chi2.png`
+  - `zz-figures/chapter08/08_fig_05_residuals.png`
+  - `zz-figures/chapter08/08_fig_06_pulls.png`
+  - `zz-figures/chapter08/08_fig_07_chi2_profile.png`
 
 - **files.metas** (1 manquants)
   - `zz-data/chapter08/08_chi2_scan2d.meta.json`
@@ -158,11 +158,11 @@ Aucun gap restant spécifique au chapitre 04.
   - `zz-data/chapter09/09_phase_difference.csv`
 
 - **files.figures** (5 manquants)
-  - `zz-figures/chapter09/fig_01_phase_overlay.png`
-  - `zz-figures/chapter09/fig_02_residual_phase.png`
-  - `zz-figures/chapter09/fig_03_hist_abs_dphi_20_300.png`
-  - `zz-figures/chapter09/fig_04_milestones_abs_dphi_vs_f.png`
-  - `zz-figures/chapter09/fig_05_scatter_phi_at_fpeak.png`
+  - `zz-figures/chapter09/09_fig_01_phase_overlay.png`
+  - `zz-figures/chapter09/09_fig_02_residual_phase.png`
+  - `zz-figures/chapter09/09_fig_03_hist_abs_dphi_20_300.png`
+  - `zz-figures/chapter09/09_fig_04_milestones_abs_dphi_vs_f.png`
+  - `zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png`
 
 - **files.metas** (1 manquants)
   - `zz-data/chapter09/09_metrics_phase.meta.json`

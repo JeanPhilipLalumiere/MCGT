@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# generer_donnees_chapitre3.py
+# generer_donnees_chapter3.py
 
 """
 Chapitre 3 – Pipeline intégral (v3.2.0)

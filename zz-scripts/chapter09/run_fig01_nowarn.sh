@@ -3,7 +3,7 @@ set -euo pipefail
 mkdir -p _tmp zz-figures/chapter09
 SRC="zz-data/chapter09/09_metrics_phase.json"
 SAN="_tmp/ch09_meta_sanitized.json"
-OUT="zz-figures/chapter09/fig_01_phase_overlay.png"
+OUT="zz-figures/chapter09/09_fig_01_phase_overlay.png"
 
 python - <<'PY'
 import json, pathlib
@@ -39,7 +39,7 @@ sys.argv = [
   "plot_fig01_phase_overlay.py",
   "--csv",  "zz-data/chapter09/09_phases_mcgt.csv",
   "--meta", "_tmp/ch09_meta_sanitized.json",
-  "--out",  "zz-figures/chapter09/fig_01_phase_overlay.png",
+  "--out",  "zz-figures/chapter09/09_fig_01_phase_overlay.png",
   "--dpi",  "150",
 ]
 logging.basicConfig()

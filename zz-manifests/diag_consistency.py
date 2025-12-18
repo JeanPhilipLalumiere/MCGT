@@ -4,7 +4,7 @@ diag_consistency.py — Audit de manifeste + cohérence transverse MCGT (règles
 
 Fonctions principales
 ---------------------
-- Vérifie chaque entrée de `entries[]` dans le manifeste (existence, taille, sha256,
+- Vérifie chaque entrée de `entries[]` OU `files[]` dans le manifeste (existence, taille, sha256,
   mtime ISO-UTC, git hash facultatif, chemins RELATIFS).
 - Lit des règles de cohérence (zz-schemas/consistency_rules.json) et exécute des
   contrôles de contenu sur certains JSON/CSV référencés (constantes canoniques,
@@ -184,6 +184,41 @@ def try_get(d: dict[str, Any], keys: list[str], default=None):
     return default
 
 
+# ------------------------- Manifeste: entries[] OU files[] -------------------------
+
+
+def normalize_manifest_items(obj: dict[str, Any]) -> tuple[str, list[dict[str, Any]]]:
+    """
+    Détecte la liste d’items du manifeste: 'entries' ou 'files'.
+    Normalise chaque item en dict (si un item est une string -> {'path': item}).
+    Retourne (key, items).
+    """
+    if not isinstance(obj, dict):
+        raise ValueError("Manifest root must be a JSON object (dict).")
+
+    key: str | None = None
+    if isinstance(obj.get("entries"), list):
+        key = "entries"
+    elif isinstance(obj.get("files"), list):
+        key = "files"
+
+    if key is None:
+        raise ValueError("Unexpected manifest format: expected 'entries'[] or 'files'[] at root.")
+
+    raw = obj.get(key, [])
+    items: list[dict[str, Any]] = []
+    for it in raw:
+        if isinstance(it, dict):
+            items.append(it)
+        elif isinstance(it, str):
+            items.append({"path": it})
+        else:
+            raise ValueError(f"Unexpected item type in manifest.{key}[]: {type(it).__name__}")
+
+    obj[key] = items
+    return key, items
+
+
 # ------------------------- Vérification d'une entrée du manifeste -------------------------
 
 
@@ -191,9 +226,7 @@ def _compare_field(stored: Any, computed: Any) -> bool:
     return stored == computed
 
 
-def compute_info(
-    repo_root: Path, rel_path: str
-) -> tuple[dict[str, Any] | None, Issue | None]:
+def compute_info(repo_root: Path, rel_path: str) -> tuple[dict[str, Any] | None, Issue | None]:
     p = Path(rel_path)
     if p.is_absolute():
         return None, Issue(
@@ -219,9 +252,7 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
     rel = e.get("path", "")
     rel_ok = ensure_relative(Path(rel))
     if not rel_ok:
-        issues.append(
-            Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel)
-        )
+        issues.append(Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel))
 
     info, err = compute_info(repo_root, rel)
     if err:
@@ -285,9 +316,7 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
             )
         )
     elif gh_comp is None:
-        issues.append(
-            Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel)
-        )
+        issues.append(Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel))
     elif not git_ok:
         issues.append(
             Issue(
@@ -305,23 +334,13 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
 # ------------------------- I/O manifeste -------------------------
 
 
-def _migrate_files_to_entries(obj: dict[str, Any]) -> dict[str, Any]:
-    """Migration legacy: convertit 'files' → 'entries' si nécessaire."""
-    if isinstance(obj, dict) and "entries" not in obj and "files" in obj:
-        ent: list[dict[str, Any]] = []
-        for it in obj.get("files", []):
-            if isinstance(it, dict):
-                ent.append(it)
-            elif isinstance(it, str):
-                ent.append({"path": it})
-        obj["entries"] = ent
-        obj.pop("files", None)
-    return obj
-
-
-def load_manifest(path: Path) -> dict[str, Any]:
+def load_manifest(path: Path) -> tuple[dict[str, Any], str]:
     with path.open("r", encoding="utf-8") as f:
-        return _migrate_files_to_entries(json.load(f))
+        obj = json.load(f)
+    if not isinstance(obj, dict):
+        raise ValueError("Manifest root must be a JSON object (dict).")
+    key, _items = normalize_manifest_items(obj)
+    return obj, key
 
 
 def write_manifest_atomic(path: Path, obj: dict[str, Any]) -> None:
@@ -331,9 +350,7 @@ def write_manifest_atomic(path: Path, obj: dict[str, Any]) -> None:
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(obj, f, indent=2, ensure_ascii=False)
             f.write("\n")
-        bak = path.with_suffix(
-            path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
-        )
+        bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
         if path.exists():
             shutil.copy2(path, bak)
         shutil.move(str(tmp), str(path))
@@ -367,11 +384,7 @@ def build_report(
         else:
             warnings += 1
         issues.append(asdict(it))
-    rep = {
-        "errors": errors,
-        "warnings": warnings,
-        "issues": issues,
-    }
+    rep = {"errors": errors, "warnings": warnings, "issues": issues}
     if rules_meta:
         rep["rules"] = rules_meta
     return rep
@@ -387,9 +400,7 @@ def print_report(report: dict[str, Any], mode: str, stream=sys.stdout) -> None:
         stream.write(f"- Errors: **{report['errors']}**\n")
         stream.write(f"- Warnings: **{report['warnings']}**\n\n")
         if report.get("rules"):
-            stream.write(
-                f"- Rules version: `{report['rules'].get('schema_version', 'n/a')}`\n\n"
-            )
+            stream.write(f"- Rules version: `{report['rules'].get('schema_version', 'n/a')}`\n\n")
         if report["issues"]:
             stream.write("| Sev | Code | Entry | Path | Message |\n")
             stream.write("|-----|------|-------|------|---------|\n")
@@ -415,19 +426,26 @@ def print_report(report: dict[str, Any], mode: str, stream=sys.stdout) -> None:
 
 def apply_fixes(
     manifest: dict[str, Any],
+    list_key: str,
     results: list[EntryCheck],
     repo_root: Path,
     normalize_paths: bool,
     strip_internal: bool,
 ) -> int:
     updated = 0
+    items: list[dict[str, Any]] = manifest.get(list_key, [])
+
     for r in results:
         if not r.exists:
             continue
-        e = manifest["entries"][r.idx]
-        info, err = compute_info(repo_root, e["path"])
-        if err:
+        if r.idx < 0 or r.idx >= len(items):
             continue
+
+        e = items[r.idx]
+        info, err = compute_info(repo_root, e.get("path", ""))
+        if err or info is None:
+            continue
+
         # Remplir/corriger champs techniques
         for key in ("size_bytes", "sha256", "mtime_iso"):
             if e.get(key) != info[key]:
@@ -436,26 +454,35 @@ def apply_fixes(
         if e.get("git_hash") != info["git_hash"]:
             e["git_hash"] = info["git_hash"]
             updated += 1
+
         # Normaliser chemins additionnels s'ils existent
         if normalize_paths:
             if "_found_path" in e:
                 e["_found_path"] = str(Path(e["_found_path"]).name)
                 updated += 1
             if "found_path_rel" in e:
-                e["found_path_rel"] = e["path"]
+                e["found_path_rel"] = e.get("path", "")
                 updated += 1
+
         if strip_internal:
             for k in list(e.keys()):
                 if k.startswith("_"):
                     del e[k]
                     updated += 1
-    # Top-level
-    manifest["generated_at"] = utc_now_iso()
-    manifest["total_entries"] = len(manifest.get("entries", []))
-    manifest["total_size_bytes"] = int(
-        sum((e.get("size_bytes") or 0) for e in manifest.get("entries", []))
-    )
-    manifest["entries_updated"] = updated
+
+    # Top-level: on évite de “forcer” un schema, on s’adapte.
+    if list_key == "entries":
+        manifest["generated_at"] = utc_now_iso()
+        manifest["total_entries"] = len(items)
+        manifest["total_size_bytes"] = int(sum((e.get("size_bytes") or 0) for e in items))
+        manifest["entries_updated"] = updated
+    else:
+        # schema 'files' (actuel): on ne convertit pas, on reste discret.
+        manifest["files_updated"] = updated
+        # Si un champ timestamp existe déjà, on le met à jour *seulement* s’il n’est pas volontairement __LOCAL__.
+        if "generatedAt" in manifest and str(manifest.get("generatedAt")).strip() != "__LOCAL__":
+            manifest["generatedAt"] = utc_now_iso()
+
     return updated
 
 
@@ -463,17 +490,17 @@ def apply_fixes(
 
 
 def apply_aliases_to_manifest_paths(
-    manifest: dict[str, Any], repo_root: Path, rules: dict[str, Any]
+    manifest: dict[str, Any], list_key: str, repo_root: Path, rules: dict[str, Any]
 ) -> int:
     """Remplace e['path'] via les alias, si le fichier existe au chemin normalisé."""
     updated = 0
-    for idx, e in enumerate(manifest.get("entries", [])):
+    for idx, e in enumerate(manifest.get(list_key, [])):
         rel = e.get("path", "")
         norm = normalize_path_aliases(rel, rules)
         if norm != rel and (repo_root / norm).exists():
             e["path"] = norm
             updated += 1
-    if updated:
+    if updated and "generated_at" in manifest:
         manifest["generated_at"] = utc_now_iso()
     return updated
 
@@ -499,6 +526,7 @@ def _check_canonical_constants(
     issues: list[Issue] = []
     canon = rules.get("canonical_constants", {})
     toler = rules.get("tolerances", {})
+
     # H0
     H0 = try_get(json_obj, ["H0", "cosmo.H0"])
     if H0 is not None and "H0" in canon:
@@ -513,6 +541,7 @@ def _check_canonical_constants(
                     rel,
                 )
             )
+
     # A_s0 / As0
     As = try_get(json_obj, ["A_s0", "As0", "primordial.A_s0"])
     if As is not None and "A_s0" in canon:
@@ -527,6 +556,7 @@ def _check_canonical_constants(
                     rel,
                 )
             )
+
     # n_s0 / ns0
     ns = try_get(json_obj, ["n_s0", "ns0", "primordial.ns0"])
     if ns is not None and "ns0" in canon:
@@ -541,6 +571,7 @@ def _check_canonical_constants(
                     rel,
                 )
             )
+
     return issues
 
 
@@ -692,30 +723,23 @@ def _check_csv_milestones(
                 rows_out.append(row)
 
         if fix_content and changed and rows_out:
-            bak = path.with_suffix(
-                path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
-            )
+            bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
             shutil.copy2(path, bak)
             with path.open("w", encoding="utf-8", newline="") as fw:
                 writer = csv.DictWriter(fw, fieldnames=rows_out[0].keys())
                 writer.writeheader()
                 writer.writerows(rows_out)
     except FileNotFoundError:
-        issues.append(
-            _content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel)
-        )
+        issues.append(_content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel))
     except Exception as e:
-        issues.append(
-            _content_issue(
-                "ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel
-            )
-        )
+        issues.append(_content_issue("ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel))
 
     return issues
 
 
 def run_content_checks(
     manifest: dict[str, Any],
+    list_key: str,
     repo_root: Path,
     rules: dict[str, Any],
     do_checks: bool,
@@ -744,8 +768,8 @@ def run_content_checks(
     metrics_phase_suffix = ("chapter09/09_metrics_phase.json",)
     milestones_csv_suffix = ("chapter09/09_comparison_milestones.csv",)
 
-    # Parcours des entrées du manifeste
-    for idx, e in enumerate(manifest.get("entries", [])):
+    # Parcours des entrées/files du manifeste
+    for idx, e in enumerate(manifest.get(list_key, [])):
         rel = e.get("path", "")
         if not rel:
             continue
@@ -776,11 +800,7 @@ def run_content_checks(
         ):
             jobj = _read_json(full)
             if jobj is None:
-                issues.append(
-                    _content_issue(
-                        "ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel
-                    )
-                )
+                issues.append(_content_issue("ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel))
             else:
                 issues += _check_canonical_constants(jobj, rules, idx, rel)
                 issues += _check_thresholds(jobj, rules, idx, rel)
@@ -831,30 +851,16 @@ def gpg_sign(path: Path) -> Path | None:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(
-        description="Manifest audit + transverse consistency checks for MCGT."
-    )
-    p.add_argument(
-        "manifest",
-        help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)",
-    )
+    p = argparse.ArgumentParser(description="Manifest audit + transverse consistency checks for MCGT.")
+    p.add_argument("manifest", help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)")
     p.add_argument("--repo-root", default=".", help="Racine du dépôt (défaut: .)")
     p.add_argument(
         "--rules",
         default="zz-schemas/consistency_rules.json",
         help="Fichier de règles de cohérence",
     )
-    p.add_argument(
-        "--report",
-        choices=["text", "json", "md"],
-        default="text",
-        help="Format du rapport",
-    )
-    p.add_argument(
-        "--fix",
-        action="store_true",
-        help="Applique les corrections techniques et réécrit le manifeste",
-    )
+    p.add_argument("--report", choices=["text", "json", "md"], default="text", help="Format du rapport")
+    p.add_argument("--fix", action="store_true", help="Applique les corrections techniques et réécrit le manifeste")
     p.add_argument(
         "--normalize-paths",
         action="store_true",
@@ -876,16 +882,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default="errors",
         help="Politique d'échec (code retour)",
     )
-    p.add_argument(
-        "--sha256-out",
-        action="store_true",
-        help="Écrit un fichier .sha256sum du manifeste",
-    )
-    p.add_argument(
-        "--gpg-sign",
-        action="store_true",
-        help="Génère une signature GPG détachée (.sig)",
-    )
+    p.add_argument("--sha256-out", action="store_true", help="Écrit un fichier .sha256sum du manifeste")
+    p.add_argument("--gpg-sign", action="store_true", help="Génère une signature GPG détachée (.sig)")
     # Nouveaux contrôles / corrections
     p.add_argument(
         "--content-check",
@@ -913,7 +911,7 @@ def main(argv: list[str]) -> int:
     manifest_path = Path(args.manifest).resolve()
     repo_root = Path(args.repo_root).resolve()
 
-    manifest = load_manifest(manifest_path)
+    manifest, list_key = load_manifest(manifest_path)
 
     # Enforce repository_root if requested
     if args.set_repo_root:
@@ -932,21 +930,22 @@ def main(argv: list[str]) -> int:
 
     # Optionally normalize paths using aliases
     if rules and args.apply_aliases:
-        updated = apply_aliases_to_manifest_paths(manifest, repo_root, rules)
-        if updated:
+        updated_aliases = apply_aliases_to_manifest_paths(manifest, list_key, repo_root, rules)
+        if updated_aliases:
             manifest.setdefault("notes", [])
             manifest["notes"].append(
-                f"apply_aliases: {updated} paths normalized at {utc_now_iso()}"
+                f"apply_aliases: {updated_aliases} paths normalized at {utc_now_iso()}"
             )
 
     # Per-entry technical checks
     checks: list[EntryCheck] = []
-    for idx, e in enumerate(manifest.get("entries", [])):
+    for idx, e in enumerate(manifest.get(list_key, [])):
         checks.append(check_entry(e, idx, repo_root))
 
     # Transverse content checks
     content_issues: list[Issue] = run_content_checks(
         manifest,
+        list_key,
         repo_root,
         rules,
         do_checks=(args.content_check or bool(rules)),
@@ -962,19 +961,19 @@ def main(argv: list[str]) -> int:
     if args.fix:
         updated = apply_fixes(
             manifest,
+            list_key,
             checks,
             repo_root,
             normalize_paths=args.normalize_paths,
             strip_internal=args.strip_internal,
         )
         manifest.setdefault("manifest_tool_version", "diag_consistency.py")
-        manifest.setdefault(
-            "generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown"
-        )
+        manifest.setdefault("generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown")
         write_manifest_atomic(manifest_path, manifest)
+
+        upd_key = "entries_updated" if list_key == "entries" else "files_updated"
         print(
-            f"\nWrote: {manifest_path}  (entries_updated={manifest.get('entries_updated')}, "
-            f"total_size_bytes={manifest.get('total_size_bytes')})"
+            f"\nWrote: {manifest_path}  ({upd_key}={manifest.get(upd_key)}, updated_fields={updated})"
         )
 
     # Optional outputs
@@ -992,9 +991,7 @@ def main(argv: list[str]) -> int:
     code = 0
     if args.fail_on == "errors" and report["errors"] > 0:
         code = 3
-    elif args.fail_on == "warnings" and (
-        report["errors"] > 0 or report["warnings"] > 0
-    ):
+    elif args.fail_on == "warnings" and (report["errors"] > 0 or report["warnings"] > 0):
         code = 2
     else:
         code = 0

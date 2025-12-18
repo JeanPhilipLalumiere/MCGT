@@ -1,154 +1,117 @@
-# --- Environnements virtuels / caches Python
+cd "$(git rev-parse --show-toplevel)"
+
+cat > .gitignore <<'EOF'
+# MCGT - .gitignore
+# Règles focalisées sur les artefacts générés / locaux (éviter d’attraper du contenu versionné).
+
+# -------------------------------------------------------------------
+# Python / environnements / caches
+# -------------------------------------------------------------------
+.venv/
 .venv*/
+venv/
 venv*/
 __pycache__/
+*.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
 
-# --- Artefacts internes au projet / temporaires / archives
-_tmp/
-_archives_preclean/
-zz-figures/
-legacy-tex/
-*.dist-info/
-*.egg-info/
+# -------------------------------------------------------------------
+# Build / packaging (générés)
+# -------------------------------------------------------------------
 build/
 dist/
-# --- Fichiers compilés / binaires / archives
-*.pyc
-*.so
-*.dll
-*.dylib
-*.o
-*.a
-*.tar
-*.tar.gz
-*.tgz
-*.zip
-*.whl
-# --- Visuels lourds (générés)
-*.png
-*.svg
-*.pdf
-*.jpg
-*.jpeg
-*.gif
-*.eps
-# --- Backups / passes / fichiers atelier (conservateur)
-*.bak
-*.bak.*
-*.pass*
-zz-tools/
-create_and_run_smoke_workflow.sh
-garde_fou_universal_v5.sh
-restore_add_safe.sh
-run_housekeeping_capture.sh
-script_patch_publish_safe.sh
-zz-scripts/chapter09/run_fig01_nowarn.sh
-step-01-candidates.txt
-# --- Artefacts ponctuels locaux de diag
-.diag_last_failed.json
-.last_run_id
-.purge_check.txt
-# --- Historiques/variantes CI (si présents)
-.github/workflows/publish.yml.before_*
-.pre-commit-config.yaml.*_bak*
-# Logs & artefacts locaux (ne pas versionner)
+*.egg-info/
+*.dist-info/
+
+# -------------------------------------------------------------------
+# Artefacts générés par le projet (locaux)
+# -------------------------------------------------------------------
+_tmp/
+_tmp-figs/
 _logs/
-.ci-logs/
+_snapshots/
+_archives_preclean/
+_attic_untracked/
+_autofix_sandbox/
+
+# Sorties CI / diag
 .ci-out/
+.ci-logs/
+.ci-archive/
+
+# Sorties de runs (gros artefacts)
+zz-out/
+zz-logs/
+
+# Backups locaux
+backups/
+
+# -------------------------------------------------------------------
+# Fichiers temporaires / éditeurs / OS
+# -------------------------------------------------------------------
 *.log
 *.stderr
 *.stdout
-# env & artefacts locaux
-.venv/
-backups/
-*.save
-*.swp
-.ci-archive/
-# --- Round2 (20251028T181638Z) additions ---
-# === Proposition complémentaire (Round2: 20251028T181549Z) ===
-**/*.bak*
-**/*.err
-**/*.log
-**/*.out
-**/*.tar.gz
-**/*.zip
-zz_tools.egg-info/
-# === Proposition complémentaire (Round2: 20251028T182912Z) ===
-# === Proposition complémentaire (Round2: 20251028T182855Z) ===
-# ---- mcgt: merged from _tmp/inventaires/gitignore_proposition_round2.txt (2025-10-28)
-# === Proposition complémentaire (Round2: 20251028T192430Z) ===
-./.ci-out
-./_logs
-./_snapshots
-./_tmp
-./_tmp-figs
-./backups
-./dist
-./zz-out
-./zz_tools.egg-info
-# ---- mcgt: merged step9 (2025-10-28)
-# ---- mcgt: auto-added (step9) backups/tmp patterns
-.github/workflows/*tmp*
-.github/workflows/*before_*
+*.err
+*.out
 *.tmp
-*.disabled
 *.old
 *.orig
 *.rej
-*.lock.json
-*~
-# ---- mcgt: merged suffix patterns (20251028T203652Z)
-# step11 suffix patterns (idempotent)
-*.swo
-.DS_Store
-*.ipynb_checkpoints*
-_attic_untracked/
-_autofix_sandbox/
-.ci-out*
-# >>> no-backups guard
-# Ignorer backups/parasites partout (non destructif pour le working tree)
 *.bak
 *.bak_*
-*.old
-*.orig
-*.tmp
-*~
-# Emacs autosave/locks
-#*#
-.*~
-# Vim swaps
+*.bak.*
+*.save
 *.swp
 *.swo
-# <<< no-backups guard
+*~
+.DS_Store
+
+# -------------------------------------------------------------------
+# GitHub workflows: fichiers temporaires / backups seulement
+# -------------------------------------------------------------------
+.github/workflows/*.tmp
+.github/workflows/*.bak*
+.github/workflows/*.before_*
+.github/workflows/*.disabled
+
+# -------------------------------------------------------------------
+# Sidecars / verrous générés (non versionnés)
+# -------------------------------------------------------------------
 *.sha256sum
-local/
-# Local packaging helpers
-resolve_twine_license_error.sh
-twine_fix_v2.sh
-finalize_packaging.sh
-finalize_packaging_v2.sh
-dist_doctor.sh
-sanitize_metadata.sh
-repair_pkg_metadata.sh
-spdx_futureproof_patch.sh
+*.lock.json
 
-# local helpers
-add_testpypi_readme.sh
-add_pypi_stable_install_and_badge.sh
-bump_*_and_publish.sh
-publish_pypi_release.sh
-pypi_upload_*.sh
-dist_doctor.sh
-finalize_packaging.sh
-resolve_twine_license_error.sh
-sanitize_metadata.sh
-spdx_futureproof_patch.sh
-repair_pkg_metadata.sh
-zz-out/
+# Exceptions: on versionne ces sha256 malgré "*.sha256sum"
+!zz-manifests/manifest_publication.sha256sum
+!zz-manifests/manifest_data.sha256sum
+!zz-manifests/manifest_figures.sha256sum
+!zz-manifests/manifest_master.json.sha256sum
 
-# Logs locaux générés par les garde-fous MCGT
-zz-logs/
+# -------------------------------------------------------------------
+# Legacy / archives locales (si gardées localement)
+# -------------------------------------------------------------------
+legacy-tex/
+release_zenodo_codeonly*/
+release_zenodo_codeonly_v*/
+release_*.tar.gz
+
+# -------------------------------------------------------------------
+# Housekeeping / manifest refresh (locaux)
+# -------------------------------------------------------------------
+attic/
+zz-manifests/_backups/
+
+# -------------------------------------------------------------------
+# Leaks locaux (ne pas versionner)
+# -------------------------------------------------------------------
+zz-figures/**/_attic_root_leaks/
+
+# -------------------------------------------------------------------
+# Trackés volontairement (ne doivent pas être "ignorés")
+# -------------------------------------------------------------------
+!zz-manifests/figures_index.csv
+!zz-manifests/figures_per_chapter.md
+EOF

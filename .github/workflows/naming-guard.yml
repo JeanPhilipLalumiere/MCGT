@@ -3,9 +3,6 @@ permissions:
   contents: read
 name: naming-guard
 on:
-concurrency:
-  group: .github/workflows/naming-guard.yml-${{ github.ref }}
-  cancel-in-progress: true
   push:
     branches: [ main ]
     paths:
@@ -25,6 +22,9 @@ concurrency:
       - 'tools/ci_step4_guard_naming.sh'
       - '.github/workflows/naming-guard.yml'
       - '!**/*.md'
+concurrency:
+  group: .github/workflows/naming-guard.yml-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   guard:
     runs-on: ubuntu-latest

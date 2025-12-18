@@ -1,3 +1,41 @@
+import hashlib
+import shutil
+import tempfile
+import matplotlib.pyplot as _plt
+from pathlib import Path as _SafePath
+
+def _sha256(path: _SafePath) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+def safe_save(filepath, fig=None, **savefig_kwargs):
+    path = _SafePath(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = _SafePath(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                _plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        _plt.savefig(path, **savefig_kwargs)
+    return True
+
 #!/usr/bin/env python3
 """Fig. 01 – Pipeline de génération des données CMB (Chapitre 6)."""
 
@@ -120,7 +158,7 @@ def main(args) -> None:
 
     # --- Finalize and save ---
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
-    fig.savefig(out_path, dpi=args.dpi, transparent=args.transparent)
+    safe_save(out_path, dpi=args.dpi, transparent=args.transparent)
     logger.info("Schéma enregistré → %s", out_path)
 
 
@@ -189,7 +227,7 @@ if __name__ == "__main__":
         args = parser.parse_args()
 
         try:
-            # Résolution de l'outdir (ENV prioritaire, puis défaut chapitre 6)
+            # Résolution de l'outdir (ENV prioritaire, puis défaut chapter 6)
             if args.outdir is None:
                 env_outdir = os.environ.get("MCGT_OUTDIR")
                 if env_outdir:

@@ -1,21 +1,25 @@
-# added by policies_guard_common_fixes
+name: quality-guards
+
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+
+concurrency:
+  group: quality-guards-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
-name: quality-guards
-on: [push, pull_request]
-  workflow_dispatch:
-  pull_request:
-concurrency:
-  group: .github/workflows/quality-guards.yml-${{ github.ref }}
-  cancel-in-progress: true
+
 jobs:
   perms-and-shebang:
     runs-on: ubuntu-latest
-    # removed temporary soften (rewrite/*)
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Non-shebang executables
         run: |
           set -euo pipefail
@@ -24,6 +28,7 @@ jobs:
             head -n1 "$f" | grep -q '^#!' || { echo "❌ Exécutable sans shebang: $f"; bad=1; }
           done < <(find . -path ./.git -prune -o -type f -perm -111 -print0)
           [ "$bad" -eq 0 ] && echo "✅ OK: tous les exécutables ont un shebang" || exit 1
+
       - name: Assets avec bit exécutable (interdit)
         run: |
           set -euo pipefail

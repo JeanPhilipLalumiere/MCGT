@@ -9,6 +9,9 @@ import argparse
 import os
 import sys
 import traceback
+import hashlib
+import shutil
+import tempfile
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -21,6 +24,40 @@ FIG_DIR = ROOT / "zz-figures" / "chapter01"
 
 DATA_FILE = DATA_DIR / "01_optimized_data.csv"
 DEFAULT_FIG_NAME = "01_fig_01_early_plateau.png"
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde en évitant de toucher le mtime si le rendu est identique.
+    Retourne True si le fichier a changé, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
 
 
 def main(args: argparse.Namespace) -> None:
@@ -87,16 +124,17 @@ def main(args: argparse.Namespace) -> None:
             )
         return
 
-    # Sauvegarde avec les paramètres CLI homogenes (dpi/format/transparent)
-    fig.savefig(
+    changed = safe_save(
         output_path,
+        fig,
         dpi=args.dpi,
         format=args.format,
         transparent=args.transparent,
     )
 
     if args.verbose:
-        print(f"[plot_fig01_early_plateau] figure enregistrée → {output_path}")
+        status = "enregistrée" if changed else "inchangée (hash identique)"
+        print(f"[plot_fig01_early_plateau] figure {status} → {output_path}")
 
 
 # === MCGT CLI SEED v2 (homogène) ===

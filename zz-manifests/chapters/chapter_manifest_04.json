@@ -24,7 +24,7 @@
     ],
     "metas": [
       "zz-data/chapter04/04_dimensionless_invariants.meta.json",
-      "zz-figures/chapter04/fig_*.meta.json"
+      "zz-figures/chapter04/04_fig_*.meta.json"
     ],
     "others": [
       "04-invariants-adimensionnels/CHAPTER4_GUIDE.txt"
@@ -39,7 +39,7 @@
   ],
   "meta_expected": [
     "zz-data/chapter04/04_dimensionless_invariants.meta.json",
-    "zz-figures/chapter04/fig_*.meta.json"
+    "zz-figures/chapter04/04_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

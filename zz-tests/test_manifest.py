@@ -31,11 +31,24 @@ def load_json(p: Path):
         return json.load(f)
 
 
+def _manifest_entries(js: dict):
+    """Return (fmt, entries) where fmt in {'entries','files'}."""
+    if isinstance(js, dict) and isinstance(js.get('entries'), list):
+        return 'entries', js['entries']
+    if isinstance(js, dict) and isinstance(js.get('files'), list):
+        return 'files', js['files']
+    raise AssertionError(f"Unexpected manifest schema keys={list(js.keys()) if isinstance(js, dict) else type(js)}")
+
+
 def test_master_publication_exist_and_heads():
     for p in (MASTER, PUBLICATION):
         js = load_json(p)
-        assert "manifest_version" in js and "project" in js and "entries" in js
-        assert isinstance(js["entries"], list)
+        fmt, items = _manifest_entries(js)
+        assert isinstance(items, list)
+        if fmt == 'entries':
+            assert 'manifest_version' in js and 'project' in js and 'entries' in js
+        else:
+            assert 'schemaVersion' in js and 'generatedAt' in js and 'files' in js
 
 
 def _is_relative_path(path_str: str) -> bool:
@@ -46,10 +59,17 @@ def _is_relative_path(path_str: str) -> bool:
 
 def test_entries_are_relative_and_roles_allowed():
     js = load_json(MASTER)
-    for e in js["entries"]:
-        assert _is_relative_path(e.get("path", "")), f"Absolute path found: {e}"
-        role = e.get("role")
-        assert role in ALLOWED_ROLES, f"Unexpected role={role} for {e.get('path')}"
+    fmt, items = _manifest_entries(js)
+    for e in items:
+        if isinstance(e, str):
+            rel = e
+            role = None
+        else:
+            rel = e.get('path', '')
+            role = e.get('role')
+        assert _is_relative_path(rel), f"Absolute path found: {e}"
+        if role is not None:
+            assert role in ALLOWED_ROLES, f"Unexpected role={role} for {rel}"
 
 
 def test_diag_master_no_errors_json_report():

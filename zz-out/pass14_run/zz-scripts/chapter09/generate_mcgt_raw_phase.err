@@ -1,4 +1,0 @@
-  File "/home/jplal/MCGT/zz-scripts/chapter09/generate_mcgt_raw_phase.py", line 103
-    help="Affiche un aperçu et n'écrit pas les fichiers")
-                                                        ^
-SyntaxError: unmatched ')'

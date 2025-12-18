@@ -10,6 +10,20 @@ import tempfile
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 
 def _sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -80,7 +94,7 @@ def main() -> None:
             dP_i,
             "--",
             color="gray",
-            label=r"$\dot P_{\rm init}$ (lissé)",
+            label="Initial dP/dT",
         )
 
     # dP/dT optimisée
@@ -89,13 +103,13 @@ def main() -> None:
         dP_o,
         "-",
         color="orange",
-        label=r"$\dot P_{\rm opt}$ (lissé)",
+        label="Optimized dP/dT",
     )
 
     plt.xscale("log")
-    plt.xlabel("T (Gyr)")
-    plt.ylabel(r"$\dot P\,(\mathrm{Gyr}^{-1})$")
-    plt.title(r"Fig. 06 – $\dot{P}(T)$ initial vs optimisé")
+    plt.xlabel(r"$T$ [Gyr]")
+    plt.ylabel(r"$dP/dT$ [arbitrary units]")
+    plt.title("Comparison of Derivatives dP/dT - Chapter 1")
     plt.grid(True, which="both", linestyle=":", linewidth=0.5)
     plt.legend(loc="center right")
     plt.tight_layout()

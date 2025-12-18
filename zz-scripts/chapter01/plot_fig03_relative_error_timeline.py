@@ -13,6 +13,20 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 BASE = Path(__file__).resolve().parents[2]
 DATA_FILE = BASE / "zz-data" / "chapter01" / "01_relative_error_timeline.csv"
 DEFAULT_FIGNAME = "01_fig_03_relative_error_timeline"

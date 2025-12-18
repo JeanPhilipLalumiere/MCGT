@@ -81,8 +81,12 @@ def main() -> None:
     eps3 = (I3 - I3_ref) / I3_ref
 
     tol = 0.10
-    eps2_plot = np.where(np.abs(eps2) <= tol, eps2, np.nan)
-    eps3_plot = np.where(np.abs(eps3) <= tol, eps3, np.nan)
+    # Debug: show raw values without masking to inspect full range
+    eps2_plot = eps2
+    eps3_plot = eps3
+
+    print(f"[DEBUG] eps2 min/max: {eps2_plot.min():.3e} / {eps2_plot.max():.3e}")
+    print(f"[DEBUG] eps3 min/max: {eps3_plot.min():.3e} / {eps3_plot.max():.3e}")
 
     Tp = 0.087  # Gyr
 
@@ -95,12 +99,16 @@ def main() -> None:
         eps2_plot,
         label=r"$\varepsilon_2=\frac{I_2-I_{2,\mathrm{ref}}}{I_{2,\mathrm{ref}}}$",
         zorder=2,
+        linewidth=2.5,
+        alpha=0.8,
     )
     ax.plot(
         T,
         eps3_plot,
         label=r"$\varepsilon_3=\frac{I_3-I_{3,\mathrm{ref}}}{I_{3,\mathrm{ref}}}$",
         zorder=3,
+        linewidth=2.5,
+        alpha=0.8,
     )
 
     ax.axhline(0.01, color="k", linestyle="--", label=r"$\pm1\%$")
@@ -109,7 +117,7 @@ def main() -> None:
     ax.axhline(-0.10, color="gray", linestyle=":")
     ax.axvline(Tp, linestyle=":", label=rf"$T_p = {Tp:.3f}\ \mathrm{{Gyr}}$")
 
-    ax.set_ylim(-0.2, 0.2)
+    ax.set_yscale('symlog', linthresh=0.1); ax.set_ylim(-2, 1e7)
     ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs=range(1, 10)))
     ax.xaxis.set_tick_params(which="minor", length=3)
 

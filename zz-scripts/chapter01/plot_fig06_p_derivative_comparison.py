@@ -32,6 +32,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -272,7 +286,7 @@ def main(args: Optional[argparse.Namespace] = None) -> None:
         "--",
         color="gray",
         linewidth=1.5,
-        label="dP/dT (initiale)",
+        label="Initial dP/dT",
     )
     ax.plot(
         T_opt,
@@ -280,13 +294,13 @@ def main(args: Optional[argparse.Namespace] = None) -> None:
         "-",
         color="tab:blue",
         linewidth=1.8,
-        label="dP/dT (optimisée)",
+        label="Optimized dP/dT",
     )
 
     ax.set_xscale("log")
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel("dP/dT (unités arbitraires)")
-    ax.set_title("Fig. 06 – Comparaison des dérivées dP/dT – Chapitre 1")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$dP/dT$ [arbitrary units]")
+    ax.set_title("Comparison of Derivatives dP/dT - Chapter 1")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend(loc="best", frameon=False)
 

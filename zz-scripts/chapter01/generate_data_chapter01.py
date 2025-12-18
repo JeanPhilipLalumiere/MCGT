@@ -12,8 +12,23 @@ from math import log10
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from scipy.interpolate import PchipInterpolator, interp1d
 from scipy.signal import savgol_filter
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
 
 
 def read_jalons(path: Path):

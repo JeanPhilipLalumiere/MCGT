@@ -17,6 +17,20 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlesize": 14,
+        "axes.titlepad": 20,
+        "axes.labelsize": 12,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.2,
+        "font.family": "serif",
+    }
+)
+
 # --- Paths de base (homogènes chapitre 01) ---
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "zz-data" / "chapter01"
@@ -107,9 +121,9 @@ def main(args: argparse.Namespace) -> None:
 
     # Mise en forme
     ax.set_xscale("log")
-    ax.set_xlabel("T (Gyr)")
-    ax.set_ylabel("P(T)")
-    ax.set_title("Plateau précoce de P(T)")
+    ax.set_xlabel(r"$T$ [Gyr]")
+    ax.set_ylabel(r"$P(T)$ [arbitrary units]")
+    ax.set_title("Early Plateau of P(T)")
     ax.set_ylim(0.98, 1.002)
     ax.set_xlim(df_plateau["T"].min(), Tp * 1.05)
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)

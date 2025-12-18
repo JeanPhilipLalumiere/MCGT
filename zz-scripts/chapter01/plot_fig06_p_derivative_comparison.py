@@ -22,6 +22,9 @@ from __future__ import annotations
 
 import argparse
 import logging
+import hashlib
+import shutil
+import tempfile
 from pathlib import Path
 from typing import Iterable, Optional, Sequence, Tuple
 
@@ -38,6 +41,40 @@ FIG_DIR = ROOT / "zz-figures" / "chapter01"
 OUT_PNG = FIG_DIR / "01_fig_06_p_derivative_comparison.png"
 
 FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig=None, **savefig_kwargs) -> bool:
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            if fig is not None:
+                fig.savefig(tmp_path, **savefig_kwargs)
+            else:
+                plt.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+    if fig is not None:
+        fig.savefig(path, **savefig_kwargs)
+    else:
+        plt.savefig(path, **savefig_kwargs)
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -254,8 +291,8 @@ def main(args: Optional[argparse.Namespace] = None) -> None:
     ax.legend(loc="best", frameon=False)
 
     fig.subplots_adjust(left=0.08, right=0.98, bottom=0.12, top=0.90)
-    fig.savefig(OUT_PNG)
-    logging.info("Figure sauvegardée : %s", OUT_PNG)
+    changed = safe_save(OUT_PNG, fig)
+    logging.info("Figure %s : %s", "sauvegardée" if changed else "inchangée (hash identique)", OUT_PNG)
 
 
 # === MCGT CLI SEED v2 ===

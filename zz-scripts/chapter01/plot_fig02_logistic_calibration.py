@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Fig. 02 – Diagramme de calibration P_ref vs P_calc"""
 
-from pathlib import Path
 import argparse
 import os
 import sys
 import traceback
+import hashlib
+import shutil
+import tempfile
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -18,6 +21,40 @@ DATA_OPT = BASE / "zz-data" / "chapter01" / "01_optimized_data.csv"
 
 # Nom canonique pour la figure (aligné sur la convention 01_fig_XX_*)
 DEFAULT_FIGNAME = "01_fig_02_logistic_calibration"
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
+    """
+    Sauvegarde en évitant de toucher le mtime si le rendu est identique.
+    Retourne True si le fichier a changé, False sinon.
+    """
+    path = Path(filepath)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    if path.exists():
+        with tempfile.NamedTemporaryFile(delete=False, suffix=path.suffix) as tmp:
+            tmp_path = Path(tmp.name)
+        try:
+            fig.savefig(tmp_path, **savefig_kwargs)
+            if _sha256(tmp_path) == _sha256(path):
+                tmp_path.unlink()
+                return False
+            shutil.move(tmp_path, path)
+            return True
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    fig.savefig(path, **savefig_kwargs)
+    return True
 
 
 def make_figure(output_path: Path, dpi: int = 300, transparent: bool = False, verbose: int = 0) -> None:
@@ -55,7 +92,10 @@ def make_figure(output_path: Path, dpi: int = 300, transparent: bool = False, ve
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, transparent=transparent)
+    changed = safe_save(output_path, fig, transparent=transparent)
+    if verbose:
+        status = "enregistrée" if changed else "inchangée (hash identique)"
+        print(f"[plot_fig02_logistic_calibration] figure {status} → {output_path}")
 
 
 def main(argv=None) -> None:

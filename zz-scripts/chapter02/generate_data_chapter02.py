@@ -24,9 +24,21 @@ import glob
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from scipy.interpolate import PchipInterpolator
 from scipy.optimize import minimize
 from scipy.signal import savgol_filter
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 

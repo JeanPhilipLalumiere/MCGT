@@ -24,6 +24,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 
 # ---------------------------------------------------------------------------
 # Chemins de base
@@ -170,14 +181,14 @@ def main(argv: list[str] | None = None) -> None:
         T[m_primary],
         eps[m_primary],
         marker="o",
-        label="Jalons primaires",
+        label="Primary nodes",
         color="black",
     )
     ax.scatter(
         T[m_order2],
         eps[m_order2],
         marker="s",
-        label="Jalons ordre 2",
+        label="Secondary nodes",
         color="grey",
     )
 
@@ -190,7 +201,7 @@ def main(argv: list[str] | None = None) -> None:
         linestyle="--",
         linewidth=0.8,
         color="blue",
-        label="Seuil 1 %",
+        label="1% threshold",
     )
     ax.axhline(-0.01, linestyle="--", linewidth=0.8, color="blue")
     ax.axhline(
@@ -198,13 +209,13 @@ def main(argv: list[str] | None = None) -> None:
         linestyle=":",
         linewidth=0.8,
         color="red",
-        label="Seuil 10 %",
+        label="10% threshold",
     )
     ax.axhline(-0.10, linestyle=":", linewidth=0.8, color="red")
 
-    ax.set_xlabel("T (Gyr)")
+    ax.set_xlabel(r"$T$ [Gyr]")
     ax.set_ylabel(r"$\varepsilon_i$")
-    ax.set_title(r"Fig. 03 – Écarts relatifs $\varepsilon_i$ – Chapitre 2")
+    ax.set_title(r"Relative Errors $\varepsilon_i$ - Chapter 2")
 
     ax.grid(True, which="both", linestyle=":", linewidth=0.5, alpha=0.7)
     ax.legend()

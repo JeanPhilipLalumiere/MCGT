@@ -13,6 +13,17 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
+
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "zz-scripts" / "chapter02"))
 
@@ -85,9 +96,9 @@ def main(args: argparse.Namespace) -> None:
     for alpha in alphas:
         ax.loglog(k, P_R(k, alpha), label=f"α = {alpha}")
 
-    ax.set_xlabel("k [h·Mpc⁻¹]")
-    ax.set_ylabel("P_R(k; α)", labelpad=12)
-    ax.set_title("Spectre primordial MCGT")
+    ax.set_xlabel(r"$k$ [$h/\mathrm{Mpc}$]")
+    ax.set_ylabel(r"$P(k)$ [$\mathrm{Mpc}^3/h^3$]", labelpad=12)
+    ax.set_title("MCGT Primordial Spectrum")
     ax.legend(loc="upper right")
     ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 

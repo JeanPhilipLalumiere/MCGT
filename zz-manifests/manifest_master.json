@@ -2178,17 +2178,17 @@
     },
     {
       "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
-      "sha256": "c72cf4d495b2a3d49569a73c01a78133a0a5ee392a5cb2a70d220b5b757cca91",
-      "size_bytes": 9492,
-      "mtime_iso": "2025-12-19T03:05:23Z",
-      "git_hash": "6a354facf56198046d740239c159c1bb1bd5a6db"
+      "sha256": "91ed2c4b155fa9051c45b3074b71a1921c93182de4feb05dfdceb5720cae31ca",
+      "size_bytes": 9432,
+      "mtime_iso": "2025-12-19T03:09:30Z",
+      "git_hash": "1b71370d203b979a1e4cf5c545206ea8036d9a6e"
     },
     {
       "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
-      "sha256": "00974f6438f7afb009f7e0c09089cc72214f823c9e1692809eb03d82d89afbb0",
-      "size_bytes": 9515,
-      "mtime_iso": "2025-12-19T03:05:30Z",
-      "git_hash": "13e2c03f0e074935a6d2acbfe2ebf5475dcff20c"
+      "sha256": "3aa45a8464d7b1c15c1a91aa95b4c19016e3f3236571498fc034a4dc63198883",
+      "size_bytes": 10109,
+      "mtime_iso": "2025-12-19T03:13:54Z",
+      "git_hash": "ac54a9063e0078cba7342e06c42b441e7bfd610b"
     },
     {
       "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
@@ -2199,10 +2199,10 @@
     },
     {
       "path": "zz-scripts/chapter07/plot_fig07_invariant_i2.py",
-      "sha256": "944f6bde2852b61a313da1e27443f9940ecedc716de41ea2e5f83a2ef8b1dcb6",
-      "size_bytes": 9658,
-      "mtime_iso": "2025-12-19T03:05:37Z",
-      "git_hash": "cc0f16d1dc898b23cf36f59e74ee54baf50b02d3"
+      "sha256": "eb6cb2676967a2d1a308c086dceb2f08abc2eeaf1e16764048618fc1a5c8cd62",
+      "size_bytes": 10635,
+      "mtime_iso": "2025-12-19T03:14:10Z",
+      "git_hash": "3307a757a530c811359955557f38add76d5f5c2c"
     },
     {
       "path": "zz-figures/chapter07/07_fig_01_hubble.png",
@@ -2227,17 +2227,17 @@
     },
     {
       "path": "zz-figures/chapter07/07_fig_04_dcs2_vs_k.png",
-      "sha256": "f13b9ebf988f3acf6bc3d1a6d0205f33a85a8fc0f244f4ba9c47bba085bd1df3",
-      "size_bytes": 151475,
-      "mtime_iso": "2025-12-19T03:05:54Z",
-      "git_hash": "acf36c37eb630e49577287fec08ae82d4ca40e8c"
+      "sha256": "1b89f1b231851fb67abcb95b046e926cc233fad81f5812504d996e54ecc47a34",
+      "size_bytes": 145711,
+      "mtime_iso": "2025-12-19T03:14:23Z",
+      "git_hash": "f26b542fea92e674cae125256b279e52e1846109"
     },
     {
       "path": "zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png",
-      "sha256": "431d257d4dc591779d8c36f783bfaaea4b8c334301ef929925ba596bc4aa8f78",
-      "size_bytes": 376356,
-      "mtime_iso": "2025-12-19T03:06:02Z",
-      "git_hash": "8381db0cd9b2d25cadb6e40104a7855ada25d4a8"
+      "sha256": "b56a450bf8d4a1ff789eb39155a9a4e8f107d9c98bfc6cc4d89b3c8116b7d955",
+      "size_bytes": 106472,
+      "mtime_iso": "2025-12-19T03:14:30Z",
+      "git_hash": "d96f101f5c4228e12c39be2da42403a6b4288942"
     },
     {
       "path": "zz-figures/chapter07/07_fig_06_comparison.png",
@@ -2248,13 +2248,13 @@
     },
     {
       "path": "zz-figures/chapter07/07_fig_07_invariant_i2.png",
-      "sha256": "8320f105de375aa8134a5618b7274de7940344c18906c0b600da7350620c1660",
-      "size_bytes": 376034,
-      "mtime_iso": "2025-12-19T03:06:13Z",
-      "git_hash": "52725cfa09909e8d3498ca8ad52fe54651fe2f12"
+      "sha256": "b46f64c8db20b37b7e4e7a27b6888769b10bc0ac3601b39740f1b96fa042f40a",
+      "size_bytes": 100912,
+      "mtime_iso": "2025-12-19T03:14:35Z",
+      "git_hash": "86652667f1a507fccacef536ed31dec08fd2b448"
     }
   ],
-  "generatedAt": "2025-12-19T03:06:34Z",
+  "generatedAt": "2025-12-19T03:14:54Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

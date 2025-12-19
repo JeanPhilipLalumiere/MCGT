@@ -181,11 +181,17 @@ def plot_invariant_i2(
     if "k" not in df.columns:
         raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
 
-    col = detect_value_column(
-        df,
-        explicit=value_col,
-        preferred=["I2_cs2", "I2", "invariant_i2"],
-    )
+    # Colonne I2 : privilégie I1_cs2 (absence d'I2 dans les données actuelles)
+    if value_col and value_col in df.columns:
+        col = value_col
+    elif "I1_cs2" in df.columns:
+        col = "I1_cs2"
+    else:
+        # Choix de la première colonne numérique hors 'k'
+        numeric_cols = [c for c in df.columns if c != "k" and pd.api.types.is_numeric_dtype(df[c])]
+        if not numeric_cols:
+            raise KeyError(f"Aucune colonne numérique pour I2 dans {data_csv}")
+        col = numeric_cols[0]
 
     k_vals = df["k"].to_numpy()
     i2_vals = df[col].to_numpy()
@@ -251,6 +257,18 @@ def plot_invariant_i2(
     ax.legend(loc="best", frameon=False)
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
+    # Évite les artefacts log en bornant strictement Y
+    y_lo, y_hi = float(i2_vals.min()), float(i2_vals.max())
+    ax.set_ylim(max(1e-8, y_lo), min(1e4, y_hi * 1.5))
+    # Écrase tout formatage parasite juste avant la sauvegarde
+    ax.yaxis.set_major_locator(plt.FixedLocator([1e-6, 1e-3, 1e0, 1e3]))
+    ax.yaxis.set_major_formatter(plt.LogFormatterExponent(base=10))
+    ax.yaxis.set_minor_locator(plt.NullLocator())
+    ax.yaxis.set_minor_formatter(plt.NullFormatter())
+    ax.grid(True, which="major", ls=":", alpha=0.5)
+    ax.grid(False, which="minor")
+
+    fig.canvas.draw()
     fig.tight_layout()
     safe_save(out_png, dpi=dpi)
     plt.close(fig)

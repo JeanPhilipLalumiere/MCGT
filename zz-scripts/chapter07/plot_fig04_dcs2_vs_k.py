@@ -187,10 +187,16 @@ def plot_dcs2_vs_k(
     fig, ax = plt.subplots(figsize=(8, 5), dpi=dpi)
 
     # Tracé de |∂ₖ c_s²|
-    ax.loglog(k_vals, np.abs(dcs2), color="C1", lw=2, label=r"$|\partial_k\,c_s^2|$")
+    ax.loglog(
+        k_vals,
+        np.abs(dcs2),
+        color="C1",
+        lw=2,
+        label=r"$\partial_k c_s^2$",
+    )
 
     # Ligne verticale k_split
-    ax.axvline(k_split, color="k", ls="--", lw=1)
+    ax.axvline(k_split, color="k", ls="--", lw=1, label=r"$k_{\rm split}$")
     ax.text(
         k_split,
         0.85,
@@ -203,7 +209,7 @@ def plot_dcs2_vs_k(
     )
 
     # Labels et titre
-    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
+    ax.set_xlabel(r"$k$ [h/Mpc]")
     ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
     ax.set_title(r"Smoothed derivative $\partial_k\,c_s^2(k)$")
 
@@ -232,7 +238,7 @@ def plot_dcs2_vs_k(
         ymin = 1e-8
     ax.set_ylim(max(1e-8, ymin), ymax)
 
-    ax.legend(loc="upper right", frameon=False)
+    ax.legend(loc="best", frameon=False)
 
     fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
     safe_save(out_png, dpi=dpi)

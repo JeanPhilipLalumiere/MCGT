@@ -208,18 +208,19 @@ def plot_invariant_i2(
     plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    ax.loglog(k_vals, i2_vals, color="C3", lw=2, label=rf"$I_2(k)$ ({col})")
+    ax.loglog(k_vals, i2_vals, color="C3", lw=2, label=r"$I_2(k)$")
 
     # Repère k_split
     ax.axvline(k_split, ls="--", color="k", lw=1)
     y_text = 10.0 ** (pmin + 0.05 * (pmax - pmin))
     ax.text(
-        k_split * 1.05,
-        y_text,
+        0.15,
+        0.88,
         r"$k_{\rm split}$",
+        transform=ax.transAxes,
         ha="left",
         va="bottom",
-        fontsize=9,
+        fontsize=11,
     )
 
     # Limites
@@ -227,9 +228,9 @@ def plot_invariant_i2(
     ax.set_ylim(10.0**pmin, 10.0**pmax)
 
     # Labels / titre
-    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
-    ax.set_ylabel(r"$I_2(k)$")
-    ax.set_title("Second scalar invariant $I_2(k)$")
+    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$", fontsize=12)
+    ax.set_ylabel(r"$I_2(k)$", fontsize=12)
+    ax.set_title("Second scalar invariant $I_2(k)$", fontsize=14)
 
     # Grille + ticks
     ax.grid(which="major", ls=":", lw=0.5)
@@ -238,7 +239,7 @@ def plot_invariant_i2(
     ax.xaxis.set_major_locator(LogLocator(base=10))
     ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
-    ax.yaxis.set_major_locator(LogLocator(base=10))
+    ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=6))
     ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)

@@ -265,7 +265,7 @@ def main() -> None:
         pad = 0.05 * (mx - mn)
     lo = mn - pad
     hi = mx + pad
-    hi = max(hi, 2.0)
+    hi = min(max(hi, 2.0), 2.2)
 
     # Diagonale y = x
     diag_lo = min(1.0, lo)

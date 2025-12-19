@@ -184,7 +184,7 @@ def main() -> None:
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.85),
     )
 
-    ax.legend(loc="lower left", framealpha=0.9)
+    ax.legend(loc="lower right", framealpha=0.9)
     fig.savefig(args.out, dpi=args.dpi)
     log.info("PNG saved → %s", args.out)
 

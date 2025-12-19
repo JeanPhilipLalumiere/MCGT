@@ -158,12 +158,11 @@ def plot_dcs2_vs_k(
     logging.info("k_split = %.2e h/Mpc", k_split)
 
     if not data_csv.exists():
-        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
-        k_vals = np.logspace(-3, 0, 50)
-        df = pd.DataFrame({"k": k_vals, "dcs2": 1e-3 * k_vals})
-    else:
-        df = pd.read_csv(data_csv, comment="#")
-        logging.info("Loaded %d points from %s", len(df), data_csv.name)
+        logging.error("CSV introuvable : %s", data_csv)
+        raise FileNotFoundError(data_csv)
+
+    df = pd.read_csv(data_csv, comment="#")
+    logging.info("Loaded %d points from %s", len(df), data_csv.name)
     if "k" not in df.columns:
         raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
 

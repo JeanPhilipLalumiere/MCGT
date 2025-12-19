@@ -1087,10 +1087,10 @@
     },
     {
       "path": "zz-scripts/chapter09/09_fig_04_absdphi_milestones_vs_f.py",
-      "sha256": "f1d0064b906f84da98d2251740e86c65a5fb19655f596551c79025f39c3d3dd3",
-      "size_bytes": 6981,
-      "mtime_iso": "2025-12-19T17:21:40Z",
-      "git_hash": "1f138d916eb674dae9c53d1f804a80b209a0d816"
+      "sha256": "f56bea322e67aa12779d66c465d3ae9c12c1ff35ea1a3659a2a60fd937753879",
+      "size_bytes": 6829,
+      "mtime_iso": "2025-12-19T17:28:03Z",
+      "git_hash": "673eefa76778905a52a15fa38b74dc3af6df1474"
     },
     {
       "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
@@ -1291,10 +1291,10 @@
       "tags": [
         "chapter09"
       ],
-      "size_bytes": 267422,
-      "mtime_iso": "2025-12-19T17:21:50Z",
-      "sha256": "e89ad25e97d44cfab680a095937061848c0295b84584566ccee39e7c43bfeaef",
-      "git_hash": "6644f50be353bf077a5408bd6051138a7a21193a"
+      "size_bytes": 262146,
+      "mtime_iso": "2025-12-19T17:28:09Z",
+      "sha256": "04106473b78fa76992cbfec488e635b89d300fc7d9b2b0159d9f796ebeb34f3f",
+      "git_hash": "e89c4452d59733359a949d0dbccb57d0565d1ca7"
     },
     {
       "media_type": "image/png",
@@ -2177,7 +2177,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T17:22:01Z",
+  "generatedAt": "2025-12-19T17:28:20Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

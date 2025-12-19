@@ -173,18 +173,10 @@ def main() -> None:
         f"Milestone mean = {float(np.nanmean(resid)):.3f}\n"
         f"Milestone p95 = {float(np.nanpercentile(resid,95.0)):.3f}"
     )
-    ax.text(
-        0.98,
-        0.95,
-        stats_txt,
-        transform=ax.transAxes,
-        ha="right",
-        va="top",
-        fontsize=10.5,
-        bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.85),
-    )
 
     handles, labels = ax.get_legend_handles_labels()
+    handles.append(plt.Line2D([], [], color="none"))
+    labels.append(stats_txt)
     # Compact single legend stacked in lower-right (keeps upper-left clear)
     ax.legend(
         handles,
@@ -192,7 +184,7 @@ def main() -> None:
         loc="lower right",
         bbox_to_anchor=(0.98, 0.02),
         framealpha=0.9,
-        fontsize=10,
+        fontsize=9.5,
         borderaxespad=0.6,
     )
     fig.savefig(args.out, dpi=args.dpi)

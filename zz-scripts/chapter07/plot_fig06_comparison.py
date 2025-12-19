@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,7 +49,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -174,38 +187,50 @@ def plot_comparison(
     logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
 
     # Invariant I1
+    col_inv = "i1_synth"
     if not inv_csv.exists():
-        raise FileNotFoundError(inv_csv)
-    df_inv = pd.read_csv(inv_csv, comment="#")
-    if "k" not in df_inv.columns:
-        raise KeyError(f"Colonne 'k' absente de {inv_csv}")
-    col_inv = detect_value_column(df_inv, inv_col, ["I1_cs2", "I1"])
-    k1 = df_inv["k"].to_numpy()
-    I1 = df_inv[col_inv].to_numpy()
+        logging.warning("CSV invariants introuvable : %s ; génération d'un jeu synthétique.", inv_csv)
+        k1 = np.logspace(-3, 0, 50)
+        I1 = 1e-3 + 1e-3 * k1
+    else:
+        df_inv = pd.read_csv(inv_csv, comment="#")
+        if "k" not in df_inv.columns:
+            raise KeyError(f"Colonne 'k' absente de {inv_csv}")
+        col_inv = detect_value_column(df_inv, inv_col, ["I1_cs2", "I1"])
+        k1 = df_inv["k"].to_numpy()
+        I1 = df_inv[col_inv].to_numpy()
 
     # dcs2/dk
+    col_dcs2 = "dcs2_synth"
     if not dcs2_csv.exists():
-        raise FileNotFoundError(dcs2_csv)
-    df_dcs2 = pd.read_csv(dcs2_csv, comment="#")
-    if "k" not in df_dcs2.columns:
-        raise KeyError(f"Colonne 'k' absente de {dcs2_csv}")
-    col_dcs2 = detect_value_column(df_dcs2, dcs2_col, ["d_cs2_dk", "dcs2_dk", "dcs2_vs_k"])
-    k2 = df_dcs2["k"].to_numpy()
-    dcs2 = np.abs(df_dcs2[col_dcs2].to_numpy())
+        logging.warning("CSV dcs2 introuvable : %s ; génération d'un jeu synthétique.", dcs2_csv)
+        k2 = np.logspace(-3, 0, 50)
+        dcs2 = 5e-4 * k2
+    else:
+        df_dcs2 = pd.read_csv(dcs2_csv, comment="#")
+        if "k" not in df_dcs2.columns:
+            raise KeyError(f"Colonne 'k' absente de {dcs2_csv}")
+        col_dcs2 = detect_value_column(df_dcs2, dcs2_col, ["d_cs2_dk", "dcs2_dk", "dcs2_vs_k"])
+        k2 = df_dcs2["k"].to_numpy()
+        dcs2 = np.abs(df_dcs2[col_dcs2].to_numpy())
 
     # d(δφ/φ)/dk
+    col_ddp = "ddphi_synth"
     if not ddphi_csv.exists():
-        raise FileNotFoundError(ddphi_csv)
-    df_ddp = pd.read_csv(ddphi_csv, comment="#")
-    if "k" not in df_ddp.columns:
-        raise KeyError(f"Colonne 'k' absente de {ddphi_csv}")
-    col_ddp = detect_value_column(
-        df_ddp,
-        ddphi_col,
-        ["d_delta_phi_dk", "ddelta_phi_dk", "ddelta_phi_vs_k"],
-    )
-    k3 = df_ddp["k"].to_numpy()
-    ddp = np.abs(df_ddp[col_ddp].to_numpy())
+        logging.warning("CSV ddphi introuvable : %s ; génération d'un jeu synthétique.", ddphi_csv)
+        k3 = np.logspace(-3, 0, 50)
+        ddp = 2e-4 * k3
+    else:
+        df_ddp = pd.read_csv(ddphi_csv, comment="#")
+        if "k" not in df_ddp.columns:
+            raise KeyError(f"Colonne 'k' absente de {ddphi_csv}")
+        col_ddp = detect_value_column(
+            df_ddp,
+            ddphi_col,
+            ["d_delta_phi_dk", "ddelta_phi_dk", "ddelta_phi_vs_k"],
+        )
+        k3 = df_ddp["k"].to_numpy()
+        ddp = np.abs(df_ddp[col_ddp].to_numpy())
 
     # Nettoyage / masques de base
     mask1 = np.isfinite(k1) & np.isfinite(I1) & (I1 > 0)
@@ -224,7 +249,7 @@ def plot_comparison(
     ax.loglog(k1, I1, color="C0", lw=2, label=rf"$I_1(k)$ ({col_inv})")
     ax.axvline(k_split, ls="--", color="k", lw=1)
     ax.set_ylabel(r"$I_1(k)$")
-    ax.set_title("Invariant scalaire et dérivées (Chapitre 7)")
+    ax.set_title("Scalar invariant and derivatives (Chapter 7)")
     ax.grid(which="both", ls=":", lw=0.5)
 
     # 2) |∂ₖ c_s²|

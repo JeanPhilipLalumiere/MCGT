@@ -1009,111 +1009,6 @@
       "git_hash": "abd1d9a483da78498a165fe5c14af838bd145988"
     },
     {
-      "path": "zz-scripts/chapter07/generate_data_chapter07.py",
-      "sha256": "98fb65e23691500387f2c70969e7ce3bb0b5c5863120ddec8c87e8f3b8e1029d",
-      "size_bytes": 9141,
-      "mtime_iso": "2025-12-06T18:53:21Z",
-      "git_hash": "77deb76ad3439c4c96600340d8c36f42e4017eea"
-    },
-    {
-      "path": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
-      "sha256": "939f9ed41a31a7cd0eb5df070f9436680066a7fab042b9d348091142b9e5c92f",
-      "size_bytes": 14232,
-      "mtime_iso": "2025-12-06T18:53:21Z",
-      "git_hash": "1ae5524492d5db06a74febe0a6f39dc82ea57faf"
-    },
-    {
-      "path": "zz-scripts/chapter07/launch_solver_chapter07.sh",
-      "sha256": "bb14e4611b663321df357d091ce0ebd7891fc93419b1e1c33035f360c753439d",
-      "size_bytes": 6308,
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "git_hash": "b1b5a909bf5b1ca7c90e47c8193a18e92062fe5f"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
-      "sha256": "2b3e9934af722d6405c2d3cca3f42ace137246ebabccd25de39c697c8277ca73",
-      "size_bytes": 10166,
-      "mtime_iso": "2025-12-18T03:25:46Z",
-      "git_hash": "9a0ab53fc5ed33c12715b3c9ba0cc25907d1b896"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
-      "sha256": "10ba74224d21a9a0c27b6e734c050aa71e0d0bd9167df8531fb51a63a509a2bf",
-      "size_bytes": 10254,
-      "mtime_iso": "2025-12-18T03:26:09Z",
-      "git_hash": "d03ab3374eedd950cbd9fa5fda6fe625b28f5f68"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig03_invariant_i1.py",
-      "sha256": "ad6451cdae90424cc143394106ca246b09256a16bd3fcef1f9df05a4cce6dfe4",
-      "size_bytes": 8916,
-      "mtime_iso": "2025-12-18T03:26:16Z",
-      "git_hash": "80e93ed710a3d0b07ed944d80d27498379eb3bed"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
-      "sha256": "3ba0c712f5a4c00d423f5901537c4135fad93293a10506c9008d4adb8930ac64",
-      "size_bytes": 8870,
-      "mtime_iso": "2025-12-18T03:26:27Z",
-      "git_hash": "dbee7f490aefb23990cee6d38b213bb967b58e18"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
-      "sha256": "550f1500914e5e8d25eb78f25bea97870e46a8fe937d3a786e1df4b8b15c640e",
-      "size_bytes": 8901,
-      "mtime_iso": "2025-12-18T03:26:32Z",
-      "git_hash": "c268a95aa58564170c7d9921f33ac58484077276"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
-      "sha256": "ad6042f988dc7945ffbe2e4f8a32a74130f0ceb09d81a4863da0d0d96aaef06b",
-      "size_bytes": 11339,
-      "mtime_iso": "2025-12-18T03:26:37Z",
-      "git_hash": "6b1e19c5c14c66901723e36393e7b179b47e322f"
-    },
-    {
-      "path": "zz-scripts/chapter07/plot_fig07_invariant_i2.py",
-      "sha256": "97d4b6f566805a31c6452a334c329a3ddd7d3fcbe1cbff9166033c385ce2a910",
-      "size_bytes": 9119,
-      "mtime_iso": "2025-12-18T03:26:45Z",
-      "git_hash": "e5538496df148b6aaab08fd7fe59bcb6146dd190"
-    },
-    {
-      "path": "zz-scripts/chapter07/requirements.txt",
-      "sha256": "47f8b5462a6047f468d6eff297209cba99bcf0262ab62585c2261ff4745c5db7",
-      "size_bytes": 171,
-      "mtime_iso": "2025-11-22T16:09:08Z",
-      "git_hash": "2ecd01c1f64634534a555a299304d78bbe419fae"
-    },
-    {
-      "path": "zz-scripts/chapter07/tests/ref_phase_run.csv",
-      "sha256": "d7d592fc4ea6ba05421debc1bb7403fc3d0ce7a8eb11563a298b07eb70b20f5a",
-      "size_bytes": 1331982,
-      "mtime_iso": "2025-09-13T01:29:20Z",
-      "git_hash": "d5957168e3432613500b7e04ab27c007a2e740e3"
-    },
-    {
-      "path": "zz-scripts/chapter07/tests/test_chapter07.py",
-      "sha256": "db9a9109d0878be665256f5edb6639fac6e6f70d8e1c65af6273de251f5ada80",
-      "size_bytes": 5062,
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "git_hash": "01cab06727be1e0a3962526d45f854bc7c448aa4"
-    },
-    {
-      "path": "zz-scripts/chapter07/utils/test_kgrid.py",
-      "sha256": "491715a82a7b6098b9cb2ec2467c5e3efc88746b672d24b3f4be16ed8fd66fdb",
-      "size_bytes": 2577,
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "git_hash": "a1e9bf6cda5701be83cef82200643754ea1fac6d"
-    },
-    {
-      "path": "zz-scripts/chapter07/utils/toy_model.py",
-      "sha256": "1a32f10b82762940f6213ab8a58b4634d0c359f6242e0a779176b18168670f51",
-      "size_bytes": 1605,
-      "mtime_iso": "2025-12-06T18:53:21Z",
-      "git_hash": "cbe7068aa048bdce58e69c6959eb1f7033e4c360"
-    },
-    {
       "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
       "sha256": "1e0f68552b14be66c61b4d59292a6361759f9a86f86c740983a5bc7e2df65462",
       "size_bytes": 3485,
@@ -2024,90 +1919,6 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_01_cs2_heatmap.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 77723,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "cd66109e0c45c80a08a26cac23a9b4c052265f169a19015fc7f751355d102ac3",
-      "git_hash": "73c9df899e686e8d79f2760f0d4cb0c31e832ad6"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_02_delta_phi_heatmap.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 83305,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "34809287df48f51e188b51b56ba3e4053d2e17e057ff983f283dbb430b2fd241",
-      "git_hash": "77f909c409db56a854b0dafb8e7f260977e6592d"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_03_invariant_i1.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 147556,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "a4ac9cc6fdfa749bb8b3c541a9ec4aaed0f2c4dc6977c3c6a666ad5a265ccb71",
-      "git_hash": "b908f7710afa924d872a0e67fd3124d45fccd253"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_04_dcs2_vs_k.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 144416,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "2a09c2476f17a12d52a8e677c0c8a04d6abbd1434a6b92a69899f584e586e138",
-      "git_hash": "42157217d0433003d19436e30879f6dd8bb42ba2"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 360726,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "b8c98b69154fc31649723531010b45ec0971f2d67b96b1ddc251ac4d1875bcb3",
-      "git_hash": "7be64a9ba615e73ddbd0c5c6a133c92dd7af814b"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_06_comparison.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 357549,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "5159b6dbdeff560147a25f2ee63640995aa4002e484a369b0175d94e044e7a9d",
-      "git_hash": "7a7c1d053b4eeb71bef49e2a0badbcc769358963"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter07/07_fig_07_invariant_i2.png",
-      "role": "figure",
-      "tags": [
-        "chapter07"
-      ],
-      "size_bytes": 371723,
-      "mtime_iso": "2025-12-18T02:51:15Z",
-      "sha256": "ba61c26ba1db60166b993796461ce1cfe7abaed592e43f544bb5b7352c89bce3",
-      "git_hash": "739ff8540965594329ad93a876edb5e1f540764a"
-    },
-    {
-      "media_type": "image/png",
       "path": "zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png",
       "role": "figure",
       "tags": [
@@ -2287,9 +2098,128 @@
       "size_bytes": 445301,
       "mtime_iso": "2025-12-19T01:45:13Z",
       "git_hash": "f1e86282366da8b19be74c7d884068dd2eace9df"
+    },
+    {
+      "path": "zz-scripts/chapter07/07_fig_01_hubble.py",
+      "sha256": "d4177110327f79a30979fde2264dab742c697b336d934da52eacc6ee38631254",
+      "size_bytes": 10540,
+      "mtime_iso": "2025-12-19T02:05:27Z",
+      "git_hash": "adda9bc5bce6ef09f171b8082dfed8f6bd794354"
+    },
+    {
+      "path": "zz-scripts/chapter07/07_fig_02_residuals.py",
+      "sha256": "ee20e007b5b57c43d0154bd183008eb4c86729a9907a1a8e1910ff8c60f52940",
+      "size_bytes": 10565,
+      "mtime_iso": "2025-12-19T02:05:52Z",
+      "git_hash": "a28726c2c04abff722e53685d92f114d8c4d0f96"
+    },
+    {
+      "path": "zz-scripts/chapter07/07_fig_03_density.py",
+      "sha256": "10ef1c38ac133733bc4e07be195362b1df2afb5e0f78970e7bfa38e932d74898",
+      "size_bytes": 9460,
+      "mtime_iso": "2025-12-19T02:06:51Z",
+      "git_hash": "ab3eb4b41f7eeacc99af28aabee538a08f55f442"
+    },
+    {
+      "path": "zz-scripts/chapter07/generate_data_chapter07.py",
+      "sha256": "98fb65e23691500387f2c70969e7ce3bb0b5c5863120ddec8c87e8f3b8e1029d",
+      "size_bytes": 9141,
+      "mtime_iso": "2025-12-06T18:53:21Z",
+      "git_hash": "77deb76ad3439c4c96600340d8c36f42e4017eea"
+    },
+    {
+      "path": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "sha256": "939f9ed41a31a7cd0eb5df070f9436680066a7fab042b9d348091142b9e5c92f",
+      "size_bytes": 14232,
+      "mtime_iso": "2025-12-06T18:53:21Z",
+      "git_hash": "1ae5524492d5db06a74febe0a6f39dc82ea57faf"
+    },
+    {
+      "path": "zz-scripts/chapter07/launch_solver_chapter07.sh",
+      "sha256": "bb14e4611b663321df357d091ce0ebd7891fc93419b1e1c33035f360c753439d",
+      "size_bytes": 6308,
+      "mtime_iso": "2025-11-09T00:30:15Z",
+      "git_hash": "b1b5a909bf5b1ca7c90e47c8193a18e92062fe5f"
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "sha256": "91f9176c3c2ab83556250057d429b17f8258ec06c3b3bd9952d730b1dae51a28",
+      "size_bytes": 9253,
+      "mtime_iso": "2025-12-19T02:07:08Z",
+      "git_hash": "64236d819ea02f8320649306287ac5161c9f1ce5"
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "sha256": "ad5eefea9edf7dfbf22259a6fb240bab574b7f9a416eecc5a6364a90aee667d2",
+      "size_bytes": 9389,
+      "mtime_iso": "2025-12-19T02:07:28Z",
+      "git_hash": "cc75dd2d877eee3b498ebfd79aa7f9e8481bc037"
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig06_comparison.py",
+      "sha256": "26dd0cd3c7c1378925b57b20374946e85d0577f614d876b8cd82770aa4fbbf80",
+      "size_bytes": 12170,
+      "mtime_iso": "2025-12-19T02:08:44Z",
+      "git_hash": "dfe72e66572ce61d7214689dba6d7be4bb7c5136"
+    },
+    {
+      "path": "zz-scripts/chapter07/plot_fig07_invariant_i2.py",
+      "sha256": "bba28897d834b3d2e8f02fa583ff6511d52c1a6a216da7f4003ba6ed2fbbaa34",
+      "size_bytes": 9538,
+      "mtime_iso": "2025-12-19T02:09:12Z",
+      "git_hash": "a7c8e38eb3aad1904fa5da08329a470c462f0f67"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_01_hubble.png",
+      "sha256": "cfb6c8eb4bd5cd2c291327339891a356d99e111b76eb9d42ce56eecfae4712fd",
+      "size_bytes": 77302,
+      "mtime_iso": "2025-12-19T02:05:31Z",
+      "git_hash": "a2ba1f31164a01799c5856bf78d09a461b97e289"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_02_residuals.png",
+      "sha256": "70394b75d9d688c7012120f651f44ff219c798d8f06a05bfaad9ab251138bbc9",
+      "size_bytes": 79993,
+      "mtime_iso": "2025-12-19T02:05:56Z",
+      "git_hash": "ec5d8ddb4c66229149fac7337729cd0dfb739764"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_03_density.png",
+      "sha256": "9ff3fdf64b8d9ae1d0616123411c56a5193a9eb9abe80cff5df799551b10837d",
+      "size_bytes": 141207,
+      "mtime_iso": "2025-12-19T02:06:55Z",
+      "git_hash": "41663ca0d680212b8327493f0dc42b6dcddbda70"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_04_dcs2_vs_k.png",
+      "sha256": "02902e9861e7f3ef8f4a8f1735bcf790dbb6938003b04318bbe610a0eb9ebd29",
+      "size_bytes": 122755,
+      "mtime_iso": "2025-12-19T02:07:11Z",
+      "git_hash": "f4a79eb10348a6ca6241cef2d7dcd784daccb1da"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png",
+      "sha256": "39d3d93a76f761f7812a20480b2d7228a8b2628713ddfe9e9ba15a25b092e0b5",
+      "size_bytes": 124199,
+      "mtime_iso": "2025-12-19T02:07:32Z",
+      "git_hash": "ba169490783a27fad902f297578fee7dd8e1b237"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_06_comparison.png",
+      "sha256": "68c4fa107017b00cabd2976362145cbbd9e511dad6967a0b9a4afefdb3d34014",
+      "size_bytes": 255219,
+      "mtime_iso": "2025-12-19T02:08:49Z",
+      "git_hash": "2b05e6b404e47eaa88f95498f67e06c3d49ec72c"
+    },
+    {
+      "path": "zz-figures/chapter07/07_fig_07_invariant_i2.png",
+      "sha256": "a9128c668e1bea7d98b374033f6149ae00c7c7194d8c3e37240f600048217cdd",
+      "size_bytes": 95779,
+      "mtime_iso": "2025-12-19T02:09:15Z",
+      "git_hash": "6ba0f14ed5815eb3124592726db12093237ab05a"
     }
   ],
-  "generatedAt": "2025-12-19T01:50:49Z",
+  "generatedAt": "2025-12-19T02:09:39Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

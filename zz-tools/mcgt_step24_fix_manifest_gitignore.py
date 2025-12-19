@@ -58,7 +58,10 @@ def main() -> None:
             text=True,
         ).strip()
     except subprocess.CalledProcessError as e:  # noqa: BLE001
-        print(f"[ERROR] Impossible de récupérer git_hash pour {target_rel} : {e}", file=sys.stderr)
+        print(
+            f"[ERROR] Impossible de récupérer git_hash pour {target_rel} : {e}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     print("[INFO] Valeurs FS/Git pour .gitignore :")
@@ -105,7 +108,9 @@ def main() -> None:
             json.dump(manifest, f, indent=2, sort_keys=True)
             f.write("\n")
     except Exception as e:  # noqa: BLE001
-        print(f"[ERROR] Impossible d'écrire le manifest mis à jour : {e}", file=sys.stderr)
+        print(
+            f"[ERROR] Impossible d'écrire le manifest mis à jour : {e}", file=sys.stderr
+        )
         sys.exit(1)
 
     print(f"[INFO] Manifest mis à jour : {manifest_path}")

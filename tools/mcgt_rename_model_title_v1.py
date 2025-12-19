@@ -72,7 +72,9 @@ def main() -> None:
 
         total_files += 1
         total_repl += count
-        print(f"[OK] {rel}: {count} occurrence(s) remplacée(s); backup -> {backup.name}")
+        print(
+            f"[OK] {rel}: {count} occurrence(s) remplacée(s); backup -> {backup.name}"
+        )
 
     print()
     print(f"[INFO] Fichiers modifiés : {total_files}")

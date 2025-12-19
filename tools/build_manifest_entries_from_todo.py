@@ -75,7 +75,9 @@ def main() -> None:
 
         fs_path = ROOT / rel
         if not fs_path.is_file():
-            print(f"[WARN] Fichier introuvable sur le FS, ignoré : {rel}", file=sys.stderr)
+            print(
+                f"[WARN] Fichier introuvable sur le FS, ignoré : {rel}", file=sys.stderr
+            )
             continue
 
         st = fs_path.stat()

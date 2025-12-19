@@ -20,12 +20,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -51,6 +53,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     else:
         plt.savefig(path, **savefig_kwargs)
     return True
+
 
 #!/usr/bin/env python3
 r"""
@@ -84,6 +87,7 @@ import pandas as pd
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def setup_logging(verbose: int = 0) -> None:
     if verbose >= 2:
         level = logging.DEBUG
@@ -114,8 +118,7 @@ def detect_value_column(
             return name
 
     numeric_cols = [
-        c for c in df.columns
-        if c != "k" and pd.api.types.is_numeric_dtype(df[c])
+        c for c in df.columns if c != "k" and pd.api.types.is_numeric_dtype(df[c])
     ]
     if len(numeric_cols) == 1:
         logging.info(
@@ -142,6 +145,7 @@ def detect_value_column(
 # ---------------------------------------------------------------------------
 # Core
 # ---------------------------------------------------------------------------
+
 
 def plot_invariant_i1(
     *,
@@ -174,7 +178,9 @@ def plot_invariant_i1(
     logging.debug("Colonnes du CSV : %s", list(df.columns))
 
     if "k" not in df.columns:
-        raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
+        raise KeyError(
+            f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})"
+        )
 
     if value_col is None:
         value_col = detect_value_column(
@@ -237,6 +243,7 @@ def plot_invariant_i1(
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def build_arg_parser() -> argparse.ArgumentParser:
     root = detect_project_root()

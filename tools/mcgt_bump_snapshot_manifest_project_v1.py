@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 import shutil
-import sys
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -68,7 +67,7 @@ def bump_snapshot_project(root_manifest: Path, targets: list[Path]) -> None:
             "homepage": meta.homepage or "",
         }
 
-        backup = t.with_suffix(t.suffix + f".bak_bump_snapshot_" + stamp)
+        backup = t.with_suffix(t.suffix + ".bak_bump_snapshot_" + stamp)
         shutil.copy2(t, backup)
         print(f"[BACKUP] {t} -> {backup}")
         save_json(t, data)

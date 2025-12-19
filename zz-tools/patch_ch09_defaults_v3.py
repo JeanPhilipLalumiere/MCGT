@@ -1,4 +1,6 @@
-import re, pathlib, sys
+import re
+import pathlib
+import sys
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
 if not TARGET.exists():
@@ -17,17 +19,33 @@ src = re.sub(
 # --- B) Calculer l’emplacement d’injection correct
 lines = src.splitlines(keepends=True)
 
-def is_shebang(l): return l.startswith("#!")
-def is_coding(l): return "coding:" in l
+
+def is_shebang(l):
+    return l.startswith("#!")
+
+
+def is_coding(l):
+    return "coding:" in l
+
+
 def is_triple_start(l):
     s = l.lstrip()
     return s.startswith('"""') or s.startswith("'''")
-def is_future(l): return re.match(r'^\s*from\s+__future__\s+import\s+', l) is not None
-def is_import(l): return re.match(r'^\s*(?:import\s+\S+|from\s+\S+\s+import\s+)', l) is not None
+
+
+def is_future(l):
+    return re.match(r"^\s*from\s+__future__\s+import\s+", l) is not None
+
+
+def is_import(l):
+    return re.match(r"^\s*(?:import\s+\S+|from\s+\S+\s+import\s+)", l) is not None
+
 
 i = 0
 # 1) shebang + coding
-while i < len(lines) and (is_shebang(lines[i]) or is_coding(lines[i]) or (len(lines[i].strip())==0)):
+while i < len(lines) and (
+    is_shebang(lines[i]) or is_coding(lines[i]) or (len(lines[i].strip()) == 0)
+):
     i += 1
 
 # 2) docstring module si présent
@@ -75,25 +93,28 @@ defaults = {
     "fmax": 300.0,
 }
 total = 0
+
+
 def subn(pat, repl, txt, flags=0):
     global total
     new, n = re.subn(pat, repl, txt, flags=flags)
     total += n
     return new
 
+
 for k, dv in defaults.items():
     # float(cfg["k"])
     pat1 = rf'float\(\s*cfg\s*\[\s*["\']{re.escape(k)}["\']\s*\]\s*\)'
-    src  = subn(pat1, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
+    src = subn(pat1, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
 
     # float(cfg.get("k"))
     pat2 = rf'float\(\s*cfg\s*\.\s*get\s*\(\s*["\']{re.escape(k)}["\']\s*\)\s*\)'
-    src  = subn(pat2, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
+    src = subn(pat2, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
 
     # affectations directes: k = float(...)
-    pat3 = rf'^(\s*{re.escape(k)}\s*=\s*)float\((.*?)\)\s*$'
-    repl3 = rf'\1_mcgt_safe_float(\2, {dv})'
-    src  = subn(pat3, repl3, src, flags=re.MULTILINE)
+    pat3 = rf"^(\s*{re.escape(k)}\s*=\s*)float\((.*?)\)\s*$"
+    repl3 = rf"\1_mcgt_safe_float(\2, {dv})"
+    src = subn(pat3, repl3, src, flags=re.MULTILINE)
 
 TARGET.write_text(src, encoding="utf-8")
 print(f"[OK] Patch V3 appliqué ({total} remplacement(s)).")

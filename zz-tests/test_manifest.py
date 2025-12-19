@@ -33,11 +33,13 @@ def load_json(p: Path):
 
 def _manifest_entries(js: dict):
     """Return (fmt, entries) where fmt in {'entries','files'}."""
-    if isinstance(js, dict) and isinstance(js.get('entries'), list):
-        return 'entries', js['entries']
-    if isinstance(js, dict) and isinstance(js.get('files'), list):
-        return 'files', js['files']
-    raise AssertionError(f"Unexpected manifest schema keys={list(js.keys()) if isinstance(js, dict) else type(js)}")
+    if isinstance(js, dict) and isinstance(js.get("entries"), list):
+        return "entries", js["entries"]
+    if isinstance(js, dict) and isinstance(js.get("files"), list):
+        return "files", js["files"]
+    raise AssertionError(
+        f"Unexpected manifest schema keys={list(js.keys()) if isinstance(js, dict) else type(js)}"
+    )
 
 
 def test_master_publication_exist_and_heads():
@@ -45,10 +47,10 @@ def test_master_publication_exist_and_heads():
         js = load_json(p)
         fmt, items = _manifest_entries(js)
         assert isinstance(items, list)
-        if fmt == 'entries':
-            assert 'manifest_version' in js and 'project' in js and 'entries' in js
+        if fmt == "entries":
+            assert "manifest_version" in js and "project" in js and "entries" in js
         else:
-            assert 'schemaVersion' in js and 'generatedAt' in js and 'files' in js
+            assert "schemaVersion" in js and "generatedAt" in js and "files" in js
 
 
 def _is_relative_path(path_str: str) -> bool:
@@ -65,8 +67,8 @@ def test_entries_are_relative_and_roles_allowed():
             rel = e
             role = None
         else:
-            rel = e.get('path', '')
-            role = e.get('role')
+            rel = e.get("path", "")
+            role = e.get("role")
         assert _is_relative_path(rel), f"Absolute path found: {e}"
         if role is not None:
             assert role in ALLOWED_ROLES, f"Unexpected role={role} for {rel}"

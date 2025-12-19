@@ -103,7 +103,9 @@ def main():
 
         if updated:
             save_manifest(manifest, entries, key)
-            print(f"[SUMMARY] {manifest.name} : {updated} entrées chapter04 mises à jour.")
+            print(
+                f"[SUMMARY] {manifest.name} : {updated} entrées chapter04 mises à jour."
+            )
         else:
             print(f"[WARN] Aucune entrée chapter04 mise à jour dans {manifest}")
 

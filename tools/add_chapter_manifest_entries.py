@@ -25,7 +25,10 @@ def load_entries(chapter: int):
     with json_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     if not isinstance(data, list):
-        print(f"[ERROR] Format inattendu dans {json_path} (attendu: liste)", file=sys.stderr)
+        print(
+            f"[ERROR] Format inattendu dans {json_path} (attendu: liste)",
+            file=sys.stderr,
+        )
         sys.exit(1)
     return data
 
@@ -81,7 +84,12 @@ def find_target_list(doc, manifest_path: Path, chapter_str: str):
     if not candidates:
         # Dernier recours : prendre la première liste d'objets avec 'path'
         for key, val in doc.items():
-            if isinstance(val, list) and val and isinstance(val[0], dict) and "path" in val[0]:
+            if (
+                isinstance(val, list)
+                and val
+                and isinstance(val[0], dict)
+                and "path" in val[0]
+            ):
                 print(
                     f"[WARN] Aucun bloc spécifique au chapitre {chapter_str} détecté dans {manifest_path}, "
                     f"utilisation de la clé '{key}' par défaut.",
@@ -170,7 +178,9 @@ def main() -> None:
             f"         - total après        : {after}"
         )
 
-    print(f"[DONE] Ajout des fichiers de chapter{chapter_str} aux manifests (publication + master).")
+    print(
+        f"[DONE] Ajout des fichiers de chapter{chapter_str} aux manifests (publication + master)."
+    )
 
 
 if __name__ == "__main__":

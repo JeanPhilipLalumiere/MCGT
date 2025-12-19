@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import os, sys
+import os
+import sys
 from pathlib import Path
+
 
 def normalize_file(p: Path, root: Path) -> bool:
     changed = False
@@ -22,12 +24,13 @@ def normalize_file(p: Path, root: Path) -> bool:
             rel = rel.replace("\\", "/")
             new = f"{h}  {rel}\n"
             out_lines.append(new)
-            changed |= (new != raw)
+            changed |= new != raw
         else:
             out_lines.append(raw)
     if changed:
         p.write_text("".join(out_lines), encoding="utf-8")
     return changed
+
 
 def main(argv: list[str]) -> int:
     root = Path(os.environ.get("GIT_TOP", "")) if os.environ.get("GIT_TOP") else None
@@ -54,6 +57,7 @@ def main(argv: list[str]) -> int:
             any_changed |= normalize_file(p, root)
     print("[OK] normalize done; changed =", any_changed)
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv))

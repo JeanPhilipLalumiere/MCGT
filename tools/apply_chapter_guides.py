@@ -16,7 +16,10 @@ CHAPTERS = list(range(2, 11))
 def load_decisions_for_chapter(chapter: int) -> list[dict]:
     path = TMP_DIR / f"chapter{chapter:02d}_decisions.tsv"
     if not path.is_file():
-        print(f"[WARN] TSV décisions introuvable pour chapter{chapter:02d}: {path}", file=sys.stderr)
+        print(
+            f"[WARN] TSV décisions introuvable pour chapter{chapter:02d}: {path}",
+            file=sys.stderr,
+        )
         return []
 
     rows: list[dict] = []
@@ -78,7 +81,9 @@ def main() -> None:
             guide_dir = guide_path.parent
 
             if guide_path.exists():
-                print(f"[SKIP] Guide déjà présent pour chapter{chapter:02d}: {rel_path}")
+                print(
+                    f"[SKIP] Guide déjà présent pour chapter{chapter:02d}: {rel_path}"
+                )
                 total_skipped_existing += 1
                 continue
 
@@ -87,7 +92,9 @@ def main() -> None:
             with guide_path.open("w", encoding="utf-8") as f:
                 f.write(content)
 
-            print(f"[CREATE] Guide placeholder créé pour chapter{chapter:02d}: {rel_path}")
+            print(
+                f"[CREATE] Guide placeholder créé pour chapter{chapter:02d}: {rel_path}"
+            )
             total_created += 1
 
     print()

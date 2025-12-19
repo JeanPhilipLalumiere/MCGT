@@ -46,7 +46,14 @@ Notes
 """
 
 from __future__ import annotations
-import argparse, sys, os, json, time, logging, hashlib, subprocess, textwrap, shutil
+import argparse
+import sys
+import os
+import json
+import time
+import logging
+import hashlib
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
@@ -458,7 +465,8 @@ def etape_6_raffinement(
 def etape_7_resume(
     args, log: logging.Logger, results_final_csv: Path, best_json_final: Path
 ):
-    import pandas as pd, numpy as np
+    import pandas as pd
+    import numpy as np
 
     log.info("7) Résumé & manifeste pipeline")
     df = pd.read_csv(results_final_csv)

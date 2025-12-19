@@ -11,17 +11,26 @@ Exit codes:
   2 = erreur d'écriture
   3 = autre erreur
 """
+
 from __future__ import annotations
-import os, sys, re, json, argparse, pathlib, hashlib
+import os
+import sys
+import re
+import json
+import argparse
+import pathlib
+import hashlib
+
 
 def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
+
 
 def norm_manifest(obj: dict) -> dict:
     files = obj.get("files", [])
     norm = []
     for it in files:
-        if not isinstance(it, dict): 
+        if not isinstance(it, dict):
             continue
         p = str(it.get("path", "")).strip()
         if p:
@@ -36,11 +45,22 @@ def norm_manifest(obj: dict) -> dict:
     uniq.sort(key=lambda x: x["path"])
     return {"files": uniq}
 
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="inp", required=True, help="manifest source (JSON)")
-    ap.add_argument("--out", dest="out", required=True, help="fichier de sortie (peut être identique à --in)")
-    ap.add_argument("--drop", action="append", default=[], help="regex à exclure (ajoutée à DROP_REGEX)")
+    ap.add_argument(
+        "--out",
+        dest="out",
+        required=True,
+        help="fichier de sortie (peut être identique à --in)",
+    )
+    ap.add_argument(
+        "--drop",
+        action="append",
+        default=[],
+        help="regex à exclure (ajoutée à DROP_REGEX)",
+    )
     args = ap.parse_args()
 
     drop_regex_env = os.environ.get("DROP_REGEX", "")
@@ -71,9 +91,13 @@ def main() -> int:
         kept = before
 
     out_obj = {"files": kept}
-    out_bytes = (json.dumps(out_obj, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    out_bytes = (json.dumps(out_obj, ensure_ascii=False, indent=2) + "\n").encode(
+        "utf-8"
+    )
 
-    changed = sha256_bytes(out_bytes) != sha256_bytes((json.dumps(base, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+    changed = sha256_bytes(out_bytes) != sha256_bytes(
+        (json.dumps(base, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    )
     try:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_bytes(out_bytes)
@@ -81,8 +105,11 @@ def main() -> int:
         print(f"[ERR] écriture échouée: {out}: {e}", file=sys.stderr)
         return 2
 
-    print(f"[OK] {inp} → {out} | avant={len(before)} après={len(kept)} drop={len(before)-len(kept)}")
+    print(
+        f"[OK] {inp} → {out} | avant={len(before)} après={len(kept)} drop={len(before) - len(kept)}"
+    )
     return 0 if not changed else 0
+
 
 if __name__ == "__main__":
     try:

@@ -144,6 +144,8 @@ def build_log_grid(
     # Fallback pour les configs incomplètes (p.ex. smoke sans n_k explicite)
     n_points = 32
     return np.logspace(np.log10(xmin), np.log10(xmax), n_points)
+
+
 def load_config(ini_path: Path) -> PhaseParams:
     """Lit un INI flexible et renvoie une PhaseParams."""
     cfg = configparser.ConfigParser(
@@ -190,9 +192,9 @@ def load_config(ini_path: Path) -> PhaseParams:
         n_a = g2.getint("n_a")
         s = cfg["scan"] if "scan" in cfg else {}
 
-    # découpe / split
-        seg_cfg = cfg['segmentation'] if cfg.has_section('segmentation') else {}
-        x_split = float(s.get('x_split', seg_cfg.get('x_split', 1.0)))
+        # découpe / split
+        seg_cfg = cfg["segmentation"] if cfg.has_section("segmentation") else {}
+        x_split = float(s.get("x_split", seg_cfg.get("x_split", 1.0)))
     k_split = x_split
 
     # lissage
@@ -349,7 +351,6 @@ def main():
     k_grid = build_log_grid(params.k_min, params.k_max, n_points=params.n_k)
     # Auto-fix: s'assurer que params.k_min/k_max sont toujours définis pour le logging
     try:
-        import numpy as _np  # au cas où
         if hasattr(k_grid, "size") and k_grid.size > 0:
             params.k_min = float(k_grid[0])
             params.k_max = float(k_grid[-1])

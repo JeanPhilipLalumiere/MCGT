@@ -114,7 +114,9 @@ def ensure_jalons(src: Path | None) -> Path:
 # ----------------------------------------------------------------------
 def parse_cli() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Génère les données du Chapitre 3.")
-    p.add_argument("--config", default="zz-configuration/gw_phase.ini", help="INI avec [scan]")
+    p.add_argument(
+        "--config", default="zz-configuration/gw_phase.ini", help="INI avec [scan]"
+    )
     p.add_argument("--npts", type=int, help="nombre de points fixe")
     p.add_argument("--copy-jalons", help="chemin vers jalons si absent")
     p.add_argument("--dry-run", action="store_true", help="ne pas écrire")

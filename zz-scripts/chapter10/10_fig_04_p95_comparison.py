@@ -365,7 +365,7 @@ def main() -> None:
         f"N = {N}",
         f"mean(orig)   = {mean_x:.3f} rad",
         f"mean(recalc) = {mean_y:.3f} rad",
-        f"Δ = recalc - orig :",
+        "Δ = recalc - orig :",
         f"  mean   = {mean_delta:.3e}",
         f"  median = {med_delta:.3e}",
         f"  std    = {std_delta:.3e}",

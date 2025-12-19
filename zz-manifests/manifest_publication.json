@@ -1,14 +1,14 @@
 {
   "entries": [
     {
-      "git_hash": "6fe1325fac6cd1c2501a5a39ca1e2215e3e95f83",
+      "git_hash": "59756b0df246986717a869dd9927aed374ac788b",
       "mtime": 1760880221,
-      "mtime_iso": "2025-12-19T23:24:30Z",
+      "mtime_iso": "2025-12-19T23:40:36Z",
       "path": "zz-manifests/diag_consistency.py",
       "role": "manifest",
-      "sha256": "c02ee83fe5a6656fc7945b6ead7bbf24045d1efa753d2457ce99f4362938452c",
+      "sha256": "65f9a2f740c5793e8f45ef4802e0c8834f15ea1e5053a9acda8a3a4d8ad116ab",
       "size": 32703,
-      "size_bytes": 33748
+      "size_bytes": 34375
     },
     {
       "git_hash": "49acf9fc675af2160664231c09e8040329e59cdd",
@@ -31,15 +31,15 @@
       "size_bytes": 3804
     },
     {
-      "git_hash": "7f3b9c3ae914eb4ec6f570152abdaceb78c8d886",
+      "git_hash": "f78357133b4dd13bbeafaa4359627312bba98ef2",
       "media_type": "application/octet-stream",
       "mtime": 1761085107,
-      "mtime_iso": "2025-12-19T23:34:58Z",
+      "mtime_iso": "2025-12-19T23:41:24Z",
       "path": "pyproject.toml",
       "role": "artifact",
-      "sha256": "8639f379725cb69374517bd484947c191eaf510d9d4243c81f7646ff03fdf414",
+      "sha256": "bdf85189e01f5312695f7c659cbf353e84a2f2cd4fda38764383d2aa08d44fcc",
       "size": 933,
-      "size_bytes": 1212
+      "size_bytes": 1296
     },
     {
       "git_hash": "7f1a1763ca9cebc7bc16576d353d3284ee5d3c7d",
@@ -413,10 +413,10 @@
     },
     {
       "path": "zz-scripts/chapter09/extract_phenom_phase.py",
-      "sha256": "a11a09616192c345dad7ba2189b17cf8d1425a3f4052ea886882fabf5d0af532",
-      "size_bytes": 4713,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "fd524a4cfb11184d960228e101e86fe9f867b3b1"
+      "sha256": "fa685ddc6759ddf2490efef2494e44da8e50a6d481fbf7dc6ba9871ba140f8b6",
+      "size_bytes": 4959,
+      "mtime_iso": "2025-12-19T23:40:39Z",
+      "git_hash": "68a0a8a1361b3cacd6ec1cea2494faae073f4ed2"
     },
     {
       "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py",
@@ -427,10 +427,10 @@
     },
     {
       "path": "zz-scripts/chapter09/generate_data_chapter09.py",
-      "sha256": "5da43c1c1c0773c2f9104ed9878539754b591e4ef88a288df15ce66144102c06",
-      "size_bytes": 29623,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "4b31d07571d125ba3d9c775814494432fb2df168"
+      "sha256": "782634ef79c84427f4ca18a7c4d980ce5eae3870a48c89caf5def0de4c1d8db0",
+      "size_bytes": 29842,
+      "mtime_iso": "2025-12-19T23:40:36Z",
+      "git_hash": "0c9be43b3c6dd425d657a17cef23c30e48745877"
     },
     {
       "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
@@ -455,17 +455,17 @@
     },
     {
       "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
-      "sha256": "7bec3eb2a09ab3f5083ccb445324feb18503155e87bf87519d89db9f661ff967",
-      "size_bytes": 14551,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "730dbbeca2a4370ebae6b9ecc1abc7640188c2b5"
+      "sha256": "f4dacfe28c383499aba7aa5e296c0b3cf740e68b14844d13a1a6214889a94564",
+      "size_bytes": 14514,
+      "mtime_iso": "2025-12-19T23:40:39Z",
+      "git_hash": "5f2b93407149b00949318416dd9bedee44af8adf"
     },
     {
       "path": "zz-scripts/chapter10/generate_data_chapter10.py",
-      "sha256": "203212f4b5abcbb20d3af52b963b90f6bc547577f6a07320561260a4edb5f638",
-      "size_bytes": 21713,
-      "mtime_iso": "2025-12-19T23:28:56Z",
-      "git_hash": "33df1eaed2e7dadad2365af74f2d626b34293946"
+      "sha256": "480383dc7a037c1d58e97514e07d4197561a749487aa3aeb0d83baaeeab339b7",
+      "size_bytes": 21747,
+      "mtime_iso": "2025-12-19T23:40:39Z",
+      "git_hash": "b077528aa54ac9d5c386e5850bdfc2f6b779e873"
     },
     {
       "media_type": "image/png",
@@ -985,7 +985,7 @@
     }
   ],
   "entries_updated": 0,
-  "generated_at": "2025-12-19T23:36:09Z",
+  "generated_at": "2025-12-19T23:41:50Z",
   "generated_by": "jplal",
   "lists": [],
   "manifest_tool_version": "diag_consistency.py v1",
@@ -997,5 +997,5 @@
   },
   "repository_root": ".",
   "total_entries": 92,
-  "total_size_bytes": 15634327
+  "total_size_bytes": 15635500
 }

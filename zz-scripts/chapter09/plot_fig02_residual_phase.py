@@ -399,7 +399,7 @@ def main() -> None:
     ]
     axs[0].legend(
         handles=legend_handles,
-        loc="lower right",
+        loc="upper right",
         fontsize=10,
         frameon=True,
         framealpha=0.85,

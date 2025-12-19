@@ -234,8 +234,8 @@ def plot_ddelta_phi_vs_k(
     ax.xaxis.set_major_locator(LogLocator(base=10))
     ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
-    ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
-    from matplotlib.ticker import NullLocator, NullFormatter
+    from matplotlib.ticker import FixedLocator, NullLocator, NullFormatter
+    ax.yaxis.set_major_locator(FixedLocator([1e-6, 1e-4, 1e-2, 1e0, 1e2]))
     ax.yaxis.set_minor_locator(NullLocator())
     ax.yaxis.set_minor_formatter(NullFormatter())
     ax.tick_params(axis="y", labelsize=10)

@@ -212,28 +212,18 @@ def main(args=None) -> None:
         label=r"$\mathrm{d}\chi^2/\mathrm{d}T/10^{4}$",
     )
 
-    # point + flèche sur le minimum
+    # point de minimum + annotation textuelle
     ax1.scatter(Tmin, chi2_min, s=60, color="k", zorder=4)
-    start_display = (0.5, 0.35)  # axes fraction, below centered legend
-    start_data = ax1.transAxes.inverted().transform(ax1.transAxes.transform(start_display))
-    start_text = ax1.transAxes.transform(start_display)
-    arrow = FancyArrowPatch(
-        start_data,
-        (Tmin, chi2_min),
-        arrowstyle="->",
-        mutation_scale=12,
-        connectionstyle="arc3,rad=-0.35",
-        color="k",
-    )
-    ax1.add_patch(arrow)
-    ax1.annotate(
-        rf"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
-        xy=start_display,
-        xycoords="axes fraction",
+    ax1.text(
+        0.5,
+        0.38,
+        rf"Min $\chi^2 = {chi2_min:.2f}$ at $T = {Tmin:.2f}$ Gyr",
+        transform=ax1.transAxes,
         ha="center",
-        va="center",
-        fontsize=10,
+        va="top",
+        fontsize="small",
         color="k",
+        bbox=dict(facecolor="white", alpha=0.7, edgecolor="none"),
     )
 
     # légende combinée

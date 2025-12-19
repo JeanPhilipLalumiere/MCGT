@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -150,13 +163,9 @@ def main(args) -> None:
     pcm = ax.pcolormesh(alpha_edges, q0_edges, chi2_mat, shading="auto", cmap="viridis")
     fig.colorbar(pcm, ax=ax, label=r"$\Delta\chi^2$")
 
-    ax.set_title(
-        r"Carte de chaleur $\Delta\chi^2$ (Chapitre 6)",
-        fontsize=14,
-        fontweight="bold",
-    )
+    ax.set_title(r"$\Delta\chi^2$ Heatmap (Chapter 6)", fontsize=14, fontweight="bold")
     ax.set_xlabel(r"$\alpha$")
-    ax.set_ylabel(r"$q_0^*$")
+    ax.set_ylabel(r"$q_0^\star$")
     ax.grid(which="major", linestyle=":", linewidth=0.5)
     ax.grid(which="minor", linestyle=":", linewidth=0.3)
     ax.minorticks_on()

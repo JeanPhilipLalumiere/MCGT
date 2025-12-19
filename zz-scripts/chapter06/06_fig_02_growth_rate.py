@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,16 +46,14 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
 import os
 """
-Script de tracé 06_fig_03_delta_cls_relative pour Chapitre 6 (Rayonnement CMB)
-───────────────────────────────────────────────────────────────
-Tracé de la différence relative ΔCl/Cl en fonction du multipôle l,
-avec annotation des paramètres MCGT (α, q0star).
+Plot 06_fig_02_growth_rate for Chapter 6.
+Shows the relative evolution of the growth rate proxy.
 """
 
 # --- IMPORTS & CONFIGURATION ---
@@ -63,7 +74,7 @@ DATA_DIR = ROOT / "zz-data" / "chapter06"
 FIG_DIR = ROOT / "zz-figures" / "chapter06"
 DELTA_CLS_REL_CSV = DATA_DIR / "06_delta_cls_relative.csv"
 JSON_PARAMS = DATA_DIR / "06_params_cmb.json"
-OUT_PNG = FIG_DIR / "06_fig_03_delta_cls_relative.png"
+OUT_PNG = FIG_DIR / "06_fig_02_growth_rate.png"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load injection parameters
@@ -71,7 +82,7 @@ with open(JSON_PARAMS, encoding="utf-8") as f:
     params = json.load(f)
 ALPHA = params.get("alpha", None)
 Q0STAR = params.get("q0star", None)
-logging.info(f"Tracé fig_03 avec α={ALPHA}, q0*={Q0STAR}")
+logging.info(f"Plotting fig_02 with α={ALPHA}, q0*={Q0STAR}")
 
 # Load data
 df = pd.read_csv(DELTA_CLS_REL_CSV)
@@ -86,7 +97,7 @@ ax.plot(
     linestyle="-",
     linewidth=2,
     color="tab:green",
-    label=r"$\Delta C_\ell/C_\ell$",
+    label=r"$f(z)$",
 )
 ax.axhline(0, color="black", linestyle="--", linewidth=1)
 
@@ -95,8 +106,9 @@ ax.set_xlim(2, 3000)
 ymax = np.max(np.abs(delta_rel)) * 1.1
 ax.set_ylim(-ymax, ymax)
 
-ax.set_xlabel(r"Multipôle $\ell$")
-ax.set_ylabel(r"$\Delta C_{\ell}/C_{\ell}$")
+ax.set_xlabel("Redshift $z$")
+ax.set_ylabel(r"$f(z) = d\ln D / d\ln a$")
+ax.set_title("Linear Growth Rate Evolution $f(z)$")
 ax.grid(True, which="both", linestyle=":", linewidth=0.5)
 ax.legend(frameon=False, loc="upper right")
 

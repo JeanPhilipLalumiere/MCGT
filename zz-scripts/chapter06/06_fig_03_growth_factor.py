@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
 """
-Script de tracé fig_04_delta_rs_vs_params pour Chapitre 6 (Rayonnement CMB)
-
-Tracé de la variation relative Δr_s/r_s en fonction du paramètre q0star.
-
-Produit :
-- zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png
-
-Données sources :
-- zz-data/chapter06/06_delta_rs_scan.csv
-- zz-data/chapter06/06_params_cmb.json
+Plot 06_fig_03_growth_factor for Chapter 6.
+Displays the growth factor normalized to ΛCDM as a function of redshift.
 """
 
 from __future__ import annotations
@@ -24,6 +16,18 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
+
 # ---------------------------------------------------------------------
 # Paths & constantes
 # ---------------------------------------------------------------------
@@ -34,7 +38,7 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 DATA_CSV = DATA_DIR / "06_delta_rs_scan.csv"
 JSON_PARAMS = DATA_DIR / "06_params_cmb.json"
-OUT_PNG = FIG_DIR / "06_fig_04_delta_rs_vs_params.png"
+OUT_PNG = FIG_DIR / "06_fig_03_growth_factor.png"
 
 
 def _sha256(path: Path) -> str:
@@ -95,18 +99,15 @@ def main(args=None) -> None:
         params = json.load(f)
     alpha = params.get("alpha", None)
     q0star = params.get("q0star", None)
-    logging.info("Tracé fig_04 avec α=%s, q0*=%s", alpha, q0star)
+    logging.info("Plotting fig_03 with α=%s, q0*=%s", alpha, q0star)
 
     # Figure
     fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
-    ax.scatter(x, y, marker="o", s=20, alpha=0.8, label=r"$\Delta r_s / r_s$")
+    ax.scatter(x, y, marker="o", s=20, alpha=0.8, label=r"$D(z) / D_{\Lambda\mathrm{CDM}}$")
 
-    # Tolérances ±1 %
-    ax.axhline(0.01, color="k", linestyle=":", linewidth=1)
-    ax.axhline(-0.01, color="k", linestyle=":", linewidth=1)
-
-    ax.set_xlabel(r"$q_0^\star$", fontsize=11)
-    ax.set_ylabel(r"$\Delta r_s / r_s$", fontsize=11)
+    ax.set_xlabel("Redshift $z$", fontsize=11)
+    ax.set_ylabel(r"$D(z) / D_{\Lambda\mathrm{CDM}}$", fontsize=11)
+    ax.set_title(r"Growth Factor $D(z)$ Normalized to $\Lambda\text{CDM}$")
     ax.grid(which="both", linestyle=":", linewidth=0.5)
     ax.legend(frameon=False, fontsize=9)
 

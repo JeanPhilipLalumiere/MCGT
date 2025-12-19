@@ -340,16 +340,15 @@ def main() -> None:
     ax.set_ylabel(args.m2_col)
     ax.set_title(args.title, fontsize=15)
 
-    # Cadre serré autour des données
-    xmin, xmax = float(np.min(x)), float(np.max(x))
-    ymin, ymax = float(np.min(y)), float(np.max(y))
-    if xmax == xmin:
-        xmin, xmax = xmin - 1.0, xmax + 1.0
-    if ymax == ymin:
-        ymin, ymax = ymin - 1.0, ymax + 1.0
-    ax.set_xlim(xmin, xmax)
-    ax.set_ylim(ymin, ymax)
-    ax.autoscale(enable=True, axis="both", tight=False)
+    # Cadre serré autour des données (percentiles pour ignorer les outliers)
+    x_lo, x_hi = np.percentile(x, [0.5, 99.5])
+    y_lo, y_hi = np.percentile(y, [0.5, 99.5])
+    if x_lo == x_hi:
+        x_lo, x_hi = x_lo - 1.0, x_hi + 1.0
+    if y_lo == y_hi:
+        y_lo, y_hi = y_lo - 1.0, y_hi + 1.0
+    ax.set_xlim(x_lo, x_hi)
+    ax.set_ylim(y_lo, y_hi)
 
     leg = ax.legend(loc="upper right", frameon=True, fontsize=9)
     leg.set_zorder(20)

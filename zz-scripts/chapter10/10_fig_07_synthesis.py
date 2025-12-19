@@ -273,7 +273,14 @@ def plot_synthese(
         handles.append(h)
 
     ax_cov.axhline(nominal_level, color="crimson", ls="--", lw=1.5, zorder=1)
-    nominal_handle = Line2D([0], [0], color="crimson", lw=1.5, ls="--", label=f"Niveau nominal {int(nominal_level*100)}%")
+    nominal_handle = Line2D(
+        [0],
+        [0],
+        color="crimson",
+        lw=1.5,
+        ls="--",
+        label=f"Nominal level {int(nominal_level*100)}%",
+    )
 
     if handles:
         ax_cov.legend(
@@ -373,13 +380,17 @@ def plot_synthese(
         s0 = series_list[0]
         M0, outer0, inner0 = detect_reps_params(s0.params)
         cap1 = (
-            f"Protocole : M={int(M0) if np.isfinite(M0) else '?'} réalisations externes par point N "
-            f"(alias outer_B) ; barres = Wilson 95 % calculées sur M. "
-            f"Bootstrap imbriqué : outer_B={int(outer0) if np.isfinite(outer0) else '?'} "
-            f"(couverture), inner_B={int(inner0) if np.isfinite(inner0) else '?'} (IC interne) ; "
+            f"Protocol: M={int(M0) if np.isfinite(M0) else '?'} outer runs per N "
+            f"(outer_B). Bars = Wilson 95% on M. "
+            f"Nested bootstrap outer_B={int(outer0) if np.isfinite(outer0) else '?'} "
+            f"(coverage), inner_B={int(inner0) if np.isfinite(inner0) else '?'} (inner CI); "
             f"α={s0.alpha:.2f}."
         )
-        cap2 = "Largeur moyenne de l’IC 95 % en radians ; ajustement log–log width ≈ a·N^b ; " + " ; ".join(slopes) + "."
+        cap2 = (
+            "Mean 95% CI width [rad]; log–log fit width ≈ a·N^b; "
+            + " ; ".join(slopes)
+            + "."
+        )
         fig.text(0.5, 0.035, cap1, ha="center", fontsize=9)
         fig.text(0.5, 0.017, cap2, ha="center", fontsize=9)
 
@@ -409,8 +420,12 @@ def main(argv=None) -> int:
     fig_w, fig_h = parse_figsize(args.figsize)
     out_png = Path(args.out)
 
-    # -------- série A : manifest principal (fig03b) ----------
-    default_manifest_a = Path("zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.manifest.json")
+    # -------- série A : manifest principal (fig03/convergence) ----------
+    default_candidates = [
+        Path("zz-figures/chapter10/10_fig_03_convergence.manifest.json"),
+        Path("zz-figures/chapter10/10_fig_03b_convergence_zoom.manifest.json"),
+    ]
+    default_manifest_a = next((p for p in default_candidates if p.exists()), default_candidates[0])
     series_list: List[Series] = []
 
     if args.manifest_a:
@@ -429,9 +444,9 @@ def main(argv=None) -> int:
                 series_list.append(series_from_manifest(man_a, label_a))
                 print(f"[INFO] Manifest A auto-détecté : {default_manifest_a}")
             except Exception as e:
-                print(f"[WARN] Manifest A auto-détecté invalide ({e}); figure de synthèse sera vide.", file=sys.stderr)
+                print(f"[WARN] Auto-detected manifest A invalid ({e}); synthesis figure will be empty.", file=sys.stderr)
         else:
-            print("[WARN] Aucun manifest A fourni et auto-détection impossible ; figure de synthèse sera vide.", file=sys.stderr)
+            print("[WARN] No manifest A provided and auto-detect failed; synthesis figure will be empty.", file=sys.stderr)
 
     # -------- série B optionnelle ----------
     if args.manifest_b:

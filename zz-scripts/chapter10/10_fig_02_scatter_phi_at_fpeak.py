@@ -504,9 +504,9 @@ def main() -> None:
 
     # pied de figure
     foot = (
-        r"$\Delta\phi$ calculé circulairement en radians "
+        r"$\Delta\phi$ computed circularly in radians "
         r"(b − a mod $2\pi \rightarrow [-\pi,\pi)$). "
-        r"Couleur = $|\Delta\phi|$. Hexbin = densité (si activé)."
+        r"Color = $|\Delta\phi|$. Hexbin = density (if enabled)."
     )
     fig.text(0.5, 0.02, foot, ha="center", fontsize=9)
 

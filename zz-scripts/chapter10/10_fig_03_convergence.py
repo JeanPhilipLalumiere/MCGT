@@ -23,7 +23,6 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -134,10 +133,6 @@ def main():
         default=0.05,
         help="Proportion tronquée de chaque côté (trimmed mean)",
     )
-    # paramètres du zoom (on conserve ta logique)
-    p.add_argument("--zoom-center-n", type=int, default=None, help="Centre en N (par défaut ~M/2)")
-    p.add_argument("--zoom-w", type=float, default=0.35, help="Largeur de base de l'encart (fraction figure)")
-    p.add_argument("--zoom-h", type=float, default=0.20, help="Hauteur de base de l'encart (fraction figure)")
     args = p.parse_args()
 
     # Lecture & détection de la colonne p95
@@ -203,7 +198,7 @@ def main():
     ax.set_ylabel(f"Estimator of {p95_col} [rad]")
     ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
-    # Bloc d'info (statistiques finales)
+    # Légende unique (statistiques finales)
     stats_lines = [
         f"N = {M}",
         f"mean = {final_mean:.3f} [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}]",
@@ -211,78 +206,15 @@ def main():
         f"trimmed = {final_tmean:.3f} [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}]",
     ]
     stats_handles = [plt.Line2D([0], [0], color="none", marker="None", label=txt) for txt in stats_lines]
+    labels_stats = [h.get_label() for h in stats_handles]
     leg_stats = ax.legend(
         stats_handles,
-        [h.get_label() for h in stats_handles],
-        loc="lower right",
-        bbox_to_anchor=(1.0, 0.0),
+        labels_stats,
+        loc="lower left",
         frameon=True,
         fontsize=10,
     )
     leg_stats.set_zorder(5)
-
-    # ----- Inset (zoom) : même logique que ta version -----
-    base_w, base_h = args.zoom_w, args.zoom_h
-    inset_w = base_w * 1.5
-    inset_h = base_h * 2.3
-    center_n = args.zoom_center_n if args.zoom_center_n is not None else int(M * 0.5)
-    win_frac = 0.25
-    win_n = int(max(10, M * win_frac))
-    xin0 = max(0, center_n - win_n // 2)
-    xin1 = min(M, center_n + win_n // 2)
-
-    sel = (N_list >= xin0) & (N_list <= xin1)
-    if np.sum(sel) == 0:
-        sel = slice(len(N_list) // 3, 2 * len(N_list) // 3)
-        ylo = np.min(mean_low[sel])
-        yhi = np.max(mean_high[sel])
-    else:
-        ylo = float(np.nanmin(mean_low[sel]))
-        yhi = float(np.nanmax(mean_high[sel]))
-    ypad = 0.02 * (yhi - ylo) if (yhi - ylo) > 0 else 0.005
-    yin0, yin1 = ylo - ypad, yhi + ypad
-
-    inset_x = 0.62 - inset_w / 2.0
-    inset_y = 0.18
-    inset_ax = inset_axes(
-        ax,
-        width=f"{inset_w * 100}%", height=f"{inset_h * 100}%",
-        bbox_to_anchor=(inset_x, inset_y, inset_w, inset_h),
-        bbox_transform=fig.transFigure,
-        loc='lower left', borderpad=1,
-    )
-
-    sel_idx = (N_list >= xin0) & (N_list <= xin1)
-    inset_ax.fill_between(
-        N_list[sel_idx], mean_low[sel_idx], mean_high[sel_idx],
-        color='tab:blue', alpha=0.18,
-    )
-    inset_ax.plot(N_list[sel_idx], mean_est[sel_idx],   color='tab:blue',   lw=1.5)
-    inset_ax.plot(N_list[sel_idx], median_est[sel_idx], color='tab:orange', lw=1.2, ls='--')
-    inset_ax.plot(N_list[sel_idx], tmean_est[sel_idx],  color='tab:green',  lw=1.2, ls='-.')
-
-    inset_ax.axhline(ref_mean, color='crimson', lw=1.0, ls='--')
-    inset_ax.set_xlim(xin0, xin1)
-    inset_ax.set_ylim(yin0, yin1)
-    inset_ax.set_title("zoom (mean)", fontsize=10)
-    inset_ax.tick_params(axis='both', which='major', labelsize=8)
-    inset_ax.grid(False)
-
-    # Boîte synthèse (en bas à droite, au-dessus de la légende)
-    stat_lines = [
-        f"N = {M}",
-        f"mean = {final_mean:.3f}  (95% CI [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}])",
-        f"median = {final_median:.3f}  (95% CI [{final_median_ci[0]:.3f}, {final_median_ci[1]:.3f}])",
-        f"trimmed mean (α={args.trim:.2f}) = {final_tmean:.3f}  "
-        f"(95% CI [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}])",
-        f"bootstrap = percentile, B = {args.B}, seed = {args.seed}",
-    ]
-    bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
-    ax.text(
-        0.98, 0.28, "\n".join(stat_lines),
-        transform=ax.transAxes, fontsize=9,
-        va='bottom', ha='right', bbox=bbox, zorder=20,
-    )
 
     # Footnote
     fig.text(

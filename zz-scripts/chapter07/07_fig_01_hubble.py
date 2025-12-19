@@ -20,12 +20,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -52,6 +54,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
         plt.savefig(path, **savefig_kwargs)
     return True
 
+
 #!/usr/bin/env python3
 r"""
 plot_fig01_cs2_heatmap.py
@@ -75,6 +78,7 @@ from matplotlib.colors import LogNorm
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def setup_logging(verbose: int = 0) -> None:
     """Configure le niveau de logging en fonction de -v / -vv."""
@@ -117,7 +121,8 @@ def detect_value_column(
 
     # Fallback: colonnes candidates (numériques) hors 'k' et 'a'
     numeric_cols = [
-        c for c in df.columns
+        c
+        for c in df.columns
         if c not in {"k", "a"} and pd.api.types.is_numeric_dtype(df[c])
     ]
     if len(numeric_cols) == 1:
@@ -145,6 +150,7 @@ def detect_value_column(
 # ---------------------------------------------------------------------------
 # Cœur du tracé
 # ---------------------------------------------------------------------------
+
 
 def plot_cs2_heatmap(
     *,
@@ -280,6 +286,7 @@ def plot_cs2_heatmap(
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def build_arg_parser() -> argparse.ArgumentParser:
     racine = detect_project_root()

@@ -33,18 +33,14 @@ def main(args=None) -> None:
     jalons = jalons.sort_values("T_Gyr")
 
     # Sous-ensembles nettoyés : on enlève les NaN et on déduplique T_Gyr
-    jalons_DH = (
-        jalons.dropna(subset=["DH_obs"])
-        .drop_duplicates(subset=["T_Gyr"])
-    )
-    jalons_Yp = (
-        jalons.dropna(subset=["Yp_obs"])
-        .drop_duplicates(subset=["T_Gyr"])
-    )
+    jalons_DH = jalons.dropna(subset=["DH_obs"]).drop_duplicates(subset=["T_Gyr"])
+    jalons_Yp = jalons.dropna(subset=["Yp_obs"]).drop_duplicates(subset=["T_Gyr"])
 
     # Sanity checks minimaux
     if len(jalons_DH) < 2:
-        raise ValueError("Besoin d'au moins deux jalons avec DH_obs pour l'interpolation PCHIP.")
+        raise ValueError(
+            "Besoin d'au moins deux jalons avec DH_obs pour l'interpolation PCHIP."
+        )
     if len(jalons_Yp) == 0:
         raise ValueError("Aucun jalon avec Yp_obs trouvé dans 05_bbn_milestones.csv.")
 
@@ -87,28 +83,22 @@ def main(args=None) -> None:
     # 5) Calcul du χ² total (DH + Yp)
     chi2_vals: list[float] = []
     for dh_c, yp_c in zip(DH_calc, Yp_calc, strict=False):
-        c1 = (
-            (dh_c - jalons_DH["DH_obs"]) ** 2
-            / jalons_DH["sigma_DH"] ** 2
-        ).sum()
-        c2 = (
-            (yp_c - jalons_Yp["Yp_obs"]) ** 2
-            / jalons_Yp["sigma_Yp"] ** 2
-        ).sum()
+        c1 = ((dh_c - jalons_DH["DH_obs"]) ** 2 / jalons_DH["sigma_DH"] ** 2).sum()
+        c2 = ((yp_c - jalons_Yp["Yp_obs"]) ** 2 / jalons_Yp["sigma_Yp"] ** 2).sum()
         chi2_vals.append(float(c1 + c2))
 
-    pd.DataFrame(
-        {"T_Gyr": T, "chi2_nucleosynthesis": chi2_vals}
-    ).to_csv(CHI2_FILE, index=False)
+    pd.DataFrame({"T_Gyr": T, "chi2_nucleosynthesis": chi2_vals}).to_csv(
+        CHI2_FILE, index=False
+    )
 
     # 6) Dérivée et lissage de χ²
     dchi2_raw = np.gradient(chi2_vals, T)
     # Fenêtre impaire ≤ 21 pour éviter oversmoothing
     win = min(21, (len(dchi2_raw) // 2) * 2 + 1)
     dchi2_smooth = savgol_filter(dchi2_raw, win, polyorder=3, mode="interp")
-    pd.DataFrame(
-        {"T_Gyr": T, "dchi2_smooth": dchi2_smooth}
-    ).to_csv(DERIV_FILE, index=False)
+    pd.DataFrame({"T_Gyr": T, "dchi2_smooth": dchi2_smooth}).to_csv(
+        DERIV_FILE, index=False
+    )
 
     # 7) Calcul des tolérances ε = |pred–obs|/obs
     eps_records: list[dict[str, float]] = []
@@ -160,6 +150,7 @@ def main(args=None) -> None:
 
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
+
     def _mcgt_cli_seed() -> None:
         import argparse
         import sys
@@ -235,4 +226,3 @@ if __name__ == "__main__":
             sys.exit(1)
 
     _mcgt_cli_seed()
-

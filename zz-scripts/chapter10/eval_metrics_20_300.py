@@ -37,13 +37,13 @@ from joblib import Parallel, delayed
 # Importer les backends locaux (doivent exister dans le dépôt)
 try:
     from mcgt.backends.ref_phase import compute_phi_ref, ref_cache_info
-except Exception as e:
+except Exception:
     compute_phi_ref = None
     ref_cache_info = None
 
 try:
     from mcgt.phase import phi_mcgt
-except Exception as e:
+except Exception:
     phi_mcgt = None
 
 # ---------------------------------------------------------------------
@@ -248,7 +248,7 @@ def evaluate_sample(
         )
         logging.debug("Sample %s failed RuntimeError: %s", sid, msg)
         return result
-    except Exception as ex:
+    except Exception:
         logging.exception("Erreur inattendue pour sample %s", sid)
         result.update(
             {

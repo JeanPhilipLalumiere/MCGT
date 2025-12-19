@@ -203,7 +203,9 @@ def normalize_manifest_items(obj: dict[str, Any]) -> tuple[str, list[dict[str, A
         key = "files"
 
     if key is None:
-        raise ValueError("Unexpected manifest format: expected 'entries'[] or 'files'[] at root.")
+        raise ValueError(
+            "Unexpected manifest format: expected 'entries'[] or 'files'[] at root."
+        )
 
     raw = obj.get(key, [])
     items: list[dict[str, Any]] = []
@@ -213,7 +215,9 @@ def normalize_manifest_items(obj: dict[str, Any]) -> tuple[str, list[dict[str, A
         elif isinstance(it, str):
             items.append({"path": it})
         else:
-            raise ValueError(f"Unexpected item type in manifest.{key}[]: {type(it).__name__}")
+            raise ValueError(
+                f"Unexpected item type in manifest.{key}[]: {type(it).__name__}"
+            )
 
     obj[key] = items
     return key, items
@@ -226,7 +230,9 @@ def _compare_field(stored: Any, computed: Any) -> bool:
     return stored == computed
 
 
-def compute_info(repo_root: Path, rel_path: str) -> tuple[dict[str, Any] | None, Issue | None]:
+def compute_info(
+    repo_root: Path, rel_path: str
+) -> tuple[dict[str, Any] | None, Issue | None]:
     p = Path(rel_path)
     if p.is_absolute():
         return None, Issue(
@@ -252,7 +258,9 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
     rel = e.get("path", "")
     rel_ok = ensure_relative(Path(rel))
     if not rel_ok:
-        issues.append(Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel))
+        issues.append(
+            Issue("ERROR", "ABSOLUTE_PATH", f"path doit être relatif: {rel}", idx, rel)
+        )
 
     info, err = compute_info(repo_root, rel)
     if err:
@@ -316,7 +324,9 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
             )
         )
     elif gh_comp is None:
-        issues.append(Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel))
+        issues.append(
+            Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel)
+        )
     elif not git_ok:
         issues.append(
             Issue(
@@ -350,7 +360,9 @@ def write_manifest_atomic(path: Path, obj: dict[str, Any]) -> None:
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(obj, f, indent=2, ensure_ascii=False)
             f.write("\n")
-        bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
+        bak = path.with_suffix(
+            path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
+        )
         if path.exists():
             shutil.copy2(path, bak)
         shutil.move(str(tmp), str(path))
@@ -400,7 +412,9 @@ def print_report(report: dict[str, Any], mode: str, stream=sys.stdout) -> None:
         stream.write(f"- Errors: **{report['errors']}**\n")
         stream.write(f"- Warnings: **{report['warnings']}**\n\n")
         if report.get("rules"):
-            stream.write(f"- Rules version: `{report['rules'].get('schema_version', 'n/a')}`\n\n")
+            stream.write(
+                f"- Rules version: `{report['rules'].get('schema_version', 'n/a')}`\n\n"
+            )
         if report["issues"]:
             stream.write("| Sev | Code | Entry | Path | Message |\n")
             stream.write("|-----|------|-------|------|---------|\n")
@@ -474,13 +488,18 @@ def apply_fixes(
     if list_key == "entries":
         manifest["generated_at"] = utc_now_iso()
         manifest["total_entries"] = len(items)
-        manifest["total_size_bytes"] = int(sum((e.get("size_bytes") or 0) for e in items))
+        manifest["total_size_bytes"] = int(
+            sum((e.get("size_bytes") or 0) for e in items)
+        )
         manifest["entries_updated"] = updated
     else:
         # schema 'files' (actuel): on ne convertit pas, on reste discret.
         manifest["files_updated"] = updated
         # Si un champ timestamp existe déjà, on le met à jour *seulement* s’il n’est pas volontairement __LOCAL__.
-        if "generatedAt" in manifest and str(manifest.get("generatedAt")).strip() != "__LOCAL__":
+        if (
+            "generatedAt" in manifest
+            and str(manifest.get("generatedAt")).strip() != "__LOCAL__"
+        ):
             manifest["generatedAt"] = utc_now_iso()
 
     return updated
@@ -723,16 +742,24 @@ def _check_csv_milestones(
                 rows_out.append(row)
 
         if fix_content and changed and rows_out:
-            bak = path.with_suffix(path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak")
+            bak = path.with_suffix(
+                path.suffix + f".{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}.bak"
+            )
             shutil.copy2(path, bak)
             with path.open("w", encoding="utf-8", newline="") as fw:
                 writer = csv.DictWriter(fw, fieldnames=rows_out[0].keys())
                 writer.writeheader()
                 writer.writerows(rows_out)
     except FileNotFoundError:
-        issues.append(_content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel))
+        issues.append(
+            _content_issue("ERROR", "FILE_MISSING", f"CSV not found: {rel}", idx, rel)
+        )
     except Exception as e:
-        issues.append(_content_issue("ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel))
+        issues.append(
+            _content_issue(
+                "ERROR", "CSV_READ_ERROR", f"{type(e).__name__}: {e}", idx, rel
+            )
+        )
 
     return issues
 
@@ -800,7 +827,11 @@ def run_content_checks(
         ):
             jobj = _read_json(full)
             if jobj is None:
-                issues.append(_content_issue("ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel))
+                issues.append(
+                    _content_issue(
+                        "ERROR", "JSON_READ_ERROR", "unable to parse JSON", idx, rel
+                    )
+                )
             else:
                 issues += _check_canonical_constants(jobj, rules, idx, rel)
                 issues += _check_thresholds(jobj, rules, idx, rel)
@@ -851,16 +882,30 @@ def gpg_sign(path: Path) -> Path | None:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Manifest audit + transverse consistency checks for MCGT.")
-    p.add_argument("manifest", help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)")
+    p = argparse.ArgumentParser(
+        description="Manifest audit + transverse consistency checks for MCGT."
+    )
+    p.add_argument(
+        "manifest",
+        help="Chemin du manifeste JSON (p.ex. zz-manifests/manifest_publication.json)",
+    )
     p.add_argument("--repo-root", default=".", help="Racine du dépôt (défaut: .)")
     p.add_argument(
         "--rules",
         default="zz-schemas/consistency_rules.json",
         help="Fichier de règles de cohérence",
     )
-    p.add_argument("--report", choices=["text", "json", "md"], default="text", help="Format du rapport")
-    p.add_argument("--fix", action="store_true", help="Applique les corrections techniques et réécrit le manifeste")
+    p.add_argument(
+        "--report",
+        choices=["text", "json", "md"],
+        default="text",
+        help="Format du rapport",
+    )
+    p.add_argument(
+        "--fix",
+        action="store_true",
+        help="Applique les corrections techniques et réécrit le manifeste",
+    )
     p.add_argument(
         "--normalize-paths",
         action="store_true",
@@ -882,8 +927,16 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default="errors",
         help="Politique d'échec (code retour)",
     )
-    p.add_argument("--sha256-out", action="store_true", help="Écrit un fichier .sha256sum du manifeste")
-    p.add_argument("--gpg-sign", action="store_true", help="Génère une signature GPG détachée (.sig)")
+    p.add_argument(
+        "--sha256-out",
+        action="store_true",
+        help="Écrit un fichier .sha256sum du manifeste",
+    )
+    p.add_argument(
+        "--gpg-sign",
+        action="store_true",
+        help="Génère une signature GPG détachée (.sig)",
+    )
     # Nouveaux contrôles / corrections
     p.add_argument(
         "--content-check",
@@ -930,7 +983,9 @@ def main(argv: list[str]) -> int:
 
     # Optionally normalize paths using aliases
     if rules and args.apply_aliases:
-        updated_aliases = apply_aliases_to_manifest_paths(manifest, list_key, repo_root, rules)
+        updated_aliases = apply_aliases_to_manifest_paths(
+            manifest, list_key, repo_root, rules
+        )
         if updated_aliases:
             manifest.setdefault("notes", [])
             manifest["notes"].append(
@@ -968,7 +1023,9 @@ def main(argv: list[str]) -> int:
             strip_internal=args.strip_internal,
         )
         manifest.setdefault("manifest_tool_version", "diag_consistency.py")
-        manifest.setdefault("generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown")
+        manifest.setdefault(
+            "generated_by", os.getenv("USER") or os.getenv("USERNAME") or "unknown"
+        )
         write_manifest_atomic(manifest_path, manifest)
 
         upd_key = "entries_updated" if list_key == "entries" else "files_updated"
@@ -991,7 +1048,9 @@ def main(argv: list[str]) -> int:
     code = 0
     if args.fail_on == "errors" and report["errors"] > 0:
         code = 3
-    elif args.fail_on == "warnings" and (report["errors"] > 0 or report["warnings"] > 0):
+    elif args.fail_on == "warnings" and (
+        report["errors"] > 0 or report["warnings"] > 0
+    ):
         code = 2
     else:
         code = 0

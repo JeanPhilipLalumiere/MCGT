@@ -81,10 +81,12 @@ def build_todo_structure(
     missing = load_paths_list(missing_path)
     fs_extra = load_paths_list(fs_extra_path)
 
-    todo: Dict[str, Dict[str, List[str]]] = defaultdict(lambda: {
-        "missing_manifest": [],
-        "fs_extra": [],
-    })
+    todo: Dict[str, Dict[str, List[str]]] = defaultdict(
+        lambda: {
+            "missing_manifest": [],
+            "fs_extra": [],
+        }
+    )
 
     # Fichiers manquants dans manifest_publication
     for entry in missing:
@@ -111,7 +113,9 @@ def render_markdown(
     lines: List[str] = []
     lines.append("# MCGT – TODO par chapitre (manifests & artefacts)")
     lines.append("")
-    lines.append("> NOTE : document auto-généré à partir de `_tmp/`. Ne pas éditer à la main.")
+    lines.append(
+        "> NOTE : document auto-généré à partir de `_tmp/`. Ne pas éditer à la main."
+    )
     lines.append("")
     lines.append(
         "Ce fichier liste, par chapitre, les fichiers à trier avant la publication : "
@@ -151,7 +155,9 @@ def render_markdown(
                 lines.append(f"  - `{entry}`")
             lines.append("")
         if global_block["fs_extra"]:
-            lines.append("- Fichiers présents dans le FS mais absents de `manifest_publication.json` :")
+            lines.append(
+                "- Fichiers présents dans le FS mais absents de `manifest_publication.json` :"
+            )
             lines.append("")
             for entry in sorted(global_block["fs_extra"]):
                 lines.append(f"  - `{entry}`")
@@ -173,7 +179,9 @@ def render_markdown(
         lines.append("")
 
         if not block["missing_manifest"] and not block["fs_extra"]:
-            lines.append("_Aucune entrée détectée dans les fichiers de diagnostic actuels._")
+            lines.append(
+                "_Aucune entrée détectée dans les fichiers de diagnostic actuels._"
+            )
             lines.append("")
             lines.append("---")
             lines.append("")
@@ -192,7 +200,9 @@ def render_markdown(
             lines.append("")
 
         if block["fs_extra"]:
-            lines.append("### Fichiers présents dans le FS mais absents de `manifest_publication.json`")
+            lines.append(
+                "### Fichiers présents dans le FS mais absents de `manifest_publication.json`"
+            )
             lines.append("")
             lines.append(
                 "Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, "

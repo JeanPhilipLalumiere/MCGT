@@ -3,10 +3,10 @@ from __future__ import annotations
 
 import json
 import re
-import sys
 from pathlib import Path
 
 RE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
+
 
 def extract_entries(data):
     # Accept:
@@ -21,12 +21,14 @@ def extract_entries(data):
                 return k, v
     return None, None
 
+
 def entry_path(e: dict):
     for k in ("path", "relpath", "file", "filename"):
         v = e.get(k)
         if isinstance(v, str) and v.strip():
             return k, v
     return None, None
+
 
 def main() -> int:
     repo = Path(__file__).resolve().parents[1]
@@ -52,7 +54,9 @@ def main() -> int:
         if entries is None:
             top = type(data).__name__
             keys = list(data.keys()) if isinstance(data, dict) else []
-            print(f"[ERROR] unexpected manifest format in {mf.relative_to(repo)} (top={top}, keys={keys})")
+            print(
+                f"[ERROR] unexpected manifest format in {mf.relative_to(repo)} (top={top}, keys={keys})"
+            )
             bad = 1
             continue
 
@@ -82,6 +86,7 @@ def main() -> int:
         print(f"[OK] {mf.name}: {len(entries)} entries (wrapper={wrapper or 'list'})")
 
     return 1 if bad else 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

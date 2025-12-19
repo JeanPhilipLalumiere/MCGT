@@ -15,6 +15,7 @@ TARGETS = [
     "zz-figures/chapter09/09_fig_01_phase_overlay.png",
 ]
 
+
 def compute_sha256(path: Path) -> str:
     """Calcule le SHA-256 du fichier donné."""
     h = hashlib.sha256()
@@ -22,6 +23,7 @@ def compute_sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def compute_mtime_iso(path: Path) -> str:
     st = path.stat()
@@ -116,7 +118,9 @@ def main() -> None:
         total_patched += patched
 
     if total_patched == 0:
-        print("[WARN] Aucun bloc mis à jour dans le manifest (vérifier structure / chemins).")
+        print(
+            "[WARN] Aucun bloc mis à jour dans le manifest (vérifier structure / chemins)."
+        )
         sys.exit(1)
 
     try:
@@ -124,7 +128,9 @@ def main() -> None:
             json.dump(manifest, f, indent=2, sort_keys=True)
             f.write("\n")
     except Exception as e:  # noqa: BLE001
-        print(f"[ERROR] Impossible d'écrire le manifest mis à jour : {e}", file=sys.stderr)
+        print(
+            f"[ERROR] Impossible d'écrire le manifest mis à jour : {e}", file=sys.stderr
+        )
         sys.exit(1)
 
     print(f"[INFO] Manifest mis à jour : {manifest_path}")

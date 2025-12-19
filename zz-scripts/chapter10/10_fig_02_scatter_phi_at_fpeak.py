@@ -43,9 +43,6 @@ plt.rcParams.update(
         "font.family": "serif",
     }
 )
-from mpl_toolkits.axes_grid1.inset_locator import (
-    inset_axes,
-)  # (non utilisé ici, laissé si besoin futur)
 
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 

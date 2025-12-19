@@ -37,7 +37,8 @@ size_bytes = st.st_size
 mtime_iso = (
     datetime.datetime.fromtimestamp(st.st_mtime, datetime.UTC)
     .replace(microsecond=0)
-    .isoformat().replace("+00:00", "Z")
+    .isoformat()
+    .replace("+00:00", "Z")
 )
 
 # SHA256

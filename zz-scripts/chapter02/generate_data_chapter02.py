@@ -20,7 +20,6 @@ import json
 import logging
 import subprocess
 from pathlib import Path
-import glob
 
 import numpy as np
 import pandas as pd
@@ -59,6 +58,7 @@ Tp = _low["Tp"]
 # Grille temporelle T extraite du fichier P(T)
 _grid_PT = np.loadtxt("zz-data/chapter02/02_P_vs_T_grid_data.dat")
 T = _grid_PT[:, 0]
+
 
 # --- Section 2 : Fonctions utilitaires ---
 def dotP(T, a0, ainf, Tc, Delta, Tp):

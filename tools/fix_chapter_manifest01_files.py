@@ -85,7 +85,9 @@ def load_manifest(path: Path) -> list[dict]:
         print(f"[ERROR] JSON invalide dans {path}: {e}", file=sys.stderr)
         sys.exit(1)
     if not isinstance(data, list):
-        print(f"[ERROR] Manifest inattendu (on attend une liste): {path}", file=sys.stderr)
+        print(
+            f"[ERROR] Manifest inattendu (on attend une liste): {path}", file=sys.stderr
+        )
         sys.exit(1)
     return data
 

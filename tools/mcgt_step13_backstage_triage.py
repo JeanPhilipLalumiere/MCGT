@@ -80,12 +80,16 @@ def main() -> None:
     logs_dir = repo_root / "zz-logs"
 
     if not logs_dir.is_dir():
-        raise SystemExit(f"[ERROR] Répertoire zz-logs/ introuvable à partir de {repo_root}")
+        raise SystemExit(
+            f"[ERROR] Répertoire zz-logs/ introuvable à partir de {repo_root}"
+        )
 
     # On prend le dernier fichier step12_backstage_candidates_*.txt
     step12_files = sorted(logs_dir.glob("step12_backstage_candidates_*.txt"))
     if not step12_files:
-        raise SystemExit("[ERROR] Aucun fichier step12_backstage_candidates_*.txt trouvé dans zz-logs/.")
+        raise SystemExit(
+            "[ERROR] Aucun fichier step12_backstage_candidates_*.txt trouvé dans zz-logs/."
+        )
 
     step12_path = step12_files[-1]
 
@@ -108,7 +112,9 @@ def main() -> None:
         out.write("#   - KEEP  : fichier conservé en backstage (niveau 2)\n")
         out.write("#   - ATTIC : candidat à attic/ ou testdata à moyen terme\n")
         out.write("#\n")
-        out.write("# Tu peux (et dois) éditer ACTION à la main avant d'appliquer un Step14.\n\n")
+        out.write(
+            "# Tu peux (et dois) éditer ACTION à la main avant d'appliquer un Step14.\n\n"
+        )
 
         current_ch = None
         for ch, path in entries:

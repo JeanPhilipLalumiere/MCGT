@@ -3,6 +3,7 @@ from pathlib import Path
 
 TAG = "v0.3.0-zenodo-snapshot-20251130T204410Z"
 
+
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
     desc_path = root / "zz-zenodo" / "zenodo_description_v0.3.0.txt"
@@ -24,6 +25,7 @@ def main() -> None:
     new_text = text.rstrip() + extra
     desc_path.write_text(new_text, encoding="utf-8")
     print(f"[INFO] Tag ajouté dans {desc_path}")
+
 
 if __name__ == "__main__":
     main()

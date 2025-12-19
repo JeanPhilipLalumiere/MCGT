@@ -1,9 +1,11 @@
 from pathlib import Path
-import re, sys
+import re
+import sys
 
 T = Path("zz-scripts/chapter09/plot_fig01_phase_overlay.py")
 if not T.exists():
-    print("[ERREUR] Introuvable:", T); sys.exit(2)
+    print("[ERREUR] Introuvable:", T)
+    sys.exit(2)
 src = T.read_text(encoding="utf-8")
 
 # Remplace un chargement naïf par une version tolérante au type
@@ -18,7 +20,7 @@ def\s+_load_meta\(.*?\):\s*
         logging\.warning\([^\n]+\)\s*
         return\s+None
 """
-rep = r'''
+rep = r"""
 def _load_meta(path):
     try:
         import json, logging
@@ -32,11 +34,11 @@ def _load_meta(path):
         import logging
         logging.warning("Lecture JSON méta échouée (%s).", e)
         return {}
-'''
+"""
 new, n = re.subn(pat, rep, src, flags=re.MULTILINE | re.VERBOSE)
 if n == 0:
     # Si la fonction n'existe pas sous cette forme, on insère un helper sûr
-    inj = '''
+    inj = """
 def _load_meta(path):
     try:
         import json, logging
@@ -50,9 +52,9 @@ def _load_meta(path):
         import logging
         logging.warning("Lecture JSON méta échouée (%s).", e)
         return {}
-'''
+"""
     # insérer juste après les imports
-    m = re.search(r'^(import .+?\n)(?:(?:import|from) .+?\n)*', src, flags=re.MULTILINE)
+    m = re.search(r"^(import .+?\n)(?:(?:import|from) .+?\n)*", src, flags=re.MULTILINE)
     if m:
         pos = m.end()
         new = src[:pos] + inj + src[pos:]

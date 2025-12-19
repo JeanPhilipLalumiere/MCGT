@@ -1,5 +1,6 @@
 try:
     from importlib.metadata import version, PackageNotFoundError
+
     __version__ = "0.3.14"
 except Exception:
     __version__ = "0.3.14"

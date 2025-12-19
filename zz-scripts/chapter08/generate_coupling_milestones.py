@@ -43,6 +43,7 @@ print(f"✅ 08_coupling_milestones.csv generated: {out_csv}")
 
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
+
     def _mcgt_cli_seed():
         import argparse
         import os
@@ -56,7 +57,9 @@ if __name__ == "__main__":
             help="Dossier de sortie (par défaut: .ci-out)",
         )
         parser.add_argument(
-            "--dry-run", action="store_true", help="Ne rien écrire, juste afficher les actions."
+            "--dry-run",
+            action="store_true",
+            help="Ne rien écrire, juste afficher les actions.",
         )
         parser.add_argument(
             "--seed", type=int, default=None, help="Graine aléatoire (optionnelle)."
@@ -107,4 +110,5 @@ if __name__ == "__main__":
                 print(f"[CLI seed] main() a levé: {e}", file=sys.stderr)
                 traceback.print_exc()
                 sys.exit(1)
+
     _mcgt_cli_seed()

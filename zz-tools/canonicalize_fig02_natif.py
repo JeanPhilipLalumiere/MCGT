@@ -1,7 +1,8 @@
 # zz-tools/canonicalize_fig02_natif.py
 #!/usr/bin/env python3
 from pathlib import Path
-import re, textwrap
+import re
+import textwrap
 
 P = Path("zz-scripts/chapter09/plot_fig02_residual_phase.py")
 src = P.read_text(encoding="utf-8")
@@ -12,7 +13,12 @@ if not bak.exists():
     bak.write_text(src, encoding="utf-8")
 
 # 1) Supprime les vieux 'raise SystemExit("Colonne manquante: {c}")' et autres vestiges similaires
-src = re.sub(r'^[ \t]*raise\s+SystemExit\(\s*f?"Colonne manquante:\s*\{c\}"\s*\)\s*\n', '', src, flags=re.M)
+src = re.sub(
+    r'^[ \t]*raise\s+SystemExit\(\s*f?"Colonne manquante:\s*\{c\}"\s*\)\s*\n',
+    "",
+    src,
+    flags=re.M,
+)
 
 # 2) Remplace le bloc de lecture/validation d’entrée par un bloc canonique unique
 pattern = r"""
@@ -23,7 +29,7 @@ df\s*=\s*pd\.read_csv\(.*?\)\s*\n
 """
 # On matche “doucement” du premier read_csv jusqu’avant la 1re utilisation de colonnes obligatoires
 # Pour rester robuste, on cible la 1re occurrence de read_csv et on injecte juste après.
-m = re.search(r'df\s*=\s*pd\.read_csv\([^)]*\)\s*\n', src)
+m = re.search(r"df\s*=\s*pd\.read_csv\([^)]*\)\s*\n", src)
 if m:
     insert_at = m.end()
     loader = textwrap.dedent("""
@@ -77,7 +83,9 @@ if m:
     src = src[:insert_at] + loader + src[insert_at:]
 
 # 3) Nettoie doubles lignes vides et espaces parasites
-src = re.sub(r'\n{3,}', '\n\n', src)
+src = re.sub(r"\n{3,}", "\n\n", src)
 
 P.write_text(src, encoding="utf-8")
-print("[OK] fig02 natif canonicalisé (loader propre, alias-tolérant, indentation saine).")
+print(
+    "[OK] fig02 natif canonicalisé (loader propre, alias-tolérant, indentation saine)."
+)

@@ -10,7 +10,10 @@ def main() -> None:
     todo_path = root / "TODO_CLEANUP.md"
 
     if not todo_path.exists():
-        print(f"[ERROR] Fichier TODO_CLEANUP.md introuvable à {todo_path}", file=sys.stderr)
+        print(
+            f"[ERROR] Fichier TODO_CLEANUP.md introuvable à {todo_path}",
+            file=sys.stderr,
+        )
         raise SystemExit(1)
 
     logs_dir = root / "zz-logs"
@@ -28,7 +31,9 @@ def main() -> None:
     existing = todo_path.read_text(encoding="utf-8")
     marker = "## Step14 – FRONT/BACKSTAGE (snapshot)"
     if marker in existing:
-        print("[INFO] Section Step14 existe déjà dans TODO_CLEANUP.md, aucune modification.")
+        print(
+            "[INFO] Section Step14 existe déjà dans TODO_CLEANUP.md, aucune modification."
+        )
         print(f"[INFO] Stats utilisées : {stats_path}")
         return
 
@@ -37,7 +42,9 @@ def main() -> None:
     section = []
     section.append("\n---\n")
     section.append("## Step14 – FRONT/BACKSTAGE (snapshot)\n\n")
-    section.append("_Dernière génération via Step14 (stats FRONT / BACKSTAGE par chapitre)._")
+    section.append(
+        "_Dernière génération via Step14 (stats FRONT / BACKSTAGE par chapitre)._"
+    )
     section.append("\n\n```text\n")
     section.append(stats_content.rstrip("\n"))
     section.append("\n```\n")
@@ -46,7 +53,7 @@ def main() -> None:
 
     todo_path.write_text(new_content, encoding="utf-8")
 
-    print(f"[INFO] Section Step14 ajoutée à TODO_CLEANUP.md")
+    print("[INFO] Section Step14 ajoutée à TODO_CLEANUP.md")
     print(f"[INFO] Stats Step14 utilisées : {stats_path}")
 
 

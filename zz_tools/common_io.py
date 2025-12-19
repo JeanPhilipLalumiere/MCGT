@@ -2,9 +2,10 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-ALIAS_FREQ = ("f_Hz","f","freq","frequency","frequency_Hz","nu","nu_Hz")
-ALIAS_REF  = ("phi_ref","phi_imr","phi_ref_cal","phi_ref_raw","phi_ref_model")
-ALIAS_ACT  = ("phi_mcgt","phi_active","phi_mcgt_cal","phi_model")
+ALIAS_FREQ = ("f_Hz", "f", "freq", "frequency", "frequency_Hz", "nu", "nu_Hz")
+ALIAS_REF = ("phi_ref", "phi_imr", "phi_ref_cal", "phi_ref_raw", "phi_ref_model")
+ALIAS_ACT = ("phi_mcgt", "phi_active", "phi_mcgt_cal", "phi_model")
+
 
 def _mcgt_safe_float(x, default):
     try:
@@ -14,12 +15,14 @@ def _mcgt_safe_float(x, default):
     except Exception:
         return float(default)
 
+
 def p95(arr) -> float:
     a = np.asarray(arr, float)
     a = a[np.isfinite(a)]
     if a.size == 0:
         return float("nan")
     return float(np.percentile(a, 95.0))
+
 
 def pick(df: pd.DataFrame, names) -> str | None:
     # exact
@@ -33,6 +36,7 @@ def pick(df: pd.DataFrame, names) -> str | None:
         if c:
             return c
     return None
+
 
 def ensure_fig02_cols(df: pd.DataFrame) -> pd.DataFrame:
     """Retourne un df avec f_Hz, phi_ref, phi_mcgt, phi_active quand c’est possible (sans lever)."""

@@ -27,6 +27,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ---------- utils ----------
@@ -289,7 +299,7 @@ def main() -> None:
     proxy_cdf = mlines.Line2D([], [], color=cdf_line.get_color(), lw=2)
     proxy_ref = mlines.Line2D([], [], color="crimson", linestyle="--", lw=2)
     handles += [proxy_cdf, proxy_ref]
-    labels = ["Histogramme (effectifs)", "CDF empirique", "p95 réf"]
+    labels = ["Histogram (counts)", "Empirical CDF", "p95 ref"]
     ax.legend(
         handles,
         labels,

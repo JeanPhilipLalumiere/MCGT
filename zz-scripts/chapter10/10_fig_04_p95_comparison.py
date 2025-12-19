@@ -34,6 +34,16 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ---------------------------------------------------------------------------
@@ -222,8 +232,8 @@ def main() -> None:
 
     p.add_argument(
         "--title",
-        default="Comparaison de p95_20_300 : original vs recalculé (métrique linéaire)",
-        help="Titre de la figure (fontsize=15).",
+        default="p95_20_300 comparison: original vs. recalculated (linear metric)",
+        help="Figure title (fontsize=15).",
     )
 
     args = p.parse_args()

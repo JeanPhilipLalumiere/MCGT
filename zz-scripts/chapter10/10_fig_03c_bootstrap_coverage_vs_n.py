@@ -75,6 +75,16 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ----------------------------- utilitaires ---------------------------------
@@ -251,12 +261,12 @@ def main() -> None:
     )
     p.add_argument(
         "--title-left",
-        default="Couverture IC vs N (estimateur: mean)",
+        default="CI coverage vs N (estimator: mean)",
         help="Titre panneau gauche.",
     )
     p.add_argument(
         "--title-right",
-        default="Largeur d'IC vs N",
+        default="Mean CI width vs N",
         help="Titre panneau droit.",
     )
     # options ajoutées
@@ -376,7 +386,7 @@ def main() -> None:
     ax1 = fig.add_subplot(gs[0, 0])  # couverture
     ax2 = fig.add_subplot(gs[0, 1])  # largeur
 
-    # Couverture + barres d'erreur Wilson
+    # CI coverage + Wilson error bars
     xN = [r.N for r in results]
     yC = [r.coverage for r in results]
     yerr_low = [r.cov_err95_low for r in results]
@@ -392,7 +402,7 @@ def main() -> None:
         ecolor="tab:blue",
         elinewidth=1.0,
         capsize=3,
-        label="Couverture empirique",
+        label="Empirical CI coverage",
     )
     ax1.axhline(
         1 - args.alpha,
@@ -402,8 +412,8 @@ def main() -> None:
         label="Niveau nominal 95%",
     )
 
-    ax1.set_xlabel("Taille d'échantillon N")
-    ax1.set_ylabel("Couverture (IC 95% contient la référence)")
+    ax1.set_xlabel(r"Sample Size $N$")
+    ax1.set_ylabel("CI Coverage (95% contains reference)")
     ax1.set_title(args.title_left)
     if (args.ymin_coverage is not None) or (args.ymax_coverage is not None):
         ymin = (
@@ -459,7 +469,7 @@ def main() -> None:
     # Panneau largeur
     ax2.plot(xN, [r.width_mean for r in results], "-", lw=2.0, color="tab:green")
     ax2.set_xlabel("Taille d'échantillon N")
-    ax2.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
+    ax2.set_ylabel("Mean 95% CI width [rad]")
     ax2.set_title(args.title_right)
 
     # >>> MARGIN BAS AJUSTÉE <<<
@@ -579,7 +589,7 @@ def main() -> None:
             capsize=3,
             lw=1.6,
             ms=6,
-            label="Couverture empirique",
+            label="Empirical CI coverage",
         )
         axS.axhline(
             1 - args.alpha,
@@ -589,7 +599,7 @@ def main() -> None:
             label="Niveau nominal 95%",
         )
         axS.set_xlabel("B (outer)" if mode == "outer" else "B (inner)")
-        axS.set_ylabel("Couverture (IC 95% contient la référence)")
+        axS.set_ylabel("CI Coverage (95% contains reference)")
         axS.set_title(
             f"Sensibilité de la couverture vs "
             f"{'outer' if mode == 'outer' else 'inner'}  (N={sensN})"

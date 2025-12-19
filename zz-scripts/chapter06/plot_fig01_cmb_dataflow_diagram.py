@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,11 +46,11 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
-"""Fig. 01 – Pipeline de génération des données CMB (Chapitre 6)."""
+"""Fig. 01 – CMB data generation pipeline (Chapter 6)."""
 
 from pathlib import Path
 import logging
@@ -53,7 +66,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(args) -> None:
-    """Construit et sauvegarde le schéma du dataflow CMB."""
+    """Build and save the CMB dataflow diagram."""
 
     # --- Logging ---
     level = logging.INFO if args.verbose else logging.WARNING
@@ -72,7 +85,7 @@ def main(args) -> None:
     fig, ax = plt.subplots(figsize=(10, 6), dpi=args.dpi)
     ax.axis("off")
     fig.suptitle(
-        "Pipeline de génération des données CMB (Chapitre 6)",
+        "CMB Data Generation Pipeline (Chapter 6)",
         fontsize=14,
         fontweight="bold",
         y=0.96,
@@ -97,7 +110,8 @@ def main(args) -> None:
         "fig": (
             0.67,
             Ymid - DY,
-            "fig_02.png\nfig_03.png\nfig_04.png\nfig_05.png",
+            "06_fig_01_spectrum.png\n06_fig_02_growth_rate.png\n"
+            "06_fig_03_growth_factor.png\n06_fig_05_delta_chi2_heatmap.png",
             "#d7d7d7",
         ),
     }

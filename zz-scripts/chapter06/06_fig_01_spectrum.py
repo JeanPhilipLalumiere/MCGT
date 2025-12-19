@@ -1,8 +1,21 @@
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -21,7 +34,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -33,7 +46,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -59,7 +72,7 @@ FIG_DIR.mkdir(parents=True, exist_ok=True)
 CLS_LCDM_DAT = DATA_DIR / "06_cls_spectrum_lcdm.dat"
 CLS_MCGT_DAT = DATA_DIR / "06_cls_spectrum.dat"
 JSON_PARAMS = DATA_DIR / "06_params_cmb.json"
-OUT_PNG = FIG_DIR / "06_fig_02_cls_lcdm_vs_mcgt.png"
+OUT_PNG = FIG_DIR / "06_fig_01_spectrum.png"
 
 
 # ---------------------------------------------------------------------
@@ -81,7 +94,7 @@ def main(args=None) -> None:
         params = json.load(f)
     alpha = params.get("alpha", None)
     q0star = params.get("q0star", None)
-    logging.info("Tracé fig_02 avec α=%s, q0*=%s", alpha, q0star)
+    logging.info("Plotting fig_01 with α=%s, q0*=%s", alpha, q0star)
 
     # Spectres C_ell
     cols_l = ["ell", "Cl_LCDM"]
@@ -120,8 +133,9 @@ def main(args=None) -> None:
     ymax = float(max(cl0.max(), cl1.max()) * 1.2)
     ax.set_ylim(ymin, ymax)
 
-    ax.set_xlabel(r"Multipôle $\ell$")
-    ax.set_ylabel(r"$C_{\ell}\;[\mu\mathrm{K}^2]$")
+    ax.set_xlabel(r"$k$ [$h/\mathrm{Mpc}$]")
+    ax.set_ylabel(r"$P(k)$ [$(h^{-1}\mathrm{Mpc})^3$]")
+    ax.set_title("Matter Power Spectrum Comparison")
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
     ax.legend(loc="upper right", frameon=False)
 
@@ -137,7 +151,7 @@ def main(args=None) -> None:
     axins1.plot(ells, delta_rel, linestyle="-", color="tab:green")
     axins1.set_xscale("log")
     axins1.set_ylim(-0.02, 0.02)
-    axins1.set_xlabel(r"$\ell$", fontsize=8)
+    axins1.set_xlabel(r"$k$", fontsize=8)
     axins1.set_ylabel(r"$\Delta C_{\ell}/C_{\ell}$", fontsize=8)
     axins1.grid(True, which="both", linestyle=":", linewidth=0.5)
     axins1.tick_params(labelsize=7)

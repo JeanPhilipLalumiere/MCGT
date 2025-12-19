@@ -226,7 +226,9 @@ def main() -> None:
         alpha=0.7,
         edgecolor="k",
     )
-    ax.set_ylabel("Effectifs")
+    ax.set_ylabel("Counts")
+    if counts.size:
+        ax.set_ylim(0, float(np.max(counts)) * 1.3)
     ax.set_xlabel(f"{p95_col} [rad]")
 
     # CDF empirique (axe droit)
@@ -234,7 +236,7 @@ def main() -> None:
     sorted_p = np.sort(p95)
     ecdf = np.arange(1, N + 1) / N
     cdf_line, = ax2.plot(sorted_p, ecdf, lw=2)
-    ax2.set_ylabel("CDF empirique")
+    ax2.set_ylabel("Empirical CDF")
     ax2.set_ylim(0.0, 1.02)
 
     # Ligne verticale de référence
@@ -322,9 +324,8 @@ def main() -> None:
 
     # Fenêtre X/Y demandée
     # Recentre le zoom autour de la valeur de référence p95
-    dx = max(args.zoom_dx, 0.05)
     peak_center = args.ref_p95
-    x0, x1 = peak_center - dx, peak_center + dx
+    x0, x1 = peak_center - 0.02, peak_center + 0.02
     y0_user = max(0.0, args.zoom_y - args.zoom_dy)
     y1_user = args.zoom_y + args.zoom_dy
 

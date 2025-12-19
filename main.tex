@@ -1,92 +1,63 @@
-% main.tex — document principal MCGT
-\documentclass\[11pt,a4paper]{book}
+% main.tex — minimal publication document for Chapter 10
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
 
-% --- Préambule commun (packages, styles, commandes) ---
-\input{preambule.tex}
-
-% --- Métadonnées du document ---
 \title{MCGT : Modèle de la Courbure Gravitationnelle du Temps}
-\author{Jean-Philip Lalumière}
-\date{\today}
+\author{}
+\date{}
 
 \begin{document}
 \maketitle
 
-% --- Front matter ---
-\frontmatter
-\tableofcontents
-\listoffigures
-\listoftables
+\section*{Chapter 10 -- Monte Carlo Global 8D}
 
-% --- Corps principal ---
-\mainmatter
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_01_iso_p95_maps.png}
+  \caption{Figure 01: Iso P95 parameter maps.}
+\end{figure}
 
-% Chapitre 1 – Introduction conceptuelle
-\chapter{Introduction conceptuelle}
-\input{01-introduction-applications/01\_introduction\_conceptuel}
-\input{01-introduction-applications/01\_applications\_calibration\_conceptuel}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png}
+  \caption{Figure 02: Scatter of $\phi$ at $f_{\mathrm{peak}}$.}
+\end{figure}
 
-% Chapitre 2 – Validation chronologique
-\chapter{Validation chronologique}
-\input{02-validation-chronologique/02\_validation\_chronologique\_conceptuel}
-\input{02-validation-chronologique/02\_validation\_chronologique\_details}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_03_convergence.png}
+  \caption{Figure 03: Convergence diagnostics.}
+\end{figure}
 
-% Chapitre 3 – Stabilité linéaire et extension f(R)
-\chapter{Stabilité linéaire et extension f(R)}
-\input{03-stabilite-fR/03\_stabilite\_fR\_conceptuel}
-\input{03-stabilite-fR/03\_stabilite\_fR\_details}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_04_p95_comparison.png}
+  \caption{Figure 04: P95 comparison metrics.}
+\end{figure}
 
-% Chapitre 4 – Invariants adimensionnels
-\chapter{Invariants adimensionnels}
-\input{04-invariants-adimensionnels/04\_invariants\_adimensionnels\_conceptuel}
-\input{04-invariants-adimensionnels/04\_invariants\_adimensionnels\_details}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png}
+  \caption{Figure 05: Histogram and CDF metrics.}
+\end{figure}
 
-% Chapitre 5 – Nucléosynthèse primordiale
-\chapter{Nucléosynthèse primordiale}
-\input{05-nucleosynthese-primordiale/05\_nucleosynthese\_primordiale\_conceptuel}
-\input{05-nucleosynthese-primordiale/05\_nucleosynthese\_primordiale\_details}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_06_residual_map.png}
+  \caption{Figure 06: Residual map diagnostics.}
+\end{figure}
 
-% Chapitre 6 – Rayonnement fossile (CMB)
-\chapter{Rayonnement fossile (CMB)}
-\input{06-rayonnement-cmb/06\_cmb\_conceptuel}
-\input{06-rayonnement-cmb/06\_cmb\_details}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_07_synthesis.png}
+  \caption{Figure 07: Synthesis summary.}
+\end{figure}
 
-% Chapitre 7 – Perturbations scalaires
-\chapter{Perturbations scalaires}
-\input{07-perturbations-scalaires/07\_perturbations\_scalaires\_conceptuel}
-\input{07-perturbations-scalaires/07\_perturbations\_scalaires\_details}
-
-% Chapitre 8 – Couplage sombre modéré
-\chapter{Couplage sombre modéré}
-\input{08-couplage-sombre/08\_couplage\_sombre\_conceptuel}
-\input{08-couplage-sombre/08\_couplage\_sombre\_details}
-
-% Chapitre 9 – Phasage des ondes gravitationnelles
-\chapter{Phasage des ondes gravitationnelles}
-\input{09-phase-ondes-gravitationnelles/09\_phase\_ondes\_grav\_conceptuel}
-\input{09-phase-ondes-gravitationnelles/09\_phase\_ondes\_grav\_details}
-
-% Chapitre 10 – Monte Carlo global 8 dimensions
-\chapter{Monte Carlo global 8,dimensions}
-\input{10-monte-carlo-global-8d/10\_monte\_carlo\_global\_conceptuel}
-\input{10-monte-carlo-global-8d/10\_monte\_carlo\_global\_details}
-
-% --- Annexes (références techniques, données, figures, scripts) ---
-\appendix
-\chapter{Annexes : Ressources techniques (données, figures, scripts)}
-\begin{itemize}
-\item Convention et styles (\emph{référence projet}) : \texttt{convention.md}
-\item Reproductibilité : \texttt{README-REPRO.md}, procédures : \texttt{RUNBOOK.md}
-\item Manifests (publication & diagnostic) : \texttt{zz-manifests/}
-\item Schémas de validation JSON/CSV : \texttt{zz-schemas/}
-\item Données par chapitre : \texttt{zz-data/chapterX/} (X=01…10)
-\item Figures par chapitre : \texttt{zz-figures/chapterX/} (X=01…10)
-\item Scripts d’analyse et de tracé : \texttt{zz-scripts/chapterX/} (X=01…10)
-\end{itemize}
-
-% --- Back matter ---
-\backmatter
-\bibliographystyle{unsrt}
-\bibliography{references}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{zz-figures/chapter10/10_fig_08_diagnostic_histogram.png}
+  \caption{Figure 08: Diagnostic histogram.}
+\end{figure}
 
 \end{document}

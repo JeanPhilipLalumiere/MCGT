@@ -201,7 +201,7 @@ def main(args=None) -> None:
 
     # axe secondaire pour la dérivée
     ax2 = ax1.twinx()
-    ax2.set_ylabel(r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange")
+    ax2.set_ylabel(r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange", fontsize=10)
     ax2.tick_params(axis="y", labelcolor="tab:orange")
     (l2,) = ax2.plot(
         T,
@@ -236,7 +236,9 @@ def main(args=None) -> None:
     ax1.legend(
         handles=[l1, l2],
         labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
-        loc="upper right",
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.15),
+        ncol=2,
     )
 
     sm = ScalarMappable(
@@ -244,7 +246,7 @@ def main(args=None) -> None:
         cmap="viridis",
     )
     sm.set_array([])
-    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.02)
+    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.15, shrink=0.8)
     cbar.set_label(r"$J(\theta)$ [dimensionless]")
 
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)

@@ -91,10 +91,6 @@ def tracer_fig03_yp_modele_contre_obs(
     # Tracer les jalons avec barres d'erreur horizontales
     ax.errorbar(Yp_obs, Yp_calc, xerr=sigma_Yp, fmt="o", capsize=3, label="Jalons Yp")
 
-    # Mettre en échelle log–log
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-
     # Étendre la droite y = x sur toute la plage visible
     ax.set_aspect("equal", "box")
     # obtenir limites communes
@@ -107,9 +103,7 @@ def tracer_fig03_yp_modele_contre_obs(
     ax.set_xlim(lims)
     ax.set_ylim(lims)
 
-    fmt = ScalarFormatter(useMathText=True)
-    fmt.set_powerlimits((0, 0))
-    ax.xaxis.set_major_formatter(fmt)
+    ax.ticklabel_format(style="sci", axis="x", scilimits=(0, 0), useMathText=True)
 
     # Labels et titre
     ax.set_xlabel(r"$\alpha$")

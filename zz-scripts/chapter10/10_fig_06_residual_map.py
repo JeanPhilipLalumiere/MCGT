@@ -431,17 +431,15 @@ def main() -> None:
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
     ax_main.set_aspect("auto", adjustable="datalim")
-    ax_main.margins(0)
-    ax_main.axis("tight")
-    x_lo, x_hi = np.percentile(x, [0.1, 99.9])
-    y_lo, y_hi = np.percentile(y, [0.1, 99.9])
+    x_lo, x_hi = np.nanpercentile(x, [2, 98])
+    y_lo, y_hi = np.nanpercentile(y, [2, 98])
     if x_lo == x_hi:
-        x_lo, x_hi = x_lo - 1.0, x_hi + 1.0
+        x_lo, x_hi = x_lo - 0.1, x_hi + 0.1
     if y_lo == y_hi:
-        y_lo, y_hi = y_lo - 1.0, y_hi + 1.0
+        y_lo, y_hi = y_lo - 0.1, y_hi + 0.1
     ax_main.set_xlim(x_lo, x_hi)
     ax_main.set_ylim(y_lo, y_hi)
-    ax_main.autoscale(enable=True, axis="both", tight=False)
+    print(f"[DEBUG] fig06 main x_lim=({x_lo:.4g},{x_hi:.4g}), y_lim=({y_lo:.4g},{y_hi:.4g})")
 
     # annotation mincnt
     ax_main.text(

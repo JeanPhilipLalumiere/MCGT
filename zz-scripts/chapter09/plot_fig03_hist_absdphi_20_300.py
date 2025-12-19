@@ -168,11 +168,11 @@ def main() -> None:
     )
     ax.text(
         0.98,
-        0.95,
+        0.05,
         stats_txt,
         transform=ax.transAxes,
         ha="right",
-        va="top",
+        va="bottom",
         fontsize=10.5,
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.85),
     )

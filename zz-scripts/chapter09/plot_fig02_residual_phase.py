@@ -26,6 +26,7 @@ import argparse
 import json
 import logging
 from pathlib import Path
+import textwrap
 
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
@@ -252,7 +253,7 @@ def main() -> None:
         y=0.985,
     )
     # plus d’espace sous le titre
-    fig.subplots_adjust(top=0.88, bottom=0.08, left=0.08, right=0.75)
+    fig.subplots_adjust(top=0.88, bottom=0.08, left=0.08, right=0.65)
 
     # Styles
     marker_kw = dict(
@@ -367,7 +368,7 @@ def main() -> None:
         lines.append("")
         lines.append(r"$\bf Méta\ (résumé)$")
         for k, v in meta.items():
-            lines.append(f"{k}: {v}")
+            lines.append(textwrap.fill(f"{k}: {v}", width=40))
 
     ax_right.text(
         0.0,
@@ -376,7 +377,7 @@ def main() -> None:
         transform=ax_right.transAxes,
         ha="left",
         va="top",
-        fontsize=11.5,
+        fontsize=8,
     )
 
     # Légende générique (pour rappeler marker/ligne)

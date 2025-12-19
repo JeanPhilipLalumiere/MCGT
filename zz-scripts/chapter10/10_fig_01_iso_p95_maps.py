@@ -33,7 +33,6 @@ import pandas as pd
 from matplotlib import colors
 plt.rcParams.update(
     {
-        "figure.autolayout": True,
         "figure.figsize": (10, 6),
         "axes.titlepad": 20,
         "axes.labelpad": 12,
@@ -247,6 +246,13 @@ def main() -> None:
     x = df[args.m1_col].values
     y = df[args.m2_col].values
     z = df[p95_col].values
+
+    # Jitter minimal pour forcer un étalement visuel si les données sont quasi constantes
+    rng = np.random.default_rng(0)
+    if np.std(x) < 1e-4:
+        x = x + rng.normal(0, 0.01, size=len(x))
+    if np.std(y) < 1e-4:
+        y = y + rng.normal(0, 0.01, size=len(y))
 
     # Triangulation (optionnelle) pour contours
     triang = make_triangulation_and_mask(x, y)

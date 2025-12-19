@@ -75,16 +75,16 @@ Ce script exécute la séquence **canonique minimale** suivante :
 2. **Figures principales (profil χ² + comparaisons BAO/SNe)**  
    Appels des scripts :
 
-   - `plot_fig01_chi2_total_vs_q0.py`
-   - `plot_fig02_dv_vs_z.py`
-   - `plot_fig03_mu_vs_z.py`
+   - `10_fig01_chi2_total_vs_q0.py`
+   - `10_fig02_dv_vs_z.py`
+   - `10_fig03_mu_vs_z.py`
 
 3. **(Optionnel) Figures de résidus et distributions normalisées**  
    Si activé dans le script :
 
-   - `plot_fig05_residuals.py`
-   - `plot_fig06_normalized_residuals_distribution.py`
-   - `plot_fig07_chi2_profile.py`
+   - `10_fig05_residuals.py`
+   - `10_fig06_normalized_residuals_distribution.py`
+   - `10_fig07_chi2_profile.py`
 
 4. **Diagnostic des manifests**  
    Appel final à :
@@ -106,16 +106,16 @@ En fin d’exécution réussie, on s’attend à un résumé du type :
 Répertoire CH08 :
 
 - `zz-scripts/chapter08/generate_data_chapter08.py`
-- `zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py`
-- `zz-scripts/chapter08/plot_fig02_dv_vs_z.py`
-- `zz-scripts/chapter08/plot_fig03_mu_vs_z.py`
+- `zz-scripts/chapter08/10_fig01_chi2_total_vs_q0.py`
+- `zz-scripts/chapter08/10_fig02_dv_vs_z.py`
+- `zz-scripts/chapter08/10_fig03_mu_vs_z.py`
 
 Scripts **optionnels** (au‑delà du pipeline minimal strict) :
 
-- `zz-scripts/chapter08/plot_fig04_chi2_heatmap.py`
-- `zz-scripts/chapter08/plot_fig05_residuals.py`
-- `zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py`
-- `zz-scripts/chapter08/plot_fig07_chi2_profile.py`
+- `zz-scripts/chapter08/10_fig04_chi2_heatmap.py`
+- `zz-scripts/chapter08/10_fig05_residuals.py`
+- `zz-scripts/chapter08/10_fig06_normalized_residuals_distribution.py`
+- `zz-scripts/chapter08/10_fig07_chi2_profile.py`
 - `` (extraction BAO, Pantheon+, modèles de test).
 
 ### 4.2. Données CH08 (inputs + outputs)
@@ -244,9 +244,9 @@ En cas de succès, le script conclut typiquement par un message :
 Une fois les données générées, on relance les figures principales :
 
 ```bash
-python zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py
-python zz-scripts/chapter08/plot_fig02_dv_vs_z.py
-python zz-scripts/chapter08/plot_fig03_mu_vs_z.py
+python zz-scripts/chapter08/10_fig01_chi2_total_vs_q0.py
+python zz-scripts/chapter08/10_fig02_dv_vs_z.py
+python zz-scripts/chapter08/10_fig03_mu_vs_z.py
 ```
 
 Ces scripts mettent à jour, respectivement :
@@ -259,9 +259,9 @@ Pour une analyse plus poussée (hors périmètre minimal), il est possible de
 compléter par :
 
 ```bash
-python zz-scripts/chapter08/plot_fig05_residuals.py
-python zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py
-python zz-scripts/chapter08/plot_fig07_chi2_profile.py
+python zz-scripts/chapter08/10_fig05_residuals.py
+python zz-scripts/chapter08/10_fig06_normalized_residuals_distribution.py
+python zz-scripts/chapter08/10_fig07_chi2_profile.py
 ```
 
 ### 5.3. Vérifications rapides (sanity‑checks)

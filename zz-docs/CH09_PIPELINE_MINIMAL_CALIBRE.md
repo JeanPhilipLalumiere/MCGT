@@ -95,10 +95,10 @@ cd /home/jplal/MCGT  # adapter si nécessaire
 python zz-scripts/chapter09/generate_data_chapter09.py
 
 # 2) Superposition de phase IMRPhenom vs MCGT
-python zz-scripts/chapter09/plot_fig01_phase_overlay.py
+python zz-scripts/chapter09/10_fig01_phase_overlay.py
 
 # 3) Résidu de phase par bandes (20–300 Hz, etc.)
-python zz-scripts/chapter09/plot_fig02_residual_phase.py
+python zz-scripts/chapter09/10_fig02_residual_phase.py
 ```
 
 Dans les logs fournis, on observe typiquement :
@@ -130,10 +130,10 @@ Scripts principaux (utilisés directement ou via le smoke script) :
   `09_metrics_phase.json` et, selon la configuration, peut (ré)écrire
   certains CSV de support.
 
-- `plot_fig01_phase_overlay.py`  
+- `10_fig01_phase_overlay.py`  
   → figure de superposition `φ_ref` / `φ_mcgt` avec encart résidu.
 
-- `plot_fig02_residual_phase.py`  
+- `10_fig02_residual_phase.py`  
   → figure du résidu de phase par bandes de fréquence (20–300, 300–1000, etc.) ;
   recalcule les métriques 20–300 Hz et peut les refléter dans `09_metrics_phase.json`.
 
@@ -316,13 +316,13 @@ générer (ou regénérer) les figures principales.
 Version minimale (par défaut, le script cherche les bons fichiers) :
 
 ```bash
-python zz-scripts/chapter09/plot_fig01_phase_overlay.py
+python zz-scripts/chapter09/10_fig01_phase_overlay.py
 ```
 
 Version avec arguments explicites (à utiliser si tu veux documenter les paths) :
 
 ```bash
-python zz-scripts/chapter09/plot_fig01_phase_overlay.py   --csv  zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out  zz-figures/chapter09/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
+python zz-scripts/chapter09/10_fig01_phase_overlay.py   --csv  zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out  zz-figures/chapter09/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
 ```
 
 #### 5.5.2. Résidu de phase par bandes (Fig. 02)
@@ -330,13 +330,13 @@ python zz-scripts/chapter09/plot_fig01_phase_overlay.py   --csv  zz-data/chapter
 Version minimale (celle que tu as exécutée) :
 
 ```bash
-python zz-scripts/chapter09/plot_fig02_residual_phase.py
+python zz-scripts/chapter09/10_fig02_residual_phase.py
 ```
 
 Version avec arguments explicites :
 
 ```bash
-python zz-scripts/chapter09/plot_fig02_residual_phase.py   --csv  zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out  zz-figures/chapter09/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
+python zz-scripts/chapter09/10_fig02_residual_phase.py   --csv  zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out  zz-figures/chapter09/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
 ```
 
 Dans tes derniers logs, ce script affiche notamment :

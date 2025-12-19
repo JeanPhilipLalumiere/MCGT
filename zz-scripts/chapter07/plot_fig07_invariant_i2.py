@@ -215,7 +215,7 @@ def plot_invariant_i2(
     y_text = 10.0 ** (pmin + 0.05 * (pmax - pmin))
     ax.text(
         0.5,
-        0.05,
+        0.08,
         r"$k_{\rm split}$",
         transform=ax.transAxes,
         ha="center",
@@ -241,8 +241,10 @@ def plot_invariant_i2(
     ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
     ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
-    from matplotlib.ticker import NullLocator
+    from matplotlib.ticker import NullLocator, NullFormatter
     ax.yaxis.set_minor_locator(NullLocator())
+    ax.yaxis.set_minor_formatter(NullFormatter())
+    ax.tick_params(axis="y", labelsize=10)
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)
 

@@ -114,12 +114,12 @@ def main(args=None) -> None:
     # Annotation des paramètres
     if alpha is not None and q0star is not None:
         ax.text(
-            0.05,
-            0.95,
-            rf"$\alpha={alpha},\ q_0^*={q0star}$",
-            transform=ax.transAxes,
-            ha="left",
-            va="top",
+        0.15,
+        0.95,
+        rf"$\alpha={alpha},\ q_0^*={q0star}$",
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
             fontsize=9,
         )
 

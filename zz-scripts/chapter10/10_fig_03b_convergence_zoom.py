@@ -404,7 +404,7 @@ def main() -> None:
             else ax1.get_ylim()[1]
         )
         ax1.set_ylim(ymin, ymax)
-    ax1.legend(loc="lower left", frameon=True)
+    ax1.legend(loc="lower right", frameon=True)
 
     # Boîte d'info (haut gauche)
     txt = (
@@ -581,7 +581,7 @@ def main() -> None:
             f"Sensibilité de la couverture vs "
             f"{'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
         )
-        axS.legend(loc="lower left", frameon=True)
+        axS.legend(loc="lower right", frameon=True)
         figS.tight_layout()
         out_sens = os.path.splitext(args.out)[0] + f"_sensitivity_{mode}.png"
         figS.savefig(out_sens, dpi=args.dpi)

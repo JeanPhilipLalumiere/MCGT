@@ -321,13 +321,9 @@ def main() -> None:
     )
 
     # Fenêtre X/Y demandée
-    # Recentre le zoom sur le pic principal (proche de ref_p95) pour rendre l'inset utile
+    # Recentre le zoom autour de la valeur de référence p95
+    dx = max(args.zoom_dx, 0.05)
     peak_center = args.ref_p95
-    if inset_counts.size:
-        pk_idx = int(np.argmax(inset_counts))
-        if pk_idx + 1 < len(inset_bins):
-            peak_center = 0.5 * (inset_bins[pk_idx] + inset_bins[pk_idx + 1])
-    dx = max(args.zoom_dx, 0.1 * abs(args.ref_p95)) if abs(args.ref_p95) > 0 else args.zoom_dx
     x0, x1 = peak_center - dx, peak_center + dx
     y0_user = max(0.0, args.zoom_y - args.zoom_dy)
     y1_user = args.zoom_y + args.zoom_dy

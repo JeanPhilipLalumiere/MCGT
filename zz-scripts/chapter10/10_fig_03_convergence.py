@@ -204,16 +204,22 @@ def main():
     ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
     # Légendes séparées : courbes à gauche, stats à droite
-    curve_handles = [ci_handle, mean_line, median_line, tmean_line, ref_line]
-    curve_labels = [
-        "95% CI (bootstrap, mean)",
-        "Estimator (mean)",
-        "Estimator (median)",
-        f"Estimator (trimmed mean, α={args.trim:.2f})",
-        f"Estimate at N={M} (mean ref)",
+    # Bloc d'info unique (statistiques finales)
+    stats_lines = [
+        f"N = {M}",
+        f"mean = {final_mean:.3f} [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}]",
+        f"median = {final_median:.3f} [{final_median_ci[0]:.3f}, {final_median_ci[1]:.3f}]",
+        f"trimmed = {final_tmean:.3f} [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}]",
     ]
-    leg_curves = ax.legend(curve_handles, curve_labels, loc="lower left", frameon=True, fontsize=10)
-    leg_curves.set_zorder(5)
+    stats_handles = [plt.Line2D([0], [0], color="none", marker="None", label=txt) for txt in stats_lines]
+    leg_stats = ax.legend(
+        stats_handles,
+        [h.get_label() for h in stats_handles],
+        loc="lower left",
+        frameon=True,
+        fontsize=10,
+    )
+    leg_stats.set_zorder(5)
 
     # ----- Inset (zoom) : même logique que ta version -----
     base_w, base_h = args.zoom_w, args.zoom_h

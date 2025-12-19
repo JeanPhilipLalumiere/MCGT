@@ -430,8 +430,8 @@ def main() -> None:
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
-    x_lo, x_hi = np.percentile(x, [0.5, 99.5])
-    y_lo, y_hi = np.percentile(y, [0.5, 99.5])
+    x_lo, x_hi = np.percentile(x, [0.1, 99.9])
+    y_lo, y_hi = np.percentile(y, [0.1, 99.9])
     if x_lo == x_hi:
         x_lo, x_hi = x_lo - 1.0, x_hi + 1.0
     if y_lo == y_hi:
@@ -456,7 +456,7 @@ def main() -> None:
     hb_counts = ax_cnt.hexbin(
         x,
         y,
-        gridsize=args.gridsize,
+        gridsize=25,
         cmap="gray_r",
     )
     counts_arr = hb_counts.get_array()

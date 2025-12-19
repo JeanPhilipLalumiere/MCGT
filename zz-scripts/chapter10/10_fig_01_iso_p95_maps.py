@@ -341,8 +341,8 @@ def main() -> None:
     ax.set_title(args.title, fontsize=15)
 
     # Cadre serré autour des données (percentiles pour ignorer les outliers)
-    x_lo, x_hi = np.percentile(x, [0.5, 99.5])
-    y_lo, y_hi = np.percentile(y, [0.5, 99.5])
+    x_lo, x_hi = np.percentile(x, [0.1, 99.9])
+    y_lo, y_hi = np.percentile(y, [0.1, 99.9])
     if x_lo == x_hi:
         x_lo, x_hi = x_lo - 1.0, x_hi + 1.0
     if y_lo == y_hi:

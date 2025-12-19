@@ -718,351 +718,351 @@
       "path": "zz-scripts/_common/cli.py",
       "sha256": "1168787ff45fdaa9e328870f546ea5db2a35ad3f8e7be7d0cd6591fddb842664",
       "size_bytes": 501,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "69b6be5a8cd967ae78cf1d16e5d7f039cc0c5a5e"
     },
     {
       "path": "zz-scripts/_common/postparse.py",
       "sha256": "7d418a6bebb23101cfaf5cc2fc0eb16e6c71bbc10808a3f3dffda3305d1b7859",
       "size_bytes": 3271,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "1522be547fff3f734fb2a6d5ad92158dffd176f1"
     },
     {
       "path": "zz-scripts/_common/style.py",
       "sha256": "a9235717820014d306b2aa3a2623aaf2567929f4c7e29879fdee51f9f68ec4b1",
       "size_bytes": 1344,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "67c20a8188d800f73cc988a5d52fc944293a6695"
     },
     {
       "path": "zz-scripts/chapter01/generate_data_chapter01.py",
       "sha256": "030d54385d9c48ab0c59a1533312c1f338c8ac6989278ae6f01f0e1fba15fd39",
       "size_bytes": 7725,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "989e3c1e4b0b120431e50f0e39ec40afc99dd4e1"
     },
     {
       "path": "zz-scripts/chapter02/generate_data_chapter02.py",
       "sha256": "110bccf284fa5cad645c786f2adf1f343fe65ffc9f654048fa410997d14054ca",
       "size_bytes": 10054,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "93616b27bb545c3debd937042684d4ba5ae6a65d"
     },
     {
       "path": "zz-scripts/chapter02/primordial_spectrum.py",
       "sha256": "00ea49ad7b2da15405a353ea5e2832a1615e9ccda20b71a2f6a6117fa80467ec",
       "size_bytes": 2326,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "b28d0506ca089e685de510b66c692a8c3cf53385"
     },
     {
       "path": "zz-scripts/chapter03/generate_data_chapter03.py",
       "sha256": "d701959cc1a465ad57fd886937f0152f161198cc84aa888a883aeaeddab4c30f",
       "size_bytes": 12643,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "1562a0775748a84519ee9b853b4adfecaa4cdb24"
     },
     {
       "path": "zz-scripts/chapter03/utils/03_ricci_fR_milestones_enhanced.csv",
       "sha256": "1172c9699837ceaf6a5c8ee7d39636909fa3678a0f7c401afe35dcc6d919bf7a",
       "size_bytes": 6853,
-      "mtime_iso": "2025-10-23T12:34:30Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "9b6c458749bcb214fb4e421954f2d0e7ee7576e7"
     },
     {
       "path": "zz-scripts/chapter03/utils/convert_milestones.py",
       "sha256": "2815e8f223c071b2d8c5e257f70486f61632dfcd666b6d2f5f21931c143c9753",
       "size_bytes": 835,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "3bfaa1785dd09e07ea462c7de80b675e6e68f0c6"
     },
     {
       "path": "zz-scripts/chapter04/generate_data_chapter04.py",
       "sha256": "5befa6d50e4e5a20990ff105ce4254c40cf81c959299ce5296d932c8917b3f1e",
       "size_bytes": 7490,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "df48103e060af9863677b0082f5d63f1f803d7e8"
     },
     {
       "path": "zz-scripts/chapter04/04_fig_01_potential.py",
       "sha256": "190d8b9345edb3d77c75e3dbde32a277bb5ce2aef4bf9b845c86f7d4cd5a843f",
       "size_bytes": 6610,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "bd9a62b30420eaba046924110e2aef7e046db4d5"
     },
     {
       "path": "zz-scripts/chapter04/04_fig_02_evolution.py",
       "sha256": "6dc16862cac66f1fd20cfeb8050d99303663b58fc8a3bdadfdf7f74391d70f0f",
       "size_bytes": 2258,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "7d75ed15cc7004d8da217c52c495b91b40293de7"
     },
     {
       "path": "zz-scripts/chapter04/04_fig_03_invariants.py",
       "sha256": "7af220d58edc6052db52e550efacbdb51d68ad96fb33ef8b550862a36c934012",
       "size_bytes": 5457,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "13e7afa8b0e94280908942b95733db737d480eed"
     },
     {
       "path": "zz-scripts/chapter04/04_fig_04_relative_deviations.py",
       "sha256": "c43f5a22a744e1edbd1dff33a47fa8a1744c36ff15330da50207af8b0674a3b9",
       "size_bytes": 4264,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "68a5be6a715daff7e6b9c9ddb92bfe993328868c"
     },
     {
       "path": "zz-scripts/chapter05/generate_data_chapter05.py",
       "sha256": "a732d8eabba54ca2f9fac609d309ec5492d722456b64a501a40a465e395dc536",
       "size_bytes": 7695,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "37bb2f65e7bc6b1b7d5d4bad2ea22b01016d4c58"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_01_convergence.py",
       "sha256": "2e65f11dac25649bb62eca88d8356c7ad85d7ffe26fbb5e12c126acc6b0400d3",
       "size_bytes": 5447,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "f0a58394be491d60f68e42e4f361499c032c151d"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_02_residuals.py",
       "sha256": "ef4149ab60f268207c370d9d300d5d7cb9507280e604971cbf6001fd21647974",
       "size_bytes": 7785,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "10c78a4d521c6d2b3012033eaf747492e1cb9552"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_03_correlation.py",
       "sha256": "2ce9ebf1d5f823ccd10b5f459a1741f9bc168f860eef1aed7ab3c164d47436aa",
       "size_bytes": 4352,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "5cb04cc51dd65831027c86d7d3fa9081f1bd7d4e"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_04_cost_surface.py",
       "sha256": "2713cfd7b58c2404421793cbe0cba262c4e07edf319afe7d33fffcd5c67af55b",
       "size_bytes": 10267,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "abd1d9a483da78498a165fe5c14af838bd145988"
     },
     {
       "path": "zz-scripts/chapter09/apply_poly_unwrap_rebranch.py",
       "sha256": "ab534322681f8e0a4a0fb472d2ddaf012dbc47ad9142fbc10bb57c54a77b2f8a",
       "size_bytes": 8536,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "0dc99cf2c86cd5c9e0c844a6ac1aa3d0c75ed350"
     },
     {
       "path": "zz-scripts/chapter09/check_p95_methods.py",
       "sha256": "49aee6f6f1ca803e130600574c6d556cd34c90c66761cbc951316e6a460c67d5",
       "size_bytes": 7146,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "46e245d1591097a71dcfc905435f0f315351a932"
     },
     {
       "path": "zz-scripts/chapter09/extract_phenom_phase.py",
       "sha256": "a11a09616192c345dad7ba2189b17cf8d1425a3f4052ea886882fabf5d0af532",
       "size_bytes": 4713,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "fd524a4cfb11184d960228e101e86fe9f867b3b1"
     },
     {
       "path": "zz-scripts/chapter09/fetch_gwtc3_confident.py",
       "sha256": "61feee730f369be0a77f0468d3f9735aa06058a5ef3e84126a134f52bf476289",
       "size_bytes": 5824,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "d170c7269d16c3fc75205830917a0badfa955be6"
     },
     {
       "path": "zz-scripts/chapter09/flag_jalons.py",
       "sha256": "2dde2521c3b0f72d4b32e53eb1264d808a2762763e61671275dc02e9478f2dff",
       "size_bytes": 6898,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "ba44e726352e9782b29badec55e8f69e5737c56d"
     },
     {
       "path": "zz-scripts/chapter09/generate_data_chapter09.py",
       "sha256": "5da43c1c1c0773c2f9104ed9878539754b591e4ef88a288df15ce66144102c06",
       "size_bytes": 29623,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "4b31d07571d125ba3d9c775814494432fb2df168"
     },
     {
       "path": "zz-scripts/chapter09/generate_mcgt_raw_phase.py",
       "sha256": "220b5e431e46fbe2a0fa5b9044d1af7d3766907eb7bc2ba74a5eb4b921680fac",
       "size_bytes": 7687,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "d4bc911694102fbcd917d79850a54c06177b0e0b"
     },
     {
       "path": "zz-scripts/chapter09/opt_poly_rebranch.py",
       "sha256": "c1db7f69da8ca3958d8721a8181b694f0bdd50759932b3e932424cd8b76a260f",
       "size_bytes": 8226,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "36562352ef12c4f576643ebded87bda981ecbab2"
     },
     {
       "path": "zz-scripts/chapter09/09_fig_04_absdphi_milestones_vs_f.py",
       "sha256": "f56bea322e67aa12779d66c465d3ae9c12c1ff35ea1a3659a2a60fd937753879",
       "size_bytes": 6829,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "673eefa76778905a52a15fa38b74dc3af6df1474"
     },
     {
       "path": "zz-scripts/chapter09/run_fig01_nowarn.sh",
       "sha256": "7cb211c3d362744ac3eef5c9ea3e2decf31d892201c24d5a29503507a42d53c6",
       "size_bytes": 1891,
-      "mtime_iso": "2025-12-18T02:51:15Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "54f3bd835aafffd1f69c3c71efdd0756978e8a10"
     },
     {
       "path": "zz-scripts/chapter10/add_phi_at_fpeak.py",
       "sha256": "672f79ec03d5c95c37594e88c9a992576e129a8abb351c26979592799a655957",
       "size_bytes": 9792,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "6d414f8a7b0e602bbc70d8373313d39531008254"
     },
     {
       "path": "zz-scripts/chapter10/bootstrap_topk_p95.py",
       "sha256": "2533e0d3861ca112229dbd5d1bab2c83ce14cf692f0ac1bd9dc1b2c2a3e068f3",
       "size_bytes": 10392,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "9c19a952ffa8904d7388b4e022f45e0060e5cee9"
     },
     {
       "path": "zz-scripts/chapter10/check_metrics_consistency.py",
       "sha256": "fb97be50177c6af34153ac5a5ae172a60f4c471a4b5273796a356e00cb4c775f",
       "size_bytes": 6218,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "060134c2061506dc3caf34fa7a0acb75ae750f11"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_08_diagnostic_histogram.py",
       "sha256": "4fa85d99dcb35ec86bfd25ac04cdd70de190b9e6af409f7451091e76e2b0b1f0",
       "size_bytes": 5586,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "f3199ffe872d73540195b6bb15bea59bb6556dde"
     },
     {
       "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
       "sha256": "7bec3eb2a09ab3f5083ccb445324feb18503155e87bf87519d89db9f661ff967",
       "size_bytes": 14551,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "730dbbeca2a4370ebae6b9ecc1abc7640188c2b5"
     },
     {
       "path": "zz-scripts/chapter10/generate_data_chapter10.py",
       "sha256": "df538181194f242137fd414086612d8a34dcee82daeb1f9fc95efc4fe937390e",
       "size_bytes": 21021,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "3a1eb7c953b243e4b841f0a70a013ffaded080e6"
     },
     {
       "path": "zz-scripts/chapter10/inspect_topk_residuals.py",
       "sha256": "466973baa244900cb07a1451cd10f32df9554ac79224ae26235e3195da490e2d",
       "size_bytes": 3683,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "d24e4c3b75ee0cf60a8b393a2ee4860904e1def0"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_01_iso_p95_maps.py",
       "sha256": "0d52673560859ec1f1cb8a0cef74032a395797adfeea887ebea96487c54aa969",
       "size_bytes": 11612,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "e4cee8dee45578c7e701c8ce147f75d941c2f86f"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_02_scatter_phi_at_fpeak.py",
       "sha256": "d5e04121b15ddf52ca9f19e2d107dc5ea34af0e5797f6509c3c8074a2a43cf04",
       "size_bytes": 15418,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "e460fa76234ca50fac3ec0e685534c3c8b1243a4"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_03_convergence.py",
       "sha256": "aeab77bfd824846981415bee03058603cac2ba99729484221b6a667ca6c344e7",
       "size_bytes": 7970,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "21809ef53aca2aab223bd30d1318ac40a34b41fd"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_04_p95_comparison.py",
       "sha256": "a6d9378557175767fe4c6920678c8cc73b643c83287e7de66ade755de6a577fd",
       "size_bytes": 15112,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "573983d01f6c118ed70c6e959741f71fb16c5292"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_05_hist_cdf_metrics.py",
       "sha256": "cbf4a4f3e11fb392fcad8a8b1004284a381e102872db3d9c55afb51f4f18dfb1",
       "size_bytes": 9724,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "ffa3a4fa65dc388417a9ca3bec37bfae78cd620b"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_06_residual_map.py",
       "sha256": "92198de004b51b096616f26a45663a01e979b2258f7e56026d348ae4dc19800b",
       "size_bytes": 19567,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "dfee6d020f979b200387974573548848ce7d1634"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_07_synthesis.py",
       "sha256": "de53013f26bea681a4ce2c68bccaf5636c66c7275030f4fb78faa2d7407bc811",
       "size_bytes": 17800,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "4b147cacbec4db6deec08d9dbdf1aec9bb8cad0c"
     },
     {
       "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
       "sha256": "2533e0915ccad861b323cc2b41209019df6802e58a59bc297fc11a6922245b6f",
       "size_bytes": 5803,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "0aea6b91e4fcf38cd30a6460b892bc3e89e2d704"
     },
     {
       "path": "zz-scripts/chapter10/recompute_p95_circular.py",
       "sha256": "7dfac118eed5edc3068227a68cf4804bd4336d340fdc1e0f48fd0981ef94179f",
       "size_bytes": 2938,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "00d9faacaa59a01d417b5bad231f23dc18600702"
     },
     {
       "path": "zz-scripts/chapter10/regen_fig05_using_circp95.py",
       "sha256": "5859c2339fd35c89484f9d8c35ac4bdf3d286bb67e001ee072e507a5671ee221",
       "size_bytes": 7201,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "5b1f6656d722dcd5afe3cc2345e6dabde16aeb08"
     },
     {
       "path": "zz-scripts/chapter10/requirements.txt",
       "sha256": "deba6dd49418ec0c7d95dc42f7399205e0e73006577ae193fcb33c7fdc47e10f",
       "size_bytes": 182,
-      "mtime_iso": "2025-11-22T15:27:02Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "9015dc3f6717e560f1bb5d594fdf3184042bfd4f"
     },
     {
       "path": "zz-scripts/chapter10/update_manifest_with_hashes.py",
       "sha256": "86d1211206665db7ff0baa8fd91c22dcf21783efd9bed44ac5073b0466ff5376",
       "size_bytes": 1715,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "9fc0af1ac906f2240d4f946e006d703f228daf68"
     },
     {
       "path": "zz-scripts/manifest_tools/populate_manifest.py",
       "sha256": "81cf7d1c098b6ba7d7ddd75a34369a594d03df6c61957ce7377ca38c0a6fc5d2",
       "size_bytes": 9713,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "1cac3ce1766356358dc9f672dc822ff56945f469"
     },
     {
       "path": "zz-scripts/manifest_tools/verify_manifest.py",
-      "sha256": "d77fe8af021a7981ccc7810b72ea23bd3888fbac6f34bddd09f363967be2600b",
-      "size_bytes": 5741,
-      "mtime_iso": "2025-12-19T22:57:48Z",
-      "git_hash": "efecb3694c54a104f10fd7da512beaa1aba88cc5"
+      "sha256": "4b41e204410f5e05eb7a99f6b4dfe85db553ed7d6e3b49f32709943105ff6658",
+      "size_bytes": 6379,
+      "mtime_iso": "2025-12-19T23:11:49Z",
+      "git_hash": "d015e5f59093076d12748817abcf5208ef69e6fd"
     },
     {
       "media_type": "image/png",
@@ -1591,49 +1591,49 @@
       "path": "zz-scripts/chapter06/06_fig_01_spectrum.py",
       "sha256": "697bdc16870015dacafe914107bf6b752a0748faee3b60079c3c5e7f82d59e9e",
       "size_bytes": 8438,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "4e6ad372b4b7e5aaa4bb82690a43bcc044ff0f14"
     },
     {
       "path": "zz-scripts/chapter06/06_fig_02_growth_rate.py",
       "sha256": "d2c57025d4626bc192f2b3c7cf76a402fbbeeefd1344f14497476489d4d03ba4",
       "size_bytes": 5837,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "0fcd34d899c189785e87d7afe210ad6981f1a009"
     },
     {
       "path": "zz-scripts/chapter06/06_fig_03_growth_factor.py",
       "sha256": "5eee8f49ec2bf8944df8a19b33b0c6db25e6a07354dae62ab7bcf93369317ee6",
       "size_bytes": 6412,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "1b6119778fa9f59fcece0ffb4571d0ead9fe7d2b"
     },
     {
       "path": "zz-scripts/chapter06/06_fig_05_delta_chi2_heatmap.py",
       "sha256": "32972257ded4ecd1736e56ba416154246d775d704d425b0027f553208e0e61cf",
       "size_bytes": 8685,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "6f105f1c1f78760fec48e8223a23d469f1316726"
     },
     {
       "path": "zz-scripts/chapter06/generate_data_chapter06.py",
       "sha256": "35f8a96ed0c6a9434e1966ac2da15dc78171fcec7ab0d87aa056c9768cb3403c",
       "size_bytes": 12370,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "5cc3807cb89c47d4a1a4104ae6a43d638bc9ab2a"
     },
     {
       "path": "zz-scripts/chapter06/generate_pdot_plateau_vs_z.py",
       "sha256": "4756f2f461728725b1f55658ef05d18c84bf20c8b3f3dcf11b9f6d2b2308bfc0",
       "size_bytes": 1537,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "117e792a1bef04159d195f8b04d00776f53b31f9"
     },
     {
       "path": "zz-scripts/chapter06/run_camb_chapter06.bat",
       "sha256": "ca2ca08f64a1f1640250306dbc556d5fab3d5f9af10a15b4ad7d54c25b446333",
       "size_bytes": 1380,
-      "mtime_iso": "2025-09-21T16:27:56Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "475ee947336e7f09e792db66f520e648d8a119b2"
     },
     {
@@ -1703,42 +1703,42 @@
       "path": "zz-scripts/chapter07/07_fig_01_hubble.py",
       "sha256": "d4177110327f79a30979fde2264dab742c697b336d934da52eacc6ee38631254",
       "size_bytes": 10540,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "adda9bc5bce6ef09f171b8082dfed8f6bd794354"
     },
     {
       "path": "zz-scripts/chapter07/07_fig_02_residuals.py",
       "sha256": "ee20e007b5b57c43d0154bd183008eb4c86729a9907a1a8e1910ff8c60f52940",
       "size_bytes": 10565,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "a28726c2c04abff722e53685d92f114d8c4d0f96"
     },
     {
       "path": "zz-scripts/chapter07/07_fig_03_density.py",
       "sha256": "ba887439fd4d3405b4feb82a12718fe0d552c58ef2cfc4a0df0cd21d45c15b2b",
       "size_bytes": 9251,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "fc1aef5874c2ff77ed12cb05bd9e01baf0d3a091"
     },
     {
       "path": "zz-scripts/chapter07/generate_data_chapter07.py",
       "sha256": "98fb65e23691500387f2c70969e7ce3bb0b5c5863120ddec8c87e8f3b8e1029d",
       "size_bytes": 9141,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "77deb76ad3439c4c96600340d8c36f42e4017eea"
     },
     {
       "path": "zz-scripts/chapter07/launch_scalar_perturbations_solver.py",
       "sha256": "939f9ed41a31a7cd0eb5df070f9436680066a7fab042b9d348091142b9e5c92f",
       "size_bytes": 14232,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "1ae5524492d5db06a74febe0a6f39dc82ea57faf"
     },
     {
       "path": "zz-scripts/chapter07/launch_solver_chapter07.sh",
       "sha256": "bb14e4611b663321df357d091ce0ebd7891fc93419b1e1c33035f360c753439d",
       "size_bytes": 6308,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "b1b5a909bf5b1ca7c90e47c8193a18e92062fe5f"
     },
     {
@@ -1794,63 +1794,63 @@
       "path": "zz-scripts/chapter08/08_fig_01_chi2_total_vs_q0.py",
       "sha256": "a3ddef5bdb7d510d0a52a38b20ebbce3f59c8256faf03334bcd7348ef9e70427",
       "size_bytes": 5453,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "34d0d451545e83c568671a0fcbaf563b92a43fb4"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_02_dv_vs_z.py",
       "sha256": "944f244a279d639185ea2efb9c211aceb9af14cef2c6494c3d9257ff7533cf83",
       "size_bytes": 4115,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "f0145c1b994183f0b62e91cc4ebd4dba7c3849b9"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_03_mu_vs_z.py",
       "sha256": "4fb26e4db4ea71c3838dd76422750e52c70904e488c1ca70a4dd8887359777fc",
       "size_bytes": 4372,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "0814e5d3a0bce6b5663b22a4acd9f13ccf87d20d"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_04_chi2_heatmap.py",
       "sha256": "a658e00e1cfc9cf09b5943243c54839f3d07f220b8ca32edcd049878783072b4",
       "size_bytes": 5495,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "7c77490b06900413b29fbb73a4c05f87755d1672"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_05_residuals.py",
       "sha256": "94c8044e9277a7f59a37635f1b7ab260a634ef0977cacc349f27fe5a8fedaaf1",
       "size_bytes": 6981,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "eeb9cf7f70cdb5d356fb30bfcc0eff16a306c2a4"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_06_normalized_residuals_distribution.py",
       "sha256": "5067b865a7ec47f462a2a780ed538992b6098259a5be920aaacf5a2129ff765b",
       "size_bytes": 7465,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "8153e5b60d3ee2c1003d38704d3414b6c1acf380"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_07_chi2_profile.py",
       "sha256": "f3909201b2ec9c71c237bcce9bbf031397bd15a53ea63427b6d69ce81b2d0fa5",
       "size_bytes": 5878,
-      "mtime_iso": "2025-12-19T22:40:28Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "841eab3cb3cffe92e23603ce445471134313635a"
     },
     {
       "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
       "sha256": "1e0f68552b14be66c61b4d59292a6361759f9a86f86c740983a5bc7e2df65462",
       "size_bytes": 3485,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "8824ad892b7efeb846d1f1f1e3cbc01d3d7cbe8e"
     },
     {
       "path": "zz-scripts/chapter08/generate_data_chapter08.py",
       "sha256": "522f03517cae72607bb69697cd759929a70760aa9f7175ec6c5cf76bc9c58f76",
       "size_bytes": 7835,
-      "mtime_iso": "2025-12-19T22:57:48Z",
+      "mtime_iso": "2025-12-19T23:11:49Z",
       "git_hash": "7ef518778b1aa44c93b4f1a2b64f03f12b50894a"
     },
     {
@@ -1903,7 +1903,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T22:58:49Z",
+  "generatedAt": "2025-12-19T23:12:49Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

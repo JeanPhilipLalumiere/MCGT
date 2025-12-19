@@ -20,10 +20,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Vérifier que rien de généré n’est suivi
+      - name: Verifier que rien de genere nest suivi
         run: |
           set -euo pipefail
           git ls-files | grep -E '^(zz-out|\.ci-out|_tmp-figs|\.ci-logs)/' && {
-            echo "❌ Des fichiers générés sont suivis (zz-out/ .ci-out/ _tmp-figs/ .ci-logs/)"
+            echo " Des fichiers generes sont suivis (zz-out/ .ci-out/ _tmp-figs/ .ci-logs/)"
             exit 1
-          } || echo "✅ OK: aucun artefact généré suivi"
+          } || echo " OK: aucun artefact genere suivi"

@@ -46,7 +46,5 @@ norecursedirs = [
   "_attic_untracked",
   "_autofix_sandbox",
 ]
-
-[tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

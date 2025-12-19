@@ -3,11 +3,11 @@ name: build-and-publish
 on:
   push:
     tags:
-      - 'v*'   # déclenche sur tout tag "vX.Y.Z"
+      - 'v*'   # declenche sur tout tag "vX.Y.Z"
 
 permissions:
   contents: read
-  id-token: write   # requis pour l’OIDC (Trusted Publishing PyPI)
+  id-token: write   # requis pour lOIDC (Trusted Publishing PyPI)
 
 concurrency:
   group: publish-${{ github.ref }}
@@ -38,8 +38,8 @@ jobs:
           echo "== ls dist =="
           ls -l dist || true
 
-      # Garde-fou 1 : la version produite par le build doit égale au tag (sans le 'v')
-      - name: Garde-fou — Tag == version buildée
+      # Garde-fou 1 : la version produite par le build doit egale au tag (sans le 'v')
+      - name: Garde-fou  Tag == version buildee
         shell: bash
         run: |
           set -euo pipefail
@@ -64,10 +64,10 @@ jobs:
 
           BUILT="$(cat .built_version)"
           echo "TAG=$TAG  BUILT=$BUILT"
-          test "$BUILT" = "$TAG" || { echo "::error::Tag ($TAG) ≠ version buildée ($BUILT)"; exit 1; }
+          test "$BUILT" = "$TAG" || { echo "::error::Tag ($TAG) = version buildee ($BUILT)"; exit 1; }
 
-      # Garde-fou 2 : ne pas publier si la version existe déjà sur PyPI
-      - name: Garde-fou — Version absente de PyPI
+      # Garde-fou 2 : ne pas publier si la version existe deja sur PyPI
+      - name: Garde-fou  Version absente de PyPI
         shell: bash
         run: |
           set -euo pipefail
@@ -81,7 +81,7 @@ jobs:
           with urllib.request.urlopen(f"https://pypi.org/pypi/{pkg}/json") as r:
               data = json.load(r)
           if ver in data.get("releases", {}):
-              print(f"ERROR: {pkg} {ver} existe déjà sur PyPI.")
+              print(f"ERROR: {pkg} {ver} existe deja sur PyPI.")
               sys.exit(1)
           print(f"OK: {pkg} {ver} absent de PyPI.")
           PY

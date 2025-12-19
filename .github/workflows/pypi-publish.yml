@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write  # OIDC → Trusted Publishing
+  id-token: write  # OIDC  Trusted Publishing
 
 jobs:
   publish:

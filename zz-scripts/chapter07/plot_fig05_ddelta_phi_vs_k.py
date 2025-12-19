@@ -160,12 +160,10 @@ def plot_ddelta_phi_vs_k(
     if not meta_json.exists():
         raise FileNotFoundError(f"Méta-paramètres introuvables : {meta_json}")
     if not data_csv.exists():
-        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
-        z_grid = np.logspace(-3, 0, 50)
-        df = pd.DataFrame({"k": z_grid, "d_delta_phi_dk": 1e-4 * z_grid})
-    else:
-        df = pd.read_csv(data_csv, comment="#")
-        logging.info("Chargement CSV terminé : %d lignes", len(df))
+        raise FileNotFoundError(f"CSV introuvable : {data_csv}")
+
+    df = pd.read_csv(data_csv, comment="#")
+    logging.info("Chargement CSV terminé : %d lignes", len(df))
 
     meta = json.loads(meta_json.read_text(encoding="utf-8"))
     k_split = float(meta.get("x_split", meta.get("k_split", 0.02)))

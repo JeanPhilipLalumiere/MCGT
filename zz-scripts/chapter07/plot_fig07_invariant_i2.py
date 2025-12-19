@@ -169,12 +169,10 @@ def plot_invariant_i2(
     if not meta_json.exists():
         raise FileNotFoundError(f"Méta-paramètres introuvables : {meta_json}")
     if not data_csv.exists():
-        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
-        k_vals = np.logspace(-3, 0, 50)
-        df = pd.DataFrame({"k": k_vals, "i2": 1e-3 * np.exp(-k_vals)})
-    else:
-        df = pd.read_csv(data_csv, comment="#")
-        logging.info("Chargement CSV terminé : %d lignes", len(df))
+        raise FileNotFoundError(f"CSV introuvable : {data_csv}")
+
+    df = pd.read_csv(data_csv, comment="#")
+    logging.info("Chargement CSV terminé : %d lignes", len(df))
 
     meta = json.loads(meta_json.read_text(encoding="utf-8"))
     k_split = float(meta.get("x_split", meta.get("k_split", 0.02)))

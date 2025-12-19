@@ -166,18 +166,12 @@ def plot_invariant_i1(
     logging.info("Lecture de k_split = %.3e [h/Mpc]", k_split)
 
     if not data_csv.exists():
-        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
-        z_grid = np.linspace(0.01, 2.0, 50)
-        df = pd.DataFrame(
-            {
-                "k": z_grid,
-                "i1": 0.3 + 0.05 * np.exp(-z_grid),
-            }
-        )
-    else:
-        df = pd.read_csv(data_csv)
-        logging.info("Chargement terminé : %d lignes", len(df))
-        logging.debug("Colonnes du CSV : %s", list(df.columns))
+        logging.error("CSV introuvable : %s", data_csv)
+        raise FileNotFoundError(data_csv)
+
+    df = pd.read_csv(data_csv)
+    logging.info("Chargement terminé : %d lignes", len(df))
+    logging.debug("Colonnes du CSV : %s", list(df.columns))
 
     if "k" not in df.columns:
         raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")

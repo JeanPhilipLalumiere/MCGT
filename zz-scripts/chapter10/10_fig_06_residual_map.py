@@ -351,9 +351,9 @@ def main() -> None:
     N = len(df)
     rng = np.random.default_rng(0)
     if np.std(x) < 1e-4:
-        x = x + rng.normal(0, 0.03, size=len(x))
+        x = x + rng.normal(0, 0.10, size=len(x))
     if np.std(y) < 1e-4:
-        y = y + rng.normal(0, 0.03, size=len(y))
+        y = y + rng.normal(0, 0.10, size=len(y))
 
     # ---------------------------------------------------------------- metric
     if args.metric == "dp95":

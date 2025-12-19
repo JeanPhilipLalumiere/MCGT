@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,7 +49,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -70,13 +83,14 @@ def main():
         dchi2 = np.gradient(chi2, q0)
 
     # --- Figure principale ---
-    fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
+    fig, ax = plt.subplots(figsize=(10, 6), dpi=150)
     ax.plot(q0, chi2, color="C0", lw=2, label=r"$\chi^2$")
     ax.set_xlabel(r"$q_0^\star$", fontsize=14)
     ax.set_ylabel(r"$\chi^2$", fontsize=14, color="C0")
     ax.tick_params(axis="y", labelcolor="C0")
     ax.xaxis.set_major_locator(MaxNLocator(nbins=6, prune="both"))
     ax.yaxis.set_major_locator(MaxNLocator(nbins=6, prune="both"))
+    ax.set_title(r"Total $\chi^2$ Distribution vs $q_0^\star$")
 
     ax2 = ax.twinx()
     ax2.plot(q0, dchi2, color="C1", lw=2, label=r"$d\chi^2/dq_0^\star$")
@@ -144,7 +158,14 @@ def main():
     # --- Légende en haut à droite ---
     h1, l1 = ax.get_legend_handles_labels()
     h2, l2 = ax2.get_legend_handles_labels()
-    ax.legend(h1 + h2, l1 + l2, loc="upper right", fontsize=12, frameon=False)
+    ax.legend(
+        h1 + h2,
+        l1 + l2,
+        loc="upper right",
+        bbox_to_anchor=(1.0, 0.92),
+        fontsize=12,
+        frameon=False,
+    )
 
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     outpath = FIG_DIR / "08_fig_01_chi2_total_vs_q0.png"

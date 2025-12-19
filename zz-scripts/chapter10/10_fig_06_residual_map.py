@@ -430,10 +430,8 @@ def main() -> None:
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
-    xpad = 0.05 * (np.max(x) - np.min(x)) if np.ptp(x) > 0 else 0.5
-    ypad = 0.05 * (np.max(y) - np.min(y)) if np.ptp(y) > 0 else 0.5
-    ax_main.set_xlim(np.min(x) - xpad, np.max(x) + xpad)
-    ax_main.set_ylim(np.min(y) - ypad, np.max(y) + ypad)
+    ax_main.set_xlim(np.min(x), np.max(x))
+    ax_main.set_ylim(np.min(y), np.max(y))
     ax_main.autoscale(enable=True, axis="both", tight=False)
 
     # annotation mincnt
@@ -472,8 +470,8 @@ def main() -> None:
     ax_cnt.set_title("Counts per cell", fontsize=11)
     ax_cnt.set_xlabel("m1")
     ax_cnt.set_ylabel("m2")
-    ax_cnt.set_xlim(np.min(x) - xpad, np.max(x) + xpad)
-    ax_cnt.set_ylim(np.min(y) - ypad, np.max(y) + ypad)
+    ax_cnt.set_xlim(np.min(x), np.max(x))
+    ax_cnt.set_ylim(np.min(y), np.max(y))
     ax_cnt.autoscale(enable=True, axis="both", tight=False)
     ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
     ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))

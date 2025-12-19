@@ -4,9 +4,9 @@
 plot_fig07_synthesis.py — Figure 7 (synthèse)
 
 Panneaux :
-  (1) Couverture vs N  (barres = Wilson 95% si fournies)
-  (2) Largeur moyenne d’IC vs N [rad]  (pente log–log width ≈ a·N^b calculée)
-  (3) Tableau « Synthèse numérique (résumé) » sur une deuxième rangée
+  (1) Coverage vs N (Wilson 95% bars if provided)
+  (2) Mean CI width vs N [rad] (log–log slope width ≈ a·N^b)
+  (3) Numeric synthesis table (second row)
 
 Correction propre (CH10 fig07) — 3 changements
   1) --manifest-a optionnel : si absent, auto-détection sur
@@ -147,7 +147,7 @@ def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = No
 
     params = man.get("params", {}) if isinstance(man.get("params", {}), dict) else {}
     alpha = float(_param(params, ["alpha", "conf_alpha"], 0.05))
-    label = label_override or man.get("series_label") or man.get("label") or "série"
+    label = label_override or man.get("series_label") or man.get("label") or "series"
 
     s = Series(
         label=str(label),
@@ -252,7 +252,7 @@ def plot_synthese(
     ax_width = fig.add_subplot(gs[0, 1])
     ax_tab = fig.add_subplot(gs[1, :])
 
-    # ----- Couverture vs N -----
+    # ----- Coverage vs N -----
     alpha = series_list[0].alpha if series_list else 0.05
     nominal_level = 1.0 - alpha
 
@@ -286,9 +286,9 @@ def plot_synthese(
     else:
         ax_cov.legend([nominal_handle], [nominal_handle.get_label()], loc="upper left", frameon=True, fontsize=10)
 
-    ax_cov.set_title("Couverture vs N")
-    ax_cov.set_xlabel("Taille d'échantillon N")
-    ax_cov.set_ylabel("Couverture (IC 95% contient la référence)")
+    ax_cov.set_title("Coverage vs N")
+    ax_cov.set_xlabel(r"Sample Size $N$")
+    ax_cov.set_ylabel("Coverage (95% CI contains reference)")
 
     if (ymin_cov is not None) or (ymax_cov is not None):
         ymin = ymin_cov if ymin_cov is not None else ax_cov.get_ylim()[0]
@@ -306,7 +306,7 @@ def plot_synthese(
     ax_cov.text(0.02, 0.03, "α=0.05. Variability higher for small N.", transform=ax_cov.transAxes, fontsize=9, va="bottom")
 
     if not series_list:
-        ax_cov.text(0.5, 0.5, "Aucune série (manifest manquant/invalid)", transform=ax_cov.transAxes, ha="center", va="center", fontsize=11)
+        ax_cov.text(0.5, 0.5, "No series (missing/invalid manifest)", transform=ax_cov.transAxes, ha="center", va="center", fontsize=11)
 
     # ----- Largeur vs N -----
     for s, h in zip(series_list, handles):
@@ -324,7 +324,7 @@ def plot_synthese(
     if series_list:
         ax_width.legend(fontsize=10, loc="upper right", frameon=True)
     else:
-        ax_width.text(0.5, 0.5, "Aucune série", transform=ax_width.transAxes, ha="center", va="center", fontsize=11)
+        ax_width.text(0.5, 0.5, "No series", transform=ax_width.transAxes, ha="center", va="center", fontsize=11)
 
     # ----- Tableau résumé -----
     ax_tab.set_title("Numeric synthesis (summary)", y=0.88, pad=12, fontsize=12)

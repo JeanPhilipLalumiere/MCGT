@@ -1170,11 +1170,18 @@
       "git_hash": "5175ce6d631ad876f7378a53c98f653ac29b012b"
     },
     {
-      "path": "zz-scripts/chapter10/10_fig_03_convergence_p95_vs_n.py",
-      "sha256": "6f3b3298d872c6cdb6b02b3173ac30e257e1e9dcd627177b86ba685973713ea9",
-      "size_bytes": 10378,
-      "mtime_iso": "2025-12-19T18:49:57Z",
-      "git_hash": "716526becb0ec241590e302fa9c180df8971e96d"
+      "path": "zz-scripts/chapter10/10_fig_03_convergence.py",
+      "sha256": "f3100e44d899a93d12591c6de971e4550bd1085a558409e19806da1a52a12388",
+      "size_bytes": 10334,
+      "mtime_iso": "2025-12-19T19:19:29Z",
+      "git_hash": "1f63103cd98b1b4b159a595a4a721f152ff97ab5"
+    },
+    {
+      "path": "zz-scripts/chapter10/10_fig_03b_convergence_zoom.py",
+      "sha256": "4acc15b5b3e679abd1d7942d48619551de7e72b87cafbe9540715aaf29a3b3d6",
+      "size_bytes": 19750,
+      "mtime_iso": "2025-12-19T19:24:08Z",
+      "git_hash": "fde93332f8a1c9ebc4bcf88d00edb145d8dc800b"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_03c_bootstrap_coverage_vs_n.py",
@@ -1192,24 +1199,24 @@
     },
     {
       "path": "zz-scripts/chapter10/10_fig_05_hist_cdf_metrics.py",
-      "sha256": "6ec6ef8fd85f4a8d99ed1513a07c1d46ccd632ac5c82ec56702f9bb7346aa97a",
-      "size_bytes": 11021,
-      "mtime_iso": "2025-12-19T18:51:49Z",
-      "git_hash": "0acde4816d12036f16c0065c43dc187354c8d549"
+      "sha256": "b333f0ee2433d0c1077898826378798e98fabfc046c42701f37a15d55db8ae8a",
+      "size_bytes": 11408,
+      "mtime_iso": "2025-12-19T19:19:43Z",
+      "git_hash": "8a1b6fed0bd46788e173bfe520152c7813b1ed6c"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_06_residual_map.py",
-      "sha256": "2ea6ae4290014a9f62880ee4ec8573fe1d6a7319ee583d58b2d635aa0a08cb57",
-      "size_bytes": 19264,
-      "mtime_iso": "2025-12-19T18:52:21Z",
-      "git_hash": "2323949baa69e6d84999463f7d5f46884db3b6c9"
+      "sha256": "1e13fea99ed6e23cea8408ee6de2420750cc68e9ba9fe641e6eb33a2edaa3b6e",
+      "size_bytes": 19072,
+      "mtime_iso": "2025-12-19T19:19:52Z",
+      "git_hash": "7724c5118ce6325f4571db01958583a0c44d7f65"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_07_synthesis.py",
-      "sha256": "2bd33418ef49dce5e88e1fb398a61d25ac898fdafda576068b0606369fa9207a",
-      "size_bytes": 17806,
-      "mtime_iso": "2025-12-19T18:52:02Z",
-      "git_hash": "4223f6c4a960e7954252e14ecb4973b92f76dd25"
+      "sha256": "de8d4761a7a89a2f7800e896ff7fcf16714934a232e483d6c17656921c607af2",
+      "size_bytes": 17717,
+      "mtime_iso": "2025-12-19T19:20:13Z",
+      "git_hash": "a07e64c19aced7fe173b1b1b8e8ee924c12b3b72"
     },
     {
       "path": "zz-scripts/chapter10/qc_wrapped_vs_unwrapped.py",
@@ -1370,7 +1377,19 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+      "path": "zz-figures/chapter10/10_fig_03b_convergence_zoom.png",
+      "role": "figure",
+      "tags": [
+        "chapter10"
+      ],
+      "size_bytes": 392212,
+      "mtime_iso": "2025-12-19T19:23:11Z",
+      "sha256": "f3c0d827795ff5bd72ff5e424c1ddaa435d00f971962c62ecd923b24495040f5",
+      "git_hash": "e167ebc25422e78106ad509d29230e959f08e828"
+    },
+    {
+      "media_type": "image/png",
+      "path": "zz-figures/chapter10/10_fig_03_convergence.png",
       "role": "figure",
       "tags": [
         "chapter10"
@@ -1820,6 +1839,13 @@
       "git_hash": "55a64c86d4681edadd0e7eb4d2ffb9b38028fb5f"
     },
     {
+      "path": "zz-figures/chapter10/10_fig_03b_convergence_zoom.manifest.json",
+      "sha256": "ea3b3d2b51982ba2839e5ba27fa0262d40933afb1f8f122fbf960e67ee37791a",
+      "size_bytes": 3195,
+      "mtime_iso": "2025-12-19T19:23:11Z",
+      "git_hash": "d63c726ea35333f54670c50d70eaebd907ff39a6"
+    },
+    {
       "path": "zz-figures/chapter10/10_fig_07_synthesis.table.csv",
       "sha256": "ec827367cb22f92f27968116e10838a74b84743111d356c27ff67d9c05f46dcb",
       "size_bytes": 1130,
@@ -2177,7 +2203,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T18:55:21Z",
+  "generatedAt": "2025-12-19T19:24:34Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

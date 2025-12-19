@@ -340,6 +340,11 @@ def main() -> None:
     ax.set_ylabel(args.m2_col)
     ax.set_title(args.title, fontsize=15)
 
+    # Forcer un cadrage serré sans aspect contraint
+    ax.set_aspect("auto", adjustable="datalim")
+    ax.margins(0)
+    ax.axis("tight")
+
     # Cadre serré autour des données (percentiles pour ignorer les outliers)
     x_lo, x_hi = np.percentile(x, [0.1, 99.9])
     y_lo, y_hi = np.percentile(y, [0.1, 99.9])

@@ -26,7 +26,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -310,46 +309,6 @@ def main() -> None:
         frameon=True,
         fontsize=10,
     )
-
-    # Inset zoom — centré dans l’axe, fenêtre contrôlée par (zoom-x/y, zoom-dx/dy).
-    inset_ax = inset_axes(
-        ax,
-        width=f"{args.zoom_w * 100:.0f}%",
-        height=f"{args.zoom_h * 100:.0f}%",
-        loc="upper center",
-        bbox_to_anchor=(0.30, 0.60, args.zoom_w, args.zoom_h),
-        bbox_transform=ax.transAxes,
-        borderpad=0.8,
-    )
-
-    # Fenêtre X/Y demandée
-    # Recentre le zoom autour de la valeur de référence p95
-    peak_center = args.ref_p95
-    x0, x1 = peak_center - 0.05, peak_center + 0.05
-    y0_user = max(0.0, args.zoom_y - args.zoom_dy)
-    y1_user = args.zoom_y + args.zoom_dy
-
-    # Histogramme restreint au domaine X du zoom pour déterminer le sommet réel
-    mask_x = (p95 >= x0) & (p95 <= x1)
-    data_inset = p95[mask_x] if mask_x.sum() >= 5 else p95
-    inset_counts, inset_bins, _ = inset_ax.hist(
-        data_inset,
-        bins=min(args.bins, 30),
-        alpha=0.9,
-        edgecolor="k",
-    )
-
-    # Hauteur auto : on s'assure d'englober le pic (avec marge 10 %)
-    ymax_auto = (np.max(inset_counts) if inset_counts.size else 1.0) * 1.10
-    y0 = 0.0
-    y1 = max(y1_user, ymax_auto)
-
-    inset_ax.set_xlim(x0, x1)
-    inset_ax.set_ylim(0, float(counts.max()) * 0.5 if counts.size else 1.0)
-    inset_ax.set_title("zoom", fontsize=10)
-    inset_ax.tick_params(axis="both", which="major", labelsize=8)
-
-    # Removed connection lines to declutter
 
     # Titre (taille 15)
     ax.set_title(f"Global distribution of {p95_col}", fontsize=15)

@@ -421,11 +421,7 @@ def main(argv=None) -> int:
     out_png = Path(args.out)
 
     # -------- série A : manifest principal (fig03/convergence) ----------
-    default_candidates = [
-        Path("zz-figures/chapter10/10_fig_03_convergence.manifest.json"),
-        Path("zz-figures/chapter10/10_fig_03b_convergence_zoom.manifest.json"),
-    ]
-    default_manifest_a = next((p for p in default_candidates if p.exists()), default_candidates[0])
+    default_manifest_a = Path("zz-figures/chapter10/10_fig_03_convergence.manifest.json")
     series_list: List[Series] = []
 
     if args.manifest_a:

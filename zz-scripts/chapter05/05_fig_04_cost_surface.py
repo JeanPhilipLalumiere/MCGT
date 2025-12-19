@@ -236,9 +236,9 @@ def main(args=None) -> None:
     ax1.legend(
         handles=[l1, l2],
         labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
-        loc="upper center",
-        bbox_to_anchor=(0.5, -0.15),
-        ncol=2,
+        loc="center",
+        fontsize="small",
+        framealpha=0.8,
     )
 
     sm = ScalarMappable(
@@ -246,10 +246,10 @@ def main(args=None) -> None:
         cmap="viridis",
     )
     sm.set_array([])
-    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.15, shrink=0.8)
+    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.25, shrink=0.7)
     cbar.set_label(r"$J(\theta)$ [dimensionless]")
 
-    fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
+    fig.subplots_adjust(left=0.04, right=0.80, bottom=0.06, top=0.96)
 
     if verbose:
         print(f"[plot_fig04_chi2_vs_T] sauvegarde -> {out_path}")

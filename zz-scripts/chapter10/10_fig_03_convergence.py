@@ -23,7 +23,6 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 plt.rcParams.update(
     {
@@ -215,24 +214,6 @@ def main():
     ]
     leg_curves = ax.legend(curve_handles, curve_labels, loc="lower left", frameon=True, fontsize=10)
     leg_curves.set_zorder(5)
-
-    stats_lines = [
-        f"N = {M}",
-        f"mean = {final_mean:.3f} [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}]",
-        f"median = {final_median:.3f} [{final_median_ci[0]:.3f}, {final_median_ci[1]:.3f}]",
-        f"trimmed = {final_tmean:.3f} [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}]",
-    ]
-    stats_handles = [Line2D([0], [0], color="none", marker="None", label=txt) for txt in stats_lines]
-    leg_stats = ax.legend(
-        stats_handles,
-        [h.get_label() for h in stats_handles],
-        loc="lower right",
-        bbox_to_anchor=(1.0, 0.0),
-        frameon=True,
-        fontsize=9,
-    )
-    leg_stats.set_zorder(5)
-    ax.add_artist(leg_curves)
 
     # ----- Inset (zoom) : même logique que ta version -----
     base_w, base_h = args.zoom_w, args.zoom_h

@@ -434,6 +434,10 @@ def main() -> None:
     x_med, y_med = np.nanmedian(x), np.nanmedian(y)
     x_lo, x_hi = x_med - 0.5, x_med + 0.5
     y_lo, y_hi = y_med - 0.5, y_med + 0.5
+    mask = (x > np.nanpercentile(x, 5)) & (x < np.nanpercentile(x, 95))
+    if mask.any():
+        x_lo, x_hi = np.nanmin(x[mask]), np.nanmax(x[mask])
+        y_lo, y_hi = np.nanmin(y[mask]), np.nanmax(y[mask])
     if x_lo == x_hi:
         x_lo, x_hi = x_lo - 0.1, x_hi + 0.1
     if y_lo == y_hi:

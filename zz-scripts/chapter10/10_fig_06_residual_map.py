@@ -276,7 +276,7 @@ def main() -> None:
     ap.add_argument(
         "--gridsize",
         type=int,
-        default=36,
+        default=25,
         help="Taille de la grille hexbin.",
     )
     ap.add_argument(
@@ -430,6 +430,9 @@ def main() -> None:
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
+    ax_main.set_aspect("auto", adjustable="datalim")
+    ax_main.margins(0)
+    ax_main.axis("tight")
     x_lo, x_hi = np.percentile(x, [0.1, 99.9])
     y_lo, y_hi = np.percentile(y, [0.1, 99.9])
     if x_lo == x_hi:

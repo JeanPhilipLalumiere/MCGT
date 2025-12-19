@@ -58,13 +58,13 @@ cd /home/jplal/MCGT  # adapter si nécessaire
 python zz-scripts/chapter02/generate_data_chapter02.py --all
 
 # 2) Régénérer les figures principales (fig. 00 à 06)
-python zz-scripts/chapter02/plot_fig00_spectrum.py
-python zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
-python zz-scripts/chapter02/plot_fig02_calibration.py
-python zz-scripts/chapter02/plot_fig03_relative_errors.py
-python zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
-python zz-scripts/chapter02/plot_fig05_FG_series.py
-python zz-scripts/chapter02/plot_fig06_alpha_fit.py
+python zz-scripts/chapter02/10_fig00_spectrum.py
+python zz-scripts/chapter02/10_fig01_P_vs_T_evolution.py
+python zz-scripts/chapter02/10_fig02_calibration.py
+python zz-scripts/chapter02/10_fig03_relative_errors.py
+python zz-scripts/chapter02/10_fig04_pipeline_diagram.py
+python zz-scripts/chapter02/10_fig05_FG_series.py
+python zz-scripts/chapter02/10_fig06_alpha_fit.py
 ```
 
 Si tout se passe bien, `generate_data_chapter02.py` affiche un message de succès et les
@@ -83,13 +83,13 @@ Répertoire CH02 :
 Scripts utilisés par le pipeline minimal :
 
 - `generate_data_chapter02.py`
-- `plot_fig00_spectrum.py`
-- `plot_fig01_P_vs_T_evolution.py`
-- `plot_fig02_calibration.py`
-- `plot_fig03_relative_errors.py`
-- `plot_fig04_pipeline_diagram.py`
-- `plot_fig05_FG_series.py`
-- `plot_fig06_alpha_fit.py`
+- `10_fig00_spectrum.py`
+- `10_fig01_P_vs_T_evolution.py`
+- `10_fig02_calibration.py`
+- `10_fig03_relative_errors.py`
+- `10_fig04_pipeline_diagram.py`
+- `10_fig05_FG_series.py`
+- `10_fig06_alpha_fit.py`
 
 Un fichier `requirements.txt` peut documenter les dépendances spécifiques :
 ``.
@@ -216,13 +216,13 @@ dans un état cohérent.
 Une fois les données générées, les figures sont (re)calculées avec :
 
 ```bash
-python zz-scripts/chapter02/plot_fig00_spectrum.py
-python zz-scripts/chapter02/plot_fig01_P_vs_T_evolution.py
-python zz-scripts/chapter02/plot_fig02_calibration.py
-python zz-scripts/chapter02/plot_fig03_relative_errors.py
-python zz-scripts/chapter02/plot_fig04_pipeline_diagram.py
-python zz-scripts/chapter02/plot_fig05_FG_series.py
-python zz-scripts/chapter02/plot_fig06_alpha_fit.py
+python zz-scripts/chapter02/10_fig00_spectrum.py
+python zz-scripts/chapter02/10_fig01_P_vs_T_evolution.py
+python zz-scripts/chapter02/10_fig02_calibration.py
+python zz-scripts/chapter02/10_fig03_relative_errors.py
+python zz-scripts/chapter02/10_fig04_pipeline_diagram.py
+python zz-scripts/chapter02/10_fig05_FG_series.py
+python zz-scripts/chapter02/10_fig06_alpha_fit.py
 ```
 
 Chaque script lit les tables correspondantes dans `zz-data/chapter02/` et écrit la

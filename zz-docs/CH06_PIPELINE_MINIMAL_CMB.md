@@ -18,7 +18,7 @@ Le pipeline minimal CH06 s’appuie sur un petit nombre de scripts Python :
 
 - `zz-scripts/chapter06/generate_pdot_plateau_vs_z.py`  
 - `zz-scripts/chapter06/generate_data_chapter06.py`  
-- les scripts de figures `plot_fig0x_*.py` du chapitre 06.
+- les scripts de figures `10_fig0x_*.py` du chapitre 06.
 
 Contrairement au guide complet (injection détaillée dans CAMB, scans étendus, etc.),
 ce document se concentre sur :
@@ -67,11 +67,11 @@ python zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
 python zz-scripts/chapter06/generate_data_chapter06.py        --alpha 0.20        --q0star -0.10        --export-derivative
 
 # 3) Figures principales (Fig. 01 à 05)
-python zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
-python zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
-python zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
-python zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
-python zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+python zz-scripts/chapter06/10_fig01_cmb_dataflow_diagram.py
+python zz-scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py
+python zz-scripts/chapter06/10_fig03_delta_cls_relative.py
+python zz-scripts/chapter06/10_fig04_delta_rs_vs_params.py
+python zz-scripts/chapter06/10_fig05_delta_chi2_heatmap.py
 ```
 
 En fin d’exécution, on doit trouver :
@@ -99,11 +99,11 @@ Répertoire CH06 :
 
 Scripts de figures :
 
-- `zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py`
-- `zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py`
-- `zz-scripts/chapter06/plot_fig03_delta_cls_relative.py`
-- `zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py`
-- `zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py`
+- `zz-scripts/chapter06/10_fig01_cmb_dataflow_diagram.py`
+- `zz-scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py`
+- `zz-scripts/chapter06/10_fig03_delta_cls_relative.py`
+- `zz-scripts/chapter06/10_fig04_delta_rs_vs_params.py`
+- `zz-scripts/chapter06/10_fig05_delta_chi2_heatmap.py`
 
 Éventuels utilitaires et wrappers :
 
@@ -242,11 +242,11 @@ Rôle du script :
 Les figures officielles se régénèrent ensuite via :
 
 ```bash
-python zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
-python zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
-python zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
-python zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
-python zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+python zz-scripts/chapter06/10_fig01_cmb_dataflow_diagram.py
+python zz-scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py
+python zz-scripts/chapter06/10_fig03_delta_cls_relative.py
+python zz-scripts/chapter06/10_fig04_delta_rs_vs_params.py
+python zz-scripts/chapter06/10_fig05_delta_chi2_heatmap.py
 ```
 
 Chaque script lit les fichiers correspondants dans `zz-data/chapter06/` et met à jour

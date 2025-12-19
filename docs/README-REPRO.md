@@ -4,7 +4,7 @@
 
 ## 1) Chapter 09 — figure minimale (overlay phase)
 ```bash
-python zz-scripts/chapter09/plot_fig01_phase_overlay.py   --csv zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out zz-figures/chapter09/09_fig_01_phase_overlay.png   --dpi 150
+python zz-scripts/chapter09/10_fig01_phase_overlay.py   --csv zz-data/chapter09/09_phases_mcgt.csv   --meta zz-data/chapter09/09_metrics_phase.json   --out zz-figures/chapter09/09_fig_01_phase_overlay.png   --dpi 150
 ```
 Sortie attendue : `zz-figures/chapter09/09_fig_01_phase_overlay.png`.
 

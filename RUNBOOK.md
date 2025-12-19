@@ -94,15 +94,15 @@ Points de contrôle :
 Patron :
 
 ```
-python zz-scripts/chapterNN/plot_figXX_*.py
+python zz-scripts/chapterNN/10_figXX_*.py
 ```
 
 Exemples :
 
 * Chapitre 09 :
-  `plot_fig01_phase_overlay.py`, `plot_fig02_residual_phase.py`, `plot_fig03_hist_absdphi_20_300.py`, `plot_fig04_absdphi_milestones_vs_f.py`, `plot_fig05_scatter_phi_at_fpeak.py`
+  `10_fig01_phase_overlay.py`, `10_fig02_residual_phase.py`, `10_fig03_hist_absdphi_20_300.py`, `10_fig04_absdphi_milestones_vs_f.py`, `10_fig05_scatter_phi_at_fpeak.py`
 * Chapitre 10 :
-  `plot_fig01_iso_p95_maps.py`, `plot_fig02_scatter_phi_at_fpeak.py`, `plot_fig03_convergence_p95_vs_n.py`, `plot_fig03b_bootstrap_coverage_vs_n.py`, `plot_fig04_scatter_p95_recalc_vs_orig.py`, `plot_fig05_hist_cdf_metrics.py`, `plot_fig06_residual_map.py`, `plot_fig07_synthesis.py`
+  `10_fig01_iso_p95_maps.py`, `10_fig02_scatter_phi_at_fpeak.py`, `10_fig03_convergence_p95_vs_n.py`, `10_fig03b_bootstrap_coverage_vs_n.py`, `10_fig04_scatter_p95_recalc_vs_orig.py`, `10_fig05_hist_cdf_metrics.py`, `10_fig06_residual_map.py`, `10_fig07_synthesis.py`
 
 Sorties attendues :
 
@@ -287,8 +287,8 @@ MCGT/
 │  ├─ chapter09/ fig_*.png
 │  └─ chapter10/ fig_*.png
 ├─ zz-scripts/
-│  ├─ chapter09/ generate_data_chapter09.py, plot_fig*.py, flag_jalons.py
-│  └─ chapter10/ generate_data_chapter10.py, plot_fig*.py, *.py
+│  ├─ chapter09/ generate_data_chapter09.py, 10_fig*.py, flag_jalons.py
+│  └─ chapter10/ generate_data_chapter10.py, 10_fig*.py, *.py
 └─ zz-manifests/
    ├─ manifest_master.json
    ├─ manifest_publication.json

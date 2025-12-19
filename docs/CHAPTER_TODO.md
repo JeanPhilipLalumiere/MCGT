@@ -93,8 +93,8 @@ Aucun gap restant spécifique au chapitre 04.
 
 - **scripts** (3 manquants)
   - `zz-scripts/chapter06/generate_chapter6_data.py`
-  - `zz-scripts/chapter06/plot_fig03_delta_cls_rel.py`
-  - `zz-scripts/chapter06/plot_fig05_heatmap_delta_chi2.py`
+  - `zz-scripts/chapter06/10_fig03_delta_cls_rel.py`
+  - `zz-scripts/chapter06/10_fig05_heatmap_delta_chi2.py`
 
 ## Chapitre 7 — chapter_manifest_07.json
 
@@ -120,9 +120,9 @@ Aucun gap restant spécifique au chapitre 04.
 
 - **scripts** (4 manquants)
   - `zz-scripts/chapter07/generate_chapter7_data.py`
-  - `zz-scripts/chapter07/plot_fig01_heatmap_cs2.py`
-  - `zz-scripts/chapter07/plot_fig02_heatmap_delta_phi.py`
-  - `zz-scripts/chapter07/plot_fig03_invariant_I1.py`
+  - `zz-scripts/chapter07/10_fig01_heatmap_cs2.py`
+  - `zz-scripts/chapter07/10_fig02_heatmap_delta_phi.py`
+  - `zz-scripts/chapter07/10_fig03_invariant_I1.py`
 
 ## Chapitre 8 — chapter_manifest_08.json
 
@@ -150,7 +150,7 @@ Aucun gap restant spécifique au chapitre 04.
 
 - **scripts** (2 manquants)
   - `zz-scripts/chapter08/generate_chapter8_data.py`
-  - `zz-scripts/chapter08/plot_fig04_heatmap_chi2.py`
+  - `zz-scripts/chapter08/10_fig04_heatmap_chi2.py`
 
 ## Chapitre 9 — chapter_manifest_09.json
 
@@ -172,8 +172,8 @@ Aucun gap restant spécifique au chapitre 04.
 
 - **scripts** (3 manquants)
   - `zz-scripts/chapter09/generate_chapter9_data.py`
-  - `zz-scripts/chapter09/plot_fig03_hist_abs_dphi_20_300.py`
-  - `zz-scripts/chapter09/plot_fig04_milestones_abs_dphi_vs_f.py`
+  - `zz-scripts/chapter09/10_fig03_hist_abs_dphi_20_300.py`
+  - `zz-scripts/chapter09/10_fig04_milestones_abs_dphi_vs_f.py`
 
 ## Chapitre 10 — chapter_manifest_10.json
 

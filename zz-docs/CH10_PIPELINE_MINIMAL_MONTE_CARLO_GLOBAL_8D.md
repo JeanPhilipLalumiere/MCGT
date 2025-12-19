@@ -75,20 +75,20 @@ python zz-scripts/chapter10/bootstrap_topk_p95.py \
   --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
 
 # 6) Figures principales basées sur la métrique circulaire
-python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
+python zz-scripts/chapter10/10_fig_01_iso_p95_maps.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
   --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
   --levels 16 --dpi 300
 
-python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
+python zz-scripts/chapter10/10_fig_04_p95_comparison.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
+  --out zz-figures/chapter10/10_fig_04_p95_comparison.png \
   --dpi 300 --bins 50
 
-python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
+python zz-scripts/chapter10/10_fig_05_hist_cdf_metrics.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150
@@ -129,18 +129,18 @@ Scripts utilisés dans le **pipeline minimal canonique** :
 
 Scripts de figures au cœur du pipeline minimal :
 
-- `plot_fig01_iso_p95_maps.py`
-- `plot_fig04_scatter_p95_recalc_vs_orig.py`
-- `plot_fig05_hist_cdf_metrics.py`
+- `10_fig01_iso_p95_maps.py`
+- `10_fig04_scatter_p95_recalc_vs_orig.py`
+- `10_fig05_hist_cdf_metrics.py`
 
 Scripts de diagnostics / figures avancées (hors pipeline minimal strict, mais
 compatibles avec cette structure) :
 
-- `plot_fig02_scatter_phi_at_fpeak.py`
-- `plot_fig03_convergence_p95_vs_n.py`
-- `plot_fig03b_bootstrap_coverage_vs_n_hires.py`
-- `plot_fig06_residual_map.py`
-- `plot_fig07_synthesis.py`
+- `10_fig02_scatter_phi_at_fpeak.py`
+- `10_fig03_convergence_p95_vs_n.py`
+- `10_fig03b_bootstrap_coverage_vs_n_hires.py`
+- `10_fig06_residual_map.py`
+- `10_fig07_synthesis.py`
 - scripts de QC : `check_metrics_consistency.py`, `qc_wrapped_vs_unwrapped.py`,
   `inspect_topk_residuals.py`, etc.
 
@@ -310,7 +310,7 @@ Ce script ajoute, typiquement :
 - `phi_ref_at_fpeak` ;
 - `phi_mcgt_at_fpeak`.
 
-Ce fichier est utilisé notamment par `plot_fig02_scatter_phi_at_fpeak.py`
+Ce fichier est utilisé notamment par `10_fig02_scatter_phi_at_fpeak.py`
 (hors pipeline minimal strict).
 
 ---
@@ -371,7 +371,7 @@ principales du chapitre 10.
 #### 4.6.1. Cartes iso `p95_20_300_recalc` (Fig. 01)
 
 ```bash
-python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py \
+python zz-scripts/chapter10/10_fig_01_iso_p95_maps.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
@@ -385,10 +385,10 @@ Cette figure montre la structure de `p95_20_300_recalc` dans un sous‑espace
 #### 4.6.2. Comparaison linéaire vs circulaire (Fig. 04)
 
 ```bash
-python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
+python zz-scripts/chapter10/10_fig_04_p95_comparison.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
+  --out zz-figures/chapter10/10_fig_04_p95_comparison.png \
   --dpi 300 --bins 50
 ```
 
@@ -398,7 +398,7 @@ et illustre les écarts potentiels (biais de linéarisation).
 #### 4.6.3. Histogrammes / CDF des métriques (Fig. 05)
 
 ```bash
-python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
+python zz-scripts/chapter10/10_fig_05_hist_cdf_metrics.py \
   --results zz-data/chapter10/10_mc_results.circ.csv \
   --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150
@@ -445,14 +445,14 @@ Dans le cadre du pipeline minimal canonique, les **produits principaux** de CH10
 Produits graphiques principaux :
 
 - `zz-figures/chapter10/10_fig_01_iso_p95_maps.png`
-- `zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png`
+- `zz-figures/chapter10/10_fig_04_p95_comparison.png`
 - `zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png`
 
 Figures complémentaires, générables à partir des mêmes données :
 
 - `zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png`
-- `zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png`
-- `zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png`
+- `zz-figures/chapter10/10_fig_03_convergence.png`
+- `zz-figures/chapter10/10_fig_03_convergence.png`
 - `zz-figures/chapter10/10_fig_06_residual_map.png`
 - `zz-figures/chapter10/10_fig_07_synthesis.png`.
 

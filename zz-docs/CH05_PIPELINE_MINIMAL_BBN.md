@@ -101,10 +101,10 @@ Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 - scripts utilisés par le pipeline minimal :
 
   - `generate_data_chapter05.py`
-  - `plot_fig01_bbn_reaction_network.py`
-  - `plot_fig02_dh_model_vs_obs.py`
-  - `plot_fig03_yp_model_vs_obs.py`
-  - `plot_fig04_chi2_vs_T.py`
+  - `10_fig01_bbn_reaction_network.py`
+  - `10_fig02_dh_model_vs_obs.py`
+  - `10_fig03_yp_model_vs_obs.py`
+  - `10_fig04_chi2_vs_T.py`
 
 **Données CH05** :
 
@@ -207,7 +207,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 1. **Réseau de réactions BBN** :
 
    ```bash
-   python zz-scripts/chapter05/plot_fig01_bbn_reaction_network.py
+   python zz-scripts/chapter05/10_fig01_bbn_reaction_network.py
    ```
 
    Produit / met à jour :
@@ -217,7 +217,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 2. **D/H : modèle vs observations** :
 
    ```bash
-   python zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py
+   python zz-scripts/chapter05/10_fig02_dh_model_vs_obs.py
    ```
 
    Produit / met à jour :
@@ -227,7 +227,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 3. **Yp : modèle vs observations** :
 
    ```bash
-   python zz-scripts/chapter05/plot_fig03_yp_model_vs_obs.py
+   python zz-scripts/chapter05/10_fig03_yp_model_vs_obs.py
    ```
 
    Produit / met à jour :
@@ -237,7 +237,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 4. **χ² BBN vs T** :
 
    ```bash
-   python zz-scripts/chapter05/plot_fig04_chi2_vs_T.py
+   python zz-scripts/chapter05/10_fig04_chi2_vs_T.py
    ```
 
    Produit / met à jour :

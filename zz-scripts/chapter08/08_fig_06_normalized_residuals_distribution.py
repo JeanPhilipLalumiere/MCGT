@@ -161,7 +161,7 @@ def main():
     )
     ax.set_title("(b) Supernovae")
     ax.set_xlabel("Pull")
-    ax.set_ylim(0, 0.9)
+    ax.set_ylim(0, 1.0)
     ax.legend(loc="upper right", frameon=False)
     ax.grid(ls=":", lw=0.5, alpha=0.6)
 

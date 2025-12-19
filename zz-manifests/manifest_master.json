@@ -989,17 +989,17 @@
     },
     {
       "path": "zz-scripts/chapter05/05_fig_02_residuals.py",
-      "sha256": "efd0e3ea17ed92c6a93e303df11390c6ad807aeff0d13e1e0d5c8e117816cca3",
-      "size_bytes": 7784,
-      "mtime_iso": "2025-12-18T21:10:14Z",
-      "git_hash": "282aaf4c9eff215b8c702350f69a1133e6114d2d"
+      "sha256": "ef4149ab60f268207c370d9d300d5d7cb9507280e604971cbf6001fd21647974",
+      "size_bytes": 7785,
+      "mtime_iso": "2025-12-19T01:10:34Z",
+      "git_hash": "10c78a4d521c6d2b3012033eaf747492e1cb9552"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_03_correlation.py",
-      "sha256": "186f2af1dd5f5b095378b53513c2a70886aedff506e0184ba1184c30d009cdf8",
-      "size_bytes": 4308,
-      "mtime_iso": "2025-12-18T21:07:20Z",
-      "git_hash": "34a17a4ac8ff5d05a792ec58d38bf668b49be824"
+      "sha256": "05a198e806147cbfd285f933344c5fe9d268046c83630e8b5ee25ac50e935b3e",
+      "size_bytes": 4469,
+      "mtime_iso": "2025-12-19T01:10:55Z",
+      "git_hash": "85f75a45c5c2037a5103410eeb405dd11c54d93b"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_04_cost_surface.py",
@@ -2321,9 +2321,9 @@
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     }
   ],
-  "generatedAt": "2025-12-18T21:12:10Z",
+  "generatedAt": "2025-12-19T01:11:20Z",
   "schemaVersion": 1,
-  "files_updated": 4,
+  "files_updated": 8,
   "manifest_tool_version": "diag_consistency.py",
   "generated_by": "jplal"
 }

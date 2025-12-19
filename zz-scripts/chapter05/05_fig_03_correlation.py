@@ -54,6 +54,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import ScalarFormatter
 
 
 def tracer_fig03_yp_modele_contre_obs(
@@ -105,6 +106,10 @@ def tracer_fig03_yp_modele_contre_obs(
     ax.plot(lims, lims, "--", color="gray", label=r"$y=x$")
     ax.set_xlim(lims)
     ax.set_ylim(lims)
+
+    fmt = ScalarFormatter(useMathText=True)
+    fmt.set_powerlimits((0, 0))
+    ax.xaxis.set_major_formatter(fmt)
 
     # Labels et titre
     ax.set_xlabel(r"$\alpha$")

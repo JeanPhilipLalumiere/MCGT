@@ -275,7 +275,7 @@ def main() -> None:
     ap.add_argument(
         "--gridsize",
         type=int,
-        default=25,
+        default=20,
         help="Taille de la grille hexbin.",
     )
     ap.add_argument(
@@ -351,9 +351,9 @@ def main() -> None:
     N = len(df)
     rng = np.random.default_rng(0)
     if np.std(x) < 1e-4:
-        x = x + rng.normal(0, 0.01, size=len(x))
+        x = x + rng.normal(0, 0.03, size=len(x))
     if np.std(y) < 1e-4:
-        y = y + rng.normal(0, 0.01, size=len(y))
+        y = y + rng.normal(0, 0.03, size=len(y))
 
     # ---------------------------------------------------------------- metric
     if args.metric == "dp95":
@@ -462,7 +462,7 @@ def main() -> None:
     hb_counts = ax_cnt.hexbin(
         x,
         y,
-        gridsize=25,
+        gridsize=args.gridsize,
         cmap="gray_r",
         mincnt=1,
     )

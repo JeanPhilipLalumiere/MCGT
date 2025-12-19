@@ -364,9 +364,6 @@ def main() -> None:
     ax.set_ylim(y_lo, y_hi)
     print(f"[DEBUG] fig01 x_lim=({x_lo:.4g},{x_hi:.4g}), y_lim=({y_lo:.4g},{y_hi:.4g})")
 
-    leg = ax.legend(loc="upper right", frameon=True, fontsize=9)
-    leg.set_zorder(20)
-
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         plt.tight_layout()

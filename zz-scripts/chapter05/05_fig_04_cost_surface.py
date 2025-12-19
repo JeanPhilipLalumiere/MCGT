@@ -214,9 +214,11 @@ def main(args=None) -> None:
 
     # point + flèche sur le minimum
     ax1.scatter(Tmin, chi2_min, s=60, color="k", zorder=4)
-    start = (Tmin * 0.2, chi2_min * 0.8)
+    start_display = (0.5, 0.35)  # axes fraction, below centered legend
+    start_data = ax1.transAxes.inverted().transform(ax1.transAxes.transform(start_display))
+    start_text = ax1.transAxes.transform(start_display)
     arrow = FancyArrowPatch(
-        start,
+        start_data,
         (Tmin, chi2_min),
         arrowstyle="->",
         mutation_scale=12,
@@ -226,11 +228,12 @@ def main(args=None) -> None:
     ax1.add_patch(arrow)
     ax1.annotate(
         rf"Min $\chi^2={chi2_min:.1f}$\n$T={Tmin:.2f}$\,Gyr",
-        xy=(Tmin, chi2_min),
-        xytext=start,
-        ha="left",
+        xy=start_display,
+        xycoords="axes fraction",
+        ha="center",
         va="center",
         fontsize=10,
+        color="k",
     )
 
     # légende combinée

@@ -47,6 +47,17 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib import colors
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ----------------------------------------------------------------------
@@ -444,6 +455,12 @@ def main() -> None:
         gridsize=args.gridsize,
         cmap="gray_r",
     )
+    counts_arr = hb_counts.get_array()
+    if counts_arr.size and np.nanmin(counts_arr[counts_arr > 0]) > 0:
+        min_pos = float(np.nanmin(counts_arr[counts_arr > 0]))
+        max_val = float(np.nanmax(counts_arr))
+        if max_val / max(min_pos, 1e-9) > 50:
+            hb_counts.set_norm(colors.LogNorm(vmin=min_pos, vmax=max_val))
     cbar_cnt = fig.colorbar(
         hb_counts,
         ax=ax_cnt,

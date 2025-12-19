@@ -32,6 +32,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.gridspec import GridSpec
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ---------- utils ----------
@@ -288,12 +298,12 @@ def plot_synthese(
     ax_cov.text(
         0.02,
         0.06,
-        "Barres = Wilson 95% (n = outer B=400,2000); IC interne = percentile (inner B=2000)",
+        "Bars = Wilson 95% (outer B=400,2000); inner CI = percentile (inner B=2000)",
         transform=ax_cov.transAxes,
         fontsize=9,
         va="bottom",
     )
-    ax_cov.text(0.02, 0.03, "α=0.05. Variabilité ↑ pour petits N.", transform=ax_cov.transAxes, fontsize=9, va="bottom")
+    ax_cov.text(0.02, 0.03, "α=0.05. Variability higher for small N.", transform=ax_cov.transAxes, fontsize=9, va="bottom")
 
     if not series_list:
         ax_cov.text(0.5, 0.5, "Aucune série (manifest manquant/invalid)", transform=ax_cov.transAxes, ha="center", va="center", fontsize=11)
@@ -308,19 +318,19 @@ def plot_synthese(
             color = None
         ax_width.plot(s.N, s.width_mean, "-o", lw=1.8, ms=5, label=s.label, color=color)
 
-    ax_width.set_title("Largeur d'IC vs N")
-    ax_width.set_xlabel("Taille d'échantillon N")
-    ax_width.set_ylabel("Largeur moyenne de l'IC 95% [rad]")
+    ax_width.set_title("CI width vs N")
+    ax_width.set_xlabel(r"Sample Size $N$")
+    ax_width.set_ylabel("Mean 95% CI width [rad]")
     if series_list:
         ax_width.legend(fontsize=10, loc="upper right", frameon=True)
     else:
         ax_width.text(0.5, 0.5, "Aucune série", transform=ax_width.transAxes, ha="center", va="center", fontsize=11)
 
     # ----- Tableau résumé -----
-    ax_tab.set_title("Synthèse numérique (résumé)", y=0.88, pad=12, fontsize=12)
+    ax_tab.set_title("Numeric synthesis (summary)", y=0.88, pad=12, fontsize=12)
     rows = compute_summary_rows(series_list)
 
-    col_labels = ["série", "outer_B", "inner_B", "mean_cov", "med_cov", "std_cov", "p95_cov", "med_width [rad]"]
+    col_labels = ["series", "outer_B", "inner_B", "mean_cov", "med_cov", "std_cov", "p95_cov", "med_width [rad]"]
     cell_text: List[List[str]] = []
     for r in rows:
         cell_text.append(

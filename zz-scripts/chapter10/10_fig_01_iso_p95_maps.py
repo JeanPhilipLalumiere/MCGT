@@ -31,6 +31,16 @@ import matplotlib.tri as tri
 import numpy as np
 import pandas as pd
 from matplotlib import colors
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 # ---------- utilities ----------

@@ -24,6 +24,16 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 20,
+        "axes.labelpad": 12,
+        "savefig.bbox": "tight",
+        "font.family": "serif",
+    }
+)
 
 
 def detect_p95_column(df: pd.DataFrame, hint: str | None):
@@ -176,21 +186,21 @@ def main():
     ax.fill_between(
         N_list, mean_low, mean_high,
         color='tab:blue', alpha=0.18,
-        label="IC 95% (bootstrap, mean)",
+        label="95% CI (bootstrap, mean)",
     )
 
     # Estimateurs
-    ax.plot(N_list, mean_est,   color='tab:blue',   lw=2.0, label="Estimateur (mean)")
-    ax.plot(N_list, median_est, color='tab:orange', lw=1.6, ls='--', label="Estimateur (median)")
+    ax.plot(N_list, mean_est,   color='tab:blue',   lw=2.0, label="Estimator (mean)")
+    ax.plot(N_list, median_est, color='tab:orange', lw=1.6, ls='--', label="Estimator (median)")
     ax.plot(N_list, tmean_est,  color='tab:green',  lw=1.6, ls='-.',
-            label=f"Estimateur (trimmed mean, α={args.trim:.2f})")
+            label=f"Estimator (trimmed mean, α={args.trim:.2f})")
 
     # Ligne de référence (mean plein-échantillon)
-    ax.axhline(ref_mean, color='crimson', lw=2, label=f"Estimation à N={M} (mean réf)")
+    ax.axhline(ref_mean, color='crimson', lw=2, label=f"Estimate at N={M} (mean ref)")
 
     ax.set_xlim(0, M)
-    ax.set_xlabel("Taille d'échantillon N")
-    ax.set_ylabel(f"estimateur de {p95_col} [rad]")
+    ax.set_xlabel(r"Sample Size $N$")
+    ax.set_ylabel(f"Estimator of {p95_col} [rad]")
     ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
     # Légende

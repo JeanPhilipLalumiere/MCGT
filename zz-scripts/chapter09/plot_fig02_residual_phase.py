@@ -32,6 +32,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.ticker import LogLocator, NullFormatter, NullLocator
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 from zz_tools import common_io as ci
 
@@ -152,44 +165,52 @@ def main() -> None:
     if missing:
         print(f"[WARNING] Colonnes manquantes pour fig02: {missing} – fig02 sautée pour le pipeline minimal.")
 
-    # Variante active (phi_mcgt*)
+    # Variante active (phi_mcgt*) ou abs_dphi direct
+    phi_col = None
     if "phi_mcgt" in df:
         phi_col = "phi_mcgt"
     elif "phi_mcgt_cal" in df:
         phi_col = "phi_mcgt_cal"
     elif "phi_mcgt_raw" in df:
         phi_col = "phi_mcgt_raw"
+    elif "abs_dphi" in df:
+        phi_col = None
     else:
         raise SystemExit(0)
-    log.info("Variante active: %s", phi_col)
+    if phi_col:
+        log.info("Variante active: %s", phi_col)
 
     # Tri / nettoyage
     order = np.argsort(df["f_Hz"].to_numpy(float))
     f = df["f_Hz"].to_numpy(float)[order]
-    ref = df["phi_ref"].to_numpy(float)[order]
-    mcg = df[phi_col].to_numpy(float)[order]
-
-    m = np.isfinite(f) & np.isfinite(ref) & np.isfinite(mcg)
-    f, ref, mcg = f[m], ref[m], mcg[m]
-    if f.size == 0:
-        raise SystemExit("Aucune ligne exploitable après filtrage de base.")
-
-    # Bandes
-    bands = parse_bands(args.bands)
-    if len(bands) == 0:
-        raise SystemExit("Aucune bande valide fournie via --bands.")
-    if len(bands) > 3:
-        log.warning("Plus de 3 bandes fournies, seules les 3 premières seront tracées.")
-        bands = bands[:3]
-
-    # k de rebranch sur la première bande (20–300 typiquement)
-    f20, f300 = bands[0]
-    k = k_rebranch_median(mcg, ref, f, f20, f300)
-    log.info("Rebranch k (%.1f–%.1f Hz) = %d cycles", f20, f300, k)
-
-    # Résidu principal + version plot-safe (eps pour log)
-    absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
     eps = 1e-12
+
+    if phi_col:
+        ref = df["phi_ref"].to_numpy(float)[order]
+        mcg = df[phi_col].to_numpy(float)[order]
+        m = np.isfinite(f) & np.isfinite(ref) & np.isfinite(mcg)
+        f, ref, mcg = f[m], ref[m], mcg[m]
+        if f.size == 0:
+            raise SystemExit("Aucune ligne exploitable après filtrage de base.")
+
+        bands = parse_bands(args.bands)
+        if len(bands) == 0:
+            raise SystemExit("Aucune bande valide fournie via --bands.")
+        if len(bands) > 3:
+            log.warning("Plus de 3 bandes fournies, seules les 3 premières seront tracées.")
+            bands = bands[:3]
+
+        # k de rebranch sur la première bande (20–300 typiquement)
+        f20, f300 = bands[0]
+        k = k_rebranch_median(mcg, ref, f, f20, f300)
+        log.info("Rebranch k (%.1f–%.1f Hz) = %d cycles", f20, f300, k)
+        absd_full = np.abs(principal_diff(mcg - k * (2.0 * np.pi), ref))
+    else:
+        bands = parse_bands(args.bands)
+        f20, f300 = bands[0]
+        k = 0
+        absd_full = np.abs(df["abs_dphi"].to_numpy(float)[order])
+
     absd_plot = np.where((~np.isfinite(absd_full)) | (absd_full <= 0), eps, absd_full)
 
     # Stats globales sur 20–300
@@ -210,7 +231,7 @@ def main() -> None:
     n_bands = len(bands)
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
-    fig = plt.figure(figsize=(12.6, 8.2), dpi=args.dpi)
+    fig = plt.figure(figsize=(14, 8), dpi=args.dpi)
     gs = gridspec.GridSpec(
         nrows=n_bands,
         ncols=2,
@@ -224,14 +245,14 @@ def main() -> None:
     ax_right.axis("off")
 
     fig.suptitle(
-        r"Résidu de phase $|\Delta\phi|$ par bande de fréquence  "
+        r"Phase Residual $|\Delta \phi|$ by Frequency Band  "
         r"($\phi_{\rm ref}$ vs $\phi_{\rm MCGT}$)",
         fontsize=22,
         weight="bold",
         y=0.985,
     )
     # plus d’espace sous le titre
-    fig.subplots_adjust(top=0.88, bottom=0.08, left=0.08, right=0.96)
+    fig.subplots_adjust(top=0.88, bottom=0.08, left=0.08, right=0.75)
 
     # Styles
     marker_kw = dict(
@@ -283,6 +304,9 @@ def main() -> None:
             ax.set_yscale("log")
             ax.set_xlim(blo, bhi)
             ax.set_ylim(ymin, ymax)
+            ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
+            ax.yaxis.set_minor_locator(NullLocator())
+            ax.yaxis.set_minor_formatter(NullFormatter())
             ax.grid(True, which="both", ls=":", alpha=0.3)
             continue
 
@@ -303,6 +327,9 @@ def main() -> None:
         ax.set_yscale("log")
         ax.set_xlim(blo, bhi)
         ax.set_ylim(ymin, ymax)
+        ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
+        ax.yaxis.set_minor_locator(NullLocator())
+        ax.yaxis.set_minor_formatter(NullFormatter())
         ax.grid(True, which="both", ls=":", alpha=0.3)
 
         ax.set_title(
@@ -371,7 +398,7 @@ def main() -> None:
     ]
     axs[0].legend(
         handles=legend_handles,
-        loc="upper right",
+        loc="lower right",
         fontsize=10,
         frameon=True,
         framealpha=0.85,

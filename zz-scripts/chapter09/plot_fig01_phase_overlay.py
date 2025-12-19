@@ -39,6 +39,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.ticker import LogLocator, NullFormatter, NullLocator
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 from mcgt.constants import C_LIGHT_M_S
 
@@ -390,8 +403,11 @@ def main():
             ymin = max(eps, float(np.nanmin(finite[finite > 0])) * 0.9)
             ymax = float(np.nanmax(finite)) * 1.1
             inset.set_ylim(ymin, ymax)
-        inset.set_title("Résidu principal $|\\Delta\\phi|$", fontsize=9)
+        inset.set_title("Principal residual $|\\Delta\\phi|$", fontsize=9)
         inset.grid(True, which="both", ls=":", alpha=0.3)
+        inset.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
+        inset.yaxis.set_minor_locator(NullLocator())
+        inset.yaxis.set_minor_formatter(NullFormatter())
         inset.text(
             0.98,
             0.02,
@@ -404,11 +420,7 @@ def main():
         )
 
     # Titre & marges
-    ax.set_title(
-        "Comparaison des phases $\\phi_{\\rm ref}$ vs $\\phi_{\\rm MCGT}$",
-        fontsize=16,
-        pad=18,
-    )
+    ax.set_title("Phase Comparison: Reference vs MCGT", fontsize=16, pad=18)
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     fig.savefig(args.out, dpi=int(args.dpi), bbox_inches="tight", pad_inches=0.03)
     if args.save_pdf:

@@ -51,6 +51,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
+
 
 # ---------- Defaults ----------
 DEF_MILESTONES = Path("zz-data/chapter09/09_comparison_milestones.csv")
@@ -228,7 +240,7 @@ def main() -> None:
     fig, ax = plt.subplots(figsize=(7.8, 7.6), dpi=args.dpi)
 
     fig.suptitle(
-        r"Comparaison ponctuelle aux $f_{\rm peak}$ : "
+        r"Pointwise Comparison at $f_{\rm peak}$: "
         r"$\phi_{\rm ref}$ vs $\phi_{\rm MCGT}$",
         fontsize=18,
         fontweight="semibold",
@@ -251,12 +263,15 @@ def main() -> None:
         pad = 1.0
     else:
         pad = 0.05 * (mx - mn)
-    lo, hi = mn - pad, mx + pad
+    lo = mn - pad
+    hi = mx + pad
+    hi = max(hi, 2.0)
 
     # Diagonale y = x
+    diag_lo = min(1.0, lo)
     ax.plot(
-        [lo, hi],
-        [lo, hi],
+        [diag_lo, hi],
+        [diag_lo, hi],
         ls="--",
         lw=1.2,
         color="0.5",
@@ -314,8 +329,8 @@ def main() -> None:
                 zorder=3,
             )
 
-    ax.set_xlim(lo, hi)
-    ax.set_ylim(lo, hi)
+    ax.set_xlim(1.0, hi)
+    ax.set_ylim(diag_lo, hi)
     ax.set_xlabel(r"$\phi_{\rm ref}(f_{\rm peak})$  [rad]")
     ax.set_ylabel(r"$\phi_{\rm MCGT}(f_{\rm peak})$  [rad]")
     ax.grid(True, ls=":", alpha=0.4)
@@ -333,11 +348,11 @@ def main() -> None:
         + f"N      = {n_eff:d}"
     )
     ax.text(
-        0.02,
+        0.98,
         0.03,
         text_metrics,
         transform=ax.transAxes,
-        ha="left",
+        ha="right",
         va="bottom",
         fontsize=10.5,
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.85),

@@ -185,8 +185,16 @@ def main() -> None:
     )
 
     handles, labels = ax.get_legend_handles_labels()
-    # Compact single legend stacked in lower-right
-    ax.legend(handles, labels, loc="lower right", framealpha=0.9, fontsize=10)
+    # Compact single legend stacked in lower-right (keeps upper-left clear)
+    ax.legend(
+        handles,
+        labels,
+        loc="lower right",
+        bbox_to_anchor=(0.98, 0.02),
+        framealpha=0.9,
+        fontsize=10,
+        borderaxespad=0.6,
+    )
     fig.savefig(args.out, dpi=args.dpi)
     log.info("PNG saved → %s", args.out)
 

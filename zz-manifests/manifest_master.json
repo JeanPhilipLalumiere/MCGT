@@ -1073,10 +1073,10 @@
     },
     {
       "path": "zz-scripts/chapter09/plot_fig02_residual_phase.py",
-      "sha256": "4eb0a5cde2c5013de3175c3cc0667e33c8caa1a8e76029ecffca667ff95f8eee",
-      "size_bytes": 13423,
-      "mtime_iso": "2025-12-19T17:06:42Z",
-      "git_hash": "c2b46822dc49ee16461ed5e49e65c88b03ec755f"
+      "sha256": "80a757666444e3e982a9c1794a1b64fd8e4542b2659d37db36b8ff849aff5567",
+      "size_bytes": 13491,
+      "mtime_iso": "2025-12-19T17:21:32Z",
+      "git_hash": "246814948d81b5b3ca187f944b6c0aa42ca8024b"
     },
     {
       "path": "zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
@@ -1087,10 +1087,10 @@
     },
     {
       "path": "zz-scripts/chapter09/09_fig_04_absdphi_milestones_vs_f.py",
-      "sha256": "41a0b59f28419384187f7838eab422c34d490e856cd126bbe21bc19a0542ab2b",
-      "size_bytes": 6845,
-      "mtime_iso": "2025-12-19T17:06:54Z",
-      "git_hash": "65dadafb0603b2ca8d02142d93fd96ef42844b85"
+      "sha256": "f1d0064b906f84da98d2251740e86c65a5fb19655f596551c79025f39c3d3dd3",
+      "size_bytes": 6981,
+      "mtime_iso": "2025-12-19T17:21:40Z",
+      "git_hash": "1f138d916eb674dae9c53d1f804a80b209a0d816"
     },
     {
       "path": "zz-scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
@@ -1267,10 +1267,10 @@
       "tags": [
         "chapter09"
       ],
-      "size_bytes": 932646,
-      "mtime_iso": "2025-12-19T17:06:59Z",
-      "sha256": "6955940511894c9b7e75f38ab15e5b5282db55a9dcfbb3390a6b9c6c49b203ca",
-      "git_hash": "b523151bc1be48cf8b97aa882a648b59759501b9"
+      "size_bytes": 922989,
+      "mtime_iso": "2025-12-19T17:21:45Z",
+      "sha256": "803c7674824398e96a0d41acc0b2ab6969c57ff701e2656efb21f4ba24323509",
+      "git_hash": "44871ff152e0e9ec6fe107847d523560ab72bd4c"
     },
     {
       "media_type": "image/png",
@@ -1291,10 +1291,10 @@
       "tags": [
         "chapter09"
       ],
-      "size_bytes": 267538,
-      "mtime_iso": "2025-12-19T17:07:03Z",
-      "sha256": "db438cdf984a3f2fd5df43c7f1d57ad01635ddc1f81922944beb162435841837",
-      "git_hash": "4fd71a81e428ac64db8bcaa54beb754234e2ecb4"
+      "size_bytes": 267422,
+      "mtime_iso": "2025-12-19T17:21:50Z",
+      "sha256": "e89ad25e97d44cfab680a095937061848c0295b84584566ccee39e7c43bfeaef",
+      "git_hash": "6644f50be353bf077a5408bd6051138a7a21193a"
     },
     {
       "media_type": "image/png",
@@ -2177,7 +2177,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T17:07:12Z",
+  "generatedAt": "2025-12-19T17:22:01Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

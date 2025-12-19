@@ -238,7 +238,7 @@ def main() -> None:
         ncols=2,
         width_ratios=[1.0, 0.42],
         wspace=0.08,
-        hspace=0.30,
+        hspace=0.40,
     )
 
     axs = [fig.add_subplot(gs[i, 0]) for i in range(n_bands)]
@@ -336,11 +336,14 @@ def main() -> None:
         ax.set_title(
             f"{int(blo)}–{int(bhi)} Hz  n={n_pts} — "
             f"mean={mean_b:.3f}  p95={p95_b:.3f}  max={max_b:.3f}",
-            fontsize=12,
+            fontsize=11,
+            pad=8,
         )
 
         if i == n_bands - 1:
             ax.set_xlabel("Fréquence [Hz]")
+        else:
+            ax.set_xticklabels([])
         ax.set_ylabel(r"$|\Delta\phi_{\rm principal}|$  [rad]")
 
     # ------------------------------------------------------------------

@@ -62,6 +62,7 @@ from matplotlib.patches import FancyArrowPatch
 from matplotlib.cm import ScalarMappable
 from matplotlib.colors import Normalize
 from scipy.signal import savgol_filter
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # --- Répertoires et constantes ---
 ROOT = Path(__file__).resolve().parents[2]
@@ -238,7 +239,7 @@ def main(args=None) -> None:
         labels=[r"$\chi^2$", r"$\mathrm{d}\chi^2/\mathrm{d}T/10^4$"],
         loc="center",
         fontsize="small",
-        framealpha=0.8,
+        framealpha=0.9,
     )
 
     sm = ScalarMappable(
@@ -246,10 +247,12 @@ def main(args=None) -> None:
         cmap="viridis",
     )
     sm.set_array([])
-    cbar = plt.colorbar(sm, ax=[ax1, ax2], pad=0.25, shrink=0.7)
+    divider = make_axes_locatable(ax2)
+    cax = divider.append_axes("right", size="5%", pad=0.8)
+    cbar = plt.colorbar(sm, cax=cax)
     cbar.set_label(r"$J(\theta)$ [dimensionless]")
 
-    fig.subplots_adjust(left=0.04, right=0.80, bottom=0.06, top=0.96)
+    fig.subplots_adjust(left=0.04, right=0.75, bottom=0.06, top=0.96)
 
     if verbose:
         print(f"[plot_fig04_chi2_vs_T] sauvegarde -> {out_path}")

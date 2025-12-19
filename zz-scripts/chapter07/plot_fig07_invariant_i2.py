@@ -214,13 +214,14 @@ def plot_invariant_i2(
     ax.axvline(k_split, ls="--", color="k", lw=1)
     y_text = 10.0 ** (pmin + 0.05 * (pmax - pmin))
     ax.text(
-        0.15,
-        0.88,
+        0.5,
+        0.05,
         r"$k_{\rm split}$",
         transform=ax.transAxes,
-        ha="left",
+        ha="center",
         va="bottom",
-        fontsize=11,
+        fontweight="bold",
+        bbox=dict(facecolor="white", alpha=0.8),
     )
 
     # Limites
@@ -239,8 +240,9 @@ def plot_invariant_i2(
     ax.xaxis.set_major_locator(LogLocator(base=10))
     ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
-    ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=6))
-    ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
+    ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=5))
+    from matplotlib.ticker import NullLocator
+    ax.yaxis.set_minor_locator(NullLocator())
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)
 

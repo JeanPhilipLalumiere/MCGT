@@ -198,20 +198,20 @@ def plot_dcs2_vs_k(
     # Ligne verticale k_split
     ax.axvline(k_split, color="k", ls="--", lw=1, label=r"$k_{\rm split}$")
     ax.text(
-        k_split,
-        0.85,
+        0.5,
+        0.05,
         r"$k_{\rm split}$",
-        transform=ax.get_xaxis_transform(),
-        rotation=90,
+        transform=ax.transAxes,
+        ha="center",
         va="bottom",
-        ha="right",
-        fontsize=9,
+        fontweight="bold",
+        bbox=dict(facecolor="white", alpha=0.8),
     )
 
     # Labels et titre
-    ax.set_xlabel(r"$k$ [h/Mpc]")
-    ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
-    ax.set_title(r"Smoothed derivative $\partial_k\,c_s^2(k)$")
+    ax.set_xlabel(r"$k$ [h/Mpc]", labelpad=20, fontsize=12)
+    ax.set_ylabel(r"$|\partial_k\,c_s^2|$", fontsize=12)
+    ax.set_title(r"Smoothed derivative $\partial_k\,c_s^2(k)$", fontsize=14)
 
     # Grilles
     ax.grid(which="major", ls=":", lw=0.6)
@@ -239,8 +239,7 @@ def plot_dcs2_vs_k(
     ax.set_ylim(max(1e-8, ymin), ymax)
 
     ax.legend(loc="best", frameon=False)
-
-    fig.subplots_adjust(left=0.12, right=0.98, top=0.90, bottom=0.12)
+    fig.tight_layout()
     safe_save(out_png, dpi=dpi)
     plt.close(fig)
     logging.info("Figure enregistrée : %s", out_png)

@@ -1192,10 +1192,10 @@
     },
     {
       "path": "zz-scripts/chapter10/10_fig_06_residual_map.py",
-      "sha256": "45f2e1cc30df8f74dfb32d9e38a6106999697ee3a6b4a477916b1f39302a01b1",
-      "size_bytes": 19540,
-      "mtime_iso": "2025-12-19T21:49:20Z",
-      "git_hash": "378b944b1c65a965152a848625fbe86c5240f120"
+      "sha256": "92198de004b51b096616f26a45663a01e979b2258f7e56026d348ae4dc19800b",
+      "size_bytes": 19567,
+      "mtime_iso": "2025-12-19T21:54:49Z",
+      "git_hash": "dfee6d020f979b200387974573548848ce7d1634"
     },
     {
       "path": "zz-scripts/chapter10/10_fig_07_synthesis.py",
@@ -1309,7 +1309,7 @@
         "chapter10"
       ],
       "size_bytes": 34267,
-      "mtime_iso": "2025-12-19T21:49:36Z",
+      "mtime_iso": "2025-12-19T21:56:16Z",
       "sha256": "4f637d05e6ed2ae31ed4a3d7e54091d9b4ab38e78c1ebc8ff11153e0f6ba6dcb",
       "git_hash": "3a92a5293ec48cce4fd0cc3b9f44ae835360539f"
     },
@@ -1321,7 +1321,7 @@
         "chapter10"
       ],
       "size_bytes": 530479,
-      "mtime_iso": "2025-12-19T21:44:06Z",
+      "mtime_iso": "2025-12-19T21:55:57Z",
       "sha256": "eb6bc1152a663ea9e944cf3caf5076497233a37dcbcce6e44a78786f6a24a47c",
       "git_hash": "29d0cd57d1ab6e970194b35d34bc3e92063310cc"
     },
@@ -1333,7 +1333,7 @@
         "chapter10"
       ],
       "size_bytes": 1587991,
-      "mtime_iso": "2025-12-19T21:49:24Z",
+      "mtime_iso": "2025-12-19T21:56:01Z",
       "sha256": "a3aec4ffbf5ffafeb7b59f5a793bd819510c4ca771b1217402e715ea8c4e8bb3",
       "git_hash": "d0942a0bf2053e9447993217a8be22d390345091"
     },
@@ -1345,7 +1345,7 @@
         "chapter10"
       ],
       "size_bytes": 170629,
-      "mtime_iso": "2025-12-19T21:44:11Z",
+      "mtime_iso": "2025-12-19T21:55:03Z",
       "sha256": "59e2045ed818c56253761789ece3959c781b7d5bcf6c9741b7b85a12c0fd54ac",
       "git_hash": "c62cb07e3ff7a5c89d487cf12ae880297b541dd8"
     },
@@ -1357,7 +1357,7 @@
         "chapter10"
       ],
       "size_bytes": 308362,
-      "mtime_iso": "2025-12-19T21:49:27Z",
+      "mtime_iso": "2025-12-19T21:56:05Z",
       "sha256": "9bf79119905a9a7c01ee2555217f3933383814735401e98dc7c4ec4b0acf1429",
       "git_hash": "9bcf12feb29701003848276ee2b06c0854a3c833"
     },
@@ -1369,7 +1369,7 @@
         "chapter10"
       ],
       "size_bytes": 105286,
-      "mtime_iso": "2025-12-19T21:49:30Z",
+      "mtime_iso": "2025-12-19T21:56:08Z",
       "sha256": "f0eebf364f9ad2d88d47851fee49621cd0680fb5beb1723c399fc7d55a715292",
       "git_hash": "749a9c4152c7cc39f3121768bcb31066cd5d9e2c"
     },
@@ -1380,10 +1380,10 @@
       "tags": [
         "chapter10"
       ],
-      "size_bytes": 431165,
-      "mtime_iso": "2025-12-19T21:49:39Z",
-      "sha256": "ecea9d0f2b5fe13edee4c4e8ec96ea409edd0ba0aa40eab13b5f7f13ab625165",
-      "git_hash": "98ab598160c0c3657127b37f619196488c0fd272"
+      "size_bytes": 425203,
+      "mtime_iso": "2025-12-19T21:55:08Z",
+      "sha256": "d004d858d1d33485f145fc18dde3117c399115aca22c044e380026a57604a2fa",
+      "git_hash": "e49f6b219f904911a0ec13ec5886092317590d72"
     },
     {
       "media_type": "image/png",
@@ -1393,7 +1393,7 @@
         "chapter10"
       ],
       "size_bytes": 426061,
-      "mtime_iso": "2025-12-19T21:49:33Z",
+      "mtime_iso": "2025-12-19T21:56:13Z",
       "sha256": "4015d0a87b4accdd5c438b55f5b652053618c0268eed124c259cb994321504b0",
       "git_hash": "a67d34b1f4aade0ad187d8c6ffb4b9ef709c4e51"
     },
@@ -1780,7 +1780,7 @@
       "path": "zz-figures/chapter10/10_fig_07_synthesis.table.csv",
       "sha256": "ec827367cb22f92f27968116e10838a74b84743111d356c27ff67d9c05f46dcb",
       "size_bytes": 1130,
-      "mtime_iso": "2025-12-19T21:49:32Z",
+      "mtime_iso": "2025-12-19T21:56:12Z",
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     },
     {
@@ -2134,7 +2134,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T21:49:50Z",
+  "generatedAt": "2025-12-19T21:56:23Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

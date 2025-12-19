@@ -512,15 +512,16 @@ def main() -> None:
         rf"fraction |metric|>{args.threshold:.0e} rad = {100 * frac_over:.2f}%",
     ]
     ax_hist.text(
-        0.02,
-        0.02,
+        0.98,
+        0.98,
         "\n".join(stats_lines),
         transform=ax_hist.transAxes,
-        ha="left",
-        va="bottom",
+        ha="right",
+        va="top",
         fontsize=9,
         bbox=dict(boxstyle="round", fc="white", ec="0.5", alpha=0.9),
     )
+    ax_hist.set_ylim(0, 8.0)
 
     # ------------------------------- footers --------------------------------
     foot_scale = (

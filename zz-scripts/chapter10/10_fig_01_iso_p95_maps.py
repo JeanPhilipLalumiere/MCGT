@@ -340,20 +340,18 @@ def main() -> None:
     ax.set_ylabel(args.m2_col)
     ax.set_title(args.title, fontsize=15)
 
-    # Forcer un cadrage serré sans aspect contraint
+    # Forcer un cadrage serré sans aspect contraint et filtrer les outliers
     ax.set_aspect("auto", adjustable="datalim")
-    ax.margins(0)
-    ax.axis("tight")
 
-    # Cadre serré autour des données (percentiles pour ignorer les outliers)
-    x_lo, x_hi = np.percentile(x, [0.1, 99.9])
-    y_lo, y_hi = np.percentile(y, [0.1, 99.9])
+    x_lo, x_hi = np.nanpercentile(x, [2, 98])
+    y_lo, y_hi = np.nanpercentile(y, [2, 98])
     if x_lo == x_hi:
-        x_lo, x_hi = x_lo - 1.0, x_hi + 1.0
+        x_lo, x_hi = x_lo - 0.1, x_hi + 0.1
     if y_lo == y_hi:
-        y_lo, y_hi = y_lo - 1.0, y_hi + 1.0
+        y_lo, y_hi = y_lo - 0.1, y_hi + 0.1
     ax.set_xlim(x_lo, x_hi)
     ax.set_ylim(y_lo, y_hi)
+    print(f"[DEBUG] fig01 x_lim=({x_lo:.4g},{x_hi:.4g}), y_lim=({y_lo:.4g},{y_hi:.4g})")
 
     leg = ax.legend(loc="upper right", frameon=True, fontsize=9)
     leg.set_zorder(20)

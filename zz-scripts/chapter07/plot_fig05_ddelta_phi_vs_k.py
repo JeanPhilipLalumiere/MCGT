@@ -208,12 +208,13 @@ def plot_ddelta_phi_vs_k(
     ymax_plot = 10.0 ** y_max_dec
     y_text = 10.0 ** (y_min_dec + 0.05 * (y_max_dec - y_min_dec))
     ax.text(
-        k_split * 1.05,
-        y_text,
+        0.15,
+        0.85,
         r"$k_{\rm split}$",
+        transform=ax.transAxes,
         ha="left",
         va="bottom",
-        fontsize=9,
+        fontsize=11,
     )
 
     # Limites
@@ -221,9 +222,9 @@ def plot_ddelta_phi_vs_k(
     ax.set_ylim(ymin_plot, ymax_plot)
 
     # Labels
-    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
-    ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$")
-    ax.set_title(r"Derivative of $\delta\phi/\phi$ versus $k$")
+    ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$", fontsize=12)
+    ax.set_ylabel(r"$|\partial_k(\delta\phi/\phi)|$", fontsize=12)
+    ax.set_title(r"Derivative of $\delta\phi/\phi$ versus $k$", fontsize=14)
 
     # Grille et ticks
     ax.grid(which="major", ls=":", lw=0.5)
@@ -232,7 +233,7 @@ def plot_ddelta_phi_vs_k(
     ax.xaxis.set_major_locator(LogLocator(base=10))
     ax.xaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
 
-    ax.yaxis.set_major_locator(LogLocator(base=10))
+    ax.yaxis.set_major_locator(LogLocator(base=10.0, numticks=6))
     ax.yaxis.set_minor_locator(LogLocator(base=10, subs=(2, 5)))
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)

@@ -431,8 +431,9 @@ def main() -> None:
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
     ax_main.set_aspect("auto", adjustable="datalim")
-    x_lo, x_hi = np.nanpercentile(x, [2, 98])
-    y_lo, y_hi = np.nanpercentile(y, [2, 98])
+    x_med, y_med = np.nanmedian(x), np.nanmedian(y)
+    x_lo, x_hi = x_med - 0.5, x_med + 0.5
+    y_lo, y_hi = y_med - 0.5, y_med + 0.5
     if x_lo == x_hi:
         x_lo, x_hi = x_lo - 0.1, x_hi + 0.1
     if y_lo == y_hi:

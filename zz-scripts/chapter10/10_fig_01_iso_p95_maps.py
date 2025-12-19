@@ -301,14 +301,15 @@ def main() -> None:
             linewidths=0.45,
             alpha=0.5,
         )
-        # points en overlay noir
-        ax.scatter(
+        # points en overlay noir (taille augmentée pour visibilité)
+        ax.plot(
             x,
             y,
-            c="k",
-            s=3,
-            alpha=0.5,
-            edgecolors="none",
+            "o",
+            ms=8,
+            mfc="none",
+            mec="k",
+            alpha=0.6,
             label="samples",
             zorder=5,
         )
@@ -324,7 +325,7 @@ def main() -> None:
             x,
             y,
             c=z,
-            s=25,
+            s=64,
             cmap=args.cmap,
             norm=norm,
             edgecolors="k",
@@ -340,11 +341,11 @@ def main() -> None:
     ax.set_ylabel(args.m2_col)
     ax.set_title(args.title, fontsize=15)
 
-    # Forcer un cadrage serré sans aspect contraint et filtrer les outliers
+    # Forcer un cadrage serré sans aspect contraint, centré sur la médiane
     ax.set_aspect("auto", adjustable="datalim")
-
-    x_lo, x_hi = np.nanpercentile(x, [2, 98])
-    y_lo, y_hi = np.nanpercentile(y, [2, 98])
+    x_med, y_med = np.nanmedian(x), np.nanmedian(y)
+    x_lo, x_hi = x_med - 0.5, x_med + 0.5
+    y_lo, y_hi = y_med - 0.5, y_med + 0.5
     if x_lo == x_hi:
         x_lo, x_hi = x_lo - 0.1, x_hi + 0.1
     if y_lo == y_hi:

@@ -341,11 +341,11 @@ def plot_synthese(
         "series",
         "outer_B",
         "inner_B",
-        "mean coverage",
-        "median coverage",
-        "std coverage",
-        "p95 coverage",
-        "median width [rad]",
+        "mean_cov",
+        "med_cov",
+        "std_cov",
+        "p95_cov",
+        "med_width [rad]",
     ]
     cell_text: List[List[str]] = []
     for r in rows:

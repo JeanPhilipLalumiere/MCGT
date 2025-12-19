@@ -242,9 +242,20 @@ def plot_ddelta_phi_vs_k(
     ax.yaxis.set_major_formatter(FuncFormatter(format_pow10))
     ax.set_yticks(yticks)
 
-    ax.legend(loc="upper right", frameon=False)
+    ax.legend([r"$\partial_k(\delta\phi/\phi)$"], loc="best", frameon=False)
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
+    # Évite les artefacts log en bornant strictement Y
+    y_lo, y_hi = float(abs_dd.min()), float(abs_dd.max())
+    ax.set_ylim(max(1e-8, y_lo), min(1e4, y_hi * 1.5))
+    # Écrase tout formatage parasite juste avant la sauvegarde
+    ax.yaxis.set_major_locator(plt.FixedLocator([1e-6, 1e-3, 1e0, 1e3]))
+    ax.yaxis.set_major_formatter(plt.LogFormatterExponent(base=10))
+    ax.yaxis.set_minor_locator(plt.NullLocator())
+    ax.yaxis.set_minor_formatter(plt.NullFormatter())
+    ax.grid(True, which="major", ls=":", alpha=0.5)
+    ax.grid(False, which="minor")
+
     fig.tight_layout()
     safe_save(out_png, dpi=dpi)
     plt.close(fig)

@@ -209,7 +209,6 @@ def plot_dcs2_vs_k(
     )
 
     # Labels et titre
-    ax.set_xlabel(r"$k$ [h/Mpc]", labelpad=12, fontsize=12)
     ax.set_ylabel(r"$|\partial_k\,c_s^2|$", fontsize=12)
     ax.set_title(r"Smoothed derivative $\partial_k\,c_s^2(k)$", fontsize=14)
     # Positionnement manuel du label X pour éviter tout chevauchement

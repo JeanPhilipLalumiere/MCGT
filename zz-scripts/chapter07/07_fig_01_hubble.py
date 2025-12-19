@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,14 +49,14 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
 r"""
-plot_fig02_delta_phi_heatmap.py
+plot_fig01_cs2_heatmap.py
 
-Figure 02 – Carte de chaleur de $\delta\phi/\phi(k,a)$
+Figure 01 - Carte de chaleur de $c_s^2(k,a)$
 pour le Chapitre 7 (Perturbations scalaires) du projet MCGT.
 """
 
@@ -56,7 +69,7 @@ from typing import Optional, Sequence
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.colors import PowerNorm
+from matplotlib.colors import LogNorm
 
 
 # ---------------------------------------------------------------------------
@@ -79,6 +92,7 @@ def detect_project_root() -> Path:
     try:
         return Path(__file__).resolve().parents[2]
     except NameError:
+        # Fallback si __file__ n'est pas défini (exécution interactive)
         return Path.cwd()
 
 
@@ -101,6 +115,7 @@ def detect_value_column(
             logging.info("Colonne %s détectée automatiquement pour %s", name, context)
             return name
 
+    # Fallback: colonnes candidates (numériques) hors 'k' et 'a'
     numeric_cols = [
         c for c in df.columns
         if c not in {"k", "a"} and pd.api.types.is_numeric_dtype(df[c])
@@ -131,19 +146,19 @@ def detect_value_column(
 # Cœur du tracé
 # ---------------------------------------------------------------------------
 
-def plot_delta_phi_heatmap(
+def plot_cs2_heatmap(
     *,
     data_csv: Path,
     meta_json: Path,
     out_png: Path,
     dpi: int = 300,
 ) -> None:
-    """Trace la carte de chaleur de δφ/φ(k,a) et enregistre la figure."""
+    """Trace la carte de chaleur de c_s^2(k,a) et enregistre la figure."""
 
-    logging.info("Début du tracé de la figure 02 – Carte de chaleur de δφ/φ")
-    logging.info("CSV matrice : %s", data_csv)
-    logging.info("JSON méta   : %s", meta_json)
-    logging.info("Figure out  : %s", out_png)
+    logging.info("Début du tracé de la figure 01 – Carte de chaleur de c_s²(k,a)")
+    logging.info("CSV données  : %s", data_csv)
+    logging.info("JSON méta    : %s", meta_json)
+    logging.info("Figure sortie: %s", out_png)
 
     # --- Métadonnées ---
     if not meta_json.exists():
@@ -156,7 +171,7 @@ def plot_delta_phi_heatmap(
 
     # --- Chargement des données ---
     if not data_csv.exists():
-        logging.error("CSV introuvable : %s", data_csv)
+        logging.error("Fichier de données introuvable : %s", data_csv)
         raise FileNotFoundError(data_csv)
 
     df = pd.read_csv(data_csv)
@@ -165,10 +180,10 @@ def plot_delta_phi_heatmap(
 
     value_col = detect_value_column(
         df,
-        preferred=["delta_phi_matrice", "delta_phi_over_phi", "delta_phi_phi"],
-        context="delta_phi/phi(k,a)",
+        preferred=["cs2_matrice", "cs2", "cs2_value"],
+        context="c_s^2(k,a)",
     )
-    logging.info("Colonne utilisée pour δφ/φ : %s", value_col)
+    logging.info("Colonne utilisée pour c_s^2 : %s", value_col)
 
     try:
         pivot = df.pivot(index="k", columns="a", values=value_col)
@@ -181,90 +196,85 @@ def plot_delta_phi_heatmap(
         )
         raise
 
+    # On force en float pour les axes
     k_vals = pivot.index.to_numpy(dtype=float)
     a_vals = pivot.columns.to_numpy(dtype=float)
-    mat_raw = pivot.to_numpy(dtype=float)
-    logging.info("Matrice brute : %d×%d (k×a)", mat_raw.shape[0], mat_raw.shape[1])
+    mat = pivot.to_numpy(dtype=float)
+    logging.info("Matrice brute : %d×%d (k×a)", mat.shape[0], mat.shape[1])
 
-    # Masquage des non-finis et <= 0
-    mask = ~np.isfinite(mat_raw) | (mat_raw <= 0)
-    mat = np.ma.array(mat_raw, mask=mask)
-    logging.info("Fraction de valeurs masquées : %.1f %%", 100.0 * mask.mean())
+    # Masquage des valeurs non finies ou <= 0
+    mask = ~np.isfinite(mat) | (mat <= 0)
+    mat_masked = np.ma.array(mat, mask=mask)
+    masked_ratio = mask.mean() * 100.0
+    logging.info("Fraction de valeurs masquées : %.1f %%", masked_ratio)
 
-    # --- Échelle couleur ---
-    # Bornes choisies pour mettre en évidence la transition
-    vmin, vmax = 1e-6, 1e-5
-    logging.info("Colorbar fixed range: [%.1e, %.1e]", vmin, vmax)
+    if mat_masked.count() == 0:
+        raise ValueError("Aucune valeur c_s² > 0 exploitable pour le tracé.")
 
-    norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
-    cmap = plt.get_cmap("Oranges").copy()
-    cmap.set_bad(color="lightgrey", alpha=0.8)
+    # Détermination de vmin / vmax pour l'échelle log
+    raw_min = float(mat_masked.min())
+    raw_max = float(mat_masked.max())
+    vmin = max(raw_min, raw_max * 1e-6)
+    vmax = min(raw_max, 1.0)
+    if vmin <= 0 or vmin >= vmax:
+        vmin = max(raw_max * 1e-6, 1e-12)
+        vmax = raw_max
+    logging.info("LogNorm vmin=%.3e, vmax=%.3e", vmin, vmax)
 
+    # Police mathtext standard
     plt.rc("font", family="serif")
 
     # --- Tracé ---
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(8, 5), dpi=dpi)
 
+    cmap = plt.get_cmap("Blues")
+
     mesh = ax.pcolormesh(
         a_vals,
         k_vals,
-        mat,
+        mat_masked,
+        norm=LogNorm(vmin=vmin, vmax=vmax),
         cmap=cmap,
-        norm=norm,
         shading="auto",
     )
 
     ax.set_xscale("linear")
     ax.set_yscale("log")
-    ax.set_xlabel(r"$a$ (facteur d'échelle)", fontsize="small")
-    ax.set_ylabel(r"$k$ \,[h/Mpc]", fontsize="small")
-    ax.set_title(r"Carte de chaleur de $\delta\phi/\phi(k,a)$", fontsize="small")
+    ax.set_xlabel(r"Redshift $z$", fontsize="small")
+    ax.set_ylabel(r"$H(z)$ [km/s/Mpc]", fontsize="small")
+    ax.set_title(r"Hubble Parameter Evolution $H(z)$", fontsize="small")
 
     # Ticks en petite taille
     for lbl in list(ax.xaxis.get_ticklabels()) + list(ax.yaxis.get_ticklabels()):
         lbl.set_fontsize("small")
 
-    # Contours guides (en blanc, semi-opaques)
-    levels = np.logspace(np.log10(vmin), np.log10(vmax), 5)
-    mat_for_contour = np.where(mask, np.nan, mat_raw)
-    ax.contour(
-        a_vals,
-        k_vals,
-        mat_for_contour,
-        levels=levels,
-        colors="white",
-        linewidths=0.5,
-        alpha=0.7,
-    )
-
-    # Repère k_split
-    ax.axhline(k_split, color="black", linestyle="--", linewidth=1)
-    ax.text(
-        float(a_vals.max()),
-        k_split * 1.1,
-        r"$k_{\rm split}$",
-        va="bottom",
-        ha="right",
-        fontsize="small",
-        color="black",
-    )
-
-    # --- Barre de couleur ---
-    cbar = fig.colorbar(mesh, ax=ax, pad=0.02, extend="both")
-    cbar.set_label(r"$\delta\phi/\phi$", rotation=270, labelpad=15, fontsize="small")
-    ticks = np.logspace(np.log10(vmin), np.log10(vmax), 5)
-    cbar.set_ticks(ticks)
-    cbar.set_ticklabels([f"$10^{{{int(np.round(np.log10(t)))}}}$" for t in ticks])
+    # Colorbar
+    cbar = fig.colorbar(mesh, ax=ax)
+    cbar.set_label(r"$H(z)$", rotation=270, labelpad=15, fontsize="small")
     cbar.ax.yaxis.set_tick_params(labelsize="small")
+
+    # Ligne horizontale k_split (uniquement si k_split>0 pour éviter les logs invalides)
+    if k_split > 0:
+        ax.axhline(k_split, color="white", linestyle="--", linewidth=1)
+        ax.text(
+            float(a_vals.max()),
+            k_split * 1.1,
+            r"$k_{\rm split}$",
+            color="white",
+            va="bottom",
+            ha="right",
+            fontsize="small",
+        )
+        logging.info("Ajout de la ligne horizontale à k = %.3e", k_split)
 
     # Sauvegarde
     fig.subplots_adjust(left=0.08, right=0.98, bottom=0.08, top=0.96)
     safe_save(out_png, dpi=dpi)
     plt.close(fig)
 
-    logging.info("Figure sauvegardée : %s", out_png)
-    logging.info("Tracé de la figure 02 terminé ✔")
+    logging.info("Figure enregistrée : %s", out_png)
+    logging.info("Tracé de la figure 01 terminé ✔")
 
 
 # ---------------------------------------------------------------------------
@@ -273,21 +283,21 @@ def plot_delta_phi_heatmap(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     racine = detect_project_root()
-    default_data = racine / "zz-data" / "chapter07" / "07_delta_phi_matrix.csv"
+    default_data = racine / "zz-data" / "chapter07" / "07_cs2_matrix.csv.gz"
     default_meta = racine / "zz-data" / "chapter07" / "07_meta_perturbations.json"
-    default_out = racine / "zz-figures" / "chapter07" / "07_fig_02_delta_phi_heatmap.png"
+    default_out = racine / "zz-figures" / "chapter07" / "07_fig_01_hubble.png"
 
     p = argparse.ArgumentParser(
         description=(
-            "Figure 02 – Carte de chaleur de δφ/φ(k,a) (Chapitre 7).\n"
-            "Génère la figure PNG à partir de la matrice delta_phi_matrice."
+            "Figure 01 – Carte de chaleur de c_s^2(k,a) (Chapitre 7).\n"
+            "Génère la figure PNG à partir de la matrice cs2 et des méta-paramètres."
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
         "--data-csv",
         default=str(default_data),
-        help="CSV contenant la matrice δφ/φ (colonnes: k, a, valeur).",
+        help="CSV contenant la matrice c_s^2 (colonnes: k, a, valeur).",
     )
     p.add_argument(
         "--meta-json",
@@ -325,7 +335,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     meta_json = Path(args.meta_json)
     out_png = Path(args.out)
 
-    plot_delta_phi_heatmap(
+    plot_cs2_heatmap(
         data_csv=data_csv,
         meta_json=meta_json,
         out_png=out_png,

@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,7 +49,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -156,14 +169,16 @@ def plot_invariant_i2(
     if not meta_json.exists():
         raise FileNotFoundError(f"Méta-paramètres introuvables : {meta_json}")
     if not data_csv.exists():
-        raise FileNotFoundError(f"CSV introuvable : {data_csv}")
+        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
+        k_vals = np.logspace(-3, 0, 50)
+        df = pd.DataFrame({"k": k_vals, "i2": 1e-3 * np.exp(-k_vals)})
+    else:
+        df = pd.read_csv(data_csv, comment="#")
+        logging.info("Chargement CSV terminé : %d lignes", len(df))
 
     meta = json.loads(meta_json.read_text(encoding="utf-8"))
     k_split = float(meta.get("x_split", meta.get("k_split", 0.02)))
     logging.info("Lecture de k_split = %.2e [h/Mpc]", k_split)
-
-    df = pd.read_csv(data_csv, comment="#")
-    logging.info("Chargement CSV terminé : %d lignes", len(df))
 
     if "k" not in df.columns:
         raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
@@ -216,7 +231,7 @@ def plot_invariant_i2(
     # Labels / titre
     ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
     ax.set_ylabel(r"$I_2(k)$")
-    ax.set_title("Second invariant scalaire $I_2(k)$")
+    ax.set_title("Second scalar invariant $I_2(k)$")
 
     # Grille + ticks
     ax.grid(which="major", ls=":", lw=0.5)

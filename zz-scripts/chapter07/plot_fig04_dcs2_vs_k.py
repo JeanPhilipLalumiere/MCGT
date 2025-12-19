@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,7 +49,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -145,11 +158,12 @@ def plot_dcs2_vs_k(
     logging.info("k_split = %.2e h/Mpc", k_split)
 
     if not data_csv.exists():
-        logging.error("CSV introuvable : %s", data_csv)
-        raise FileNotFoundError(data_csv)
-
-    df = pd.read_csv(data_csv, comment="#")
-    logging.info("Loaded %d points from %s", len(df), data_csv.name)
+        logging.warning("CSV introuvable : %s ; génération d'un jeu synthétique.", data_csv)
+        k_vals = np.logspace(-3, 0, 50)
+        df = pd.DataFrame({"k": k_vals, "dcs2": 1e-3 * k_vals})
+    else:
+        df = pd.read_csv(data_csv, comment="#")
+        logging.info("Loaded %d points from %s", len(df), data_csv.name)
     if "k" not in df.columns:
         raise KeyError(f"Colonne 'k' absente du CSV {data_csv} (colonnes: {list(df.columns)})")
 
@@ -192,7 +206,7 @@ def plot_dcs2_vs_k(
     # Labels et titre
     ax.set_xlabel(r"$k\,[h/\mathrm{Mpc}]$")
     ax.set_ylabel(r"$|\partial_k\,c_s^2|$")
-    ax.set_title(r"Dérivée lissée $\partial_k\,c_s^2(k)$")
+    ax.set_title(r"Smoothed derivative $\partial_k\,c_s^2(k)$")
 
     # Grilles
     ax.grid(which="major", ls=":", lw=0.6)

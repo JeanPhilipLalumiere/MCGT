@@ -6,6 +6,10 @@
 - Language: English-only titles, labels, and tables (standard MCGT).
 - Structure: unified `10_fig_XX` naming and removal of legacy duplicates.
 
+## Technical Integrity Fix
+- Manifest metadata synchronized to eliminate drift and guard failures.
+- Naming and quality guards cleaned (invalid backup filenames removed; scripts standardized with python3 shebangs and executable permissions).
+
 ## Figure Updates
 - Fig 01: cleaned legend usage with colorbar-only explanation.
 - Fig 03: removed zoom inset and consolidated a single stats legend (lower left).

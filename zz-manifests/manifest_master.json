@@ -1129,10 +1129,10 @@
     },
     {
       "path": "zz-scripts/chapter10/10_fig_08_diagnostic_histogram.py",
-      "sha256": "ff082d7f6fd0fe816145ba5b967276eb015943ea34a6363a32d6a5dcc173a830",
-      "size_bytes": 5585,
-      "mtime_iso": "2025-12-19T20:06:23Z",
-      "git_hash": "19fd4811622563741701f9c678c25e3cf88bd2f4"
+      "sha256": "4fa85d99dcb35ec86bfd25ac04cdd70de190b9e6af409f7451091e76e2b0b1f0",
+      "size_bytes": 5586,
+      "mtime_iso": "2025-12-19T22:12:55Z",
+      "git_hash": "f3199ffe872d73540195b6bb15bea59bb6556dde"
     },
     {
       "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
@@ -1234,10 +1234,10 @@
     },
     {
       "path": "zz-scripts/chapter10/update_manifest_with_hashes.py",
-      "sha256": "143f7168e06c07f5b74582aaf48a45f5aeda0ca2a00e97ab9ddd26045ce49b42",
+      "sha256": "86d1211206665db7ff0baa8fd91c22dcf21783efd9bed44ac5073b0466ff5376",
       "size_bytes": 1715,
-      "mtime_iso": "2025-11-09T00:30:15Z",
-      "git_hash": "ea1e33914082f006608cc70b8860256e49444d6a"
+      "mtime_iso": "2025-12-19T22:13:03Z",
+      "git_hash": "9fc0af1ac906f2240d4f946e006d703f228daf68"
     },
     {
       "path": "zz-scripts/manifest_tools/populate_manifest.py",
@@ -2134,7 +2134,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T22:06:30Z",
+  "generatedAt": "2025-12-19T22:14:18Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

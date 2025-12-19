@@ -1,7 +1,7 @@
 {
   "title": "MCGT : Modèle de la Courbure Gravitationnelle du Temps",
   "upload_type": "software",
-  "description": "Toolkit de publication/reproductibilité pour les chapitres MCGT (figures/data/scripts). Version v0.3.0 avec manifestes, tarball de publication et pipelines smoke (ch09 stable, ch10 en progression).",
+  "description": "Toolkit de publication/reproductibilité pour les chapitres MCGT (figures/data/scripts). Version v2.0.1 avec manifestes, tarball de publication et pipelines smoke (ch09 stable, ch10 finalisé).",
   "creators": [
     {
       "name": "Lalumière, Jean-Philip",
@@ -10,8 +10,8 @@
     }
   ],
   "license": "MIT",
-  "version": "0.3.17",
-  "publication_date": "2025-12-18",
+  "version": "2.0.1",
+  "publication_date": "2025-12-19",
   "keywords": [
     "MCGT",
     "cosmologie",
@@ -24,7 +24,7 @@
   "related_identifiers": [
     {
       "relation": "isSupplementTo",
-      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v0.3.0",
+      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v2.0.1",
       "scheme": "url"
     },
     {

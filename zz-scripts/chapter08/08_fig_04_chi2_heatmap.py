@@ -4,8 +4,21 @@ from __future__ import annotations
 import hashlib
 import shutil
 import tempfile
-import matplotlib.pyplot as _plt
 from pathlib import Path as _SafePath
+
+import matplotlib.pyplot as plt
+
+plt.rcParams.update(
+    {
+        "figure.autolayout": True,
+        "figure.figsize": (10, 6),
+        "axes.titlepad": 25,
+        "axes.labelpad": 15,
+        "savefig.bbox": "tight",
+        "savefig.pad_inches": 0.3,
+        "font.family": "serif",
+    }
+)
 
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
@@ -24,7 +37,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
             if fig is not None:
                 fig.savefig(tmp_path, **savefig_kwargs)
             else:
-                _plt.savefig(tmp_path, **savefig_kwargs)
+                plt.savefig(tmp_path, **savefig_kwargs)
             if _sha256(tmp_path) == _sha256(path):
                 tmp_path.unlink()
                 return False
@@ -36,7 +49,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     if fig is not None:
         fig.savefig(path, **savefig_kwargs)
     else:
-        _plt.savefig(path, **savefig_kwargs)
+        plt.savefig(path, **savefig_kwargs)
     return True
 
 #!/usr/bin/env python3
@@ -115,20 +128,28 @@ ax.clabel(
     inline=True,
     fontsize=10,
 )
+# Décale légèrement les étiquettes de niveaux pour éviter la superposition
+label_offset = 0.01 * (p1.max() - p1.min())
+for lbl in cont.labelTexts:
+    x, y = lbl.get_position()
+    lbl.set_position((x + label_offset, y))
 
 # point du minimum
 ax.plot(q0_min, p2_min, "o", color="black", ms=6)
 
 # annotation du minimum
 bbox = dict(boxstyle="round,pad=0.4", fc="white", ec="gray", alpha=0.8)
-txt = f"min χ² = {chi2_min:.1f}\nq₀⋆ = {q0_min:.3f}, p₂ = {p2_min:.3f}"
+txt = (
+    rf"$\min \chi^2 = {chi2_min:.1f}$\n"
+    rf"$q_0^\star = {q0_min:.3f},\ p_2 = {p2_min:.3f}$"
+)
 ax.text(0.98, 0.95, txt, transform=ax.transAxes, va="top", ha="right", bbox=bbox)
 
 # axes et titre
 
 ax.set_xlabel(r"$q_0^\star$")
 ax.set_ylabel(r"$p_2$")
-ax.set_title(r"Carte de chaleur $\chi^2$ (scan 2D)")
+ax.set_title(r"$\chi^2$ Heatmap (2D Scan)")
 
 # quadrillage discret
 ax.grid(True, linestyle=":", linewidth=0.5, alpha=0.5)

@@ -1841,10 +1841,10 @@
     },
     {
       "path": "zz-scripts/chapter08/generate_coupling_milestones.py",
-      "sha256": "1e0f68552b14be66c61b4d59292a6361759f9a86f86c740983a5bc7e2df65462",
-      "size_bytes": 3485,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "8824ad892b7efeb846d1f1f1e3cbc01d3d7cbe8e"
+      "sha256": "c83f9be6d80d80d9dd3fb058a63226ecaec618992d226092b9754b0f01cc93b8",
+      "size_bytes": 3842,
+      "mtime_iso": "2025-12-19T23:35:46Z",
+      "git_hash": "aa51009982d16eb456123495e12459c83bd0d513"
     },
     {
       "path": "zz-scripts/chapter08/generate_data_chapter08.py",
@@ -1903,7 +1903,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T23:30:52Z",
+  "generatedAt": "2025-12-19T23:36:02Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

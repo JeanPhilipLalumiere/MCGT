@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Vérifier qu'aucun badge orphelin n'est présent entre END BADGES et le premier H1"
+      - name: "Verifier qu'aucun badge orphelin n'est present entre END BADGES et le premier H1"
         run: |
           awk '
           function ltrim(s,   i,c) {
@@ -49,7 +49,7 @@ jobs:
 
             # Badge orphelin typique: [![...](...)](...)
             if (starts_with(t, "[![")) {
-              printf("readme-guard: badge orphelin détecté (ligne %d): %s\n", NR, line) > "/dev/stderr"
+              printf("readme-guard: badge orphelin detecte (ligne %d): %s\n", NR, line) > "/dev/stderr"
               bad = 1
             }
           }

@@ -140,10 +140,10 @@ def main(args=None) -> None:
     if txt_lines:
         ax.text(
             0.05,
-            0.5,
+            0.05,
             "\n".join(txt_lines),
             transform=ax.transAxes,
-            va="center",
+            va="bottom",
             ha="left",
             bbox=dict(boxstyle="round", facecolor="white", alpha=0.5),
         )

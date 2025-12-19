@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-plot_fig03_convergence_p95_vs_n.py
+plot_fig03_convergence.py
 
 Trace la convergence d’estimateurs de p95 (mean, median, trimmed mean) en fonction
 de la taille d’échantillon N, avec IC 95% (bootstrap percentile).
 Produit un PNG.
 
 Exemple (pipeline minimal, par défaut) :
-  python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py
+  python zz-scripts/chapter10/plot_fig03_convergence.py
 
 Exemple (MC complet historique) :
-  python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \\
+  python zz-scripts/chapter10/plot_fig03_convergence.py \\
     --results zz-data/chapter10/10_mc_results.circ.csv \\
     --p95-col p95_20_300_recalc \\
-    --out zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png \\
+    --out zz-figures/chapter10/10_fig_03_convergence.png \\
     --B 2000 --seed 12345 --dpi 150
 """
 from __future__ import annotations
@@ -121,7 +121,7 @@ def main():
     p.add_argument("--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)")
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03_convergence.png",
         help="PNG de sortie",
     )
     p.add_argument("--B", type=int, default=2000, help="Nombre de réplicats bootstrap")
@@ -204,7 +204,7 @@ def main():
     ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
     # Légende
-    leg = ax.legend(loc="lower left", frameon=True, fontsize=10)
+    leg = ax.legend(loc="lower right", frameon=True, fontsize=10)
     leg.set_zorder(5)
 
     # ----- Inset (zoom) : même logique que ta version -----

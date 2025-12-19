@@ -42,8 +42,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--prefix",
-        default="10_diag_phi_fpeak",
-        help="Préfixe des fichiers de sortie (défaut: 10_diag_phi_fpeak).",
+        default="10_fig_08_diagnostic_histogram",
+        help="Préfixe des fichiers de sortie (défaut: 10_fig_08_diagnostic_histogram).",
     )
     return parser.parse_args()
 
@@ -63,6 +63,11 @@ def main() -> None:
 
     required_cols = ["phi_ref_fpeak", "phi_mcgt_fpeak"]
     missing = [c for c in required_cols if c not in df.columns]
+    if missing and "phi_at_fpeak_rad" in df.columns:
+        print("[WARN] Missing phi_ref_fpeak/phi_mcgt_fpeak, using phi_at_fpeak_rad as fallback.")
+        df["phi_ref_fpeak"] = df["phi_at_fpeak_rad"]
+        df["phi_mcgt_fpeak"] = df["phi_at_fpeak_rad"]
+        missing = []
     if missing:
         raise SystemExit(
             f"[ERREUR] Colonnes manquantes dans {results_path} : {missing} "

@@ -191,10 +191,10 @@ def main():
     ax.set_xlim(0, M)
     ax.set_xlabel("Taille d'échantillon N")
     ax.set_ylabel(f"estimateur de {p95_col} [rad]")
-    ax.set_title(f"Convergence de l'estimation de {p95_col}", fontsize=15)
+    ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
     # Légende
-    leg = ax.legend(loc="lower right", frameon=True, fontsize=10)
+    leg = ax.legend(loc="lower left", frameon=True, fontsize=10)
     leg.set_zorder(5)
 
     # ----- Inset (zoom) : même logique que ta version -----

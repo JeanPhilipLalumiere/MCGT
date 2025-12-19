@@ -187,7 +187,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--title",
-        default="Carte iso de p95 (m1 vs m2)",
+        default="p95 contour map (m1 vs m2)",
         help="Titre de la figure.",
     )
     ap.add_argument(
@@ -299,7 +299,7 @@ def main() -> None:
             s=3,
             alpha=0.5,
             edgecolors="none",
-            label="échantillons",
+            label="samples",
             zorder=5,
         )
         cbar = fig.colorbar(cf, ax=ax, shrink=0.8)
@@ -320,7 +320,7 @@ def main() -> None:
             edgecolors="k",
             linewidths=0.3,
             alpha=0.9,
-            label="échantillons (p95)",
+            label="samples (p95)",
             zorder=5,
         )
         cbar = fig.colorbar(sc, ax=ax, shrink=0.8)
@@ -337,6 +337,7 @@ def main() -> None:
     ypad = 0.02 * (ymax - ymin) if ymax > ymin else 0.5
     ax.set_xlim(xmin - xpad, xmax + xpad)
     ax.set_ylim(ymin - ypad, ymax + ypad)
+    ax.autoscale(enable=True, axis="both", tight=False)
 
     leg = ax.legend(loc="upper right", frameon=True, fontsize=9)
     leg.set_zorder(20)

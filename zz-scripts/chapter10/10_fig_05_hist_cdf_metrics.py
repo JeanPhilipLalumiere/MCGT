@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
 # ---------- utils ----------
@@ -304,8 +304,10 @@ def main() -> None:
         ax,
         width=f"{args.zoom_w * 100:.0f}%",
         height=f"{args.zoom_h * 100:.0f}%",
-        loc="center",  # centré dans l'axe principal
-        borderpad=1.0,
+        loc="upper center",
+        bbox_to_anchor=(0.30, 0.60, args.zoom_w, args.zoom_h),
+        bbox_transform=ax.transAxes,
+        borderpad=0.8,
     )
 
     # Fenêtre X/Y demandée
@@ -333,14 +335,10 @@ def main() -> None:
     inset_ax.set_title("zoom", fontsize=10)
     inset_ax.tick_params(axis="both", which="major", labelsize=8)
 
-    # Lien visuel (best effort)
-    try:
-        mark_inset(ax, inset_ax, loc1=2, loc2=4, fc="none", ec="0.5", lw=0.8)
-    except Exception:
-        pass
+    # Removed connection lines to declutter
 
     # Titre (taille 15)
-    ax.set_title(f"Distribution de {p95_col} (MC global)", fontsize=15)
+    ax.set_title(f"Global distribution of {p95_col}", fontsize=15)
 
     # Note de bas de figure
     wrapped_val = wrapped_corrected if wrapped_corrected is not None else 0

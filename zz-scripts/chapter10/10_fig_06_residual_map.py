@@ -414,17 +414,22 @@ def main() -> None:
 
     title_extra = " (absolu)" if args.abs else ""
     ax_main.set_title(
-        rf"Carte des résidus ${metric_label}$ sur $(m_1,m_2)$" + title_extra,
+        rf"Residual map of ${metric_label}$ over $(m_1,m_2)$" + title_extra,
         fontsize=14,
     )
     ax_main.set_xlabel("m1")
     ax_main.set_ylabel("m2")
+    xpad = 0.05 * (np.max(x) - np.min(x)) if np.ptp(x) > 0 else 0.5
+    ypad = 0.05 * (np.max(y) - np.min(y)) if np.ptp(y) > 0 else 0.5
+    ax_main.set_xlim(np.min(x) - xpad, np.max(x) + xpad)
+    ax_main.set_ylim(np.min(y) - ypad, np.max(y) + ypad)
+    ax_main.autoscale(enable=True, axis="both", tight=False)
 
     # annotation mincnt
     ax_main.text(
         0.02,
         0.02,
-        f"Hexagones vides = count < {args.mincnt}",
+        f"Empty hexagons = count < {args.mincnt}",
         transform=ax_main.transAxes,
         ha="left",
         va="bottom",
@@ -447,9 +452,12 @@ def main() -> None:
         pad=0.03,
     )
     cbar_cnt.set_label("Counts")
-    ax_cnt.set_title("Counts (par cellule)", fontsize=11)
+    ax_cnt.set_title("Counts per cell", fontsize=11)
     ax_cnt.set_xlabel("m1")
     ax_cnt.set_ylabel("m2")
+    ax_cnt.set_xlim(np.min(x) - xpad, np.max(x) + xpad)
+    ax_cnt.set_ylim(np.min(y) - ypad, np.max(y) + ypad)
+    ax_cnt.autoscale(enable=True, axis="both", tight=False)
     ax_cnt.xaxis.set_major_locator(MaxNLocator(nbins=5))
     ax_cnt.yaxis.set_major_locator(MaxNLocator(nbins=5))
 

@@ -10,7 +10,7 @@ Basé sur : tracer_fig03b_coverage_bootstrap_vs_n.py
 
 Adaptations CH10 :
 - --results optionnel, défaut = zz-data/chapter10/10_results_global_scan.csv
-- --out par défaut = zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png
+- --out par défaut = zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.png
 - minN par défaut = 10 (plus de plantage quand Mtot=50)
 - detect_p95_column sait gérer p95_rad
 - manifest écrit à côté du PNG, même format que fig07_synthesis attend.
@@ -185,7 +185,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png",
+        default="zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument(
@@ -417,7 +417,7 @@ def main() -> None:
             else ax1.get_ylim()[1]
         )
         ax1.set_ylim(ymin, ymax)
-    ax1.legend(loc="lower right", frameon=True)
+    ax1.legend(loc="lower left", frameon=True)
 
     # Boîte d'info (haut gauche)
     txt = (
@@ -594,7 +594,7 @@ def main() -> None:
             f"Sensibilité de la couverture vs "
             f"{'outer' if mode == 'outer' else 'inner'}  (N={sensN})"
         )
-        axS.legend(loc="lower right", frameon=True)
+        axS.legend(loc="lower left", frameon=True)
         figS.tight_layout()
         out_sens = os.path.splitext(args.out)[0] + f"_sensitivity_{mode}.png"
         figS.savefig(out_sens, dpi=args.dpi)

@@ -1,0 +1,11 @@
+{
+  "abs_delta_phi_q50": 0.0,
+  "abs_delta_phi_q90": 0.0,
+  "abs_delta_phi_q95": 0.0,
+  "abs_delta_phi_q99": 0.0,
+  "max_delta_phi": 0.0,
+  "mean_delta_phi": 0.0,
+  "min_delta_phi": 0.0,
+  "n": 50,
+  "std_delta_phi": 0.0
+}

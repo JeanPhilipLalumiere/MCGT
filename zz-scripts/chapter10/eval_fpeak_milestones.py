@@ -4,6 +4,7 @@ Minimal milestone evaluator (replacement for eval_jalons_fpeak.py).
 Computes f_peak from results CSV (expects fpeak_hz column if already present),
 or approximates it from p95 ranking. Outputs a jalons CSV with id,fpeak_hz,score.
 """
+
 from __future__ import annotations
 
 import argparse

@@ -61,7 +61,11 @@ def main() -> int:
     priors = cfg.get("priors", {})
     nuisance = cfg.get("nuisance", {})
     sobol_cfg = cfg.get("sobol", {})
-    scramble = args.scramble == "on" if args.scramble else bool(sobol_cfg.get("scramble", True))
+    scramble = (
+        args.scramble == "on"
+        if args.scramble
+        else bool(sobol_cfg.get("scramble", True))
+    )
     seed = args.seed if args.seed is not None else int(sobol_cfg.get("seed", 12345))
 
     n = int(args.n)
@@ -89,7 +93,9 @@ def main() -> int:
 
     base = _sobol_sample(n, dim=8, scramble=scramble, seed=seed)
     if args.sobol_offset:
-        base = base + 0.0  # placeholder: real offset would skip sequence; not critical here
+        base = (
+            base + 0.0
+        )  # placeholder: real offset would skip sequence; not critical here
 
     scaled = np.array(mins) + base * (np.array(maxs) - np.array(mins))
     rows = []

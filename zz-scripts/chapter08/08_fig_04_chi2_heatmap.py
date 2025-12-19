@@ -129,10 +129,11 @@ ax.clabel(
     fontsize=10,
 )
 # Décale légèrement les étiquettes de niveaux pour éviter la superposition
-label_offset = 0.01 * (p1.max() - p1.min())
+label_offset = 0.015 * (p1.max() - p1.min())
 for lbl in cont.labelTexts:
     x, y = lbl.get_position()
     lbl.set_position((x + label_offset, y))
+    lbl.set_ha("left")
 
 # point du minimum
 ax.plot(q0_min, p2_min, "o", color="black", ms=6)
@@ -140,8 +141,11 @@ ax.plot(q0_min, p2_min, "o", color="black", ms=6)
 # annotation du minimum
 bbox = dict(boxstyle="round,pad=0.4", fc="white", ec="gray", alpha=0.8)
 txt = (
-    rf"$\min \chi^2 = {chi2_min:.1f}$\n"
-    rf"$q_0^\star = {q0_min:.3f},\ p_2 = {p2_min:.3f}$"
+    rf"$\min \chi^2 = {chi2_min:.1f}$"
+    + "\n"
+    + rf"$q_0^\star = {q0_min:.3f}$"
+    + "\n"
+    + rf"$p_2 = {p2_min:.3f}$"
 )
 ax.text(0.98, 0.95, txt, transform=ax.transAxes, va="top", ha="right", bbox=bbox)
 

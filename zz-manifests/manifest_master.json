@@ -2087,10 +2087,10 @@
     },
     {
       "path": "zz-scripts/chapter08/08_fig_04_chi2_heatmap.py",
-      "sha256": "415aeb6a0febef82f223cb7f014d102de11c0524ed41f9d003b6a6c761e012ea",
-      "size_bytes": 5439,
-      "mtime_iso": "2025-12-19T15:19:42Z",
-      "git_hash": "a93be97642965b69dbb68a3c1158b767613c100c"
+      "sha256": "a658e00e1cfc9cf09b5943243c54839f3d07f220b8ca32edcd049878783072b4",
+      "size_bytes": 5495,
+      "mtime_iso": "2025-12-19T15:50:26Z",
+      "git_hash": "7c77490b06900413b29fbb73a4c05f87755d1672"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_05_residuals.py",
@@ -2101,10 +2101,10 @@
     },
     {
       "path": "zz-scripts/chapter08/08_fig_06_normalized_residuals_distribution.py",
-      "sha256": "0a5cef0467ace0e18b07171eceeb411bbc8475621ce89e9d0e5e54a5de7052d8",
+      "sha256": "5067b865a7ec47f462a2a780ed538992b6098259a5be920aaacf5a2129ff765b",
       "size_bytes": 7465,
-      "mtime_iso": "2025-12-19T15:19:52Z",
-      "git_hash": "6b7db79ceae490d509f47e3abe6a4b71dbd4a8ca"
+      "mtime_iso": "2025-12-19T15:50:31Z",
+      "git_hash": "8153e5b60d3ee2c1003d38704d3414b6c1acf380"
     },
     {
       "path": "zz-scripts/chapter08/08_fig_07_chi2_profile.py",
@@ -2150,10 +2150,10 @@
     },
     {
       "path": "zz-figures/chapter08/08_fig_04_chi2_heatmap.png",
-      "sha256": "5608b3e5f9c64445ec60058e2bc156927a3894081bb6e0e5671c79255b119e45",
-      "size_bytes": 233109,
-      "mtime_iso": "2025-12-19T15:20:08Z",
-      "git_hash": "101d860fa197ec3581cd1c41ded0596db1ad787f"
+      "sha256": "fe34845130ecfdc829e68a86e02d5b27b648fde4272f9b8eb711bc4e250a5898",
+      "size_bytes": 233963,
+      "mtime_iso": "2025-12-19T15:50:41Z",
+      "git_hash": "0ec933bb08fff7e9db85178eee393d655d358231"
     },
     {
       "path": "zz-figures/chapter08/08_fig_05_residuals.png",
@@ -2164,10 +2164,10 @@
     },
     {
       "path": "zz-figures/chapter08/08_fig_06_pulls.png",
-      "sha256": "711634a1ee03a10a30d62f01e28843152fffe90b6e0cc2f43ae9146c516008bf",
-      "size_bytes": 196475,
-      "mtime_iso": "2025-12-19T15:20:17Z",
-      "git_hash": "4f368245dec1d7abd3244b14e3d0a048a580294a"
+      "sha256": "a72313ef7255bc8bc9b5bb2d0d759047247f159bce061396c6f88e1b30bb3d21",
+      "size_bytes": 187356,
+      "mtime_iso": "2025-12-19T15:50:47Z",
+      "git_hash": "7f867cb4a29cc1ccf094dbdc1c52ceea0d812707"
     },
     {
       "path": "zz-figures/chapter08/08_fig_07_chi2_profile.png",
@@ -2177,7 +2177,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-19T15:20:34Z",
+  "generatedAt": "2025-12-19T15:50:54Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

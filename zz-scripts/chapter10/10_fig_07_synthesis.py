@@ -337,7 +337,16 @@ def plot_synthese(
     ax_tab.set_title("Numeric synthesis (summary)", y=0.88, pad=12, fontsize=12)
     rows = compute_summary_rows(series_list)
 
-    col_labels = ["series", "outer_B", "inner_B", "mean_cov", "med_cov", "std_cov", "p95_cov", "med_width [rad]"]
+    col_labels = [
+        "series",
+        "outer_B",
+        "inner_B",
+        "mean coverage",
+        "median coverage",
+        "std coverage",
+        "p95 coverage",
+        "median width [rad]",
+    ]
     cell_text: List[List[str]] = []
     for r in rows:
         cell_text.append(

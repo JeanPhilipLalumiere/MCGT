@@ -10,7 +10,7 @@ Panneaux :
 
 Correction propre (CH10 fig07) — 3 changements
   1) --manifest-a optionnel : si absent, auto-détection sur
-       zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.manifest.json
+       zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.manifest.json
   2) --out par défaut écrit dans zz-figures/chapter10 (pas de fuite en ROOT)
   3) Export CSV robuste : --out-csv optionnel ; sinon dérivé de --out en *.table.csv
 """
@@ -400,7 +400,7 @@ def main(argv=None) -> int:
     out_png = Path(args.out)
 
     # -------- série A : manifest principal (fig03b) ----------
-    default_manifest_a = Path("zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.manifest.json")
+    default_manifest_a = Path("zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.manifest.json")
     series_list: List[Series] = []
 
     if args.manifest_a:

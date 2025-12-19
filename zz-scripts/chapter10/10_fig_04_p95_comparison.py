@@ -11,7 +11,7 @@ Usage example (recommandé) :
 python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py \
   --results zz-data/chapter10/10_results_global_scan.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png \
+  --out zz-figures/chapter10/10_fig_04_p95_comparison.png \
   --dpi 300 \
   --point-size 10 --alpha 0.7 --cmap viridis \
   --change-eps 1e-6 \
@@ -140,7 +140,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
+        default="zz-figures/chapter10/10_fig_04_p95_comparison.png",
         help="PNG de sortie",
     )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
@@ -385,7 +385,7 @@ def main() -> None:
         ax,
         width=f"{hist_w * 100}%",
         height=f"{hist_h * 100}%",
-        bbox_to_anchor=(args.hist_x, args.hist_y, hist_w, hist_h),
+        bbox_to_anchor=(args.hist_x - 0.1, args.hist_y, hist_w, hist_h),
         bbox_transform=fig.transFigure,
         loc="lower left",
         borderpad=1.0,
@@ -427,7 +427,7 @@ def main() -> None:
             ax,
             width=f"{inset_w * 100}%",
             height=f"{inset_h * 100}%",
-            bbox_to_anchor=(0.48, 0.58, inset_w, inset_h),
+            bbox_to_anchor=(0.42, 0.62, inset_w, inset_h),
             bbox_transform=fig.transFigure,
             loc="lower left",
             borderpad=1.0,

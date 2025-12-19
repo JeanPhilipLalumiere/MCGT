@@ -448,10 +448,10 @@
     },
     {
       "path": "zz-scripts/chapter10/add_phi_at_fpeak.py",
-      "sha256": "672f79ec03d5c95c37594e88c9a992576e129a8abb351c26979592799a655957",
-      "size_bytes": 9792,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "6d414f8a7b0e602bbc70d8373313d39531008254"
+      "sha256": "e02a8ec63e0c273f1c875b31039445d148ae5437c98808aa6a47622f6764c774",
+      "size_bytes": 9796,
+      "mtime_iso": "2025-12-19T23:29:16Z",
+      "git_hash": "dd4d05745c02b71f86f6a7700a1cc0160a7ffbe9"
     },
     {
       "path": "zz-scripts/chapter10/eval_primary_metrics_20_300.py",
@@ -462,10 +462,10 @@
     },
     {
       "path": "zz-scripts/chapter10/generate_data_chapter10.py",
-      "sha256": "df538181194f242137fd414086612d8a34dcee82daeb1f9fc95efc4fe937390e",
-      "size_bytes": 21021,
-      "mtime_iso": "2025-12-19T23:24:30Z",
-      "git_hash": "3a1eb7c953b243e4b841f0a70a013ffaded080e6"
+      "sha256": "203212f4b5abcbb20d3af52b963b90f6bc547577f6a07320561260a4edb5f638",
+      "size_bytes": 21713,
+      "mtime_iso": "2025-12-19T23:28:56Z",
+      "git_hash": "33df1eaed2e7dadad2365af74f2d626b34293946"
     },
     {
       "media_type": "image/png",
@@ -985,7 +985,7 @@
     }
   ],
   "entries_updated": 0,
-  "generated_at": "2025-12-19T23:24:59Z",
+  "generated_at": "2025-12-19T23:30:58Z",
   "generated_by": "jplal",
   "lists": [],
   "manifest_tool_version": "diag_consistency.py v1",
@@ -997,5 +997,5 @@
   },
   "repository_root": ".",
   "total_entries": 92,
-  "total_size_bytes": 15633658
+  "total_size_bytes": 15634354
 }

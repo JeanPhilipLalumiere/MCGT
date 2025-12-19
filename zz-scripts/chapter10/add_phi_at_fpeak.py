@@ -84,7 +84,7 @@ def main():
 
     # read files
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)
 
     if args.backup:
         bak = args.results + ".bak"

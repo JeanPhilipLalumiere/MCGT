@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -74,7 +75,9 @@ def main() -> None:
     required_cols = ["phi_ref_fpeak", "phi_mcgt_fpeak"]
     missing = [c for c in required_cols if c not in df.columns]
     if missing and "phi_at_fpeak_rad" in df.columns:
-        print("[WARN] Missing phi_ref_fpeak/phi_mcgt_fpeak, using phi_at_fpeak_rad as fallback.")
+        print(
+            "[WARN] Missing phi_ref_fpeak/phi_mcgt_fpeak, using phi_at_fpeak_rad as fallback."
+        )
         df["phi_ref_fpeak"] = df["phi_at_fpeak_rad"]
         df["phi_mcgt_fpeak"] = df["phi_at_fpeak_rad"]
         missing = []
@@ -117,7 +120,9 @@ def main() -> None:
                 stats["f_ref_max_Hz"] = float(np.max(f_ref))
                 stats["f_ref_n"] = int(len(f_ref))
             except Exception as exc:  # noqa: BLE001
-                print(f"[WARN] Impossible de lire la grille de référence {ref_path}: {exc}")
+                print(
+                    f"[WARN] Impossible de lire la grille de référence {ref_path}: {exc}"
+                )
         else:
             print(f"[WARN] Fichier ref-grid introuvable: {ref_path}")
 

@@ -21,6 +21,7 @@ Pour le pipeline minimal, le script sait aussi travailler avec un seul
 champ p95 (par ex. 'p95_rad') : il utilise alors la même colonne comme
 “orig” et “recalc”, ce qui donne Δp95 = 0 mais garde la même esthétique.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -34,6 +35,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -49,6 +51,7 @@ plt.rcParams.update(
 # ---------------------------------------------------------------------------
 #  Utils
 # ---------------------------------------------------------------------------
+
 
 def detect_column(df: pd.DataFrame, hint: str | None, candidates: list[str]) -> str:
     """
@@ -87,7 +90,7 @@ def fmt_sci_power(v: float) -> tuple[float, int]:
     if v == 0 or not np.isfinite(v):
         return 0.0, 0
     exp = int(np.floor(np.log10(abs(v))))
-    scale = 10.0 ** exp
+    scale = 10.0**exp
     return v / scale, exp
 
 
@@ -129,10 +132,9 @@ def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
 #  Main
 # ---------------------------------------------------------------------------
 
+
 def main() -> None:
-    p = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
+    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         "--results",
         default=None,
@@ -240,14 +242,17 @@ def main() -> None:
 
     # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
     from pathlib import Path as _Path
+
     _outp = _Path(args.out)
-    if _outp.parent == _Path('.'):
-        args.out = str(_Path('zz-figures/chapter10') / _outp.name)
+    if _outp.parent == _Path("."):
+        args.out = str(_Path("zz-figures/chapter10") / _outp.name)
 
     # Si --results non fourni (cas pipeline minimal), on prend le CSV standard
     if not args.results:
         args.results = "zz-data/chapter10/10_results_global_scan.csv"
-        print(f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'.")
+        print(
+            f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
+        )
 
     # ------------------------------------------------------------------
     # Lecture + détection des colonnes
@@ -366,8 +371,7 @@ def main() -> None:
         f"  std    = {std_delta:.3e}",
         f"p95(|Δ|) = {p95_abs:.3e} rad",
         f"max |Δ|  = {max_abs:.3e} rad",
-        f"N_changed (|Δ| > {args.change_eps:g}) = {n_changed} "
-        f"({frac_changed:.2f}%)",
+        f"N_changed (|Δ| > {args.change_eps:g}) = {n_changed} ({frac_changed:.2f}%)",
     ]
     stats_text = "\n".join(stats_lines)
     bbox = dict(boxstyle="round", fc="white", ec="black", lw=1, alpha=0.95)
@@ -403,7 +407,7 @@ def main() -> None:
 
     max_abs = float(np.max(abs_delta)) if abs_delta.size else 0.0
     _, exp = fmt_sci_power(max_abs if max_abs > 0 else 1.0)
-    scale = 10.0 ** exp if max_abs > 0 else 1.0
+    scale = 10.0**exp if max_abs > 0 else 1.0
 
     hist_vals = abs_delta / scale
     hist_ax.hist(hist_vals, bins=args.bins, color="tab:blue", edgecolor="black")

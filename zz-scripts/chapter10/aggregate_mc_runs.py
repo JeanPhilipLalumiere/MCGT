@@ -5,6 +5,7 @@ Aggregate Monte Carlo runs (replacement for aggreger_runs_mc.py).
 - Writes an aggregated CSV (here: simple copy) and a best.json (top-K by score or p95).
 This is a lightweight stand-in so the pipeline can execute end-to-end.
 """
+
 from __future__ import annotations
 
 import argparse

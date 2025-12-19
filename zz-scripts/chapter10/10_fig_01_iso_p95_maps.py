@@ -31,6 +31,7 @@ import matplotlib.tri as tri
 import numpy as np
 import pandas as pd
 from matplotlib import colors
+
 plt.rcParams.update(
     {
         "figure.figsize": (10, 6),
@@ -69,7 +70,9 @@ def detect_p95_column(df: pd.DataFrame, hint: str | None) -> str:
     raise KeyError("Aucune colonne 'p95' détectée dans le fichier results.")
 
 
-def read_and_validate(path: Path, m1_col: str, m2_col: str, p95_col: str) -> pd.DataFrame:
+def read_and_validate(
+    path: Path, m1_col: str, m2_col: str, p95_col: str
+) -> pd.DataFrame:
     """Lit le CSV et valide la présence des colonnes requises. Retourne un DataFrame épuré."""
     try:
         df = pd.read_csv(path)
@@ -87,7 +90,9 @@ def read_and_validate(path: Path, m1_col: str, m2_col: str, p95_col: str) -> pd.
     return df
 
 
-def make_triangulation_and_mask(x: np.ndarray, y: np.ndarray) -> tri.Triangulation | None:
+def make_triangulation_and_mask(
+    x: np.ndarray, y: np.ndarray
+) -> tri.Triangulation | None:
     """
     Construit une triangulation pour des points (x,y) dispersés.
     Si les points ne permettent pas une triangulation robuste, retourne None

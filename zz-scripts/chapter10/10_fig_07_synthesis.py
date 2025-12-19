@@ -32,6 +32,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.gridspec import GridSpec
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -50,7 +51,9 @@ def parse_figsize(s: str) -> Tuple[float, float]:
         a, b = s.split(",")
         return float(a), float(b)
     except Exception as e:
-        raise argparse.ArgumentTypeError("figsize doit être 'largeur,hauteur' (ex: 14,6)") from e
+        raise argparse.ArgumentTypeError(
+            "figsize doit être 'largeur,hauteur' (ex: 14,6)"
+        ) from e
 
 
 def _sha256(path: Path) -> str:
@@ -131,19 +134,34 @@ def _sort_by_N(s: Series) -> Series:
     )
 
 
-def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = None) -> Series:
+def series_from_manifest(
+    man: Dict[str, Any], label_override: Optional[str] = None
+) -> Series:
     results = man.get("results", [])
     if not results:
         raise ValueError("Manifest ne contient pas de 'results'.")
 
     N = np.array([_first(r, ["N"], np.nan) for r in results], dtype=float)
     coverage = np.array([_first(r, ["coverage"], np.nan) for r in results], dtype=float)
-    err_low = np.array([_first(r, ["coverage_err95_low", "coverage_err_low"], 0.0) for r in results], dtype=float)
-    err_high = np.array(
-        [_first(r, ["coverage_err95_high", "coverage_err95_hi", "coverage_err_high"], 0.0) for r in results],
+    err_low = np.array(
+        [_first(r, ["coverage_err95_low", "coverage_err_low"], 0.0) for r in results],
         dtype=float,
     )
-    width_mean = np.array([_first(r, ["width_mean_rad", "width_mean"], np.nan) for r in results], dtype=float)
+    err_high = np.array(
+        [
+            _first(
+                r,
+                ["coverage_err95_high", "coverage_err95_hi", "coverage_err_high"],
+                0.0,
+            )
+            for r in results
+        ],
+        dtype=float,
+    )
+    width_mean = np.array(
+        [_first(r, ["width_mean_rad", "width_mean"], np.nan) for r in results],
+        dtype=float,
+    )
 
     params = man.get("params", {}) if isinstance(man.get("params", {}), dict) else {}
     alpha = float(_param(params, ["alpha", "conf_alpha"], 0.05))
@@ -163,9 +181,15 @@ def series_from_manifest(man: Dict[str, Any], label_override: Optional[str] = No
 
 
 def detect_reps_params(params: Dict[str, Any]) -> Tuple[float, float, float]:
-    M = _param(params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan)
-    outer_B = _param(params, ["outer_B", "outer", "B_outer", "outerB", "Bouter"], np.nan)
-    inner_B = _param(params, ["inner_B", "inner", "B_inner", "innerB", "Binner"], np.nan)
+    M = _param(
+        params, ["M", "num_trials", "n_trials", "n_repeat", "repeats", "nsimu"], np.nan
+    )
+    outer_B = _param(
+        params, ["outer_B", "outer", "B_outer", "outerB", "Bouter"], np.nan
+    )
+    inner_B = _param(
+        params, ["inner_B", "inner", "B_inner", "innerB", "Binner"], np.nan
+    )
     return float(M), float(outer_B), float(inner_B)
 
 
@@ -173,11 +197,31 @@ def detect_reps_params(params: Dict[str, Any]) -> Tuple[float, float, float]:
 def compute_summary_rows(series_list: List[Series]) -> List[List[Any]]:
     rows: List[List[Any]] = []
     for s in series_list:
-        mean_cov = float(np.nanmean(s.coverage)) if np.isfinite(np.nanmean(s.coverage)) else np.nan
-        med_cov = float(np.nanmedian(s.coverage)) if np.isfinite(np.nanmedian(s.coverage)) else np.nan
-        std_cov = float(np.nanstd(s.coverage)) if np.isfinite(np.nanstd(s.coverage)) else np.nan
-        p95_cov = float(np.nanpercentile(s.coverage, 95)) if np.isfinite(np.nanpercentile(s.coverage, 95)) else np.nan
-        med_w = float(np.nanmedian(s.width_mean)) if np.isfinite(np.nanmedian(s.width_mean)) else np.nan
+        mean_cov = (
+            float(np.nanmean(s.coverage))
+            if np.isfinite(np.nanmean(s.coverage))
+            else np.nan
+        )
+        med_cov = (
+            float(np.nanmedian(s.coverage))
+            if np.isfinite(np.nanmedian(s.coverage))
+            else np.nan
+        )
+        std_cov = (
+            float(np.nanstd(s.coverage))
+            if np.isfinite(np.nanstd(s.coverage))
+            else np.nan
+        )
+        p95_cov = (
+            float(np.nanpercentile(s.coverage, 95))
+            if np.isfinite(np.nanpercentile(s.coverage, 95))
+            else np.nan
+        )
+        med_w = (
+            float(np.nanmedian(s.width_mean))
+            if np.isfinite(np.nanmedian(s.width_mean))
+            else np.nan
+        )
         _, outer_B, inner_B = detect_reps_params(s.params)
         rows.append(
             [
@@ -211,7 +255,18 @@ def _default_out_csv_from_out(out_png: Path) -> Path:
 
 def save_summary_csv(series_list: List[Series], out_csv: Path) -> None:
     out_csv.parent.mkdir(parents=True, exist_ok=True)
-    fields = ["series", "N", "coverage", "err95_low", "err95_high", "width_mean", "M", "outer_B", "inner_B", "alpha"]
+    fields = [
+        "series",
+        "N",
+        "coverage",
+        "err95_low",
+        "err95_high",
+        "width_mean",
+        "M",
+        "outer_B",
+        "inner_B",
+        "alpha",
+    ]
     with out_csv.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -222,10 +277,18 @@ def save_summary_csv(series_list: List[Series], out_csv: Path) -> None:
                     {
                         "series": s.label,
                         "N": int(s.N[i]) if np.isfinite(s.N[i]) else "",
-                        "coverage": float(s.coverage[i]) if np.isfinite(s.coverage[i]) else "",
-                        "err95_low": float(s.err_low[i]) if np.isfinite(s.err_low[i]) else "",
-                        "err95_high": float(s.err_high[i]) if np.isfinite(s.err_high[i]) else "",
-                        "width_mean": float(s.width_mean[i]) if np.isfinite(s.width_mean[i]) else "",
+                        "coverage": float(s.coverage[i])
+                        if np.isfinite(s.coverage[i])
+                        else "",
+                        "err95_low": float(s.err_low[i])
+                        if np.isfinite(s.err_low[i])
+                        else "",
+                        "err95_high": float(s.err_high[i])
+                        if np.isfinite(s.err_high[i])
+                        else "",
+                        "width_mean": float(s.width_mean[i])
+                        if np.isfinite(s.width_mean[i])
+                        else "",
                         "M": int(M) if np.isfinite(M) else "",
                         "outer_B": int(outer_B) if np.isfinite(outer_B) else "",
                         "inner_B": int(inner_B) if np.isfinite(inner_B) else "",
@@ -279,7 +342,7 @@ def plot_synthese(
         color="crimson",
         lw=1.5,
         ls="--",
-        label=f"Nominal level {int(nominal_level*100)}%",
+        label=f"Nominal level {int(nominal_level * 100)}%",
     )
 
     if handles:
@@ -291,7 +354,13 @@ def plot_synthese(
             fontsize=10,
         )
     else:
-        ax_cov.legend([nominal_handle], [nominal_handle.get_label()], loc="upper left", frameon=True, fontsize=10)
+        ax_cov.legend(
+            [nominal_handle],
+            [nominal_handle.get_label()],
+            loc="upper left",
+            frameon=True,
+            fontsize=10,
+        )
 
     ax_cov.set_title("Coverage vs N")
     ax_cov.set_xlabel(r"Sample Size $N$")
@@ -310,10 +379,25 @@ def plot_synthese(
         fontsize=9,
         va="bottom",
     )
-    ax_cov.text(0.02, 0.03, "α=0.05. Variability higher for small N.", transform=ax_cov.transAxes, fontsize=9, va="bottom")
+    ax_cov.text(
+        0.02,
+        0.03,
+        "α=0.05. Variability higher for small N.",
+        transform=ax_cov.transAxes,
+        fontsize=9,
+        va="bottom",
+    )
 
     if not series_list:
-        ax_cov.text(0.5, 0.5, "No series (missing/invalid manifest)", transform=ax_cov.transAxes, ha="center", va="center", fontsize=11)
+        ax_cov.text(
+            0.5,
+            0.5,
+            "No series (missing/invalid manifest)",
+            transform=ax_cov.transAxes,
+            ha="center",
+            va="center",
+            fontsize=11,
+        )
 
     # ----- Largeur vs N -----
     for s, h in zip(series_list, handles):
@@ -331,7 +415,15 @@ def plot_synthese(
     if series_list:
         ax_width.legend(fontsize=10, loc="upper right", frameon=True)
     else:
-        ax_width.text(0.5, 0.5, "No series", transform=ax_width.transAxes, ha="center", va="center", fontsize=11)
+        ax_width.text(
+            0.5,
+            0.5,
+            "No series",
+            transform=ax_width.transAxes,
+            ha="center",
+            va="center",
+            fontsize=11,
+        )
 
     # ----- Tableau résumé -----
     ax_tab.set_title("Numeric synthesis (summary)", y=0.88, pad=12, fontsize=12)
@@ -366,7 +458,13 @@ def plot_synthese(
         cell_text = [["—", "-", "-", "-", "-", "-", "-", "-"]]
 
     ax_tab.axis("off")
-    table = ax_tab.table(cellText=cell_text, colLabels=col_labels, cellLoc="center", colLoc="center", loc="center")
+    table = ax_tab.table(
+        cellText=cell_text,
+        colLabels=col_labels,
+        cellLoc="center",
+        colLoc="center",
+        loc="center",
+    )
     table.auto_set_font_size(False)
     table.set_fontsize(10)
     table.scale(1.0, 1.3)
@@ -384,7 +482,9 @@ def plot_synthese(
         slopes = []
         for s in series_list:
             b = powerlaw_slope(s.N, s.width_mean)
-            slopes.append(f"{s.label}: b={b:.2f}" if np.isfinite(b) else f"{s.label}: b=NA")
+            slopes.append(
+                f"{s.label}: b={b:.2f}" if np.isfinite(b) else f"{s.label}: b=NA"
+            )
 
         s0 = series_list[0]
         M0, outer0, inner0 = detect_reps_params(s0.params)
@@ -403,7 +503,9 @@ def plot_synthese(
         fig.text(0.5, 0.035, cap1, ha="center", fontsize=9)
         fig.text(0.5, 0.017, cap2, ha="center", fontsize=9)
 
-    fig.subplots_adjust(left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35)
+    fig.subplots_adjust(
+        left=0.06, right=0.98, top=0.93, bottom=0.09, wspace=0.25, hspace=0.35
+    )
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
     updated = safe_save(out_png, fig, dpi=int(dpi), bbox_inches="tight")
@@ -414,12 +516,24 @@ def plot_synthese(
 # ---------- CLI ----------
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument("--manifest-a", default=None, help="Manifest JSON de la série A (coverage/width vs N)")
+    ap.add_argument(
+        "--manifest-a",
+        default=None,
+        help="Manifest JSON de la série A (coverage/width vs N)",
+    )
     ap.add_argument("--label-a", default=None, help="Label override pour la série A")
-    ap.add_argument("--manifest-b", default=None, help="Manifest JSON d'une série B optionnelle")
+    ap.add_argument(
+        "--manifest-b", default=None, help="Manifest JSON d'une série B optionnelle"
+    )
     ap.add_argument("--label-b", default=None, help="Label override pour la série B")
-    ap.add_argument("--out", default="zz-figures/chapter10/10_fig_07_synthesis.png", help="PNG de sortie")
-    ap.add_argument("--out-csv", default=None, help="CSV de sortie (sinon dérivé de --out)")
+    ap.add_argument(
+        "--out",
+        default="zz-figures/chapter10/10_fig_07_synthesis.png",
+        help="PNG de sortie",
+    )
+    ap.add_argument(
+        "--out-csv", default=None, help="CSV de sortie (sinon dérivé de --out)"
+    )
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument("--figsize", default="14,6")
     ap.add_argument("--ymin-coverage", type=float, default=None)
@@ -430,7 +544,9 @@ def main(argv=None) -> int:
     out_png = Path(args.out)
 
     # -------- série A : manifest principal (fig03/convergence) ----------
-    default_manifest_a = Path("zz-figures/chapter10/10_fig_03_convergence.manifest.json")
+    default_manifest_a = Path(
+        "zz-figures/chapter10/10_fig_03_convergence.manifest.json"
+    )
     series_list: List[Series] = []
 
     if args.manifest_a:
@@ -449,9 +565,15 @@ def main(argv=None) -> int:
                 series_list.append(series_from_manifest(man_a, label_a))
                 print(f"[INFO] Manifest A auto-détecté : {default_manifest_a}")
             except Exception as e:
-                print(f"[WARN] Auto-detected manifest A invalid ({e}); synthesis figure will be empty.", file=sys.stderr)
+                print(
+                    f"[WARN] Auto-detected manifest A invalid ({e}); synthesis figure will be empty.",
+                    file=sys.stderr,
+                )
         else:
-            print("[WARN] No manifest A provided and auto-detect failed; synthesis figure will be empty.", file=sys.stderr)
+            print(
+                "[WARN] No manifest A provided and auto-detect failed; synthesis figure will be empty.",
+                file=sys.stderr,
+            )
 
     # -------- série B optionnelle ----------
     if args.manifest_b:
@@ -482,9 +604,9 @@ def main(argv=None) -> int:
 if __name__ == "__main__":
     raise SystemExit(main())
 
-
     # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
     from pathlib import Path as _Path
+
     _outp = _Path(args.out)
     if _outp.parent == _Path("."):
         args.out = str(_Path("zz-figures/chapter10") / _outp.name)

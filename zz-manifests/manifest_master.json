@@ -697,15 +697,15 @@
       "path": "zz-figures/chapter05/05_fig_01_convergence.png",
       "sha256": "767aa7ce097416c9842c08e8cc5acaf89e666889237aea19ebf86d3f54562ae4",
       "size_bytes": 109457,
-      "mtime_iso": "2025-12-18T21:10:04Z",
+      "mtime_iso": "2025-12-19T01:16:42Z",
       "git_hash": "8a5cc4424ff58f9c9bd5f1b7dbc3ac975b141a79"
     },
     {
       "path": "zz-figures/chapter05/05_fig_03_correlation.png",
-      "sha256": "809e7525cc027968efd93ac313050b3d2b1c562eb4e8ecc17df3e1ed50452906",
-      "size_bytes": 108162,
-      "mtime_iso": "2025-12-18T21:10:25Z",
-      "git_hash": "71c280655fd2d2c8b8a86cce1329207384c26392"
+      "sha256": "5cbf2cc74cd0dc42d25deff7d0b81bbdc363e66c1a7d50f1e8b5821988749097",
+      "size_bytes": 96572,
+      "mtime_iso": "2025-12-19T01:17:12Z",
+      "git_hash": "76cfbf69ed2bc2d85761c59bba13254df2b72e67"
     },
     {
       "path": "zz-figures/chapter09/09_fig_01_phase_overlay.png",
@@ -996,17 +996,17 @@
     },
     {
       "path": "zz-scripts/chapter05/05_fig_03_correlation.py",
-      "sha256": "05a198e806147cbfd285f933344c5fe9d268046c83630e8b5ee25ac50e935b3e",
-      "size_bytes": 4469,
-      "mtime_iso": "2025-12-19T01:10:55Z",
-      "git_hash": "85f75a45c5c2037a5103410eeb405dd11c54d93b"
+      "sha256": "2ce9ebf1d5f823ccd10b5f459a1741f9bc168f860eef1aed7ab3c164d47436aa",
+      "size_bytes": 4352,
+      "mtime_iso": "2025-12-19T01:17:06Z",
+      "git_hash": "5cb04cc51dd65831027c86d7d3fa9081f1bd7d4e"
     },
     {
       "path": "zz-scripts/chapter05/05_fig_04_cost_surface.py",
-      "sha256": "03e26247944dc54b000584813c4b78d40269403c86a648be759c871c8e36dac0",
-      "size_bytes": 10217,
-      "mtime_iso": "2025-12-18T21:09:00Z",
-      "git_hash": "fdb343b549468d240b929a38f9a452c995391add"
+      "sha256": "db131a1f715db1a3a1ea1ebd5118f5d1a5c59b31dcfe72d8d0e7fff0222c0a8b",
+      "size_bytes": 10296,
+      "mtime_iso": "2025-12-19T01:16:37Z",
+      "git_hash": "34e19e37ad1520081c0f1c36f6a3f4f1c4afee33"
     },
     {
       "path": "zz-scripts/chapter06/generate_data_chapter06.py",
@@ -2056,27 +2056,27 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png",
-      "role": "figure",
-      "tags": [
-        "chapter05"
-      ],
-      "size_bytes": 111184,
-      "mtime_iso": "2025-12-18T21:10:09Z",
-      "sha256": "c2f0737ef862ffdbb663a2daae1c1f37faddf0e0f81af4a6bacc3c4a0d5cc7c2",
-      "git_hash": "7b9b9c24fbf84a3cfc6441116139755ca1e0e0c4"
-    },
-    {
-      "media_type": "image/png",
       "path": "zz-figures/chapter05/05_fig_04_cost_surface.png",
       "role": "figure",
       "tags": [
         "chapter05"
       ],
-      "size_bytes": 228798,
-      "mtime_iso": "2025-12-18T21:10:33Z",
-      "sha256": "575e5f3f68550ca85a13cbe114c7593ad8ee6652af22586e10b933772fb415d9",
-      "git_hash": "0c0d526db90b65466fef4e510d1a2f5db9c066cb"
+      "size_bytes": 217317,
+      "mtime_iso": "2025-12-19T01:17:54Z",
+      "sha256": "e59efbdb8fb7d2766b3b2b3fec87dadf2b035b4e3d486de2147b84d7463f8a81",
+      "git_hash": "16a56592d5db69b44b16cdb3851eb96b732c3fc7"
+    },
+    {
+      "media_type": "image/png",
+      "path": "zz-figures/chapter05/05_fig_02_residuals.png",
+      "role": "figure",
+      "tags": [
+        "chapter05"
+      ],
+      "size_bytes": 109978,
+      "mtime_iso": "2025-12-19T01:16:49Z",
+      "sha256": "8a5ec8678fd3d94d0ff01a36fc7554403b9c1753300c63c914d523c56b2731e1",
+      "git_hash": "6f3ccf02edd8243f9081efec9125e1b817fa29c9"
     },
     {
       "media_type": "image/png",
@@ -2321,9 +2321,9 @@
       "git_hash": "aa9b947767612f27197ebb838921ea4b4a156b33"
     }
   ],
-  "generatedAt": "2025-12-19T01:11:20Z",
+  "generatedAt": "2025-12-19T01:18:49Z",
   "schemaVersion": 1,
-  "files_updated": 8,
+  "files_updated": 2,
   "manifest_tool_version": "diag_consistency.py",
   "generated_by": "jplal"
 }

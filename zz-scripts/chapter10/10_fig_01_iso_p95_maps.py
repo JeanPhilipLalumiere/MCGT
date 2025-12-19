@@ -343,10 +343,12 @@ def main() -> None:
     # Cadre serré autour des données
     xmin, xmax = float(np.min(x)), float(np.max(x))
     ymin, ymax = float(np.min(y)), float(np.max(y))
-    xpad = 0.02 * (xmax - xmin) if xmax > xmin else 0.5
-    ypad = 0.02 * (ymax - ymin) if ymax > ymin else 0.5
-    ax.set_xlim(xmin - xpad, xmax + xpad)
-    ax.set_ylim(ymin - ypad, ymax + ypad)
+    if xmax == xmin:
+        xmin, xmax = xmin - 1.0, xmax + 1.0
+    if ymax == ymin:
+        ymin, ymax = ymin - 1.0, ymax + 1.0
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
     ax.autoscale(enable=True, axis="both", tight=False)
 
     leg = ax.legend(loc="upper right", frameon=True, fontsize=9)

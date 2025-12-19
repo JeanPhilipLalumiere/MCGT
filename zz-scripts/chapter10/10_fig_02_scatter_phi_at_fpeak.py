@@ -262,8 +262,8 @@ def main() -> None:
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
     p.add_argument(
         "--title",
-        default=r"Comparaison ponctuelle aux $f_{peak}$ : $\phi_{ref}$ vs $\phi_{MCGT}$",
-        help="Titre de la figure (fontsize=15)",
+        default=r"Pointwise comparison at $f_{\rm peak}$: $\phi_{\rm ref}$ vs $\phi_{\rm MCGT}$",
+        help="Figure title (fontsize=15)",
     )
     p.add_argument(
         "--point-size", type=float, default=12.0, help="Taille des points du scatter"

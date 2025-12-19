@@ -145,9 +145,13 @@ def main() -> None:
         density=True,
         alpha=0.8,
     )
+    xmin, xmax = float(np.min(dphi_wrapped)), float(np.max(dphi_wrapped))
+    if abs(xmax - xmin) < 1e-9:
+        xmin, xmax = -3.0, 3.0
+    ax.set_xlim(xmin, xmax)
     ax.set_xlabel(r"$\Delta\phi(f_\mathrm{peak})$ [rad]")
     ax.set_ylabel("PDF")
-    ax.set_title(r"Distribution de $\Delta\phi(f_\mathrm{peak})$ (wrap[-$\pi$,$\pi$))")
+    ax.set_title(r"Distribution of $\Delta\phi(f_\mathrm{peak})$ (wrap[-$\pi$,$\pi$))")
     ax.axvline(0.0, color="k", linestyle="--", linewidth=1)
 
     fig.tight_layout()

@@ -23,6 +23,7 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 plt.rcParams.update(
     {
@@ -183,29 +184,55 @@ def main():
     fig, ax = plt.subplots(figsize=(14, 6))
 
     # IC 95% pour la moyenne (zone bleue)
-    ax.fill_between(
+    ci_handle = ax.fill_between(
         N_list, mean_low, mean_high,
         color='tab:blue', alpha=0.18,
         label="95% CI (bootstrap, mean)",
     )
 
     # Estimateurs
-    ax.plot(N_list, mean_est,   color='tab:blue',   lw=2.0, label="Estimator (mean)")
-    ax.plot(N_list, median_est, color='tab:orange', lw=1.6, ls='--', label="Estimator (median)")
-    ax.plot(N_list, tmean_est,  color='tab:green',  lw=1.6, ls='-.',
+    mean_line, = ax.plot(N_list, mean_est,   color='tab:blue',   lw=2.0, label="Estimator (mean)")
+    median_line, = ax.plot(N_list, median_est, color='tab:orange', lw=1.6, ls='--', label="Estimator (median)")
+    tmean_line, = ax.plot(N_list, tmean_est,  color='tab:green',  lw=1.6, ls='-.',
             label=f"Estimator (trimmed mean, α={args.trim:.2f})")
 
     # Ligne de référence (mean plein-échantillon)
-    ax.axhline(ref_mean, color='crimson', lw=2, label=f"Estimate at N={M} (mean ref)")
+    ref_line = ax.axhline(ref_mean, color='crimson', lw=2, label=f"Estimate at N={M} (mean ref)")
 
     ax.set_xlim(0, M)
     ax.set_xlabel(r"Sample Size $N$")
     ax.set_ylabel(f"Estimator of {p95_col} [rad]")
     ax.set_title(f"Convergence of {p95_col} estimation", fontsize=15)
 
-    # Légende
-    leg = ax.legend(loc="lower right", bbox_to_anchor=(0.98, 0.02), frameon=True, fontsize=10)
-    leg.set_zorder(5)
+    # Légendes séparées : courbes à gauche, stats à droite
+    curve_handles = [ci_handle, mean_line, median_line, tmean_line, ref_line]
+    curve_labels = [
+        "95% CI (bootstrap, mean)",
+        "Estimator (mean)",
+        "Estimator (median)",
+        f"Estimator (trimmed mean, α={args.trim:.2f})",
+        f"Estimate at N={M} (mean ref)",
+    ]
+    leg_curves = ax.legend(curve_handles, curve_labels, loc="lower left", frameon=True, fontsize=10)
+    leg_curves.set_zorder(5)
+
+    stats_lines = [
+        f"N = {M}",
+        f"mean = {final_mean:.3f} [{final_mean_ci[0]:.3f}, {final_mean_ci[1]:.3f}]",
+        f"median = {final_median:.3f} [{final_median_ci[0]:.3f}, {final_median_ci[1]:.3f}]",
+        f"trimmed = {final_tmean:.3f} [{final_tmean_ci[0]:.3f}, {final_tmean_ci[1]:.3f}]",
+    ]
+    stats_handles = [Line2D([0], [0], color="none", marker="None", label=txt) for txt in stats_lines]
+    leg_stats = ax.legend(
+        stats_handles,
+        [h.get_label() for h in stats_handles],
+        loc="lower right",
+        bbox_to_anchor=(1.0, 0.0),
+        frameon=True,
+        fontsize=9,
+    )
+    leg_stats.set_zorder(5)
+    ax.add_artist(leg_curves)
 
     # ----- Inset (zoom) : même logique que ta version -----
     base_w, base_h = args.zoom_w, args.zoom_h

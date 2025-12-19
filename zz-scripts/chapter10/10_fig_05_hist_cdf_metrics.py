@@ -325,7 +325,7 @@ def main() -> None:
     # Fenêtre X/Y demandée
     # Recentre le zoom autour de la valeur de référence p95
     peak_center = args.ref_p95
-    x0, x1 = peak_center - 0.02, peak_center + 0.02
+    x0, x1 = peak_center - 0.05, peak_center + 0.05
     y0_user = max(0.0, args.zoom_y - args.zoom_dy)
     y1_user = args.zoom_y + args.zoom_dy
 
@@ -345,7 +345,7 @@ def main() -> None:
     y1 = max(y1_user, ymax_auto)
 
     inset_ax.set_xlim(x0, x1)
-    inset_ax.set_ylim(y0, y1)
+    inset_ax.set_ylim(0, float(counts.max()) * 0.5 if counts.size else 1.0)
     inset_ax.set_title("zoom", fontsize=10)
     inset_ax.tick_params(axis="both", which="major", labelsize=8)
 

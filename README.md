@@ -1,6 +1,6 @@
 # MCGT: Model of Gravitational Time Curvature
 
-[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.18002118.svg)](https://doi.org/10.5281/zenodo.18002118)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 Official repository for the MCGT research project, focused on Gravitational Wave Phase Analysis and Cosmological Invariants.
@@ -27,5 +27,8 @@ pip install -r requirements.txt
 python check_coherence.py
 python zz-manifests/diag_consistency.py zz-manifests/manifest_master.json
 ```
+
+## Citation
+Lalumière, J.-P. (2025). MCGT : Modèle de la Courbure Gravitationnelle du Temps (Version 2.5.0). Zenodo. https://doi.org/10.5281/zenodo.18002118
 
 *For French version, see [README_fr.md](README_fr.md).*

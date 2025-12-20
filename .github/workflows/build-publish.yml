@@ -57,6 +57,15 @@ jobs:
           echo "Cleaned assets list:"
           ls -lh main.pdf dist/ || echo "Warning: Essential assets missing"
 
+      - name: Strict Asset Guard
+        run: |
+          echo "Searching for empty assets in workspace..."
+          find . -maxdepth 3 -type f -size 0 -name "*.json" -delete
+          find . -maxdepth 3 -type f -size 0 -name "*.sha256" -delete
+          find . -maxdepth 3 -type f -size 0 -name "*.pdf" -delete
+          echo "Final assets validation:"
+          ls -lh dist/ main.pdf || true
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

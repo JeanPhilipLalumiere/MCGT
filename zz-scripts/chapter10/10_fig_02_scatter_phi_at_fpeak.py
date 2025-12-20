@@ -19,6 +19,7 @@ standards dans le dépôt :
   3) zz-data/chapter09/09_phase_diff.csv
   4) zz-data/chapter10/10_results_global_scan.csv
 """
+
 from __future__ import annotations
 
 import argparse
@@ -31,6 +32,7 @@ import tempfile
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -41,7 +43,6 @@ plt.rcParams.update(
         "font.family": "serif",
     }
 )
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes  # (non utilisé ici, laissé si besoin futur)
 
 # ------------------------- Utils (diff & stats circulaires) -------------------------
 
@@ -228,9 +229,7 @@ def auto_find_results_csv(
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
+    p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         "--results",
         default=None,
@@ -271,9 +270,7 @@ def main() -> None:
     p.add_argument(
         "--alpha", type=float, default=0.7, help="Alpha des points du scatter"
     )
-    p.add_argument(
-        "--cmap", default="viridis", help="Colormap pour |Δφ|"
-    )
+    p.add_argument("--cmap", default="viridis", help="Colormap pour |Δφ|")
 
     # options de clipping / échelle
     p.add_argument(
@@ -330,17 +327,16 @@ def main() -> None:
             "de Δφ. 0 = off."
         ),
     )
-    p.add_argument(
-        "--seed", type=int, default=12345, help="Seed RNG bootstrap"
-    )
+    p.add_argument("--seed", type=int, default=12345, help="Seed RNG bootstrap")
 
     args = p.parse_args()
 
     # --- normalisation sortie : si '--out' est un nom nu -> redirige vers zz-figures/chapter10/ ---
     from pathlib import Path as _Path
+
     _outp = _Path(args.out)
-    if _outp.parent == _Path('.'):
-        args.out = str(_Path('zz-figures/chapter10') / _outp.name)
+    if _outp.parent == _Path("."):
+        args.out = str(_Path("zz-figures/chapter10") / _outp.name)
     # ---------- Résolution du CSV à utiliser ----------
     results_path = auto_find_results_csv(args.results, args.x_col, args.y_col)
 
@@ -458,9 +454,7 @@ def main() -> None:
     if args.pi_ticks:
         ticks = [0.0, np.pi / 4, np.pi / 2, 3 * np.pi / 4, np.pi]
         cbar.set_ticks(ticks)
-        cbar.set_ticklabels(
-            ["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"]
-        )
+        cbar.set_ticklabels(["0", r"$\pi/4$", r"$\pi/2$", r"$3\pi/4$", r"$\pi$"])
 
     # stats box
     stat_lines = [
@@ -469,7 +463,7 @@ def main() -> None:
         f"median = {median_abs:.3f}",
         f"p95 = {p95_abs:.3f}",
         f"max = {max_abs:.3f}",
-        f"|Δφ| < {args.p95_ref:.4f} : {100*frac_below:.2f}% (n={int(round(frac_below*N))})",
+        f"|Δφ| < {args.p95_ref:.4f} : {100 * frac_below:.2f}% (n={int(round(frac_below * N))})",
         f"circ-mean(Δφ) = {cmean_hat:.3f} rad",
         f"  95% CI ≈ {cmean_hat:.3f} ± {half_arc:.3f} rad (arc court)",
         f"circ-std(Δφ) = {cstd:.3f} rad",

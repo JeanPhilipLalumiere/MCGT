@@ -56,12 +56,12 @@ cd /home/jplal/MCGT  # adapter si nécessaire
 python zz-scripts/chapter01/generate_data_chapter01.py
 
 # 2) Produire toutes les figures CH01
-python zz-scripts/chapter01/plot_fig01_early_plateau.py
-python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
-python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
-python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
-python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
-python zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+python zz-scripts/chapter01/10_fig01_early_plateau.py
+python zz-scripts/chapter01/10_fig02_logistic_calibration.py
+python zz-scripts/chapter01/10_fig03_relative_error_timeline.py
+python zz-scripts/chapter01/10_fig04_P_vs_T_evolution.py
+python zz-scripts/chapter01/10_fig05_I1_vs_T.py
+python zz-scripts/chapter01/10_fig06_P_derivative_comparison.py
 ```
 
 Si tout se passe bien, les fichiers listés en §4 et §6 sont présents et cohérents.
@@ -79,12 +79,12 @@ Répertoire CH01 :
 Scripts utilisés par le pipeline minimal :
 
 - `generate_data_chapter01.py`
-- `plot_fig01_early_plateau.py`
-- `plot_fig02_logistic_calibration.py`
-- `plot_fig03_relative_error_timeline.py`
-- `plot_fig04_P_vs_T_evolution.py`
-- `plot_fig05_I1_vs_T.py`
-- `plot_fig06_P_derivative_comparison.py`
+- `10_fig01_early_plateau.py`
+- `10_fig02_logistic_calibration.py`
+- `10_fig03_relative_error_timeline.py`
+- `10_fig04_P_vs_T_evolution.py`
+- `10_fig05_I1_vs_T.py`
+- `10_fig06_P_derivative_comparison.py`
 
 ### 4.2. Données CH01 (inputs + outputs)
 
@@ -232,12 +232,12 @@ ont été produites sans erreur.
 Une fois les données générées, les figures officielles sont produites par :
 
 ```bash
-python zz-scripts/chapter01/plot_fig01_early_plateau.py
-python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
-python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
-python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
-python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
-python zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+python zz-scripts/chapter01/10_fig01_early_plateau.py
+python zz-scripts/chapter01/10_fig02_logistic_calibration.py
+python zz-scripts/chapter01/10_fig03_relative_error_timeline.py
+python zz-scripts/chapter01/10_fig04_P_vs_T_evolution.py
+python zz-scripts/chapter01/10_fig05_I1_vs_T.py
+python zz-scripts/chapter01/10_fig06_P_derivative_comparison.py
 ```
 
 Produits attendus dans `zz-figures/chapter01/` :

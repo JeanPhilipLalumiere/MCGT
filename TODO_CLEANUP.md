@@ -339,7 +339,7 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 
 - **Scripts**
   - `zz-scripts/chapter01/generate_data_chapter01.py`
-  - `zz-scripts/chapter01/plot_fig03_relative_error_timeline.py`
+  - `zz-scripts/chapter01/10_fig03_relative_error_timeline.py`
 
 - **Données**
   - `zz-data/chapter01/01_optimized_data.csv`
@@ -354,7 +354,7 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 
 - **Scripts**
   - `zz-scripts/chapter02/generate_data_chapter02.py`
-  - `zz-scripts/chapter02/plot_fig00_spectrum.py`
+  - `zz-scripts/chapter02/10_fig00_spectrum.py`
 
 - **Données**
   - `zz-data/chapter02/02_primordial_spectrum_spec.json`
@@ -369,7 +369,7 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 
 - **Scripts**
   - `zz-scripts/chapter03/generate_data_chapter03.py`
-  - `zz-scripts/chapter03/plot_fig01_fR_stability_domain.py`
+  - `zz-scripts/chapter03/10_fig01_fR_stability_domain.py`
 
 - **Données**
   - `zz-data/chapter03/03_fR_stability_domain.csv`
@@ -400,7 +400,7 @@ hors vitrine.)
 
 - **Scripts**
   - `zz-scripts/chapter05/generate_data_chapter05.py`
-  - `zz-scripts/chapter05/plot_fig02_dh_model_vs_obs.py`
+  - `zz-scripts/chapter05/10_fig02_dh_model_vs_obs.py`
 
 - **Données**
   - `zz-data/chapter05/05_bbn_data.csv`
@@ -416,7 +416,7 @@ hors vitrine.)
 
 - **Scripts**
   - `zz-scripts/chapter06/generate_data_chapter06.py`
-  - `zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py`
+  - `zz-scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py`
 
 - **Données**
   - `zz-data/chapter06/06_cmb_full_results.csv`
@@ -467,7 +467,7 @@ hors vitrine.)
 
 - **Scripts**
   - `zz-scripts/chapter09/generate_data_chapter09.py`
-  - `zz-scripts/chapter09/plot_fig01_phase_overlay.py`
+  - `zz-scripts/chapter09/10_fig01_phase_overlay.py`
 
 - **Données**
   - `zz-data/chapter09/09_best_params.json`

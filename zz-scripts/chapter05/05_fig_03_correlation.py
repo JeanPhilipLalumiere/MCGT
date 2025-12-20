@@ -17,12 +17,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -49,12 +51,12 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
         plt.savefig(path, **savefig_kwargs)
     return True
 
+
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.ticker import ScalarFormatter
 
 
 def tracer_fig03_yp_modele_contre_obs(
@@ -125,14 +127,18 @@ if __name__ == "__main__":
 try:
     import os
     import sys
+
     _here = os.path.abspath(os.path.dirname(__file__))
     _zz = os.path.abspath(os.path.join(_here, ".."))
     if _zz not in sys.path:
         sys.path.insert(0, _zz)
     from _common.postparse import apply as _mcgt_postparse_apply
 except Exception:
+
     def _mcgt_postparse_apply(*_a, **_k):
         pass
+
+
 try:
     if "args" in globals():
         _mcgt_postparse_apply(args, caller_file=__file__)

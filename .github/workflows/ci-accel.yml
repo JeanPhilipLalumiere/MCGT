@@ -12,11 +12,14 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  id-token: write
+  releases: write
 
 jobs:
   lint-and-budgets:
-    name: Lint & Budgets (pré-commit)
+    name: Lint & Budgets (pre-commit)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -75,22 +78,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-tectonic-
 
-      # Tectonic compile automatiquement et télécharge les paquets requis.
-      - name: Typeset .tex via Tectonic (auto-détection)
+      - name: Typeset main.tex
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        uses: tectonic-typesetting/tectonic-action@v1
+        uses: bridat/tectonic-action@v3
         with:
-          # Cherche un fichier principal plausible, sinon compile tout ce qu'il peut.
-          tex_path: .
-          only_cached_packages: false
-          continue_on_error: true
+          tex_file: main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}
         shell: bash
         run: |
           mkdir -p dist
-          # Copie tous les PDF générés plausibles
+          # Copie tous les PDF generes plausibles
           find . -maxdepth 4 -type f -name '*.pdf' -not -path './dist/*' -print -exec cp -n '{}' dist/ \; || true
           ls -l dist || true
 

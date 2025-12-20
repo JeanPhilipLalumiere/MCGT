@@ -135,7 +135,9 @@ def main():
     # 2) Pyproject(s)
     print_block("pyproject.toml")
     root_pp = parse_pyproject(ROOT / "pyproject.toml")
-    rel_pp = parse_pyproject(ROOT / "release_zenodo_codeonly" / "v0.3.x" / "pyproject.toml")
+    rel_pp = parse_pyproject(
+        ROOT / "release_zenodo_codeonly" / "v0.3.x" / "pyproject.toml"
+    )
 
     for label, info in (
         ("root.pyproject", root_pp),
@@ -166,10 +168,7 @@ def main():
         elif "error" in info:
             print(f"{label:45} : ERROR {info['error']} ({info.get('_path')})")
         else:
-            print(
-                f"{label:45} : version={info.get('version')!r} "
-                f"({info.get('_path')})"
-            )
+            print(f"{label:45} : version={info.get('version')!r} ({info.get('_path')})")
 
     # 4) CITATION
     print_block("CITATION.cff")
@@ -187,10 +186,7 @@ def main():
         elif "error" in info:
             print(f"{label:45} : ERROR {info['error']} ({info.get('_path')})")
         else:
-            print(
-                f"{label:45} : version={info.get('version')!r} "
-                f"({info.get('_path')})"
-            )
+            print(f"{label:45} : version={info.get('version')!r} ({info.get('_path')})")
 
     print()
     print("[INFO] mcgt_probe_versions_v1 terminé.")

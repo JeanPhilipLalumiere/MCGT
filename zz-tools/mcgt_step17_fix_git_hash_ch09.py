@@ -34,7 +34,9 @@ def get_git_hash(root: Path, rel_path: str) -> str:
     return h
 
 
-def update_git_hashes_in_manifest(obj, path_to_hash: dict[str, str], updated_paths: set[str]) -> None:
+def update_git_hashes_in_manifest(
+    obj, path_to_hash: dict[str, str], updated_paths: set[str]
+) -> None:
     """
     Parcours récursif de l'objet JSON.
     Dès qu'on trouve un dict avec 'path' ∈ path_to_hash, on met à jour 'git_hash'.

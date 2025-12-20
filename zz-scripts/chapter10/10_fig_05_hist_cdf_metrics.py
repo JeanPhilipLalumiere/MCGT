@@ -13,6 +13,7 @@ python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150 \
   --zoom-x 3.0 --zoom-y 35 --zoom-dx 0.30 --zoom-dy 30
 """
+
 from __future__ import annotations
 
 
@@ -26,6 +27,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,
@@ -104,9 +106,7 @@ def safe_save(filepath: Path | str, fig, **savefig_kwargs) -> bool:
 
 # ---------- main ----------
 def main() -> None:
-    ap = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
+    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument(
         "--results",
         default=None,
@@ -184,11 +184,12 @@ def main() -> None:
     outp.parent.mkdir(parents=True, exist_ok=True)
     args.out = str(outp)
 
-
     # --- fichier par défaut si non fourni (pour le pipeline minimal) ---
     if args.results is None:
         args.results = "zz-data/chapter10/10_results_global_scan.csv"
-        print(f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'.")
+        print(
+            f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
+        )
 
     # --- lecture & colonne p95 ---
     df = pd.read_csv(args.results)
@@ -234,7 +235,7 @@ def main() -> None:
     ax2 = ax.twinx()
     sorted_p = np.sort(p95)
     ecdf = np.arange(1, N + 1) / N
-    cdf_line, = ax2.plot(sorted_p, ecdf, lw=2)
+    (cdf_line,) = ax2.plot(sorted_p, ecdf, lw=2)
     ax2.set_ylabel("Empirical CDF")
     ax2.set_ylim(0.0, 1.02)
 

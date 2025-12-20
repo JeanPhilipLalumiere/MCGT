@@ -85,7 +85,11 @@ def main() -> None:
     global_path = Path(args.input_tsv) if args.input_tsv else GLOBAL_DECISIONS_TSV
     rows = load_global_rows(global_path)
 
-    out_path = Path(args.output) if args.output else TMP_DIR / f"chapter{chapter:02d}_decisions.tsv"
+    out_path = (
+        Path(args.output)
+        if args.output
+        else TMP_DIR / f"chapter{chapter:02d}_decisions.tsv"
+    )
 
     # Colonnes cibles
     fieldnames = ["path", "kind", "chapter", "decision", "comment"]

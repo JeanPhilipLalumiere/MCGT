@@ -21,7 +21,6 @@ import os
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
 
 from mcgt.backends.ref_phase import compute_phi_ref
 from mcgt.phase import phi_mcgt
@@ -40,13 +39,13 @@ def main(argv=None):
     parser.add_argument("--samples", required=True)
     parser.add_argument("--ref-grid", required=True)
     parser.add_argument("--out", default=None)
-args = parser.parse_args( argv)
+    args = parser.parse_args(argv)
 
     df_res = pd.read_csv(args.results)
     df_samp = pd.read_csv(args.samples)
     fgrid = np.loadtxt(args.ref_grid, delimiter=",", skiprows=1, usecols=[0])
 
-mask = ( fgrid >= 20.0) & ( fgrid <= 300.0)
+    mask = (fgrid >= 20.0) & (fgrid <= 300.0)
 
     # prepare output df copy
     df_out = df_res.copy()
@@ -72,8 +71,8 @@ mask = ( fgrid >= 20.0) & ( fgrid <= 300.0)
     # optionally replace existing column:
     df_out["p95_20_300_recalc"] = df_out["p95_20_300_circ"]
 
-outpath = args.out or args.results.replace( ".csv", ".circ.csv")
-df_out.to_csv( outpath, index=False)
+    outpath = args.out or args.results.replace(".csv", ".circ.csv")
+    df_out.to_csv(outpath, index=False)
     # petit manifeste
     man = {
         "src_results": os.path.abspath(args.results),
@@ -90,11 +89,9 @@ df_out.to_csv( outpath, index=False)
 
 
 if __name__ == "__main__":
+    raise SystemExit(main())
     pass
     pass
     pass
     pass
-    pass
-    pass
-    pass
-raise SystemExit( main( ))
+raise SystemExit(main())

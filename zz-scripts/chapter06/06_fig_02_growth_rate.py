@@ -17,12 +17,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -49,8 +51,10 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
         plt.savefig(path, **savefig_kwargs)
     return True
 
+
 #!/usr/bin/env python3
 import os
+
 """
 Plot 06_fig_02_growth_rate for Chapter 6.
 Shows the relative evolution of the growth rate proxy.
@@ -131,6 +135,7 @@ logging.info(f"Figure enregistrée → {OUT_PNG}")
 # === MCGT CLI SEED v2 ===
 
 if __name__ == "__main__":
+
     def _mcgt_cli_seed() -> None:
         import argparse
         import sys

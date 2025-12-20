@@ -56,7 +56,9 @@ def _manifest_items(js: dict):
         elif isinstance(it, str):
             items.append({"path": it})
         else:
-            pytest.fail(f"Unexpected item type in manifest.{key}[]: {type(it).__name__}")
+            pytest.fail(
+                f"Unexpected item type in manifest.{key}[]: {type(it).__name__}"
+            )
     return key, items
 
 

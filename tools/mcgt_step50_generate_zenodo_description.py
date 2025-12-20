@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 
+
 def main() -> None:
     # Repo root = parent de tools/
     root = Path(__file__).resolve().parent.parent
@@ -19,6 +20,7 @@ Ce dépôt Zenodo archive le tarball de publication correspondant au dépôt Git
 
     print(f"[INFO] Description Zenodo v0.3.0 écrite dans {out_path}")
     print("[INFO] Tu peux copier-coller ce bloc dans le champ 'Description' de Zenodo.")
+
 
 if __name__ == "__main__":
     main()

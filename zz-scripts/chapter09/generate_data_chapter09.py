@@ -22,6 +22,7 @@ Conventions:
 
 from __future__ import annotations
 
+
 # === MCGT Hotfix: robust defaults when cfg has None/"" ===
 def _mcgt_safe_float(x, default):
     try:
@@ -146,7 +147,9 @@ def clamp_min_frequencies(f: np.ndarray, fmin: float) -> np.ndarray:
 # -----------------------
 # Reference generation via LALSuite or fallback
 # -----------------------
-def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarray | None:
+def _try_lalsuite_phi_ref(
+    freqs: np.ndarray, logger: logging.Logger
+) -> np.ndarray | None:
     try:
         import lal  # type: ignore
         import lalsimulation as lalsim  # type: ignore
@@ -164,7 +167,11 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarr
         fmin = _mcgt_safe_float(np.nanmin(f), 20.0)
         fmax = _mcgt_safe_float(np.nanmax(f), 300.0)
         df_candidates = np.diff(np.unique(f[np.isfinite(f)]))
-        df = float(np.nanmin(df_candidates)) if df_candidates.size else max(1.0, fmin * 1e-3)
+        df = (
+            float(np.nanmin(df_candidates))
+            if df_candidates.size
+            else max(1.0, fmin * 1e-3)
+        )
         if not np.isfinite(df) or df <= 0:
             df = max(1.0, fmin * 1e-3)
 
@@ -210,7 +217,9 @@ def _try_lalsuite_phi_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarr
         return None
 
 
-def _try_external_script_for_ref(freqs: np.ndarray, logger: logging.Logger) -> np.ndarray | None:
+def _try_external_script_for_ref(
+    freqs: np.ndarray, logger: logging.Logger
+) -> np.ndarray | None:
     script = PROJECT_ROOT / "zz-scripts" / "chapter09" / "extract_phenom_phase.py"
     if not script.exists():
         logger.debug("Fallback script introuvable: %s", script)
@@ -278,7 +287,8 @@ def load_or_build_reference(
 
     if phi_ref is None:
         raise RuntimeError(
-            "Impossible de générer φ_ref : installez LALSuite ou fournissez " + str(REF_CSV)
+            "Impossible de générer φ_ref : installez LALSuite ou fournissez "
+            + str(REF_CSV)
         )
 
     # Save reference
@@ -617,7 +627,9 @@ def main() -> None:
 
         if args.auto_tighten and (p95_check_before > float(args.tighten_threshold_p95)):
             tlo, thi = map(float, args.tighten_window)
-            logger.info("Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi)
+            logger.info(
+                "Resserrement automatique: refit sur [%.1f, %.1f] Hz.", tlo, thi
+            )
             phi0_hat, tc_hat, n_cal = fit_alignment_phi0_tc(
                 f,
                 phi_ref,
@@ -727,7 +739,9 @@ def main() -> None:
             jal = pd.read_csv(JALONS_CSV)
             need = {"event", "f_Hz", "obs_phase", "sigma_phase"}
             if not need.issubset(jal.columns):
-                logger.warning("Jalons: colonnes manquantes (attendues: %s).", sorted(need))
+                logger.warning(
+                    "Jalons: colonnes manquantes (attendues: %s).", sorted(need)
+                )
             else:
                 fpk = np.asarray(jal["f_Hz"].to_numpy(float), float)
                 phi_ref_at = np.interp(fpk, f, phi_ref)
@@ -759,7 +773,9 @@ def main() -> None:
                 ).to_csv(out_jalons_cmp, index=False)
                 logger.info("Écrit → %s", out_jalons_cmp)
         else:
-            logger.warning("Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV)
+            logger.warning(
+                "Aucun jalon à comparer (fichier introuvable): %s", JALONS_CSV
+            )
 
     # Optional local Fisher-like heatmap (approx)
     out_fisher = None
@@ -868,8 +884,12 @@ def main() -> None:
         },
         "outputs": {
             "phases_mcgt_csv": str(out_mcgt) if out_mcgt.exists() else None,
-            "diff_phase_csv": str(out_diff) if args.export_diff and out_diff.exists() else None,
-            "comparison_milestones_csv": str(out_jalons_cmp) if out_jalons_cmp else None,
+            "diff_phase_csv": str(out_diff)
+            if args.export_diff and out_diff.exists()
+            else None,
+            "comparison_milestones_csv": str(out_jalons_cmp)
+            if out_jalons_cmp
+            else None,
             "fisher_scan2D_csv": str(out_fisher) if out_fisher else None,
         },
         "repro": {

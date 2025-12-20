@@ -21,7 +21,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip -c constraints/security-pins.txt
           python -m pip install pytest pre-commit -c constraints/security-pins.txt
+          pip install -e .
       - name: Run pre-commit on repo
         run: pre-commit run --all-files
       - name: Run pytest
-        run: pytest -q
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          pytest -q

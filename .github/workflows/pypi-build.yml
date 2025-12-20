@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "pypi-build OK — context = pypi-build/build"
+      - run: echo "pypi-build OK  context = pypi-build/build"

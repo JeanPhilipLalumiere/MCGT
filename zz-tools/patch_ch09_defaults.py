@@ -1,4 +1,6 @@
-import re, pathlib, sys
+import re
+import pathlib
+import sys
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
 if not TARGET.exists():
@@ -20,7 +22,13 @@ def _mcgt_safe_float(x, default):
         return float(default)
 """
     # Insérer après le dernier import si possible
-    m = list(re.finditer(r"^(?:from\\s+\\S+\\s+import\\s+.*|import\\s+\\S+.*)\\n", src, flags=re.MULTILINE))
+    m = list(
+        re.finditer(
+            r"^(?:from\\s+\\S+\\s+import\\s+.*|import\\s+\\S+.*)\\n",
+            src,
+            flags=re.MULTILINE,
+        )
+    )
     if m:
         idx = m[-1].end()
         src = src[:idx] + inject + src[idx:]
@@ -39,7 +47,10 @@ defaults = {
 total = 0
 for k, dv in defaults.items():
     # float(cfg["k"])  et  float(cfg['k'])
-    for pat in (rf'float\\(cfg\\["{re.escape(k)}"\\]\\)', rf"float\\(cfg\\['{re.escape(k)}'\\]\\)"):
+    for pat in (
+        rf'float\\(cfg\\["{re.escape(k)}"\\]\\)',
+        rf"float\\(cfg\\['{re.escape(k)}'\\]\\)",
+    ):
         repl = f'_mcgt_safe_float(cfg.get("{k}"), {dv})'
         src, n = re.subn(pat, repl, src)
         total += n
@@ -47,7 +58,10 @@ for k, dv in defaults.items():
             print(f"[INFO] Remplacement {k} -> default={dv} ({n})")
 
     # float(cfg.get("k"))  et  float(cfg.get('k'))
-    for pat in (rf'float\\(cfg\\.get\\("{re.escape(k)}"\\)\\)', rf"float\\(cfg\\.get\\('{re.escape(k)}'\\)\\)"):
+    for pat in (
+        rf'float\\(cfg\\.get\\("{re.escape(k)}"\\)\\)',
+        rf"float\\(cfg\\.get\\('{re.escape(k)}'\\)\\)",
+    ):
         repl = f'_mcgt_safe_float(cfg.get("{k}"), {dv})'
         src, n = re.subn(pat, repl, src)
         total += n

@@ -93,12 +93,12 @@ Scripts utilisés par le pipeline minimal :
 
 - `generate_data_chapter07.py`
 - `launch_scalar_perturbations_solver.py`
-- `plot_fig01_cs2_heatmap.py`
-- `plot_fig02_delta_phi_heatmap.py`
+- `10_fig01_cs2_heatmap.py`
+- `10_fig02_delta_phi_heatmap.py`
 - `tracer_fig03_invariant_I1.py`
 - `tracer_fig04_dcs2_vs_k.py`
 - `tracer_fig05_ddelta_phi_vs_k.py`
-- `plot_fig06_comparison.py`
+- `10_fig06_comparison.py`
 - `tracer_fig07_invariant_I2.py`
 
 Utilitaires :
@@ -235,13 +235,13 @@ Les figures peuvent être régénérées une fois les données complètes dispon
 (typiquement au‑delà du pipeline minimal strict) :
 
 ```bash
-python zz-scripts/chapter07/plot_fig01_cs2_heatmap.py
-python zz-scripts/chapter07/plot_fig02_delta_phi_heatmap.py
-python zz-scripts/chapter07/plot_fig03_invariant_i1.py
-python zz-scripts/chapter07/plot_fig04_dcs2_vs_k.py
-python zz-scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
-python zz-scripts/chapter07/plot_fig06_comparison.py
-python zz-scripts/chapter07/plot_fig07_invariant_i2.py
+python zz-scripts/chapter07/10_fig01_cs2_heatmap.py
+python zz-scripts/chapter07/10_fig02_delta_phi_heatmap.py
+python zz-scripts/chapter07/10_fig03_invariant_i1.py
+python zz-scripts/chapter07/10_fig04_dcs2_vs_k.py
+python zz-scripts/chapter07/10_fig05_ddelta_phi_vs_k.py
+python zz-scripts/chapter07/10_fig06_comparison.py
+python zz-scripts/chapter07/10_fig07_invariant_i2.py
 ```
 
 Chaque script met à jour la figure correspondante dans `zz-figures/chapter07/`.

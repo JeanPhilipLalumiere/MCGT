@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Fig. 04 – Écarts relatifs des invariants I2 et I3 (Chapter 04)."""
+
 from __future__ import annotations
 
 import hashlib
@@ -11,7 +12,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 from matplotlib.ticker import LogLocator
 
@@ -73,7 +73,9 @@ def _load_csv(possible_paths: list[Path]) -> tuple[pd.DataFrame, Path]:
 
 
 def main() -> None:
-    df, used_path = _load_csv([DATA_CSV, Path("/mnt/data/04_dimensionless_invariants.csv")])
+    df, used_path = _load_csv(
+        [DATA_CSV, Path("/mnt/data/04_dimensionless_invariants.csv")]
+    )
     print(f"Chargé {used_path}")
 
     needed = {"T_Gyr", "I2", "I3"}

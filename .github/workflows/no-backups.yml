@@ -19,18 +19,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Aligné sur le garde .gitignore (inclut Emacs #*# et dotfiles *~)
+          # Aligne sur le garde .gitignore (inclut Emacs #*# et dotfiles *~)
           RGX='(\.bak([_.-].*)?$|~$|\.old$|\.orig$|\.tmp$|\.swp$|\.swo$|(^|/)#.*#$|(^|/)\..*~$)'
           git ls-files | egrep -E "$RGX" > matches.txt || true
           if [[ -s matches.txt ]]; then
-            printf "### no-backups: fichiers parasites détectés\n\n" >> "$GITHUB_STEP_SUMMARY"
+            printf "### no-backups: fichiers parasites detectes\n\n" >> "$GITHUB_STEP_SUMMARY"
             printf '```text\n' >> "$GITHUB_STEP_SUMMARY"
             cat matches.txt >> "$GITHUB_STEP_SUMMARY"
             printf '\n```\n' >> "$GITHUB_STEP_SUMMARY"
             echo "::error::Found backup/parasite files tracked by Git. See matches.txt artifact."
             exit 1
           else
-            echo "### no-backups: OK — aucun fichier parasite suivi" >> "$GITHUB_STEP_SUMMARY"
+            echo "### no-backups: OK  aucun fichier parasite suivi" >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Upload matches.txt

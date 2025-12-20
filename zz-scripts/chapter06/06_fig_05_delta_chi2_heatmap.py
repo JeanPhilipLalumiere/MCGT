@@ -17,12 +17,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -48,6 +50,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     else:
         plt.savefig(path, **savefig_kwargs)
     return True
+
 
 #!/usr/bin/env python3
 """
@@ -142,14 +145,14 @@ def main(args) -> None:
     q0s = np.sort(df["q0star"].unique())
 
     chi2_mat = (
-        df.pivot(index="q0star", columns="alpha", values="chi2")
-        .loc[q0s, alphas]
-        .values
+        df.pivot(index="q0star", columns="alpha", values="chi2").loc[q0s, alphas].values
     )
 
     # Bords des cellules pour pcolormesh
     if len(alphas) < 2 or len(q0s) < 2:
-        raise RuntimeError("Grille 2D insuffisante pour construire les bords (alpha/q0*).")
+        raise RuntimeError(
+            "Grille 2D insuffisante pour construire les bords (alpha/q0*)."
+        )
 
     da = alphas[1] - alphas[0]
     dq = q0s[1] - q0s[0]
@@ -197,6 +200,7 @@ def main(args) -> None:
 
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
+
     def _mcgt_cli_seed():
         import argparse
         import sys

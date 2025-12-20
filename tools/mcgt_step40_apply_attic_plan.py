@@ -35,7 +35,9 @@ def main() -> None:
         if not plan_path.is_absolute():
             plan_path = root / plan_path
     else:
-        candidates = sorted((root / "zz-logs").glob("step15_backstage_attic_plan_*.txt"))
+        candidates = sorted(
+            (root / "zz-logs").glob("step15_backstage_attic_plan_*.txt")
+        )
         if not candidates:
             print(
                 "[ERROR] Aucun fichier step15_backstage_attic_plan_*.txt trouvé dans zz-logs/",
@@ -95,7 +97,10 @@ def main() -> None:
     # Application effective : git mv vers attic/
     for rel_path, src, dst in actions:
         if not src.exists():
-            print(f"[WARN] Fichier source introuvable, on saute : {rel_path}", file=sys.stderr)
+            print(
+                f"[WARN] Fichier source introuvable, on saute : {rel_path}",
+                file=sys.stderr,
+            )
             continue
 
         dst.parent.mkdir(parents=True, exist_ok=True)

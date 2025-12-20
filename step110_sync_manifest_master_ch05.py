@@ -37,10 +37,14 @@ def sha256_file(path: Path) -> str:
 def git_hash(path: Path) -> str:
     rel = path.as_posix()
     try:
-        out = subprocess.check_output(
-            ["git", "log", "-n", "1", "--pretty=format:%H", "--", rel],
-            cwd=root,
-        ).decode().strip()
+        out = (
+            subprocess.check_output(
+                ["git", "log", "-n", "1", "--pretty=format:%H", "--", rel],
+                cwd=root,
+            )
+            .decode()
+            .strip()
+        )
         return out
     except Exception:
         return ""
@@ -80,9 +84,9 @@ for rel in targets:
     size = stat.st_size
     sha = sha256_file(p)
     git = git_hash(p)
-    mtime_iso = datetime.fromtimestamp(
-        stat.st_mtime, tz=timezone.utc
-    ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    mtime_iso = datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
 
     for e in entries:
         if e.get("path") == rel:

@@ -63,10 +63,10 @@ Ce script exécute la séquence **canonique minimale** suivante :
    `python zz-scripts/chapter04/generate_data_chapter04.py`
 
 2. **Figures principales (Fig. 01 à 04)**  
-   `python zz-scripts/chapter04/plot_fig01_invariants_schematic.py`  
-   `python zz-scripts/chapter04/plot_fig02_invariants_histogram.py`  
-   `python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py`  
-   `python zz-scripts/chapter04/plot_fig04_relative_deviations.py`
+   `python zz-scripts/chapter04/10_fig01_invariants_schematic.py`  
+   `python zz-scripts/chapter04/10_fig02_invariants_histogram.py`  
+   `python zz-scripts/chapter04/10_fig03_invariants_vs_T.py`  
+   `python zz-scripts/chapter04/10_fig04_relative_deviations.py`
 
 3. **Résumé final** (optionnel dans le script shell) : inventaire des fichiers
    de `zz-data/chapter04/` et `zz-figures/chapter04/`.
@@ -89,10 +89,10 @@ Répertoire CH04 :
 Scripts utilisés par le pipeline minimal :
 
 - `generate_data_chapter04.py`
-- `plot_fig01_invariants_schematic.py`
-- `plot_fig02_invariants_histogram.py`
-- `plot_fig03_invariants_vs_T.py`
-- `plot_fig04_relative_deviations.py`
+- `10_fig01_invariants_schematic.py`
+- `10_fig02_invariants_histogram.py`
+- `10_fig03_invariants_vs_T.py`
+- `10_fig04_relative_deviations.py`
 
 ### 4.2. Données CH04 (inputs + outputs)
 
@@ -198,10 +198,10 @@ En fin de run, on attend un message du type :
 Une fois `04_dimensionless_invariants.csv` disponible, les figures se régénèrent via :
 
 ```bash
-python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
-python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
-python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
-python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+python zz-scripts/chapter04/10_fig01_invariants_schematic.py
+python zz-scripts/chapter04/10_fig02_invariants_histogram.py
+python zz-scripts/chapter04/10_fig03_invariants_vs_T.py
+python zz-scripts/chapter04/10_fig04_relative_deviations.py
 ```
 
 Chaque script met à jour la figure correspondante dans `zz-figures/chapter04/`.

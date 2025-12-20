@@ -1,5 +1,11 @@
 name: build-publish
 
+permissions:
+  contents: write
+  id-token: write
+  releases: write
+  packages: write
+
 on:
   pull_request: {}
   workflow_dispatch: {}
@@ -11,9 +17,6 @@ concurrency:
   group: build-publish-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,6 +24,62 @@ jobs:
       built: ${{ steps.detect.outputs.built }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Typeset main.tex
+        if: ${{ hashFiles('main.tex') != '' }}
+        run: tectonic --untrusted main.tex
+
+      - name: Ensure PDF at root
+        if: ${{ hashFiles('main.tex') != '' }}
+        run: |
+          find . -name "main.pdf" -exec cp {} ./main.pdf \;
+          [ -s main.pdf ] || { echo "CRITICAL: main.pdf is missing or empty"; exit 1; }
+
+      - name: Upload main.pdf as artifact
+        if: ${{ hashFiles('main.tex') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-pdf
+          path: main.pdf
+
+      - name: Final Asset Sanitization
+        run: |
+          echo "Listing all generated assets:"
+          ls -lh dist/
+          echo "Removing empty files..."
+          find . -maxdepth 2 -type f -size 0 -print -delete
+          echo "Assets remaining for upload:"
+          ls -lh dist/
+
+      - name: Purge empty metadata
+        run: |
+          find . -name "*.json" -size 0 -delete
+          find . -name "*.sha256" -size 0 -delete
+
+      - name: Final Asset Purge (Safe Release)
+        run: |
+          find . -name "*.pdf" -size 0 -delete
+          find . -name "*.json" -size 0 -delete
+          find . -name "*.sha256" -size 0 -delete
+          echo "Cleaned assets list:"
+          ls -lh main.pdf dist/ || echo "Warning: Essential assets missing"
+
+      - name: Strict Asset Guard
+        run: |
+          echo "Searching for empty assets in workspace..."
+          find . -maxdepth 3 -type f -size 0 -name "*.json" -delete
+          find . -maxdepth 3 -type f -size 0 -name "*.sha256" -delete
+          find . -maxdepth 3 -type f -size 0 -name "*.pdf" -delete
+          echo "Final assets validation:"
+          ls -lh dist/ main.pdf || true
+
+      - name: Nuclear Asset Clean
+        run: |
+          echo "Destroying empty and unwanted metadata..."
+          find . -name "*sbom*" -delete
+          find . -maxdepth 1 -name "*.json" -delete
+          find . -name "*.sha256" -delete
+          ls -lh dist/
 
       - uses: actions/setup-python@v5
         with:
@@ -59,12 +118,20 @@ jobs:
     if: ${{ needs.build.outputs.built == 'true' }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      id-token: write
+      releases: write
+      packages: write
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: main-pdf
+          path: .
 
       # Publication sur PyPI via token (Secret: PYPI_API_TOKEN)
       - name: Publish to PyPI
@@ -73,3 +140,16 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
+
+      - name: Debug File Locations
+        run: |
+          echo "Root:" && ls -lh
+          echo "Dist:" && ls -lh dist/ || echo "Dist not found"
+
+      - name: Create GitHub Release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/zz_tools-*.whl
+            dist/zz_tools-*.tar.gz

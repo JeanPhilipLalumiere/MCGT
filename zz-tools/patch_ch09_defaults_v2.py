@@ -1,4 +1,6 @@
-import re, pathlib, sys
+import re
+import pathlib
+import sys
 
 TARGET = pathlib.Path("zz-scripts/chapter09/generate_data_chapter09.py")
 if not TARGET.exists():
@@ -12,7 +14,7 @@ src = re.sub(
     r"^\s*#\s*=== MCGT Hotfix: robust defaults.*?^def _mcgt_safe_float\([^\n]*\n(?:.*\n)*?^ +return float\(default\)\n",
     "",
     src,
-    flags=re.MULTILINE
+    flags=re.MULTILINE,
 )
 
 # --- Calculer l’endroit correct d’injection: après shebang/coding + bloc future-imports
@@ -20,12 +22,16 @@ lines = src.splitlines(keepends=True)
 insert_idx = 0
 
 # 1) sauter le shebang et l'éventuel coding cookie + docstring initial
-while insert_idx < len(lines) and (lines[insert_idx].startswith("#!") or "coding:" in lines[insert_idx]):
+while insert_idx < len(lines) and (
+    lines[insert_idx].startswith("#!") or "coding:" in lines[insert_idx]
+):
     insert_idx += 1
+
 
 # Si la ligne suivante est une docstring triple-quoted, avançons jusqu'à sa fermeture
 def _is_triple_quote(line: str) -> bool:
-    return (line.lstrip().startswith('"""') or line.lstrip().startswith("'''"))
+    return line.lstrip().startswith('"""') or line.lstrip().startswith("'''")
+
 
 if insert_idx < len(lines) and _is_triple_quote(lines[insert_idx]):
     quote = lines[insert_idx].lstrip()[:3]
@@ -36,11 +42,15 @@ if insert_idx < len(lines) and _is_triple_quote(lines[insert_idx]):
         insert_idx += 1  # inclure la ligne de fermeture
 
 # 2) passer tous les from __future__ import ...
-while insert_idx < len(lines) and re.match(r'^\s*from\s+__future__\s+import\s+', lines[insert_idx]):
+while insert_idx < len(lines) and re.match(
+    r"^\s*from\s+__future__\s+import\s+", lines[insert_idx]
+):
     insert_idx += 1
 
 # 3) passer les imports standards (pour garder le helper après imports si possible)
-while insert_idx < len(lines) and re.match(r'^\s*(?:import\s+\S+|from\s+\S+\s+import\s+)', lines[insert_idx]):
+while insert_idx < len(lines) and re.match(
+    r"^\s*(?:import\s+\S+|from\s+\S+\s+import\s+)", lines[insert_idx]
+):
     insert_idx += 1
 
 # --- B) Préparer le helper
@@ -71,12 +81,14 @@ defaults = {
 
 total = 0
 
+
 def _re_sub(pattern, repl, text, flags=0):
     global total
     new_text, n = re.subn(pattern, repl, text, flags=flags)
     if n:
         total += n
     return new_text, n
+
 
 for k, dv in defaults.items():
     # float(cfg["k"]) / float( cfg [ 'k' ] )  avec espaces variés
@@ -90,8 +102,8 @@ for k, dv in defaults.items():
     src, _ = _re_sub(pat2, f'_mcgt_safe_float(cfg.get("{k}"), {dv})', src)
 
     # Affectations directes: m1 = float(...)
-    pat3 = rf'^(\s*{re.escape(k)}\s*=\s*)float\((.*?)\)\s*$'
-    repl3 = rf'\1_mcgt_safe_float(\2, {dv})'
+    pat3 = rf"^(\s*{re.escape(k)}\s*=\s*)float\((.*?)\)\s*$"
+    repl3 = rf"\1_mcgt_safe_float(\2, {dv})"
     src, _ = _re_sub(pat3, repl3, src, flags=re.MULTILINE)
 
 # Écrire

@@ -1,5 +1,6 @@
 from pathlib import Path
-import re, textwrap
+import re
+import textwrap
 
 p = Path("zz-scripts/chapter09/plot_fig02_residual_phase.py")
 src = p.read_text(encoding="utf-8")
@@ -50,14 +51,16 @@ if util_stamp not in src:
         return df
     """)
     # après imports pandas/numpy
-    src = re.sub(r"(\nimport\s+pandas\s+as\s+pd[^\n]*\n)", r"\1"+inject+"\n", src, count=1)
+    src = re.sub(
+        r"(\nimport\s+pandas\s+as\s+pd[^\n]*\n)", r"\1" + inject + "\n", src, count=1
+    )
 
 # Remplacer lecture brute par version normalisée (sans casser le reste)
 src = re.sub(
     r"(df\s*=\s*pd\.read_csv\([^)]+\)\s*\n)",
     r"\1df = _ensure_standard_cols(df)\n",
     src,
-    count=1
+    count=1,
 )
 
 p.write_text(src, encoding="utf-8")

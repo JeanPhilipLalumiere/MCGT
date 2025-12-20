@@ -35,8 +35,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip -c constraints/security-pins.txt
           pip install pre-commit pytest -c constraints/security-pins.txt
-          # Installer tous les requirements.txt s’ils existent
+          # Installer tous les requirements.txt sils existent
           find . -name "requirements.txt" -maxdepth 4 -print0 | xargs -0 -r -I{} bash -lc 'pip install -r "{}"' -c constraints/security-pins.txt
+          pip install -e .
 
       - name: Run pre-commit (all files)
         run: pre-commit run -a
@@ -44,8 +45,9 @@ jobs:
       - name: Run pytest (si des tests existent)
         run: |
           set -euo pipefail
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
           if ls tests 2>/dev/null 1>/dev/null || ls zz-scripts/**/tests 2>/dev/null 1>/dev/null; then
             pytest -q
           else
-            echo "Aucun répertoire de tests détecté — étape ignorée."
+            echo "Aucun repertoire de tests detecte  etape ignoree."
           fi

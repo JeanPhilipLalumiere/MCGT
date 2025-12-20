@@ -35,6 +35,13 @@ jobs:
           find . -name "main.pdf" -exec cp {} ./main.pdf \;
           [ -s main.pdf ] || { echo "CRITICAL: main.pdf is missing or empty"; exit 1; }
 
+      - name: Upload main.pdf as artifact
+        if: ${{ hashFiles('main.tex') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-pdf
+          path: main.pdf
+
       - name: Final Asset Sanitization
         run: |
           echo "Listing all generated assets:"
@@ -121,6 +128,11 @@ jobs:
           name: dist
           path: dist
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: main-pdf
+          path: .
+
       # Publication sur PyPI via token (Secret: PYPI_API_TOKEN)
       - name: Publish to PyPI
         if: github.event_name != 'pull_request'
@@ -128,3 +140,12 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
+
+      - name: Create GitHub Release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+            main.pdf

@@ -103,7 +103,9 @@ def main(args=None) -> None:
 
     # Figure
     fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
-    ax.scatter(x, y, marker="o", s=20, alpha=0.8, label=r"$D(z) / D_{\Lambda\mathrm{CDM}}$")
+    ax.scatter(
+        x, y, marker="o", s=20, alpha=0.8, label=r"$D(z) / D_{\Lambda\mathrm{CDM}}$"
+    )
 
     ax.set_xlabel("Redshift $z$", fontsize=11)
     ax.set_ylabel(r"$D(z) / D_{\Lambda\mathrm{CDM}}$", fontsize=11)
@@ -114,12 +116,12 @@ def main(args=None) -> None:
     # Annotation des paramètres
     if alpha is not None and q0star is not None:
         ax.text(
-        0.15,
-        0.95,
-        rf"$\alpha={alpha},\ q_0^*={q0star}$",
-        transform=ax.transAxes,
-        ha="left",
-        va="top",
+            0.15,
+            0.95,
+            rf"$\alpha={alpha},\ q_0^*={q0star}$",
+            transform=ax.transAxes,
+            ha="left",
+            va="top",
             fontsize=9,
         )
 
@@ -130,6 +132,7 @@ def main(args=None) -> None:
 
 # === MCGT CLI SEED v2 ===
 if __name__ == "__main__":
+
     def _mcgt_cli_seed() -> None:
         import argparse
         import os

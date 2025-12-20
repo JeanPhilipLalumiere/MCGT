@@ -1,5 +1,5 @@
 name: ci-pre-commit
-run-name: "pre-commit • ${{ github.event_name }} • ${{ github.ref_name }}"
+run-name: "pre-commit  ${{ github.event_name }}  ${{ github.ref_name }}"
 
 on:
   workflow_dispatch:
@@ -45,5 +45,5 @@ jobs:
 
       - name: Run pre-commit (all files)
         run: |
-          # pas de -f ici (non supporté) ; --all-files = -a
+          # pas de -f ici (non supporte) ; --all-files = -a
           pre-commit run --all-files --show-diff-on-failure

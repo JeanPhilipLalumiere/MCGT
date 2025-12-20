@@ -14,7 +14,9 @@ def find_latest_manual_diag(root: Path) -> Path:
     logs_dir = root / "zz-logs"
     candidates = sorted(logs_dir.glob("manual_diag_consistency_*.log"))
     if not candidates:
-        raise SystemExit("[ERROR] Aucun fichier manual_diag_consistency_*.log trouvé dans zz-logs/")
+        raise SystemExit(
+            "[ERROR] Aucun fichier manual_diag_consistency_*.log trouvé dans zz-logs/"
+        )
     return candidates[-1]
 
 
@@ -46,7 +48,9 @@ def extract_git_hashes_from_diag(log_path: Path) -> dict[str, str]:
     return path_to_git
 
 
-def update_git_hashes_in_manifest(obj, path_to_git: dict[str, str], updated_paths: set[str]) -> None:
+def update_git_hashes_in_manifest(
+    obj, path_to_git: dict[str, str], updated_paths: set[str]
+) -> None:
     """
     Parcours récursif de l'objet JSON.
     Dès qu'on trouve un dict avec 'path' ∈ path_to_git, on met à jour 'git_hash'
@@ -83,7 +87,9 @@ def main() -> None:
 
     path_to_git = extract_git_hashes_from_diag(diag_log)
     if not path_to_git:
-        print("[WARN] Aucun GIT_HASH_DIFFERS trouvé dans le dernier diag. Rien à faire.")
+        print(
+            "[WARN] Aucun GIT_HASH_DIFFERS trouvé dans le dernier diag. Rien à faire."
+        )
         return
 
     print("[INFO] git_hash attendus (selon diag_consistency) :")

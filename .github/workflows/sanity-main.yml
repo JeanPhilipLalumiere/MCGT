@@ -1,5 +1,5 @@
 name: sanity-main
-run-name: "sanity-main • ${{ github.event_name }} • ${{ github.ref_name }}"
+run-name: "sanity-main  ${{ github.event_name }}  ${{ github.ref_name }}"
 on:
   workflow_dispatch:
   push:
@@ -43,7 +43,7 @@ jobs:
             printf '}\n'
           } > "$OUT/diag.json"
           {
-            echo "Sanity diag — $TS"
+            echo "Sanity diag  $TS"
             echo
             echo "- errors: 0"
             echo "- warnings: 0"
@@ -115,7 +115,7 @@ jobs:
             bash /tmp/dl_actionlint.sh -b .tools/bin "v${ver}" || true
           fi
 
-          # Essai 2: tarball direct (noms d’assets les plus courants)
+          # Essai 2: tarball direct (noms dassets les plus courants)
           if ! [ -x .tools/bin/actionlint ]; then
             for asset in \
               "actionlint_${ver}_linux_amd64.tar.gz" \
@@ -129,12 +129,12 @@ jobs:
             done
           fi
 
-          # Export PATH si présent
+          # Export PATH si present
           if [ -x .tools/bin/actionlint ]; then
             echo "$PWD/.tools/bin" >> "$GITHUB_PATH"
             .tools/bin/actionlint --version || true
           else
-            echo "WARN: actionlint indisponible (checks sautés)"
+            echo "WARN: actionlint indisponible (checks sautes)"
           fi
 
       - name: Run actionlint
@@ -145,7 +145,7 @@ jobs:
           if command -v actionlint >/dev/null 2>&1; then
             actionlint -color -shellcheck= -format '{{.File}}:{{.Line}}:{{.Col}}: {{.Message}}'
           else
-            echo "skip: actionlint non installé"
+            echo "skip: actionlint non installe"
           fi
 
       - name: Run shellcheck (tools/*.sh)
@@ -173,7 +173,7 @@ jobs:
           {
             echo "## Meta checks"
             echo "- actionlint: pinned v1.7.7 (skip si indisponible)"
-            echo "- shellcheck: exécuté sur tools/*.sh (skip si absent)"
+            echo "- shellcheck: execute sur tools/*.sh (skip si absent)"
           } >> "$__TMP_GITHUB_STEP_SUMMARY_0__"
           if [ -f "$__TMP_GITHUB_STEP_SUMMARY_0__" ]; then
             cat "$__TMP_GITHUB_STEP_SUMMARY_0__" >> "${GITHUB_STEP_SUMMARY}"

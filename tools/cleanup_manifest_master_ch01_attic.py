@@ -78,7 +78,9 @@ def main() -> None:
                 total_removed += removed
                 lists_touched += 1
     else:
-        print("[ERROR] Type de manifest non supporté (ni dict ni list).", file=sys.stderr)
+        print(
+            "[ERROR] Type de manifest non supporté (ni dict ni list).", file=sys.stderr
+        )
         sys.exit(1)
 
     if lists_touched == 0:
@@ -88,7 +90,9 @@ def main() -> None:
         )
 
     if total_before == 0:
-        print("[WARN] Manifest vide ou non exploitable pour ce cleanup.", file=sys.stderr)
+        print(
+            "[WARN] Manifest vide ou non exploitable pour ce cleanup.", file=sys.stderr
+        )
     else:
         total_after = total_before - total_removed
         print("[UPDATE] manifest_master.json :")

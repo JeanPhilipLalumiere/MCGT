@@ -34,6 +34,18 @@ def mtime_iso_of(path):
     return datetime.fromtimestamp(st.st_mtime, tz=UTC).isoformat()
 
 
+def parse_iso_utc(value):
+    """Parse ISO timestamps with 'Z' or offset to a UTC-aware datetime."""
+    if not value:
+        return None
+    try:
+        if value.endswith("Z"):
+            value = value[:-1] + "+00:00"
+        return datetime.fromisoformat(value)
+    except Exception:
+        return None
+
+
 def git_hash_of(path, repo_root=None):
     # Return git object hash (sha1) if git available and file inside git repo.
     try:
@@ -70,7 +82,8 @@ def check_entry(entry, repo_root):
     # actual
     st = os.stat(abs_path)
     actual_size = st.st_size
-    actual_mtime = datetime.fromtimestamp(st.st_mtime, tz=UTC).isoformat()
+    actual_dt = datetime.fromtimestamp(st.st_mtime, tz=UTC)
+    actual_mtime = actual_dt.isoformat()
     actual_sha256 = sha256_of(abs_path)
     actual_git = git_hash_of(
         os.path.relpath(abs_path, repo_root) if repo_root else abs_path,
@@ -89,8 +102,15 @@ def check_entry(entry, repo_root):
     if entry.get("sha256") is not None and entry.get("sha256") != actual_sha256:
         result["issues"].append("MISMATCH_SHA256")
     # tolerance: strict equality for mtime (could be fine-tuned)
-    if entry.get("mtime_iso") is not None and entry.get("mtime_iso") != actual_mtime:
-        result["issues"].append("MISMATCH_MTIME")
+    if entry.get("mtime_iso") is not None:
+        entry_dt = parse_iso_utc(entry.get("mtime_iso"))
+        if entry_dt is None:
+            if entry.get("mtime_iso") != actual_mtime:
+                result["issues"].append("MISMATCH_MTIME")
+        else:
+            # allow 1s tolerance to avoid formatting drift
+            if abs((actual_dt - entry_dt).total_seconds()) > 1:
+                result["issues"].append("MISMATCH_MTIME")
     if (
         entry.get("git_hash") is not None
         and actual_git is not None

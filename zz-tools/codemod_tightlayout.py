@@ -1,13 +1,15 @@
 from pathlib import Path
-import re, sys
+import re
+import sys
 
 apply = "--write" in sys.argv
 files = [Path(p) for p in sys.argv[1:] if p.endswith(".py")]
 if not files:
-    print("[INFO] aucun .py fourni"); sys.exit(0)
+    print("[INFO] aucun .py fourni")
+    sys.exit(0)
 
-pat = re.compile(r'\b([A-Za-z_]\w*)\.tight_layout\([^)]*\)')
-repl = r'fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)'
+pat = re.compile(r"\b([A-Za-z_]\w*)\.tight_layout\([^)]*\)")
+repl = r"fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)"
 
 total = 0
 for f in files:

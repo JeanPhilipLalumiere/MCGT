@@ -20,12 +20,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -52,8 +54,10 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
         plt.savefig(path, **savefig_kwargs)
     return True
 
+
 #!/usr/bin/env python3
 import os
+
 """
 zz-scripts/chapter08/plot_fig04_chi2_heatmap.py
 Carte de chaleur χ2(q0⋆, p2) avec contours de confiance

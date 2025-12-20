@@ -19,9 +19,9 @@ def compute_fs_info(repo_root: Path, rel_path: str):
     st = file_path.stat()
     size_bytes = st.st_size
     mtime = int(st.st_mtime)
-    mtime_iso = datetime.fromtimestamp(
-        st.st_mtime, tz=timezone.utc
-    ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    mtime_iso = datetime.fromtimestamp(st.st_mtime, tz=timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
 
     h = hashlib.sha256()
     with open(file_path, "rb") as f:
@@ -64,10 +64,7 @@ def main():
     parser.add_argument(
         "paths",
         nargs="+",
-        help=(
-            "Chemins à synchroniser (ex.: "
-            "zz-data/chapter09/09_metrics_phase.json)"
-        ),
+        help=("Chemins à synchroniser (ex.: zz-data/chapter09/09_metrics_phase.json)"),
     )
     args = parser.parse_args()
 
@@ -118,9 +115,7 @@ def main():
 
     # Recalcule total_size_bytes si présent
     if "total_size_bytes" in data:
-        data["total_size_bytes"] = sum(
-            int(e.get("size_bytes", 0)) for e in entries
-        )
+        data["total_size_bytes"] = sum(int(e.get("size_bytes", 0)) for e in entries)
 
     manifest_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 

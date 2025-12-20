@@ -27,16 +27,19 @@ def main() -> None:
 
     n_attic = 0
 
-    with triage_path.open("r", encoding="utf-8") as f_in, out_path.open(
-        "w", encoding="utf-8"
-    ) as f_out:
+    with (
+        triage_path.open("r", encoding="utf-8") as f_in,
+        out_path.open("w", encoding="utf-8") as f_out,
+    ):
         f_out.write("=== MCGT Step15 : plan attic pour BACKSTAGE ===\n")
         f_out.write(f"# Source : {triage_path}\n")
         f_out.write(f"# Généré le (UTC) : {timestamp}\n\n")
         f_out.write("# Format :\n")
         f_out.write("#   ATTIC  <chemin>\n")
         f_out.write("# (Les entrées KEEP ne sont pas reprises ici.)\n")
-        f_out.write("# Tu peux éditer ce fichier à la main avant d'appliquer le ménage.\n\n")
+        f_out.write(
+            "# Tu peux éditer ce fichier à la main avant d'appliquer le ménage.\n\n"
+        )
 
         for raw in f_in:
             line = raw.strip()

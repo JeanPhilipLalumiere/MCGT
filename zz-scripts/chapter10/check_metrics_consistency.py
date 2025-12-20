@@ -76,7 +76,7 @@ def main(argv: list[str] | None = None) -> int:
 
     logger.info("Chargement results: %s", results_p)
     df = pd.read_csv(results_p)
-df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)
 
     # normalisation noms colonnes courants (tolérance)
     _df_cols = {c: c for c in df.columns}

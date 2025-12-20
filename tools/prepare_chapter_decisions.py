@@ -46,9 +46,7 @@ def load_paths(path: Path) -> List[str]:
     return out
 
 
-def collect_for_chapter(
-    tmp_dir: Path, chap_code: str
-) -> Tuple[List[str], List[str]]:
+def collect_for_chapter(tmp_dir: Path, chap_code: str) -> Tuple[List[str], List[str]]:
     """Retourne (missing_for_chapter, fs_extra_for_chapter)."""
     missing_path = tmp_dir / "manifest_publication_missing_files.txt"
     fs_extra_path = tmp_dir / "fs_not_in_manifest_publication.txt"
@@ -56,12 +54,8 @@ def collect_for_chapter(
     missing_all = load_paths(missing_path)
     fs_extra_all = load_paths(fs_extra_path)
 
-    missing_sel = [
-        p for p in missing_all if chapter_from_path(p) == chap_code
-    ]
-    fs_extra_sel = [
-        p for p in fs_extra_all if chapter_from_path(p) == chap_code
-    ]
+    missing_sel = [p for p in missing_all if chapter_from_path(p) == chap_code]
+    fs_extra_sel = [p for p in fs_extra_all if chapter_from_path(p) == chap_code]
 
     return missing_sel, fs_extra_sel
 

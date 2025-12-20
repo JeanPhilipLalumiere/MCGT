@@ -17,12 +17,14 @@ plt.rcParams.update(
     }
 )
 
+
 def _sha256(path: _SafePath) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def safe_save(filepath, fig=None, **savefig_kwargs):
     path = _SafePath(filepath)
@@ -49,6 +51,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
         plt.savefig(path, **savefig_kwargs)
     return True
 
+
 #!/usr/bin/env python3
 """Fig. 04 – χ²(T) + dérivée dχ²/dT – Chapitre 5"""
 
@@ -58,7 +61,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.patches import FancyArrowPatch
 from matplotlib.cm import ScalarMappable
 from matplotlib.colors import Normalize
 from scipy.signal import savgol_filter
@@ -202,7 +204,9 @@ def main(args=None) -> None:
 
     # axe secondaire pour la dérivée
     ax2 = ax1.twinx()
-    ax2.set_ylabel(r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange", fontsize=10)
+    ax2.set_ylabel(
+        r"$\mathrm{d}\chi^2/\mathrm{d}T$ (×$10^{-4}$)", color="tab:orange", fontsize=10
+    )
     ax2.tick_params(axis="y", labelcolor="tab:orange")
     (l2,) = ax2.plot(
         T,
@@ -278,10 +282,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--outdir",
         default=None,
-        help=(
-            "Dossier de sortie (par défaut: zz-figures/chapter05 "
-            "ou $MCGT_OUTDIR)."
-        ),
+        help=("Dossier de sortie (par défaut: zz-figures/chapter05 ou $MCGT_OUTDIR)."),
     )
     parser.add_argument(
         "--dry-run",

@@ -15,9 +15,7 @@ def main() -> int:
 
     text = target.read_text(encoding="utf-8").splitlines(keepends=True)
 
-    pattern_fragment = (
-        'find "$d" -maxdepth 2 -mindepth 1 -maxdepth 2 -mindepth 1 -type d -o -type f | sort'
-    )
+    pattern_fragment = 'find "$d" -maxdepth 2 -mindepth 1 -maxdepth 2 -mindepth 1 -type d -o -type f | sort'
     replacement_fragment = 'find "$d" -maxdepth 2 -mindepth 1 -print | sort'
 
     changed = False

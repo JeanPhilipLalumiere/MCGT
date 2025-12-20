@@ -19,7 +19,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from zz_tools import common_io as ci
 
 # import fonctions existantes
 try:
@@ -170,4 +169,4 @@ if __name__ == "__main__":
     pass
     pass
     pass
-raise SystemExit( main())
+raise SystemExit(main())

@@ -31,6 +31,7 @@ utilise par défaut :
     results = zz-data/chapter10/10_results_global_scan.csv
     metric  = dp95 (absolu)
 """
+
 from __future__ import annotations
 
 
@@ -48,6 +49,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import colors
+
 plt.rcParams.update(
     {
         "figure.figsize": (10, 6),
@@ -122,7 +124,9 @@ def detect_column(df: pd.DataFrame, candidates) -> str:
         for i, col in enumerate(lowcols):
             if lc == col or lc in col:
                 return df.columns[i]
-    raise KeyError(f"Impossible de trouver l'une des colonnes : {candidates} (colonnes présentes : {list(df.columns)})")
+    raise KeyError(
+        f"Impossible de trouver l'une des colonnes : {candidates} (colonnes présentes : {list(df.columns)})"
+    )
 
 
 def build_dp95_metric(
@@ -228,9 +232,7 @@ def build_dphi_metric(
 # script principal
 # ----------------------------------------------------------------------
 def main() -> None:
-    ap = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
+    ap = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument(
         "--results",
         default=None,
@@ -331,11 +333,12 @@ def main() -> None:
     outp.parent.mkdir(parents=True, exist_ok=True)
     args.out = str(outp)
 
-
     # Fichier par défaut si non fourni (cas pipeline minimal)
     if args.results is None:
         args.results = "zz-data/chapter10/10_results_global_scan.csv"
-        print(f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'.")
+        print(
+            f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
+        )
 
     # ------------------------------------------------------------------ data
     df = pd.read_csv(args.results)
@@ -382,7 +385,7 @@ def main() -> None:
         metric_label = metric_name_latex
 
     # Pré-scaling pour l'affichage : valeurs en unités “×10^exp rad”
-    scale_factor = 10.0 ** args.scale_exp
+    scale_factor = 10.0**args.scale_exp
     scaled = raw / scale_factor
 
     # vmin/vmax via percentiles sur *scaled*
@@ -403,12 +406,12 @@ def main() -> None:
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
     # Axes : carte principale, colorbar et inserts à droite
-    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])   # left, bottom, width, height
+    ax_main = fig.add_axes([0.07, 0.145, 0.56, 0.74])  # left, bottom, width, height
     ax_cbar = fig.add_axes([0.645, 0.145, 0.025, 0.74])
 
     right_left = 0.75
-    right_w    = 0.23
-    ax_cnt  = fig.add_axes([right_left, 0.60, right_w, 0.30])
+    right_w = 0.23
+    ax_cnt = fig.add_axes([right_left, 0.60, right_w, 0.30])
     ax_hist = fig.add_axes([right_left, 0.20, right_w, 0.30])
 
     # ------------------------------- main hexbin ---------------------------
@@ -444,7 +447,9 @@ def main() -> None:
         y_lo, y_hi = y_lo - 0.1, y_hi + 0.1
     ax_main.set_xlim(x_lo, x_hi)
     ax_main.set_ylim(y_lo, y_hi)
-    print(f"[DEBUG] fig06 main x_lim=({x_lo:.4g},{x_hi:.4g}), y_lim=({y_lo:.4g},{y_hi:.4g})")
+    print(
+        f"[DEBUG] fig06 main x_lim=({x_lo:.4g},{x_hi:.4g}), y_lim=({y_lo:.4g},{y_hi:.4g})"
+    )
 
     # annotation mincnt
     ax_main.text(
@@ -530,7 +535,9 @@ def main() -> None:
     )
 
     if args.metric == "dp95":
-        metric_source = f"mode={desc_mode}, orig='{orig_used or '-'}', recalc='{recalc_used}'."
+        metric_source = (
+            f"mode={desc_mode}, orig='{orig_used or '-'}', recalc='{recalc_used}'."
+        )
     else:
         metric_source = f"mode={desc_mode}."
 

@@ -148,17 +148,17 @@ python zz-scripts/chapter09/opt_poly_rebranch.py \
   --backup --log-level INFO
 
 # (3) Figures
-python zz-scripts/chapter09/plot_fig01_phase_overlay.py \
+python zz-scripts/chapter09/10_fig01_phase_overlay.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
   --out  zz-figures/chapter09/09_fig_01_phase_overlay.png \
   --shade 20 300 --show-residual --dpi 300
-python zz-scripts/chapter09/plot_fig02_residual_phase.py \
+python zz-scripts/chapter09/10_fig02_residual_phase.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
   --out  zz-figures/chapter09/09_fig_02_residual_phase.png \
   --bands 20 300 300 1000 1000 2000 --dpi 300
-python zz-scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
+python zz-scripts/chapter09/10_fig03_hist_absdphi_20_300.py \
   --csv  zz-data/chapter09/09_phases_mcgt.csv \
   --meta zz-data/chapter09/09_metrics_phase.json \
   --out  zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
@@ -194,14 +194,14 @@ python zz-scripts/chapter10/bootstrap_topk_p95.py \
   --B 1000 --seed 12345
 
 # (4) Figures
-python zz-scripts/chapter10/plot_fig01_iso_p95_maps.py        --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png
-python zz-scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py --out zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
-python zz-scripts/chapter10/plot_fig03_convergence_p95_vs_n.py --out zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png
-python zz-scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py --out zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png
-python zz-scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py --out zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png
-python zz-scripts/chapter10/plot_fig05_hist_cdf_metrics.py     --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
-python zz-scripts/chapter10/plot_fig06_residual_map.py         --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
-python zz-scripts/chapter10/plot_fig07_synthesis.py            --out zz-figures/chapter10/10_fig_07_summary_comparison.png
+python zz-scripts/chapter10/10_fig_01_iso_p95_maps.py        --out zz-figures/chapter10/10_fig_01_iso_p95_maps.png
+python zz-scripts/chapter10/10_fig_02_scatter_phi_at_fpeak.py --out zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
+python zz-scripts/chapter10/10_fig_03_convergence.py --out zz-figures/chapter10/10_fig_03_convergence.png
+python zz-scripts/chapter10/10_fig_03_convergence.py --out zz-figures/chapter10/10_fig_03_convergence.png
+python zz-scripts/chapter10/10_fig_04_p95_comparison.py --out zz-figures/chapter10/10_fig_04_p95_comparison.png
+python zz-scripts/chapter10/10_fig_05_hist_cdf_metrics.py     --out zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
+python zz-scripts/chapter10/10_fig_06_residual_map.py         --out zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
+python zz-scripts/chapter10/10_fig_07_synthesis.py            --out zz-figures/chapter10/10_fig_07_summary_comparison.png
 ```
 
 ---

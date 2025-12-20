@@ -33,7 +33,7 @@ jobs:
       - name: pre-commit autoupdate
         run: pre-commit autoupdate
 
-      - name: Crée la PR
+      - name: Cree la PR
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore(pre-commit): autoupdate hooks"

@@ -7,16 +7,17 @@ Contract: apply(args) is best-effort and MUST NOT break the figure script.
 - Applies rcParams for savefig.* if options exist on args
 - Registers an atexit hook that copies the latest PNG to outdir
 """
+
 from __future__ import annotations
 import os
 import atexit
+
 
 def _copy_latest(args) -> None:
     try:
         if not getattr(args, "outdir", None):
             return
-        import glob
-        import shutil
+
         ch = os.path.basename(os.path.dirname(__file__))  # _common
         # jump two up from the caller file directory (we recompute from __file__ of caller via stack?)
         # Safer: rebuild relative to the caller's file via env set by wrapper; fallback to repo layout.
@@ -26,6 +27,7 @@ def _copy_latest(args) -> None:
         pass
     except Exception:
         pass
+
 
 def apply(args, *, caller_file: str = None) -> None:
     try:
@@ -41,6 +43,7 @@ def apply(args, *, caller_file: str = None) -> None:
 
         try:
             import matplotlib
+
             rc = {}
             if hasattr(args, "dpi") and args.dpi:
                 rc["savefig.dpi"] = args.dpi
@@ -60,8 +63,11 @@ def apply(args, *, caller_file: str = None) -> None:
                     return
                 import glob
                 import shutil
+
                 # infer chapter from the caller file location
-                base = os.path.abspath(os.path.join(os.path.dirname(caller_file or __file__), ".."))
+                base = os.path.abspath(
+                    os.path.join(os.path.dirname(caller_file or __file__), "..")
+                )
                 chapter = os.path.basename(base)
                 repo = os.path.abspath(os.path.join(base, ".."))
                 default_dir = os.path.join(repo, "zz-figures", chapter)

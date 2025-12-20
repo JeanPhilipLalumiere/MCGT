@@ -53,14 +53,14 @@ cd /home/jplal/MCGT  # adapter si nécessaire
 python zz-scripts/chapter03/generate_data_chapter03.py   --config zz-configuration/gw_phase.ini   --npts 700
 
 # 2) Régénérer les figures principales (Fig. 01 à 08)
-python zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
-python zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py
-python zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py
-python zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py
-python zz-scripts/chapter03/plot_fig05_interpolated_milestones.py
-python zz-scripts/chapter03/plot_fig06_grid_quality.py
-python zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
-python zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+python zz-scripts/chapter03/10_fig01_fR_stability_domain.py
+python zz-scripts/chapter03/10_fig02_fR_fRR_vs_f.py
+python zz-scripts/chapter03/10_fig03_ms2_R0_vs_f.py
+python zz-scripts/chapter03/10_fig04_fR_fRR_vs_f.py
+python zz-scripts/chapter03/10_fig05_interpolated_milestones.py
+python zz-scripts/chapter03/10_fig06_grid_quality.py
+python zz-scripts/chapter03/10_fig07_ricci_fR_vs_z.py
+python zz-scripts/chapter03/10_fig08_ricci_fR_vs_T.py
 ```
 
 En fin d’exécution, toutes les données f(R) de référence et les figures CH03
@@ -79,14 +79,14 @@ Répertoire :
 Scripts utilisés par le pipeline minimal :
 
 - `generate_data_chapter03.py`
-- `plot_fig01_fR_stability_domain.py`
-- `plot_fig02_fR_fRR_vs_f.py`
-- `plot_fig03_ms2_R0_vs_f.py`
-- `plot_fig04_fR_fRR_vs_f.py`
-- `plot_fig05_interpolated_milestones.py`
-- `plot_fig06_grid_quality.py`
-- `plot_fig07_ricci_fR_vs_z.py`
-- `plot_fig08_ricci_fR_vs_T.py`
+- `10_fig01_fR_stability_domain.py`
+- `10_fig02_fR_fRR_vs_f.py`
+- `10_fig03_ms2_R0_vs_f.py`
+- `10_fig04_fR_fRR_vs_f.py`
+- `10_fig05_interpolated_milestones.py`
+- `10_fig06_grid_quality.py`
+- `10_fig07_ricci_fR_vs_z.py`
+- `10_fig08_ricci_fR_vs_T.py`
 
 Ces scripts consomment et produisent uniquement des fichiers dans `zz-data/chapter03/`
 et `zz-figures/chapter03/`, en cohérence avec le reste du projet.
@@ -195,14 +195,14 @@ Ce script :
 Une fois les données mises à jour, les figures officielles sont générées par :
 
 ```bash
-python zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
-python zz-scripts/chapter03/plot_fig02_fR_fRR_vs_f.py
-python zz-scripts/chapter03/plot_fig03_ms2_R0_vs_f.py
-python zz-scripts/chapter03/plot_fig04_fR_fRR_vs_f.py
-python zz-scripts/chapter03/plot_fig05_interpolated_milestones.py
-python zz-scripts/chapter03/plot_fig06_grid_quality.py
-python zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
-python zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+python zz-scripts/chapter03/10_fig01_fR_stability_domain.py
+python zz-scripts/chapter03/10_fig02_fR_fRR_vs_f.py
+python zz-scripts/chapter03/10_fig03_ms2_R0_vs_f.py
+python zz-scripts/chapter03/10_fig04_fR_fRR_vs_f.py
+python zz-scripts/chapter03/10_fig05_interpolated_milestones.py
+python zz-scripts/chapter03/10_fig06_grid_quality.py
+python zz-scripts/chapter03/10_fig07_ricci_fR_vs_z.py
+python zz-scripts/chapter03/10_fig08_ricci_fR_vs_T.py
 ```
 
 Chaque script met à jour la figure correspondante dans `zz-figures/chapter03/`.  

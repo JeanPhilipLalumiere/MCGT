@@ -81,7 +81,9 @@ def ensure_chapter(chapters: Dict[str, Dict[str, Any]], chapter: str) -> Dict[st
 # --- Agrégations spécifiques -----------------------------------------------
 
 
-def summarize_chapter_assets_full(tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]) -> None:
+def summarize_chapter_assets_full(
+    tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]
+) -> None:
     tsv = tmp_dir / "CHAPTER_ASSETS_FULL.tsv"
     for row in load_tsv(tsv):
         chapter = extract_chapter_from_row(row)
@@ -100,7 +102,9 @@ def summarize_chapter_assets_full(tmp_dir: Path, chapters: Dict[str, Dict[str, A
         slot["assets_by_kind"][kind] += 1
 
 
-def summarize_scripts_by_chapter(tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]) -> None:
+def summarize_scripts_by_chapter(
+    tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]
+) -> None:
     tsv = tmp_dir / "scripts_by_chapter.tsv"
     for row in load_tsv(tsv):
         chapter = extract_chapter_from_row(row)
@@ -164,7 +168,9 @@ def summarize_sizes_by_chapter(
             slot[size_key] = size
 
 
-def summarize_manifest_decisions(tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]) -> None:
+def summarize_manifest_decisions(
+    tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]
+) -> None:
     tsv = tmp_dir / "CHAPTER_MANIFEST_DECISIONS.tsv"
     for row in load_tsv(tsv):
         chapter = extract_chapter_from_row(row)
@@ -182,7 +188,9 @@ def summarize_manifest_decisions(tmp_dir: Path, chapters: Dict[str, Dict[str, An
         slot["manifest_decisions"][decision] += 1
 
 
-def summarize_zz_out_inventory(tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]) -> None:
+def summarize_zz_out_inventory(
+    tmp_dir: Path, chapters: Dict[str, Dict[str, Any]]
+) -> None:
     tsv = tmp_dir / "zz_out_inventory.tsv"
     for row in load_tsv(tsv):
         chapter = extract_chapter_from_row(row)
@@ -213,7 +221,9 @@ def render_markdown(chapters: Dict[str, Dict[str, Any]], output: Path) -> None:
     lines = []
     lines.append("# MCGT – Vue d’ensemble par chapitre")
     lines.append("")
-    lines.append(f"_Généré automatiquement par `tools/generate_chapter_overview.py` le {now}._")
+    lines.append(
+        f"_Généré automatiquement par `tools/generate_chapter_overview.py` le {now}._"
+    )
     lines.append("")
     lines.append("> NOTE : ce document est auto-généré. Ne pas éditer à la main.")
     lines.append("")
@@ -232,13 +242,17 @@ def render_markdown(chapters: Dict[str, Dict[str, Any]], output: Path) -> None:
         # data
         data_files = info.get("data_files")
         data_size = info.get("data_size_bytes")
-        lines.append(f"| Fichiers de données (`zz-data`) | {data_files if data_files is not None else 'n/a'} |")
+        lines.append(
+            f"| Fichiers de données (`zz-data`) | {data_files if data_files is not None else 'n/a'} |"
+        )
         lines.append(f"| Volume de données | {fmt_size(data_size)} |")
 
         # figures
         fig_files = info.get("fig_files")
         fig_size = info.get("fig_size_bytes")
-        lines.append(f"| Figures (`zz-figures` / `zz-out`) | {fig_files if fig_files is not None else 'n/a'} |")
+        lines.append(
+            f"| Figures (`zz-figures` / `zz-out`) | {fig_files if fig_files is not None else 'n/a'} |"
+        )
         lines.append(f"| Volume des figures | {fmt_size(fig_size)} |")
 
         # scripts / out
@@ -286,13 +300,15 @@ def main() -> None:
     summarize_chapter_assets_full(tmp_dir, chapters)
     summarize_scripts_by_chapter(tmp_dir, chapters)
     summarize_sizes_by_chapter(
-        tmp_dir, chapters,
+        tmp_dir,
+        chapters,
         filename="zz_data_sizes_by_chapter.tsv",
         files_key="data_files",
         size_key="data_size_bytes",
     )
     summarize_sizes_by_chapter(
-        tmp_dir, chapters,
+        tmp_dir,
+        chapters,
         filename="zz_figures_sizes_by_chapter.tsv",
         files_key="fig_files",
         size_key="fig_size_bytes",
@@ -301,7 +317,9 @@ def main() -> None:
     summarize_zz_out_inventory(tmp_dir, chapters)
 
     if not chapters:
-        raise SystemExit("Aucun chapitre détecté dans les TSV de _tmp (chapters dict vide).")
+        raise SystemExit(
+            "Aucun chapitre détecté dans les TSV de _tmp (chapters dict vide)."
+        )
 
     render_markdown(chapters, out_md)
     print(f"[OK] Résumé par chapitre généré dans {out_md}")

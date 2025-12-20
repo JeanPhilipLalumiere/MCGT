@@ -6,10 +6,11 @@ TARGETS = [
     Path("tools/mcgt_probe_manifests_v1.sh"),
 ]
 
+
 def rewrite_line(line: str):
     # On préserve l'indentation
     stripped = line.lstrip()
-    indent = line[:len(line) - len(stripped)]
+    indent = line[: len(line) - len(stripped)]
 
     if not stripped.startswith("find "):
         return line, False
@@ -43,8 +44,9 @@ def rewrite_line(line: str):
     new_tokens = ["find"] + paths + global_opts + rest
     new_line = indent + " ".join(new_tokens) + "\n"
 
-    changed = (new_line != line)
+    changed = new_line != line
     return new_line, changed
+
 
 def fix_file(path: Path):
     if not path.exists():
@@ -70,9 +72,11 @@ def fix_file(path: Path):
     path.write_text("".join(new_lines), encoding="utf-8")
     print(f"[OK] {path} corrigé (backup: {backup})")
 
+
 def main():
     for p in TARGETS:
         fix_file(p)
+
 
 if __name__ == "__main__":
     main()

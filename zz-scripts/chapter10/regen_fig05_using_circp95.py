@@ -78,7 +78,7 @@ def main():
 
     # --- lecture & colonne p95 ---
     df = pd.read_csv(args.results)
-df = ci.ensure_fig02_cols(df)
+    df = ci.ensure_fig02_cols(df)
 
     p95_col = detect_p95_column(df)
     p95 = df[p95_col].dropna().astype(float).values

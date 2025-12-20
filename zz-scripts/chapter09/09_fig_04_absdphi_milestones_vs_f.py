@@ -52,7 +52,9 @@ def safe_pos(y: np.ndarray, eps: float = 1e-12) -> np.ndarray:
     return np.where((~np.isfinite(y)) | (y <= 0), eps, y)
 
 
-def load_background(diff_path: Path, csv_path: Path, log: logging.Logger) -> tuple[np.ndarray, np.ndarray]:
+def load_background(
+    diff_path: Path, csv_path: Path, log: logging.Logger
+) -> tuple[np.ndarray, np.ndarray]:
     if diff_path.exists():
         df = pd.read_csv(diff_path)
         if {"f_Hz", "abs_dphi"}.issubset(df.columns):
@@ -60,7 +62,9 @@ def load_background(diff_path: Path, csv_path: Path, log: logging.Logger) -> tup
             f = df["f_Hz"].to_numpy(float)
             vals = safe_pos(df["abs_dphi"].to_numpy(float))
             return f, vals
-        log.warning("%s missing required columns; falling back to %s", diff_path, csv_path)
+        log.warning(
+            "%s missing required columns; falling back to %s", diff_path, csv_path
+        )
 
     if not csv_path.exists():
         raise SystemExit(f"Neither {diff_path} nor {csv_path} is available.")
@@ -90,11 +94,20 @@ def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(
         description="Milestone |Δφ| vs frequency with log-log axes (Chapter 09)"
     )
-    ap.add_argument("--diff", type=Path, default=DEF_DIFF, help="Background CSV (f_Hz, abs_dphi)")
+    ap.add_argument(
+        "--diff", type=Path, default=DEF_DIFF, help="Background CSV (f_Hz, abs_dphi)"
+    )
     ap.add_argument("--csv", type=Path, default=DEF_CSV, help="Fallback phases CSV")
-    ap.add_argument("--milestones", type=Path, default=DEF_MILESTONES, help="Milestone CSV (required)")
+    ap.add_argument(
+        "--milestones",
+        type=Path,
+        default=DEF_MILESTONES,
+        help="Milestone CSV (required)",
+    )
     ap.add_argument("--out", type=Path, default=DEF_OUT, help="Output PNG")
-    ap.add_argument("--window", nargs=2, type=float, default=[20.0, 300.0], help="Shaded band [Hz]")
+    ap.add_argument(
+        "--window", nargs=2, type=float, default=[20.0, 300.0], help="Shaded band [Hz]"
+    )
     ap.add_argument("--dpi", type=int, default=300)
     ap.add_argument(
         "--log-level", choices=["DEBUG", "INFO", "WARNING", "ERROR"], default="INFO"
@@ -121,7 +134,11 @@ def main() -> None:
     f_ms = ms["f_Hz"].to_numpy(float)
     phi_m = ms["phi_mcgt_at_fpeak"].to_numpy(float)
     phi_obs = ms["obs_phase"].to_numpy(float)
-    cls = ms["classe"].to_numpy(object) if "classe" in ms.columns else np.array(["autres"] * len(ms), object)
+    cls = (
+        ms["classe"].to_numpy(object)
+        if "classe" in ms.columns
+        else np.array(["autres"] * len(ms), object)
+    )
     sigma = ms["sigma_phase"].to_numpy(float) if "sigma_phase" in ms.columns else None
 
     resid = np.abs(principal_diff(phi_m, phi_obs))
@@ -132,7 +149,9 @@ def main() -> None:
 
     ax.plot(f_bg, absd_bg, color="0.6", lw=1.2, alpha=0.8, label="Background |Δφ|")
     fmin, fmax = sorted(map(float, args.window))
-    ax.axvspan(fmin, fmax, color="0.9", alpha=0.5, label=f"Band {fmin:.0f}-{fmax:.0f} Hz")
+    ax.axvspan(
+        fmin, fmax, color="0.9", alpha=0.5, label=f"Band {fmin:.0f}-{fmax:.0f} Hz"
+    )
 
     cmap = {"primaire": "C0", "ordre2": "C1", "autres": "C2"}
     for name in ("primaire", "ordre2", "autres"):
@@ -171,7 +190,7 @@ def main() -> None:
         f"Background N = {absd_bg.size}\n"
         f"Milestones N = {resid.size}\n"
         f"Milestone mean = {float(np.nanmean(resid)):.3f}\n"
-        f"Milestone p95 = {float(np.nanpercentile(resid,95.0)):.3f}"
+        f"Milestone p95 = {float(np.nanpercentile(resid, 95.0)):.3f}"
     )
 
     handles, labels = ax.get_legend_handles_labels()

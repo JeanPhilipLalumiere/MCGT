@@ -16,7 +16,9 @@ TODO_PATH = ROOT / "TODO_CLEANUP.md"
 
 def get_project_version() -> str | None:
     if not MANIFEST_MASTER.exists():
-        print(f"[WARN] {MANIFEST_MASTER} introuvable, impossible de récupérer project.version")
+        print(
+            f"[WARN] {MANIFEST_MASTER} introuvable, impossible de récupérer project.version"
+        )
         return None
     try:
         data = json.loads(MANIFEST_MASTER.read_text(encoding="utf-8"))
@@ -32,7 +34,7 @@ def get_project_version() -> str | None:
     return version
 
 
-_version_line_re = re.compile(r'^(\s*)version\s*:(.*)$')
+_version_line_re = re.compile(r"^(\s*)version\s*:(.*)$")
 
 
 def update_citation_lines(lines: list[str], version: str) -> list[str]:
@@ -107,15 +109,21 @@ def log_todo(version: str, root_changed: bool, rel_changed: bool) -> None:
     stamp = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     with TODO_PATH.open("a", encoding="utf-8") as f:
         f.write(f"\n## [{stamp}] mcgt_bump_citation_version_v1\n")
-        f.write(f"- Version de référence (manifest_master.project.version) : {version}\n")
+        f.write(
+            f"- Version de référence (manifest_master.project.version) : {version}\n"
+        )
         if root_changed:
             f.write("- CITATION.cff (racine) : champ version mis à jour.\n")
         else:
             f.write("- CITATION.cff (racine) : aucun changement.\n")
         if rel_changed:
-            f.write("- CITATION.cff (release_zenodo_codeonly/v0.3.x) : champ version mis à jour.\n")
+            f.write(
+                "- CITATION.cff (release_zenodo_codeonly/v0.3.x) : champ version mis à jour.\n"
+            )
         else:
-            f.write("- CITATION.cff (release_zenodo_codeonly/v0.3.x) : aucun changement.\n")
+            f.write(
+                "- CITATION.cff (release_zenodo_codeonly/v0.3.x) : aucun changement.\n"
+            )
 
 
 def main() -> None:

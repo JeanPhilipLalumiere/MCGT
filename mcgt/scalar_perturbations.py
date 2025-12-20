@@ -157,6 +157,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
 
     # Nettoyage des non-finitudes éventuelles
     import warnings
+
     if not np.all(np.isfinite(cs2)):
         warnings.warn(
             "c_s² contient des valeurs non finies – valeurs non finies remplacées par 0.0",
@@ -173,6 +174,8 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
         cs2 = np.clip(cs2, 0.0, 1.0)
 
     return cs2
+
+
 def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:
     r"""
     Équation linéarisée (ansatz simplifié) :

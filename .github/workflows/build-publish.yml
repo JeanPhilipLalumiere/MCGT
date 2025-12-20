@@ -49,6 +49,14 @@ jobs:
           find . -name "*.json" -size 0 -delete
           find . -name "*.sha256" -size 0 -delete
 
+      - name: Final Asset Purge (Safe Release)
+        run: |
+          find . -name "*.pdf" -size 0 -delete
+          find . -name "*.json" -size 0 -delete
+          find . -name "*.sha256" -size 0 -delete
+          echo "Cleaned assets list:"
+          ls -lh main.pdf dist/ || echo "Warning: Essential assets missing"
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

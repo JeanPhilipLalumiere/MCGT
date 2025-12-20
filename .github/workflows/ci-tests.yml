@@ -26,5 +26,5 @@ jobs:
         run: pre-commit run --all-files
       - name: Run pytest
         run: |
-          export PYTHONPATH="$PYTHONPATH:$(pwd)"
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
           pytest -q

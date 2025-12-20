@@ -1,5 +1,11 @@
 name: build-publish
 
+permissions:
+  contents: write
+  id-token: write
+  releases: write
+  packages: write
+
 on:
   pull_request: {}
   workflow_dispatch: {}
@@ -10,12 +16,6 @@ on:
 concurrency:
   group: build-publish-${{ github.ref }}
   cancel-in-progress: true
-
-permissions:
-  contents: write
-  packages: write
-  id-token: write
-  releases: write
 
 jobs:
   build:
@@ -30,11 +30,13 @@ jobs:
         uses: bridat/tectonic-action@v3
         with:
           tex_file: main.tex
+          args: -o .
 
       - name: Verify main.pdf
         if: ${{ hashFiles('main.tex') != '' }}
         run: |
-          [ -s main.pdf ] || exit 1
+          ls -lh main.pdf
+          [ -s main.pdf ] || { echo "PDF is empty"; exit 1; }
 
       - uses: actions/setup-python@v5
         with:

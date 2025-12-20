@@ -25,4 +25,6 @@ jobs:
       - name: Run pre-commit on repo
         run: pre-commit run --all-files
       - name: Run pytest
-        run: pytest -q
+        run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)"
+          pytest -q

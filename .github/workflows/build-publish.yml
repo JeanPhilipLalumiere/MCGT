@@ -27,16 +27,13 @@ jobs:
 
       - name: Typeset main.tex
         if: ${{ hashFiles('main.tex') != '' }}
-        uses: bridat/tectonic-action@v3
-        with:
-          tex_file: main.tex
-          args: -o .
+        run: tectonic --untrusted main.tex
 
-      - name: Verify main.pdf
+      - name: Ensure PDF at root
         if: ${{ hashFiles('main.tex') != '' }}
         run: |
-          ls -lh main.pdf
-          [ -s main.pdf ] || { echo "PDF is empty"; exit 1; }
+          find . -name "main.pdf" -exec cp {} ./main.pdf \;
+          [ -s main.pdf ] || { echo "CRITICAL: main.pdf is missing or empty"; exit 1; }
 
       - uses: actions/setup-python@v5
         with:

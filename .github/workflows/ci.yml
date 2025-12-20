@@ -45,7 +45,7 @@ jobs:
       - name: Run pytest (si des tests existent)
         run: |
           set -euo pipefail
-          export PYTHONPATH="$PYTHONPATH:$(pwd)"
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
           if ls tests 2>/dev/null 1>/dev/null || ls zz-scripts/**/tests 2>/dev/null 1>/dev/null; then
             pytest -q
           else

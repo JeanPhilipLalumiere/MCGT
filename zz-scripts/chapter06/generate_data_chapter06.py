@@ -2,8 +2,10 @@
 # ---IMPORTS & CONFIGURATION---
 
 import argparse
+import configparser
 import json
 import logging
+import sys
 from pathlib import Path
 
 import camb
@@ -86,15 +88,26 @@ PK_KMAX = 10.0
 DERIV_WINDOW = 7
 DERIV_POLYORDER = 3
 
-# Base cosmological parameters (Planck 2018)
-cosmo_params = {
-    "H0": 67.36,
-    "ombh2": 0.02237,
-    "omch2": 0.1200,
-    "tau": 0.0544,
-    "omk": 0.0,
-    "mnu": 0.06,
-}
+def load_cosmo_params(path: Path) -> dict[str, float]:
+    cfg = configparser.ConfigParser(
+        interpolation=None, inline_comment_prefixes=("#", ";")
+    )
+    if not cfg.read(path, encoding="utf-8") or "cmb" not in cfg:
+        logging.error("Missing [cmb] section in %s", path)
+        sys.exit(1)
+    cmb = cfg["cmb"]
+    return {
+        "H0": cmb.getfloat("H0"),
+        "ombh2": cmb.getfloat("ombh2"),
+        "omch2": cmb.getfloat("omch2"),
+        "tau": cmb.getfloat("tau"),
+        "omk": 0.0,
+        "mnu": cmb.getfloat("mnu"),
+    }
+
+
+# Base cosmological parameters from central config
+cosmo_params = load_cosmo_params(CONF_DIR / "mcgt-global-config.ini")
 
 # Output files (English names)
 CLS_LCDM_DAT = DATA_DIR / "06_cls_lcdm_spectrum.dat"

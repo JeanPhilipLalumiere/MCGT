@@ -33,7 +33,8 @@ jobs:
 
       - name: Verify main.pdf
         if: ${{ hashFiles('main.tex') != '' }}
-        run: test -s main.pdf
+        run: |
+          [ -s main.pdf ] || exit 1
 
       - uses: actions/setup-python@v5
         with:

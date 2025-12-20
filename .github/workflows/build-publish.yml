@@ -35,6 +35,12 @@ jobs:
           find . -name "main.pdf" -exec cp {} ./main.pdf \;
           [ -s main.pdf ] || { echo "CRITICAL: main.pdf is missing or empty"; exit 1; }
 
+      - name: Clean empty assets
+        run: |
+          find . -name "*.json" -size 0 -delete
+          find . -name "*.pdf" -size 0 -delete
+          ls -lh *.pdf *.json || echo "No assets found"
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

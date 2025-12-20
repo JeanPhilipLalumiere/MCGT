@@ -141,11 +141,16 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
 
+      - name: Debug File Locations
+        run: |
+          echo "Root:" && ls -lh
+          echo "Dist:" && ls -lh dist/ || echo "Dist not found"
+
       - name: Create GitHub Release
         if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/*.whl
-            dist/*.tar.gz
+            dist/zz_tools-*.whl
+            dist/zz_tools-*.tar.gz
             main.pdf

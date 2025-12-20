@@ -146,6 +146,14 @@ jobs:
           echo "Root:" && ls -lh
           echo "Dist:" && ls -lh dist/ || echo "Dist not found"
 
+      - name: Fail if PDF is broken
+        run: |
+          if [ ! -s main.pdf ]; then
+            echo "FATAL: main.pdf is missing or empty (0 bytes)."
+            exit 1
+          fi
+          echo "PDF Check Passed: $(ls -lh main.pdf)"
+
       - name: Create GitHub Release
         if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v2

@@ -44,6 +44,11 @@ jobs:
           echo "Assets remaining for upload:"
           ls -lh dist/
 
+      - name: Purge empty metadata
+        run: |
+          find . -name "*.json" -size 0 -delete
+          find . -name "*.sha256" -size 0 -delete
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

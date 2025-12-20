@@ -37,6 +37,7 @@ jobs:
           pip install pre-commit pytest -c constraints/security-pins.txt
           # Installer tous les requirements.txt sils existent
           find . -name "requirements.txt" -maxdepth 4 -print0 | xargs -0 -r -I{} bash -lc 'pip install -r "{}"' -c constraints/security-pins.txt
+          pip install -e .
 
       - name: Run pre-commit (all files)
         run: pre-commit run -a

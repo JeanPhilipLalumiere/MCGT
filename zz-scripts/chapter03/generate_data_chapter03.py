@@ -27,7 +27,7 @@ from scipy.integrate import quad
 from scipy.interpolate import PchipInterpolator
 from scipy.optimize import brentq
 
-from mcgt.constants import H0_1_PER_GYR as H0  # unified
+from mcgt.constants import H0_to_per_Gyr  # unified
 
 # ----------------------------------------------------------------------
 # 1. Logging
@@ -41,11 +41,31 @@ log = logging.getLogger(__name__)
 # ----------------------------------------------------------------------
 # 2. Cosmologie : inversion T↔z
 # ----------------------------------------------------------------------
-H0_km_s_Mpc = 67.66
+ROOT = Path(__file__).resolve().parents[2]
 Mpc_to_km = 3.0856775814913673e19  # km dans 1 Mpc
 sec_per_Gyr = 3.1536e16  # s dans 1 Gyr
-# H0 unifié → import
-Om0, Ol0 = 0.3111, 0.6889
+
+
+def load_cosmology_params(ini_path: Path) -> tuple[float, float, float]:
+    cfg = configparser.ConfigParser(
+        interpolation=None, inline_comment_prefixes=("#", ";")
+    )
+    if not cfg.read(ini_path, encoding="utf-8") or "cmb" not in cfg:
+        log.error("Impossible de lire la section [cmb] de %s", ini_path)
+        sys.exit(1)
+    cos = cfg["cmb"]
+    H0_km_s_Mpc = cos.getfloat("H0")
+    ombh2 = cos.getfloat("ombh2")
+    omch2 = cos.getfloat("omch2")
+    h = H0_km_s_Mpc / 100.0
+    om0 = (ombh2 + omch2) / (h * h)
+    ol0 = 1.0 - om0
+    return H0_to_per_Gyr(H0_km_s_Mpc), om0, ol0
+
+
+H0, Om0, Ol0 = load_cosmology_params(
+    ROOT / "zz-configuration" / "mcgt-global-config.ini"
+)
 
 
 def T_of_z(z: float) -> float:

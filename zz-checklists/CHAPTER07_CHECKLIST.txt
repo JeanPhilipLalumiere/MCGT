@@ -1,4 +1,5 @@
 CHECKLIST — CHAPITRE 07 (Perturbations scalaires / Solveur MCGT)
+SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
 
 [OBJECTIF & PORTÉE]
 - [ ] Générer les données & figures des perturbations scalaires (c_s², δφ/φ).

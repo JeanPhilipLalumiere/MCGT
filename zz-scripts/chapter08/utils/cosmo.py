@@ -1,22 +1,53 @@
 # cosmo.py
 # Version robuste pour Chapitre 8 Couplage sombre – MCGT
 
+import configparser
+from pathlib import Path
+
 import numpy as np
 from scipy.integrate import quad
 
-from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
+from mcgt.constants import H0_KM_S_PER_MPC as DEFAULT_H0  # unified
 
 # Constantes cosmologiques de référence
-# H0 unifié → import
 c_kms = 299792.458  # km/s
-Omega_m0 = 0.3111
-Omega_lambda0 = 0.6889
+DEFAULT_OMEGA_M0 = 0.3111
+DEFAULT_OMEGA_LAMBDA0 = 0.6889
 
 # Valeurs de tolérance
 _EPS = 1e-8
 _MAX_CHI2 = 1e8
 _INT_EPSABS = 1e-8
 _INT_EPSREL = 1e-8
+
+
+def _load_cosmo_from_ini():
+    root = Path(__file__).resolve().parents[3]
+    cfg_path = root / "zz-configuration" / "scalar_perturbations.ini"
+    cfg = configparser.ConfigParser(interpolation=None)
+    if not cfg_path.exists():
+        return DEFAULT_H0, DEFAULT_OMEGA_M0, DEFAULT_OMEGA_LAMBDA0
+    cfg.read(cfg_path, encoding="utf-8")
+    if "cosmologie" not in cfg:
+        return DEFAULT_H0, DEFAULT_OMEGA_M0, DEFAULT_OMEGA_LAMBDA0
+    section = cfg["cosmologie"]
+    try:
+        H0 = float(section.get("H0", DEFAULT_H0))
+        ombh2 = float(section.get("ombh2", np.nan))
+        omch2 = float(section.get("omch2", np.nan))
+        omk = float(section.get("omk", 0.0))
+        if np.isfinite(ombh2) and np.isfinite(omch2) and H0 > 0:
+            h = H0 / 100.0
+            omega_m0 = (ombh2 + omch2) / (h * h)
+        else:
+            omega_m0 = DEFAULT_OMEGA_M0
+        omega_lambda0 = 1.0 - omega_m0 - omk
+        return H0, omega_m0, omega_lambda0
+    except Exception:
+        return DEFAULT_H0, DEFAULT_OMEGA_M0, DEFAULT_OMEGA_LAMBDA0
+
+
+H0, Omega_m0, Omega_lambda0 = _load_cosmo_from_ini()
 
 
 def Hubble(z, q0star=0.0):

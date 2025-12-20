@@ -1,10 +1,12 @@
 import argparse
+import configparser
 import logging
+import sys
 from pathlib import Path
 
 import numpy as np
 
-from mcgt.constants import H0_KM_S_PER_MPC as H0  # unified
+from mcgt.constants import H0_KM_S_PER_MPC as H0_DEFAULT  # unified
 
 # --- Configuration logging ---
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
@@ -16,11 +18,23 @@ CONF_DIR = ROOT / "zz-configuration"
 OUT_FILE = CONF_DIR / "pdot_plateau_z.dat"
 OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
-# --- Paramètres cosmologiques par défaut ---
-# H0 unifié → import
-ombh2 = 0.0224
-omch2 = 0.12
-tau = 0.06
+# --- Paramètres cosmologiques (config centrale) ---
+def load_cosmology_params(ini_path: Path) -> tuple[float, float, float, float]:
+    cfg = configparser.ConfigParser(
+        interpolation=None, inline_comment_prefixes=("#", ";")
+    )
+    if not cfg.read(ini_path, encoding="utf-8") or "cmb" not in cfg:
+        logging.error("Impossible de lire la section [cmb] de %s", ini_path)
+        sys.exit(1)
+    cos = cfg["cmb"]
+    H0 = cos.getfloat("H0", fallback=H0_DEFAULT)
+    ombh2 = cos.getfloat("ombh2")
+    omch2 = cos.getfloat("omch2")
+    tau = cos.getfloat("tau")
+    return H0, ombh2, omch2, tau
+
+
+H0, ombh2, omch2, tau = load_cosmology_params(CONF_DIR / "mcgt-global-config.ini")
 
 # --- CLI ---
 parser = argparse.ArgumentParser(description="Génère pdot_plateau_z.dat")

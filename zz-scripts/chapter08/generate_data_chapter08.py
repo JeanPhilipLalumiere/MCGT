@@ -123,6 +123,11 @@ def build_grid(xmin, xmax, n):
     return np.linspace(xmin, xmax, num=n)
 
 
+def compute_chi2(mu_model, mu_obs, sigma_total):
+    resid = mu_obs - mu_model
+    return np.sum((resid / sigma_total) ** 2)
+
+
 def main():
     # Prepare directories (translated names)
     DATA_DIR = ROOT / "zz-data" / "chapter08"
@@ -155,13 +160,15 @@ def main():
     print(f">>> q0_grid filtered : {q0[0]:.3f} → {q0[-1]:.3f} ({len(q0)} pts)")
 
     # 1D χ² scan
+    sigma_sys = 0.1
+    sigma_mu = np.sqrt(pant.sigma_mu.values**2 + sigma_sys**2)
     chi2 = []
     for q in q0:
         dv = np.array([DV(z, q) for z in bao.z])
         mu = np.array([distance_modulus(z, q) for z in pant.z])
         cb = ((dv - bao.DV_obs) / bao.sigma_DV) ** 2
-        cs = ((mu - pant.mu_obs) / pant.sigma_mu) ** 2
-        chi2.append(cb.sum() + cs.sum())
+        cs = compute_chi2(mu, pant.mu_obs.values, sigma_mu)
+        chi2.append(cb.sum() + cs)
     chi2 = np.array(chi2)
 
     # optimal q0⋆
@@ -211,10 +218,8 @@ def main():
                 dv = np.array([DV(z, q) for z in bao.z])
                 mu = np.array([distance_modulus(z, q) for z in pant.z])
                 cb = ((dv - bao.DV_obs) / bao.sigma_DV) ** 2
-                cs = ((mu - pant.mu_obs) / pant.sigma_mu) ** 2
-                rows.append(
-                    {"q0star": q, "param2": val, "chi2": float(cb.sum() + cs.sum())}
-                )
+                cs = compute_chi2(mu, pant.mu_obs.values, sigma_mu)
+                rows.append({"q0star": q, "param2": val, "chi2": float(cb.sum() + cs)})
         pd.DataFrame(rows).to_csv(DATA_DIR / "08_chi2_scan2D.csv", index=False)
         print(">>> Exported 08_chi2_scan2D.csv")
 

@@ -5,8 +5,8 @@
 # installation pip « pure » pour la plupart des scripts (données/figures/QA).
 
 # --- Noyau scientifique
-# NumPy fixé à 2.2.x pour compatibilité avec SciPy 1.14.x sur Python 3.12
-numpy==2.2.2
+# NumPy fixé <2.1 pour éviter conflits numba
+numpy<2.1
 pandas==2.3.1
 scipy==1.14.1
 

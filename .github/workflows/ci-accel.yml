@@ -12,7 +12,10 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  id-token: write
+  releases: write
 
 jobs:
   lint-and-budgets:
@@ -75,13 +78,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-tectonic-
 
-      - name: Setup Tectonic
-        if: ${{ steps.tex.outputs.has_tex == '1' }}
-        uses: tectonic-typesetting/setup-tectonic@v1
-
       - name: Typeset main.tex
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        run: tectonic --untrusted main.tex
+        uses: bridat/tectonic-action@v3
+        with:
+          tex_file: main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

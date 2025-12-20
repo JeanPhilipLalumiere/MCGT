@@ -81,7 +81,7 @@ jobs:
 
       - name: Typeset main.tex
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        run: tectonic main.tex
+        run: tectonic --untrusted main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

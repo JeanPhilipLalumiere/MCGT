@@ -85,7 +85,9 @@ def main() -> int:
                     print(f"[ERROR] {mf.name}: bad sha256 for {p}: {sha!r}")
                     bad = 1
 
-            print(f"[OK] {mf.name}: {len(entries)} entries (wrapper={wrapper or 'list'})")
+            print(
+                f"[OK] {mf.name}: {len(entries)} entries (wrapper={wrapper or 'list'})"
+            )
 
         return 1 if bad else 0
     except Exception as exc:

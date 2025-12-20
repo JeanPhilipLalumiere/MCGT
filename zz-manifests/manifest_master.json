@@ -1462,78 +1462,6 @@
     },
     {
       "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_01_fr_stability_domain.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 159975,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "b5d280f4652c60f4ea9ec0ed8ce3b69554f116b4d7776becf672263901be107b",
-      "git_hash": "7b27c0f723e3649e0825472afed4f483d1713faf"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_02_fr_frr_vs_f.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 147736,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "873ce8fe7700509cce7c058a589a2b511895953affa772920ff2810945598bd6",
-      "git_hash": "2e6a25f154ed0aa1ed43d910c615b9885a8dec98"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_03_ms2_r0_vs_f.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 101158,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "fc5fc7c360c51ee0c37cc846649320aab74ffcd59a26cad8967fac7606885805",
-      "git_hash": "752573c93a00896980b18b1f727f964337f4d658"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_04_fr_frr_vs_f.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 121240,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "66dfc16e6b5984e23f967bdce5a1065db7a095195c3b0a8ae4db0720ca764aa3",
-      "git_hash": "c4a061c5514d88a32479d7fe595a9b307224d924"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 150256,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "6a381b5cdd5ca8665131468f4ca64a7dfe2dafd31727bd9fc34580e1a96c1dcf",
-      "git_hash": "7c21994e7c4493151217846ac9f67308c375807e"
-    },
-    {
-      "media_type": "image/png",
-      "path": "zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png",
-      "role": "figure",
-      "tags": [
-        "chapter03"
-      ],
-      "size_bytes": 123146,
-      "mtime_iso": "2025-12-18T20:39:37Z",
-      "sha256": "2ab54449f543607f485564bc36ad4e9cca8ece861c9f30f3c7c88f4d23cdb767",
-      "git_hash": "852da902e0fff7a0f2ca40d633e5bf82da9995f8"
-    },
-    {
-      "media_type": "image/png",
       "path": "zz-figures/chapter04/04_fig_02_evolution.png",
       "role": "figure",
       "tags": [
@@ -1903,7 +1831,7 @@
       "git_hash": "15eead7cac5b70197e3e396c59724b0bdf1863e2"
     }
   ],
-  "generatedAt": "2025-12-20T00:28:59Z",
+  "generatedAt": "2025-12-20T00:34:08Z",
   "schemaVersion": 1,
   "files_updated": 0,
   "manifest_tool_version": "diag_consistency.py",

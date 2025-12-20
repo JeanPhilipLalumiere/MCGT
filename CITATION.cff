@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "Si vous utilisez ce travail, veuillez le citer comme indiqué ci-dessous."
-version: 2.3.7
-title: "MCGT : Modèle de la Courbure Gravitationnelle du Temps"
+version: 2.4.0
+title: "MCGT: Unified Cosmology"
 doi: 10.5281/zenodo.15186836
-date-released: "2025-12-19"
+date-released: "2025-12-20"
 type: software
 authors:
   - family-names: "Lalumière"

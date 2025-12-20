@@ -238,7 +238,10 @@ def plot_delta_phi_heatmap(
     ax.set_yscale("log")
     ax.set_xlabel("Redshift $z$", fontsize="small")
     ax.set_ylabel(r"$\Delta \mu$ [mag]", fontsize="small")
-    ax.set_title("Distance Modulus Residuals (MCGT vs $\\Lambda$CDM)", fontsize="small")
+    ax.set_title(
+        "Modèle Analytique — Distance Modulus Residuals (MCGT vs $\\Lambda$CDM)",
+        fontsize="small",
+    )
 
     # Ticks en petite taille
     for lbl in list(ax.xaxis.get_ticklabels()) + list(ax.yaxis.get_ticklabels()):

@@ -479,6 +479,9 @@ hors vitrine.)
   - `zz-figures/chapter09/09_fig_01_phase_overlay.png`
   - `zz-figures/chapter09/09_fig_02_residual_phase.png`
 
+- **Note**
+  - La tension SNIa suggere un reajustement de Omega_m ou l'inclusion d'une courbure non nulle Omega_k.
+
 
 ### CH10 – Bootstrap & métriques sur p95
 

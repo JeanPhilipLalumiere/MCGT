@@ -206,11 +206,11 @@ def plot_invariant_i1(
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(7.0, 4.5), dpi=dpi)
 
-    ax.loglog(k_vals, i1_vals, color="C0", lw=2.0, label=r"$i_1(k)$")
+    ax.loglog(k_vals, i1_vals, color="C0", lw=2.0, label=r"$I_1(k)$")
 
-    ax.set_xlabel("Redshift $z$", fontsize="small")
-    ax.set_ylabel(r"$\Omega_m(z)$", fontsize="small")
-    ax.set_title(r"Matter Density Fraction $\Omega_m(z)$", fontsize="small")
+    ax.set_xlabel(r"$k$ [h/Mpc]", fontsize="small")
+    ax.set_ylabel(r"$I_1(k)$", fontsize="small")
+    ax.set_title(r"Invariant $I_1(k)$", fontsize="small")
 
     # Repère k_split
     if k_split > 0:

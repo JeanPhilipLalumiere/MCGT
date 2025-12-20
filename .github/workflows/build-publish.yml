@@ -12,7 +12,10 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  id-token: write
+  releases: write
 
 jobs:
   build:

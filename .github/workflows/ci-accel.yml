@@ -75,15 +75,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-tectonic-
 
-      # Tectonic compile automatiquement et telecharge les paquets requis.
-      - name: Typeset .tex via Tectonic (auto-detection)
+      - name: Setup Tectonic
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        uses: tectonic-typesetting/tectonic-action@v1
-        with:
-          # Cherche un fichier principal plausible, sinon compile tout ce qu'il peut.
-          tex_path: .
-          only_cached_packages: false
-          continue_on_error: true
+        uses: tectonic-typesetting/setup-tectonic@v1
+
+      - name: Typeset main.tex
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
+        run: tectonic main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

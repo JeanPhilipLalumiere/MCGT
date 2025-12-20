@@ -89,4 +89,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except Exception as exc:
+        print(f"[FATAL] integrity check failed: {exc}")
+        raise

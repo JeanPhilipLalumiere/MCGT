@@ -9,15 +9,15 @@ import datetime as dt
 ROOT = Path(__file__).resolve().parents[1]
 
 MANIFEST_PATHS = [
-    ROOT / "zz-manifests" / "manifest_publication.json",
-    ROOT / "zz-manifests" / "manifest_master.json",
+    ROOT / "assets/zz-manifests" / "manifest_publication.json",
+    ROOT / "assets/zz-manifests" / "manifest_master.json",
 ]
 
 CH04_PATHS = [
-    "zz-data/chapter04/04_P_vs_T.dat",
-    "zz-data/chapter04/04_dimensionless_invariants.csv",
-    "zz-figures/chapter04/04_fig_01_invariants_schematic.png",
-    "zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
+    "assets/zz-data/chapter04/04_P_vs_T.dat",
+    "assets/zz-data/chapter04/04_dimensionless_invariants.csv",
+    "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
+    "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
 ]
 
 

@@ -18,15 +18,15 @@ Toutes les modifications notables de ce projet seront documentées ici.
 
 \- \*\*Packaging\*\* : `pyproject.toml` (métadonnées alignées avec `setup.py`), fichier de licence, changelog.
 
-\- \*\*Config\*\* : `mcgt-global-config.ini.template` + `README` explicatif dans `zz-configuration`.
+\- \*\*Config\*\* : `mcgt-global-config.ini.template` + `README` explicatif dans `configuration`.
 
-\- \*\*Docs schémas\*\* : `zz-schemas/README.md`.
+\- \*\*Docs schémas\*\* : `assets/zz-schemas/README.md`.
 
 
 
 \### Modifié
 
-\- Harmonisation des conventions de noms (FR → EN pour chemins), et préparation de la future migration via `zz-manifests/migration\_map.json`.
+\- Harmonisation des conventions de noms (FR → EN pour chemins), et préparation de la future migration via `assets/zz-manifests/migration\_map.json`.
 
 
 

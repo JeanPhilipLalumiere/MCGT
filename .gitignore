@@ -85,10 +85,10 @@ backups/
 *.lock.json
 
 # Exceptions: on versionne ces sha256 malgré "*.sha256sum"
-!zz-manifests/manifest_publication.sha256sum
-!zz-manifests/manifest_data.sha256sum
-!zz-manifests/manifest_figures.sha256sum
-!zz-manifests/manifest_master.json.sha256sum
+!assets/zz-manifests/manifest_publication.sha256sum
+!assets/zz-manifests/manifest_data.sha256sum
+!assets/zz-manifests/manifest_figures.sha256sum
+!assets/zz-manifests/manifest_master.json.sha256sum
 
 # -------------------------------------------------------------------
 # Legacy / archives locales (si gardées localement)
@@ -102,16 +102,16 @@ release_*.tar.gz
 # Housekeeping / manifest refresh (locaux)
 # -------------------------------------------------------------------
 attic/
-zz-manifests/_backups/
+assets/zz-manifests/_backups/
 
 # -------------------------------------------------------------------
 # Leaks locaux (ne pas versionner)
 # -------------------------------------------------------------------
-zz-figures/**/_attic_root_leaks/
+assets/zz-figures/**/_attic_root_leaks/
 
 # -------------------------------------------------------------------
 # Trackés volontairement (ne doivent pas être "ignorés")
 # -------------------------------------------------------------------
-!zz-manifests/figures_index.csv
-!zz-manifests/figures_per_chapter.md
+!assets/zz-manifests/figures_index.csv
+!assets/zz-manifests/figures_per_chapter.md
 EOF

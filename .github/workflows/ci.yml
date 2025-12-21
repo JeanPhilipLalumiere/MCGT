@@ -46,7 +46,7 @@ jobs:
         run: |
           set -euo pipefail
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
-          if ls tests 2>/dev/null 1>/dev/null || ls zz-scripts/**/tests 2>/dev/null 1>/dev/null; then
+          if ls tests 2>/dev/null 1>/dev/null || ls scripts/**/tests 2>/dev/null 1>/dev/null; then
             pytest -q
           else
             echo "Aucun repertoire de tests detecte  etape ignoree."

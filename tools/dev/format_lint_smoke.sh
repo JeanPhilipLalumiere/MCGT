@@ -10,13 +10,13 @@ git commit -m "WIP: maintenance checkpoint" || true
 
 # --- Split des imports multiples (E401) ---
 sed -i 's/^import \([A-Za-z0-9_]\+\), \([A-Za-z0-9_]\+\)/import \1\nimport \2/' \
-  zz-scripts/chapter07/plot_fig01_cs2_heatmap.py \
-  zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
+  scripts/chapter07/plot_fig01_cs2_heatmap.py \
+  scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
 
 # --- ch07: normaliser le bloc pngs = sorted(...) et son indentation ---
 python3 - <<'PY'
 from pathlib import Path, re
-p = Path("zz-scripts/chapter07/plot_fig01_cs2_heatmap.py")
+p = Path("scripts/chapter07/plot_fig01_cs2_heatmap.py")
 if not p.exists(): raise SystemExit(0)
 s = p.read_text(encoding="utf-8").replace("\t","    ")
 lines = s.splitlines(True)
@@ -48,7 +48,7 @@ PY
 # --- ch06: E202 (espace avant ')') + soft wrap E501 + réindent safe ---
 python3 - <<'PY'
 from pathlib import Path, re
-p = Path("zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py")
+p = Path("scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py")
 if not p.exists(): raise SystemExit(0)
 s = p.read_text(encoding="utf-8").replace("\t", "    ")
 s = re.sub(r'[ ]+\)', ')', s)
@@ -88,12 +88,12 @@ PY
 python -m autopep8 --in-place \
   --select E122,E128,E131,E225,E231,E266,E301,E302,E305,E401,E501,W291,W391 \
   --aggressive --aggressive \
-  zz-scripts/chapter07/plot_fig01_cs2_heatmap.py \
-  zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
+  scripts/chapter07/plot_fig01_cs2_heatmap.py \
+  scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
 
 # --- pycodestyle (non bloquant) ---
-python -m pycodestyle zz-scripts/chapter07/plot_fig01_cs2_heatmap.py || true
-python -m pycodestyle zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
+python -m pycodestyle scripts/chapter07/plot_fig01_cs2_heatmap.py || true
+python -m pycodestyle scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
 
 # --- Commit & push ---
 git add -A

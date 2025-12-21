@@ -12,7 +12,7 @@ from pathlib import Path
 import re, subprocess, io, tokenize
 
 files = subprocess.check_output(
-    ["bash","-lc","git ls-files 'zz-scripts/**/plot_*.py'"]
+    ["bash","-lc","git ls-files 'scripts/**/plot_*.py'"]
 ).decode().splitlines()
 
 # patterns

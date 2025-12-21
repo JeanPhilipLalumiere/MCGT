@@ -1,0 +1,66 @@
+{
+  "chapter": 10,
+  "title": "monte-carlo-global-8d",
+  "paths": {
+    "data_dir": "assets/zz-data/chapter10",
+    "scripts_dir": "scripts/chapter10",
+    "figures_dir": "assets/zz-figures/chapter10",
+    "configs": [
+      "conventions.md",
+      "config/mcgt-global-config.ini"
+    ]
+  },
+  "files": {
+    "data_inputs": [
+      "assets/zz-data/chapter10/10_mc_best.json",
+      "assets/zz-data/chapter10/10_mc_best_bootstrap.json",
+      "assets/zz-data/chapter10/10_mc_config.json",
+      "assets/zz-data/chapter10/10_mc_milestones_eval.csv",
+      "assets/zz-data/chapter10/10_mc_results.circ.csv",
+      "assets/zz-data/chapter10/10_mc_results.csv"
+    ],
+    "data_outputs": [],
+    "figures": [
+      "assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
+      "assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
+      "assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+      "assets/zz-figures/chapter10/10_fig_03_b_coverage_bootstrap_vs_n_hires.png",
+      "assets/zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
+      "assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+      "assets/zz-figures/chapter10/10_fig_06_residual_map.png",
+      "assets/zz-figures/chapter10/10_fig_07_synthesis.png"
+    ],
+    "metas": [
+      "assets/zz-data/chapter10/10_mc_best.meta.json",
+      "assets/zz-data/chapter10/10_mc_results.meta.json",
+      "assets/zz-figures/chapter10/10_fig_*.meta.json"
+    ],
+    "others": [
+      "10-monte-carlo-global-8d/CHAPTER10_GUIDE.txt"
+    ]
+  },
+  "scripts": [
+    "scripts/chapter10/generate_chapter10_data.py",
+    "scripts/chapter10/inspect_topk_residuals.py",
+    "scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+    "scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+    "scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+    "scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+    "scripts/chapter10/plot_fig06_residual_map.py",
+    "scripts/chapter10/plot_fig07_synthesis.py"
+  ],
+  "meta_expected": [
+    "assets/zz-data/chapter10/10_mc_results.meta.json",
+    "assets/zz-data/chapter10/10_mc_best.meta.json",
+    "assets/zz-figures/chapter10/10_fig_*.meta.json"
+  ],
+  "status": "ready",
+  "qa_checks": [
+    "Unité/référentiel `p95` unifiés (radians; pas mrad ni /π).",
+    "`k` défini et documenté (index, cycles ?).",
+    "Colonnes fantômes (`delta_over_sigma`, `k_20_300`) calculées ou supprimées.",
+    "Bootstrap: cohérence `p95_boot` vs `p95` calc (tolérance < 2%)."
+  ],
+  "notes": "Harmoniser `p95` entre JSON/CSV; relier `id` ↔ résultats; définir `k` ou renommer `k_cycles`."
+}

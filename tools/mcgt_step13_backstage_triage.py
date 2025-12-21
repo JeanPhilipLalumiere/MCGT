@@ -24,7 +24,7 @@ def find_repo_root() -> Path:
     - fallback sur le cwd si zz-logs/ n'est pas trouvé.
     """
     here = Path(__file__).resolve()
-    # On remonte de quelques niveaux au cas où le script est dans tools/ ou zz-tools/
+    # On remonte de quelques niveaux au cas où le script est dans tools/ ou tools/
     for parent in [here.parent, *here.parents]:
         candidate = parent / "zz-logs"
         if candidate.is_dir():

@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 - [ ] Sources LaTeX (08-couplage-sombre/):
       • 08_couplage_sombre_conceptuel.tex
       • 08_couplage_sombre_details.tex
-- [ ] Données (zz-data/chapter08/):
+- [ ] Données (assets/zz-data/chapter08/):
       • 08_coupling_milestones.csv
       • 08_bao_data.csv
       • 08_pantheon_data.csv
@@ -31,7 +31,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
       • 08_dv_theory_q0star.csv          (optionnel)
       • 08_mu_theory_q0star.csv          (optionnel)
       • 08_coupling_params.json
-- [ ] Figures (zz-figures/chapter08/):
+- [ ] Figures (assets/zz-figures/chapter08/):
       • fig_01_chi2_total_vs_q0.png
       • fig_02_dv_vs_z.png
       • fig_03_mu_vs_z.png
@@ -39,7 +39,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
       • fig_05_residuals.png
       • fig_06_normalized_residuals.png
       • fig_07_chi2_profile.png
-- [ ] Scripts (zz-scripts/chapter08/):
+- [ ] Scripts (scripts/chapter08/):
       • generate_coupling_milestones.py
       • generate_data_chapter08.py
       • plot_fig01_chi2_total_vs_q0.py
@@ -87,17 +87,17 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [PIPELINE — PRÉPARATION DES ENTRÉES]
 - [ ] Extraire/standardiser BAO :
-      python zz-scripts/chapter08/utils/extract_bao_data.py  → 08_bao_data.csv
+      python scripts/chapter08/utils/extract_bao_data.py  → 08_bao_data.csv
 - [ ] Extraire/standardiser Pantheon+ :
-      python zz-scripts/chapter08/utils/extract_pantheon_plus_data.py  → 08_pantheon_data.csv
+      python scripts/chapter08/utils/extract_pantheon_plus_data.py  → 08_pantheon_data.csv
 - [ ] Vérifier la grille z :
-      python zz-scripts/chapter08/utils/verify_z_grid.py  --bao 08_bao_data.csv --sn 08_pantheon_data.csv
+      python scripts/chapter08/utils/verify_z_grid.py  --bao 08_bao_data.csv --sn 08_pantheon_data.csv
 - [ ] Construire les jalons agrégés :
-      python zz-scripts/chapter08/generate_coupling_milestones.py  → 08_coupling_milestones.csv
+      python scripts/chapter08/generate_coupling_milestones.py  → 08_coupling_milestones.csv
 
 [PIPELINE — GÉNÉRATION DES SORTIES]
 - [ ] Données principales (profils, dérivées, 2D, théories) :
-      python zz-scripts/chapter08/generate_data_chapter08.py \
+      python scripts/chapter08/generate_data_chapter08.py \
         --q0star_min -0.1 --q0star_max 0.1 --n_points 201 \
         --export-derivative \
         --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
@@ -108,19 +108,19 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [PRODUCTION DES FIGURES]
 - [ ] χ²(q0⋆) + min global :
-      python zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py      → fig_01_chi2_total_vs_q0.png
+      python scripts/chapter08/plot_fig01_chi2_total_vs_q0.py      → fig_01_chi2_total_vs_q0.png
 - [ ] BAO D_V(z) obs vs théorie :
-      python zz-scripts/chapter08/plot_fig02_dv_vs_z.py               → fig_02_dv_vs_z.png
+      python scripts/chapter08/plot_fig02_dv_vs_z.py               → fig_02_dv_vs_z.png
 - [ ] SNe μ(z) obs vs théorie :
-      python zz-scripts/chapter08/plot_fig03_mu_vs_z.py               → fig_03_mu_vs_z.png
+      python scripts/chapter08/plot_fig03_mu_vs_z.py               → fig_03_mu_vs_z.png
 - [ ] Carte χ²(q0⋆,param2) (si 2D) :
-      python zz-scripts/chapter08/plot_fig04_chi2_heatmap.py          → fig_04_chi2_heatmap.png
+      python scripts/chapter08/plot_fig04_chi2_heatmap.py          → fig_04_chi2_heatmap.png
 - [ ] Résidus (BAO/SN) :
-      python zz-scripts/chapter08/plot_fig05_residuals.py             → fig_05_residuals.png
+      python scripts/chapter08/plot_fig05_residuals.py             → fig_05_residuals.png
 - [ ] Résidus normalisés (distributions) :
-      python zz-scripts/chapter08/plot_fig06_normalized_residuals_distribution.py → fig_06_normalized_residuals.png
+      python scripts/chapter08/plot_fig06_normalized_residuals_distribution.py → fig_06_normalized_residuals.png
 - [ ] Profil Δχ²(q0⋆) :
-      python zz-scripts/chapter08/plot_fig07_chi2_profile.py          → fig_07_chi2_profile.png
+      python scripts/chapter08/plot_fig07_chi2_profile.py          → fig_07_chi2_profile.png
 
 [CONVENTIONS NUMÉRIQUES]
 - [ ] Interpolation : PCHIP approprié (log-lin ou log-log selon variable).
@@ -138,34 +138,34 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [VALIDATION AUTOMATISÉE]
 - [ ] (CSV) Vérifs tabulaires basiques :
-      python zz-schemas/validate_csv_table.py --basic zz-data/chapter08/08_bao_data.csv
-      python zz-schemas/validate_csv_table.py --basic zz-data/chapter08/08_pantheon_data.csv
-      python zz-schemas/validate_csv_table.py --basic zz-data/chapter08/08_chi2_total_vs_q0.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_bao_data.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_pantheon_data.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_chi2_total_vs_q0.csv
       (répéter pour les autres CSV si nécessaire)
 - [ ] (JSON) Validation de forme :
-      python zz-schemas/validate_json.py --no-schema zz-data/chapter08/08_coupling_params.json
+      python assets/zz-schemas/validate_json.py --no-schema assets/zz-data/chapter08/08_coupling_params.json
   (Si des schémas dédiés existent ultérieurement, remplacer par des appels avec schéma.)
 
 [INTÉGRATION LaTeX]
 - [ ] cd 08-couplage-sombre/
 - [ ] pdflatex -interaction=nonstopmode 08_couplage_sombre_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 08_couplage_sombre_details.tex
-- [ ] Vérifier les chemins vers zz-figures/chapter08/ et la cohérence des légendes.
+- [ ] Vérifier les chemins vers assets/zz-figures/chapter08/ et la cohérence des légendes.
 
 [MANIFESTES & TRAÇABILITÉ]
-- [ ] zz-manifests/figure_manifest.csv : déclarer toutes les figures générées (+ checksum si activé).
-- [ ] zz-manifests/chapters/chapter_manifest_08.json : lister données & figures du chapitre.
-- [ ] zz-manifests/diag_consistency.py : exécuter un diagnostic global (dry-run possible).
+- [ ] assets/zz-manifests/figure_manifest.csv : déclarer toutes les figures générées (+ checksum si activé).
+- [ ] assets/zz-manifests/chapters/chapter_manifest_08.json : lister données & figures du chapitre.
+- [ ] assets/zz-manifests/diag_consistency.py : exécuter un diagnostic global (dry-run possible).
 - [ ] mcgt/CHANGELOG.md : consigner tout changement impactant le Chapitre 8.
 
 [COMMANDES RAPIDES]
 - [ ] Entrées (extraction/agrégation) :
-      python zz-scripts/chapter08/utils/extract_bao_data.py
-      python zz-scripts/chapter08/utils/extract_pantheon_plus_data.py
-      python zz-scripts/chapter08/generate_coupling_milestones.py
+      python scripts/chapter08/utils/extract_bao_data.py
+      python scripts/chapter08/utils/extract_pantheon_plus_data.py
+      python scripts/chapter08/generate_coupling_milestones.py
 - [ ] Données finales :
-      python zz-scripts/chapter08/generate_data_chapter08.py --q0star_min -0.1 --q0star_max 0.1 --n_points 201 --export-derivative --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
+      python scripts/chapter08/generate_data_chapter08.py --q0star_min -0.1 --q0star_max 0.1 --n_points 201 --export-derivative --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
 - [ ] Figures :
-      python zz-scripts/chapter08/plot_fig01_chi2_total_vs_q0.py  # etc.
+      python scripts/chapter08/plot_fig01_chi2_total_vs_q0.py  # etc.
 - [ ] LaTeX :
       pdflatex 08-couplage-sombre/08_couplage_sombre_conceptuel.tex ; pdflatex 08-couplage_sombre/08_couplage_sombre_details.tex

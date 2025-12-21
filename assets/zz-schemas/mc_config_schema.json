@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assets/zz-schemas/mc_config_schema.json",
+  "title": "Schéma de configuration Monte Carlo (chap.10)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "model",
+    "bounds",
+    "priors",
+    "nuisance",
+    "sampling",
+    "output"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "model": {
+      "type": "string"
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "m1": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "m2": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "q0star": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "alpha": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "phi0": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "tc": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "dist": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "incl": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "m1",
+        "m2",
+        "q0star",
+        "alpha",
+        "phi0",
+        "tc",
+        "dist",
+        "incl"
+      ]
+    },
+    "priors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "m1": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "m2": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "q0star": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "alpha": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "phi0": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "tc": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "dist": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        },
+        "incl": {
+          "enum": [
+            "uniform",
+            "loguniform",
+            "fixed"
+          ]
+        }
+      },
+      "required": [
+        "m1",
+        "m2",
+        "q0star",
+        "alpha",
+        "phi0",
+        "tc",
+        "dist",
+        "incl"
+      ]
+    },
+    "nuisance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "fixed",
+            "vary"
+          ]
+        },
+        "dist_value": {
+          "type": "number"
+        },
+        "incl_value": {
+          "type": "number"
+        },
+        "vary_phi0_tc": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mode",
+        "dist_value",
+        "incl_value",
+        "vary_phi0_tc"
+      ]
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "enum": [
+            "sobol",
+            "random",
+            "lhs"
+          ]
+        },
+        "scramble": {
+          "type": "boolean"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "sobol_offset": {
+          "type": "integer"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "scheme",
+        "scramble",
+        "seed",
+        "sobol_offset",
+        "n"
+      ]
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "no_overwrite": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path",
+        "no_overwrite"
+      ]
+    }
+  }
+}

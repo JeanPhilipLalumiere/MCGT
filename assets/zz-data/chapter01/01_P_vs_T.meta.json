@@ -1,0 +1,26 @@
+{
+  "chapter": "01",
+  "name": "01_P_vs_T",
+  "path": "assets/zz-data/chapter01/01_P_vs_T.dat",
+  "description": "Tabulation de P(T) utilisée pour la calibration initiale du modèle dans le chapitre 1.",
+  "data_type": "table",
+  "columns": [
+    {
+      "name": "T",
+      "unit": "dimensionless",
+      "description": "Variable de température ou paramètre équivalent pour la courbe P(T)."
+    },
+    {
+      "name": "P",
+      "unit": "dimensionless",
+      "description": "Valeur de P(T) normalisée pour le plateau étudié au chapitre 1."
+    }
+  ],
+  "generated_by": "scripts/chapter01/plot_fig02_logistic_calibration.py",
+  "tags": [
+    "chapter01",
+    "calibration",
+    "P_vs_T",
+    "plateau"
+  ]
+}

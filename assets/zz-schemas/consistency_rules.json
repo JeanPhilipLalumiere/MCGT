@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "canonical_constants": {
+    "H0": 67.36,
+    "A_s0": 2.1E-9,
+    "ns0": 0.9649
+  },
+  "tolerances": {
+    "H0": {
+      "abs": 0.5
+    },
+    "A_s0": {
+      "rel": 0.05
+    },
+    "ns0": {
+      "abs": 0.01
+    }
+  },
+  "metric_windows": {
+    "phase_20_300": [
+      20.0,
+      300.0
+    ]
+  },
+  "classes": {
+    "allowed": [
+      "primary",
+      "order2"
+    ],
+    "normalize": {
+      "prim": "primary"
+    }
+  },
+  "path_aliases": {
+    "zz-donnees/chapitre7": "assets/zz-data/chapter07",
+    "zz-donnees/chapitre8": "assets/zz-data/chapter08",
+    "zz-donnees/chapitre9": "assets/zz-data/chapter09",
+    "zz-donnees/chapitre10": "assets/zz-data/chapter10"
+  },
+  "aliases": {
+    "zz-donnees/chapitre7": "assets/zz-data/chapter07",
+    "zz-donnees/chapitre8": "assets/zz-data/chapter08",
+    "zz-donnees/chapitre9": "assets/zz-data/chapter09",
+    "zz-donnees/chapitre10": "assets/zz-data/chapter10"
+  },
+  "constants": {
+    "H0": 67.36,
+    "A_s0": 2.1E-9,
+    "ns0": 0.9649
+  },
+  "windows": {
+    "phase_20_300": [
+      20.0,
+      300.0
+    ]
+  },
+  "classes_allowed": [
+    "primary",
+    "order2"
+  ],
+  "classes_normalize": {
+    "prim": "primary"
+  },
+  "properties": null,
+  "$id": "assets/zz-schemas/consistency_rules.json"
+}

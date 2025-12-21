@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.1.0",
+  "generated_by": "GPT-5 Thinking",
+  "generated_at": "2025-09-08T00:00:00Z",
+  "canonical": {
+    "H0_km_s_Mpc": 67.36,
+    "ombh2": 0.02237,
+    "omch2": 0.12,
+    "tau": 0.0544,
+    "mnu_eV": 0.06,
+    "As0": 2.1E-9,
+    "ns0": 0.9649
+  },
+  "thresholds": {
+    "primary": 0.01,
+    "order2": 0.1
+  },
+  "derivatives": {
+    "window": 7,
+    "polyorder": 3,
+    "must_be_odd_window": true,
+    "min_window": 5
+  },
+  "windows": {
+    "metrics_Hz": [
+      20.0,
+      300.0
+    ],
+    "fit_Hz": [
+      30.0,
+      250.0
+    ]
+  },
+  "paths": {
+    "preferred_root": "assets/zz-data",
+    "allow_french_tree": true,
+    "aliases": [
+      {
+        "from": "zz-donnees",
+        "to": "assets/zz-data"
+      },
+      {
+        "from": "chapitre",
+        "to": "chapter"
+      }
+    ],
+    "chapter_format": {
+      "en": "chapter%02d",
+      "fr": "chapitre%d"
+    }
+  },
+  "class_labels": {
+    "primary": [
+      "primary",
+      "primaire"
+    ],
+    "order2": [
+      "order2",
+      "ordre2"
+    ]
+  },
+  "filename_policies": {
+    "enforce_english_names": true,
+    "allow_chapter_prefix_numbers": true,
+    "allowed_french_extensions": [
+      ".tex"
+    ],
+    "auto_rename_rules": [
+      {
+        "pattern": "(^|/)zz-donnees/",
+        "replace": "$1assets/zz-data/"
+      },
+      {
+        "pattern": "(^|/)chapitre([0-9]+)",
+        "replace": "$1chapter0$2"
+      },
+      {
+        "pattern": "02_spec_spectre.json$",
+        "replace": "02_spec_spectrum.json"
+      },
+      {
+        "pattern": "02_jalons_chronologie.csv$",
+        "replace": "02_chronology_milestones.csv"
+      },
+      {
+        "pattern": "09_jalons_comparaison.csv$",
+        "replace": "09_comparison_milestones.csv"
+      }
+    ]
+  },
+  "ranges": {
+    "H0_km_s_Mpc": [
+      55.0,
+      80.0
+    ],
+    "As0": [
+      1E-9,
+      3E-9
+    ],
+    "ns0": [
+      0.9,
+      1.05
+    ]
+  },
+  "event_id_regex": "^(GW[0-9]{6}_[0-9]{6}.*|GW[0-9]{2,}.*)$",
+  "severities": {
+    "mismatch": "ERROR",
+    "out_of_range": "ERROR",
+    "near_miss": "WARN",
+    "alias_used": "INFO",
+    "missing": "WARN"
+  },
+  "consistency_rules": [
+    "derivatives.window must be odd and >= min_window",
+    "windows.metrics_Hz[0] < windows.metrics_Hz[1]",
+    "windows.fit_Hz within [windows.metrics_Hz[0], windows.metrics_Hz[1]]"
+  ],
+  "instances": {
+    "lookups": [
+      {
+        "name": "spec_primordial",
+        "candidates": [
+          "assets/zz-data/chapter02/02_spec_spectrum.json",
+          "assets/zz-data/chapter2/02_spec_spectre.json"
+        ],
+        "type": "json"
+      },
+      {
+        "name": "params_cmb",
+        "candidates": [
+          "assets/zz-data/chapter06/06_params_cmb.json",
+          "assets/zz-data/chapter6/06_params_cmb.json"
+        ],
+        "type": "json"
+      },
+      {
+        "name": "params_perturbations",
+        "candidates": [
+          "assets/zz-data/chapter07/07_params_perturbations.json",
+          "assets/zz-data/chapter7/07_params_perturbations.json"
+        ],
+        "type": "json"
+      },
+      {
+        "name": "metrics_phase",
+        "candidates": [
+          "assets/zz-data/chapter09/09_metrics_phase.json",
+          "assets/zz-data/chapter9/09_metrics_phase.json"
+        ],
+        "type": "json"
+      },
+      {
+        "name": "jalons_chap2",
+        "candidates": [
+          "assets/zz-data/chapter02/02_chronology_milestones.csv",
+          "assets/zz-data/chapter2/02_jalons_chronologie.csv"
+        ],
+        "type": "csv",
+        "expect_columns": [
+          "T",
+          "P_ref",
+          "P_opt",
+          "epsilon_i",
+          "classe"
+        ]
+      },
+      {
+        "name": "mc_results_table",
+        "candidates": [
+          "assets/zz-data/chapter10/10_mc_results.csv",
+          "assets/zz-data/chapter10/10_mc_results.csv"
+        ],
+        "type": "csv"
+      },
+      {
+        "name": "jalons_gw",
+        "candidates": [
+          "assets/zz-data/chapter09/09_comparison_milestones.csv",
+          "assets/zz-data/chapter9/09_jalons_comparaison.csv"
+        ],
+        "type": "csv",
+        "expect_columns": [
+          "event",
+          "f_Hz",
+          "phi_ref_at_fpeak",
+          "phi_mcgt_at_fpeak",
+          "obs_phase",
+          "sigma_phase",
+          "epsilon_rel",
+          "classe"
+        ]
+      }
+    ]
+  },
+  "properties": null,
+  "$id": "assets/zz-schemas/validation_globals.json"
+}

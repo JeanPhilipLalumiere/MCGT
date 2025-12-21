@@ -25,18 +25,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Typeset main.tex
-        if: ${{ hashFiles('main.tex') != '' }}
-        run: tectonic --untrusted main.tex
+      - name: Typeset manuscript/main.tex
+        if: ${{ hashFiles('manuscript/main.tex') != '' }}
+        run: tectonic --untrusted manuscript/main.tex
 
       - name: Ensure PDF at root
-        if: ${{ hashFiles('main.tex') != '' }}
+        if: ${{ hashFiles('manuscript/main.tex') != '' }}
         run: |
           find . -name "main.pdf" -exec cp {} ./main.pdf \;
           [ -s main.pdf ] || { echo "CRITICAL: main.pdf is missing or empty"; exit 1; }
 
       - name: Upload main.pdf as artifact
-        if: ${{ hashFiles('main.tex') != '' }}
+        if: ${{ hashFiles('manuscript/main.tex') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: main-pdf
@@ -151,5 +151,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/zz_tools-*.whl
-            dist/zz_tools-*.tar.gz
+            dist/tools-*.whl
+            dist/tools-*.tar.gz

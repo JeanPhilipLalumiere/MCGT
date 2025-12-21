@@ -47,7 +47,7 @@ def make_guide_content(chapter: int, rel_path: str) -> str:
         TODO :
           - résumer en quelques phrases les objectifs du chapitre ;
           - lister les figures et tables “publiques” clés ;
-          - préciser les scripts principaux (zz-scripts/chapter{chapter:02d}/...),
+          - préciser les scripts principaux (scripts/chapter{chapter:02d}/...),
             et comment reproduire les résultats essentiels.
 
         Chemin du guide :

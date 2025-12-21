@@ -8,9 +8,9 @@ Ce dossier contient l’automatisation GitHub Actions :
 
 \- \*\*ci.yml\*\* : installe les dépendances, met en cache `pip`, exécute `pytest`,
 
-&nbsp; lance les validateurs de schémas (`zz-schemas/validate\_\*`) et le diagnostic manifest
+&nbsp; lance les validateurs de schémas (`assets/zz-schemas/validate\_\*`) et le diagnostic manifest
 
-&nbsp; (`zz-manifests/diag\_consistency.py` en `--dry-run`).
+&nbsp; (`assets/zz-manifests/diag\_consistency.py` en `--dry-run`).
 
 \- \*\*release.yml\*\* : à chaque tag `vX.Y.Z`, construit `sdist` + `wheel` et publie
 

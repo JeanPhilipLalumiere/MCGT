@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "__LOCAL__",
+  "files": [
+    {
+      "path": "scripts/03_build_upload_pypi_safe.sh"
+    },
+    {
+      "path": "scripts/bump_and_tag.sh"
+    },
+    {
+      "path": "scripts/bump_and_tag_safe.sh"
+    },
+    {
+      "path": "scripts/check_wheel_metadata.py"
+    },
+    {
+      "path": "scripts/clean_final_submission.sh"
+    },
+    {
+      "path": "scripts/clean_project.sh"
+    },
+    {
+      "path": "scripts/guard_ignore_and_sdist.sh"
+    },
+    {
+      "path": "scripts/preflight_release.sh"
+    },
+    {
+      "path": "scripts/release.sh"
+    },
+    {
+      "path": "scripts/verify_tag.sh"
+    },
+    {
+      "path": "tools/add_chapter_manifest_entries.py"
+    },
+    {
+      "path": "tools/apply_chapter_decisions.py"
+    },
+    {
+      "path": "tools/apply_chapter_guides.py"
+    },
+    {
+      "path": "tools/build_manifest_entries_from_todo.py"
+    },
+    {
+      "path": "tools/check_integrity.py"
+    },
+    {
+      "path": "tools/ci-helpers/debug_and_fix_pypi_build_check.sh"
+    },
+    {
+      "path": "tools/ci-helpers/finalize_pr26_after_rebase.sh"
+    },
+    {
+      "path": "tools/ci-helpers/fix_required_checks_and_dispatch.sh"
+    },
+    {
+      "path": "tools/ci-helpers/force_build_checks_now.sh"
+    },
+    {
+      "path": "tools/ci-helpers/force_pypi_build_green.sh"
+    },
+    {
+      "path": "tools/ci-helpers/merge_pr26_conversation_guard.sh"
+    },
+    {
+      "path": "tools/ci-helpers/merge_pr_conversation_guard_v2.sh"
+    },
+    {
+      "path": "tools/ci-helpers/merge_pr_conversation_guard_v3.sh"
+    },
+    {
+      "path": "tools/ci-helpers/merge_pr_conversation_guard_v4.sh"
+    },
+    {
+      "path": "tools/ci-helpers/merge_pr_v5.sh"
+    },
+    {
+      "path": "tools/ci-helpers/rebase_fix_and_merge_pr26.sh"
+    },
+    {
+      "path": "tools/ci/retry.sh"
+    },
+    {
+      "path": "tools/cleanup_chapter01_manifest_gaps_block.py"
+    },
+    {
+      "path": "tools/cleanup_chapter02_manifest_gaps_block.py"
+    },
+    {
+      "path": "tools/cleanup_chapter03_manifest_gaps_block.py"
+    },
+    {
+      "path": "tools/cleanup_chapter04_manifest_gaps_block.py"
+    },
+    {
+      "path": "tools/cleanup_manifest_master_ch01_attic.py"
+    },
+    {
+      "path": "tools/dev/apply_postparse_epilogue_all.sh"
+    },
+    {
+      "path": "tools/dev/ensure_cli_parity.sh"
+    },
+    {
+      "path": "tools/dev/fix_style_hotspots.sh"
+    },
+    {
+      "path": "tools/dev/format_lint_smoke.sh"
+    },
+    {
+      "path": "tools/dev/make_repo_style_baseline.sh"
+    },
+    {
+      "path": "tools/dev/rebuild_argparse_safely.sh"
+    },
+    {
+      "path": "tools/dev/refactor_postparse_to_common.sh"
+    },
+    {
+      "path": "tools/dev/upgrade_postparse_v3_style.sh"
+    },
+    {
+      "path": "tools/fix_chapter_manifest01_files.py"
+    },
+    {
+      "path": "tools/fix_manifest_ch01_hashes.py"
+    },
+    {
+      "path": "tools/fix_manifest_ch03_hashes.py"
+    },
+    {
+      "path": "tools/fix_manifest_ch04_hashes.py"
+    },
+    {
+      "path": "tools/generate_chapter_decisions.py"
+    },
+    {
+      "path": "tools/generate_chapter_overview.py"
+    },
+    {
+      "path": "tools/generate_chapter_todo.py"
+    },
+    {
+      "path": "tools/hooks/forbid_cp_n.sh"
+    },
+    {
+      "path": "tools/hooks/forbid_psx_dup.sh"
+    },
+    {
+      "path": "tools/mcgt_bump_citation_version_v1.py"
+    },
+    {
+      "path": "tools/mcgt_bump_manifest_project.py"
+    },
+    {
+      "path": "tools/mcgt_bump_snapshot_manifest_project_v1.py"
+    },
+    {
+      "path": "tools/mcgt_fix_find_in_probes.py"
+    },
+    {
+      "path": "tools/mcgt_fix_find_pkgmeta_v1.py"
+    },
+    {
+      "path": "tools/mcgt_probe_versions_v1.py"
+    },
+    {
+      "path": "tools/mcgt_rename_model_title_v1.py"
+    },
+    {
+      "path": "tools/mcgt_step13_backstage_triage.py"
+    },
+    {
+      "path": "tools/mcgt_step40_apply_attic_plan.py"
+    },
+    {
+      "path": "tools/mcgt_step50_generate_zenodo_description.py"
+    },
+    {
+      "path": "tools/normalize_sha256sum_paths.py"
+    },
+    {
+      "path": "tools/prepare_chapter_decisions.py"
+    },
+    {
+      "path": "tools/scan_assets_budget.py"
+    },
+    {
+      "path": "tools/shims/bash"
+    },
+    {
+      "path": "tools/shims/environment"
+    },
+    {
+      "path": "tools/shims/sh"
+    },
+    {
+      "path": "tools/sourcing_probe.bash"
+    },
+    {
+      "path": "tools/strip_try_before_df_guard.py"
+    },
+    {
+      "path": "tools/yaml_check.sh"
+    }
+  ]
+}

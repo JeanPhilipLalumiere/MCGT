@@ -57,8 +57,8 @@ def main() -> None:
     actions: list[tuple[Path, Path, Path]] = []
 
     # Lecture du plan : lignes de la forme
-    #   ATTIC  zz-data/chapter01/...
-    #   ATTIC  CH01  zz-data/chapter01/...   (on tolère un token de chapitre au milieu)
+    #   ATTIC  assets/zz-data/chapter01/...
+    #   ATTIC  CH01  assets/zz-data/chapter01/...   (on tolère un token de chapitre au milieu)
     with plan_path.open("r", encoding="utf-8") as f:
         for raw in f:
             line = raw.strip()

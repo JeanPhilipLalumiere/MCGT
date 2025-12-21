@@ -243,7 +243,7 @@ def render_markdown(chapters: Dict[str, Dict[str, Any]], output: Path) -> None:
         data_files = info.get("data_files")
         data_size = info.get("data_size_bytes")
         lines.append(
-            f"| Fichiers de données (`zz-data`) | {data_files if data_files is not None else 'n/a'} |"
+            f"| Fichiers de données (`assets/zz-data`) | {data_files if data_files is not None else 'n/a'} |"
         )
         lines.append(f"| Volume de données | {fmt_size(data_size)} |")
 
@@ -251,7 +251,7 @@ def render_markdown(chapters: Dict[str, Dict[str, Any]], output: Path) -> None:
         fig_files = info.get("fig_files")
         fig_size = info.get("fig_size_bytes")
         lines.append(
-            f"| Figures (`zz-figures` / `zz-out`) | {fig_files if fig_files is not None else 'n/a'} |"
+            f"| Figures (`assets/zz-figures` / `zz-out`) | {fig_files if fig_files is not None else 'n/a'} |"
         )
         lines.append(f"| Volume des figures | {fmt_size(fig_size)} |")
 

@@ -8,10 +8,10 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 - [ ] Sources LaTeX (03-stabilite-fR/):
       • 03_stabilite_fR_conceptuel.tex
       • 03_stabilite_fR_details.tex
-- [ ] Configs communes (zz-configuration/):
+- [ ] Configs communes (config/):
       • gw_phase.ini   (section [scan]: fmin, fmax, dlog)
       • mcgt-global-config.ini
-- [ ] Données (zz-data/chapter03/):
+- [ ] Données (assets/zz-data/chapter03/):
       • 03_ricci_fR_milestones.csv
       • 03_fR_stability_data.csv
       • 03_fR_stability_domain.csv
@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
       • 03_fR_stability_meta.json
       • 03_ricci_fR_vs_z.csv
       • 03_ricci_fR_vs_T.csv
-- [ ] Scripts (zz-scripts/chapter03/):
+- [ ] Scripts (scripts/chapter03/):
       • generate_data_chapter03.py
       • plot_fig01_fR_stability_domain.py
       • plot_fig02_fR_fRR_vs_f.py
@@ -29,7 +29,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
       • plot_fig06_grid_quality.py
       • plot_fig07_ricci_fR_vs_z.py
       • plot_fig08_ricci_fR_vs_T.py
-- [ ] Figures (zz-figures/chapter03/):
+- [ ] Figures (assets/zz-figures/chapter03/):
       • fig_01_fR_stability_domain.png
       • fig_02_fR_fRR_vs_R.png
       • fig_03_ms2_R0_vs_R.png
@@ -71,16 +71,16 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter (exemple):
-      python zz-scripts/chapter03/generate_data_chapter03.py \
-        --config zz-configuration/gw_phase.ini \
+      python scripts/chapter03/generate_data_chapter03.py \
+        --config config/gw_phase.ini \
         --npts 700
 - [ ] Confirmer la création/écrasement contrôlé des 6 sorties listées ci-dessus.
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer au minimum:
-      python zz-scripts/chapter03/plot_fig01_fR_stability_domain.py
-      python zz-scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
-      python zz-scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+      python scripts/chapter03/plot_fig01_fR_stability_domain.py
+      python scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
+      python scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
 - [ ] Vérifier DPI≥300, axes/échelles (log si requis), légendes/units, style multi-chapitres.
 
 [CONTRÔLES DE QUALITÉ & DRAPEAUX ROUGES]
@@ -100,31 +100,31 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 
 [VALIDATION AUTOMATISÉE (RECOMMANDÉE)]
 - [ ] JSON (métadonnées):
-      python zz-schemas/validate_json.py \
-        zz-schemas/meta_schema.json \
-        zz-data/chapter03/03_fR_stability_meta.json
+      python assets/zz-schemas/validate_json.py \
+        assets/zz-schemas/meta_schema.json \
+        assets/zz-data/chapter03/03_fR_stability_meta.json
 - [ ] Tables (adapter si schémas dédiés):
-      python zz-schemas/validate_csv_table.py \
-        zz-schemas/comparison_milestones_table_schema.json \
-        zz-data/chapter03/03_ricci_fR_milestones.csv
+      python assets/zz-schemas/validate_csv_table.py \
+        assets/zz-schemas/comparison_milestones_table_schema.json \
+        assets/zz-data/chapter03/03_ricci_fR_milestones.csv
       (répéter avec un schéma ad hoc si disponible pour *stability_domain*/*boundary*/*data*)
 - [ ] Diagnostic manifeste (optionnel mais utile):
-      python zz-manifests/diag_consistency.py --chapter 03 --strict --report md \
-        > zz-manifests/reports/chap03.md
+      python assets/zz-manifests/diag_consistency.py --chapter 03 --strict --report md \
+        > assets/zz-manifests/reports/chap03.md
       (report non vide, “errors: 0”)
 
 [COMPILATION LaTeX]
 - [ ] pdflatex -jobname=chap3_conceptuel  03-stabilite-fR/03_stabilite_fR_conceptuel.tex
 - [ ] pdflatex -jobname=chap3_details     03-stabilite-fR/03_stabilite_fR_details.tex
-- [ ] Zéro références manquantes; figures incluses depuis zz-figures/chapter03/.
+- [ ] Zéro références manquantes; figures incluses depuis assets/zz-figures/chapter03/.
 
 [MANIFESTES & TRAÇABILITÉ]
-- [ ] Mettre à jour zz-manifests/figure_manifest.csv pour les 8 figures.
-- [ ] Synchroniser zz-manifests/chapters/chapter_manifest_03.json si fichiers ajoutés/renommés.
+- [ ] Mettre à jour assets/zz-manifests/figure_manifest.csv pour les 8 figures.
+- [ ] Synchroniser assets/zz-manifests/chapters/chapter_manifest_03.json si fichiers ajoutés/renommés.
 - [ ] Versionner (mcgt/CHANGELOG.md); conserver chemins relatifs et encodage UTF-8.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python zz-scripts/chapter03/generate_data_chapter03.py --config zz-configuration/gw_phase.ini --npts 700
+- [ ] Données   :  python scripts/chapter03/generate_data_chapter03.py --config config/gw_phase.ini --npts 700
 - [ ] Figures   :  exécuter les scripts “plot_fig..” listés
 - [ ] Schémas   :  validate_json.py & validate_csv_table.py (voir “Validation”)
 - [ ] LaTeX     :  commandes pdflatex ci-dessus

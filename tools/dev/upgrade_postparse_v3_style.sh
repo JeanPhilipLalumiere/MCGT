@@ -8,14 +8,14 @@ echo "==> WIP checkpoint"
 git add -A
 git commit -m "WIP: before postparse v3 (style opt-in)" || true
 
-mkdir -p zz-scripts/_common
+mkdir -p scripts/_common
 
 # 1) _common/style.py — thèmes 'paper', 'talk', 'mono'
-cat > zz-scripts/_common/style.py <<'PY'
+cat > scripts/_common/style.py <<'PY'
 """
 MCGT common figure styles (opt-in).
 Usage:
-    import zz-scripts._common.style  # via postparse loader
+    import scripts._common.style  # via postparse loader
     style.apply(theme="paper")       # or "talk", "mono"
 """
 from __future__ import annotations
@@ -70,7 +70,7 @@ python3 - <<'PY'
 from pathlib import Path
 import re, textwrap, os, sys
 
-p = Path("zz-scripts/_common/postparse.py")
+p = Path("scripts/_common/postparse.py")
 src = p.read_text(encoding="utf-8")
 
 # Injecte une routine _maybe_apply_style(args) + appel dans apply(args)
@@ -111,7 +111,7 @@ if "_maybe_apply_style(args)" not in src:
     src = re.sub(r"(def\s+apply\s*\(\s*args\s*\)\s*:\s*\n)",
                  r"\\1    _maybe_apply_style(args)\n", src, count=1)
 
-Path("zz-scripts/_common/postparse.py").write_text(src, encoding="utf-8")
+Path("scripts/_common/postparse.py").write_text(src, encoding="utf-8")
 print("postparse_v3_upgraded")
 PY
 
@@ -119,7 +119,7 @@ PY
 python3 - <<'PY'
 from pathlib import Path, re, subprocess, json
 files = subprocess.check_output(
-    ["bash","-lc","git ls-files 'zz-scripts/**/plot_*.py'"]).decode().splitlines()
+    ["bash","-lc","git ls-files 'scripts/**/plot_*.py'"]).decode().splitlines()
 
 re_parser   = re.compile(r'^\s*(\w+)\s*=\s*argparse\.ArgumentParser\(', re.M)
 re_parse    = re.compile(r'\.parse_args\s*\(\s*\)', re.M)
@@ -152,7 +152,7 @@ python - <<'PY' || true
 import sys, subprocess
 subprocess.run([sys.executable, "-m", "pip", "install", "--user", "autopep8"], check=False)
 PY
-mapfile -t files < <(git ls-files 'zz-scripts/**/plot_*.py' | sort)
+mapfile -t files < <(git ls-files 'scripts/**/plot_*.py' | sort)
 python -m autopep8 --in-place \
   --select E122,E128,E131,E225,E231,E266,E301,E302,E305,E401,E501,W291,W391 \
   --aggressive --aggressive \

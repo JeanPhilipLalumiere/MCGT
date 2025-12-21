@@ -78,8 +78,8 @@ def bump_snapshot_project(root_manifest: Path, targets: list[Path]) -> None:
 
 
 def main() -> None:
-    root_manifest = ROOT / "zz-manifests" / "manifest_master.json"
-    snapshot_dir = ROOT / "release_zenodo_codeonly" / "v0.3.x" / "zz-manifests"
+    root_manifest = ROOT / "assets/zz-manifests" / "manifest_master.json"
+    snapshot_dir = ROOT / "release_zenodo_codeonly" / "v0.3.x" / "assets/zz-manifests"
 
     targets = [
         snapshot_dir / "manifest_master.json",

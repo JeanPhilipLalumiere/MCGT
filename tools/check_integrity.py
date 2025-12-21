@@ -35,8 +35,8 @@ def main() -> int:
     try:
         repo = Path(__file__).resolve().parents[1]
         manifests = [
-            repo / "zz-manifests" / "manifest_master.json",
-            repo / "zz-manifests" / "manifest_publication.json",
+            repo / "assets/zz-manifests" / "manifest_master.json",
+            repo / "assets/zz-manifests" / "manifest_publication.json",
         ]
 
         bad = 0

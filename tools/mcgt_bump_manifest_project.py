@@ -38,8 +38,8 @@ def main():
 
     root = Path(".")
     targets = [
-        root / "zz-manifests" / "manifest_master.json",
-        root / "zz-manifests" / "manifest_publication.json",
+        root / "assets/zz-manifests" / "manifest_master.json",
+        root / "assets/zz-manifests" / "manifest_publication.json",
     ]
 
     for path in targets:

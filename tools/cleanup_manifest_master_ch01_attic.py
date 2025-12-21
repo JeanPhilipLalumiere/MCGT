@@ -7,13 +7,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST_PATH = ROOT / "zz-manifests" / "manifest_master.json"
+MANIFEST_PATH = ROOT / "assets/zz-manifests" / "manifest_master.json"
 
 # Fichiers basculés dans attic à retirer du manifest master
 PATHS_TO_DROP = {
-    "zz-data/chapter01/01_optimized_grid_data.dat",
-    "zz-data/chapter01/01_initial_grid_data.dat",
-    "zz-data/chapter01/01_P_derivative_initial.csv",
+    "assets/zz-data/chapter01/01_optimized_grid_data.dat",
+    "assets/zz-data/chapter01/01_initial_grid_data.dat",
+    "assets/zz-data/chapter01/01_P_derivative_initial.csv",
 }
 
 

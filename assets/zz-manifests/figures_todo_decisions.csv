@@ -1,0 +1,76 @@
+chapter,figure_stem,issue,details,path_hint,decision,comment
+chapter01,fig_01_early_plateau,,,,PUBLIC,
+chapter01,fig_02_logistic_calibration,,,,PUBLIC,
+chapter01,fig_03_relative_error_timeline,,,,PUBLIC,
+chapter01,fig_04_p_vs_t_evolution,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter01,fig_05_i1_vs_t,,,,PUBLIC,
+chapter01,fig_06_p_derivative_comparison,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter02,fig_00_spectrum,,,,PUBLIC,
+chapter02,fig_01_p_vs_t_evolution,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter02,fig_02_calibration,,,,PUBLIC,
+chapter02,fig_03_relative_errors,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter02,fig_04_pipeline_diagram,,,,PUBLIC,
+chapter02,fig_04_schema_pipeline,,,,PUBLIC,
+chapter02,fig_05_fg_series,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter02,fig_06_fit_alpha,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter03,fig_01_fr_stability_domain,,,,PUBLIC,
+chapter03,fig_02_fr_frr_vs_r,,,,PUBLIC,
+chapter03,fig_03_ms2_r0_vs_r,,,,PUBLIC,
+chapter03,fig_04_fr_frr_vs_r,,,,PUBLIC,
+chapter03,fig_05_interpolated_milestones,,,,PUBLIC,
+chapter03,fig_06_grid_quality,,,,PUBLIC,
+chapter03,fig_07_ricci_fr_vs_z,,,,PUBLIC,
+chapter03,fig_08_ricci_fr_vs_t,,,,PUBLIC,
+chapter04,fig_01_invariants_schematic,,,,PUBLIC,
+chapter04,fig_02_invariants_histogram,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter04,fig_03_invariants_vs_t,,,,PUBLIC,
+chapter04,fig_04_relative_deviations,,,,PUBLIC,
+chapter05,fig_01_bbn_reaction_network,,,,PUBLIC,
+chapter05,fig_02_dh_model_vs_obs,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter05,fig_03_yp_model_vs_obs,,,,PUBLIC,
+chapter05,fig_04_chi2_vs_t,,,,PUBLIC,
+chapter06,fig_01_cmb_dataflow_diagram,,,,PUBLIC,
+chapter06,fig_02_cls_lcdm_vs_mcgt,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter06,fig_03_delta_cls_rel,,,,PUBLIC,
+chapter06,fig_03_delta_cls_relative,,,,PUBLIC,
+chapter06,fig_04_delta_rs_vs_params,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter06,fig_05_delta_chi2_heatmap,,,,PUBLIC,
+chapter07,fig_00_loglog_sampling_test,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter07,fig_01_cs2_heatmap_k_a,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter07,fig_02_delta_phi_heatmap_k_a,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter07,fig_03_invariant_i1,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter07,fig_04_dcs2_dk_vs_k,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter07,fig_05_ddelta_phi_dk_vs_k,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter07,fig_06_comparison,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter07,fig_07_invariant_i2,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter08,fig_01_chi2_total_vs_q0,,,,PUBLIC,
+chapter08,fig_02_dv_vs_z,,,,PUBLIC,
+chapter08,fig_03_mu_vs_z,,,,PUBLIC,
+chapter08,fig_04_chi2_heatmap,,,,PUBLIC,
+chapter08,fig_05_residuals,,,,PUBLIC,
+chapter08,fig_06_pulls,,,,PUBLIC,
+chapter08,fig_07_chi2_profile,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter09,fig_00_p95_check_control,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_01_phase_overlay,MANIFEST_COVERAGE_NO_PNG,manifest+coverage mais PNG manquant; has_script=1  has_data=0,assets/zz-figures/chapter09/09_fig_01_phase_overlay.png,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter09,fig_02_residual_phase,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter09,fig_03_hist_absdphi_20_300,,,,PUBLIC,
+chapter09,fig_03_raw_bins30,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_raw_bins50,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_raw_bins80,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_rebranch_k_bins30,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_rebranch_k_bins50,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_rebranch_k_bins80,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_unwrap_bins30,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_unwrap_bins50,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_03_unwrap_bins80,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
+chapter09,fig_04_absdphi_milestones_vs_f,,,,PUBLIC,
+chapter09,fig_05_scatter_phi_at_fpeak,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter10,fig_01_iso_p95_maps,,,,PUBLIC,
+chapter10,fig_02_scatter_phi_at_fpeak,,,,PUBLIC,
+chapter10,fig_03_b_coverage_bootstrap_vs_n_hires,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter10,fig_03_convergence_p95_vs_n,,,,PUBLIC,
+chapter10,fig_04_scatter_p95_recalc_vs_orig,,,,PUBLIC,
+chapter10,fig_05_hist_cdf_metrics,,,,PUBLIC,
+chapter10,fig_06_heatmap_absdp95_m1m2,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter10,fig_07_summary_comparison,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
+chapter99,fig_00_tmp,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)

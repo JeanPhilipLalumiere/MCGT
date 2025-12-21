@@ -9,17 +9,17 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
       • 01_introduction_conceptuel.tex
       • 01_applications_calibration_conceptuel.tex
       • CHAPTER01_GUIDE.txt
-- [ ] Données (zz-data/chapter01/):
+- [ ] Données (assets/zz-data/chapter01/):
       • Entrées  : 01_timeline_milestones.csv ; 01_initial_grid_data.dat
       • Sorties  : 01_optimized_data.csv ; 01_optimized_grid_data.dat ;
                   01_P_derivative_initial.csv ; 01_P_derivative_optimized.csv ;
                   01_optimized_data_and_derivatives.csv ;
                   01_relative_error_timeline.csv ; 01_dimensionless_invariants.csv
-- [ ] Figures (zz-figures/chapter01/):
+- [ ] Figures (assets/zz-figures/chapter01/):
       • fig_01_early_plateau.png ; fig_02_logistic_calibration.png ;
         fig_03_relative_error_timeline.png ; fig_04_P_vs_T_evolution.png ;
         fig_05_I1_vs_T.png ; fig_06_P_derivative_comparison.png
-- [ ] Scripts (zz-scripts/chapter01/):
+- [ ] Scripts (scripts/chapter01/):
       • generate_data_chapter01.py
       • plot_fig01_early_plateau.py … plot_fig06_P_derivative_comparison.py
       • requirements.txt
@@ -38,8 +38,8 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 - [ ] Invariant I1 : I1 = P_calc / T (adimensionnel)
 
 [GÉNÉRATION DES DONNÉES]
-- [ ] Exécuter :  python zz-scripts/chapter01/generate_data_chapter01.py
-      Sorties attendues (zz-data/chapter01/):
+- [ ] Exécuter :  python scripts/chapter01/generate_data_chapter01.py
+      Sorties attendues (assets/zz-data/chapter01/):
       • 01_optimized_data.csv                       (T, P_calc)
       • 01_optimized_grid_data.dat                  (= 4.1 au format DAT)
       • 01_P_derivative_initial.csv                 (T, dP_dT)   — SG avant opti
@@ -50,12 +50,12 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python zz-scripts/chapter01/plot_fig01_early_plateau.py
-      python zz-scripts/chapter01/plot_fig02_logistic_calibration.py
-      python zz-scripts/chapter01/plot_fig03_relative_error_timeline.py
-      python zz-scripts/chapter01/plot_fig04_P_vs_T_evolution.py
-      python zz-scripts/chapter01/plot_fig05_I1_vs_T.py
-      python zz-scripts/chapter01/plot_fig06_P_derivative_comparison.py
+      python scripts/chapter01/plot_fig01_early_plateau.py
+      python scripts/chapter01/plot_fig02_logistic_calibration.py
+      python scripts/chapter01/plot_fig03_relative_error_timeline.py
+      python scripts/chapter01/plot_fig04_P_vs_T_evolution.py
+      python scripts/chapter01/plot_fig05_I1_vs_T.py
+      python scripts/chapter01/plot_fig06_P_derivative_comparison.py
 - [ ] Vérifier axes/échelles (log si requis), légendes, unités, DPI (≥300).
 
 [CONTRÔLES DE QUALITÉ]
@@ -73,14 +73,14 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 - [ ] Zéro références non définies ; figures incluses ; encodage UTF-8 OK.
 
 [MANIFESTES & TRAÇABILITÉ]
-- [ ] Mettre à jour zz-manifests/figure_manifest.csv (ajouter/mettre à jour les 6 figures).
-- [ ] Synchroniser zz-manifests/chapters/chapter_manifest_01.json si fichiers nouveaux/renommés.
-- [ ] Diagnostic : python zz-manifests/diag_consistency.py --chapter 01 --strict --report md \
-                   > zz-manifests/reports/chap01.md (fichier non vide + “errors: 0” attendu).
+- [ ] Mettre à jour assets/zz-manifests/figure_manifest.csv (ajouter/mettre à jour les 6 figures).
+- [ ] Synchroniser assets/zz-manifests/chapters/chapter_manifest_01.json si fichiers nouveaux/renommés.
+- [ ] Diagnostic : python assets/zz-manifests/diag_consistency.py --chapter 01 --strict --report md \
+                   > assets/zz-manifests/reports/chap01.md (fichier non vide + “errors: 0” attendu).
 - [ ] Versionner : entrée dédiée dans mcgt/CHANGELOG.md ; conserver encodage/chemins relatifs.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python zz-scripts/chapter01/generate_data_chapter01.py
+- [ ] Données   :  python scripts/chapter01/generate_data_chapter01.py
 - [ ] Figures   :  exécuter les 6 scripts “plot_fig..”
 - [ ] LaTeX     :  2 commandes pdflatex ci-dessus
 - [ ] Diagnostic:  diag_consistency.py (report MD) + mise à jour manifeste des figures

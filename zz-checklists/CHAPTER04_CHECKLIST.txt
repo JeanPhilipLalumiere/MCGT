@@ -13,15 +13,15 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 - [ ] Sources LaTeX (04-invariants-adimensionnels/):
       • 04_invariants_adimensionnels_conceptuel.tex
       • 04_invariants_adimensionnels_details.tex
-- [ ] Données (zz-data/chapter04/):
+- [ ] Données (assets/zz-data/chapter04/):
       • 04_P_vs_T.dat
       • 04_dimensionless_invariants.csv
-- [ ] Figures (zz-figures/chapter04/):
+- [ ] Figures (assets/zz-figures/chapter04/):
       • fig_01_invariants_schematic.png
       • fig_02_invariants_histogram.png
       • fig_03_invariants_vs_T.png
       • fig_04_relative_deviations.png
-- [ ] Scripts (zz-scripts/chapter04/):
+- [ ] Scripts (scripts/chapter04/):
       • generate_data_chapter04.py
       • plot_fig01_invariants_schematic.py
       • plot_fig02_invariants_histogram.py
@@ -58,15 +58,15 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter:
-      python zz-scripts/chapter04/generate_data_chapter04.py
+      python scripts/chapter04/generate_data_chapter04.py
 - [ ] Vérifier la création de 04_dimensionless_invariants.csv ; journal sans erreurs.
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer:
-      python zz-scripts/chapter04/plot_fig01_invariants_schematic.py
-      python zz-scripts/chapter04/plot_fig02_invariants_histogram.py
-      python zz-scripts/chapter04/plot_fig03_invariants_vs_T.py
-      python zz-scripts/chapter04/plot_fig04_relative_deviations.py
+      python scripts/chapter04/plot_fig01_invariants_schematic.py
+      python scripts/chapter04/plot_fig02_invariants_histogram.py
+      python scripts/chapter04/plot_fig03_invariants_vs_T.py
+      python scripts/chapter04/plot_fig04_relative_deviations.py
 - [ ] Contrôler DPI≥300, axes/échelles (log si pertinent), légendes, unités, style cohérent multi-chapitres.
 
 [CONTRÔLES DE QUALITÉ & DRAPEAUX ROUGES]
@@ -84,7 +84,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 [VALIDATION AUTOMATISÉE (RECOMMANDÉE)]
 - [ ] Tables:
       • (Si schéma dédié disponible)  validate_csv_table.py avec schéma 04_*.
-      • À défaut, valider colonnes/typages via zz-tests/test_schemas.py (tests ad hoc).
+      • À défaut, valider colonnes/typages via tests/test_schemas.py (tests ad hoc).
 - [ ] Diagnostics optionnels:
       • Statistiques (min/med/max) sur I1,I2,I3; histogrammes conformes.
       • Rapport MD: enregistrer un bref résumé qualité/écarts.
@@ -92,15 +92,15 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 [COMPILATION LaTeX]
 - [ ] pdflatex -jobname=chap4_conceptuel  04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
 - [ ] pdflatex -jobname=chap4_details     04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
-- [ ] Figures incluses depuis zz-figures/chapter04/ ; chemins relatifs OK.
+- [ ] Figures incluses depuis assets/zz-figures/chapter04/ ; chemins relatifs OK.
 
 [MANIFESTES & TRAÇABILITÉ]
-- [ ] Mettre à jour zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.
-- [ ] Vérifier/synchroniser zz-manifests/chapters/chapter_manifest_04.json si des artefacts sont ajoutés/renommés.
+- [ ] Mettre à jour assets/zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.
+- [ ] Vérifier/synchroniser assets/zz-manifests/chapters/chapter_manifest_04.json si des artefacts sont ajoutés/renommés.
 - [ ] Journaliser les changements (mcgt/CHANGELOG.md) et conserver encodage UTF-8.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python zz-scripts/chapter04/generate_data_chapter04.py
+- [ ] Données   :  python scripts/chapter04/generate_data_chapter04.py
 - [ ] Figures   :  exécuter les 4 scripts plot_fig**
-- [ ] Validation:  (schéma CSV si disponible) validate_csv_table.py ; sinon tests zz-tests
+- [ ] Validation:  (schéma CSV si disponible) validate_csv_table.py ; sinon tests tests
 - [ ] LaTeX     :  commandes pdflatex ci-dessus

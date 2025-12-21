@@ -48,18 +48,18 @@ PACKAGE_ROOT = Path(__file__).resolve().parent.parent
 def find_config_path(name: str = "mcgt-global-config.ini") -> Path | None:
     """
     Cherche un fichier de configuration dans cet ordre :
-    1) répertoire de travail courant ./zz-configuration/<name>
-    2) dossier package       ./zz-configuration/<name> (à la racine du dépôt)
+    1) répertoire de travail courant ./config/<name>
+    2) dossier package       ./config/<name> (à la racine du dépôt)
     3) variable d'environnement MCGT_CONFIG
     Renvoie Path ou None si introuvable.
     """
     import os
 
-    p = Path.cwd() / "zz-configuration" / name
+    p = Path.cwd() / "configuration" / name
     if p.exists():
         return p
 
-    p2 = PACKAGE_ROOT / "zz-configuration" / name
+    p2 = PACKAGE_ROOT / "configuration" / name
     if p2.exists():
         return p2
 

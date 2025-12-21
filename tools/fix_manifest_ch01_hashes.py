@@ -11,7 +11,7 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST_DIR = ROOT / "zz-manifests"
+MANIFEST_DIR = ROOT / "assets/zz-manifests"
 
 MANIFEST_PATHS = [
     MANIFEST_DIR / "manifest_publication.json",
@@ -20,13 +20,13 @@ MANIFEST_PATHS = [
 
 # Les 7 fichiers de chapter01 qui doivent être alignés
 TARGET_PATHS = [
-    "zz-data/chapter01/01_P_derivative_optimized.csv",
-    "zz-data/chapter01/01_P_vs_T.dat",
-    "zz-data/chapter01/01_dimensionless_invariants.csv",
-    "zz-data/chapter01/01_optimized_data.csv",
-    "zz-data/chapter01/01_optimized_data_and_derivatives.csv",
-    "zz-data/chapter01/01_relative_error_timeline.csv",
-    "zz-data/chapter01/01_timeline_milestones.csv",
+    "assets/zz-data/chapter01/01_P_derivative_optimized.csv",
+    "assets/zz-data/chapter01/01_P_vs_T.dat",
+    "assets/zz-data/chapter01/01_dimensionless_invariants.csv",
+    "assets/zz-data/chapter01/01_optimized_data.csv",
+    "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
+    "assets/zz-data/chapter01/01_relative_error_timeline.csv",
+    "assets/zz-data/chapter01/01_timeline_milestones.csv",
 ]
 
 

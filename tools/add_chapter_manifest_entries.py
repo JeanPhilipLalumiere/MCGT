@@ -11,8 +11,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 TMP_DIR = ROOT / "_tmp"
 MANIFESTS = [
-    ROOT / "zz-manifests" / "manifest_publication.json",
-    ROOT / "zz-manifests" / "manifest_master.json",
+    ROOT / "assets/zz-manifests" / "manifest_publication.json",
+    ROOT / "assets/zz-manifests" / "manifest_master.json",
 ]
 
 
@@ -56,9 +56,9 @@ def find_target_list(doc, manifest_path: Path, chapter_str: str):
         sys.exit(1)
 
     chapter_prefixes = (
-        f"zz-data/chapter{chapter_str}/",
-        f"zz-figures/chapter{chapter_str}/",
-        f"zz-scripts/chapter{chapter_str}/",
+        f"assets/zz-data/chapter{chapter_str}/",
+        f"assets/zz-figures/chapter{chapter_str}/",
+        f"scripts/chapter{chapter_str}/",
     )
 
     candidates = []

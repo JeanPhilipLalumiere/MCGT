@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from zz_tools import common_io as ci
+from tools import common_io as ci
 
 
 def test_p95_basic():

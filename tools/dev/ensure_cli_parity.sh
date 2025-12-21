@@ -13,7 +13,7 @@ from pathlib import Path
 import re, sys
 
 files = [Path(p) for p in __import__("subprocess").check_output(
-    ["bash", "-lc", "git ls-files 'zz-scripts/**/plot_*.py'"]).decode().splitlines()]
+    ["bash", "-lc", "git ls-files 'scripts/**/plot_*.py'"]).decode().splitlines()]
 
 # Regex helpers
 re_parser   = re.compile(r'^\s*(\w+)\s*=\s*argparse\.ArgumentParser\(', re.M)
@@ -80,7 +80,7 @@ python - <<'PY' || true
 import sys, subprocess
 subprocess.run([sys.executable, "-m", "pip", "install", "--user", "autopep8"], check=False)
 PY
-mapfile -t files < <(git ls-files 'zz-scripts/**/plot_*.py' | sort)
+mapfile -t files < <(git ls-files 'scripts/**/plot_*.py' | sort)
 python -m autopep8 --in-place \
   --select E122,E128,E131,E225,E231,E266,E301,E302,E305,E401,E501,W291,W391 \
   --aggressive --aggressive \

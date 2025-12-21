@@ -20,7 +20,7 @@ def _assurer_ids_uniques(samples_path: Path, id_offset: int, log: logging.Logger
     """
     import pandas as pd
 
-from zz_tools import common_io as ci
+from tools import common_io as ci
 
     df = pd.read_csv(samples_path)
 df = ci.ensure_fig02_cols(df)
@@ -47,14 +47,14 @@ def etape_6_raffinement(
 
 ## Traceback avant fix
 ```
-  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py", line 366
+  File "/home/jplal/MCGT/scripts/chapter10/generate_data_chapter10.py", line 366
     df = pd.read_csv(samples_path)
 IndentationError: unexpected indent
 ```
 
 ## Traceback après fix
 ```
-  File "/home/jplal/MCGT/zz-scripts/chapter10/generate_data_chapter10.py.tmpfix", line 368
+  File "/home/jplal/MCGT/scripts/chapter10/generate_data_chapter10.py.tmpfix", line 368
     if "id" not in df.columns:
 IndentationError: unexpected indent
 ```

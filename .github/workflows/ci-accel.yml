@@ -78,11 +78,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-tectonic-
 
-      - name: Typeset main.tex
+      - name: Typeset manuscript/main.tex
         if: ${{ steps.tex.outputs.has_tex == '1' }}
         uses: bridat/tectonic-action@v3
         with:
-          tex_file: main.tex
+          tex_file: manuscript/main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

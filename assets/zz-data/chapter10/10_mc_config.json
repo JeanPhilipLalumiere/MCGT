@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "model": "default",
+  "bounds": {
+    "m1": [5.0, 80.0],
+    "m2": [5.0, 80.0],
+    "q0star": [-0.3, 0.3],
+    "alpha": [-1.0, 1.0],
+    "phi0": [-3.141592653589793, 3.141592653589793],
+    "tc": [-0.01, 0.01],
+    "dist": [50.0, 2000.0],
+    "incl": [0.0, 3.141592653589793]
+  },
+  "priors": {
+    "m1": "uniform",
+    "m2": "uniform",
+    "q0star": "uniform",
+    "alpha": "uniform",
+    "phi0": "fixed",
+    "tc": "fixed",
+    "dist": "fixed",
+    "incl": "fixed"
+  },
+  "nuisance": {
+    "mode": "fixed",
+    "dist_value": 1000.0,
+    "incl_value": 0.0,
+    "vary_phi0_tc": false
+  },
+  "sampling": {
+    "scheme": "sobol",
+    "scramble": true,
+    "seed": 12345,
+    "sobol_offset": 0,
+    "n": 5000
+  },
+  "output": {
+    "path": "assets/zz-data/chapitre10/10_mc_samples.csv",
+    "no_overwrite": true
+  }
+}

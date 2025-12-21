@@ -1,9 +1,9 @@
 # ch10 — Restauration du générateur officiel (v0.3.3)
 
 ## Objectifs
-- Remplacer le *stub* minimal par la version corrigée de `zz-scripts/chapter10/generate_data_chapter10.py`
+- Remplacer le *stub* minimal par la version corrigée de `scripts/chapter10/generate_data_chapter10.py`
 - Conserver l'interface CLI actuelle (compat smoke/tests)
-- Laisser `zz-tests/test_ch10_smoke.py` vert
+- Laisser `tests/test_ch10_smoke.py` vert
 
 ## Checklist
 - [ ] Corriger l'indentation/l'AST et stabiliser la CLI

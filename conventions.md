@@ -1,7 +1,7 @@
 # CONVENTION MCGT
 
 Version : 1.1
-Portée : ce document définit les **conventions de données, de métadonnées, d’unités, de nommage et de validation** applicables à l’ensemble des 10 chapitres MCGT (01–10). Il accompagne `zz-configuration/mcgt-global-config.ini` et les schémas dans `zz-schemas/`.
+Portée : ce document définit les **conventions de données, de métadonnées, d’unités, de nommage et de validation** applicables à l’ensemble des 10 chapitres MCGT (01–10). Il accompagne `config/mcgt-global-config.ini` et les schémas dans `assets/zz-schemas/`.
 
 ---
 
@@ -9,20 +9,20 @@ Portée : ce document définit les **conventions de données, de métadonnées, 
 
 ### 1.1 Répertoires canoniques
 
-* **Données** : `zz-data/chapter{N}/`
-  *ex.* `zz-data/chapter07/07_perturbations_domain.csv`
-* **Figures** : `zz-figures/chapter{N}/`
-  *ex.* `zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png`
-* **Scripts** : `zz-scripts/chapter{N}/`
-  *ex.* `zz-scripts/chapter06/generate_data_chapter06.py`
-* **Configuration** : `zz-configuration/`
+* **Données** : `assets/zz-data/chapter{N}/`
+  *ex.* `assets/zz-data/chapter07/07_perturbations_domain.csv`
+* **Figures** : `assets/zz-figures/chapter{N}/`
+  *ex.* `assets/zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png`
+* **Scripts** : `scripts/chapter{N}/`
+  *ex.* `scripts/chapter06/generate_data_chapter06.py`
+* **Configuration** : `config/`
   *ex.* `gw_phase.ini`, `scalar_perturbations.ini`, `camb_exact_plateau.ini`
-* **Schémas** : `zz-schemas/`
+* **Schémas** : `assets/zz-schemas/`
   *ex.* `mc_config_schema.json`, `metrics_phase_schema.json`, `mc_results_table_schema.json`
-* **Manifests** : `zz-manifests/`
+* **Manifests** : `assets/zz-manifests/`
   *ex.* `manifest_master.json`, `manifest_publication.json`, `diag_consistency.py`
 
-> **Aliases et compatibilité** : les chemins historiques (ex. `zz-donnees/chapitre*`) peuvent encore exister. Leur résolution est décrite dans `zz-schemas/consistency_rules.json` (section *aliases*).
+> **Aliases et compatibilité** : les chemins historiques (ex. `zz-donnees/chapitre*`) peuvent encore exister. Leur résolution est décrite dans `assets/zz-schemas/consistency_rules.json` (section *aliases*).
 
 ### 1.2 Règles de nommage (fichiers)
 
@@ -35,7 +35,7 @@ Portée : ce document définit les **conventions de données, de métadonnées, 
 
 ### 1.3 Manifests (ZZ)
 
-Emplacement canonique : `zz-manifests/`
+Emplacement canonique : `assets/zz-manifests/`
 
 Fichiers :
 
@@ -94,7 +94,7 @@ Champs requis pour chaque pipeline :
 * `files` : liste exhaustive des sorties
 * `manifest_entry` : pointeur vers `manifest_master.json`
 
-Des schémas valident ces structures : voir `zz-schemas/meta_schema.json`, `metrics_phase_schema.json`, etc.
+Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`, `metrics_phase_schema.json`, etc.
 
 ---
 
@@ -112,9 +112,9 @@ Des schémas valident ces structures : voir `zz-schemas/meta_schema.json`, `metr
 
 ### 5.1 Chapitres 1–2 (chronologie / spectre)
 
-* `zz-data/chapter01/01_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
-* `zz-data/chapter02/02_optimal_parameters.json` (paramètres α → A\_s,n\_s)
-* `zz-data/chapter02/02_primordial_spectrum_spec.json` (spécification)
+* `assets/zz-data/chapter01/01_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
+* `assets/zz-data/chapter02/02_optimal_parameters.json` (paramètres α → A\_s,n\_s)
+* `assets/zz-data/chapter02/02_primordial_spectrum_spec.json` (spécification)
 
 ### 5.2 Chapitre 3 (stabilité f(R))
 
@@ -239,22 +239,22 @@ $$
 
 ### 8.1 Schémas JSON/CSV (exemples)
 
-* `zz-schemas/mc_config_schema.json`
-* `zz-schemas/mc_best_schema.json`
-* `zz-schemas/metrics_phase_schema.json`
-* `zz-schemas/mc_results_table_schema.json`
-* `zz-schemas/comparison_milestones_table_schema.json` *(nom canonique ; alias FR pris en charge via rules)*
-* `zz-schemas/meta_schema.json`, `zz-schemas/results_schema_examples.json`
+* `assets/zz-schemas/mc_config_schema.json`
+* `assets/zz-schemas/mc_best_schema.json`
+* `assets/zz-schemas/metrics_phase_schema.json`
+* `assets/zz-schemas/mc_results_table_schema.json`
+* `assets/zz-schemas/comparison_milestones_table_schema.json` *(nom canonique ; alias FR pris en charge via rules)*
+* `assets/zz-schemas/meta_schema.json`, `assets/zz-schemas/results_schema_examples.json`
 
 ### 8.2 Outils
 
-* `zz-schemas/validate_json.py <schema> <instance.json>`
-* `zz-schemas/validate_csv_table.py <schema> <table.csv>`
-* `zz-manifests/diag_consistency.py --manifest zz-manifests/manifest_master.json [--fix ...]`
+* `assets/zz-schemas/validate_json.py <schema> <instance.json>`
+* `assets/zz-schemas/validate_csv_table.py <schema> <table.csv>`
+* `assets/zz-manifests/diag_consistency.py --manifest assets/zz-manifests/manifest_master.json [--fix ...]`
 
 ### 8.3 Règles de cohérence transverses
 
-* `zz-schemas/consistency_rules.json` centralise : valeurs canoniques (H0, As0, ns0, fenêtres métriques, seuils), **aliases de chemins**, **correspondances de noms** (FR↔EN).
+* `assets/zz-schemas/consistency_rules.json` centralise : valeurs canoniques (H0, As0, ns0, fenêtres métriques, seuils), **aliases de chemins**, **correspondances de noms** (FR↔EN).
 * Les scripts d’audit (ex. `diag_consistency.py`) doivent charger ces règles et **rapporter uniformément** (normalisation des chemins, renommages suggérés, fenêtres attendues, etc.).
 
 ---
@@ -268,7 +268,7 @@ $$
 5. **Angles** : toujours en **radians** (clarifier `_circ`).
 6. **Reproductibilité** : consigner `seed`, `n`, `git_hash`, `generated_at`.
 7. **Figures** : tracer *avant/après* calibration et *k±1* (stab. résidu principal).
-8. **Archives** : conserver preuves (PNG/logs) dans `zz-figures/chapter*/` et archives datées.
+8. **Archives** : conserver preuves (PNG/logs) dans `assets/zz-figures/chapter*/` et archives datées.
 
 ---
 
@@ -295,20 +295,20 @@ $$
 {
   "generated_at": "2025-08-28T12:34:56Z",
   "git_hash": "abc1234",
-  "config_used": "zz-configuration/mcgt-global-config.ini",
+  "config_used": "config/mcgt-global-config.ini",
   "python": "3.12.3",
   "libs": { "numpy": "2.3.1", "pandas": "2.3.1", "lalsuite": "6.2.0" },
   "n_points": 232,
   "actual_n_points": 232,
   "grid": { "fmin_Hz": 10.0, "fmax_Hz": 2048.0, "dlog10": 0.01 },
   "checksum_sha256": {
-    "zz-data/chapter09/09_phases_mcgt.csv": "…"
+    "assets/zz-data/chapter09/09_phases_mcgt.csv": "…"
   },
   "files": [
-    "zz-data/chapter09/09_phases_mcgt.csv",
-    "zz-data/chapter09/09_phase_diff.csv"
+    "assets/zz-data/chapter09/09_phases_mcgt.csv",
+    "assets/zz-data/chapter09/09_phase_diff.csv"
   ],
-  "manifest_entry": "zz-manifests/manifest_master.json#entries/…"
+  "manifest_entry": "assets/zz-manifests/manifest_master.json#entries/…"
 }
 ```
 

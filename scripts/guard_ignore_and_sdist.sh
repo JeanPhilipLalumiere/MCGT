@@ -45,7 +45,7 @@ if not sdist:
 deny = [
     r'(^|/)\.venv(/|$)', r'(^|/)\.venv[^/]*(/|$)',
     r'(^|/)venv(/|$)', r'(^|/)venv[^/]*(/|$)',
-    r'(^|/)_tmp(/|$)', r'(^|/)zz-figures(/|$)',
+    r'(^|/)_tmp(/|$)', r'(^|/)assets/zz-figures(/|$)',
     r'(^|/)legacy-tex(/|$)',
     r'(^|/)\.pytest_cache(/|$)', r'(^|/)\.ruff_cache(/|$)', r'(^|/)\.mypy_cache(/|$)',
     r'(^|/)\.ipynb_checkpoints(/|$)',

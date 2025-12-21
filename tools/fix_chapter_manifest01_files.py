@@ -9,13 +9,13 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST_PUB = ROOT / "zz-manifests" / "manifest_publication.json"
-MANIFEST_MASTER = ROOT / "zz-manifests" / "manifest_master.json"
+MANIFEST_PUB = ROOT / "assets/zz-manifests" / "manifest_publication.json"
+MANIFEST_MASTER = ROOT / "assets/zz-manifests" / "manifest_master.json"
 
 # Fichiers à ajouter pour le chapitre 01
 TARGETS = [
-    "zz-data/chapter01/01_P_vs_T.meta.json",
-    "zz-data/chapter01/01_optimized_data.meta.json",
+    "assets/zz-data/chapter01/01_P_vs_T.meta.json",
+    "assets/zz-data/chapter01/01_optimized_data.meta.json",
     "01-introduction-applications/CHAPTER1_GUIDE.txt",
 ]
 

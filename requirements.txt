@@ -45,7 +45,7 @@ llvmlite==0.43.0 ; python_version < "3.12"
 
 # --- Notes ---
 # 1) jsonschema[format-nongpl] garantit la validation stricte des champs date-heure,
-#    URI, etc., utilisée par nos schémas zz-schemas/*.schema.json.
+#    URI, etc., utilisée par nos schémas assets/zz-schemas/*.schema.json.
 # 2) requests est requis par les scripts de récupération (p.ex. GWOSC, jeux externes).
 # 3) Pour des CSV volumineux, vous pouvez ajouter pyarrow (optionnel) :
 #    pyarrow==17.0.0

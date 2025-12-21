@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assets/zz-schemas/06_cmb_params.schema.json",
+  "title": "Chapter 06 — CMB & pipeline parameters",
+  "description": "Schéma des paramètres liés au CMB (ex.: 06_params_cmb.json). Valide paramètres cosmologiques et numériques pour générer Cℓ et scans χ².",
+  "type": "object",
+  "properties": {
+    "generated_at": {
+      "description": "Horodatage ISO-8601 (optionnel).",
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer_script": {
+      "description": "Chemin du script ayant créé ces paramètres (optionnel).",
+      "type": "string"
+    },
+    "alpha": {
+      "description": "Paramètre de modèle alpha utilisé par le pipeline MCGT.",
+      "type": "number"
+    },
+    "q0star": {
+      "description": "Paramètre de modèle q0star pour les scans CMB.",
+      "type": "number"
+    },
+    "ell_min": {
+      "description": "Multipôle minimal inclus.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "ell_max": {
+      "description": "Multipôle maximal inclus.",
+      "type": "integer",
+      "minimum": 2
+    },
+    "n_points": {
+      "description": "Longueur du vecteur Cℓ (taille de la grille en ell).",
+      "type": "integer",
+      "minimum": 1
+    },
+    "thresholds": {
+      "description": "Définitions des seuils (primaire/ordre2).",
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "number",
+          "minimum": 0
+        },
+        "order2": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "primary",
+        "order2"
+      ],
+      "additionalProperties": false
+    },
+    "derivative_window": {
+      "description": "Fenêtre de lissage Savitzky–Golay (entier impair).",
+      "type": "integer",
+      "minimum": 3,
+      "not": {
+        "multipleOf": 2
+      }
+    },
+    "derivative_polyorder": {
+      "description": "Ordre polynomial Savitzky–Golay pour l'estimation de dérivées.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "H0": {
+      "description": "Constante de Hubble (km/s/Mpc).",
+      "type": "number"
+    },
+    "ombh2": {
+      "description": "Ω_b h² (densité baryonique).",
+      "type": "number",
+      "minimum": 0
+    },
+    "omch2": {
+      "description": "Ω_c h² (densité matière noire froide).",
+      "type": "number",
+      "minimum": 0
+    },
+    "tau": {
+      "description": "Profondeur optique de réionisation.",
+      "type": "number",
+      "minimum": 0
+    },
+    "mnu": {
+      "description": "Somme des masses de neutrinos (eV).",
+      "type": "number",
+      "minimum": 0
+    },
+    "As0": {
+      "description": "Amplitude scalaire de base A_s0.",
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "ns0": {
+      "description": "Indice spectral de base n_s0.",
+      "type": "number"
+    },
+    "c1": {
+      "description": "Coefficient c1 du spectre primordial.",
+      "type": "number"
+    },
+    "c2": {
+      "description": "Coefficient c2 du spectre primordial.",
+      "type": "number"
+    },
+    "metrics_window_Hz": {
+      "description": "Fenêtre de fréquences (Hz) pour les métriques (ex. [20, 300]).",
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
+    },
+    "camb_ini": {
+      "description": "Chemin relatif vers le fichier INI CAMB utilisé.",
+      "type": "string",
+      "examples": [
+        "config/camb_plateau_exact.ini"
+      ]
+    },
+    "max_delta_Cl_rel": {
+      "description": "Delta relatif Cℓ max permis (sanity/tolérance).",
+      "type": "number",
+      "minimum": 0
+    },
+    "notes": {
+      "description": "Notes libres (instructions spéciales, provenance).",
+      "type": "string"
+    }
+  },
+  "required": [
+    "alpha",
+    "q0star",
+    "ell_min",
+    "ell_max",
+    "n_points",
+    "thresholds",
+    "derivative_window",
+    "derivative_polyorder",
+    "H0",
+    "ombh2",
+    "omch2",
+    "tau",
+    "mnu",
+    "As0",
+    "ns0",
+    "c1",
+    "c2"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "generated_at": "2025-08-23T12:00:00Z",
+      "producer_script": "scripts/chapter6/generate_chapter6_data.py",
+      "alpha": 0.2,
+      "q0star": -0.1,
+      "ell_min": 2,
+      "ell_max": 3000,
+      "n_points": 3001,
+      "thresholds": {
+        "primary": 0.01,
+        "order2": 0.1
+      },
+      "derivative_window": 7,
+      "derivative_polyorder": 3,
+      "H0": 67.36,
+      "ombh2": 0.02237,
+      "omch2": 0.12,
+      "tau": 0.0544,
+      "mnu": 0.06,
+      "As0": 2.1E-9,
+      "ns0": 0.9649,
+      "c1": 0.1,
+      "c2": 0.01,
+      "metrics_window_Hz": [
+        20,
+        300
+      ],
+      "camb_ini": "config/camb_plateau_exact.ini",
+      "max_delta_Cl_rel": 0.63,
+      "notes": "Vérifier la cohérence ell_max/n_points avec la sortie CAMB."
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "ell_min",
+          "ell_max"
+        ],
+        "properties": {
+          "ell_min": {
+            "type": "number"
+          },
+          "ell_max": {
+            "type": "number"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ell_max": {
+            "minimum": {
+              "$data": "1/ell_min"
+            }
+          }
+        }
+      },
+      "$comment": "cross: ell_max >= ell_min ($data)"
+    }
+  ]
+}

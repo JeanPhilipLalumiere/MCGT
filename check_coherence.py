@@ -50,12 +50,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--config",
-        default="zz-configuration/mcgt-global-config.ini",
+        default="config/mcgt-global-config.ini",
         help="INI central pour les paramètres cosmologiques.",
     )
     parser.add_argument(
         "--scripts-root",
-        default="zz-scripts",
+        default="scripts",
         help="Répertoire racine des scripts chapitres.",
     )
     parser.add_argument(

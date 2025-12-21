@@ -1,0 +1,57 @@
+{
+  "chapter": 6,
+  "title": "rayonnement-cmb",
+  "paths": {
+    "data_dir": "assets/zz-data/chapter06",
+    "scripts_dir": "scripts/chapter06",
+    "figures_dir": "assets/zz-figures/chapter06",
+    "configs": [
+      "conventions.md",
+      "config/camb_plateau_exact.ini",
+      "config/mcgt-global-config.ini"
+    ]
+  },
+  "files": {
+    "data_inputs": [
+      "assets/zz-data/chapter06/06_cls_spectrum.dat",
+      "assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv",
+      "assets/zz-data/chapter06/06_cmb_full_results.csv",
+      "assets/zz-data/chapter06/06_delta_rs_scan_full.csv",
+      "assets/zz-data/chapter06/06_hubble_mcgt.dat",
+      "assets/zz-data/chapter06/06_params_cmb.json"
+    ],
+    "data_outputs": [],
+    "figures": [
+      "assets/zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png",
+      "assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png",
+      "assets/zz-figures/chapter06/06_fig_03_delta_cls_relative.png",
+      "assets/zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png",
+      "assets/zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png"
+    ],
+    "metas": [
+      "assets/zz-data/chapter06/06_cmb_full_results.meta.json",
+      "assets/zz-figures/chapter06/06_fig_*.meta.json"
+    ],
+    "others": [
+      "06-rayonnement-cmb/CHAPTER6_GUIDE.txt"
+    ]
+  },
+  "scripts": [
+    "scripts/chapter06/generate_chapter6_data.py",
+    "scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "scripts/chapter06/plot_fig03_delta_cls_rel.py",
+    "scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+    "scripts/chapter06/plot_fig05_heatmap_delta_chi2.py"
+  ],
+  "meta_expected": [
+    "assets/zz-data/chapter06/06_cmb_full_results.meta.json",
+    "assets/zz-figures/chapter06/06_fig_*.meta.json"
+  ],
+  "status": "ready",
+  "qa_checks": [
+    "Recalcul Cl_MCGT ≠ Cl_LCDM (delta non nuls) avec même cosmologie.",
+    "Vérifier `max_delta_Cl_rel` et le reporter dans meta.",
+    "Normalisation χ² dans scans (pas d’échelles absurdes)."
+  ],
+  "notes": "Les premières multipôles montraient delta=0: pipeline à valider avec CAMB ini."
+}

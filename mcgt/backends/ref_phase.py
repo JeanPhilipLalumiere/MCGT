@@ -54,7 +54,7 @@ if not logger.handlers:
 logger.setLevel(logging.INFO)
 
 # Constantes / paramètres de cache
-CACHE_DIR_DEFAULT = os.path.join("zz-data", "chapter10", ".cache_ref")  # <— anglais
+CACHE_DIR_DEFAULT = os.path.join("assets/zz-data", "chapter10", ".cache_ref")  # <— anglais
 CACHE_MAX_ENTRIES_MEM = 128
 CACHE_DISK_QUOTA_BYTES = int(2 * 1024**3)  # 2 Go
 CACHE_FILE_SUFFIX = ".npz"
@@ -284,7 +284,7 @@ def compute_phi_ref(
     approximant : str
         Nom d'approximant (ex. "IMRPhenomD").
     cache_dir : str | None
-        Dossier de cache (par défaut zz-data/chapter10/.cache_ref).
+        Dossier de cache (par défaut assets/zz-data/chapter10/.cache_ref).
     force_recompute : bool
         Ignore le cache si True.
 

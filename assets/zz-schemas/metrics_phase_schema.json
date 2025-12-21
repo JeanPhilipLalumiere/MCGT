@@ -1,0 +1,469 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assets/zz-schemas/metrics_phase_schema.json",
+  "title": "Schéma – mesures de phase (Chapitre 9)",
+  "description": "Valide 09_metrics_phase.json produit lors de la comparaison de phases MCGT vs référence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ini",
+    "params",
+    "reference",
+    "grid_used",
+    "metrics_window_Hz",
+    "metrics_active",
+    "outputs"
+  ],
+  "properties": {
+    "ini": {
+      "type": "string",
+      "description": "Chemin du fichier INI/CFG de configuration utilisé."
+    },
+    "params": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "m1",
+        "m2",
+        "q0star",
+        "alpha",
+        "phi0",
+        "tc",
+        "tol"
+      ],
+      "properties": {
+        "m1": {
+          "type": "number",
+          "description": "Masse 1 (unité interne pipeline)."
+        },
+        "m2": {
+          "type": "number",
+          "description": "Masse 2 (unité interne pipeline)."
+        },
+        "q0star": {
+          "type": "number"
+        },
+        "alpha": {
+          "type": "number"
+        },
+        "phi0": {
+          "type": "number",
+          "description": "Phase initiale (rad)."
+        },
+        "tc": {
+          "type": "number",
+          "description": "Temps de coalescence (s)."
+        },
+        "tol": {
+          "type": "number",
+          "description": "Tolérance numérique globale."
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "csv",
+        "meta",
+        "source_tag"
+      ],
+      "properties": {
+        "csv": {
+          "type": "string",
+          "description": "Chemin CSV des phases GR de référence."
+        },
+        "meta": {
+          "type": "string",
+          "description": "Chemin JSON meta du CSV de référence."
+        },
+        "source_tag": {
+          "type": "string",
+          "description": "Origine (ex: lalsuite/IMRPhenomD/file)."
+        }
+      }
+    },
+    "grid_used": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fmin_Hz",
+        "fmax_Hz",
+        "dlog10",
+        "n_points_used"
+      ],
+      "properties": {
+        "fmin_Hz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "fmax_Hz": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "dlog10": {
+          "type": "number",
+          "minimum": 0
+        },
+        "n_points_used": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "metrics_window_Hz": {
+      "$ref": "#/$defs/window2",
+      "minimum": 0,
+      "unit": "Hz",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "metrics_active": {
+      "type": "array",
+      "additionalProperties": false,
+      "required": [
+        "variant",
+        "rebranch_k",
+        "mean_abs_20_300",
+        "p95_abs_20_300",
+        "max_abs_20_300",
+        "n_20_300"
+      ],
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": [
+            "phi_mcgt",
+            "phi_mcgt_cal",
+            "phi_mcgt_raw",
+            "phi_ref"
+          ],
+          "description": "Série active utilisée pour les métriques."
+        },
+        "rebranch_k": {
+          "type": "integer",
+          "description": "k (cycles) appliqué pour minimiser |Δφ|."
+        },
+        "mean_abs_20_300": {
+          "type": "number",
+          "minimum": 0,
+          "description": "⟨|Δφ|⟩ dans [20,300] Hz (rad)."
+        },
+        "p95_abs_20_300": {
+          "type": "number",
+          "minimum": 0,
+          "description": "p95(|Δφ|) dans [20,300] Hz (rad)."
+        },
+        "max_abs_20_300": {
+          "type": "number",
+          "minimum": 0,
+          "description": "max(|Δφ|) dans [20,300] Hz (rad)."
+        },
+        "n_20_300": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Nombre d’échantillons dans la fenêtre métrique."
+        }
+      },
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "metrics_raw": {
+      "$ref": "#/$defs/metricsBlockOrNull"
+    },
+    "metrics_cal": {
+      "$ref": "#/$defs/metricsBlockOrNull"
+    },
+    "calibration": {
+      "$ref": "#/$defs/calibrationBlockOrNull"
+    },
+    "poly_correction": {
+      "$ref": "#/$defs/polyBlockOrNull"
+    },
+    "poly_rebranch_k_cycles": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "k global appliqué après correction polynomiale (si différent)."
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "phases_mcgt_csv": {
+          "type": "string",
+          "description": "CSV des phases MCGT (post-traitement)."
+        },
+        "diff_phase_csv": {
+          "type": "string",
+          "description": "CSV des résidus de phase (MCGT - REF)."
+        },
+        "comparison_milestones_csv": {
+          "type": "string",
+          "description": "CSV des jalons au pic: 09_comparison_milestones.csv"
+        },
+        "fisher_scan2D_csv": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Optionnel: sortie scan de Fisher 2D."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "comparison_milestones_csv"
+          ]
+        }
+      ]
+    },
+    "repro": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "python",
+        "libs"
+      ],
+      "properties": {
+        "git_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "python": {
+          "type": "string"
+        },
+        "libs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "description": "Vrai si toutes les vérifications ont passé."
+        },
+        "warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Commentaires libres."
+    }
+  },
+  "$defs": {
+    "window2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "metricsBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mean_abs_20_300",
+        "p95_abs_20_300",
+        "max_abs_20_300"
+      ],
+      "properties": {
+        "mean_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "metricsBlockOrNull": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/metricsBlock"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "calibrationBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "mode",
+        "model_used",
+        "phi0_hat_rad",
+        "tc_hat_s",
+        "initial_window_Hz",
+        "used_window_Hz",
+        "weight",
+        "auto_tightened",
+        "tighten_threshold_p95_rad",
+        "p95_check_before_rad",
+        "p95_check_after_rad",
+        "n_points"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "phi0",
+            "phi0,tc"
+          ]
+        },
+        "model_used": {
+          "type": "string"
+        },
+        "phi0_hat_rad": {
+          "type": "number"
+        },
+        "tc_hat_s": {
+          "type": "number"
+        },
+        "initial_window_Hz": {
+          "$ref": "#/$defs/window2"
+        },
+        "used_window_Hz": {
+          "$ref": "#/$defs/window2"
+        },
+        "weight": {
+          "type": "string",
+          "enum": [
+            "1/f2",
+            "uniform"
+          ]
+        },
+        "auto_tightened": {
+          "type": "boolean"
+        },
+        "tighten_threshold_p95_rad": {
+          "type": "number"
+        },
+        "p95_check_before_rad": {
+          "type": "number"
+        },
+        "p95_check_after_rad": {
+          "type": "number"
+        },
+        "n_points": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "calibrationBlockOrNull": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/calibrationBlock"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "polyBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applied",
+        "from_column",
+        "basis",
+        "degree",
+        "fit_window_Hz",
+        "metrics_window_Hz",
+        "coeff_desc",
+        "k_cycles"
+      ],
+      "properties": {
+        "applied": {
+          "type": "boolean"
+        },
+        "from_column": {
+          "type": "string",
+          "description": "Nom de colonne source (ex: phi_mcgt_cal)."
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "log10",
+            "poly",
+            "chebyshev"
+          ]
+        },
+        "degree": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fit_window_Hz": {
+          "$ref": "#/$defs/window2"
+        },
+        "metrics_window_Hz": {
+          "$ref": "#/$defs/window2"
+        },
+        "coeff_desc": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3
+        },
+        "k_cycles": {
+          "type": "integer"
+        }
+      }
+    },
+    "polyBlockOrNull": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/polyBlock"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

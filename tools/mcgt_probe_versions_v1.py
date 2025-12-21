@@ -113,8 +113,8 @@ def main():
     print_block("Manifestes (root)")
     show_manifest_block(
         "root",
-        ROOT / "zz-manifests" / "manifest_master.json",
-        ROOT / "zz-manifests" / "manifest_publication.json",
+        ROOT / "assets/zz-manifests" / "manifest_master.json",
+        ROOT / "assets/zz-manifests" / "manifest_publication.json",
     )
 
     print_block("Manifestes (release_zenodo_codeonly/v0.3.x)")
@@ -123,12 +123,12 @@ def main():
         ROOT
         / "release_zenodo_codeonly"
         / "v0.3.x"
-        / "zz-manifests"
+        / "assets/zz-manifests"
         / "manifest_master.json",
         ROOT
         / "release_zenodo_codeonly"
         / "v0.3.x"
-        / "zz-manifests"
+        / "assets/zz-manifests"
         / "manifest_publication.json",
     )
 
@@ -157,11 +157,11 @@ def main():
     # 3) __init__ versions
     print_block("__init__ (__version__)")
     mcgt_init = parse_init_version(ROOT / "mcgt" / "__init__.py")
-    zz_init = parse_init_version(ROOT / "zz_tools" / "__init__.py")
+    zz_init = parse_init_version(ROOT / "tools" / "__init__.py")
 
     for label, info in (
         ("mcgt.__init__", mcgt_init),
-        ("zz_tools.__init__", zz_init),
+        ("tools.__init__", zz_init),
     ):
         if info is None:
             print(f"{label:45} : (absent)")

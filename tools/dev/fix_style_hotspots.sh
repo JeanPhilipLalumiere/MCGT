@@ -12,7 +12,7 @@ python3 - <<'PY'
 import io, tokenize
 from pathlib import Path
 
-p = Path("zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py")
+p = Path("scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py")
 if not p.exists():
     raise SystemExit(0)
 
@@ -40,8 +40,8 @@ import re
 from pathlib import Path
 
 files = [
-    "zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
-    "zz-scripts/chapter07/plot_fig01_cs2_heatmap.py",
+    "scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "scripts/chapter07/plot_fig01_cs2_heatmap.py",
 ]
 for f in files:
     p = Path(f)
@@ -73,11 +73,11 @@ PY
 python -m autopep8 --in-place \
   --select E122,E128,E131,E225,E231,E266,E301,E302,E305,E401,E501,W291,W391 \
   --aggressive --aggressive \
-  zz-scripts/chapter07/plot_fig01_cs2_heatmap.py \
-  zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
+  scripts/chapter07/plot_fig01_cs2_heatmap.py \
+  scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
 
-python -m pycodestyle zz-scripts/chapter07/plot_fig01_cs2_heatmap.py || true
-python -m pycodestyle zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
+python -m pycodestyle scripts/chapter07/plot_fig01_cs2_heatmap.py || true
+python -m pycodestyle scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py || true
 
 git add -A
 git commit -m "style: ch06 l->ell tokenize rename; fix E202; pycodestyle max-line-length=100; reformat" || true

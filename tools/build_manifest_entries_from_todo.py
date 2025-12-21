@@ -23,14 +23,14 @@ def sha256_of(path: Path) -> str:
 
 
 def detect_kind_role(rel: str) -> tuple[str, str]:
-    if rel.startswith("zz-data/"):
+    if rel.startswith("assets/zz-data/"):
         if rel.endswith(".meta.json"):
             return "data_meta", "chapter_meta"
         else:
             return "data", "chapter_data"
-    if rel.startswith("zz-figures/"):
+    if rel.startswith("assets/zz-figures/"):
         return "figure", "chapter_figure"
-    if rel.startswith("zz-scripts/"):
+    if rel.startswith("scripts/"):
         return "script", "chapter_script"
     # guides / autres
     return "other", "chapter_other"

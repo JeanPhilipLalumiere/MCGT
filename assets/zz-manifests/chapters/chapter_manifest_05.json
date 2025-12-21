@@ -1,0 +1,56 @@
+{
+  "chapter": 5,
+  "title": "nucleosynthese-primordiale",
+  "paths": {
+    "data_dir": "assets/zz-data/chapter05",
+    "scripts_dir": "scripts/chapter05",
+    "figures_dir": "assets/zz-figures/chapter05",
+    "configs": [
+      "conventions.md",
+      "config/mcgt-global-config.ini"
+    ]
+  },
+  "files": {
+    "data_inputs": [
+      "assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv",
+      "assets/zz-data/chapter05/05_bbn_data.csv",
+      "assets/zz-data/chapter05/05_bbn_grid.csv",
+      "assets/zz-data/chapter05/05_bbn_invariants.csv",
+      "assets/zz-data/chapter05/05_bbn_milestones.csv",
+      "assets/zz-data/chapter05/05_bbn_params.json",
+      "assets/zz-data/chapter05/05_dchi2_vs_T.csv"
+    ],
+    "data_outputs": [],
+    "figures": [
+      "assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png",
+      "assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png",
+      "assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png",
+      "assets/zz-figures/chapter05/05_fig_04_chi2_vs_t.png"
+    ],
+    "metas": [
+      "assets/zz-data/chapter05/05_bbn_chi2_vs_T.meta.json",
+      "assets/zz-figures/chapter05/05_fig_*.meta.json"
+    ],
+    "others": [
+      "05-nucleosynthese-primordiale/CHAPTER5_GUIDE.txt"
+    ]
+  },
+  "scripts": [
+    "scripts/chapter05/generate_chapter5_data.py",
+    "scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+    "scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+    "scripts/chapter05/plot_fig04_chi2_vs_T.py"
+  ],
+  "meta_expected": [
+    "assets/zz-data/chapter05/05_bbn_chi2_vs_T.meta.json",
+    "assets/zz-figures/chapter05/05_fig_*.meta.json"
+  ],
+  "status": "ready",
+  "qa_checks": [
+    "Encodage UTF-8 correct (sources SN/BBN).",
+    "`05_chi2_derivative.csv` non vide après lissage SavGol.",
+    "Cohérence sémantique des seuils `primary/order2` (ou renommer).",
+    "Forme de χ²(T) justifiée (artefacts exclus)."
+  ],
+  "notes": "Corriger mojibake; remplir dérivée; documenter seuils spécifiques si dérogation."
+}

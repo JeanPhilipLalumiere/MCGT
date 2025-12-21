@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 license-files = ["LICENSE", "LICENSE-data"]
 readme = "README.md"
-name = "zz-tools"
+name = "tools"
 version = "2.3.7"
 description = "MCGT utilities"
 # DUPLICATE_DISABLED: readme = { file = "README.md", content-type = "text/markdown" }
@@ -30,7 +30,7 @@ license = "MIT"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["mcgt*", "zz_tools*"]
+include = ["mcgt*", "tools*"]
 
 [project.urls]
 Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
@@ -43,7 +43,7 @@ lint.ignore = ["E402", "E741", "F401", "F403", "F821", "F823", "F841"]
 # ci-nudge
 
 [tool.pytest.ini_options]
-addopts = "-ra"
+addopts = "-ra -q"
 norecursedirs = [
   ".git",
   "build",
@@ -53,3 +53,45 @@ norecursedirs = [
 ]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+pythonpath = ["."]
+markers = [
+  "slow: tests coûteux (désactivables via -m \"not slow\")",
+  "schema: tests de validation de schémas",
+  "manifest: tests de cohérence des manifests",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::PendingDeprecationWarning",
+]
+
+[tool.pycodestyle]
+max-line-length = 100
+ignore = [
+  "E203",
+  "W503",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.coverage.run]
+branch = true
+source = ["mcgt"]
+omit = [
+  "*/__init__.py",
+  "**/scripts/**",
+  "**/.venv*/**",
+  "**/venv*/**",
+  "**/site-packages/**",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "if __name__ == .__main__.:",
+]
+precision = 1
+skip_covered = true

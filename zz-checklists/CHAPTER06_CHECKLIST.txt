@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 - [ ] Sources LaTeX (06-rayonnement-cmb/):
       • 06_cmb_conceptuel.tex
       • 06_cmb_details.tex
-- [ ] Données (zz-data/chapter06/):
+- [ ] Données (assets/zz-data/chapter06/):
       • 06_cls_spectrum_lcdm.dat
       • 06_cls_spectrum.dat
       • 06_delta_cls.csv
@@ -30,13 +30,13 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
       • 06_hubble_mcgt.dat
       • 06_delta_Tm_scan.csv   (optionnel)
       • 06_params_cmb.json
-- [ ] Figures (zz-figures/chapter06/):
+- [ ] Figures (assets/zz-figures/chapter06/):
       • fig_01_cmb_dataflow_diagram.png
       • fig_02_cls_lcdm_vs_mcgt.png
       • fig_03_delta_cls_relative.png
       • fig_04_delta_rs_vs_params.png
       • fig_05_delta_chi2_heatmap.png
-- [ ] Scripts (zz-scripts/chapter06/):
+- [ ] Scripts (scripts/chapter06/):
       • generate_pdot_plateau_vs_z.py
       • generate_data_chapter06.py
       • plot_fig01_cmb_dataflow_diagram.py
@@ -90,22 +90,22 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Expansion plateau vs z :
-      python zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
+      python scripts/chapter06/generate_pdot_plateau_vs_z.py
 - [ ] Pipeline CMB (exemple) :
-      python zz-scripts/chapter06/generate_data_chapter06.py \
+      python scripts/chapter06/generate_data_chapter06.py \
         --alpha 0.20 --q0star -0.10 --export-derivative
 - [ ] (Option CAMB CLI) :
-      camb zz-configuration/camb_exact_plateau.ini \
+      camb config/camb_exact_plateau.ini \
         output_root=mcgt_cmb \
-        expansion_rate_file=zz-configuration/pdot_plateau_vs_z.dat
+        expansion_rate_file=config/pdot_plateau_vs_z.dat
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python zz-scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
-      python zz-scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
-      python zz-scripts/chapter06/plot_fig03_delta_cls_relative.py
-      python zz-scripts/chapter06/plot_fig04_delta_rs_vs_params.py
-      python zz-scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+      python scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
+      python scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
+      python scripts/chapter06/plot_fig03_delta_cls_relative.py
+      python scripts/chapter06/plot_fig04_delta_rs_vs_params.py
+      python scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
 - [ ] Vérifs : DPI ≥ 300 ; axes/échelles corrects ; légendes/annotations (α, q0*).
 
 [CONTRÔLES QUALITÉ (QC)]
@@ -117,22 +117,22 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 - [ ] Journal : logs d’exécution sans erreurs ; archiver si CI active.
 
 [VALIDATION AUTOMATISÉE]
-- [ ] JSON : validate_json.py  zz-schemas/06_cmb_params.schema.json  zz-data/chapter06/06_params_cmb.json
+- [ ] JSON : validate_json.py  assets/zz-schemas/06_cmb_params.schema.json  assets/zz-data/chapter06/06_params_cmb.json
 - [ ] CSV  : validate_csv_table.py (schéma tabulaire approprié) pour delta_rs/chi2 si défini.
 - [ ] CI   : zz-workflows/ci.yml lance pytest + validateurs + diag manifests.
 
 [INTÉGRATION LATEX]
 - [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_details.tex
-- [ ] Chemins images → zz-figures/chapter06/ (casse & relativité des chemins).
+- [ ] Chemins images → assets/zz-figures/chapter06/ (casse & relativité des chemins).
 
 [MANIFESTES & TRAÇABILITÉ]
-- [ ] zz-manifests/figure_manifest.csv : déclarer les 5 figures avec checksums (si activé).
-- [ ] zz-manifests/chapters/chapter_manifest_06.json : lister toutes les données/figures.
+- [ ] assets/zz-manifests/figure_manifest.csv : déclarer les 5 figures avec checksums (si activé).
+- [ ] assets/zz-manifests/chapters/chapter_manifest_06.json : lister toutes les données/figures.
 - [ ] mcgt/CHANGELOG.md : consigner changements impactant le Chapitre 6.
 
 [COMMANDES RAPIDES]
-- [ ] Expansion :  python zz-scripts/chapter06/generate_pdot_plateau_vs_z.py
-- [ ] Données   :  python zz-scripts/chapter06/generate_data_chapter06.py --alpha 0.20 --q0star -0.10
+- [ ] Expansion :  python scripts/chapter06/generate_pdot_plateau_vs_z.py
+- [ ] Données   :  python scripts/chapter06/generate_data_chapter06.py --alpha 0.20 --q0star -0.10
 - [ ] Figures   :  exécuter les 5 scripts plot_fig**
 - [ ] LaTeX     :  2× pdflatex pour chaque .tex (conceptuel, details)

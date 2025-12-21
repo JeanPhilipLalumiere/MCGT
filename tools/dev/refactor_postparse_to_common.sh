@@ -9,8 +9,8 @@ git add -A
 git commit -m "WIP: before postparse common refactor" || true
 
 # 1) Crée le module commun
-mkdir -p zz-scripts/_common
-cat > zz-scripts/_common/postparse.py <<'PY'
+mkdir -p scripts/_common
+cat > scripts/_common/postparse.py <<'PY'
 """
 Post-parse epilogue for MCGT plotting scripts.
 
@@ -33,7 +33,7 @@ def _copy_latest(args) -> None:
         ch = os.path.basename(os.path.dirname(__file__))  # _common
         # jump two up from the caller file directory (we recompute from __file__ of caller via stack?)
         # Safer: rebuild relative to the caller's file via env set by wrapper; fallback to repo layout.
-        # But since all figures write to zz-figures/<chapter>, we recompute from the *caller* path at call-site.
+        # But since all figures write to assets/zz-figures/<chapter>, we recompute from the *caller* path at call-site.
         # Here: we keep generic behavior assuming standard layout used by all chapters.
         # (The call-site sets base_dir and chapter; see apply()).
         pass
@@ -66,7 +66,7 @@ def apply(args, *, caller_file: str = None) -> None:
         except Exception:
             pass
 
-        # atexit: copy latest PNG from zz-figures/<chapter> to args.outdir
+        # atexit: copy latest PNG from assets/zz-figures/<chapter> to args.outdir
         def _smoke_copy_latest():
             try:
                 if not getattr(args, "outdir", None):
@@ -77,7 +77,7 @@ def apply(args, *, caller_file: str = None) -> None:
                 base = os.path.abspath(os.path.join(os.path.dirname(caller_file or __file__), ".."))
                 chapter = os.path.basename(base)
                 repo = os.path.abspath(os.path.join(base, ".."))
-                default_dir = os.path.join(repo, "zz-figures", chapter)
+                default_dir = os.path.join(repo, "assets/zz-figures", chapter)
                 pngs = sorted(
                     glob.glob(os.path.join(default_dir, "*.png")),
                     key=os.path.getmtime,
@@ -105,7 +105,7 @@ from pathlib import Path
 import re
 
 files = [Path(p) for p in __import__("subprocess").check_output(
-    ["bash", "-lc", "git ls-files 'zz-scripts/**/plot_*.py'"]).decode().splitlines()]
+    ["bash", "-lc", "git ls-files 'scripts/**/plot_*.py'"]).decode().splitlines()]
 
 start_pat = re.compile(r"^[ \t]*# \[MCGT POSTPARSE EPILOGUE v1\]\s*$", re.M)
 v2_block = """# [MCGT POSTPARSE EPILOGUE v2]
@@ -149,7 +149,7 @@ import sys, subprocess
 subprocess.run([sys.executable, "-m", "pip", "install", "--user", "autopep8"], check=False)
 PY
 
-mapfile -t files < <(git ls-files 'zz-scripts/**/plot_*.py' | sort)
+mapfile -t files < <(git ls-files 'scripts/**/plot_*.py' | sort)
 python -m autopep8 --in-place \
   --select E122,E128,E131,E225,E231,E266,E301,E302,E305,E401,E501,W291,W391 \
   --aggressive --aggressive \

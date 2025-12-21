@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assets/zz-schemas/09_best_params.schema.json",
+  "title": "Chapter 09 — Best polynomial / rebranch parameters",
+  "description": "Schéma pour les meilleurs paramètres utilisés pour construire la phase MCGT finale (fit polynomial + unwrap + rebranch). Fichier cible: 09_best_parameters.json.",
+  "type": "object",
+  "$defs": {
+    "fileRef": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Horodatage ISO."
+    },
+    "producer_script": {
+      "type": "string",
+      "description": "Script producteur (relatif)."
+    },
+    "git_hash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 7
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Commit (optionnel)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Tag/version lisible (optionnel)."
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "hz",
+        "log10"
+      ],
+      "description": "Base polynomiale pour l’ajustement."
+    },
+    "degree": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Degré du polynôme (≥1)."
+    },
+    "coeff_desc": {
+      "description": "Coefficients polynomiaux et transformation éventuelle.",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "coefficients": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1
+            },
+            "x_transform": {
+              "type": "string",
+              "enum": [
+                "log10",
+                "identity"
+              ]
+            },
+            "x_min": {
+              "type": "number"
+            },
+            "x_max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "coefficients"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "unwrap_strategy": {
+      "type": "string",
+      "description": "Stratégie de désemballage de phase.",
+      "enum": [
+        "global",
+        "piecewise",
+        "none"
+      ],
+      "default": "global"
+    },
+    "k_cycles": {
+      "type": "integer",
+      "description": "Entier global de rebranch (cycles) minimisant |Δφ|."
+    },
+    "fit_window_Hz": {
+      "type": "array",
+      "description": "Fenêtre utilisée pour le fit polynomial.",
+      "items": {
+        "type": "number",
+        "minimum": 0
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
+    },
+    "metrics_window_Hz": {
+      "type": "array",
+      "description": "Fenêtre utilisée pour évaluer les métriques (moyenne/mediane/p95/max).",
+      "items": {
+        "type": "number",
+        "minimum": 0
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "minimum": 0,
+      "unit": "Hz"
+    },
+    "scores": {
+      "type": "object",
+      "description": "Métriques de synthèse (résiduel principal) dans metrics_window_Hz.",
+      "properties": {
+        "mean_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "median_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_abs_20_300": {
+          "type": "number",
+          "minimum": 0
+        },
+        "n_20_300": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "p95_abs_20_300"
+      ],
+      "additionalProperties": false
+    },
+    "variant_used": {
+      "type": "string",
+      "description": "Variante φ optimisée. [DEPRECATED: use phase_variant]",
+      "enum": [
+        "phi_mcgt",
+        "phi_mcgt_cal",
+        "phi_mcgt_raw"
+      ],
+      "deprecated": true
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Entrées amont utilisées pour calculer les meilleurs paramètres.",
+      "properties": {
+        "ref_csv": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/fileRef"
+            }
+          ],
+          "description": "Phases GR de référence (IMRPhenom*)."
+        },
+        "prepoly_csv": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/fileRef"
+            }
+          ],
+          "description": "Phases MCGT pré-polynôme (raw/calibrated)."
+        },
+        "diff_csv": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/fileRef"
+            }
+          ],
+          "description": "CSV résiduel (optionnel)."
+        },
+        "metrics_json": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/fileRef"
+            }
+          ],
+          "description": "JSON de métriques (optionnel)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "repro": {
+      "type": "object",
+      "description": "Environnement d’exécution.",
+      "properties": {
+        "python": {
+          "type": "string"
+        },
+        "libs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": "string"
+    },
+    "phase_variant": {
+      "type": "string",
+      "description": "Variante φ optimisée.",
+      "enum": [
+        "phi_mcgt",
+        "phi_mcgt_cal",
+        "phi_mcgt_raw"
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "examples": [
+    {
+      "generated_at": "2025-08-23T12:00:00Z",
+      "producer_script": "scripts/chapter9/opt_poly_rebranch.py",
+      "git_hash": "abcdef1",
+      "basis": "log10",
+      "degree": 5,
+      "coeff_desc": [
+        -134.8352599400951,
+        1431.231493474761,
+        -6157.841503217142,
+        13479.057758092878,
+        -14992.867016559154,
+        7004.059173892351
+      ],
+      "unwrap_strategy": "global",
+      "k_cycles": -56,
+      "fit_window_Hz": [
+        30.0,
+        250.0
+      ],
+      "metrics_window_Hz": [
+        20.0,
+        300.0
+      ],
+      "scores": {
+        "mean_abs_20_300": 0.12138579423319663,
+        "p95_abs_20_300": 0.7104087123286049,
+        "max_abs_20_300": 1.7761673463095065,
+        "n_20_300": 117
+      },
+      "variant_used": "phi_mcgt",
+      "inputs": {
+        "ref_csv": {
+          "path": "assets/zz-data/chapter9/09_phases_imrphenom.csv"
+        },
+        "prepoly_csv": {
+          "path": "assets/zz-data/chapter9/09_phases_mcgt.prepoly.csv"
+        },
+        "diff_csv": {
+          "path": "assets/zz-data/chapter9/09_diff_phase.csv"
+        },
+        "metrics_json": {
+          "path": "assets/zz-data/chapter9/09_metrics_phase.json"
+        }
+      },
+      "repro": {
+        "python": "3.12.3",
+        "libs": {
+          "numpy": "2.3.1",
+          "pandas": "2.3.1"
+        }
+      },
+      "notes": "Paramètres choisis pour minimiser p95 sur 20–300 Hz."
+    }
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "basis",
+        "degree",
+        "coeff_desc",
+        "k_cycles",
+        "fit_window_Hz",
+        "metrics_window_Hz"
+      ]
+    },
+    {
+      "required": [
+        "phase_variant"
+      ]
+    },
+    {
+      "required": [
+        "variant_used"
+      ]
+    }
+  ]
+}

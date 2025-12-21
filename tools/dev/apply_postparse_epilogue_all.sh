@@ -46,7 +46,7 @@ try:
                 import glob, os, shutil
                 _ch = os.path.basename(os.path.dirname(__file__))
                 _repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-                _default_dir = os.path.join(_repo, "zz-figures", _ch)
+                _default_dir = os.path.join(_repo, "assets/zz-figures", _ch)
                 pngs = sorted(
                     glob.glob(os.path.join(_default_dir, "*.png")),
                     key=os.path.getmtime,
@@ -83,7 +83,7 @@ add_epilogue_if_needed () {
 }
 
 # Cible : tous les scripts de figures
-mapfile -t files < <(git ls-files 'zz-scripts/**/plot_*.py' | sort)
+mapfile -t files < <(git ls-files 'scripts/**/plot_*.py' | sort)
 
 for f in "${files[@]}"; do
   add_epilogue_if_needed "$f"

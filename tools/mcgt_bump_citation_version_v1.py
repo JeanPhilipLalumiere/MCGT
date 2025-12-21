@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-MANIFEST_MASTER = ROOT / "zz-manifests" / "manifest_master.json"
+MANIFEST_MASTER = ROOT / "assets/zz-manifests" / "manifest_master.json"
 CITATION_ROOT = ROOT / "CITATION.cff"
 CITATION_RELEASE = ROOT / "release_zenodo_codeonly" / "v0.3.x" / "CITATION.cff"
 TODO_PATH = ROOT / "TODO_CLEANUP.md"

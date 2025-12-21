@@ -3,13 +3,18 @@ include LICENSE
 include LICENSE-data
 include pyproject.toml
 include CITATION.cff
-include zz-manifests/manifest_publication.json
+include assets/zz-manifests/manifest_publication.json
+include config/*.ini
+include config/*.json
+include config/*.csv
 
-recursive-include zz-manifests *.json *.py
-recursive-include zz-scripts *.py
+recursive-include assets/zz-manifests *.json *.py
+recursive-include assets/zz-schemas *.json *.py *.sh *.md
+recursive-include scripts *.py
+recursive-include tools *.py *.sh
 
-prune zz-figures
-prune zz-data
+prune assets/zz-figures
+prune assets/zz-data
 prune tests
 prune .github
 prune _tmp

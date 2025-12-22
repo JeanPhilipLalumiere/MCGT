@@ -3,7 +3,7 @@
   "title": "validation-chronologique",
   "paths": {
     "data_dir": "assets/zz-data/chapter02",
-    "scripts_dir": "scripts/chapter02",
+    "scripts_dir": "scripts/02_primordial_spectrum",
     "figures_dir": "assets/zz-figures/chapter02",
     "configs": [
       "conventions.md",
@@ -43,13 +43,13 @@
     ]
   },
   "scripts": [
-    "scripts/chapter02/generate_chapter2_data.py",
-    "scripts/chapter02/plot_fig01_P_T_evolution.py",
-    "scripts/chapter02/plot_fig02_calibration.py",
-    "scripts/chapter02/plot_fig03_relative_errors.py",
-    "scripts/chapter02/plot_fig04_pipeline_diagram.py",
-    "scripts/chapter02/plot_fig05_FG_series.py",
-    "scripts/chapter02/plot_fig06_fit_alpha.py"
+    "scripts/02_primordial_spectrum/generate_chapter2_data.py",
+    "scripts/02_primordial_spectrum/plot_fig01_P_T_evolution.py",
+    "scripts/02_primordial_spectrum/plot_fig02_calibration.py",
+    "scripts/02_primordial_spectrum/plot_fig03_relative_errors.py",
+    "scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py",
+    "scripts/02_primordial_spectrum/plot_fig05_FG_series.py",
+    "scripts/02_primordial_spectrum/plot_fig06_fit_alpha.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter02/02_derivative_P_data.meta.json",

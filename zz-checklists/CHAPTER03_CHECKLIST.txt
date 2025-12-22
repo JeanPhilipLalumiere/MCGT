@@ -1,7 +1,7 @@
 CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 
 [OBJECTIF & PORTÉE]
-- [ ] Ce checklist couvre la production des données/figures et l’intégration LaTeX pour l’étude de stabilité f(R) (Chapitre 3).
+- [ ] Ce checklist couvre la production des données/figures et l’intégration LaTeX pour l’étude de stabilité f(R) (Chapter 3).
 - [ ] Cohérence de nommage (EN), formats (CSV/JSON/PNG), grilles et lissage alignés avec les chapitres 1–2.
 
 [ARBORESCENCE & FICHIERS ATTENDUS]
@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
       • 03_fR_stability_meta.json
       • 03_ricci_fR_vs_z.csv
       • 03_ricci_fR_vs_T.csv
-- [ ] Scripts (scripts/chapter03/):
+- [ ] Scripts (scripts/03_stability_domain/):
       • generate_data_chapter03.py
       • plot_fig01_fR_stability_domain.py
       • plot_fig02_fR_fRR_vs_f.py
@@ -71,16 +71,16 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter (exemple):
-      python scripts/chapter03/generate_data_chapter03.py \
+      python scripts/03_stability_domain/generate_data_chapter03.py \
         --config config/gw_phase.ini \
         --npts 700
 - [ ] Confirmer la création/écrasement contrôlé des 6 sorties listées ci-dessus.
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer au minimum:
-      python scripts/chapter03/plot_fig01_fR_stability_domain.py
-      python scripts/chapter03/plot_fig07_ricci_fR_vs_z.py
-      python scripts/chapter03/plot_fig08_ricci_fR_vs_T.py
+      python scripts/03_stability_domain/plot_fig01_fR_stability_domain.py
+      python scripts/03_stability_domain/plot_fig07_ricci_fR_vs_z.py
+      python scripts/03_stability_domain/plot_fig08_ricci_fR_vs_T.py
 - [ ] Vérifier DPI≥300, axes/échelles (log si requis), légendes/units, style multi-chapitres.
 
 [CONTRÔLES DE QUALITÉ & DRAPEAUX ROUGES]
@@ -124,7 +124,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 - [ ] Versionner (mcgt/CHANGELOG.md); conserver chemins relatifs et encodage UTF-8.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python scripts/chapter03/generate_data_chapter03.py --config config/gw_phase.ini --npts 700
+- [ ] Données   :  python scripts/03_stability_domain/generate_data_chapter03.py --config config/gw_phase.ini --npts 700
 - [ ] Figures   :  exécuter les scripts “plot_fig..” listés
 - [ ] Schémas   :  validate_json.py & validate_csv_table.py (voir “Validation”)
 - [ ] LaTeX     :  commandes pdflatex ci-dessus

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "assets/zz-schemas/07_meta_perturbations.schema.json",
   "title": "Chapter 07 — Perturbations (meta)",
-  "description": "Schéma des métadonnées pour les sorties du Chapitre 7 (perturbations scalaires). Fichier cible: 07_meta_perturbations.json.",
+  "description": "Schéma des métadonnées pour les sorties du Chapter 7 (perturbations scalaires). Fichier cible: 07_meta_perturbations.json.",
   "type": "object",
   "$defs": {
     "fileRef": {
@@ -56,7 +56,7 @@
     },
     "producer_script": {
       "type": "string",
-      "description": "Chemin relatif du script producteur (optionnel). Exemple: scripts/chapter7/generate_chapter7_data.py"
+      "description": "Chemin relatif du script producteur (optionnel). Exemple: scripts/07_bao_geometry/generate_chapter7_data.py"
     },
     "git_hash": {
       "anyOf": [
@@ -184,7 +184,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter7/generate_chapter7_data.py",
+      "producer_script": "scripts/07_bao_geometry/generate_chapter7_data.py",
       "git_hash": "abcdef1",
       "version": "chap7-v601.30",
       "n_points": 18030,

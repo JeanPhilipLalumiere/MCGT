@@ -14,17 +14,17 @@ echo "== CH02 – PIPELINE MINIMAL : validation-chronologique =="
 echo
 
 echo "[1/2] Génération des données..."
-python scripts/chapter02/generate_data_chapter02.py
+python scripts/02_primordial_spectrum/generate_data_chapter02.py
 
 echo
 echo "[2/2] Génération des figures..."
-python scripts/chapter02/plot_fig00_spectrum.py
-python scripts/chapter02/plot_fig01_P_vs_T_evolution.py
-python scripts/chapter02/plot_fig02_calibration.py
-python scripts/chapter02/plot_fig03_relative_errors.py
-python scripts/chapter02/plot_fig04_pipeline_diagram.py
-python scripts/chapter02/plot_fig05_FG_series.py
-python scripts/chapter02/plot_fig06_alpha_fit.py
+python scripts/02_primordial_spectrum/plot_fig00_spectrum.py
+python scripts/02_primordial_spectrum/plot_fig01_P_vs_T_evolution.py
+python scripts/02_primordial_spectrum/plot_fig02_calibration.py
+python scripts/02_primordial_spectrum/plot_fig03_relative_errors.py
+python scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py
+python scripts/02_primordial_spectrum/plot_fig05_FG_series.py
+python scripts/02_primordial_spectrum/plot_fig06_alpha_fit.py
 
 echo
 echo "[OK] CH02 pipeline minimal terminé sans erreur."

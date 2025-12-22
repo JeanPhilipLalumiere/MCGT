@@ -1,4 +1,4 @@
-# Chapitre 01 – Pipeline minimal canonique (introduction & calibration)
+# Chapter 01 – Pipeline minimal canonique (introduction & calibration)
 
 Ce document décrit le **pipeline minimal canonique** permettant de régénérer, à partir du dépôt
 MCGT, les données et figures essentielles du **chapitre 01 – introduction & applications
@@ -16,7 +16,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH01 repose sur le script scientifique principal :
 
-- `scripts/chapter01/generate_data_chapter01.py`
+- `scripts/01_invariants_stability/generate_data_chapter01.py`
 
 complété par une petite famille de scripts de figures.  
 Il est conçu pour :
@@ -53,15 +53,15 @@ Depuis la racine du dépôt :
 cd /home/jplal/MCGT  # adapter si nécessaire
 
 # 1) Générer toutes les données CH01
-python scripts/chapter01/generate_data_chapter01.py
+python scripts/01_invariants_stability/generate_data_chapter01.py
 
 # 2) Produire toutes les figures CH01
-python scripts/chapter01/10_fig01_early_plateau.py
-python scripts/chapter01/10_fig02_logistic_calibration.py
-python scripts/chapter01/10_fig03_relative_error_timeline.py
-python scripts/chapter01/10_fig04_P_vs_T_evolution.py
-python scripts/chapter01/10_fig05_I1_vs_T.py
-python scripts/chapter01/10_fig06_P_derivative_comparison.py
+python scripts/01_invariants_stability/10_fig01_early_plateau.py
+python scripts/01_invariants_stability/10_fig02_logistic_calibration.py
+python scripts/01_invariants_stability/10_fig03_relative_error_timeline.py
+python scripts/01_invariants_stability/10_fig04_P_vs_T_evolution.py
+python scripts/01_invariants_stability/10_fig05_I1_vs_T.py
+python scripts/01_invariants_stability/10_fig06_P_derivative_comparison.py
 ```
 
 Si tout se passe bien, les fichiers listés en §4 et §6 sont présents et cohérents.
@@ -74,7 +74,7 @@ Si tout se passe bien, les fichiers listés en §4 et §6 sont présents et coh�
 
 Répertoire CH01 :
 
-- `scripts/chapter01/`
+- `scripts/01_invariants_stability/`
 
 Scripts utilisés par le pipeline minimal :
 
@@ -136,7 +136,7 @@ Figures principales :
 Depuis la racine :
 
 ```bash
-python scripts/chapter01/generate_data_chapter01.py
+python scripts/01_invariants_stability/generate_data_chapter01.py
 ```
 
 Ce script :
@@ -232,12 +232,12 @@ ont été produites sans erreur.
 Une fois les données générées, les figures officielles sont produites par :
 
 ```bash
-python scripts/chapter01/10_fig01_early_plateau.py
-python scripts/chapter01/10_fig02_logistic_calibration.py
-python scripts/chapter01/10_fig03_relative_error_timeline.py
-python scripts/chapter01/10_fig04_P_vs_T_evolution.py
-python scripts/chapter01/10_fig05_I1_vs_T.py
-python scripts/chapter01/10_fig06_P_derivative_comparison.py
+python scripts/01_invariants_stability/10_fig01_early_plateau.py
+python scripts/01_invariants_stability/10_fig02_logistic_calibration.py
+python scripts/01_invariants_stability/10_fig03_relative_error_timeline.py
+python scripts/01_invariants_stability/10_fig04_P_vs_T_evolution.py
+python scripts/01_invariants_stability/10_fig05_I1_vs_T.py
+python scripts/01_invariants_stability/10_fig06_P_derivative_comparison.py
 ```
 
 Produits attendus dans `assets/zz-figures/chapter01/` :

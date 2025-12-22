@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/generate_pdot_plateau_vs_z.py est touché, avec backup .bak_cleanup.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py est touché, avec backup .bak_cleanup.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Nettoyage de generate_pdot_plateau_vs_z.py (chemin + bloc __main__) =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil, sys
 
-path = Path("scripts/chapter06/generate_pdot_plateau_vs_z.py")
+path = Path("scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py")
 if not path.exists():
     print("[ERROR] Fichier introuvable:", path)
     sys.exit(1)

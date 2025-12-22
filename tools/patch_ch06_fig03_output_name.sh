@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_fix_output.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_fix_output.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Normalisation du nom de sortie de fig_03 (delta_cls_relative) =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter06/plot_fig03_delta_cls_relative.py")
+path = Path("scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py")
 if not path.exists():
     raise SystemExit("[ERROR] Fichier introuvable: " + str(path))
 

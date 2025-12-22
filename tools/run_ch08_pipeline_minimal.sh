@@ -46,22 +46,22 @@ echo "[INFO] Arguments pour generate_data_chapter08.py : ${CLI_ARGS}"
 
 echo
 echo "[1/2] Génération des données..."
-python scripts/chapter08/generate_data_chapter08.py \
+python scripts/08_sound_horizon/generate_data_chapter08.py \
   ${CLI_ARGS} \
   --export_derivative
 
 echo
-echo "✅ Génération Chapitre 8 OK"
+echo "✅ Génération Chapter 8 OK"
 
 echo
 echo "[2/2] Génération des figures..."
-python scripts/chapter08/plot_fig01_chi2_total_vs_q0.py
-python scripts/chapter08/plot_fig02_dv_vs_z.py
-python scripts/chapter08/plot_fig03_mu_vs_z.py
-python scripts/chapter08/plot_fig04_chi2_heatmap.py
-python scripts/chapter08/plot_fig05_residuals.py
-python scripts/chapter08/plot_fig06_normalized_residuals_distribution.py
-python scripts/chapter08/plot_fig07_chi2_profile.py
+python scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py
+python scripts/08_sound_horizon/plot_fig02_dv_vs_z.py
+python scripts/08_sound_horizon/plot_fig03_mu_vs_z.py
+python scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py
+python scripts/08_sound_horizon/plot_fig05_residuals.py
+python scripts/08_sound_horizon/plot_fig06_normalized_residuals_distribution.py
+python scripts/08_sound_horizon/plot_fig07_chi2_profile.py
 
 echo
 echo "[OK] CH08 pipeline minimal terminé sans erreur."

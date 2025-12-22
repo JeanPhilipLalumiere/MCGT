@@ -14,14 +14,14 @@ echo "== CH04 – PIPELINE MINIMAL : invariants-adimensionnels =="
 echo
 
 echo "[1/2] Génération des données..."
-python scripts/chapter04/generate_data_chapter04.py
+python scripts/04_expansion_supernovae/generate_data_chapter04.py
 
 echo
 echo "[2/2] Génération des figures..."
-python scripts/chapter04/plot_fig01_invariants_schematic.py
-python scripts/chapter04/plot_fig02_invariants_histogram.py
-python scripts/chapter04/plot_fig03_invariants_vs_T.py
-python scripts/chapter04/plot_fig04_relative_deviations.py
+python scripts/04_expansion_supernovae/plot_fig01_invariants_schematic.py
+python scripts/04_expansion_supernovae/plot_fig02_invariants_histogram.py
+python scripts/04_expansion_supernovae/plot_fig03_invariants_vs_T.py
+python scripts/04_expansion_supernovae/plot_fig04_relative_deviations.py
 
 echo
 echo "[OK] CH04 pipeline minimal terminé sans erreur."

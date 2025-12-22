@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/generate_pdot_plateau_vs_z.py est touché, avec backup .bak_fix_try_block.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py est touché, avec backup .bak_fix_try_block.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Normalisation du bloc CLI dans generate_pdot_plateau_vs_z.py =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil, sys
 
-path = Path("scripts/chapter06/generate_pdot_plateau_vs_z.py")
+path = Path("scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py")
 if not path.exists():
     print("[ERROR] Fichier introuvable :", path)
     sys.exit(1)
@@ -54,7 +54,7 @@ prefix = lines[:idx_main_if]
 tail = []
 tail.append('if __name__ == "__main__":')
 tail.append('    import argparse, os, sys, traceback')
-tail.append('    parser = argparse.ArgumentParser(description="Génère pdot_plateau_vs_z pour le Chapitre 6.")')
+tail.append('    parser = argparse.ArgumentParser(description="Génère pdot_plateau_vs_z pour le Chapter 6.")')
 tail.append('    parser.add_argument("--outdir", default=os.environ.get("MCGT_OUTDIR", ".ci-out"),')
 tail.append('                        help="Dossier de sortie (par défaut: .ci-out)")')
 tail.append('    parser.add_argument("-v", "--verbose", action="count", default=0,')

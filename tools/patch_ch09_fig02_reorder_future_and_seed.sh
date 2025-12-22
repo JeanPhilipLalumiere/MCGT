@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter09/plot_fig02_residual_phase.py est touché, avec backup .bak_reorder_seed.";
+  echo "[ASTUCE] Seul scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py est touché, avec backup .bak_reorder_seed.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH09 – Repositionnement du bloc CLI par défaut après from __future__ =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+path = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 if not path.exists():
     raise SystemExit("[ERROR] Fichier introuvable: " + str(path))
 

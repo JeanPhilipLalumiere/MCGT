@@ -35,8 +35,8 @@ replacements = {
     "assets/zz-figures/chapter02/02_fig_04_pipeline_diagram.png": "assets/zz-figures/chapter02/02_fig_04_pipeline_diagram.png",
     "assets/zz-figures/chapter02/02_fig_05_FG_series.png": "assets/zz-figures/chapter02/02_fig_05_fg_series.png",
     "assets/zz-figures/chapter02/02_fig_06_fit_alpha.png": "assets/zz-figures/chapter02/02_fig_06_alpha_fit.png",
-    "scripts/chapter02/plot_fig*.py": "",
-    "scripts/chapter02/requirements.txt": "",
+    "scripts/02_primordial_spectrum/plot_fig*.py": "",
+    "scripts/02_primordial_spectrum/requirements.txt": "",
 
     # CH03
     "assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png": "assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png",
@@ -69,10 +69,10 @@ replacements = {
     "assets/zz-figures/chapter07/07_fig_07_invariant_I2.png": "assets/zz-figures/chapter07/07_fig_07_invariant_i2.png",
 
     # CH07 – scripts tracer -> plot
-    "scripts/chapter07/tracer_fig03_invariant_I1.py": "scripts/chapter07/plot_fig03_invariant_i1.py",
-    "scripts/chapter07/tracer_fig04_dcs2_vs_k.py": "scripts/chapter07/plot_fig04_dcs2_vs_k.py",
-    "scripts/chapter07/tracer_fig05_ddelta_phi_vs_k.py": "scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
-    "scripts/chapter07/tracer_fig07_invariant_I2.py": "scripts/chapter07/plot_fig07_invariant_i2.py",
+    "scripts/07_bao_geometry/tracer_fig03_invariant_I1.py": "scripts/07_bao_geometry/plot_fig03_invariant_i1.py",
+    "scripts/07_bao_geometry/tracer_fig04_dcs2_vs_k.py": "scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py",
+    "scripts/07_bao_geometry/tracer_fig05_ddelta_phi_vs_k.py": "scripts/07_bao_geometry/plot_fig05_ddelta_phi_vs_k.py",
+    "scripts/07_bao_geometry/tracer_fig07_invariant_I2.py": "scripts/07_bao_geometry/plot_fig07_invariant_i2.py",
 
     # CH08 – figures vers 08_fig_XX_*.png
     "assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png": "assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png",
@@ -81,7 +81,7 @@ replacements = {
     "assets/zz-figures/chapter08/08_fig_05_residuals.png": "assets/zz-figures/chapter08/08_fig_05_residuals.png",
     "assets/zz-figures/chapter08/08_fig_06_normalized_residuals.png": "assets/zz-figures/chapter08/08_fig_06_normalized_residuals_distribution.png",
     "assets/zz-figures/chapter08/08_fig_07_chi2_profile.png": "assets/zz-figures/chapter08/08_fig_07_chi2_profile.png",
-    "scripts/chapter08/utils/*.py": "",
+    "scripts/08_sound_horizon/utils/*.py": "",
 
     # CH09
     "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png": "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",

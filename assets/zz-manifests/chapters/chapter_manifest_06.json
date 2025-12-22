@@ -3,7 +3,7 @@
   "title": "rayonnement-cmb",
   "paths": {
     "data_dir": "assets/zz-data/chapter06",
-    "scripts_dir": "scripts/chapter06",
+    "scripts_dir": "scripts/06_early_growth_jwst",
     "figures_dir": "assets/zz-figures/chapter06",
     "configs": [
       "conventions.md",
@@ -37,11 +37,11 @@
     ]
   },
   "scripts": [
-    "scripts/chapter06/generate_chapter6_data.py",
-    "scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
-    "scripts/chapter06/plot_fig03_delta_cls_rel.py",
-    "scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
-    "scripts/chapter06/plot_fig05_heatmap_delta_chi2.py"
+    "scripts/06_early_growth_jwst/generate_chapter6_data.py",
+    "scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py",
+    "scripts/06_early_growth_jwst/plot_fig03_delta_cls_rel.py",
+    "scripts/06_early_growth_jwst/plot_fig04_delta_rs_vs_params.py",
+    "scripts/06_early_growth_jwst/plot_fig05_heatmap_delta_chi2.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter06/06_cmb_full_results.meta.json",

@@ -67,7 +67,7 @@ def main(argv: list[str]) -> None:
 
     raw_chap = argv[1]
     if not raw_chap.isdigit():
-        print(f"[ERROR] Chapitre invalide : {raw_chap!r}", file=sys.stderr)
+        print(f"[ERROR] Chapter invalide : {raw_chap!r}", file=sys.stderr)
         sys.exit(1)
 
     chap_code = raw_chap.zfill(2)

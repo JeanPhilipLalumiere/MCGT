@@ -100,7 +100,7 @@ def main() -> None:
                 file=sys.stderr,
             )
 
-    print(f"[INFO] Chapitre {chapter:02d}")
+    print(f"[INFO] Chapter {chapter:02d}")
     print(f"  -> {len(to_attic)} fichiers -> attic/")
     print(f"  -> {len(to_delete)} fichiers à supprimer")
     print(f"  -> {len(keep_manifest)} fichiers à garder + ajouter au manifest")

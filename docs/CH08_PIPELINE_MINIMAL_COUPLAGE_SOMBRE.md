@@ -1,4 +1,4 @@
-# Chapitre 08 – Pipeline minimal canonique (couplage sombre BAO + SNe)
+# Chapter 08 – Pipeline minimal canonique (couplage sombre BAO + SNe)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 08 – couplage sombre (BAO + Pantheon+)**.
@@ -105,17 +105,17 @@ En fin d’exécution réussie, on s’attend à un résumé du type :
 
 Répertoire CH08 :
 
-- `scripts/chapter08/generate_data_chapter08.py`
-- `scripts/chapter08/10_fig01_chi2_total_vs_q0.py`
-- `scripts/chapter08/10_fig02_dv_vs_z.py`
-- `scripts/chapter08/10_fig03_mu_vs_z.py`
+- `scripts/08_sound_horizon/generate_data_chapter08.py`
+- `scripts/08_sound_horizon/10_fig01_chi2_total_vs_q0.py`
+- `scripts/08_sound_horizon/10_fig02_dv_vs_z.py`
+- `scripts/08_sound_horizon/10_fig03_mu_vs_z.py`
 
 Scripts **optionnels** (au‑delà du pipeline minimal strict) :
 
-- `scripts/chapter08/10_fig04_chi2_heatmap.py`
-- `scripts/chapter08/10_fig05_residuals.py`
-- `scripts/chapter08/10_fig06_normalized_residuals_distribution.py`
-- `scripts/chapter08/10_fig07_chi2_profile.py`
+- `scripts/08_sound_horizon/10_fig04_chi2_heatmap.py`
+- `scripts/08_sound_horizon/10_fig05_residuals.py`
+- `scripts/08_sound_horizon/10_fig06_normalized_residuals_distribution.py`
+- `scripts/08_sound_horizon/10_fig07_chi2_profile.py`
 - `` (extraction BAO, Pantheon+, modèles de test).
 
 ### 4.2. Données CH08 (inputs + outputs)
@@ -195,7 +195,7 @@ Figures additionnelles (optionnelles) :
 Depuis la racine du dépôt :
 
 ```bash
-python scripts/chapter08/generate_data_chapter08.py \
+python scripts/08_sound_horizon/generate_data_chapter08.py \
     --q0star_min -0.10 --q0star_max 0.10 --n_points 201 \
     --export-derivative
 ```
@@ -237,16 +237,16 @@ Ce script :
 
 En cas de succès, le script conclut typiquement par un message :
 
-- `✓ Chapitre 08 : profil χ²(q0⋆) généré avec succès.`
+- `✓ Chapter 08 : profil χ²(q0⋆) généré avec succès.`
 
 ### 5.2. Figures principales – BAO + SNe
 
 Une fois les données générées, on relance les figures principales :
 
 ```bash
-python scripts/chapter08/10_fig01_chi2_total_vs_q0.py
-python scripts/chapter08/10_fig02_dv_vs_z.py
-python scripts/chapter08/10_fig03_mu_vs_z.py
+python scripts/08_sound_horizon/10_fig01_chi2_total_vs_q0.py
+python scripts/08_sound_horizon/10_fig02_dv_vs_z.py
+python scripts/08_sound_horizon/10_fig03_mu_vs_z.py
 ```
 
 Ces scripts mettent à jour, respectivement :
@@ -259,9 +259,9 @@ Pour une analyse plus poussée (hors périmètre minimal), il est possible de
 compléter par :
 
 ```bash
-python scripts/chapter08/10_fig05_residuals.py
-python scripts/chapter08/10_fig06_normalized_residuals_distribution.py
-python scripts/chapter08/10_fig07_chi2_profile.py
+python scripts/08_sound_horizon/10_fig05_residuals.py
+python scripts/08_sound_horizon/10_fig06_normalized_residuals_distribution.py
+python scripts/08_sound_horizon/10_fig07_chi2_profile.py
 ```
 
 ### 5.3. Vérifications rapides (sanity‑checks)

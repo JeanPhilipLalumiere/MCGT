@@ -16,7 +16,7 @@
       "description": "Valeur de P(T) normalisée pour le plateau étudié au chapitre 1."
     }
   ],
-  "generated_by": "scripts/chapter01/plot_fig02_logistic_calibration.py",
+  "generated_by": "scripts/01_invariants_stability/plot_fig02_logistic_calibration.py",
   "tags": [
     "chapter01",
     "calibration",

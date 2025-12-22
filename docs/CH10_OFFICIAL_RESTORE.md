@@ -1,7 +1,7 @@
 # ch10 — Restauration du générateur officiel (v0.3.3)
 
 ## Objectifs
-- Remplacer le *stub* minimal par la version corrigée de `scripts/chapter10/generate_data_chapter10.py`
+- Remplacer le *stub* minimal par la version corrigée de `scripts/10_global_scan/generate_data_chapter10.py`
 - Conserver l'interface CLI actuelle (compat smoke/tests)
 - Laisser `tests/test_ch10_smoke.py` vert
 

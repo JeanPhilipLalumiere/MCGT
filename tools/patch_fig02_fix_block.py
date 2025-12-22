@@ -3,7 +3,7 @@
 from pathlib import Path
 import re
 
-p = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+p = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 src = p.read_text(encoding="utf-8")
 
 # 1) Retire le bloc mal indenté (for c in ("f_Hz","phi_ref") ...), s'il existe

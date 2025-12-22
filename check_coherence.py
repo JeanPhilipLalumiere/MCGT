@@ -161,8 +161,22 @@ def format_value(value: float) -> str:
 
 def script_paths(root: Path) -> list[Path]:
     roots = []
-    for i in range(1, 11):
-        chapter_dir = root / f"chapter{i:02d}"
+    chapter_dirs = [
+        "01_invariants_stability",
+        "02_primordial_spectrum",
+        "03_stability_domain",
+        "04_expansion_supernovae",
+        "05_primordial_bbn",
+        "06_early_growth_jwst",
+        "07_bao_geometry",
+        "08_sound_horizon",
+        "09_dark_energy_cpl",
+        "10_global_scan",
+        "11_lss_s8_tension",
+        "12_cmb_verdict",
+    ]
+    for name in chapter_dirs:
+        chapter_dir = root / name
         if chapter_dir.exists():
             roots.append(chapter_dir)
     paths: list[Path] = []
@@ -173,8 +187,8 @@ def script_paths(root: Path) -> list[Path]:
 
 def chapter_from_path(path: Path) -> str:
     for part in path.parts:
-        if part.startswith("chapter") and len(part) == len("chapter00"):
-            return part.replace("chapter", "")
+        if len(part) >= 2 and part[0:2].isdigit():
+            return part[0:2]
     return "??"
 
 
@@ -216,7 +230,7 @@ def main() -> int:
                 label = PRETTY_NAMES.get(canonical, canonical)
                 print(
                     "ERREUR DE COHÉRENCE : "
-                    f"Chapitre {chapter}, Script {script_name} "
+                    f"Chapter {chapter}, Script {script_name} "
                     f"utilise {label}={format_value(value)} "
                     f"au lieu de {format_value(expected)}."
                 )

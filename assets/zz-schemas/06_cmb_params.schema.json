@@ -162,7 +162,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter6/generate_chapter6_data.py",
+      "producer_script": "scripts/06_early_growth_jwst/generate_chapter6_data.py",
       "alpha": 0.2,
       "q0star": -0.1,
       "ell_min": 2,

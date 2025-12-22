@@ -3,7 +3,7 @@ import pathlib
 import sys
 import ast
 
-TARGET = pathlib.Path("scripts/chapter09/generate_data_chapter09.py")
+TARGET = pathlib.Path("scripts/09_dark_energy_cpl/generate_data_chapter09.py")
 if not TARGET.exists():
     print(f"[ERREUR] Introuvable: {TARGET}", file=sys.stderr)
     sys.exit(2)

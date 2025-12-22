@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # step100_create_ch09_guide.sh
-# Crée / met à jour le guide de pipeline minimal calibré pour le Chapitre 09.
+# Crée / met à jour le guide de pipeline minimal calibré pour le Chapter 09.
 # Usage:
 #   bash step100_create_ch09_guide.sh [/chemin/vers/MCGT]
 
@@ -23,10 +23,10 @@ DOC_PATH="${DOC_DIR}/CH09_PIPELINE_MINIMAL_CALIBRE.md"
 mkdir -p "$DOC_DIR"
 
 cat > "$DOC_PATH" << 'EOF'
-# Chapitre 09 – Pipeline minimal calibré (phase gravitationnelle)
+# Chapter 09 – Pipeline minimal calibré (phase gravitationnelle)
 
 Ce document décrit **le pipeline minimal “canonique”** pour reproduire rapidement
-les principaux produits du Chapitre 09 (analyse de phase IMRPhenom vs MCGT),
+les principaux produits du Chapter 09 (analyse de phase IMRPhenom vs MCGT),
 en s'appuyant sur le script existant :
 
 ```bash
@@ -156,7 +156,7 @@ Les points importants :
   ne les écraser qu’avec une option explicite (`--overwrite`) si elle est prévue ;
 - La variante active (par ex. `phi_mcgt`) et les statistiques (`mean`, `p95`,
   `max`) sont **stockées dans `09_metrics_phase.json`** et servent de référence
-  pour le contrôle de qualité du Chapitre 09.
+  pour le contrôle de qualité du Chapter 09.
 
 ---
 

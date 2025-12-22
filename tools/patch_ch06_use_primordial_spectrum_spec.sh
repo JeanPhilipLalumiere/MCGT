@@ -7,7 +7,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter06/generate_data_chapter06.py")
+path = Path("scripts/06_early_growth_jwst/generate_data_chapter06.py")
 if not path.exists():
     print("[ERROR] Fichier generate_data_chapter06.py introuvable.")
     raise SystemExit(1)

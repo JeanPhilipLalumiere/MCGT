@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] patch_ch02_define_logistic_params interrompu (code $code)";
-  echo "[ASTUCE] Seul scripts/chapter02/generate_data_chapter02.py a été modifié, avec backup .bak_logistic_fix.";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/generate_data_chapter02.py a été modifié, avec backup .bak_logistic_fix.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 – Injection des paramètres logistiques (a0, ainf, Tc, Delta) =="
@@ -12,7 +12,7 @@ echo "== PATCH CH02 – Injection des paramètres logistiques (a0, ainf, Tc, Del
 python - << 'PYEOF'
 import pathlib
 
-path = pathlib.Path("scripts/chapter02/generate_data_chapter02.py")
+path = pathlib.Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 text = path.read_text()
 
 needle = "a_log = a0 + (ainf - a0) / (1 + np.exp(-(T - Tc) / Delta))"

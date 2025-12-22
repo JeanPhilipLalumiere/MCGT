@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter02/generate_data_chapter02.py a été modifié, avec backup .bak_header_dotp_cleanup.";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/generate_data_chapter02.py a été modifié, avec backup .bak_header_dotp_cleanup.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 – Réorganisation de l'entête + nettoyage de dotP dupliqué =="
@@ -14,7 +14,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter02/generate_data_chapter02.py")
+path = Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 backup = path.with_suffix(".py.bak_header_dotp_cleanup")
 shutil.copy2(path, backup)
 print(f"[BACKUP] {backup} créé")

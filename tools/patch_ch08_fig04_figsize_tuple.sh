@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter08/plot_fig04_chi2_heatmap.py est touché, avec backup .bak_fix_figsize.";
+  echo "[ASTUCE] Seul scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py est touché, avec backup .bak_fix_figsize.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH08 – fig_04 : correction figsize tuple =="
@@ -14,7 +14,7 @@ from pathlib import Path
 import shutil
 import sys
 
-path = Path("scripts/chapter08/plot_fig04_chi2_heatmap.py")
+path = Path("scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py")
 if not path.exists():
     sys.exit(f"[ERROR] Fichier introuvable: {path}")
 

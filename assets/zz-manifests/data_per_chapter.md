@@ -1,6 +1,6 @@
 # Données par chapitre
 
-| Chapitre | Fichiers |
+| Chapter | Fichiers |
 |---|---|
 | chapter01 | 20 |
 | chapter02 | 20 |

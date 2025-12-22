@@ -1,4 +1,4 @@
-# Chapitre 07 – Pipeline minimal canonique (perturbations scalaires)
+# Chapter 07 – Pipeline minimal canonique (perturbations scalaires)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 07 – perturbations scalaires**.
@@ -87,7 +87,7 @@ En fin d’exécution, le script affiche un résumé du type :
 
 Répertoire CH07 :
 
-- `scripts/chapter07/`
+- `scripts/07_bao_geometry/`
 
 Scripts utilisés par le pipeline minimal :
 
@@ -103,8 +103,8 @@ Scripts utilisés par le pipeline minimal :
 
 Utilitaires :
 
-- `scripts/chapter07/utils/test_kgrid.py`
-- `scripts/chapter07/utils/toy_model.py`
+- `scripts/07_bao_geometry/utils/test_kgrid.py`
+- `scripts/07_bao_geometry/utils/toy_model.py`
 
 ### 4.2. Données CH07 (inputs + outputs)
 
@@ -161,7 +161,7 @@ Une figure supplémentaire de test de sampling peut exister :
 Depuis la racine du dépôt :
 
 ```bash
-python scripts/chapter07/generate_data_chapter07.py        --ini config/scalar_perturbations.ini        --dry-run
+python scripts/07_bao_geometry/generate_data_chapter07.py        --ini config/scalar_perturbations.ini        --dry-run
 ```
 
 - Vérifie la lecture de l’INI et la construction logique des grilles ;
@@ -169,7 +169,7 @@ python scripts/chapter07/generate_data_chapter07.py        --ini config/scalar_p
 - Ne produit aucun fichier : il s’agit d’un test de configuration uniquement.
 
 ```bash
-python scripts/chapter07/launch_scalar_perturbations_solver.py        --ini config/scalar_perturbations.ini        --dry-run
+python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py        --ini config/scalar_perturbations.ini        --dry-run
 ```
 
 - Vérifie la construction des grilles `(k, a)` et le passage au solveur ;
@@ -183,7 +183,7 @@ Ces deux dry‑runs constituent le **smoke minimal** de sécurité pour CH07.
 Toujours depuis la racine :
 
 ```bash
-python scripts/chapter07/generate_data_chapter07.py        --ini config/scalar_perturbations.ini
+python scripts/07_bao_geometry/generate_data_chapter07.py        --ini config/scalar_perturbations.ini
 ```
 
 Dans l’état canonique actuel, ce script peut échouer avec :
@@ -207,7 +207,7 @@ de fonctionner sans modification structurelle.
 ### 5.3. Run complet minimal – launch_scalar_perturbations_solver.py
 
 ```bash
-python scripts/chapter07/launch_scalar_perturbations_solver.py        --ini config/scalar_perturbations.ini
+python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py        --ini config/scalar_perturbations.ini
 ```
 
 Ce script :
@@ -235,13 +235,13 @@ Les figures peuvent être régénérées une fois les données complètes dispon
 (typiquement au‑delà du pipeline minimal strict) :
 
 ```bash
-python scripts/chapter07/10_fig01_cs2_heatmap.py
-python scripts/chapter07/10_fig02_delta_phi_heatmap.py
-python scripts/chapter07/10_fig03_invariant_i1.py
-python scripts/chapter07/10_fig04_dcs2_vs_k.py
-python scripts/chapter07/10_fig05_ddelta_phi_vs_k.py
-python scripts/chapter07/10_fig06_comparison.py
-python scripts/chapter07/10_fig07_invariant_i2.py
+python scripts/07_bao_geometry/10_fig01_cs2_heatmap.py
+python scripts/07_bao_geometry/10_fig02_delta_phi_heatmap.py
+python scripts/07_bao_geometry/10_fig03_invariant_i1.py
+python scripts/07_bao_geometry/10_fig04_dcs2_vs_k.py
+python scripts/07_bao_geometry/10_fig05_ddelta_phi_vs_k.py
+python scripts/07_bao_geometry/10_fig06_comparison.py
+python scripts/07_bao_geometry/10_fig07_invariant_i2.py
 ```
 
 Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter07/`.

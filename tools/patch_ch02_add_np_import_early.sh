@@ -4,12 +4,12 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter02/generate_data_chapter02.py a été touché (avec backup).";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/generate_data_chapter02.py a été touché (avec backup).";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 v7 – Import numpy avant l'usage de np.loadtxt =="
 
-target="scripts/chapter02/generate_data_chapter02.py"
+target="scripts/02_primordial_spectrum/generate_data_chapter02.py"
 backup="${target}.bak_v7_$(date -u +%Y%m%dT%H%M%SZ)"
 
 cp "$target" "$backup"
@@ -18,7 +18,7 @@ echo "[BACKUP] $backup"
 python - << 'PYEOF'
 from pathlib import Path
 
-path = Path("scripts/chapter02/generate_data_chapter02.py")
+path = Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 text = path.read_text()
 
 idx_use = text.find("np.loadtxt")
@@ -41,5 +41,5 @@ else:
         print("[PATCH] 'import numpy as np' inséré à la ligne", insert_pos + 1)
 PYEOF
 
-echo "[WRITE] scripts/chapter02/generate_data_chapter02.py mis à jour (v7, import numpy)."
+echo "[WRITE] scripts/02_primordial_spectrum/generate_data_chapter02.py mis à jour (v7, import numpy)."
 echo "Terminé (patch_ch02_add_np_import_early)."

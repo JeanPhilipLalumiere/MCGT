@@ -2159,7 +2159,7 @@
       "git_hash": "25be59e84b0d3242019a9b81329cc8293dd9a6e1"
     },
     {
-      "path": "scripts/chapter01/generate_data_chapter01.py",
+      "path": "scripts/01_invariants_stability/generate_data_chapter01.py",
       "role": "code",
       "size_bytes": 4763,
       "sha256": "dd66caf855e943085b0e62b7f170ed3b3d39fd681217aff9e53067a52a88d8cc",
@@ -2169,7 +2169,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter01/plot_fig01_early_plateau.py",
+      "path": "scripts/01_invariants_stability/plot_fig01_early_plateau.py",
       "role": "script",
       "size_bytes": 3041,
       "sha256": "4ac65ba63ff6dcff9a6e8d659da35199757f6ff0459f4b88377f086b7b46d921",
@@ -2183,7 +2183,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/plot_fig02_logistic_calibration.py",
+      "path": "scripts/01_invariants_stability/plot_fig02_logistic_calibration.py",
       "role": "script",
       "size_bytes": 3103,
       "sha256": "afb110b91bbd05545bfa7a4b6625aef9d1e31ae36ce4f501190316c817c13f42",
@@ -2197,7 +2197,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/plot_fig03_relative_error_timeline.py",
+      "path": "scripts/01_invariants_stability/plot_fig03_relative_error_timeline.py",
       "role": "script",
       "size_bytes": 2832,
       "sha256": "56e2aa6f3f2456f182b094e3beb412d1c05bff0643c4856eee6e9241b5ee7fad",
@@ -2211,7 +2211,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/plot_fig04_P_vs_T_evolution.py",
+      "path": "scripts/01_invariants_stability/plot_fig04_P_vs_T_evolution.py",
       "role": "script",
       "size_bytes": 2990,
       "sha256": "e98be7143c6704aa669ccc37d2845fae0c2440446d2976900abee24bebbfaa65",
@@ -2225,7 +2225,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/plot_fig05_I1_vs_T.py",
+      "path": "scripts/01_invariants_stability/plot_fig05_I1_vs_T.py",
       "role": "script",
       "size_bytes": 2634,
       "sha256": "1b7b2415cd594caeb3c5a73244925d4d163376fde3c7caf694ae999a57e84d6a",
@@ -2239,7 +2239,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/plot_fig06_P_derivative_comparison.py",
+      "path": "scripts/01_invariants_stability/plot_fig06_P_derivative_comparison.py",
       "role": "script",
       "size_bytes": 2922,
       "sha256": "1fdc61294fde3f8c7e4dda8ee2e3caf99ddf97d9f0006ceb8b0ccfa5f499ae2e",
@@ -2253,7 +2253,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter01/requirements.txt",
+      "path": "scripts/01_invariants_stability/requirements.txt",
       "role": "document",
       "size_bytes": 2938,
       "sha256": "74539f5ab55eee1713a95159e11f1fcd82fee531d7b262d314ba674447707f47",
@@ -2263,7 +2263,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter02/extract_sympy_FG.ipynb",
+      "path": "scripts/02_primordial_spectrum/extract_sympy_FG.ipynb",
       "role": "document",
       "size_bytes": 3642,
       "sha256": "7925aec4881b05b73cc68d4e516884bdee39e3cac6efbfa99945139e780b891b",
@@ -2273,7 +2273,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter02/generate_data_chapter02.py",
+      "path": "scripts/02_primordial_spectrum/generate_data_chapter02.py",
       "role": "code",
       "size_bytes": 9670,
       "sha256": "e332f1cd0becb2632d3b80fb51d10a9eb898847517cbfbddf2f36fe557a703bf",
@@ -2283,7 +2283,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig00_spectrum.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig00_spectrum.py",
       "role": "script",
       "size_bytes": 2936,
       "sha256": "e52e937b8c8cdffdd341f2f496125e065ae5360b2f50208718fcbd0da36bf6ce",
@@ -2297,7 +2297,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter02/plot_fig01_P_vs_T_evolution.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig01_P_vs_T_evolution.py",
       "role": "script",
       "size_bytes": 2957,
       "sha256": "11972d3a7aebb88658e089801d9d2ecbf9fcb7acce1b40cff1b0f358cc1e57ae",
@@ -2311,7 +2311,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig02_calibration.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig02_calibration.py",
       "role": "script",
       "size_bytes": 2946,
       "sha256": "4c5d0c1f0a940e11285de98e7a5a64cf844df58ebbb5868048e11598743a2a8e",
@@ -2325,7 +2325,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig03_relative_errors.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig03_relative_errors.py",
       "role": "script",
       "size_bytes": 3339,
       "sha256": "133494ca8e6f7aae89e5c8c416f4e75d5d4905f0deb6428d9eb551b7e2e8180a",
@@ -2339,7 +2339,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig04_pipeline_diagram.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py",
       "role": "script",
       "size_bytes": 3339,
       "sha256": "63d2139d7d59299fd9f92af9f66b78c2fe745df8361d43d1c0e60162052d230e",
@@ -2353,7 +2353,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig05_FG_series.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig05_FG_series.py",
       "role": "script",
       "size_bytes": 1877,
       "sha256": "ca12f3d57f7810af400f5f12552f5bccb42f46c9d03181a2a4e1d73ec28768b9",
@@ -2367,7 +2367,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/plot_fig06_alpha_fit.py",
+      "path": "scripts/02_primordial_spectrum/plot_fig06_alpha_fit.py",
       "role": "script",
       "size_bytes": 5133,
       "sha256": "2f51caf9335a71b6d60215f502efb7d85e1b97e77eed0b1b84ada1e28e82dc78",
@@ -2381,7 +2381,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter02/primordial_spectrum.py",
+      "path": "scripts/02_primordial_spectrum/primordial_spectrum.py",
       "role": "code",
       "size_bytes": 2065,
       "sha256": "a5557696b78ca73170d0d873496258acd1364ce2bc5f30474944cf7c005b26cd",
@@ -2391,7 +2391,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter02/requirements.txt",
+      "path": "scripts/02_primordial_spectrum/requirements.txt",
       "role": "document",
       "size_bytes": 3700,
       "sha256": "e39af191b8169851b5815df88db3494d42d7d6827018a7f6f9e846d730a41d6a",
@@ -2401,7 +2401,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter03/generate_data_chapter03.py",
+      "path": "scripts/03_stability_domain/generate_data_chapter03.py",
       "role": "code",
       "size_bytes": 12627,
       "sha256": "3122dbd83d7bf11d5a08e0faccea0c11b59df2ff440d5dee442b7f3e7cd6b9a5",
@@ -2411,7 +2411,7 @@
       "git_hash": "e57cf042c9240e61129c6d7da93b2a5fe49df3a5"
     },
     {
-      "path": "scripts/chapter03/plot_fig01_fR_stability_domain.py",
+      "path": "scripts/03_stability_domain/plot_fig01_fR_stability_domain.py",
       "role": "script",
       "size_bytes": 6420,
       "sha256": "74daf7b20cd0bbf5b0ae83cd8aa4e2ab8d929d744e168c807314a965e5e42f7d",
@@ -2425,7 +2425,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig02_fR_fRR_vs_f.py",
+      "path": "scripts/03_stability_domain/plot_fig02_fR_fRR_vs_f.py",
       "role": "script",
       "size_bytes": 5942,
       "sha256": "f4c1be401feee389d41a3cc10821abe4ed1c7855d22887648e71c8493544c3dd",
@@ -2439,7 +2439,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig03_ms2_R0_vs_f.py",
+      "path": "scripts/03_stability_domain/plot_fig03_ms2_R0_vs_f.py",
       "role": "script",
       "size_bytes": 5885,
       "sha256": "699e439d08812480a7d53c4993151e6321d08d7f16950f55892d170df2a82e43",
@@ -2453,7 +2453,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig04_fR_fRR_vs_f.py",
+      "path": "scripts/03_stability_domain/plot_fig04_fR_fRR_vs_f.py",
       "role": "script",
       "size_bytes": 5581,
       "sha256": "1ccb679e3edf6b7ce418fb472808fc27f400263afc0b04283835bb77ee5f77c5",
@@ -2467,7 +2467,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig05_interpolated_milestones.py",
+      "path": "scripts/03_stability_domain/plot_fig05_interpolated_milestones.py",
       "role": "script",
       "size_bytes": 6273,
       "sha256": "fc2e072946d9b629095a29818f7d8386aa87c397f2040c05079daf36073d204a",
@@ -2481,7 +2481,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig06_grid_quality.py",
+      "path": "scripts/03_stability_domain/plot_fig06_grid_quality.py",
       "role": "script",
       "size_bytes": 5568,
       "sha256": "91ad5608110fc24f5d3e5b92c5ac59505f2abd7d564c8205fd47517a9e017d7d",
@@ -2495,7 +2495,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
+      "path": "scripts/03_stability_domain/plot_fig07_ricci_fR_vs_z.py",
       "role": "script",
       "size_bytes": 3609,
       "sha256": "ec380311decc13799f0d1620ee63ce74906c93d8af4e55abef1c341ddf33087a",
@@ -2509,7 +2509,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter03/plot_fig08_ricci_fR_vs_T.py",
+      "path": "scripts/03_stability_domain/plot_fig08_ricci_fR_vs_T.py",
       "role": "script",
       "size_bytes": 3383,
       "sha256": "8d13fc2c1d171f35bb05aa9f69d16e742ebb32f5056495fa62d5ba0ceeaf8620",
@@ -2523,7 +2523,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter03/requirements.txt",
+      "path": "scripts/03_stability_domain/requirements.txt",
       "role": "document",
       "size_bytes": 3458,
       "sha256": "b8b14a56a9728f427fc27a6dab9e5348b8e97cc1e00a35c0d68ba361bc1f7c2b",
@@ -2533,7 +2533,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter03/utils/03_ricci_fR_milestones_enhanced.csv",
+      "path": "scripts/03_stability_domain/utils/03_ricci_fR_milestones_enhanced.csv",
       "role": "document",
       "size_bytes": 6954,
       "sha256": "b9c99cd8cb911dcfc337ba63b9ad191d822a6acbb3fd7fe1f4f80a12c1fa3efe",
@@ -2543,7 +2543,7 @@
       "git_hash": "906ed02a09be37953057d4c945ad272d6a7cc3cc"
     },
     {
-      "path": "scripts/chapter03/utils/convert_milestones.py",
+      "path": "scripts/03_stability_domain/utils/convert_milestones.py",
       "role": "code",
       "size_bytes": 835,
       "sha256": "2815e8f223c071b2d8c5e257f70486f61632dfcd666b6d2f5f21931c143c9753",
@@ -2553,7 +2553,7 @@
       "git_hash": "25be59e84b0d3242019a9b81329cc8293dd9a6e1"
     },
     {
-      "path": "scripts/chapter04/generate_data_chapter04.py",
+      "path": "scripts/04_expansion_supernovae/generate_data_chapter04.py",
       "role": "code",
       "size_bytes": 7241,
       "sha256": "e345c34b91e6679b27e2ade04ef13bf1836b6559647d68a5e20577769077f12c",
@@ -2563,7 +2563,7 @@
       "git_hash": "33fc3d8fc908ebd40c5e289ed79428e783f24d6e"
     },
     {
-      "path": "scripts/chapter04/plot_fig01_invariants_schematic.py",
+      "path": "scripts/04_expansion_supernovae/plot_fig01_invariants_schematic.py",
       "role": "script",
       "size_bytes": 5203,
       "sha256": "d119b18a237a6ec6934dd0198a76b628bdc5ece21482a69ff8d69c69c9e0e6f8",
@@ -2577,7 +2577,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter04/plot_fig02_invariants_histogram.py",
+      "path": "scripts/04_expansion_supernovae/plot_fig02_invariants_histogram.py",
       "role": "script",
       "size_bytes": 5234,
       "sha256": "17efe0dff91fd96700fd353557d56b6c377c27982fdd958aa352e764a5eaf78a",
@@ -2591,7 +2591,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter04/plot_fig03_invariants_vs_T.py",
+      "path": "scripts/04_expansion_supernovae/plot_fig03_invariants_vs_T.py",
       "role": "script",
       "size_bytes": 4078,
       "sha256": "e981fde64f79e4c328e80d9b6dbbc01ff979eea53715d0e137fb7637f67b2237",
@@ -2605,7 +2605,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter04/plot_fig04_relative_deviations.py",
+      "path": "scripts/04_expansion_supernovae/plot_fig04_relative_deviations.py",
       "role": "script",
       "size_bytes": 4879,
       "sha256": "4fd4e347b4d76876ebe81c8ec881f1dc17842000adbd5e93ea8cfae7a45120eb",
@@ -2619,7 +2619,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter04/requirements.txt",
+      "path": "scripts/04_expansion_supernovae/requirements.txt",
       "role": "document",
       "size_bytes": 4331,
       "sha256": "da5437ade2992347ba1bec324aadf21f6b935155a3177a2a6fac4b81d65c101e",
@@ -2629,7 +2629,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter05/generate_data_chapter05.py",
+      "path": "scripts/05_primordial_bbn/generate_data_chapter05.py",
       "role": "script",
       "size_bytes": 5847,
       "sha256": "8cef1ed62255e938e5ec7f6cb6c08ccc947e2cde5a7b6443f27c925b86680ee9",
@@ -2643,7 +2643,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter05/plot_fig01_bbn_reaction_network.py",
+      "path": "scripts/05_primordial_bbn/plot_fig01_bbn_reaction_network.py",
       "role": "script",
       "size_bytes": 4060,
       "sha256": "2630b3884739d2acbd2959e77ea562b693a3fa149cdcc5246e9163f16aefa5df",
@@ -2657,7 +2657,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
+      "path": "scripts/05_primordial_bbn/plot_fig02_dh_model_vs_obs.py",
       "role": "script",
       "size_bytes": 4251,
       "sha256": "66beacbb3a1d2763cc332ff25a0445d8c757b9a89c833768ae9e026be7224bd7",
@@ -2671,7 +2671,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
+      "path": "scripts/05_primordial_bbn/plot_fig03_yp_model_vs_obs.py",
       "role": "script",
       "size_bytes": 2896,
       "sha256": "c7e5ba1d35ba8d8828c544512d45cb2b9dfd9e078594618aff31de3791718dc0",
@@ -2685,7 +2685,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter05/plot_fig04_chi2_vs_T.py",
+      "path": "scripts/05_primordial_bbn/plot_fig04_chi2_vs_T.py",
       "role": "script",
       "size_bytes": 6346,
       "sha256": "dc6fb8fa38bdd8f16fb708b8826caeee16ca6791c5ebe06ffbcf7f50ad571714",
@@ -2699,7 +2699,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter05/requirements.txt",
+      "path": "scripts/05_primordial_bbn/requirements.txt",
       "role": "document",
       "size_bytes": 2800,
       "sha256": "95447cb681795c7ea0f9ab9fc3d60e92b8ca4d16b40a65e407a8944c965ba923",
@@ -2709,7 +2709,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter06/generate_data_chapter06.py",
+      "path": "scripts/06_early_growth_jwst/generate_data_chapter06.py",
       "role": "script",
       "size_bytes": 12855,
       "sha256": "93cf297176fb602c66c14d3598c3c6f71d0a128e65bdafbc8d7b80de7e4118c0",
@@ -2723,7 +2723,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter06/generate_pdot_plateau_vs_z.py",
+      "path": "scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py",
       "role": "script",
       "size_bytes": 3346,
       "sha256": "bd9144f5b514b22244030790cc3c2c69028448a0798c12224b036ed27294f74f",
@@ -2737,7 +2737,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py",
+      "path": "scripts/06_early_growth_jwst/plot_fig01_cmb_dataflow_diagram.py",
       "role": "script",
       "size_bytes": 4653,
       "sha256": "b03955ba7ce97ae67d1c8a74596f73ff34a2c55f7e6b145a87e88c5f4b55630b",
@@ -2751,7 +2751,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py",
+      "path": "scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py",
       "role": "script",
       "size_bytes": 5639,
       "sha256": "04fb4075aa454094bb36107563c4ab7194ffad51e64ee7bc09439a71b0c80524",
@@ -2765,7 +2765,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter06/plot_fig03_delta_cls_relative.py",
+      "path": "scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py",
       "role": "script",
       "size_bytes": 4123,
       "sha256": "6acb346598d2e747760f11bd3ff78fdeeb55662c14c515939b6a2e97c606aa82",
@@ -2779,7 +2779,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter06/plot_fig04_delta_rs_vs_params.py",
+      "path": "scripts/06_early_growth_jwst/plot_fig04_delta_rs_vs_params.py",
       "role": "script",
       "size_bytes": 3993,
       "sha256": "7310e2e75b5e7369c998316c275f7858ba955d16a6584a0005b327aa396f54ed",
@@ -2793,7 +2793,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter06/plot_fig05_delta_chi2_heatmap.py",
+      "path": "scripts/06_early_growth_jwst/plot_fig05_delta_chi2_heatmap.py",
       "role": "script",
       "size_bytes": 4408,
       "sha256": "252173ac48bbb0aaebf3a6d307dca8f6643590b56eb2db6050b56f3b1e70b090",
@@ -2807,7 +2807,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter06/requirements.txt",
+      "path": "scripts/06_early_growth_jwst/requirements.txt",
       "role": "document",
       "size_bytes": 3379,
       "sha256": "fe6db845808ba6cf9ee5c8d447009b4b7a3f8767d125bfe4a311f3ae07fe7e2c",
@@ -2817,7 +2817,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter06/run_camb_chapter06.bat",
+      "path": "scripts/06_early_growth_jwst/run_camb_chapter06.bat",
       "role": "code",
       "size_bytes": 1380,
       "sha256": "ca2ca08f64a1f1640250306dbc556d5fab3d5f9af10a15b4ad7d54c25b446333",
@@ -2827,7 +2827,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter07/generate_data_chapter07.py",
+      "path": "scripts/07_bao_geometry/generate_data_chapter07.py",
       "role": "code",
       "size_bytes": 8650,
       "sha256": "adb16ee1287e40baaa2aa4eb51aa2058cb4e5726904f66ecdf43da51fc9d558f",
@@ -2837,7 +2837,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter07/launch_scalar_perturbations_solver.py",
+      "path": "scripts/07_bao_geometry/launch_scalar_perturbations_solver.py",
       "role": "code",
       "size_bytes": 13205,
       "sha256": "59594d11b69d905fef7f01fc71fbaf559a649c6430547d2d6818c9d8143d49de",
@@ -2847,7 +2847,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter07/launch_solver_chapter07.sh",
+      "path": "scripts/07_bao_geometry/launch_solver_chapter07.sh",
       "role": "code",
       "size_bytes": 6308,
       "sha256": "bb14e4611b663321df357d091ce0ebd7891fc93419b1e1c33035f360c753439d",
@@ -2857,7 +2857,7 @@
       "git_hash": "7aae23d1e0c9aa5b7d357efed29a2768222db933"
     },
     {
-      "path": "scripts/chapter07/plot_fig01_cs2_heatmap.py",
+      "path": "scripts/07_bao_geometry/plot_fig01_cs2_heatmap.py",
       "role": "script",
       "size_bytes": 5576,
       "sha256": "16c13d007d921fd939cbc344c2c34c9332f19448d3c7ff214444eb0a277291e0",
@@ -2871,7 +2871,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter07/plot_fig02_delta_phi_heatmap.py",
+      "path": "scripts/07_bao_geometry/plot_fig02_delta_phi_heatmap.py",
       "role": "script",
       "size_bytes": 5995,
       "sha256": "f47a72b275b324ea96dd190748af9ce1b2f38e00d4e8b628a348162425dfd900",
@@ -2885,7 +2885,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter07/plot_fig03_invariant_I1.py",
+      "path": "scripts/07_bao_geometry/plot_fig03_invariant_I1.py",
       "role": "script",
       "size_bytes": 4556,
       "sha256": "6cbaada74d3754e79e01398e8914e16dcf16d3ff9d9fe68933308cbc899adfe4",
@@ -2899,7 +2899,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter07/plot_fig04_dcs2_vs_k.py",
+      "path": "scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py",
       "role": "script",
       "size_bytes": 4669,
       "sha256": "51701a3963362d7d96f433df318e6e286d1097cd16e1aae25f1b7294954a35d1",
@@ -2913,7 +2913,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
+      "path": "scripts/07_bao_geometry/plot_fig05_ddelta_phi_vs_k.py",
       "role": "script",
       "size_bytes": 4654,
       "sha256": "13989560ea113f035249385a431bd8a8f6210171e6813d936d77c0462271a7e5",
@@ -2927,7 +2927,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter07/plot_fig06_comparison.py",
+      "path": "scripts/07_bao_geometry/plot_fig06_comparison.py",
       "role": "script",
       "size_bytes": 6042,
       "sha256": "d9fb3e50af8ccfc0e07080f8ab0014d290abb55857d34850a33f379136665c08",
@@ -2941,7 +2941,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter07/plot_fig07_invariant_I2.py",
+      "path": "scripts/07_bao_geometry/plot_fig07_invariant_I2.py",
       "role": "script",
       "size_bytes": 5629,
       "sha256": "8a481272ad16e561ea0719984d56f9e5d8c49d12128bf3f71308f51d58a99dd2",
@@ -2955,7 +2955,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter07/requirements.txt",
+      "path": "scripts/07_bao_geometry/requirements.txt",
       "role": "document",
       "size_bytes": 3476,
       "sha256": "7f1dc653ce710fb208df293cdf917e79c00bf3c4b204cc5964adf8e7606a7df9",
@@ -2965,7 +2965,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter07/tests/ref_phase_run.csv",
+      "path": "scripts/07_bao_geometry/tests/ref_phase_run.csv",
       "role": "document",
       "size_bytes": 1331982,
       "sha256": "d7d592fc4ea6ba05421debc1bb7403fc3d0ce7a8eb11563a298b07eb70b20f5a",
@@ -2975,7 +2975,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter07/tests/test_chapter07.py",
+      "path": "scripts/07_bao_geometry/tests/test_chapter07.py",
       "role": "code",
       "size_bytes": 5062,
       "sha256": "db9a9109d0878be665256f5edb6639fac6e6f70d8e1c65af6273de251f5ada80",
@@ -2985,7 +2985,7 @@
       "git_hash": "33fc3d8fc908ebd40c5e289ed79428e783f24d6e"
     },
     {
-      "path": "scripts/chapter07/utils/test_kgrid.py",
+      "path": "scripts/07_bao_geometry/utils/test_kgrid.py",
       "role": "code",
       "size_bytes": 2577,
       "sha256": "491715a82a7b6098b9cb2ec2467c5e3efc88746b672d24b3f4be16ed8fd66fdb",
@@ -2995,7 +2995,7 @@
       "git_hash": "33fc3d8fc908ebd40c5e289ed79428e783f24d6e"
     },
     {
-      "path": "scripts/chapter07/utils/toy_model.py",
+      "path": "scripts/07_bao_geometry/utils/toy_model.py",
       "role": "script",
       "size_bytes": 2919,
       "sha256": "37a421a7558ee679af7b6bd5b74b981133698fa1a2b172d96836a142940e99cd",
@@ -3009,7 +3009,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/generate_coupling_milestones.py",
+      "path": "scripts/08_sound_horizon/generate_coupling_milestones.py",
       "role": "script",
       "size_bytes": 3485,
       "sha256": "1e0f68552b14be66c61b4d59292a6361759f9a86f86c740983a5bc7e2df65462",
@@ -3023,7 +3023,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter08/generate_data_chapter08.py",
+      "path": "scripts/08_sound_horizon/generate_data_chapter08.py",
       "role": "code",
       "size_bytes": 7835,
       "sha256": "522f03517cae72607bb69697cd759929a70760aa9f7175ec6c5cf76bc9c58f76",
@@ -3033,7 +3033,7 @@
       "git_hash": "58aa2298a367c659dd2dcf14019b3715ffaf8ab1"
     },
     {
-      "path": "scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
+      "path": "scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py",
       "role": "script",
       "size_bytes": 3803,
       "sha256": "7e627b0b26b712ad880cf64ca8e3b12c6c8630372385e4d31534f5b28bc3b4fa",
@@ -3047,7 +3047,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter08/plot_fig02_dv_vs_z.py",
+      "path": "scripts/08_sound_horizon/plot_fig02_dv_vs_z.py",
       "role": "script",
       "size_bytes": 2613,
       "sha256": "cacd0c6f55cc7264e388ce96addda63959ca14c79b5b74ef0f27c2131ab536ea",
@@ -3061,7 +3061,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/plot_fig03_mu_vs_z.py",
+      "path": "scripts/08_sound_horizon/plot_fig03_mu_vs_z.py",
       "role": "script",
       "size_bytes": 3828,
       "sha256": "b9a8c161ed1c18d1839e7c7db162790935126fe2ea523cdc9ea75404f1c44cd8",
@@ -3075,7 +3075,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter08/plot_fig04_chi2_heatmap.py",
+      "path": "scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py",
       "role": "script",
       "size_bytes": 4642,
       "sha256": "c2e728a7341f2136576139cb4925c7915a04f6bcf862e3b8c19b0a52587d5c2b",
@@ -3089,7 +3089,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/plot_fig05_residuals.py",
+      "path": "scripts/08_sound_horizon/plot_fig05_residuals.py",
       "role": "script",
       "size_bytes": 5485,
       "sha256": "606f6b21776b82df51422d7e107f4fd89b7513e0c6ca51487d8f31fec6d96b39",
@@ -3103,7 +3103,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
+      "path": "scripts/08_sound_horizon/plot_fig06_normalized_residuals_distribution.py",
       "role": "script",
       "size_bytes": 5982,
       "sha256": "fa36fcf1ec5c78b500e3abd421a09872eefe1f740295397d93f7fdcc09889219",
@@ -3117,7 +3117,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/plot_fig07_chi2_profile.py",
+      "path": "scripts/08_sound_horizon/plot_fig07_chi2_profile.py",
       "role": "script",
       "size_bytes": 4391,
       "sha256": "6edc7b070b6a93b7536fb3ebd6d609a9700df4d0d0dc920d77e690f97780245c",
@@ -3131,7 +3131,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter08/requirements.txt",
+      "path": "scripts/08_sound_horizon/requirements.txt",
       "role": "document",
       "size_bytes": 3319,
       "sha256": "297ecf10f4550d438feaa83edfcbb6ffd167b2e2923a20a10e378f38ccf6efd0",
@@ -3141,7 +3141,7 @@
       "git_hash": "1969c5d386ccfbf0e04a92c389718d0152c97ee8"
     },
     {
-      "path": "scripts/chapter08/utils/cosmo.py",
+      "path": "scripts/08_sound_horizon/utils/cosmo.py",
       "role": "code",
       "size_bytes": 2178,
       "sha256": "aecd43f2b23793de0433a2001f2d1637639a8057f605b5bf49a832ec27cad45d",
@@ -3151,7 +3151,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter08/utils/coupling_example_model.py",
+      "path": "scripts/08_sound_horizon/utils/coupling_example_model.py",
       "role": "script",
       "size_bytes": 1347,
       "sha256": "c2fcbe7fb3d01daa5a2f2a5fb0694e78e56e0f2694a3617192b377a8fb624a3f",
@@ -3165,7 +3165,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter08/utils/extract_bao_data.py",
+      "path": "scripts/08_sound_horizon/utils/extract_bao_data.py",
       "role": "code",
       "size_bytes": 1525,
       "sha256": "84f98292f90001555ce61fd5f62602d621230cb20783dce2078af8f2daeef5bc",
@@ -3175,7 +3175,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter08/utils/extract_pantheon_plus_data.py",
+      "path": "scripts/08_sound_horizon/utils/extract_pantheon_plus_data.py",
       "role": "code",
       "size_bytes": 1178,
       "sha256": "1993b7f5254924087e2b3aac02dd76135e7739653d241b9a6a220145ddab4332",
@@ -3185,7 +3185,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter08/utils/generate_coupling_milestones.py",
+      "path": "scripts/08_sound_horizon/utils/generate_coupling_milestones.py",
       "role": "code",
       "size_bytes": 3626,
       "sha256": "9287808fedc26e0d0a3e1874015b5bbb856666ec361c34213efb6122b0a99674",
@@ -3195,7 +3195,7 @@
       "git_hash": "33fc3d8fc908ebd40c5e289ed79428e783f24d6e"
     },
     {
-      "path": "scripts/chapter08/utils/verify_z_grid.py",
+      "path": "scripts/08_sound_horizon/utils/verify_z_grid.py",
       "role": "code",
       "size_bytes": 1490,
       "sha256": "fb77393902f6bdca00a53cf06fabb59177c109a586901a491912ab392c6ff614",
@@ -3205,7 +3205,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter09/apply_poly_unwrap_rebranch.py",
+      "path": "scripts/09_dark_energy_cpl/apply_poly_unwrap_rebranch.py",
       "role": "code",
       "size_bytes": 8536,
       "sha256": "ab534322681f8e0a4a0fb472d2ddaf012dbc47ad9142fbc10bb57c54a77b2f8a",
@@ -3215,7 +3215,7 @@
       "git_hash": "25be59e84b0d3242019a9b81329cc8293dd9a6e1"
     },
     {
-      "path": "scripts/chapter09/check_p95_methods.py",
+      "path": "scripts/09_dark_energy_cpl/check_p95_methods.py",
       "role": "script",
       "size_bytes": 7146,
       "sha256": "49aee6f6f1ca803e130600574c6d556cd34c90c66761cbc951316e6a460c67d5",
@@ -3229,7 +3229,7 @@
       "git_hash": "c6509edeb54ea12608299030188cef5b413bd838"
     },
     {
-      "path": "scripts/chapter09/extract_phenom_phase.py",
+      "path": "scripts/09_dark_energy_cpl/extract_phenom_phase.py",
       "role": "code",
       "size_bytes": 4713,
       "sha256": "a11a09616192c345dad7ba2189b17cf8d1425a3f4052ea886882fabf5d0af532",
@@ -3239,7 +3239,7 @@
       "git_hash": "33fc3d8fc908ebd40c5e289ed79428e783f24d6e"
     },
     {
-      "path": "scripts/chapter09/fetch_gwtc3_confident.py",
+      "path": "scripts/09_dark_energy_cpl/fetch_gwtc3_confident.py",
       "role": "code",
       "size_bytes": 5824,
       "sha256": "61feee730f369be0a77f0468d3f9735aa06058a5ef3e84126a134f52bf476289",
@@ -3249,7 +3249,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter09/flag_jalons.py",
+      "path": "scripts/09_dark_energy_cpl/flag_jalons.py",
       "role": "code",
       "size_bytes": 6898,
       "sha256": "2dde2521c3b0f72d4b32e53eb1264d808a2762763e61671275dc02e9478f2dff",
@@ -3259,7 +3259,7 @@
       "git_hash": "e57cf042c9240e61129c6d7da93b2a5fe49df3a5"
     },
     {
-      "path": "scripts/chapter09/generate_data_chapter09.py",
+      "path": "scripts/09_dark_energy_cpl/generate_data_chapter09.py",
       "role": "script",
       "size_bytes": 29777,
       "sha256": "163c0196c05263ca2b457b29b2a5ccf0a0e21996cb8e90d093b5ee691611260d",
@@ -3273,7 +3273,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/generate_mcgt_raw_phase.py",
+      "path": "scripts/09_dark_energy_cpl/generate_mcgt_raw_phase.py",
       "role": "code",
       "size_bytes": 7687,
       "sha256": "220b5e431e46fbe2a0fa5b9044d1af7d3766907eb7bc2ba74a5eb4b921680fac",
@@ -3283,7 +3283,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter09/opt_poly_rebranch.py",
+      "path": "scripts/09_dark_energy_cpl/opt_poly_rebranch.py",
       "role": "code",
       "size_bytes": 8226,
       "sha256": "c1db7f69da8ca3958d8721a8181b694f0bdd50759932b3e932424cd8b76a260f",
@@ -3293,7 +3293,7 @@
       "git_hash": "25be59e84b0d3242019a9b81329cc8293dd9a6e1"
     },
     {
-      "path": "scripts/chapter09/plot_fig01_phase_overlay.py",
+      "path": "scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py",
       "role": "script",
       "size_bytes": 14455,
       "sha256": "ca372656bed63133ecf91a536b4de14e251d9496f3e9d6edf6c09a144f9aba12",
@@ -3307,7 +3307,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/plot_fig02_residual_phase.py",
+      "path": "scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py",
       "role": "script",
       "size_bytes": 14057,
       "sha256": "4c61f4c5f841c37ee907f484c5f2a84de509ff2d50f69b8dd275654ae65f56ac",
@@ -3321,7 +3321,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/plot_fig03_hist_absdphi_20_300.py",
+      "path": "scripts/09_dark_energy_cpl/plot_fig03_hist_absdphi_20_300.py",
       "role": "script",
       "size_bytes": 11203,
       "sha256": "6341643ea7df261ce043d5c3c9243809e706cd605280d660798f215f5e1a0c2a",
@@ -3335,7 +3335,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py",
+      "path": "scripts/09_dark_energy_cpl/plot_fig04_absdphi_milestones_vs_f.py",
       "role": "script",
       "size_bytes": 14743,
       "sha256": "bc6ec2120f21b1f342e008c1f34c2bf13acb55bac0243a1b56c22250f3fdfdbd",
@@ -3349,7 +3349,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py",
+      "path": "scripts/09_dark_energy_cpl/plot_fig05_scatter_phi_at_fpeak.py",
       "role": "code",
       "size_bytes": 10888,
       "sha256": "acf57578b48f7df340703e80f19959bd5f74cc5b93049673824957c4da977ece",
@@ -3359,7 +3359,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter09/requirements.txt",
+      "path": "scripts/09_dark_energy_cpl/requirements.txt",
       "role": "document",
       "size_bytes": 9881,
       "sha256": "eba397d375225af152bd6d65077ce5927d4a504679692962cf3601e2f7906a09",
@@ -3369,7 +3369,7 @@
       "git_hash": "55256b2acae81e0ae3dddc4402cc6b4c2d7701ae"
     },
     {
-      "path": "scripts/chapter10/add_phi_at_fpeak.py",
+      "path": "scripts/10_global_scan/add_phi_at_fpeak.py",
       "role": "script",
       "size_bytes": 9792,
       "sha256": "672f79ec03d5c95c37594e88c9a992576e129a8abb351c26979592799a655957",
@@ -3383,7 +3383,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/bootstrap_topk_p95.py",
+      "path": "scripts/10_global_scan/bootstrap_topk_p95.py",
       "role": "script",
       "size_bytes": 10392,
       "sha256": "2533e0d3861ca112229dbd5d1bab2c83ce14cf692f0ac1bd9dc1b2c2a3e068f3",
@@ -3397,7 +3397,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/check_metrics_consistency.py",
+      "path": "scripts/10_global_scan/check_metrics_consistency.py",
       "role": "script",
       "size_bytes": 6218,
       "sha256": "fb97be50177c6af34153ac5a5ae172a60f4c471a4b5273796a356e00cb4c775f",
@@ -3411,7 +3411,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/diag_phi_fpeak.py",
+      "path": "scripts/10_global_scan/diag_phi_fpeak.py",
       "role": "script",
       "size_bytes": 6049,
       "sha256": "6935cabbc558f3bed8f0bae52c01468d3fc23335a0d0e19b91d66f3d701807a2",
@@ -3425,7 +3425,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/eval_primary_metrics_20_300.py",
+      "path": "scripts/10_global_scan/eval_primary_metrics_20_300.py",
       "role": "script",
       "size_bytes": 14551,
       "sha256": "7bec3eb2a09ab3f5083ccb445324feb18503155e87bf87519d89db9f661ff967",
@@ -3439,7 +3439,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/generate_data_chapter10.py",
+      "path": "scripts/10_global_scan/generate_data_chapter10.py",
       "role": "script",
       "size_bytes": 2588,
       "sha256": "ef254b8a36d7eaa16b68ef9b10578de5f9fe437a8a22cad4a8512426f968b1c3",
@@ -3453,7 +3453,7 @@
       "git_hash": "bc09868f59947f9e60b790e8d38ba794d8dab8ea"
     },
     {
-      "path": "scripts/chapter10/inspect_topk_residuals.py",
+      "path": "scripts/10_global_scan/inspect_topk_residuals.py",
       "role": "script",
       "size_bytes": 3683,
       "sha256": "466973baa244900cb07a1451cd10f32df9554ac79224ae26235e3195da490e2d",
@@ -3467,7 +3467,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/plot_fig01_iso_p95_maps.py",
+      "path": "scripts/10_global_scan/plot_fig01_iso_p95_maps.py",
       "role": "script",
       "size_bytes": 6392,
       "sha256": "e682c072e8d2e6740432eb335d014d3a322d8afe6db9e9981d3fc9068e395829",
@@ -3481,7 +3481,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
+      "path": "scripts/10_global_scan/plot_fig02_scatter_phi_at_fpeak.py",
       "role": "script",
       "size_bytes": 10824,
       "sha256": "46f2fcedef95bed58c612fdac14722dd450b6975ab90dfd65c5ad71643aab070",
@@ -3495,7 +3495,7 @@
       "git_hash": "7a63834e501e1eaa8080b82c624073551590f69d"
     },
     {
-      "path": "scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
+      "path": "scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py",
       "role": "script",
       "size_bytes": 9353,
       "sha256": "bd7bd8f6c899789e0f48ddf8c7959addfead7e49039dc084dd9806d13e09e942",
@@ -3509,7 +3509,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
+      "path": "scripts/10_global_scan/plot_fig03b_bootstrap_coverage_vs_n.py",
       "role": "script",
       "size_bytes": 15367,
       "sha256": "c322815b973cb099a1b49051099b1c42634b83ac31a6702b73f849ddac302f01",
@@ -3523,7 +3523,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
+      "path": "scripts/10_global_scan/plot_fig04_scatter_p95_recalc_vs_orig.py",
       "role": "script",
       "size_bytes": 8944,
       "sha256": "4e7f562283c737f38a9d850042dcdef42b44c4e8db55a830980e5b499a6ebce4",
@@ -3537,7 +3537,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
+      "path": "scripts/10_global_scan/plot_fig05_hist_cdf_metrics.py",
       "role": "script",
       "size_bytes": 7312,
       "sha256": "17669a20b1c8b1b3b9870d145d3fb043344a1f62745c9c3bfd80f9b3de32dc59",
@@ -3551,7 +3551,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/plot_fig06_residual_map.py",
+      "path": "scripts/10_global_scan/plot_fig06_residual_map.py",
       "role": "script",
       "size_bytes": 10951,
       "sha256": "e40bf5c2e9faa5e8f23f0926ae13844d679b70787ca54e0b669f5fc5a6cbfdad",
@@ -3565,7 +3565,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/plot_fig07_synthesis.py",
+      "path": "scripts/10_global_scan/plot_fig07_synthesis.py",
       "role": "code",
       "size_bytes": 12613,
       "sha256": "6b4e91be4d750ebc13f405c32011314d3f0c490e4af2f4b170cd0e204d9fff1e",
@@ -3575,7 +3575,7 @@
       "git_hash": "ab8e9a6aba5494936418ed74dd28e35852852a5d"
     },
     {
-      "path": "scripts/chapter10/qc_wrapped_vs_unwrapped.py",
+      "path": "scripts/10_global_scan/qc_wrapped_vs_unwrapped.py",
       "role": "script",
       "size_bytes": 5803,
       "sha256": "2533e0915ccad861b323cc2b41209019df6802e58a59bc297fc11a6922245b6f",
@@ -3589,7 +3589,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/recompute_p95_circular.py",
+      "path": "scripts/10_global_scan/recompute_p95_circular.py",
       "role": "script",
       "size_bytes": 2938,
       "sha256": "7dfac118eed5edc3068227a68cf4804bd4336d340fdc1e0f48fd0981ef94179f",
@@ -3603,7 +3603,7 @@
       "git_hash": "2c6d7ce44b591564226c78cc16d3427996a12666"
     },
     {
-      "path": "scripts/chapter10/regen_fig05_using_circp95.py",
+      "path": "scripts/10_global_scan/regen_fig05_using_circp95.py",
       "role": "script",
       "size_bytes": 7201,
       "sha256": "5859c2339fd35c89484f9d8c35ac4bdf3d286bb67e001ee072e507a5671ee221",
@@ -3617,7 +3617,7 @@
       "git_hash": "67198d9abd39737da0be1b2f70c46c5264215d91"
     },
     {
-      "path": "scripts/chapter10/requirements.txt",
+      "path": "scripts/10_global_scan/requirements.txt",
       "role": "document",
       "size_bytes": 9284,
       "sha256": "f79472061b725d833ea7cd35a27fbc08e20ad90f30abef11ec1eca458d2860ef",
@@ -3627,7 +3627,7 @@
       "git_hash": "024f14fc134b8e8163c065bcce39aeabb6bebd81"
     },
     {
-      "path": "scripts/chapter10/update_manifest_with_hashes.py",
+      "path": "scripts/10_global_scan/update_manifest_with_hashes.py",
       "role": "code",
       "size_bytes": 1715,
       "sha256": "143f7168e06c07f5b74582aaf48a45f5aeda0ca2a00e97ab9ddd26045ce49b42",

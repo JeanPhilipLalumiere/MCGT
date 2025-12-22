@@ -20,12 +20,12 @@ Reference: config/scalar_perturbations.ini
 
 ## Hard-Coding Scan (chapters 01-06)
 
-- scripts/chapter02/primordial_spectrum.py
+- scripts/02_primordial_spectrum/primordial_spectrum.py
   - L63: `As = A_S0 * (1 + C1 * alpha)`
   - L64: `ns = NS0 + C2 * alpha`
-- scripts/chapter06/generate_data_chapter06.py
+- scripts/06_early_growth_jwst/generate_data_chapter06.py
   - L124: `H0=cosmo_params["H0"],`
   - L167: `H0=cosmo_params["H0"],`
   - L307: `H0=cosmo_params["H0"],`
-- scripts/chapter06/generate_pdot_plateau_vs_z.py
+- scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py
   - L38: `Omega_m = (ombh2 + omch2) / (h**2)`

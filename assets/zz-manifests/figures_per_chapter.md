@@ -1,6 +1,6 @@
 # Figures par chapitre
 
-| Chapitre | # Figures | Taille totale (MiB) |
+| Chapter | # Figures | Taille totale (MiB) |
 |---|---:|---:|
 | chapter01 | 6 | 1.14 |
 | chapter02 | 7 | 0.90 |

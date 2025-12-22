@@ -4,7 +4,7 @@ set -Eeuo pipefail
 # On se replace à la racine du dépôt
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-target="scripts/chapter10/plot_fig03_convergence_p95_vs_n.py"
+target="scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py"
 backup="${target}.bak_$(date -u +%Y%m%dT%H%M%SZ)"
 
 echo "== PATCH CH10 – Réécriture complète fig03 convergence p95 vs N =="
@@ -25,10 +25,10 @@ de la taille d’échantillon N, avec IC 95% (bootstrap percentile).
 Produit un PNG.
 
 Exemple (pipeline minimal, par défaut) :
-  python scripts/chapter10/plot_fig03_convergence_p95_vs_n.py
+  python scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py
 
 Exemple (MC complet historique) :
-  python scripts/chapter10/plot_fig03_convergence_p95_vs_n.py \\
+  python scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py \\
     --results assets/zz-data/chapter10/10_mc_results.circ.csv \\
     --p95-col p95_20_300_recalc \\
     --out assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png \\

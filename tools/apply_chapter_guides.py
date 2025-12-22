@@ -9,7 +9,7 @@ import textwrap
 ROOT = Path(__file__).resolve().parents[1]
 TMP_DIR = ROOT / "_tmp"
 
-# Chapitres à traiter : 2 à 10 (01 est déjà structuré)
+# Chapters à traiter : 2 à 10 (01 est déjà structuré)
 CHAPTERS = list(range(2, 11))
 
 

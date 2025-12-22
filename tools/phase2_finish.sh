@@ -29,12 +29,12 @@ if "--cov=" not in txt:
     )
 # testpaths
 if "testpaths" not in txt:
-    txt += "\ntestpaths =\n    tests\n    scripts/chapter10/tests\n"
+    txt += "\ntestpaths =\n    tests\n    scripts/10_global_scan/tests\n"
 else:
     if "tests" not in txt:
         txt = txt.replace("testpaths =", "testpaths =\n    tests")
-    if "scripts/chapter10/tests" not in txt:
-        txt = txt.replace("testpaths =", "testpaths =\n    scripts/chapter10/tests")
+    if "scripts/10_global_scan/tests" not in txt:
+        txt = txt.replace("testpaths =", "testpaths =\n    scripts/10_global_scan/tests")
 p.write_text(txt, encoding="utf-8")
 print("pytest.ini updated")
 PY

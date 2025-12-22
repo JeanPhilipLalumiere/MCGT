@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter03/generate_data_chapter03.py est modifié, avec backup .bak_gw_ini.";
+  echo "[ASTUCE] Seul scripts/03_stability_domain/generate_data_chapter03.py est modifié, avec backup .bak_gw_ini.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH03 – Default --config -> config/gw_phase.ini =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter03/generate_data_chapter03.py")
+path = Path("scripts/03_stability_domain/generate_data_chapter03.py")
 if not path.exists():
     print("[ERROR] Fichier introuvable :", path)
     raise SystemExit(1)

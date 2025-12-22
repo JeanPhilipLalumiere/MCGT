@@ -14,7 +14,7 @@ Portée : ce document définit les **conventions de données, de métadonnées, 
 * **Figures** : `assets/zz-figures/chapter{N}/`
   *ex.* `assets/zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png`
 * **Scripts** : `scripts/chapter{N}/`
-  *ex.* `scripts/chapter06/generate_data_chapter06.py`
+  *ex.* `scripts/06_early_growth_jwst/generate_data_chapter06.py`
 * **Configuration** : `config/`
   *ex.* `gw_phase.ini`, `scalar_perturbations.ini`, `camb_exact_plateau.ini`
 * **Schémas** : `assets/zz-schemas/`
@@ -110,37 +110,37 @@ Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`
 
 ## 5) Spécifications de fichiers (formats, exemples canoniques)
 
-### 5.1 Chapitres 1–2 (chronologie / spectre)
+### 5.1 Chapters 1–2 (chronologie / spectre)
 
 * `assets/zz-data/chapter01/01_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
 * `assets/zz-data/chapter02/02_optimal_parameters.json` (paramètres α → A\_s,n\_s)
 * `assets/zz-data/chapter02/02_primordial_spectrum_spec.json` (spécification)
 
-### 5.2 Chapitre 3 (stabilité f(R))
+### 5.2 Chapter 3 (stabilité f(R))
 
 * `03_fR_stability_data.csv` : `R_over_R0,f_R,f_RR,m_s2_over_R0`
 * `03_fR_stability_domain.csv` : `beta,gamma_min,gamma_max`
 * `03_ricci_fR_vs_{T,z}.csv` : `R_over_R0,f_R,f_RR,T_Gyr|z`
 
-### 5.3 Chapitre 4 (invariants)
+### 5.3 Chapter 4 (invariants)
 
 * `04_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
 * `04_P_vs_T.dat` : `T,P_calc`
 
-### 5.4 Chapitre 5 (BBN)
+### 5.4 Chapter 5 (BBN)
 
 * `05_nucleosynthesis_parameters.json`
 * `05_bbn_grid.csv`, `05_bbn_data.csv`, `05_bbn_invariants.csv`
 * `05_chi2_bbn_vs_T.csv`, `05_dchi2_vs_T.csv`
 
-### 5.5 Chapitre 6 (CMB)
+### 5.5 Chapter 6 (CMB)
 
 * `06_cmb_full_results.csv` : `ell,cl_lcdm,cl_mcgt,delta_cls,delta_cls_rel`
 * `06_cls_spectrum.dat`
 * Scans : `06_delta_cls*.csv`, `06_delta_rs_scan*.csv`, `06_cmb_chi2_scan2D.csv`
 * Params : `06_cmb_params.json`
 
-### 5.6 Chapitre 7 (perturbations scalaires)
+### 5.6 Chapter 7 (perturbations scalaires)
 
 * Params/méta : `07_params_perturbations.json`, `07_meta_perturbations.json`
 * Matrices : `07_cs2_matrix.csv`, `07_delta_phi_matrix.csv` (`k,a,value`)
@@ -149,7 +149,7 @@ Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`
 * Invariants : `07_scalar_invariants.csv`
 * Phase run : `07_phase_run.csv` : `k,a,cs2_raw,delta_phi_raw`
 
-### 5.7 Chapitre 8 (couplage sombre)
+### 5.7 Chapter 8 (couplage sombre)
 
 * Params : `08_params_coupling.json`
 * Scans : `08_chi2_scan2D.csv`, `08_chi2_total_vs_q0.csv`
@@ -157,7 +157,7 @@ Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`
 * Modèles : `08_dv_theory_{z|q0star}.csv`, `08_mu_theory_{z|q0star}.csv`
 * Jalons : `08_coupling_milestones.csv`
 
-### 5.8 Chapitre 9 (phase GW)
+### 5.8 Chapter 9 (phase GW)
 
 * Référence : `09_phases_imrphenom.csv` (+ `.meta.json`)
 * Modèle : `09_phases_mcgt.csv` : `f_Hz,phi_ref,phi_mcgt,phi_mcgt_raw,phi_mcgt_cal`
@@ -167,7 +167,7 @@ Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`
   `event,f_Hz,phi_ref_at_fpeak,phi_mcgt_at_fpeak,phi_mcgt_at_fpeak_raw,phi_mcgt_at_fpeak_cal,obs_phase,sigma_phase,epsilon_rel,classe,variant`
   (+ `09_comparison_milestones.meta.json`)
 
-### 5.9 Chapitre 10 (Monte Carlo 8D)
+### 5.9 Chapter 10 (Monte Carlo 8D)
 
 * Config : `10_mc_config.json`
 * Résultats : `10_mc_results.csv`, `10_mc_results.circ.csv`

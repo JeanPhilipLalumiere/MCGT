@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter02/plot_fig04_pipeline_diagram.py est touché (backup .bak_fix_except).";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py est touché (backup .bak_fix_except).";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 – Suppression des blocs 'except Exception' orphelins dans plot_fig04_pipeline_diagram.py =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter02/plot_fig04_pipeline_diagram.py")
+path = Path("scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py")
 backup = path.with_suffix(".py.bak_fix_except")
 shutil.copy2(path, backup)
 print(f"[BACKUP] {backup} créé")

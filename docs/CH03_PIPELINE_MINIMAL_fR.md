@@ -1,4 +1,4 @@
-# Chapitre 03 – Pipeline minimal f(R) (stabilité)
+# Chapter 03 – Pipeline minimal f(R) (stabilité)
 
 Ce document décrit le **pipeline minimal** permettant de régénérer, à partir du dépôt
 MCGT, les données et figures essentielles du **chapitre 03 – stabilité de f(R)**.
@@ -15,7 +15,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH03 repose sur le script scientifique principal :
 
-- `scripts/chapter03/generate_data_chapter03.py`
+- `scripts/03_stability_domain/generate_data_chapter03.py`
 
 complété par une famille de scripts de figures.  
 Il est conçu pour :
@@ -50,17 +50,17 @@ Depuis la racine du dépôt :
 cd /home/jplal/MCGT  # adapter si nécessaire
 
 # 1) Générer les données de stabilité f(R)
-python scripts/chapter03/generate_data_chapter03.py   --config config/gw_phase.ini   --npts 700
+python scripts/03_stability_domain/generate_data_chapter03.py   --config config/gw_phase.ini   --npts 700
 
 # 2) Régénérer les figures principales (Fig. 01 à 08)
-python scripts/chapter03/10_fig01_fR_stability_domain.py
-python scripts/chapter03/10_fig02_fR_fRR_vs_f.py
-python scripts/chapter03/10_fig03_ms2_R0_vs_f.py
-python scripts/chapter03/10_fig04_fR_fRR_vs_f.py
-python scripts/chapter03/10_fig05_interpolated_milestones.py
-python scripts/chapter03/10_fig06_grid_quality.py
-python scripts/chapter03/10_fig07_ricci_fR_vs_z.py
-python scripts/chapter03/10_fig08_ricci_fR_vs_T.py
+python scripts/03_stability_domain/10_fig01_fR_stability_domain.py
+python scripts/03_stability_domain/10_fig02_fR_fRR_vs_f.py
+python scripts/03_stability_domain/10_fig03_ms2_R0_vs_f.py
+python scripts/03_stability_domain/10_fig04_fR_fRR_vs_f.py
+python scripts/03_stability_domain/10_fig05_interpolated_milestones.py
+python scripts/03_stability_domain/10_fig06_grid_quality.py
+python scripts/03_stability_domain/10_fig07_ricci_fR_vs_z.py
+python scripts/03_stability_domain/10_fig08_ricci_fR_vs_T.py
 ```
 
 En fin d’exécution, toutes les données f(R) de référence et les figures CH03
@@ -74,7 +74,7 @@ doivent être présentes dans `assets/zz-data/chapter03/` et `assets/zz-figures/
 
 Répertoire :
 
-- `scripts/chapter03/`
+- `scripts/03_stability_domain/`
 
 Scripts utilisés par le pipeline minimal :
 
@@ -163,7 +163,7 @@ Figures principales attendues :
 Depuis la racine du dépôt :
 
 ```bash
-python scripts/chapter03/generate_data_chapter03.py   --config config/gw_phase.ini   --npts 700
+python scripts/03_stability_domain/generate_data_chapter03.py   --config config/gw_phase.ini   --npts 700
 ```
 
 Ce script :
@@ -195,14 +195,14 @@ Ce script :
 Une fois les données mises à jour, les figures officielles sont générées par :
 
 ```bash
-python scripts/chapter03/10_fig01_fR_stability_domain.py
-python scripts/chapter03/10_fig02_fR_fRR_vs_f.py
-python scripts/chapter03/10_fig03_ms2_R0_vs_f.py
-python scripts/chapter03/10_fig04_fR_fRR_vs_f.py
-python scripts/chapter03/10_fig05_interpolated_milestones.py
-python scripts/chapter03/10_fig06_grid_quality.py
-python scripts/chapter03/10_fig07_ricci_fR_vs_z.py
-python scripts/chapter03/10_fig08_ricci_fR_vs_T.py
+python scripts/03_stability_domain/10_fig01_fR_stability_domain.py
+python scripts/03_stability_domain/10_fig02_fR_fRR_vs_f.py
+python scripts/03_stability_domain/10_fig03_ms2_R0_vs_f.py
+python scripts/03_stability_domain/10_fig04_fR_fRR_vs_f.py
+python scripts/03_stability_domain/10_fig05_interpolated_milestones.py
+python scripts/03_stability_domain/10_fig06_grid_quality.py
+python scripts/03_stability_domain/10_fig07_ricci_fR_vs_z.py
+python scripts/03_stability_domain/10_fig08_ricci_fR_vs_T.py
 ```
 
 Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter03/`.  

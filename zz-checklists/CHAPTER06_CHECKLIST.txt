@@ -36,7 +36,7 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
       • fig_03_delta_cls_relative.png
       • fig_04_delta_rs_vs_params.png
       • fig_05_delta_chi2_heatmap.png
-- [ ] Scripts (scripts/chapter06/):
+- [ ] Scripts (scripts/06_early_growth_jwst/):
       • generate_pdot_plateau_vs_z.py
       • generate_data_chapter06.py
       • plot_fig01_cmb_dataflow_diagram.py
@@ -90,9 +90,9 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Expansion plateau vs z :
-      python scripts/chapter06/generate_pdot_plateau_vs_z.py
+      python scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py
 - [ ] Pipeline CMB (exemple) :
-      python scripts/chapter06/generate_data_chapter06.py \
+      python scripts/06_early_growth_jwst/generate_data_chapter06.py \
         --alpha 0.20 --q0star -0.10 --export-derivative
 - [ ] (Option CAMB CLI) :
       camb config/camb_exact_plateau.ini \
@@ -101,11 +101,11 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
-      python scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
-      python scripts/chapter06/plot_fig03_delta_cls_relative.py
-      python scripts/chapter06/plot_fig04_delta_rs_vs_params.py
-      python scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+      python scripts/06_early_growth_jwst/plot_fig01_cmb_dataflow_diagram.py
+      python scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py
+      python scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py
+      python scripts/06_early_growth_jwst/plot_fig04_delta_rs_vs_params.py
+      python scripts/06_early_growth_jwst/plot_fig05_delta_chi2_heatmap.py
 - [ ] Vérifs : DPI ≥ 300 ; axes/échelles corrects ; légendes/annotations (α, q0*).
 
 [CONTRÔLES QUALITÉ (QC)]
@@ -129,10 +129,10 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer les 5 figures avec checksums (si activé).
 - [ ] assets/zz-manifests/chapters/chapter_manifest_06.json : lister toutes les données/figures.
-- [ ] mcgt/CHANGELOG.md : consigner changements impactant le Chapitre 6.
+- [ ] mcgt/CHANGELOG.md : consigner changements impactant le Chapter 6.
 
 [COMMANDES RAPIDES]
-- [ ] Expansion :  python scripts/chapter06/generate_pdot_plateau_vs_z.py
-- [ ] Données   :  python scripts/chapter06/generate_data_chapter06.py --alpha 0.20 --q0star -0.10
+- [ ] Expansion :  python scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py
+- [ ] Données   :  python scripts/06_early_growth_jwst/generate_data_chapter06.py --alpha 0.20 --q0star -0.10
 - [ ] Figures   :  exécuter les 5 scripts plot_fig**
 - [ ] LaTeX     :  2× pdflatex pour chaque .tex (conceptuel, details)

@@ -3,7 +3,7 @@
   "title": "perturbations-scalaires",
   "paths": {
     "data_dir": "assets/zz-data/chapter07",
-    "scripts_dir": "scripts/chapter07",
+    "scripts_dir": "scripts/07_bao_geometry",
     "figures_dir": "assets/zz-figures/chapter07",
     "configs": [
       "conventions.md",
@@ -40,13 +40,13 @@
     ]
   },
   "scripts": [
-    "scripts/chapter07/generate_chapter7_data.py",
-    "scripts/chapter07/plot_fig01_heatmap_cs2.py",
-    "scripts/chapter07/plot_fig02_heatmap_delta_phi.py",
-    "scripts/chapter07/plot_fig03_invariant_I1.py",
-    "scripts/chapter07/plot_fig04_dcs2_vs_k.py",
-    "scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py",
-    "scripts/chapter07/plot_fig06_comparison.py"
+    "scripts/07_bao_geometry/generate_chapter7_data.py",
+    "scripts/07_bao_geometry/plot_fig01_heatmap_cs2.py",
+    "scripts/07_bao_geometry/plot_fig02_heatmap_delta_phi.py",
+    "scripts/07_bao_geometry/plot_fig03_invariant_I1.py",
+    "scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py",
+    "scripts/07_bao_geometry/plot_fig05_ddelta_phi_vs_k.py",
+    "scripts/07_bao_geometry/plot_fig06_comparison.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter07/07_perturbations_domain.meta.json",

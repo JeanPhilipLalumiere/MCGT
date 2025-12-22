@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 import textwrap
 
-P = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+P = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 src = P.read_text(encoding="utf-8")
 
 # Sauvegarde une fois

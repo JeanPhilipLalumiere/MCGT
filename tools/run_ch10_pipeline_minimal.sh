@@ -12,7 +12,7 @@ echo "== CH10 – PIPELINE MINIMAL : exploration-globale =="
 
 echo
 echo "[1/2] Génération des données..."
-data_script="scripts/chapter10/generate_data_chapter10.py"
+data_script="scripts/10_global_scan/generate_data_chapter10.py"
 results_csv="assets/zz-data/chapter10/10_results_global_scan.csv"
 echo "[INFO] Utilisation du script de données : ${data_script}"
 echo "[INFO] Fichier de résultats : ${results_csv}"
@@ -22,7 +22,7 @@ python "${data_script}" --out-results "${results_csv}"
 echo
 echo "[2/2] Génération des figures..."
 
-scripts=(scripts/chapter10/plot_fig*.py)
+scripts=(scripts/10_global_scan/plot_fig*.py)
 echo "[INFO] Scripts de figures détectés :"
 for s in "${scripts[@]}"; do
   echo "  - ${s}"

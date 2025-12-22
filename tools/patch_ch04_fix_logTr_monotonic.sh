@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter04/generate_data_chapter04.py est touché, avec backup .bak_fix_logTr.";
+  echo "[ASTUCE] Seul scripts/04_expansion_supernovae/generate_data_chapter04.py est touché, avec backup .bak_fix_logTr.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH04 – Grille T_Gyr strictement croissante pour Pchip R/R0(T) =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter04/generate_data_chapter04.py")
+path = Path("scripts/04_expansion_supernovae/generate_data_chapter04.py")
 if not path.exists():
     raise SystemExit("[ERROR] Fichier generate_data_chapter04.py introuvable.")
 

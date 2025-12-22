@@ -4,12 +4,12 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter02/generate_data_chapter02.py a été touché (avec backup).";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/generate_data_chapter02.py a été touché (avec backup).";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 v5 – Paramètres logistiques mappés sur segments['low'] =="
 
-target="scripts/chapter02/generate_data_chapter02.py"
+target="scripts/02_primordial_spectrum/generate_data_chapter02.py"
 backup="${target}.bak_v5_$(date -u +%Y%m%dT%H%M%SZ)"
 
 cp "$target" "$backup"
@@ -18,7 +18,7 @@ echo "[BACKUP] $backup"
 python - << 'PYEOF'
 import pathlib
 
-path = pathlib.Path("scripts/chapter02/generate_data_chapter02.py")
+path = pathlib.Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 text = path.read_text()
 
 needle = 'with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:'
@@ -62,5 +62,5 @@ path.write_text("\n".join(new_lines))
 print("[PATCH] Bloc de chargement des paramètres logistiques réécrit pour utiliser segments[\"low\"].")
 PYEOF
 
-echo "[WRITE] scripts/chapter02/generate_data_chapter02.py mis à jour (v5)."
+echo "[WRITE] scripts/02_primordial_spectrum/generate_data_chapter02.py mis à jour (v5)."
 echo "Terminé (patch_ch02_define_logistic_params_v5)."

@@ -26,10 +26,10 @@ pip -V || true
 
 # 1) (Re)génération : tenter --overwrite si supporté
 echo "[INFO] Étape: génération des données CH09"
-if python3 scripts/chapter09/generate_data_chapter09.py --help 2>/dev/null | grep -qi overwrite; then
-  python3 scripts/chapter09/generate_data_chapter09.py --overwrite || echo "[WARN] generate_data_chapter09: code non nul"
+if python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py --help 2>/dev/null | grep -qi overwrite; then
+  python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py --overwrite || echo "[WARN] generate_data_chapter09: code non nul"
 else
-  python3 scripts/chapter09/generate_data_chapter09.py || echo "[WARN] generate_data_chapter09: code non nul"
+  python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py || echo "[WARN] generate_data_chapter09: code non nul"
 fi
 
 # 2) Localisation des CSV utiles
@@ -51,12 +51,12 @@ fi
 
 # 3) Figures clés
 echo "[INFO] Étape: fig01 overlay"
-python3 scripts/chapter09/plot_fig01_phase_overlay.py || echo "[WARN] fig01: code non nul"
+python3 scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py || echo "[WARN] fig01: code non nul"
 
 echo "[INFO] Étape: fig02 residual_phase"
 if [ -n "$CSV_DIFF" ]; then
   OUT_PNG="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
-  python3 scripts/chapter09/plot_fig02_residual_phase.py \
+  python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
       --csv "$CSV_DIFF" \
       --out "$OUT_PNG" \
       --dpi 160 || echo "[WARN] fig02: code non nul"

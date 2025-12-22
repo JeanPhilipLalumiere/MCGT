@@ -17,14 +17,14 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT"
 
 echo "[1/2] Génération des données..."
-python scripts/chapter05/generate_data_chapter05.py
+python scripts/05_primordial_bbn/generate_data_chapter05.py
 
 echo
 echo "[2/2] Génération des figures..."
-python scripts/chapter05/plot_fig01_bbn_reaction_network.py
-python scripts/chapter05/plot_fig02_dh_model_vs_obs.py
-python scripts/chapter05/plot_fig03_yp_model_vs_obs.py
-python scripts/chapter05/plot_fig04_chi2_vs_T.py
+python scripts/05_primordial_bbn/plot_fig01_bbn_reaction_network.py
+python scripts/05_primordial_bbn/plot_fig02_dh_model_vs_obs.py
+python scripts/05_primordial_bbn/plot_fig03_yp_model_vs_obs.py
+python scripts/05_primordial_bbn/plot_fig04_chi2_vs_T.py
 
 echo
 echo "[OK] CH05 pipeline minimal terminé sans erreur."

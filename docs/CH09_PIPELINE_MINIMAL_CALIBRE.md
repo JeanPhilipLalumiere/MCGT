@@ -1,4 +1,4 @@
-# Chapitre 09 – Pipeline minimal calibré (phase gravitationnelle)
+# Chapter 09 – Pipeline minimal calibré (phase gravitationnelle)
 
 Ce document décrit le **pipeline minimal calibré** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 09 – phase gravitationnelle
@@ -92,13 +92,13 @@ des chemins par défaut codés dans les scripts :
 cd /home/jplal/MCGT  # adapter si nécessaire
 
 # 1) Recalcul des métriques de phase (en utilisant la référence existante)
-python scripts/chapter09/generate_data_chapter09.py
+python scripts/09_dark_energy_cpl/generate_data_chapter09.py
 
 # 2) Superposition de phase IMRPhenom vs MCGT
-python scripts/chapter09/10_fig01_phase_overlay.py
+python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py
 
 # 3) Résidu de phase par bandes (20–300 Hz, etc.)
-python scripts/chapter09/10_fig02_residual_phase.py
+python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py
 ```
 
 Dans les logs fournis, on observe typiquement :
@@ -121,7 +121,7 @@ C’est **cette séquence** qui constitue, en pratique, ton **pipeline minimal C
 
 Tous les scripts CH09 résident dans :
 
-- `scripts/chapter09/`
+- `scripts/09_dark_energy_cpl/`
 
 Scripts principaux (utilisés directement ou via le smoke script) :
 
@@ -231,7 +231,7 @@ Si nécessaire (p. ex. après mise à jour de LALSuite), on peut reconstruire
 la phase IMRPhenom de référence :
 
 ```bash
-python scripts/chapter09/extract_phenom_phase.py   --out assets/zz-data/chapter09/09_phases_imrphenom.csv
+python scripts/09_dark_energy_cpl/extract_phenom_phase.py   --out assets/zz-data/chapter09/09_phases_imrphenom.csv
 ```
 
 Cette étape n’est pas requise pour un simple contrôle de cohérence si la
@@ -244,7 +244,7 @@ référence existante est jugée fiable.
 En pratique, tel que tu l’as lancé, un simple :
 
 ```bash
-python scripts/chapter09/generate_data_chapter09.py
+python scripts/09_dark_energy_cpl/generate_data_chapter09.py
 ```
 
 suffit.  
@@ -261,7 +261,7 @@ Version plus détaillée (à adapter en fonction de `--help` si tu réintroduis 
 options explicites) :
 
 ```bash
-python scripts/chapter09/generate_data_chapter09.py   --log-level INFO
+python scripts/09_dark_energy_cpl/generate_data_chapter09.py   --log-level INFO
 ```
 
 ---
@@ -273,7 +273,7 @@ rebranch `k`) de façon explicite, ce bloc décrit le principe (à adapter selon
 l’API réelle de `opt_poly_rebranch.py`) :
 
 ```bash
-python scripts/chapter09/opt_poly_rebranch.py   --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --fit-window 30 250 --metrics-window 20 300   --degrees 3 4 5 --bases log10 hz --k-range -10 10   --out-csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --out-best assets/zz-data/chapter09/09_best_params.json   --backup --log-level INFO
+python scripts/09_dark_energy_cpl/opt_poly_rebranch.py   --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --fit-window 30 250 --metrics-window 20 300   --degrees 3 4 5 --bases log10 hz --k-range -10 10   --out-csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --out-best assets/zz-data/chapter09/09_best_params.json   --backup --log-level INFO
 ```
 
 Idée générale :
@@ -294,7 +294,7 @@ reste la **référence opérationnelle**.
 Bloc optionnel, orienté QC / méthodo :
 
 ```bash
-python scripts/chapter09/check_p95_methods.py   --csv assets/zz-data/chapter09/09_phases_mcgt.csv   --window 20 300   --update-metrics-json assets/zz-data/chapter09/09_metrics_phase.json
+python scripts/09_dark_energy_cpl/check_p95_methods.py   --csv assets/zz-data/chapter09/09_phases_mcgt.csv   --window 20 300   --update-metrics-json assets/zz-data/chapter09/09_metrics_phase.json
 ```
 
 Ce script :
@@ -316,13 +316,13 @@ générer (ou regénérer) les figures principales.
 Version minimale (par défaut, le script cherche les bons fichiers) :
 
 ```bash
-python scripts/chapter09/10_fig01_phase_overlay.py
+python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py
 ```
 
 Version avec arguments explicites (à utiliser si tu veux documenter les paths) :
 
 ```bash
-python scripts/chapter09/10_fig01_phase_overlay.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
+python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
 ```
 
 #### 5.5.2. Résidu de phase par bandes (Fig. 02)
@@ -330,13 +330,13 @@ python scripts/chapter09/10_fig01_phase_overlay.py   --csv  assets/zz-data/chapt
 Version minimale (celle que tu as exécutée) :
 
 ```bash
-python scripts/chapter09/10_fig02_residual_phase.py
+python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py
 ```
 
 Version avec arguments explicites :
 
 ```bash
-python scripts/chapter09/10_fig02_residual_phase.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
+python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
 ```
 
 Dans tes derniers logs, ce script affiche notamment :

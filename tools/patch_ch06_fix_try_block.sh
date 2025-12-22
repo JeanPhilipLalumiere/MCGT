@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/generate_data_chapter06.py est touché, avec backup .bak_fix_try_block.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/generate_data_chapter06.py est touché, avec backup .bak_fix_try_block.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Normalisation du bloc _mcgt_cli_seed() (suppression try/except bancal) =="
@@ -14,7 +14,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter06/generate_data_chapter06.py")
+path = Path("scripts/06_early_growth_jwst/generate_data_chapter06.py")
 if not path.exists():
     print("[ERROR] Fichier introuvable :", path)
     raise SystemExit(1)

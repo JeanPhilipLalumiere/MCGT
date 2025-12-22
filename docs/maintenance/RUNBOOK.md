@@ -1,7 +1,7 @@
 # RUNBOOK — Exécution opératoire (MCGT)
 
 Ce runbook est une **checklist opératoire** pour (1) préparer l’environnement, (2) régénérer les artefacts, (3) vérifier la qualité, (4) empaqueter la remise.
-Tous les noms de fichiers et de répertoires sont **en anglais** (ex. `assets/zz-data/chapter09/...`, `scripts/chapter10/...`). Les seuls fichiers pouvant rester en français sont les sources **.tex** des chapitres.
+Tous les noms de fichiers et de répertoires sont **en anglais** (ex. `assets/zz-data/chapter09/...`, `scripts/10_global_scan/...`). Les seuls fichiers pouvant rester en français sont les sources **.tex** des chapitres.
 
 ---
 
@@ -66,16 +66,16 @@ python scripts/chapterNN/generate_data_chapterNN.py
 
 Exemples utiles :
 
-* Chapitre 02 (spectre primordial)
-  `python scripts/chapter02/generate_data_chapter02.py`
-* Chapitre 07 (perturbations scalaires)
-  `python scripts/chapter07/generate_data_chapter07.py`
-* Chapitre 08 (couplage sombre)
-  `python scripts/chapter08/generate_data_chapter08.py`
-* Chapitre 09 (phase GW)
-  `python scripts/chapter09/generate_data_chapter09.py`
-* Chapitre 10 (Monte Carlo 8D)
-  `python scripts/chapter10/generate_data_chapter10.py`
+* Chapter 02 (spectre primordial)
+  `python scripts/02_primordial_spectrum/generate_data_chapter02.py`
+* Chapter 07 (perturbations scalaires)
+  `python scripts/07_bao_geometry/generate_data_chapter07.py`
+* Chapter 08 (couplage sombre)
+  `python scripts/08_sound_horizon/generate_data_chapter08.py`
+* Chapter 09 (phase GW)
+  `python scripts/09_dark_energy_cpl/generate_data_chapter09.py`
+* Chapter 10 (Monte Carlo 8D)
+  `python scripts/10_global_scan/generate_data_chapter10.py`
 
 Sorties attendues (anglais) :
 
@@ -99,9 +99,9 @@ python scripts/chapterNN/10_figXX_*.py
 
 Exemples :
 
-* Chapitre 09 :
+* Chapter 09 :
   `10_fig01_phase_overlay.py`, `10_fig02_residual_phase.py`, `10_fig03_hist_absdphi_20_300.py`, `10_fig04_absdphi_milestones_vs_f.py`, `10_fig05_scatter_phi_at_fpeak.py`
-* Chapitre 10 :
+* Chapter 10 :
   `10_fig01_iso_p95_maps.py`, `10_fig02_scatter_phi_at_fpeak.py`, `10_fig03_convergence_p95_vs_n.py`, `10_fig03b_bootstrap_coverage_vs_n.py`, `10_fig04_scatter_p95_recalc_vs_orig.py`, `10_fig05_hist_cdf_metrics.py`, `10_fig06_residual_map.py`, `10_fig07_synthesis.py`
 
 Sorties attendues :
@@ -176,7 +176,7 @@ Résultats attendus :
 
 ## Phase 4 — Pipelines spécifiques (vérifications techniques)
 
-### 4.1 Chapitre 09 — Phase GW
+### 4.1 Chapter 09 — Phase GW
 
 * Données clés :
   `assets/zz-data/chapter09/09_phases_imrphenom.csv` (+ `.meta.json`),
@@ -190,14 +190,14 @@ Résultats attendus :
   * `flagging` des jalons (si script présent) :
 
     ```
-    python scripts/chapter09/flag_jalons.py \
+    python scripts/09_dark_energy_cpl/flag_jalons.py \
       --csv  assets/zz-data/chapter09/09_comparison_milestones.csv \
       --meta assets/zz-data/chapter09/09_comparison_milestones.meta.json \
       --out-csv assets/zz-data/chapter09/09_comparison_milestones.flagged.csv \
       --write-meta
     ```
 
-### 4.2 Chapitre 10 — Monte Carlo 8D
+### 4.2 Chapter 10 — Monte Carlo 8D
 
 * Données clés :
   `assets/zz-data/chapter10/10_mc_config.json`, `10_mc_results.csv`, `10_mc_results.circ.csv`,

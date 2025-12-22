@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import sys
 
-T = Path("scripts/chapter09/plot_fig01_phase_overlay.py")
+T = Path("scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py")
 if not T.exists():
     print("[ERREUR] Introuvable:", T)
     sys.exit(2)

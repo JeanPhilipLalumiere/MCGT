@@ -7,8 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GAPS_PATH = ROOT / "_tmp" / "CHAPTER_MANIFEST_GAPS.md"
 
-START_HEADER = "## Chapitre 1 — chapter_manifest_01.json"
-NEXT_HEADER_PREFIX = "## Chapitre 2 —"
+START_HEADER = "## Chapter 1 — chapter_manifest_01.json"
+NEXT_HEADER_PREFIX = "## Chapter 2 —"
 
 
 def main() -> None:
@@ -22,7 +22,7 @@ def main() -> None:
     while i < len(text):
         line = text[i]
 
-        # Quand on tombe sur le bloc "Chapitre 1", on le remplace par une version résumée
+        # Quand on tombe sur le bloc "Chapter 1", on le remplace par une version résumée
         if line.strip() == START_HEADER:
             out_lines.append(START_HEADER)
             out_lines.append("")  # ligne vide
@@ -49,7 +49,7 @@ def main() -> None:
         i += 1
 
     GAPS_PATH.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
-    print(f"[OK] Bloc 'Chapitre 1' nettoyé dans {GAPS_PATH}")
+    print(f"[OK] Bloc 'Chapter 1' nettoyé dans {GAPS_PATH}")
 
 
 if __name__ == "__main__":

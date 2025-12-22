@@ -65,7 +65,7 @@ stem_for(){
   dir="$(dirname "$path")"
   base="$(basename "$path" .py)"
   # garde uniquement les deux derniers segments du chemin pour un stem lisible
-  # ex: scripts/chapter07/plot_fig04_dcs2_vs_k.py -> chapter07_plot_fig04_dcs2_vs_k
+  # ex: scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py -> chapter07_plot_fig04_dcs2_vs_k
   stem="$(echo "${dir}" | awk -F/ '{n=NF; print $(n-0)}')_${base}"
   # nettoyage simple
   echo "${stem//[^A-Za-z0-9_]/_}"

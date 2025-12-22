@@ -15,11 +15,11 @@ cd "$ROOT"
 mkdir -p docs
 
 cat << 'EOF' > docs/CH07_PIPELINE_MINIMAL_CANONIQUE.md
-# Chapitre 07 – Pipeline minimal canonique (scalar_perturbations.ini)
+# Chapter 07 – Pipeline minimal canonique (scalar_perturbations.ini)
 
 ## Objectif
 
-Fournir un pipeline **minimal mais complet** pour le Chapitre 07 (perturbations scalaires),
+Fournir un pipeline **minimal mais complet** pour le Chapter 07 (perturbations scalaires),
 en utilisant le profil canonique `config/scalar_perturbations.ini`, et en
 documentant clairement :
 
@@ -46,12 +46,12 @@ bash tools/ch07_minimal_pipeline.sh
 Vérification rapide que les scripts de génération/solveur s’initialisent correctement :
 
 ```bash
-python scripts/chapter07/generate_data_chapter07.py \
+python scripts/07_bao_geometry/generate_data_chapter07.py \
   -i config/scalar_perturbations.ini \
   --export-raw zz-out/smoke/chapter07/generate_data_chapter07_manual.csv \
   --dry-run
 
-python scripts/chapter07/launch_scalar_perturbations_solver.py \
+python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py \
   -i config/scalar_perturbations.ini \
   --export-raw zz-out/smoke/chapter07/launch_scalar_perturbations_solver_manual.csv \
   --dry-run
@@ -68,7 +68,7 @@ Le pipeline minimal canonique est structuré en deux étapes :
 ### 3.1 generate_data_chapter07.py (run complet minimal)
 
 ```bash
-python scripts/chapter07/generate_data_chapter07.py \
+python scripts/07_bao_geometry/generate_data_chapter07.py \
   -i config/scalar_perturbations.ini \
   --export-raw assets/zz-data/chapter07/07_scan_raw_minimal.csv \
   --export-2d \
@@ -91,7 +91,7 @@ python scripts/chapter07/generate_data_chapter07.py \
 ### 3.2 launch_scalar_perturbations_solver.py (run complet minimal)
 
 ```bash
-python scripts/chapter07/launch_scalar_perturbations_solver.py \
+python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py \
   -i config/scalar_perturbations.ini \
   --export-raw assets/zz-data/chapter07/07_phase_run.csv \
   --log-level INFO \
@@ -119,17 +119,17 @@ figures publiables du chapitre :
 
 ```bash
 # Heatmaps c_s² et delta_phi
-python scripts/chapter07/plot_fig01_cs2_heatmap.py
-python scripts/chapter07/plot_fig02_delta_phi_heatmap.py
+python scripts/07_bao_geometry/plot_fig01_cs2_heatmap.py
+python scripts/07_bao_geometry/plot_fig02_delta_phi_heatmap.py
 
 # Invariants et dérivées
-python scripts/chapter07/plot_fig03_invariant_i1.py
-python scripts/chapter07/plot_fig04_dcs2_vs_k.py
-python scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py
+python scripts/07_bao_geometry/plot_fig03_invariant_i1.py
+python scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py
+python scripts/07_bao_geometry/plot_fig05_ddelta_phi_vs_k.py
 
 # Comparaisons et invariant I2
-python scripts/chapter07/plot_fig06_comparison.py
-python scripts/chapter07/plot_fig07_invariant_i2.py
+python scripts/07_bao_geometry/plot_fig06_comparison.py
+python scripts/07_bao_geometry/plot_fig07_invariant_i2.py
 ```
 
 Points clés :
@@ -147,10 +147,10 @@ Pour compléter le smoke local :
 
 ```bash
 # Test de la grille en k
-python scripts/chapter07/utils/test_kgrid.py
+python scripts/07_bao_geometry/utils/test_kgrid.py
 
 # Toy model (figure de diagnostic rapide)
-python scripts/chapter07/utils/toy_model.py \
+python scripts/07_bao_geometry/utils/toy_model.py \
   --out zz-out/smoke/chapter07/utils/toy_model_manual.png \
   --dpi 96
 ```
@@ -162,7 +162,7 @@ Ces scripts servent à vérifier rapidement :
 
 ## 6. Fichiers considérés comme “référence” pour CH07
 
-Pour le Chapitre 07, les fichiers suivants sont considérés comme
+Pour le Chapter 07, les fichiers suivants sont considérés comme
 **artefacts canoniques** :
 
 - **Configuration**

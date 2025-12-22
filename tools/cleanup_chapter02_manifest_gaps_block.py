@@ -24,13 +24,13 @@ def main() -> None:
 
     text = GAPS_PATH.read_text(encoding="utf-8")
 
-    start_marker = "## Chapitre 2 — chapter_manifest_02.json"
-    end_marker = "## Chapitre 3 — chapter_manifest_03.json"
+    start_marker = "## Chapter 2 — chapter_manifest_02.json"
+    end_marker = "## Chapter 3 — chapter_manifest_03.json"
 
     start_idx = text.find(start_marker)
     if start_idx == -1:
         print(
-            "[ERROR] Marqueur de début pour 'Chapitre 2' introuvable dans CHAPTER_MANIFEST_GAPS.md",
+            "[ERROR] Marqueur de début pour 'Chapter 2' introuvable dans CHAPTER_MANIFEST_GAPS.md",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -38,14 +38,14 @@ def main() -> None:
     end_idx = text.find(end_marker, start_idx)
     if end_idx == -1:
         print(
-            "[ERROR] Marqueur de fin 'Chapitre 3' introuvable après le bloc 'Chapitre 2'.",
+            "[ERROR] Marqueur de fin 'Chapter 3' introuvable après le bloc 'Chapter 2'.",
             file=sys.stderr,
         )
         sys.exit(1)
 
     today = dt.date.today().isoformat()
 
-    new_block = f"""## Chapitre 2 — chapter_manifest_02.json
+    new_block = f"""## Chapter 2 — chapter_manifest_02.json
 
 Section résolue ({today}) : les fichiers de données d’entrée, figures, metas, scripts
 et le guide du chapitre 02 existent dans le filesystem et sont couverts par les
@@ -59,7 +59,7 @@ Aucun gap restant spécifique au chapitre 02.
     new_text = text[:start_idx] + new_block + text[end_idx:]
 
     GAPS_PATH.write_text(new_text, encoding="utf-8")
-    print(f"[OK] Bloc 'Chapitre 2' nettoyé dans {GAPS_PATH}")
+    print(f"[OK] Bloc 'Chapter 2' nettoyé dans {GAPS_PATH}")
 
     # Régénère CHAPTER_TODO.md à partir des gaps
     try:

@@ -21,7 +21,7 @@ Ce dossier contient :
 
 ## Principes & conventions
 
-* Tous les **noms de fichiers** et **chemins** dans les manifestes sont en **anglais** (ex. `assets/zz-data/chapter09/...`, `assets/zz-figures/chapter10/...`, `scripts/chapter07/...`).
+* Tous les **noms de fichiers** et **chemins** dans les manifestes sont en **anglais** (ex. `assets/zz-data/chapter09/...`, `assets/zz-figures/chapter10/...`, `scripts/07_bao_geometry/...`).
   *Exception :* les sources LaTeX `*.tex` conservent les noms en **français** (ex. `09_phase_ondes_grav_conceptuel.tex`).
 * Les manifestes peuvent exister en **deux formats** :
 

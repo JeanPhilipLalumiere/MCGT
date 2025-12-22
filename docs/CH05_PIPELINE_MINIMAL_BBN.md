@@ -1,7 +1,7 @@
-# Chapitre 05 – Pipeline minimal BBN (nucléosynthèse primordiale)
+# Chapter 05 – Pipeline minimal BBN (nucléosynthèse primordiale)
 
 Ce document décrit le **pipeline minimal canonique** permettant de régénérer les
-données et figures officielles du Chapitre 05 (nucléosynthèse primordiale, BBN)
+données et figures officielles du Chapter 05 (nucléosynthèse primordiale, BBN)
 à partir du dépôt MCGT.
 
 L’objectif est de fournir un **chemin court, reproductible et stable** pour :
@@ -84,8 +84,8 @@ Ce script shell encapsule la séquence minimale suivante :
 
 Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 
-- `✓ Chapitre 05 : données générées avec succès.`
-- `✓ Chapitre 05 : figures (01–04) générées avec succès.`
+- `✓ Chapter 05 : données générées avec succès.`
+- `✓ Chapter 05 : figures (01–04) générées avec succès.`
 - un récapitulatif des fichiers dans `assets/zz-data/chapter05/`
   et `assets/zz-figures/chapter05/`.
 
@@ -97,7 +97,7 @@ Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 
 **Scripts scientifiques (code Python)** :
 
-- répertoire : `scripts/chapter05/`
+- répertoire : `scripts/05_primordial_bbn/`
 - scripts utilisés par le pipeline minimal :
 
   - `generate_data_chapter05.py`
@@ -140,7 +140,7 @@ pour les sorties graphiques.
 Commande directe (utilisée par le pipeline minimal) :
 
 ```bash
-python scripts/chapter05/generate_data_chapter05.py
+python scripts/05_primordial_bbn/generate_data_chapter05.py
 ```
 
 Ce script effectue, en résumé :
@@ -195,7 +195,7 @@ Ce script effectue, en résumé :
 7. **Message de fin**
 
    - en cas de succès, affiche un message du type :
-     - `✓ Chapitre 05 : données générées avec succès.`
+     - `✓ Chapter 05 : données générées avec succès.`
 
 ---
 
@@ -207,7 +207,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 1. **Réseau de réactions BBN** :
 
    ```bash
-   python scripts/chapter05/10_fig01_bbn_reaction_network.py
+   python scripts/05_primordial_bbn/10_fig01_bbn_reaction_network.py
    ```
 
    Produit / met à jour :
@@ -217,7 +217,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 2. **D/H : modèle vs observations** :
 
    ```bash
-   python scripts/chapter05/10_fig02_dh_model_vs_obs.py
+   python scripts/05_primordial_bbn/10_fig02_dh_model_vs_obs.py
    ```
 
    Produit / met à jour :
@@ -227,7 +227,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 3. **Yp : modèle vs observations** :
 
    ```bash
-   python scripts/chapter05/10_fig03_yp_model_vs_obs.py
+   python scripts/05_primordial_bbn/10_fig03_yp_model_vs_obs.py
    ```
 
    Produit / met à jour :
@@ -237,7 +237,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 4. **χ² BBN vs T** :
 
    ```bash
-   python scripts/chapter05/10_fig04_chi2_vs_T.py
+   python scripts/05_primordial_bbn/10_fig04_chi2_vs_T.py
    ```
 
    Produit / met à jour :
@@ -250,7 +250,7 @@ toutes les figures finales.
 
 ---
 
-## 5. Produits finaux attendus (Chapitre 05)
+## 5. Produits finaux attendus (Chapter 05)
 
 Pour la relecture scientifique et la publication, les fichiers suivants
 doivent être considérés comme **produits finaux** de CH05.
@@ -338,7 +338,7 @@ comme les autres chapitres homogénéisés (CH07, CH09).
 Dans le cadre du pipeline minimal, l’usage recommandé reste simplement :
 
 ```bash
-python scripts/chapter05/generate_data_chapter05.py
+python scripts/05_primordial_bbn/generate_data_chapter05.py
 ```
 
 Les options avancées du CLI seed sont réservées à :

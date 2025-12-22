@@ -3,7 +3,7 @@
   "title": "monte-carlo-global-8d",
   "paths": {
     "data_dir": "assets/zz-data/chapter10",
-    "scripts_dir": "scripts/chapter10",
+    "scripts_dir": "scripts/10_global_scan",
     "figures_dir": "assets/zz-figures/chapter10",
     "configs": [
       "conventions.md",
@@ -40,15 +40,15 @@
     ]
   },
   "scripts": [
-    "scripts/chapter10/generate_chapter10_data.py",
-    "scripts/chapter10/inspect_topk_residuals.py",
-    "scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py",
-    "scripts/chapter10/plot_fig03_convergence_p95_vs_n.py",
-    "scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py",
-    "scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py",
-    "scripts/chapter10/plot_fig05_hist_cdf_metrics.py",
-    "scripts/chapter10/plot_fig06_residual_map.py",
-    "scripts/chapter10/plot_fig07_synthesis.py"
+    "scripts/10_global_scan/generate_chapter10_data.py",
+    "scripts/10_global_scan/inspect_topk_residuals.py",
+    "scripts/10_global_scan/plot_fig02_scatter_phi_at_fpeak.py",
+    "scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py",
+    "scripts/10_global_scan/plot_fig03b_bootstrap_coverage_vs_n.py",
+    "scripts/10_global_scan/plot_fig04_scatter_p95_recalc_vs_orig.py",
+    "scripts/10_global_scan/plot_fig05_hist_cdf_metrics.py",
+    "scripts/10_global_scan/plot_fig06_residual_map.py",
+    "scripts/10_global_scan/plot_fig07_synthesis.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter10/10_mc_results.meta.json",

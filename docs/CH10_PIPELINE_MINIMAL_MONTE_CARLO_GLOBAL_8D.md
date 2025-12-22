@@ -1,5 +1,5 @@
 
-# Chapitre 10 – Pipeline minimal canonique (Monte‑Carlo global 8D)
+# Chapter 10 – Pipeline minimal canonique (Monte‑Carlo global 8D)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer,
 à partir du dépôt MCGT, les calculs essentiels du **chapitre 10 – Monte‑Carlo global 8D**
@@ -32,7 +32,7 @@ Les fichiers d’entrée CH10 doivent déjà être présents :
 
 Les scripts CH10 vivent dans :
 
-- `scripts/chapter10/`
+- `scripts/10_global_scan/`
 
 Les figures CH10 sont écrites dans :
 
@@ -48,47 +48,47 @@ Depuis la racine du dépôt :
 cd ~/MCGT  # adapter si nécessaire
 
 # 1) Résultats Monte‑Carlo 8D (métriques "historiques" linéaires)
-python scripts/chapter10/generate_data_chapter10.py \
+python scripts/10_global_scan/generate_data_chapter10.py \
   --config  assets/zz-data/chapter10/10_mc_config.json \
   --samples assets/zz-data/chapter10/10_mc_samples.csv \
   --out     assets/zz-data/chapter10/10_mc_results.csv
 
 # 2) Recalcul circulaire de p95_20_300 → colonne de référence
-python scripts/chapter10/recompute_p95_circular.py \
+python scripts/10_global_scan/recompute_p95_circular.py \
   --in  assets/zz-data/chapter10/10_mc_results.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.csv
 
 # 3) Ajout des jalons f_peak (optionnel mais recommandé)
-python scripts/chapter10/add_phi_at_fpeak.py \
+python scripts/10_global_scan/add_phi_at_fpeak.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
 
 # 4) Agrégats principaux sur [20, 300] Hz
-python scripts/chapter10/eval_primary_metrics_20_300.py \
+python scripts/10_global_scan/eval_primary_metrics_20_300.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.agg.csv
 
 # 5) Bootstrap top‑k sur p95_20_300_recalc
-python scripts/chapter10/bootstrap_topk_p95.py \
+python scripts/10_global_scan/bootstrap_topk_p95.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_best_bootstrap.json \
   --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
 
 # 6) Figures principales basées sur la métrique circulaire
-python scripts/chapter10/10_fig_01_iso_p95_maps.py \
+python scripts/10_global_scan/10_fig_01_iso_p95_maps.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
   --out assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
   --levels 16 --dpi 300
 
-python scripts/chapter10/10_fig_04_p95_comparison.py \
+python scripts/10_global_scan/10_fig_04_p95_comparison.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
   --out assets/zz-figures/chapter10/10_fig_04_p95_comparison.png \
   --dpi 300 --bins 50
 
-python scripts/chapter10/10_fig_05_hist_cdf_metrics.py \
+python scripts/10_global_scan/10_fig_05_hist_cdf_metrics.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150
@@ -110,7 +110,7 @@ Si tout se passe bien, tu dois notamment vérifier que :
 
 Répertoire :
 
-- `scripts/chapter10/`
+- `scripts/10_global_scan/`
 
 Scripts utilisés dans le **pipeline minimal canonique** :
 
@@ -236,7 +236,7 @@ Figures **complémentaires** (hors pipeline minimal strict mais cohérentes) :
 Depuis la racine du dépôt :
 
 ```bash
-python scripts/chapter10/generate_data_chapter10.py \
+python scripts/10_global_scan/generate_data_chapter10.py \
   --config  assets/zz-data/chapter10/10_mc_config.json \
   --samples assets/zz-data/chapter10/10_mc_samples.csv \
   --out     assets/zz-data/chapter10/10_mc_results.csv
@@ -261,7 +261,7 @@ après recalcul circulaire en §4.2.
 ### 4.2. Recalcul circulaire de p95 (colonne de référence)
 
 ```bash
-python scripts/chapter10/recompute_p95_circular.py \
+python scripts/10_global_scan/recompute_p95_circular.py \
   --in  assets/zz-data/chapter10/10_mc_results.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.csv
 ```
@@ -299,7 +299,7 @@ Si la config active `outputs.with_fpeak` ou si tu veux exploiter les diagnostics
 en fonction d’une fréquence jalon :
 
 ```bash
-python scripts/chapter10/add_phi_at_fpeak.py \
+python scripts/10_global_scan/add_phi_at_fpeak.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
 ```
@@ -318,7 +318,7 @@ Ce fichier est utilisé notamment par `10_fig02_scatter_phi_at_fpeak.py`
 ### 4.4. Agrégats principaux sur `[20, 300]` Hz
 
 ```bash
-python scripts/chapter10/eval_primary_metrics_20_300.py \
+python scripts/10_global_scan/eval_primary_metrics_20_300.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_results.circ.agg.csv
 ```
@@ -340,7 +340,7 @@ Ce fichier sert de base pour les synthèses globales et les tableaux de résulta
 ### 4.5. Bootstrap top‑k et fichiers « best »
 
 ```bash
-python scripts/chapter10/bootstrap_topk_p95.py \
+python scripts/10_global_scan/bootstrap_topk_p95.py \
   --in  assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-data/chapter10/10_mc_best_bootstrap.json \
   --k 20 --outer 400 --inner 2000 --alpha 0.05 --seed 12345
@@ -371,7 +371,7 @@ principales du chapitre 10.
 #### 4.6.1. Cartes iso `p95_20_300_recalc` (Fig. 01)
 
 ```bash
-python scripts/chapter10/10_fig_01_iso_p95_maps.py \
+python scripts/10_global_scan/10_fig_01_iso_p95_maps.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
@@ -385,7 +385,7 @@ Cette figure montre la structure de `p95_20_300_recalc` dans un sous‑espace
 #### 4.6.2. Comparaison linéaire vs circulaire (Fig. 04)
 
 ```bash
-python scripts/chapter10/10_fig_04_p95_comparison.py \
+python scripts/10_global_scan/10_fig_04_p95_comparison.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
   --out assets/zz-figures/chapter10/10_fig_04_p95_comparison.png \
@@ -398,7 +398,7 @@ et illustre les écarts potentiels (biais de linéarisation).
 #### 4.6.3. Histogrammes / CDF des métriques (Fig. 05)
 
 ```bash
-python scripts/chapter10/10_fig_05_hist_cdf_metrics.py \
+python scripts/10_global_scan/10_fig_05_hist_cdf_metrics.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150

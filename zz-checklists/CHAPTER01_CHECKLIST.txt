@@ -1,7 +1,7 @@
 CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 
 [OBJECTIF & PORTÉE]
-- [ ] Ce checklist couvre génération des données/figures + compilation LaTeX pour le Chapitre 1.
+- [ ] Ce checklist couvre génération des données/figures + compilation LaTeX pour le Chapter 1.
 - [ ] Conformité aux conventions de grille, formats, lissage (reproductibilité).
 
 [ARBORESCENCE & FICHIERS ATTENDUS]
@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
       • fig_01_early_plateau.png ; fig_02_logistic_calibration.png ;
         fig_03_relative_error_timeline.png ; fig_04_P_vs_T_evolution.png ;
         fig_05_I1_vs_T.png ; fig_06_P_derivative_comparison.png
-- [ ] Scripts (scripts/chapter01/):
+- [ ] Scripts (scripts/01_invariants_stability/):
       • generate_data_chapter01.py
       • plot_fig01_early_plateau.py … plot_fig06_P_derivative_comparison.py
       • requirements.txt
@@ -38,7 +38,7 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 - [ ] Invariant I1 : I1 = P_calc / T (adimensionnel)
 
 [GÉNÉRATION DES DONNÉES]
-- [ ] Exécuter :  python scripts/chapter01/generate_data_chapter01.py
+- [ ] Exécuter :  python scripts/01_invariants_stability/generate_data_chapter01.py
       Sorties attendues (assets/zz-data/chapter01/):
       • 01_optimized_data.csv                       (T, P_calc)
       • 01_optimized_grid_data.dat                  (= 4.1 au format DAT)
@@ -50,12 +50,12 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python scripts/chapter01/plot_fig01_early_plateau.py
-      python scripts/chapter01/plot_fig02_logistic_calibration.py
-      python scripts/chapter01/plot_fig03_relative_error_timeline.py
-      python scripts/chapter01/plot_fig04_P_vs_T_evolution.py
-      python scripts/chapter01/plot_fig05_I1_vs_T.py
-      python scripts/chapter01/plot_fig06_P_derivative_comparison.py
+      python scripts/01_invariants_stability/plot_fig01_early_plateau.py
+      python scripts/01_invariants_stability/plot_fig02_logistic_calibration.py
+      python scripts/01_invariants_stability/plot_fig03_relative_error_timeline.py
+      python scripts/01_invariants_stability/plot_fig04_P_vs_T_evolution.py
+      python scripts/01_invariants_stability/plot_fig05_I1_vs_T.py
+      python scripts/01_invariants_stability/plot_fig06_P_derivative_comparison.py
 - [ ] Vérifier axes/échelles (log si requis), légendes, unités, DPI (≥300).
 
 [CONTRÔLES DE QUALITÉ]
@@ -80,7 +80,7 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 - [ ] Versionner : entrée dédiée dans mcgt/CHANGELOG.md ; conserver encodage/chemins relatifs.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python scripts/chapter01/generate_data_chapter01.py
+- [ ] Données   :  python scripts/01_invariants_stability/generate_data_chapter01.py
 - [ ] Figures   :  exécuter les 6 scripts “plot_fig..”
 - [ ] LaTeX     :  2 commandes pdflatex ci-dessus
 - [ ] Diagnostic:  diag_consistency.py (report MD) + mise à jour manifeste des figures

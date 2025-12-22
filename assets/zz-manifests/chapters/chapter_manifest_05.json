@@ -3,7 +3,7 @@
   "title": "nucleosynthese-primordiale",
   "paths": {
     "data_dir": "assets/zz-data/chapter05",
-    "scripts_dir": "scripts/chapter05",
+    "scripts_dir": "scripts/05_primordial_bbn",
     "figures_dir": "assets/zz-figures/chapter05",
     "configs": [
       "conventions.md",
@@ -36,10 +36,10 @@
     ]
   },
   "scripts": [
-    "scripts/chapter05/generate_chapter5_data.py",
-    "scripts/chapter05/plot_fig02_dh_model_vs_obs.py",
-    "scripts/chapter05/plot_fig03_yp_model_vs_obs.py",
-    "scripts/chapter05/plot_fig04_chi2_vs_T.py"
+    "scripts/05_primordial_bbn/generate_chapter5_data.py",
+    "scripts/05_primordial_bbn/plot_fig02_dh_model_vs_obs.py",
+    "scripts/05_primordial_bbn/plot_fig03_yp_model_vs_obs.py",
+    "scripts/05_primordial_bbn/plot_fig04_chi2_vs_T.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter05/05_bbn_chi2_vs_T.meta.json",

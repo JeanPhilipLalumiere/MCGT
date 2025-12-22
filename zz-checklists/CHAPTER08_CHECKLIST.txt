@@ -39,7 +39,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
       • fig_05_residuals.png
       • fig_06_normalized_residuals.png
       • fig_07_chi2_profile.png
-- [ ] Scripts (scripts/chapter08/):
+- [ ] Scripts (scripts/08_sound_horizon/):
       • generate_coupling_milestones.py
       • generate_data_chapter08.py
       • plot_fig01_chi2_total_vs_q0.py
@@ -87,17 +87,17 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [PIPELINE — PRÉPARATION DES ENTRÉES]
 - [ ] Extraire/standardiser BAO :
-      python scripts/chapter08/utils/extract_bao_data.py  → 08_bao_data.csv
+      python scripts/08_sound_horizon/utils/extract_bao_data.py  → 08_bao_data.csv
 - [ ] Extraire/standardiser Pantheon+ :
-      python scripts/chapter08/utils/extract_pantheon_plus_data.py  → 08_pantheon_data.csv
+      python scripts/08_sound_horizon/utils/extract_pantheon_plus_data.py  → 08_pantheon_data.csv
 - [ ] Vérifier la grille z :
-      python scripts/chapter08/utils/verify_z_grid.py  --bao 08_bao_data.csv --sn 08_pantheon_data.csv
+      python scripts/08_sound_horizon/utils/verify_z_grid.py  --bao 08_bao_data.csv --sn 08_pantheon_data.csv
 - [ ] Construire les jalons agrégés :
-      python scripts/chapter08/generate_coupling_milestones.py  → 08_coupling_milestones.csv
+      python scripts/08_sound_horizon/generate_coupling_milestones.py  → 08_coupling_milestones.csv
 
 [PIPELINE — GÉNÉRATION DES SORTIES]
 - [ ] Données principales (profils, dérivées, 2D, théories) :
-      python scripts/chapter08/generate_data_chapter08.py \
+      python scripts/08_sound_horizon/generate_data_chapter08.py \
         --q0star_min -0.1 --q0star_max 0.1 --n_points 201 \
         --export-derivative \
         --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
@@ -108,19 +108,19 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [PRODUCTION DES FIGURES]
 - [ ] χ²(q0⋆) + min global :
-      python scripts/chapter08/plot_fig01_chi2_total_vs_q0.py      → fig_01_chi2_total_vs_q0.png
+      python scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py      → fig_01_chi2_total_vs_q0.png
 - [ ] BAO D_V(z) obs vs théorie :
-      python scripts/chapter08/plot_fig02_dv_vs_z.py               → fig_02_dv_vs_z.png
+      python scripts/08_sound_horizon/plot_fig02_dv_vs_z.py               → fig_02_dv_vs_z.png
 - [ ] SNe μ(z) obs vs théorie :
-      python scripts/chapter08/plot_fig03_mu_vs_z.py               → fig_03_mu_vs_z.png
+      python scripts/08_sound_horizon/plot_fig03_mu_vs_z.py               → fig_03_mu_vs_z.png
 - [ ] Carte χ²(q0⋆,param2) (si 2D) :
-      python scripts/chapter08/plot_fig04_chi2_heatmap.py          → fig_04_chi2_heatmap.png
+      python scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py          → fig_04_chi2_heatmap.png
 - [ ] Résidus (BAO/SN) :
-      python scripts/chapter08/plot_fig05_residuals.py             → fig_05_residuals.png
+      python scripts/08_sound_horizon/plot_fig05_residuals.py             → fig_05_residuals.png
 - [ ] Résidus normalisés (distributions) :
-      python scripts/chapter08/plot_fig06_normalized_residuals_distribution.py → fig_06_normalized_residuals.png
+      python scripts/08_sound_horizon/plot_fig06_normalized_residuals_distribution.py → fig_06_normalized_residuals.png
 - [ ] Profil Δχ²(q0⋆) :
-      python scripts/chapter08/plot_fig07_chi2_profile.py          → fig_07_chi2_profile.png
+      python scripts/08_sound_horizon/plot_fig07_chi2_profile.py          → fig_07_chi2_profile.png
 
 [CONVENTIONS NUMÉRIQUES]
 - [ ] Interpolation : PCHIP approprié (log-lin ou log-log selon variable).
@@ -156,16 +156,16 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer toutes les figures générées (+ checksum si activé).
 - [ ] assets/zz-manifests/chapters/chapter_manifest_08.json : lister données & figures du chapitre.
 - [ ] assets/zz-manifests/diag_consistency.py : exécuter un diagnostic global (dry-run possible).
-- [ ] mcgt/CHANGELOG.md : consigner tout changement impactant le Chapitre 8.
+- [ ] mcgt/CHANGELOG.md : consigner tout changement impactant le Chapter 8.
 
 [COMMANDES RAPIDES]
 - [ ] Entrées (extraction/agrégation) :
-      python scripts/chapter08/utils/extract_bao_data.py
-      python scripts/chapter08/utils/extract_pantheon_plus_data.py
-      python scripts/chapter08/generate_coupling_milestones.py
+      python scripts/08_sound_horizon/utils/extract_bao_data.py
+      python scripts/08_sound_horizon/utils/extract_pantheon_plus_data.py
+      python scripts/08_sound_horizon/generate_coupling_milestones.py
 - [ ] Données finales :
-      python scripts/chapter08/generate_data_chapter08.py --q0star_min -0.1 --q0star_max 0.1 --n_points 201 --export-derivative --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
+      python scripts/08_sound_horizon/generate_data_chapter08.py --q0star_min -0.1 --q0star_max 0.1 --n_points 201 --export-derivative --export-heatmap --param2_min -1.0 --param2_max 1.0 --n_param2 101
 - [ ] Figures :
-      python scripts/chapter08/plot_fig01_chi2_total_vs_q0.py  # etc.
+      python scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py  # etc.
 - [ ] LaTeX :
       pdflatex 08-couplage-sombre/08_couplage_sombre_conceptuel.tex ; pdflatex 08-couplage_sombre/08_couplage_sombre_details.tex

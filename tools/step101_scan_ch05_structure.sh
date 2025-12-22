@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# STEP101 – Scan structure Chapitre 05 (scripts, data, figures)
+# STEP101 – Scan structure Chapter 05 (scripts, data, figures)
 # Usage:
 #   bash step101_scan_ch05_structure.sh /chemin/vers/MCGT
 #   ou depuis la racine du dépôt:
@@ -21,16 +21,16 @@ mkdir -p "$LOGDIR"
 LOGFILE="$LOGDIR/101_ch05_structure_scan.txt"
 
 {
-  echo "# STEP101 – Scan structure Chapitre 05 (scripts, data, figures)"
+  echo "# STEP101 – Scan structure Chapter 05 (scripts, data, figures)"
   echo "# Timestamp: $(date -u +%Y%m%dT%H%M%SZ)"
   echo "# Root: $ROOT"
   echo
 
-  echo "## 1) Scripts Python dans scripts/chapter05/"
-  if [ -d "scripts/chapter05" ]; then
-    find "scripts/chapter05" -maxdepth 1 -type f -name "*.py" | sort
+  echo "## 1) Scripts Python dans scripts/05_primordial_bbn/"
+  if [ -d "scripts/05_primordial_bbn" ]; then
+    find "scripts/05_primordial_bbn" -maxdepth 1 -type f -name "*.py" | sort
   else
-    echo "[WARN] Répertoire scripts/chapter05 inexistant"
+    echo "[WARN] Répertoire scripts/05_primordial_bbn inexistant"
   fi
   echo
 

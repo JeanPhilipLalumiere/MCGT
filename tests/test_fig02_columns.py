@@ -4,7 +4,7 @@ import pathlib
 import pandas as pd
 
 # Charge le module directement depuis le script
-P = pathlib.Path("scripts/chapter10/10_fig_02_scatter_phi_at_fpeak.py")
+P = pathlib.Path("scripts/10_global_scan/10_fig_02_scatter_phi_at_fpeak.py")
 spec = importlib.util.spec_from_file_location("fig02", P)
 fig02 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fig02)

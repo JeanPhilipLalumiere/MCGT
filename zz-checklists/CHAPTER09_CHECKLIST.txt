@@ -32,7 +32,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
       • fig_04_absdphi_milestones_vs_f.png
       • fig_05_scatter_phi_at_fpeak.png
       • p95_check_control.png
-- [ ] Scripts (scripts/chapter09/):
+- [ ] Scripts (scripts/09_dark_energy_cpl/):
       • extract_phenom_phase.py
       • generate_mcgt_raw_phase.py
       • generate_data_chapter09.py
@@ -80,16 +80,16 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
 
 [PIPELINE — SÉQUENCE CONSEILLÉE]
 - [ ] (Optionnel) Générer la référence GR :
-      python scripts/chapter09/extract_phenom_phase.py \
+      python scripts/09_dark_energy_cpl/extract_phenom_phase.py \
         --out assets/zz-data/chapter09/09_phases_imrphenom.csv
 - [ ] Pré-correction + résidu “principal” :
-      python scripts/chapter09/generate_data_chapter09.py \
+      python scripts/09_dark_energy_cpl/generate_data_chapter09.py \
         --ref assets/zz-data/chapter09/09_phases_imrphenom.csv \
         --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
         --out-diff    assets/zz-data/chapter09/09_phase_diff.csv \
         --log-level INFO
 - [ ] Optimisation (base, degré, k) & série finale :
-      python scripts/chapter09/opt_poly_rebranch.py \
+      python scripts/09_dark_energy_cpl/opt_poly_rebranch.py \
         --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
         --meta assets/zz-data/chapter09/09_metrics_phase.json \
         --fit-window 30 250 --metrics-window 20 300 \
@@ -98,7 +98,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
         --out-best assets/zz-data/chapter09/09_best_params.json \
         --backup --log-level INFO
 - [ ] Contrôle méthodologique p95 :
-      python scripts/chapter09/check_p95_methods.py \
+      python scripts/09_dark_energy_cpl/check_p95_methods.py \
         --csv assets/zz-data/chapter09/09_phases_mcgt.csv \
         --window 20 300 \
         --out assets/zz-figures/chapter09/09_fig_00_p95_check_control.png
@@ -106,26 +106,26 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
 
 [PRODUCTION DES FIGURES]
 - [ ] Superposition φ_ref/φ_mcgt (+ résidu) :
-      python scripts/chapter09/plot_fig01_phase_overlay.py \
+      python scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py \
         --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
         --meta assets/zz-data/chapter09/09_metrics_phase.json \
         --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png \
         --shade 20 300 --show-residual --display-variant auto \
         --anchor-policy if-not-calibrated --dpi 300 --save-pdf
 - [ ] Résidu vs f (bandes) :
-      python scripts/chapter09/plot_fig02_residual_phase.py \
+      python scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
         --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
         --meta assets/zz-data/chapter09/09_metrics_phase.json \
         --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png \
         --bands 20 300 300 1000 1000 2000 --dpi 300
 - [ ] Histogramme |Δφ| (20–300 Hz) :
-      python scripts/chapter09/plot_fig03_hist_absdphi_20_300.py \
+      python scripts/09_dark_energy_cpl/plot_fig03_hist_absdphi_20_300.py \
         --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
         --meta assets/zz-data/chapter09/09_metrics_phase.json \
         --out  assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
         --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
 - [ ] Jalons GWTC-3 vs f :
-      python scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py \
+      python scripts/09_dark_energy_cpl/plot_fig04_absdphi_milestones_vs_f.py \
         --diff   assets/zz-data/chapter09/09_phase_diff.csv \
         --csv    assets/zz-data/chapter09/09_phases_mcgt.csv \
         --meta   assets/zz-data/chapter09/09_metrics_phase.json \
@@ -133,7 +133,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
         --out    assets/zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png \
         --window 20 300 --with_errorbar --dpi 300
 - [ ] Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) :
-      python scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py \
+      python scripts/09_dark_energy_cpl/plot_fig05_scatter_phi_at_fpeak.py \
         --jalons assets/zz-data/chapter09/09_jalons_comparaison.csv \
         --out    assets/zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
 
@@ -179,10 +179,10 @@ PY
 
 [COMMANDES RAPIDES — RÉCAPITULATIF]
 - [ ] Données de base :
-      python scripts/chapter09/generate_data_chapter09.py --ref assets/zz-data/chapter09/09_phases_imrphenom.csv --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --out-diff assets/zz-data/chapter09/09_phase_diff.csv
+      python scripts/09_dark_energy_cpl/generate_data_chapter09.py --ref assets/zz-data/chapter09/09_phases_imrphenom.csv --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --out-diff assets/zz-data/chapter09/09_phase_diff.csv
 - [ ] Optimisation & série finale :
-      python scripts/chapter09/opt_poly_rebranch.py --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --meta assets/zz-data/chapter09/09_metrics_phase.json --fit-window 30 250 --metrics-window 20 300 --degrees 3 4 5 --bases log10 hz --k-range -10 10 --out-csv assets/zz-data/chapter09/09_phases_mcgt.csv --out-best assets/zz-data/chapter09/09_best_params.json
+      python scripts/09_dark_energy_cpl/opt_poly_rebranch.py --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --meta assets/zz-data/chapter09/09_metrics_phase.json --fit-window 30 250 --metrics-window 20 300 --degrees 3 4 5 --bases log10 hz --k-range -10 10 --out-csv assets/zz-data/chapter09/09_phases_mcgt.csv --out-best assets/zz-data/chapter09/09_best_params.json
 - [ ] Figures :
-      python scripts/chapter09/plot_fig01_phase_overlay.py   # etc. (02,03,04,05)
+      python scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py   # etc. (02,03,04,05)
 
 [FIN DE CHECKLIST]

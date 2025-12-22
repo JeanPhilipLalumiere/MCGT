@@ -1,4 +1,4 @@
-# Chapitre 02 – Pipeline minimal canonique (validation chronologique & spectre primordial)
+# Chapter 02 – Pipeline minimal canonique (validation chronologique & spectre primordial)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 02 – validation chronologique & spectre primordial**.
@@ -16,7 +16,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH02 s’appuie directement sur les scripts Python du chapitre 02 :
 
-- `scripts/chapter02/generate_data_chapter02.py`
+- `scripts/02_primordial_spectrum/generate_data_chapter02.py`
 - ``
 
 Il est conçu pour :
@@ -55,16 +55,16 @@ Depuis la racine du dépôt :
 cd /home/jplal/MCGT  # adapter si nécessaire
 
 # 1) Générer / rafraîchir toutes les données du chapitre 02
-python scripts/chapter02/generate_data_chapter02.py --all
+python scripts/02_primordial_spectrum/generate_data_chapter02.py --all
 
 # 2) Régénérer les figures principales (fig. 00 à 06)
-python scripts/chapter02/10_fig00_spectrum.py
-python scripts/chapter02/10_fig01_P_vs_T_evolution.py
-python scripts/chapter02/10_fig02_calibration.py
-python scripts/chapter02/10_fig03_relative_errors.py
-python scripts/chapter02/10_fig04_pipeline_diagram.py
-python scripts/chapter02/10_fig05_FG_series.py
-python scripts/chapter02/10_fig06_alpha_fit.py
+python scripts/02_primordial_spectrum/10_fig00_spectrum.py
+python scripts/02_primordial_spectrum/10_fig01_P_vs_T_evolution.py
+python scripts/02_primordial_spectrum/10_fig02_calibration.py
+python scripts/02_primordial_spectrum/10_fig03_relative_errors.py
+python scripts/02_primordial_spectrum/10_fig04_pipeline_diagram.py
+python scripts/02_primordial_spectrum/10_fig05_FG_series.py
+python scripts/02_primordial_spectrum/10_fig06_alpha_fit.py
 ```
 
 Si tout se passe bien, `generate_data_chapter02.py` affiche un message de succès et les
@@ -78,7 +78,7 @@ figures sont (re)créées dans `assets/zz-figures/chapter02/`.
 
 Répertoire CH02 :
 
-- `scripts/chapter02/`
+- `scripts/02_primordial_spectrum/`
 
 Scripts utilisés par le pipeline minimal :
 
@@ -160,7 +160,7 @@ m calc}\) + ligne d’identité.
 Depuis la racine du dépôt :
 
 ```bash
-python scripts/chapter02/generate_data_chapter02.py --all
+python scripts/02_primordial_spectrum/generate_data_chapter02.py --all
 ```
 
 Comportement canonique (schéma logique) :
@@ -216,13 +216,13 @@ dans un état cohérent.
 Une fois les données générées, les figures sont (re)calculées avec :
 
 ```bash
-python scripts/chapter02/10_fig00_spectrum.py
-python scripts/chapter02/10_fig01_P_vs_T_evolution.py
-python scripts/chapter02/10_fig02_calibration.py
-python scripts/chapter02/10_fig03_relative_errors.py
-python scripts/chapter02/10_fig04_pipeline_diagram.py
-python scripts/chapter02/10_fig05_FG_series.py
-python scripts/chapter02/10_fig06_alpha_fit.py
+python scripts/02_primordial_spectrum/10_fig00_spectrum.py
+python scripts/02_primordial_spectrum/10_fig01_P_vs_T_evolution.py
+python scripts/02_primordial_spectrum/10_fig02_calibration.py
+python scripts/02_primordial_spectrum/10_fig03_relative_errors.py
+python scripts/02_primordial_spectrum/10_fig04_pipeline_diagram.py
+python scripts/02_primordial_spectrum/10_fig05_FG_series.py
+python scripts/02_primordial_spectrum/10_fig06_alpha_fit.py
 ```
 
 Chaque script lit les tables correspondantes dans `assets/zz-data/chapter02/` et écrit la

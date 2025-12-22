@@ -117,7 +117,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter5/generate_chapter5_data.py",
+      "producer_script": "scripts/05_primordial_bbn/generate_chapter5_data.py",
       "git_hash": "REPLACE_WITH_GIT_HASH",
       "max_epsilon_primary": 0.0085,
       "max_epsilon_order2": 0.00156,

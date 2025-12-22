@@ -14,15 +14,15 @@ echo "== CH09 – PIPELINE MINIMAL : phase-ondes-gravitationnelles =="
 
 echo
 echo "[1/2] Génération des données..."
-python scripts/chapter09/generate_data_chapter09.py
+python scripts/09_dark_energy_cpl/generate_data_chapter09.py
 
 echo
-echo "✅ Génération Chapitre 9 OK"
+echo "✅ Génération Chapter 9 OK"
 
 echo
 echo "[2/2] Génération des figures..."
-python scripts/chapter09/plot_fig01_phase_overlay.py
-python scripts/chapter09/plot_fig02_residual_phase.py
+python scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py
+python scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py
 
 echo
 echo "[OK] CH09 pipeline minimal terminé sans erreur."

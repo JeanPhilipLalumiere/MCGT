@@ -217,7 +217,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter9/extract_imrphenom_phase.py",
+      "producer_script": "scripts/09_dark_energy_cpl/extract_imrphenom_phase.py",
       "git_hash": "abcdef1",
       "filename": "assets/zz-data/chapter9/09_phases_imrphenom.csv",
       "source": "lalsuite",

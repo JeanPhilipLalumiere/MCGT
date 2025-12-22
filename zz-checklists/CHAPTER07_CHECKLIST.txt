@@ -42,7 +42,7 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
       • fig_05_ddelta_phi_dk_vs_k.png
       • fig_06_comparison.png
       • fig_07_invariant_I2.png
-- [ ] Scripts (scripts/chapter07/):
+- [ ] Scripts (scripts/07_bao_geometry/):
       • launch_scalar_perturbations_solver.py
       • launch_solver_chapter07.sh
       • generate_data_chapter07.py
@@ -106,23 +106,23 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
 
 [PIPELINE — SOLVEUR & POST-TRAITEMENT]
 - [ ] Solveur → matrices (k,a) :
-      python scripts/chapter07/launch_scalar_perturbations_solver.py \
+      python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py \
              --ini config/scalar_perturbations.ini
 - [ ] Post-traitement (profils 1D, dérivées, invariants, domaine/frontière, méta) :
-      python scripts/chapter07/generate_data_chapter07.py \
+      python scripts/07_bao_geometry/generate_data_chapter07.py \
              --ini config/scalar_perturbations.ini \
              --cs2_param 1.0 --delta_phi_param 0.05 \
              --export-derivative --export-matrix
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python scripts/chapter07/plot_fig01_cs2_heatmap.py
-      python scripts/chapter07/plot_fig02_delta_phi_heatmap.py
-      python scripts/chapter07/tracer_fig03_invariant_I1.py
-      python scripts/chapter07/tracer_fig04_dcs2_vs_k.py
-      python scripts/chapter07/tracer_fig05_ddelta_phi_vs_k.py
-      python scripts/chapter07/plot_fig06_comparison.py
-      python scripts/chapter07/tracer_fig07_invariant_I2.py
+      python scripts/07_bao_geometry/plot_fig01_cs2_heatmap.py
+      python scripts/07_bao_geometry/plot_fig02_delta_phi_heatmap.py
+      python scripts/07_bao_geometry/tracer_fig03_invariant_I1.py
+      python scripts/07_bao_geometry/tracer_fig04_dcs2_vs_k.py
+      python scripts/07_bao_geometry/tracer_fig05_ddelta_phi_vs_k.py
+      python scripts/07_bao_geometry/plot_fig06_comparison.py
+      python scripts/07_bao_geometry/tracer_fig07_invariant_I2.py
 - [ ] Vérifs : DPI ≥ 300 ; axes/échelles corrects ; légendes/annotations homogènes.
 
 [CONTRÔLES QUALITÉ (QC)]
@@ -151,10 +151,10 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer les figures (avec checksum si activé).
 - [ ] assets/zz-manifests/chapters/chapter_manifest_07.json : lister données & figures du chapitre.
-- [ ] mcgt/CHANGELOG.md : consigner tout changement impactant le Chapitre 7.
+- [ ] mcgt/CHANGELOG.md : consigner tout changement impactant le Chapter 7.
 
 [COMMANDES RAPIDES]
-- [ ] Solveur :  python scripts/chapter07/launch_scalar_perturbations_solver.py --ini config/scalar_perturbations.ini
-- [ ] Données :  python scripts/chapter07/generate_data_chapter07.py --ini config/scalar_perturbations.ini --export-derivative --export-matrix
+- [ ] Solveur :  python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py --ini config/scalar_perturbations.ini
+- [ ] Données :  python scripts/07_bao_geometry/generate_data_chapter07.py --ini config/scalar_perturbations.ini --export-derivative --export-matrix
 - [ ] Figures :  exécuter les scripts plot_fig** / tracer_fig**
 - [ ] LaTeX   :  2× pdflatex pour chaque .tex (conceptuel, details)

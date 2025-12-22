@@ -107,7 +107,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:34:56Z",
-      "producer_script": "scripts/chapter3/generate_chapter3_data.py",
+      "producer_script": "scripts/03_stability_domain/generate_chapter3_data.py",
       "git_hash": "REPLACE_WITH_GIT_HASH",
       "version": "chap3-v1.0",
       "n_points": 715,

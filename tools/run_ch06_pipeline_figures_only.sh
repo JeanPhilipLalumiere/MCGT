@@ -35,11 +35,11 @@ fi
 
 echo "[1/1] Génération des figures CH06..."
 
-python scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py
-python scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py
-python scripts/chapter06/plot_fig03_delta_cls_relative.py
-python scripts/chapter06/plot_fig04_delta_rs_vs_params.py
-python scripts/chapter06/plot_fig05_delta_chi2_heatmap.py
+python scripts/06_early_growth_jwst/plot_fig01_cmb_dataflow_diagram.py
+python scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py
+python scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py
+python scripts/06_early_growth_jwst/plot_fig04_delta_rs_vs_params.py
+python scripts/06_early_growth_jwst/plot_fig05_delta_chi2_heatmap.py
 
 echo
 echo "[OK] CH06 figures-only terminé sans erreur."

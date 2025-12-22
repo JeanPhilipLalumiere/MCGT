@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "assets/zz-schemas/07_params_perturbations.schema.json",
   "title": "Chapter 07 — Perturbations parameters",
-  "description": "Schéma validant les paramètres numériques et pipeline utilisés au Chapitre 7 (perturbations scalaires). Fichier cible: 07_params_perturbations.json.",
+  "description": "Schéma validant les paramètres numériques et pipeline utilisés au Chapter 7 (perturbations scalaires). Fichier cible: 07_params_perturbations.json.",
   "type": "object",
   "properties": {
     "generated_at": {
@@ -208,7 +208,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter7/generate_chapter7_data.py",
+      "producer_script": "scripts/07_bao_geometry/generate_chapter7_data.py",
       "git_hash": "abcdef1",
       "cs2_param": 1.0,
       "delta_phi_param": 0.05,

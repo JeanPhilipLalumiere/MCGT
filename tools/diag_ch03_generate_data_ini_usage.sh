@@ -7,9 +7,9 @@ echo
 python - << 'PYEOF'
 from pathlib import Path
 
-path = Path("scripts/chapter03/generate_data_chapter03.py")
+path = Path("scripts/03_stability_domain/generate_data_chapter03.py")
 if not path.exists():
-    print("[ERROR] Fichier scripts/chapter03/generate_data_chapter03.py introuvable.")
+    print("[ERROR] Fichier scripts/03_stability_domain/generate_data_chapter03.py introuvable.")
 else:
     lines = path.read_text().splitlines()
     hits = []

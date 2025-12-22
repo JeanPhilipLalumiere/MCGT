@@ -24,10 +24,10 @@ python3 -V || true
 pip -V || true
 
 echo "[INFO] Étape: génération CH09"
-if python3 scripts/chapter09/generate_data_chapter09.py --help 2>/dev/null | grep -qi overwrite; then
-  python3 scripts/chapter09/generate_data_chapter09.py --overwrite || echo "[WARN] generate: code non nul"
+if python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py --help 2>/dev/null | grep -qi overwrite; then
+  python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py --overwrite || echo "[WARN] generate: code non nul"
 else
-  python3 scripts/chapter09/generate_data_chapter09.py || echo "[WARN] generate: code non nul"
+  python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py || echo "[WARN] generate: code non nul"
 fi
 
 # Localiser un CSV Δφ plausible
@@ -50,12 +50,12 @@ else
 fi
 
 echo "[INFO] Étape: fig01"
-python3 scripts/chapter09/plot_fig01_phase_overlay.py || echo "[WARN] fig01: code non nul"
+python3 scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py || echo "[WARN] fig01: code non nul"
 
 echo "[INFO] Étape: fig02"
 if [ -n "${CSV_NORM:-}" ] && [ -f "$CSV_NORM" ]; then
   OUT_PNG="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
-  python3 scripts/chapter09/plot_fig02_residual_phase.py \
+  python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
     --csv "$CSV_NORM" \
     --out "$OUT_PNG" \
     --dpi 160 || echo "[WARN] fig02: code non nul"

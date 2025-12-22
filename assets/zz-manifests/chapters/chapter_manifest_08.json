@@ -3,7 +3,7 @@
   "title": "couplage-sombre",
   "paths": {
     "data_dir": "assets/zz-data/chapter08",
-    "scripts_dir": "scripts/chapter08",
+    "scripts_dir": "scripts/08_sound_horizon",
     "figures_dir": "assets/zz-figures/chapter08",
     "configs": [
       "conventions.md",
@@ -41,15 +41,15 @@
     ]
   },
   "scripts": [
-    "scripts/chapter08/generate_chapter8_data.py",
-    "scripts/chapter08/generate_coupling_milestones.py",
-    "scripts/chapter08/plot_fig01_chi2_total_vs_q0.py",
-    "scripts/chapter08/plot_fig02_dv_vs_z.py",
-    "scripts/chapter08/plot_fig03_mu_vs_z.py",
-    "scripts/chapter08/plot_fig04_heatmap_chi2.py",
-    "scripts/chapter08/plot_fig05_residuals.py",
-    "scripts/chapter08/plot_fig06_normalized_residuals_distribution.py",
-    "scripts/chapter08/plot_fig07_chi2_profile.py"
+    "scripts/08_sound_horizon/generate_chapter8_data.py",
+    "scripts/08_sound_horizon/generate_coupling_milestones.py",
+    "scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py",
+    "scripts/08_sound_horizon/plot_fig02_dv_vs_z.py",
+    "scripts/08_sound_horizon/plot_fig03_mu_vs_z.py",
+    "scripts/08_sound_horizon/plot_fig04_heatmap_chi2.py",
+    "scripts/08_sound_horizon/plot_fig05_residuals.py",
+    "scripts/08_sound_horizon/plot_fig06_normalized_residuals_distribution.py",
+    "scripts/08_sound_horizon/plot_fig07_chi2_profile.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter08/08_chi2_scan2d.meta.json",

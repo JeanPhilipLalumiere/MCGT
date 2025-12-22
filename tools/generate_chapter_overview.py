@@ -230,7 +230,7 @@ def render_markdown(chapters: Dict[str, Dict[str, Any]], output: Path) -> None:
 
     for chapter in sorted(chapters.keys()):
         info = chapters[chapter]
-        lines.append(f"## Chapitre {chapter}")
+        lines.append(f"## Chapter {chapter}")
         lines.append("")
 
         # résumé chiffré

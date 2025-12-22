@@ -26,7 +26,7 @@ run_ch() {
 run_ch "CH09" "bash tools/smoke_ch09_fast.sh"
 
 # TODO: brancher ici CH01..CH08, CH10 au fur et à mesure
-# ex: run_ch "CH01" "bash scripts/chapter01/smoke.sh"
+# ex: run_ch "CH01" "bash scripts/01_invariants_stability/smoke.sh"
 
 echo "────────────────────────────────────────"
 if [ $status -eq 0 ]; then

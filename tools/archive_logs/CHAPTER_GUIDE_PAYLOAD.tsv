@@ -17,13 +17,13 @@ chapter	kind	path	basename	ext	role	is_core	section
 1	figures	assets/zz-figures/chapter01/01_fig_06_p_derivative_comparison.png	01_fig_06_p_derivative_comparison.png	.png	FIGURE_MAIN	YES	5. Figures principales
 1	latex	01-introduction-applications/CHAPTER01_GUIDE.txt	CHAPTER01_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
 1	latex	01-introduction-applications/CHAPTER1_GUIDE.txt	CHAPTER1_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-1	scripts	scripts/chapter01/generate_data_chapter01.py	generate_data_chapter01.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-1	scripts	scripts/chapter01/plot_fig01_early_plateau.py	plot_fig01_early_plateau.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-1	scripts	scripts/chapter01/plot_fig02_logistic_calibration.py	plot_fig02_logistic_calibration.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-1	scripts	scripts/chapter01/plot_fig03_relative_error_timeline.py	plot_fig03_relative_error_timeline.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-1	scripts	scripts/chapter01/plot_fig04_p_vs_t_evolution.py	plot_fig04_p_vs_t_evolution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-1	scripts	scripts/chapter01/plot_fig05_I1_vs_T.py	plot_fig05_I1_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-1	scripts	scripts/chapter01/plot_fig06_p_derivative_comparison.py	plot_fig06_p_derivative_comparison.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/generate_data_chapter01.py	generate_data_chapter01.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+1	scripts	scripts/01_invariants_stability/plot_fig01_early_plateau.py	plot_fig01_early_plateau.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/plot_fig02_logistic_calibration.py	plot_fig02_logistic_calibration.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/plot_fig03_relative_error_timeline.py	plot_fig03_relative_error_timeline.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/plot_fig04_p_vs_t_evolution.py	plot_fig04_p_vs_t_evolution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/plot_fig05_I1_vs_T.py	plot_fig05_I1_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+1	scripts	scripts/01_invariants_stability/plot_fig06_p_derivative_comparison.py	plot_fig06_p_derivative_comparison.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
 2	data	assets/zz-data/chapter02/02_As_ns_vs_alpha.csv	02_As_ns_vs_alpha.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 2	data	assets/zz-data/chapter02/02_FG_series.csv	02_FG_series.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 2	data	assets/zz-data/chapter02/02_P_R_sampling.csv	02_P_R_sampling.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
@@ -42,16 +42,16 @@ chapter	kind	path	basename	ext	role	is_core	section
 2	figures	assets/zz-figures/chapter02/02_fig_05_fg_series.png	02_fig_05_fg_series.png	.png	FIGURE_MAIN	YES	5. Figures principales
 2	figures	assets/zz-figures/chapter02/02_fig_06_alpha_fit.png	02_fig_06_alpha_fit.png	.png	FIGURE_MAIN	YES	5. Figures principales
 2	latex	02-validation-chronologique/CHAPTER02_GUIDE.txt	CHAPTER02_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-2	scripts	scripts/chapter02/extract_sympy_FG.ipynb	extract_sympy_FG.ipynb	.ipynb	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-2	scripts	scripts/chapter02/generate_data_chapter02.py	generate_data_chapter02.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-2	scripts	scripts/chapter02/plot_fig00_spectrum.py	plot_fig00_spectrum.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig01_P_vs_T_evolution.py	plot_fig01_P_vs_T_evolution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig02_calibration.py	plot_fig02_calibration.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig03_relative_errors.py	plot_fig03_relative_errors.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig04_pipeline_diagram.py	plot_fig04_pipeline_diagram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig05_FG_series.py	plot_fig05_FG_series.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/plot_fig06_alpha_fit.py	plot_fig06_alpha_fit.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-2	scripts	scripts/chapter02/primordial_spectrum.py	primordial_spectrum.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+2	scripts	scripts/02_primordial_spectrum/extract_sympy_FG.ipynb	extract_sympy_FG.ipynb	.ipynb	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+2	scripts	scripts/02_primordial_spectrum/generate_data_chapter02.py	generate_data_chapter02.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+2	scripts	scripts/02_primordial_spectrum/plot_fig00_spectrum.py	plot_fig00_spectrum.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig01_P_vs_T_evolution.py	plot_fig01_P_vs_T_evolution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig02_calibration.py	plot_fig02_calibration.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig03_relative_errors.py	plot_fig03_relative_errors.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py	plot_fig04_pipeline_diagram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig05_FG_series.py	plot_fig05_FG_series.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/plot_fig06_alpha_fit.py	plot_fig06_alpha_fit.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+2	scripts	scripts/02_primordial_spectrum/primordial_spectrum.py	primordial_spectrum.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
 3	data	assets/zz-data/chapter03/03_fR_stability_boundary.csv	03_fR_stability_boundary.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 3	data	assets/zz-data/chapter03/03_fR_stability_data.csv	03_fR_stability_data.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 3	data	assets/zz-data/chapter03/03_fR_stability_domain.csv	03_fR_stability_domain.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
@@ -70,17 +70,17 @@ chapter	kind	path	basename	ext	role	is_core	section
 3	figures	assets/zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png	03_fig_07_ricci_fr_vs_z.png	.png	FIGURE_MAIN	YES	5. Figures principales
 3	figures	assets/zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png	03_fig_08_ricci_fr_vs_t.png	.png	FIGURE_MAIN	YES	5. Figures principales
 3	latex	03-stabilite-fR/CHAPTER03_GUIDE.txt	CHAPTER03_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-3	scripts	scripts/chapter03/generate_data_chapter03.py	generate_data_chapter03.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-3	scripts	scripts/chapter03/plot_fig01_fR_stability_domain.py	plot_fig01_fR_stability_domain.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig02_fR_fRR_vs_f.py	plot_fig02_fR_fRR_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig03_ms2_R0_vs_f.py	plot_fig03_ms2_R0_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig04_fR_fRR_vs_f.py	plot_fig04_fR_fRR_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig05_interpolated_milestones.py	plot_fig05_interpolated_milestones.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig06_grid_quality.py	plot_fig06_grid_quality.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig07_ricci_fR_vs_z.py	plot_fig07_ricci_fR_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/plot_fig08_ricci_fR_vs_T.py	plot_fig08_ricci_fR_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-3	scripts	scripts/chapter03/utils/03_ricci_fR_milestones_enhanced.csv	03_ricci_fR_milestones_enhanced.csv	.csv	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-3	scripts	scripts/chapter03/utils/convert_milestones.py	convert_milestones.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+3	scripts	scripts/03_stability_domain/generate_data_chapter03.py	generate_data_chapter03.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+3	scripts	scripts/03_stability_domain/plot_fig01_fR_stability_domain.py	plot_fig01_fR_stability_domain.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig02_fR_fRR_vs_f.py	plot_fig02_fR_fRR_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig03_ms2_R0_vs_f.py	plot_fig03_ms2_R0_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig04_fR_fRR_vs_f.py	plot_fig04_fR_fRR_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig05_interpolated_milestones.py	plot_fig05_interpolated_milestones.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig06_grid_quality.py	plot_fig06_grid_quality.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig07_ricci_fR_vs_z.py	plot_fig07_ricci_fR_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/plot_fig08_ricci_fR_vs_T.py	plot_fig08_ricci_fR_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+3	scripts	scripts/03_stability_domain/utils/03_ricci_fR_milestones_enhanced.csv	03_ricci_fR_milestones_enhanced.csv	.csv	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+3	scripts	scripts/03_stability_domain/utils/convert_milestones.py	convert_milestones.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
 4	data	assets/zz-data/chapter04/04_P_vs_T.dat	04_P_vs_T.dat	.dat	DATA_OTHER	ANNEX	4. Données produites
 4	data	assets/zz-data/chapter04/04_dimensionless_invariants.csv	04_dimensionless_invariants.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 4	figures	assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png	04_fig_01_invariants_schematic.png	.png	FIGURE_MAIN	YES	5. Figures principales
@@ -88,11 +88,11 @@ chapter	kind	path	basename	ext	role	is_core	section
 4	figures	assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png	04_fig_03_invariants_vs_t.png	.png	FIGURE_MAIN	YES	5. Figures principales
 4	figures	assets/zz-figures/chapter04/04_fig_04_relative_deviations.png	04_fig_04_relative_deviations.png	.png	FIGURE_MAIN	YES	5. Figures principales
 4	latex	04-invariants-adimensionnels/CHAPTER04_GUIDE.txt	CHAPTER04_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-4	scripts	scripts/chapter04/generate_data_chapter04.py	generate_data_chapter04.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-4	scripts	scripts/chapter04/plot_fig01_invariants_schematic.py	plot_fig01_invariants_schematic.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-4	scripts	scripts/chapter04/plot_fig02_invariants_histogram.py	plot_fig02_invariants_histogram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-4	scripts	scripts/chapter04/plot_fig03_invariants_vs_T.py	plot_fig03_invariants_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-4	scripts	scripts/chapter04/plot_fig04_relative_deviations.py	plot_fig04_relative_deviations.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+4	scripts	scripts/04_expansion_supernovae/generate_data_chapter04.py	generate_data_chapter04.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+4	scripts	scripts/04_expansion_supernovae/plot_fig01_invariants_schematic.py	plot_fig01_invariants_schematic.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+4	scripts	scripts/04_expansion_supernovae/plot_fig02_invariants_histogram.py	plot_fig02_invariants_histogram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+4	scripts	scripts/04_expansion_supernovae/plot_fig03_invariants_vs_T.py	plot_fig03_invariants_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+4	scripts	scripts/04_expansion_supernovae/plot_fig04_relative_deviations.py	plot_fig04_relative_deviations.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
 5	data	assets/zz-data/chapter05/05_bbn_data.csv	05_bbn_data.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 5	data	assets/zz-data/chapter05/05_bbn_grid.csv	05_bbn_grid.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 5	data	assets/zz-data/chapter05/05_bbn_invariants.csv	05_bbn_invariants.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
@@ -105,11 +105,11 @@ chapter	kind	path	basename	ext	role	is_core	section
 5	figures	assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png	05_fig_03_yp_model_vs_obs.png	.png	FIGURE_MAIN	YES	5. Figures principales
 5	figures	assets/zz-figures/chapter05/05_fig_04_chi2_vs_t.png	05_fig_04_chi2_vs_t.png	.png	FIGURE_MAIN	YES	5. Figures principales
 5	latex	05-nucleosynthese-primordiale/CHAPTER05_GUIDE.txt	CHAPTER05_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-5	scripts	scripts/chapter05/generate_data_chapter05.py	generate_data_chapter05.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-5	scripts	scripts/chapter05/plot_fig01_bbn_reaction_network.py	plot_fig01_bbn_reaction_network.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-5	scripts	scripts/chapter05/plot_fig02_dh_model_vs_obs.py	plot_fig02_dh_model_vs_obs.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-5	scripts	scripts/chapter05/plot_fig03_yp_model_vs_obs.py	plot_fig03_yp_model_vs_obs.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-5	scripts	scripts/chapter05/plot_fig04_chi2_vs_T.py	plot_fig04_chi2_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+5	scripts	scripts/05_primordial_bbn/generate_data_chapter05.py	generate_data_chapter05.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+5	scripts	scripts/05_primordial_bbn/plot_fig01_bbn_reaction_network.py	plot_fig01_bbn_reaction_network.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+5	scripts	scripts/05_primordial_bbn/plot_fig02_dh_model_vs_obs.py	plot_fig02_dh_model_vs_obs.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+5	scripts	scripts/05_primordial_bbn/plot_fig03_yp_model_vs_obs.py	plot_fig03_yp_model_vs_obs.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+5	scripts	scripts/05_primordial_bbn/plot_fig04_chi2_vs_T.py	plot_fig04_chi2_vs_T.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
 6	data	assets/zz-data/chapter06/01_P_vs_T.dat	01_P_vs_T.dat	.dat	DATA_OTHER	ANNEX	4. Données produites
 6	data	assets/zz-data/chapter06/06_alpha_evolution.csv	06_alpha_evolution.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 6	data	assets/zz-data/chapter06/06_cls_spectrum.dat	06_cls_spectrum.dat	.dat	DATA_OTHER	ANNEX	4. Données produites
@@ -130,17 +130,17 @@ chapter	kind	path	basename	ext	role	is_core	section
 6	figures	assets/zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png	06_fig_04_delta_rs_vs_params.png	.png	FIGURE_MAIN	YES	5. Figures principales
 6	figures	assets/zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png	06_fig_05_delta_chi2_heatmap.png	.png	FIGURE_MAIN	YES	5. Figures principales
 6	latex	06-rayonnement-cmb/CHAPTER06_GUIDE.txt	CHAPTER06_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-6	scripts	zz-out/pass14/scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.out/fig_02_cls_lcdm_vs_mcgt.png	fig_02_cls_lcdm_vs_mcgt.png	.png	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-6	scripts	zz-out/pass14_run2/scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.out.txt	plot_fig02_cls_lcdm_vs_mcgt.out.txt	.txt	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	zz-out/pass14_run2/scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.out/fig_02_cls_lcdm_vs_mcgt.png	fig_02_cls_lcdm_vs_mcgt.png	.png	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-6	scripts	scripts/chapter06/generate_data_chapter06.py	generate_data_chapter06.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-6	scripts	scripts/chapter06/generate_pdot_plateau_vs_z.py	generate_pdot_plateau_vs_z.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-6	scripts	scripts/chapter06/plot_fig01_cmb_dataflow_diagram.py	plot_fig01_cmb_dataflow_diagram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py	plot_fig02_cls_lcdm_vs_mcgt.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	scripts/chapter06/plot_fig03_delta_cls_relative.py	plot_fig03_delta_cls_relative.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	scripts/chapter06/plot_fig04_delta_rs_vs_params.py	plot_fig04_delta_rs_vs_params.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	scripts/chapter06/plot_fig05_delta_chi2_heatmap.py	plot_fig05_delta_chi2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-6	scripts	scripts/chapter06/run_camb_chapter06.bat	run_camb_chapter06.bat	.bat	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+6	scripts	zz-out/pass14/scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.out/fig_02_cls_lcdm_vs_mcgt.png	fig_02_cls_lcdm_vs_mcgt.png	.png	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+6	scripts	zz-out/pass14_run2/scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.out.txt	plot_fig02_cls_lcdm_vs_mcgt.out.txt	.txt	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	zz-out/pass14_run2/scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.out/fig_02_cls_lcdm_vs_mcgt.png	fig_02_cls_lcdm_vs_mcgt.png	.png	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+6	scripts	scripts/06_early_growth_jwst/generate_data_chapter06.py	generate_data_chapter06.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+6	scripts	scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py	generate_pdot_plateau_vs_z.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+6	scripts	scripts/06_early_growth_jwst/plot_fig01_cmb_dataflow_diagram.py	plot_fig01_cmb_dataflow_diagram.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py	plot_fig02_cls_lcdm_vs_mcgt.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py	plot_fig03_delta_cls_relative.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	scripts/06_early_growth_jwst/plot_fig04_delta_rs_vs_params.py	plot_fig04_delta_rs_vs_params.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	scripts/06_early_growth_jwst/plot_fig05_delta_chi2_heatmap.py	plot_fig05_delta_chi2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+6	scripts	scripts/06_early_growth_jwst/run_camb_chapter06.bat	run_camb_chapter06.bat	.bat	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
 7	data	assets/zz-data/chapter07/07_cs2_matrix.csv	07_cs2_matrix.csv	.csv	DATA_INPUT	YES	3. Données d'entrée
 7	data	assets/zz-data/chapter07/07_cs2_matrix.csv.gz	07_cs2_matrix.csv.gz	.gz	DATA_OTHER	ANNEX	4. Données produites (autres)
 7	data	assets/zz-data/chapter07/07_dcs2_vs_k.csv	07_dcs2_vs_k.csv	.csv	DATA_OTHER	ANNEX	4. Données produites (autres)
@@ -166,21 +166,21 @@ chapter	kind	path	basename	ext	role	is_core	section
 7	figures	assets/zz-figures/chapter07/07_fig_06_comparison.png	07_fig_06_comparison.png	.png	FIGURE_MAIN	YES	5. Figures générées
 7	figures	assets/zz-figures/chapter07/07_fig_07_invariant_i2.png	07_fig_07_invariant_i2.png	.png	FIGURE_MAIN	YES	5. Figures générées
 7	latex	07-perturbations-scalaires/CHAPTER07_GUIDE.txt	CHAPTER07_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-7	scripts	scripts/chapter07/generate_data_chapter07.py	generate_data_chapter07.py	.py	SCRIPT_MAIN	YES	6. Scripts – génération des données
-7	scripts	scripts/chapter07/launch_scalar_perturbations_solver.py	launch_scalar_perturbations_solver.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
-7	scripts	scripts/chapter07/launch_solver_chapter07.sh	launch_solver_chapter07.sh	.sh	SCRIPT_HELPER	ANNEX	7. Pipeline d'exécution (wrapper shell)
-7	scripts	scripts/chapter07/plot_fig01_cs2_heatmap.py	plot_fig01_cs2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig02_delta_phi_heatmap.py	plot_fig02_delta_phi_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig03_invariant_i1.py	plot_fig03_invariant_i1.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig04_dcs2_vs_k.py	plot_fig04_dcs2_vs_k.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig05_ddelta_phi_vs_k.py	plot_fig05_ddelta_phi_vs_k.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig06_comparison.py	plot_fig06_comparison.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/plot_fig07_invariant_i2.py	plot_fig07_invariant_i2.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-7	scripts	scripts/chapter07/requirements.txt	requirements.txt	.txt	ENV_REQUIREMENTS	ANNEX	7. Paramètres & environnement (requirements.txt)
-7	scripts	scripts/chapter07/tests/ref_phase_run.csv	ref_phase_run.csv	.csv	SCRIPT_HELPER	ANNEX	9. Tests & validation (donnée de référence)
-7	scripts	scripts/chapter07/tests/test_chapter07.py	test_chapter07.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
-7	scripts	scripts/chapter07/utils/test_kgrid.py	test_kgrid.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
-7	scripts	scripts/chapter07/utils/toy_model.py	toy_model.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
+7	scripts	scripts/07_bao_geometry/generate_data_chapter07.py	generate_data_chapter07.py	.py	SCRIPT_MAIN	YES	6. Scripts – génération des données
+7	scripts	scripts/07_bao_geometry/launch_scalar_perturbations_solver.py	launch_scalar_perturbations_solver.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
+7	scripts	scripts/07_bao_geometry/launch_solver_chapter07.sh	launch_solver_chapter07.sh	.sh	SCRIPT_HELPER	ANNEX	7. Pipeline d'exécution (wrapper shell)
+7	scripts	scripts/07_bao_geometry/plot_fig01_cs2_heatmap.py	plot_fig01_cs2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig02_delta_phi_heatmap.py	plot_fig02_delta_phi_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig03_invariant_i1.py	plot_fig03_invariant_i1.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig04_dcs2_vs_k.py	plot_fig04_dcs2_vs_k.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig05_ddelta_phi_vs_k.py	plot_fig05_ddelta_phi_vs_k.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig06_comparison.py	plot_fig06_comparison.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/plot_fig07_invariant_i2.py	plot_fig07_invariant_i2.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+7	scripts	scripts/07_bao_geometry/requirements.txt	requirements.txt	.txt	ENV_REQUIREMENTS	ANNEX	7. Paramètres & environnement (requirements.txt)
+7	scripts	scripts/07_bao_geometry/tests/ref_phase_run.csv	ref_phase_run.csv	.csv	SCRIPT_HELPER	ANNEX	9. Tests & validation (donnée de référence)
+7	scripts	scripts/07_bao_geometry/tests/test_chapter07.py	test_chapter07.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
+7	scripts	scripts/07_bao_geometry/utils/test_kgrid.py	test_kgrid.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
+7	scripts	scripts/07_bao_geometry/utils/toy_model.py	toy_model.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – helpers / auxiliaires
 8	data	assets/zz-data/chapter08/08_bao_data.csv	08_bao_data.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 8	data	assets/zz-data/chapter08/08_chi2_derivative.csv	08_chi2_derivative.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 8	data	assets/zz-data/chapter08/08_chi2_scan2D.csv	08_chi2_scan2D.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
@@ -201,21 +201,21 @@ chapter	kind	path	basename	ext	role	is_core	section
 8	figures	assets/zz-figures/chapter08/08_fig_06_normalized_residuals_distribution.png	08_fig_06_normalized_residuals_distribution.png	.png	FIGURE_MAIN	YES	5. Figures principales
 8	figures	assets/zz-figures/chapter08/08_fig_07_chi2_profile.png	08_fig_07_chi2_profile.png	.png	FIGURE_MAIN	YES	5. Figures principales
 8	latex	08-couplage-sombre/CHAPTER08_GUIDE.txt	CHAPTER08_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-8	scripts	scripts/chapter08/generate_coupling_milestones.py	generate_coupling_milestones.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-8	scripts	scripts/chapter08/generate_data_chapter08.py	generate_data_chapter08.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-8	scripts	scripts/chapter08/plot_fig01_chi2_total_vs_q0.py	plot_fig01_chi2_total_vs_q0.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig02_dv_vs_z.py	plot_fig02_dv_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig03_mu_vs_z.py	plot_fig03_mu_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig04_chi2_heatmap.py	plot_fig04_chi2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig05_residuals.py	plot_fig05_residuals.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig06_normalized_residuals_distribution.py	plot_fig06_normalized_residuals_distribution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/plot_fig07_chi2_profile.py	plot_fig07_chi2_profile.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-8	scripts	scripts/chapter08/utils/cosmo.py	cosmo.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-8	scripts	scripts/chapter08/utils/coupling_example_model.py	coupling_example_model.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-8	scripts	scripts/chapter08/utils/extract_bao_data.py	extract_bao_data.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-8	scripts	scripts/chapter08/utils/extract_pantheon_plus_data.py	extract_pantheon_plus_data.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-8	scripts	scripts/chapter08/utils/generate_coupling_milestones.py	generate_coupling_milestones.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-8	scripts	scripts/chapter08/utils/verify_z_grid.py	verify_z_grid.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+8	scripts	scripts/08_sound_horizon/generate_coupling_milestones.py	generate_coupling_milestones.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+8	scripts	scripts/08_sound_horizon/generate_data_chapter08.py	generate_data_chapter08.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+8	scripts	scripts/08_sound_horizon/plot_fig01_chi2_total_vs_q0.py	plot_fig01_chi2_total_vs_q0.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig02_dv_vs_z.py	plot_fig02_dv_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig03_mu_vs_z.py	plot_fig03_mu_vs_z.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig04_chi2_heatmap.py	plot_fig04_chi2_heatmap.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig05_residuals.py	plot_fig05_residuals.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig06_normalized_residuals_distribution.py	plot_fig06_normalized_residuals_distribution.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/plot_fig07_chi2_profile.py	plot_fig07_chi2_profile.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+8	scripts	scripts/08_sound_horizon/utils/cosmo.py	cosmo.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+8	scripts	scripts/08_sound_horizon/utils/coupling_example_model.py	coupling_example_model.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+8	scripts	scripts/08_sound_horizon/utils/extract_bao_data.py	extract_bao_data.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+8	scripts	scripts/08_sound_horizon/utils/extract_pantheon_plus_data.py	extract_pantheon_plus_data.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+8	scripts	scripts/08_sound_horizon/utils/generate_coupling_milestones.py	generate_coupling_milestones.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+8	scripts	scripts/08_sound_horizon/utils/verify_z_grid.py	verify_z_grid.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
 9	data	assets/zz-data/chapter09/09_best_params.json	09_best_params.json	.json	DATA_OUTPUT	YES	9. Métadonnées & schémas
 9	data	assets/zz-data/chapter09/09_comparison_milestones.csv	09_comparison_milestones.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
 9	data	assets/zz-data/chapter09/09_comparison_milestones.flagged.csv	09_comparison_milestones.flagged.csv	.csv	DATA_OTHER	ANNEX	4. Données produites
@@ -233,20 +233,20 @@ chapter	kind	path	basename	ext	role	is_core	section
 9	figures	assets/zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png	09_fig_04_absdphi_milestones_vs_f.png	.png	FIGURE_MAIN	YES	5. Figures principales
 9	figures	assets/zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png	09_fig_05_scatter_phi_at_fpeak.png	.png	FIGURE_MAIN	YES	5. Figures principales
 9	latex	09-phase-ondes-gravitationnelles/CHAPTER09_GUIDE.txt	CHAPTER09_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-9	scripts	scripts/chapter09/apply_poly_unwrap_rebranch.py	apply_poly_unwrap_rebranch.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/check_p95_methods.py	check_p95_methods.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/extract_phenom_phase.py	extract_phenom_phase.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/fetch_gwtc3_confident.py	fetch_gwtc3_confident.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/flag_jalons.py	flag_jalons.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/generate_data_chapter09.py	generate_data_chapter09.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-9	scripts	scripts/chapter09/generate_mcgt_raw_phase.py	generate_mcgt_raw_phase.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
-9	scripts	scripts/chapter09/opt_poly_rebranch.py	opt_poly_rebranch.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
-9	scripts	scripts/chapter09/plot_fig01_phase_overlay.py	plot_fig01_phase_overlay.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-9	scripts	scripts/chapter09/plot_fig02_residual_phase.py	plot_fig02_residual_phase.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-9	scripts	scripts/chapter09/plot_fig03_hist_absdphi_20_300.py	plot_fig03_hist_absdphi_20_300.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-9	scripts	scripts/chapter09/plot_fig04_absdphi_milestones_vs_f.py	plot_fig04_absdphi_milestones_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-9	scripts	scripts/chapter09/plot_fig05_scatter_phi_at_fpeak.py	plot_fig05_scatter_phi_at_fpeak.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-9	scripts	scripts/chapter09/run_fig01_nowarn.sh	run_fig01_nowarn.sh	.sh	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+9	scripts	scripts/09_dark_energy_cpl/apply_poly_unwrap_rebranch.py	apply_poly_unwrap_rebranch.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/check_p95_methods.py	check_p95_methods.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/extract_phenom_phase.py	extract_phenom_phase.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/fetch_gwtc3_confident.py	fetch_gwtc3_confident.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/flag_jalons.py	flag_jalons.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/generate_data_chapter09.py	generate_data_chapter09.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+9	scripts	scripts/09_dark_energy_cpl/generate_mcgt_raw_phase.py	generate_mcgt_raw_phase.py	.py	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
+9	scripts	scripts/09_dark_energy_cpl/opt_poly_rebranch.py	opt_poly_rebranch.py	.py	SCRIPT_HELPER	ANNEX	6. Scripts – utilitaires
+9	scripts	scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py	plot_fig01_phase_overlay.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+9	scripts	scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py	plot_fig02_residual_phase.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+9	scripts	scripts/09_dark_energy_cpl/plot_fig03_hist_absdphi_20_300.py	plot_fig03_hist_absdphi_20_300.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+9	scripts	scripts/09_dark_energy_cpl/plot_fig04_absdphi_milestones_vs_f.py	plot_fig04_absdphi_milestones_vs_f.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+9	scripts	scripts/09_dark_energy_cpl/plot_fig05_scatter_phi_at_fpeak.py	plot_fig05_scatter_phi_at_fpeak.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+9	scripts	scripts/09_dark_energy_cpl/run_fig01_nowarn.sh	run_fig01_nowarn.sh	.sh	SCRIPT_MAIN	YES	6. Scripts – pipeline principal
 10	data	assets/zz-data/chapter10/10_mc_best.json	10_mc_best.json	.json	DATA_OUTPUT	YES	4. Données produites
 10	data	assets/zz-data/chapter10/10_mc_best_bootstrap.json	10_mc_best_bootstrap.json	.json	DATA_OUTPUT	YES	4. Données produites
 10	data	assets/zz-data/chapter10/10_mc_config.json	10_mc_config.json	.json	DATA_INPUT	YES	3. Données d'entrée
@@ -278,23 +278,23 @@ chapter	kind	path	basename	ext	role	is_core	section
 10	figures	assets/zz-figures/chapter10/10_fig_07_synthesis.png	10_fig_07_synthesis.png	.png	FIGURE_MAIN	YES	6. Figures principales
 10	figures	assets/zz-figures/chapter10/10_fig_07_synthesis.table.csv	10_fig_07_synthesis.table.csv	.csv	DATA_OTHER	ANNEX	6. Figures – tables associées
 10	latex	10-monte-carlo-global-8d/CHAPTER10_GUIDE.txt	CHAPTER10_GUIDE.txt	.txt	GUIDE_FILE	ANNEX	2.1 Sources LaTeX
-10	scripts	scripts/chapter10/add_phi_at_fpeak.py	add_phi_at_fpeak.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
-10	scripts	scripts/chapter10/bootstrap_topk_p95.py	bootstrap_topk_p95.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
-10	scripts	scripts/chapter10/check_metrics_consistency.py	check_metrics_consistency.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
-10	scripts	scripts/chapter10/diag_phi_fpeak.py	diag_phi_fpeak.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
-10	scripts	scripts/chapter10/eval_primary_metrics_20_300.py	eval_primary_metrics_20_300.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & métriques
-10	scripts	scripts/chapter10/generate_data_chapter10.py	generate_data_chapter10.py	.py	SCRIPT_MAIN	YES	5. Scripts principaux – génération data
-10	scripts	scripts/chapter10/inspect_topk_residuals.py	inspect_topk_residuals.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
-10	scripts	scripts/chapter10/plot_fig01_iso_p95_maps.py	plot_fig01_iso_p95_maps.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig02_scatter_phi_at_fpeak.py	plot_fig02_scatter_phi_at_fpeak.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig03_convergence_p95_vs_n.py	plot_fig03_convergence_p95_vs_n.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig03b_bootstrap_coverage_vs_n.py	plot_fig03b_bootstrap_coverage_vs_n.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig04_scatter_p95_recalc_vs_orig.py	plot_fig04_scatter_p95_recalc_vs_orig.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig05_hist_cdf_metrics.py	plot_fig05_hist_cdf_metrics.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig06_residual_map.py	plot_fig06_residual_map.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/plot_fig07_synthesis.py	plot_fig07_synthesis.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
-10	scripts	scripts/chapter10/qc_wrapped_vs_unwrapped.py	qc_wrapped_vs_unwrapped.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
-10	scripts	scripts/chapter10/recompute_p95_circular.py	recompute_p95_circular.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
-10	scripts	scripts/chapter10/regen_fig05_using_circp95.py	regen_fig05_using_circp95.py	.py	SCRIPT_PLOT	ANNEX	6. Scripts – variantes de tracé
-10	scripts	scripts/chapter10/requirements.txt	requirements.txt	.txt	ENV_REQUIREMENTS	ANNEX	7. Paramètres & environnement (requirements.txt)
-10	scripts	scripts/chapter10/update_manifest_with_hashes.py	update_manifest_with_hashes.py	.py	SCRIPT_HELPER	ANNEX	9. Métadonnées & schémas (update manifest)
+10	scripts	scripts/10_global_scan/add_phi_at_fpeak.py	add_phi_at_fpeak.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
+10	scripts	scripts/10_global_scan/bootstrap_topk_p95.py	bootstrap_topk_p95.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
+10	scripts	scripts/10_global_scan/check_metrics_consistency.py	check_metrics_consistency.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
+10	scripts	scripts/10_global_scan/diag_phi_fpeak.py	diag_phi_fpeak.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
+10	scripts	scripts/10_global_scan/eval_primary_metrics_20_300.py	eval_primary_metrics_20_300.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & métriques
+10	scripts	scripts/10_global_scan/generate_data_chapter10.py	generate_data_chapter10.py	.py	SCRIPT_MAIN	YES	5. Scripts principaux – génération data
+10	scripts	scripts/10_global_scan/inspect_topk_residuals.py	inspect_topk_residuals.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
+10	scripts	scripts/10_global_scan/plot_fig01_iso_p95_maps.py	plot_fig01_iso_p95_maps.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig02_scatter_phi_at_fpeak.py	plot_fig02_scatter_phi_at_fpeak.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py	plot_fig03_convergence_p95_vs_n.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig03b_bootstrap_coverage_vs_n.py	plot_fig03b_bootstrap_coverage_vs_n.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig04_scatter_p95_recalc_vs_orig.py	plot_fig04_scatter_p95_recalc_vs_orig.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig05_hist_cdf_metrics.py	plot_fig05_hist_cdf_metrics.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig06_residual_map.py	plot_fig06_residual_map.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/plot_fig07_synthesis.py	plot_fig07_synthesis.py	.py	SCRIPT_PLOT	YES	6. Scripts – tracé des figures
+10	scripts	scripts/10_global_scan/qc_wrapped_vs_unwrapped.py	qc_wrapped_vs_unwrapped.py	.py	SCRIPT_HELPER	ANNEX	8. Scripts diagnostics & QA
+10	scripts	scripts/10_global_scan/recompute_p95_circular.py	recompute_p95_circular.py	.py	SCRIPT_HELPER	YES	6. Scripts – post-traitement & bootstrap
+10	scripts	scripts/10_global_scan/regen_fig05_using_circp95.py	regen_fig05_using_circp95.py	.py	SCRIPT_PLOT	ANNEX	6. Scripts – variantes de tracé
+10	scripts	scripts/10_global_scan/requirements.txt	requirements.txt	.txt	ENV_REQUIREMENTS	ANNEX	7. Paramètres & environnement (requirements.txt)
+10	scripts	scripts/10_global_scan/update_manifest_with_hashes.py	update_manifest_with_hashes.py	.py	SCRIPT_HELPER	ANNEX	9. Métadonnées & schémas (update manifest)

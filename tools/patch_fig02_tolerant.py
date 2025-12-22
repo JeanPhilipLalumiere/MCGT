@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import textwrap
 
-p = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+p = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 src = p.read_text(encoding="utf-8")
 
 # Injecte un bloc utilitaire simple (idempotent)

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter09/plot_fig02_residual_phase.py est touché, avec backup .bak_future_top.";
+  echo "[ASTUCE] Seul scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py est touché, avec backup .bak_future_top.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH09 – Réordonner from __future__ en tête du module =="
@@ -13,7 +13,7 @@ python - << 'PYEOF'
 from pathlib import Path
 import shutil
 
-path = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+path = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 if not path.exists():
     raise SystemExit("[ERROR] Fichier introuvable: " + str(path))
 

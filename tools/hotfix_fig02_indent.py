@@ -3,7 +3,7 @@
 from pathlib import Path
 import re
 
-p = Path("scripts/chapter09/plot_fig02_residual_phase.py")
+p = Path("scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py")
 s = p.read_text(encoding="utf-8")
 
 # Normalise des indentations aberrantes de 8+ espaces à 4 dans un petit bloc heuristique

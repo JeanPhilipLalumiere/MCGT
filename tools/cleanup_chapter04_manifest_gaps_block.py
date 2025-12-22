@@ -12,7 +12,7 @@ GAPS_PATH = ROOT / "_tmp" / "CHAPTER_MANIFEST_GAPS.md"
 
 HEADER_REGEX = r"^## .*4.*chapter_manifest_04\.json[ \t]*$"
 
-REPLACEMENT = """## Chapitre 4 — chapter_manifest_04.json
+REPLACEMENT = """## Chapter 4 — chapter_manifest_04.json
 
 Section résolue (2025-12-04) : les fichiers de données d’entrée, figures, metas,
 scripts et le guide du chapitre 04 existent dans le filesystem et sont couverts
@@ -43,7 +43,7 @@ def main() -> None:
 
     new_text = re.sub(pattern, REPLACEMENT + "\n", text, flags=re.MULTILINE)
     GAPS_PATH.write_text(new_text, encoding="utf-8")
-    print(f"[OK] Bloc 'Chapitre 4' nettoyé dans {GAPS_PATH}")
+    print(f"[OK] Bloc 'Chapter 4' nettoyé dans {GAPS_PATH}")
 
     subprocess.run(["python", "tools/generate_chapter_todo.py"], check=True)
     print("[OK] TODO par chapitre généré dans docs/CHAPTER_TODO.md")

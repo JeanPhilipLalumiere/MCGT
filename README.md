@@ -62,7 +62,7 @@ Lalumière, J.-P. (2025). MCGT : Modèle de la Courbure Gravitationnelle du Temp
 ### 1) Objectifs & périmètre
 
 MCGT regroupe :
-- **Chapitres LaTeX** (conceptuel + détails) : bases théoriques et résultats.
+- **Chapters LaTeX** (conceptuel + détails) : bases théoriques et résultats.
 - **Scripts** (`scripts/`) : génération de données et tracés.
 - **Données** (`assets/zz-data/`) et **figures** (`assets/zz-figures/`) nommées canoniquement.
 - **Manifeste** (`assets/zz-manifests/`) : inventaire des artefacts + rapports de cohérence.
@@ -149,22 +149,22 @@ Conventions d’unités (rappel) : fréquence `f_Hz` (Hz), angles en radians (`_
 
 Le guide complet est dans **`docs/reproducibility/README-REPRO.md`**. Ci-dessous, deux pipelines courants.
 
-#### 5.1 Chapitre 09 — Phase d’ondes gravitationnelles
+#### 5.1 Chapter 09 — Phase d’ondes gravitationnelles
 
 ```
 ## (0) Générer la référence si besoin
-python scripts/chapter09/extract_phenom_phase.py \
+python scripts/09_dark_energy_cpl/extract_phenom_phase.py \
   --out assets/zz-data/chapter09/09_phases_imrphenom.csv
 
 ## (1) Prétraitement + résidus
-python scripts/chapter09/generate_data_chapter09.py \
+python scripts/09_dark_energy_cpl/generate_data_chapter09.py \
   --ref assets/zz-data/chapter09/09_phases_imrphenom.csv \
   --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
   --out-diff    assets/zz-data/chapter09/09_phase_diff.csv \
   --log-level INFO
 
 ## (2) Optimisation base/degré + rebranch k
-python scripts/chapter09/opt_poly_rebranch.py \
+python scripts/09_dark_energy_cpl/opt_poly_rebranch.py \
   --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
   --meta assets/zz-data/chapter09/09_metrics_phase.json \
   --fit-window 30 250 --metrics-window 20 300 \
@@ -174,31 +174,31 @@ python scripts/chapter09/opt_poly_rebranch.py \
   --backup --log-level INFO
 
 ## (3) Figures
-python scripts/chapter09/10_fig01_phase_overlay.py \
+python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py \
   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
   --meta assets/zz-data/chapter09/09_metrics_phase.json \
   --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png \
   --shade 20 300 --show-residual --dpi 300
-python scripts/chapter09/10_fig02_residual_phase.py \
+python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py \
   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
   --meta assets/zz-data/chapter09/09_metrics_phase.json \
   --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png \
   --bands 20 300 300 1000 1000 2000 --dpi 300
-python scripts/chapter09/10_fig03_hist_absdphi_20_300.py \
+python scripts/09_dark_energy_cpl/10_fig03_hist_absdphi_20_300.py \
   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
   --meta assets/zz-data/chapter09/09_metrics_phase.json \
   --out  assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
   --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
 ```
 
-#### 5.2 Chapitre 10 — Monte Carlo global 8D
+#### 5.2 Chapter 10 — Monte Carlo global 8D
 
 ```
 ## (1) Config
 cat assets/zz-data/chapter10/10_mc_config.json
 
 ## (2) Échantillonnage et évaluation
-python scripts/chapter10/generate_data_chapter10.py \
+python scripts/10_global_scan/generate_data_chapter10.py \
   --config assets/zz-data/chapter10/10_mc_config.json \
   --out-results assets/zz-data/chapter10/10_mc_results.csv \
   --out-results-circ assets/zz-data/chapter10/10_mc_results.circ.csv \
@@ -206,28 +206,28 @@ python scripts/chapter10/generate_data_chapter10.py \
   --log-level INFO
 
 ## (3) Diagnostics
-python scripts/chapter10/add_phi_at_fpeak.py \
+python scripts/10_global_scan/add_phi_at_fpeak.py \
   --results assets/zz-data/chapter10/10_mc_results.circ.csv \
   --out     assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv
-python scripts/chapter10/inspect_topk_residuals.py \
+python scripts/10_global_scan/inspect_topk_residuals.py \
   --results assets/zz-data/chapter10/10_mc_results.csv \
   --jalons  assets/zz-data/chapter10/10_mc_milestones_eval.csv \
   --out-dir assets/zz-data/chapter10/topk_residuals
-python scripts/chapter10/bootstrap_topk_p95.py \
+python scripts/10_global_scan/bootstrap_topk_p95.py \
   --results assets/zz-data/chapter10/10_mc_results.csv \
   --topk-json assets/zz-data/chapter10/10_mc_best.json \
   --out-json  assets/zz-data/chapter10/10_mc_best_bootstrap.json \
   --B 1000 --seed 12345
 
 ## (4) Figures
-python scripts/chapter10/10_fig_01_iso_p95_maps.py        --out assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png
-python scripts/chapter10/10_fig_02_scatter_phi_at_fpeak.py --out assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
-python scripts/chapter10/10_fig_03_convergence.py --out assets/zz-figures/chapter10/10_fig_03_convergence.png
-python scripts/chapter10/10_fig_03_convergence.py --out assets/zz-figures/chapter10/10_fig_03_convergence.png
-python scripts/chapter10/10_fig_04_p95_comparison.py --out assets/zz-figures/chapter10/10_fig_04_p95_comparison.png
-python scripts/chapter10/10_fig_05_hist_cdf_metrics.py     --out assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
-python scripts/chapter10/10_fig_06_residual_map.py         --out assets/zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
-python scripts/chapter10/10_fig_07_synthesis.py            --out assets/zz-figures/chapter10/10_fig_07_summary_comparison.png
+python scripts/10_global_scan/10_fig_01_iso_p95_maps.py        --out assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png
+python scripts/10_global_scan/10_fig_02_scatter_phi_at_fpeak.py --out assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png
+python scripts/10_global_scan/10_fig_03_convergence.py --out assets/zz-figures/chapter10/10_fig_03_convergence.png
+python scripts/10_global_scan/10_fig_03_convergence.py --out assets/zz-figures/chapter10/10_fig_03_convergence.png
+python scripts/10_global_scan/10_fig_04_p95_comparison.py --out assets/zz-figures/chapter10/10_fig_04_p95_comparison.png
+python scripts/10_global_scan/10_fig_05_hist_cdf_metrics.py     --out assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png
+python scripts/10_global_scan/10_fig_06_residual_map.py         --out assets/zz-figures/chapter10/10_fig_06_heatmap_absdp95_m1m2.png
+python scripts/10_global_scan/10_fig_07_synthesis.py            --out assets/zz-figures/chapter10/10_fig_07_summary_comparison.png
 ```
 
 ---

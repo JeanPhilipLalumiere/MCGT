@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "assets/zz-schemas/metrics_phase_schema.json",
-  "title": "Schéma – mesures de phase (Chapitre 9)",
+  "title": "Schéma – mesures de phase (Chapter 9)",
   "description": "Valide 09_metrics_phase.json produit lors de la comparaison de phases MCGT vs référence.",
   "type": "object",
   "additionalProperties": false,

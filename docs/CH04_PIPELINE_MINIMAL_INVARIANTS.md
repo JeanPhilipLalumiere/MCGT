@@ -1,4 +1,4 @@
-# Chapitre 04 – Pipeline minimal canonique (invariants adimensionnels)
+# Chapter 04 – Pipeline minimal canonique (invariants adimensionnels)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 04 – invariants adimensionnels**.
@@ -60,13 +60,13 @@ bash tools/ch04_minimal_pipeline.sh
 Ce script exécute la séquence **canonique minimale** suivante :
 
 1. **Génération des invariants**  
-   `python scripts/chapter04/generate_data_chapter04.py`
+   `python scripts/04_expansion_supernovae/generate_data_chapter04.py`
 
 2. **Figures principales (Fig. 01 à 04)**  
-   `python scripts/chapter04/10_fig01_invariants_schematic.py`  
-   `python scripts/chapter04/10_fig02_invariants_histogram.py`  
-   `python scripts/chapter04/10_fig03_invariants_vs_T.py`  
-   `python scripts/chapter04/10_fig04_relative_deviations.py`
+   `python scripts/04_expansion_supernovae/10_fig01_invariants_schematic.py`  
+   `python scripts/04_expansion_supernovae/10_fig02_invariants_histogram.py`  
+   `python scripts/04_expansion_supernovae/10_fig03_invariants_vs_T.py`  
+   `python scripts/04_expansion_supernovae/10_fig04_relative_deviations.py`
 
 3. **Résumé final** (optionnel dans le script shell) : inventaire des fichiers
    de `assets/zz-data/chapter04/` et `assets/zz-figures/chapter04/`.
@@ -84,7 +84,7 @@ En fin d’exécution, on s’attend à voir un message du type :
 
 Répertoire CH04 :
 
-- `scripts/chapter04/`
+- `scripts/04_expansion_supernovae/`
 
 Scripts utilisés par le pipeline minimal :
 
@@ -170,7 +170,7 @@ On vérifie en particulier que :
 Commande canonique :
 
 ```bash
-python scripts/chapter04/generate_data_chapter04.py
+python scripts/04_expansion_supernovae/generate_data_chapter04.py
 ```
 
 Ce script effectue typiquement les opérations suivantes (schéma) :
@@ -198,10 +198,10 @@ En fin de run, on attend un message du type :
 Une fois `04_dimensionless_invariants.csv` disponible, les figures se régénèrent via :
 
 ```bash
-python scripts/chapter04/10_fig01_invariants_schematic.py
-python scripts/chapter04/10_fig02_invariants_histogram.py
-python scripts/chapter04/10_fig03_invariants_vs_T.py
-python scripts/chapter04/10_fig04_relative_deviations.py
+python scripts/04_expansion_supernovae/10_fig01_invariants_schematic.py
+python scripts/04_expansion_supernovae/10_fig02_invariants_histogram.py
+python scripts/04_expansion_supernovae/10_fig03_invariants_vs_T.py
+python scripts/04_expansion_supernovae/10_fig04_relative_deviations.py
 ```
 
 Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter04/`.
@@ -272,7 +272,7 @@ sont :
 - **Invariants** (exemple canonique) :
   - I₁ = P / T_Gyr ;
   - I₂ = κ · T_Gyr², avec κ constant de modèle (par ex. `1e-35`, configurable) ;
-  - I₃ = f_R − 1 (doit rester proche de 0 sur le domaine de validité, cf. Chapitre 03).
+  - I₃ = f_R − 1 (doit rester proche de 0 sur le domaine de validité, cf. Chapter 03).
 
 - **Seuils de contrôle** (indicatifs) :
   - I₂ : variations relatives ≲ 10 % sur le domaine utile ;

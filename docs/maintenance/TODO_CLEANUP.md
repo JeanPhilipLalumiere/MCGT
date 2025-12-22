@@ -30,8 +30,8 @@ Liste brute :
 ```text
 ./.ruff_cache
 ./__pycache__
-./_attic_untracked/help_shim_backup_20251106T192653/scripts/chapter07/tests/__pycache__
-./_attic_untracked/help_shim_backup_20251106T192653/scripts/chapter07/utils/__pycache__
+./_attic_untracked/help_shim_backup_20251106T192653/scripts/07_bao_geometry/tests/__pycache__
+./_attic_untracked/help_shim_backup_20251106T192653/scripts/07_bao_geometry/utils/__pycache__
 ./_attic_untracked/migrate_staging/20251028T203441Z/tools/__pycache__
 ./_attic_untracked/migrate_staging/20251028T203441Z/tools/dev/__pycache__
 ./_autofix_sandbox/2025-11-06/_common.bak/__pycache__
@@ -57,20 +57,20 @@ Liste brute :
 ./_autofix_sandbox/20251105T145604Z/assets/zz-manifests/__pycache__
 ./_autofix_sandbox/20251105T145604Z/assets/zz-schemas/__pycache__
 ./_autofix_sandbox/20251105T145604Z/scripts/_common/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter01/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter02/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter03/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter03/utils/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter04/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter05/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter06/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter07/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter07/tests/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter07/utils/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter08/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter08/utils/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter09/__pycache__
-./_autofix_sandbox/20251105T145604Z/scripts/chapter10/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/01_invariants_stability/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/02_primordial_spectrum/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/03_stability_domain/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/03_stability_domain/utils/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/04_expansion_supernovae/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/05_primordial_bbn/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/06_early_growth_jwst/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/07_bao_geometry/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/07_bao_geometry/tests/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/07_bao_geometry/utils/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/08_sound_horizon/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/08_sound_horizon/utils/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/09_dark_energy_cpl/__pycache__
+./_autofix_sandbox/20251105T145604Z/scripts/10_global_scan/__pycache__
 ./_autofix_sandbox/20251105T145604Z/scripts/manifesttools/__pycache__
 ./_autofix_sandbox/20251105T145604Z/tests/__pycache__
 ./_autofix_sandbox/20251105T145604Z/tools/__pycache__
@@ -129,20 +129,20 @@ Liste brute :
 ./assets/zz-manifests/__pycache__
 ./assets/zz-schemas/__pycache__
 ./scripts/_common/__pycache__
-./scripts/chapter01/__pycache__
-./scripts/chapter02/__pycache__
-./scripts/chapter03/__pycache__
-./scripts/chapter03/utils/__pycache__
-./scripts/chapter04/__pycache__
-./scripts/chapter05/__pycache__
-./scripts/chapter06/__pycache__
-./scripts/chapter07/__pycache__
-./scripts/chapter07/tests/__pycache__
-./scripts/chapter07/utils/__pycache__
-./scripts/chapter08/__pycache__
-./scripts/chapter08/utils/__pycache__
-./scripts/chapter09/__pycache__
-./scripts/chapter10/__pycache__
+./scripts/01_invariants_stability/__pycache__
+./scripts/02_primordial_spectrum/__pycache__
+./scripts/03_stability_domain/__pycache__
+./scripts/03_stability_domain/utils/__pycache__
+./scripts/04_expansion_supernovae/__pycache__
+./scripts/05_primordial_bbn/__pycache__
+./scripts/06_early_growth_jwst/__pycache__
+./scripts/07_bao_geometry/__pycache__
+./scripts/07_bao_geometry/tests/__pycache__
+./scripts/07_bao_geometry/utils/__pycache__
+./scripts/08_sound_horizon/__pycache__
+./scripts/08_sound_horizon/utils/__pycache__
+./scripts/09_dark_energy_cpl/__pycache__
+./scripts/10_global_scan/__pycache__
 ./scripts/manifesttools/__pycache__
 ./tests/__pycache__
 ./tools/__pycache__
@@ -338,8 +338,8 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 ### CH01 – Invariants thermiques & erreurs relatives
 
 - **Scripts**
-  - `scripts/chapter01/generate_data_chapter01.py`
-  - `scripts/chapter01/10_fig03_relative_error_timeline.py`
+  - `scripts/01_invariants_stability/generate_data_chapter01.py`
+  - `scripts/01_invariants_stability/10_fig03_relative_error_timeline.py`
 
 - **Données**
   - `assets/zz-data/chapter01/01_optimized_data.csv`
@@ -353,8 +353,8 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 ### CH02 – Spectre primordial & calibration
 
 - **Scripts**
-  - `scripts/chapter02/generate_data_chapter02.py`
-  - `scripts/chapter02/10_fig00_spectrum.py`
+  - `scripts/02_primordial_spectrum/generate_data_chapter02.py`
+  - `scripts/02_primordial_spectrum/10_fig00_spectrum.py`
 
 - **Données**
   - `assets/zz-data/chapter02/02_primordial_spectrum_spec.json`
@@ -368,8 +368,8 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
 ### CH03 – Stabilité f(R) & courbure de Ricci
 
 - **Scripts**
-  - `scripts/chapter03/generate_data_chapter03.py`
-  - `scripts/chapter03/10_fig01_fR_stability_domain.py`
+  - `scripts/03_stability_domain/generate_data_chapter03.py`
+  - `scripts/03_stability_domain/10_fig01_fR_stability_domain.py`
 
 - **Données**
   - `assets/zz-data/chapter03/03_fR_stability_domain.csv`
@@ -386,7 +386,7 @@ hors vitrine.)
 ### CH04 – Invariants sans dimension
 
 - **Scripts**
-  - `scripts/chapter04/generate_data_chapter04.py`
+  - `scripts/04_expansion_supernovae/generate_data_chapter04.py`
 
 - **Données**
   - `assets/zz-data/chapter04/04_dimensionless_invariants.csv`
@@ -399,8 +399,8 @@ hors vitrine.)
 ### CH05 – Nucléosynthèse primordiale (BBN)
 
 - **Scripts**
-  - `scripts/chapter05/generate_data_chapter05.py`
-  - `scripts/chapter05/10_fig02_dh_model_vs_obs.py`
+  - `scripts/05_primordial_bbn/generate_data_chapter05.py`
+  - `scripts/05_primordial_bbn/10_fig02_dh_model_vs_obs.py`
 
 - **Données**
   - `assets/zz-data/chapter05/05_bbn_data.csv`
@@ -415,8 +415,8 @@ hors vitrine.)
 ### CH06 – CMB & Δχ²
 
 - **Scripts**
-  - `scripts/chapter06/generate_data_chapter06.py`
-  - `scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py`
+  - `scripts/06_early_growth_jwst/generate_data_chapter06.py`
+  - `scripts/06_early_growth_jwst/10_fig02_cls_lcdm_vs_mcgt.py`
 
 - **Données**
   - `assets/zz-data/chapter06/06_cmb_full_results.csv`
@@ -431,8 +431,8 @@ hors vitrine.)
 ### CH07 – Perturbations scalaires
 
 - **Scripts**
-  - `scripts/chapter07/generate_data_chapter07.py`
-  - `scripts/chapter07/launch_scalar_perturbations_solver.py`
+  - `scripts/07_bao_geometry/generate_data_chapter07.py`
+  - `scripts/07_bao_geometry/launch_scalar_perturbations_solver.py`
 
 - **Données**
   - `assets/zz-data/chapter07/07_scalar_perturbations_results.csv`
@@ -450,7 +450,7 @@ hors vitrine.)
 ### CH08 – BAO, SN Ia & couplage
 
 - **Scripts**
-  - `scripts/chapter08/generate_data_chapter08.py`
+  - `scripts/08_sound_horizon/generate_data_chapter08.py`
 
 - **Données**
   - `assets/zz-data/chapter08/08_pantheon_data.csv`
@@ -466,8 +466,8 @@ hors vitrine.)
 ### CH09 – Phases IMRPhenom vs MCGT
 
 - **Scripts**
-  - `scripts/chapter09/generate_data_chapter09.py`
-  - `scripts/chapter09/10_fig01_phase_overlay.py`
+  - `scripts/09_dark_energy_cpl/generate_data_chapter09.py`
+  - `scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py`
 
 - **Données**
   - `assets/zz-data/chapter09/09_best_params.json`
@@ -486,8 +486,8 @@ hors vitrine.)
 ### CH10 – Bootstrap & métriques sur p95
 
 - **Scripts**
-  - `scripts/chapter10/generate_data_chapter10.py`
-  - `scripts/chapter10/eval_primary_metrics_20_300.py`
+  - `scripts/10_global_scan/generate_data_chapter10.py`
+  - `scripts/10_global_scan/eval_primary_metrics_20_300.py`
 
 - **Données**
   - `assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv`

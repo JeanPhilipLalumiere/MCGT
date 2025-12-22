@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "assets/zz-schemas/02_optimal_parameters.schema.json",
-  "title": "Paramètres optimaux — Chapitre 02",
+  "title": "Paramètres optimaux — Chapter 02",
   "description": "Schéma JSON pour le fichier 02_optimal_parameters.json (découpage temporel, segments low/high, seuils, epsilons).",
   "type": "object",
   "$defs": {
@@ -99,7 +99,7 @@
       "properties": {
         "script": {
           "type": "string",
-          "description": "Ex.: scripts/chapter2/generate_chapter2_data.py"
+          "description": "Ex.: scripts/02_primordial_spectrum/generate_chapter2_data.py"
         },
         "version": {
           "type": "string"
@@ -147,9 +147,9 @@
       "max_epsilon_primary": 0.000021947570587947003,
       "max_epsilon_order2": 0.07194300543935292,
       "provenance": {
-        "script": "scripts/chapter2/generate_chapter2_data.py",
+        "script": "scripts/02_primordial_spectrum/generate_chapter2_data.py",
         "version": "chap2-pipeline-1.2.0",
-        "command": "python3 scripts/chapter2/generate_chapter2_data.py --recompute"
+        "command": "python3 scripts/02_primordial_spectrum/generate_chapter2_data.py --recompute"
       }
     }
   ]

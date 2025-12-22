@@ -27,7 +27,7 @@ if not found:
 print()
 
 # --- Inspection de l'import dans generate_data_chapter07.py ---
-gpath = Path("scripts/chapter07/generate_data_chapter07.py")
+gpath = Path("scripts/07_bao_geometry/generate_data_chapter07.py")
 if not gpath.exists():
     raise SystemExit("[ERROR] Fichier introuvable: " + str(gpath))
 

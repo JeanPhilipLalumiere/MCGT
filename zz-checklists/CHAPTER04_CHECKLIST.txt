@@ -1,7 +1,7 @@
 CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 
 [OBJECTIF & PORTÉE]
-- [ ] Ce checklist couvre la production des données/figures et l’intégration LaTeX pour le Chapitre 4 (Invariants adimensionnels).
+- [ ] Ce checklist couvre la production des données/figures et l’intégration LaTeX pour le Chapter 4 (Invariants adimensionnels).
 - [ ] Harmoniser noms de fichiers (EN), formats (CSV/DAT/PNG), grilles et styles avec les chapitres 1–3.
 
 [PRÉ-REQUIS LOGICIELS]
@@ -21,7 +21,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
       • fig_02_invariants_histogram.png
       • fig_03_invariants_vs_T.png
       • fig_04_relative_deviations.png
-- [ ] Scripts (scripts/chapter04/):
+- [ ] Scripts (scripts/04_expansion_supernovae/):
       • generate_data_chapter04.py
       • plot_fig01_invariants_schematic.py
       • plot_fig02_invariants_histogram.py
@@ -43,7 +43,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
       • T_Gyr  [Gyr]
       • I1     [ (unité P)/Gyr ]   = P / T
       • I2     [ adimensionnel ]   = κ · T², avec κ = 1e−35 (valeur modèle)
-      • I3     [ adimensionnel ]   = f_R − 1  (f_R issu du Chapitre 3)
+      • I3     [ adimensionnel ]   = f_R − 1  (f_R issu du Chapter 3)
 - [ ] Règles:
       • f_R est interpolé (linéaire) en fonction de R/R0 ; extrapolation courte autorisée et tracée.
       • Tolérances de référence: |I2| ≪ 1 (±10 % sur domaine utile), I3 ≈ 0 (±1 %).
@@ -58,15 +58,15 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter:
-      python scripts/chapter04/generate_data_chapter04.py
+      python scripts/04_expansion_supernovae/generate_data_chapter04.py
 - [ ] Vérifier la création de 04_dimensionless_invariants.csv ; journal sans erreurs.
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer:
-      python scripts/chapter04/plot_fig01_invariants_schematic.py
-      python scripts/chapter04/plot_fig02_invariants_histogram.py
-      python scripts/chapter04/plot_fig03_invariants_vs_T.py
-      python scripts/chapter04/plot_fig04_relative_deviations.py
+      python scripts/04_expansion_supernovae/plot_fig01_invariants_schematic.py
+      python scripts/04_expansion_supernovae/plot_fig02_invariants_histogram.py
+      python scripts/04_expansion_supernovae/plot_fig03_invariants_vs_T.py
+      python scripts/04_expansion_supernovae/plot_fig04_relative_deviations.py
 - [ ] Contrôler DPI≥300, axes/échelles (log si pertinent), légendes, unités, style cohérent multi-chapitres.
 
 [CONTRÔLES DE QUALITÉ & DRAPEAUX ROUGES]
@@ -78,7 +78,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
       • I2: max |I2| dans ±10 % de la consigne (ou documenter dépassements locaux).
       • I3: proche de 0 (±1 %) sur la majorité du domaine; lister segments en écart.
 - [ ] Cohérences inter-chapitres:
-      • f_R importé du Chapitre 3 sur domaine compatible; signaler extrapolations.
+      • f_R importé du Chapter 3 sur domaine compatible; signaler extrapolations.
       • Unités et encodage stricts (UTF-8, virgule, ‘.’).
 
 [VALIDATION AUTOMATISÉE (RECOMMANDÉE)]
@@ -100,7 +100,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 - [ ] Journaliser les changements (mcgt/CHANGELOG.md) et conserver encodage UTF-8.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python scripts/chapter04/generate_data_chapter04.py
+- [ ] Données   :  python scripts/04_expansion_supernovae/generate_data_chapter04.py
 - [ ] Figures   :  exécuter les 4 scripts plot_fig**
 - [ ] Validation:  (schéma CSV si disponible) validate_csv_table.py ; sinon tests tests
 - [ ] LaTeX     :  commandes pdflatex ci-dessus

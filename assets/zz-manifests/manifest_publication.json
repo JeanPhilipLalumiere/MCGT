@@ -405,63 +405,63 @@
       "git_hash": "cd083eae2d01b4d6dccdf2b93bcdf2ab3f36ac46"
     },
     {
-      "path": "scripts/chapter09/apply_poly_unwrap_rebranch.py",
+      "path": "scripts/09_dark_energy_cpl/apply_poly_unwrap_rebranch.py",
       "sha256": "ab534322681f8e0a4a0fb472d2ddaf012dbc47ad9142fbc10bb57c54a77b2f8a",
       "size_bytes": 8536,
       "mtime_iso": "2025-12-19T23:24:30Z",
       "git_hash": "0dc99cf2c86cd5c9e0c844a6ac1aa3d0c75ed350"
     },
     {
-      "path": "scripts/chapter09/extract_phenom_phase.py",
+      "path": "scripts/09_dark_energy_cpl/extract_phenom_phase.py",
       "sha256": "fa685ddc6759ddf2490efef2494e44da8e50a6d481fbf7dc6ba9871ba140f8b6",
       "size_bytes": 4959,
       "mtime_iso": "2025-12-19T23:40:39Z",
       "git_hash": "68a0a8a1361b3cacd6ec1cea2494faae073f4ed2"
     },
     {
-      "path": "scripts/chapter09/fetch_gwtc3_confident.py",
+      "path": "scripts/09_dark_energy_cpl/fetch_gwtc3_confident.py",
       "sha256": "61feee730f369be0a77f0468d3f9735aa06058a5ef3e84126a134f52bf476289",
       "size_bytes": 5824,
       "mtime_iso": "2025-12-19T23:24:30Z",
       "git_hash": "d170c7269d16c3fc75205830917a0badfa955be6"
     },
     {
-      "path": "scripts/chapter09/generate_data_chapter09.py",
+      "path": "scripts/09_dark_energy_cpl/generate_data_chapter09.py",
       "sha256": "782634ef79c84427f4ca18a7c4d980ce5eae3870a48c89caf5def0de4c1d8db0",
       "size_bytes": 29842,
       "mtime_iso": "2025-12-19T23:40:36Z",
       "git_hash": "0c9be43b3c6dd425d657a17cef23c30e48745877"
     },
     {
-      "path": "scripts/chapter09/generate_mcgt_raw_phase.py",
+      "path": "scripts/09_dark_energy_cpl/generate_mcgt_raw_phase.py",
       "sha256": "220b5e431e46fbe2a0fa5b9044d1af7d3766907eb7bc2ba74a5eb4b921680fac",
       "size_bytes": 7687,
       "mtime_iso": "2025-12-19T23:24:30Z",
       "git_hash": "d4bc911694102fbcd917d79850a54c06177b0e0b"
     },
     {
-      "path": "scripts/chapter09/opt_poly_rebranch.py",
+      "path": "scripts/09_dark_energy_cpl/opt_poly_rebranch.py",
       "sha256": "c1db7f69da8ca3958d8721a8181b694f0bdd50759932b3e932424cd8b76a260f",
       "size_bytes": 8226,
       "mtime_iso": "2025-12-19T23:24:30Z",
       "git_hash": "36562352ef12c4f576643ebded87bda981ecbab2"
     },
     {
-      "path": "scripts/chapter10/add_phi_at_fpeak.py",
+      "path": "scripts/10_global_scan/add_phi_at_fpeak.py",
       "sha256": "e02a8ec63e0c273f1c875b31039445d148ae5437c98808aa6a47622f6764c774",
       "size_bytes": 9796,
       "mtime_iso": "2025-12-19T23:29:16Z",
       "git_hash": "dd4d05745c02b71f86f6a7700a1cc0160a7ffbe9"
     },
     {
-      "path": "scripts/chapter10/eval_primary_metrics_20_300.py",
+      "path": "scripts/10_global_scan/eval_primary_metrics_20_300.py",
       "sha256": "f4dacfe28c383499aba7aa5e296c0b3cf740e68b14844d13a1a6214889a94564",
       "size_bytes": 14514,
       "mtime_iso": "2025-12-19T23:40:39Z",
       "git_hash": "5f2b93407149b00949318416dd9bedee44af8adf"
     },
     {
-      "path": "scripts/chapter10/generate_data_chapter10.py",
+      "path": "scripts/10_global_scan/generate_data_chapter10.py",
       "sha256": "480383dc7a037c1d58e97514e07d4197561a749487aa3aeb0d83baaeeab339b7",
       "size_bytes": 21747,
       "mtime_iso": "2025-12-19T23:40:39Z",

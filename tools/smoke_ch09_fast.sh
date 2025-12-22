@@ -9,10 +9,10 @@ exec > >(tee -a "$LOG") 2>&1
 echo "[INFO] Smoke CH09 (fast)"
 
 # 1) Génération robuste
-python3 scripts/chapter09/generate_data_chapter09.py
+python3 scripts/09_dark_energy_cpl/generate_data_chapter09.py
 
 # 2) fig01 (tolérante) — non bloquant
-python3 scripts/chapter09/plot_fig01_phase_overlay.py || echo "[WARN] fig01 non bloquant"
+python3 scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py || echo "[WARN] fig01 non bloquant"
 
 # 3) Builder fig02
 python3 tools/build_fig02_input.py || true
@@ -50,7 +50,7 @@ PY
 # 5) fig02 natif ou fallback
 OUT="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
 if [[ -s zz-out/chapter09/fig02_input.csv ]]; then
-  if ! python3 scripts/chapter09/plot_fig02_residual_phase.py \
+  if ! python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
         --csv zz-out/chapter09/fig02_input.csv \
         --out "$OUT" --dpi 120 ; then
     echo "[WARN] fig02 natif a échoué — fallback"

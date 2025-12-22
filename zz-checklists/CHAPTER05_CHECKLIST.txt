@@ -2,7 +2,7 @@
 CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
 
 [OBJECTIF & PORTÉE]
-- [ ] Ce checklist couvre la génération des données/figures BBN, la validation et l’intégration LaTeX du Chapitre 5.
+- [ ] Ce checklist couvre la génération des données/figures BBN, la validation et l’intégration LaTeX du Chapter 5.
 - [ ] Conserver texte FR, noms de fichiers/commandes EN. Harmoniser formats/grilles/seuils avec chapitres 1–4.
 
 [PRÉ-REQUIS LOGICIELS]
@@ -32,7 +32,7 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
       • fig_02_dh_model_vs_obs.png
       • fig_03_yp_model_vs_obs.png
       • fig_04_chi2_vs_T.png
-- [ ] Scripts (scripts/chapter05/):
+- [ ] Scripts (scripts/05_primordial_bbn/):
       • generate_data_chapter05.py
       • plot_fig01_bbn_reaction_network.py
       • plot_fig02_dh_model_vs_obs.py
@@ -72,15 +72,15 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter (racine du dépôt) :
-      python scripts/chapter05/generate_data_chapter05.py
+      python scripts/05_primordial_bbn/generate_data_chapter05.py
 - [ ] Vérifier que tous les fichiers de sortie ont été écrits, tailles non nulles.
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer :
-      python scripts/chapter05/plot_fig01_bbn_reaction_network.py
-      python scripts/chapter05/plot_fig02_dh_model_vs_obs.py
-      python scripts/chapter05/plot_fig03_yp_model_vs_obs.py
-      python scripts/chapter05/plot_fig04_chi2_vs_T.py
+      python scripts/05_primordial_bbn/plot_fig01_bbn_reaction_network.py
+      python scripts/05_primordial_bbn/plot_fig02_dh_model_vs_obs.py
+      python scripts/05_primordial_bbn/plot_fig03_yp_model_vs_obs.py
+      python scripts/05_primordial_bbn/plot_fig04_chi2_vs_T.py
 - [ ] Contrôles : DPI ≥ 300, axes/échelles appropriés (log si pertinent), légendes & unités cohérentes multi-chapitres.
 
 [CONTRÔLES QUALITÉ (POST-RUN)]
@@ -110,7 +110,7 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
 - [ ] Documenter les changements dans mcgt/CHANGELOG.md (impact scientifique, versions, dates).
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python scripts/chapter05/generate_data_chapter05.py
+- [ ] Données   :  python scripts/05_primordial_bbn/generate_data_chapter05.py
 - [ ] Figures   :  exécuter les 4 scripts plot_fig**
 - [ ] Validation:  validate_json.py / validate_csv_table.py (schémas BBN)
 - [ ] LaTeX     :  deux commandes pdflatex ci-dessus

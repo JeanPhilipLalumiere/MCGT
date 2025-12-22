@@ -1,4 +1,4 @@
-# Chapitre 06 – Pipeline minimal canonique (rayonnement CMB)
+# Chapter 06 – Pipeline minimal canonique (rayonnement CMB)
 
 Ce document décrit le **pipeline minimal canonique** permettant de relancer, à partir du dépôt
 MCGT, les calculs et figures essentiels du **chapitre 06 – rayonnement CMB**.
@@ -16,8 +16,8 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH06 s’appuie sur un petit nombre de scripts Python :
 
-- `scripts/chapter06/generate_pdot_plateau_vs_z.py`  
-- `scripts/chapter06/generate_data_chapter06.py`  
+- `scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py`  
+- `scripts/06_early_growth_jwst/generate_data_chapter06.py`  
 - les scripts de figures `10_fig0x_*.py` du chapitre 06.
 
 Contrairement au guide complet (injection détaillée dans CAMB, scans étendus, etc.),
@@ -41,8 +41,8 @@ Depuis la racine du dépôt `MCGT` :
 - Fichiers et configurations accessibles :
 
   - `config/camb_exact_plateau.ini` (ou équivalent) ;
-  - `scripts/chapter06/generate_pdot_plateau_vs_z.py`  
-  - `scripts/chapter06/generate_data_chapter06.py`.
+  - `scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py`  
+  - `scripts/06_early_growth_jwst/generate_data_chapter06.py`.
 
 Dans le pipeline minimal, on suppose que les éléments suivants sont soit
 déjà présents, soit générés par les étapes ci‑dessous :
@@ -61,17 +61,17 @@ Depuis la racine du dépôt :
 cd /home/jplal/MCGT  # adapter si nécessaire
 
 # 1) Expansion MCGT → fichier H(z)/H0
-python scripts/chapter06/generate_pdot_plateau_vs_z.py
+python scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py
 
 # 2) Pipeline CMB canonique (spectres + ΔCℓ + JSON)
-python scripts/chapter06/generate_data_chapter06.py        --alpha 0.20        --q0star -0.10        --export-derivative
+python scripts/06_early_growth_jwst/generate_data_chapter06.py        --alpha 0.20        --q0star -0.10        --export-derivative
 
 # 3) Figures principales (Fig. 01 à 05)
-python scripts/chapter06/10_fig01_cmb_dataflow_diagram.py
-python scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py
-python scripts/chapter06/10_fig03_delta_cls_relative.py
-python scripts/chapter06/10_fig04_delta_rs_vs_params.py
-python scripts/chapter06/10_fig05_delta_chi2_heatmap.py
+python scripts/06_early_growth_jwst/10_fig01_cmb_dataflow_diagram.py
+python scripts/06_early_growth_jwst/10_fig02_cls_lcdm_vs_mcgt.py
+python scripts/06_early_growth_jwst/10_fig03_delta_cls_relative.py
+python scripts/06_early_growth_jwst/10_fig04_delta_rs_vs_params.py
+python scripts/06_early_growth_jwst/10_fig05_delta_chi2_heatmap.py
 ```
 
 En fin d’exécution, on doit trouver :
@@ -89,25 +89,25 @@ En fin d’exécution, on doit trouver :
 
 Répertoire CH06 :
 
-- `scripts/chapter06/generate_pdot_plateau_vs_z.py`  
+- `scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py`  
   → génère la loi d’expansion MCGT (plateau) en fonction de z, utilisée par CAMB.
 
-- `scripts/chapter06/generate_data_chapter06.py`  
+- `scripts/06_early_growth_jwst/generate_data_chapter06.py`  
   → script principal du chapitre 06. Il orchestre l’appel à CAMB (via l’API Python)
     et/ou lit les spectres déjà présents, puis construit tous les fichiers CMB
     de travail (ΔCℓ, scans, JSON).
 
 Scripts de figures :
 
-- `scripts/chapter06/10_fig01_cmb_dataflow_diagram.py`
-- `scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py`
-- `scripts/chapter06/10_fig03_delta_cls_relative.py`
-- `scripts/chapter06/10_fig04_delta_rs_vs_params.py`
-- `scripts/chapter06/10_fig05_delta_chi2_heatmap.py`
+- `scripts/06_early_growth_jwst/10_fig01_cmb_dataflow_diagram.py`
+- `scripts/06_early_growth_jwst/10_fig02_cls_lcdm_vs_mcgt.py`
+- `scripts/06_early_growth_jwst/10_fig03_delta_cls_relative.py`
+- `scripts/06_early_growth_jwst/10_fig04_delta_rs_vs_params.py`
+- `scripts/06_early_growth_jwst/10_fig05_delta_chi2_heatmap.py`
 
 Éventuels utilitaires et wrappers :
 
-- `scripts/chapter06/run_camb_chapter06.bat` (optionnel, environnement local).
+- `scripts/06_early_growth_jwst/run_camb_chapter06.bat` (optionnel, environnement local).
 
 ### 4.2. Données CH06 (inputs + outputs)
 
@@ -197,7 +197,7 @@ Figures principales :
 Depuis la racine :
 
 ```bash
-python scripts/chapter06/generate_pdot_plateau_vs_z.py
+python scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py
 ```
 
 Ce script :
@@ -215,7 +215,7 @@ utilisé par CAMB.
 ### 5.2. Pipeline CMB principal – generate_data_chapter06.py
 
 ```bash
-python scripts/chapter06/generate_data_chapter06.py        --alpha 0.20        --q0star -0.10        --export-derivative
+python scripts/06_early_growth_jwst/generate_data_chapter06.py        --alpha 0.20        --q0star -0.10        --export-derivative
 ```
 
 Rôle du script :
@@ -242,11 +242,11 @@ Rôle du script :
 Les figures officielles se régénèrent ensuite via :
 
 ```bash
-python scripts/chapter06/10_fig01_cmb_dataflow_diagram.py
-python scripts/chapter06/10_fig02_cls_lcdm_vs_mcgt.py
-python scripts/chapter06/10_fig03_delta_cls_relative.py
-python scripts/chapter06/10_fig04_delta_rs_vs_params.py
-python scripts/chapter06/10_fig05_delta_chi2_heatmap.py
+python scripts/06_early_growth_jwst/10_fig01_cmb_dataflow_diagram.py
+python scripts/06_early_growth_jwst/10_fig02_cls_lcdm_vs_mcgt.py
+python scripts/06_early_growth_jwst/10_fig03_delta_cls_relative.py
+python scripts/06_early_growth_jwst/10_fig04_delta_rs_vs_params.py
+python scripts/06_early_growth_jwst/10_fig05_delta_chi2_heatmap.py
 ```
 
 Chaque script lit les fichiers correspondants dans `assets/zz-data/chapter06/` et met à jour

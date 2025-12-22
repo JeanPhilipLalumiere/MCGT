@@ -1,7 +1,7 @@
 CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
 
 [OBJECTIF & PORTÉE]
-- [ ] Ce checklist couvre la production des données/figures et l’exécution standard pour la validation chronologique (Chapitre 2).
+- [ ] Ce checklist couvre la production des données/figures et l’exécution standard pour la validation chronologique (Chapter 2).
 - [ ] Conformité aux conventions de grille, formats, lissage et schémas (reproductibilité + homogénéité avec Chap.1 & Chap.6).
 
 [ARBORESCENCE & FICHIERS ATTENDUS]
@@ -23,7 +23,7 @@ CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
       • fig_00_spectrum.png ; fig_01_P_vs_T_evolution.png ; fig_02_calibration.png
       • fig_03_relative_errors.png ; fig_04_pipeline_diagram.png
       • fig_05_FG_series.png ; fig_06_fit_alpha.png
-- [ ] Scripts (scripts/chapter02/):
+- [ ] Scripts (scripts/02_primordial_spectrum/):
       • generate_data_chapter02.py
       • plot_fig00_spectrum.py … plot_fig06_alpha_fit.py
       • requirements.txt
@@ -48,7 +48,7 @@ CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter (tout produire):
-      python scripts/chapter02/generate_data_chapter02.py --all
+      python scripts/02_primordial_spectrum/generate_data_chapter02.py --all
       (Options usuelles: --spectrum --derivative --milestones)
 - [ ] Sorties attendues et colonnes:
       • 02_timeline_milestones.csv: T_Gyr, P_ref, P_opt, epsilon_i, classe
@@ -63,13 +63,13 @@ CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
 
 [PRODUCTION DES FIGURES]
 - [ ] Générer:
-      python scripts/chapter02/plot_fig00_spectrum.py
-      python scripts/chapter02/plot_fig01_P_vs_T_evolution.py
-      python scripts/chapter02/plot_fig02_calibration.py
-      python scripts/chapter02/plot_fig03_relative_errors.py
-      python scripts/chapter02/plot_fig04_pipeline_diagram.py
-      python scripts/chapter02/plot_fig05_FG_series.py
-      python scripts/chapter02/plot_fig06_alpha_fit.py
+      python scripts/02_primordial_spectrum/plot_fig00_spectrum.py
+      python scripts/02_primordial_spectrum/plot_fig01_P_vs_T_evolution.py
+      python scripts/02_primordial_spectrum/plot_fig02_calibration.py
+      python scripts/02_primordial_spectrum/plot_fig03_relative_errors.py
+      python scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py
+      python scripts/02_primordial_spectrum/plot_fig05_FG_series.py
+      python scripts/02_primordial_spectrum/plot_fig06_alpha_fit.py
 - [ ] Vérifier axes/échelles (log si requis), légendes, unités, DPI ≥300, cohérence couleurs/style.
 
 [CONTRÔLES DE QUALITÉ & CRITÈRES]
@@ -105,7 +105,7 @@ CHECKLIST — CHAPITRE 02 (Validation chronologique, MCGT)
 - [ ] Versionner les changements (mcgt/CHANGELOG.md); conserver chemins relatifs et encodage UTF-8.
 
 [COMMANDES RAPIDES]
-- [ ] Données   :  python scripts/chapter02/generate_data_chapter02.py --all
+- [ ] Données   :  python scripts/02_primordial_spectrum/generate_data_chapter02.py --all
 - [ ] Figures   :  exécuter les 7 scripts “plot_fig..”
 - [ ] Schémas   :  validate_json.py & validate_csv_table.py (voir bloc “Validation”)
 - [ ] LaTeX     :  commandes pdflatex ci-dessus

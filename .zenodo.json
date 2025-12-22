@@ -1,7 +1,7 @@
 {
   "title": "MCGT : Modèle de la Courbure Gravitationnelle du Temps",
   "upload_type": "software",
-  "description": "Toolkit de publication et de reproductibilité MCGT. Version v2.0.2 (Chapitre 10 Final). Innovations : (1) Restauration du mapping Fig 07. (2) Optimisation visuelle radicale des cartes (Fig 01/06) par filtrage d'outliers et jitter. (3) Résolution des conflits d'intégrité GitHub. (4) Standardisation Serif et anglicisation totale.",
+  "description": "Toolkit de publication et de reproductibilité MCGT. Version v2.0.2 (Chapter 10 Final). Innovations : (1) Restauration du mapping Fig 07. (2) Optimisation visuelle radicale des cartes (Fig 01/06) par filtrage d'outliers et jitter. (3) Résolution des conflits d'intégrité GitHub. (4) Standardisation Serif et anglicisation totale.",
   "creators": [
     {
       "name": "Lalumière, Jean-Philip",

@@ -3,7 +3,7 @@
   "title": "stabilite-fR",
   "paths": {
     "data_dir": "assets/zz-data/chapter03",
-    "scripts_dir": "scripts/chapter03",
+    "scripts_dir": "scripts/03_stability_domain",
     "figures_dir": "assets/zz-figures/chapter03",
     "configs": [
       "conventions.md",
@@ -41,15 +41,15 @@
     ]
   },
   "scripts": [
-    "scripts/chapter03/generate_chapter3_data.py",
-    "scripts/chapter03/plot_fig01_stability_fR_domain.py",
-    "scripts/chapter03/plot_fig02_fR_fRR_vs_R.py",
-    "scripts/chapter03/plot_fig03_ms2_R0_vs_R.py",
-    "scripts/chapter03/plot_fig04_fR_fRR_vs_R.py",
-    "scripts/chapter03/plot_fig05_milestones_interpolation.py",
-    "scripts/chapter03/plot_fig06_grid_quality.py",
-    "scripts/chapter03/plot_fig07_ricci_fR_vs_z.py",
-    "scripts/chapter03/plot_fig08_ricci_fR_vs_T.py"
+    "scripts/03_stability_domain/generate_chapter3_data.py",
+    "scripts/03_stability_domain/plot_fig01_stability_fR_domain.py",
+    "scripts/03_stability_domain/plot_fig02_fR_fRR_vs_R.py",
+    "scripts/03_stability_domain/plot_fig03_ms2_R0_vs_R.py",
+    "scripts/03_stability_domain/plot_fig04_fR_fRR_vs_R.py",
+    "scripts/03_stability_domain/plot_fig05_milestones_interpolation.py",
+    "scripts/03_stability_domain/plot_fig06_grid_quality.py",
+    "scripts/03_stability_domain/plot_fig07_ricci_fR_vs_z.py",
+    "scripts/03_stability_domain/plot_fig08_ricci_fR_vs_T.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter03/03_stability_fR_domain.meta.json",

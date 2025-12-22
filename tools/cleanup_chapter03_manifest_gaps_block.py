@@ -10,10 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GAPS_PATH = ROOT / "_tmp" / "CHAPTER_MANIFEST_GAPS.md"
 
-# On ne fige pas le mot "Chapitre" / "Chapter", on matche juste "3" et "chapter_manifest_03.json"
+# On ne fige pas le mot "Chapter" / "Chapter", on matche juste "3" et "chapter_manifest_03.json"
 HEADER_REGEX = r"^## .*3.*chapter_manifest_03\.json[ \t]*$"
 
-REPLACEMENT = """## Chapitre 3 — chapter_manifest_03.json
+REPLACEMENT = """## Chapter 3 — chapter_manifest_03.json
 
 Section résolue (2025-12-04) : les fichiers de données d’entrée, figures, metas,
 scripts et le guide du chapitre 03 existent dans le filesystem et sont couverts
@@ -46,7 +46,7 @@ def main() -> None:
 
     new_text = re.sub(pattern, REPLACEMENT + "\n", text, flags=re.MULTILINE)
     GAPS_PATH.write_text(new_text, encoding="utf-8")
-    print(f"[OK] Bloc 'Chapitre 3' nettoyé dans {GAPS_PATH}")
+    print(f"[OK] Bloc 'Chapter 3' nettoyé dans {GAPS_PATH}")
 
     # On régénère le TODO pour propager la résolution.
     subprocess.run(["python", "tools/generate_chapter_todo.py"], check=True)

@@ -3,7 +3,7 @@
   "title": "invariants-adimensionnels",
   "paths": {
     "data_dir": "assets/zz-data/chapter04",
-    "scripts_dir": "scripts/chapter04",
+    "scripts_dir": "scripts/04_expansion_supernovae",
     "figures_dir": "assets/zz-figures/chapter04",
     "configs": [
       "conventions.md",
@@ -31,11 +31,11 @@
     ]
   },
   "scripts": [
-    "scripts/chapter04/generate_chapter4_data.py",
-    "scripts/chapter04/plot_fig01_invariants_diagram.py",
-    "scripts/chapter04/plot_fig02_invariants_histogram.py",
-    "scripts/chapter04/plot_fig03_invariants_vs_T.py",
-    "scripts/chapter04/plot_fig04_relative_errors.py"
+    "scripts/04_expansion_supernovae/generate_chapter4_data.py",
+    "scripts/04_expansion_supernovae/plot_fig01_invariants_diagram.py",
+    "scripts/04_expansion_supernovae/plot_fig02_invariants_histogram.py",
+    "scripts/04_expansion_supernovae/plot_fig03_invariants_vs_T.py",
+    "scripts/04_expansion_supernovae/plot_fig04_relative_errors.py"
   ],
   "meta_expected": [
     "assets/zz-data/chapter04/04_dimensionless_invariants.meta.json",

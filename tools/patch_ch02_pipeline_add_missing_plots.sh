@@ -29,9 +29,9 @@ else:
         raise SystemExit("[ERREUR] Marqueur final introuvable dans run_ch02_pipeline_minimal.sh")
 
     block = """# --- Plots additionnels pour compléter le pipeline minimal ---
-python scripts/chapter02/plot_fig02_calibration.py
-python scripts/chapter02/plot_fig03_relative_errors.py
-python scripts/chapter02/plot_fig04_pipeline_diagram.py
+python scripts/02_primordial_spectrum/plot_fig02_calibration.py
+python scripts/02_primordial_spectrum/plot_fig03_relative_errors.py
+python scripts/02_primordial_spectrum/plot_fig04_pipeline_diagram.py
 
 """
 

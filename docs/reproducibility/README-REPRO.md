@@ -58,18 +58,18 @@ Ce document explique comment (re)générer les données, figures et diagnostics 
 6. GÉNÉRATION — LIGNE DIRECTE (SANS MAKE)
    Remarque : le Makefile fourni est centré QA/validation. La (re)génération des artefacts se fait par scripts Python sous « scripts/chapterXX/ ». Exemples ci-dessous (à adapter si vos chemins diffèrent).
 
-6.1 Chapitre 09 — Phase d’ondes gravitationnelles
+6.1 Chapter 09 — Phase d’ondes gravitationnelles
 Étape 0 — (si besoin) extraire/régénérer la référence
-python scripts/chapter09/extract\_phenom\_phase.py
+python scripts/09_dark_energy_cpl/extract\_phenom\_phase.py
 --out assets/zz-data/chapter09/09\_phases\_imrphenom.csv
 Étape 1 — Générer prétraitement + résidus
-python scripts/chapter09/generate\_data\_chapter09.py
+python scripts/09_dark_energy_cpl/generate\_data\_chapter09.py
 --ref assets/zz-data/chapter09/09\_phases\_imrphenom.csv
 --out-prepoly assets/zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv
 --out-diff    assets/zz-data/chapter09/09\_phase\_diff.csv
 --log-level INFO
 Étape 2 — Optimiser (base, degré) + rebranch k, écrire la série finale
-python scripts/chapter09/opt\_poly\_rebranch.py
+python scripts/09_dark_energy_cpl/opt\_poly\_rebranch.py
 --csv assets/zz-data/chapter09/09\_phases\_mcgt\_prepoly.csv
 --meta assets/zz-data/chapter09/09\_metrics\_phase.json
 --fit-window 30 250 --metrics-window 20 300
@@ -78,17 +78,17 @@ python scripts/chapter09/opt\_poly\_rebranch.py
 --out-best assets/zz-data/chapter09/09\_best\_params.json
 --backup --log-level INFO
 Étape 3 — Figures
-python scripts/chapter09/plot\_fig01\_phase\_overlay.py
+python scripts/09_dark_energy_cpl/plot\_fig01\_phase\_overlay.py
 --csv  assets/zz-data/chapter09/09\_phases\_mcgt.csv
 --meta assets/zz-data/chapter09/09\_metrics\_phase.json
 --out  assets/zz-figures/chapter09/fig\_01\_phase\_overlay.png
 --shade 20 300 --show-residual --dpi 300
-python scripts/chapter09/plot\_fig02\_residual\_phase.py
+python scripts/09_dark_energy_cpl/plot\_fig02\_residual\_phase.py
 --csv  assets/zz-data/chapter09/09\_phases\_mcgt.csv
 --meta assets/zz-data/chapter09/09\_metrics\_phase.json
 --out  assets/zz-figures/chapter09/fig\_02\_residual\_phase.png
 --bands 20 300 300 1000 1000 2000 --dpi 300
-python scripts/chapter09/plot\_fig03\_hist\_absdphi\_20\_300.py
+python scripts/09_dark_energy_cpl/plot\_fig03\_hist\_absdphi\_20\_300.py
 --csv  assets/zz-data/chapter09/09\_phases\_mcgt.csv
 --meta assets/zz-data/chapter09/09\_metrics\_phase.json
 --out  assets/zz-figures/chapter09/fig\_03\_hist\_absdphi\_20\_300.png
@@ -99,7 +99,7 @@ Préparez « assets/zz-data/chapter09/09\_comparison\_milestones.csv »
 
 puis flaguez selon sigma/classe :
 
-python scripts/chapter09/flag\_jalons.py
+python scripts/09_dark_energy_cpl/flag\_jalons.py
 --csv  assets/zz-data/chapter09/09\_comparison\_milestones.csv
 --meta assets/zz-data/chapter09/09\_comparison\_milestones.meta.json
 --out-csv assets/zz-data/chapter09/09\_comparison\_milestones.flagged.csv
@@ -107,22 +107,22 @@ python scripts/chapter09/flag\_jalons.py
 
 Figures jalons :
 
-python scripts/chapter09/plot\_fig04\_absdphi\_milestones\_vs\_f.py
+python scripts/09_dark_energy_cpl/plot\_fig04\_absdphi\_milestones\_vs\_f.py
 --diff   assets/zz-data/chapter09/09\_phase\_diff.csv
 --csv    assets/zz-data/chapter09/09\_phases\_mcgt.csv
 --meta   assets/zz-data/chapter09/09\_metrics\_phase.json
 --jalons assets/zz-data/chapter09/09\_comparison\_milestones.csv
 --out    assets/zz-figures/chapter09/fig\_04\_absdphi\_milestones\_vs\_f.png
 --window 20 300 --with\_errorbar --dpi 300
-python scripts/chapter09/plot\_fig05\_scatter\_phi\_at\_fpeak.py
+python scripts/09_dark_energy_cpl/plot\_fig05\_scatter\_phi\_at\_fpeak.py
 --jalons assets/zz-data/chapter09/09\_comparison\_milestones.csv
 --out    assets/zz-figures/chapter09/fig\_05\_scatter\_phi\_at\_fpeak.png
 
-6.2 Chapitre 10 — Monte Carlo global 8D
+6.2 Chapter 10 — Monte Carlo global 8D
 Étape 1 — Config (paramètres/prior/nuisances)
 cat assets/zz-data/chapter10/10\_mc\_config.json   # vérifiez les bornes, seed, n
 Étape 2 — Génération/évaluation principale
-python scripts/chapter10/generate\_data\_chapter10.py
+python scripts/10_global_scan/generate\_data\_chapter10.py
 --config assets/zz-data/chapter10/10\_mc\_config.json
 --out-results assets/zz-data/chapter10/10\_mc\_results.csv
 --out-results-circ assets/zz-data/chapter10/10\_mc\_results.circ.csv
@@ -132,27 +132,27 @@ python scripts/chapter10/generate\_data\_chapter10.py
 
 Ajout de φ(f\_peak) et QA circulaire
 
-python scripts/chapter10/add\_phi\_at\_fpeak.py
+python scripts/10_global_scan/add\_phi\_at\_fpeak.py
 --results assets/zz-data/chapter10/10\_mc\_results.circ.csv
 --out     assets/zz-data/chapter10/10\_mc\_results.circ.with\_fpeak.csv
-python scripts/chapter10/inspect\_topk\_residuals.py
+python scripts/10_global_scan/inspect\_topk\_residuals.py
 --results assets/zz-data/chapter10/10\_mc\_results.csv
 --jalons  assets/zz-data/chapter10/10\_mc\_milestones\_eval.csv
 --out-dir assets/zz-data/chapter10/topk\_residuals
-python scripts/chapter10/bootstrap\_topk\_p95.py
+python scripts/10_global_scan/bootstrap\_topk\_p95.py
 --results assets/zz-data/chapter10/10\_mc\_results.csv
 --topk-json assets/zz-data/chapter10/10\_mc\_best.json
 --out-json  assets/zz-data/chapter10/10\_mc\_best\_bootstrap.json
 --B 1000 --seed 12345
 Étape 4 — Figures de synthèse
-python scripts/chapter10/plot\_fig01\_iso\_p95\_maps.py        --out assets/zz-figures/chapter10/fig\_01\_iso\_p95\_maps.png
-python scripts/chapter10/plot\_fig02\_scatter\_phi\_at\_fpeak.py --out assets/zz-figures/chapter10/fig\_02\_scatter\_phi\_at\_fpeak.png
-python scripts/chapter10/plot\_fig03\_convergence\_p95\_vs\_n.py --out assets/zz-figures/chapter10/fig\_03\_convergence\_p95\_vs\_n.png
-python scripts/chapter10/plot\_fig03b\_bootstrap\_coverage\_vs\_n.py --out assets/zz-figures/chapter10/fig\_03b\_coverage\_bootstrap\_vs\_n\_hires.png
-python scripts/chapter10/plot\_fig04\_scatter\_p95\_recalc\_vs\_orig.py --out assets/zz-figures/chapter10/fig\_04\_scatter\_p95\_recalc\_vs\_orig.png
-python scripts/chapter10/plot\_fig05\_hist\_cdf\_metrics.py     --out assets/zz-figures/chapter10/fig\_05\_hist\_cdf\_metrics.png
-python scripts/chapter10/plot\_fig06\_residual\_map.py         --out assets/zz-figures/chapter10/fig\_06\_heatmap\_absdp95\_m1m2.png
-python scripts/chapter10/plot\_fig07\_synthesis.py            --out assets/zz-figures/chapter10/fig\_07\_summary\_comparison.png
+python scripts/10_global_scan/plot\_fig01\_iso\_p95\_maps.py        --out assets/zz-figures/chapter10/fig\_01\_iso\_p95\_maps.png
+python scripts/10_global_scan/plot\_fig02\_scatter\_phi\_at\_fpeak.py --out assets/zz-figures/chapter10/fig\_02\_scatter\_phi\_at\_fpeak.png
+python scripts/10_global_scan/plot\_fig03\_convergence\_p95\_vs\_n.py --out assets/zz-figures/chapter10/fig\_03\_convergence\_p95\_vs\_n.png
+python scripts/10_global_scan/plot\_fig03b\_bootstrap\_coverage\_vs\_n.py --out assets/zz-figures/chapter10/fig\_03b\_coverage\_bootstrap\_vs\_n\_hires.png
+python scripts/10_global_scan/plot\_fig04\_scatter\_p95\_recalc\_vs\_orig.py --out assets/zz-figures/chapter10/fig\_04\_scatter\_p95\_recalc\_vs\_orig.png
+python scripts/10_global_scan/plot\_fig05\_hist\_cdf\_metrics.py     --out assets/zz-figures/chapter10/fig\_05\_hist\_cdf\_metrics.png
+python scripts/10_global_scan/plot\_fig06\_residual\_map.py         --out assets/zz-figures/chapter10/fig\_06\_heatmap\_absdp95\_m1m2.png
+python scripts/10_global_scan/plot\_fig07\_synthesis.py            --out assets/zz-figures/chapter10/fig\_07\_summary\_comparison.png
 
 7. VALIDATION APRÈS GÉNÉRATION
    JSON (exemples)

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_fix_try_block.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_fix_try_block.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Normalisation du bloc _mcgt_cli_seed() dans plot_fig03_delta_cls_relative.py =="
@@ -14,7 +14,7 @@ from pathlib import Path
 import shutil
 import sys
 
-path = Path("scripts/chapter06/plot_fig03_delta_cls_relative.py")
+path = Path("scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py")
 if not path.exists():
     print("[ERROR] Fichier introuvable:", path)
     sys.exit(1)

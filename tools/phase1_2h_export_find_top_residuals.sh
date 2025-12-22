@@ -2,7 +2,7 @@
 set -u
 cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
-FILE="scripts/chapter10/bootstrap_topk_p95.py"
+FILE="scripts/10_global_scan/bootstrap_topk_p95.py"
 
 python - "$FILE" <<'PY'
 import sys, re
@@ -54,9 +54,9 @@ python -m py_compile "$FILE" || true
 pre-commit run --files "$FILE" || true
 
 # Tests
-pytest -q scripts/chapter10/tests/test_bootstrap_topk_p95.py -q || true
+pytest -q scripts/10_global_scan/tests/test_bootstrap_topk_p95.py -q || true
 
 # Commit/push tolérants
-git add "$FILE" scripts/chapter10/tests/test_bootstrap_topk_p95.py
+git add "$FILE" scripts/10_global_scan/tests/test_bootstrap_topk_p95.py
 git commit -m "fix(ch10): ensure public find_top_residuals shim for tests; keep behavior unchanged" || true
 git push -u origin "$(git rev-parse --abbrev-ref HEAD)" || true

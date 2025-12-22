@@ -16,7 +16,7 @@
       "description": "Valeur optimisée de P(T) associée à chaque point de la grille."
     }
   ],
-  "generated_by": "scripts/chapter01/generate_chapter1_data.py",
+  "generated_by": "scripts/01_invariants_stability/generate_chapter1_data.py",
   "tags": [
     "chapter01",
     "optimized",

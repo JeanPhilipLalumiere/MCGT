@@ -167,14 +167,14 @@ def render_markdown(
     lines.append("---")
     lines.append("")
 
-    # Chapitres (01–10 typiquement)
+    # Chapters (01–10 typiquement)
     chapter_keys = [k for k in todo.keys() if k != "GLOBAL"]
     for chap in sorted(chapter_keys):
         block = todo[chap]
-        lines.append(f"## Chapitre {chap}")
+        lines.append(f"## Chapter {chap}")
         lines.append("")
         lines.append(
-            f"Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Chapitre {chap})."
+            f"Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Chapter {chap})."
         )
         lines.append("")
 

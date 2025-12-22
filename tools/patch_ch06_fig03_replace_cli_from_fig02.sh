@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul scripts/chapter06/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_replace_cli.";
+  echo "[ASTUCE] Seul scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py est touché, avec backup .bak_replace_cli.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH06 – Remplacement du bloc CLI de fig_03 par celui de fig_02 =="
@@ -14,8 +14,8 @@ from pathlib import Path
 import shutil
 import sys
 
-path02 = Path("scripts/chapter06/plot_fig02_cls_lcdm_vs_mcgt.py")
-path03 = Path("scripts/chapter06/plot_fig03_delta_cls_relative.py")
+path02 = Path("scripts/06_early_growth_jwst/plot_fig02_cls_lcdm_vs_mcgt.py")
+path03 = Path("scripts/06_early_growth_jwst/plot_fig03_delta_cls_relative.py")
 
 for p in (path02, path03):
     if not p.exists():

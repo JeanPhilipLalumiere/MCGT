@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] patch_ch02_define_logistic_params_v2 interrompu (code $code)";
-  echo "[ASTUCE] Seul scripts/chapter02/generate_data_chapter02.py est touché, avec backup supplémentaire .bak_bad_indent_v2.";
+  echo "[ASTUCE] Seul scripts/02_primordial_spectrum/generate_data_chapter02.py est touché, avec backup supplémentaire .bak_bad_indent_v2.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH02 v2 – Réinjection des paramètres logistiques avec indentation correcte =="
@@ -12,8 +12,8 @@ echo "== PATCH CH02 v2 – Réinjection des paramètres logistiques avec indenta
 python - << 'PYEOF'
 import pathlib
 
-backup = pathlib.Path("scripts/chapter02/generate_data_chapter02.py.bak_logistic_fix")
-target = pathlib.Path("scripts/chapter02/generate_data_chapter02.py")
+backup = pathlib.Path("scripts/02_primordial_spectrum/generate_data_chapter02.py.bak_logistic_fix")
+target = pathlib.Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 
 if not backup.exists():
     raise SystemExit("[ERREUR] Backup .bak_logistic_fix introuvable – patch v2 annulé.")

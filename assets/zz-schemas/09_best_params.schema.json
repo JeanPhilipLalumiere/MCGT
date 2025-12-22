@@ -269,7 +269,7 @@
   "examples": [
     {
       "generated_at": "2025-08-23T12:00:00Z",
-      "producer_script": "scripts/chapter9/opt_poly_rebranch.py",
+      "producer_script": "scripts/09_dark_energy_cpl/opt_poly_rebranch.py",
       "git_hash": "abcdef1",
       "basis": "log10",
       "degree": 5,

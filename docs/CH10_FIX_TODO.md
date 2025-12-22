@@ -47,14 +47,14 @@ def etape_6_raffinement(
 
 ## Traceback avant fix
 ```
-  File "/home/jplal/MCGT/scripts/chapter10/generate_data_chapter10.py", line 366
+  File "/home/jplal/MCGT/scripts/10_global_scan/generate_data_chapter10.py", line 366
     df = pd.read_csv(samples_path)
 IndentationError: unexpected indent
 ```
 
 ## Traceback après fix
 ```
-  File "/home/jplal/MCGT/scripts/chapter10/generate_data_chapter10.py.tmpfix", line 368
+  File "/home/jplal/MCGT/scripts/10_global_scan/generate_data_chapter10.py.tmpfix", line 368
     if "id" not in df.columns:
 IndentationError: unexpected indent
 ```

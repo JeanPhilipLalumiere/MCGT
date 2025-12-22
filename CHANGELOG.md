@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.1 (2025-12-22)
+- Rename chapter directories to English snake_case names across scripts and references.
+- Update manuscript metadata and chapter nomenclature to v2.5.1.
+
 ## 0.2.64
 - Packaging: sanitizer stable (wheel+sdist), sonde PyPI + smoke-install plus robustes.
 - Script `tools/release.sh`: logs, garde-fou, retries CDN, fenêtre bloquée en fin.

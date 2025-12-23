@@ -29,7 +29,7 @@ python assets/zz-manifests/diag_consistency.py assets/zz-manifests/manifest_mast
 ```
 
 ## Citation
-Lalumière, J.-P. (2025). MCGT : Modèle de la Courbure Gravitationnelle du Temps (Version 2.5.1). Zenodo. https://doi.org/10.5281/zenodo.18002118
+Lalumière, J.-P. (2025). MCGT : Modèle de la Courbure Gravitationnelle du Temps (Version 2.5.2). Zenodo. https://doi.org/10.5281/zenodo.18002118
 
 ---
 

@@ -82,6 +82,8 @@ def main():
     if files is None:
         files = walk_files(args.roots)
     files = [f for f in files if os.path.exists(f)]
+    out_rel = os.path.normpath(os.path.relpath(args.out))
+    files = [f for f in files if os.path.normpath(f) != out_rel]
 
     entries = []
     for p in files:

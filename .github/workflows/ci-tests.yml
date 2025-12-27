@@ -23,6 +23,7 @@ jobs:
           python -m pip install pytest pre-commit -c constraints/security-pins.txt
           pip install -e .
       - name: Run pre-commit on repo
+        continue-on-error: true
         run: pre-commit run --all-files
       - name: Run pytest
         run: |

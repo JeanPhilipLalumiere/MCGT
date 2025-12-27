@@ -879,10 +879,6 @@
       "sha256": "9b11594dd2a30aabf77355988de18b71728b9299e5bc6151fa1105f7cf1b6cc5"
     },
     {
-      "path": "assets/zz-manifests/manifest_master.json",
-      "sha256": "2f26fa7b6b86b0733508856d84798550c69992397c113431762eda42b0d3bbd9"
-    },
-    {
       "path": "assets/zz-manifests/manifest_master.json.conflict.backup.20251023T202515Z",
       "sha256": "39c085df7febef3baf96c551bfd7bd1508525ac57df238244d37847ff4354bbb"
     },

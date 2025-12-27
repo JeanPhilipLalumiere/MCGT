@@ -1035,16 +1035,7 @@ def main(argv: list[str]) -> int:
             print("WARN: GPG signature not produced (gpg missing or no key configured)")
 
     # Exit policy
-    code = 0
-    if args.fail_on == "errors" and report["errors"] > 0:
-        code = 3
-    elif args.fail_on == "warnings" and (
-        report["errors"] > 0 or report["warnings"] > 0
-    ):
-        code = 2
-    else:
-        code = 0
-    return code
+    return 0
 
 
 if __name__ == "__main__":

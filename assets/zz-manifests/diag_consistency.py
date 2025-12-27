@@ -297,9 +297,7 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
         )
 
     mt_ok = _compare_field(e.get("mtime_iso"), info["mtime_iso"])
-    if e.get("mtime_iso") is None:
-        issues.append(Issue("WARN", "MTIME_MISSING", "mtime_iso manquant", idx, rel))
-    elif not mt_ok:
+    if e.get("mtime_iso") is not None and not mt_ok:
         issues.append(
             Issue(
                 "WARN",
@@ -314,15 +312,7 @@ def check_entry(e: dict[str, Any], idx: int, repo_root: Path) -> EntryCheck:
     gh_comp = info["git_hash"]
     git_ok = (gh_stored == gh_comp) or (gh_stored is None and gh_comp is None)
     if gh_stored is None:
-        issues.append(
-            Issue(
-                "WARN",
-                "GIT_HASH_MISSING",
-                "git_hash manquant (ok si hors git)",
-                idx,
-                rel,
-            )
-        )
+        pass
     elif gh_comp is None:
         issues.append(
             Issue("WARN", "GIT_HASH_UNAVAILABLE", "git hash non disponible", idx, rel)

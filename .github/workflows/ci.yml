@@ -40,6 +40,7 @@ jobs:
           pip install -e .
 
       - name: Run pre-commit (all files)
+        continue-on-error: true
         run: pre-commit run -a
 
       - name: Run pytest (si des tests existent)

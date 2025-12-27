@@ -52,8 +52,8 @@ Depuis la racine du dépôt `MCGT` :
   (ils sont suivis dans les manifests) :
 
   - `config/GWTC-3-confident-events.json`
-  - `assets/zz-data/chapter09/gwtc3_confident_parameters.json`
-  - `assets/zz-data/chapter09/09_phases_mcgt.csv` (référence de phase MCGT, déjà construite)
+  - `assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json`
+  - `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv` (référence de phase MCGT, déjà construite)
 
 Ces fichiers sont déjà en place dans l’état courant du dépôt et utilisés par
 les scripts de CH09.
@@ -80,13 +80,13 @@ actuels) :
 5. **Écriture des métriques** dans :
 
    ```text
-   assets/zz-data/chapter09/09_metrics_phase.json
+   assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json
    ```
 
 6. **Génération des figures de phase** :
 
-   - `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-   - `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`
+   - `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+   - `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`
 
 7. **Préparation des données intermédiaires** pour fig. 02 :
 
@@ -101,7 +101,7 @@ Après `bash tools/smoke_ch09_fast.sh`, on doit trouver au minimum :
 
 ### 3.1 Données de phase
 
-- `assets/zz-data/chapter09/09_metrics_phase.json`  
+- `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json`  
   Contient notamment :
 
   - la variante de phase active (`"variant": "phi_mcgt"` ou similaire) ;
@@ -111,15 +111,15 @@ Après `bash tools/smoke_ch09_fast.sh`, on doit trouver au minimum :
 Les fichiers suivants sont considérés comme **référence stable** (et ne sont pas
 écrasés sauf option explicite) :
 
-- `assets/zz-data/chapter09/09_phases_mcgt.csv`
-- `assets/zz-data/chapter09/gwtc3_confident_parameters.json`
+- `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv`
+- `assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json`
 
 ### 3.2 Figures
 
-- `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`  
+- `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`  
   Superposition IMRPhenom / MCGT, avec calibration optimisée.
 
-- `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`  
+- `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`  
   Résidu `Δφ(f) = φ_MCGT(f) − φ_ref(f)` sur la bande 20–300 Hz, après rebranch
   éventuel d’un nombre entier de cycles `k`.
 
@@ -146,8 +146,8 @@ grosso modo le schéma :
 [INFO] Après resserrage: p95(|Δφ|)@[20.0-300.0]=... rad
 ...
 [INFO] |Δφ| 20–300 Hz (après rebranch k=1): mean=..., p95=..., max=...
-[INFO] Figure enregistrée → assets/zz-figures/chapter09/09_fig_01_phase_overlay.png
-[INFO] Figure enregistrée → assets/zz-figures/chapter09/09_fig_02_residual_phase.png
+[INFO] Figure enregistrée → assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png
+[INFO] Figure enregistrée → assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png
 ```
 
 Les points importants :

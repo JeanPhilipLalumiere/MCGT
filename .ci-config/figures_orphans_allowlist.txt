@@ -1,5 +1,5 @@
 # figures_orphans_allowlist.txt
 # Liste de globs (une par ligne) autorisant temporairement certains orphelins.
 # Exemples:
-#   assets/zz-figures/chapter07/07_fig_*.png
-#   assets/zz-figures/chapter10/10_fig_03_*.png
+#   assets/zz-figures/07_bao_geometry/07_fig_*.png
+#   assets/zz-figures/10_global_scan/10_fig_03_*.png

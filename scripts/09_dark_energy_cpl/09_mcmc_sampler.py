@@ -31,10 +31,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--step-om", type=float, default=0.01)
     parser.add_argument("--n-steps-int", type=int, default=2500)
     parser.add_argument("--sigma-sys", type=float, default=0.1)
-    parser.add_argument("--out", default="assets/zz-data/chapter09/09_mcmc_tri_probe.csv")
+    parser.add_argument("--out", default="assets/zz-data/09_dark_energy_cpl/09_mcmc_tri_probe.csv")
     parser.add_argument(
         "--summary",
-        default="assets/zz-data/chapter09/09_mcmc_tri_probe_summary.json",
+        default="assets/zz-data/09_dark_energy_cpl/09_mcmc_tri_probe_summary.json",
     )
     return parser.parse_args()
 

@@ -168,7 +168,7 @@
     "PDOT_FILE": null,
     "OUT_TMDAT": null,
     "OUT_CFG": "config/GWTC-3-confident-events.json",
-    "OUT_DATA": "assets/zz-data/chapter09/gwtc3_confident_parameters.json",
+    "OUT_DATA": "assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json",
     "URL_BASE": "https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events",
     "DEF_CSV": null,
     "DEF_DIFF": null,

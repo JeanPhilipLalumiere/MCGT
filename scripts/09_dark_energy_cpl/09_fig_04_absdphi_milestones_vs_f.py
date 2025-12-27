@@ -26,10 +26,10 @@ plt.rcParams.update(
     }
 )
 
-DEF_DIFF = Path("assets/zz-data/chapter09/09_phase_diff.csv")
-DEF_CSV = Path("assets/zz-data/chapter09/09_phases_mcgt.csv")
-DEF_MILESTONES = Path("assets/zz-data/chapter09/09_comparison_milestones.csv")
-DEF_OUT = Path("assets/zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png")
+DEF_DIFF = Path("assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv")
+DEF_CSV = Path("assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv")
+DEF_MILESTONES = Path("assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv")
+DEF_OUT = Path("assets/zz-figures/09_dark_energy_cpl/09_fig_04_absdphi_milestones_vs_f.png")
 
 
 def setup_logger(level: str) -> logging.Logger:

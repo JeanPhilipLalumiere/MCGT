@@ -39,8 +39,8 @@ Depuis la racine du dépôt `MCGT` :
   `numpy`, `pandas`, `scipy`, `matplotlib`, etc. ;
 - Fichiers de configuration et d’entrée accessibles :
 
-  - `assets/zz-data/chapter02/02_milestones_meta.csv`
-  - `assets/zz-data/chapter02/02_primordial_spectrum_spec.json`
+  - `assets/zz-data/02_primordial_spectrum/02_milestones_meta.csv`
+  - `assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json`
 
 Les autres fichiers de données de CH02 (cf. §4.2) seront **recréés** ou mis à jour par
 `generate_data_chapter02.py`.
@@ -68,7 +68,7 @@ python scripts/02_primordial_spectrum/10_fig06_alpha_fit.py
 ```
 
 Si tout se passe bien, `generate_data_chapter02.py` affiche un message de succès et les
-figures sont (re)créées dans `assets/zz-figures/chapter02/`.
+figures sont (re)créées dans `assets/zz-figures/02_primordial_spectrum/`.
 
 ---
 
@@ -98,7 +98,7 @@ Un fichier `requirements.txt` peut documenter les dépendances spécifiques :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter02/`
+- `assets/zz-data/02_primordial_spectrum/`
 
 Fichiers typiques pour le pipeline minimal :
 
@@ -135,7 +135,7 @@ m calc}(T)\) sur une grille log-uniforme en `T_Gyr`.
 
 Répertoire :
 
-- `assets/zz-figures/chapter02/`
+- `assets/zz-figures/02_primordial_spectrum/`
 
 Figures principales :
 
@@ -225,8 +225,8 @@ python scripts/02_primordial_spectrum/10_fig05_FG_series.py
 python scripts/02_primordial_spectrum/10_fig06_alpha_fit.py
 ```
 
-Chaque script lit les tables correspondantes dans `assets/zz-data/chapter02/` et écrit la
-figure finale dans `assets/zz-figures/chapter02/` (cf. §4.3).
+Chaque script lit les tables correspondantes dans `assets/zz-data/02_primordial_spectrum/` et écrit la
+figure finale dans `assets/zz-figures/02_primordial_spectrum/` (cf. §4.3).
 
 ---
 
@@ -236,40 +236,40 @@ Dans le cadre du pipeline minimal canonique, les **produits principaux** de CH02
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter02/02_timeline_milestones.csv`  
+- `assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv`  
   → chronologie des jalons, avec P_ref, P_opt, epsilon_i, classe.
 
-- `assets/zz-data/chapter02/02_P_vs_T_grid_data.dat`  
+- `assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat`  
   → courbe dense \(P_{
 m calc}(T)\) sur la grille en `T_Gyr`.
 
-- `assets/zz-data/chapter02/02_P_derivative_data.dat`  
+- `assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat`  
   → dérivée lissée \(\dot P(T)\) sur la même grille.
 
-- `assets/zz-data/chapter02/02_relative_error_timeline.csv`  
+- `assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv`  
   → écarts relatifs aux jalons, exploitables pour le contrôle qualité.
 
-- `assets/zz-data/chapter02/02_optimal_parameters.json`  
+- `assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json`  
   → paramètres optimaux de calibration chronologique (T_split, segments, seuils).
 
-- `assets/zz-data/chapter02/02_P_R_sampling.csv`  
+- `assets/zz-data/02_primordial_spectrum/02_P_R_sampling.csv`  
   → échantillonnage du spectre primordial \(P_R(k; lpha)\).
 
-- `assets/zz-data/chapter02/02_As_ns_vs_alpha.csv`  
+- `assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv`  
   → relation \((A_s, n_s)\) vs \( lpha\).
 
-- `assets/zz-data/chapter02/02_FG_series.csv`  
+- `assets/zz-data/02_primordial_spectrum/02_FG_series.csv`  
   → coefficients des séries F/G associées au spectre primordial.
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter02/02_fig_00_spectrum.png`  
-- `assets/zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png`  
-- `assets/zz-figures/chapter02/02_fig_02_calibration.png`  
-- `assets/zz-figures/chapter02/02_fig_03_relative_errors.png`  
-- `assets/zz-figures/chapter02/02_fig_04_pipeline_diagram.png`  
-- `assets/zz-figures/chapter02/02_fig_05_fg_series.png`  
-- `assets/zz-figures/chapter02/02_fig_06_alpha_fit.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_01_p_vs_t_evolution.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_02_calibration.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_03_relative_errors.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_04_pipeline_diagram.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_05_fg_series.png`  
+- `assets/zz-figures/02_primordial_spectrum/02_fig_06_alpha_fit.png`  
 
 Ces fichiers constituent la **référence** pour la relecture et la publication du chapitre 02.
 

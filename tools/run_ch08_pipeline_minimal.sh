@@ -16,7 +16,7 @@ CLI_ARGS=$(python - << 'PYEOF'
 from pathlib import Path
 import numpy as np
 
-path = Path("assets/zz-data/chapter08/08_chi2_total_vs_q0.csv")
+path = Path("assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv")
 
 # Valeurs de repli si on ne peut pas déduire proprement la grille
 fallback = "--q0star_min -0.5 --q0star_max 0.5 --n_points 101"

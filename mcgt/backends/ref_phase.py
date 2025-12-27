@@ -284,7 +284,7 @@ def compute_phi_ref(
     approximant : str
         Nom d'approximant (ex. "IMRPhenomD").
     cache_dir : str | None
-        Dossier de cache (par défaut assets/zz-data/chapter10/.cache_ref).
+        Dossier de cache (par défaut assets/zz-data/10_global_scan/.cache_ref).
     force_recompute : bool
         Ignore le cache si True.
 

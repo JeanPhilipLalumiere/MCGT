@@ -8,7 +8,7 @@ Produit un PNG.
 
 Exemple (appel manuel) :
 python scripts/10_global_scan/plot_fig05_hist_cdf_metrics.py \
-  --results assets/zz-data/chapter10/10_results_global_scan.csv \
+  --results assets/zz-data/10_global_scan/10_results_global_scan.csv \
   --out 10_fig_05_hist_cdf_metrics.png \
   --ref-p95 0.7104087123286049 --bins 50 --dpi 150 \
   --zoom-x 3.0 --zoom-y 35 --zoom-dx 0.30 --zoom-dy 30
@@ -112,12 +112,12 @@ def main() -> None:
         default=None,
         help=(
             "CSV avec p95 circulaire recalculé. "
-            "Par défaut : assets/zz-data/chapter10/10_results_global_scan.csv."
+            "Par défaut : assets/zz-data/10_global_scan/10_results_global_scan.csv."
         ),
     )
     ap.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+        default="assets/zz-figures/10_global_scan/10_fig_05_hist_cdf_metrics.png",
         help="PNG de sortie",
     )
     ap.add_argument(
@@ -177,16 +177,16 @@ def main() -> None:
         help="hauteur du zoom (fraction de l’axe principal)",
     )
     args = ap.parse_args()
-    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/chapter10/ ---
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/10_global_scan/ ---
     outp = Path(args.out)
     if outp.parent == Path("."):
-        outp = Path("assets/zz-figures/chapter10") / outp.name
+        outp = Path("assets/zz-figures/10_global_scan") / outp.name
     outp.parent.mkdir(parents=True, exist_ok=True)
     args.out = str(outp)
 
     # --- fichier par défaut si non fourni (pour le pipeline minimal) ---
     if args.results is None:
-        args.results = "assets/zz-data/chapter10/10_results_global_scan.csv"
+        args.results = "assets/zz-data/10_global_scan/10_results_global_scan.csv"
         print(
             f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
         )

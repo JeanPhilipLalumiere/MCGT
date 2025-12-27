@@ -273,7 +273,7 @@ _Date : 2025-11-30 02:39 UTC_
 
 ### Fichiers à considérer comme **données officielles / obligatoires**
 
-- `assets/zz-data/chapter10/dummy_results.csv`
+- `assets/zz-data/10_global_scan/dummy_results.csv`
   - Dataset principal (≈1200 lignes, 6 colonnes) pour les figures et analyses du chapitre 10.
   - Colonnes : `m1`, `m2`, `p95_20_300`, `p95_20_300_recalc`, `phi_ref_fpeak`, `phi_mcgt_fpeak`.
   - Utilisé par :
@@ -283,7 +283,7 @@ _Date : 2025-11-30 02:39 UTC_
     - `tools/ch10_patch_and_test.sh`
   - → Statut : **CORE DATA CH10**, ne pas supprimer.
 
-- `assets/zz-data/chapter10/example_results.csv`
+- `assets/zz-data/10_global_scan/example_results.csv`
   - Petit dataset d'exemple (5 lignes, 6 colonnes) de type GW-A…E.
   - Colonnes : `id`, `event`, `f_Hz`, `phi_mcgt_at_fpeak`, `obs_phase`, `sigma_phase`.
   - Référencé par les diagnostics de publication (`_diag_publication_*.json`) et les manifests.
@@ -291,8 +291,8 @@ _Date : 2025-11-30 02:39 UTC_
 
 ### Fichiers à considérer comme **placeholders structurels** (candidats ménage futur)
 
-- `assets/zz-data/chapter03/placeholder.csv`
-- `assets/zz-data/chapter07/placeholder.csv`
+- `assets/zz-data/03_stability_domain/placeholder.csv`
+- `assets/zz-data/07_bao_geometry/placeholder.csv`
 
 Caractéristiques communes :
 - Fichiers CSV **vides** (`No columns to parse from file`).
@@ -342,12 +342,12 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
   - `scripts/01_invariants_stability/10_fig03_relative_error_timeline.py`
 
 - **Données**
-  - `assets/zz-data/chapter01/01_optimized_data.csv`
-  - `assets/zz-data/chapter01/01_relative_error_timeline.csv`
+  - `assets/zz-data/01_invariants_stability/01_optimized_data.csv`
+  - `assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter01/01_fig_01_early_plateau.png`
-  - `assets/zz-figures/chapter01/01_fig_03_relative_error_timeline.png`
+  - `assets/zz-figures/01_invariants_stability/01_fig_01_early_plateau.png`
+  - `assets/zz-figures/01_invariants_stability/01_fig_03_relative_error_timeline.png`
 
 
 ### CH02 – Spectre primordial & calibration
@@ -357,12 +357,12 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
   - `scripts/02_primordial_spectrum/10_fig00_spectrum.py`
 
 - **Données**
-  - `assets/zz-data/chapter02/02_primordial_spectrum_spec.json`
-  - `assets/zz-data/chapter02/02_As_ns_vs_alpha.csv`
+  - `assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json`
+  - `assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter02/02_fig_00_spectrum.png`
-  - `assets/zz-figures/chapter02/02_fig_03_relative_errors.png`
+  - `assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png`
+  - `assets/zz-figures/02_primordial_spectrum/02_fig_03_relative_errors.png`
 
 
 ### CH03 – Stabilité f(R) & courbure de Ricci
@@ -372,14 +372,14 @@ de second niveau (backstage) ou candidats à attic/ à moyen terme.
   - `scripts/03_stability_domain/10_fig01_fR_stability_domain.py`
 
 - **Données**
-  - `assets/zz-data/chapter03/03_fR_stability_domain.csv`
-  - `assets/zz-data/chapter03/03_ricci_fR_vs_T.csv`
+  - `assets/zz-data/03_stability_domain/03_fR_stability_domain.csv`
+  - `assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter03/03_fig_01_fr_stability_domain.png`
-  - `assets/zz-figures/chapter03/03_fig_08_ricci_fr_vs_t.png`
+  - `assets/zz-figures/03_stability_domain/03_fig_01_fr_stability_domain.png`
+  - `assets/zz-figures/03_stability_domain/03_fig_08_ricci_fr_vs_t.png`
 
-(Remarque : `assets/zz-data/chapter03/placeholder.csv` reste classé comme placeholder structurel,
+(Remarque : `assets/zz-data/03_stability_domain/placeholder.csv` reste classé comme placeholder structurel,
 hors vitrine.)
 
 
@@ -389,11 +389,11 @@ hors vitrine.)
   - `scripts/04_expansion_supernovae/generate_data_chapter04.py`
 
 - **Données**
-  - `assets/zz-data/chapter04/04_dimensionless_invariants.csv`
+  - `assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png`
-  - `assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png`
+  - `assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png`
+  - `assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png`
 
 
 ### CH05 – Nucléosynthèse primordiale (BBN)
@@ -403,13 +403,13 @@ hors vitrine.)
   - `scripts/05_primordial_bbn/10_fig02_dh_model_vs_obs.py`
 
 - **Données**
-  - `assets/zz-data/chapter05/05_bbn_data.csv`
-  - `assets/zz-data/chapter05/05_bbn_invariants.csv`
-  - `assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_data.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv`
+  - `assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
-  - `assets/zz-figures/chapter05/05_fig_04_chi2_vs_t.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_02_dh_model_vs_obs.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_04_chi2_vs_t.png`
 
 
 ### CH06 – CMB & Δχ²
@@ -419,13 +419,13 @@ hors vitrine.)
   - `scripts/06_early_growth_jwst/10_fig02_cls_lcdm_vs_mcgt.py`
 
 - **Données**
-  - `assets/zz-data/chapter06/06_cmb_full_results.csv`
-  - `assets/zz-data/chapter06/06_delta_cls_relative.csv`
-  - `assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv`
+  - `assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv`
+  - `assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv`
+  - `assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png`
-  - `assets/zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_02_cls_lcdm_vs_mcgt.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_05_delta_chi2_heatmap.png`
 
 
 ### CH07 – Perturbations scalaires
@@ -435,15 +435,15 @@ hors vitrine.)
   - `scripts/07_bao_geometry/launch_scalar_perturbations_solver.py`
 
 - **Données**
-  - `assets/zz-data/chapter07/07_scalar_perturbations_results.csv`
-  - `assets/zz-data/chapter07/07_scalar_invariants.csv`
-  - `assets/zz-data/chapter07/07_cs2_matrix.csv`
+  - `assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv`
+  - `assets/zz-data/07_bao_geometry/07_scalar_invariants.csv`
+  - `assets/zz-data/07_bao_geometry/07_cs2_matrix.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter07/07_fig_01_cs2_heatmap.png`
-  - `assets/zz-figures/chapter07/07_fig_06_comparison.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_01_cs2_heatmap.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_06_comparison.png`
 
-(Remarque : `assets/zz-data/chapter07/placeholder.csv` reste un placeholder structurel,
+(Remarque : `assets/zz-data/07_bao_geometry/placeholder.csv` reste un placeholder structurel,
 hors vitrine.)
 
 
@@ -453,14 +453,14 @@ hors vitrine.)
   - `scripts/08_sound_horizon/generate_data_chapter08.py`
 
 - **Données**
-  - `assets/zz-data/chapter08/08_pantheon_data.csv`
-  - `assets/zz-data/chapter08/08_bao_data.csv`
-  - `assets/zz-data/chapter08/08_chi2_total_vs_q0.csv`
-  - `assets/zz-data/chapter08/08_coupling_params.json`
+  - `assets/zz-data/08_sound_horizon/08_pantheon_data.csv`
+  - `assets/zz-data/08_sound_horizon/08_bao_data.csv`
+  - `assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv`
+  - `assets/zz-data/08_sound_horizon/08_coupling_params.json`
 
 - **Figures**
-  - `assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
-  - `assets/zz-figures/chapter08/08_fig_05_residuals.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_05_residuals.png`
 
 
 ### CH09 – Phases IMRPhenom vs MCGT
@@ -470,14 +470,14 @@ hors vitrine.)
   - `scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py`
 
 - **Données**
-  - `assets/zz-data/chapter09/09_best_params.json`
-  - `assets/zz-data/chapter09/09_metrics_phase.json`
-  - `assets/zz-data/chapter09/09_phases_imrphenom.csv`
-  - `assets/zz-data/chapter09/09_phases_mcgt.csv`
+  - `assets/zz-data/09_dark_energy_cpl/09_best_params.json`
+  - `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json`
+  - `assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv`
+  - `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv`
 
 - **Figures**
-  - `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-  - `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`
 
 - **Note**
   - La tension SNIa suggere un reajustement de Omega_m ou l'inclusion d'une courbure non nulle Omega_k.
@@ -490,14 +490,14 @@ hors vitrine.)
   - `scripts/10_global_scan/eval_primary_metrics_20_300.py`
 
 - **Données**
-  - `assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv`
-  - `assets/zz-data/chapter10/10_mc_best_bootstrap.json`
-  - `assets/zz-data/chapter10/dummy_results.csv`   (CORE DATA CH10)
-  - `assets/zz-data/chapter10/example_results.csv` (EXAMPLE OFFICIELLE)
+  - `assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv`
+  - `assets/zz-data/10_global_scan/10_mc_best_bootstrap.json`
+  - `assets/zz-data/10_global_scan/dummy_results.csv`   (CORE DATA CH10)
+  - `assets/zz-data/10_global_scan/example_results.csv` (EXAMPLE OFFICIELLE)
 
 - **Figures**
-  - `assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png`
-  - `assets/zz-figures/chapter10/10_fig_07_synthesis.png`
+  - `assets/zz-figures/10_global_scan/10_fig_01_iso_p95_maps.png`
+  - `assets/zz-figures/10_global_scan/10_fig_07_synthesis.png`
 ---
 ## Step14 – FRONT/BACKSTAGE (snapshot)
 
@@ -602,8 +602,8 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 [2025-11-30 12:29:33] [INFO] Resserrement automatique: refit sur [30.0, 250.0] Hz.
 [2025-11-30 12:29:33] [INFO] Calage phi0_tc (poids=1/f2): φ0=-5.894512e+01 rad, t_c=7.323216e-02 s (n=92, window=[30.0, 250.0])
 [2025-11-30 12:29:33] [INFO] Après resserrage: p95(|Δφ|)@[20.0-300.0]=81.291949 rad
-[2025-11-30 12:29:33] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): assets/zz-data/chapter09/09_phases_mcgt.csv
-[2025-11-30 12:29:33] [INFO] Écrit → assets/zz-data/chapter09/09_metrics_phase.json
+[2025-11-30 12:29:33] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv
+[2025-11-30 12:29:33] [INFO] Écrit → assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json
 [2025-11-30 12:29:33] [INFO] Terminé. Variante ACTIVE: calibrated | p95(|Δφ|)@20–300 = 81.291949 rad
 [2025-11-30 12:29:34] [WARNING] Lecture JSON méta échouée ('float' object has no attribute 'get').
 [2025-11-30 12:29:34] [INFO] Calibration meta: enabled=False, model=phi0,tc, window=[20.0, 300.0]
@@ -611,13 +611,13 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 [2025-11-30 12:29:34] [INFO] k (médiane des cycles) = 1
 [2025-11-30 12:29:34] [INFO] Fit visuel: dphi0=-3.231e+02 rad, dtc=8.940e-02 s
 [2025-11-30 12:29:34] [INFO] |Δφ| 20–300 Hz (après rebranch k=1): mean=1.671 ; p95=3.045 ; max=3.101 (n=117)
-[2025-11-30 12:29:34] [INFO] Figure écrite → assets/zz-figures/chapter09/09_fig_01_phase_overlay.png
+[2025-11-30 12:29:34] [INFO] Figure écrite → assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png
 [OK] fig02_input.csv → zz-out/chapter09/fig02_input.csv (n=232) ; IMR(f_Hz,phi_ref) vs MCGT(f_Hz,phi_mcgt)
 [OK] fig02_input normalisé
 [2025-11-30 12:29:35] [INFO] Variante active: phi_mcgt
 [2025-11-30 12:29:35] [INFO] Rebranch k (20.0–300.0 Hz) = 1 cycles
 [2025-11-30 12:29:35] [INFO] Stats 20–300 Hz: mean=1.671  p95=3.045  max=3.101
-[2025-11-30 12:29:36] [INFO] Figure enregistrée → assets/zz-figures/chapter09/09_fig_02_residual_phase.png
+[2025-11-30 12:29:36] [INFO] Figure enregistrée → assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png
 [OK] CH09 complet
 [INFO] Commande terminée avec code 0
 ------------------------------------------------------------
@@ -632,8 +632,8 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 [2025-11-30 12:29:36] [INFO] Resserrement automatique: refit sur [30.0, 250.0] Hz.
 [2025-11-30 12:29:36] [INFO] Calage phi0_tc (poids=1/f2): φ0=-5.894512e+01 rad, t_c=7.323216e-02 s (n=92, window=[30.0, 250.0])
 [2025-11-30 12:29:36] [INFO] Après resserrage: p95(|Δφ|)@[20.0-300.0]=81.291949 rad
-[2025-11-30 12:29:36] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): assets/zz-data/chapter09/09_phases_mcgt.csv
-[2025-11-30 12:29:36] [INFO] Écrit → assets/zz-data/chapter09/09_metrics_phase.json
+[2025-11-30 12:29:36] [INFO] Conserver fichier existant (utilisez --overwrite pour écraser): assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv
+[2025-11-30 12:29:36] [INFO] Écrit → assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json
 [2025-11-30 12:29:36] [INFO] Terminé. Variante ACTIVE: calibrated | p95(|Δφ|)@20–300 = 81.291949 rad
 [2025-11-30 12:29:37] [WARNING] Lecture JSON méta échouée ('float' object has no attribute 'get').
 [2025-11-30 12:29:37] [INFO] Calibration meta: enabled=False, model=phi0,tc, window=[20.0, 300.0]
@@ -641,13 +641,13 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 [2025-11-30 12:29:37] [INFO] k (médiane des cycles) = 1
 [2025-11-30 12:29:37] [INFO] Fit visuel: dphi0=-3.231e+02 rad, dtc=8.940e-02 s
 [2025-11-30 12:29:37] [INFO] |Δφ| 20–300 Hz (après rebranch k=1): mean=1.671 ; p95=3.045 ; max=3.101 (n=117)
-[2025-11-30 12:29:37] [INFO] Figure écrite → assets/zz-figures/chapter09/09_fig_01_phase_overlay.png
+[2025-11-30 12:29:37] [INFO] Figure écrite → assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png
 [OK] fig02_input.csv → zz-out/chapter09/fig02_input.csv (n=232) ; IMR(f_Hz,phi_ref) vs MCGT(f_Hz,phi_mcgt)
 [OK] fig02_input normalisé
 [2025-11-30 12:29:38] [INFO] Variante active: phi_mcgt
 [2025-11-30 12:29:38] [INFO] Rebranch k (20.0–300.0 Hz) = 1 cycles
 [2025-11-30 12:29:38] [INFO] Stats 20–300 Hz: mean=1.671  p95=3.045  max=3.101
-[2025-11-30 12:29:39] [INFO] Figure enregistrée → assets/zz-figures/chapter09/09_fig_02_residual_phase.png
+[2025-11-30 12:29:39] [INFO] Figure enregistrée → assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png
 [OK] CH09 complet
 [INFO] Commande terminée avec code 0
 ------------------------------------------------------------
@@ -656,18 +656,18 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 === STEP25 : resync CH09 metrics & fig dans le manifest ===
 [INFO] Repo root      : /home/jplal/MCGT
 [INFO] Manifest path  : /home/jplal/MCGT/assets/zz-manifests/manifest_master.json
-[INFO] assets/zz-data/chapter09/09_metrics_phase.json :
+[INFO] assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json :
        size_bytes = 1839
        sha256     = eb1aa2bfff603ceb7c9d95ab9ea1de34e189fc7b60231422c67d48a99f683a7b
        mtime_iso  = 2025-11-30T17:29:36Z
        git_hash   = a5fb6e5415fdf039a2ef770f4453e6906d430589
-[INFO] Blocs patchés pour assets/zz-data/chapter09/09_metrics_phase.json : 1
-[INFO] assets/zz-figures/chapter09/09_fig_01_phase_overlay.png :
+[INFO] Blocs patchés pour assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json : 1
+[INFO] assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png :
        size_bytes = 302968
        sha256     = d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac
        mtime_iso  = 2025-11-30T17:29:37Z
        git_hash   = 64b805360b13ceb34522ce3c787f2c1ca3eb72aa
-[INFO] Blocs patchés pour assets/zz-figures/chapter09/09_fig_01_phase_overlay.png : 1
+[INFO] Blocs patchés pour assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png : 1
 [INFO] Manifest mis à jour : /home/jplal/MCGT/assets/zz-manifests/manifest_master.json
 [INFO] Total blocs patchés : 2
 [INFO] Commande terminée avec code 0

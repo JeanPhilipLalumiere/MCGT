@@ -14,7 +14,7 @@ def main():
     )
     p.add_argument(
         "--dst",
-        default="assets/zz-data/chapter03/03_ricci_fR_milestones.csv",
+        default="assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv",
         help="Output path for the raw CSV",
     )
     args = p.parse_args()

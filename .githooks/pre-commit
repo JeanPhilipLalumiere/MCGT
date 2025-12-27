@@ -3,6 +3,6 @@ set -e
 if grep -RIn --exclude-dir=.git --exclude-dir=tests --exclude-dir=assets/zz-manifests \
              --exclude='*.bak' --exclude='*.ipynb' \
              -E 'zz-(data|figures|scripts)/chapitre' .; then
-  echo "[BLOCK] chemins FR détectés. Utiliser assets/zz-data/chapterXX, assets/zz-figures/chapterXX, scripts/chapterXX." >&2
+  echo "[BLOCK] chemins FR détectés. Utiliser assets/zz-data/NN_chapter_name, assets/zz-figures/NN_chapter_name, scripts/chapterXX." >&2
   exit 1
 fi

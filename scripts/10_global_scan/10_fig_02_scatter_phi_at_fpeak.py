@@ -14,10 +14,10 @@ Nuage de points comparant phi_ref(f_peak) vs phi_MCGT(f_peak).
 Si --results n'est pas fourni, le script essaie automatiquement quelques chemins
 standards dans le dépôt :
 
-  1) assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv   (prioritaire)
-  2) assets/zz-data/chapter10/10_phase_diff_fpeak.csv
-  3) assets/zz-data/chapter09/09_phase_diff.csv
-  4) assets/zz-data/chapter10/10_results_global_scan.csv
+  1) assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv   (prioritaire)
+  2) assets/zz-data/10_global_scan/10_phase_diff_fpeak.csv
+  3) assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv
+  4) assets/zz-data/10_global_scan/10_results_global_scan.csv
 """
 
 from __future__ import annotations
@@ -169,10 +169,10 @@ def auto_find_results_csv(
         return args_results
 
     search_paths = [
-        "assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv",
-        "assets/zz-data/chapter10/10_phase_diff_fpeak.csv",
-        "assets/zz-data/chapter09/09_phase_diff.csv",
-        "assets/zz-data/chapter10/10_results_global_scan.csv",
+        "assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv",
+        "assets/zz-data/10_global_scan/10_phase_diff_fpeak.csv",
+        "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv",
+        "assets/zz-data/10_global_scan/10_results_global_scan.csv",
     ]
 
     x_candidates = [
@@ -255,7 +255,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
+        default="assets/zz-figures/10_global_scan/10_fig_02_scatter_phi_at_fpeak.png",
         help="PNG de sortie",
     )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
@@ -331,12 +331,12 @@ def main() -> None:
 
     args = p.parse_args()
 
-    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/chapter10/ ---
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/10_global_scan/ ---
     from pathlib import Path as _Path
 
     _outp = _Path(args.out)
     if _outp.parent == _Path("."):
-        args.out = str(_Path("assets/zz-figures/chapter10") / _outp.name)
+        args.out = str(_Path("assets/zz-figures/10_global_scan") / _outp.name)
     # ---------- Résolution du CSV à utiliser ----------
     results_path = auto_find_results_csv(args.results, args.x_col, args.y_col)
 

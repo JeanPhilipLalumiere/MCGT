@@ -70,7 +70,7 @@ Le pipeline minimal canonique est structuré en deux étapes :
 ```bash
 python scripts/07_bao_geometry/generate_data_chapter07.py \
   -i config/scalar_perturbations.ini \
-  --export-raw assets/zz-data/chapter07/07_scan_raw_minimal.csv \
+  --export-raw assets/zz-data/07_bao_geometry/07_scan_raw_minimal.csv \
   --export-2d \
   --n-k 32 \
   --n-a 20 \
@@ -93,7 +93,7 @@ python scripts/07_bao_geometry/generate_data_chapter07.py \
 ```bash
 python scripts/07_bao_geometry/launch_scalar_perturbations_solver.py \
   -i config/scalar_perturbations.ini \
-  --export-raw assets/zz-data/chapter07/07_phase_run.csv \
+  --export-raw assets/zz-data/07_bao_geometry/07_phase_run.csv \
   --log-level INFO \
   --log-file zz-out/chapter07/launch_scalar_perturbations_solver_minimal.log
 ```
@@ -102,8 +102,8 @@ Résultat attendu :
 
 - Fichiers de référence produits :
 
-  - `assets/zz-data/chapter07/07_phase_run.csv`
-  - `assets/zz-data/chapter07/07_meta_perturbations.json`
+  - `assets/zz-data/07_bao_geometry/07_phase_run.csv`
+  - `assets/zz-data/07_bao_geometry/07_meta_perturbations.json`
 
 - Log canonique :
 
@@ -134,8 +134,8 @@ python scripts/07_bao_geometry/plot_fig07_invariant_i2.py
 
 Points clés :
 
-- `plot_fig03_invariant_i1.py` lit `assets/zz-data/chapter07/07_scalar_invariants.csv`.
-- `plot_fig04_dcs2_vs_k.py` lit `assets/zz-data/chapter07/07_dcs2_vs_k.csv`.
+- `plot_fig03_invariant_i1.py` lit `assets/zz-data/07_bao_geometry/07_scalar_invariants.csv`.
+- `plot_fig04_dcs2_vs_k.py` lit `assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv`.
 - `plot_fig07_invariant_i2.py` gère robustement l’absence de certaines colonnes, avec repli
   possible sur `I1_cs2`.
 
@@ -170,14 +170,14 @@ Pour le Chapter 07, les fichiers suivants sont considérés comme
   - `config/perturbations_07.ini` (profils alternatifs éventuels)
 
 - **Données**
-  - `assets/zz-data/chapter07/07_phase_run.csv`
-  - `assets/zz-data/chapter07/07_meta_perturbations.json`
-  - `assets/zz-data/chapter07/07_scalar_invariants.csv`
-  - `assets/zz-data/chapter07/07_dcs2_vs_k.csv`
+  - `assets/zz-data/07_bao_geometry/07_phase_run.csv`
+  - `assets/zz-data/07_bao_geometry/07_meta_perturbations.json`
+  - `assets/zz-data/07_bao_geometry/07_scalar_invariants.csv`
+  - `assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv`
   - (autres CSV nécessaires aux figures finales, listés dans les scripts `plot_figXX`)
 
 - **Figures**
-  - Toutes les figures `assets/zz-figures/chapter07/07_fig_0X_*.png` associées à ce pipeline.
+  - Toutes les figures `assets/zz-figures/07_bao_geometry/07_fig_0X_*.png` associées à ce pipeline.
 
 Les sorties plus verbeuses (logs détaillés, anciennes runs `passXX_run`, etc.)
 peuvent être considérées comme **candidates** pour un déplacement dans `attic/`

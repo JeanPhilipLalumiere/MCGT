@@ -34,7 +34,7 @@ python3 scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py || echo "[WARN] f
 
 # Figure 02 nécessite --csv/--out → on tente auto-détection, sinon on skippe proprement
 CSV_CANDIDATE="$(ls -t zz-out/chapter09/*.csv 2>/dev/null | head -n1 || true)"
-OUT_PNG="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
+OUT_PNG="assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png"
 if [[ -n "${CSV_CANDIDATE:-}" ]]; then
   echo "[INFO] CSV détecté pour fig02: $CSV_CANDIDATE"
   mkdir -p "$(dirname "$OUT_PNG")"

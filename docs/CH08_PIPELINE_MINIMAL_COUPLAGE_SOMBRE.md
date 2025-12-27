@@ -21,7 +21,7 @@ Le pipeline minimal CH08 s’appuie sur un script shell canonique :
 qui orchestre, depuis la racine du dépôt :
 
 1. l’exécution de `generate_data_chapter08.py` sur une **grille 1D en `q0⋆`** ;
-2. la mise à jour des fichiers de contrôle dans `assets/zz-data/chapter08/` ;
+2. la mise à jour des fichiers de contrôle dans `assets/zz-data/08_sound_horizon/` ;
 3. la génération d’un **sous‑ensemble de figures principales** (χ² vs `q0⋆`, BAO, SNe) ;
 4. un passage par le diagnostic de manifests.
 
@@ -39,13 +39,13 @@ Depuis la racine du dépôt `MCGT` :
   `numpy`, `pandas`, `scipy`, `matplotlib`, etc. ;
 - Fichiers de données d’entrée déjà présents (ou extraits au préalable) dans :
 
-  - `assets/zz-data/chapter08/08_coupling_milestones.csv`
-  - `assets/zz-data/chapter08/08_bao_data.csv`
-  - `assets/zz-data/chapter08/08_pantheon_data.csv`
+  - `assets/zz-data/08_sound_horizon/08_coupling_milestones.csv`
+  - `assets/zz-data/08_sound_horizon/08_bao_data.csv`
+  - `assets/zz-data/08_sound_horizon/08_pantheon_data.csv`
 
 - Fichier de paramètres (créé / mis à jour par le pipeline) :
 
-  - `assets/zz-data/chapter08/08_coupling_params.json`
+  - `assets/zz-data/08_sound_horizon/08_coupling_params.json`
 
 Les chemins sont supposés compatibles avec la hiérarchie standard MCGT.
 
@@ -122,7 +122,7 @@ Scripts **optionnels** (au‑delà du pipeline minimal strict) :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter08/`
+- `assets/zz-data/08_sound_horizon/`
 
 Fichiers d’entrée attendus :
 
@@ -160,7 +160,7 @@ ne sont pas requis par le pipeline minimal, mais restent compatibles avec le gui
 
 Répertoire :
 
-- `assets/zz-figures/chapter08/`
+- `assets/zz-figures/08_sound_horizon/`
 
 Figures principales ciblées par le pipeline minimal :
 
@@ -203,9 +203,9 @@ python scripts/08_sound_horizon/generate_data_chapter08.py \
 Ce script :
 
 1. lit les jalons de couplage sombre dans :
-   - `assets/zz-data/chapter08/08_coupling_milestones.csv` ;
-   - `assets/zz-data/chapter08/08_bao_data.csv` ;
-   - `assets/zz-data/chapter08/08_pantheon_data.csv` ;
+   - `assets/zz-data/08_sound_horizon/08_coupling_milestones.csv` ;
+   - `assets/zz-data/08_sound_horizon/08_bao_data.csv` ;
+   - `assets/zz-data/08_sound_horizon/08_pantheon_data.csv` ;
 
 2. construit une grille **log‑lin** ou linéaire en `q0⋆` (ici 201 points sur
    l’intervalle \[-0.10, 0.10\]) ;
@@ -217,19 +217,19 @@ Ce script :
 
 4. sauvegarde le profil dans :
 
-   - `assets/zz-data/chapter08/08_chi2_total_vs_q0.csv`
+   - `assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv`
 
 5. calcule une dérivée lissée `dχ²/dq0⋆` (filtre Savitzky–Golay, fenêtre 7,
    ordre 3, `mode="interp"`) et l’écrit dans :
 
-   - `assets/zz-data/chapter08/08_chi2_derivative.csv`
+   - `assets/zz-data/08_sound_horizon/08_chi2_derivative.csv`
 
 6. identifie le minimum global de χ² et, au `q0⋆` correspondant, calcule :
 
-   - `D_V(z)` théorique → `assets/zz-data/chapter08/08_dv_theory_z.csv` ;
-   - `μ(z)` théorique → `assets/zz-data/chapter08/08_mu_theory_z.csv` ;
+   - `D_V(z)` théorique → `assets/zz-data/08_sound_horizon/08_dv_theory_z.csv` ;
+   - `μ(z)` théorique → `assets/zz-data/08_sound_horizon/08_mu_theory_z.csv` ;
 
-7. met à jour `assets/zz-data/chapter08/08_coupling_params.json` avec :
+7. met à jour `assets/zz-data/08_sound_horizon/08_coupling_params.json` avec :
 
    - les seuils `thresholds.primary`, `thresholds.order2` ;
    - les maxima d’écarts relatifs (`max_epsilon_primary`, `max_epsilon_order2`) ;
@@ -251,9 +251,9 @@ python scripts/08_sound_horizon/10_fig03_mu_vs_z.py
 
 Ces scripts mettent à jour, respectivement :
 
-- `assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
-- `assets/zz-figures/chapter08/08_fig_02_dv_vs_z.png`
-- `assets/zz-figures/chapter08/08_fig_03_mu_vs_z.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_02_dv_vs_z.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_03_mu_vs_z.png`
 
 Pour une analyse plus poussée (hors périmètre minimal), il est possible de
 compléter par :
@@ -288,19 +288,19 @@ Dans le cadre du pipeline minimal canonique, les **produits principaux** de CH08
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter08/08_chi2_total_vs_q0.csv`  
+- `assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv`  
   → profil 1D `χ²_total(q0⋆)` pour le couplage sombre.
 
-- `assets/zz-data/chapter08/08_chi2_derivative.csv`  
+- `assets/zz-data/08_sound_horizon/08_chi2_derivative.csv`  
   → dérivée lissée `dχ²/dq0⋆` (diagnostic du minimum).
 
-- `assets/zz-data/chapter08/08_dv_theory_z.csv`  
+- `assets/zz-data/08_sound_horizon/08_dv_theory_z.csv`  
   → `D_V(z)` théorique au `q0⋆` sélectionné.
 
-- `assets/zz-data/chapter08/08_mu_theory_z.csv`  
+- `assets/zz-data/08_sound_horizon/08_mu_theory_z.csv`  
   → `μ(z)` théorique au même `q0⋆`.
 
-- `assets/zz-data/chapter08/08_coupling_params.json`  
+- `assets/zz-data/08_sound_horizon/08_coupling_params.json`  
   → paramètres, seuils et maxima d’écarts relatifs pour CH08.
 
 Les fichiers **d’entrée** (`08_coupling_milestones.csv`, `08_bao_data.csv`, `08_pantheon_data.csv`)
@@ -308,15 +308,15 @@ sont également considérés comme structurants pour la publication.
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
-- `assets/zz-figures/chapter08/08_fig_02_dv_vs_z.png`
-- `assets/zz-figures/chapter08/08_fig_03_mu_vs_z.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_02_dv_vs_z.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_03_mu_vs_z.png`
 
 En complément (analyse étendue) :
 
-- `assets/zz-figures/chapter08/08_fig_05_residuals.png`
-- `assets/zz-figures/chapter08/08_fig_06_normalized_residuals_distribution.png`
-- `assets/zz-figures/chapter08/08_fig_07_chi2_profile.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_05_residuals.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_06_normalized_residuals_distribution.png`
+- `assets/zz-figures/08_sound_horizon/08_fig_07_chi2_profile.png`
 
 ---
 

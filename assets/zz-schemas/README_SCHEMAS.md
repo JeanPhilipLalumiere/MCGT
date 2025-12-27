@@ -10,39 +10,39 @@ A. CONTENU
 
 1\) Schémas JSON (agnostiques au chapitre)
 
-• mc\_config\_schema.json — valide les fichiers de configuration Monte-Carlo tels que assets/zz-data/chapter10/10\_mc\_config.json.
+• mc\_config\_schema.json — valide les fichiers de configuration Monte-Carlo tels que assets/zz-data/10_global_scan/10\_mc\_config.json.
 
-• mc\_best\_schema.json — valide les fichiers de sélection Monte-Carlo top-k tels que assets/zz-data/chapter10/10\_mc\_best.json et \*\_best\_bootstrap.json.
+• mc\_best\_schema.json — valide les fichiers de sélection Monte-Carlo top-k tels que assets/zz-data/10_global_scan/10\_mc\_best.json et \*\_best\_bootstrap.json.
 
-• metrics\_phase\_schema.json — valide assets/zz-data/chapter09/09\_metrics\_phase.json.
+• metrics\_phase\_schema.json — valide assets/zz-data/09_dark_energy_cpl/09\_metrics\_phase.json.
 
-• mc\_results\_table\_schema.json — valide la structure des colonnes CSV pour assets/zz-data/chapter10/10\_mc\_results.csv et 10\_mc\_results.circ.csv (via validate\_csv\_table.py).
+• mc\_results\_table\_schema.json — valide la structure des colonnes CSV pour assets/zz-data/10_global_scan/10\_mc\_results.csv et 10\_mc\_results.circ.csv (via validate\_csv\_table.py).
 
-• comparison\_milestones\_table\_schema.json — valide la structure CSV pour assets/zz-data/chapter09/09\_comparison\_milestones.csv.
+• comparison\_milestones\_table\_schema.json — valide la structure CSV pour assets/zz-data/09_dark_energy_cpl/09\_comparison\_milestones.csv.
 
 
 
 2\) Schémas JSON (spécifiques à un chapitre, noms de fichiers en anglais)
 
-• chapter02\_optimal\_parameters.schema.json — valide assets/zz-data/chapter02/02\_parametres\_optimaux.json (“optimal parameters”).
+• chapter02\_optimal\_parameters.schema.json — valide assets/zz-data/02_primordial_spectrum/02\_parametres\_optimaux.json (“optimal parameters”).
 
-• chapter02\_primordial\_spectrum.schema.json — valide assets/zz-data/chapter02/02\_spec\_spectre.json (loi spectrale, constantes, coefficients).
+• chapter02\_primordial\_spectrum.schema.json — valide assets/zz-data/02_primordial_spectrum/02\_spec\_spectre.json (loi spectrale, constantes, coefficients).
 
-• chapter03\_stability\_meta.schema.json — valide assets/zz-data/chapter03/03\_meta\_stabilite\_fR.json.
+• chapter03\_stability\_meta.schema.json — valide assets/zz-data/03_stability_domain/03\_meta\_stabilite\_fR.json.
 
-• chapter05\_nucleosynthesis\_parameters.schema.json — valide assets/zz-data/chapter05/05\_parametres\_nucleosynthese.json.
+• chapter05\_nucleosynthesis\_parameters.schema.json — valide assets/zz-data/05_primordial_bbn/05\_parametres\_nucleosynthese.json.
 
-• chapter06\_cmb\_params.schema.json — valide assets/zz-data/chapter06/06\_params\_cmb.json.
+• chapter06\_cmb\_params.schema.json — valide assets/zz-data/06_early_growth_jwst/06\_params\_cmb.json.
 
-• chapter07\_perturbations\_params.schema.json — valide assets/zz-data/chapter07/07\_params\_perturbations.json.
+• chapter07\_perturbations\_params.schema.json — valide assets/zz-data/07_bao_geometry/07\_params\_perturbations.json.
 
-• chapter07\_perturbations\_meta.schema.json — valide assets/zz-data/chapter07/07\_meta\_perturbations.json.
+• chapter07\_perturbations\_meta.schema.json — valide assets/zz-data/07_bao_geometry/07\_meta\_perturbations.json.
 
-• chapter08\_coupling\_params.schema.json — valide assets/zz-data/chapter08/08\_params\_couplage.json.
+• chapter08\_coupling\_params.schema.json — valide assets/zz-data/08_sound_horizon/08\_params\_couplage.json.
 
-• (optionnel) chapter09\_best\_params.schema.json — valide assets/zz-data/chapter09/09\_best\_params.json si produit par la chaîne d’optimisation.
+• (optionnel) chapter09\_best\_params.schema.json — valide assets/zz-data/09_dark_energy_cpl/09\_best\_params.json si produit par la chaîne d’optimisation.
 
-• chapter09\_phases\_imrphenom.meta.schema.json — valide assets/zz-data/chapter09/09\_phases\_imrphenom.meta.json.
+• chapter09\_phases\_imrphenom.meta.schema.json — valide assets/zz-data/09_dark_energy_cpl/09\_phases\_imrphenom.meta.json.
 
 
 
@@ -60,35 +60,35 @@ A. CONTENU
 
 B. FICHIERS DE DONNÉES CIBLES (EXEMPLES)
 
-• assets/zz-data/chapter10/10\_mc\_config.json → mc\_config\_schema.json
+• assets/zz-data/10_global_scan/10\_mc\_config.json → mc\_config\_schema.json
 
-• assets/zz-data/chapter10/10\_mc\_best.json → mc\_best\_schema.json
+• assets/zz-data/10_global_scan/10\_mc\_best.json → mc\_best\_schema.json
 
-• assets/zz-data/chapter10/10\_mc\_results.csv, 10\_mc\_results.circ.csv → mc\_results\_table\_schema.json (via validate\_csv\_table.py)
+• assets/zz-data/10_global_scan/10\_mc\_results.csv, 10\_mc\_results.circ.csv → mc\_results\_table\_schema.json (via validate\_csv\_table.py)
 
-• assets/zz-data/chapter09/09\_metrics\_phase.json → metrics\_phase\_schema.json
+• assets/zz-data/09_dark_energy_cpl/09\_metrics\_phase.json → metrics\_phase\_schema.json
 
-• assets/zz-data/chapter09/09\_comparison\_milestones.csv → comparison\_milestones\_table\_schema.json (via validate\_csv\_table.py)
+• assets/zz-data/09_dark_energy_cpl/09\_comparison\_milestones.csv → comparison\_milestones\_table\_schema.json (via validate\_csv\_table.py)
 
-• assets/zz-data/chapter02/02\_parametres\_optimaux.json → chapter02\_optimal\_parameters.schema.json
+• assets/zz-data/02_primordial_spectrum/02\_parametres\_optimaux.json → chapter02\_optimal\_parameters.schema.json
 
-• assets/zz-data/chapter02/02\_spec\_spectre.json → chapter02\_primordial\_spectrum.schema.json
+• assets/zz-data/02_primordial_spectrum/02\_spec\_spectre.json → chapter02\_primordial\_spectrum.schema.json
 
-• assets/zz-data/chapter03/03\_meta\_stabilite\_fR.json → chapter03\_stability\_meta.schema.json
+• assets/zz-data/03_stability_domain/03\_meta\_stabilite\_fR.json → chapter03\_stability\_meta.schema.json
 
-• assets/zz-data/chapter05/05\_parametres\_nucleosynthese.json → chapter05\_nucleosynthesis\_parameters.schema.json
+• assets/zz-data/05_primordial_bbn/05\_parametres\_nucleosynthese.json → chapter05\_nucleosynthesis\_parameters.schema.json
 
-• assets/zz-data/chapter06/06\_params\_cmb.json → chapter06\_cmb\_params.schema.json
+• assets/zz-data/06_early_growth_jwst/06\_params\_cmb.json → chapter06\_cmb\_params.schema.json
 
-• assets/zz-data/chapter07/07\_params\_perturbations.json → chapter07\_perturbations\_params.schema.json
+• assets/zz-data/07_bao_geometry/07\_params\_perturbations.json → chapter07\_perturbations\_params.schema.json
 
-• assets/zz-data/chapter07/07\_meta\_perturbations.json → chapter07\_perturbations\_meta.schema.json
+• assets/zz-data/07_bao_geometry/07\_meta\_perturbations.json → chapter07\_perturbations\_meta.schema.json
 
-• assets/zz-data/chapter08/08\_params\_couplage.json → chapter08\_coupling\_params.schema.json
+• assets/zz-data/08_sound_horizon/08\_params\_couplage.json → chapter08\_coupling\_params.schema.json
 
-• assets/zz-data/chapter09/09\_best\_params.json (si présent) → chapter09\_best\_params.schema.json
+• assets/zz-data/09_dark_energy_cpl/09\_best\_params.json (si présent) → chapter09\_best\_params.schema.json
 
-• assets/zz-data/chapter09/09\_phases\_imrphenom.meta.json → chapter09\_phases\_imrphenom.meta.schema.json
+• assets/zz-data/09_dark_energy_cpl/09\_phases\_imrphenom.meta.json → chapter09\_phases\_imrphenom.meta.schema.json
 
 
 
@@ -100,13 +100,13 @@ C. COMMENT VALIDER
 
 1\) Valider des fichiers JSON
 
-python assets/zz-schemas/validate\_json.py assets/zz-schemas/mc\_config\_schema.json assets/zz-data/chapter10/10\_mc\_config.json
+python assets/zz-schemas/validate\_json.py assets/zz-schemas/mc\_config\_schema.json assets/zz-data/10_global_scan/10\_mc\_config.json
 
-python assets/zz-schemas/validate\_json.py assets/zz-schemas/mc\_best\_schema.json assets/zz-data/chapter10/10\_mc\_best.json
+python assets/zz-schemas/validate\_json.py assets/zz-schemas/mc\_best\_schema.json assets/zz-data/10_global_scan/10\_mc\_best.json
 
-python assets/zz-schemas/validate\_json.py assets/zz-schemas/metrics\_phase\_schema.json assets/zz-data/chapter09/09\_metrics\_phase.json
+python assets/zz-schemas/validate\_json.py assets/zz-schemas/metrics\_phase\_schema.json assets/zz-data/09_dark_energy_cpl/09\_metrics\_phase.json
 
-python assets/zz-schemas/validate\_json.py assets/zz-schemas/chapter06\_cmb\_params.schema.json assets/zz-data/chapter06/06\_params\_cmb.json
+python assets/zz-schemas/validate\_json.py assets/zz-schemas/chapter06\_cmb\_params.schema.json assets/zz-data/06_early_growth_jwst/06\_params\_cmb.json
 
 (répéter pour les autres schémas de chapitre)
 
@@ -114,11 +114,11 @@ python assets/zz-schemas/validate\_json.py assets/zz-schemas/chapter06\_cmb\_par
 
 2\) Valider des fichiers CSV
 
-python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/mc\_results\_table\_schema.json assets/zz-data/chapter10/10\_mc\_results.csv
+python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/mc\_results\_table\_schema.json assets/zz-data/10_global_scan/10\_mc\_results.csv
 
-python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/mc\_results\_table\_schema.json assets/zz-data/chapter10/10\_mc\_results.circ.csv
+python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/mc\_results\_table\_schema.json assets/zz-data/10_global_scan/10\_mc\_results.circ.csv
 
-python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/comparison\_milestones\_table\_schema.json assets/zz-data/chapter09/09\_comparison\_milestones.csv
+python assets/zz-schemas/validate\_csv\_table.py assets/zz-schemas/comparison\_milestones\_table\_schema.json assets/zz-data/09_dark_energy_cpl/09\_comparison\_milestones.csv
 
 
 
@@ -184,7 +184,7 @@ H. DÉPANNAGE
 
 • JSONDecodeError : fichier vide ou mal formé ; ré-exporter le script producteur ou corriger les virgules finales.
 
-• FileNotFoundError : vérifier le chemin ; standard sur assets/zz-data/chapterXX avec alias autorisés. Lancer depuis la racine du projet.
+• FileNotFoundError : vérifier le chemin ; standard sur assets/zz-data/NN_chapter_name avec alias autorisés. Lancer depuis la racine du projet.
 
 • Échec de validation CSV : s’assurer que les noms d’en-tête correspondent exactement ; enregistrer en UTF-8 (sans BOM).
 

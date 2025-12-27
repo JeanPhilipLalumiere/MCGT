@@ -4,7 +4,7 @@ export PYTHONPATH="$(git rev-parse --show-toplevel):$PYTHONPATH"
 set -Eeuo pipefail
 START_TS="$(date +%Y%m%d_%H%M%S)"
 LOG="zz-out/runlogs/smoke_ch09_fast_${START_TS}.log"
-mkdir -p zz-out/runlogs zz-out/chapter09 assets/zz-figures/chapter09
+mkdir -p zz-out/runlogs zz-out/chapter09 assets/zz-figures/09_dark_energy_cpl
 exec > >(tee -a "$LOG") 2>&1
 echo "[INFO] Smoke CH09 (fast)"
 
@@ -48,7 +48,7 @@ else:
 PY
 
 # 5) fig02 natif ou fallback
-OUT="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
+OUT="assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png"
 if [[ -s zz-out/chapter09/fig02_input.csv ]]; then
   if ! python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
         --csv zz-out/chapter09/fig02_input.csv \
@@ -61,6 +61,6 @@ else
 fi
 
 # 6) Checks simples
-test -s assets/zz-data/chapter09/09_phases_mcgt.csv
-test -s assets/zz-figures/chapter09/09_fig_01_phase_overlay.png
+test -s assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv
+test -s assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png
 test -s "$OUT" && echo "[OK] CH09 complet"

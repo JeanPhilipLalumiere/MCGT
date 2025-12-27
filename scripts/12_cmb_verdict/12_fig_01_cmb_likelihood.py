@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-steps", type=int, default=4000)
     parser.add_argument(
         "--out",
-        default="assets/zz-figures/chapter12/12_fig_01_cmb_likelihood.png",
+        default="assets/zz-figures/12_cmb_verdict/12_fig_01_cmb_likelihood.png",
         help="Output PNG path.",
     )
     return parser.parse_args()

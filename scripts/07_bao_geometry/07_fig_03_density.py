@@ -68,7 +68,7 @@ Ce script reste volontairement générique :
   ou, à défaut, parmi les colonnes numériques ≠ 'k'.
 
 Par défaut, il suppose un fichier :
-  assets/zz-data/chapter07/07_scalar_invariants.csv
+  assets/zz-data/07_bao_geometry/07_scalar_invariants.csv
 mais tu peux surcharger avec --data-csv et --value-col.
 """
 

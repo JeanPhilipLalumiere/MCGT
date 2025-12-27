@@ -36,7 +36,7 @@ Depuis la racine du dépôt `MCGT` :
 - Environnement Python MCGT activé (par ex. `mcgt-dev`) ;
 - Dépendances installées via l’environnement standard MCGT :
   `numpy`, `pandas`, `scipy`, `matplotlib`, etc. ;
-- Fichiers d’entrée CH01 présents dans `assets/zz-data/chapter01/` :
+- Fichiers d’entrée CH01 présents dans `assets/zz-data/01_invariants_stability/` :
 
   - `01_timeline_milestones.csv`
   - `01_initial_grid_data.dat`
@@ -90,7 +90,7 @@ Scripts utilisés par le pipeline minimal :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter01/`
+- `assets/zz-data/01_invariants_stability/`
 
 **Entrées :**
 
@@ -116,7 +116,7 @@ Les colonnes attendues sont rappelées en §5.2.
 
 Répertoire :
 
-- `assets/zz-figures/chapter01/`
+- `assets/zz-figures/01_invariants_stability/`
 
 Figures principales :
 
@@ -143,7 +143,7 @@ Ce script :
 
 1. **Charge les jalons de référence** dans :
 
-   - `assets/zz-data/chapter01/01_timeline_milestones.csv`
+   - `assets/zz-data/01_invariants_stability/01_timeline_milestones.csv`
 
    Colonnes typiques :
 
@@ -154,7 +154,7 @@ Ce script :
 
 2. **Charge la grille initiale** dans :
 
-   - `assets/zz-data/chapter01/01_initial_grid_data.dat`
+   - `assets/zz-data/01_invariants_stability/01_initial_grid_data.dat`
 
    Colonnes :
 
@@ -167,8 +167,8 @@ Ce script :
    pour obtenir une courbe \(P_{\rm calc}(T)\) lisse et compatible avec les jalons, et
    l’enregistre dans :
 
-   - `assets/zz-data/chapter01/01_optimized_data.csv`
-   - `assets/zz-data/chapter01/01_optimized_grid_data.dat`
+   - `assets/zz-data/01_invariants_stability/01_optimized_data.csv`
+   - `assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat`
 
    Schéma de colonnes :
 
@@ -180,8 +180,8 @@ Ce script :
 4. **Calcule les dérivées lissées** (avant et après optimisation), typiquement via
    un filtre de Savitzky–Golay, et les enregistre dans :
 
-   - `assets/zz-data/chapter01/01_P_derivative_initial.csv`
-   - `assets/zz-data/chapter01/01_P_derivative_optimized.csv`
+   - `assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv`
+   - `assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv`
 
    Colonnes :
 
@@ -192,7 +192,7 @@ Ce script :
 
 5. **Assemble les données optimisées + dérivées** dans un fichier synthétique :
 
-   - `assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv`
+   - `assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv`
 
    Colonnes :
 
@@ -204,7 +204,7 @@ Ce script :
 
 6. **Calcule les erreurs relatives aux jalons** et les enregistre dans :
 
-   - `assets/zz-data/chapter01/01_relative_error_timeline.csv`
+   - `assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv`
 
    Colonnes :
 
@@ -215,7 +215,7 @@ Ce script :
 
 7. **Construit les invariants adimensionnels** et les écrit dans :
 
-   - `assets/zz-data/chapter01/01_dimensionless_invariants.csv`
+   - `assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv`
 
    Colonnes :
 
@@ -240,7 +240,7 @@ python scripts/01_invariants_stability/10_fig05_I1_vs_T.py
 python scripts/01_invariants_stability/10_fig06_P_derivative_comparison.py
 ```
 
-Produits attendus dans `assets/zz-figures/chapter01/` :
+Produits attendus dans `assets/zz-figures/01_invariants_stability/` :
 
 - `fig_01_early_plateau.png`  
   → plateau quasi‑constant de \(P(T)\) sur la grille initiale.
@@ -269,27 +269,27 @@ Pour la relecture et la publication, les fichiers suivants sont considérés com
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter01/01_optimized_data.csv`
-- `assets/zz-data/chapter01/01_optimized_grid_data.dat`
-- `assets/zz-data/chapter01/01_P_derivative_initial.csv`
-- `assets/zz-data/chapter01/01_P_derivative_optimized.csv`
-- `assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv`
-- `assets/zz-data/chapter01/01_relative_error_timeline.csv`
-- `assets/zz-data/chapter01/01_dimensionless_invariants.csv`
+- `assets/zz-data/01_invariants_stability/01_optimized_data.csv`
+- `assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat`
+- `assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv`
+- `assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv`
+- `assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv`
+- `assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv`
+- `assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv`
 
 Les fichiers d’entrée suivants doivent rester stables et tracés dans les manifests :
 
-- `assets/zz-data/chapter01/01_timeline_milestones.csv`
-- `assets/zz-data/chapter01/01_initial_grid_data.dat`
+- `assets/zz-data/01_invariants_stability/01_timeline_milestones.csv`
+- `assets/zz-data/01_invariants_stability/01_initial_grid_data.dat`
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter01/01_fig_01_early_plateau.png`
-- `assets/zz-figures/chapter01/01_fig_02_logistic_calibration.png`
-- `assets/zz-figures/chapter01/01_fig_03_relative_error_timeline.png`
-- `assets/zz-figures/chapter01/01_fig_04_p_vs_t_evolution.png`
-- `assets/zz-figures/chapter01/01_fig_05_i1_vs_t.png`
-- `assets/zz-figures/chapter01/01_fig_06_p_derivative_comparison.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_01_early_plateau.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_02_logistic_calibration.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_03_relative_error_timeline.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_04_p_vs_t_evolution.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_05_i1_vs_t.png`
+- `assets/zz-figures/01_invariants_stability/01_fig_06_p_derivative_comparison.png`
 
 ---
 

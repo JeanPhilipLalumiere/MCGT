@@ -77,7 +77,7 @@ import pytest  # noqa: E402  # noqa: E402
 
 _ROOT = Path(__file__).resolve().parents[2]
 _CANDIDATES = [
-    _ROOT / "assets/zz-data/chapter07/07_phase_run.csv",
+    _ROOT / "assets/zz-data/07_bao_geometry/07_phase_run.csv",
 ]
 _DATA_07 = next((c for c in _CANDIDATES if c.exists()), None)
 if _DATA_07 is None:

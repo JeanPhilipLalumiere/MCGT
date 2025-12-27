@@ -12,17 +12,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate final audit report table.")
     parser.add_argument(
         "--mcmc-summary",
-        default="assets/zz-data/chapter09/09_mcmc_tri_probe_summary.json",
+        default="assets/zz-data/09_dark_energy_cpl/09_mcmc_tri_probe_summary.json",
         help="Tri-probe MCMC summary JSON.",
     )
     parser.add_argument(
         "--lensing-summary",
-        default="assets/zz-data/chapter11/11_summary.json",
+        default="assets/zz-data/11_lss_s8_tension/11_summary.json",
         help="Chapter 11 lensing summary JSON.",
     )
     parser.add_argument(
         "--cmb-summary",
-        default="assets/zz-data/chapter12/12_cmb_theta_summary.json",
+        default="assets/zz-data/12_cmb_verdict/12_cmb_theta_summary.json",
         help="Chapter 12 theta/R summary JSON.",
     )
     parser.add_argument(

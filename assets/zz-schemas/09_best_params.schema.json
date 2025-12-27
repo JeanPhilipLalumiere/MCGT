@@ -300,16 +300,16 @@
       "variant_used": "phi_mcgt",
       "inputs": {
         "ref_csv": {
-          "path": "assets/zz-data/chapter9/09_phases_imrphenom.csv"
+          "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv"
         },
         "prepoly_csv": {
-          "path": "assets/zz-data/chapter9/09_phases_mcgt.prepoly.csv"
+          "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.prepoly.csv"
         },
         "diff_csv": {
-          "path": "assets/zz-data/chapter9/09_diff_phase.csv"
+          "path": "assets/zz-data/09_dark_energy_cpl/09_diff_phase.csv"
         },
         "metrics_json": {
-          "path": "assets/zz-data/chapter9/09_metrics_phase.json"
+          "path": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json"
         }
       },
       "repro": {

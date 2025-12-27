@@ -8,11 +8,11 @@
 # - Écriture atomique + .bak horodaté ; champs agrégés mis à jour.
 #
 # Exemples :
-#   python assets/zz-manifests/add_to_manifest.py assets/zz-data/chapter10/10_mc_results.csv
-#   python assets/zz-manifests/add_to_manifest.py "assets/zz-figures/chapter09/09_fig_*.png" --role figure
+#   python assets/zz-manifests/add_to_manifest.py assets/zz-data/10_global_scan/10_mc_results.csv
+#   python assets/zz-manifests/add_to_manifest.py "assets/zz-figures/09_dark_energy_cpl/09_fig_*.png" --role figure
 #   python assets/zz-manifests/add_to_manifest.py --from-list paths.txt --tags "chapter09,phase"
 #   git ls-files | python assets/zz-manifests/add_to_manifest.py - --role source
-#   python assets/zz-manifests/add_to_manifest.py --remove "assets/zz-data/chapter09/*.tmp"
+#   python assets/zz-manifests/add_to_manifest.py --remove "assets/zz-data/09_dark_energy_cpl/*.tmp"
 #
 # Codes retour :
 #   0 OK | 1 aucun fichier traité | 2 erreur arguments/lecture/écriture
@@ -379,7 +379,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     p.add_argument(
         "--remove",
         metavar="GLOB",
-        help="remove entries whose path matches this glob (e.g., 'assets/zz-data/chapter09/*.tmp')",
+        help="remove entries whose path matches this glob (e.g., 'assets/zz-data/09_dark_energy_cpl/*.tmp')",
     )
     p.add_argument(
         "--dry-run", action="store_true", help="do not write manifest (report only)"

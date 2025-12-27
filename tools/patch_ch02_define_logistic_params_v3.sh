@@ -52,7 +52,7 @@ else:
         raise SystemExit("[ERREUR] Ligne 'a_log = ...' introuvable dans le backup – patch annulé.")
 
     block = '''
-with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:
+with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:
     _params = json.load(f)
 a0 = _params["a0"]
 ainf = _params["ainf"]

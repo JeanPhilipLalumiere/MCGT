@@ -116,7 +116,7 @@ import numpy as np
 
 
 def draw_bbn_schema(
-    save_path="assets/zz-figures/chapter05/05_fig_01_convergence.png",
+    save_path="assets/zz-figures/05_primordial_bbn/05_fig_01_convergence.png",
 ):
     fig, ax = plt.subplots(figsize=(8, 4.2), facecolor="white")
 

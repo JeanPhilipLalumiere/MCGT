@@ -24,7 +24,7 @@ def extract_git_hashes_from_diag(log_path: Path) -> dict[str, str]:
     """
     Parse les lignes du type :
 
-    - [WARN] GIT_HASH_DIFFERS (#158:assets/zz-figures/chapter09/09_fig_01_phase_overlay.png): git_hash diffère (manifest=5ab6..., git=64b8...)
+    - [WARN] GIT_HASH_DIFFERS (#158:assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png): git_hash diffère (manifest=5ab6..., git=64b8...)
 
     et retourne un mapping:
         path -> git  (la valeur de droite, celle à adopter dans le manifest).

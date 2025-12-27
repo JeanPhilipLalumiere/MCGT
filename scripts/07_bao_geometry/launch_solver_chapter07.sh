@@ -48,7 +48,7 @@ DPHI_PARAM=0.05
 INI_FILE=""
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CONF_DIR="$ROOT_DIR/configuration"
-DATA_DIR="$ROOT_DIR/assets/zz-data/chapter07"
+DATA_DIR="$ROOT_DIR/assets/zz-data/07_bao_geometry"
 OUTPUT_CS2="$DATA_DIR/output_solver_cs2.dat"
 OUTPUT_PHI="$DATA_DIR/output_solver_phi.dat"
 

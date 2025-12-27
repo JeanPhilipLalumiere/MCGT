@@ -10,7 +10,7 @@ import pandas as pd
 
 # Chemins relatifs depuis ce script
 DATA_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../../assets/zz-data/chapter08")
+    os.path.join(os.path.dirname(__file__), "../../../assets/zz-data/08_sound_horizon")
 )
 
 # Fichier brut Pantheon+SH0ES (sans caractères spéciaux dans le nom)

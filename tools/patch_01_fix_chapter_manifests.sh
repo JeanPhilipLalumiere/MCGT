@@ -51,39 +51,39 @@ def patch_ch02(obj):
     # Renommage des data_inputs
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter02/02_chronology_milestones.csv",
-        "assets/zz-data/chapter02/02_timeline_milestones.csv",
+        "assets/zz-data/02_primordial_spectrum/02_chronology_milestones.csv",
+        "assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv",
         "ch02:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter02/02_derivative_P_data.dat",
-        "assets/zz-data/chapter02/02_P_derivative_data.dat",
+        "assets/zz-data/02_primordial_spectrum/02_derivative_P_data.dat",
+        "assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat",
         "ch02:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter02/02_grid_data_P_vs_T.dat",
-        "assets/zz-data/chapter02/02_P_vs_T_grid_data.dat",
+        "assets/zz-data/02_primordial_spectrum/02_grid_data_P_vs_T.dat",
+        "assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat",
         "ch02:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter02/02_primordial_spectrum.json",
-        "assets/zz-data/chapter02/02_primordial_spectrum_spec.json",
+        "assets/zz-data/02_primordial_spectrum/02_primordial_spectrum.json",
+        "assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json",
         "ch02:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter02/02_relative_errors_chronology.csv",
-        "assets/zz-data/chapter02/02_relative_error_timeline.csv",
+        "assets/zz-data/02_primordial_spectrum/02_relative_errors_chronology.csv",
+        "assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv",
         "ch02:data_inputs",
     )
 
     # Ajout de 02_FG_series.csv si absent
     changed |= ensure(
         data_inputs,
-        "assets/zz-data/chapter02/02_FG_series.csv",
+        "assets/zz-data/02_primordial_spectrum/02_FG_series.csv",
         "ch02:data_inputs",
     )
 
@@ -91,13 +91,13 @@ def patch_ch02(obj):
 
     # Figures : on impose la liste canonique
     new_figs = [
-        "assets/zz-figures/chapter02/02_fig_00_spectrum.png",
-        "assets/zz-figures/chapter02/02_fig_01_p_vs_t_evolution.png",
-        "assets/zz-figures/chapter02/02_fig_02_calibration.png",
-        "assets/zz-figures/chapter02/02_fig_03_relative_errors.png",
-        "assets/zz-figures/chapter02/02_fig_04_pipeline_diagram.png",
-        "assets/zz-figures/chapter02/02_fig_05_fg_series.png",
-        "assets/zz-figures/chapter02/02_fig_06_alpha_fit.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_01_p_vs_t_evolution.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_02_calibration.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_03_relative_errors.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_04_pipeline_diagram.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_05_fg_series.png",
+        "assets/zz-figures/02_primordial_spectrum/02_fig_06_alpha_fit.png",
     ]
     if files.get("figures") != new_figs:
         files["figures"] = new_figs
@@ -115,20 +115,20 @@ def patch_ch03(obj):
     data_inputs = files.get("data_inputs", [])
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter03/03_stability_fR_boundary.csv",
-        "assets/zz-data/chapter03/03_fR_stability_boundary.csv",
+        "assets/zz-data/03_stability_domain/03_stability_fR_boundary.csv",
+        "assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv",
         "ch03:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter03/03_stability_fR_data.csv",
-        "assets/zz-data/chapter03/03_fR_stability_data.csv",
+        "assets/zz-data/03_stability_domain/03_stability_fR_data.csv",
+        "assets/zz-data/03_stability_domain/03_fR_stability_data.csv",
         "ch03:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter03/03_stability_fR_domain.csv",
-        "assets/zz-data/chapter03/03_fR_stability_domain.csv",
+        "assets/zz-data/03_stability_domain/03_stability_fR_domain.csv",
+        "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv",
         "ch03:data_inputs",
     )
     files["data_inputs"] = data_inputs
@@ -138,14 +138,14 @@ def patch_ch03(obj):
 
     changed |= replace_in(
         figures,
-        "assets/zz-figures/chapter03/03_fig_01_stability_fR_domain.png",
-        "assets/zz-figures/chapter03/03_fig_01_fR_stability_domain.png",
+        "assets/zz-figures/03_stability_domain/03_fig_01_stability_fR_domain.png",
+        "assets/zz-figures/03_stability_domain/03_fig_01_fR_stability_domain.png",
         "ch03:figures",
     )
     changed |= replace_in(
         figures,
-        "assets/zz-figures/chapter03/03_fig_05_milestones_interpolation.png",
-        "assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png",
+        "assets/zz-figures/03_stability_domain/03_fig_05_milestones_interpolation.png",
+        "assets/zz-figures/03_stability_domain/03_fig_05_interpolated_milestones.png",
         "ch03:figures",
     )
 
@@ -160,18 +160,18 @@ def patch_ch04(obj):
 
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter04/04_T_reference_grid.dat",
-        "assets/zz-data/chapter04/04_P_vs_T.dat",
+        "assets/zz-data/04_expansion_supernovae/04_T_reference_grid.dat",
+        "assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat",
         "ch04:data_inputs",
     )
     files["data_inputs"] = data_inputs
 
     # Figures canoniques 04_fig_XX_*.png
     new_figs = [
-        "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
-        "assets/zz-figures/chapter04/04_fig_02_invariants_histogram.png",
-        "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
-        "assets/zz-figures/chapter04/04_fig_04_relative_deviations.png",
+        "assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png",
+        "assets/zz-figures/04_expansion_supernovae/04_fig_02_invariants_histogram.png",
+        "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png",
+        "assets/zz-figures/04_expansion_supernovae/04_fig_04_relative_deviations.png",
     ]
     if files.get("figures") != new_figs:
         files["figures"] = new_figs
@@ -188,20 +188,20 @@ def patch_ch07(obj):
 
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter07/07_main_scalar_perturbations_data.csv",
-        "assets/zz-data/chapter07/07_perturbations_main_data.csv",
+        "assets/zz-data/07_bao_geometry/07_main_scalar_perturbations_data.csv",
+        "assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv",
         "ch07:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter07/07_scalar_perturbations_meta.json",
-        "assets/zz-data/chapter07/07_meta_perturbations.json",
+        "assets/zz-data/07_bao_geometry/07_scalar_perturbations_meta.json",
+        "assets/zz-data/07_bao_geometry/07_meta_perturbations.json",
         "ch07:data_inputs",
     )
     changed |= replace_in(
         data_inputs,
-        "assets/zz-data/chapter07/07_scalar_perturbations_params.json",
-        "assets/zz-data/chapter07/07_perturbations_params.json",
+        "assets/zz-data/07_bao_geometry/07_scalar_perturbations_params.json",
+        "assets/zz-data/07_bao_geometry/07_perturbations_params.json",
         "ch07:data_inputs",
     )
 
@@ -213,7 +213,7 @@ def patch_ch09(obj):
     changed = False
     files = obj.setdefault("files", {})
     figures = files.get("figures", [])
-    wildcard = "assets/zz-figures/chapter09/p95_methods/*.png"
+    wildcard = "assets/zz-figures/09_dark_energy_cpl/p95_methods/*.png"
     if wildcard in figures:
         figures.remove(wildcard)
         print(f"    [ch09:figures] suppression de l’entrée wildcard {wildcard!r}")

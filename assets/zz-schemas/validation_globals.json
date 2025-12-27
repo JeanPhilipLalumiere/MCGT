@@ -120,40 +120,40 @@
       {
         "name": "spec_primordial",
         "candidates": [
-          "assets/zz-data/chapter02/02_spec_spectrum.json",
-          "assets/zz-data/chapter2/02_spec_spectre.json"
+          "assets/zz-data/02_primordial_spectrum/02_spec_spectrum.json",
+          "assets/zz-data/02_primordial_spectrum/02_spec_spectre.json"
         ],
         "type": "json"
       },
       {
         "name": "params_cmb",
         "candidates": [
-          "assets/zz-data/chapter06/06_params_cmb.json",
-          "assets/zz-data/chapter6/06_params_cmb.json"
+          "assets/zz-data/06_early_growth_jwst/06_params_cmb.json",
+          "assets/zz-data/06_early_growth_jwst/06_params_cmb.json"
         ],
         "type": "json"
       },
       {
         "name": "params_perturbations",
         "candidates": [
-          "assets/zz-data/chapter07/07_params_perturbations.json",
-          "assets/zz-data/chapter7/07_params_perturbations.json"
+          "assets/zz-data/07_bao_geometry/07_params_perturbations.json",
+          "assets/zz-data/07_bao_geometry/07_params_perturbations.json"
         ],
         "type": "json"
       },
       {
         "name": "metrics_phase",
         "candidates": [
-          "assets/zz-data/chapter09/09_metrics_phase.json",
-          "assets/zz-data/chapter9/09_metrics_phase.json"
+          "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
+          "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json"
         ],
         "type": "json"
       },
       {
         "name": "jalons_chap2",
         "candidates": [
-          "assets/zz-data/chapter02/02_chronology_milestones.csv",
-          "assets/zz-data/chapter2/02_jalons_chronologie.csv"
+          "assets/zz-data/02_primordial_spectrum/02_chronology_milestones.csv",
+          "assets/zz-data/02_primordial_spectrum/02_jalons_chronologie.csv"
         ],
         "type": "csv",
         "expect_columns": [
@@ -167,16 +167,16 @@
       {
         "name": "mc_results_table",
         "candidates": [
-          "assets/zz-data/chapter10/10_mc_results.csv",
-          "assets/zz-data/chapter10/10_mc_results.csv"
+          "assets/zz-data/10_global_scan/10_mc_results.csv",
+          "assets/zz-data/10_global_scan/10_mc_results.csv"
         ],
         "type": "csv"
       },
       {
         "name": "jalons_gw",
         "candidates": [
-          "assets/zz-data/chapter09/09_comparison_milestones.csv",
-          "assets/zz-data/chapter9/09_jalons_comparaison.csv"
+          "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv",
+          "assets/zz-data/09_dark_energy_cpl/09_jalons_comparaison.csv"
         ],
         "type": "csv",
         "expect_columns": [

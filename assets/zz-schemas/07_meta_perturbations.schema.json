@@ -190,39 +190,39 @@
       "n_points": 18030,
       "files": [
         {
-          "path": "assets/zz-data/chapter7/07_dcs2_dk.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_dcs2_dk.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_ddelta_phi_dk.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_ddelta_phi_dk.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_main_perturbations_data.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_main_perturbations_data.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_scalar_invariants.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_scalar_invariants.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_perturbations_domain.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_perturbations_domain.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_perturbations_boundary.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_scalar_perturbations_results.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_cs2_matrix.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_cs2_matrix.csv",
           "role": "output"
         },
         {
-          "path": "assets/zz-data/chapter7/07_delta_phi_matrix.csv",
+          "path": "assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv",
           "role": "output"
         }
       ],

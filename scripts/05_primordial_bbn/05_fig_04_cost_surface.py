@@ -282,7 +282,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--outdir",
         default=None,
-        help=("Dossier de sortie (par défaut: assets/zz-figures/chapter05 ou $MCGT_OUTDIR)."),
+        help=("Dossier de sortie (par défaut: assets/zz-figures/05_primordial_bbn ou $MCGT_OUTDIR)."),
     )
     parser.add_argument(
         "--dry-run",

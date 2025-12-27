@@ -44,9 +44,9 @@ Depuis la racine du dépôt `MCGT` :
 - Fichiers de configuration et de données déjà présents (suivis par les manifests) :
 
   - `config/GWTC-3-confident-events.json`
-  - `assets/zz-data/chapter09/gwtc3_confident_parameters.json`
-  - `assets/zz-data/chapter09/09_phases_imrphenom.csv`  (phase IMRPhenom de référence)
-  - `assets/zz-data/chapter09/09_phases_mcgt.csv`       (phase MCGT finale, déjà construite)
+  - `assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json`
+  - `assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv`  (phase IMRPhenom de référence)
+  - `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv`       (phase MCGT finale, déjà construite)
 
 Les chemins supposent la hiérarchie standard du dépôt MCGT.
 
@@ -74,12 +74,12 @@ Ce script effectue automatiquement, de manière compacte, les opérations suivan
 4. Resserrement éventuel de la fenêtre de fit, puis nouveau calage ;
 5. Mise à jour des métriques dans :
 
-   - `assets/zz-data/chapter09/09_metrics_phase.json` ;
+   - `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json` ;
 
 6. Génération des figures de phase :
 
-   - `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-   - `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`.
+   - `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+   - `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`.
 
 ---
 
@@ -105,11 +105,11 @@ Dans les logs fournis, on observe typiquement :
 
 - calcul avec paramètres MCGT par défaut (`PhaseParams(...)`) ;
 - réutilisation de la référence existante (`09_phases_mcgt.csv`) sauf si `--overwrite` ;
-- écriture / mise à jour de `assets/zz-data/chapter09/09_metrics_phase.json` ;
+- écriture / mise à jour de `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json` ;
 - génération / mise à jour de :
 
-  - `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-  - `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`.
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`.
 
 C’est **cette séquence** qui constitue, en pratique, ton **pipeline minimal CH09**.
 
@@ -160,7 +160,7 @@ mais représentent l’architecture complète de CH09.
 
 Répertoire principal :
 
-- `assets/zz-data/chapter09/`
+- `assets/zz-data/09_dark_energy_cpl/`
 
 Fichiers centraux pour le pipeline minimal calibré :
 
@@ -188,7 +188,7 @@ ne sont pas requis pour le pipeline minimal pur.
 
 Répertoire des figures :
 
-- `assets/zz-figures/chapter09/`
+- `assets/zz-figures/09_dark_energy_cpl/`
 
 Figures principalement concernées par le pipeline minimal :
 
@@ -231,7 +231,7 @@ Si nécessaire (p. ex. après mise à jour de LALSuite), on peut reconstruire
 la phase IMRPhenom de référence :
 
 ```bash
-python scripts/09_dark_energy_cpl/extract_phenom_phase.py   --out assets/zz-data/chapter09/09_phases_imrphenom.csv
+python scripts/09_dark_energy_cpl/extract_phenom_phase.py   --out assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv
 ```
 
 Cette étape n’est pas requise pour un simple contrôle de cohérence si la
@@ -273,7 +273,7 @@ rebranch `k`) de façon explicite, ce bloc décrit le principe (à adapter selon
 l’API réelle de `opt_poly_rebranch.py`) :
 
 ```bash
-python scripts/09_dark_energy_cpl/opt_poly_rebranch.py   --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --fit-window 30 250 --metrics-window 20 300   --degrees 3 4 5 --bases log10 hz --k-range -10 10   --out-csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --out-best assets/zz-data/chapter09/09_best_params.json   --backup --log-level INFO
+python scripts/09_dark_energy_cpl/opt_poly_rebranch.py   --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv   --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json   --fit-window 30 250 --metrics-window 20 300   --degrees 3 4 5 --bases log10 hz --k-range -10 10   --out-csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv   --out-best assets/zz-data/09_dark_energy_cpl/09_best_params.json   --backup --log-level INFO
 ```
 
 Idée générale :
@@ -294,7 +294,7 @@ reste la **référence opérationnelle**.
 Bloc optionnel, orienté QC / méthodo :
 
 ```bash
-python scripts/09_dark_energy_cpl/check_p95_methods.py   --csv assets/zz-data/chapter09/09_phases_mcgt.csv   --window 20 300   --update-metrics-json assets/zz-data/chapter09/09_metrics_phase.json
+python scripts/09_dark_energy_cpl/check_p95_methods.py   --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv   --window 20 300   --update-metrics-json assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json
 ```
 
 Ce script :
@@ -322,7 +322,7 @@ python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py
 Version avec arguments explicites (à utiliser si tu veux documenter les paths) :
 
 ```bash
-python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
+python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py   --csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv   --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json   --out  assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png   --shade 20 300 --show-residual   --display-variant auto --anchor-policy if-not-calibrated   --dpi 300 --save-pdf --log-level INFO
 ```
 
 #### 5.5.2. Résidu de phase par bandes (Fig. 02)
@@ -336,7 +336,7 @@ python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py
 Version avec arguments explicites :
 
 ```bash
-python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py   --csv  assets/zz-data/chapter09/09_phases_mcgt.csv   --meta assets/zz-data/chapter09/09_metrics_phase.json   --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
+python scripts/09_dark_energy_cpl/10_fig02_residual_phase.py   --csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv   --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json   --out  assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png   --bands 20 300 300 1000 1000 2000   --dpi 300 --marker-size 3 --line-width 0.9   --gap-thresh-log10 0.12 --log-level INFO
 ```
 
 Dans tes derniers logs, ce script affiche notamment :
@@ -354,22 +354,22 @@ Dans le cadre du pipeline minimal calibré, les **produits principaux** de CH09 
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter09/09_phases_mcgt.csv`  
+- `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv`  
   → phase MCGT finale (après fit, unwrap, rebranch) sur la grille `f_Hz` ;
 
-- `assets/zz-data/chapter09/09_phase_diff.csv`  
+- `assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv`  
   → résidu principal `|Δφ|` correspondant à cette phase ;
 
-- `assets/zz-data/chapter09/09_metrics_phase.json`  
+- `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json`  
   → métriques de contrôle de phase sur la bande 20–300 Hz ;
 
-- `assets/zz-data/chapter09/09_best_params.json` (si utilisé)  
+- `assets/zz-data/09_dark_energy_cpl/09_best_params.json` (si utilisé)  
   → description compacte de la configuration de fit retenue.
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-- `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`
+- `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+- `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`
 - (diagnostic recommandé) `` (si généré).
 
 Les autres figures CH09 (`fig_03`, `fig_04`, `fig_05`) relèvent d’une analyse plus complète

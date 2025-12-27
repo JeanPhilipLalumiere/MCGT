@@ -12,11 +12,11 @@ echo
 
 # Fichiers de base attendus pour les figures
 required=(
-  "assets/zz-data/chapter06/06_cls_spectrum.dat"
-  "assets/zz-data/chapter06/06_cls_lcdm_spectrum.dat"
-  "assets/zz-data/chapter06/06_delta_rs_scan.csv"
-  "assets/zz-data/chapter06/06_delta_rs_scan_2d.csv"
-  "assets/zz-data/chapter06/06_cmb_chi2_scan_2d.csv"
+  "assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat"
+  "assets/zz-data/06_early_growth_jwst/06_cls_lcdm_spectrum.dat"
+  "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv"
+  "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_2d.csv"
+  "assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan_2d.csv"
 )
 missing=0
 for f in "${required[@]}"; do

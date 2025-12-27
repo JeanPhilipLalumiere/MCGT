@@ -112,9 +112,9 @@
       "version": "chap3-v1.0",
       "n_points": 715,
       "files": [
-        "assets/zz-data/chapter3/03_stability_fR_data.csv",
-        "assets/zz-data/chapter3/03_stability_fR_domain.csv",
-        "assets/zz-data/chapter3/03_stability_fR_boundary.csv"
+        "assets/zz-data/03_stability_domain/03_stability_fR_data.csv",
+        "assets/zz-data/03_stability_domain/03_stability_fR_domain.csv",
+        "assets/zz-data/03_stability_domain/03_stability_fR_boundary.csv"
       ],
       "units": {
         "R_over_R0": "dimensionless",

@@ -21,7 +21,7 @@ import pathlib
 path = pathlib.Path("scripts/02_primordial_spectrum/generate_data_chapter02.py")
 text = path.read_text()
 
-needle = 'with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:'
+needle = 'with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:'
 if needle not in text:
     raise SystemExit("[ERREUR] Bloc de chargement 02_optimal_parameters.json introuvable dans generate_data_chapter02.py")
 
@@ -42,7 +42,7 @@ while end < len(lines) and lines[end].strip() != "":
     end += 1
 
 new_block = [
-'with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:',
+'with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:',
 '    _params = json.load(f)',
 '',
 '_segments = _params["segments"]',

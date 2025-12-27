@@ -100,7 +100,7 @@
       "git_hash": "4fb52b3a960cc12656803b183f459e774bd027a1"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_initial.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv",
       "role": "data",
       "size_bytes": 79227,
       "sha256": "3c36f5d2c0b2db71f63c82f944e208a0cbf6091c6b0ee05c1a4335c672059f2f",
@@ -110,7 +110,7 @@
       "git_hash": "70766237e12b68ec0937d1f6a9d5e60cb20bdaf6"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_optimized.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv",
       "role": "data",
       "size_bytes": 28484,
       "sha256": "fc522cd47dd865e678e7a2d877454e8d81e6b18159c3fe1c9d4c3899e18fb950",
@@ -120,7 +120,7 @@
       "git_hash": "71a74f2ae0f19ad66112681871bbfdc48ee975a7"
     },
     {
-      "path": "assets/zz-data/chapter01/01_dimensionless_invariants.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv",
       "role": "data",
       "size_bytes": 28128,
       "sha256": "9b6aa7e673c6dca663e9d01a4d4735d232aa5a8e85e269f6f85204f93e51d84e",
@@ -130,7 +130,7 @@
       "git_hash": "8301d77afc38f5f1c3be98f4eb874ae9d81bca5a"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data.csv",
       "role": "data",
       "size_bytes": 26900,
       "sha256": "32e821af5e4ced63461f38d4b1564433ea08279ee8dedc99cfa631c09e7030bf",
@@ -140,7 +140,7 @@
       "git_hash": "604808b74b5be2a675827e98e128cbd9245b208e"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv",
       "role": "data",
       "size_bytes": 41878,
       "sha256": "34967da651418374e75c39f6d64d21455778553c6c9851fe16a70fe94c350c50",
@@ -150,7 +150,7 @@
       "git_hash": "2f0a43ec3fe6d9ff49d457de0e941a59f68e2aec"
     },
     {
-      "path": "assets/zz-data/chapter01/01_relative_error_timeline.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv",
       "role": "data",
       "size_bytes": 208,
       "sha256": "c9a78b6bd3f45da56f245fae184de7d483d166118b56659b349117075d0ccbf6",
@@ -160,7 +160,7 @@
       "git_hash": "075376790a865e415871947021d53d211613fd37"
     },
     {
-      "path": "assets/zz-data/chapter01/01_timeline_milestones.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_timeline_milestones.csv",
       "role": "data",
       "size_bytes": 172,
       "sha256": "6eddf48ab90b93ee34bb161efb48177647130fb57900784c4ae57a9bf58761ac",
@@ -170,7 +170,7 @@
       "git_hash": "249b1f12dc479676b4160662e9383b0e39e614da"
     },
     {
-      "path": "assets/zz-data/chapter02/02_As_ns_vs_alpha.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv",
       "role": "data",
       "size_bytes": 843,
       "sha256": "7ba49755f771ce70cfbf993a9d4f950081df53fba0a3d032d470f483e056896e",
@@ -180,7 +180,7 @@
       "git_hash": "defe3b263bc9e88363ad8032aa4c902a3d03c3c6"
     },
     {
-      "path": "assets/zz-data/chapter02/02_FG_series.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_FG_series.csv",
       "role": "data",
       "size_bytes": 123,
       "sha256": "1e1c5a7f1abf5a1e75f41b0fdfa55d446153e34c77b20d073bea0c47592f0040",
@@ -190,7 +190,7 @@
       "git_hash": "5624d39aec02f808ba040c4896af16d31a24bfc9"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_R_sampling.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_R_sampling.csv",
       "role": "data",
       "size_bytes": 82912,
       "sha256": "54700d97a286b488075d0c7fa461081cd3c4ab04048e996579da7dd63b1863d7",
@@ -200,7 +200,7 @@
       "git_hash": "f86fe9de224b36d202de404c49789e5a1db2cb74"
     },
     {
-      "path": "assets/zz-data/chapter02/02_milestones_meta.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_milestones_meta.csv",
       "role": "data",
       "size_bytes": 402,
       "sha256": "cc32b0ded402489c79804c024127dfc3aebdee82bbaf20b0935e88925eb972e3",
@@ -210,7 +210,7 @@
       "git_hash": "9b291f7e522c6e33b8d7c8a7fd1b9fa85850c2f3"
     },
     {
-      "path": "assets/zz-data/chapter02/02_optimal_parameters.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json",
       "role": "data",
       "size_bytes": 488,
       "sha256": "a1789e6e3f0812d1aec1d5469a2f7aca3c79caf3e818ac65faa417b38ead1cec",
@@ -220,7 +220,7 @@
       "git_hash": "75efe838a9399f5900fc010b1893241e7c5b0401"
     },
     {
-      "path": "assets/zz-data/chapter02/02_primordial_spectrum_spec.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json",
       "role": "data",
       "size_bytes": 334,
       "sha256": "08b165003d234aea21ab3eec704ad1bc58b9813338cc9fcd056138d1e32e59c6",
@@ -230,7 +230,7 @@
       "git_hash": "466830c4179e5dc8aaf11b76c4a8352d3f99e619"
     },
     {
-      "path": "assets/zz-data/chapter02/02_relative_error_timeline.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv",
       "role": "data",
       "size_bytes": 132,
       "sha256": "cf40e0fb9316392bcf9fb688d965e6dce3f317c436ab877d0170b7595a8d0130",
@@ -240,7 +240,7 @@
       "git_hash": "ce866d02924f52c190fde30b349b1277ceab5ff3"
     },
     {
-      "path": "assets/zz-data/chapter02/02_timeline_milestones.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv",
       "role": "data",
       "size_bytes": 347,
       "sha256": "1a8f2219d83250f9a80524f199828e8885208652a616f77d6e8a4f0000612327",
@@ -250,7 +250,7 @@
       "git_hash": "a9f4f96ec5c68fde88a36241ca7b7ab60b75d736"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_boundary.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv",
       "role": "data",
       "size_bytes": 17,
       "sha256": "6bbc22cecbc9b95c271e7ab74ddb582e77edaa510c61e8b61fa7dcb28085cca5",
@@ -260,7 +260,7 @@
       "git_hash": "2191470cf5d89fdbe296c5fc878396fcd202640c"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_data.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_data.csv",
       "role": "data",
       "size_bytes": 56668,
       "sha256": "8847a7df8d17af15008ec052ad22bdbc8c8d42369005460e5e222fdc4b1b1fdc",
@@ -270,7 +270,7 @@
       "git_hash": "b5aef8413d942ad8ad8f2ea846a89e9fba9c75a4"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_domain.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv",
       "role": "data",
       "size_bytes": 29596,
       "sha256": "67d9bb0a9dd2ca312bb1e9eda3d375de31806fa537bfe804d99f20d4308ecfe3",
@@ -280,7 +280,7 @@
       "git_hash": "176d3c3ed0584cf9aac2dc1070e90d10d1e9eaf9"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_meta.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_meta.json",
       "role": "data",
       "size_bytes": 146,
       "sha256": "4482ff74024c3fb673e0bf3e3db512e24101650bd3cb7c3ecf2deca0b06fc8cb",
@@ -290,7 +290,7 @@
       "git_hash": "4d19e78021bbd8d0865fd9e6d4831fc905076baa"
     },
     {
-      "path": "assets/zz-data/chapter03/03_meta_stability_fR.json",
+      "path": "assets/zz-data/03_stability_domain/03_meta_stability_fR.json",
       "role": "data",
       "size_bytes": 70,
       "sha256": "cadd19a8293f51af5335546e6cc48a1f8b7dfb405df9ba2a1477782fe058cdef",
@@ -300,7 +300,7 @@
       "git_hash": "2c90ff0d171175544a6cbf88431ad486bd517ea3"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_milestones.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv",
       "role": "data",
       "size_bytes": 2347,
       "sha256": "fab57e40cd7b73cc2ff6f10d49df08ec9759e543a806f2c1a6f7ff22cd2b8353",
@@ -310,7 +310,7 @@
       "git_hash": "afcae9729795a6d26353d650fe0593768c84d6f1"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_T.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv",
       "role": "data",
       "size_bytes": 5487,
       "sha256": "718d15ee6315952168648166ce30752fd0afe4658c8629168aab67fd0c957e58",
@@ -320,7 +320,7 @@
       "git_hash": "0065f3082636ef76e6f04dbebd34bcdb7cb137c4"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_z.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv",
       "role": "data",
       "size_bytes": 3845,
       "sha256": "f5972a381749fb0fd84189a2363c6cb348c50df292848457179884082a71146c",
@@ -330,7 +330,7 @@
       "git_hash": "1dcfa51027b0b21c995b34060e3b4a279ac7a016"
     },
     {
-      "path": "assets/zz-data/chapter03/placeholder.csv",
+      "path": "assets/zz-data/03_stability_domain/placeholder.csv",
       "role": "data",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -340,7 +340,7 @@
       "git_hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
     },
     {
-      "path": "assets/zz-data/chapter04/04_dimensionless_invariants.csv",
+      "path": "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv",
       "role": "data",
       "size_bytes": 58554,
       "sha256": "b65d10df05995cfb58d2a32cca6d6d8d1f36ad5afc96f34c4750cfab43c3d4ac",
@@ -350,7 +350,7 @@
       "git_hash": "bdfa7b119c282e88d514b2ddd7e7e8b0906781d1"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_data.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_data.csv",
       "role": "data",
       "size_bytes": 45015,
       "sha256": "b9145addfe3738e878f16a7867e1716634b1cf090223bb5e9cd933be97c9727d",
@@ -360,7 +360,7 @@
       "git_hash": "2cf835cc580a8c11459c583599865dde179c3db1"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_grid.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_grid.csv",
       "role": "data",
       "size_bytes": 14949,
       "sha256": "8d196a037ee86f9fa7b91d72ce8cc6ed64d6505d9ad6c25128e225703d8f9ec5",
@@ -370,7 +370,7 @@
       "git_hash": "ed7f5cd5e4df794eaae1fc570b2a17296e48d16a"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_invariants.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv",
       "role": "data",
       "size_bytes": 41908,
       "sha256": "0eb7f08d53e4d8e4a426e79d7924580f969d12dca0e66bf5ea411170b0e6dd85",
@@ -380,7 +380,7 @@
       "git_hash": "7e7e27d40b1ff3c8e74570f2605476c35f7b30d6"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_milestones.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv",
       "role": "data",
       "size_bytes": 379,
       "sha256": "7b0bfd2c839968062b2ed7f61df4cbdff5b8b30062dcf659b0546fa43160d450",
@@ -390,7 +390,7 @@
       "git_hash": "30b12ceb6622990849d29ae8fd2ef29cd26949eb"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_params.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_params.json",
       "role": "data",
       "size_bytes": 130,
       "sha256": "4872236dd230513e2eedab3d04d7c585aa83c81a1c45eb52cfbe750abceb02dc",
@@ -400,7 +400,7 @@
       "git_hash": "8b4f5c494742395c736cdf64af0d828d2604bbfc"
     },
     {
-      "path": "assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv",
       "role": "data",
       "size_bytes": 79,
       "sha256": "6bb473d48167a8ff95aa4c7b1b2c563b5843600aa454de9b158913fa767f3d2c",
@@ -410,7 +410,7 @@
       "git_hash": "0d3b559256d66afb5fc0472d6afd47c92962c3bd"
     },
     {
-      "path": "assets/zz-data/chapter05/05_dchi2_vs_T.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv",
       "role": "data",
       "size_bytes": 15678,
       "sha256": "bdff430bd81da605d6d0fdcde9efd9ff7ecc47ff599cbac48128b4ccb24934e2",
@@ -420,7 +420,7 @@
       "git_hash": "27c597aa0322648f0ad12cd2ad4dccd338d83ea1"
     },
     {
-      "path": "assets/zz-data/chapter06/06_alpha_evolution.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_alpha_evolution.csv",
       "role": "data",
       "size_bytes": 965,
       "sha256": "cf46a01233c1c8c225de90d1ff6d91c4e027e7ae46fcfb2de588764e7c45f45a",
@@ -430,7 +430,7 @@
       "git_hash": "3d05fd65c3b93d3ce73d395ca9a488a759644bc1"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv",
       "role": "data",
       "size_bytes": 19304,
       "sha256": "602ca39ca0bb0371fd2c0b72b80cc323f75c39bde656a2d340ff84be866bf8e2",
@@ -440,7 +440,7 @@
       "git_hash": "fce280a9b07d801b7d9f55a38641cc7002709d05"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_full_results.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv",
       "role": "data",
       "size_bytes": 205714,
       "sha256": "ec4e310d4fce9aa7ec8d62ead1f0a6730f8ffefd321af2779707235598d119f2",
@@ -450,7 +450,7 @@
       "git_hash": "a088e1f5485b7d0c5e2efb6a650b0483d3d5b490"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_Tm_scan.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_Tm_scan.csv",
       "role": "data",
       "size_bytes": 5896,
       "sha256": "ad768f1f107b0753754911c4deebba5e83e9dd75ba197560c74167777e0bd7bf",
@@ -460,7 +460,7 @@
       "git_hash": "271b549256df7398cad628c3c4687d5813ba0e56"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls.csv",
       "role": "data",
       "size_bytes": 83414,
       "sha256": "5f6e33b6861258591bfd4f06f87f97500e2e1709fdeee20d0e459cbdbac207bb",
@@ -470,7 +470,7 @@
       "git_hash": "3084c60d675507300575b24e3b21c9f8cace2c74"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls_relative.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv",
       "role": "data",
       "size_bytes": 74513,
       "sha256": "66cfdb96bb6a6247c86a869b25894e1cf36cbac449a6f3034e8c65753f210c6f",
@@ -480,7 +480,7 @@
       "git_hash": "71ffb8da022e375ff3c9210cfd861226526171af"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv",
       "role": "data",
       "size_bytes": 1510,
       "sha256": "a7695dce1d044b3216b8928713134a82f6a2f32d632928ed742754a62dc20437",
@@ -490,7 +490,7 @@
       "git_hash": "baea9cdd6612d9e0b324c13496948cef80debf88"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan2D.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv",
       "role": "data",
       "size_bytes": 2286,
       "sha256": "38ded9df11692d3e1fa4c40d0fd49ef878c6928b32556ce33a4ad8590dbd162e",
@@ -500,7 +500,7 @@
       "git_hash": "d399702f95f46eb4cbffeb740d6258af9d0b27d7"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan_full.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_full.csv",
       "role": "data",
       "size_bytes": 17851,
       "sha256": "f7ebbf2e239a960b6d4fbc85f6c1032ef17d0db9d4fc0e7ca31b968cf2c4a529",
@@ -510,7 +510,7 @@
       "git_hash": "f84ffd1357e9a807c3c58f25f34d0cee1f0d9288"
     },
     {
-      "path": "assets/zz-data/chapter06/06_params_cmb.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_params_cmb.json",
       "role": "data",
       "size_bytes": 397,
       "sha256": "85e735dddd6824c0a396860d6bbf49c3d0adf49cb65f207f46971b03169e24df",
@@ -520,7 +520,7 @@
       "git_hash": "91b443363fad529d4607248c38759fb9edd3beda"
     },
     {
-      "path": "assets/zz-data/chapter07/07_cs2_matrix.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_cs2_matrix.csv",
       "role": "data",
       "size_bytes": 981284,
       "sha256": "2a29179b934dfb8eea466fb6bf00ae5f9fe6e007e5606141899166d49f0e5352",
@@ -530,7 +530,7 @@
       "git_hash": "3dfae7c879003d5241903897d4d0ea9893ac034d"
     },
     {
-      "path": "assets/zz-data/chapter07/07_dcs2_vs_k.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv",
       "role": "data",
       "size_bytes": 23482,
       "sha256": "6c0b185afc776a59ea6d204e326d67ae49be1b6cfe5fa5eaa39a419d4f06adf0",
@@ -540,7 +540,7 @@
       "git_hash": "843c145b7034e7df04c21ffe3a2b87bf31aeafc5"
     },
     {
-      "path": "assets/zz-data/chapter07/07_ddelta_phi_vs_k.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_ddelta_phi_vs_k.csv",
       "role": "data",
       "size_bytes": 23246,
       "sha256": "bfe4969e87afed268869442bfcd3fcbb4bd4bd47e87ebbaaaa900ae460a31e85",
@@ -550,7 +550,7 @@
       "git_hash": "197eff6d89bb2071c010fa98a90c2ca1cf717c1b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_delta_phi_matrix.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv",
       "role": "data",
       "size_bytes": 947612,
       "sha256": "8e531dfd7aca67e5b5f8ce50708d8bdb0c508c3ef5d79df6277f4dd9fb413def",
@@ -560,7 +560,7 @@
       "git_hash": "abdd8f44d3b99baee4254192df95392675d5327a"
     },
     {
-      "path": "assets/zz-data/chapter07/07_meta_perturbations.json",
+      "path": "assets/zz-data/07_bao_geometry/07_meta_perturbations.json",
       "role": "data",
       "size_bytes": 120,
       "sha256": "621f626541a807451ac15ad77ffa90bec67806eeef79bae50b4895735ab362f6",
@@ -570,7 +570,7 @@
       "git_hash": "cd54312decdb6cf4bd8ff7158a253211f444b833"
     },
     {
-      "path": "assets/zz-data/chapter07/07_params_perturbations.json",
+      "path": "assets/zz-data/07_bao_geometry/07_params_perturbations.json",
       "role": "data",
       "size_bytes": 326,
       "sha256": "071ee16f10b15a7792763487b9b0d30540ef9b36bb0719c5ca5519144fbe8e33",
@@ -580,7 +580,7 @@
       "git_hash": "8417a48930ca482002d51af0f44f7e71fcf93470"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_boundary.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv",
       "role": "data",
       "size_bytes": 43,
       "sha256": "1ee7ed92db59375cc325fe0e373a98d73f86b99dcd52f5bbfa83e381f7b2e43a",
@@ -590,7 +590,7 @@
       "git_hash": "f90df3252b0c284fb4a1f3b4b699de22dcf9a7ee"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_domain.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_domain.csv",
       "role": "data",
       "size_bytes": 44,
       "sha256": "a005a4a873ccb72efd538b37c6877fa05bef951017b913665c1407bf3fe6b524",
@@ -600,7 +600,7 @@
       "git_hash": "c177ad82787c1823707a99b2784e1e0c5ce45ccd"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_main_data.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv",
       "role": "data",
       "size_bytes": 56001,
       "sha256": "37f1393cd4f2ebf1efe9c81ff58f3da3b9c44a49b281017a96aa5eaa640ce27d",
@@ -610,7 +610,7 @@
       "git_hash": "bbc1458ac0b9522806a138acfd11d31fb3412fdb"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_meta.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_meta.json",
       "role": "data",
       "size_bytes": 456,
       "sha256": "d87153677a1d19b067bc95dfb33ffe12e0c118a11046a35313d69ee470ac23cb",
@@ -620,7 +620,7 @@
       "git_hash": "fc4bc359e8a73b6c51b4436741eef04ba5aa427b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_params.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_params.json",
       "role": "data",
       "size_bytes": 651,
       "sha256": "14109664129f15a37edd6d248cb566db440e62f490f79d5d7e9922e6760ea538",
@@ -630,7 +630,7 @@
       "git_hash": "945cc39519df18ede76997701a714b9dddbc37e9"
     },
     {
-      "path": "assets/zz-data/chapter07/07_phase_run.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_phase_run.csv",
       "role": "data",
       "size_bytes": 1331982,
       "sha256": "d7d592fc4ea6ba05421debc1bb7403fc3d0ce7a8eb11563a298b07eb70b20f5a",
@@ -640,7 +640,7 @@
       "git_hash": "d5957168e3432613500b7e04ab27c007a2e740e3"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_invariants.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_invariants.csv",
       "role": "data",
       "size_bytes": 22755,
       "sha256": "a6688af6235491c18263d77891f3b778fa1f2e4e768142b9fd4a55655263b833",
@@ -650,7 +650,7 @@
       "git_hash": "7728fd56173812c5b536e242f7599390107cc4eb"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_perturbations_results.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv",
       "role": "data",
       "size_bytes": 56007,
       "sha256": "a639aa2350939b8c03b104c5b622078b22fda538b089976806e22d21a9e331f5",
@@ -660,7 +660,7 @@
       "git_hash": "c14139213ba91c9e9201e433d3d0f6335a6d47d0"
     },
     {
-      "path": "assets/zz-data/chapter07/placeholder.csv",
+      "path": "assets/zz-data/07_bao_geometry/placeholder.csv",
       "role": "data",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -670,7 +670,7 @@
       "git_hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
     },
     {
-      "path": "assets/zz-data/chapter08/08_bao_data.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_bao_data.csv",
       "role": "data",
       "size_bytes": 120,
       "sha256": "d7fe2f4dc14589d370be7faf2ca7150dcb08dbe141707ab122d566c4d781b91f",
@@ -680,7 +680,7 @@
       "git_hash": "26a2f70a5ddcac339920adbe4e9b75011d4b5876"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_derivative.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_derivative.csv",
       "role": "data",
       "size_bytes": 18721,
       "sha256": "2b597ed9379e320f9c549a12a6f4fcfbc057ad681d8efd0d2ebe7d78a091aa70",
@@ -690,7 +690,7 @@
       "git_hash": "6b5ea2465847dbedfde5e1366bec393a60f38b20"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_scan2D.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_scan2D.csv",
       "role": "data",
       "size_bytes": 2585297,
       "sha256": "149b60f2059819bbc50cb69e536a09b6ef9025d93729bf9b8f2aeaab89c49c65",
@@ -700,7 +700,7 @@
       "git_hash": "bd9fd7396efdcf9798c933b81ab77118ce0c567e"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_total_vs_q0.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv",
       "role": "data",
       "size_bytes": 28737,
       "sha256": "663d645c9710980412d27aee72c2bf3829c2c0e6beff6219079d1130afeda80f",
@@ -710,7 +710,7 @@
       "git_hash": "2766c905ecbb3df92f9100f585c8f450ea270572"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_milestones.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_milestones.csv",
       "role": "data",
       "size_bytes": 68035,
       "sha256": "4fd35a7341630b35a7c81a54312884a6c4e15616c9e0c80f5c29d53dcd04d51f",
@@ -720,7 +720,7 @@
       "git_hash": "fb46f0d439b980350197845e141422bae6f38a0f"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_params.json",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_params.json",
       "role": "data",
       "size_bytes": 219,
       "sha256": "b0cca3e591e7019457a21c37418dbb3a39aa9ca52f7ee1f78e17b9fbeb9698e6",
@@ -730,7 +730,7 @@
       "git_hash": "46697ffc41d262d4cd22927758265d4ce2b3fe00"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_q0star.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_q0star.csv",
       "role": "data",
       "size_bytes": 18618,
       "sha256": "0c21f520bb2ace0927f65ff7da979c3e08b268e7f067502c5cacd7ef4a066726",
@@ -740,7 +740,7 @@
       "git_hash": "7aba8a27138a9a5b795fd468f4720e2700fdcb20"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_z.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_z.csv",
       "role": "data",
       "size_bytes": 150,
       "sha256": "528635ad8053d8fa5af43b5392b897d3c26198c32179e929c62cdef0c553d497",
@@ -750,7 +750,7 @@
       "git_hash": "60d3118478fc713d9b1339cf74cf07e2d3e284b3"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_q0star.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_q0star.csv",
       "role": "data",
       "size_bytes": 18412,
       "sha256": "1b32947265a2f147774be1c89e636192dd13792e6e54adf26a24a713494fe6d1",
@@ -760,7 +760,7 @@
       "git_hash": "64c4385c6ab0287296035cfe94c4d8685edf000b"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_z.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_z.csv",
       "role": "data",
       "size_bytes": 38256,
       "sha256": "743a604a370a53454bb30393879b9fc53c52265fb2410c365d918b17ae952bf8",
@@ -770,7 +770,7 @@
       "git_hash": "22cb85a8cf2918d1cef54a1c0dfdd36ea706beb7"
     },
     {
-      "path": "assets/zz-data/chapter08/08_pantheon_data.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_pantheon_data.csv",
       "role": "data",
       "size_bytes": 42002,
       "sha256": "3d2b3f79850dd5b50bfd4c7a2d6ec3f09bf5d64d8a15de9f890d189dc9464163",
@@ -780,7 +780,7 @@
       "git_hash": "42a539923cda25049f3e2b08c95c85bbaed31997"
     },
     {
-      "path": "assets/zz-data/chapter09/09_best_params.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_best_params.json",
       "role": "data",
       "size_bytes": 1076,
       "sha256": "9b999c82a68bd9c3e382d47e54e902186137c6bef5bedb619e0e7beec6a99b22",
@@ -790,7 +790,7 @@
       "git_hash": "cad94986e24d6fdf76b49b46f5543b9dfd9d1b47"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv",
       "role": "data",
       "size_bytes": 6270,
       "sha256": "d3345fdfdf2bd1ddd86a20a2e84993e60ea0bfa93ebc752f88d9507f9ef9cb5e",
@@ -800,7 +800,7 @@
       "git_hash": "78a951c08034812e03c1038cce0b40efabd09865"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.flagged.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.flagged.csv",
       "role": "data",
       "size_bytes": 7758,
       "sha256": "8bf497d974ef393e6e35a1b861bf6042972f5e4c5f2912ae66afdd02e987ca31",
@@ -810,7 +810,7 @@
       "git_hash": "703f6d7159be93d8f9d0b906bb35b88b322a7f5b"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.meta.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json",
       "role": "data",
       "size_bytes": 547,
       "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3",
@@ -820,7 +820,7 @@
       "git_hash": "1b0475888b25ce6c6d44fef5029bfd776aebf3dc"
     },
     {
-      "path": "assets/zz-data/chapter09/09_metrics_phase.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
       "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
@@ -834,7 +834,7 @@
       "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phase_diff.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv",
       "role": "data",
       "size_bytes": 8752,
       "sha256": "d11ba850c667e12fb94a42319f2d43885448dae2fa0314aecdf6cfb3845a25ff",
@@ -844,7 +844,7 @@
       "git_hash": "a8aab2a02215273103434eaa4926cc817602085a"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
       "role": "data",
       "size_bytes": 8432,
       "sha256": "6cce6d9e5e1f154c119d7d85006fbbacf0f565fa2f94eec3b6f691cafaec1e59",
@@ -854,7 +854,7 @@
       "git_hash": "6eac87d32cd1a69ab5d0de3691f223c32ab80d50"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.meta.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json",
       "role": "data",
       "size_bytes": 249,
       "sha256": "4dd70fa564bc64bdb03bb59447990e9725cdd3f6aafdfa790bf34eb20add6184",
@@ -864,7 +864,7 @@
       "git_hash": "6f03bce7ad3edb1519a826695b2ce5f6e5f6211c"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
       "role": "data",
       "size_bytes": 21217,
       "sha256": "0578d1aa43ed75e4a36e29a516d5e69142a13bb3d75e5ff5de9eb0d084ee6ae7",
@@ -878,7 +878,7 @@
       "git_hash": "40ac553f7dadc0180fc505e1df1c1e4848da84f4"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv",
       "role": "data",
       "size_bytes": 21233,
       "sha256": "e82356c544868303cba32c9c2a34fb85d581b6c185375c57d8b39cdd0026b2b8",
@@ -888,7 +888,7 @@
       "git_hash": "344b7a5b5471e6c3ec06ef1525d9b17daf218585"
     },
     {
-      "path": "assets/zz-data/chapter09/gwtc3_confident_parameters.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json",
       "role": "data",
       "size_bytes": 9728,
       "sha256": "20b3122f92ce9d613362e31a2420c3fe4ba465393cd8ca190ea0341b9a66f683",
@@ -898,7 +898,7 @@
       "git_hash": "00608bd4b343fa0de00eed8ae3ff6ec330dd5deb"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best.json",
       "role": "data",
       "size_bytes": 18837,
       "sha256": "dad694d4ddad0e4710c1c1a9f7b20b64dd6afbf26332f083190aaac066552c51",
@@ -908,7 +908,7 @@
       "git_hash": "3f3e3d43b21c449b4c190b568e385b6bef8ba162"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best_bootstrap.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best_bootstrap.json",
       "role": "data",
       "size_bytes": 30136,
       "sha256": "b5734520dcb1ebb661c254a6b7ffcb3102ebdc1c6c4ebffad19f775b919bd492",
@@ -918,7 +918,7 @@
       "git_hash": "b0184472a170ab704887d8cf44183b9f3de85fab"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_config.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_config.json",
       "role": "data",
       "size_bytes": 828,
       "sha256": "ab5180a1e52b5a855b7fa9f81ca32c52a955746c465d0543cbbcfa7735f933ab",
@@ -928,7 +928,7 @@
       "git_hash": "94cbcf316f808e87c40277abc5e08d7556463166"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_milestones_eval.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_milestones_eval.csv",
       "role": "data",
       "size_bytes": 222639,
       "sha256": "a5d2e70859ba229dae64b7bca43c94d7f74ff091ec756f01888d89a362eeb37f",
@@ -938,7 +938,7 @@
       "git_hash": "d9fa6d4d9fd71604cf287de968780cd0dcefec25"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.agg.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.agg.csv",
       "role": "data",
       "size_bytes": 798896,
       "sha256": "d83177800f051e1c11fbb37ed6a27dd4b0b8c135915d1ab12d9932defe49be00",
@@ -948,7 +948,7 @@
       "git_hash": "e26277c5c104d3c39486b669191bb93e629c0614"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.agg.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.agg.csv",
       "role": "data",
       "size_bytes": 888930,
       "sha256": "c432bb8f82b7a0888a5f5d325f5e8123f7c73318877f7eb694181e8ddf621900",
@@ -958,7 +958,7 @@
       "git_hash": "47f0cd38cacad433bdaa082108de8c97630c56e6"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.csv",
       "role": "data",
       "size_bytes": 814154,
       "sha256": "92753e03d7796f3688ee86f56b369e140f7406cb11b16c8288c3404c9407cf9b",
@@ -968,7 +968,7 @@
       "git_hash": "03fc9d1a580a5d9bbc4ffe42c6df6627c3c08fed"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv",
       "role": "data",
       "size_bytes": 1006080,
       "sha256": "6326ae818847850ca407d2cbd9f8dd62cc1795182a97a24f8046cc4454d828f3",
@@ -978,7 +978,7 @@
       "git_hash": "8fe17d81793455e115a082d332629fbbaeb66c9e"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.csv",
       "role": "data",
       "size_bytes": 2291,
       "sha256": "499dfce7d973a9e55fa83f656cbb3ddfd1d64e48bb9ff8284a804c523a002c4b",
@@ -988,7 +988,7 @@
       "git_hash": "1e1c9c80d2eb6932cb8e76dc1cd6c307d1357a94"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_samples.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_samples.csv",
       "role": "data",
       "size_bytes": 648288,
       "sha256": "b521d89b95d9374498908287603ec24908da28982159aa45553e6cfd2cfa011b",
@@ -998,7 +998,7 @@
       "git_hash": "81ffafdfd3bb7e281d5aaff54fa012ab91bc71a9"
     },
     {
-      "path": "assets/zz-data/chapter10/example_results.csv",
+      "path": "assets/zz-data/10_global_scan/example_results.csv",
       "role": "data",
       "size_bytes": 224,
       "sha256": "992e16edbe6788fa2c0686f42b1a275294e8a02165f1976669213b94ef03a53c",
@@ -1008,7 +1008,7 @@
       "git_hash": "8f1af956f2079eafb9206504fc9c4cb023d2e2aa"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_01_early_plateau.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_01_early_plateau.png",
       "role": "figure",
       "size_bytes": 203837,
       "sha256": "61fb8629cf81c450806f6b8b6f2d1a240683de0398bacb11be44c330949ce3dd",
@@ -1018,7 +1018,7 @@
       "git_hash": "67acf8e8e035b77683b8510b258be88a70fd1683"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_02_logistic_calibration.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_02_logistic_calibration.png",
       "role": "figure",
       "size_bytes": 136005,
       "sha256": "db7b7f1852184ad91f90b574b4a056124b5246262c315863cc6ac4f78ff43143",
@@ -1028,7 +1028,7 @@
       "git_hash": "ea914ba26d8a030b98c69b991e88ca11ec7a6b23"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_03_relative_error_timeline.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_03_relative_error_timeline.png",
       "role": "figure",
       "size_bytes": 163569,
       "sha256": "5ba923cc41278ef92fc83eb5f900c66ba807395182aa941a5d35da341638d5fa",
@@ -1038,7 +1038,7 @@
       "git_hash": "9f792398b23795475bc7efb45c5df577b8b02c1d"
     },
     {
-      "path": "assets/zz-figures/chapter02/02_fig_00_spectrum.png",
+      "path": "assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png",
       "role": "figure",
       "size_bytes": 159548,
       "sha256": "0b86c9ee337267100e634a972bd2ac47b0fedd72c39272426d56b29c7b899485",
@@ -1048,7 +1048,7 @@
       "git_hash": "3426429053059c323c9be8704a64369cfd9cc7c6"
     },
     {
-      "path": "assets/zz-figures/chapter02/02_fig_02_calibration.png",
+      "path": "assets/zz-figures/02_primordial_spectrum/02_fig_02_calibration.png",
       "role": "figure",
       "size_bytes": 136076,
       "sha256": "8e4c29225774130d1bca77b6b236ae482d8930915b52daed9a0c2dde0def69e1",
@@ -1058,7 +1058,7 @@
       "git_hash": "06dcc10c9060c229c8c451ef6b3e3e015c0e05bf"
     },
     {
-      "path": "assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png",
+      "path": "assets/zz-figures/03_stability_domain/03_fig_05_interpolated_milestones.png",
       "role": "figure",
       "size_bytes": 173719,
       "sha256": "55424daad55e6b1798d2a6a272371b8f587aef220c409bd7a4774307609840ac",
@@ -1068,7 +1068,7 @@
       "git_hash": "7b9773ffa9f4b7699308dc357aa56d1248bd9e76"
     },
     {
-      "path": "assets/zz-figures/chapter03/03_fig_06_grid_quality.png",
+      "path": "assets/zz-figures/03_stability_domain/03_fig_06_grid_quality.png",
       "role": "figure",
       "size_bytes": 127523,
       "sha256": "59912892622f7b848c4680eb8e2b4ab16ec262d46f46b35a79828ef507c3c9bb",
@@ -1078,7 +1078,7 @@
       "git_hash": "9963d5c7b326292ef48cf9702ff40e2aa9218930"
     },
     {
-      "path": "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png",
       "role": "figure",
       "size_bytes": 318679,
       "sha256": "b4e715dbb9e9e403901931953b41fe71cdbdb5e4f229c5293fb841b23a9fae38",
@@ -1088,7 +1088,7 @@
       "git_hash": "00fd01ff43ab70dc69b408565d6db5457a919b77"
     },
     {
-      "path": "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png",
       "role": "figure",
       "size_bytes": 310334,
       "sha256": "14ac06425ba7ed410525fa506258707cdb42dc51b00200c99b17391b969cb6df",
@@ -1098,7 +1098,7 @@
       "git_hash": "27471d4737bbd62f67f00bce0fe063e6de9af0d6"
     },
     {
-      "path": "assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png",
+      "path": "assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png",
       "role": "figure",
       "size_bytes": 112764,
       "sha256": "65f195425b99948e11d0c154bcb42c5c58cdb7149b20303af48772d6e33cb515",
@@ -1108,7 +1108,7 @@
       "git_hash": "566a3fa4652bbdfb83efd2cd33c2eab384ab3427"
     },
     {
-      "path": "assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png",
+      "path": "assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png",
       "role": "figure",
       "size_bytes": 118078,
       "sha256": "717c7b22ad1b6e5114f66252c5ee826a97a9ead1c7d3abc8342db05504138387",
@@ -1118,7 +1118,7 @@
       "git_hash": "b44ba56fe13562804b2dfe46c683b154dc249679"
     },
     {
-      "path": "assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png",
+      "path": "assets/zz-figures/06_early_growth_jwst/06_fig_02_cls_lcdm_vs_mcgt.png",
       "role": "figure",
       "size_bytes": 317044,
       "sha256": "ba9559db591ab4f550ef8135372c5fd6495afc88174d1e22ff7c616d70f78271",
@@ -1128,7 +1128,7 @@
       "git_hash": "5ae0003af7b4e0241df0fec1c21ec621c7e7c2c2"
     },
     {
-      "path": "assets/zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png",
+      "path": "assets/zz-figures/07_bao_geometry/07_fig_04_dcs2_dk_vs_k.png",
       "role": "figure",
       "size_bytes": 144344,
       "sha256": "f934e8c9191d90e79987893acd1181bddf10613a085d4c9ca2530e131b8fe027",
@@ -1138,7 +1138,7 @@
       "git_hash": "da62dbf1a27745dcc1620853a00be26304a6ea77"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png",
       "role": "figure",
       "size_bytes": 178909,
       "sha256": "25894eb0ad2e1ed047261c5b55b0645be0d0a151214dfe1ba49a90ae1b95db88",
@@ -1148,7 +1148,7 @@
       "git_hash": "24f80e1083cd0a83ac902d97cc011cfb3bbca73f"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_02_dv_vs_z.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_02_dv_vs_z.png",
       "role": "figure",
       "size_bytes": 151589,
       "sha256": "bfb7cfaca0ddbb6dc2eee8e90ea5e2b42afd1d2942b386e7b93c8653f9b86c4b",
@@ -1158,7 +1158,7 @@
       "git_hash": "4da37e5a3bcafa5a89ee2de60a97cc91c3a17806"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_03_mu_vs_z.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_03_mu_vs_z.png",
       "role": "figure",
       "size_bytes": 178949,
       "sha256": "7955fc551e5f26f61d49b21b73b3a2110defef02649d61b09073e242423feb92",
@@ -1168,7 +1168,7 @@
       "git_hash": "baed2346e1d648d2a31ddc393f91cf3c80228ace"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_05_residuals.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_05_residuals.png",
       "role": "figure",
       "size_bytes": 654691,
       "sha256": "7cfb541249904767ffc60ff2245c31b50e3c18fbafa5bc0a39004b41224f8d90",
@@ -1178,7 +1178,7 @@
       "git_hash": "eed9f19a7e88b4bde9c2cdb70346967270d4771b"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_06_pulls.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_06_pulls.png",
       "role": "figure",
       "size_bytes": 228446,
       "sha256": "016a910d28df30e5fa24a8ac5f403fbee7191e2bb5e6fee8aca43bb9c459a76b",
@@ -1188,7 +1188,7 @@
       "git_hash": "dad475ce0374420cb015e2009d9a2d9d22920aa7"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_07_chi2_profile.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_07_chi2_profile.png",
       "role": "figure",
       "size_bytes": 125112,
       "sha256": "8bb9b8142a84db62e9666393b1f67efc2849734a777b3233b59b596a3a744195",
@@ -1198,7 +1198,7 @@
       "git_hash": "19381edb5828e74648792cc323a5c3abac820629"
     },
     {
-      "path": "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
       "role": "figure",
       "size_bytes": 302968,
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
@@ -1212,7 +1212,7 @@
       "git_hash": "64b805360b13ceb34522ce3c787f2c1ca3eb72aa"
     },
     {
-      "path": "assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_03_hist_absdphi_20_300.png",
       "role": "figure",
       "size_bytes": 380510,
       "sha256": "fe51462e91d26e68a1b1c0317e3a14cf2abb8a90aa39c1e7bab23d278fb44571",
@@ -1222,7 +1222,7 @@
       "git_hash": "1923fbdb68c820abf53fffd802a54ea0bd3a23df"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_01_iso_p95_maps.png",
       "role": "figure",
       "size_bytes": 1891203,
       "sha256": "9112c957f9a889bfa05eabcfc752c773107845238973c7be678e5783e47807e5",
@@ -1232,7 +1232,7 @@
       "git_hash": "b0b0884878fa74680335ae740a809465d73ed6d7"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_02_scatter_phi_at_fpeak.png",
       "role": "figure",
       "size_bytes": 1612242,
       "sha256": "a5e3a80ed18121ea2c5be8f994ca4e0793533ba9f4c0f273fb536d687d1816a2",
@@ -1242,7 +1242,7 @@
       "git_hash": "111ffd9d84f713855e9a203fcc02a2851cc1681a"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_03_convergence_p95_vs_n.png",
       "role": "figure",
       "size_bytes": 185545,
       "sha256": "fceb7921bc09353447bb21fe58adc6242073e80149308a93980f6eedcacb12d5",
@@ -1252,7 +1252,7 @@
       "git_hash": "8ad0721129ae3a7a3526a7d025640fdb6a3541dc"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_04_scatter_p95_recalc_vs_orig.png",
       "role": "figure",
       "size_bytes": 319257,
       "sha256": "0cb72a1cb105b8ad6b88b8ed7e4e3ce6b99f31e0f31cb64a38641788be79ea6f",
@@ -1262,7 +1262,7 @@
       "git_hash": "c1b0788412b9c2cc087ea96dcadbc3844c552972"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_05_hist_cdf_metrics.png",
       "role": "figure",
       "size_bytes": 184148,
       "sha256": "f3b12206529dd5e8623d435c5b91a8cfad57358f692afd0b2f55abecfbb2420e",
@@ -3673,7 +3673,7 @@
       "git_hash": "c4bffb107ac4569b84614b3de57f024db974cdba"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_05_hist_cdf_metrics.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_05_hist_cdf_metrics.png",
       "role": "figure",
       "size_bytes": 184148,
       "sha256": "f3b12206529dd5e8623d435c5b91a8cfad57358f692afd0b2f55abecfbb2420e",
@@ -3683,7 +3683,7 @@
       "git_hash": "2d508a5017a79cc48e0c2049d18ca52894194905"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_04_scatter_p95_recalc_vs_orig.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_04_scatter_p95_recalc_vs_orig.png",
       "role": "figure",
       "size_bytes": 319257,
       "sha256": "0cb72a1cb105b8ad6b88b8ed7e4e3ce6b99f31e0f31cb64a38641788be79ea6f",
@@ -3693,7 +3693,7 @@
       "git_hash": "c1b0788412b9c2cc087ea96dcadbc3844c552972"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_03_convergence_p95_vs_n.png",
       "role": "figure",
       "size_bytes": 185545,
       "sha256": "fceb7921bc09353447bb21fe58adc6242073e80149308a93980f6eedcacb12d5",
@@ -3703,7 +3703,7 @@
       "git_hash": "8ad0721129ae3a7a3526a7d025640fdb6a3541dc"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_02_scatter_phi_at_fpeak.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_02_scatter_phi_at_fpeak.png",
       "role": "figure",
       "size_bytes": 1612242,
       "sha256": "a5e3a80ed18121ea2c5be8f994ca4e0793533ba9f4c0f273fb536d687d1816a2",
@@ -3713,7 +3713,7 @@
       "git_hash": "111ffd9d84f713855e9a203fcc02a2851cc1681a"
     },
     {
-      "path": "assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
+      "path": "assets/zz-figures/10_global_scan/10_fig_01_iso_p95_maps.png",
       "role": "figure",
       "size_bytes": 1891203,
       "sha256": "9112c957f9a889bfa05eabcfc752c773107845238973c7be678e5783e47807e5",
@@ -3723,7 +3723,7 @@
       "git_hash": "b0b0884878fa74680335ae740a809465d73ed6d7"
     },
     {
-      "path": "assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_03_hist_absdphi_20_300.png",
       "role": "figure",
       "size_bytes": 380510,
       "sha256": "fe51462e91d26e68a1b1c0317e3a14cf2abb8a90aa39c1e7bab23d278fb44571",
@@ -3733,7 +3733,7 @@
       "git_hash": "1923fbdb68c820abf53fffd802a54ea0bd3a23df"
     },
     {
-      "path": "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
       "role": "figure",
       "size_bytes": 302968,
       "sha256": "d2e70a8c3e17a2b1f9770e60882ddf86c69fc7b915d25becb0f05338511179ac",
@@ -3747,7 +3747,7 @@
       "git_hash": "64b805360b13ceb34522ce3c787f2c1ca3eb72aa"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_07_chi2_profile.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_07_chi2_profile.png",
       "role": "figure",
       "size_bytes": 125112,
       "sha256": "8bb9b8142a84db62e9666393b1f67efc2849734a777b3233b59b596a3a744195",
@@ -3757,7 +3757,7 @@
       "git_hash": "19381edb5828e74648792cc323a5c3abac820629"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_06_pulls.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_06_pulls.png",
       "role": "figure",
       "size_bytes": 228446,
       "sha256": "016a910d28df30e5fa24a8ac5f403fbee7191e2bb5e6fee8aca43bb9c459a76b",
@@ -3767,7 +3767,7 @@
       "git_hash": "dad475ce0374420cb015e2009d9a2d9d22920aa7"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_05_residuals.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_05_residuals.png",
       "role": "figure",
       "size_bytes": 654691,
       "sha256": "7cfb541249904767ffc60ff2245c31b50e3c18fbafa5bc0a39004b41224f8d90",
@@ -3777,7 +3777,7 @@
       "git_hash": "eed9f19a7e88b4bde9c2cdb70346967270d4771b"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_03_mu_vs_z.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_03_mu_vs_z.png",
       "role": "figure",
       "size_bytes": 178949,
       "sha256": "7955fc551e5f26f61d49b21b73b3a2110defef02649d61b09073e242423feb92",
@@ -3787,7 +3787,7 @@
       "git_hash": "baed2346e1d648d2a31ddc393f91cf3c80228ace"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_02_dv_vs_z.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_02_dv_vs_z.png",
       "role": "figure",
       "size_bytes": 151589,
       "sha256": "bfb7cfaca0ddbb6dc2eee8e90ea5e2b42afd1d2942b386e7b93c8653f9b86c4b",
@@ -3797,7 +3797,7 @@
       "git_hash": "4da37e5a3bcafa5a89ee2de60a97cc91c3a17806"
     },
     {
-      "path": "assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png",
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png",
       "role": "figure",
       "size_bytes": 178909,
       "sha256": "25894eb0ad2e1ed047261c5b55b0645be0d0a151214dfe1ba49a90ae1b95db88",
@@ -3807,7 +3807,7 @@
       "git_hash": "24f80e1083cd0a83ac902d97cc011cfb3bbca73f"
     },
     {
-      "path": "assets/zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png",
+      "path": "assets/zz-figures/07_bao_geometry/07_fig_04_dcs2_dk_vs_k.png",
       "role": "figure",
       "size_bytes": 144344,
       "sha256": "f934e8c9191d90e79987893acd1181bddf10613a085d4c9ca2530e131b8fe027",
@@ -3817,7 +3817,7 @@
       "git_hash": "da62dbf1a27745dcc1620853a00be26304a6ea77"
     },
     {
-      "path": "assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png",
+      "path": "assets/zz-figures/06_early_growth_jwst/06_fig_02_cls_lcdm_vs_mcgt.png",
       "role": "figure",
       "size_bytes": 317044,
       "sha256": "ba9559db591ab4f550ef8135372c5fd6495afc88174d1e22ff7c616d70f78271",
@@ -3827,7 +3827,7 @@
       "git_hash": "5ae0003af7b4e0241df0fec1c21ec621c7e7c2c2"
     },
     {
-      "path": "assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png",
+      "path": "assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png",
       "role": "figure",
       "size_bytes": 118078,
       "sha256": "717c7b22ad1b6e5114f66252c5ee826a97a9ead1c7d3abc8342db05504138387",
@@ -3837,7 +3837,7 @@
       "git_hash": "b44ba56fe13562804b2dfe46c683b154dc249679"
     },
     {
-      "path": "assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png",
+      "path": "assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png",
       "role": "figure",
       "size_bytes": 112764,
       "sha256": "65f195425b99948e11d0c154bcb42c5c58cdb7149b20303af48772d6e33cb515",
@@ -3847,7 +3847,7 @@
       "git_hash": "566a3fa4652bbdfb83efd2cd33c2eab384ab3427"
     },
     {
-      "path": "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png",
       "role": "figure",
       "size_bytes": 310334,
       "sha256": "14ac06425ba7ed410525fa506258707cdb42dc51b00200c99b17391b969cb6df",
@@ -3857,7 +3857,7 @@
       "git_hash": "27471d4737bbd62f67f00bce0fe063e6de9af0d6"
     },
     {
-      "path": "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png",
       "role": "figure",
       "size_bytes": 318679,
       "sha256": "b4e715dbb9e9e403901931953b41fe71cdbdb5e4f229c5293fb841b23a9fae38",
@@ -3867,7 +3867,7 @@
       "git_hash": "00fd01ff43ab70dc69b408565d6db5457a919b77"
     },
     {
-      "path": "assets/zz-figures/chapter03/03_fig_06_grid_quality.png",
+      "path": "assets/zz-figures/03_stability_domain/03_fig_06_grid_quality.png",
       "role": "figure",
       "size_bytes": 127523,
       "sha256": "59912892622f7b848c4680eb8e2b4ab16ec262d46f46b35a79828ef507c3c9bb",
@@ -3877,7 +3877,7 @@
       "git_hash": "9963d5c7b326292ef48cf9702ff40e2aa9218930"
     },
     {
-      "path": "assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png",
+      "path": "assets/zz-figures/03_stability_domain/03_fig_05_interpolated_milestones.png",
       "role": "figure",
       "size_bytes": 173719,
       "sha256": "55424daad55e6b1798d2a6a272371b8f587aef220c409bd7a4774307609840ac",
@@ -3887,7 +3887,7 @@
       "git_hash": "7b9773ffa9f4b7699308dc357aa56d1248bd9e76"
     },
     {
-      "path": "assets/zz-figures/chapter02/02_fig_02_calibration.png",
+      "path": "assets/zz-figures/02_primordial_spectrum/02_fig_02_calibration.png",
       "role": "figure",
       "size_bytes": 136076,
       "sha256": "8e4c29225774130d1bca77b6b236ae482d8930915b52daed9a0c2dde0def69e1",
@@ -3897,7 +3897,7 @@
       "git_hash": "06dcc10c9060c229c8c451ef6b3e3e015c0e05bf"
     },
     {
-      "path": "assets/zz-figures/chapter02/02_fig_00_spectrum.png",
+      "path": "assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png",
       "role": "figure",
       "size_bytes": 159548,
       "sha256": "0b86c9ee337267100e634a972bd2ac47b0fedd72c39272426d56b29c7b899485",
@@ -3907,7 +3907,7 @@
       "git_hash": "3426429053059c323c9be8704a64369cfd9cc7c6"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_03_relative_error_timeline.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_03_relative_error_timeline.png",
       "role": "figure",
       "size_bytes": 163569,
       "sha256": "5ba923cc41278ef92fc83eb5f900c66ba807395182aa941a5d35da341638d5fa",
@@ -3917,7 +3917,7 @@
       "git_hash": "9f792398b23795475bc7efb45c5df577b8b02c1d"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_02_logistic_calibration.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_02_logistic_calibration.png",
       "role": "figure",
       "size_bytes": 136005,
       "sha256": "db7b7f1852184ad91f90b574b4a056124b5246262c315863cc6ac4f78ff43143",
@@ -3927,7 +3927,7 @@
       "git_hash": "ea914ba26d8a030b98c69b991e88ca11ec7a6b23"
     },
     {
-      "path": "assets/zz-figures/chapter01/01_fig_01_early_plateau.png",
+      "path": "assets/zz-figures/01_invariants_stability/01_fig_01_early_plateau.png",
       "role": "figure",
       "size_bytes": 203837,
       "sha256": "61fb8629cf81c450806f6b8b6f2d1a240683de0398bacb11be44c330949ce3dd",
@@ -3937,7 +3937,7 @@
       "git_hash": "67acf8e8e035b77683b8510b258be88a70fd1683"
     },
     {
-      "path": "assets/zz-data/chapter10/example_results.csv",
+      "path": "assets/zz-data/10_global_scan/example_results.csv",
       "role": "data",
       "size_bytes": 224,
       "sha256": "992e16edbe6788fa2c0686f42b1a275294e8a02165f1976669213b94ef03a53c",
@@ -3947,7 +3947,7 @@
       "git_hash": "8f1af956f2079eafb9206504fc9c4cb023d2e2aa"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_samples.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_samples.csv",
       "role": "data",
       "size_bytes": 648288,
       "sha256": "b521d89b95d9374498908287603ec24908da28982159aa45553e6cfd2cfa011b",
@@ -3957,7 +3957,7 @@
       "git_hash": "81ffafdfd3bb7e281d5aaff54fa012ab91bc71a9"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.csv",
       "role": "data",
       "size_bytes": 2291,
       "sha256": "499dfce7d973a9e55fa83f656cbb3ddfd1d64e48bb9ff8284a804c523a002c4b",
@@ -3967,7 +3967,7 @@
       "git_hash": "1e1c9c80d2eb6932cb8e76dc1cd6c307d1357a94"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv",
       "role": "data",
       "size_bytes": 1006080,
       "sha256": "6326ae818847850ca407d2cbd9f8dd62cc1795182a97a24f8046cc4454d828f3",
@@ -3977,7 +3977,7 @@
       "git_hash": "8fe17d81793455e115a082d332629fbbaeb66c9e"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.csv",
       "role": "data",
       "size_bytes": 814154,
       "sha256": "92753e03d7796f3688ee86f56b369e140f7406cb11b16c8288c3404c9407cf9b",
@@ -3987,7 +3987,7 @@
       "git_hash": "03fc9d1a580a5d9bbc4ffe42c6df6627c3c08fed"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.agg.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.agg.csv",
       "role": "data",
       "size_bytes": 888930,
       "sha256": "c432bb8f82b7a0888a5f5d325f5e8123f7c73318877f7eb694181e8ddf621900",
@@ -3997,7 +3997,7 @@
       "git_hash": "47f0cd38cacad433bdaa082108de8c97630c56e6"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.agg.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.agg.csv",
       "role": "data",
       "size_bytes": 798896,
       "sha256": "d83177800f051e1c11fbb37ed6a27dd4b0b8c135915d1ab12d9932defe49be00",
@@ -4007,7 +4007,7 @@
       "git_hash": "e26277c5c104d3c39486b669191bb93e629c0614"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_milestones_eval.csv",
+      "path": "assets/zz-data/10_global_scan/10_mc_milestones_eval.csv",
       "role": "data",
       "size_bytes": 222639,
       "sha256": "a5d2e70859ba229dae64b7bca43c94d7f74ff091ec756f01888d89a362eeb37f",
@@ -4017,7 +4017,7 @@
       "git_hash": "d9fa6d4d9fd71604cf287de968780cd0dcefec25"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_config.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_config.json",
       "role": "data",
       "size_bytes": 828,
       "sha256": "ab5180a1e52b5a855b7fa9f81ca32c52a955746c465d0543cbbcfa7735f933ab",
@@ -4027,7 +4027,7 @@
       "git_hash": "94cbcf316f808e87c40277abc5e08d7556463166"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best_bootstrap.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best_bootstrap.json",
       "role": "data",
       "size_bytes": 30136,
       "sha256": "b5734520dcb1ebb661c254a6b7ffcb3102ebdc1c6c4ebffad19f775b919bd492",
@@ -4037,7 +4037,7 @@
       "git_hash": "b0184472a170ab704887d8cf44183b9f3de85fab"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best.json",
       "role": "data",
       "size_bytes": 18837,
       "sha256": "dad694d4ddad0e4710c1c1a9f7b20b64dd6afbf26332f083190aaac066552c51",
@@ -4047,7 +4047,7 @@
       "git_hash": "3f3e3d43b21c449b4c190b568e385b6bef8ba162"
     },
     {
-      "path": "assets/zz-data/chapter09/gwtc3_confident_parameters.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json",
       "role": "data",
       "size_bytes": 9728,
       "sha256": "20b3122f92ce9d613362e31a2420c3fe4ba465393cd8ca190ea0341b9a66f683",
@@ -4057,7 +4057,7 @@
       "git_hash": "00608bd4b343fa0de00eed8ae3ff6ec330dd5deb"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv",
       "role": "data",
       "size_bytes": 21233,
       "sha256": "e82356c544868303cba32c9c2a34fb85d581b6c185375c57d8b39cdd0026b2b8",
@@ -4067,7 +4067,7 @@
       "git_hash": "344b7a5b5471e6c3ec06ef1525d9b17daf218585"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
       "role": "data",
       "size_bytes": 21217,
       "sha256": "0578d1aa43ed75e4a36e29a516d5e69142a13bb3d75e5ff5de9eb0d084ee6ae7",
@@ -4081,7 +4081,7 @@
       "git_hash": "40ac553f7dadc0180fc505e1df1c1e4848da84f4"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.meta.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json",
       "role": "data",
       "size_bytes": 249,
       "sha256": "4dd70fa564bc64bdb03bb59447990e9725cdd3f6aafdfa790bf34eb20add6184",
@@ -4091,7 +4091,7 @@
       "git_hash": "6f03bce7ad3edb1519a826695b2ce5f6e5f6211c"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
       "role": "data",
       "size_bytes": 8432,
       "sha256": "6cce6d9e5e1f154c119d7d85006fbbacf0f565fa2f94eec3b6f691cafaec1e59",
@@ -4101,7 +4101,7 @@
       "git_hash": "6eac87d32cd1a69ab5d0de3691f223c32ab80d50"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phase_diff.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv",
       "role": "data",
       "size_bytes": 8752,
       "sha256": "d11ba850c667e12fb94a42319f2d43885448dae2fa0314aecdf6cfb3845a25ff",
@@ -4111,7 +4111,7 @@
       "git_hash": "a8aab2a02215273103434eaa4926cc817602085a"
     },
     {
-      "path": "assets/zz-data/chapter09/09_metrics_phase.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
       "role": "data",
       "size_bytes": 1839,
       "sha256": "46f765ae4b9147e8e78e7701933306dc3d0838e7f4c244525b50a6eb2bf00aa4",
@@ -4125,7 +4125,7 @@
       "git_hash": "0c96995cab6dec5e9a278aecf7e413d17701e66b"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.meta.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json",
       "role": "data",
       "size_bytes": 547,
       "sha256": "c8c86974c66973b82b81f00e046f00cbc575b9317267944d5d91a8deb91fe3b3",
@@ -4135,7 +4135,7 @@
       "git_hash": "1b0475888b25ce6c6d44fef5029bfd776aebf3dc"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.flagged.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.flagged.csv",
       "role": "data",
       "size_bytes": 7758,
       "sha256": "8bf497d974ef393e6e35a1b861bf6042972f5e4c5f2912ae66afdd02e987ca31",
@@ -4145,7 +4145,7 @@
       "git_hash": "703f6d7159be93d8f9d0b906bb35b88b322a7f5b"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.csv",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv",
       "role": "data",
       "size_bytes": 6270,
       "sha256": "d3345fdfdf2bd1ddd86a20a2e84993e60ea0bfa93ebc752f88d9507f9ef9cb5e",
@@ -4155,7 +4155,7 @@
       "git_hash": "78a951c08034812e03c1038cce0b40efabd09865"
     },
     {
-      "path": "assets/zz-data/chapter09/09_best_params.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_best_params.json",
       "role": "data",
       "size_bytes": 1076,
       "sha256": "9b999c82a68bd9c3e382d47e54e902186137c6bef5bedb619e0e7beec6a99b22",
@@ -4165,7 +4165,7 @@
       "git_hash": "cad94986e24d6fdf76b49b46f5543b9dfd9d1b47"
     },
     {
-      "path": "assets/zz-data/chapter08/08_pantheon_data.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_pantheon_data.csv",
       "role": "data",
       "size_bytes": 42002,
       "sha256": "3d2b3f79850dd5b50bfd4c7a2d6ec3f09bf5d64d8a15de9f890d189dc9464163",
@@ -4175,7 +4175,7 @@
       "git_hash": "42a539923cda25049f3e2b08c95c85bbaed31997"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_z.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_z.csv",
       "role": "data",
       "size_bytes": 38256,
       "sha256": "743a604a370a53454bb30393879b9fc53c52265fb2410c365d918b17ae952bf8",
@@ -4185,7 +4185,7 @@
       "git_hash": "22cb85a8cf2918d1cef54a1c0dfdd36ea706beb7"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_q0star.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_q0star.csv",
       "role": "data",
       "size_bytes": 18412,
       "sha256": "1b32947265a2f147774be1c89e636192dd13792e6e54adf26a24a713494fe6d1",
@@ -4195,7 +4195,7 @@
       "git_hash": "64c4385c6ab0287296035cfe94c4d8685edf000b"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_z.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_z.csv",
       "role": "data",
       "size_bytes": 150,
       "sha256": "528635ad8053d8fa5af43b5392b897d3c26198c32179e929c62cdef0c553d497",
@@ -4205,7 +4205,7 @@
       "git_hash": "60d3118478fc713d9b1339cf74cf07e2d3e284b3"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_q0star.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_q0star.csv",
       "role": "data",
       "size_bytes": 18618,
       "sha256": "0c21f520bb2ace0927f65ff7da979c3e08b268e7f067502c5cacd7ef4a066726",
@@ -4215,7 +4215,7 @@
       "git_hash": "7aba8a27138a9a5b795fd468f4720e2700fdcb20"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_params.json",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_params.json",
       "role": "data",
       "size_bytes": 219,
       "sha256": "b0cca3e591e7019457a21c37418dbb3a39aa9ca52f7ee1f78e17b9fbeb9698e6",
@@ -4225,7 +4225,7 @@
       "git_hash": "46697ffc41d262d4cd22927758265d4ce2b3fe00"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_milestones.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_milestones.csv",
       "role": "data",
       "size_bytes": 68035,
       "sha256": "4fd35a7341630b35a7c81a54312884a6c4e15616c9e0c80f5c29d53dcd04d51f",
@@ -4235,7 +4235,7 @@
       "git_hash": "fb46f0d439b980350197845e141422bae6f38a0f"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_total_vs_q0.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv",
       "role": "data",
       "size_bytes": 28737,
       "sha256": "663d645c9710980412d27aee72c2bf3829c2c0e6beff6219079d1130afeda80f",
@@ -4245,7 +4245,7 @@
       "git_hash": "2766c905ecbb3df92f9100f585c8f450ea270572"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_scan2D.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_scan2D.csv",
       "role": "data",
       "size_bytes": 2585297,
       "sha256": "149b60f2059819bbc50cb69e536a09b6ef9025d93729bf9b8f2aeaab89c49c65",
@@ -4255,7 +4255,7 @@
       "git_hash": "bd9fd7396efdcf9798c933b81ab77118ce0c567e"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_derivative.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_derivative.csv",
       "role": "data",
       "size_bytes": 18721,
       "sha256": "2b597ed9379e320f9c549a12a6f4fcfbc057ad681d8efd0d2ebe7d78a091aa70",
@@ -4265,7 +4265,7 @@
       "git_hash": "6b5ea2465847dbedfde5e1366bec393a60f38b20"
     },
     {
-      "path": "assets/zz-data/chapter08/08_bao_data.csv",
+      "path": "assets/zz-data/08_sound_horizon/08_bao_data.csv",
       "role": "data",
       "size_bytes": 120,
       "sha256": "d7fe2f4dc14589d370be7faf2ca7150dcb08dbe141707ab122d566c4d781b91f",
@@ -4275,7 +4275,7 @@
       "git_hash": "26a2f70a5ddcac339920adbe4e9b75011d4b5876"
     },
     {
-      "path": "assets/zz-data/chapter07/placeholder.csv",
+      "path": "assets/zz-data/07_bao_geometry/placeholder.csv",
       "role": "data",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -4285,7 +4285,7 @@
       "git_hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_perturbations_results.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv",
       "role": "data",
       "size_bytes": 56007,
       "sha256": "a639aa2350939b8c03b104c5b622078b22fda538b089976806e22d21a9e331f5",
@@ -4295,7 +4295,7 @@
       "git_hash": "c14139213ba91c9e9201e433d3d0f6335a6d47d0"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_invariants.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_invariants.csv",
       "role": "data",
       "size_bytes": 22755,
       "sha256": "a6688af6235491c18263d77891f3b778fa1f2e4e768142b9fd4a55655263b833",
@@ -4305,7 +4305,7 @@
       "git_hash": "7728fd56173812c5b536e242f7599390107cc4eb"
     },
     {
-      "path": "assets/zz-data/chapter07/07_phase_run.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_phase_run.csv",
       "role": "data",
       "size_bytes": 1331982,
       "sha256": "d7d592fc4ea6ba05421debc1bb7403fc3d0ce7a8eb11563a298b07eb70b20f5a",
@@ -4315,7 +4315,7 @@
       "git_hash": "d5957168e3432613500b7e04ab27c007a2e740e3"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_params.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_params.json",
       "role": "data",
       "size_bytes": 651,
       "sha256": "14109664129f15a37edd6d248cb566db440e62f490f79d5d7e9922e6760ea538",
@@ -4325,7 +4325,7 @@
       "git_hash": "945cc39519df18ede76997701a714b9dddbc37e9"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_meta.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_meta.json",
       "role": "data",
       "size_bytes": 456,
       "sha256": "d87153677a1d19b067bc95dfb33ffe12e0c118a11046a35313d69ee470ac23cb",
@@ -4335,7 +4335,7 @@
       "git_hash": "fc4bc359e8a73b6c51b4436741eef04ba5aa427b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_main_data.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv",
       "role": "data",
       "size_bytes": 56001,
       "sha256": "37f1393cd4f2ebf1efe9c81ff58f3da3b9c44a49b281017a96aa5eaa640ce27d",
@@ -4345,7 +4345,7 @@
       "git_hash": "bbc1458ac0b9522806a138acfd11d31fb3412fdb"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_domain.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_domain.csv",
       "role": "data",
       "size_bytes": 44,
       "sha256": "a005a4a873ccb72efd538b37c6877fa05bef951017b913665c1407bf3fe6b524",
@@ -4355,7 +4355,7 @@
       "git_hash": "c177ad82787c1823707a99b2784e1e0c5ce45ccd"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_boundary.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv",
       "role": "data",
       "size_bytes": 43,
       "sha256": "1ee7ed92db59375cc325fe0e373a98d73f86b99dcd52f5bbfa83e381f7b2e43a",
@@ -4365,7 +4365,7 @@
       "git_hash": "f90df3252b0c284fb4a1f3b4b699de22dcf9a7ee"
     },
     {
-      "path": "assets/zz-data/chapter07/07_params_perturbations.json",
+      "path": "assets/zz-data/07_bao_geometry/07_params_perturbations.json",
       "role": "data",
       "size_bytes": 326,
       "sha256": "071ee16f10b15a7792763487b9b0d30540ef9b36bb0719c5ca5519144fbe8e33",
@@ -4375,7 +4375,7 @@
       "git_hash": "8417a48930ca482002d51af0f44f7e71fcf93470"
     },
     {
-      "path": "assets/zz-data/chapter07/07_meta_perturbations.json",
+      "path": "assets/zz-data/07_bao_geometry/07_meta_perturbations.json",
       "role": "data",
       "size_bytes": 120,
       "sha256": "621f626541a807451ac15ad77ffa90bec67806eeef79bae50b4895735ab362f6",
@@ -4385,7 +4385,7 @@
       "git_hash": "cd54312decdb6cf4bd8ff7158a253211f444b833"
     },
     {
-      "path": "assets/zz-data/chapter07/07_delta_phi_matrix.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv",
       "role": "data",
       "size_bytes": 947612,
       "sha256": "8e531dfd7aca67e5b5f8ce50708d8bdb0c508c3ef5d79df6277f4dd9fb413def",
@@ -4395,7 +4395,7 @@
       "git_hash": "abdd8f44d3b99baee4254192df95392675d5327a"
     },
     {
-      "path": "assets/zz-data/chapter07/07_ddelta_phi_vs_k.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_ddelta_phi_vs_k.csv",
       "role": "data",
       "size_bytes": 23246,
       "sha256": "bfe4969e87afed268869442bfcd3fcbb4bd4bd47e87ebbaaaa900ae460a31e85",
@@ -4405,7 +4405,7 @@
       "git_hash": "197eff6d89bb2071c010fa98a90c2ca1cf717c1b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_dcs2_vs_k.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv",
       "role": "data",
       "size_bytes": 23482,
       "sha256": "6c0b185afc776a59ea6d204e326d67ae49be1b6cfe5fa5eaa39a419d4f06adf0",
@@ -4415,7 +4415,7 @@
       "git_hash": "843c145b7034e7df04c21ffe3a2b87bf31aeafc5"
     },
     {
-      "path": "assets/zz-data/chapter07/07_cs2_matrix.csv",
+      "path": "assets/zz-data/07_bao_geometry/07_cs2_matrix.csv",
       "role": "data",
       "size_bytes": 981284,
       "sha256": "2a29179b934dfb8eea466fb6bf00ae5f9fe6e007e5606141899166d49f0e5352",
@@ -4425,7 +4425,7 @@
       "git_hash": "3dfae7c879003d5241903897d4d0ea9893ac034d"
     },
     {
-      "path": "assets/zz-data/chapter06/06_params_cmb.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_params_cmb.json",
       "role": "data",
       "size_bytes": 397,
       "sha256": "85e735dddd6824c0a396860d6bbf49c3d0adf49cb65f207f46971b03169e24df",
@@ -4435,7 +4435,7 @@
       "git_hash": "91b443363fad529d4607248c38759fb9edd3beda"
     },
     {
-      "path": "assets/zz-data/chapter06/06_hubble_mcgt.dat",
+      "path": "assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat",
       "role": "data",
       "size_bytes": 190,
       "sha256": "0279f4f9184cae6712913b7dc18a22ec83fbff96408f7ad847f165b34722cc16",
@@ -4445,7 +4445,7 @@
       "git_hash": "1b9f9e1b88d0c5d05105d5b05ece108ccce44619"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan_full.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_full.csv",
       "role": "data",
       "size_bytes": 17851,
       "sha256": "f7ebbf2e239a960b6d4fbc85f6c1032ef17d0db9d4fc0e7ca31b968cf2c4a529",
@@ -4455,7 +4455,7 @@
       "git_hash": "f84ffd1357e9a807c3c58f25f34d0cee1f0d9288"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan2D.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv",
       "role": "data",
       "size_bytes": 2286,
       "sha256": "38ded9df11692d3e1fa4c40d0fd49ef878c6928b32556ce33a4ad8590dbd162e",
@@ -4465,7 +4465,7 @@
       "git_hash": "d399702f95f46eb4cbffeb740d6258af9d0b27d7"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv",
       "role": "data",
       "size_bytes": 1510,
       "sha256": "a7695dce1d044b3216b8928713134a82f6a2f32d632928ed742754a62dc20437",
@@ -4475,7 +4475,7 @@
       "git_hash": "baea9cdd6612d9e0b324c13496948cef80debf88"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls_relative.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv",
       "role": "data",
       "size_bytes": 74513,
       "sha256": "66cfdb96bb6a6247c86a869b25894e1cf36cbac449a6f3034e8c65753f210c6f",
@@ -4485,7 +4485,7 @@
       "git_hash": "71ffb8da022e375ff3c9210cfd861226526171af"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls.csv",
       "role": "data",
       "size_bytes": 83414,
       "sha256": "5f6e33b6861258591bfd4f06f87f97500e2e1709fdeee20d0e459cbdbac207bb",
@@ -4495,7 +4495,7 @@
       "git_hash": "3084c60d675507300575b24e3b21c9f8cace2c74"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_Tm_scan.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_Tm_scan.csv",
       "role": "data",
       "size_bytes": 5896,
       "sha256": "ad768f1f107b0753754911c4deebba5e83e9dd75ba197560c74167777e0bd7bf",
@@ -4505,7 +4505,7 @@
       "git_hash": "271b549256df7398cad628c3c4687d5813ba0e56"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_full_results.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv",
       "role": "data",
       "size_bytes": 205714,
       "sha256": "ec4e310d4fce9aa7ec8d62ead1f0a6730f8ffefd321af2779707235598d119f2",
@@ -4515,7 +4515,7 @@
       "git_hash": "a088e1f5485b7d0c5e2efb6a650b0483d3d5b490"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv",
       "role": "data",
       "size_bytes": 19304,
       "sha256": "602ca39ca0bb0371fd2c0b72b80cc323f75c39bde656a2d340ff84be866bf8e2",
@@ -4525,7 +4525,7 @@
       "git_hash": "fce280a9b07d801b7d9f55a38641cc7002709d05"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cls_spectrum_lcdm.dat",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cls_spectrum_lcdm.dat",
       "role": "data",
       "size_bytes": 52924,
       "sha256": "71f7f32a8022afd5d9ea0b0014ce136d59b9b8d7e5d38997a487590cccffd743",
@@ -4535,7 +4535,7 @@
       "git_hash": "a2bb932cd64fafa5fe171748e9720f12a0b0e295"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cls_spectrum.dat",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat",
       "role": "data",
       "size_bytes": 52924,
       "sha256": "5599c2272a5ed474f8ffe573f76d3b44deff4c3ec6dad3ec5d0fbc954293c6e5",
@@ -4545,7 +4545,7 @@
       "git_hash": "e223184d9fa126c6d42bed0d94cd28e779aa9a1b"
     },
     {
-      "path": "assets/zz-data/chapter06/06_alpha_evolution.csv",
+      "path": "assets/zz-data/06_early_growth_jwst/06_alpha_evolution.csv",
       "role": "data",
       "size_bytes": 965,
       "sha256": "cf46a01233c1c8c225de90d1ff6d91c4e027e7ae46fcfb2de588764e7c45f45a",
@@ -4555,7 +4555,7 @@
       "git_hash": "3d05fd65c3b93d3ce73d395ca9a488a759644bc1"
     },
     {
-      "path": "assets/zz-data/chapter06/01_P_vs_T.dat",
+      "path": "assets/zz-data/06_early_growth_jwst/01_P_vs_T.dat",
       "role": "data",
       "size_bytes": 18590,
       "sha256": "a5b1a3ed5e0273a6dd6497a708b4163ae7dfe9dcb774b16c994db451146a4209",
@@ -4565,7 +4565,7 @@
       "git_hash": "81dd8611b37304f7a9fdb381875cd25a593dfaa2"
     },
     {
-      "path": "assets/zz-data/chapter05/05_dchi2_vs_T.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv",
       "role": "data",
       "size_bytes": 15678,
       "sha256": "bdff430bd81da605d6d0fdcde9efd9ff7ecc47ff599cbac48128b4ccb24934e2",
@@ -4575,7 +4575,7 @@
       "git_hash": "27c597aa0322648f0ad12cd2ad4dccd338d83ea1"
     },
     {
-      "path": "assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv",
       "role": "data",
       "size_bytes": 79,
       "sha256": "6bb473d48167a8ff95aa4c7b1b2c563b5843600aa454de9b158913fa767f3d2c",
@@ -4585,7 +4585,7 @@
       "git_hash": "0d3b559256d66afb5fc0472d6afd47c92962c3bd"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_params.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_params.json",
       "role": "data",
       "size_bytes": 130,
       "sha256": "4872236dd230513e2eedab3d04d7c585aa83c81a1c45eb52cfbe750abceb02dc",
@@ -4595,7 +4595,7 @@
       "git_hash": "8b4f5c494742395c736cdf64af0d828d2604bbfc"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_milestones.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv",
       "role": "data",
       "size_bytes": 379,
       "sha256": "7b0bfd2c839968062b2ed7f61df4cbdff5b8b30062dcf659b0546fa43160d450",
@@ -4605,7 +4605,7 @@
       "git_hash": "30b12ceb6622990849d29ae8fd2ef29cd26949eb"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_invariants.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv",
       "role": "data",
       "size_bytes": 41908,
       "sha256": "0eb7f08d53e4d8e4a426e79d7924580f969d12dca0e66bf5ea411170b0e6dd85",
@@ -4615,7 +4615,7 @@
       "git_hash": "7e7e27d40b1ff3c8e74570f2605476c35f7b30d6"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_grid.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_grid.csv",
       "role": "data",
       "size_bytes": 14949,
       "sha256": "8d196a037ee86f9fa7b91d72ce8cc6ed64d6505d9ad6c25128e225703d8f9ec5",
@@ -4625,7 +4625,7 @@
       "git_hash": "ed7f5cd5e4df794eaae1fc570b2a17296e48d16a"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_data.csv",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_data.csv",
       "role": "data",
       "size_bytes": 45015,
       "sha256": "b9145addfe3738e878f16a7867e1716634b1cf090223bb5e9cd933be97c9727d",
@@ -4635,7 +4635,7 @@
       "git_hash": "2cf835cc580a8c11459c583599865dde179c3db1"
     },
     {
-      "path": "assets/zz-data/chapter04/04_dimensionless_invariants.csv",
+      "path": "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv",
       "role": "data",
       "size_bytes": 58554,
       "sha256": "b65d10df05995cfb58d2a32cca6d6d8d1f36ad5afc96f34c4750cfab43c3d4ac",
@@ -4645,7 +4645,7 @@
       "git_hash": "bdfa7b119c282e88d514b2ddd7e7e8b0906781d1"
     },
     {
-      "path": "assets/zz-data/chapter04/04_P_vs_T.dat",
+      "path": "assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat",
       "role": "data",
       "size_bytes": 42044,
       "sha256": "a97aa569faf70ec81171bf34f12fe57c4358a05d5e8f18957db3b87b9cef13bb",
@@ -4655,7 +4655,7 @@
       "git_hash": "8cfa91f811738fe87ff57c3ef9e8ca3a4839b8e2"
     },
     {
-      "path": "assets/zz-data/chapter03/placeholder.csv",
+      "path": "assets/zz-data/03_stability_domain/placeholder.csv",
       "role": "data",
       "size_bytes": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -4665,7 +4665,7 @@
       "git_hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_z.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv",
       "role": "data",
       "size_bytes": 3845,
       "sha256": "f5972a381749fb0fd84189a2363c6cb348c50df292848457179884082a71146c",
@@ -4675,7 +4675,7 @@
       "git_hash": "1dcfa51027b0b21c995b34060e3b4a279ac7a016"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_T.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv",
       "role": "data",
       "size_bytes": 5487,
       "sha256": "718d15ee6315952168648166ce30752fd0afe4658c8629168aab67fd0c957e58",
@@ -4685,7 +4685,7 @@
       "git_hash": "0065f3082636ef76e6f04dbebd34bcdb7cb137c4"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_milestones.csv",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv",
       "role": "data",
       "size_bytes": 2347,
       "sha256": "fab57e40cd7b73cc2ff6f10d49df08ec9759e543a806f2c1a6f7ff22cd2b8353",
@@ -4695,7 +4695,7 @@
       "git_hash": "afcae9729795a6d26353d650fe0593768c84d6f1"
     },
     {
-      "path": "assets/zz-data/chapter03/03_meta_stability_fR.json",
+      "path": "assets/zz-data/03_stability_domain/03_meta_stability_fR.json",
       "role": "data",
       "size_bytes": 70,
       "sha256": "cadd19a8293f51af5335546e6cc48a1f8b7dfb405df9ba2a1477782fe058cdef",
@@ -4705,7 +4705,7 @@
       "git_hash": "2c90ff0d171175544a6cbf88431ad486bd517ea3"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_meta.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_meta.json",
       "role": "data",
       "size_bytes": 146,
       "sha256": "4482ff74024c3fb673e0bf3e3db512e24101650bd3cb7c3ecf2deca0b06fc8cb",
@@ -4715,7 +4715,7 @@
       "git_hash": "4d19e78021bbd8d0865fd9e6d4831fc905076baa"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_domain.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv",
       "role": "data",
       "size_bytes": 29596,
       "sha256": "67d9bb0a9dd2ca312bb1e9eda3d375de31806fa537bfe804d99f20d4308ecfe3",
@@ -4725,7 +4725,7 @@
       "git_hash": "176d3c3ed0584cf9aac2dc1070e90d10d1e9eaf9"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_data.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_data.csv",
       "role": "data",
       "size_bytes": 56668,
       "sha256": "8847a7df8d17af15008ec052ad22bdbc8c8d42369005460e5e222fdc4b1b1fdc",
@@ -4735,7 +4735,7 @@
       "git_hash": "b5aef8413d942ad8ad8f2ea846a89e9fba9c75a4"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_boundary.csv",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv",
       "role": "data",
       "size_bytes": 17,
       "sha256": "6bbc22cecbc9b95c271e7ab74ddb582e77edaa510c61e8b61fa7dcb28085cca5",
@@ -4745,7 +4745,7 @@
       "git_hash": "2191470cf5d89fdbe296c5fc878396fcd202640c"
     },
     {
-      "path": "assets/zz-data/chapter02/02_timeline_milestones.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv",
       "role": "data",
       "size_bytes": 347,
       "sha256": "1a8f2219d83250f9a80524f199828e8885208652a616f77d6e8a4f0000612327",
@@ -4755,7 +4755,7 @@
       "git_hash": "a9f4f96ec5c68fde88a36241ca7b7ab60b75d736"
     },
     {
-      "path": "assets/zz-data/chapter02/02_relative_error_timeline.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv",
       "role": "data",
       "size_bytes": 132,
       "sha256": "cf40e0fb9316392bcf9fb688d965e6dce3f317c436ab877d0170b7595a8d0130",
@@ -4765,7 +4765,7 @@
       "git_hash": "ce866d02924f52c190fde30b349b1277ceab5ff3"
     },
     {
-      "path": "assets/zz-data/chapter02/02_primordial_spectrum_spec.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json",
       "role": "data",
       "size_bytes": 334,
       "sha256": "08b165003d234aea21ab3eec704ad1bc58b9813338cc9fcd056138d1e32e59c6",
@@ -4775,7 +4775,7 @@
       "git_hash": "466830c4179e5dc8aaf11b76c4a8352d3f99e619"
     },
     {
-      "path": "assets/zz-data/chapter02/02_optimal_parameters.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json",
       "role": "data",
       "size_bytes": 488,
       "sha256": "a1789e6e3f0812d1aec1d5469a2f7aca3c79caf3e818ac65faa417b38ead1cec",
@@ -4785,7 +4785,7 @@
       "git_hash": "75efe838a9399f5900fc010b1893241e7c5b0401"
     },
     {
-      "path": "assets/zz-data/chapter02/02_milestones_meta.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_milestones_meta.csv",
       "role": "data",
       "size_bytes": 402,
       "sha256": "cc32b0ded402489c79804c024127dfc3aebdee82bbaf20b0935e88925eb972e3",
@@ -4795,7 +4795,7 @@
       "git_hash": "9b291f7e522c6e33b8d7c8a7fd1b9fa85850c2f3"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_vs_T_grid_data.dat",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat",
       "role": "data",
       "size_bytes": 18627,
       "sha256": "cb202705ea66066043d0e72aabb8543fcee8c3a1802ea479a2c43f60a06d61d6",
@@ -4805,7 +4805,7 @@
       "git_hash": "befb0b62ef58b71eea63c02556a25602b0f5f7fd"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_derivative_data.dat",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat",
       "role": "data",
       "size_bytes": 19171,
       "sha256": "81d5c05c67e0388701e39bbfdbacd15814caea2e3e931f69832d0e3c86cccfa6",
@@ -4815,7 +4815,7 @@
       "git_hash": "a086ae845b01108022d16c0dbf176ee6f6808f8f"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_R_sampling.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_R_sampling.csv",
       "role": "data",
       "size_bytes": 82912,
       "sha256": "54700d97a286b488075d0c7fa461081cd3c4ab04048e996579da7dd63b1863d7",
@@ -4825,7 +4825,7 @@
       "git_hash": "f86fe9de224b36d202de404c49789e5a1db2cb74"
     },
     {
-      "path": "assets/zz-data/chapter02/02_FG_series.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_FG_series.csv",
       "role": "data",
       "size_bytes": 123,
       "sha256": "1e1c5a7f1abf5a1e75f41b0fdfa55d446153e34c77b20d073bea0c47592f0040",
@@ -4835,7 +4835,7 @@
       "git_hash": "5624d39aec02f808ba040c4896af16d31a24bfc9"
     },
     {
-      "path": "assets/zz-data/chapter02/02_As_ns_vs_alpha.csv",
+      "path": "assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv",
       "role": "data",
       "size_bytes": 843,
       "sha256": "7ba49755f771ce70cfbf993a9d4f950081df53fba0a3d032d470f483e056896e",
@@ -4845,7 +4845,7 @@
       "git_hash": "defe3b263bc9e88363ad8032aa4c902a3d03c3c6"
     },
     {
-      "path": "assets/zz-data/chapter01/01_timeline_milestones.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_timeline_milestones.csv",
       "role": "data",
       "size_bytes": 172,
       "sha256": "6eddf48ab90b93ee34bb161efb48177647130fb57900784c4ae57a9bf58761ac",
@@ -4855,7 +4855,7 @@
       "git_hash": "249b1f12dc479676b4160662e9383b0e39e614da"
     },
     {
-      "path": "assets/zz-data/chapter01/01_relative_error_timeline.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv",
       "role": "data",
       "size_bytes": 208,
       "sha256": "c9a78b6bd3f45da56f245fae184de7d483d166118b56659b349117075d0ccbf6",
@@ -4865,7 +4865,7 @@
       "git_hash": "075376790a865e415871947021d53d211613fd37"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_grid_data.dat",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat",
       "role": "data",
       "size_bytes": 17889,
       "sha256": "c0db755079b1d3ece731fcc64bb69d4766da3e8208d095b713992cbade217404",
@@ -4875,7 +4875,7 @@
       "git_hash": "7852fb777126ba98ff48fc932369cbd84e300f3e"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv",
       "role": "data",
       "size_bytes": 41878,
       "sha256": "34967da651418374e75c39f6d64d21455778553c6c9851fe16a70fe94c350c50",
@@ -4885,7 +4885,7 @@
       "git_hash": "2f0a43ec3fe6d9ff49d457de0e941a59f68e2aec"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data.csv",
       "role": "data",
       "size_bytes": 26900,
       "sha256": "32e821af5e4ced63461f38d4b1564433ea08279ee8dedc99cfa631c09e7030bf",
@@ -4895,7 +4895,7 @@
       "git_hash": "604808b74b5be2a675827e98e128cbd9245b208e"
     },
     {
-      "path": "assets/zz-data/chapter01/01_initial_grid_data.dat",
+      "path": "assets/zz-data/01_invariants_stability/01_initial_grid_data.dat",
       "role": "data",
       "size_bytes": 79737,
       "sha256": "f4e40a1d3a64fb478dfd1ade85d220c2ac93b3197356963b8789f27cef6b7bc5",
@@ -4905,7 +4905,7 @@
       "git_hash": "52de814417274212e45bb495e1624dea841310d4"
     },
     {
-      "path": "assets/zz-data/chapter01/01_dimensionless_invariants.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv",
       "role": "data",
       "size_bytes": 28128,
       "sha256": "9b6aa7e673c6dca663e9d01a4d4735d232aa5a8e85e269f6f85204f93e51d84e",
@@ -4915,7 +4915,7 @@
       "git_hash": "8301d77afc38f5f1c3be98f4eb874ae9d81bca5a"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_vs_T.dat",
+      "path": "assets/zz-data/01_invariants_stability/01_P_vs_T.dat",
       "role": "data",
       "size_bytes": 18590,
       "sha256": "a5b1a3ed5e0273a6dd6497a708b4163ae7dfe9dcb774b16c994db451146a4209",
@@ -4925,7 +4925,7 @@
       "git_hash": "81dd8611b37304f7a9fdb381875cd25a593dfaa2"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_optimized.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv",
       "role": "data",
       "size_bytes": 28484,
       "sha256": "fc522cd47dd865e678e7a2d877454e8d81e6b18159c3fe1c9d4c3899e18fb950",
@@ -4935,7 +4935,7 @@
       "git_hash": "71a74f2ae0f19ad66112681871bbfdc48ee975a7"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_initial.csv",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv",
       "role": "data",
       "size_bytes": 79227,
       "sha256": "3c36f5d2c0b2db71f63c82f944e208a0cbf6091c6b0ee05c1a4335c672059f2f",
@@ -8342,7 +8342,7 @@
       "git_hash": "781784602338cb6a6f6cfa6d21e8ce03610d7ca2"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_initial.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv.lock.json",
       "role": "config",
       "sha256": "a571ee713b8d96ec18db6f5cc09c48132d51a54c1d57871746aaee07e5c2f1bb",
       "size_bytes": 358,
@@ -8350,7 +8350,7 @@
       "git_hash": "63e46c67bbe41590a13e3d57187c5ca0e2421435"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_derivative_optimized.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv.lock.json",
       "role": "config",
       "sha256": "0189ed42c9e0e8c2852985c2224e4385032ac9e8e88d135929fbf0e8113b8b16",
       "size_bytes": 360,
@@ -8358,7 +8358,7 @@
       "git_hash": "6927e8dd3b953d7343f68b67aeb7bdc44646ffc8"
     },
     {
-      "path": "assets/zz-data/chapter01/01_P_vs_T.dat.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_P_vs_T.dat.lock.json",
       "role": "config",
       "sha256": "e0d13e2feaa60c1e957e65cde62cc846721068f1421cc415852683970d6e3b6e",
       "size_bytes": 344,
@@ -8366,7 +8366,7 @@
       "git_hash": "b63c45fecf16cc3c288bb49678d5978d54855954"
     },
     {
-      "path": "assets/zz-data/chapter01/01_dimensionless_invariants.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv.lock.json",
       "role": "config",
       "sha256": "72fc54e6c3bd53305424e89c6eac29cbc90729f2ca771ff8acb551806f370283",
       "size_bytes": 362,
@@ -8374,7 +8374,7 @@
       "git_hash": "698f7d947f210eb493f1b8c5588d54cefd6e2494"
     },
     {
-      "path": "assets/zz-data/chapter01/01_initial_grid_data.dat.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_initial_grid_data.dat.lock.json",
       "role": "config",
       "sha256": "e7f841b261bee5986ec554c7be79c9d9a1fd56d8407532a63f19616acf44d921",
       "size_bytes": 355,
@@ -8382,7 +8382,7 @@
       "git_hash": "830beb78017a955fa7404384b2b9d365ed412c6a"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data.csv.lock.json",
       "role": "config",
       "sha256": "ce96f0b98ba6c701fab1c07b268d0f606923a8b69ccd53506e6d64e1414f5002",
       "size_bytes": 352,
@@ -8390,7 +8390,7 @@
       "git_hash": "a8b72b9fc0b81643a78b92cb3052ae381a0c5385"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv.lock.json",
       "role": "config",
       "sha256": "ecc648ba12557632fa59b2796f7b2baba170ebf83f4ef46efbeac4935fd446c2",
       "size_bytes": 368,
@@ -8398,7 +8398,7 @@
       "git_hash": "6c490a2b9b516b91b5348103411030eacacbb78e"
     },
     {
-      "path": "assets/zz-data/chapter01/01_optimized_grid_data.dat.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat.lock.json",
       "role": "config",
       "sha256": "81b4989d2b7808ebeca36fa4728988bd5701f7811e1832a01c70e63550e7a429",
       "size_bytes": 357,
@@ -8406,7 +8406,7 @@
       "git_hash": "a6a0e1a847e9cf05c1f31f672bffe4c6b472a09c"
     },
     {
-      "path": "assets/zz-data/chapter01/01_relative_error_timeline.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv.lock.json",
       "role": "config",
       "sha256": "85defdf1175b0639e407497c1459896d93d35b6dbea5cb339cd76c21d4ff8479",
       "size_bytes": 359,
@@ -8414,7 +8414,7 @@
       "git_hash": "078addec0896b6170ab506c846e7631e64de6690"
     },
     {
-      "path": "assets/zz-data/chapter01/01_timeline_milestones.csv.lock.json",
+      "path": "assets/zz-data/01_invariants_stability/01_timeline_milestones.csv.lock.json",
       "role": "config",
       "sha256": "1bcf56a47539356af5e0f96922b38d8a3cfc52717d4f2f807369c18537518db1",
       "size_bytes": 355,
@@ -8422,7 +8422,7 @@
       "git_hash": "ae58adf38f37d4893e8838b9612670abda68b143"
     },
     {
-      "path": "assets/zz-data/chapter02/02_As_ns_vs_alpha.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv.lock.json",
       "role": "config",
       "sha256": "8c76edf687e72d62c84ef72b4da80ab996665e988faecc08b2503af305822855",
       "size_bytes": 350,
@@ -8430,7 +8430,7 @@
       "git_hash": "f822d63b619d0232c0817b7781df070da51281f7"
     },
     {
-      "path": "assets/zz-data/chapter02/02_FG_series.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_FG_series.csv.lock.json",
       "role": "config",
       "sha256": "ce6dc6af4bf1251669d33f516fadf0b45d48ce26231e5253c94d6df574d416eb",
       "size_bytes": 345,
@@ -8438,7 +8438,7 @@
       "git_hash": "a9df4be975b65149bd42f2cfd37399cd8a27abdb"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_R_sampling.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_R_sampling.csv.lock.json",
       "role": "config",
       "sha256": "d47441fe29329e65f35997d625fd2cbc35e1d30aa8f2a5555db568ef91ba9273",
       "size_bytes": 350,
@@ -8446,7 +8446,7 @@
       "git_hash": "909afac7ad0d467a9d0f9faa6b90a03bc71284c4"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_derivative_data.dat.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat.lock.json",
       "role": "config",
       "sha256": "46e9951f0e05c33fdf2366f54bcc39f22051e571ed76cfd819f20c7f63c9a5d9",
       "size_bytes": 355,
@@ -8454,7 +8454,7 @@
       "git_hash": "c3cea4bf5d3c25c15264aef01bab5e4b2b72ab42"
     },
     {
-      "path": "assets/zz-data/chapter02/02_P_vs_T_grid_data.dat.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat.lock.json",
       "role": "config",
       "sha256": "86c73873e9240a1daba1f23481dee0951a1e841ec8e47ffd7721ad715a7d46f1",
       "size_bytes": 354,
@@ -8462,7 +8462,7 @@
       "git_hash": "4735242f240ab8a231cfe653ce56be8a43055651"
     },
     {
-      "path": "assets/zz-data/chapter02/02_milestones_meta.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_milestones_meta.csv.lock.json",
       "role": "config",
       "sha256": "4e239703b6d893db33b103180a0d15d893285aa98392e84938bd55f7fe65aa97",
       "size_bytes": 351,
@@ -8470,7 +8470,7 @@
       "git_hash": "b1f977778952d46043963ff0948d1b87cc530419"
     },
     {
-      "path": "assets/zz-data/chapter02/02_optimal_parameters.json.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json.lock.json",
       "role": "config",
       "sha256": "116120eff6350ff6afaf8b1fb89ed15792515c7a7c494fc771f585fdba27ed29",
       "size_bytes": 355,
@@ -8478,7 +8478,7 @@
       "git_hash": "f9a5bf7530a2eaf8f4889ece810c1978fbae4d2d"
     },
     {
-      "path": "assets/zz-data/chapter02/02_primordial_spectrum_spec.json.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json.lock.json",
       "role": "config",
       "sha256": "24af32985145ea932ffef2dd1f9c8e2fdc308994c7d4e9858a795eec3e2ed7ff",
       "size_bytes": 361,
@@ -8486,7 +8486,7 @@
       "git_hash": "7b83cbef344da9b44d3b8bbafa302da5a1ff59a8"
     },
     {
-      "path": "assets/zz-data/chapter02/02_relative_error_timeline.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv.lock.json",
       "role": "config",
       "sha256": "dee132311cb86753c970ff5d1ee1d0e31bcc3e902dbd59c37c8ee100c633d4ab",
       "size_bytes": 359,
@@ -8494,7 +8494,7 @@
       "git_hash": "e14b9e2a87210674266a1d7b5aa137be999d02da"
     },
     {
-      "path": "assets/zz-data/chapter02/02_timeline_milestones.csv.lock.json",
+      "path": "assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv.lock.json",
       "role": "config",
       "sha256": "75bbd5d7a2679fd5ee50b1817995294410ce5a2552299e9d84a7504a9923300e",
       "size_bytes": 355,
@@ -8502,7 +8502,7 @@
       "git_hash": "0bd356be5d235b9183d641c3f32d70a3e03606c6"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_boundary.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv.lock.json",
       "role": "config",
       "sha256": "ea58056801378c8ce8e9856395c2ff6c1592e4c81ab8624ca918143e9521197f",
       "size_bytes": 356,
@@ -8510,7 +8510,7 @@
       "git_hash": "fccf889ceab47c88e130a08a4fbc4ff2bafd908d"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_data.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_data.csv.lock.json",
       "role": "config",
       "sha256": "73b2ab1b28fbe35062fcabf74f7fe3dbefd878d8a791ee447965bb4ae8ec10e6",
       "size_bytes": 355,
@@ -8518,7 +8518,7 @@
       "git_hash": "1306efc9f4d1ece8834bfa8fc22ff3162da3a602"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_domain.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv.lock.json",
       "role": "config",
       "sha256": "e37c1c8ac7fbc9318f825f947d3e297f5bc517c7349af547a7bca5b3afb04436",
       "size_bytes": 357,
@@ -8526,7 +8526,7 @@
       "git_hash": "29dbbd1ca868d4b45bd0eb3ea9e87e4fce9bed19"
     },
     {
-      "path": "assets/zz-data/chapter03/03_fR_stability_meta.json.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_fR_stability_meta.json.lock.json",
       "role": "config",
       "sha256": "9df544944992557ce2a1e6e94d6777fb0647f4ac088df8a3e04d43bf93ad1cc5",
       "size_bytes": 354,
@@ -8534,7 +8534,7 @@
       "git_hash": "a9e002f033719f6a6bbdb2667140d4c545412f90"
     },
     {
-      "path": "assets/zz-data/chapter03/03_meta_stability_fR.json.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_meta_stability_fR.json.lock.json",
       "role": "config",
       "sha256": "eee5f7eb52ddc6a534a4d2dfc37220b31d01efcac485b9311ae66a66a5247c77",
       "size_bytes": 353,
@@ -8542,7 +8542,7 @@
       "git_hash": "b836627acd6ec4d1f9466213ba87f3b601865f0f"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_milestones.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv.lock.json",
       "role": "config",
       "sha256": "fbdab37cee28b582f2a9b784ce418eda93af904c122a128d20d86d1d8c801659",
       "size_bytes": 356,
@@ -8550,7 +8550,7 @@
       "git_hash": "247f1113c7d01cb09decfab3840b0ce519da3cd9"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_T.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv.lock.json",
       "role": "config",
       "sha256": "f5dd58f04c4994292a376cca2fd54217a62bb1431b8a8a615ea7c9354666c8e1",
       "size_bytes": 350,
@@ -8558,7 +8558,7 @@
       "git_hash": "4f4bc0fe1694c7710c51f3add4cb77e145e830ef"
     },
     {
-      "path": "assets/zz-data/chapter03/03_ricci_fR_vs_z.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv.lock.json",
       "role": "config",
       "sha256": "ef2f7d76bdadb1b0520642f21edfb7d20a26ca4c3c81bc8e17b9cbecc8059da6",
       "size_bytes": 350,
@@ -8566,7 +8566,7 @@
       "git_hash": "faa07cf151969cab20034a07b0a202fbb225d27d"
     },
     {
-      "path": "assets/zz-data/chapter03/placeholder.csv.lock.json",
+      "path": "assets/zz-data/03_stability_domain/placeholder.csv.lock.json",
       "role": "config",
       "sha256": "da2863587590e1273c1cc8c81bb7ef18a752513c599aa6176e94fe7d10538b10",
       "size_bytes": 342,
@@ -8574,7 +8574,7 @@
       "git_hash": "538036da20fa45cee5038ab85ef054b366312d3c"
     },
     {
-      "path": "assets/zz-data/chapter04/04_P_vs_T.dat.lock.json",
+      "path": "assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat.lock.json",
       "role": "config",
       "sha256": "7229c4f862db73200b0d3f96b4e4126d823cd7f728f7a88cc4b278ef94d429b8",
       "size_bytes": 344,
@@ -8582,7 +8582,7 @@
       "git_hash": "80758670e476877d067da0e97f764800763b7fb7"
     },
     {
-      "path": "assets/zz-data/chapter04/04_dimensionless_invariants.csv.lock.json",
+      "path": "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv.lock.json",
       "role": "config",
       "sha256": "13053589f07636be144c3d24b78a75857953654c82735de45d2ae9100cef4b42",
       "size_bytes": 362,
@@ -8590,7 +8590,7 @@
       "git_hash": "64ffe5fecc61804134dac21e151b8a9630550c76"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_data.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_data.csv.lock.json",
       "role": "config",
       "sha256": "beacd9b624171ce8b78cee9ebf5b1c16570237112e747b5c4e384b364dfed18a",
       "size_bytes": 346,
@@ -8598,7 +8598,7 @@
       "git_hash": "7a2a1b20a6ccda4256bb0e79f91cb4ff536fa55c"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_grid.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_grid.csv.lock.json",
       "role": "config",
       "sha256": "735c48594922b7e0a2a0079c17cdd6e64f8f5b70ea87c53c380a033287c59420",
       "size_bytes": 346,
@@ -8606,7 +8606,7 @@
       "git_hash": "90749508e0255575f42ce7e8caf424e7dfaadb61"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_invariants.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv.lock.json",
       "role": "config",
       "sha256": "b390b9db72391a5919840dcfc23bcba578a9ed8594dabc1bb773944578d5292b",
       "size_bytes": 352,
@@ -8614,7 +8614,7 @@
       "git_hash": "825d5f762946c16746ca8ceaeba5765118d38b88"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_milestones.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv.lock.json",
       "role": "config",
       "sha256": "6f6cec5862038a5aa83072448a36f4d64a797abe7272be2e5c2b40699c1edcf8",
       "size_bytes": 350,
@@ -8622,7 +8622,7 @@
       "git_hash": "2dd2e857d2edb25be165cddf0e26ed97f87fb31b"
     },
     {
-      "path": "assets/zz-data/chapter05/05_bbn_params.json.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_bbn_params.json.lock.json",
       "role": "config",
       "sha256": "9316f08b14bff59bcc8a32aa9fa190120307ce048bb58782827d935f28e38873",
       "size_bytes": 347,
@@ -8630,7 +8630,7 @@
       "git_hash": "9ae0a3db24925eb0180365b39900bc47afa2b461"
     },
     {
-      "path": "assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv.lock.json",
       "role": "config",
       "sha256": "3c759d59c0bef266726f1a07465b8ef7c56097ad0613aacafa0b664f21b8d3c9",
       "size_bytes": 348,
@@ -8638,7 +8638,7 @@
       "git_hash": "92a403465019dd10b87b5fa4dadd799ca1c04502"
     },
     {
-      "path": "assets/zz-data/chapter05/05_dchi2_vs_T.csv.lock.json",
+      "path": "assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv.lock.json",
       "role": "config",
       "sha256": "783bf5c5a4fe55be4269c96e8a45f89d980ec0c6b4bc0cbc00332f08a6ac172a",
       "size_bytes": 348,
@@ -8646,7 +8646,7 @@
       "git_hash": "64940f7cdeb8b1306923c5936ebb03f81df2240d"
     },
     {
-      "path": "assets/zz-data/chapter06/01_P_vs_T.dat.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/01_P_vs_T.dat.lock.json",
       "role": "config",
       "sha256": "70dd04dc263c44be33d7afabadc67dd4cf29457289628d421f0983a64e458c20",
       "size_bytes": 344,
@@ -8654,7 +8654,7 @@
       "git_hash": "014b861fcdc38a16a27340c062854d72768a030c"
     },
     {
-      "path": "assets/zz-data/chapter06/06_alpha_evolution.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_alpha_evolution.csv.lock.json",
       "role": "config",
       "sha256": "c7cdb8e743dec029213d64aa21f2282b4478df8b8953135400f1708208b6760f",
       "size_bytes": 351,
@@ -8662,7 +8662,7 @@
       "git_hash": "33b0f28217d2a0477c8fc015226c22f185db3385"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cls_spectrum.dat.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat.lock.json",
       "role": "config",
       "sha256": "5e862349bc671d0fa55bbae945b207fd0ab91907f2845c3133fefa31a504501f",
       "size_bytes": 350,
@@ -8670,7 +8670,7 @@
       "git_hash": "48f4fae51c1533930be912ca20e0096a053c1078"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cls_spectrum_lcdm.dat.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cls_spectrum_lcdm.dat.lock.json",
       "role": "config",
       "sha256": "69d74796e31cd18b294b03e148dd1b0dc4e39cad1432cce110125a1433419c6f",
       "size_bytes": 355,
@@ -8678,7 +8678,7 @@
       "git_hash": "e79405f3f9c99816f9e9c04da81d3014e8529ba5"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv.lock.json",
       "role": "config",
       "sha256": "479ed053abd2ff3bbb615dd85f97e4de07ddfcf30436c987d1adbdc1ab71463d",
       "size_bytes": 353,
@@ -8686,7 +8686,7 @@
       "git_hash": "f89e9b50e633ecc6c653c9feddac2f7aaca6f00b"
     },
     {
-      "path": "assets/zz-data/chapter06/06_cmb_full_results.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv.lock.json",
       "role": "config",
       "sha256": "09b90408255c724d3a1ef7b2f54dbf26e89c30d71279c599df48387ddc103bbb",
       "size_bytes": 355,
@@ -8694,7 +8694,7 @@
       "git_hash": "9442a961a0a82137131194c7b1cd18e761856219"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_Tm_scan.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_Tm_scan.csv.lock.json",
       "role": "config",
       "sha256": "54319fe85fa5daf7bc5cb22a2f2f6cbd8da80956c7e14c91eff130e7d4d543e2",
       "size_bytes": 350,
@@ -8702,7 +8702,7 @@
       "git_hash": "bf1e61dc5d940db64d5dd8c58ace7d483cce5ca4"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls.csv.lock.json",
       "role": "config",
       "sha256": "cda0a5fc60a746a0524d7ca35bae6fef333682590657f1fd50a7b4bb54e5d419",
       "size_bytes": 347,
@@ -8710,7 +8710,7 @@
       "git_hash": "9eb577584b6ff616c4b3db91dac0e7cfb0b36dbf"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_cls_relative.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv.lock.json",
       "role": "config",
       "sha256": "d81e4fae9f1951abec96b8a28958efe166f5d3aff93784b44d85fd9ceaacd14b",
       "size_bytes": 356,
@@ -8718,7 +8718,7 @@
       "git_hash": "febdd68b22e59d29c9275a56ce7f4a916c4b25a4"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv.lock.json",
       "role": "config",
       "sha256": "655255b9eb45f2f70edd1af186e2d239d8378c4020ed108f694f8289c4e6e75c",
       "size_bytes": 350,
@@ -8726,7 +8726,7 @@
       "git_hash": "2ac6a2b95b456917214af424ba6c97d54fe155b1"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan2D.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv.lock.json",
       "role": "config",
       "sha256": "6eadca21626952ee15f175b473fac2f519d477a485a36c0ce5add69728c03af2",
       "size_bytes": 352,
@@ -8734,7 +8734,7 @@
       "git_hash": "d45949007fac8757d5780db1aa285c1a09c994f2"
     },
     {
-      "path": "assets/zz-data/chapter06/06_delta_rs_scan_full.csv.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_full.csv.lock.json",
       "role": "config",
       "sha256": "e5cf06a9258845e8d9b83f08981083721902edfa2c403e9f417c48a28682f5e1",
       "size_bytes": 356,
@@ -8742,7 +8742,7 @@
       "git_hash": "b215316f683a5ddc4000e3e7d44146eed4c83833"
     },
     {
-      "path": "assets/zz-data/chapter06/06_hubble_mcgt.dat.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat.lock.json",
       "role": "config",
       "sha256": "c8393cd399ce768856f6d558b85379d9e2f9bf39dd2a04172f3f96c569868a75",
       "size_bytes": 347,
@@ -8750,7 +8750,7 @@
       "git_hash": "bf81ab2f26b62199bb3f26a01eedae26c56921e0"
     },
     {
-      "path": "assets/zz-data/chapter06/06_params_cmb.json.lock.json",
+      "path": "assets/zz-data/06_early_growth_jwst/06_params_cmb.json.lock.json",
       "role": "config",
       "sha256": "c04b8d65169bbfe96e68acb76cbd71cda862c16e2bc4ba406b2a31a3ff097e16",
       "size_bytes": 347,
@@ -8758,7 +8758,7 @@
       "git_hash": "fb032c777fa0e8e1526a2967e66f7d2c98767903"
     },
     {
-      "path": "assets/zz-data/chapter07/07_cs2_matrix.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_cs2_matrix.csv.lock.json",
       "role": "config",
       "sha256": "0d13eba4ec8368507fb3c4b3e18cad48198c08977f247150d9461a5e59729604",
       "size_bytes": 349,
@@ -8766,7 +8766,7 @@
       "git_hash": "7f80d2bbb2d26c74b92065029ca19785d894a7df"
     },
     {
-      "path": "assets/zz-data/chapter07/07_dcs2_vs_k.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv.lock.json",
       "role": "config",
       "sha256": "21c85463d8b76bd970cd9b3738f83d5f5a4a6a2a97b920047ad51d1a7724c638",
       "size_bytes": 347,
@@ -8774,7 +8774,7 @@
       "git_hash": "ef83c92c184222b4577d0b1d7bc4e2b55d25b1b5"
     },
     {
-      "path": "assets/zz-data/chapter07/07_ddelta_phi_vs_k.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_ddelta_phi_vs_k.csv.lock.json",
       "role": "config",
       "sha256": "28f3662a9ffad2e93ad7034dcaccffb7f5f0fc3af642b914ecf5135b364eea66",
       "size_bytes": 353,
@@ -8782,7 +8782,7 @@
       "git_hash": "1c9d64847d3175635b026ec7e4fd8978a49f9d58"
     },
     {
-      "path": "assets/zz-data/chapter07/07_delta_phi_matrix.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv.lock.json",
       "role": "config",
       "sha256": "764eacdae28f4d91327fc27f52b56101705d804dad0fa415a4ee4b016c7e9d93",
       "size_bytes": 355,
@@ -8790,7 +8790,7 @@
       "git_hash": "48a6f30f7f6e9a1ad6b73ca00d505423a154994b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_meta_perturbations.json.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_meta_perturbations.json.lock.json",
       "role": "config",
       "sha256": "3167ccdb158e544b2782ebc15c75967172d852061875b3bb9bc0ef591a38f802",
       "size_bytes": 355,
@@ -8798,7 +8798,7 @@
       "git_hash": "595055b9069d87a96d181d374e82fc86c9860415"
     },
     {
-      "path": "assets/zz-data/chapter07/07_params_perturbations.json.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_params_perturbations.json.lock.json",
       "role": "config",
       "sha256": "4259b8e9fe2eecc7da3022d679e11892a71f9facb253233f19ac4f3893e91fb7",
       "size_bytes": 357,
@@ -8806,7 +8806,7 @@
       "git_hash": "119a92cde306e492e59d2999fb09eb9e76624a24"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_boundary.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv.lock.json",
       "role": "config",
       "sha256": "81498dcf1b4c73b07aa082fca604767763597d972d9c43ea37a79ba545e3809a",
       "size_bytes": 357,
@@ -8814,7 +8814,7 @@
       "git_hash": "0f99630ae7e3dc9acc49843cbb6c325c5a2ee05f"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_domain.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_domain.csv.lock.json",
       "role": "config",
       "sha256": "04c69d62581d9de6ebf3e08db107a7837d3304394f05da80e7d01f1253f035b7",
       "size_bytes": 355,
@@ -8822,7 +8822,7 @@
       "git_hash": "9047838047f9e3b91f694d6036d41317f855d375"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_main_data.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv.lock.json",
       "role": "config",
       "sha256": "debd61257bad287477d69583615ca85192145dd1709bcdbe1e028cceddd4ff01",
       "size_bytes": 361,
@@ -8830,7 +8830,7 @@
       "git_hash": "abc7762c6e2e2681efad41e75372a8ffab9cc23b"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_meta.json.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_meta.json.lock.json",
       "role": "config",
       "sha256": "98ab8ae9b588d56633419c5874346f3ba78e1f884ad4967fc06707306ea90303",
       "size_bytes": 355,
@@ -8838,7 +8838,7 @@
       "git_hash": "f1ffb76707109bad2caccceabf8d3c6d36d82a69"
     },
     {
-      "path": "assets/zz-data/chapter07/07_perturbations_params.json.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_perturbations_params.json.lock.json",
       "role": "config",
       "sha256": "6cf7114da9083b6b7bd2512e352d83adbdedda4670974f95facde44aa378a4b6",
       "size_bytes": 357,
@@ -8846,7 +8846,7 @@
       "git_hash": "ac3c42cc1208f0bb38ace68e18338ea8e3eddb29"
     },
     {
-      "path": "assets/zz-data/chapter07/07_phase_run.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_phase_run.csv.lock.json",
       "role": "config",
       "sha256": "f56cde5c7867be552bd0a50064de15b963b13949b7c6e605e7f8e8831b80783c",
       "size_bytes": 349,
@@ -8854,7 +8854,7 @@
       "git_hash": "fd580930c51f2d58454deb66ff0810477e36d0e9"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_invariants.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_invariants.csv.lock.json",
       "role": "config",
       "sha256": "44d09c348e0c169ff70765ed44341ab20665b0eff4bd0c85f176fae561f09f31",
       "size_bytes": 355,
@@ -8862,7 +8862,7 @@
       "git_hash": "f5c3cd11397a9001e2eeeb5b03df61fa6b25ac75"
     },
     {
-      "path": "assets/zz-data/chapter07/07_scalar_perturbations_results.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv.lock.json",
       "role": "config",
       "sha256": "7e79881fac295ff2a4a349c1803137106de57a08ce907fe982e36aa46e71712b",
       "size_bytes": 366,
@@ -8870,7 +8870,7 @@
       "git_hash": "30be5ad1e9d550208c40d6894b13852fddcd4428"
     },
     {
-      "path": "assets/zz-data/chapter07/placeholder.csv.lock.json",
+      "path": "assets/zz-data/07_bao_geometry/placeholder.csv.lock.json",
       "role": "config",
       "sha256": "3fe7041a7969d8d6119ebea8491eee52affe774767f7af253d0b22b7e27d8641",
       "size_bytes": 342,
@@ -8878,7 +8878,7 @@
       "git_hash": "dd7b691ffa9d68a169099ccf1865631df8a18c0c"
     },
     {
-      "path": "assets/zz-data/chapter08/08_bao_data.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_bao_data.csv.lock.json",
       "role": "config",
       "sha256": "abb791140748a9f2c1546ec2541eddf6d729e2437bf93b014b6b9df271962906",
       "size_bytes": 368,
@@ -8886,7 +8886,7 @@
       "git_hash": "c58104875a510a214442f39245e0c6057690a131"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_derivative.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_derivative.csv.lock.json",
       "role": "config",
       "sha256": "9b3000b96087b35c94661f6c79bfe6a1c6e6ea83966084ea5241f775842db0bb",
       "size_bytes": 353,
@@ -8894,7 +8894,7 @@
       "git_hash": "83dae33047a83dd84c21a426a6ebbfd213b8c113"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_scan2D.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_scan2D.csv.lock.json",
       "role": "config",
       "sha256": "47cdc3bb2e20b42ff8d79ef25ab387243a2d3de4c6d29ad09229759c13fed06d",
       "size_bytes": 351,
@@ -8902,7 +8902,7 @@
       "git_hash": "886c3e8a29288a8af168040800b83aa01f0be89c"
     },
     {
-      "path": "assets/zz-data/chapter08/08_chi2_total_vs_q0.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv.lock.json",
       "role": "config",
       "sha256": "e5ee5ead7ea3194205d0a3eb7690c1e11768fc496b37711bd0c974a595b1db93",
       "size_bytes": 354,
@@ -8910,7 +8910,7 @@
       "git_hash": "281b7b2dc888da39487d9da214d074a40cabfa3d"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_milestones.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_milestones.csv.lock.json",
       "role": "config",
       "sha256": "8e0626bbfa595cc6ed134551160e543b8ef816db0b4d5d16b7b424d563f3e327",
       "size_bytes": 357,
@@ -8918,7 +8918,7 @@
       "git_hash": "24561c58b478f07db91789cef221dc9b3f59811b"
     },
     {
-      "path": "assets/zz-data/chapter08/08_coupling_params.json.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_coupling_params.json.lock.json",
       "role": "config",
       "sha256": "cfcec35d37839105653cd5256d88c638c9304280e394ac649c1f7910c25a649f",
       "size_bytes": 352,
@@ -8926,7 +8926,7 @@
       "git_hash": "07afed9cfc4517c759a47b6c004cd8da45faa62f"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_q0star.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_q0star.csv.lock.json",
       "role": "config",
       "sha256": "a3e8e1118482a2ca91ad08dfe5c23ebd044ba3ea96b5fa65a278a5c90e722636",
       "size_bytes": 354,
@@ -8934,7 +8934,7 @@
       "git_hash": "80cb8ced900a12de9cb21838c7b73035dbb7cebb"
     },
     {
-      "path": "assets/zz-data/chapter08/08_dv_theory_z.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_dv_theory_z.csv.lock.json",
       "role": "config",
       "sha256": "591ec472a85094e66763fd8218722c88c14586a6000fcfa5bc8a00cc619f2dcb",
       "size_bytes": 347,
@@ -8942,7 +8942,7 @@
       "git_hash": "36f9097c3da39a7e447269107ffc07042f33e467"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_q0star.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_q0star.csv.lock.json",
       "role": "config",
       "sha256": "d13e0ef96524adc17ef487e8af450d02ea3a95528eeab076e458047fb126b9b1",
       "size_bytes": 354,
@@ -8950,7 +8950,7 @@
       "git_hash": "2a126a0163f2384edff55a66fed21c3b8a92d41c"
     },
     {
-      "path": "assets/zz-data/chapter08/08_mu_theory_z.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_mu_theory_z.csv.lock.json",
       "role": "config",
       "sha256": "a27ee000980e954f716d0d700e4df21703c7905eb43445bd9ca715f3d1d29973",
       "size_bytes": 349,
@@ -8958,7 +8958,7 @@
       "git_hash": "4ff4ae6dd14c9232ce2f4f4ea3cb552b69e81f99"
     },
     {
-      "path": "assets/zz-data/chapter08/08_pantheon_data.csv.lock.json",
+      "path": "assets/zz-data/08_sound_horizon/08_pantheon_data.csv.lock.json",
       "role": "config",
       "sha256": "3e37d9ec7044cba51f7f543a7004e1c3f601af8669550329030e9b16307271c8",
       "size_bytes": 380,
@@ -8966,7 +8966,7 @@
       "git_hash": "fff63f6a357d1fecc328a29362153c2eecb8609f"
     },
     {
-      "path": "assets/zz-data/chapter09/09_best_params.json.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_best_params.json.lock.json",
       "role": "config",
       "sha256": "f122e711aa3a9d9cac3ce572e2ff08d312764858afe79073ecc80a4e582694a6",
       "size_bytes": 349,
@@ -8974,7 +8974,7 @@
       "git_hash": "5795b0e42e1eaba08dae47037aaf0c24a6ab4951"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv.lock.json",
       "role": "config",
       "sha256": "5f6d0832a211dcbc4ab482216b3fb21a962e970259c090c99d910b49318dc7b2",
       "size_bytes": 358,
@@ -8982,7 +8982,7 @@
       "git_hash": "a3786b94b9e85a36f380f30cef75315919928e50"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.flagged.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.flagged.csv.lock.json",
       "role": "config",
       "sha256": "40aff5e706cd6eaae67e68e7d5704ba7918bfee721e2a57783906754cf53366e",
       "size_bytes": 366,
@@ -8990,7 +8990,7 @@
       "git_hash": "226b87b9f3d361db9d525ba432b4fd2fbe49db6e"
     },
     {
-      "path": "assets/zz-data/chapter09/09_comparison_milestones.meta.json.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json.lock.json",
       "role": "config",
       "sha256": "0ac4fa3115a191532cb2a9e23f8d7e501c60f3bf499d5fe7b9dba557ee2b95ac",
       "size_bytes": 363,
@@ -8998,7 +8998,7 @@
       "git_hash": "671bacafe4f502dd17b2c36381affe9262c7c339"
     },
     {
-      "path": "assets/zz-data/chapter09/09_metrics_phase.json.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json.lock.json",
       "role": "config",
       "sha256": "6b92276f5b23b53ccf8c7f3b0502012baa35dbb4b8a1ded0bfdf169f2efbaeed",
       "size_bytes": 351,
@@ -9006,7 +9006,7 @@
       "git_hash": "ff16cccb9a2c9862dd5a81c51b8c0c47ac4a161d"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phase_diff.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv.lock.json",
       "role": "config",
       "sha256": "620fc0b24d69950cf3b35bfeecb2bd43b54624251cddcbb2eea832743ce112e9",
       "size_bytes": 347,
@@ -9014,7 +9014,7 @@
       "git_hash": "d66f80e67333ada5b1c95ee8d406da34b4a8f48c"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv.lock.json",
       "role": "config",
       "sha256": "790873cf92203707ec8af0821da5ac860b27f583da4daccb9ab6a109730e8a36",
       "size_bytes": 353,
@@ -9022,7 +9022,7 @@
       "git_hash": "d974dff25551a8669856e8180adfd18bccc0a249"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_imrphenom.meta.json.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json.lock.json",
       "role": "config",
       "sha256": "0cf3d24e7058e17a9b8f526a588ac7344a02f1432c1d9018c84a9d70bd0a3501",
       "size_bytes": 358,
@@ -9030,7 +9030,7 @@
       "git_hash": "2a06269e823e80bf131c85f7f0c7cb5fae508656"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv.lock.json",
       "role": "config",
       "sha256": "8061d544fb8fc5b0e161b875d2a2b88ca52cb1f8f3cddfe92f5d8fa5389fff2a",
       "size_bytes": 349,
@@ -9038,7 +9038,7 @@
       "git_hash": "f3dc01f47c76a285d64351653e387d8898207687"
     },
     {
-      "path": "assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv.lock.json",
       "role": "config",
       "sha256": "81063c4624481755e0b9abba28a3b99b3622ba07558466e58fbfb837267de1a6",
       "size_bytes": 357,
@@ -9046,7 +9046,7 @@
       "git_hash": "1fea7fa6fee04006986b9585271edabca90f644b"
     },
     {
-      "path": "assets/zz-data/chapter09/gwtc3_confident_parameters.json.lock.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json.lock.json",
       "role": "config",
       "sha256": "9038bfdf222f51e04b556a6c4bf129bc910690f4f0eb96717c3de7d61518deda",
       "size_bytes": 384,
@@ -9054,7 +9054,7 @@
       "git_hash": "394e4f506893492d1c340ff9fcf92b79353084a2"
     },
     {
-      "path": "assets/zz-data/chapter10/.cache_ref/IMRPhenomD_m1-75.222926_m2-70.766556_f-a822fc16c790e54635dcafa80247264bd918ee77.npz.lock.lock.json",
+      "path": "assets/zz-data/10_global_scan/.cache_ref/IMRPhenomD_m1-75.222926_m2-70.766556_f-a822fc16c790e54635dcafa80247264bd918ee77.npz.lock.lock.json",
       "role": "config",
       "sha256": "636e17d481a03ef03655fde4a4c6b124194813fb3aec244d154288c22890bd2f",
       "size_bytes": 416,
@@ -9062,7 +9062,7 @@
       "git_hash": "3755ae2ae8056b8cd45d43d4cb2480cb6b18f314"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best.json.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best.json.lock.json",
       "role": "config",
       "sha256": "ae2c9eeb06dc35f17cb34e9cfa6765c60fb5f4f1ea0f4c9490a28858ade01085",
       "size_bytes": 346,
@@ -9070,7 +9070,7 @@
       "git_hash": "f6ea7fc935a60e8230243d4cdefc11f75a87510a"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_best_bootstrap.json.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_best_bootstrap.json.lock.json",
       "role": "config",
       "sha256": "d95bcff57dc47e6518641b8227ad3d16d158fe81cf8228a3d0c80e6e527a3de1",
       "size_bytes": 356,
@@ -9078,7 +9078,7 @@
       "git_hash": "9b61e2591f6990e831370ba36707c3ecc0bc6976"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_config.json.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_config.json.lock.json",
       "role": "config",
       "sha256": "3f9e995e39a88a7bbbc2f62289b20da4d5bf64fcb1db3dc92b0622d8ce1f446f",
       "size_bytes": 346,
@@ -9086,7 +9086,7 @@
       "git_hash": "4b613411c3f49e68c38cca99da4e5ea01056734c"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_milestones_eval.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_milestones_eval.csv.lock.json",
       "role": "config",
       "sha256": "920ff469ea087064711255d1bc4462db11b12a09f07a7f3b4a9b7e589074e22f",
       "size_bytes": 357,
@@ -9094,7 +9094,7 @@
       "git_hash": "32b6c696d4c22aa8359279c88a557167256d33d2"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.agg.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.agg.csv.lock.json",
       "role": "config",
       "sha256": "57802311a5bdcd52eacf343e816ad6fd284bffd04466d0d4e2c47768a24972f2",
       "size_bytes": 353,
@@ -9102,7 +9102,7 @@
       "git_hash": "83395a99b20ccc1ca39863c52f050ef532e6e98e"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.agg.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.agg.csv.lock.json",
       "role": "config",
       "sha256": "7cc5bbf519993d0c0ae80bc05bb18b288c194bf453164bb9f1af76fdb58b4378",
       "size_bytes": 358,
@@ -9110,7 +9110,7 @@
       "git_hash": "00d6032918a416b6b9dfd0f2fd16a665b015ca90"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.csv.lock.json",
       "role": "config",
       "sha256": "e81d2ef01ee0281e02264591aeee5d7974868be0abb9888c76823cff1fef64cd",
       "size_bytes": 354,
@@ -9118,7 +9118,7 @@
       "git_hash": "11cd4ddba1aba66e1c8e6e1a4c63368af8fd2ab4"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv.lock.json",
       "role": "config",
       "sha256": "64f1647f1ab28b4cfd5b2b5afa86ac0bb861109000adedcc54684e14db80742f",
       "size_bytes": 366,
@@ -9126,7 +9126,7 @@
       "git_hash": "94862929b8d55e919eca1ebd4e6994778cc41dfe"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_results.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_results.csv.lock.json",
       "role": "config",
       "sha256": "0404a604c55e0f8546f3fa31ee9562a3bae5226ab9ac8e9e26e6cacf867d76da",
       "size_bytes": 349,
@@ -9134,7 +9134,7 @@
       "git_hash": "b6b3352c1c2c7eb525fb71259cb9d7b5890f5672"
     },
     {
-      "path": "assets/zz-data/chapter10/10_mc_samples.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/10_mc_samples.csv.lock.json",
       "role": "config",
       "sha256": "feb4dfa391c41320a17b2b920ac1ee8e27df5ab9564f55aef42f72df3251b9e0",
       "size_bytes": 349,
@@ -9142,7 +9142,7 @@
       "git_hash": "86612b128bc4f0bf01a482d2c1f147ba2302b59b"
     },
     {
-      "path": "assets/zz-data/chapter10/dummy_results.csv",
+      "path": "assets/zz-data/10_global_scan/dummy_results.csv",
       "role": "data",
       "sha256": "c08168b16752c3584e7213542ff44de1a88c5ad7f7e277e38766ba31e7e7b47c",
       "size_bytes": 136708,
@@ -9150,7 +9150,7 @@
       "git_hash": "a55280e1215dd9540431490f28038017ff67c7fe"
     },
     {
-      "path": "assets/zz-data/chapter10/dummy_results.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/dummy_results.csv.lock.json",
       "role": "config",
       "sha256": "d9990c4fa61ded70581915eb637d7bdb6d7c5d29b578ee8f57936e819845d7a7",
       "size_bytes": 349,
@@ -9158,7 +9158,7 @@
       "git_hash": "580a48fe837a788c8d02ae4bc3fd46c1c19a7c00"
     },
     {
-      "path": "assets/zz-data/chapter10/example_results.csv.lock.json",
+      "path": "assets/zz-data/10_global_scan/example_results.csv.lock.json",
       "role": "config",
       "sha256": "fafc90b95e64575db85894ff8371d9c11315f783d129ec3a90499dafe36f5239",
       "size_bytes": 348,

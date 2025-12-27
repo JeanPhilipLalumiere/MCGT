@@ -12,9 +12,9 @@ Exemple (pipeline minimal, par défaut) :
 
 Exemple (MC complet historique) :
   python scripts/10_global_scan/plot_fig03_convergence.py \\
-    --results assets/zz-data/chapter10/10_mc_results.circ.csv \\
+    --results assets/zz-data/10_global_scan/10_mc_results.circ.csv \\
     --p95-col p95_20_300_recalc \\
-    --out assets/zz-figures/chapter10/10_fig_03_convergence.png \\
+    --out assets/zz-figures/10_global_scan/10_fig_03_convergence.png \\
     --B 2000 --seed 12345 --dpi 150
 """
 
@@ -128,7 +128,7 @@ def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         "--results",
-        default="assets/zz-data/chapter10/10_results_global_scan.csv",
+        default="assets/zz-data/10_global_scan/10_results_global_scan.csv",
         help="CSV results (avec une colonne p95).",
     )
     p.add_argument(
@@ -136,7 +136,7 @@ def main():
     )
     p.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_03_convergence.png",
+        default="assets/zz-figures/10_global_scan/10_fig_03_convergence.png",
         help="PNG de sortie",
     )
     p.add_argument("--B", type=int, default=2000, help="Nombre de réplicats bootstrap")

@@ -4,22 +4,22 @@
   "warnings": 0,
   "files_checked": [
     {
-      "rel_path": "assets/zz-data/chapter09/09_comparison_milestones.csv",
+      "rel_path": "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv",
       "ok": true,
       "notes": []
     },
     {
-      "rel_path": "assets/zz-data/chapter09/09_phases_mcgt.csv",
+      "rel_path": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
       "ok": true,
       "notes": []
     },
     {
-      "rel_path": "assets/zz-data/chapter10/10_mc_results.csv",
+      "rel_path": "assets/zz-data/10_global_scan/10_mc_results.csv",
       "ok": true,
       "notes": []
     },
     {
-      "rel_path": "assets/zz-data/chapter10/10_mc_samples.csv",
+      "rel_path": "assets/zz-data/10_global_scan/10_mc_samples.csv",
       "ok": true,
       "notes": []
     }

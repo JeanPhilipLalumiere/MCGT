@@ -127,7 +127,7 @@ def main():
     # ----------------------------------------------------------------------
     # 1. Chargement des données
     # ----------------------------------------------------------------------
-    data_file = "assets/zz-data/chapter04/04_dimensionless_invariants.csv"
+    data_file = "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv"
     df = pd.read_csv(data_file)
     T = df["T_Gyr"].values
     I1 = df["I1"].values
@@ -178,7 +178,7 @@ def main():
     # ----------------------------------------------------------------------
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
-    output_fig = "assets/zz-figures/chapter04/04_fig_01_potential.png"
+    output_fig = "assets/zz-figures/04_expansion_supernovae/04_fig_01_potential.png"
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")

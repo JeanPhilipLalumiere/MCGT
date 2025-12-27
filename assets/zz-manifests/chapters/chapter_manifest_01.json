@@ -2,9 +2,9 @@
   "chapter": 1,
   "title": "introduction-applications",
   "paths": {
-    "data_dir": "assets/zz-data/chapter01",
+    "data_dir": "assets/zz-data/01_invariants_stability",
     "scripts_dir": "scripts/01_invariants_stability",
-    "figures_dir": "assets/zz-figures/chapter01",
+    "figures_dir": "assets/zz-figures/01_invariants_stability",
     "configs": [
       "conventions.md",
       "config/mcgt-global-config.ini"
@@ -12,29 +12,29 @@
   },
   "files": {
     "data_inputs": [
-      "assets/zz-data/chapter01/01_P_vs_T.dat",
-      "assets/zz-data/chapter01/01_timeline_milestones.csv",
-      "assets/zz-data/chapter01/01_dimensionless_invariants.csv"
+      "assets/zz-data/01_invariants_stability/01_P_vs_T.dat",
+      "assets/zz-data/01_invariants_stability/01_timeline_milestones.csv",
+      "assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv"
     ],
     "data_outputs": [
-      "assets/zz-data/chapter01/01_P_derivative_initial.csv",
-      "assets/zz-data/chapter01/01_P_derivative_optimized.csv",
-      "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
-      "assets/zz-data/chapter01/01_optimized_data.csv",
-      "assets/zz-data/chapter01/01_relative_error_timeline.csv"
+      "assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv",
+      "assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv",
+      "assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv",
+      "assets/zz-data/01_invariants_stability/01_optimized_data.csv",
+      "assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv"
     ],
     "figures": [
-      "assets/zz-figures/chapter01/01_fig_01_early_plateau.png",
-      "assets/zz-figures/chapter01/01_fig_02_logistic_calibration.png",
-      "assets/zz-figures/chapter01/01_fig_03_relative_error_timeline.png",
-      "assets/zz-figures/chapter01/01_fig_04_p_vs_t_evolution.png",
-      "assets/zz-figures/chapter01/01_fig_05_i1_vs_t.png",
-      "assets/zz-figures/chapter01/01_fig_06_p_derivative_comparison.png"
+      "assets/zz-figures/01_invariants_stability/01_fig_01_early_plateau.png",
+      "assets/zz-figures/01_invariants_stability/01_fig_02_logistic_calibration.png",
+      "assets/zz-figures/01_invariants_stability/01_fig_03_relative_error_timeline.png",
+      "assets/zz-figures/01_invariants_stability/01_fig_04_p_vs_t_evolution.png",
+      "assets/zz-figures/01_invariants_stability/01_fig_05_i1_vs_t.png",
+      "assets/zz-figures/01_invariants_stability/01_fig_06_p_derivative_comparison.png"
     ],
     "metas": [
-      "assets/zz-data/chapter01/01_P_vs_T.meta.json",
-      "assets/zz-data/chapter01/01_optimized_data.meta.json",
-      "assets/zz-figures/chapter01/01_fig_*.meta.json"
+      "assets/zz-data/01_invariants_stability/01_P_vs_T.meta.json",
+      "assets/zz-data/01_invariants_stability/01_optimized_data.meta.json",
+      "assets/zz-figures/01_invariants_stability/01_fig_*.meta.json"
     ],
     "others": [
       "01-introduction-applications/CHAPTER1_GUIDE.txt"
@@ -50,9 +50,9 @@
     "scripts/01_invariants_stability/plot_fig06_p_derivative_comparison.py"
   ],
   "meta_expected": [
-    "assets/zz-data/chapter01/01_P_vs_T.meta.json",
-    "assets/zz-data/chapter01/01_optimized_data.meta.json",
-    "assets/zz-figures/chapter01/01_fig_*.meta.json"
+    "assets/zz-data/01_invariants_stability/01_P_vs_T.meta.json",
+    "assets/zz-data/01_invariants_stability/01_optimized_data.meta.json",
+    "assets/zz-figures/01_invariants_stability/01_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

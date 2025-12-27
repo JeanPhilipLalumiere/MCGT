@@ -9,10 +9,10 @@ Produit un PNG.
 
 Usage example (lancé depuis la racine du dépôt MCGT) :
 python scripts/10_global_scan/plot_fig01_iso_p95_maps.py \
-  --results assets/zz-data/chapter10/10_results_global_scan.csv \
+  --results assets/zz-data/10_global_scan/10_results_global_scan.csv \
   --p95-col p95_20_300_recalc \
   --m1-col m1 --m2-col m2 \
-  --out assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png \
+  --out assets/zz-figures/10_global_scan/10_fig_01_iso_p95_maps.png \
   --levels 16 --cmap viridis --dpi 300
 
 Options notables:
@@ -161,7 +161,7 @@ def main() -> None:
         "--results",
         default=None,
         help="Fichier CSV de résultats (doit contenir m1, m2 et p95). "
-        "Par défaut : assets/zz-data/chapter10/10_results_global_scan.csv",
+        "Par défaut : assets/zz-data/10_global_scan/10_results_global_scan.csv",
     )
     ap.add_argument(
         "--p95-col",
@@ -182,7 +182,7 @@ def main() -> None:
         "--out",
         default=None,
         help="Fichier PNG de sortie. "
-        "Par défaut : assets/zz-figures/chapter10/10_fig_01_iso_p95_maps.png",
+        "Par défaut : assets/zz-figures/10_global_scan/10_fig_01_iso_p95_maps.png",
     )
     ap.add_argument(
         "--config",

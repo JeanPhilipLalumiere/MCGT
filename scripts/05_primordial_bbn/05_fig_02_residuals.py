@@ -64,12 +64,12 @@ Fig. 02 – Diagramme D/H : modèle vs observations (Chapter 5)
     * un encadré résumant les métriques de calibration (max epsilon).
 
 Entrées (par défaut) :
-- assets/zz-data/chapter05/05_bbn_milestones.csv
-- assets/zz-data/chapter05/05_bbn_data.csv
-- assets/zz-data/chapter05/05_bbn_params.json  (optionnel)
+- assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv
+- assets/zz-data/05_primordial_bbn/05_bbn_data.csv
+- assets/zz-data/05_primordial_bbn/05_bbn_params.json  (optionnel)
 
 Sortie :
-- assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png
+- assets/zz-figures/05_primordial_bbn/05_fig_02_dh_model_vs_obs.png
 """
 
 import os

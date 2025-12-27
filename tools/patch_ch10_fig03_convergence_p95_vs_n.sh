@@ -29,9 +29,9 @@ Exemple (pipeline minimal, par défaut) :
 
 Exemple (MC complet historique) :
   python scripts/10_global_scan/plot_fig03_convergence_p95_vs_n.py \\
-    --results assets/zz-data/chapter10/10_mc_results.circ.csv \\
+    --results assets/zz-data/10_global_scan/10_mc_results.circ.csv \\
     --p95-col p95_20_300_recalc \\
-    --out assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png \\
+    --out assets/zz-figures/10_global_scan/10_fig_03_convergence_p95_vs_n.png \\
     --B 2000 --seed 12345 --dpi 150
 """
 from __future__ import annotations
@@ -122,13 +122,13 @@ def main():
     p = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument(
         "--results",
-        default="assets/zz-data/chapter10/10_results_global_scan.csv",
+        default="assets/zz-data/10_global_scan/10_results_global_scan.csv",
         help="CSV results (avec une colonne p95).",
     )
     p.add_argument("--p95-col", default=None, help="Nom de la colonne p95 (auto si omis)")
     p.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_03_convergence_p95_vs_n.png",
+        default="assets/zz-figures/10_global_scan/10_fig_03_convergence_p95_vs_n.png",
         help="PNG de sortie",
     )
     p.add_argument("--B", type=int, default=2000, help="Nombre de réplicats bootstrap")

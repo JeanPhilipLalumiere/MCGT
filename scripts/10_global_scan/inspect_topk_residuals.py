@@ -88,11 +88,11 @@ def main(args):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--samples", default="assets/zz-data/chapter10/10_mc_samples.csv")
-    p.add_argument("--ref-grid", default="assets/zz-data/chapter09/09_phases_imrphenom.csv")
-    p.add_argument("--best-json", default="assets/zz-data/chapter10/10_mc_best.json")
+    p.add_argument("--samples", default="assets/zz-data/10_global_scan/10_mc_samples.csv")
+    p.add_argument("--ref-grid", default="assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv")
+    p.add_argument("--best-json", default="assets/zz-data/10_global_scan/10_mc_best.json")
     p.add_argument("--ids", default=None, help="liste csv d'ids (ex: 3903,1624)")
     p.add_argument("--k", type=int, default=50, help="K top if --ids not provided")
-    p.add_argument("--out-dir", default="assets/zz-data/chapter10/topk_residuals")
+    p.add_argument("--out-dir", default="assets/zz-data/10_global_scan/topk_residuals")
     args = p.parse_args()
     main(args)

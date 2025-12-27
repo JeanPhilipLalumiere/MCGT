@@ -32,16 +32,16 @@
     }
   },
   "path_aliases": {
-    "zz-donnees/chapitre7": "assets/zz-data/chapter07",
-    "zz-donnees/chapitre8": "assets/zz-data/chapter08",
-    "zz-donnees/chapitre9": "assets/zz-data/chapter09",
-    "zz-donnees/chapitre10": "assets/zz-data/chapter10"
+    "zz-donnees/chapitre7": "assets/zz-data/07_bao_geometry",
+    "zz-donnees/chapitre8": "assets/zz-data/08_sound_horizon",
+    "zz-donnees/chapitre9": "assets/zz-data/09_dark_energy_cpl",
+    "zz-donnees/chapitre10": "assets/zz-data/10_global_scan"
   },
   "aliases": {
-    "zz-donnees/chapitre7": "assets/zz-data/chapter07",
-    "zz-donnees/chapitre8": "assets/zz-data/chapter08",
-    "zz-donnees/chapitre9": "assets/zz-data/chapter09",
-    "zz-donnees/chapitre10": "assets/zz-data/chapter10"
+    "zz-donnees/chapitre7": "assets/zz-data/07_bao_geometry",
+    "zz-donnees/chapitre8": "assets/zz-data/08_sound_horizon",
+    "zz-donnees/chapitre9": "assets/zz-data/09_dark_energy_cpl",
+    "zz-donnees/chapitre10": "assets/zz-data/10_global_scan"
   },
   "constants": {
     "H0": 67.36,

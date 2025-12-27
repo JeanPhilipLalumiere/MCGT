@@ -38,7 +38,7 @@ c1 = 0.1
 c2 = 0.01
 # Fichiers d’entrée/sortie (si utilisés)
 camb_ini = config/camb_exact_plateau.ini
-results_csv = assets/zz-data/chapter06/06_cmb_full_results.csv
+results_csv = assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv
 
 [gw]
 # Fenêtres de métriques en Hz

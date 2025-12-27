@@ -4,8 +4,8 @@ import numpy as np
 import pathlib as p
 import re
 
-IMR = p.Path("assets/zz-data/chapter09/09_phases_imrphenom.csv")
-MCGT = p.Path("assets/zz-data/chapter09/09_phases_mcgt.csv")
+IMR = p.Path("assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv")
+MCGT = p.Path("assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv")
 OUT = p.Path("zz-out/chapter09/fig02_input.csv")
 
 

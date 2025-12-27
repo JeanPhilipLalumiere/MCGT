@@ -37,11 +37,11 @@ Depuis la racine du dépôt `MCGT` :
   `numpy`, `pandas`, `scipy`, `matplotlib`, etc. ;
 - Fichiers d’entrée disponibles :
 
-  - `assets/zz-data/chapter04/04_P_vs_T.dat`
+  - `assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat`
     – grille temporelle harmonisée `T_Gyr` + profil P(T) issu des chapitres 01–02 ;
   - (optionnel mais recommandé) fichiers f(R) du chapitre 03 si `generate_data_chapter04.py`
     importe `f_R` / `f_RR` pour construire I₃ ; typiquement :
-    `assets/zz-data/chapter03/03_fR_stability_data.csv` ou équivalent.
+    `assets/zz-data/03_stability_domain/03_fR_stability_data.csv` ou équivalent.
 
 Le pipeline minimal **ne régénère pas** `04_P_vs_T.dat` : ce fichier est considéré comme un
 input stable obtenu en amont (CH01–02).
@@ -69,7 +69,7 @@ Ce script exécute la séquence **canonique minimale** suivante :
    `python scripts/04_expansion_supernovae/10_fig04_relative_deviations.py`
 
 3. **Résumé final** (optionnel dans le script shell) : inventaire des fichiers
-   de `assets/zz-data/chapter04/` et `assets/zz-figures/chapter04/`.
+   de `assets/zz-data/04_expansion_supernovae/` et `assets/zz-figures/04_expansion_supernovae/`.
 
 En fin d’exécution, on s’attend à voir un message du type :
 
@@ -98,7 +98,7 @@ Scripts utilisés par le pipeline minimal :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter04/`
+- `assets/zz-data/04_expansion_supernovae/`
 
 Fichiers importants pour le pipeline minimal :
 
@@ -128,7 +128,7 @@ et documentées dans le manuscrit du chapitre 04.
 
 Répertoire :
 
-- `assets/zz-figures/chapter04/`
+- `assets/zz-figures/04_expansion_supernovae/`
 
 Figures principales :
 
@@ -146,7 +146,7 @@ Figures principales :
 Depuis la racine du dépôt :
 
 ```bash
-ls assets/zz-data/chapter04/04_P_vs_T.dat
+ls assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat
 ```
 
 Optionnellement, un petit contrôle rapide en Python :
@@ -154,7 +154,7 @@ Optionnellement, un petit contrôle rapide en Python :
 ```bash
 python - << 'PY'
 import numpy as np
-T, P = np.loadtxt("assets/zz-data/chapter04/04_P_vs_T.dat", unpack=True)
+T, P = np.loadtxt("assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat", unpack=True)
 print("n_points =", T.size, "T_min =", T.min(), "T_max =", T.max())
 PY
 ```
@@ -175,15 +175,15 @@ python scripts/04_expansion_supernovae/generate_data_chapter04.py
 
 Ce script effectue typiquement les opérations suivantes (schéma) :
 
-1. Charge `assets/zz-data/chapter04/04_P_vs_T.dat` ;
+1. Charge `assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat` ;
 2. Applique l’interpolation/lissage nécessaire sur P(T)  
    (souvent PCHIP en `log10(T_Gyr)` / `log10(P)` pour homogénéité multi‑chapitres) ;
 3. Si activé, importe un profil `f_R` provenant du chapitre 03 (par ex. via
-   `assets/zz-data/chapter03/03_fR_stability_data.csv`) et l’interpole sur la même grille `T_Gyr` ;
+   `assets/zz-data/03_stability_domain/03_fR_stability_data.csv`) et l’interpole sur la même grille `T_Gyr` ;
 4. Construit les invariants I₁, I₂, I₃ selon les définitions du modèle ;
 5. Écrit le tableau final dans :
 
-   - `assets/zz-data/chapter04/04_dimensionless_invariants.csv`
+   - `assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv`
 
 6. Journalise un résumé (min/max, présence éventuelle de valeurs aberrantes) et retourne
    avec un code de sortie `0` en cas de succès.
@@ -204,7 +204,7 @@ python scripts/04_expansion_supernovae/10_fig03_invariants_vs_T.py
 python scripts/04_expansion_supernovae/10_fig04_relative_deviations.py
 ```
 
-Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter04/`.
+Chaque script met à jour la figure correspondante dans `assets/zz-figures/04_expansion_supernovae/`.
 
 ---
 
@@ -214,18 +214,18 @@ Dans le cadre du pipeline minimal canonique, les **produits principaux** de CH04
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter04/04_P_vs_T.dat`  
+- `assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat`  
   → profil P(T) harmonisé sur la grille temporelle standard MCGT.
 
-- `assets/zz-data/chapter04/04_dimensionless_invariants.csv`  
+- `assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv`  
   → invariants adimensionnels I₁, I₂, I₃ sur cette même grille.
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png`
-- `assets/zz-figures/chapter04/04_fig_02_invariants_histogram.png`
-- `assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png`
-- `assets/zz-figures/chapter04/04_fig_04_relative_deviations.png`
+- `assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png`
+- `assets/zz-figures/04_expansion_supernovae/04_fig_02_invariants_histogram.png`
+- `assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png`
+- `assets/zz-figures/04_expansion_supernovae/04_fig_04_relative_deviations.png`
 
 Ces fichiers devraient apparaître (et être à jour) dans les manifests du projet.
 

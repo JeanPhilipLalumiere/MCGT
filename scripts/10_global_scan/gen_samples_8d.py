@@ -47,12 +47,12 @@ def _sobol_sample(n: int, dim: int, scramble: bool, seed: int) -> np.ndarray:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Generate Sobol 8D samples for CH10.")
-    ap.add_argument("--config", default="assets/zz-data/chapter10/10_mc_config.json")
+    ap.add_argument("--config", default="assets/zz-data/10_global_scan/10_mc_config.json")
     ap.add_argument("--n", type=int, default=5000)
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--scramble", choices=["on", "off"], default="on")
     ap.add_argument("--sobol-offset", type=int, default=None)
-    ap.add_argument("--out", default="assets/zz-data/chapter10/10_mc_samples.csv")
+    ap.add_argument("--out", default="assets/zz-data/10_global_scan/10_mc_samples.csv")
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args()
 

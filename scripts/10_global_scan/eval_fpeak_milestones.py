@@ -20,7 +20,7 @@ def main() -> int:
     ap.add_argument("--ref-grid", required=False, help="Reference grid (unused).")
     ap.add_argument("--jalons", required=False, help="Input jalons ref (unused).")
     ap.add_argument("--out", required=True, help="Output milestones CSV")
-    ap.add_argument("--results", default="assets/zz-data/chapter10/10_mc_results.csv")
+    ap.add_argument("--results", default="assets/zz-data/10_global_scan/10_mc_results.csv")
     args = ap.parse_args()
 
     df = pd.read_csv(args.results)

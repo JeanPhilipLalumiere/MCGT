@@ -21,7 +21,7 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
 - [ ] Sources LaTeX (07-perturbations-scalaires/):
       • 07_perturbations_scalaires_conceptuel.tex
       • 07_perturbations_scalaires_details.tex
-- [ ] Données (assets/zz-data/chapter07/):
+- [ ] Données (assets/zz-data/07_bao_geometry/):
       • 07_cs2_matrix.csv
       • 07_delta_phi_matrix.csv
       • 07_phase_run.csv
@@ -33,7 +33,7 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
       • 07_perturbations_boundary.csv
       • 07_perturbations_params.json
       • 07_perturbations_meta.json
-- [ ] Figures (assets/zz-figures/chapter07/):
+- [ ] Figures (assets/zz-figures/07_bao_geometry/):
       • fig_00_loglog_sampling_test.png
       • fig_01_cs2_heatmap_k_a.png
       • fig_02_delta_phi_heatmap_k_a.png
@@ -136,17 +136,17 @@ SESSION — Perturbations Scalaires : [TERMINEE - SCIENTIFIQUEMENT VALIDEE]
 
 [VALIDATION AUTOMATISÉE]
 - [ ] JSON :
-      python assets/zz-schemas/validate_json.py assets/zz-schemas/07_params_perturbations.schema.json assets/zz-data/chapter07/07_perturbations_params.json
-      python assets/zz-schemas/validate_json.py assets/zz-schemas/07_meta_perturbations.schema.json   assets/zz-data/chapter07/07_perturbations_meta.json
+      python assets/zz-schemas/validate_json.py assets/zz-schemas/07_params_perturbations.schema.json assets/zz-data/07_bao_geometry/07_perturbations_params.json
+      python assets/zz-schemas/validate_json.py assets/zz-schemas/07_meta_perturbations.schema.json   assets/zz-data/07_bao_geometry/07_perturbations_meta.json
 - [ ] CSV  :
-      python assets/zz-schemas/validate_csv_table.py <schéma_tabulaire_approprié> assets/zz-data/chapter07/07_cs2_matrix.csv
+      python assets/zz-schemas/validate_csv_table.py <schéma_tabulaire_approprié> assets/zz-data/07_bao_geometry/07_cs2_matrix.csv
       (répéter pour delta_phi_matrix / main_data / invariants si schémas disponibles)
 - [ ] CI   : zz-workflows/ci.yml lance pytest + validateurs + diag manifests.
 
 [INTÉGRATION LaTeX]
 - [ ] pdflatex -interaction=nonstopmode 07-perturbations-scalaires/07_perturbations_scalaires_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 07-perturbations-scalaires/07_perturbations_scalaires_details.tex
-- [ ] Chemins images → assets/zz-figures/chapter07/ (casse & relativité des chemins).
+- [ ] Chemins images → assets/zz-figures/07_bao_geometry/ (casse & relativité des chemins).
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer les figures (avec checksum si activé).

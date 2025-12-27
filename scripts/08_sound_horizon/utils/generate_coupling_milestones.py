@@ -77,7 +77,7 @@ import pandas as pd
 
 # Répertoires
 BASE_DIR = os.path.dirname(__file__)
-DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../assets/zz-data/chapter08"))
+DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../assets/zz-data/08_sound_horizon"))
 
 # 1) Charger BAO depuis le CSV final
 df_bao = pd.read_csv(os.path.join(DATA_DIR, "08_bao_data.csv"))

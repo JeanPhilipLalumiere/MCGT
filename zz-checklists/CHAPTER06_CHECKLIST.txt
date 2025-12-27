@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 - [ ] Sources LaTeX (06-rayonnement-cmb/):
       • 06_cmb_conceptuel.tex
       • 06_cmb_details.tex
-- [ ] Données (assets/zz-data/chapter06/):
+- [ ] Données (assets/zz-data/06_early_growth_jwst/):
       • 06_cls_spectrum_lcdm.dat
       • 06_cls_spectrum.dat
       • 06_delta_cls.csv
@@ -30,7 +30,7 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
       • 06_hubble_mcgt.dat
       • 06_delta_Tm_scan.csv   (optionnel)
       • 06_params_cmb.json
-- [ ] Figures (assets/zz-figures/chapter06/):
+- [ ] Figures (assets/zz-figures/06_early_growth_jwst/):
       • fig_01_cmb_dataflow_diagram.png
       • fig_02_cls_lcdm_vs_mcgt.png
       • fig_03_delta_cls_relative.png
@@ -117,14 +117,14 @@ CHECKLIST — CHAPITRE 06 (Rayonnement CMB / CAMB, MCGT)
 - [ ] Journal : logs d’exécution sans erreurs ; archiver si CI active.
 
 [VALIDATION AUTOMATISÉE]
-- [ ] JSON : validate_json.py  assets/zz-schemas/06_cmb_params.schema.json  assets/zz-data/chapter06/06_params_cmb.json
+- [ ] JSON : validate_json.py  assets/zz-schemas/06_cmb_params.schema.json  assets/zz-data/06_early_growth_jwst/06_params_cmb.json
 - [ ] CSV  : validate_csv_table.py (schéma tabulaire approprié) pour delta_rs/chi2 si défini.
 - [ ] CI   : zz-workflows/ci.yml lance pytest + validateurs + diag manifests.
 
 [INTÉGRATION LATEX]
 - [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 06-rayonnement-cmb/06_cmb_details.tex
-- [ ] Chemins images → assets/zz-figures/chapter06/ (casse & relativité des chemins).
+- [ ] Chemins images → assets/zz-figures/06_early_growth_jwst/ (casse & relativité des chemins).
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer les 5 figures avec checksums (si activé).

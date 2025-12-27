@@ -14,8 +14,8 @@ MANIFEST_MASTER = ROOT / "assets/zz-manifests" / "manifest_master.json"
 
 # Fichiers à ajouter pour le chapitre 01
 TARGETS = [
-    "assets/zz-data/chapter01/01_P_vs_T.meta.json",
-    "assets/zz-data/chapter01/01_optimized_data.meta.json",
+    "assets/zz-data/01_invariants_stability/01_P_vs_T.meta.json",
+    "assets/zz-data/01_invariants_stability/01_optimized_data.meta.json",
     "01-introduction-applications/CHAPTER1_GUIDE.txt",
 ]
 

@@ -1080,7 +1080,7 @@
     },
     {
       "path": "scripts/04_expansion_supernovae/04_fig_01_potential.py",
-      "sha256": "a8c80e50a47d235d4839f4ccde24b8998342548c2393f6c3e4da09089a8a2dea"
+      "sha256": "f5d3ab5a9958e1b0cf48a1800505981d24e54a60f40ffa80e969504e3ab52206"
     },
     {
       "path": "scripts/04_expansion_supernovae/04_fig_02_evolution.py",
@@ -1088,7 +1088,7 @@
     },
     {
       "path": "scripts/04_expansion_supernovae/04_fig_03_invariants.py",
-      "sha256": "86d7e4e62d9c2ce0cb2f3337a729c922cd448d3812f224dce54289498cdd6474"
+      "sha256": "4354673419c555eefa25b79d06d28f5b007cbe95fe4d5e88cfee81340cf8185f"
     },
     {
       "path": "scripts/04_expansion_supernovae/04_fig_04_relative_deviations.py",
@@ -1860,7 +1860,7 @@
     },
     {
       "path": "tools/generate_manifest_from_repo.py",
-      "sha256": "c1d58fbb343229651cf4c16daf3ca48fad30ca54983ce27f0dc9dfda35bdc8d7"
+      "sha256": "680060ace0781e95ab5e1a58415da39678b895d703f7932fbf6923c37fa39dc6"
     },
     {
       "path": "tools/green_and_merge_pr29.sh",

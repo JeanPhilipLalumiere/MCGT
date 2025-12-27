@@ -119,11 +119,26 @@ if any(arg.startswith("--out") for arg in sys.argv):
         pass
 # === [/PASS5B-SHIM] ===
 
+import argparse
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Trace la figure du potentiel scalaire (chapitre 04)."
+    )
+    parser.add_argument(
+        "--out",
+        default="assets/zz-figures/04_expansion_supernovae/04_fig_01_potential.png",
+        help="Chemin de sortie pour la figure.",
+    )
+    return parser.parse_args()
+
+
 def main():
+    global args
+    args = parse_args()
     # ----------------------------------------------------------------------
     # 1. Chargement des données
     # ----------------------------------------------------------------------
@@ -178,7 +193,7 @@ def main():
     # ----------------------------------------------------------------------
     # 6. Sauvegarde de la figure
     # ----------------------------------------------------------------------
-    output_fig = "assets/zz-figures/04_expansion_supernovae/04_fig_01_potential.png"
+    output_fig = args.out
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(output_fig)
     print(f"Fig. sauvegardée : {output_fig}")

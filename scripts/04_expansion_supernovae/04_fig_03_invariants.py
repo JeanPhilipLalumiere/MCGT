@@ -119,13 +119,30 @@ if any(arg.startswith("--out") for arg in sys.argv):
         pass
 # === [/PASS5B-SHIM] ===
 
+import argparse
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Trace la figure des invariants adimensionnels (chapitre 04)."
+    )
+    parser.add_argument(
+        "--out",
+        default="assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants.png",
+        help="Chemin de sortie pour la figure.",
+    )
+    return parser.parse_args()
+
+
 def main():
+    global args
+    args = parse_args()
     # 1. Chargement des données
-    df = pd.read_csv("assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv")
+    df = pd.read_csv(
+        "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv"
+    )
     T = df["T_Gyr"].values
     I1 = df["I1"].values
     I2 = df["I2"].values
@@ -157,7 +174,7 @@ def main():
     ax.grid(True, which="both", linestyle=":", linewidth=0.5)
 
     # 5. Sauvegarde
-    out = "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants.png"
+    out = args.out
     fig.subplots_adjust(left=0.04, right=0.98, bottom=0.06, top=0.96)
     safe_save(out)
     print(f"Figure enregistrée : {out}")

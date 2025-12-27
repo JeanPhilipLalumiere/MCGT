@@ -34,8 +34,8 @@ Sorties
 Exemple
 -------
 python scripts/09_dark_energy_cpl/apply_poly_unwrap_rebranch.py \\
-  --csv assets/zz-data/chapter09/09_phases_mcgt.csv \\
-  --meta assets/zz-data/chapter09/09_metrics_phase.json \\
+  --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \\
+  --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \\
   --degree 4 --basis log10 --fit-window 30 250 --metrics-window 20 300 --backup
 
 """
@@ -69,7 +69,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument(
         "--meta",
         type=Path,
-        default=Path("assets/zz-data/chapter09/09_metrics_phase.json"),
+        default=Path("assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json"),
         help="JSON méta (mis à jour ou créé)",
     )
     ap.add_argument(

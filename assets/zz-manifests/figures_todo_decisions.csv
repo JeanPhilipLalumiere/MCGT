@@ -51,7 +51,7 @@ chapter08,fig_05_residuals,,,,PUBLIC,
 chapter08,fig_06_pulls,,,,PUBLIC,
 chapter08,fig_07_chi2_profile,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,INTERNAL_ONLY,auto: INTERNAL_ONLY (coverage-only; pas de PNG/figure_manifest actuellement)
 chapter09,fig_00_p95_check_control,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan
-chapter09,fig_01_phase_overlay,MANIFEST_COVERAGE_NO_PNG,manifest+coverage mais PNG manquant; has_script=1  has_data=0,assets/zz-figures/chapter09/09_fig_01_phase_overlay.png,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
+chapter09,fig_01_phase_overlay,MANIFEST_COVERAGE_NO_PNG,manifest+coverage mais PNG manquant; has_script=1  has_data=0,assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
 chapter09,fig_02_residual_phase,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=1  has_data=0,,REBUILD_LATER,auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
 chapter09,fig_03_hist_absdphi_20_300,,,,PUBLIC,
 chapter09,fig_03_raw_bins30,COVERAGE_ONLY,coverage sans PNG ni figure_manifest; has_script=0  has_data=0,,PUBLIC,nan

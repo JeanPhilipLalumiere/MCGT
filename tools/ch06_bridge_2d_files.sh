@@ -8,8 +8,8 @@ cd "$ROOT"
 echo "[ch06_bridge_2d] Bridge des fichiers *_2d.csv -> *2D.csv si nécessaire"
 
 pairs=(
-  "assets/zz-data/chapter06/06_cmb_chi2_scan_2d.csv assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv"
-  "assets/zz-data/chapter06/06_delta_rs_scan_2d.csv assets/zz-data/chapter06/06_delta_rs_scan2D.csv"
+  "assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan_2d.csv assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv"
+  "assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_2d.csv assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv"
 )
 
 for entry in "${pairs[@]}"; do

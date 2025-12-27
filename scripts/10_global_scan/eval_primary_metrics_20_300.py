@@ -8,10 +8,10 @@ pour un catalogue d'échantillons 8D.
 
 Usage (exemple) :
 python scripts/10_global_scan/eval_metrics_principal_20_300.py \
-  --samples assets/zz-data/chapter10/10_mc_samples.csv \
-  --ref-grid assets/zz-data/chapter09/09_phases_imrphenom.csv \
-  --out-results assets/zz-data/chapter10/10_mc_results.csv \
-  --out-best    assets/zz-data/chapter10/10_mc_best.json \
+  --samples assets/zz-data/10_global_scan/10_mc_samples.csv \
+  --ref-grid assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+  --out-results assets/zz-data/10_global_scan/10_mc_results.csv \
+  --out-best    assets/zz-data/10_global_scan/10_mc_best.json \
   --batch 256 --n-workers 8 --K 50 --overwrite --log-level INFO
 
 Sorties :
@@ -278,12 +278,12 @@ def parse_args(argv=None):
     )
     p.add_argument(
         "--out-results",
-        default="assets/zz-data/chapter10/10_mc_results.csv",
+        default="assets/zz-data/10_global_scan/10_mc_results.csv",
         help="CSV résultats (sortie)",
     )
     p.add_argument(
         "--out-best",
-        default="assets/zz-data/chapter10/10_mc_best.json",
+        default="assets/zz-data/10_global_scan/10_mc_best.json",
         help="JSON top-K (sortie)",
     )
     p.add_argument(

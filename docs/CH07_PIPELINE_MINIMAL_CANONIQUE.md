@@ -75,8 +75,8 @@ Ce script exécute la séquence **canonique minimale** suivante :
 En fin d’exécution, le script affiche un résumé du type :
 
 - `[WARN] generate_data_chapter07.py a terminé avec un code 1 (c_s² hors-borne… – échec attendu)`  
-- `[INFO] Raw unifié écrit → assets/zz-data/chapter07/07_phase_run.csv`  
-- `[INFO] Méta écrit → assets/zz-data/chapter07/07_meta_perturbations.json`  
+- `[INFO] Raw unifié écrit → assets/zz-data/07_bao_geometry/07_phase_run.csv`  
+- `[INFO] Méta écrit → assets/zz-data/07_bao_geometry/07_meta_perturbations.json`  
 - `[DONE] Pipeline minimal CH07 terminé.`
 
 ---
@@ -110,7 +110,7 @@ Utilitaires :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter07/`
+- `assets/zz-data/07_bao_geometry/`
 
 Fichiers importants pour le pipeline minimal :
 
@@ -136,7 +136,7 @@ Dans une exécution « pleine » de CH07 (au‑delà du minimal), on attend é
 
 Répertoire :
 
-- `assets/zz-figures/chapter07/`
+- `assets/zz-figures/07_bao_geometry/`
 
 Figures principales :
 
@@ -217,16 +217,16 @@ Ce script :
 2. appelle les fonctions de solveur MCGT `compute_cs2` et `compute_delta_phi` ;
 3. agrège les résultats bruts dans un tableau de contrôle et les écrit dans :
 
-   - `assets/zz-data/chapter07/07_phase_run.csv`
+   - `assets/zz-data/07_bao_geometry/07_phase_run.csv`
 
 4. assemble un jeu de **métadonnées de run** et les écrit dans :
 
-   - `assets/zz-data/chapter07/07_meta_perturbations.json`.
+   - `assets/zz-data/07_bao_geometry/07_meta_perturbations.json`.
 
 En cas de succès, on observe des messages du type :
 
-- `[INFO] Raw unifié écrit → assets/zz-data/chapter07/07_phase_run.csv (640 lignes)`  
-- `[INFO] Méta écrit → assets/zz-data/chapter07/07_meta_perturbations.json`  
+- `[INFO] Raw unifié écrit → assets/zz-data/07_bao_geometry/07_phase_run.csv (640 lignes)`  
+- `[INFO] Méta écrit → assets/zz-data/07_bao_geometry/07_meta_perturbations.json`  
 - `[INFO] Terminé avec succès.`
 
 ### 5.4. Figures principales (Fig. 01 à 07)
@@ -244,7 +244,7 @@ python scripts/07_bao_geometry/10_fig06_comparison.py
 python scripts/07_bao_geometry/10_fig07_invariant_i2.py
 ```
 
-Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter07/`.
+Chaque script met à jour la figure correspondante dans `assets/zz-figures/07_bao_geometry/`.
 
 ---
 
@@ -254,34 +254,34 @@ Dans le cadre du pipeline minimal canonique, les **produits principaux** de CH07
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter07/07_phase_run.csv`  
+- `assets/zz-data/07_bao_geometry/07_phase_run.csv`  
   → échantillon de contrôle contenant les valeurs brutes c_s²(k, a) et δφ/φ(k, a)
     sur une petite grille canonique.
 
-- `assets/zz-data/chapter07/07_meta_perturbations.json`  
+- `assets/zz-data/07_bao_geometry/07_meta_perturbations.json`  
   → métadonnées du run minimal (version, n_points, liste des fichiers attendus, etc.).
 
 En exécution complète, on considère également comme produits structurants :
 
-- `assets/zz-data/chapter07/07_cs2_matrix.csv`
-- `assets/zz-data/chapter07/07_delta_phi_matrix.csv`
-- `assets/zz-data/chapter07/07_dcs2_vs_k.csv`
-- `assets/zz-data/chapter07/07_ddelta_phi_vs_k.csv`
-- `assets/zz-data/chapter07/07_perturbations_main_data.csv` (ou `07_scalar_perturbations_results.csv`)
-- `assets/zz-data/chapter07/07_scalar_invariants.csv`
-- `assets/zz-data/chapter07/07_perturbations_domain.csv`
-- `assets/zz-data/chapter07/07_perturbations_boundary.csv`
-- `assets/zz-data/chapter07/07_perturbations_params.json`
+- `assets/zz-data/07_bao_geometry/07_cs2_matrix.csv`
+- `assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv`
+- `assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv`
+- `assets/zz-data/07_bao_geometry/07_ddelta_phi_vs_k.csv`
+- `assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv` (ou `07_scalar_perturbations_results.csv`)
+- `assets/zz-data/07_bao_geometry/07_scalar_invariants.csv`
+- `assets/zz-data/07_bao_geometry/07_perturbations_domain.csv`
+- `assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv`
+- `assets/zz-data/07_bao_geometry/07_perturbations_params.json`
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter07/07_fig_01_cs2_heatmap.png`
-- `assets/zz-figures/chapter07/07_fig_02_delta_phi_heatmap.png`
-- `assets/zz-figures/chapter07/07_fig_03_invariant_i1.png`
-- `assets/zz-figures/chapter07/07_fig_04_dcs2_vs_k.png`
-- `assets/zz-figures/chapter07/07_fig_05_ddelta_phi_vs_k.png`
-- `assets/zz-figures/chapter07/07_fig_06_comparison.png`
-- `assets/zz-figures/chapter07/07_fig_07_invariant_i2.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_01_cs2_heatmap.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_02_delta_phi_heatmap.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_03_invariant_i1.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_04_dcs2_vs_k.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_05_ddelta_phi_vs_k.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_06_comparison.png`
+- `assets/zz-figures/07_bao_geometry/07_fig_07_invariant_i2.png`
 - (optionnel) ``
 
 ---

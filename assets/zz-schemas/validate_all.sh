@@ -62,8 +62,8 @@ python - <<'PY'
 import json, pathlib, sys
 
 probes = [
-  ("assets/zz-data/chapter07/07_meta_perturbations.json", "files"),
-  ("assets/zz-data/chapter03/03_meta_stability_fR.json", "files"),
+  ("assets/zz-data/07_bao_geometry/07_meta_perturbations.json", "files"),
+  ("assets/zz-data/03_stability_domain/03_meta_stability_fR.json", "files"),
 ]
 missing = 0
 for meta_path, key in probes:

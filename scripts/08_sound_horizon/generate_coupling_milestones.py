@@ -5,7 +5,7 @@ import pandas as pd
 
 # Directories (translated to English)
 BASE_DIR = os.path.dirname(__file__)
-DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../assets/zz-data/chapter08"))
+DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../assets/zz-data/08_sound_horizon"))
 
 # 1) Load BAO from the final CSV
 # Original: 08_donnees_bao.csv -> Translated: 08_bao_data.csv

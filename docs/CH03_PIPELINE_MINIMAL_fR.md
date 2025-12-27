@@ -64,7 +64,7 @@ python scripts/03_stability_domain/10_fig08_ricci_fR_vs_T.py
 ```
 
 En fin d’exécution, toutes les données f(R) de référence et les figures CH03
-doivent être présentes dans `assets/zz-data/chapter03/` et `assets/zz-figures/chapter03/`.
+doivent être présentes dans `assets/zz-data/03_stability_domain/` et `assets/zz-figures/03_stability_domain/`.
 
 ---
 
@@ -88,14 +88,14 @@ Scripts utilisés par le pipeline minimal :
 - `10_fig07_ricci_fR_vs_z.py`
 - `10_fig08_ricci_fR_vs_T.py`
 
-Ces scripts consomment et produisent uniquement des fichiers dans `assets/zz-data/chapter03/`
-et `assets/zz-figures/chapter03/`, en cohérence avec le reste du projet.
+Ces scripts consomment et produisent uniquement des fichiers dans `assets/zz-data/03_stability_domain/`
+et `assets/zz-figures/03_stability_domain/`, en cohérence avec le reste du projet.
 
 ### 4.2. Données CH03 (inputs + outputs)
 
 Répertoire principal :
 
-- `assets/zz-data/chapter03/`
+- `assets/zz-data/03_stability_domain/`
 
 Fichiers d’entrée principaux :
 
@@ -126,7 +126,7 @@ Fichiers produits par le pipeline minimal :
 
 Répertoire :
 
-- `assets/zz-figures/chapter03/`
+- `assets/zz-figures/03_stability_domain/`
 
 Figures principales attendues :
 
@@ -205,7 +205,7 @@ python scripts/03_stability_domain/10_fig07_ricci_fR_vs_z.py
 python scripts/03_stability_domain/10_fig08_ricci_fR_vs_T.py
 ```
 
-Chaque script met à jour la figure correspondante dans `assets/zz-figures/chapter03/`.  
+Chaque script met à jour la figure correspondante dans `assets/zz-figures/03_stability_domain/`.  
 Les figures sont généralement produites en PNG (300 dpi) avec un style harmonisé
 avec les autres chapitres.
 
@@ -218,34 +218,34 @@ Pour la relecture et la publication, les fichiers suivants sont considérés com
 
 ### 6.1. Données
 
-- `assets/zz-data/chapter03/03_fR_stability_data.csv`  
+- `assets/zz-data/03_stability_domain/03_fR_stability_data.csv`  
   → grille densifiée en \(R/R_0\), avec \(f_R, f_{RR}, m_s^2/R_0\).
 
-- `assets/zz-data/chapter03/03_fR_stability_domain.csv`  
+- `assets/zz-data/03_stability_domain/03_fR_stability_domain.csv`  
   → domaine de stabilité \((\beta, \gamma_{\min}, \gamma_{\max})\).
 
-- `assets/zz-data/chapter03/03_fR_stability_boundary.csv`  
+- `assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv`  
   → frontière de stabilité \(\gamma_{\text{limit}}(\beta)\).
 
-- `assets/zz-data/chapter03/03_ricci_fR_vs_z.csv`  
+- `assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv`  
   → interpolation de \(f_R, f_{RR}\) vs \(z\).
 
-- `assets/zz-data/chapter03/03_ricci_fR_vs_T.csv`  
+- `assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv`  
   → interpolation de \(f_R, f_{RR}\) vs \(T_{\rm Gyr}\).
 
-- `assets/zz-data/chapter03/03_fR_stability_meta.json`  
+- `assets/zz-data/03_stability_domain/03_fR_stability_meta.json`  
   → méta‑informations de run (nombre de points, fichiers, versions, etc.).
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter03/03_fig_01_fR_stability_domain.png`
-- `assets/zz-figures/chapter03/03_fig_02_fR_fRR_vs_R.png`
-- `assets/zz-figures/chapter03/03_fig_03_ms2_R0_vs_R.png`
-- `assets/zz-figures/chapter03/03_fig_04_fR_fRR_vs_R.png`
-- `assets/zz-figures/chapter03/03_fig_05_interpolated_milestones.png`
-- `assets/zz-figures/chapter03/03_fig_06_grid_quality.png`
-- `assets/zz-figures/chapter03/03_fig_07_ricci_fR_vs_z.png`
-- `assets/zz-figures/chapter03/03_fig_08_ricci_fR_vs_T.png`
+- `assets/zz-figures/03_stability_domain/03_fig_01_fR_stability_domain.png`
+- `assets/zz-figures/03_stability_domain/03_fig_02_fR_fRR_vs_R.png`
+- `assets/zz-figures/03_stability_domain/03_fig_03_ms2_R0_vs_R.png`
+- `assets/zz-figures/03_stability_domain/03_fig_04_fR_fRR_vs_R.png`
+- `assets/zz-figures/03_stability_domain/03_fig_05_interpolated_milestones.png`
+- `assets/zz-figures/03_stability_domain/03_fig_06_grid_quality.png`
+- `assets/zz-figures/03_stability_domain/03_fig_07_ricci_fR_vs_z.png`
+- `assets/zz-figures/03_stability_domain/03_fig_08_ricci_fR_vs_T.png`
 
 ---
 

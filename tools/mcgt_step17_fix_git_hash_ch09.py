@@ -6,8 +6,8 @@ from pathlib import Path
 
 
 TARGET_PATHS = [
-    "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
-    "assets/zz-data/chapter09/09_metrics_phase.json",
+    "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
+    "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
 ]
 
 

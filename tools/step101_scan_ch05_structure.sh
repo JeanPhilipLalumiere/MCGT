@@ -42,19 +42,19 @@ LOGFILE="$LOGDIR/101_ch05_structure_scan.txt"
   fi
   echo
 
-  echo "## 3) Données dans assets/zz-data/chapter05/"
-  if [ -d "assets/zz-data/chapter05" ]; then
-    ls -1 "assets/zz-data/chapter05"
+  echo "## 3) Données dans assets/zz-data/05_primordial_bbn/"
+  if [ -d "assets/zz-data/05_primordial_bbn" ]; then
+    ls -1 "assets/zz-data/05_primordial_bbn"
   else
-    echo "(assets/zz-data/chapter05 absent)"
+    echo "(assets/zz-data/05_primordial_bbn absent)"
   fi
   echo
 
-  echo "## 4) Figures dans assets/zz-figures/chapter05/"
-  if [ -d "assets/zz-figures/chapter05" ]; then
-    ls -1 "assets/zz-figures/chapter05"
+  echo "## 4) Figures dans assets/zz-figures/05_primordial_bbn/"
+  if [ -d "assets/zz-figures/05_primordial_bbn" ]; then
+    ls -1 "assets/zz-figures/05_primordial_bbn"
   else
-    echo "(assets/zz-figures/chapter05 absent)"
+    echo "(assets/zz-figures/05_primordial_bbn absent)"
   fi
   echo
 

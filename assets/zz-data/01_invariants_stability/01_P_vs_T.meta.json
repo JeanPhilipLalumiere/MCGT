@@ -1,7 +1,7 @@
 {
   "chapter": "01",
   "name": "01_P_vs_T",
-  "path": "assets/zz-data/chapter01/01_P_vs_T.dat",
+  "path": "assets/zz-data/01_invariants_stability/01_P_vs_T.dat",
   "description": "Tabulation de P(T) utilisée pour la calibration initiale du modèle dans le chapitre 1.",
   "data_type": "table",
   "columns": [

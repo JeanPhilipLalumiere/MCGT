@@ -8,10 +8,10 @@ Compare p95 (et autres stats) pour trois traitements du résidu de phase:
 
 Usage (exemple):
 python scripts/09_dark_energy_cpl/check_p95_methods.py \
-  --csv assets/zz-data/chapter09/09_phases_mcgt.csv \
+  --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
   --window 20 300 \
   --bins 30 50 80 \
-  --plot --out-dir assets/zz-figures/chapter09/p95_methods --xscale log
+  --plot --out-dir assets/zz-figures/09_dark_energy_cpl/p95_methods --xscale log
 """
 
 import argparse
@@ -51,7 +51,7 @@ def parse_args():
     p.add_argument(
         "--out-dir",
         type=Path,
-        default=Path("assets/zz-figures/chapter09/p95_methods"),
+        default=Path("assets/zz-figures/09_dark_energy_cpl/p95_methods"),
         help="Répertoire de sortie si --plot",
     )
     p.add_argument(

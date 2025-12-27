@@ -28,7 +28,7 @@ if needle not in text:
 insertion = '''Tp = _low["Tp"]
 
 # Grille temporelle T extraite du fichier P(T)
-_grid_PT = np.loadtxt("assets/zz-data/chapter02/02_P_vs_T_grid_data.dat")
+_grid_PT = np.loadtxt("assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat")
 T = _grid_PT[:, 0]
 '''
 

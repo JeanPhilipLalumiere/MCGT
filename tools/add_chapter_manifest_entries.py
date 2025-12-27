@@ -14,6 +14,20 @@ MANIFESTS = [
     ROOT / "assets/zz-manifests" / "manifest_publication.json",
     ROOT / "assets/zz-manifests" / "manifest_master.json",
 ]
+CHAPTER_DIRS = {
+    "01": "01_invariants_stability",
+    "02": "02_primordial_spectrum",
+    "03": "03_stability_domain",
+    "04": "04_expansion_supernovae",
+    "05": "05_primordial_bbn",
+    "06": "06_early_growth_jwst",
+    "07": "07_bao_geometry",
+    "08": "08_sound_horizon",
+    "09": "09_dark_energy_cpl",
+    "10": "10_global_scan",
+    "11": "11_lss_s8_tension",
+    "12": "12_cmb_verdict",
+}
 
 
 def load_entries(chapter: int):
@@ -55,10 +69,18 @@ def find_target_list(doc, manifest_path: Path, chapter_str: str):
         )
         sys.exit(1)
 
+    chapter_dir = CHAPTER_DIRS.get(chapter_str)
+    if not chapter_dir:
+        print(
+            f"[ERROR] Chapitre inconnu (aucun dossier pour {chapter_str}).",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     chapter_prefixes = (
-        f"assets/zz-data/chapter{chapter_str}/",
-        f"assets/zz-figures/chapter{chapter_str}/",
-        f"scripts/chapter{chapter_str}/",
+        f"assets/zz-data/{chapter_dir}/",
+        f"assets/zz-figures/{chapter_dir}/",
+        f"scripts/{chapter_dir}/",
     )
 
     candidates = []

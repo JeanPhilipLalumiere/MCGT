@@ -48,7 +48,7 @@
     "format": "csv|json|png|pdf|dat|h5|ini|ipynb|py|tex",
     "id": "<slug-unique>",
     "language": "fr",
-    "path": "assets/zz-data/chapterX/...|assets/zz-figures/chapterX/...|scripts/chapterX/...|config/...",
+    "path": "assets/zz-data/NN_chapter_name/...|assets/zz-figures/NN_chapter_name/...|scripts/chapterX/...|config/...",
     "tags": [
       "<mot-cle-1>",
       "<mot-cle-2>"
@@ -97,7 +97,7 @@
     },
     "inputs": [
       {
-        "path": "assets/zz-data/chapterX/<input-file.ext>",
+        "path": "assets/zz-data/NN_chapter_name/<input-file.ext>",
         "role": "input",
         "sha256": "<sha256>",
         "size_bytes": "<size>"
@@ -111,7 +111,7 @@
     ],
     "outputs": [
       {
-        "path": "assets/zz-figures/chapterX/<figure-file.png>",
+        "path": "assets/zz-figures/NN_chapter_name/<figure-file.png>",
         "role": "figure",
         "sha256": "<sha256>",
         "size_bytes": "<size>"

@@ -20,13 +20,13 @@ MANIFEST_PATHS = [
 
 # Les 7 fichiers de chapter01 qui doivent être alignés
 TARGET_PATHS = [
-    "assets/zz-data/chapter01/01_P_derivative_optimized.csv",
-    "assets/zz-data/chapter01/01_P_vs_T.dat",
-    "assets/zz-data/chapter01/01_dimensionless_invariants.csv",
-    "assets/zz-data/chapter01/01_optimized_data.csv",
-    "assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv",
-    "assets/zz-data/chapter01/01_relative_error_timeline.csv",
-    "assets/zz-data/chapter01/01_timeline_milestones.csv",
+    "assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv",
+    "assets/zz-data/01_invariants_stability/01_P_vs_T.dat",
+    "assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv",
+    "assets/zz-data/01_invariants_stability/01_optimized_data.csv",
+    "assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv",
+    "assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv",
+    "assets/zz-data/01_invariants_stability/01_timeline_milestones.csv",
 ]
 
 

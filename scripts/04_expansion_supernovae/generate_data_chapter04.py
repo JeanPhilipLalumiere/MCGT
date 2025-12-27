@@ -92,8 +92,8 @@ def main():
     # 0. Configuration des constantes et des chemins de fichiers
     # ----------------------------------------------------------------------
     kappa = 1e-35
-    data_dir = "assets/zz-data/chapter04"
-    chap3_dir = "assets/zz-data/chapter03"
+    data_dir = "assets/zz-data/04_expansion_supernovae"
+    chap3_dir = "assets/zz-data/03_stability_domain"
     p_file = f"{data_dir}/04_P_vs_T.dat"
     r_file = f"{chap3_dir}/03_ricci_fR_vs_T.csv"
     fr_file = f"{chap3_dir}/03_fR_stability_data.csv"

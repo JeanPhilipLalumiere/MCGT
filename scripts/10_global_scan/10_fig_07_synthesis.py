@@ -10,8 +10,8 @@ Panneaux :
 
 Correction propre (CH10 fig07) — 3 changements
   1) --manifest-a optionnel : si absent, auto-détection sur
-       assets/zz-figures/chapter10/10_fig_03c_bootstrap_coverage_vs_n.manifest.json
-  2) --out par défaut écrit dans assets/zz-figures/chapter10 (pas de fuite en ROOT)
+       assets/zz-figures/10_global_scan/10_fig_03c_bootstrap_coverage_vs_n.manifest.json
+  2) --out par défaut écrit dans assets/zz-figures/10_global_scan (pas de fuite en ROOT)
   3) Export CSV robuste : --out-csv optionnel ; sinon dérivé de --out en *.table.csv
 """
 
@@ -528,7 +528,7 @@ def main(argv=None) -> int:
     ap.add_argument("--label-b", default=None, help="Label override pour la série B")
     ap.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_07_synthesis.png",
+        default="assets/zz-figures/10_global_scan/10_fig_07_synthesis.png",
         help="PNG de sortie",
     )
     ap.add_argument(
@@ -545,7 +545,7 @@ def main(argv=None) -> int:
 
     # -------- série A : manifest principal (fig03/convergence) ----------
     default_manifest_a = Path(
-        "assets/zz-figures/chapter10/10_fig_03_convergence.manifest.json"
+        "assets/zz-figures/10_global_scan/10_fig_03_convergence.manifest.json"
     )
     series_list: List[Series] = []
 
@@ -604,9 +604,9 @@ def main(argv=None) -> int:
 if __name__ == "__main__":
     raise SystemExit(main())
 
-    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/chapter10/ ---
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/10_global_scan/ ---
     from pathlib import Path as _Path
 
     _outp = _Path(args.out)
     if _outp.parent == _Path("."):
-        args.out = str(_Path("assets/zz-figures/chapter10") / _outp.name)
+        args.out = str(_Path("assets/zz-figures/10_global_scan") / _outp.name)

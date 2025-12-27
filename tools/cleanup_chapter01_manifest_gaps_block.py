@@ -31,8 +31,8 @@ def main() -> None:
                 "dans le filesystem et sont couverts par les manifests globaux."
             )
             out_lines.append("")
-            out_lines.append("- `assets/zz-data/chapter01/01_P_vs_T.meta.json`")
-            out_lines.append("- `assets/zz-data/chapter01/01_optimized_data.meta.json`")
+            out_lines.append("- `assets/zz-data/01_invariants_stability/01_P_vs_T.meta.json`")
+            out_lines.append("- `assets/zz-data/01_invariants_stability/01_optimized_data.meta.json`")
             out_lines.append("- `01-introduction-applications/CHAPTER1_GUIDE.txt`")
             out_lines.append("")
             out_lines.append("Aucun gap restant spécifique au chapitre 01.")

@@ -60,7 +60,7 @@ import pandas as pd
 
 
 def tracer_fig03_yp_modele_contre_obs(
-    save_path="assets/zz-figures/chapter05/05_fig_03_correlation.png",
+    save_path="assets/zz-figures/05_primordial_bbn/05_fig_03_correlation.png",
 ):
     # Racine du projet
     ROOT = Path.cwd()

@@ -4,7 +4,7 @@ scripts/09_dark_energy_cpl/fetch_gwtc3_confident.py
 
 Télécharge (ou tente) la liste d'événements "GWTC-3-confident" depuis GWOSC,
 écrit un fichier de configuration minimal dans config/ et un cache riche
-dans assets/zz-data/chapter09/.
+dans assets/zz-data/09_dark_energy_cpl/.
 
 Usage:
     python scripts/09_dark_energy_cpl/fetch_gwtc3_confident.py
@@ -19,7 +19,7 @@ import os
 import sys
 
 OUT_CFG = "config/GWTC-3-confident-events.json"
-OUT_DATA = "assets/zz-data/chapter09/gwtc3_confident_parameters.json"
+OUT_DATA = "assets/zz-data/09_dark_energy_cpl/gwtc3_confident_parameters.json"
 URL_BASE = "https://gwosc.org/api/v2/catalogs/GWTC-3-confident/events"
 
 
@@ -169,7 +169,7 @@ def main():
     except Exception as e:
         print("[ERROR] fetch failed:", e, file=sys.stderr)
         print(
-            "→ Si l'API bloque, télécharger manuellement et placer le fichier dans assets/zz-data/chapter09/"
+            "→ Si l'API bloque, télécharger manuellement et placer le fichier dans assets/zz-data/09_dark_energy_cpl/"
         )
         sys.exit(2)
 

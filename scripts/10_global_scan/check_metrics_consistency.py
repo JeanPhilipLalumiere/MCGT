@@ -11,8 +11,8 @@ Vérifications QC rapides pour les résultats MC (Chapter 10).
 
 Usage:
   python scripts/09_dark_energy_cpl/check_metrics_consistency.py \
-      --results assets/zz-data/chapter10/10_mc_results.agg.csv \
-      --manifest assets/zz-data/chapter10/10_mc_run_manifest.json \
+      --results assets/zz-data/10_global_scan/10_mc_results.agg.csv \
+      --manifest assets/zz-data/10_global_scan/10_mc_run_manifest.json \
       --rtol 1e-6 --atol 1e-12
 """
 

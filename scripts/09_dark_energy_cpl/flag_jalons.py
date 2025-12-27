@@ -3,9 +3,9 @@
 Flag milestones de comparaison (chapitre 9).
 Usage:
   python scripts/09_dark_energy_cpl/flag_milestones.py \
-    --csv assets/zz-data/chapter09/09_comparison_milestones.csv \
-    --meta assets/zz-data/chapter09/09_comparison_milestones.meta.json \
-    --out assets/zz-data/chapter09/09_comparison_milestones.flagged.csv
+    --csv assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv \
+    --meta assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json \
+    --out assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.flagged.csv
 """
 
 import argparse

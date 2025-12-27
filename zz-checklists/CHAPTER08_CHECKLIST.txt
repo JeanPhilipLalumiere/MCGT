@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 - [ ] Sources LaTeX (08-couplage-sombre/):
       • 08_couplage_sombre_conceptuel.tex
       • 08_couplage_sombre_details.tex
-- [ ] Données (assets/zz-data/chapter08/):
+- [ ] Données (assets/zz-data/08_sound_horizon/):
       • 08_coupling_milestones.csv
       • 08_bao_data.csv
       • 08_pantheon_data.csv
@@ -31,7 +31,7 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
       • 08_dv_theory_q0star.csv          (optionnel)
       • 08_mu_theory_q0star.csv          (optionnel)
       • 08_coupling_params.json
-- [ ] Figures (assets/zz-figures/chapter08/):
+- [ ] Figures (assets/zz-figures/08_sound_horizon/):
       • fig_01_chi2_total_vs_q0.png
       • fig_02_dv_vs_z.png
       • fig_03_mu_vs_z.png
@@ -138,19 +138,19 @@ CHECKLIST — CHAPITRE 08 (Couplage sombre : BAO + Pantheon+)
 
 [VALIDATION AUTOMATISÉE]
 - [ ] (CSV) Vérifs tabulaires basiques :
-      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_bao_data.csv
-      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_pantheon_data.csv
-      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/chapter08/08_chi2_total_vs_q0.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/08_sound_horizon/08_bao_data.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/08_sound_horizon/08_pantheon_data.csv
+      python assets/zz-schemas/validate_csv_table.py --basic assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv
       (répéter pour les autres CSV si nécessaire)
 - [ ] (JSON) Validation de forme :
-      python assets/zz-schemas/validate_json.py --no-schema assets/zz-data/chapter08/08_coupling_params.json
+      python assets/zz-schemas/validate_json.py --no-schema assets/zz-data/08_sound_horizon/08_coupling_params.json
   (Si des schémas dédiés existent ultérieurement, remplacer par des appels avec schéma.)
 
 [INTÉGRATION LaTeX]
 - [ ] cd 08-couplage-sombre/
 - [ ] pdflatex -interaction=nonstopmode 08_couplage_sombre_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 08_couplage_sombre_details.tex
-- [ ] Vérifier les chemins vers assets/zz-figures/chapter08/ et la cohérence des légendes.
+- [ ] Vérifier les chemins vers assets/zz-figures/08_sound_horizon/ et la cohérence des légendes.
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/figure_manifest.csv : déclarer toutes les figures générées (+ checksum si activé).

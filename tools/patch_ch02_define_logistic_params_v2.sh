@@ -32,7 +32,7 @@ indent_segment = text[line_start:pos]
 indent = indent_segment[:len(indent_segment) - len(indent_segment.lstrip(" \t"))]
 
 snippet = f"""{indent}import json
-{indent}with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:
+{indent}with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:
 {indent}    _params = json.load(f)
 {indent}a0 = _params["a0"]
 {indent}ainf = _params["ainf"]

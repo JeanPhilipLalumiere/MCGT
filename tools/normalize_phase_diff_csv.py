@@ -49,7 +49,7 @@ if F is not None:
     f = pd.to_numeric(df[F], errors="coerce").to_numpy()
 else:
     # 3a) Essayer via les métriques (grid_used)
-    metrics = p.Path("assets/zz-data/chapter09/09_metrics_phase.json")
+    metrics = p.Path("assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json")
     if metrics.exists():
         try:
             m = json.loads(metrics.read_text(encoding="utf-8"))
@@ -80,7 +80,7 @@ else:
 
     # 3b) Secours : IMR CSV
     if f is None:
-        ref_csv = p.Path("assets/zz-data/chapter09/09_phases_imrphenom.csv")
+        ref_csv = p.Path("assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv")
         if ref_csv.exists():
             dfref = pd.read_csv(ref_csv)
             Fref = pick(

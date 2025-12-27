@@ -8,8 +8,8 @@ SCHEMA_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # mapping schema -> csv
 declare -A MAP
-MAP["$SCHEMA_DIR/mc_results_table_schema.json"]="$ROOT/assets/zz-data/chapter10/10_mc_results.csv"
-MAP["$SCHEMA_DIR/comparison_milestones_table_schema.json"]="$ROOT/assets/zz-data/chapter09/09_comparison_milestones.csv"
+MAP["$SCHEMA_DIR/mc_results_table_schema.json"]="$ROOT/assets/zz-data/10_global_scan/10_mc_results.csv"
+MAP["$SCHEMA_DIR/comparison_milestones_table_schema.json"]="$ROOT/assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv"
 # ajoute d'autres couples si nécessaire
 
 failed=0

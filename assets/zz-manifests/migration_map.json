@@ -6,96 +6,284 @@
       "assets/zz-data/"
     ],
     [
-      "assets/zz-figures/chapitre",
-      "assets/zz-figures/chapter"
+      "assets/zz-figures/chapitre01/",
+      "assets/zz-figures/01_invariants_stability/"
     ],
     [
-      "assets/zz-data/chapter9/",
-      "assets/zz-data/chapter09/"
+      "assets/zz-data/chapitre01/",
+      "assets/zz-data/01_invariants_stability/"
     ],
     [
-      "assets/zz-data/chapter10/",
-      "assets/zz-data/chapter10/"
+      "assets/zz-figures/chapitre02/",
+      "assets/zz-figures/02_primordial_spectrum/"
     ],
     [
-      "assets/zz-data/chapter01/",
-      "assets/zz-data/chapter01/"
+      "assets/zz-data/chapitre02/",
+      "assets/zz-data/02_primordial_spectrum/"
     ],
     [
-      "assets/zz-data/chapter02/",
-      "assets/zz-data/chapter02/"
+      "assets/zz-figures/chapitre03/",
+      "assets/zz-figures/03_stability_domain/"
     ],
     [
-      "assets/zz-data/chapter03/",
-      "assets/zz-data/chapter03/"
+      "assets/zz-data/chapitre03/",
+      "assets/zz-data/03_stability_domain/"
     ],
     [
-      "assets/zz-data/chapter04/",
-      "assets/zz-data/chapter04/"
+      "assets/zz-figures/chapitre04/",
+      "assets/zz-figures/04_expansion_supernovae/"
     ],
     [
-      "assets/zz-data/chapter05/",
-      "assets/zz-data/chapter05/"
+      "assets/zz-data/chapitre04/",
+      "assets/zz-data/04_expansion_supernovae/"
     ],
     [
-      "assets/zz-data/chapter06/",
-      "assets/zz-data/chapter06/"
+      "assets/zz-figures/chapitre05/",
+      "assets/zz-figures/05_primordial_bbn/"
     ],
     [
-      "assets/zz-data/chapter07/",
-      "assets/zz-data/chapter07/"
+      "assets/zz-data/chapitre05/",
+      "assets/zz-data/05_primordial_bbn/"
     ],
     [
-      "assets/zz-data/chapter08/",
-      "assets/zz-data/chapter08/"
+      "assets/zz-figures/chapitre06/",
+      "assets/zz-figures/06_early_growth_jwst/"
     ],
     [
-      "assets/zz-data/chapter09/",
-      "assets/zz-data/chapter09/"
+      "assets/zz-data/chapitre06/",
+      "assets/zz-data/06_early_growth_jwst/"
     ],
     [
-      "assets/zz-data/chapter10/",
-      "assets/zz-data/chapter10/"
+      "assets/zz-figures/chapitre07/",
+      "assets/zz-figures/07_bao_geometry/"
     ],
     [
-      "assets/zz-data/chapter07/07_donnees_principales_perturbations.csv",
-      "assets/zz-data/chapter07/07_perturbations_main_data.csv"
+      "assets/zz-data/chapitre07/",
+      "assets/zz-data/07_bao_geometry/"
     ],
     [
-      "assets/zz-data/chapter07/07_invariants_scalaires.csv",
-      "assets/zz-data/chapter07/07_scalar_invariants.csv"
+      "assets/zz-figures/chapitre08/",
+      "assets/zz-figures/08_sound_horizon/"
     ],
     [
-      "assets/zz-data/chapter07/07_domaine_perturbations.csv",
-      "assets/zz-data/chapter07/07_perturbations_domain.csv"
+      "assets/zz-data/chapitre08/",
+      "assets/zz-data/08_sound_horizon/"
     ],
     [
-      "assets/zz-data/chapter07/07_frontiere_perturbations.csv",
-      "assets/zz-data/chapter07/07_perturbations_boundary.csv"
+      "assets/zz-figures/chapitre09/",
+      "assets/zz-figures/09_dark_energy_cpl/"
     ],
     [
-      "assets/zz-data/chapter07/07_perturbations_scalaires_resultats.csv",
-      "assets/zz-data/chapter07/07_scalar_perturbations_results.csv"
+      "assets/zz-data/chapitre09/",
+      "assets/zz-data/09_dark_energy_cpl/"
     ],
     [
-      "assets/zz-data/chapter09/09_jalons_comparaison.csv",
-      "assets/zz-data/chapter09/09_comparison_milestones.csv"
+      "assets/zz-figures/chapitre10/",
+      "assets/zz-figures/10_global_scan/"
     ],
     [
-      "assets/zz-data/chapter09/09_diff_phase.csv",
-      "assets/zz-data/chapter09/09_phase_diff.csv"
+      "assets/zz-data/chapitre10/",
+      "assets/zz-data/10_global_scan/"
     ],
     [
-      "assets/zz-data/chapter10/10_mc_samples.csv",
-      "assets/zz-data/chapter10/10_mc_samples.csv"
+      "assets/zz-figures/chapitre11/",
+      "assets/zz-figures/11_lss_s8_tension/"
     ],
     [
-      "assets/zz-data/chapter05/05_nucleosynthesis_params.json",
-      "assets/zz-data/chapter05/05_bbn_params.json"
+      "assets/zz-data/chapitre11/",
+      "assets/zz-data/11_lss_s8_tension/"
     ],
     [
-      "assets/zz-data/chapter06/06_delta_cls_rel.csv",
-      "assets/zz-data/chapter06/06_delta_cls_relative.csv"
+      "assets/zz-figures/chapitre12/",
+      "assets/zz-figures/12_cmb_verdict/"
+    ],
+    [
+      "assets/zz-data/chapitre12/",
+      "assets/zz-data/12_cmb_verdict/"
+    ],
+    [
+      "assets/zz-figures/chapitre01/",
+      "assets/zz-figures/01_invariants_stability/"
+    ],
+    [
+      "assets/zz-data/chapitre01/",
+      "assets/zz-data/01_invariants_stability/"
+    ],
+    [
+      "assets/zz-figures/chapitre02/",
+      "assets/zz-figures/02_primordial_spectrum/"
+    ],
+    [
+      "assets/zz-data/chapitre02/",
+      "assets/zz-data/02_primordial_spectrum/"
+    ],
+    [
+      "assets/zz-figures/chapitre03/",
+      "assets/zz-figures/03_stability_domain/"
+    ],
+    [
+      "assets/zz-data/chapitre03/",
+      "assets/zz-data/03_stability_domain/"
+    ],
+    [
+      "assets/zz-figures/chapitre04/",
+      "assets/zz-figures/04_expansion_supernovae/"
+    ],
+    [
+      "assets/zz-data/chapitre04/",
+      "assets/zz-data/04_expansion_supernovae/"
+    ],
+    [
+      "assets/zz-figures/chapitre05/",
+      "assets/zz-figures/05_primordial_bbn/"
+    ],
+    [
+      "assets/zz-data/chapitre05/",
+      "assets/zz-data/05_primordial_bbn/"
+    ],
+    [
+      "assets/zz-figures/chapitre06/",
+      "assets/zz-figures/06_early_growth_jwst/"
+    ],
+    [
+      "assets/zz-data/chapitre06/",
+      "assets/zz-data/06_early_growth_jwst/"
+    ],
+    [
+      "assets/zz-figures/chapitre07/",
+      "assets/zz-figures/07_bao_geometry/"
+    ],
+    [
+      "assets/zz-data/chapitre07/",
+      "assets/zz-data/07_bao_geometry/"
+    ],
+    [
+      "assets/zz-figures/chapitre08/",
+      "assets/zz-figures/08_sound_horizon/"
+    ],
+    [
+      "assets/zz-data/chapitre08/",
+      "assets/zz-data/08_sound_horizon/"
+    ],
+    [
+      "assets/zz-figures/chapitre09/",
+      "assets/zz-figures/09_dark_energy_cpl/"
+    ],
+    [
+      "assets/zz-data/chapitre09/",
+      "assets/zz-data/09_dark_energy_cpl/"
+    ],
+    [
+      "assets/zz-figures/chapitre10/",
+      "assets/zz-figures/10_global_scan/"
+    ],
+    [
+      "assets/zz-data/chapitre10/",
+      "assets/zz-data/10_global_scan/"
+    ],
+    [
+      "assets/zz-figures/chapitre11/",
+      "assets/zz-figures/11_lss_s8_tension/"
+    ],
+    [
+      "assets/zz-data/chapitre11/",
+      "assets/zz-data/11_lss_s8_tension/"
+    ],
+    [
+      "assets/zz-figures/chapitre12/",
+      "assets/zz-figures/12_cmb_verdict/"
+    ],
+    [
+      "assets/zz-data/chapitre12/",
+      "assets/zz-data/12_cmb_verdict/"
+    ],
+    [
+      "assets/zz-data/09_dark_energy_cpl/",
+      "assets/zz-data/09_dark_energy_cpl/"
+    ],
+    [
+      "assets/zz-data/10_global_scan/",
+      "assets/zz-data/10_global_scan/"
+    ],
+    [
+      "assets/zz-data/01_invariants_stability/",
+      "assets/zz-data/01_invariants_stability/"
+    ],
+    [
+      "assets/zz-data/02_primordial_spectrum/",
+      "assets/zz-data/02_primordial_spectrum/"
+    ],
+    [
+      "assets/zz-data/03_stability_domain/",
+      "assets/zz-data/03_stability_domain/"
+    ],
+    [
+      "assets/zz-data/04_expansion_supernovae/",
+      "assets/zz-data/04_expansion_supernovae/"
+    ],
+    [
+      "assets/zz-data/05_primordial_bbn/",
+      "assets/zz-data/05_primordial_bbn/"
+    ],
+    [
+      "assets/zz-data/06_early_growth_jwst/",
+      "assets/zz-data/06_early_growth_jwst/"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/",
+      "assets/zz-data/07_bao_geometry/"
+    ],
+    [
+      "assets/zz-data/08_sound_horizon/",
+      "assets/zz-data/08_sound_horizon/"
+    ],
+    [
+      "assets/zz-data/09_dark_energy_cpl/",
+      "assets/zz-data/09_dark_energy_cpl/"
+    ],
+    [
+      "assets/zz-data/10_global_scan/",
+      "assets/zz-data/10_global_scan/"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/07_donnees_principales_perturbations.csv",
+      "assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/07_invariants_scalaires.csv",
+      "assets/zz-data/07_bao_geometry/07_scalar_invariants.csv"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/07_domaine_perturbations.csv",
+      "assets/zz-data/07_bao_geometry/07_perturbations_domain.csv"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/07_frontiere_perturbations.csv",
+      "assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv"
+    ],
+    [
+      "assets/zz-data/07_bao_geometry/07_perturbations_scalaires_resultats.csv",
+      "assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv"
+    ],
+    [
+      "assets/zz-data/09_dark_energy_cpl/09_jalons_comparaison.csv",
+      "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv"
+    ],
+    [
+      "assets/zz-data/09_dark_energy_cpl/09_diff_phase.csv",
+      "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv"
+    ],
+    [
+      "assets/zz-data/10_global_scan/10_mc_samples.csv",
+      "assets/zz-data/10_global_scan/10_mc_samples.csv"
+    ],
+    [
+      "assets/zz-data/05_primordial_bbn/05_nucleosynthesis_params.json",
+      "assets/zz-data/05_primordial_bbn/05_bbn_params.json"
+    ],
+    [
+      "assets/zz-data/06_early_growth_jwst/06_delta_cls_rel.csv",
+      "assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv"
     ]
   ],
   "key_renames": [

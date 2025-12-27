@@ -2,9 +2,9 @@
   "chapter": 9,
   "title": "phase-ondes-gravitationnelles",
   "paths": {
-    "data_dir": "assets/zz-data/chapter09",
+    "data_dir": "assets/zz-data/09_dark_energy_cpl",
     "scripts_dir": "scripts/09_dark_energy_cpl",
-    "figures_dir": "assets/zz-figures/chapter09",
+    "figures_dir": "assets/zz-figures/09_dark_energy_cpl",
     "configs": [
       "conventions.md",
       "config/gw_phase.ini",
@@ -13,25 +13,25 @@
   },
   "files": {
     "data_inputs": [
-      "assets/zz-data/chapter09/09_comparison_milestones.csv",
-      "assets/zz-data/chapter09/09_comparison_milestones.meta.json",
-      "assets/zz-data/chapter09/09_metrics_phase.json",
-      "assets/zz-data/chapter09/09_phase_diff.csv",
-      "assets/zz-data/chapter09/09_phases_imrphenom.csv",
-      "assets/zz-data/chapter09/09_phases_imrphenom.meta.json",
-      "assets/zz-data/chapter09/09_phases_mcgt.csv"
+      "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv",
+      "assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json",
+      "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
+      "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv",
+      "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
+      "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json",
+      "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv"
     ],
     "data_outputs": [],
     "figures": [
-      "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
-      "assets/zz-figures/chapter09/09_fig_02_residual_phase.png",
-      "assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png",
-      "assets/zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png",
-      "assets/zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png"
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png",
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_03_hist_absdphi_20_300.png",
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_04_absdphi_milestones_vs_f.png",
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_05_scatter_phi_at_fpeak.png"
     ],
     "metas": [
-      "assets/zz-data/chapter09/09_metrics_phase.meta.json",
-      "assets/zz-figures/chapter09/09_fig_*.meta.json"
+      "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.meta.json",
+      "assets/zz-figures/09_dark_energy_cpl/09_fig_*.meta.json"
     ],
     "others": [
       "09-phase-ondes-gravitationnelles/CHAPTER9_GUIDE.txt"
@@ -47,8 +47,8 @@
     "scripts/09_dark_energy_cpl/plot_fig05_scatter_phi_at_fpeak.py"
   ],
   "meta_expected": [
-    "assets/zz-data/chapter09/09_metrics_phase.meta.json",
-    "assets/zz-figures/chapter09/09_fig_*.meta.json"
+    "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.meta.json",
+    "assets/zz-figures/09_dark_energy_cpl/09_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

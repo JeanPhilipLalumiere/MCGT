@@ -4,7 +4,7 @@ set -Eeuo pipefail
 trap 'code=$?;
   echo;
   echo "[ERREUR] Script interrompu avec code $code";
-  echo "[ASTUCE] Seul assets/zz-data/chapter09/09_phase_diff.csv est touché, avec backup .bak_add_phi_ref.";
+  echo "[ASTUCE] Seul assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv est touché, avec backup .bak_add_phi_ref.";
   read -rp "Appuie sur Entrée pour revenir au shell..." _' ERR
 
 echo "== PATCH CH09 – Ajout de phi_ref dans 09_phase_diff.csv à partir de 09_phases_imrphenom.csv =="
@@ -14,13 +14,13 @@ from pathlib import Path
 import csv
 import shutil
 
-diff_path = Path("assets/zz-data/chapter09/09_phase_diff.csv")
-ref_path = Path("assets/zz-data/chapter09/09_phases_imrphenom.csv")
+diff_path = Path("assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv")
+ref_path = Path("assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv")
 
 if not diff_path.exists():
-    raise SystemExit("[ERREUR] Fichier introuvable: assets/zz-data/chapter09/09_phase_diff.csv")
+    raise SystemExit("[ERREUR] Fichier introuvable: assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv")
 if not ref_path.exists():
-    raise SystemExit("[ERREUR] Fichier introuvable: assets/zz-data/chapter09/09_phases_imrphenom.csv")
+    raise SystemExit("[ERREUR] Fichier introuvable: assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv")
 
 backup = diff_path.with_suffix(".csv.bak_add_phi_ref")
 shutil.copy2(diff_path, backup)
@@ -84,7 +84,7 @@ with diff_path.open("w", newline="", encoding="utf-8") as f:
     writer.writeheader()
     writer.writerows(rows)
 
-print("[OK] assets/zz-data/chapter09/09_phase_diff.csv mis à jour avec une colonne 'phi_ref'.")
+print("[OK] assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv mis à jour avec une colonne 'phi_ref'.")
 PYEOF
 
 echo

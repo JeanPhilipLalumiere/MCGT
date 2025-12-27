@@ -4,14 +4,14 @@ Pipeline d'intégration chronologique corrigé pour Chapter 2 (MCGT)
 Avec option --spectre pour générer 02_primordial_spectrum_spec.json et fig_00_spectre.png
 
 Génère :
-- assets/zz-data/chapter02/02_P_vs_T_grid_data.dat
-- assets/zz-data/chapter02/02_P_derivative_data.dat
-- assets/zz-data/chapter02/02_timeline_milestones.csv
-- assets/zz-data/chapter02/02_relative_error_timeline.csv
-- assets/zz-data/chapter02/02_optimal_parameters.json
+- assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat
+- assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat
+- assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv
+- assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv
+- assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json
 Et, si --spectre :
-- assets/zz-data/chapter02/02_primordial_spectrum_spec.json
-- assets/zz-figures/chapter02/02_fig_00_spectrum.png
+- assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json
+- assets/zz-figures/02_primordial_spectrum/02_fig_00_spectrum.png
 """
 
 # --- Section 1 : Imports et configuration ---
@@ -42,7 +42,7 @@ plt.rcParams.update(
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 # Paramètres logistiques pré-calibrés depuis 02_optimal_parameters.json
-with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:
+with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:
     _params = json.load(f)
 
 _segments = _params["segments"]
@@ -56,7 +56,7 @@ Delta = _low["Delta"]
 Tp = _low["Tp"]
 
 # Grille temporelle T extraite du fichier P(T)
-_grid_PT = np.loadtxt("assets/zz-data/chapter02/02_P_vs_T_grid_data.dat")
+_grid_PT = np.loadtxt("assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat")
 T = _grid_PT[:, 0]
 
 

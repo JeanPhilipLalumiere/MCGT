@@ -9,16 +9,16 @@ par-identifiant produits par `inspect_topk_residuals.py`.
 Usage (exemple)
 ---------------
 python scripts/10_global_scan/bootstrap_topk_p95.py \
-  --best assets/zz-data/chapter10/10_mc_best.json \
-  --results assets/zz-data/chapter10/10_mc_results.csv \
+  --best assets/zz-data/10_global_scan/10_mc_best.json \
+  --results assets/zz-data/10_global_scan/10_mc_results.csv \
   --B 1000 --seed 12345 \
-  --out assets/zz-data/chapter10/10_mc_best_bootstrap.json \
+  --out assets/zz-data/10_global_scan/10_mc_best_bootstrap.json \
   --log-level INFO
 
 Notes
 -----
 - Cherche par défaut les fichiers de résidus dans:
-    assets/zz-data/chapter10/topk_residuals/10_topresiduals_id{ID}.csv
+    assets/zz-data/10_global_scan/topk_residuals/10_topresiduals_id{ID}.csv
   Le CSV attendu contient au moins une colonne d'absolu des résidus
   (ex: "absdphi", "abs_dphi", "abs_d_phi", "|Δφ|", "abs(Δφ)").
 - Si un fichier de résidus manque pour un ID, le script conserve
@@ -142,7 +142,7 @@ def main(argv=None):
     )
     p.add_argument(
         "--resid-dir",
-        default="assets/zz-data/chapter10/topk_residuals",
+        default="assets/zz-data/10_global_scan/topk_residuals",
         help="Répertoire contenant les fichiers de résidus par id",
     )
     p.add_argument("--out", required=True, help="Fichier JSON de sortie (augmenté)")

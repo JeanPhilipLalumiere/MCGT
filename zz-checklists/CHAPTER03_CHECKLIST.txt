@@ -11,7 +11,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 - [ ] Configs communes (config/):
       • gw_phase.ini   (section [scan]: fmin, fmax, dlog)
       • mcgt-global-config.ini
-- [ ] Données (assets/zz-data/chapter03/):
+- [ ] Données (assets/zz-data/03_stability_domain/):
       • 03_ricci_fR_milestones.csv
       • 03_fR_stability_data.csv
       • 03_fR_stability_domain.csv
@@ -29,7 +29,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
       • plot_fig06_grid_quality.py
       • plot_fig07_ricci_fR_vs_z.py
       • plot_fig08_ricci_fR_vs_T.py
-- [ ] Figures (assets/zz-figures/chapter03/):
+- [ ] Figures (assets/zz-figures/03_stability_domain/):
       • fig_01_fR_stability_domain.png
       • fig_02_fR_fRR_vs_R.png
       • fig_03_ms2_R0_vs_R.png
@@ -102,11 +102,11 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 - [ ] JSON (métadonnées):
       python assets/zz-schemas/validate_json.py \
         assets/zz-schemas/meta_schema.json \
-        assets/zz-data/chapter03/03_fR_stability_meta.json
+        assets/zz-data/03_stability_domain/03_fR_stability_meta.json
 - [ ] Tables (adapter si schémas dédiés):
       python assets/zz-schemas/validate_csv_table.py \
         assets/zz-schemas/comparison_milestones_table_schema.json \
-        assets/zz-data/chapter03/03_ricci_fR_milestones.csv
+        assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv
       (répéter avec un schéma ad hoc si disponible pour *stability_domain*/*boundary*/*data*)
 - [ ] Diagnostic manifeste (optionnel mais utile):
       python assets/zz-manifests/diag_consistency.py --chapter 03 --strict --report md \
@@ -116,7 +116,7 @@ CHECKLIST — CHAPITRE 03 (Stabilité de f(R), MCGT)
 [COMPILATION LaTeX]
 - [ ] pdflatex -jobname=chap3_conceptuel  03-stabilite-fR/03_stabilite_fR_conceptuel.tex
 - [ ] pdflatex -jobname=chap3_details     03-stabilite-fR/03_stabilite_fR_details.tex
-- [ ] Zéro références manquantes; figures incluses depuis assets/zz-figures/chapter03/.
+- [ ] Zéro références manquantes; figures incluses depuis assets/zz-figures/03_stability_domain/.
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] Mettre à jour assets/zz-manifests/figure_manifest.csv pour les 8 figures.

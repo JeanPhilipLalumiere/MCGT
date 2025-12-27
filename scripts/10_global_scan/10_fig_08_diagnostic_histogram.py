@@ -36,20 +36,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--results",
         required=True,
-        help="CSV de résultats (ex. assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv)",
+        help="CSV de résultats (ex. assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv)",
     )
     parser.add_argument(
         "--ref-grid",
         required=False,
         help=(
-            "Grille de référence des phases IMRPhenom (ex. assets/zz-data/chapter09/09_phases_imrphenom.csv). "
+            "Grille de référence des phases IMRPhenom (ex. assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv). "
             "Actuellement utilisé uniquement à titre informatif."
         ),
     )
     parser.add_argument(
         "--outdir",
-        default="assets/zz-figures/chapter10",
-        help="Répertoire de sortie pour les figures / fichiers diag (défaut: assets/zz-figures/chapter10).",
+        default="assets/zz-figures/10_global_scan",
+        help="Répertoire de sortie pour les figures / fichiers diag (défaut: assets/zz-figures/10_global_scan).",
     )
     parser.add_argument(
         "--prefix",

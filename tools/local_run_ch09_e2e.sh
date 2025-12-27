@@ -4,7 +4,7 @@ set -Eeuo pipefail
 START_TS="$(date +%Y%m%d_%H%M%S)"
 LOG_DIR="zz-out/runlogs"
 LOG_FILE="$LOG_DIR/ch09_e2e_${START_TS}.log"
-mkdir -p "$LOG_DIR" "zz-out/chapter09" "assets/zz-figures/chapter09"
+mkdir -p "$LOG_DIR" "zz-out/chapter09" "assets/zz-figures/09_dark_energy_cpl"
 
 # Capturer tout dans le log ET à l'écran
 exec > >(tee -a "$LOG_FILE") 2>&1
@@ -40,7 +40,7 @@ python3 tools/build_fig02_input.py
 # 4) fig02 residual phase
 echo "[INFO] Étape 4/4: fig02 residual_phase"
 CSV="zz-out/chapter09/fig02_input.csv"
-OUT_PNG="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
+OUT_PNG="assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png"
 python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py --csv "$CSV" --out "$OUT_PNG" --dpi 160 || echo "[WARN] fig02 a renvoyé un code non nul"
 test -s "$OUT_PNG" && echo "[OK] Figure écrite → $OUT_PNG" || echo "[WARN] fig02: sortie PNG manquante"
 

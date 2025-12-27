@@ -59,7 +59,7 @@ if not found_json:
 
 # 4) Bloc global: lecture de 02_optimal_parameters.json
 block_lines = [
-    'with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:',
+    'with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:',
     '    _params = json.load(f)',
     'a0 = _params["a0"]',
     'ainf = _params["ainf"]',

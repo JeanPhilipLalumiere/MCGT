@@ -27,7 +27,7 @@ if all(name in text for name in ("a0 =", "ainf =", "Tc =", "Delta =")):
 
 snippet = '''import json
 
-with open("assets/zz-data/chapter02/02_optimal_parameters.json") as f:
+with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:
     _params = json.load(f)
 a0 = _params["a0"]
 ainf = _params["ainf"]

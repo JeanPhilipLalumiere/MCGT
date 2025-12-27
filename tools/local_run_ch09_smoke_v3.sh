@@ -4,7 +4,7 @@ set -Eeuo pipefail
 START_TS="$(date +%Y%m%d_%H%M%S)"
 LOG_DIR="zz-out/runlogs"
 LOG_FILE="$LOG_DIR/hotfix_ch09_${START_TS}.log"
-mkdir -p "$LOG_DIR" "zz-out/chapter09" "assets/zz-figures/chapter09"
+mkdir -p "$LOG_DIR" "zz-out/chapter09" "assets/zz-figures/09_dark_energy_cpl"
 
 exec > >(tee -a "$LOG_FILE") 2>&1
 finish() {
@@ -33,8 +33,8 @@ fi
 # Localiser un CSV Δφ plausible
 CSV_RAW=""
 for p in \
-  "assets/zz-data/chapter09/09_phase_diff.csv" \
-  "assets/zz-data/chapter09/09_phase_diff_active.csv" \
+  "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv" \
+  "assets/zz-data/09_dark_energy_cpl/09_phase_diff_active.csv" \
   "zz-out/chapter09/09_phase_diff.csv" \
   "zz-out/chapter09/09_phase_diff_active.csv"
 do
@@ -54,7 +54,7 @@ python3 scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py || echo "[WARN] f
 
 echo "[INFO] Étape: fig02"
 if [ -n "${CSV_NORM:-}" ] && [ -f "$CSV_NORM" ]; then
-  OUT_PNG="assets/zz-figures/chapter09/09_fig_02_residual_phase.png"
+  OUT_PNG="assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png"
   python3 scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
     --csv "$CSV_NORM" \
     --out "$OUT_PNG" \

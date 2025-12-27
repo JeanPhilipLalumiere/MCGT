@@ -11,9 +11,9 @@ MANIFEST_PATH = ROOT / "assets/zz-manifests" / "manifest_master.json"
 
 # Fichiers basculés dans attic à retirer du manifest master
 PATHS_TO_DROP = {
-    "assets/zz-data/chapter01/01_optimized_grid_data.dat",
-    "assets/zz-data/chapter01/01_initial_grid_data.dat",
-    "assets/zz-data/chapter01/01_P_derivative_initial.csv",
+    "assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat",
+    "assets/zz-data/01_invariants_stability/01_initial_grid_data.dat",
+    "assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv",
 }
 
 

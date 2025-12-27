@@ -19,17 +19,17 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--cpl",
-        default="assets/zz-data/chapter11/11_matter_power_cpl.csv",
+        default="assets/zz-data/11_lss_s8_tension/11_matter_power_cpl.csv",
         help="CPL power spectrum CSV.",
     )
     parser.add_argument(
         "--lcdm",
-        default="assets/zz-data/chapter11/11_matter_power_lcdm.csv",
+        default="assets/zz-data/11_lss_s8_tension/11_matter_power_lcdm.csv",
         help="LCDM power spectrum CSV.",
     )
     parser.add_argument(
         "--out",
-        default="assets/zz-figures/chapter11/11_fig_01_power_comparison.png",
+        default="assets/zz-figures/11_lss_s8_tension/11_fig_01_power_comparison.png",
         help="Output PNG path.",
     )
     return parser.parse_args()

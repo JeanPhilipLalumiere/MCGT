@@ -10,8 +10,8 @@
     "tol": 1e-06
   },
   "reference": {
-    "csv": "assets/zz-data/chapter09/09_phases_imrphenom.csv",
-    "meta": "assets/zz-data/chapter09/09_phases_imrphenom.meta.json",
+    "csv": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
+    "meta": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json",
     "source_tag": "file_existing"
   },
   "grid_used": {
@@ -62,7 +62,7 @@
     "n_points": 92
   },
   "outputs": {
-    "phases_mcgt_csv": "assets/zz-data/chapter09/09_phases_mcgt.csv",
+    "phases_mcgt_csv": "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
     "diff_phase_csv": null,
     "comparison_milestones_csv": null,
     "fisher_scan2D_csv": null

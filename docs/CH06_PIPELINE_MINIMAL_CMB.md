@@ -47,9 +47,9 @@ Depuis la racine du dépôt `MCGT` :
 Dans le pipeline minimal, on suppose que les éléments suivants sont soit
 déjà présents, soit générés par les étapes ci‑dessous :
 
-- `assets/zz-data/chapter06/06_hubble_mcgt.dat`  
-- `assets/zz-data/chapter06/06_cls_spectrum_lcdm.dat`  
-- `assets/zz-data/chapter06/06_cls_spectrum.dat`.
+- `assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat`  
+- `assets/zz-data/06_early_growth_jwst/06_cls_spectrum_lcdm.dat`  
+- `assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat`.
 
 ---
 
@@ -76,10 +76,10 @@ python scripts/06_early_growth_jwst/10_fig05_delta_chi2_heatmap.py
 
 En fin d’exécution, on doit trouver :
 
-- les spectres **ΛCDM** et **MCGT** dans `assets/zz-data/chapter06/` ;
+- les spectres **ΛCDM** et **MCGT** dans `assets/zz-data/06_early_growth_jwst/` ;
 - les fichiers ΔCℓ et scans principaux (Δr_s, χ²) ;
-- les figures CMB mises à jour dans `assets/zz-figures/chapter06/` ;
-- les paramètres et métadonnées dans `assets/zz-data/chapter06/06_params_cmb.json`.
+- les figures CMB mises à jour dans `assets/zz-figures/06_early_growth_jwst/` ;
+- les paramètres et métadonnées dans `assets/zz-data/06_early_growth_jwst/06_params_cmb.json`.
 
 ---
 
@@ -113,7 +113,7 @@ Scripts de figures :
 
 Répertoire principal :
 
-- `assets/zz-data/chapter06/`
+- `assets/zz-data/06_early_growth_jwst/`
 
 Fichiers clefs de spectre :
 
@@ -169,7 +169,7 @@ Paramètres et métadonnées :
 
 Répertoire :
 
-- `assets/zz-figures/chapter06/`
+- `assets/zz-figures/06_early_growth_jwst/`
 
 Figures principales :
 
@@ -207,7 +207,7 @@ Ce script :
 3. calcule `H(z)/H0` (ou un ratio vs ΛCDM) ;
 4. écrit le résultat dans :
 
-   - `assets/zz-data/chapter06/06_hubble_mcgt.dat`
+   - `assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat`
 
 et, selon la configuration, dans un fichier auxiliaire `config/pdot_plateau_vs_z.dat`
 utilisé par CAMB.
@@ -249,8 +249,8 @@ python scripts/06_early_growth_jwst/10_fig04_delta_rs_vs_params.py
 python scripts/06_early_growth_jwst/10_fig05_delta_chi2_heatmap.py
 ```
 
-Chaque script lit les fichiers correspondants dans `assets/zz-data/chapter06/` et met à jour
-la figure associée dans `assets/zz-figures/chapter06/`.
+Chaque script lit les fichiers correspondants dans `assets/zz-data/06_early_growth_jwst/` et met à jour
+la figure associée dans `assets/zz-figures/06_early_growth_jwst/`.
 
 ---
 
@@ -261,26 +261,26 @@ la figure associée dans `assets/zz-figures/chapter06/`.
 Pour la relecture scientifique et la publication, les fichiers suivants doivent être
 considérés comme **produits finaux** du chapitre 06 :
 
-- `assets/zz-data/chapter06/06_cls_spectrum_lcdm.dat`  
+- `assets/zz-data/06_early_growth_jwst/06_cls_spectrum_lcdm.dat`  
   → spectre Cℓ de référence ΛCDM.
 
-- `assets/zz-data/chapter06/06_cls_spectrum.dat`  
+- `assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat`  
   → spectre Cℓ MCGT (profil canonique).
 
-- `assets/zz-data/chapter06/06_delta_cls.csv`  
+- `assets/zz-data/06_early_growth_jwst/06_delta_cls.csv`  
   → ΔCℓ en µK².
 
-- `assets/zz-data/chapter06/06_delta_cls_relative.csv`  
+- `assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv`  
   → ΔCℓ / Cℓ (adimensionnel).
 
-- `assets/zz-data/chapter06/06_delta_rs_scan.csv`  
-- `assets/zz-data/chapter06/06_delta_rs_scan2D.csv`  
-- `assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv`  
+- `assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv`  
+- `assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv`  
+- `assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv`  
 
-- `assets/zz-data/chapter06/06_hubble_mcgt.dat`  
+- `assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat`  
   → loi d’expansion MCGT utilisée pour les calculs CMB.
 
-- `assets/zz-data/chapter06/06_params_cmb.json`  
+- `assets/zz-data/06_early_growth_jwst/06_params_cmb.json`  
   → paramètres, tolérances et métriques de contrôle.
 
 Les autres fichiers (par ex. `06_delta_Tm_scan.csv`, `06_alpha_evolution.csv`) peuvent
@@ -288,11 +288,11 @@ Les autres fichiers (par ex. `06_delta_Tm_scan.csv`, `06_alpha_evolution.csv`) p
 
 ### 6.2. Figures
 
-- `assets/zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png`
-- `assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png`
-- `assets/zz-figures/chapter06/06_fig_03_delta_cls_relative.png`
-- `assets/zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png`
-- `assets/zz-figures/chapter06/06_fig_05_delta_chi2_heatmap.png`
+- `assets/zz-figures/06_early_growth_jwst/06_fig_01_cmb_dataflow_diagram.png`
+- `assets/zz-figures/06_early_growth_jwst/06_fig_02_cls_lcdm_vs_mcgt.png`
+- `assets/zz-figures/06_early_growth_jwst/06_fig_03_delta_cls_relative.png`
+- `assets/zz-figures/06_early_growth_jwst/06_fig_04_delta_rs_vs_params.png`
+- `assets/zz-figures/06_early_growth_jwst/06_fig_05_delta_chi2_heatmap.png`
 
 Ces figures constituent la base de la narration scientifique du chapitre 06.
 

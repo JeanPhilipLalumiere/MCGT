@@ -2,7 +2,7 @@
   "script": "plot_fig03b_bootstrap_coverage_vs_n.py",
   "generated_at": "2025-12-19T18:55:38Z",
   "inputs": {
-    "results": "assets/zz-data/chapter10/10_results_global_scan.csv",
+    "results": "assets/zz-data/10_global_scan/10_results_global_scan.csv",
     "p95_col": "p95_rad"
   },
   "params": {
@@ -125,5 +125,5 @@
       "method": "percentile"
     }
   ],
-  "figure_path": "assets/zz-figures/chapter10/10_fig_03b_convergence_zoom.png"
+  "figure_path": "assets/zz-figures/10_global_scan/10_fig_03b_convergence_zoom.png"
 }

@@ -6,7 +6,7 @@ set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
-mkdir -p assets/zz-data/chapter05 assets/zz-figures/chapter05 zz-logs
+mkdir -p assets/zz-data/05_primordial_bbn assets/zz-figures/05_primordial_bbn zz-logs
 
 {
   echo "# STEP102 – Pipeline minimal Chapter 05 (BBN)"
@@ -40,12 +40,12 @@ mkdir -p assets/zz-data/chapter05 assets/zz-figures/chapter05 zz-logs
   echo
   echo "## 6) Inventaire rapide des outputs CH05"
   echo
-  echo "### assets/zz-data/chapter05/"
-  ls -1 assets/zz-data/chapter05 || echo "[WARN] assets/zz-data/chapter05 introuvable"
+  echo "### assets/zz-data/05_primordial_bbn/"
+  ls -1 assets/zz-data/05_primordial_bbn || echo "[WARN] assets/zz-data/05_primordial_bbn introuvable"
 
   echo
-  echo "### assets/zz-figures/chapter05/"
-  ls -1 assets/zz-figures/chapter05 || echo "[WARN] assets/zz-figures/chapter05 introuvable"
+  echo "### assets/zz-figures/05_primordial_bbn/"
+  ls -1 assets/zz-figures/05_primordial_bbn || echo "[WARN] assets/zz-figures/05_primordial_bbn introuvable"
 
 } | tee zz-logs/STEP102_ch05_pipeline_minimal.txt
 

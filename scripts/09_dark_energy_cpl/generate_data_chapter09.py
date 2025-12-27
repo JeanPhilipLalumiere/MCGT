@@ -57,8 +57,8 @@ except Exception as e:
     raise ImportError("Impossible d'importer mcgt.phase: %s" % e)
 
 # ----- Paths -----
-OUT_DIR = Path("assets/zz-data/chapter09")
-FIG_DIR = Path("assets/zz-figures/chapter09")
+OUT_DIR = Path("assets/zz-data/09_dark_energy_cpl")
+FIG_DIR = Path("assets/zz-figures/09_dark_energy_cpl")
 REF_CSV = OUT_DIR / "09_phases_imrphenom.csv"
 REF_META = OUT_DIR / "09_phases_imrphenom.meta.json"
 JALONS_CSV = OUT_DIR / "09_comparison_milestones.csv"
@@ -474,7 +474,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument(
         "--export-diff",
         action="store_true",
-        help="Écrire assets/zz-data/chapter09/09_phase_diff.csv.",
+        help="Écrire assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv.",
     )
     ap.add_argument(
         "--export-anomalies",

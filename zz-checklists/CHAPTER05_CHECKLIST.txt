@@ -19,7 +19,7 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
 - [ ] Sources LaTeX (05-nucleosynthese-primordiale/):
       • 05_primordial_nucleosynthesis_conceptual.tex
       • 05_primordial_nucleosynthesis_details.tex
-- [ ] Données (assets/zz-data/chapter05/):
+- [ ] Données (assets/zz-data/05_primordial_bbn/):
       • 05_bbn_milestones.csv
       • 05_bbn_grid.csv
       • 05_bbn_data.csv
@@ -27,7 +27,7 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
       • 05_chi2_bbn_vs_T.csv
       • 05_dchi2_vs_T.csv
       • 05_bbn_params.json
-- [ ] Figures (assets/zz-figures/chapter05/):
+- [ ] Figures (assets/zz-figures/05_primordial_bbn/):
       • fig_01_bbn_reaction_network.png
       • fig_02_dh_model_vs_obs.png
       • fig_03_yp_model_vs_obs.png
@@ -95,14 +95,14 @@ CHECKLIST — CHAPITRE 05 (Nucléosynthèse primordiale / BBN, MCGT)
       • Mettre à jour max_epsilon_* dans 05_bbn_params.json.
 
 [VALIDATION AUTOMATISÉE]
-- [ ] JSON :  validate_json.py  assets/zz-schemas/05_nucleosynthesis_parameters.schema.json  assets/zz-data/chapter05/05_bbn_params.json
+- [ ] JSON :  validate_json.py  assets/zz-schemas/05_nucleosynthesis_parameters.schema.json  assets/zz-data/05_primordial_bbn/05_bbn_params.json
 - [ ] CSV  :  validate_csv_table.py (schéma tabulaire si disponible) pour milestones & sorties clefs.
 - [ ] CI   :  zz-workflows/ci.yml exécute pytest + validateurs + diag manif.
 
 [INTÉGRATION LATEX]
 - [ ] pdflatex -jobname=chap5_conceptual  05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_conceptual.tex
 - [ ] pdflatex -jobname=chap5_details     05-nucleosynthese-primordiale/05_primordial_nucleosynthesis_details.tex
-- [ ] Chemins images vers assets/zz-figures/chapter05/ (relatifs, sensibles à la casse).
+- [ ] Chemins images vers assets/zz-figures/05_primordial_bbn/ (relatifs, sensibles à la casse).
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] Ajouter/mettre à jour assets/zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.

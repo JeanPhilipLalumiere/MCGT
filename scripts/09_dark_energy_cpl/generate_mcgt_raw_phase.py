@@ -181,7 +181,7 @@ def main():
     phi_mcgt = solve_mcgt(freqs, params, fmin)
 
     # Préparation des chemins de sortie
-    out_dir = Path("assets/zz-data/chapter09")
+    out_dir = Path("assets/zz-data/09_dark_energy_cpl")
     out_dir.mkdir(parents=True, exist_ok=True)
     tag = f"q0star{q0star:.2f}_alpha{alpha:.2f}"
     output_csv = out_dir / f"09_phase_run_{tag}.dat"

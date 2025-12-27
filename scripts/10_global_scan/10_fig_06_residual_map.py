@@ -16,19 +16,19 @@ plot_fig06_residual_map.py  —  Figure 6 (pipeline minimal CH10)
 
 Compatible avec :
   * ancien CSV : assets/zz-data/chapitre10/10_mc_results.circ.csv
-  * nouveau CSV minimal : assets/zz-data/chapter10/10_results_global_scan.csv
+  * nouveau CSV minimal : assets/zz-data/10_global_scan/10_results_global_scan.csv
 
 Usage typique (ancien jeu de données) :
   python scripts/10_global_scan/plot_fig06_residual_map.py \
-    --results assets/zz-data/chapter10/10_mc_results.circ.csv \
+    --results assets/zz-data/10_global_scan/10_mc_results.circ.csv \
     --metric dp95 --abs \
     --m1-col m1 --m2-col m2 \
     --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-    --out assets/zz-figures/chapter10/10_fig_06_residual_map.png
+    --out assets/zz-figures/10_global_scan/10_fig_06_residual_map.png
 
 Dans le pipeline minimal, le script est appelé sans arguments et
 utilise par défaut :
-    results = assets/zz-data/chapter10/10_results_global_scan.csv
+    results = assets/zz-data/10_global_scan/10_results_global_scan.csv
     metric  = dp95 (absolu)
 """
 
@@ -238,7 +238,7 @@ def main() -> None:
         default=None,
         help=(
             "CSV d'entrée. "
-            "Par défaut (pipeline minimal) : assets/zz-data/chapter10/10_results_global_scan.csv"
+            "Par défaut (pipeline minimal) : assets/zz-data/10_global_scan/10_results_global_scan.csv"
         ),
     )
     ap.add_argument(
@@ -317,7 +317,7 @@ def main() -> None:
     )
     ap.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_06_residual_map.png",
+        default="assets/zz-figures/10_global_scan/10_fig_06_residual_map.png",
         help="PNG de sortie.",
     )
     ap.add_argument(
@@ -326,16 +326,16 @@ def main() -> None:
         help="Écrit un petit JSON manifest à côté de la figure.",
     )
     args = ap.parse_args()
-    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/chapter10/ ---
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/10_global_scan/ ---
     outp = Path(args.out)
     if outp.parent == Path("."):
-        outp = Path("assets/zz-figures/chapter10") / outp.name
+        outp = Path("assets/zz-figures/10_global_scan") / outp.name
     outp.parent.mkdir(parents=True, exist_ok=True)
     args.out = str(outp)
 
     # Fichier par défaut si non fourni (cas pipeline minimal)
     if args.results is None:
-        args.results = "assets/zz-data/chapter10/10_results_global_scan.csv"
+        args.results = "assets/zz-data/10_global_scan/10_results_global_scan.csv"
         print(
             f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
         )

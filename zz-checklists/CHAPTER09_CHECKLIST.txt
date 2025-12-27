@@ -14,7 +14,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
 - [ ] Sources LaTeX (09-phase-ondes-gravitationnelles/):
       • 09_phase_ondes_grav_conceptuel.tex
       • 09_phase_ondes_grav_details.tex
-- [ ] Données (assets/zz-data/chapter09/):
+- [ ] Données (assets/zz-data/09_dark_energy_cpl/):
       • 09_phases_imrphenom.csv
       • 09_phases_imrphenom.meta.json
       • 09_phases_mcgt_prepoly.csv
@@ -25,7 +25,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
       • 09_jalons_comparaison.csv
       • 09_jalons_comparaison.meta.json
       • (optionnel) 09_diff_unwrap_phase.csv
-- [ ] Figures (assets/zz-figures/chapter09/):
+- [ ] Figures (assets/zz-figures/09_dark_energy_cpl/):
       • fig_01_phase_overlay.png (± .final.png)
       • fig_02_residual_phase.png
       • fig_03_hist_absdphi_20_300.png
@@ -81,61 +81,61 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
 [PIPELINE — SÉQUENCE CONSEILLÉE]
 - [ ] (Optionnel) Générer la référence GR :
       python scripts/09_dark_energy_cpl/extract_phenom_phase.py \
-        --out assets/zz-data/chapter09/09_phases_imrphenom.csv
+        --out assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv
 - [ ] Pré-correction + résidu “principal” :
       python scripts/09_dark_energy_cpl/generate_data_chapter09.py \
-        --ref assets/zz-data/chapter09/09_phases_imrphenom.csv \
-        --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
-        --out-diff    assets/zz-data/chapter09/09_phase_diff.csv \
+        --ref assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+        --out-prepoly assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv \
+        --out-diff    assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv \
         --log-level INFO
 - [ ] Optimisation (base, degré, k) & série finale :
       python scripts/09_dark_energy_cpl/opt_poly_rebranch.py \
-        --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv \
-        --meta assets/zz-data/chapter09/09_metrics_phase.json \
+        --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv \
+        --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \
         --fit-window 30 250 --metrics-window 20 300 \
         --degrees 3 4 5 --bases log10 hz --k-range -10 10 \
-        --out-csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
-        --out-best assets/zz-data/chapter09/09_best_params.json \
+        --out-csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
+        --out-best assets/zz-data/09_dark_energy_cpl/09_best_params.json \
         --backup --log-level INFO
 - [ ] Contrôle méthodologique p95 :
       python scripts/09_dark_energy_cpl/check_p95_methods.py \
-        --csv assets/zz-data/chapter09/09_phases_mcgt.csv \
+        --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
         --window 20 300 \
-        --out assets/zz-figures/chapter09/09_fig_00_p95_check_control.png
-      (option : --update-metrics-json assets/zz-data/chapter09/09_metrics_phase.json)
+        --out assets/zz-figures/09_dark_energy_cpl/09_fig_00_p95_check_control.png
+      (option : --update-metrics-json assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json)
 
 [PRODUCTION DES FIGURES]
 - [ ] Superposition φ_ref/φ_mcgt (+ résidu) :
       python scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py \
-        --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
-        --meta assets/zz-data/chapter09/09_metrics_phase.json \
-        --out  assets/zz-figures/chapter09/09_fig_01_phase_overlay.png \
+        --csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
+        --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \
+        --out  assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png \
         --shade 20 300 --show-residual --display-variant auto \
         --anchor-policy if-not-calibrated --dpi 300 --save-pdf
 - [ ] Résidu vs f (bandes) :
       python scripts/09_dark_energy_cpl/plot_fig02_residual_phase.py \
-        --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
-        --meta assets/zz-data/chapter09/09_metrics_phase.json \
-        --out  assets/zz-figures/chapter09/09_fig_02_residual_phase.png \
+        --csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
+        --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \
+        --out  assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png \
         --bands 20 300 300 1000 1000 2000 --dpi 300
 - [ ] Histogramme |Δφ| (20–300 Hz) :
       python scripts/09_dark_energy_cpl/plot_fig03_hist_absdphi_20_300.py \
-        --csv  assets/zz-data/chapter09/09_phases_mcgt.csv \
-        --meta assets/zz-data/chapter09/09_metrics_phase.json \
-        --out  assets/zz-figures/chapter09/09_fig_03_hist_absdphi_20_300.png \
+        --csv  assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
+        --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \
+        --out  assets/zz-figures/09_dark_energy_cpl/09_fig_03_hist_absdphi_20_300.png \
         --mode principal --bins 50 --window 20 300 --xscale log --dpi 300
 - [ ] Jalons GWTC-3 vs f :
       python scripts/09_dark_energy_cpl/plot_fig04_absdphi_milestones_vs_f.py \
-        --diff   assets/zz-data/chapter09/09_phase_diff.csv \
-        --csv    assets/zz-data/chapter09/09_phases_mcgt.csv \
-        --meta   assets/zz-data/chapter09/09_metrics_phase.json \
-        --jalons assets/zz-data/chapter09/09_jalons_comparaison.csv \
-        --out    assets/zz-figures/chapter09/09_fig_04_absdphi_milestones_vs_f.png \
+        --diff   assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv \
+        --csv    assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv \
+        --meta   assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json \
+        --jalons assets/zz-data/09_dark_energy_cpl/09_jalons_comparaison.csv \
+        --out    assets/zz-figures/09_dark_energy_cpl/09_fig_04_absdphi_milestones_vs_f.png \
         --window 20 300 --with_errorbar --dpi 300
 - [ ] Nuage φ_ref(f_peak) vs φ_mcgt(f_peak) :
       python scripts/09_dark_energy_cpl/plot_fig05_scatter_phi_at_fpeak.py \
-        --jalons assets/zz-data/chapter09/09_jalons_comparaison.csv \
-        --out    assets/zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png
+        --jalons assets/zz-data/09_dark_energy_cpl/09_jalons_comparaison.csv \
+        --out    assets/zz-figures/09_dark_energy_cpl/09_fig_05_scatter_phi_at_fpeak.png
 
 [CONTRÔLES QUALITÉ (QC)]
 - [ ] Intégrité CSV : présence d’en-têtes, tailles > 0, types parsables, f_Hz trié/unique.
@@ -148,7 +148,7 @@ CHECKLIST — CHAPITRE 09 (Phase & ondes gravitationnelles : MCGT vs GR/IMRPheno
 [VALIDATIONS (SNIPPETS RAPIDES)]
 - [ ] Sanity CSV :
       python - << 'PY'
-import pandas as pd; d=pd.read_csv("assets/zz-data/chapter09/09_phases_mcgt.csv")
+import pandas as pd; d=pd.read_csv("assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv")
 assert d["f_Hz"].is_monotonic_increasing and d["f_Hz"].is_unique
 assert d[["phi_ref","phi_mcgt"]].applymap(pd.notna).all().all()
 print(len(d), "rows, OK")
@@ -156,7 +156,7 @@ PY
 - [ ] k robuste & p95(k±1) :
       python - << 'PY'
 import numpy as np,pandas as pd
-d=pd.read_csv("assets/zz-data/chapter09/09_phases_mcgt.csv").sort_values("f_Hz")
+d=pd.read_csv("assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv").sort_values("f_Hz")
 f=d.f_Hz.values; m=(f>=20)&(f<=300); two_pi=2*np.pi
 vals=(d.phi_mcgt[m]-d.phi_ref[m])/two_pi; k=int(round(np.nanmedian(vals)))
 def p95(a): a=a[np.isfinite(a)]; return float(np.nanpercentile(a,95))
@@ -169,7 +169,7 @@ PY
 - [ ] cd 09-phase-ondes-gravitationnelles
 - [ ] pdflatex -interaction=nonstopmode 09_phase_ondes_grav_conceptuel.tex
 - [ ] pdflatex -interaction=nonstopmode 09_phase_ondes_grav_details.tex
-- [ ] Vérifier les chemins vers assets/zz-figures/chapter09/ et les références de figures.
+- [ ] Vérifier les chemins vers assets/zz-figures/09_dark_energy_cpl/ et les références de figures.
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] assets/zz-manifests/chapters/chapter_manifest_09.json : déclarer données/figures du chapitre.
@@ -179,9 +179,9 @@ PY
 
 [COMMANDES RAPIDES — RÉCAPITULATIF]
 - [ ] Données de base :
-      python scripts/09_dark_energy_cpl/generate_data_chapter09.py --ref assets/zz-data/chapter09/09_phases_imrphenom.csv --out-prepoly assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --out-diff assets/zz-data/chapter09/09_phase_diff.csv
+      python scripts/09_dark_energy_cpl/generate_data_chapter09.py --ref assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv --out-prepoly assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv --out-diff assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv
 - [ ] Optimisation & série finale :
-      python scripts/09_dark_energy_cpl/opt_poly_rebranch.py --csv assets/zz-data/chapter09/09_phases_mcgt_prepoly.csv --meta assets/zz-data/chapter09/09_metrics_phase.json --fit-window 30 250 --metrics-window 20 300 --degrees 3 4 5 --bases log10 hz --k-range -10 10 --out-csv assets/zz-data/chapter09/09_phases_mcgt.csv --out-best assets/zz-data/chapter09/09_best_params.json
+      python scripts/09_dark_energy_cpl/opt_poly_rebranch.py --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt_prepoly.csv --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json --fit-window 30 250 --metrics-window 20 300 --degrees 3 4 5 --bases log10 hz --k-range -10 10 --out-csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv --out-best assets/zz-data/09_dark_energy_cpl/09_best_params.json
 - [ ] Figures :
       python scripts/09_dark_energy_cpl/plot_fig01_phase_overlay.py   # etc. (02,03,04,05)
 

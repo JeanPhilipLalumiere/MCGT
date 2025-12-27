@@ -9,13 +9,13 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
       • 01_introduction_conceptuel.tex
       • 01_applications_calibration_conceptuel.tex
       • CHAPTER01_GUIDE.txt
-- [ ] Données (assets/zz-data/chapter01/):
+- [ ] Données (assets/zz-data/01_invariants_stability/):
       • Entrées  : 01_timeline_milestones.csv ; 01_initial_grid_data.dat
       • Sorties  : 01_optimized_data.csv ; 01_optimized_grid_data.dat ;
                   01_P_derivative_initial.csv ; 01_P_derivative_optimized.csv ;
                   01_optimized_data_and_derivatives.csv ;
                   01_relative_error_timeline.csv ; 01_dimensionless_invariants.csv
-- [ ] Figures (assets/zz-figures/chapter01/):
+- [ ] Figures (assets/zz-figures/01_invariants_stability/):
       • fig_01_early_plateau.png ; fig_02_logistic_calibration.png ;
         fig_03_relative_error_timeline.png ; fig_04_P_vs_T_evolution.png ;
         fig_05_I1_vs_T.png ; fig_06_P_derivative_comparison.png
@@ -39,7 +39,7 @@ CHECKLIST — CHAPITRE 01 (Introduction & Applications, MCGT)
 
 [GÉNÉRATION DES DONNÉES]
 - [ ] Exécuter :  python scripts/01_invariants_stability/generate_data_chapter01.py
-      Sorties attendues (assets/zz-data/chapter01/):
+      Sorties attendues (assets/zz-data/01_invariants_stability/):
       • 01_optimized_data.csv                       (T, P_calc)
       • 01_optimized_grid_data.dat                  (= 4.1 au format DAT)
       • 01_P_derivative_initial.csv                 (T, dP_dT)   — SG avant opti

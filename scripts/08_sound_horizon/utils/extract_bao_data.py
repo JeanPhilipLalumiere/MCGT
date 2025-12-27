@@ -10,7 +10,7 @@ import pandas as pd
 
 # 1. Définition des chemins
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../assets/zz-data/chapter08"))
+DATA_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../assets/zz-data/08_sound_horizon"))
 os.makedirs(DATA_DIR, exist_ok=True)
 
 input_file = os.path.join(DATA_DIR, "bao_distances_DR12v5.dat")

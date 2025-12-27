@@ -9,9 +9,9 @@ optionnel encart zoom (--with-zoom). Title fontsize=15.
 Usage example (recommandé) :
 
 python scripts/10_global_scan/plot_fig04_scatter_p95_recalc_vs_orig.py \
-  --results assets/zz-data/chapter10/10_results_global_scan.csv \
+  --results assets/zz-data/10_global_scan/10_results_global_scan.csv \
   --orig-col p95_20_300 --recalc-col p95_20_300_recalc \
-  --out assets/zz-figures/chapter10/10_fig_04_p95_comparison.png \
+  --out assets/zz-figures/10_global_scan/10_fig_04_p95_comparison.png \
   --dpi 300 \
   --point-size 10 --alpha 0.7 --cmap viridis \
   --change-eps 1e-6 \
@@ -152,7 +152,7 @@ def main() -> None:
     )
     p.add_argument(
         "--out",
-        default="assets/zz-figures/chapter10/10_fig_04_p95_comparison.png",
+        default="assets/zz-figures/10_global_scan/10_fig_04_p95_comparison.png",
         help="PNG de sortie",
     )
     p.add_argument("--dpi", type=int, default=300, help="DPI PNG")
@@ -240,16 +240,16 @@ def main() -> None:
 
     args = p.parse_args()
 
-    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/chapter10/ ---
+    # --- normalisation sortie : si '--out' est un nom nu -> redirige vers assets/zz-figures/10_global_scan/ ---
     from pathlib import Path as _Path
 
     _outp = _Path(args.out)
     if _outp.parent == _Path("."):
-        args.out = str(_Path("assets/zz-figures/chapter10") / _outp.name)
+        args.out = str(_Path("assets/zz-figures/10_global_scan") / _outp.name)
 
     # Si --results non fourni (cas pipeline minimal), on prend le CSV standard
     if not args.results:
-        args.results = "assets/zz-data/chapter10/10_results_global_scan.csv"
+        args.results = "assets/zz-data/10_global_scan/10_results_global_scan.csv"
         print(
             f"[INFO] --results non fourni ; utilisation par défaut de '{args.results}'."
         )

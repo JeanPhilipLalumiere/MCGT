@@ -21,7 +21,7 @@ Ce dossier contient :
 
 ## Principes & conventions
 
-* Tous les **noms de fichiers** et **chemins** dans les manifestes sont en **anglais** (ex. `assets/zz-data/chapter09/...`, `assets/zz-figures/chapter10/...`, `scripts/07_bao_geometry/...`).
+* Tous les **noms de fichiers** et **chemins** dans les manifestes sont en **anglais** (ex. `assets/zz-data/09_dark_energy_cpl/...`, `assets/zz-figures/10_global_scan/...`, `scripts/07_bao_geometry/...`).
   *Exception :* les sources LaTeX `*.tex` conservent les noms en **français** (ex. `09_phase_ondes_grav_conceptuel.tex`).
 * Les manifestes peuvent exister en **deux formats** :
 
@@ -43,7 +43,7 @@ Ce dossier contient :
   "generated_at": "UTC-ISO8601",
   "files": [
     {
-      "path": "assets/zz-data/chapter09/09_metrics_phase.json",
+      "path": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
       "role": "data|config|code|figure|document|meta",
       "sha256": "<hex>",
       "size_bytes": 1234,
@@ -65,7 +65,7 @@ Ce dossier contient :
   "selection_policy": { "include": [...], "exclude": [...] },
   "entries": [
     {
-      "path": "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
       "role": "figure",
       "kind": "png",
       "format": "png",
@@ -85,7 +85,7 @@ Ce dossier contient :
 > * `path` **relatif** (jamais absolu).
 > * `sha256` et `size_bytes` **obligatoires** dans la version publiée.
 > * `git_hash` si le fichier est suivi par Git.
-> * Garder la **cohérence linguistique** : `chapterXX`, `generate_*`, `results`, `config`, etc.
+> * Garder la **cohérence linguistique** : `NN_chapter_name`, `generate_*`, `results`, `config`, etc.
 
 ---
 
@@ -107,7 +107,7 @@ python3 assets/zz-manifests/diag_consistency.py assets/zz-manifests/manifest_pub
 
 3. **Normalisation des chemins via alias (FR→EN) si applicable**
 
-> Nécessite des alias dans `assets/zz-manifests/migration_map.json` (ex. `assets/zz-data/chapitre` → `assets/zz-data/chapter`).
+> Nécessite des alias dans `assets/zz-manifests/migration_map.json` (ex. `assets/zz-data/chapitre09/` → `assets/zz-data/09_dark_energy_cpl/`).
 
 ```bash
 python3 assets/zz-manifests/diag_consistency.py assets/zz-manifests/manifest_publication.json \
@@ -144,15 +144,15 @@ git tag -a publication-vX -m "Publication vX"
 ### Ajouter un fichier individuel au master
 
 ```bash
-python3 assets/zz-manifests/add_to_manifest.py assets/zz-data/chapter09/09_metrics_phase.json --role data
+python3 assets/zz-manifests/add_to_manifest.py assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json --role data
 ```
 
 ### Regénérer un sous-ensemble (ex. chapitres 9–10) puis rafraîchir le master
 
 ```bash
 # (exécution des pipelines de génération en amont)
-python3 assets/zz-manifests/add_to_manifest.py assets/zz-figures/chapter09/09_fig_02_residual_phase.png --role figure
-python3 assets/zz-manifests/add_to_manifest.py assets/zz-data/chapter10/10_mc_results.csv --role data
+python3 assets/zz-manifests/add_to_manifest.py assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png --role figure
+python3 assets/zz-manifests/add_to_manifest.py assets/zz-data/10_global_scan/10_mc_results.csv --role data
 ```
 
 ### Re-synchroniser la version publication à partir du master (outil dédié)
@@ -177,14 +177,14 @@ python3 scripts/manifesttools/populate_manifest.py \
 * Sources LaTeX (`manuscript/main.tex` + chapitres `*.tex`)
 * Guides de chapitre (`CHAPTERXX_GUIDE.txt`)
 * Configs essentielles (`config/mcgt-global-config.ini`, `config/*.ini`, `config/*.json`)
-* Scripts clés (`scripts/chapterXX/generate_*.py`, traceurs `plot_*.py`)
+* Scripts clés (`scripts/NN_chapter_name/generate_*.py`, traceurs `plot_*.py`)
 * Modules `mcgt/` (`__init__.py`, `phase.py`, `scalar_perturbations.py`, backends)
-* Figures **représentatives** (`assets/zz-figures/chapterXX/fig_*.png`)
+* Figures **représentatives** (`assets/zz-figures/NN_chapter_name/fig_*.png`)
 * Fichiers `*.meta.json` **associés**
 
 **Exclure** :
 
-* Données brutes volumineuses (`assets/zz-data/chapterXX/*samples*.csv`, caches temporaires)
+* Données brutes volumineuses (`assets/zz-data/NN_chapter_name/*samples*.csv`, caches temporaires)
 * Fichiers intermédiaires et artefacts non déterministes
 * Archives et sauvegardes (`*.bak*`, `*.tmp`, `*.log`)
 

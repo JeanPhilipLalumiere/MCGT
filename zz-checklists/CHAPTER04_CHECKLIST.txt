@@ -13,10 +13,10 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 - [ ] Sources LaTeX (04-invariants-adimensionnels/):
       • 04_invariants_adimensionnels_conceptuel.tex
       • 04_invariants_adimensionnels_details.tex
-- [ ] Données (assets/zz-data/chapter04/):
+- [ ] Données (assets/zz-data/04_expansion_supernovae/):
       • 04_P_vs_T.dat
       • 04_dimensionless_invariants.csv
-- [ ] Figures (assets/zz-figures/chapter04/):
+- [ ] Figures (assets/zz-figures/04_expansion_supernovae/):
       • fig_01_invariants_schematic.png
       • fig_02_invariants_histogram.png
       • fig_03_invariants_vs_T.png
@@ -92,7 +92,7 @@ CHECKLIST — CHAPITRE 04 (Invariants adimensionnels, MCGT)
 [COMPILATION LaTeX]
 - [ ] pdflatex -jobname=chap4_conceptuel  04-invariants-adimensionnels/04_invariants_adimensionnels_conceptuel.tex
 - [ ] pdflatex -jobname=chap4_details     04-invariants-adimensionnels/04_invariants_adimensionnels_details.tex
-- [ ] Figures incluses depuis assets/zz-figures/chapter04/ ; chemins relatifs OK.
+- [ ] Figures incluses depuis assets/zz-figures/04_expansion_supernovae/ ; chemins relatifs OK.
 
 [MANIFESTES & TRAÇABILITÉ]
 - [ ] Mettre à jour assets/zz-manifests/figure_manifest.csv pour les 4 figures du chapitre.

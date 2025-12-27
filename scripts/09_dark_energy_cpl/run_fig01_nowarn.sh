@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
-mkdir -p _tmp assets/zz-figures/chapter09
-SRC="assets/zz-data/chapter09/09_metrics_phase.json"
+mkdir -p _tmp assets/zz-figures/09_dark_energy_cpl
+SRC="assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json"
 SAN="_tmp/ch09_meta_sanitized.json"
-OUT="assets/zz-figures/chapter09/09_fig_01_phase_overlay.png"
+OUT="assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png"
 
 python - <<'PY'
 import json, pathlib
-src = pathlib.Path("assets/zz-data/chapter09/09_metrics_phase.json")
+src = pathlib.Path("assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json")
 def as_dict(x): return x if isinstance(x, dict) else {}
 safe = {
   "calibration": {"enabled": False, "model": "phi0,tc", "window": [20.0, 300.0]},
@@ -37,9 +37,9 @@ python - <<'PY'
 import sys, logging, runpy
 sys.argv = [
   "plot_fig01_phase_overlay.py",
-  "--csv",  "assets/zz-data/chapter09/09_phases_mcgt.csv",
+  "--csv",  "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
   "--meta", "_tmp/ch09_meta_sanitized.json",
-  "--out",  "assets/zz-figures/chapter09/09_fig_01_phase_overlay.png",
+  "--out",  "assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png",
   "--dpi",  "150",
 ]
 logging.basicConfig()

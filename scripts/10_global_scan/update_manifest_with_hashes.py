@@ -6,7 +6,7 @@ import subprocess
 import sys
 from importlib import metadata
 
-manifest_path = pathlib.Path("assets/zz-data/chapter10/10_mc_run_manifest.json")
+manifest_path = pathlib.Path("assets/zz-data/10_global_scan/10_mc_run_manifest.json")
 if not manifest_path.exists():
     print("Manifest missing:", manifest_path)
     sys.exit(1)
@@ -20,12 +20,12 @@ def sha256(fpath):
 
 
 files = {
-    "ref_phases": "assets/zz-data/chapter09/09_phases_imrphenom.csv",
-    "metrics_phase_json": "assets/zz-data/chapter09/09_metrics_phase.json",
-    "results_csv": "assets/zz-data/chapter10/10_mc_results.csv",
-    "results_agg_csv": "assets/zz-data/chapter10/10_mc_results.agg.csv",
-    "best_json": "assets/zz-data/chapter10/10_mc_best.json",
-    "milestones_csv": "assets/zz-data/chapter10/10_mc_milestones_eval.csv",
+    "ref_phases": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
+    "metrics_phase_json": "assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json",
+    "results_csv": "assets/zz-data/10_global_scan/10_mc_results.csv",
+    "results_agg_csv": "assets/zz-data/10_global_scan/10_mc_results.agg.csv",
+    "best_json": "assets/zz-data/10_global_scan/10_mc_best.json",
+    "milestones_csv": "assets/zz-data/10_global_scan/10_mc_milestones_eval.csv",
 }
 
 h = {}

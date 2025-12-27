@@ -29,7 +29,7 @@ if [ -z "$INI_FILE" ]; then
   exit 1
 fi
 
-EXPORT_RAW="assets/zz-data/chapter07/07_perturbations_main_data.csv"
+EXPORT_RAW="assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv"
 
 echo "[INFO] Utilisation de l'INI : $INI_FILE"
 echo "[INFO] Export brut         : $EXPORT_RAW"

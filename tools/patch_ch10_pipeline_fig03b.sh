@@ -22,7 +22,7 @@ echo "== CH10 – PIPELINE MINIMAL : exploration-globale =="
 echo
 echo "[1/2] Génération des données..."
 data_script="scripts/10_global_scan/generate_data_chapter10.py"
-results_csv="assets/zz-data/chapter10/10_results_global_scan.csv"
+results_csv="assets/zz-data/10_global_scan/10_results_global_scan.csv"
 echo "[INFO] Utilisation du script de données : ${data_script}"
 echo "[INFO] Fichier de résultats : ${results_csv}"
 
@@ -44,7 +44,7 @@ for script in "${scripts[@]}"; do
     plot_fig03b_bootstrap_coverage_vs_n.py)
       python "${script}" \
         --results "${results_csv}" \
-        --out "assets/zz-figures/chapter10/10_fig_03_b_bootstrap_coverage_vs_n.png"
+        --out "assets/zz-figures/10_global_scan/10_fig_03_b_bootstrap_coverage_vs_n.png"
       ;;
     *)
       python "${script}"

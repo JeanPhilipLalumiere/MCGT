@@ -49,8 +49,8 @@ Depuis la **racine du dépôt** MCGT (par ex. `/home/jplal/MCGT`) :
   - `numpy`, `pandas`, `scipy`, `matplotlib`, etc. ;
 - Fichiers d’entrée BBN déjà présents dans le dépôt :
 
-  - `assets/zz-data/chapter05/05_bbn_milestones.csv`
-  - `assets/zz-data/chapter05/05_bbn_invariants.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv`
 
 Ces fichiers contiennent notamment :
 
@@ -61,8 +61,8 @@ En pratique, vérifier :
 
 ```bash
 cd /home/jplal/MCGT  # adapter au besoin
-ls assets/zz-data/chapter05/05_bbn_milestones.csv
-ls assets/zz-data/chapter05/05_bbn_invariants.csv
+ls assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv
+ls assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv
 ```
 
 ---
@@ -86,8 +86,8 @@ Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 
 - `✓ Chapter 05 : données générées avec succès.`
 - `✓ Chapter 05 : figures (01–04) générées avec succès.`
-- un récapitulatif des fichiers dans `assets/zz-data/chapter05/`
-  et `assets/zz-figures/chapter05/`.
+- un récapitulatif des fichiers dans `assets/zz-data/05_primordial_bbn/`
+  et `assets/zz-figures/05_primordial_bbn/`.
 
 ---
 
@@ -108,7 +108,7 @@ Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 
 **Données CH05** :
 
-- répertoire : `assets/zz-data/chapter05/`
+- répertoire : `assets/zz-data/05_primordial_bbn/`
 
   - **Entrées / jalons** :
     - `05_bbn_milestones.csv`
@@ -122,7 +122,7 @@ Si tout se passe bien, tu dois voir dans les logs des lignes du type :
 
 **Figures CH05** :
 
-- répertoire : `assets/zz-figures/chapter05/`
+- répertoire : `assets/zz-figures/05_primordial_bbn/`
 
   - `05_fig_01_bbn_reaction_network.png`
   - `05_fig_02_dh_model_vs_obs.png`
@@ -147,7 +147,7 @@ Ce script effectue, en résumé :
 
 1. **Lecture des jalons observationnels**
 
-   - charge `assets/zz-data/chapter05/05_bbn_milestones.csv` ;
+   - charge `assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv` ;
    - valide les en‑têtes, les types numériques et l’absence de doublons
      sur la colonne `label` (p. ex. `DH_obs`, `Yp_obs`, etc.).
 
@@ -156,7 +156,7 @@ Ce script effectue, en résumé :
    - construit une grille **log‑uniforme** en temps cosmologique `T_Gyr` ;
    - typiquement : `T_Gyr ∈ [1e-6, 14]` Gyr avec un pas `Δ log10 T ≈ 0.01` ;
    - sauvegarde cette grille dans :
-     - `assets/zz-data/chapter05/05_bbn_grid.csv`.
+     - `assets/zz-data/05_primordial_bbn/05_bbn_grid.csv`.
 
 3. **Prédictions BBN simplifiées**
 
@@ -165,14 +165,14 @@ Ce script effectue, en résumé :
      - `DH_calc` : rapport D/H calculé ;
      - `Yp_calc` : abondance massique en hélium‐4 ;
    - enregistre le tout dans :
-     - `assets/zz-data/chapter05/05_bbn_data.csv`.
+     - `assets/zz-data/05_primordial_bbn/05_bbn_data.csv`.
 
 4. **Calcul de χ²(T)**
 
    - pour chaque point de la grille `T_Gyr`, calcule le `χ²` cumulé
      (combinant D/H et Yp) à partir des jalons et de leurs incertitudes `σ` ;
    - sauvegarde les résultats dans :
-     - `assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv`.
+     - `assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv`.
 
 5. **Dérivée lissée de χ²**
 
@@ -180,7 +180,7 @@ Ce script effectue, en résumé :
      - `window_length = 7` ;
      - `polyorder = 3` ;
    - écrit le résultat dans :
-     - `assets/zz-data/chapter05/05_dchi2_vs_T.csv`.
+     - `assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv`.
 
 6. **Tolérances et diagnostics**
 
@@ -190,7 +190,7 @@ Ce script effectue, en résumé :
      - `max_epsilon_order2` (jalons d’ordre 2, cible ≤ 10 %) ;
    - consigne ces métriques, ainsi que la configuration de la grille,
      dans le fichier :
-     - `assets/zz-data/chapter05/05_bbn_params.json`.
+     - `assets/zz-data/05_primordial_bbn/05_bbn_params.json`.
 
 7. **Message de fin**
 
@@ -212,7 +212,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 
    Produit / met à jour :
 
-   - `assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png`
+   - `assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png`
 
 2. **D/H : modèle vs observations** :
 
@@ -222,7 +222,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 
    Produit / met à jour :
 
-   - `assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
+   - `assets/zz-figures/05_primordial_bbn/05_fig_02_dh_model_vs_obs.png`
 
 3. **Yp : modèle vs observations** :
 
@@ -232,7 +232,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 
    Produit / met à jour :
 
-   - `assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png`
+   - `assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png`
 
 4. **χ² BBN vs T** :
 
@@ -242,7 +242,7 @@ des scripts séparés, à lancer depuis la racine du dépôt.
 
    Produit / met à jour :
 
-   - `assets/zz-figures/chapter05/05_fig_04_chi2_vs_t.png`
+   - `assets/zz-figures/05_primordial_bbn/05_fig_04_chi2_vs_t.png`
 
 Dans le pipeline minimal, ces quatre appels sont enchaînés
 par `step102_ch05_pipeline_minimal.sh` afin d’obtenir en une seule commande
@@ -257,29 +257,29 @@ doivent être considérés comme **produits finaux** de CH05.
 
 ### 5.1 Données
 
-- `assets/zz-data/chapter05/05_bbn_grid.csv`  
+- `assets/zz-data/05_primordial_bbn/05_bbn_grid.csv`  
   → Grille temporelle `T_Gyr` (log‑uniforme) utilisée pour les calculs.
 
-- `assets/zz-data/chapter05/05_bbn_data.csv`  
+- `assets/zz-data/05_primordial_bbn/05_bbn_data.csv`  
   → Prédictions BBN (D/H, Yp, etc.) sur la grille `T_Gyr`.
 
-- `assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv`  
+- `assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv`  
   → Valeurs de `χ²` BBN en fonction de `T_Gyr`.
 
-- `assets/zz-data/chapter05/05_dchi2_vs_T.csv`  
+- `assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv`  
   → Dérivée lissée de `χ²` en fonction de `T_Gyr`.
 
-- `assets/zz-data/chapter05/05_bbn_params.json`  
+- `assets/zz-data/05_primordial_bbn/05_bbn_params.json`  
   → Paramètres de grille, constantes de lissage, tolérances et écarts maximaux
     (`max_epsilon_primary`, `max_epsilon_order2`), utilisés comme diagnostics
     de cohérence (et pour l’homogénéisation inter‑chapitres).
 
 ### 5.2 Figures
 
-- `assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png`
-- `assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
-- `assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png`
-- `assets/zz-figures/chapter05/05_fig_04_chi2_vs_t.png`
+- `assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png`
+- `assets/zz-figures/05_primordial_bbn/05_fig_02_dh_model_vs_obs.png`
+- `assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png`
+- `assets/zz-figures/05_primordial_bbn/05_fig_04_chi2_vs_t.png`
 
 Ce sont ces fichiers qui doivent être référencés par les manuscrits LaTeX
 et par les manifests de publication.
@@ -348,8 +348,8 @@ Les options avancées du CLI seed sont réservées à :
 
 Elles ne modifient pas les conventions principales d’écriture des outputs :
 
-- les données BBN restent dans `assets/zz-data/chapter05/` ;
-- les figures BBN restent dans `assets/zz-figures/chapter05/`.
+- les données BBN restent dans `assets/zz-data/05_primordial_bbn/` ;
+- les figures BBN restent dans `assets/zz-figures/05_primordial_bbn/`.
 
 ---
 

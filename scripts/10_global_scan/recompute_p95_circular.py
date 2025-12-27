@@ -6,10 +6,10 @@ Input: results.csv et samples.csv et grille de référence.
 Output: results.{suffix}.csv (par défaut suffix='circ') et manifeste JSON.
 Usage:
 python scripts/10_global_scan/recompute_p95_circular.py \
---results assets/zz-data/chapter10/10_mc_results.csv \
---samples assets/zz-data/chapter10/10_mc_samples.csv \
---ref-grid assets/zz-data/chapter09/09_phases_imrphenom.csv \
---out assets/zz-data/chapter10/10_mc_results.circ.csv
+--results assets/zz-data/10_global_scan/10_mc_results.csv \
+--samples assets/zz-data/10_global_scan/10_mc_samples.csv \
+--ref-grid assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+--out assets/zz-data/10_global_scan/10_mc_results.circ.csv
 """
 
 from __future__ import annotations

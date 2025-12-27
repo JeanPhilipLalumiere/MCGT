@@ -35,8 +35,8 @@ except Exception:
     sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
     from _common import cli as C
 
-DEF_CSV  = "assets/zz-data/chapter07/07_dcs2_dk.csv"
-DEF_META = "assets/zz-data/chapter07/07_meta.json"
+DEF_CSV  = "assets/zz-data/07_bao_geometry/07_dcs2_dk.csv"
+DEF_META = "assets/zz-data/07_bao_geometry/07_meta.json"
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Chap7 Δc_s^2(k) vs k (homogène)")
@@ -100,7 +100,7 @@ except Exception:
     sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
     from _common import cli as C
 
-DEF_RESULTS = "assets/zz-data/chapter10/10_metrics_primary.csv"
+DEF_RESULTS = "assets/zz-data/10_global_scan/10_metrics_primary.csv"
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Chap10 Hist & CDF des métriques (homogène)")
@@ -177,7 +177,7 @@ except Exception:
     sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
     from _common import cli as C
 
-DEF_CSV = "assets/zz-data/chapter04/04_dimensionless_invariants.csv"
+DEF_CSV = "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv"
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Chap4 Histogramme invariants (homogène)")
@@ -242,7 +242,7 @@ except Exception:
     sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
     from _common import cli as C
 
-DATA_FILE = "assets/zz-data/chapter03/03_fR_stability_domain.csv"
+DATA_FILE = "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv"
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Chap3 Domaine de stabilité f(R) (homogène)")

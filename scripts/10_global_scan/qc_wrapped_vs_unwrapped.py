@@ -116,7 +116,7 @@ def compute_resids_for_id(id_, samples_df, fgrid, outdir, ref_grid_path):
 def main(argv=None):
     parser = argparse.ArgumentParser(description="QC: wrapped vs unwrapped p95")
     parser.add_argument(
-        "--best", required=True, help="json top-K (assets/zz-data/chapter10/10_mc_best.json)"
+        "--best", required=True, help="json top-K (assets/zz-data/10_global_scan/10_mc_best.json)"
     )
     parser.add_argument("--samples", required=True, help="csv samples")
     parser.add_argument(
@@ -125,7 +125,7 @@ def main(argv=None):
     parser.add_argument("--ref-grid", required=True, help="grille de référence (csv)")
     parser.add_argument("--k", type=int, default=10, help="combien de top-K à inclure")
     parser.add_argument(
-        "--outdir", default="assets/zz-data/chapter10/qc_wrapped", help="répertoire de sortie"
+        "--outdir", default="assets/zz-data/10_global_scan/qc_wrapped", help="répertoire de sortie"
     )
     args = parser.parse_args(argv)
 

@@ -88,7 +88,7 @@ def _resolve_outdir(args_outdir: str | None) -> Path:
     Résout le dossier de sortie à partir de :
       1) args.outdir si fourni
       2) $MCGT_OUTDIR si défini
-      3) assets/zz-figures/chapter06 sinon
+      3) assets/zz-figures/06_early_growth_jwst sinon
     """
     # 1) argument explicite
     if args_outdir:
@@ -215,8 +215,8 @@ if __name__ == "__main__":
         )
         parser.add_argument(
             "--outdir",
-            default=os.environ.get("MCGT_OUTDIR", "assets/zz-figures/chapter06"),
-            help="Dossier de sortie (par défaut: assets/zz-figures/chapter06 ou $MCGT_OUTDIR).",
+            default=os.environ.get("MCGT_OUTDIR", "assets/zz-figures/06_early_growth_jwst"),
+            help="Dossier de sortie (par défaut: assets/zz-figures/06_early_growth_jwst ou $MCGT_OUTDIR).",
         )
         parser.add_argument(
             "--dry-run",

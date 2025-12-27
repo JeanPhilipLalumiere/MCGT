@@ -35,6 +35,20 @@ print(f"[INFO] manifest  : {man_path}")
 print()
 
 # ---------- helpers ----------
+CHAPTER_DIRS = {
+    "01": "01_invariants_stability",
+    "02": "02_primordial_spectrum",
+    "03": "03_stability_domain",
+    "04": "04_expansion_supernovae",
+    "05": "05_primordial_bbn",
+    "06": "06_early_growth_jwst",
+    "07": "07_bao_geometry",
+    "08": "08_sound_horizon",
+    "09": "09_dark_energy_cpl",
+    "10": "10_global_scan",
+    "11": "11_lss_s8_tension",
+    "12": "12_cmb_verdict",
+}
 
 def norm_chapter(ch: str) -> str:
     ch = (ch or "").strip()
@@ -53,7 +67,7 @@ def norm_chapter(ch: str) -> str:
 
 def stem_from_path(path: str) -> str:
     """
-    Ex: assets/zz-figures/chapter09/09_fig_01_phase_overlay.png
+    Ex: assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png
         -> fig_01_phase_overlay
     """
     if not path:
@@ -152,13 +166,15 @@ for (chap, fig), cov_row in coverage_rows:
     has_script = (cov_row.get("has_script") or "").strip()
     has_data = (cov_row.get("has_data") or "").strip()
 
-    # path_guess : assets/zz-figures/chapterNN/NN_<figure_stem>.png
+    # path_guess : assets/zz-figures/NN_chapter_name/NN_<figure_stem>.png
     path_guess = ""
     if chap.startswith("chapter"):
         suffix = chap[len("chapter"):]
         if suffix.isdigit():
             nn = suffix.zfill(2)
-            path_guess = f"assets/zz-figures/chapter{nn}/{nn}_{fig}.png"
+            dir_name = CHAPTER_DIRS.get(nn)
+            if dir_name:
+                path_guess = f"assets/zz-figures/{dir_name}/{nn}_{fig}.png"
 
     man_row = manifest_by_key.get(key)
     if man_row:

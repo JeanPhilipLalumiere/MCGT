@@ -14,10 +14,10 @@ MANIFEST_PATHS = [
 ]
 
 CH04_PATHS = [
-    "assets/zz-data/chapter04/04_P_vs_T.dat",
-    "assets/zz-data/chapter04/04_dimensionless_invariants.csv",
-    "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
-    "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
+    "assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat",
+    "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv",
+    "assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png",
+    "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png",
 ]
 
 

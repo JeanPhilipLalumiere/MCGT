@@ -1,7 +1,7 @@
 import csv
 import os
 
-CSV = "assets/zz-data/chapter10/10_mc_results.csv"
+CSV = "assets/zz-data/10_global_scan/10_mc_results.csv"
 
 
 def test_ch10_csv_exists_and_has_headers():

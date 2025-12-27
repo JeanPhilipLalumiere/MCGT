@@ -53,7 +53,7 @@
       "type": "string",
       "description": "Chemin relatif recommandé du CSV.",
       "examples": [
-        "assets/zz-data/chapter9/09_phases_imrphenom.csv"
+        "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv"
       ]
     },
     "source": {
@@ -219,7 +219,7 @@
       "generated_at": "2025-08-23T12:00:00Z",
       "producer_script": "scripts/09_dark_energy_cpl/extract_imrphenom_phase.py",
       "git_hash": "abcdef1",
-      "filename": "assets/zz-data/chapter9/09_phases_imrphenom.csv",
+      "filename": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
       "source": "lalsuite",
       "approximant": "IMRPhenomD",
       "n_points": 232,

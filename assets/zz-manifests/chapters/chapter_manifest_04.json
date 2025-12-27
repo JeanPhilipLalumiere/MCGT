@@ -2,9 +2,9 @@
   "chapter": 4,
   "title": "invariants-adimensionnels",
   "paths": {
-    "data_dir": "assets/zz-data/chapter04",
+    "data_dir": "assets/zz-data/04_expansion_supernovae",
     "scripts_dir": "scripts/04_expansion_supernovae",
-    "figures_dir": "assets/zz-figures/chapter04",
+    "figures_dir": "assets/zz-figures/04_expansion_supernovae",
     "configs": [
       "conventions.md",
       "config/mcgt-global-config.ini"
@@ -12,19 +12,19 @@
   },
   "files": {
     "data_inputs": [
-      "assets/zz-data/chapter04/04_P_vs_T.dat",
-      "assets/zz-data/chapter04/04_dimensionless_invariants.csv"
+      "assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat",
+      "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv"
     ],
     "data_outputs": [],
     "figures": [
-      "assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png",
-      "assets/zz-figures/chapter04/04_fig_02_invariants_histogram.png",
-      "assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png",
-      "assets/zz-figures/chapter04/04_fig_04_relative_deviations.png"
+      "assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png",
+      "assets/zz-figures/04_expansion_supernovae/04_fig_02_invariants_histogram.png",
+      "assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png",
+      "assets/zz-figures/04_expansion_supernovae/04_fig_04_relative_deviations.png"
     ],
     "metas": [
-      "assets/zz-data/chapter04/04_dimensionless_invariants.meta.json",
-      "assets/zz-figures/chapter04/04_fig_*.meta.json"
+      "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.meta.json",
+      "assets/zz-figures/04_expansion_supernovae/04_fig_*.meta.json"
     ],
     "others": [
       "04-invariants-adimensionnels/CHAPTER4_GUIDE.txt"
@@ -38,8 +38,8 @@
     "scripts/04_expansion_supernovae/plot_fig04_relative_errors.py"
   ],
   "meta_expected": [
-    "assets/zz-data/chapter04/04_dimensionless_invariants.meta.json",
-    "assets/zz-figures/chapter04/04_fig_*.meta.json"
+    "assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.meta.json",
+    "assets/zz-figures/04_expansion_supernovae/04_fig_*.meta.json"
   ],
   "status": "ready",
   "qa_checks": [

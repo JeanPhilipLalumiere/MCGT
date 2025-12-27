@@ -9,10 +9,10 @@ Portée : ce document définit les **conventions de données, de métadonnées, 
 
 ### 1.1 Répertoires canoniques
 
-* **Données** : `assets/zz-data/chapter{N}/`
-  *ex.* `assets/zz-data/chapter07/07_perturbations_domain.csv`
-* **Figures** : `assets/zz-figures/chapter{N}/`
-  *ex.* `assets/zz-figures/chapter03/03_fig_07_ricci_fr_vs_z.png`
+* **Données** : `assets/zz-data/NN_chapter_name/`
+  *ex.* `assets/zz-data/07_bao_geometry/07_perturbations_domain.csv`
+* **Figures** : `assets/zz-figures/NN_chapter_name/`
+  *ex.* `assets/zz-figures/03_stability_domain/03_fig_07_ricci_fr_vs_z.png`
 * **Scripts** : `scripts/chapter{N}/`
   *ex.* `scripts/06_early_growth_jwst/generate_data_chapter06.py`
 * **Configuration** : `config/`
@@ -112,9 +112,9 @@ Des schémas valident ces structures : voir `assets/zz-schemas/meta_schema.json`
 
 ### 5.1 Chapters 1–2 (chronologie / spectre)
 
-* `assets/zz-data/chapter01/01_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
-* `assets/zz-data/chapter02/02_optimal_parameters.json` (paramètres α → A\_s,n\_s)
-* `assets/zz-data/chapter02/02_primordial_spectrum_spec.json` (spécification)
+* `assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv` : `T_Gyr,I1,I2,I3`
+* `assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json` (paramètres α → A\_s,n\_s)
+* `assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json` (spécification)
 
 ### 5.2 Chapter 3 (stabilité f(R))
 
@@ -268,7 +268,7 @@ $$
 5. **Angles** : toujours en **radians** (clarifier `_circ`).
 6. **Reproductibilité** : consigner `seed`, `n`, `git_hash`, `generated_at`.
 7. **Figures** : tracer *avant/après* calibration et *k±1* (stab. résidu principal).
-8. **Archives** : conserver preuves (PNG/logs) dans `assets/zz-figures/chapter*/` et archives datées.
+8. **Archives** : conserver preuves (PNG/logs) dans `assets/zz-figures/NN_chapter_name/` et archives datées.
 
 ---
 
@@ -302,11 +302,11 @@ $$
   "actual_n_points": 232,
   "grid": { "fmin_Hz": 10.0, "fmax_Hz": 2048.0, "dlog10": 0.01 },
   "checksum_sha256": {
-    "assets/zz-data/chapter09/09_phases_mcgt.csv": "…"
+    "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv": "…"
   },
   "files": [
-    "assets/zz-data/chapter09/09_phases_mcgt.csv",
-    "assets/zz-data/chapter09/09_phase_diff.csv"
+    "assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv",
+    "assets/zz-data/09_dark_energy_cpl/09_phase_diff.csv"
   ],
   "manifest_entry": "assets/zz-manifests/manifest_master.json#entries/…"
 }

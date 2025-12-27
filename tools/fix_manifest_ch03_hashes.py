@@ -14,14 +14,14 @@ MANIFEST_PATHS = [
 ]
 
 CH03_PATHS = [
-    "assets/zz-data/chapter03/03_fR_stability_boundary.csv",
-    "assets/zz-data/chapter03/03_fR_stability_data.csv",
-    "assets/zz-data/chapter03/03_fR_stability_domain.csv",
-    "assets/zz-data/chapter03/03_fR_stability_meta.json",
-    "assets/zz-data/chapter03/03_meta_stability_fR.json",
-    "assets/zz-data/chapter03/03_ricci_fR_milestones.csv",
-    "assets/zz-data/chapter03/03_ricci_fR_vs_T.csv",
-    "assets/zz-data/chapter03/03_ricci_fR_vs_z.csv",
+    "assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv",
+    "assets/zz-data/03_stability_domain/03_fR_stability_data.csv",
+    "assets/zz-data/03_stability_domain/03_fR_stability_domain.csv",
+    "assets/zz-data/03_stability_domain/03_fR_stability_meta.json",
+    "assets/zz-data/03_stability_domain/03_meta_stability_fR.json",
+    "assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv",
+    "assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv",
+    "assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv",
 ]
 
 

@@ -136,7 +136,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--outdir",
         default=os.environ.get("MCGT_OUTDIR", str(FIG_DIR)),
-        help="Dossier de sortie (défaut: MCGT_OUTDIR ou assets/zz-figures/chapter08).",
+        help="Dossier de sortie (défaut: MCGT_OUTDIR ou assets/zz-figures/08_sound_horizon).",
     )
     parser.add_argument(
         "-v",

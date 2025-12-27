@@ -20,7 +20,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Aggregate MC runs for CH10.")
     ap.add_argument("--out-results", required=True, help="Aggregated CSV output")
     ap.add_argument("--out-best", required=True, help="Top-K JSON output")
-    ap.add_argument("--results", default="assets/zz-data/chapter10/10_mc_results.csv")
+    ap.add_argument("--results", default="assets/zz-data/10_global_scan/10_mc_results.csv")
     ap.add_argument("--K", type=int, default=50)
     args = ap.parse_args()
 

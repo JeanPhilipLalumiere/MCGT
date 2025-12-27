@@ -8,9 +8,9 @@ Ajoute/garantit les colonnes phi_ref_fpeak et phi_mcgt_fpeak dans un CSV results
 
 Usage:
 python scripts/10_global_scan/add_phi_at_fpeak.py \
-  --results assets/zz-data/chapter10/10_mc_results.circ.csv \
-  --ref-grid assets/zz-data/chapter09/09_phases_imrphenom.csv \
-  --out assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv \
+  --results assets/zz-data/10_global_scan/10_mc_results.circ.csv \
+  --ref-grid assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+  --out assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv \
   --thresh 1e3 --backup
 """
 
@@ -74,7 +74,7 @@ def main():
     args = p.parse_args()
 
     # prepare logging
-    log_path = "assets/zz-data/chapter10/add_phi_at_fpeak_errors.log"
+    log_path = "assets/zz-data/10_global_scan/add_phi_at_fpeak_errors.log"
     logging.basicConfig(
         filename=log_path,
         level=logging.INFO,

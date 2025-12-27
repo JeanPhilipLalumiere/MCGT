@@ -1,7 +1,7 @@
 # RUNBOOK — Exécution opératoire (MCGT)
 
 Ce runbook est une **checklist opératoire** pour (1) préparer l’environnement, (2) régénérer les artefacts, (3) vérifier la qualité, (4) empaqueter la remise.
-Tous les noms de fichiers et de répertoires sont **en anglais** (ex. `assets/zz-data/chapter09/...`, `scripts/10_global_scan/...`). Les seuls fichiers pouvant rester en français sont les sources **.tex** des chapitres.
+Tous les noms de fichiers et de répertoires sont **en anglais** (ex. `assets/zz-data/09_dark_energy_cpl/...`, `scripts/10_global_scan/...`). Les seuls fichiers pouvant rester en français sont les sources **.tex** des chapitres.
 
 ---
 
@@ -79,7 +79,7 @@ Exemples utiles :
 
 Sorties attendues (anglais) :
 
-* `assets/zz-data/chapter{NN}/...` (CSV/JSON)
+* `assets/zz-data/NN_chapter_name/...` (CSV/JSON)
 * un `*.meta.json` par groupe d’artefacts (conforme à `assets/zz-schemas/meta_schema.json` ou schéma dédié)
 
 Points de contrôle :
@@ -106,7 +106,7 @@ Exemples :
 
 Sorties attendues :
 
-* `assets/zz-figures/chapter{NN}/fig_*.png` (et éventuels `.pdf`)
+* `assets/zz-figures/NN_chapter_name/fig_*.png` (et éventuels `.pdf`)
 
 Points de contrôle :
 
@@ -138,17 +138,17 @@ make jsoncheck-strict  # audit JSON strict dans tout le dépôt
 Exemples (chemins en anglais) :
 
 ```
-python assets/zz-schemas/validate_json.py assets/zz-schemas/mc_config_schema.json assets/zz-data/chapter10/10_mc_config.json
-python assets/zz-schemas/validate_json.py assets/zz-schemas/mc_best_schema.json   assets/zz-data/chapter10/10_mc_best.json
-python assets/zz-schemas/validate_json.py assets/zz-schemas/metrics_phase_schema.json assets/zz-data/chapter09/09_metrics_phase.json
+python assets/zz-schemas/validate_json.py assets/zz-schemas/mc_config_schema.json assets/zz-data/10_global_scan/10_mc_config.json
+python assets/zz-schemas/validate_json.py assets/zz-schemas/mc_best_schema.json   assets/zz-data/10_global_scan/10_mc_best.json
+python assets/zz-schemas/validate_json.py assets/zz-schemas/metrics_phase_schema.json assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json
 ```
 
 ### 3.3 Validation CSV (tables ↔ schéma de table)
 
 ```
-python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/mc_results_table_schema.json assets/zz-data/chapter10/10_mc_results.csv
-python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/mc_results_table_schema.json assets/zz-data/chapter10/10_mc_results.circ.csv
-python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/comparison_milestones_table_schema.json assets/zz-data/chapter09/09_comparison_milestones.csv
+python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/mc_results_table_schema.json assets/zz-data/10_global_scan/10_mc_results.csv
+python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/mc_results_table_schema.json assets/zz-data/10_global_scan/10_mc_results.circ.csv
+python assets/zz-schemas/validate_csv_table.py assets/zz-schemas/comparison_milestones_table_schema.json assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv
 ```
 
 ### 3.4 Diagnostic de manifestes + règles transverses
@@ -179,10 +179,10 @@ Résultats attendus :
 ### 4.1 Chapter 09 — Phase GW
 
 * Données clés :
-  `assets/zz-data/chapter09/09_phases_imrphenom.csv` (+ `.meta.json`),
-  `assets/zz-data/chapter09/09_phases_mcgt.csv`,
-  `assets/zz-data/chapter09/09_metrics_phase.json`,
-  `assets/zz-data/chapter09/09_comparison_milestones.csv` (+ `.meta.json`)
+  `assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv` (+ `.meta.json`),
+  `assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv`,
+  `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json`,
+  `assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv` (+ `.meta.json`)
 * Contrôles conseillés :
 
   * cohérence p95 sur `[20,300]` Hz (principal)
@@ -191,16 +191,16 @@ Résultats attendus :
 
     ```
     python scripts/09_dark_energy_cpl/flag_jalons.py \
-      --csv  assets/zz-data/chapter09/09_comparison_milestones.csv \
-      --meta assets/zz-data/chapter09/09_comparison_milestones.meta.json \
-      --out-csv assets/zz-data/chapter09/09_comparison_milestones.flagged.csv \
+      --csv  assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv \
+      --meta assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.meta.json \
+      --out-csv assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.flagged.csv \
       --write-meta
     ```
 
 ### 4.2 Chapter 10 — Monte Carlo 8D
 
 * Données clés :
-  `assets/zz-data/chapter10/10_mc_config.json`, `10_mc_results.csv`, `10_mc_results.circ.csv`,
+  `assets/zz-data/10_global_scan/10_mc_config.json`, `10_mc_results.csv`, `10_mc_results.circ.csv`,
   `10_mc_best.json`, `10_mc_best_bootstrap.json`, `10_mc_milestones_eval.csv` (si présent)
 * Contrôles conseillés :
 
@@ -308,7 +308,7 @@ python assets/zz-manifests/diag_consistency.py assets/zz-manifests/manifest_mast
 
 ### C. Pièges fréquents (à éviter)
 
-* Chemins **FR** (`zz-donnees/chapitreXX`) utilisés par erreur → utiliser **anglais** : `assets/zz-data/chapterXX`
+* Chemins **FR** (`zz-donnees/chapitreXX`) utilisés par erreur → utiliser **anglais** : `assets/zz-data/NN_chapter_name`
 * Fichiers manquants parce que `chapter10` vs `chapitre10` → rester cohérent (anglais)
 * `p95_*` mélangé (linéaire/circulaire) → vérifier les suffixes (`_circ`, `_recalc`) et l’unité (radian)
 * `*.meta.json` incomplets (pas de `generated_at`/`git_hash`) → compléter avant remise

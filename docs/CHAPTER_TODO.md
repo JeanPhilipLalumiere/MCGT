@@ -17,8 +17,8 @@ _Généré automatiquement, ne pas éditer à la main._
 
 Section résolue (2025-12-03) : les metas et le guide existent dans le filesystem et sont couverts par les manifests globaux.
 
-- `assets/zz-data/chapter01/01_P_vs_T.meta.json`
-- `assets/zz-data/chapter01/01_optimized_data.meta.json`
+- `assets/zz-data/01_invariants_stability/01_P_vs_T.meta.json`
+- `assets/zz-data/01_invariants_stability/01_optimized_data.meta.json`
 - `01-introduction-applications/CHAPTER1_GUIDE.txt`
 
 Aucun gap restant spécifique au chapitre 01.
@@ -50,18 +50,18 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 5 — chapter_manifest_05.json
 
 - **files.data_inputs** (3 manquants)
-  - `assets/zz-data/chapter05/05_bbn_chi2_vs_T.csv`
-  - `assets/zz-data/chapter05/05_bbn_parameters.json`
-  - `assets/zz-data/chapter05/05_chi2_derivative.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_chi2_vs_T.csv`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_parameters.json`
+  - `assets/zz-data/05_primordial_bbn/05_chi2_derivative.csv`
 
 - **files.figures** (4 manquants)
-  - `assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png`
-  - `assets/zz-figures/chapter05/05_fig_02_dh_model_vs_obs.png`
-  - `assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png`
-  - `assets/zz-figures/chapter05/05_fig_04_chi2_vs_T.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_02_dh_model_vs_obs.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png`
+  - `assets/zz-figures/05_primordial_bbn/05_fig_04_chi2_vs_T.png`
 
 - **files.metas** (1 manquants)
-  - `assets/zz-data/chapter05/05_bbn_chi2_vs_T.meta.json`
+  - `assets/zz-data/05_primordial_bbn/05_bbn_chi2_vs_T.meta.json`
 
 - **files.others** (1 manquants)
   - `05-nucleosynthese-primordiale/CHAPTER5_GUIDE.txt`
@@ -72,18 +72,18 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 6 — chapter_manifest_06.json
 
 - **files.data_inputs** (2 manquants)
-  - `assets/zz-data/chapter06/06_cmb_chi2_scan2d.csv`
-  - `assets/zz-data/chapter06/06_delta_rs_full_scan.csv`
+  - `assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2d.csv`
+  - `assets/zz-data/06_early_growth_jwst/06_delta_rs_full_scan.csv`
 
 - **files.figures** (5 manquants)
-  - `assets/zz-figures/chapter06/06_fig_01_cmb_dataflow_diagram.png`
-  - `assets/zz-figures/chapter06/06_fig_02_cls_lcdm_vs_mcgt.png`
-  - `assets/zz-figures/chapter06/06_fig_03_delta_cls_rel.png`
-  - `assets/zz-figures/chapter06/06_fig_04_delta_rs_vs_params.png`
-  - `assets/zz-figures/chapter06/06_fig_05_heatmap_delta_chi2.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_01_cmb_dataflow_diagram.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_02_cls_lcdm_vs_mcgt.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_03_delta_cls_rel.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_04_delta_rs_vs_params.png`
+  - `assets/zz-figures/06_early_growth_jwst/06_fig_05_heatmap_delta_chi2.png`
 
 - **files.metas** (1 manquants)
-  - `assets/zz-data/chapter06/06_cmb_full_results.meta.json`
+  - `assets/zz-data/06_early_growth_jwst/06_cmb_full_results.meta.json`
 
 - **files.others** (1 manquants)
   - `06-rayonnement-cmb/CHAPTER6_GUIDE.txt`
@@ -99,21 +99,21 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 7 — chapter_manifest_07.json
 
 - **files.data_inputs** (3 manquants)
-  - `assets/zz-data/chapter07/07_main_scalar_perturbations_data.csv`
-  - `assets/zz-data/chapter07/07_scalar_perturbations_meta.json`
-  - `assets/zz-data/chapter07/07_scalar_perturbations_params.json`
+  - `assets/zz-data/07_bao_geometry/07_main_scalar_perturbations_data.csv`
+  - `assets/zz-data/07_bao_geometry/07_scalar_perturbations_meta.json`
+  - `assets/zz-data/07_bao_geometry/07_scalar_perturbations_params.json`
 
 - **files.figures** (7 manquants)
-  - `assets/zz-figures/chapter07/07_fig_01_heatmap_cs2_k_a.png`
-  - `assets/zz-figures/chapter07/07_fig_02_heatmap_delta_phi_k_a.png`
-  - `assets/zz-figures/chapter07/07_fig_03_invariant_I1.png`
-  - `assets/zz-figures/chapter07/07_fig_04_dcs2_dk_vs_k.png`
-  - `assets/zz-figures/chapter07/07_fig_05_ddelta_phi_dk_vs_k.png`
-  - `assets/zz-figures/chapter07/07_fig_06_comparison.png`
-  - `assets/zz-figures/chapter07/07_fig_07_invariant_I2.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_01_heatmap_cs2_k_a.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_02_heatmap_delta_phi_k_a.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_03_invariant_I1.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_04_dcs2_dk_vs_k.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_05_ddelta_phi_dk_vs_k.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_06_comparison.png`
+  - `assets/zz-figures/07_bao_geometry/07_fig_07_invariant_I2.png`
 
 - **files.metas** (1 manquants)
-  - `assets/zz-data/chapter07/07_perturbations_domain.meta.json`
+  - `assets/zz-data/07_bao_geometry/07_perturbations_domain.meta.json`
 
 - **files.others** (1 manquants)
   - `07-perturbations-scalaires/CHAPTER7_GUIDE.txt`
@@ -127,23 +127,23 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 8 — chapter_manifest_08.json
 
 - **files.data_inputs** (5 manquants)
-  - `assets/zz-data/chapter08/08_chi2_scan2d.csv`
-  - `assets/zz-data/chapter08/08_dv_theory_vs_q0star.csv`
-  - `assets/zz-data/chapter08/08_dv_theory_vs_z.csv`
-  - `assets/zz-data/chapter08/08_mu_theory_vs_q0star.csv`
-  - `assets/zz-data/chapter08/08_mu_theory_vs_z.csv`
+  - `assets/zz-data/08_sound_horizon/08_chi2_scan2d.csv`
+  - `assets/zz-data/08_sound_horizon/08_dv_theory_vs_q0star.csv`
+  - `assets/zz-data/08_sound_horizon/08_dv_theory_vs_z.csv`
+  - `assets/zz-data/08_sound_horizon/08_mu_theory_vs_q0star.csv`
+  - `assets/zz-data/08_sound_horizon/08_mu_theory_vs_z.csv`
 
 - **files.figures** (7 manquants)
-  - `assets/zz-figures/chapter08/08_fig_01_chi2_total_vs_q0.png`
-  - `assets/zz-figures/chapter08/08_fig_02_dv_vs_z.png`
-  - `assets/zz-figures/chapter08/08_fig_03_mu_vs_z.png`
-  - `assets/zz-figures/chapter08/08_fig_04_heatmap_chi2.png`
-  - `assets/zz-figures/chapter08/08_fig_05_residuals.png`
-  - `assets/zz-figures/chapter08/08_fig_06_pulls.png`
-  - `assets/zz-figures/chapter08/08_fig_07_chi2_profile.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_01_chi2_total_vs_q0.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_02_dv_vs_z.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_03_mu_vs_z.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_04_heatmap_chi2.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_05_residuals.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_06_pulls.png`
+  - `assets/zz-figures/08_sound_horizon/08_fig_07_chi2_profile.png`
 
 - **files.metas** (1 manquants)
-  - `assets/zz-data/chapter08/08_chi2_scan2d.meta.json`
+  - `assets/zz-data/08_sound_horizon/08_chi2_scan2d.meta.json`
 
 - **files.others** (1 manquants)
   - `08-couplage-sombre/CHAPTER8_GUIDE.txt`
@@ -155,17 +155,17 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 9 — chapter_manifest_09.json
 
 - **files.data_inputs** (1 manquants)
-  - `assets/zz-data/chapter09/09_phase_difference.csv`
+  - `assets/zz-data/09_dark_energy_cpl/09_phase_difference.csv`
 
 - **files.figures** (5 manquants)
-  - `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
-  - `assets/zz-figures/chapter09/09_fig_02_residual_phase.png`
-  - `assets/zz-figures/chapter09/09_fig_03_hist_abs_dphi_20_300.png`
-  - `assets/zz-figures/chapter09/09_fig_04_milestones_abs_dphi_vs_f.png`
-  - `assets/zz-figures/chapter09/09_fig_05_scatter_phi_at_fpeak.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_02_residual_phase.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_03_hist_abs_dphi_20_300.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_04_milestones_abs_dphi_vs_f.png`
+  - `assets/zz-figures/09_dark_energy_cpl/09_fig_05_scatter_phi_at_fpeak.png`
 
 - **files.metas** (1 manquants)
-  - `assets/zz-data/chapter09/09_metrics_phase.meta.json`
+  - `assets/zz-data/09_dark_energy_cpl/09_metrics_phase.meta.json`
 
 - **files.others** (1 manquants)
   - `09-phase-ondes-gravitationnelles/CHAPTER9_GUIDE.txt`
@@ -178,8 +178,8 @@ Aucun gap restant spécifique au chapitre 04.
 ## Chapter 10 — chapter_manifest_10.json
 
 - **files.metas** (2 manquants)
-  - `assets/zz-data/chapter10/10_mc_best.meta.json`
-  - `assets/zz-data/chapter10/10_mc_results.meta.json`
+  - `assets/zz-data/10_global_scan/10_mc_best.meta.json`
+  - `assets/zz-data/10_global_scan/10_mc_results.meta.json`
 
 - **scripts** (1 manquants)
   - `scripts/10_global_scan/generate_chapter10_data.py`
@@ -213,7 +213,7 @@ _Généré le 2025-11-21T15:16:18Z_
 
 - **fig_01_phase_overlay**  — decision=`REBUILD_LATER`
   - issue      : `MANIFEST_COVERAGE_NO_PNG`
-  - path_hint  : `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
+  - path_hint  : `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
   - scripts_dir: `./scripts/09_dark_energy_cpl/`
   - comment    : auto: REBUILD_LATER (figure avec script; PNG/figure_manifest à régénérer avant publication)
 
@@ -238,16 +238,16 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter01/01_P_derivative_initial.csv`
-- [ ] `assets/zz-data/chapter01/01_P_derivative_optimized.csv`
-- [ ] `assets/zz-data/chapter01/01_P_vs_T.dat`
-- [ ] `assets/zz-data/chapter01/01_dimensionless_invariants.csv`
-- [ ] `assets/zz-data/chapter01/01_initial_grid_data.dat`
-- [ ] `assets/zz-data/chapter01/01_optimized_data.csv`
-- [ ] `assets/zz-data/chapter01/01_optimized_data_and_derivatives.csv`
-- [ ] `assets/zz-data/chapter01/01_optimized_grid_data.dat`
-- [ ] `assets/zz-data/chapter01/01_relative_error_timeline.csv`
-- [ ] `assets/zz-data/chapter01/01_timeline_milestones.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_P_derivative_initial.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_P_derivative_optimized.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_P_vs_T.dat`
+- [ ] `assets/zz-data/01_invariants_stability/01_dimensionless_invariants.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_initial_grid_data.dat`
+- [ ] `assets/zz-data/01_invariants_stability/01_optimized_data.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_optimized_data_and_derivatives.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_optimized_grid_data.dat`
+- [ ] `assets/zz-data/01_invariants_stability/01_relative_error_timeline.csv`
+- [ ] `assets/zz-data/01_invariants_stability/01_timeline_milestones.csv`
 
 ---
 
@@ -259,16 +259,16 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter02/02_As_ns_vs_alpha.csv`
-- [ ] `assets/zz-data/chapter02/02_FG_series.csv`
-- [ ] `assets/zz-data/chapter02/02_P_R_sampling.csv`
-- [ ] `assets/zz-data/chapter02/02_P_derivative_data.dat`
-- [ ] `assets/zz-data/chapter02/02_P_vs_T_grid_data.dat`
-- [ ] `assets/zz-data/chapter02/02_milestones_meta.csv`
-- [ ] `assets/zz-data/chapter02/02_optimal_parameters.json`
-- [ ] `assets/zz-data/chapter02/02_primordial_spectrum_spec.json`
-- [ ] `assets/zz-data/chapter02/02_relative_error_timeline.csv`
-- [ ] `assets/zz-data/chapter02/02_timeline_milestones.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_As_ns_vs_alpha.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_FG_series.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_P_R_sampling.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_P_derivative_data.dat`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_milestones_meta.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_primordial_spectrum_spec.json`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_relative_error_timeline.csv`
+- [ ] `assets/zz-data/02_primordial_spectrum/02_timeline_milestones.csv`
 
 ---
 
@@ -280,15 +280,15 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter03/03_fR_stability_boundary.csv`
-- [ ] `assets/zz-data/chapter03/03_fR_stability_data.csv`
-- [ ] `assets/zz-data/chapter03/03_fR_stability_domain.csv`
-- [ ] `assets/zz-data/chapter03/03_fR_stability_meta.json`
-- [ ] `assets/zz-data/chapter03/03_meta_stability_fR.json`
-- [ ] `assets/zz-data/chapter03/03_ricci_fR_milestones.csv`
-- [ ] `assets/zz-data/chapter03/03_ricci_fR_vs_T.csv`
-- [ ] `assets/zz-data/chapter03/03_ricci_fR_vs_z.csv`
-- [ ] `assets/zz-data/chapter03/placeholder.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_fR_stability_boundary.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_fR_stability_data.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_fR_stability_domain.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_fR_stability_meta.json`
+- [ ] `assets/zz-data/03_stability_domain/03_meta_stability_fR.json`
+- [ ] `assets/zz-data/03_stability_domain/03_ricci_fR_milestones.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_ricci_fR_vs_T.csv`
+- [ ] `assets/zz-data/03_stability_domain/03_ricci_fR_vs_z.csv`
+- [ ] `assets/zz-data/03_stability_domain/placeholder.csv`
 
 ---
 
@@ -300,10 +300,10 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter04/04_P_vs_T.dat`
-- [ ] `assets/zz-data/chapter04/04_dimensionless_invariants.csv`
-- [ ] `assets/zz-figures/chapter04/04_fig_01_invariants_schematic.png`
-- [ ] `assets/zz-figures/chapter04/04_fig_03_invariants_vs_t.png`
+- [ ] `assets/zz-data/04_expansion_supernovae/04_P_vs_T.dat`
+- [ ] `assets/zz-data/04_expansion_supernovae/04_dimensionless_invariants.csv`
+- [ ] `assets/zz-figures/04_expansion_supernovae/04_fig_01_invariants_schematic.png`
+- [ ] `assets/zz-figures/04_expansion_supernovae/04_fig_03_invariants_vs_t.png`
 
 ---
 
@@ -315,15 +315,15 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter05/05_bbn_data.csv`
-- [ ] `assets/zz-data/chapter05/05_bbn_grid.csv`
-- [ ] `assets/zz-data/chapter05/05_bbn_invariants.csv`
-- [ ] `assets/zz-data/chapter05/05_bbn_milestones.csv`
-- [ ] `assets/zz-data/chapter05/05_bbn_params.json`
-- [ ] `assets/zz-data/chapter05/05_chi2_bbn_vs_T.csv`
-- [ ] `assets/zz-data/chapter05/05_dchi2_vs_T.csv`
-- [ ] `assets/zz-figures/chapter05/05_fig_01_bbn_reaction_network.png`
-- [ ] `assets/zz-figures/chapter05/05_fig_03_yp_model_vs_obs.png`
+- [ ] `assets/zz-data/05_primordial_bbn/05_bbn_data.csv`
+- [ ] `assets/zz-data/05_primordial_bbn/05_bbn_grid.csv`
+- [ ] `assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv`
+- [ ] `assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv`
+- [ ] `assets/zz-data/05_primordial_bbn/05_bbn_params.json`
+- [ ] `assets/zz-data/05_primordial_bbn/05_chi2_bbn_vs_T.csv`
+- [ ] `assets/zz-data/05_primordial_bbn/05_dchi2_vs_T.csv`
+- [ ] `assets/zz-figures/05_primordial_bbn/05_fig_01_bbn_reaction_network.png`
+- [ ] `assets/zz-figures/05_primordial_bbn/05_fig_03_yp_model_vs_obs.png`
 
 ---
 
@@ -335,20 +335,20 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter06/01_P_vs_T.dat`
-- [ ] `assets/zz-data/chapter06/06_alpha_evolution.csv`
-- [ ] `assets/zz-data/chapter06/06_cls_spectrum.dat`
-- [ ] `assets/zz-data/chapter06/06_cls_spectrum_lcdm.dat`
-- [ ] `assets/zz-data/chapter06/06_cmb_chi2_scan2D.csv`
-- [ ] `assets/zz-data/chapter06/06_cmb_full_results.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_Tm_scan.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_cls.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_cls_relative.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_rs_scan.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_rs_scan2D.csv`
-- [ ] `assets/zz-data/chapter06/06_delta_rs_scan_full.csv`
-- [ ] `assets/zz-data/chapter06/06_hubble_mcgt.dat`
-- [ ] `assets/zz-data/chapter06/06_params_cmb.json`
+- [ ] `assets/zz-data/06_early_growth_jwst/01_P_vs_T.dat`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_alpha_evolution.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_cls_spectrum.dat`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_cls_spectrum_lcdm.dat`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_cmb_chi2_scan2D.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_cmb_full_results.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_Tm_scan.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_cls.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_cls_relative.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_rs_scan.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_rs_scan2D.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_delta_rs_scan_full.csv`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_hubble_mcgt.dat`
+- [ ] `assets/zz-data/06_early_growth_jwst/06_params_cmb.json`
 
 ---
 
@@ -360,23 +360,23 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter07/07_cs2_matrix.csv`
-- [ ] `assets/zz-data/chapter07/07_cs2_matrix.csv.gz`
-- [ ] `assets/zz-data/chapter07/07_dcs2_vs_k.csv`
-- [ ] `assets/zz-data/chapter07/07_ddelta_phi_vs_k.csv`
-- [ ] `assets/zz-data/chapter07/07_delta_phi_matrix.csv`
-- [ ] `assets/zz-data/chapter07/07_delta_phi_matrix.csv.gz`
-- [ ] `assets/zz-data/chapter07/07_meta_perturbations.json`
-- [ ] `assets/zz-data/chapter07/07_params_perturbations.json`
-- [ ] `assets/zz-data/chapter07/07_perturbations_boundary.csv`
-- [ ] `assets/zz-data/chapter07/07_perturbations_domain.csv`
-- [ ] `assets/zz-data/chapter07/07_perturbations_main_data.csv`
-- [ ] `assets/zz-data/chapter07/07_perturbations_meta.json`
-- [ ] `assets/zz-data/chapter07/07_perturbations_params.json`
-- [ ] `assets/zz-data/chapter07/07_phase_run.csv`
-- [ ] `assets/zz-data/chapter07/07_scalar_invariants.csv`
-- [ ] `assets/zz-data/chapter07/07_scalar_perturbations_results.csv`
-- [ ] `assets/zz-data/chapter07/placeholder.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_cs2_matrix.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_cs2_matrix.csv.gz`
+- [ ] `assets/zz-data/07_bao_geometry/07_dcs2_vs_k.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_ddelta_phi_vs_k.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_delta_phi_matrix.csv.gz`
+- [ ] `assets/zz-data/07_bao_geometry/07_meta_perturbations.json`
+- [ ] `assets/zz-data/07_bao_geometry/07_params_perturbations.json`
+- [ ] `assets/zz-data/07_bao_geometry/07_perturbations_boundary.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_perturbations_domain.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_perturbations_main_data.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_perturbations_meta.json`
+- [ ] `assets/zz-data/07_bao_geometry/07_perturbations_params.json`
+- [ ] `assets/zz-data/07_bao_geometry/07_phase_run.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_scalar_invariants.csv`
+- [ ] `assets/zz-data/07_bao_geometry/07_scalar_perturbations_results.csv`
+- [ ] `assets/zz-data/07_bao_geometry/placeholder.csv`
 
 ---
 
@@ -388,18 +388,18 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter08/08_bao_data.csv`
-- [ ] `assets/zz-data/chapter08/08_chi2_derivative.csv`
-- [ ] `assets/zz-data/chapter08/08_chi2_scan2D.csv`
-- [ ] `assets/zz-data/chapter08/08_chi2_scan2D.csv.gz`
-- [ ] `assets/zz-data/chapter08/08_chi2_total_vs_q0.csv`
-- [ ] `assets/zz-data/chapter08/08_coupling_milestones.csv`
-- [ ] `assets/zz-data/chapter08/08_coupling_params.json`
-- [ ] `assets/zz-data/chapter08/08_dv_theory_q0star.csv`
-- [ ] `assets/zz-data/chapter08/08_dv_theory_z.csv`
-- [ ] `assets/zz-data/chapter08/08_mu_theory_q0star.csv`
-- [ ] `assets/zz-data/chapter08/08_mu_theory_z.csv`
-- [ ] `assets/zz-data/chapter08/08_pantheon_data.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_bao_data.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_chi2_derivative.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_chi2_scan2D.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_chi2_scan2D.csv.gz`
+- [ ] `assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_coupling_milestones.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_coupling_params.json`
+- [ ] `assets/zz-data/08_sound_horizon/08_dv_theory_q0star.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_dv_theory_z.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_mu_theory_q0star.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_mu_theory_z.csv`
+- [ ] `assets/zz-data/08_sound_horizon/08_pantheon_data.csv`
 
 ---
 
@@ -411,7 +411,7 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-figures/chapter09/09_fig_01_phase_overlay.png`
+- [ ] `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`
 
 ---
 
@@ -423,11 +423,11 @@ Pour le contexte quantitatif, voir aussi `docs/CHAPTER_OVERVIEW.md` (section Cha
 
 Décider pour chacun : (a) ajouter au manifest, (b) déplacer dans `attic/`, ou (c) supprimer si redondant.
 
-- [ ] `assets/zz-data/chapter10/10_mc_results.agg.csv.gz`
-- [ ] `assets/zz-data/chapter10/10_mc_results.circ.agg.csv.gz`
-- [ ] `assets/zz-data/chapter10/10_mc_results.circ.csv.gz`
-- [ ] `assets/zz-data/chapter10/10_mc_results.circ.with_fpeak.csv.gz`
-- [ ] `assets/zz-data/chapter10/10_mc_results.csv.gz`
-- [ ] `assets/zz-data/chapter10/dummy_results.csv`
+- [ ] `assets/zz-data/10_global_scan/10_mc_results.agg.csv.gz`
+- [ ] `assets/zz-data/10_global_scan/10_mc_results.circ.agg.csv.gz`
+- [ ] `assets/zz-data/10_global_scan/10_mc_results.circ.csv.gz`
+- [ ] `assets/zz-data/10_global_scan/10_mc_results.circ.with_fpeak.csv.gz`
+- [ ] `assets/zz-data/10_global_scan/10_mc_results.csv.gz`
+- [ ] `assets/zz-data/10_global_scan/dummy_results.csv`
 
 ---

@@ -64,7 +64,7 @@ def main():
     parser.add_argument(
         "paths",
         nargs="+",
-        help=("Chemins à synchroniser (ex.: assets/zz-data/chapter09/09_metrics_phase.json)"),
+        help=("Chemins à synchroniser (ex.: assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json)"),
     )
     args = parser.parse_args()
 

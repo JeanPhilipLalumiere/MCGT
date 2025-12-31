@@ -1,7 +1,7 @@
 {
-  "title": "MCGT : Modèle de la Courbure Gravitationnelle du Temps",
+  "title": "MCGT: Modified Cosmology & Gravity Tool",
   "upload_type": "software",
-  "description": "Toolkit de publication et de reproductibilité MCGT. Version v2.0.2 (Chapter 10 Final). Innovations : (1) Restauration du mapping Fig 07. (2) Optimisation visuelle radicale des cartes (Fig 01/06) par filtrage d'outliers et jitter. (3) Résolution des conflits d'intégrité GitHub. (4) Standardisation Serif et anglicisation totale.",
+  "description": "Code source officiel pour l'analyse cosmologique du modèle MCGT (CPL vs LCDM), incluant les scripts de génération des figures publiées.",
   "creators": [
     {
       "name": "Lalumière, Jean-Philip",
@@ -10,8 +10,8 @@
     }
   ],
   "license": "MIT",
-  "version": "2.5.4",
-  "publication_date": "2025-12-22",
+  "version": "2.5.6",
+  "publication_date": "2025-12-31",
   "keywords": [
     "MCGT",
     "cosmologie",
@@ -24,7 +24,7 @@
   "related_identifiers": [
     {
       "relation": "isSupplementTo",
-      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v2.0.1",
+      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v2.5.6",
       "scheme": "url"
     },
     {

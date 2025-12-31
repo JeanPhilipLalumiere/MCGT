@@ -1,24 +1,39 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import hashlib
+import logging
 import shutil
+import sys
 import tempfile
 from pathlib import Path as _SafePath
+from pathlib import Path
+from typing import Optional
 
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 plt.rcParams.update(
     {
         "figure.autolayout": True,
-        "figure.figsize": (10, 6),
-        "axes.titlepad": 25,
-        "axes.labelpad": 15,
+        "figure.figsize": (8, 5),
+        "axes.titlepad": 15,
+        "axes.labelpad": 10,
         "savefig.bbox": "tight",
         "savefig.pad_inches": 0.3,
         "font.family": "serif",
     }
 )
+
+ROOT = Path(__file__).resolve().parents[2]
+COSMO_DIR = ROOT / "scripts" / "08_sound_horizon" / "utils"
+sys.path.insert(0, str(COSMO_DIR))
+try:
+    from cosmo import distance_modulus  # type: ignore
+except Exception as exc:  # pragma: no cover - import guard for CLI usage
+    raise SystemExit(f"Unable to import cosmo.distance_modulus: {exc}") from exc
 
 
 def _sha256(path: _SafePath) -> str:
@@ -55,33 +70,7 @@ def safe_save(filepath, fig=None, **savefig_kwargs):
     return True
 
 
-#!/usr/bin/env python3
-r"""
-plot_fig02_delta_phi_heatmap.py
-
-Figure 02 – Carte de chaleur de $\delta\phi/\phi(k,a)$
-pour le Chapter 7 (Perturbations scalaires) du projet MCGT.
-"""
-
-import argparse
-import json
-import logging
-from pathlib import Path
-from typing import Optional, Sequence
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from matplotlib.colors import PowerNorm
-
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-
 def setup_logging(verbose: int = 0) -> None:
-    """Configure le niveau de logging en fonction de -v / -vv."""
     if verbose >= 2:
         level = logging.DEBUG
     elif verbose == 1:
@@ -92,231 +81,116 @@ def setup_logging(verbose: int = 0) -> None:
 
 
 def detect_project_root() -> Path:
-    """Détecte la racine du dépôt à partir du chemin du script."""
     try:
         return Path(__file__).resolve().parents[2]
     except NameError:
         return Path.cwd()
 
 
-def detect_value_column(
-    df: pd.DataFrame,
-    preferred: Sequence[str],
-    context: str,
-) -> str:
-    """
-    Détecte la colonne de valeur pour le heatmap.
-
-    - Essaie d'abord les noms préférés dans l'ordre.
-    - Sinon, cherche les colonnes numériques ≠ {'k','a'}.
-      * Si une seule, on la prend.
-      * Sinon, on lève une erreur explicite.
-    """
-    cols = list(df.columns)
-    for name in preferred:
-        if name in df.columns:
-            logging.info("Colonne %s détectée automatiquement pour %s", name, context)
-            return name
-
-    numeric_cols = [
-        c
-        for c in df.columns
-        if c not in {"k", "a"} and pd.api.types.is_numeric_dtype(df[c])
-    ]
-    if len(numeric_cols) == 1:
-        logging.info(
-            "Colonne unique numérique '%s' sélectionnée automatiquement pour %s",
-            numeric_cols[0],
-            context,
-        )
-        return numeric_cols[0]
-
-    logging.error(
-        "Impossible de déterminer la colonne de valeurs pour %s.\n"
-        "Colonnes disponibles : %s\n"
-        "Colonnes numériques candidates (hors k,a) : %s",
-        context,
-        cols,
-        numeric_cols,
-    )
-    raise RuntimeError(
-        f"Impossible de déterminer la colonne de valeurs pour {context} "
-        f"(colonnes: {cols}, candidates numériques: {numeric_cols})"
-    )
-
-
-# ---------------------------------------------------------------------------
-# Cœur du tracé
-# ---------------------------------------------------------------------------
-
-
-def plot_delta_phi_heatmap(
+def plot_hubble_residuals(
     *,
-    data_csv: Path,
-    meta_json: Path,
+    pantheon_csv: Path,
+    chi2_csv: Path,
     out_png: Path,
     dpi: int = 300,
 ) -> None:
-    """Trace la carte de chaleur de δφ/φ(k,a) et enregistre la figure."""
+    if not pantheon_csv.exists():
+        raise FileNotFoundError(f"Pantheon+ CSV missing: {pantheon_csv}")
+    if not chi2_csv.exists():
+        raise FileNotFoundError(f"Chi2 scan CSV missing: {chi2_csv}")
 
-    logging.info("Début du tracé de la figure 02 – Carte de chaleur de δφ/φ")
-    logging.info("CSV matrice : %s", data_csv)
-    logging.info("JSON méta   : %s", meta_json)
-    logging.info("Figure out  : %s", out_png)
+    pant = pd.read_csv(pantheon_csv, encoding="utf-8")
+    chi2 = pd.read_csv(chi2_csv, encoding="utf-8")
 
-    # --- Métadonnées ---
-    if not meta_json.exists():
-        logging.error("Fichier de méta-paramètres introuvable : %s", meta_json)
-        raise FileNotFoundError(meta_json)
+    for col in ("z", "mu_obs", "sigma_mu"):
+        if col not in pant.columns:
+            raise ValueError(f"Missing column '{col}' in {pantheon_csv}")
+    for col in ("q0star", "chi2_total"):
+        if col not in chi2.columns:
+            raise ValueError(f"Missing column '{col}' in {chi2_csv}")
 
-    meta = json.loads(meta_json.read_text(encoding="utf-8"))
-    k_split = float(meta.get("x_split", meta.get("k_split", 0.0)))
-    logging.info("Lecture de k_split = %.3e [h/Mpc]", k_split)
+    q0_best = chi2.loc[chi2["chi2_total"].idxmin(), "q0star"]
+    logging.info("Best-fit q0star = %.6f", q0_best)
 
-    # --- Chargement des données ---
-    if not data_csv.exists():
-        logging.error("CSV introuvable : %s", data_csv)
-        raise FileNotFoundError(data_csv)
+    z = pant["z"].to_numpy(dtype=float)
+    mu_obs = pant["mu_obs"].to_numpy(dtype=float)
+    sigma_mu = pant["sigma_mu"].to_numpy(dtype=float)
 
-    df = pd.read_csv(data_csv)
-    logging.info("Chargement terminé : %d lignes", len(df))
-    logging.debug("Colonnes du CSV : %s", list(df.columns))
+    mu_lcdm = np.array([distance_modulus(zv, 0.0) for zv in z])
+    mu_mcgt = np.array([distance_modulus(zv, float(q0_best)) for zv in z])
 
-    value_col = detect_value_column(
-        df,
-        preferred=["delta_phi_matrice", "delta_phi_over_phi", "delta_phi_phi"],
-        context="delta_phi/phi(k,a)",
-    )
-    logging.info("Colonne utilisée pour δφ/φ : %s", value_col)
+    resid_data = mu_obs - mu_lcdm
+    resid_mcgt = mu_mcgt - mu_lcdm
 
-    try:
-        pivot = df.pivot(index="k", columns="a", values=value_col)
-    except KeyError:
-        logging.error(
-            "Colonnes 'k','a',%r manquantes dans %s (colonnes présentes: %s)",
-            value_col,
-            data_csv,
-            list(df.columns),
-        )
-        raise
+    order = np.argsort(z)
+    z_sorted = z[order]
+    resid_mcgt_sorted = resid_mcgt[order]
 
-    k_vals = pivot.index.to_numpy(dtype=float)
-    a_vals = pivot.columns.to_numpy(dtype=float)
-    mat_raw = pivot.to_numpy(dtype=float)
-    logging.info("Matrice brute : %d×%d (k×a)", mat_raw.shape[0], mat_raw.shape[1])
-
-    # Masquage des non-finis et <= 0
-    mask = ~np.isfinite(mat_raw) | (mat_raw <= 0)
-    mat = np.ma.array(mat_raw, mask=mask)
-    logging.info("Fraction de valeurs masquées : %.1f %%", 100.0 * mask.mean())
-
-    # --- Échelle couleur ---
-    # Bornes choisies pour mettre en évidence la transition
-    vmin, vmax = 1e-6, 1e-5
-    logging.info("Colorbar fixed range: [%.1e, %.1e]", vmin, vmax)
-
-    norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
-    cmap = plt.get_cmap("Oranges").copy()
-    cmap.set_bad(color="lightgrey", alpha=0.8)
-
-    plt.rc("font", family="serif")
-
-    # --- Tracé ---
-    out_png.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(8, 5), dpi=dpi)
-
-    mesh = ax.pcolormesh(
-        a_vals,
-        k_vals,
-        mat,
-        cmap=cmap,
-        norm=norm,
-        shading="auto",
+    ax.set_xscale("log")
+    ax.axhline(0.0, color="0.2", lw=1.5, label=r"$\Lambda$CDM reference")
+    ax.errorbar(
+        z,
+        resid_data,
+        yerr=sigma_mu,
+        fmt="o",
+        color="black",
+        ecolor="black",
+        markersize=3,
+        alpha=0.6,
+        linestyle="none",
+        label="Pantheon+ Data",
     )
+    ax.plot(z_sorted, resid_mcgt_sorted, color="tab:blue", lw=2.5, label="MCGT (best-fit)")
 
-    ax.set_xscale("linear")
-    ax.set_yscale("log")
-    ax.set_xlabel("Redshift $z$", fontsize="small")
-    ax.set_ylabel(r"$\Delta \mu$ [mag]", fontsize="small")
-    ax.set_title(
-        "Modèle Analytique — Distance Modulus Residuals (MCGT vs $\\Lambda$CDM)",
-        fontsize="small",
-    )
+    ax.set_xlabel(r"Redshift $z$")
+    ax.set_ylabel(r"Residuals $\mu_{obs} - \mu_{\Lambda CDM}$ (mag)")
+    ax.set_title("Pantheon+ Hubble Residuals vs Redshift")
+    ax.legend(frameon=False)
+    ax.grid(True, which="both", alpha=0.25)
 
-    # Ticks en petite taille
-    for lbl in list(ax.xaxis.get_ticklabels()) + list(ax.yaxis.get_ticklabels()):
-        lbl.set_fontsize("small")
+    resid_low = np.nanmin(resid_data - sigma_mu)
+    resid_high = np.nanmax(resid_data + sigma_mu)
+    mcgt_low = np.nanmin(resid_mcgt)
+    mcgt_high = np.nanmax(resid_mcgt)
+    y_min = min(resid_low, mcgt_low)
+    y_max = max(resid_high, mcgt_high)
+    if np.isfinite(y_min) and np.isfinite(y_max) and y_max > y_min:
+        pad = 0.08 * (y_max - y_min)
+        ax.set_ylim(y_min - pad, y_max + pad)
 
-    # Contours guides (en blanc, semi-opaques)
-    levels = np.logspace(np.log10(vmin), np.log10(vmax), 5)
-    mat_for_contour = np.where(mask, np.nan, mat_raw)
-    ax.contour(
-        a_vals,
-        k_vals,
-        mat_for_contour,
-        levels=levels,
-        colors="white",
-        linewidths=0.5,
-        alpha=0.7,
-    )
-
-    # Repère k_split
-    if k_split > 0:
-        ax.axhline(k_split, color="black", linestyle="--", linewidth=1)
-        ax.text(
-            float(a_vals.max()),
-            k_split * 1.1,
-            r"$k_{\rm split}$",
-            va="bottom",
-            ha="right",
-            fontsize="small",
-            color="black",
-        )
-
-    # --- Barre de couleur ---
-    cbar = fig.colorbar(mesh, ax=ax, pad=0.02, extend="both")
-    cbar.set_label(r"$\Delta\mu$ [mag]", rotation=270, labelpad=15, fontsize="small")
-    ticks = np.unique(np.logspace(np.log10(vmin), np.log10(vmax), 5))
-    cbar.set_ticks(ticks)
-    cbar.set_ticklabels([f"$10^{{{int(np.round(np.log10(t)))}}}$" for t in ticks])
-    cbar.ax.yaxis.set_tick_params(labelsize="small")
-
-    # Sauvegarde
-    fig.subplots_adjust(left=0.08, right=0.98, bottom=0.08, top=0.96)
+    fig.tight_layout()
     safe_save(out_png, dpi=dpi)
     plt.close(fig)
-
-    logging.info("Figure sauvegardée : %s", out_png)
-    logging.info("Tracé de la figure 02 terminé ✔")
-
-
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
+    logging.info("Figure saved: %s", out_png)
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
     racine = detect_project_root()
-    default_data = racine / "assets/zz-data" / "chapter07" / "07_delta_phi_matrix.csv.gz"
-    default_meta = racine / "assets/zz-data" / "chapter07" / "07_meta_perturbations.json"
-    default_out = racine / "assets/zz-figures" / "chapter07" / "07_fig_02_residuals.png"
+    default_pantheon = (
+        racine / "assets/zz-data/08_sound_horizon/08_pantheon_data.csv"
+    )
+    default_chi2 = racine / "assets/zz-data/08_sound_horizon/08_chi2_total_vs_q0.csv"
+    default_out = (
+        racine / "assets/zz-figures/07_bao_geometry/07_fig_02_residuals.png"
+    )
 
     p = argparse.ArgumentParser(
         description=(
-            "Figure 02 – Carte de chaleur de δφ/φ(k,a) (Chapter 7).\n"
-            "Génère la figure PNG à partir de la matrice delta_phi_matrice."
+            "Figure 02 – Diagramme de Hubble des résidus (Pantheon+). "
+            "Trace Δμ vs z avec la courbe MCGT best-fit."
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
-        "--data-csv",
-        default=str(default_data),
-        help="CSV contenant la matrice δφ/φ (colonnes: k, a, valeur).",
+        "--pantheon-csv",
+        default=str(default_pantheon),
+        help="Pantheon+ CSV (z, mu_obs, sigma_mu).",
     )
     p.add_argument(
-        "--meta-json",
-        default=str(default_meta),
-        help="JSON des méta-paramètres (contient notamment k_split).",
+        "--chi2-csv",
+        default=str(default_chi2),
+        help="Scan chi2 vs q0star (best-fit selection).",
     )
     p.add_argument(
         "--out",
@@ -327,7 +201,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--dpi",
         type=int,
         default=300,
-        help="Résolution de la figure.",
+        help="Resolution de la figure.",
     )
     p.add_argument(
         "-v",
@@ -342,17 +216,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
 def main(argv: Optional[list[str]] = None) -> None:
     parser = build_arg_parser()
     args = parser.parse_args(argv)
-
     setup_logging(args.verbose)
 
-    data_csv = Path(args.data_csv)
-    meta_json = Path(args.meta_json)
-    out_png = Path(args.out)
-
-    plot_delta_phi_heatmap(
-        data_csv=data_csv,
-        meta_json=meta_json,
-        out_png=out_png,
+    plot_hubble_residuals(
+        pantheon_csv=Path(args.pantheon_csv),
+        chi2_csv=Path(args.chi2_csv),
+        out_png=Path(args.out),
         dpi=args.dpi,
     )
 

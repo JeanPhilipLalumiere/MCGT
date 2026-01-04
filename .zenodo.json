@@ -1,39 +1,22 @@
 {
-  "title": "MCGT : Modèle de la Courbure Gravitationnelle du Temps",
-  "upload_type": "software",
-  "description": "Toolkit de publication et de reproductibilité MCGT. Version v2.0.2 (Chapter 10 Final). Innovations : (1) Restauration du mapping Fig 07. (2) Optimisation visuelle radicale des cartes (Fig 01/06) par filtrage d'outliers et jitter. (3) Résolution des conflits d'intégrité GitHub. (4) Standardisation Serif et anglicisation totale.",
-  "creators": [
-    {
-      "name": "Lalumière, Jean-Philip",
-      "orcid": "0009-0006-0961-9004",
-      "affiliation": "Indépendant"
-    }
-  ],
-  "license": "MIT",
-  "version": "2.5.7",
-  "publication_date": "2025-12-31",
-  "keywords": [
-    "MCGT",
-    "cosmologie",
-    "publication",
-    "reproductibilite",
-    "logiciel",
-    "figures",
-    "datasets"
-  ],
-  "related_identifiers": [
-    {
-      "relation": "isSupplementTo",
-      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT/releases/tag/v2.5.7",
-      "scheme": "url"
-    },
-    {
-      "relation": "isAlternateIdentifier",
-      "identifier": "https://github.com/JeanPhilipLalumiere/MCGT",
-      "scheme": "url"
-    }
-  ],
-  "contributors": [],
-  "notes": "Publication rapide avec manifest_publication et artefacts minimaux. Le DOI exact sera réinjecté dans README/CITATION via tools/backfill_zenodo_doi.py après mint. Stabilized production release with 8D Sobol sampling analysis.",
-  "language": "fra"
+    "title": "MCGT: Modèle de la Courbure Gravitationnelle du Temps — Framework Computationnel (v2.5.4)",
+    "description": "Code source officiel et manuscrit pour le modèle MCGT (Mirage-Coupled Gravity Theory). Cette version 'The Great Reconciliation' unifie la résolution des tensions H0, S8 et JWST via une modification géométrique de l'expansion sans constante cosmologique.",
+    "version": "2.5.4",
+    "creators": [
+        {
+            "name": "Lalumière, Jean-Philippe",
+            "affiliation": "Laboratoire de Cosmologie Théorique"
+        }
+    ],
+    "keywords": [
+        "Cosmology",
+        "Dark Energy",
+        "Modified Gravity",
+        "Hubble Tension",
+        "JWST",
+        "Python"
+    ],
+    "upload_type": "software",
+    "access_right": "open",
+    "license": "mit"
 }

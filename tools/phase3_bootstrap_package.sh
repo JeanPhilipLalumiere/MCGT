@@ -39,7 +39,7 @@ content.append('description = "MCGT core package"')
 if readme:
     content.append('readme = "README.md"')
 content.append('requires-python = ">=3.10"')
-content.append('authors = [{name="Jean-Philip Lalumiere"}]')
+content.append('authors = [{name="Jean-Philip Lalumière"}]')
 content.append('keywords = ["mcgt", "cosmo", "analysis"]')
 content.append('classifiers = [')
 content.append('  "Programming Language :: Python :: 3",')

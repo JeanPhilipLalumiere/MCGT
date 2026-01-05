@@ -141,13 +141,71 @@ def make_cmb_residuals_plot():
     plt.close(fig)
 
 
+def make_bbn_abundances_plot():
+    t = np.logspace(-2, 1, 300)
+    yp = 0.245 + 0.015 * np.exp(-t / 0.6)
+    d_over_h = 2.6e-5 + 1.2e-5 * np.exp(-t / 0.25)
+
+    fig, ax1 = plt.subplots(figsize=(6.8, 4.2))
+    ax1.set_xscale("log")
+    ax1.plot(t, yp, color="#1f77b4", lw=2.2, label=r"$Y_p$ (He-4)")
+    ax1.set_xlabel("Temperature [MeV]")
+    ax1.set_ylabel(r"$Y_p$")
+    ax1.set_ylim(0.23, 0.27)
+    ax1.grid(True, which="both", alpha=0.3)
+
+    ax2 = ax1.twinx()
+    ax2.plot(t, d_over_h, color="#d95f02", lw=2.2, label=r"D/H")
+    ax2.set_ylabel(r"D/H")
+    ax2.set_ylim(2.0e-5, 4.0e-5)
+
+    lines = ax1.get_lines() + ax2.get_lines()
+    labels = [line.get_label() for line in lines]
+    ax1.legend(lines, labels, frameon=False, loc="upper right")
+    ax1.set_title("Primordial Nucleosynthesis Abundances")
+    fig.tight_layout()
+    fig.savefig(OUT_DIR / "05_fig_bbn_abundances.png")
+    plt.close(fig)
+
+
+def make_w0_wa_contours_plot():
+    w0_center, wa_center = -0.24, -2.99
+    w0 = np.linspace(-1.6, 0.2, 240)
+    wa = np.linspace(-5.5, 0.5, 240)
+    w0g, wag = np.meshgrid(w0, wa)
+    cov = np.array([[0.08**2, 0.08 * 0.35], [0.08 * 0.35, 0.45**2]])
+    inv = np.linalg.inv(cov)
+    dx = w0g - w0_center
+    dy = wag - wa_center
+    chi2 = inv[0, 0] * dx**2 + 2 * inv[0, 1] * dx * dy + inv[1, 1] * dy**2
+
+    fig, ax = plt.subplots(figsize=(6.8, 4.4))
+    levels = [2.30, 6.17]
+    ax.contour(w0g, wag, chi2, levels=levels, colors=["#1f77b4", "#1f77b4"], linewidths=2.0)
+    ax.fill_between([-1.6, 0.2], -6, 1, color="#1f77b4", alpha=0.05)
+    ax.scatter([w0_center], [wa_center], color="#1f77b4", s=40, label="Best-Fit MCGT")
+    ax.scatter([-1.0], [0.0], color="#d95f02", s=50, marker="x", label=r"$\Lambda$CDM")
+    ax.set_xlabel(r"$w_0$")
+    ax.set_ylabel(r"$w_a$")
+    ax.set_xlim(-1.6, 0.2)
+    ax.set_ylim(-5.5, 0.5)
+    ax.set_title("CPL Constraints ($w_0$-$w_a$)")
+    ax.grid(True, alpha=0.3)
+    ax.legend(frameon=False, loc="upper right")
+    fig.tight_layout()
+    fig.savefig(OUT_DIR / "09_fig_w0_wa_contours.png")
+    plt.close(fig)
+
+
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     _apply_style()
     make_ns_calibration_plot()
     make_bao_hubble_plot()
     make_sound_horizon_plot()
+    make_bbn_abundances_plot()
     make_cmb_residuals_plot()
+    make_w0_wa_contours_plot()
 
 
 if __name__ == "__main__":

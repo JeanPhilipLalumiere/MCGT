@@ -1,8 +1,8 @@
 # MCGT: Modèle de la Courbure Gravitationnelle du Temps
-### Version 2.5.4 — "The Great Reconciliation"
+### Version 2.6.0 — "The Great Reconciliation"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-v2.5.4-blue)
+![Version](https://img.shields.io/badge/version-v2.6.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **MCGT** est un framework cosmologique conçu pour résoudre les tensions majeures du modèle standard $\Lambda$CDM (H0, S8, JWST) via une approche purement géométrique.

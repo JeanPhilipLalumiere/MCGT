@@ -1,7 +1,7 @@
 {
-    "title": "MCGT: Modèle de la Courbure Gravitationnelle du Temps — Framework Computationnel (v2.5.4)",
+    "title": "MCGT: Modèle de la Courbure Gravitationnelle du Temps — Framework Computationnel (v2.6.0)",
     "description": "Code source officiel et manuscrit pour le modèle MCGT (Mirage-Coupled Gravity Theory). Cette version 'The Great Reconciliation' unifie la résolution des tensions H0, S8 et JWST via une modification géométrique de l'expansion sans constante cosmologique.",
-    "version": "2.5.4",
+    "version": "2.6.0",
     "creators": [
         {
             "name": "Lalumière, Jean-Philippe",

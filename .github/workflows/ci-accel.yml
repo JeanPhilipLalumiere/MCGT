@@ -96,7 +96,7 @@ jobs:
 
       - name: Upload PDF artefacts
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pdfs
           path: dist/*.pdf

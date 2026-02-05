@@ -16,18 +16,22 @@ def _apply_style():
         plt.style.use(["science", "ieee"])
     except Exception:
         plt.style.use("default")
-        plt.rcParams.update(
-            {
-                "figure.dpi": 200,
-                "savefig.dpi": 300,
-                "font.size": 11,
-                "axes.labelsize": 12,
-                "axes.titlesize": 13,
-                "legend.fontsize": 10,
-                "axes.grid": True,
-                "grid.alpha": 0.3,
-            }
-        )
+    plt.rcParams.update(
+        {
+            "figure.dpi": 300,
+            "savefig.dpi": 300,
+            "font.size": 12,
+            "axes.labelsize": 12,
+            "axes.titlesize": 13,
+            "legend.fontsize": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.3,
+            "lines.linewidth": 1.8,
+            "lines.markersize": 6,
+            "axes.linewidth": 0.8,
+            "grid.linewidth": 0.6,
+        }
+    )
 
 
 def make_ns_calibration_plot():
@@ -110,6 +114,23 @@ def make_sound_horizon_plot():
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.plot(z, rs_lcdm, color="#d95f02", lw=2.2, label=r"$\Lambda$CDM")
     ax.plot(z, rs_mcgt, color="#1f77b4", lw=2.4, label="MCGT")
+    z_ref = 1050.0
+    rs_lcdm_ref = np.interp(z_ref, z, rs_lcdm)
+    rs_mcgt_ref = np.interp(z_ref, z, rs_mcgt)
+    delta_rs = rs_lcdm_ref - rs_mcgt_ref
+    ax.annotate(
+        "",
+        xy=(z_ref, rs_mcgt_ref),
+        xytext=(z_ref, rs_lcdm_ref),
+        arrowprops=dict(arrowstyle="<->", color="black", lw=1.2),
+    )
+    ax.text(
+        z_ref + 10,
+        0.5 * (rs_mcgt_ref + rs_lcdm_ref),
+        rf"$\Delta r_s \approx {delta_rs:.1f}$ Mpc",
+        va="center",
+        fontsize=11,
+    )
     ax.set_xlabel("Redshift z")
     ax.set_ylabel(r"Sound horizon $r_s(z)$ [Mpc]")
     ax.set_title("Sound Horizon Near Decoupling")
@@ -148,6 +169,14 @@ def make_bbn_abundances_plot():
 
     fig, ax1 = plt.subplots(figsize=(6.8, 4.2))
     ax1.set_xscale("log")
+    ax1.axhspan(
+        0.2449 - 0.0040,
+        0.2449 + 0.0040,
+        color="tab:blue",
+        alpha=0.2,
+        zorder=0.5,
+        label="Obs. Constraint",
+    )
     ax1.plot(t, yp, color="#1f77b4", lw=2.2, label=r"$Y_p$ (He-4)")
     ax1.set_xlabel("Temperature [MeV]")
     ax1.set_ylabel(r"$Y_p$")
@@ -155,6 +184,13 @@ def make_bbn_abundances_plot():
     ax1.grid(True, which="both", alpha=0.3)
 
     ax2 = ax1.twinx()
+    ax2.axhspan(
+        (2.53 - 0.04) * 1e-5,
+        (2.53 + 0.04) * 1e-5,
+        color="tab:orange",
+        alpha=0.2,
+        zorder=0.5,
+    )
     ax2.plot(t, d_over_h, color="#d95f02", lw=2.2, label=r"D/H")
     ax2.set_ylabel(r"D/H")
     ax2.set_ylim(2.0e-5, 4.0e-5)

@@ -4,6 +4,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,18 +18,22 @@ def _apply_style():
         plt.style.use(["science", "ieee"])
     except Exception:
         plt.style.use("default")
-        plt.rcParams.update(
-            {
-                "figure.dpi": 200,
-                "savefig.dpi": 300,
-                "font.size": 11,
-                "axes.labelsize": 12,
-                "axes.titlesize": 13,
-                "legend.fontsize": 10,
-                "axes.grid": True,
-                "grid.alpha": 0.3,
-            }
-        )
+    plt.rcParams.update(
+        {
+            "figure.dpi": 300,
+            "savefig.dpi": 300,
+            "font.size": 12,
+            "axes.labelsize": 12,
+            "axes.titlesize": 13,
+            "legend.fontsize": 10,
+            "axes.grid": True,
+            "grid.alpha": 0.3,
+            "lines.linewidth": 1.8,
+            "lines.markersize": 6,
+            "axes.linewidth": 0.8,
+            "grid.linewidth": 0.6,
+        }
+    )
 
 
 def _cpl_evolution(z, w0, wa):
@@ -64,10 +69,13 @@ def make_hubble_parameter_plot():
         h_obs,
         yerr=h_err,
         fmt="o",
-        ms=5.5,
+        ms=6.5,
         color="#4c4c4c",
         ecolor="#4c4c4c",
-        capsize=3,
+        capsize=4,
+        elinewidth=1.3,
+        capthick=1.1,
+        zorder=5,
         label="SH0ES/BAO",
     )
 
@@ -77,8 +85,42 @@ def make_hubble_parameter_plot():
     ax.set_ylabel(r"$H(z)$ [km/s/Mpc]")
     ax.set_title("Hubble Parameter Evolution")
     ax.grid(True, alpha=0.3, which="both")
-    ax.legend(frameon=False, loc="upper left")
-    fig.tight_layout()
+    ax.legend(frameon=False, loc="upper right")
+
+    # Inset zoom for local Universe (linear scale)
+    z_zoom_max = 0.15
+    zoom_mask = z <= z_zoom_max
+    z_obs_zoom = z_obs <= z_zoom_max
+
+    ax_inset = ax.inset_axes([0.25, 0.55, 0.35, 0.35])
+    ax_inset.plot(z[zoom_mask], h_lcdm[zoom_mask], color="#d95f02", lw=1.6)
+    ax_inset.plot(z[zoom_mask], h_mcgt[zoom_mask], color="#1f77b4", lw=1.8)
+    ax_inset.errorbar(
+        z_obs[z_obs_zoom],
+        h_obs[z_obs_zoom],
+        yerr=h_err[z_obs_zoom],
+        fmt="o",
+        ms=5.0,
+        color="#4c4c4c",
+        ecolor="#4c4c4c",
+        capsize=3,
+        elinewidth=1.0,
+        capthick=0.9,
+        zorder=6,
+    )
+    ax_inset.set_xlim(0.0, 0.12)
+    ax_inset.set_ylim(66.0, 78.0)
+    ax_inset.set_xlabel("z", fontsize=9)
+    ax_inset.set_ylabel(r"$H(z)$", fontsize=9)
+    ax_inset.tick_params(axis="both", labelsize=9)
+    ax_inset.xaxis.set_major_locator(plt.MaxNLocator(4))
+    ax_inset.yaxis.set_major_locator(plt.MaxNLocator(4))
+    ax_inset.grid(True, alpha=0.25)
+    _, connector1, connector2 = mark_inset(
+        ax, ax_inset, loc1=4, loc2=2, fc="none", ec="0.5", lw=0.8
+    )
+    connector2.set_visible(False)
+
     fig.savefig(OUT_DIR / "04_fig_hubble_parameter.png")
     plt.close(fig)
 
@@ -103,7 +145,7 @@ def make_growth_factor_plot():
     ax.set_title("Structure Growth Factor")
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.12, right=0.98, top=0.9, bottom=0.12)
     fig.savefig(OUT_DIR / "06_fig_growth_factor.png")
     plt.close(fig)
 
@@ -123,7 +165,7 @@ def make_eos_evolution_plot():
     ax.set_ylim(-2.5, 0.5)
     ax.set_title("Equation of State Evolution")
     ax.grid(True, alpha=0.3)
-    ax.legend(frameon=False, loc="lower left")
+    ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "09_fig_eos_evolution.png")
     plt.close(fig)
@@ -149,14 +191,22 @@ def make_tensions_summary_plot():
             capsize=4,
             label=label,
         )
+        ax.text(
+            value + err + 0.5,
+            y,
+            f"{value:.2f} ± {err:.2f}" if err < 1 else f"{value:.2f} ± {err:.2f}",
+            va="center",
+            fontsize=10,
+            color=color,
+        )
 
     ax.set_yticks(y_positions)
     ax.set_yticklabels(labels)
     ax.set_xlabel(r"$H_0$ [km/s/Mpc]")
-    ax.set_xlim(64, 76)
+    ax.set_xlim(64, 78.5)
     ax.set_title("Tensions Summary")
     ax.grid(True, axis="x", alpha=0.3)
-    ax.legend(frameon=False, loc="lower right")
+    ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "13_fig_tensions_summary.png")
     plt.close(fig)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
@@ -13,11 +14,13 @@ def _apply_style():
         plt.style.use(["science", "ieee"])
     except Exception:
         plt.style.use("default")
-        plt.rcParams.update({
-            "figure.dpi": 200, "savefig.dpi": 300,
-            "font.size": 11, "axes.labelsize": 12, "axes.titlesize": 13,
-            "legend.fontsize": 10, "axes.grid": True, "grid.alpha": 0.3,
-        })
+    plt.rcParams.update({
+        "figure.dpi": 300, "savefig.dpi": 300,
+        "font.size": 12, "axes.labelsize": 12, "axes.titlesize": 13,
+        "legend.fontsize": 10, "axes.grid": True, "grid.alpha": 0.3,
+        "lines.linewidth": 1.8, "lines.markersize": 6,
+        "axes.linewidth": 0.8, "grid.linewidth": 0.6,
+    })
 
 def make_concept_schema():
     fig, ax = plt.subplots(figsize=(7.2, 3.8))
@@ -61,12 +64,24 @@ def make_numerical_stability_plot():
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.plot(x, y, color="#1f77b4", lw=2.0)
+    machine_eps = 2.22e-16
+    ax.axhline(
+        machine_eps,
+        color="#111111",
+        lw=1.2,
+        ls="--",
+        label="Machine Precision Limit",
+    )
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel("Cosmic Time")
     ax.set_ylabel(r"Relative Error $\Delta \mathcal{H}^2 / \mathcal{H}^2$")
     ax.set_title("Machine Precision Stability")
     ax.grid(True, which="both", alpha=0.3)
+    ax.yaxis.set_major_locator(mpl.ticker.LogLocator(base=10.0, numticks=6))
+    ax.yaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, pos: f"{v:.0e}"))
+    ax.yaxis.set_minor_formatter(mpl.ticker.NullFormatter())
+    ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "01_fig_numerical_stability.png")
     plt.close(fig)
@@ -129,10 +144,33 @@ def make_phase_space_plot():
     ax.axvspan(-2, -1.6, color="#f4b9b3", alpha=0.2)
     ax.axvspan(1.6, 2, color="#f4b9b3", alpha=0.2)
 
+    t = np.linspace(0, 1, 220)
+    phi_traj = 1.7 * np.cos(0.8 * np.pi * t)
+    phidot_traj = 1.2 * np.sin(0.8 * np.pi * t)
+    ax.plot(phi_traj, phidot_traj, color="#222222", lw=1.4, label="Trajectory")
+    ax.scatter(
+        phi_traj[-1],
+        phidot_traj[-1],
+        s=70,
+        marker="D",
+        color="#d62728",
+        edgecolor="white",
+        linewidth=0.6,
+        label="Today (z=0)",
+        zorder=6,
+    )
+
+    norm = mpl.colors.Normalize(vmin=stability_metric.min(), vmax=stability_metric.max())
+    sm = mpl.cm.ScalarMappable(norm=norm, cmap="viridis")
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, pad=0.02)
+    cbar.set_label("Hamiltonian Energy")
+
     ax.set_xlabel(r"$\phi$")
     ax.set_ylabel(r"$\dot{\phi}$")
     ax.set_title("Phase Space Stability")
     ax.grid(True, alpha=0.3)
+    ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "03_fig_phase_space.png")
     plt.close(fig)

@@ -143,6 +143,36 @@ def plot_hubble_residuals(
     )
     ax.plot(z_sorted, resid_mcgt_sorted, color="tab:blue", lw=2.5, label="MCGT (best-fit)")
 
+    bins = np.linspace(0.0, 2.3, 15)
+    bin_centers = 0.5 * (bins[:-1] + bins[1:])
+    binned_mean = []
+    binned_err = []
+    binned_centers = []
+    for left, right, center in zip(bins[:-1], bins[1:], bin_centers):
+        mask = (z >= left) & (z < right) & np.isfinite(resid_data) & np.isfinite(sigma_mu)
+        if not np.any(mask):
+            continue
+        weights = 1.0 / np.square(sigma_mu[mask])
+        weighted_mean = np.sum(weights * resid_data[mask]) / np.sum(weights)
+        weighted_err = np.sqrt(1.0 / np.sum(weights))
+        binned_centers.append(center)
+        binned_mean.append(weighted_mean)
+        binned_err.append(weighted_err)
+    if binned_centers:
+        ax.errorbar(
+            binned_centers,
+            binned_mean,
+            yerr=binned_err,
+            fmt="o",
+            color="red",
+            ecolor="red",
+            markersize=10,
+            elinewidth=2,
+            capsize=3,
+            label="Binned Average",
+            zorder=99,
+        )
+
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"Residuals $\mu_{obs} - \mu_{\Lambda CDM}$ (mag)")
     ax.set_title("Pantheon+ Hubble Residuals vs Redshift")

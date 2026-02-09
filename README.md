@@ -7,19 +7,19 @@
 
 **MCGT** est un framework cosmologique conçu pour résoudre les tensions majeures du modèle standard $\Lambda$CDM (H0, S8, JWST) via une approche purement géométrique.
 
-## 🌌 Ruptures Scientifiques
+## Ruptures Scientifiques
 
 * **Tension de Hubble ($H_0$)** : Résolue par une réduction dynamique de l'horizon sonore ($r_s$) au découplage.
 * **Anomalie JWST** : Expliquée par un boost gravitationnel du facteur de croissance $f(z)$ à $z>10$.
 * **Tension $S_8$** : Amortie par une suppression de puissance aux petites échelles ($k > 1 h/Mpc$).
 
-## 📂 Structure du Dépôt
+## Structure du Dépôt
 
 * `manuscript/` : Contient le code source LaTeX (`main.tex`) et les 16 figures générées pour la publication.
 * `scripts/` : Scripts Python de simulation et de génération de figures.
 * `assets/` : Données brutes et figures intermédiaires.
 
-## 🚀 Reproduction des Résultats
+## Reproduction des Résultats
 
 Pour régénérer l'ensemble des figures du papier :
 

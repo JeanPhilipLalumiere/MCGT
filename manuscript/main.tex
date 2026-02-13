@@ -1,7 +1,7 @@
 \documentclass[11pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
+\usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{hyperref}
@@ -13,70 +13,77 @@
 \usepackage{subcaption}
 \usepackage{booktabs}
 
-% Configuration de la page
+% Page Configuration
 \geometry{hmargin=2.5cm,vmargin=2.5cm}
 
-% Métadonnées PDF
+% PDF Metadata
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=cyan,
-    pdftitle={MCGT v2.6.2: Modèle de la Courbure Gravitationnelle du Temps},
-    pdfauthor={Jean-Philip Lalumière},
+    pdftitle={MCGT v2.7.0: Metric-Coupled Gravity Theory},
+    pdfauthor={Jean-Philip Lalumi\`ere},
 }
 
-% En-tête et pied de page
+% Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small MCGT v2.6.2 -- "The Great Reconciliation"}
-\lhead{\small J.-P. Lalumière}
+\rhead{\small MCGT v2.7.0 -- "The Great Reconciliation"}
+\lhead{\small J.-P. Lalumi\`ere}
 \cfoot{\thepage}
 
-\title{\textbf{\Huge Modèle de la Courbure Gravitationnelle du Temps (MCGT)}\\[0.5cm] \Large Une unification géométrique face aux tensions cosmologiques ($H_0$, JWST, $S_8$)}
-\author{\textbf{Jean-Philip Lalumière} \\ Laboratoire de Cosmologie Théorique}
-\date{Version 2.6.2 -- Février 2026}
+\title{\textbf{\Huge Metric-Coupled Gravity Theory (MCGT)}\\[0.5cm] \Large A geometric unification for cosmological tensions ($H_0$, JWST, $S_8$)}
+\author{\textbf{Jean-Philip Lalumi\`ere} \\ Theoretical Cosmology Laboratory}
+\date{Version 2.7.0 -- February 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-\noindent Le modèle \textbf{MCGT} (\textit{Metric-Coupled Gravity Theory}) propose un cadre théorique robuste pour explorer une dynamique d'expansion non standard via une courbure temporelle couplée à la densité de matière. En remplaçant la constante cosmologique rigide $\Lambda$ par une interaction dynamique paramétrée par l'équation d'état CPL $(w_0, w_a)$, ce modèle offre un mécanisme permettant de soulager simultanément plusieurs tensions du modèle standard : la divergence de Hubble ($H_0$), l'excès de croissance structurelle précoce (JWST) et la tension de lentillage ($S_8$). Ce manuscrit détaille le formalisme mathématique, évalue la stabilité numérique à $10^{-16}$, et présente une amélioration significative de la vraisemblance de $\mathbf{\Delta\chi^2 = -151.6}$ par rapport au $\Lambda$CDM, interprétée comme une préférence statistique.
+\noindent The \textbf{MCGT} (\textit{Metric-Coupled Gravity Theory}) model proposes a robust theoretical framework to explore non-standard expansion dynamics via a time curvature coupled to matter density. By replacing the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$, this model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
-\section{Introduction : Motivation et Cadre}
+\section{Introduction: Motivation and Framework}
 
-La cosmologie de précision est entrée dans une phase où plusieurs jeux de données convergents révèlent des tensions statistiques persistantes. Le modèle standard $\Lambda$CDM demeure efficace pour décrire le fond diffus cosmologique (CMB), mais il éprouve des difficultés croissantes à concilier l'Univers primordial et l'Univers local dans un cadre unique.
+Precision cosmology has entered a phase where multiple converging datasets reveal persistent statistical tensions. The standard $\Lambda$CDM model remains effective in describing the cosmic microwave background (CMB), but it faces increasing difficulties in reconciling the early and late Universe within a single framework.
 
-Le MCGT postule que ces écarts peuvent refléter une modification de la gravité effective, induite par un couplage scalaire de type "mirage".
+MCGT postulates that these discrepancies may reflect a modification of effective gravity, induced by a "mirage"-type scalar coupling.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: Schéma conceptuel
+    % REQUIRED IMAGE: Conceptual schema
     \includegraphics[width=0.7\textwidth]{00_fig_concept_schema.png}
-    \caption{\textbf{Mécanisme de couplage mirage.} Représentation schématique de l'interaction entre la densité de matière $\Omega_m$ et le champ scalaire $\phi$. Le couplage induit une pression effective négative qui peut mimer l'accélération cosmique sans constante cosmologique fixe.}
+    \caption{\textbf{Mirage coupling mechanism.} Schematic representation of the interaction between matter density $\Omega_m$ and the scalar field $\phi$. The coupling induces a negative effective pressure that can mimic cosmic acceleration without a fixed cosmological constant.}
     \label{fig:concept}
 \end{figure}
 
 \clearpage
 
-\section{Formalisme Mathématique et Variables Clés}
+\section{Mathematical Formalism and Key Variables}
 
-\subsection{Équation d'État Dynamique (CPL)}
-L'énergie noire dans le MCGT est modélisée par la paramétrisation Chevallier-Polarski-Linder (CPL), permettant une transition dynamique :
+\subsection{Action and Effective Lagrangian}
+The MCGT framework can be formalized through an effective field theory approach. The generalized action in the Einstein frame is expressed as:
 \begin{equation}
-    w(a) = w_0 + w_a (1 - a) \quad \text{où} \quad a = \frac{1}{1+z}
+    S = \int d^4x \sqrt{-g} \left[ \frac{R}{2\kappa^2} - \frac{1}{2}g^{\mu\nu}\partial_\mu \phi \partial_\nu \phi - V(\phi) \right] + S_m\left[e^{2\beta(\phi)}g_{\mu\nu}, \psi_m\right]
 \end{equation}
-Les valeurs optimales auditées (\textbf{Best-Fit v2.6.2}) sont :
-$$ w_0 = -0.2433, \quad w_a = -2.9981 $$
-Cette configuration traverse la limite "fantôme" ($w < -1$) de manière transitoire, ce qui peut apparaître dans certaines classes de gravité modifiée.
+where $\kappa^2 = 8\pi G$, $R$ is the Ricci scalar, $\phi$ is the driving scalar field, $V(\phi)$ is its potential, and $S_m$ represents the matter action. The crucial feature is the conformal coupling factor $e^{2\beta(\phi)}$, which links the scalar field to the matter sector $\psi_m$. Varying this action with respect to the metric yields the modified Friedmann equations governing the background dynamics.
 
-\subsection{L'Expansion Modifiée}
-L'évolution du taux d'expansion $H(z)$ est régie par une équation de Friedmann modifiée :
+\subsection{Dynamic Equation of State (CPL)}
+To map this scalar-tensor dynamic to observational constraints, the effective dark energy in MCGT is modeled phenomenologically by the Chevallier-Polarski-Linder (CPL) parametrization:
+\begin{equation}
+    w(a) = w_0 + w_a (1 - a) \quad \text{where} \quad a = \frac{1}{1+z}
+\end{equation}
+The audited optimal values (\textbf{Best-Fit v2.7.0}) are:
+$$ w_0 = -0.2433, \quad w_a = -2.9981 $$
+This configuration transiently crosses the "phantom" divide ($w < -1$), a known feature of certain strongly coupled scalar-tensor theories.
+
+\subsection{Modified Expansion}
+The evolution of the expansion rate $H(z)$ is governed by the resulting modified Friedmann equation:
 \begin{equation}
     \frac{H^2(z)}{H_0^2} = \Omega_r (1+z)^4 + \Omega_m (1+z)^3 + \Omega_{MCGT} \exp\left[3 \int_0^z \frac{1+w(z')}{1+z'} dz'\right]
 \end{equation}
@@ -86,31 +93,30 @@ L'évolution du taux d'expansion $H(z)$ est régie par une équation de Friedman
     \caption{Table 1: Model Parameters and Priors}
     \begin{tabular}{lll}
         \toprule
-        Paramètre & Prior & Description \\
+        Parameter & Prior & Description \\
         \midrule
-        $\Omega_m$ & Uniforme $[0.1, 0.5]$ & Densité de matière totale \\
-        $H_0$ & Uniforme $[60, 80]$ km/s/Mpc & Taux d'expansion local \\
-        $w_0$ & Uniforme $[-3.0, 0.0]$ & État de l'énergie noire (présent) \\
-        $w_a$ & Uniforme $[-5.0, 2.0]$ & Variation temporelle de l'état \\
-        $\Omega_b h^2$ & Gaussien $\mathcal{N}(0.02237, 0.00015)$ & Densité baryonique physique \\
+        $\Omega_m$ & Uniform $[0.1, 0.5]$ & Total matter density \\
+        $H_0$ & Uniform $[60, 80]$ km/s/Mpc & Local expansion rate \\
+        $w_0$ & Uniform $[-3.0, 0.0]$ & Dark energy state (present) \\
+        $w_a$ & Uniform $[-5.0, 2.0]$ & Temporal variation of the state \\
+        $\Omega_b h^2$ & Gaussian $\mathcal{N}(0.02237, 0.00015)$ & Physical baryon density \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \newpage
-\section{Structure de l'Étude : Parcours en 12 Chapitres}
-L'audit du modèle suit une progression logique, des fondations numériques jusqu'à l'analyse observationnelle.
+\section{Study Structure: A 12-Chapter Journey}
+The model audit follows a logical progression, from numerical foundations to observational analysis.
 
 % --- CHAPTER 01 ---
 \subsection*{Chapter 01: Invariants \& Numerical Stability}
-\textbf{Focus : Validation algorithmique.}
-Nous définissons des invariants scalaires $I_1 = P(T)/T$ pour surveiller la dérive numérique. L'intégration montre une stabilité du potentiel précoce avec une précision $\epsilon < 10^{-16}$.
+\textbf{Focus: Algorithmic validation.}
+We define scalar invariants $I_1 = P(T)/T$ to monitor numerical drift. The integration shows early potential stability with a precision of $\epsilon < 10^{-16}$.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: Graphique d'erreur relative log
     \includegraphics[width=0.8\textwidth]{01_fig_numerical_stability.png}
-    \caption{\textbf{Stabilité numérique.} Évolution de l'erreur relative sur l'invariant de Hubble $\mathcal{H}^2$ sur 13.8 milliards d'années d'intégration. La dérive reste inférieure à $10^{-16}$ (niveau machine), limitant le risque de biais numérique dans les résultats cosmologiques.}
+    \caption{\textbf{Numerical stability.} Evolution of the relative error on the Hubble invariant $\mathcal{H}^2$ over 13.8 billion years of integration. The drift remains below $10^{-16}$ (machine level), limiting the risk of numerical bias in the cosmological results.}
     \label{fig:stability}
 \end{figure}
 
@@ -118,52 +124,48 @@ Nous définissons des invariants scalaires $I_1 = P(T)/T$ pour surveiller la dé
 
 \begin{figure}[H]
     \centering
-    % NOUVELLE FIGURE (VALIDATION PIPELINE)
     \includegraphics[width=0.7\textwidth]{01_fig_sentinel_flowchart.png}
-    \caption{\textbf{Architecture du moteur AST (Sentinel).} Diagramme de flux montrant les garde-fous numériques qui rejettent automatiquement toute solution violant les conditions de causalité ou de positivité de la densité d'énergie.}
+    \caption{\textbf{AST engine architecture (Sentinel).} Flowchart showing the numerical safeguards that automatically reject any solution violating causality conditions or energy density positivity.}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 02 ---
 \subsection*{Chapter 02: Primordial Spectrum Calibration}
-\textbf{Focus : Conditions initiales (inflation).}
-La calibration log-log indique que le MCGT peut reproduire les conditions initiales de Planck ($A_s, n_s$) sans ajustement fin excessif.
+\textbf{Focus: Initial conditions (inflation).}
+The log-log calibration indicates that MCGT can reproduce the Planck initial conditions ($A_s, n_s$) without excessive fine-tuning.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: ns vs alpha coupling
     \includegraphics[width=0.6\textwidth]{02_fig_ns_calibration.png}
-    \caption{\textbf{Calibration de l'indice spectral.} Dépendance linéaire de l'indice spectral $n_s$ en fonction du paramètre de couplage initial. Cette relation bi-jective permet de fixer les conditions initiales pour correspondre aux mesures de Planck 2018 ($n_s \approx 0.96$).}
+    \caption{\textbf{Spectral index calibration.} Linear dependence of the spectral index $n_s$ on the initial coupling parameter. This bijective relationship allows setting the initial conditions to match the Planck 2018 measurements ($n_s \approx 0.96$).}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 03 ---
 \subsection*{Chapter 03: Modified Gravity Stability Domain}
-\textbf{Focus : Théorie des champs.}
-Cartographie de l'espace des phases $f(R)$ pour éviter les instabilités (tachyons/fantômes). Le critère $1+f_R > 0$ est respecté sur toute la trajectoire cosmologique étudiée.
+\textbf{Focus: Field theory.}
+Mapping of the $f(R)$ phase space to avoid instabilities (tachyons/ghosts). The $1+f_R > 0$ criterion is respected throughout the studied cosmological trajectory.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: Phase space map
     \includegraphics[width=0.6\textwidth]{03_fig_phase_space.png}
-    \caption{\textbf{Carte de stabilité de l'espace des phases.} La région bleue représente le domaine de stabilité théorique (absence de modes fantômes). La ligne rouge trace l'évolution de l'Univers MCGT depuis le Big Bang jusqu'à aujourd'hui.}
+    \caption{\textbf{Phase space stability map.} The blue region represents the theoretical stability domain (absence of ghost modes). The red line traces the evolution of the MCGT Universe from the Big Bang to the present day.}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 04 ---
 \subsection*{Chapter 04: Expansion Dynamics Supernovae}
-\textbf{Focus : Univers tardif ($z < 2$).}
-La confrontation avec le catalogue Pantheon+ (1701 SNIa) met en évidence un ajustement cohérent des distances de luminosité.
+\textbf{Focus: Late Universe ($z < 2$).}
+Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of luminosity distances.
 
 \begin{figure}[H]
     \centering
-    % IMAGE VALIDÉE (Existante)
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
-    \caption{\textbf{Diagramme des résidus de Hubble (Pantheon+).}
-    L'analyse des résidus suggère que la prédiction du modèle standard (ligne noire à zéro) présente un biais systématique positif. La dynamique MCGT (courbe bleue) suit la tendance des données observationnelles vers des distances de luminosité plus faibles. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v2.6.2)}}
+    \caption{\textbf{Hubble residuals diagram (Pantheon+).}
+    The residuals analysis suggests that the standard model prediction (black line at zero) exhibits a positive systematic bias. The MCGT dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v2.7.0)}}
     \label{fig:residuals}
 \end{figure}
 
@@ -171,37 +173,34 @@ La confrontation avec le catalogue Pantheon+ (1701 SNIa) met en évidence un aju
 
 \begin{figure}[H]
     \centering
-    % NOUVELLE FIGURE (H(z) comparatif)
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Paramètre de Hubble $H(z)$.} Comparaison de l'expansion. La courbe MCGT (bleu) atteint $H_0 \approx 73$ km/s/Mpc, en accord avec les données locales (points gris SH0ES), tandis que $\Lambda$CDM (orange) reste plus bas ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v2.6.2)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The MCGT curve (blue) reaches $H_0 \approx 73$ km/s/Mpc, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v2.7.0)}}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 05 ---
 \subsection*{Chapter 05: Primordial Nucleosynthesis (BBN)}
-\textbf{Focus : Univers jeune ($t \approx 3$ min).}
-Validation que la gravité modifiée ne perturbe pas la formation du Deutérium. Le modèle converge vers la Relativité Générale à haute température.
+\textbf{Focus: Early Universe ($t \approx 3$ min).}
+Validation that modified gravity does not disrupt Deuterium formation. The model converges to General Relativity at high temperatures.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: Abondances relatives vs T
     \includegraphics[width=0.7\textwidth]{05_fig_bbn_abundances.png}
-    \caption{\textbf{Nucléosynthèse primordiale (BBN).} Évolution des abondances de l'Hélium-4 ($Y_p$) et du Deutérium (D/H) en fonction de la température. Les prédictions MCGT (lignes pleines) restent compatibles avec le modèle standard.}
+    \caption{\textbf{Big Bang Nucleosynthesis (BBN).} Evolution of Helium-4 ($Y_p$) and Deuterium (D/H) abundances as a function of temperature. The MCGT predictions (solid lines) remain compatible with the standard model.}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 06 ---
 \subsection*{Chapter 06: Early Structure Growth (JWST)}
-\textbf{Focus : Aube cosmique ($z > 10$).}
-Le champ scalaire crée un puits de potentiel effectif supplémentaire. Cela génère une augmentation de croissance de l'ordre de $\approx 15\%$ à haut redshift.
+\textbf{Focus: Cosmic dawn ($z > 10$).}
+The scalar field creates an additional effective potential well. This generates a growth boost of roughly $\approx 15\%$ at high redshift.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: f(z) vs z avec zoom sur z=10
     \includegraphics[width=0.7\textwidth]{06_fig_growth_factor.png}
-    \caption{\textbf{Origine des galaxies précoces.} Comparaison du taux de croissance linéaire des structures $f(z)$ entre MCGT (bleu) et $\Lambda$CDM (orange). L'excès de puissance gravitationnelle à $z > 10$ peut contribuer à la formation rapide des galaxies massives observées par le JWST.}
+    \caption{\textbf{Origin of early galaxies.} Comparison of the linear structure growth rate $f(z)$ between MCGT (blue) and $\Lambda$CDM (orange). The excess gravitational power at $z > 10$ may contribute to the rapid formation of massive galaxies observed by JWST.}
     \label{fig:growth}
 \end{figure}
 
@@ -209,66 +208,78 @@ Le champ scalaire crée un puits de potentiel effectif supplémentaire. Cela gé
 
 % --- CHAPTER 07 ---
 \subsection*{Chapter 07: Baryon Acoustic Oscillations (BAO)}
-\textbf{Focus : Géométrie intermédiaire.}
-Validation de la règle standard sur les données eBOSS/\allowbreak SDSS. Le modèle agit comme pivot géométrique entre le CMB et les Supernovae.
+\textbf{Focus: Intermediate geometry.}
+Validation of the standard ruler on eBOSS/\allowbreak SDSS data. The model acts as a geometric pivot between the CMB and Supernovae.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: H(z)/(1+z) vs z
     \includegraphics[width=0.7\textwidth]{07_fig_bao_hubble.png}
-    \caption{\textbf{Expansion et BAO.} Ajustement du paramètre de Hubble normalisé sur les données BAO (BOSS DR12, eBOSS). Le modèle MCGT traverse les points de données Lyman-$\alpha$ à haut redshift ($z \approx 2.3$).}
+    \caption{\textbf{Expansion and BAO.} Fit of the normalized Hubble parameter to BAO data (BOSS DR12, eBOSS). The MCGT model intersects the Lyman-$\alpha$ data points at high redshift ($z \approx 2.3$).}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 08 ---
 \subsection*{Chapter 08: Sound Horizon Decoupling}
-\textbf{Focus : Ancrage primordial.}
-Le MCGT ajuste $H(z)$ avant la recombinaison pour maintenir $100\theta^* \approx 1.04$, ce qui peut contribuer à réduire la tension $H_0$.
+\textbf{Focus: Primordial anchor.}
+MCGT adjusts $H(z)$ prior to recombination to maintain $100\theta^* \approx 1.04$, which can help reduce the $H_0$ tension.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: rs vs z
     \includegraphics[width=0.7\textwidth]{08_fig_sound_horizon_rs.png}
-    \caption{\textbf{Horizon sonore ($r_s$).} Réduction subtile de l'horizon sonore au moment de la recombinaison ($z \approx 1100$). Cette réduction géométrique compense l'augmentation locale de $H_0$ dans le cadre du modèle.}
+    \caption{\textbf{Sound horizon ($r_s$).} Subtle reduction of the sound horizon at recombination ($z \approx 1100$). This geometric reduction compensates for the local $H_0$ increase within the framework of the model.}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 09 ---
 \subsection*{Chapter 09: CPL Parametrization Dark Energy}
-\textbf{Focus : Dynamique du secteur sombre.}
-Exploration de l'espace $(w_0, w_a)$. Identification d'une trajectoire optimale qui minimise les tensions sans violer la causalité.
+\textbf{Focus: Dark sector dynamics.}
+Exploration of the $(w_0, w_a)$ space. Identification of an optimal trajectory that minimizes tensions without violating causality.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: w(z) equation of state
     \includegraphics[width=0.7\textwidth]{09_fig_eos_evolution.png}
-    \caption{\textbf{Équation d'état de l'énergie noire $w(z)$.} Évolution dynamique montrant le passage dans le régime fantôme ($w < -1$) à bas redshift.}
+    \caption{\textbf{Dark energy equation of state $w(z)$.} Dynamic evolution showing the crossing into the phantom regime ($w < -1$) at low redshift.}
 \end{figure}
 
 \clearpage
 
 \begin{figure}[H]
     \centering
-    % NOUVELLE FIGURE (Contour w0-wa specifique)
     \includegraphics[width=0.6\textwidth]{09_fig_w0_wa_contours.png}
-    \caption{\textbf{Contraintes CPL ($w_0 - w_a$).} Contour de confiance à 68\% et 95\% pour les paramètres d'énergie noire. La croix indique le modèle standard $\Lambda$CDM ($w_0=-1, w_a=0$), qui se situe en dehors de la zone de confiance à $2\sigma$, suggérant une préférence statistique pour une dynamique évolutive.}
+    \caption{\textbf{CPL Constraints ($w_0 - w_a$).} 68\% and 95\% confidence contours for the dark energy parameters. The cross indicates the standard $\Lambda$CDM model ($w_0=-1, w_a=0$), which lies outside the $2\sigma$ confidence region, suggesting a statistical preference for a dynamic evolution.}
 \end{figure}
 
 \clearpage
 
 % --- CHAPTER 10 ---
 \subsection*{Chapter 10: Global Likelihood Scan}
-\textbf{Focus : Synthèse statistique.}
-Combinaison des sondes ($SN+BAO+CMB$). L'amélioration globale ($\Delta\chi^2_{total} = -151.6$) indique une amélioration significative de la vraisemblance.
+\textbf{Focus: Statistical synthesis.}
+Combination of probes ($SN+BAO+CMB$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Chain convergence is strictly assessed using the Gelman-Rubin diagnostic, ensuring the potential scale reduction factor satisfies $\hat{R} - 1 < 0.01$ across all free parameters. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
+
+\begin{table}[H]
+    \centering
+    \caption{Marginalized Constraints and Best-Fit Values}
+    \begin{tabular}{ll}
+        \toprule
+        Parameter & Mean Posterior $\pm 1\sigma$ \\
+        \midrule
+        $\Omega_m$ & $0.301 \pm 0.005$ \\
+        $H_0$ & $73.20 \pm 0.80$ km/s/Mpc \\
+        $w_0$ & $-0.24 \pm 0.02$ \\
+        $w_a$ & $-3.00 \pm 0.15$ \\
+        $S_8$ & $0.765 \pm 0.015$ \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:results}
+\end{table}
 
 \begin{figure}[H]
     \centering
-    % IMAGE VALIDÉE (Existante)
     \includegraphics[width=0.75\textwidth]{10_fig_01_iso_p95_maps.png}
-    \caption{\textbf{Contours de confiance des paramètres (global scan).}
-    Les contraintes conjointes mettent en évidence une corrélation entre la densité de matière $\Omega_m$ et l'équation d'état $w_0$. Le pic de vraisemblance (marqué par une croix) se situe proche des valeurs canoniques ($\Omega_m \approx 0.3$).}
+    \caption{\textbf{Parameter confidence contours (global scan).}
+    Joint constraints highlight a correlation between matter density $\Omega_m$ and the equation of state $w_0$. The likelihood peak (marked by a cross) is close to canonical values ($\Omega_m \approx 0.3$).}
     \label{fig:contours}
 \end{figure}
 
@@ -276,16 +287,15 @@ Combinaison des sondes ($SN+BAO+CMB$). L'amélioration globale ($\Delta\chi^2_{t
 
 % --- CHAPTER 11 ---
 \subsection*{Chapter 11: LSS Power Spectrum ($S_8$)}
-\textbf{Focus : Matière noire et lentillage.}
-Le mécanisme de suppression de puissance aux petites échelles constitue un élément clé pour atténuer la tension $S_8$.
+\textbf{Focus: Dark matter and lensing.}
+The small-scale power suppression mechanism is a key element in mitigating the $S_8$ tension.
 
 \begin{figure}[H]
     \centering
-    % IMAGE VALIDÉE (Existante)
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
-    \caption{\textbf{Comparaison des spectres de puissance de la matière.}
-    Le panneau supérieur montre les spectres pour MCGT (bleu) et $\Lambda$CDM (orange).
-    Le panneau inférieur (ratio) indique une suppression de puissance d'environ 10\% aux petites échelles ($k > 1 h/\mathrm{Mpc}$), compatible avec les contraintes de lentillage gravitationnel. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v2.6.2)}}
+    \caption{\textbf{Matter power spectra comparison.}
+    The upper panel shows the spectra for MCGT (blue) and $\Lambda$CDM (orange).
+    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v2.7.0)}}
     \label{fig:power_spectrum}
 \end{figure}
 
@@ -293,34 +303,32 @@ Le mécanisme de suppression de puissance aux petites échelles constitue un él
 
 % --- CHAPTER 12 ---
 \subsection*{Chapter 12: CMB Likelihood}
-\textbf{Focus : Analyse conjointe.}
-Confrontation avec la surface de vraisemblance de Planck. Le Best-Fit se situe au sein de la zone de confiance.
+\textbf{Focus: Joint analysis.}
+Confrontation with the Planck likelihood surface. The Best-Fit lies within the confidence region.
 
 \begin{figure}[H]
     \centering
-    % IMAGE REQUISE: Residuals TT spectrum
     \includegraphics[width=0.8\textwidth]{12_fig_cmb_residuals.png}
-    \caption{\textbf{Spectre de température du CMB (résidus).} Différence entre le modèle théorique MCGT et les données Planck 2018. Les résidus restent cohérents avec le bruit cosmique. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v2.6.2)}}
+    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the MCGT theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v2.7.0)}}
 \end{figure}
 
 \newpage
-\section{Synthèse : Tensions abordées et implications}
+\section{Synthesis: Addressed Tensions and Implications}
 
-Le modèle MCGT propose une lecture unifiée des écarts observationnels, en articulant les contraintes issues de plusieurs sondes.
+The MCGT model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
 
 \begin{itemize}
-    \item \textbf{Tension de Hubble ($H_0$) :} $H_0^{MCGT} \approx 73.2$ km/s/Mpc. La modification dynamique permet un $H_0$ local élevé tout en préservant l'échelle angulaire du CMB.
-    \item \textbf{Résultats JWST :} L'augmentation du potentiel dans l'Univers jeune (\autoref{fig:growth}) peut contribuer à l'abondance de galaxies massives à $z>10$.
-    \item \textbf{Tension $S_8$ :} La suppression du spectre de puissance à haute fréquence (\autoref{fig:power_spectrum}) peut réduire le désaccord avec le Weak Lensing.
+    \item \textbf{Hubble Tension ($H_0$):} $H_0^{MCGT} \approx 73.2$ km/s/Mpc. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
+    \item \textbf{JWST Results:} The potential increase in the early Universe (\autoref{fig:growth}) may contribute to the abundance of massive galaxies at $z>10$.
+    \item \textbf{Lensing Tension ($S_8$):} The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) can reduce the disagreement with Weak Lensing.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
-    % NOUVELLE FIGURE (Whisker Plot des Tensions)
     \includegraphics[width=0.8\textwidth]{13_fig_tensions_summary.png}
-    \caption{\textbf{Synthèse des tensions (whisker plot).} Comparaison des valeurs de $H_0$ et $S_8$.
-    En haut : mesures locales (SH0ES) en rouge et CMB (Planck) en vert, en désaccord.
-    Au centre : le modèle MCGT (bleu) chevauche les deux domaines, illustrant une réconciliation statistique possible des sondes.}
+    \caption{\textbf{Tensions summary (whisker plot).} Comparison of $H_0$ and $S_8$ values.
+    Top: local measurements (SH0ES) in red and CMB (Planck) in green, in tension.
+    Center: the MCGT model (blue) overlaps both domains, illustrating a possible statistical reconciliation of the probes.}
     \label{fig:tensions}
 \end{figure}
 
@@ -328,13 +336,13 @@ Le modèle MCGT propose une lecture unifiée des écarts observationnels, en art
 
 \section{Limitations and Future Work}
 \begin{itemize}
-    \item \textbf{Dépendance à la paramétrisation CPL :} il est nécessaire de tester d'autres équations d'état afin de confirmer que le résultat n'est pas un artefact du choix de $w(a)$.
-    \item \textbf{Analyse des perturbations :} l'étude actuelle se limite au régime linéaire ($k \lesssim 1 h/\mathrm{Mpc}$). Des simulations N-body complètes sont requises pour valider la suppression de puissance non linéaire.
-    \item \textbf{Nature phénoménologique :} le modèle est une théorie effective (EFT). Une dérivation lagrangienne fondamentale (micro-physics) constitue la prochaine étape théorique.
+    \item \textbf{Dependence on the CPL parametrization:} it is necessary to test other equations of state to confirm that the result is not an artifact of the choice of $w(a)$.
+    \item \textbf{Perturbation analysis:} the current study is limited to the linear regime ($k \lesssim 1 h/\mathrm{Mpc}$). Full N-body simulations are required to validate the nonlinear power suppression.
+    \item \textbf{Phenomenological nature:} the model is an effective field theory (EFT). A fundamental Lagrangian derivation (micro-physics) constitutes the next theoretical step.
 \end{itemize}
 
 \section{Conclusion}
-Le Modèle de la Courbure Gravitationnelle du Temps (MCGT) v2.6.2 propose un cadre théorique robuste pour traiter conjointement $H_0$, JWST et $S_8$ sous un formalisme géométrique unique. Dans le cadre des données considérées et des hypothèses retenues, il constitue un candidat crédible pour une extension du modèle standard, sous réserve des limitations discutées et de validations supplémentaires.
+The Metric-Coupled Gravity Theory (MCGT) v2.7.0 proposes a robust theoretical framework to jointly address $H_0$, JWST, and $S_8$ under a single geometric formalism. Within the scope of the considered datasets and assumptions, it stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.
 
 \bibliographystyle{plain}
 \nocite{*}

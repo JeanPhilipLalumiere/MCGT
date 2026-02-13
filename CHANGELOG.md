@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2.6.0 (2025-12-22)
-- Update version references to v2.6.0 across manuscript and project metadata.
+- Update version references to v2.7.0 across manuscript and project metadata.
 
 ## 0.2.64
 - Packaging: sanitizer stable (wheel+sdist), sonde PyPI + smoke-install plus robustes.

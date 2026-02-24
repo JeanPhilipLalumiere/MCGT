@@ -1,8 +1,9 @@
 # Changelog
 
-## 2.7.1 (2026-02-24)
-- v2.7.1 : Intégration complète de l'échantillonneur MCMC (emcee) et génération automatisée du Corner Plot de qualité publication. Validation de la convergence du modèle démontrant la résolution de la tension de Hubble et la dynamique de l'énergie sombre (w_0, w_a).
-- Bump des références de version vers v2.7.1 dans le code, le README et le manuscrit.
+## 2.7.2 (2026-02-24)
+- v2.7.2 : Intégration complète de l'échantillonneur MCMC (emcee) et génération automatisée du Corner Plot de qualité publication. Validation de la convergence du modèle démontrant la résolution de la tension de Hubble et la dynamique de l'énergie sombre (w_0, w_a).
+- Inclusion du Corner Plot MCMC directement dans le manuscrit PDF.
+- Bump des références de version vers v2.7.2 dans le code, le README et le manuscrit.
 
 ## 2.6.0 (2025-12-22)
 - Update version references across manuscript and project metadata.

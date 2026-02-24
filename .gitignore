@@ -122,5 +122,12 @@ assets/zz-figures/**/_attic_root_leaks/
 # -------------------------------------------------------------------
 !assets/zz-manifests/figures_index.csv
 !assets/zz-manifests/figures_per_chapter.md
+
+# MCMC raw chains
+*.h5
+
+# Keep publication-ready corner plots trackable
+!output/*.pdf
+!output/*.png
 EOF
 MCGT_v2.5.4_Complete.zip

@@ -1,14 +1,21 @@
 # MCGT: Modèle de la Courbure Gravitationnelle du Temps
-### Version 2.7.2 — "The Great Reconciliation"
+### Version 3.0.0 — "The Great Reconciliation"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-v2.7.2-blue)
+![Version](https://img.shields.io/badge/version-v3.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **MCGT** est un framework cosmologique conçu pour résoudre les tensions majeures du modèle standard $\Lambda$CDM (H0, S8, JWST) via une approche purement géométrique.
 
-## Nouveauté v2.7.2
-v2.7.2 : Intégration complète de l'échantillonneur MCMC (emcee) et génération automatisée du Corner Plot de qualité publication. Validation de la convergence du modèle démontrant la résolution de la tension de Hubble et la dynamique de l'énergie sombre (w_0, w_a).
+## Nouveauté v3.0.0
+v3.0.0 : Release majeure avec intégration du solveur ODE pour la croissance des structures linéaires et de la vraisemblance RSD (eBOSS). Contraintes conjointes robustes sur $H_0$ et $S_8$.
+
+## Key Results
+- $\Omega_m = 0.243 \pm 0.007$
+- $H_0 = 72.97^{+0.32}_{-0.30}$ km/s/Mpc
+- $w_0 = -0.69 \pm 0.05$
+- $w_a = -2.81^{+0.29}_{-0.14}$
+- $S_8 = 0.718 \pm 0.030$
 
 ## Ruptures Scientifiques
 

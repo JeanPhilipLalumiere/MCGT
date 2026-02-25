@@ -37,6 +37,7 @@ TRI_PROBE_CONFIG = Path("config/mcgt-global-config.ini")
 TRI_PROBE_SIGMA_SYS = 0.1
 TRI_PROBE_N_STEPS_INT = 2500
 _TRI_PROBE_RUNTIME: dict[str, object] | None = None
+_RSD_RUNTIME: dict[str, object] | None = None
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -109,6 +110,26 @@ def _load_tri_probe_runtime() -> dict[str, object]:
     return _TRI_PROBE_RUNTIME
 
 
+def _load_rsd_runtime() -> dict[str, object]:
+    """Load and cache RSD likelihood helper from chapter 10."""
+    global _RSD_RUNTIME
+    if _RSD_RUNTIME is not None:
+        return _RSD_RUNTIME
+
+    root = Path(__file__).resolve().parent
+    module_path = root / "scripts/10_structure_growth/10_rsd_likelihood.py"
+    spec = importlib.util.spec_from_file_location("mcgt_rsd", module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Impossible de charger le module RSD: {module_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    _RSD_RUNTIME = {
+        "get_chi2_rsd": module.get_chi2_rsd,
+    }
+    return _RSD_RUNTIME
+
+
 def log_prior(theta: np.ndarray) -> float:
     """Uniform priors on physically viable ranges."""
     omega_m, h_0, w_0, w_a, s_8 = theta
@@ -135,13 +156,11 @@ def pipeline_loglike_from_theta(theta: np.ndarray) -> float:
     omega_m, h_0, w_0, w_a, s_8 = theta
 
     runtime = _load_tri_probe_runtime()
+    rsd_runtime = _load_rsd_runtime()
     params = dict(runtime["params_template"])
     params["H0"] = float(h_0)
     params["h"] = float(h_0) / 100.0
     params["omega_b"] = params["ombh2"] / (params["h"] * params["h"])
-
-    # S_8 is kept explicit in theta but not constrained by this tri-probe likelihood.
-    _ = s_8
 
     logp, chi2_total, _, _ = runtime["log_posterior"](
         params,
@@ -155,7 +174,19 @@ def pipeline_loglike_from_theta(theta: np.ndarray) -> float:
     )
     if not np.isfinite(logp):
         return -math.inf
-    return -0.5 * float(chi2_total)
+
+    sigma_8_0 = float(s_8) / math.sqrt(float(omega_m) / 0.3)
+    chi2_rsd = float(
+        rsd_runtime["get_chi2_rsd"](
+            float(omega_m),
+            float(w_0),
+            float(w_a),
+            sigma_8_0,
+        )
+    )
+
+    chi2_total_combine = float(chi2_total) + chi2_rsd
+    return -0.5 * chi2_total_combine
 
 
 def log_likelihood(theta: np.ndarray) -> float:

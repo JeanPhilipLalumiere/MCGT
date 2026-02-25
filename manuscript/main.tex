@@ -22,27 +22,27 @@
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=cyan,
-    pdftitle={MCGT v2.7.2: Metric-Coupled Gravity Theory},
+    pdftitle={MCGT v3.0.0: Metric-Coupled Gravity Theory},
     pdfauthor={Jean-Philip Lalumi\`ere},
 }
 
 % Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small MCGT v2.7.2 -- "The Great Reconciliation"}
+\rhead{\small MCGT v3.0.0 -- "The Great Reconciliation"}
 \lhead{\small J.-P. Lalumi\`ere}
 \cfoot{\thepage}
 
 \title{\textbf{\Huge Metric-Coupled Gravity Theory (MCGT)}\\[0.5cm] \Large A geometric unification for cosmological tensions ($H_0$, JWST, $S_8$)}
 \author{\textbf{Jean-Philip Lalumi\`ere} \\ Theoretical Cosmology Laboratory}
-\date{Version 2.7.2 -- February 2026}
+\date{Version 3.0.0 -- February 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-\noindent The Metric-Coupled Gravity Theory (\textbf{MCGT}) model proposes a robust theoretical framework to explore non-standard expansion dynamics via a time curvature coupled to matter density. By replacing the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$, this model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our MCMC analysis yields a Hubble constant of $H_0 = 73.00 \pm 0.30 \text{ km s}^{-1} \text{ Mpc}^{-1}$, effectively resolving the $H_0$ tension. Furthermore, the extracted parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic dark energy sector, providing the geometric framework necessary for early massive galaxy formation as observed by JWST.
+\noindent The Metric-Coupled Gravity Theory (\textbf{MCGT}) model proposes a robust theoretical framework to explore non-standard expansion dynamics via a time curvature coupled to matter density. By replacing the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$, this model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our full v3.0.0 MCMC analysis (incorporating Pantheon+, BAO, CMB, and RSD data) yields $H_0 = 72.97^{+0.32}_{-0.30} \text{ km s}^{-1} \text{ Mpc}^{-1}$ and $S_8 = 0.718 \pm 0.030$. This demonstrates that the Metric-Coupled Gravity Theory (MCGT) simultaneously and naturally resolves both the Hubble and $S_8$ tensions. The extracted dark energy parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic sector, providing the geometric framework for early massive galaxy formation.
 \end{abstract}
 
 \tableofcontents
@@ -78,8 +78,8 @@ To map this scalar-tensor dynamic to observational constraints, the effective da
 \begin{equation}
     w(a) = w_0 + w_a (1 - a) \quad \text{where} \quad a = \frac{1}{1+z}
 \end{equation}
-The audited optimal values (\textbf{Best-Fit v2.7.2}) are:
-$$ w_0 = -0.2433, \quad w_a = -2.9981 $$
+The audited optimal values (\textbf{Best-Fit v3.0.0}) are:
+$$ w_0 = -0.69, \quad w_a = -2.81 $$
 This configuration transiently crosses the "phantom" divide ($w < -1$), a known feature of certain strongly coupled scalar-tensor theories.
 
 \subsection{Modified Expansion}
@@ -165,7 +165,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
     \centering
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
     \caption{\textbf{Hubble residuals diagram (Pantheon+).}
-    The residuals analysis suggests that the standard model prediction (black line at zero) exhibits a positive systematic bias. The MCGT dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v2.7.2)}}
+    The residuals analysis suggests that the standard model prediction (black line at zero) exhibits a positive systematic bias. The MCGT dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.0.0)}}
     \label{fig:residuals}
 \end{figure}
 
@@ -174,7 +174,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The MCGT curve (blue) reaches $H_0 \approx 73$ km/s/Mpc, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v2.7.2)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The MCGT curve (blue) reaches $H_0 \approx 73$ km/s/Mpc, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.0.0)}}
 \end{figure}
 
 \clearpage
@@ -265,11 +265,11 @@ Combination of probes ($SN+BAO+CMB$). To robustly sample the posterior distribut
         \toprule
         Parameter & Mean Posterior $\pm 1\sigma$ \\
         \midrule
-        $\Omega_m$ & $0.301 \pm 0.005$ \\
-        $H_0$ & $73.20 \pm 0.80$ km/s/Mpc \\
-        $w_0$ & $-0.24 \pm 0.02$ \\
-        $w_a$ & $-3.00 \pm 0.15$ \\
-        $S_8$ & $0.765 \pm 0.015$ \\
+        $\Omega_m$ & $0.243 \pm 0.007$ \\
+        $H_0$ & $72.97^{+0.32}_{-0.30}$ km/s/Mpc \\
+        $w_0$ & $-0.69 \pm 0.05$ \\
+        $w_a$ & $-2.81^{+0.29}_{-0.14}$ \\
+        $S_8$ & $0.718 \pm 0.030$ \\
         \bottomrule
     \end{tabular}
     \label{tab:results}
@@ -286,7 +286,7 @@ Combination of probes ($SN+BAO+CMB$). To robustly sample the posterior distribut
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.8\textwidth]{../output/mcgt_corner_plot.pdf}
-    \caption{Marginalized 1D and 2D posterior distributions (68\% and 95\% confidence levels) for the primary MCGT cosmological parameters ($\Omega_m, H_0, w_0, w_a, S_8$). The analysis demonstrates a natural convergence toward $H_0 = 73.00 \pm 0.30$ km s$^{-1}$ Mpc$^{-1}$, effectively resolving the $H_0$ tension. Furthermore, the strong negative correlation between $w_0$ and $w_a$ indicates a highly dynamic dark energy sector, providing the geometric framework necessary for early massive galaxy formation as observed by JWST.}
+    \caption{Marginalized 1D and 2D posterior distributions (68\% and 95\% CL) for the MCGT parameters. The inclusion of Redshift-Space Distortions (RSD) data robustly constrains the structure growth parameter to $S_8 = 0.718 \pm 0.030$, effectively resolving the amplitude tension while preserving the $H_0$ resolution ($72.97$ km/s/Mpc).}
     \label{fig:mcmc_corner}
 \end{figure*}
 
@@ -302,7 +302,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
     The upper panel shows the spectra for MCGT (blue) and $\Lambda$CDM (orange).
-    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v2.7.2)}}
+    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.0.0)}}
     \label{fig:power_spectrum}
 \end{figure}
 
@@ -316,7 +316,7 @@ Confrontation with the Planck likelihood surface. The Best-Fit lies within the c
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{12_fig_cmb_residuals.png}
-    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the MCGT theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v2.7.2)}}
+    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the MCGT theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.0.0)}}
 \end{figure}
 
 \newpage
@@ -325,9 +325,9 @@ Confrontation with the Planck likelihood surface. The Best-Fit lies within the c
 The MCGT model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
 
 \begin{itemize}
-    \item \textbf{Hubble Tension ($H_0$):} $H_0^{MCGT} \approx 73.2$ km/s/Mpc. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
+    \item \textbf{Hubble Tension ($H_0$):} $H_0^{MCGT} = 72.97^{+0.32}_{-0.30}$ km/s/Mpc. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
     \item \textbf{JWST Results:} The potential increase in the early Universe (\autoref{fig:growth}) may contribute to the abundance of massive galaxies at $z>10$.
-    \item \textbf{Lensing Tension ($S_8$):} The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) can reduce the disagreement with Weak Lensing.
+    \item \textbf{Lensing Tension ($S_8$):} $S_8^{MCGT} = 0.718 \pm 0.030$. The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) reduces the disagreement with Weak Lensing.
 \end{itemize}
 
 \begin{figure}[H]
@@ -349,7 +349,7 @@ The MCGT model proposes a unified reading of observational discrepancies, bridgi
 \end{itemize}
 
 \section{Conclusion}
-The Metric-Coupled Gravity Theory (MCGT) v2.7.2 proposes a robust theoretical framework to jointly address $H_0$, JWST, and $S_8$ under a single geometric formalism. Within the scope of the considered datasets and assumptions, it stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.
+The Metric-Coupled Gravity Theory (MCGT) v3.0.0 proposes a robust theoretical framework to jointly address $H_0$, JWST, and $S_8$ under a single geometric formalism. Within the scope of the considered datasets and assumptions, it stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.
 
 \bibliographystyle{plain}
 \nocite{*}

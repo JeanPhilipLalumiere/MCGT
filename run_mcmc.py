@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run MCGT MCMC with emcee and save chains for later corner-plot usage."""
+"""Run ΨTMG MCMC with emcee and save chains for later corner-plot usage."""
 
 from __future__ import annotations
 
@@ -16,16 +16,16 @@ PARAM_NAMES_CPL = ("Omega_m", "H_0", "w_0", "w_a", "S_8")
 PARAM_NAMES_WCDM = ("Omega_m", "H_0", "w_0", "S_8")
 
 # Sampling configuration
-N_WALKERS = 32
+N_WALKERS = 100
 N_STEPS_DEFAULT = 5000
 N_STEPS_TEST = 500
 SEED = 42
 
 # Expected best-fit center for initialization
-THETA_BESTFIT_CPL = np.array([0.30, 70.0, -1.0, 0.0, 0.80], dtype=float)
-THETA_BESTFIT_WCDM = np.array([0.30, 70.0, -1.0, 0.80], dtype=float)
-INIT_SIGMA_CPL = np.array([0.01, 0.5, 0.05, 0.10, 0.02], dtype=float)
-INIT_SIGMA_WCDM = np.array([0.01, 0.5, 0.05, 0.02], dtype=float)
+THETA_BESTFIT_CPL = np.array([0.243, 72.97, -0.69, -2.81, 0.718], dtype=float)
+THETA_BESTFIT_WCDM = np.array([0.243, 72.97, -0.69, 0.718], dtype=float)
+INIT_SIGMA_CPL = np.array([0.008, 0.25, 0.03, 0.20, 0.015], dtype=float)
+INIT_SIGMA_WCDM = np.array([0.008, 0.25, 0.03, 0.015], dtype=float)
 
 # Uniform prior bounds: (min, max)
 PRIOR_BOUNDS = {
@@ -45,7 +45,7 @@ _RSD_RUNTIME: dict[str, object] | None = None
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Run emcee MCMC for MCGT and save chains to disk."
+        description="Run emcee MCMC for ΨTMG and save chains to disk."
     )
     parser.add_argument(
         "--n-steps",
@@ -340,7 +340,7 @@ def log_prior(
 
 def pipeline_loglike_from_theta(theta: np.ndarray, model: str = "cpl") -> float:
     """
-    Real MCGT tri-probe likelihood (SN+BAO+CMB) from chapter 09 pipeline.
+    Real ΨTMG tri-probe likelihood (SN+BAO+CMB) from chapter 09 pipeline.
 
     Source:
       scripts/09_dark_energy_cpl/09_mcmc_sampler.py::log_posterior

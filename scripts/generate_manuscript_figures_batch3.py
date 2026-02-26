@@ -7,6 +7,20 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript"
+OUTPUT_DIR = ROOT / "output"
+
+BESTFIT = {
+    "omega_m": 0.243,
+    "h0": 72.97,
+    "w0": -0.69,
+    "wa": -2.81,
+}
+
+
+def _save_dual(fig, manuscript_name: str, output_stem: str) -> None:
+    fig.savefig(OUT_DIR / manuscript_name)
+    fig.savefig(OUTPUT_DIR / f"{output_stem}.png")
+    fig.savefig(OUTPUT_DIR / f"{output_stem}.pdf")
 
 
 def _apply_style():
@@ -68,22 +82,22 @@ def make_ns_calibration_plot():
 
 def make_bao_hubble_plot():
     z = np.linspace(0, 3, 250)
-    h0 = 73.2
-    omega_m = 0.301
-    w0, wa = -0.8, -0.5
+    h0 = BESTFIT["h0"]
+    omega_m = BESTFIT["omega_m"]
+    w0, wa = BESTFIT["w0"], BESTFIT["wa"]
 
     def cpl_evolution(zv, w0v, wav):
         return (1 + zv) ** (3 * (1 + w0v + wav)) * np.exp(-3 * wav * zv / (1 + zv))
 
     ez2 = omega_m * (1 + z) ** 3 + (1 - omega_m) * cpl_evolution(z, w0, wa)
-    h_mcgt = h0 * np.sqrt(ez2) / (1 + z)
+    h_ptmg = h0 * np.sqrt(ez2) / (1 + z)
 
     z_obs = np.array([0.38, 0.61, 1.0, 1.52, 2.33, 2.5])
     h_obs = np.array([83, 90, 96, 104, 135, 128])
     h_err = np.array([4, 5, 5, 6, 8, 7])
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
-    ax.plot(z, h_mcgt, color="#1f77b4", lw=2.4, label="MCGT")
+    ax.plot(z, h_ptmg, color="#1f77b4", lw=2.4, label=r"$\Psi$TMG")
     ax.errorbar(
         z_obs,
         h_obs,
@@ -102,31 +116,31 @@ def make_bao_hubble_plot():
     ax.set_xlim(0, 3)
     ax.legend(frameon=False, loc="upper left")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "07_fig_bao_hubble.png")
+    _save_dual(fig, "07_fig_bao_hubble.png", "ptmg_bao_hubble")
     plt.close(fig)
 
 
 def make_sound_horizon_plot():
     z = np.linspace(900, 1200, 300)
     rs_lcdm = 147.0 * np.ones_like(z)
-    rs_mcgt = 138.0 * np.ones_like(z)
+    rs_ptmg = 138.0 * np.ones_like(z)
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.plot(z, rs_lcdm, color="#d95f02", lw=2.2, label=r"$\Lambda$CDM")
-    ax.plot(z, rs_mcgt, color="#1f77b4", lw=2.4, label="MCGT")
+    ax.plot(z, rs_ptmg, color="#1f77b4", lw=2.4, label=r"$\Psi$TMG")
     z_ref = 1050.0
     rs_lcdm_ref = np.interp(z_ref, z, rs_lcdm)
-    rs_mcgt_ref = np.interp(z_ref, z, rs_mcgt)
-    delta_rs = rs_lcdm_ref - rs_mcgt_ref
+    rs_ptmg_ref = np.interp(z_ref, z, rs_ptmg)
+    delta_rs = rs_lcdm_ref - rs_ptmg_ref
     ax.annotate(
         "",
-        xy=(z_ref, rs_mcgt_ref),
+        xy=(z_ref, rs_ptmg_ref),
         xytext=(z_ref, rs_lcdm_ref),
         arrowprops=dict(arrowstyle="<->", color="black", lw=1.2),
     )
     ax.text(
         z_ref + 10,
-        0.5 * (rs_mcgt_ref + rs_lcdm_ref),
+        0.5 * (rs_ptmg_ref + rs_lcdm_ref),
         rf"$\Delta r_s \approx {delta_rs:.1f}$ Mpc",
         va="center",
         fontsize=11,
@@ -137,7 +151,7 @@ def make_sound_horizon_plot():
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "08_fig_sound_horizon_rs.png")
+    _save_dual(fig, "08_fig_sound_horizon_rs.png", "ptmg_sound_horizon_rs")
     plt.close(fig)
 
 
@@ -158,7 +172,7 @@ def make_cmb_residuals_plot():
     ax.grid(True, which="both", alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "12_fig_cmb_residuals.png")
+    _save_dual(fig, "12_fig_cmb_residuals.png", "ptmg_cmb_residuals")
     plt.close(fig)
 
 
@@ -200,12 +214,12 @@ def make_bbn_abundances_plot():
     ax1.legend(lines, labels, frameon=False, loc="upper right")
     ax1.set_title("Primordial Nucleosynthesis Abundances")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "05_fig_bbn_abundances.png")
+    _save_dual(fig, "05_fig_bbn_abundances.png", "ptmg_bbn_abundances")
     plt.close(fig)
 
 
 def make_w0_wa_contours_plot():
-    w0_center, wa_center = -0.24, -2.99
+    w0_center, wa_center = BESTFIT["w0"], BESTFIT["wa"]
     w0 = np.linspace(-1.6, 0.2, 240)
     wa = np.linspace(-5.5, 0.5, 240)
     w0g, wag = np.meshgrid(w0, wa)
@@ -229,12 +243,13 @@ def make_w0_wa_contours_plot():
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "09_fig_w0_wa_contours.png")
+    _save_dual(fig, "09_fig_w0_wa_contours.png", "ptmg_w0_wa_contours")
     plt.close(fig)
 
 
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     _apply_style()
     make_ns_calibration_plot()
     make_bao_hubble_plot()

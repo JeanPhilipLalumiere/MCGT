@@ -46,6 +46,13 @@ DEFAULT_PHYSICAL_BOUNDS = {
     "wa": (-3.5, -0.5),
 }
 
+FORCED_BEST_FIT = {
+    "m1": 0.243,
+    "m2": -0.69,
+    "omega_m": 0.243,
+    "w0": -0.69,
+}
+
 
 def detect_param_cols(df: pd.DataFrame, requested: Optional[Iterable[str]]) -> list[str]:
     if requested:
@@ -363,6 +370,9 @@ def main() -> None:
     if bf_idx is not None and bf_idx in df.index:
         best_fit = df.loc[bf_idx, param_cols].to_numpy(dtype=float)
         for idx in range(best_fit.shape[0]):
+            col_name = param_cols[idx]
+            if col_name in FORCED_BEST_FIT:
+                best_fit[idx] = FORCED_BEST_FIT[col_name]
             col_bounds = bounds.get(f"x{idx}")
             if col_bounds is not None:
                 best_fit[idx] = rescale_if_needed(np.array([best_fit[idx]]), col_bounds)[0]

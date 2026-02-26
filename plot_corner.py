@@ -94,7 +94,7 @@ def main() -> None:
         labels=labels,
         quantiles=[0.16, 0.5, 0.84],
         show_titles=True,
-        title_fmt=".4f",
+        title_fmt=".2f",
         levels=(1 - np.exp(-0.5), 1 - np.exp(-2)),
         color="#003366",
         smooth=1.0,

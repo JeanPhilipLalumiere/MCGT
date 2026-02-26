@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export falsifiable Psi-CDM predictions on z in [0, 20]."""
+"""Export falsifiable Ψ-Time Metric Gravity predictions on z in [0, 20]."""
 
 from __future__ import annotations
 
@@ -11,12 +11,12 @@ from pathlib import Path
 import emcee
 import numpy as np
 
-DEFAULT_CHAIN = Path("output/mcgt_chains.h5")
-DEFAULT_CHAIN_NAME = "mcgt_chain"
-DEFAULT_OUTPUT = Path("output/psicdm_predictions_z0_to_z20.csv")
+DEFAULT_CHAIN = Path("output/ptmg_chains.h5")
+DEFAULT_CHAIN_NAME = "ptmg_chain"
+DEFAULT_OUTPUT = Path("output/ptmg_predictions_z0_to_z20.csv")
 DEFAULT_POINTS = 200
 
-# Fallback (v3.0.0-like) if chain is unavailable.
+# Fallback (v3.1.0-like) if chain is unavailable.
 FALLBACK_BESTFIT = {
     "omega_m": 0.30,
     "h_0": 70.0,
@@ -27,7 +27,7 @@ FALLBACK_BESTFIT = {
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Export Psi-CDM predictions from z=0 to z=20.")
+    parser = argparse.ArgumentParser(description="Export Ψ-Time Metric Gravity predictions from z=0 to z=20.")
     parser.add_argument("--chain", type=Path, default=DEFAULT_CHAIN, help="Input MCMC chain HDF5.")
     parser.add_argument(
         "--chain-name",
@@ -149,21 +149,21 @@ def main() -> int:
     if args.n_points < 2:
         raise ValueError("--n-points must be >= 2")
 
-    params_psicdm, source = load_bestfit_params(args.chain, args.chain_name)
+    params_ptmg, source = load_bestfit_params(args.chain, args.chain_name)
     growth_mod = load_growth_module()
 
-    params_lcdm = dict(params_psicdm)
+    params_lcdm = dict(params_ptmg)
     params_lcdm["w_0"] = -1.0
     params_lcdm["w_a"] = 0.0
 
     z = np.linspace(0.0, 20.0, int(args.n_points))
 
-    h_psicdm = compute_hubble(
+    h_ptmg = compute_hubble(
         z,
-        params_psicdm["h_0"],
-        params_psicdm["omega_m"],
-        params_psicdm["w_0"],
-        params_psicdm["w_a"],
+        params_ptmg["h_0"],
+        params_ptmg["omega_m"],
+        params_ptmg["w_0"],
+        params_ptmg["w_a"],
         growth_mod,
     )
     h_lcdm = compute_hubble(
@@ -174,13 +174,13 @@ def main() -> int:
         params_lcdm["w_a"],
         growth_mod,
     )
-    f_psicdm, s8_psicdm_z = compute_growth_outputs(
+    f_ptmg, s8_ptmg_z = compute_growth_outputs(
         z,
-        params_psicdm["omega_m"],
-        params_psicdm["h_0"],
-        params_psicdm["w_0"],
-        params_psicdm["w_a"],
-        params_psicdm["s_8"],
+        params_ptmg["omega_m"],
+        params_ptmg["h_0"],
+        params_ptmg["w_0"],
+        params_ptmg["w_a"],
+        params_ptmg["s_8"],
         growth_mod,
     )
     f_lcdm, _ = compute_growth_outputs(
@@ -193,8 +193,8 @@ def main() -> int:
         growth_mod,
     )
 
-    table = np.column_stack([z, h_psicdm, h_lcdm, f_psicdm, f_lcdm, s8_psicdm_z])
-    header = "z,H_psicdm,H_lcdm,f_psicdm,f_lcdm,S8_psicdm(z)"
+    table = np.column_stack([z, h_ptmg, h_lcdm, f_ptmg, f_lcdm, s8_ptmg_z])
+    header = "z,H_ptmg,H_lcdm,f_ptmg,f_lcdm,S8_ptmg(z)"
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     np.savetxt(args.output, table, delimiter=",", header=header, comments="")

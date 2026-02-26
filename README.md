@@ -1,14 +1,14 @@
-# ΨCDM: A Metric-Coupled Resolution to Cosmological Tensions
+# Ψ-Time Metric Gravity (ΨTMG): A Metric-Coupled Resolution to Cosmological Tensions
 ### Version 3.1.0 — "The Great Reconciliation"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Version](https://img.shields.io/badge/version-v3.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-**MCGT** (Metric-Coupled Gravity Theory) est le framework théorique fondamental. **ΨCDM** est sa réalisation cosmologique paramétrée, conçue pour résoudre les tensions majeures du modèle standard $\Lambda$CDM ($H_0$, $S_8$, JWST) via une approche purement géométrique.
+**Ψ-Time Metric Gravity** (Metric-Coupled Gravity Theory) est le framework théorique fondamental. **ΨTMG** est sa réalisation cosmologique paramétrée, conçue pour résoudre les tensions majeures du modèle standard $\Lambda$CDM ($H_0$, $S_8$, JWST) via une approche purement géométrique.
 
 ## Nouveautés v3.1.0
-Cette release majeure marque la transition de MCGT vers le modèle **ΨCDM**, validé observationnellement et statistiquement supérieur à $\Lambda$CDM.
+Cette release majeure officialise l'identité finale **Ψ-Time Metric Gravity (ΨTMG)**, validée observationnellement et statistiquement supérieure à $\Lambda$CDM.
 * **Model Selection :** Intégration du calcul des critères d'information (AIC/BIC) prouvant mathématiquement la rentabilité de la dynamique du modèle.
 * **Prédictions JWST :** Exportation des courbes théoriques falsifiables de l'évolution structurelle ($z=0$ à $z=20$).
 * **Peer-Review Ready :** Mise en place d'un pipeline de reproductibilité totale (1-click script) avec dépendances figées.
@@ -22,7 +22,7 @@ Le scan MCMC global (Pantheon+, BAO, CMB, RSD) brise les dégénérescences clas
 * **$S_8$** = 0.718 ± 0.030
 
 ## Model Selection and Information Criteria
-Le modèle ΨCDM surpasse drastiquement la pénalité de complexité (Occam's razor). Pour un total de 1718 points de données, l'amélioration par rapport au modèle standard $\Lambda$CDM est qualifiée de "preuve décisive" sur l'échelle de Jeffreys ($\Delta\text{BIC} \ll -10$).
+Le modèle ΨTMG surpasse drastiquement la pénalité de complexité (Occam's razor). Pour un total de 1718 points de données, l'amélioration par rapport au modèle standard $\Lambda$CDM est qualifiée de "preuve décisive" sur l'échelle de Jeffreys ($\Delta\text{BIC} \ll -10$).
 
 ```text
 === Information Criteria ===

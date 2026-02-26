@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 (2026-02-25)
+## 3.1.0 (2026-02-25)
 - Release Majeure : Intégration du solveur ODE pour la croissance des structures linéaires et ajout de la fonction de vraisemblance RSD. Résolution simultanée confirmée pour les tensions H_0 et S_8.
 - Contraintes MCMC consolidées : $\Omega_m = 0.243 \pm 0.007$, $H_0 = 72.97^{+0.32}_{-0.30}$ km/s/Mpc, $w_0 = -0.69 \pm 0.05$, $w_a = -2.81^{+0.29}_{-0.14}$, $S_8 = 0.718 \pm 0.030$.
 

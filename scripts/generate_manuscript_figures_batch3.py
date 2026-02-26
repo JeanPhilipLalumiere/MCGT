@@ -219,7 +219,7 @@ def make_w0_wa_contours_plot():
     levels = [2.30, 6.17]
     ax.contour(w0g, wag, chi2, levels=levels, colors=["#1f77b4", "#1f77b4"], linewidths=2.0)
     ax.fill_between([-1.6, 0.2], -6, 1, color="#1f77b4", alpha=0.05)
-    ax.scatter([w0_center], [wa_center], color="#1f77b4", s=40, label="Best-Fit MCGT")
+    ax.scatter([w0_center], [wa_center], color="#1f77b4", s=40, label=r"Best-Fit $\Psi$TMG")
     ax.scatter([-1.0], [0.0], color="#d95f02", s=50, marker="x", label=r"$\Lambda$CDM")
     ax.set_xlabel(r"$w_0$")
     ax.set_ylabel(r"$w_a$")

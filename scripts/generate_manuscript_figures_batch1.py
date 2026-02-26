@@ -266,19 +266,22 @@ def make_tensions_summary_plot():
     ax.set_xlim(64, 78.5)
     ax.set_title("Tensions Summary")
     ax.text(
-        64.2,
-        -0.55,
+        0.02,
+        -0.30,
         (
             r"$\Delta\chi^2=-151.6,\;\Delta AIC=-145.6,\;\Delta BIC=-129.2$"
             "\n"
             r"$n=1718,\;\chi^2_{\rm CMB}=0.04,\;S_8=0.718\pm0.030$"
         ),
         fontsize=8,
-        va="bottom",
+        va="top",
+        ha="left",
+        transform=ax.transAxes,
+        clip_on=False,
     )
     ax.grid(True, axis="x", alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
-    plt.subplots_adjust(bottom=0.40)
+    plt.subplots_adjust(bottom=0.42)
     plt.savefig(OUT_DIR / "13_fig_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
     plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
     plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.pdf", bbox_inches="tight", pad_inches=0.3, dpi=300)

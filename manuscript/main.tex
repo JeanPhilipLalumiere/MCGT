@@ -266,9 +266,10 @@ To complement the likelihood-level comparison, we evaluate information criteria 
 \]
 Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \mathrm{BIC} = -129.2$. Both values indicate strong model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \caption{Marginalized Constraints and Best-Fit Values}
+    \resizebox{\textwidth}{!}{
     \begin{tabular}{ll}
         \toprule
         Parameter & Mean Posterior $\pm 1\sigma$ \\
@@ -280,10 +281,11 @@ Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \
         $S_8$ & $0.718 \pm 0.030$ \\
         \bottomrule
     \end{tabular}
+    }
     \label{tab:results}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{10_fig_01_iso_p95_maps.png}
     \caption{\textbf{Parameter confidence contours (global scan).}
@@ -291,12 +293,12 @@ Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \
     \label{fig:contours}
 \end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{../output/ptmg_corner_plot.pdf}
+    \includegraphics[width=0.9\textwidth]{../output/ptmg_corner_plot.pdf}
     \caption{Marginalized 1D and 2D posterior distributions (68\% and 95\% CL) for the $\Psi$TMG parameters. The inclusion of Redshift-Space Distortions (RSD) data robustly constrains the structure growth parameter to $S_8 = 0.718 \pm 0.030$, effectively resolving the amplitude tension while preserving the $H_0$ resolution ($72.97$ km/s/Mpc).}
     \label{fig:mcmc_corner}
-\end{figure*}
+\end{figure}
 
 \clearpage
 
@@ -305,7 +307,7 @@ Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \
 \textbf{Focus: Dark matter and lensing.}
 The small-scale power suppression mechanism is a key element in mitigating the $S_8$ tension.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
@@ -321,13 +323,13 @@ The small-scale power suppression mechanism is a key element in mitigating the $
 \textbf{Focus: Joint analysis.}
 Confrontation with the Planck likelihood surface. The Best-Fit lies within the confidence region.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{12_fig_cmb_residuals.png}
     \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the $\Psi$TMG theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.1.0)}}
 \end{figure}
 
-\newpage
+\clearpage
 \section{Synthesis: Addressed Tensions and Implications}
 
 The $\Psi$TMG model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
@@ -338,7 +340,7 @@ The $\Psi$TMG model proposes a unified reading of observational discrepancies, b
     \item \textbf{Lensing Tension ($S_8$):} $S_8^{\Psi\mathrm{TMG}} = 0.718 \pm 0.030$. The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) reduces the disagreement with Weak Lensing.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{13_fig_tensions_summary.png}
     \caption{\textbf{Tensions summary (whisker plot).} Comparison of $H_0$ and $S_8$ values.

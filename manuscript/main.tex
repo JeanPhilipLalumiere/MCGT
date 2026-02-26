@@ -42,7 +42,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent The Metric-Coupled Gravity Theory (\textbf{$\Psi$-Time Metric Gravity}) provides the fundamental geometric framework explored in this work. Its cosmological realization, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), replaces the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our full v3.1.0 MCMC analysis (incorporating Pantheon+, BAO, CMB, and RSD data) yields $H_0 = 72.97^{+0.32}_{-0.30} \text{ km s}^{-1} \text{ Mpc}^{-1}$ and $S_8 = 0.718 \pm 0.030$. This demonstrates that the $\Psi$TMG baseline simultaneously and naturally resolves both the Hubble and $S_8$ tensions. The extracted dark energy parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic sector, providing the geometric framework for early massive galaxy formation.
+\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our full v3.1.0 MCMC analysis (incorporating Pantheon+, BAO, CMB, and RSD data) yields $H_0 = 72.97^{+0.32}_{-0.30} \text{ km s}^{-1} \text{ Mpc}^{-1}$ and $S_8 = 0.718 \pm 0.030$. This demonstrates that the $\Psi$TMG baseline simultaneously and naturally resolves both the Hubble and $S_8$ tensions. The extracted dark energy parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic sector within the broader MCGT framework.
 \end{abstract}
 
 \tableofcontents
@@ -52,7 +52,7 @@
 
 Precision cosmology has entered a phase where multiple converging datasets reveal persistent statistical tensions. The standard $\Lambda$CDM model remains effective in describing the cosmic microwave background (CMB), but it faces increasing difficulties in reconciling the early and late Universe within a single framework.
 
-$\Psi$-Time Metric Gravity postulates that these discrepancies may reflect a modification of effective gravity, induced by a "mirage"-type scalar coupling.
+Within the MCGT framework, the tested $\Psi$TMG implementation postulates that these discrepancies may reflect a modification of effective gravity, induced by a "mirage"-type scalar coupling.
 
 \begin{figure}[H]
     \centering
@@ -67,7 +67,7 @@ $\Psi$-Time Metric Gravity postulates that these discrepancies may reflect a mod
 \section{Mathematical Formalism and Key Variables}
 
 \subsection{Action and Effective Lagrangian}
-The $\Psi$-Time Metric Gravity framework can be formalized through an effective field theory approach. The generalized action in the Einstein frame is expressed as:
+The MCGT framework can be formalized through an effective field theory approach. The generalized action in the Einstein frame is expressed as:
 \begin{equation}
     S = \int d^4x \sqrt{-g} \left[ \frac{R}{2\kappa^2} - \frac{1}{2}g^{\mu\nu}\partial_\mu \phi \partial_\nu \phi - V(\phi) \right] + S_m\left[e^{2\beta(\phi)}g_{\mu\nu}, \psi_m\right]
 \end{equation}
@@ -90,7 +90,7 @@ The evolution of the expansion rate $H(z)$ is governed by the resulting modified
 
 \begin{table}[H]
     \centering
-    \caption{Table 1: Model Parameters and Priors}
+    \caption{Model Parameters and Priors}
     \begin{tabular}{lll}
         \toprule
         Parameter & Prior & Description \\
@@ -265,6 +265,8 @@ To complement the likelihood-level comparison, we evaluate information criteria 
 \mathrm{AIC} = \chi^2 + 2k, \qquad \mathrm{BIC} = \chi^2 + k \ln n .
 \]
 Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \mathrm{BIC} = -129.2$. Both values indicate strong model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
+Here, $\chi^2_{\mathrm{CMB}}$ corresponds to the single-constraint residual on the acoustic scale distance prior, rather than the full Planck power spectrum likelihood.
+We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample.
 
 \begin{table}[htbp]
     \centering
@@ -289,7 +291,7 @@ Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \
     \centering
     \includegraphics[width=0.75\textwidth]{10_fig_01_iso_p95_maps.png}
     \caption{\textbf{Parameter confidence contours (global scan).}
-    Joint constraints highlight a correlation between matter density $\Omega_m$ and the equation of state $w_0$. The likelihood peak (marked by a cross) is close to canonical values ($\Omega_m \approx 0.3$).}
+    Joint constraints highlight a correlation between matter density $\Omega_m$ and the equation of state $w_0$. The likelihood peak (marked by a cross) is located at the v3.1.0 best-fit coordinates ($\Omega_m = 0.243$, $w_0 = -0.69$).}
     \label{fig:contours}
 \end{figure}
 

@@ -63,13 +63,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("output/mcgt_chains.h5"),
+        default=Path("output/ptmg_chains.h5"),
         help="Output chain file (.h5 preferred).",
     )
     parser.add_argument(
         "--chain-name",
         type=str,
-        default="mcgt_chain",
+        default="ptmg_chain",
         help="Dataset group name in HDF5 backend.",
     )
     parser.add_argument(

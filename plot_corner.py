@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot publication-quality corner plot for the Psi-CDM cosmology."""
+"""Plot publication-quality corner plot for the Ψ-Time Metric Gravity cosmology."""
 
 from __future__ import annotations
 
@@ -18,17 +18,17 @@ LABELS_BY_DIM = {
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Generate Psi-CDM corner plot from HDF5 chains.")
+    parser = argparse.ArgumentParser(description="Generate Ψ-Time Metric Gravity corner plot from HDF5 chains.")
     parser.add_argument(
         "--input",
         type=Path,
-        default=Path("output/mcgt_chains.h5"),
+        default=Path("output/ptmg_chains.h5"),
         help="Input emcee HDF5 backend file.",
     )
     parser.add_argument(
         "--chain-name",
         type=str,
-        default="mcgt_chain",
+        default="ptmg_chain",
         help="Chain name in HDF5 backend.",
     )
     parser.add_argument(
@@ -40,13 +40,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--out-pdf",
         type=Path,
-        default=Path("output/mcgt_corner_plot.pdf"),
+        default=Path("output/ptmg_corner_plot.pdf"),
         help="Output PDF path.",
     )
     parser.add_argument(
         "--out-png",
         type=Path,
-        default=Path("output/mcgt_corner_plot.png"),
+        default=Path("output/ptmg_corner_plot.png"),
         help="Output PNG path.",
     )
     return parser
@@ -102,7 +102,7 @@ def main() -> None:
         plot_datapoints=False,
         max_n_ticks=4,
     )
-    fig.suptitle(r"$\Psi$CDM Posterior Constraints (reference: $\Lambda$CDM)", y=1.02)
+    fig.suptitle(r"$\Psi$TMG Posterior Constraints (reference: $\Lambda$CDM)", y=1.02)
 
     args.out_pdf.parent.mkdir(parents=True, exist_ok=True)
     args.out_png.parent.mkdir(parents=True, exist_ok=True)

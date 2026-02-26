@@ -32,9 +32,9 @@ fi
 
 echo "[step] Generating corner plot from produced chain..."
 python plot_corner.py \
-  --input output/mcgt_chains.h5 \
-  --chain-name mcgt_chain \
-  --out-pdf output/mcgt_corner_plot.pdf \
-  --out-png output/mcgt_corner_plot.png
+  --input output/ptmg_chains.h5 \
+  --chain-name ptmg_chain \
+  --out-pdf output/ptmg_corner_plot.pdf \
+  --out-png output/ptmg_corner_plot.png
 
 echo "[ok] Reproducibility pipeline completed in '${MODE}' mode."

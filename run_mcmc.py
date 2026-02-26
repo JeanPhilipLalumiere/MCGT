@@ -11,8 +11,9 @@ from pathlib import Path
 import emcee
 import numpy as np
 
-PARAM_NAMES = ("Omega_m", "H_0", "w_0", "w_a", "S_8")
-NDIM = len(PARAM_NAMES)
+MODEL_CHOICES = ("cpl", "wcdm")
+PARAM_NAMES_CPL = ("Omega_m", "H_0", "w_0", "w_a", "S_8")
+PARAM_NAMES_WCDM = ("Omega_m", "H_0", "w_0", "S_8")
 
 # Sampling configuration
 N_WALKERS = 32
@@ -21,8 +22,10 @@ N_STEPS_TEST = 500
 SEED = 42
 
 # Expected best-fit center for initialization
-THETA_BESTFIT = np.array([0.30, 70.0, -1.0, 0.0, 0.80], dtype=float)
-INIT_SIGMA = np.array([0.01, 0.5, 0.05, 0.10, 0.02], dtype=float)
+THETA_BESTFIT_CPL = np.array([0.30, 70.0, -1.0, 0.0, 0.80], dtype=float)
+THETA_BESTFIT_WCDM = np.array([0.30, 70.0, -1.0, 0.80], dtype=float)
+INIT_SIGMA_CPL = np.array([0.01, 0.5, 0.05, 0.10, 0.02], dtype=float)
+INIT_SIGMA_WCDM = np.array([0.01, 0.5, 0.05, 0.02], dtype=float)
 
 # Uniform prior bounds: (min, max)
 PRIOR_BOUNDS = {
@@ -69,7 +72,37 @@ def build_parser() -> argparse.ArgumentParser:
         default="mcgt_chain",
         help="Dataset group name in HDF5 backend.",
     )
+    parser.add_argument(
+        "--model",
+        type=str,
+        choices=MODEL_CHOICES,
+        default="cpl",
+        help="Cosmological model: 'cpl' (free w_a) or 'wcdm' (w_a fixed to 0).",
+    )
     return parser
+
+
+def get_model_spec(model: str) -> dict[str, object]:
+    """Return parameterization details for selected model."""
+    if model == "cpl":
+        param_names = PARAM_NAMES_CPL
+        theta_bestfit = THETA_BESTFIT_CPL
+        init_sigma = INIT_SIGMA_CPL
+    elif model == "wcdm":
+        param_names = PARAM_NAMES_WCDM
+        theta_bestfit = THETA_BESTFIT_WCDM
+        init_sigma = INIT_SIGMA_WCDM
+    else:  # pragma: no cover
+        raise ValueError(f"Unknown model '{model}'.")
+
+    prior_bounds = {name: PRIOR_BOUNDS[name] for name in param_names}
+    return {
+        "param_names": param_names,
+        "theta_bestfit": theta_bestfit,
+        "init_sigma": init_sigma,
+        "prior_bounds": prior_bounds,
+        "ndim": len(param_names),
+    }
 
 
 def _load_tri_probe_runtime() -> dict[str, object]:
@@ -103,6 +136,9 @@ def _load_tri_probe_runtime() -> dict[str, object]:
 
     _TRI_PROBE_RUNTIME = {
         "log_posterior": module.log_posterior,
+        "chi2_sn": module.chi2_sn,
+        "chi2_bao": module.chi2_bao,
+        "chi2_cmb": module.chi2_cmb,
         "params_template": params_template,
         "sn_data": sn_data,
         "bao_data": bao_data,
@@ -126,34 +162,26 @@ def _load_rsd_runtime() -> dict[str, object]:
 
     _RSD_RUNTIME = {
         "get_chi2_rsd": module.get_chi2_rsd,
+        "load_rsd_data": module.load_rsd_data,
     }
     return _RSD_RUNTIME
 
 
-def log_prior(theta: np.ndarray) -> float:
-    """Uniform priors on physically viable ranges."""
-    omega_m, h_0, w_0, w_a, s_8 = theta
-    if not (PRIOR_BOUNDS["Omega_m"][0] < omega_m < PRIOR_BOUNDS["Omega_m"][1]):
-        return -math.inf
-    if not (PRIOR_BOUNDS["H_0"][0] < h_0 < PRIOR_BOUNDS["H_0"][1]):
-        return -math.inf
-    if not (PRIOR_BOUNDS["w_0"][0] < w_0 < PRIOR_BOUNDS["w_0"][1]):
-        return -math.inf
-    if not (PRIOR_BOUNDS["w_a"][0] < w_a < PRIOR_BOUNDS["w_a"][1]):
-        return -math.inf
-    if not (PRIOR_BOUNDS["S_8"][0] < s_8 < PRIOR_BOUNDS["S_8"][1]):
-        return -math.inf
-    return 0.0
+def _unpack_theta(theta: np.ndarray, model: str) -> tuple[float, float, float, float, float]:
+    """Map theta to (Omega_m, H_0, w_0, w_a, S_8) according to model."""
+    if model == "cpl":
+        omega_m, h_0, w_0, w_a, s_8 = theta
+    elif model == "wcdm":
+        omega_m, h_0, w_0, s_8 = theta
+        w_a = 0.0
+    else:  # pragma: no cover
+        raise ValueError(f"Unknown model '{model}'.")
+    return float(omega_m), float(h_0), float(w_0), float(w_a), float(s_8)
 
 
-def pipeline_loglike_from_theta(theta: np.ndarray) -> float:
-    """
-    Real MCGT tri-probe likelihood (SN+BAO+CMB) from chapter 09 pipeline.
-
-    Source:
-      scripts/09_dark_energy_cpl/09_mcmc_sampler.py::log_posterior
-    """
-    omega_m, h_0, w_0, w_a, s_8 = theta
+def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str, float]:
+    """Return chi2 contributions per probe and total for a given parameter vector."""
+    omega_m, h_0, w_0, w_a, s_8 = _unpack_theta(theta, model)
 
     runtime = _load_tri_probe_runtime()
     rsd_runtime = _load_rsd_runtime()
@@ -162,11 +190,174 @@ def pipeline_loglike_from_theta(theta: np.ndarray) -> float:
     params["h"] = float(h_0) / 100.0
     params["omega_b"] = params["ombh2"] / (params["h"] * params["h"])
 
-    logp, chi2_total, _, _ = runtime["log_posterior"](
+    chi2_sn = float(
+        runtime["chi2_sn"](
+            *runtime["sn_data"],
+            params,
+            omega_m,
+            w_0,
+            w_a,
+            TRI_PROBE_SIGMA_SYS,
+            TRI_PROBE_N_STEPS_INT,
+        )
+    )
+    chi2_bao = float(
+        runtime["chi2_bao"](
+            *runtime["bao_data"],
+            params,
+            omega_m,
+            w_0,
+            w_a,
+            TRI_PROBE_N_STEPS_INT,
+        )
+    )
+    chi2_cmb = float(
+        runtime["chi2_cmb"](
+            params,
+            omega_m,
+            w_0,
+            w_a,
+            TRI_PROBE_N_STEPS_INT,
+        )
+    )
+
+    sigma_8_0 = s_8 / math.sqrt(omega_m / 0.3)
+    chi2_rsd = float(
+        rsd_runtime["get_chi2_rsd"](
+            omega_m,
+            w_0,
+            w_a,
+            sigma_8_0,
+            h_0=h_0,
+        )
+    )
+
+    chi2_total = chi2_sn + chi2_bao + chi2_cmb + chi2_rsd
+    return {
+        "chi2_sn": chi2_sn,
+        "chi2_bao": chi2_bao,
+        "chi2_cmb": chi2_cmb,
+        "chi2_rsd": chi2_rsd,
+        "chi2_total": chi2_total,
+    }
+
+
+def calculate_information_criteria(
+    chi2_total: float,
+    n_params: int,
+    n_data_points: int,
+) -> tuple[float, float]:
+    """Compute AIC and BIC from total chi2."""
+    aic = (2.0 * float(n_params)) + float(chi2_total)
+    bic = (float(n_params) * math.log(float(n_data_points))) + float(chi2_total)
+    return aic, bic
+
+
+def count_data_points() -> dict[str, int]:
+    """Count data points used in SN, BAO, CMB and RSD probes."""
+    runtime = _load_tri_probe_runtime()
+    rsd_runtime = _load_rsd_runtime()
+
+    n_sn = int(len(runtime["sn_data"][0]))
+    n_bao = int(len(runtime["bao_data"][0]))
+    n_cmb = 1
+    rsd_z, _, _ = rsd_runtime["load_rsd_data"]()
+    n_rsd = int(len(rsd_z))
+    n_total = n_sn + n_bao + n_cmb + n_rsd
+
+    return {
+        "n_sn": n_sn,
+        "n_bao": n_bao,
+        "n_cmb": n_cmb,
+        "n_rsd": n_rsd,
+        "n_total": n_total,
+    }
+
+
+def summarize_bestfit_from_chain(sampler: emcee.EnsembleSampler) -> tuple[np.ndarray, int]:
+    """Return parameter medians from flattened post-burn-in chain."""
+    chain = sampler.get_chain()
+    n_steps = chain.shape[0]
+    burnin = min(max(1, int(0.30 * n_steps)), max(1, n_steps - 1))
+
+    samples = sampler.get_chain(discard=burnin, flat=True)
+    if samples.size == 0:
+        burnin = 0
+        samples = sampler.get_chain(flat=True)
+
+    theta_median = np.median(samples, axis=0)
+    return theta_median, burnin
+
+
+def _print_bestfit_report(
+    theta: np.ndarray,
+    burnin: int,
+    param_names: tuple[str, ...],
+    model: str,
+) -> None:
+    chi2 = evaluate_chi2_components(theta, model=model)
+    counts = count_data_points()
+    aic, bic = calculate_information_criteria(
+        chi2_total=chi2["chi2_total"],
+        n_params=len(param_names),
+        n_data_points=counts["n_total"],
+    )
+
+    print("\n=== Best-Fit (medianes post-burn-in) ===")
+    print(f"Modele: {model}")
+    print(f"Burn-in utilise: {burnin} steps")
+    for name, value in zip(param_names, theta):
+        print(f"{name:<8} = {float(value):.6f}")
+
+    print("\n=== Contributions chi2 ===")
+    print(f"{'Sonde':<16} {'chi2':>12} {'N points':>12}")
+    print(f"{'-' * 16} {'-' * 12} {'-' * 12}")
+    print(f"{'SN':<16} {chi2['chi2_sn']:>12.6f} {counts['n_sn']:>12d}")
+    print(f"{'BAO':<16} {chi2['chi2_bao']:>12.6f} {counts['n_bao']:>12d}")
+    print(f"{'CMB':<16} {chi2['chi2_cmb']:>12.6f} {counts['n_cmb']:>12d}")
+    print(f"{'RSD':<16} {chi2['chi2_rsd']:>12.6f} {counts['n_rsd']:>12d}")
+    print(f"{'Total':<16} {chi2['chi2_total']:>12.6f} {counts['n_total']:>12d}")
+
+    print("\n=== Information Criteria ===")
+    print(f"{'k (params libres)':<24} {len(param_names)}")
+    print(f"{'n (donnees totales)':<24} {counts['n_total']}")
+    print(f"{'AIC':<24} {aic:.6f}")
+    print(f"{'BIC':<24} {bic:.6f}")
+
+
+def log_prior(
+    theta: np.ndarray,
+    prior_bounds: dict[str, tuple[float, float]],
+    param_names: tuple[str, ...],
+) -> float:
+    """Uniform priors on physically viable ranges."""
+    for idx, name in enumerate(param_names):
+        lo, hi = prior_bounds[name]
+        if not (lo < float(theta[idx]) < hi):
+            return -math.inf
+    return 0.0
+
+
+def pipeline_loglike_from_theta(theta: np.ndarray, model: str = "cpl") -> float:
+    """
+    Real MCGT tri-probe likelihood (SN+BAO+CMB) from chapter 09 pipeline.
+
+    Source:
+      scripts/09_dark_energy_cpl/09_mcmc_sampler.py::log_posterior
+    """
+    omega_m, h_0, w_0, w_a, _s_8 = _unpack_theta(theta, model)
+
+    runtime = _load_tri_probe_runtime()
+    params = dict(runtime["params_template"])
+    params["H0"] = float(h_0)
+    params["h"] = float(h_0) / 100.0
+    params["omega_b"] = params["ombh2"] / (params["h"] * params["h"])
+
+    logp, _, _, _ = runtime["log_posterior"](
         params,
-        float(omega_m),
-        float(w_0),
-        float(w_a),
+        omega_m,
+        w_0,
+        w_a,
         runtime["sn_data"],
         runtime["bao_data"],
         TRI_PROBE_SIGMA_SYS,
@@ -175,30 +366,25 @@ def pipeline_loglike_from_theta(theta: np.ndarray) -> float:
     if not np.isfinite(logp):
         return -math.inf
 
-    sigma_8_0 = float(s_8) / math.sqrt(float(omega_m) / 0.3)
-    chi2_rsd = float(
-        rsd_runtime["get_chi2_rsd"](
-            float(omega_m),
-            float(w_0),
-            float(w_a),
-            sigma_8_0,
-        )
-    )
-
-    chi2_total_combine = float(chi2_total) + chi2_rsd
+    chi2_total_combine = evaluate_chi2_components(theta, model=model)["chi2_total"]
     return -0.5 * chi2_total_combine
 
 
-def log_likelihood(theta: np.ndarray) -> float:
+def log_likelihood(theta: np.ndarray, model: str = "cpl") -> float:
     """Log-likelihood wrapper."""
-    return pipeline_loglike_from_theta(theta)
+    return pipeline_loglike_from_theta(theta, model=model)
 
 
-def log_probability(theta: np.ndarray) -> float:
-    lp = log_prior(theta)
+def log_probability(
+    theta: np.ndarray,
+    model: str,
+    prior_bounds: dict[str, tuple[float, float]],
+    param_names: tuple[str, ...],
+) -> float:
+    lp = log_prior(theta, prior_bounds, param_names)
     if not np.isfinite(lp):
         return -math.inf
-    ll = log_likelihood(theta)
+    ll = log_likelihood(theta, model=model)
     if not np.isfinite(ll):
         return -math.inf
     return lp + ll
@@ -209,11 +395,13 @@ def init_walkers(
     rng: np.random.Generator,
     center: np.ndarray,
     sigma: np.ndarray,
+    param_names: tuple[str, ...],
+    prior_bounds: dict[str, tuple[float, float]],
 ) -> np.ndarray:
     """Initialize walkers in a small Gaussian ball around expected best-fit."""
-    p0 = rng.normal(loc=center, scale=sigma, size=(n_walkers, NDIM))
-    for j, name in enumerate(PARAM_NAMES):
-        lo, hi = PRIOR_BOUNDS[name]
+    p0 = rng.normal(loc=center, scale=sigma, size=(n_walkers, len(param_names)))
+    for j, name in enumerate(param_names):
+        lo, hi = prior_bounds[name]
         eps = 1e-6 * (hi - lo)
         p0[:, j] = np.clip(p0[:, j], lo + eps, hi - eps)
     return p0
@@ -223,13 +411,14 @@ def make_backend(
     output_file: Path,
     n_walkers: int,
     chain_name: str,
+    n_dim: int,
 ) -> emcee.backends.Backend:
     output_file.parent.mkdir(parents=True, exist_ok=True)
     if output_file.suffix.lower() != ".h5":
         return emcee.backends.Backend()
     try:
         backend = emcee.backends.HDFBackend(str(output_file), name=chain_name)
-        backend.reset(n_walkers, NDIM)
+        backend.reset(n_walkers, n_dim)
         return backend
     except Exception as exc:  # pragma: no cover
         print(f"[warn] HDF5 backend unavailable ({exc}). Falling back to memory backend.")
@@ -239,31 +428,47 @@ def make_backend(
 def save_csv_fallback(
     sampler: emcee.EnsembleSampler,
     output_h5: Path,
+    param_names: tuple[str, ...],
 ) -> Path:
     chain = sampler.get_chain(flat=True)
     logp = sampler.get_log_prob(flat=True)
     out_csv = output_h5.with_suffix(".csv")
-    header = ",".join(PARAM_NAMES + ("log_prob",))
+    header = ",".join(param_names + ("log_prob",))
     data = np.column_stack([chain, logp])
     np.savetxt(out_csv, data, delimiter=",", header=header, comments="")
     return out_csv
 
 
 def run_sampler(args: argparse.Namespace) -> None:
+    model_spec = get_model_spec(args.model)
+    param_names = model_spec["param_names"]
+    theta_bestfit = model_spec["theta_bestfit"]
+    init_sigma = model_spec["init_sigma"]
+    prior_bounds = model_spec["prior_bounds"]
+    n_dim = model_spec["ndim"]
+
     n_steps = N_STEPS_TEST if args.quick_test else args.n_steps
     n_walkers = args.n_walkers
-    if n_walkers < 2 * NDIM:
-        raise ValueError(f"n_walkers doit etre >= {2 * NDIM} pour emcee (got {n_walkers}).")
+    if n_walkers < 2 * n_dim:
+        raise ValueError(f"n_walkers doit etre >= {2 * n_dim} pour emcee (got {n_walkers}).")
 
     rng = np.random.default_rng(args.seed)
-    p0 = init_walkers(n_walkers, rng, THETA_BESTFIT, INIT_SIGMA)
-    backend = make_backend(args.output, n_walkers, args.chain_name)
+    p0 = init_walkers(
+        n_walkers=n_walkers,
+        rng=rng,
+        center=theta_bestfit,
+        sigma=init_sigma,
+        param_names=param_names,
+        prior_bounds=prior_bounds,
+    )
+    backend = make_backend(args.output, n_walkers, args.chain_name, n_dim)
 
     sampler = emcee.EnsembleSampler(
         nwalkers=n_walkers,
-        ndim=NDIM,
+        ndim=n_dim,
         log_prob_fn=log_probability,
         backend=backend,
+        args=(args.model, prior_bounds, param_names),
     )
 
     try:
@@ -284,8 +489,11 @@ def run_sampler(args: argparse.Namespace) -> None:
         print(f"Chaines sauvegardees dans: {args.output}")
         print(f"Nom de la chaine HDF5: {args.chain_name}")
     else:
-        out_csv = save_csv_fallback(sampler, args.output)
+        out_csv = save_csv_fallback(sampler, args.output, param_names)
         print(f"Backend memoire utilise. Export CSV: {out_csv}")
+
+    theta_median, burnin = summarize_bestfit_from_chain(sampler)
+    _print_bestfit_report(theta_median, burnin, param_names, args.model)
 
 
 def main() -> None:

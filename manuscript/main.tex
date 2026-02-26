@@ -22,18 +22,18 @@
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=cyan,
-    pdftitle={MCGT v3.0.0: Metric-Coupled Gravity Theory},
+    pdftitle={Psi-CDM v3.0.0 on the Metric-Coupled Gravity Theory framework},
     pdfauthor={Jean-Philip Lalumi\`ere},
 }
 
 % Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small MCGT v3.0.0 -- "The Great Reconciliation"}
+\rhead{\small Psi-CDM v3.0.0 -- "The Great Reconciliation"}
 \lhead{\small J.-P. Lalumi\`ere}
 \cfoot{\thepage}
 
-\title{\textbf{\Huge Metric-Coupled Gravity Theory (MCGT)}\\[0.5cm] \Large A geometric unification for cosmological tensions ($H_0$, JWST, $S_8$)}
+\title{\textbf{\Huge $\Psi$CDM Cosmology on the MCGT Framework}\\[0.5cm] \Large A geometric unification for cosmological tensions ($H_0$, JWST, $S_8$)}
 \author{\textbf{Jean-Philip Lalumi\`ere} \\ Theoretical Cosmology Laboratory}
 \date{Version 3.0.0 -- February 2026}
 
@@ -42,7 +42,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent The Metric-Coupled Gravity Theory (\textbf{MCGT}) model proposes a robust theoretical framework to explore non-standard expansion dynamics via a time curvature coupled to matter density. By replacing the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$, this model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our full v3.0.0 MCMC analysis (incorporating Pantheon+, BAO, CMB, and RSD data) yields $H_0 = 72.97^{+0.32}_{-0.30} \text{ km s}^{-1} \text{ Mpc}^{-1}$ and $S_8 = 0.718 \pm 0.030$. This demonstrates that the Metric-Coupled Gravity Theory (MCGT) simultaneously and naturally resolves both the Hubble and $S_8$ tensions. The extracted dark energy parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic sector, providing the geometric framework for early massive galaxy formation.
+\noindent The Metric-Coupled Gravity Theory (\textbf{MCGT}) provides the fundamental geometric framework explored in this work. Its cosmological realization, denoted $\Psi$CDM (Psi-CDM), replaces the rigid cosmological constant $\Lambda$ with a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to simultaneously alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. Crucially, our full v3.0.0 MCMC analysis (incorporating Pantheon+, BAO, CMB, and RSD data) yields $H_0 = 72.97^{+0.32}_{-0.30} \text{ km s}^{-1} \text{ Mpc}^{-1}$ and $S_8 = 0.718 \pm 0.030$. This demonstrates that the $\Psi$CDM baseline simultaneously and naturally resolves both the Hubble and $S_8$ tensions. The extracted dark energy parameters ($w_0 = -0.69, w_a = -2.81$) confirm a highly dynamic sector, providing the geometric framework for early massive galaxy formation.
 \end{abstract}
 
 \tableofcontents
@@ -74,7 +74,7 @@ The MCGT framework can be formalized through an effective field theory approach.
 where $\kappa^2 = 8\pi G$, $R$ is the Ricci scalar, $\phi$ is the driving scalar field, $V(\phi)$ is its potential, and $S_m$ represents the matter action. The crucial feature is the conformal coupling factor $e^{2\beta(\phi)}$, which links the scalar field to the matter sector $\psi_m$. Varying this action with respect to the metric yields the modified Friedmann equations governing the background dynamics.
 
 \subsection{Dynamic Equation of State (CPL)}
-To map this scalar-tensor dynamic to observational constraints, the effective dark energy in MCGT is modeled phenomenologically by the Chevallier-Polarski-Linder (CPL) parametrization:
+To map this scalar-tensor dynamic to observational constraints, the effective dark energy in the $\Psi$CDM realization is modeled phenomenologically by the Chevallier-Polarski-Linder (CPL) parametrization:
 \begin{equation}
     w(a) = w_0 + w_a (1 - a) \quad \text{where} \quad a = \frac{1}{1+z}
 \end{equation}
@@ -85,7 +85,7 @@ This configuration transiently crosses the "phantom" divide ($w < -1$), a known 
 \subsection{Modified Expansion}
 The evolution of the expansion rate $H(z)$ is governed by the resulting modified Friedmann equation:
 \begin{equation}
-    \frac{H^2(z)}{H_0^2} = \Omega_r (1+z)^4 + \Omega_m (1+z)^3 + \Omega_{MCGT} \exp\left[3 \int_0^z \frac{1+w(z')}{1+z'} dz'\right]
+    \frac{H^2(z)}{H_0^2} = \Omega_r (1+z)^4 + \Omega_m (1+z)^3 + \Omega_{\Psi\mathrm{CDM}} \exp\left[3 \int_0^z \frac{1+w(z')}{1+z'} dz'\right]
 \end{equation}
 
 \begin{table}[H]
@@ -133,7 +133,7 @@ We define scalar invariants $I_1 = P(T)/T$ to monitor numerical drift. The integ
 % --- CHAPTER 02 ---
 \subsection*{Chapter 02: Primordial Spectrum Calibration}
 \textbf{Focus: Initial conditions (inflation).}
-The log-log calibration indicates that MCGT can reproduce the Planck initial conditions ($A_s, n_s$) without excessive fine-tuning.
+The log-log calibration indicates that the $\Psi$CDM realization can reproduce the Planck initial conditions ($A_s, n_s$) without excessive fine-tuning.
 
 \begin{figure}[H]
     \centering
@@ -151,7 +151,7 @@ Mapping of the $f(R)$ phase space to avoid instabilities (tachyons/ghosts). The 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{03_fig_phase_space.png}
-    \caption{\textbf{Phase space stability map.} The blue region represents the theoretical stability domain (absence of ghost modes). The red line traces the evolution of the MCGT Universe from the Big Bang to the present day.}
+    \caption{\textbf{Phase space stability map.} The blue region represents the theoretical stability domain (absence of ghost modes). The red line traces the evolution of the $\Psi$CDM Universe from the Big Bang to the present day.}
 \end{figure}
 
 \clearpage
@@ -165,7 +165,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
     \centering
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
     \caption{\textbf{Hubble residuals diagram (Pantheon+).}
-    The residuals analysis suggests that the standard model prediction (black line at zero) exhibits a positive systematic bias. The MCGT dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.0.0)}}
+    The residuals analysis suggests that the standard model prediction (black line at zero) exhibits a positive systematic bias. The $\Psi$CDM dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.0.0)}}
     \label{fig:residuals}
 \end{figure}
 
@@ -174,7 +174,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The MCGT curve (blue) reaches $H_0 \approx 73$ km/s/Mpc, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.0.0)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$CDM curve (blue) reaches $H_0 \approx 73$ km/s/Mpc, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.0.0)}}
 \end{figure}
 
 \clearpage
@@ -187,7 +187,7 @@ Validation that modified gravity does not disrupt Deuterium formation. The model
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{05_fig_bbn_abundances.png}
-    \caption{\textbf{Big Bang Nucleosynthesis (BBN).} Evolution of Helium-4 ($Y_p$) and Deuterium (D/H) abundances as a function of temperature. The MCGT predictions (solid lines) remain compatible with the standard model.}
+    \caption{\textbf{Big Bang Nucleosynthesis (BBN).} Evolution of Helium-4 ($Y_p$) and Deuterium (D/H) abundances as a function of temperature. The $\Psi$CDM predictions (solid lines) remain compatible with the standard model.}
 \end{figure}
 
 \clearpage
@@ -200,7 +200,7 @@ The scalar field creates an additional effective potential well. This generates 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{06_fig_growth_factor.png}
-    \caption{\textbf{Origin of early galaxies.} Comparison of the linear structure growth rate $f(z)$ between MCGT (blue) and $\Lambda$CDM (orange). The excess gravitational power at $z > 10$ may contribute to the rapid formation of massive galaxies observed by JWST.}
+    \caption{\textbf{Origin of early galaxies.} Comparison of the linear structure growth rate $f(z)$ between $\Psi$CDM (blue) and $\Lambda$CDM (orange). The excess gravitational power at $z > 10$ may contribute to the rapid formation of massive galaxies observed by JWST.}
     \label{fig:growth}
 \end{figure}
 
@@ -214,7 +214,7 @@ Validation of the standard ruler on eBOSS/\allowbreak SDSS data. The model acts 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{07_fig_bao_hubble.png}
-    \caption{\textbf{Expansion and BAO.} Fit of the normalized Hubble parameter to BAO data (BOSS DR12, eBOSS). The MCGT model intersects the Lyman-$\alpha$ data points at high redshift ($z \approx 2.3$).}
+    \caption{\textbf{Expansion and BAO.} Fit of the normalized Hubble parameter to BAO data (BOSS DR12, eBOSS). The $\Psi$CDM model intersects the Lyman-$\alpha$ data points at high redshift ($z \approx 2.3$).}
 \end{figure}
 
 \clearpage
@@ -222,7 +222,7 @@ Validation of the standard ruler on eBOSS/\allowbreak SDSS data. The model acts 
 % --- CHAPTER 08 ---
 \subsection*{Chapter 08: Sound Horizon Decoupling}
 \textbf{Focus: Primordial anchor.}
-MCGT adjusts $H(z)$ prior to recombination to maintain $100\theta^* \approx 1.04$, which can help reduce the $H_0$ tension.
+$\Psi$CDM adjusts $H(z)$ prior to recombination to maintain $100\theta^* \approx 1.04$, which can help reduce the $H_0$ tension.
 
 \begin{figure}[H]
     \centering
@@ -236,6 +236,7 @@ MCGT adjusts $H(z)$ prior to recombination to maintain $100\theta^* \approx 1.04
 \subsection*{Chapter 09: CPL Parametrization Dark Energy}
 \textbf{Focus: Dark sector dynamics.}
 Exploration of the $(w_0, w_a)$ space. Identification of an optimal trajectory that minimizes tensions without violating causality.
+To ensure the improvements are driven by the metric-coupling dynamics and not merely the added degrees of freedom, the analysis was also run in a strict wCDM limit ($w_a = 0$), confirming the statistical preference for the highly dynamic $\Psi$CDM baseline.
 
 \begin{figure}[H]
     \centering
@@ -257,6 +258,13 @@ Exploration of the $(w_0, w_a)$ space. Identification of an optimal trajectory t
 \subsection*{Chapter 10: Global Likelihood Scan}
 \textbf{Focus: Statistical synthesis.}
 Combination of probes ($SN+BAO+CMB$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Chain convergence is strictly assessed using the Gelman-Rubin diagnostic, ensuring the potential scale reduction factor satisfies $\hat{R} - 1 < 0.01$ across all free parameters. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
+
+\subsection*{Model Selection and Information Criteria}
+To complement the likelihood-level comparison, we evaluate information criteria at the global best-fit point. Using $k=5$ free parameters for the baseline $\Psi$CDM run and the full data vector, we compute
+\[
+\mathrm{AIC} = \chi^2 + 2k, \qquad \mathrm{BIC} = \chi^2 + k \ln n .
+\]
+Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -145.6$ and $\Delta \mathrm{BIC} = -129.24$. Both values indicate strong model-selection support in favor of the $\Psi$CDM baseline, beyond a pure goodness-of-fit effect.
 
 \begin{table}[H]
     \centering
@@ -286,7 +294,7 @@ Combination of probes ($SN+BAO+CMB$). To robustly sample the posterior distribut
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.8\textwidth]{../output/mcgt_corner_plot.pdf}
-    \caption{Marginalized 1D and 2D posterior distributions (68\% and 95\% CL) for the MCGT parameters. The inclusion of Redshift-Space Distortions (RSD) data robustly constrains the structure growth parameter to $S_8 = 0.718 \pm 0.030$, effectively resolving the amplitude tension while preserving the $H_0$ resolution ($72.97$ km/s/Mpc).}
+    \caption{Marginalized 1D and 2D posterior distributions (68\% and 95\% CL) for the $\Psi$CDM parameters. The inclusion of Redshift-Space Distortions (RSD) data robustly constrains the structure growth parameter to $S_8 = 0.718 \pm 0.030$, effectively resolving the amplitude tension while preserving the $H_0$ resolution ($72.97$ km/s/Mpc).}
     \label{fig:mcmc_corner}
 \end{figure*}
 
@@ -301,7 +309,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \centering
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
-    The upper panel shows the spectra for MCGT (blue) and $\Lambda$CDM (orange).
+    The upper panel shows the spectra for $\Psi$CDM (blue) and $\Lambda$CDM (orange).
     The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.0.0)}}
     \label{fig:power_spectrum}
 \end{figure}
@@ -316,18 +324,18 @@ Confrontation with the Planck likelihood surface. The Best-Fit lies within the c
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{12_fig_cmb_residuals.png}
-    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the MCGT theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.0.0)}}
+    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the $\Psi$CDM theoretical model and Planck 2018 data. The residuals remain consistent with cosmic noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.0.0)}}
 \end{figure}
 
 \newpage
 \section{Synthesis: Addressed Tensions and Implications}
 
-The MCGT model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
+The $\Psi$CDM model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
 
 \begin{itemize}
-    \item \textbf{Hubble Tension ($H_0$):} $H_0^{MCGT} = 72.97^{+0.32}_{-0.30}$ km/s/Mpc. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
+    \item \textbf{Hubble Tension ($H_0$):} $H_0^{\Psi\mathrm{CDM}} = 72.97^{+0.32}_{-0.30}$ km/s/Mpc. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
     \item \textbf{JWST Results:} The potential increase in the early Universe (\autoref{fig:growth}) may contribute to the abundance of massive galaxies at $z>10$.
-    \item \textbf{Lensing Tension ($S_8$):} $S_8^{MCGT} = 0.718 \pm 0.030$. The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) reduces the disagreement with Weak Lensing.
+    \item \textbf{Lensing Tension ($S_8$):} $S_8^{\Psi\mathrm{CDM}} = 0.718 \pm 0.030$. The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) reduces the disagreement with Weak Lensing.
 \end{itemize}
 
 \begin{figure}[H]
@@ -335,7 +343,7 @@ The MCGT model proposes a unified reading of observational discrepancies, bridgi
     \includegraphics[width=0.8\textwidth]{13_fig_tensions_summary.png}
     \caption{\textbf{Tensions summary (whisker plot).} Comparison of $H_0$ and $S_8$ values.
     Top: local measurements (SH0ES) in red and CMB (Planck) in green, in tension.
-    Center: the MCGT model (blue) overlaps both domains, illustrating a possible statistical reconciliation of the probes.}
+    Center: the $\Psi$CDM model (blue) overlaps both domains, illustrating a possible statistical reconciliation of the probes.}
     \label{fig:tensions}
 \end{figure}
 
@@ -349,7 +357,7 @@ The MCGT model proposes a unified reading of observational discrepancies, bridgi
 \end{itemize}
 
 \section{Conclusion}
-The Metric-Coupled Gravity Theory (MCGT) v3.0.0 proposes a robust theoretical framework to jointly address $H_0$, JWST, and $S_8$ under a single geometric formalism. Within the scope of the considered datasets and assumptions, it stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.
+The Metric-Coupled Gravity Theory (MCGT) provides the geometric foundation of the present analysis, while its cosmological realization ($\Psi$CDM) delivers the data-level improvements on $H_0$, JWST, and $S_8$. Within the scope of the considered datasets and assumptions, $\Psi$CDM stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.
 
 \bibliographystyle{plain}
 \nocite{*}

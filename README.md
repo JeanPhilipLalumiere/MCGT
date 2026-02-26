@@ -1,4 +1,4 @@
-# MCGT: Modèle de la Courbure Gravitationnelle du Temps
+# ΨCDM: A Metric-Coupled Resolution to Cosmological Tensions
 ### Version 3.0.0 — "The Great Reconciliation"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
@@ -16,6 +16,15 @@ v3.0.0 : Release majeure avec intégration du solveur ODE pour la croissance des
 - $w_0 = -0.69 \pm 0.05$
 - $w_a = -2.81^{+0.29}_{-0.14}$
 - $S_8 = 0.718 \pm 0.030$
+
+## Model Selection and Information Criteria
+```text
+=== Information Criteria ===
+k (params libres)        5
+n (donnees totales)      1718
+AIC                      809.12
+BIC                      836.37
+```
 
 ## Ruptures Scientifiques
 

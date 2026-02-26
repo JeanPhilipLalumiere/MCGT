@@ -278,7 +278,7 @@ def make_tensions_summary_plot():
     )
     ax.grid(True, axis="x", alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
-    plt.subplots_adjust(bottom=0.35)
+    plt.subplots_adjust(bottom=0.40)
     plt.savefig(OUT_DIR / "13_fig_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
     plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
     plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.pdf", bbox_inches="tight", pad_inches=0.3, dpi=300)

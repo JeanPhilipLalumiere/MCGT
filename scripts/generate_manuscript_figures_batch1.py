@@ -9,6 +9,34 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript"
+OUTPUT_DIR = ROOT / "output"
+
+BESTFIT = {
+    "omega_m": 0.243,
+    "h0": 72.97,
+    "h0_err_plus": 0.32,
+    "h0_err_minus": 0.30,
+    "w0": -0.69,
+    "w0_err": 0.05,
+    "wa": -2.81,
+    "wa_err_plus": 0.29,
+    "wa_err_minus": 0.14,
+    "s8": 0.718,
+    "s8_err": 0.030,
+}
+STATS = {
+    "n_total": 1718,
+    "delta_chi2": -151.6,
+    "delta_aic": -145.6,
+    "delta_bic": -129.2,
+    "chi2_cmb": 0.04,
+}
+
+
+def _save_dual(fig, manuscript_name: str, output_stem: str) -> None:
+    fig.savefig(OUT_DIR / manuscript_name)
+    fig.savefig(OUTPUT_DIR / f"{output_stem}.png")
+    fig.savefig(OUTPUT_DIR / f"{output_stem}.pdf")
 
 
 def _apply_style():
@@ -55,11 +83,11 @@ def make_hubble_parameter_plot():
     z = np.geomspace(0.01, 2.5, 240)
 
     h_lcdm = _hubble_cpl(z, 67.4, 0.315, -1.0, 0.0)
-    h_mcgt = _hubble_cpl(z, 73.2, 0.301, -0.8, -0.5)
+    h_ptmg = _hubble_cpl(z, BESTFIT["h0"], BESTFIT["omega_m"], BESTFIT["w0"], BESTFIT["wa"])
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.plot(z, h_lcdm, color="#d95f02", lw=2.2, label=r"$\Lambda$CDM")
-    ax.plot(z, h_mcgt, color="#1f77b4", lw=2.4, label="MCGT")
+    ax.plot(z, h_ptmg, color="#1f77b4", lw=2.4, label=r"$\Psi$TMG")
 
     z_obs = np.array([0.01, 0.38, 0.51, 0.61, 2.33])
     h_obs = np.array([73.0, 81.5, 90.0, 97.0, 224.0])
@@ -94,7 +122,7 @@ def make_hubble_parameter_plot():
 
     ax_inset = ax.inset_axes([0.25, 0.55, 0.35, 0.35])
     ax_inset.plot(z[zoom_mask], h_lcdm[zoom_mask], color="#d95f02", lw=1.6)
-    ax_inset.plot(z[zoom_mask], h_mcgt[zoom_mask], color="#1f77b4", lw=1.8)
+    ax_inset.plot(z[zoom_mask], h_ptmg[zoom_mask], color="#1f77b4", lw=1.8)
     ax_inset.errorbar(
         z_obs[z_obs_zoom],
         h_obs[z_obs_zoom],
@@ -116,12 +144,30 @@ def make_hubble_parameter_plot():
     ax_inset.xaxis.set_major_locator(plt.MaxNLocator(4))
     ax_inset.yaxis.set_major_locator(plt.MaxNLocator(4))
     ax_inset.grid(True, alpha=0.25)
+    ax_inset.errorbar(
+        0.0,
+        BESTFIT["h0"],
+        yerr=np.array([[BESTFIT["h0_err_minus"]], [BESTFIT["h0_err_plus"]]]),
+        fmt="s",
+        ms=4.5,
+        color="#1f77b4",
+        ecolor="#1f77b4",
+        capsize=2,
+        zorder=7,
+    )
+    ax_inset.text(
+        0.01,
+        77.4,
+        r"$H_0=72.97^{+0.32}_{-0.30}$ km/s/Mpc",
+        fontsize=8.5,
+        va="top",
+    )
     _, connector1, connector2 = mark_inset(
         ax, ax_inset, loc1=4, loc2=2, fc="none", ec="0.5", lw=0.8
     )
     connector2.set_visible(False)
 
-    fig.savefig(OUT_DIR / "04_fig_hubble_parameter.png")
+    _save_dual(fig, "04_fig_hubble_parameter.png", "ptmg_hz_evolution")
     plt.close(fig)
 
 
@@ -130,36 +176,50 @@ def make_growth_factor_plot():
     z_safe = np.where(z == 0, 1e-3, z)
 
     omega_m_lcdm = _omega_m_z(z_safe, 0.315, -1.0, 0.0)
-    omega_m_mcgt = _omega_m_z(z_safe, 0.301, -0.8, -0.5)
+    omega_m_ptmg = _omega_m_z(z_safe, BESTFIT["omega_m"], BESTFIT["w0"], BESTFIT["wa"])
 
     f_lcdm = omega_m_lcdm ** 0.55
     boost = 1.0 + 0.15 * np.exp(-0.5 * ((z - 10.0) / 2.4) ** 2)
-    f_mcgt = (omega_m_mcgt ** 0.52) * boost
+    f_ptmg = (omega_m_ptmg ** 0.52) * boost
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.plot(z, f_lcdm, color="#d95f02", lw=2.2, label=r"$\Lambda$CDM")
-    ax.plot(z, f_mcgt, color="#1f77b4", lw=2.4, label="MCGT (boost)")
+    ax.plot(z, f_ptmg, color="#1f77b4", lw=2.4, label=r"$\Psi$TMG (boost)")
     ax.set_xlabel("Redshift z")
     ax.set_ylabel(r"Growth rate $f(z)$")
     ax.set_ylim(0.2, 1.4)
     ax.set_title("Structure Growth Factor")
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
+    ax.annotate(
+        "Boost de ~15% a z > 10",
+        xy=(11.0, np.interp(11.0, z, f_ptmg)),
+        xytext=(7.4, 1.18),
+        arrowprops=dict(arrowstyle="->", lw=1.1, color="#1f77b4"),
+        fontsize=10,
+        color="#1f77b4",
+    )
     fig.subplots_adjust(left=0.12, right=0.98, top=0.9, bottom=0.12)
-    fig.savefig(OUT_DIR / "06_fig_growth_factor.png")
+    _save_dual(fig, "06_fig_growth_factor.png", "ptmg_fsigma8_fit")
     plt.close(fig)
 
 
 def make_eos_evolution_plot():
     z = np.linspace(0, 2.0, 240)
-    w0, wa = -0.2433, -2.9981
+    w0, wa = BESTFIT["w0"], BESTFIT["wa"]
     w_z = w0 + wa * z / (1 + z)
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.axhline(-1.0, color="#444444", lw=1.4, ls="--")
     ax.fill_between(z, -2.5, -1.0, color="#d73027", alpha=0.12, label="Phantom")
     ax.fill_between(z, -1.0, 0.5, color="#4575b4", alpha=0.08, label="Quintessence")
-    ax.plot(z, w_z, color="#1f77b4", lw=2.4, label="CPL Best-Fit")
+    ax.plot(z, w_z, color="#1f77b4", lw=2.4, label=r"CPL Best-Fit ($\Psi$TMG)")
+    ax.text(
+        0.03,
+        -2.35,
+        r"$w_0=-0.69\pm0.05,\;w_a=-2.81^{+0.29}_{-0.14}$",
+        fontsize=10,
+    )
     ax.set_xlabel("Redshift z")
     ax.set_ylabel(r"$w(z)$")
     ax.set_ylim(-2.5, 0.5)
@@ -167,14 +227,14 @@ def make_eos_evolution_plot():
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "09_fig_eos_evolution.png")
+    _save_dual(fig, "09_fig_eos_evolution.png", "ptmg_eos_evolution")
     plt.close(fig)
 
 
 def make_tensions_summary_plot():
-    labels = ["Planck (CMB)", "SH0ES (Local)", "MCGT (Prediction)"]
-    values = [67.4, 73.04, 73.2]
-    errors = [0.5, 1.04, 0.8]
+    labels = ["Planck (CMB)", "SH0ES (Local)", r"$\Psi$TMG (Prediction)"]
+    values = [67.4, 73.04, BESTFIT["h0"]]
+    errors = [0.5, 1.04, BESTFIT["h0_err_plus"]]
     colors = ["#2ca25f", "#d7301f", "#3182bd"]
 
     y_positions = np.arange(len(labels))[::-1]
@@ -205,15 +265,27 @@ def make_tensions_summary_plot():
     ax.set_xlabel(r"$H_0$ [km/s/Mpc]")
     ax.set_xlim(64, 78.5)
     ax.set_title("Tensions Summary")
+    ax.text(
+        64.2,
+        -0.55,
+        (
+            r"$\Delta\chi^2=-151.6,\;\Delta AIC=-145.6,\;\Delta BIC=-129.2$"
+            "\n"
+            r"$n=1718,\;\chi^2_{\rm CMB}=0.04,\;S_8=0.718\pm0.030$"
+        ),
+        fontsize=9,
+        va="bottom",
+    )
     ax.grid(True, axis="x", alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "13_fig_tensions_summary.png")
+    _save_dual(fig, "13_fig_tensions_summary.png", "ptmg_tensions_summary")
     plt.close(fig)
 
 
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     _apply_style()
     make_hubble_parameter_plot()
     make_growth_factor_plot()

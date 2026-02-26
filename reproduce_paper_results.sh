@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Reproduce core paper outputs for MCGT from a fresh environment.
+# Reproduce core paper outputs for ΨTMG from a fresh environment.
 # Usage:
 #   ./reproduce_paper_results.sh            # quick test run
 #   ./reproduce_paper_results.sh test       # quick test run
@@ -36,5 +36,16 @@ python plot_corner.py \
   --chain-name ptmg_chain \
   --out-pdf output/ptmg_corner_plot.pdf \
   --out-png output/ptmg_corner_plot.png
+
+echo "[step] Exporting ΨTMG predictions..."
+python scripts/export_predictions.py \
+  --chain output/ptmg_chains.h5 \
+  --chain-name ptmg_chain \
+  --output output/ptmg_predictions_z0_to_z20.csv
+
+echo "[step] Generating publication plotting batches..."
+python scripts/generate_manuscript_figures_batch1.py
+python scripts/generate_manuscript_figures_batch2.py
+python scripts/generate_manuscript_figures_batch3.py
 
 echo "[ok] Reproducibility pipeline completed in '${MODE}' mode."

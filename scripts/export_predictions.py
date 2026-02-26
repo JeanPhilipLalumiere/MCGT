@@ -18,11 +18,11 @@ DEFAULT_POINTS = 200
 
 # Fallback (v3.1.0-like) if chain is unavailable.
 FALLBACK_BESTFIT = {
-    "omega_m": 0.30,
-    "h_0": 70.0,
-    "w_0": -1.0,
-    "w_a": 0.0,
-    "s_8": 0.80,
+    "omega_m": 0.243,
+    "h_0": 72.97,
+    "w_0": -0.69,
+    "w_a": -2.81,
+    "s_8": 0.718,
 }
 
 

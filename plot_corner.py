@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot publication-quality corner plot from emcee HDF5 chains."""
+"""Plot publication-quality corner plot for the Psi-CDM cosmology."""
 
 from __future__ import annotations
 
@@ -11,9 +11,14 @@ import emcee
 import matplotlib.pyplot as plt
 import numpy as np
 
+LABELS_BY_DIM = {
+    5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$S_8$"],
+    4: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$S_8$"],
+}
+
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Generate MCGT corner plot from HDF5 chains.")
+    parser = argparse.ArgumentParser(description="Generate Psi-CDM corner plot from HDF5 chains.")
     parser.add_argument(
         "--input",
         type=Path,
@@ -69,8 +74,9 @@ def main() -> None:
     reader = emcee.backends.HDFBackend(str(args.input), name=args.chain_name)
     burnin = estimate_burnin(reader, args.burnin_frac)
     samples = reader.get_chain(discard=burnin, flat=True)
-
-    labels = [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$S_8$"]
+    ndim = int(samples.shape[1])
+    labels = LABELS_BY_DIM.get(ndim, [rf"$\theta_{{{i + 1}}}$" for i in range(ndim)])
+    print(f"[info] chain dimensionality: {ndim}")
 
     plt.rcParams.update(
         {
@@ -96,6 +102,7 @@ def main() -> None:
         plot_datapoints=False,
         max_n_ticks=4,
     )
+    fig.suptitle(r"$\Psi$CDM Posterior Constraints (reference: $\Lambda$CDM)", y=1.02)
 
     args.out_pdf.parent.mkdir(parents=True, exist_ok=True)
     args.out_png.parent.mkdir(parents=True, exist_ok=True)

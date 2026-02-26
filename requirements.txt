@@ -1,3 +1,6 @@
-matplotlib
-numpy
-scienceplots
+corner==2.2.3
+emcee==3.1.6
+h5py==3.11.0
+matplotlib==3.9.0
+numpy==2.3.5
+scipy==1.16.3

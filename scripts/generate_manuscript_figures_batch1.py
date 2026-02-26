@@ -238,7 +238,7 @@ def make_tensions_summary_plot():
     colors = ["#2ca25f", "#d7301f", "#3182bd"]
 
     y_positions = np.arange(len(labels))[::-1]
-    fig, ax = plt.subplots(figsize=(6.4, 3.6))
+    fig, ax = plt.subplots(figsize=(6.4, 6.6))
     for y, value, err, color, label in zip(y_positions, values, errors, colors, labels):
         ax.errorbar(
             value,
@@ -256,7 +256,7 @@ def make_tensions_summary_plot():
             y,
             f"{value:.2f} ± {err:.2f}" if err < 1 else f"{value:.2f} ± {err:.2f}",
             va="center",
-            fontsize=10,
+            fontsize=9,
             color=color,
         )
 
@@ -273,16 +273,15 @@ def make_tensions_summary_plot():
             "\n"
             r"$n=1718,\;\chi^2_{\rm CMB}=0.04,\;S_8=0.718\pm0.030$"
         ),
-        fontsize=9,
+        fontsize=8,
         va="bottom",
     )
     ax.grid(True, axis="x", alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
-    fig.tight_layout()
-    fig.subplots_adjust(bottom=0.25)
-    fig.savefig(OUT_DIR / "13_fig_tensions_summary.png", bbox_inches="tight", dpi=300)
-    fig.savefig(OUTPUT_DIR / "ptmg_tensions_summary.png", bbox_inches="tight", dpi=300)
-    fig.savefig(OUTPUT_DIR / "ptmg_tensions_summary.pdf", bbox_inches="tight", dpi=300)
+    plt.subplots_adjust(bottom=0.35)
+    plt.savefig(OUT_DIR / "13_fig_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
+    plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
+    plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.pdf", bbox_inches="tight", pad_inches=0.3, dpi=300)
     plt.close(fig)
 
 

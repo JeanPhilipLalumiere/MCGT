@@ -1,4 +1,4 @@
-# Contribuer à MCGT
+# Contribuer à ΨTMG
 
 ## Pré-requis
 - Git, Python 3.11+, `pre-commit` installé (`pipx install pre-commit` ou `pip install pre-commit`).

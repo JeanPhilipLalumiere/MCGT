@@ -248,7 +248,7 @@ def plot_cs2_heatmap(
     ax.set_xscale("linear")
     ax.set_yscale("log")
     ax.set_xlabel(r"Redshift $z$", fontsize="small")
-    ax.set_ylabel(r"$H(z)$ [km s$^{-1}$ Mpc$^{-1}$]", fontsize="small")
+    ax.set_ylabel(r"$H(z)$ [$\mathrm{km\,s^{-1}\,Mpc^{-1}}$]", fontsize="small")
     ax.set_title(r"Hubble Parameter Evolution $H(z)$", fontsize="small")
 
     # Ticks en petite taille

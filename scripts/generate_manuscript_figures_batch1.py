@@ -110,7 +110,7 @@ def make_hubble_parameter_plot():
     ax.set_xscale("log")
     ax.set_xlim(0.01, 2.5)
     ax.set_xlabel("Redshift z")
-    ax.set_ylabel(r"$H(z)$ [km s$^{-1}$ Mpc$^{-1}$]")
+    ax.set_ylabel(r"$H(z)$ [$\mathrm{km\,s^{-1}\,Mpc^{-1}}$]")
     ax.set_title("Hubble Parameter Evolution")
     ax.grid(True, alpha=0.3, which="both")
     ax.legend(frameon=False, loc="upper right")
@@ -158,7 +158,7 @@ def make_hubble_parameter_plot():
     ax_inset.text(
         0.01,
         77.4,
-        r"$H_0=72.97^{+0.32}_{-0.30}$ km s$^{-1}$ Mpc$^{-1}$",
+        r"$H_0=72.97^{+0.32}_{-0.30}\ \mathrm{km\,s^{-1}\,Mpc^{-1}}$",
         fontsize=8.5,
         va="top",
     )
@@ -262,7 +262,7 @@ def make_tensions_summary_plot():
 
     ax.set_yticks(y_positions)
     ax.set_yticklabels(labels)
-    ax.set_xlabel(r"$H_0$ [km s$^{-1}$ Mpc$^{-1}$]")
+    ax.set_xlabel(r"$H_0$ [$\mathrm{km\,s^{-1}\,Mpc^{-1}}$]")
     ax.set_xlim(64, 78.5)
     ax.set_title("Tensions Summary")
     ax.text(

@@ -196,7 +196,7 @@ def corner_plot(
         ax.set_title(title or "Global Scan Parameter Constraints")
         ax.set_xlabel(labels[0])
         ax.set_ylabel(labels[1])
-        legend = [Patch(facecolor=plt.get_cmap(cmap)(0.35), label="MCGT (95% C.L.)")]
+        legend = [Patch(facecolor=plt.get_cmap(cmap)(0.35), label="ΨTMG (68% and 95% credible regions)")]
         ax.legend(handles=legend, frameon=False, loc="upper right")
         fig.tight_layout()
         out_png.parent.mkdir(parents=True, exist_ok=True)
@@ -238,7 +238,7 @@ def corner_plot(
                     ax.set_ylabel(labels[i])
 
     fig.suptitle(title or "Global Scan Parameter Constraints", y=0.98)
-    legend = [Patch(facecolor=plt.get_cmap(cmap)(0.35), label="MCGT (95% C.L.)")]
+    legend = [Patch(facecolor=plt.get_cmap(cmap)(0.35), label="ΨTMG (68% and 95% credible regions)")]
     axes[n_params - 1, 0].legend(handles=legend, frameon=False, loc="upper right")
     fig.subplots_adjust(wspace=0.05, hspace=0.05)
     out_png.parent.mkdir(parents=True, exist_ok=True)

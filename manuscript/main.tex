@@ -29,13 +29,13 @@
 % Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small $\Psi$TMG v3.1.0 - "The Great Reconciliation"}
+\rhead{\small $\Psi$TMG v3.1.0 -- Simultaneous Resolution of Cosmological Tensions}
 \lhead{\small J.-P. Lalumi\`ere}
 \cfoot{\thepage}
 
 \title{\textbf{\Huge $\Psi$-Time Metric Gravity ($\Psi$TMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions}}
 \author{\textbf{Jean-Philip Lalumi\`ere} \\ Theoretical Cosmology Laboratory}
-\date{Version 3.1.0 -- February 2026}
+\date{Version 3.1.0 - February 2026}
 
 \begin{document}
 
@@ -99,7 +99,7 @@ where we explicitly define $\Omega_{\Psi\mathrm{TMG}} \equiv 1 - \Omega_m - \Ome
         \midrule
         $\Omega_m$ & Uniform $[0.1, 0.5]$ & Total matter density \\
         $H_0$ & Uniform $[60, 80]$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$ & Local expansion rate \\
-        $\sigma_8$ & Uniform $[0.6, 1.0]$ & Primordial clustering amplitude \\
+        $\sigma_8$ & Uniform $[0.6, 1.0]$ & RMS matter fluctuations at $8 h^{-1}\,\text{Mpc}$ ($z=0$) \\
         $w_0$ & Uniform $[-3.0, 0.0]$ & Dark energy state (present) \\
         $w_a$ & Uniform $[-5.0, 2.0]$ & Temporal variation of the state \\
         $\Omega_b h^2$ & Gaussian $\mathcal{N}(0.02237, 0.00015)$ & Physical baryon density \\
@@ -260,7 +260,7 @@ To ensure the improvements are driven by the metric-coupling dynamics and not me
 % --- CHAPTER 10 ---
 \subsection*{Chapter 10: Global Likelihood Scan}
 \textbf{Focus: Statistical synthesis.}
-Combination of probes ($SN + BAO + CMB + RSD$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Convergence is strictly confirmed by a Gelman-Rubin statistic of $|\hat{R} - 1| < 0.01$ across all parameters, complemented by an adequate effective sample size (ESS) and stable autocorrelation times, ensuring fully independent posterior samples. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
+Combination of probes ($SN + BAO + CMB + RSD$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Convergence is strictly confirmed by a Gelman-Rubin statistic of $|\hat{R} - 1| < 0.01$ across all parameters, complemented by an adequate effective sample size (ESS) and stable autocorrelation times, thereby yielding effectively independent samples for robust parameter inference. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
 
 \subsection*{Model Selection and Information Criteria}
 We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. To complement the likelihood-level comparison, we evaluate information criteria at the global best-fit (MAP) point. We sample the primordial amplitude through $\sigma_8$ (alongside $\Omega_m, H_0, w_0, w_a$) and systematically report $S_8 \equiv \sigma_8 (\Omega_m / 0.3)^{0.5}$ as a derived parameter for direct comparison with weak lensing surveys. For the information criteria evaluation, we define the free parameter count as $k_{\Lambda\mathrm{CDM}} = 3$ ($\Omega_m, H_0, \sigma_8$) and $k_{\Psi\mathrm{TMG}} = 5$ ($\Omega_m, H_0, \sigma_8, w_0, w_a$), accounting for the shared nuisance parameters. Using the full data vector, we compute

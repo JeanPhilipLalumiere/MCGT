@@ -15,6 +15,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 plt.rcParams.update(
     {
         "figure.autolayout": True,

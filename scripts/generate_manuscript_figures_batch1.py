@@ -27,8 +27,8 @@ BESTFIT = {
 STATS = {
     "n_total": 1718,
     "delta_chi2": -151.6,
-    "delta_aic": -145.6,
-    "delta_bic": -129.2,
+    "delta_aic": -147.6,
+    "delta_bic": -136.7,
     "chi2_cmb": 0.04,
 }
 
@@ -269,7 +269,7 @@ def make_tensions_summary_plot():
         0.02,
         -0.30,
         (
-            r"$\Delta\chi^2=-151.6,\;\Delta AIC=-145.6,\;\Delta BIC=-129.2$"
+            r"$\Delta\chi^2=-151.6,\;\Delta AIC=-147.6,\;\Delta BIC=-136.7$"
             "\n"
             r"$n=1718,\;\chi^2_{\rm CMB}=0.04,\;S_8=0.718\pm0.030$"
         ),

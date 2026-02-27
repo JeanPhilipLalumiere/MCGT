@@ -140,6 +140,8 @@ def main() -> None:
             "ytick.labelsize": 10,
             "figure.dpi": 120,
             "font.family": "DejaVu Sans",
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
         }
     )
 
@@ -158,7 +160,7 @@ def main() -> None:
     axes = np.array(fig.axes).reshape((ndim, ndim))
     for idx, summary in enumerate(summaries):
         axes[idx, idx].set_title(summary["formatted"], fontsize=10)
-    fig.suptitle(r"$\Psi$TMG Posterior Constraints (reference: $\Lambda$CDM)", y=1.02)
+    fig.suptitle("ΨTMG Posterior Constraints (reference: ΛCDM)", y=1.02)
 
     args.out_pdf.parent.mkdir(parents=True, exist_ok=True)
     args.out_png.parent.mkdir(parents=True, exist_ok=True)

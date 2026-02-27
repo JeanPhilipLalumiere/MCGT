@@ -268,7 +268,7 @@ To ensure the improvements are driven by the metric-coupling dynamics and not me
 % --- CHAPTER 10 ---
 \subsection*{Chapter 10: Global Likelihood Scan}
 \textbf{Focus: Statistical synthesis.}
-Combination of probes ($SN + BAO + CMB + RSD$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Convergence is strictly confirmed by a Gelman-Rubin statistic of $|\hat{R} - 1| < 0.01$ across all parameters, complemented by an adequate effective sample size (ESS) and stable autocorrelation times, thereby yielding effectively independent samples for robust parameter inference. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
+Combination of probes ($SN + BAO + CMB + RSD$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Convergence is strictly confirmed by a Gelman-Rubin statistic of $|\hat{R} - 1| < 0.01$ across all parameters, complemented by stable autocorrelation times and an adequate effective sample size (ESS; specifically, $\mathrm{ESS} > 1450$ for all sampled cosmological parameters), thereby yielding effectively independent samples for robust parameter inference. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
 
 \subsection*{Model Selection and Information Criteria}
 We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. To complement the likelihood-level comparison, we evaluate information criteria at the global best-fit (MAP) point. We sample the late-time clustering amplitude through $\sigma_8$ (RMS matter fluctuations at $8 h^{-1}\,\text{Mpc}$, $z=0$), alongside $\Omega_m, H_0, w_0, w_a$, and systematically report $S_8 \equiv \sigma_8 (\Omega_m / 0.3)^{0.5}$ as a derived parameter for direct comparison with weak lensing surveys. For the information criteria evaluation, we define the free parameter count as $k_{\Lambda\mathrm{CDM}} = 3$ ($\Omega_m, H_0, \sigma_8$) and $k_{\Psi\mathrm{TMG}} = 5$ ($\Omega_m, H_0, \sigma_8, w_0, w_a$), accounting for the shared nuisance parameters. Using the full data vector, we compute
@@ -277,7 +277,7 @@ We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathr
 \]
 Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -147.6$ and $\Delta \mathrm{BIC} = -136.7$. Both values indicate even stronger model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
 Here, $\chi^2_{\mathrm{CMB}}$ corresponds to the single-constraint residual on the acoustic scale distance prior, rather than the full Planck power spectrum likelihood.
-We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample.
+We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample (specifically: $N_{\mathrm{SN}} = 1701$ from Pantheon+, $N_{\mathrm{CMB}} = 1$ from the Planck distance prior, $N_{\mathrm{BAO}} = 6$, and $N_{\mathrm{RSD}} = 10$).
 
 \begin{table}[htbp]
     \centering
@@ -296,6 +296,8 @@ We take $n = 1718$ as the total dimensionality of the combined data vector enter
     \end{tabular}
     }
     \vspace{0.3em}
+
+    {\footnotesize Note: $\sigma_8$ is the directly sampled free parameter, while $S_8 \equiv \sigma_8 (\Omega_m / 0.3)^{0.5}$ is reported here as a derived parameter for cosmological comparison.}
 
     {\footnotesize MAP values are provided in the text for exact replication.}
     \label{tab:results}

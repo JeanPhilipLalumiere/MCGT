@@ -110,7 +110,7 @@ def make_bao_hubble_plot():
         label="BAO (eBOSS)",
     )
     ax.set_xlabel("Redshift z")
-    ax.set_ylabel(r"$H(z)/(1+z)$ [km s$^{-1}$ Mpc$^{-1}$]")
+    ax.set_ylabel(r"$H(z)/(1+z)$ [$\mathrm{km\,s^{-1}\,Mpc^{-1}}$]")
     ax.set_title("BAO Hubble Diagram")
     ax.grid(True, alpha=0.3)
     ax.set_xlim(0, 3)

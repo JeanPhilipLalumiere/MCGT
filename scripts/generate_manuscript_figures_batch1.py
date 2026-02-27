@@ -1,29 +1,15 @@
 #!/usr/bin/env python3
 import math
-import shutil
-import subprocess
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
-plt.rcParams["text.usetex"] = True
+plt.rcParams["text.usetex"] = False
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
-
-if shutil.which("latex") and shutil.which("kpsewhich"):
-    probe = subprocess.run(
-        ["kpsewhich", "type1ec.sty"],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if not probe.stdout.strip():
-        plt.rcParams["text.usetex"] = False
-else:
-    plt.rcParams["text.usetex"] = False
 
 
 ROOT = Path(__file__).resolve().parents[1]

@@ -5,8 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 from pathlib import Path
 
 import corner
@@ -14,22 +12,10 @@ import emcee
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.rcParams["text.usetex"] = True
+plt.rcParams["text.usetex"] = False
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
-
-if shutil.which("latex") and shutil.which("kpsewhich"):
-    probe = subprocess.run(
-        ["kpsewhich", "type1ec.sty"],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if not probe.stdout.strip():
-        plt.rcParams["text.usetex"] = False
-else:
-    plt.rcParams["text.usetex"] = False
 
 LABELS_BY_DIM = {
     5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$S_8$"],

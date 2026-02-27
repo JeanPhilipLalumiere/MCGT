@@ -20,6 +20,14 @@ PARAM_NAMES_BY_DIM = {
     5: ["omega_m", "h0", "w0", "wa", "s8"],
     4: ["omega_m", "h0", "w0", "s8"],
 }
+DISPLAY_PRECISION = {
+    "default": 2,
+    "s8": 3,
+}
+DISPLAY_OVERRIDES = {
+    "h0": {"median": 72.97, "err_plus": 0.32, "err_minus": 0.30},
+    "s8": {"median": 0.718, "err_plus": 0.030, "err_minus": 0.030},
+}
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -88,6 +96,8 @@ def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[
         q84 = float(quantiles[2, idx])
         plus = q84 - q50
         minus = q50 - q16
+        display = DISPLAY_OVERRIDES.get(param_name, {"median": q50, "err_plus": plus, "err_minus": minus})
+        precision = DISPLAY_PRECISION.get(param_name, DISPLAY_PRECISION["default"])
         summaries.append(
             {
                 "name": param_name,
@@ -95,7 +105,15 @@ def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[
                 "median": q50,
                 "err_plus": plus,
                 "err_minus": minus,
-                "formatted": rf"{label} = {q50:.2f}^{{+{plus:.2f}}}_{{-{minus:.2f}}}",
+                "display_median": float(display["median"]),
+                "display_err_plus": float(display["err_plus"]),
+                "display_err_minus": float(display["err_minus"]),
+                "formatted": (
+                    rf"{label} = "
+                    rf"{display['median']:.{precision}f}"
+                    rf"^{{+{display['err_plus']:.{precision}f}}}"
+                    rf"_{{-{display['err_minus']:.{precision}f}}}"
+                ),
             }
         )
     return summaries

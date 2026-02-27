@@ -186,7 +186,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA, help="RSD CSV data path")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="INI config path")
     parser.add_argument("--omega-m", type=float, help="Override Omega_m")
-    parser.add_argument("--h0", type=float, help="Override H_0 [km/s/Mpc]")
+    parser.add_argument("--h0", type=float, help="Override H_0 [km s^-1 Mpc^-1]")
     parser.add_argument("--w0", type=float, help="Override w_0")
     parser.add_argument("--wa", type=float, help="Override w_a")
     parser.add_argument("--sigma8", type=float, help="Override sigma_8(z=0)")

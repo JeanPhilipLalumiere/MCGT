@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import logging
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path as _SafePath
@@ -15,8 +16,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+plt.rcParams["text.usetex"] = True
+plt.rcParams["font.family"] = "serif"
 plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
+
+if shutil.which("latex") and shutil.which("kpsewhich"):
+    probe = subprocess.run(
+        ["kpsewhich", "type1ec.sty"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if not probe.stdout.strip():
+        plt.rcParams["text.usetex"] = False
+else:
+    plt.rcParams["text.usetex"] = False
 
 plt.rcParams.update(
     {

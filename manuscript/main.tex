@@ -51,7 +51,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.1.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline simultaneously alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
+\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.1.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline substantially alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
 \end{abstract}
 
 \tableofcontents
@@ -98,6 +98,7 @@ The evolution of the expansion rate $H(z)$ is governed by the resulting modified
     \frac{H^2(z)}{H_0^2} = \Omega_r (1+z)^4 + \Omega_m (1+z)^3 + \Omega_{\Psi\mathrm{TMG}} \exp\left[3 \int_0^z \frac{1+w(z')}{1+z'} dz'\right]
 \end{equation}
 where we explicitly define $\Omega_{\Psi\mathrm{TMG}} \equiv 1 - \Omega_m - \Omega_r$ at $z=0$ to ensure spatial flatness.
+It is important to note that this initial condition matching serves as a standalone theoretical calibration diagnostic, distinct from the primary MCMC cosmological parameter inference which relies on the CMB distance prior.
 
 \begin{table}[H]
     \centering
@@ -332,7 +333,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
     The upper panel shows the spectra for $\Psi$TMG (blue) and $\Lambda$CDM (orange).
-    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. Note: The suppression shown at scales $k > 1 \, h/\mathrm{Mpc}$ represents a linear-theory extrapolation; definitive nonlinear validation requires N-body simulations. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.1.0)}}
     \label{fig:power_spectrum}
 \end{figure}
 
@@ -354,7 +355,7 @@ Posterior diagnostic against the Planck 2018 spectra. Note that the full Planck 
 
 The $\Psi$TMG model proposes a unified reading of observational discrepancies, bridging constraints from multiple probes.
 
-\begin{itemize}[label=--]
+\begin{itemize}
     \item \textbf{Hubble Tension ($H_0$):} marginalized median $H_0^{\Psi\mathrm{TMG}} = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$. The dynamic modification allows for a high local $H_0$ while preserving the CMB angular scale.
     \item \textbf{JWST Results:} The potential increase in the early Universe (\autoref{fig:growth}) may contribute to the abundance of massive galaxies at $z>10$.
     \item \textbf{Lensing Tension ($S_8$):} marginalized median $S_8^{\Psi\mathrm{TMG}} = 0.718^{+0.030}_{-0.030}$. The suppression of the high-frequency power spectrum (\autoref{fig:power_spectrum}) reduces the disagreement with Weak Lensing.
@@ -372,7 +373,7 @@ The $\Psi$TMG model proposes a unified reading of observational discrepancies, b
 \clearpage
 
 \section{Limitations and Future Work}
-\begin{itemize}[label=--]
+\begin{itemize}
     \item \textbf{Dependence on the CPL parametrization:} it is necessary to test other equations of state to confirm that the result is not an artifact of the choice of $w(a)$.
     \item \textbf{Perturbation analysis:} the current study is limited to the linear regime ($k \lesssim 1 h/\mathrm{Mpc}$). Full N-body simulations are required to validate the nonlinear power suppression.
     \item \textbf{Phenomenological nature:} the model is an effective field theory (EFT). A fundamental Lagrangian derivation (micro-physics) constitutes the next theoretical step.

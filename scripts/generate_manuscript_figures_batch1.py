@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript"

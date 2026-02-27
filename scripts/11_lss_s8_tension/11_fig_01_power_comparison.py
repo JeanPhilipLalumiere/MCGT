@@ -100,6 +100,7 @@ def main() -> int:
         ls="--",
         color="tab:orange",
     )
+    ax1.axvline(x=1.0, color="gray", linestyle="--", linewidth=1.0)
     ax1.set_title("Matter Power Spectrum Comparison")
     ax1.set_ylabel(r"P(k) [h$^{-3}$ Mpc$^{3}$]")
     ax1.grid(True, which="both", alpha=0.25)
@@ -108,6 +109,7 @@ def main() -> int:
 
     ax2.plot(k_h, ratio_pk, color="black", lw=1.5)
     ax2.axhline(1.0, color="grey", linestyle="--", linewidth=1)
+    ax2.axvline(x=1.0, color="gray", linestyle="--", linewidth=1.0)
     ax2.set_ylabel(r"Ratio $P_{CPL}(k) / P_{\Lambda CDM}(k)$")
     ax2.set_xlabel(r"k [h Mpc$^{-1}$]")
     ax2.set_xscale("log")

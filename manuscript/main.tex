@@ -20,8 +20,6 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 
-\newcommand{\textLambda}{\ensuremath{\Lambda}}
-
 \DisableLigatures{encoding = *, family = *}
 
 % Page Configuration
@@ -53,7 +51,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over \textLambda CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\text{\textLambda CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.1.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline simultaneously alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
+\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.1.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline simultaneously alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
 \end{abstract}
 
 \tableofcontents
@@ -61,7 +59,7 @@
 
 \section{Introduction: Motivation and Framework}
 
-Precision cosmology has entered a phase where multiple converging datasets reveal persistent statistical tensions. The standard \textLambda CDM model remains effective in describing the cosmic microwave background (CMB), but it faces increasing difficulties in reconciling the early and late Universe within a single framework.
+Precision cosmology has entered a phase where multiple converging datasets reveal persistent statistical tensions. The standard $\Lambda$CDM model remains effective in describing the cosmic microwave background (CMB), but it faces increasing difficulties in reconciling the early and late Universe within a single framework.
 
 Within the MCGT framework, the tested $\Psi$TMG implementation postulates that these discrepancies may reflect a modification of effective gravity, induced by a "mirage"-type scalar coupling.
 
@@ -179,7 +177,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
     \centering
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
     \caption{\textbf{Hubble residuals diagram (Pantheon+).}
-    The data show a mild redshift-dependent residual trend relative to the \textLambda CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    The data show a mild redshift-dependent residual trend relative to the $\Lambda$CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.1.0)}}
     \label{fig:residuals}
 \end{figure}
 
@@ -188,7 +186,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while \textLambda CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.1.0)}}
 \end{figure}
 
 \clearpage
@@ -214,7 +212,7 @@ The scalar field creates an additional effective potential well. This generates 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{06_fig_growth_factor.png}
-    \caption{\textbf{Origin of early galaxies.} Comparison of the linear structure growth rate $f(z)$ between $\Psi$TMG (blue) and \textLambda CDM (orange). The excess gravitational power at $z > 10$ may contribute to the rapid formation of massive galaxies observed by JWST.}
+    \caption{\textbf{Origin of early galaxies.} Comparison of the linear structure growth rate $f(z)$ between $\Psi$TMG (blue) and $\Lambda$CDM (orange). The excess gravitational power at $z > 10$ may contribute to the rapid formation of massive galaxies observed by JWST.}
     \label{fig:growth}
 \end{figure}
 
@@ -263,7 +261,7 @@ To ensure the improvements are driven by the metric-coupling dynamics and not me
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{09_fig_w0_wa_contours.png}
-    \caption{\textbf{CPL Constraints ($w_0 - w_a$).} 68\% and 95\% credible contours for the dark energy parameters. The cross indicates the standard \textLambda CDM model ($w_0=-1, w_a=0$), which lies outside the 95\% credible region, suggesting a statistical preference for a dynamic evolution.}
+    \caption{\textbf{CPL Constraints ($w_0 - w_a$).} 68\% and 95\% credible contours for the dark energy parameters. The cross indicates the standard $\Lambda$CDM model ($w_0=-1, w_a=0$), which lies outside the 95\% credible region, suggesting a statistical preference for a dynamic evolution.}
 \end{figure}
 
 \clearpage
@@ -274,11 +272,11 @@ To ensure the improvements are driven by the metric-coupling dynamics and not me
 Combination of probes ($SN + BAO + CMB + RSD$). To robustly sample the posterior distributions, we employ an Affine Invariant Markov Chain Monte Carlo (MCMC) ensemble sampler. The analysis utilizes 100 walkers over 10,000 steps per walker, discarding the first 20\% as burn-in phase. Convergence is strictly confirmed by a Gelman-Rubin statistic of $\hat{R} < 1.01$ across all parameters, complemented by stable autocorrelation times and an adequate effective sample size (ESS; specifically, $\mathrm{ESS} > 1450$ for all sampled cosmological parameters), thereby yielding effectively independent samples for robust parameter inference. The overall improvement ($\Delta\chi^2_{total} = -151.6$) indicates a significant likelihood enhancement.
 
 \subsection*{Model Selection and Information Criteria}
-We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\text{\textLambda CDM}}$; hence, negative values strictly indicate an improvement over the standard model. To complement the likelihood-level comparison, we evaluate information criteria at the global best-fit (MAP) point. We sample the late-time clustering amplitude through $\sigma_8$ (RMS matter fluctuations at $8 h^{-1}\,\text{Mpc}$, $z=0$), alongside $\Omega_m, H_0, w_0, w_a$, and systematically report $S_8 \equiv \sigma_8 (\Omega_m / 0.3)^{0.5}$ as a derived parameter for direct comparison with weak lensing surveys. For the information criteria evaluation, we define the free parameter count as $k_{\text{\textLambda CDM}} = 3$ ($\Omega_m, H_0, \sigma_8$) and $k_{\Psi\mathrm{TMG}} = 5$ ($\Omega_m, H_0, \sigma_8, w_0, w_a$), accounting for the shared nuisance parameters. Using the full data vector, we compute
+We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. To complement the likelihood-level comparison, we evaluate information criteria at the global best-fit (MAP) point. We sample the late-time clustering amplitude through $\sigma_8$ (RMS matter fluctuations at $8 h^{-1}\,\text{Mpc}$, $z=0$), alongside $\Omega_m, H_0, w_0, w_a$, and systematically report $S_8 \equiv \sigma_8 (\Omega_m / 0.3)^{0.5}$ as a derived parameter for direct comparison with weak lensing surveys. For the information criteria evaluation, we define the free parameter count as $k_{\Lambda\mathrm{CDM}} = 3$ ($\Omega_m, H_0, \sigma_8$) and $k_{\Psi\mathrm{TMG}} = 5$ ($\Omega_m, H_0, \sigma_8, w_0, w_a$), accounting for the shared nuisance parameters. Using the full data vector, we compute
 \[
 \mathrm{AIC} = \chi^2 + 2k, \qquad \mathrm{BIC} = \chi^2 + k \ln n .
 \]
-Relative to \textLambda CDM, we obtain $\Delta \mathrm{AIC} = -147.6$ and $\Delta \mathrm{BIC} = -136.7$. Both values indicate even stronger model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
+Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -147.6$ and $\Delta \mathrm{BIC} = -136.7$. Both values indicate even stronger model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
 Here, $\chi^2_{\mathrm{CMB}}$ corresponds to the single-constraint residual on the acoustic scale distance prior, rather than the full Planck power spectrum likelihood.
 We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample (specifically: $N_{\mathrm{SN}} = 1701$ from Pantheon+, $N_{\mathrm{CMB}} = 1$ from the Planck distance prior, $N_{\mathrm{BAO}} = 6$, and $N_{\mathrm{RSD}} = 10$).
 
@@ -333,7 +331,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \centering
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
-    The upper panel shows the spectra for $\Psi$TMG (blue) and \textLambda CDM (orange).
+    The upper panel shows the spectra for $\Psi$TMG (blue) and $\Lambda$CDM (orange).
     The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.1.0)}}
     \label{fig:power_spectrum}
 \end{figure}

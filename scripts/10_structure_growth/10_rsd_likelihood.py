@@ -15,36 +15,98 @@ DEFAULT_DATA = Path("assets/zz-data/10_structure_growth/10_rsd_data.csv")
 DEFAULT_CONFIG = Path("config/mcgt-global-config.ini")
 
 
-def e2_cpl(a: np.ndarray | float, omega_m: float, w_0: float, w_a: float) -> np.ndarray | float:
-    """E(a)^2 = H(a)^2/H0^2 in flat CPL cosmology (matter + dark energy)."""
+def _normalize_eos_model(eos_model: str) -> str:
+    model = eos_model.strip()
+    if model.lower() == "cpl":
+        return "CPL"
+    if model.lower() == "jbp":
+        return "JBP"
+    if model.lower() == "wcdm":
+        return "wCDM"
+    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, or wCDM.")
+
+
+def _effective_wa(w_a: float, eos_model: str) -> float:
+    return 0.0 if _normalize_eos_model(eos_model) == "wCDM" else w_a
+
+
+def w_of_a(
+    a: np.ndarray | float,
+    w_0: float,
+    w_a: float,
+    eos_model: str = "CPL",
+) -> np.ndarray | float:
+    """Dark-energy equation of state w(a) for the supported background models."""
+    a_arr = np.asarray(a, dtype=float)
+    model = _normalize_eos_model(eos_model)
+    w_a_eff = _effective_wa(w_a, model)
+    if model == "CPL":
+        return w_0 + w_a_eff * (1.0 - a_arr)
+    if model == "JBP":
+        return w_0 + w_a_eff * a_arr * (1.0 - a_arr)
+    return np.full_like(a_arr, w_0, dtype=float)
+
+
+def de_density_factor(
+    a: np.ndarray | float,
+    w_0: float,
+    w_a: float,
+    eos_model: str = "CPL",
+) -> np.ndarray | float:
+    """rho_de(a) / rho_de(a=1) for the supported dark-energy models."""
+    a_arr = np.asarray(a, dtype=float)
+    model = _normalize_eos_model(eos_model)
+    w_a_eff = _effective_wa(w_a, model)
+    if model == "CPL":
+        return a_arr ** (-3.0 * (1.0 + w_0 + w_a_eff)) * np.exp(-3.0 * w_a_eff * (1.0 - a_arr))
+    if model == "JBP":
+        return a_arr ** (-3.0 * (1.0 + w_0)) * np.exp(1.5 * w_a_eff * (a_arr - 1.0) ** 2)
+    return a_arr ** (-3.0 * (1.0 + w_0))
+
+
+def e2_cpl(
+    a: np.ndarray | float,
+    omega_m: float,
+    w_0: float,
+    w_a: float,
+    eos_model: str = "CPL",
+) -> np.ndarray | float:
+    """E(a)^2 = H(a)^2/H0^2 in flat dark-energy cosmology."""
     a_arr = np.asarray(a, dtype=float)
     omega_de = 1.0 - omega_m
-    de = a_arr ** (-3.0 * (1.0 + w_0 + w_a)) * np.exp(-3.0 * w_a * (1.0 - a_arr))
+    de = de_density_factor(a_arr, w_0, w_a, eos_model=eos_model)
     return omega_m * a_arr ** -3 + omega_de * de
 
 
-def dlnh_da(a: float, omega_m: float, w_0: float, w_a: float) -> float:
+def dlnh_da(a: float, omega_m: float, w_0: float, w_a: float, eos_model: str = "CPL") -> float:
     """Derivative d ln(H)/da."""
-    e2 = float(e2_cpl(a, omega_m, w_0, w_a))
+    e2 = float(e2_cpl(a, omega_m, w_0, w_a, eos_model=eos_model))
     if e2 <= 0:
         return 0.0
     omega_de = 1.0 - omega_m
-    de = a ** (-3.0 * (1.0 + w_0 + w_a)) * math.exp(-3.0 * w_a * (1.0 - a))
-    dln_de_da = -3.0 * (1.0 + w_0 + w_a) / a + 3.0 * w_a
+    de = float(de_density_factor(a, w_0, w_a, eos_model=eos_model))
+    dln_de_da = -3.0 * (1.0 + float(w_of_a(a, w_0, w_a, eos_model=eos_model))) / a
     de_prime = omega_de * de * dln_de_da
     e2_prime = -3.0 * omega_m * a ** -4 + de_prime
     return 0.5 * e2_prime / e2
 
 
-def _growth_ode(a: float, y: np.ndarray, omega_m: float, w_0: float, w_a: float) -> np.ndarray:
+def _growth_ode(
+    a: float,
+    y: np.ndarray,
+    omega_m: float,
+    w_0: float,
+    w_a: float,
+    eos_model: str = "CPL",
+) -> np.ndarray:
     """Linear growth ODE in scale factor a for y=[delta, d(delta)/da]."""
     delta, ddelta_da = y
-    e2 = float(e2_cpl(a, omega_m, w_0, w_a))
+    e2 = float(e2_cpl(a, omega_m, w_0, w_a, eos_model=eos_model))
     if e2 <= 0:
         return np.array([ddelta_da, 0.0], dtype=float)
 
     source = 1.5 * omega_m / (a ** 5 * e2)
-    friction = 3.0 / a + dlnh_da(a, omega_m, w_0, w_a)
+    friction = 3.0 / a + dlnh_da(a, omega_m, w_0, w_a, eos_model=eos_model)
     d2delta_da2 = -friction * ddelta_da + source * delta
     return np.array([ddelta_da, d2delta_da2], dtype=float)
 
@@ -54,6 +116,7 @@ def solve_growth_delta(
     h_0: float,
     w_0: float,
     w_a: float,
+    eos_model: str = "CPL",
     a_min: float = 1.0e-3,
     n_grid: int = 4000,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -67,7 +130,7 @@ def solve_growth_delta(
 
     y0 = np.array([a_min, 1.0], dtype=float)
     sol = solve_ivp(
-        fun=lambda a, y: _growth_ode(a, y, omega_m, w_0, w_a),
+        fun=lambda a, y: _growth_ode(a, y, omega_m, w_0, w_a, eos_model=eos_model),
         t_span=(a_min, 1.0),
         y0=y0,
         t_eval=a_grid,
@@ -103,9 +166,10 @@ def fsigma8_theory(
     w_0: float,
     w_a: float,
     sigma_8_0: float,
+    eos_model: str = "CPL",
 ) -> np.ndarray:
     """Compute theoretical f*sigma8(z)."""
-    a_grid, delta, ddelta_da = solve_growth_delta(omega_m, h_0, w_0, w_a)
+    a_grid, delta, ddelta_da = solve_growth_delta(omega_m, h_0, w_0, w_a, eos_model=eos_model)
     f_grid = growth_rate_f(a_grid, delta, ddelta_da)
     sigma8_grid = sigma_8_0 * delta
     fs8_grid = f_grid * sigma8_grid
@@ -148,15 +212,16 @@ def get_chi2_rsd(
     sigma_8_0: float,
     h_0: float = 70.0,
     data_path: str | Path = DEFAULT_DATA,
+    eos_model: str = "CPL",
 ) -> float:
     """Return chi2_RSD for f*sigma8 data against MCGT theoretical prediction."""
     z, fs8_obs, fs8_err = load_rsd_data(Path(data_path))
-    fs8_th = fsigma8_theory(z, omega_m, h_0, w_0, w_a, sigma_8_0)
+    fs8_th = fsigma8_theory(z, omega_m, h_0, w_0, w_a, sigma_8_0, eos_model=eos_model)
     chi2 = np.sum(((fs8_obs - fs8_th) / fs8_err) ** 2)
     return float(chi2)
 
 
-def load_params_from_config(config_path: Path) -> dict[str, float]:
+def load_params_from_config(config_path: Path) -> dict[str, float | str]:
     cfg = configparser.ConfigParser(interpolation=None, inline_comment_prefixes=("#", ";"))
     if not cfg.read(config_path, encoding="utf-8"):
         raise FileNotFoundError(f"Cannot read config: {config_path}")
@@ -178,6 +243,7 @@ def load_params_from_config(config_path: Path) -> dict[str, float]:
         "w_0": de.getfloat("w0"),
         "w_a": de.getfloat("wa"),
         "sigma_8_0": sigma_8_0,
+        "eos_model": _normalize_eos_model(de.get("eos_model", fallback="CPL")),
     }
 
 
@@ -190,6 +256,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--w0", type=float, help="Override w_0")
     parser.add_argument("--wa", type=float, help="Override w_a")
     parser.add_argument("--sigma8", type=float, help="Override sigma_8(z=0)")
+    parser.add_argument("--eos-model", type=str, default=None, help="Dark-energy model: CPL, JBP, or wCDM")
     return parser.parse_args()
 
 
@@ -202,6 +269,7 @@ def main() -> int:
     w_0 = params["w_0"] if args.w0 is None else float(args.w0)
     w_a = params["w_a"] if args.wa is None else float(args.wa)
     sigma_8_0 = params["sigma_8_0"] if args.sigma8 is None else float(args.sigma8)
+    eos_model = params["eos_model"] if args.eos_model is None else _normalize_eos_model(args.eos_model)
 
     chi2 = get_chi2_rsd(
         omega_m=omega_m,
@@ -210,12 +278,13 @@ def main() -> int:
         sigma_8_0=sigma_8_0,
         h_0=h_0,
         data_path=args.data,
+        eos_model=eos_model,
     )
 
     print(f"RSD chi2 = {chi2:.6f}")
     print(
         "Parameters: "
-        f"Omega_m={omega_m:.5f}, H_0={h_0:.3f}, w_0={w_0:.4f}, w_a={w_a:.4f}, sigma8_0={sigma_8_0:.4f}"
+        f"Omega_m={omega_m:.5f}, H_0={h_0:.3f}, w_0={w_0:.4f}, w_a={w_a:.4f}, sigma8_0={sigma_8_0:.4f}, eos_model={eos_model}"
     )
     return 0
 

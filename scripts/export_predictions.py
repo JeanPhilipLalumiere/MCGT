@@ -47,6 +47,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_OUTPUT,
         help="Output CSV path.",
     )
+    parser.add_argument(
+        "--eos-model",
+        type=str,
+        default="CPL",
+        help="Dark-energy model passed to the background/growth solver: CPL, JBP, or wCDM.",
+    )
     return parser
 
 
@@ -112,9 +118,17 @@ def load_growth_module():
     return module
 
 
-def compute_hubble(z: np.ndarray, h_0: float, omega_m: float, w_0: float, w_a: float, growth_mod) -> np.ndarray:
+def compute_hubble(
+    z: np.ndarray,
+    h_0: float,
+    omega_m: float,
+    w_0: float,
+    w_a: float,
+    eos_model: str,
+    growth_mod,
+) -> np.ndarray:
     a = 1.0 / (1.0 + z)
-    e2 = growth_mod.e2_cpl(a, omega_m, w_0, w_a)
+    e2 = growth_mod.e2_cpl(a, omega_m, w_0, w_a, eos_model=eos_model)
     return h_0 * np.sqrt(e2)
 
 
@@ -125,6 +139,7 @@ def compute_growth_outputs(
     w_0: float,
     w_a: float,
     s_8: float,
+    eos_model: str,
     growth_mod,
 ) -> tuple[np.ndarray, np.ndarray]:
     a_grid, delta, ddelta_da = growth_mod.solve_growth_delta(
@@ -132,6 +147,7 @@ def compute_growth_outputs(
         h_0=h_0,
         w_0=w_0,
         w_a=w_a,
+        eos_model=eos_model,
     )
     f_grid = growth_mod.growth_rate_f(a_grid, delta, ddelta_da)
 
@@ -151,6 +167,7 @@ def main() -> int:
 
     params_ptmg, source = load_bestfit_params(args.chain, args.chain_name)
     growth_mod = load_growth_module()
+    eos_model = growth_mod._normalize_eos_model(args.eos_model)
 
     params_lcdm = dict(params_ptmg)
     params_lcdm["w_0"] = -1.0
@@ -164,6 +181,7 @@ def main() -> int:
         params_ptmg["omega_m"],
         params_ptmg["w_0"],
         params_ptmg["w_a"],
+        eos_model,
         growth_mod,
     )
     h_lcdm = compute_hubble(
@@ -172,6 +190,7 @@ def main() -> int:
         params_lcdm["omega_m"],
         params_lcdm["w_0"],
         params_lcdm["w_a"],
+        eos_model,
         growth_mod,
     )
     f_ptmg, s8_ptmg_z = compute_growth_outputs(
@@ -181,6 +200,7 @@ def main() -> int:
         params_ptmg["w_0"],
         params_ptmg["w_a"],
         params_ptmg["s_8"],
+        eos_model,
         growth_mod,
     )
     f_lcdm, _ = compute_growth_outputs(
@@ -190,6 +210,7 @@ def main() -> int:
         params_lcdm["w_0"],
         params_lcdm["w_a"],
         params_lcdm["s_8"],
+        eos_model,
         growth_mod,
     )
 
@@ -201,6 +222,7 @@ def main() -> int:
 
     print(f"[ok] Predictions exported to: {args.output}")
     print(f"[info] Best-fit source: {source}")
+    print(f"[info] eos_model: {eos_model}")
     print("[info] First 3 rows:")
     for row in table[:3]:
         print(",".join(f"{float(x):.8f}" for x in row))

@@ -165,7 +165,8 @@ def main() -> None:
     axes = np.array(fig.axes).reshape((ndim, ndim))
     for idx, summary in enumerate(summaries):
         axes[idx, idx].set_title(summary["formatted"], fontsize=10)
-    fig.suptitle("$\\Psi$TMG Posterior Constraints (reference: ΛCDM)", y=1.02)
+    title = "$\\Psi$TMG Posterior Constraints (reference: ΛCDM)"
+    fig.suptitle(title, y=1.02)
 
     args.out_pdf.parent.mkdir(parents=True, exist_ok=True)
     args.out_png.parent.mkdir(parents=True, exist_ok=True)

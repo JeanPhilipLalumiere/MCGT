@@ -1,14 +1,14 @@
 # Ψ-Time Metric Gravity (ΨTMG): A Metric-Coupled Resolution to Cosmological Tensions
-### Version 3.1.0 — "The Great Reconciliation"
+### Version 3.2.0 — "Equation of State Robustness Update"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-v3.1.0-blue)
+![Version](https://img.shields.io/badge/version-v3.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **Ψ-Time Metric Gravity** (Metric-Coupled Gravity Theory) est le framework théorique fondamental. **ΨTMG** est sa réalisation cosmologique paramétrée, conçue pour résoudre les tensions majeures du modèle standard $\Lambda$CDM ($H_0$, $S_8$, JWST) via une approche purement géométrique.
 
-## Nouveautés v3.1.0
-Cette release majeure officialise l'identité finale **Ψ-Time Metric Gravity (ΨTMG)**, validée observationnellement et statistiquement supérieure à $\Lambda$CDM.
+## Nouveautés v3.2.0
+Cette release majeure ajoute un stress test de robustesse de l'équation d'état via les paramétrisations JBP et wCDM, tout en conservant la baseline CPL rétrocompatible.
 * **Model Selection :** Intégration du calcul des critères d'information (AIC/BIC) prouvant mathématiquement la rentabilité de la dynamique du modèle.
 * **Prédictions JWST :** Exportation des courbes théoriques falsifiables de l'évolution structurelle ($z=0$ à $z=20$).
 * **Peer-Review Ready :** Mise en place d'un pipeline de reproductibilité totale (1-click script) avec dépendances figées.
@@ -43,7 +43,7 @@ BIC                      836.37
 
 ## Structure du Dépôt
 
-* `manuscript/` : Contient le code source LaTeX (`main.tex`) de la publication (v3.1.0).
+* `manuscript/` : Contient le code source LaTeX (`main.tex`) de la publication (v3.2.0).
 * `scripts/` : Scripts Python d'utilitaires (ex: `export_predictions.py` générant les tableaux de données JWST).
 * `output/` : Contient les chaînes MCMC HDF5, le tableau CSV des prédictions et les Corner Plots générés.
 * `reproduce_paper_results.sh` : Le pipeline automatisé principal.

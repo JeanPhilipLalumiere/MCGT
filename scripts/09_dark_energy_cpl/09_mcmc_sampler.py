@@ -17,6 +17,41 @@ PLANCK_R = 1.7502
 PLANCK_R_SIGMA = 0.0046
 
 
+def _normalize_eos_model(eos_model: str) -> str:
+    model = eos_model.strip()
+    if model.lower() == "cpl":
+        return "CPL"
+    if model.lower() == "jbp":
+        return "JBP"
+    if model.lower() == "wcdm":
+        return "wCDM"
+    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, or wCDM.")
+
+
+def _effective_wa(wa: float, eos_model: str) -> float:
+    return 0.0 if _normalize_eos_model(eos_model) == "wCDM" else wa
+
+
+def w_of_a(a: np.ndarray, w0: float, wa: float, eos_model: str = "CPL") -> np.ndarray:
+    model = _normalize_eos_model(eos_model)
+    wa_eff = _effective_wa(wa, model)
+    if model == "CPL":
+        return w0 + wa_eff * (1.0 - a)
+    if model == "JBP":
+        return w0 + wa_eff * a * (1.0 - a)
+    return np.full_like(a, w0, dtype=float)
+
+
+def de_density_factor(a: np.ndarray, w0: float, wa: float, eos_model: str = "CPL") -> np.ndarray:
+    model = _normalize_eos_model(eos_model)
+    wa_eff = _effective_wa(wa, model)
+    if model == "CPL":
+        return a ** (-3.0 * (1.0 + w0 + wa_eff)) * np.exp(-3.0 * wa_eff * (1.0 - a))
+    if model == "JBP":
+        return a ** (-3.0 * (1.0 + w0)) * np.exp(1.5 * wa_eff * (a - 1.0) ** 2)
+    return a ** (-3.0 * (1.0 + w0))
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run tri-probe MCMC (SN+BAO+CMB).")
     parser.add_argument(
@@ -39,7 +74,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_config(path: Path) -> dict[str, float]:
+def load_config(path: Path) -> dict[str, float | str]:
     cfg = configparser.ConfigParser(
         interpolation=None, inline_comment_prefixes=("#", ";")
     )
@@ -77,6 +112,7 @@ def load_config(path: Path) -> dict[str, float]:
         "omega_r": omega_r,
         "w0": w0,
         "wa": wa,
+        "eos_model": _normalize_eos_model(de.get("eos_model", fallback="CPL")),
     }
 
 
@@ -102,9 +138,17 @@ def z_rec_hu_sugiyama(ombh2: float, ommh2: float) -> float:
     return 1048.0 * (1.0 + 0.00124 * ombh2 ** -0.738) * (1.0 + g1 * ommh2 ** g2)
 
 
-def e2_cpl(z: np.ndarray, omega_m: float, omega_r: float, omega_de: float, w0: float, wa: float) -> np.ndarray:
+def e2_cpl(
+    z: np.ndarray,
+    omega_m: float,
+    omega_r: float,
+    omega_de: float,
+    w0: float,
+    wa: float,
+    eos_model: str = "CPL",
+) -> np.ndarray:
     a = 1.0 / (1.0 + z)
-    de_factor = a ** (-3.0 * (1.0 + w0 + wa)) * np.exp(-3.0 * wa * (1.0 - a))
+    de_factor = de_density_factor(a, w0, wa, eos_model=eos_model)
     return omega_m * (1.0 + z) ** 3 + omega_r * (1.0 + z) ** 4 + omega_de * de_factor
 
 
@@ -118,35 +162,52 @@ def cumulative_integral(z_grid: np.ndarray, f_grid: np.ndarray) -> np.ndarray:
 
 def build_distance_helpers(
     z_max: float,
-    params: dict[str, float],
+    params: dict[str, float | str],
     omega_m: float,
     w0: float,
     wa: float,
     n_steps: int,
+    eos_model: str = "CPL",
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     omega_r = params["omega_r"]
     omega_de = 1.0 - omega_m - omega_r
     if omega_de <= 0:
         return np.array([0.0, z_max]), np.array([0.0, 0.0]), np.array([1.0, 1.0])
     z_grid = np.linspace(0.0, z_max, n_steps)
-    e = np.sqrt(e2_cpl(z_grid, omega_m, omega_r, omega_de, w0, wa))
+    e = np.sqrt(e2_cpl(z_grid, omega_m, omega_r, omega_de, w0, wa, eos_model=eos_model))
     inv_e = 1.0 / e
     integral = cumulative_integral(z_grid, inv_e)
     return z_grid, integral, e
 
 
-def distance_modulus(z: np.ndarray, params: dict[str, float], omega_m: float, w0: float, wa: float, n_steps: int) -> np.ndarray:
+def distance_modulus(
+    z: np.ndarray,
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> np.ndarray:
     z_max = float(np.max(z))
-    z_grid, integral, _ = build_distance_helpers(z_max, params, omega_m, w0, wa, n_steps)
+    z_grid, integral, _ = build_distance_helpers(z_max, params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     dc = np.interp(z, z_grid, integral)
     d_m = (C_KM_S / params["H0"]) * dc
     d_l = (1.0 + z) * d_m
     return 5.0 * np.log10(d_l) + 25.0
 
 
-def dv_distance(z: np.ndarray, params: dict[str, float], omega_m: float, w0: float, wa: float, n_steps: int) -> np.ndarray:
+def dv_distance(
+    z: np.ndarray,
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> np.ndarray:
     z_max = float(np.max(z))
-    z_grid, integral, e_grid = build_distance_helpers(z_max, params, omega_m, w0, wa, n_steps)
+    z_grid, integral, e_grid = build_distance_helpers(z_max, params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     dc = np.interp(z, z_grid, integral)
     e = np.interp(z, z_grid, e_grid)
     d_m = (C_KM_S / params["H0"]) * dc
@@ -154,42 +215,81 @@ def dv_distance(z: np.ndarray, params: dict[str, float], omega_m: float, w0: flo
     return (d_m * d_m * (C_KM_S * z) / hz) ** (1.0 / 3.0)
 
 
-def shift_parameter(params: dict[str, float], omega_m: float, w0: float, wa: float, n_steps: int) -> float:
+def shift_parameter(
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> float:
     h = params["h"]
     ommh2 = omega_m * h * h
     z_rec = z_rec_hu_sugiyama(params["ombh2"], ommh2)
-    z_grid, integral, _ = build_distance_helpers(z_rec, params, omega_m, w0, wa, n_steps)
+    z_grid, integral, _ = build_distance_helpers(z_rec, params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     dc = integral[-1]
     return math.sqrt(omega_m) * dc
 
 
-def chi2_sn(z: np.ndarray, mu_obs: np.ndarray, sigma_mu: np.ndarray, params: dict[str, float], omega_m: float, w0: float, wa: float, sigma_sys: float, n_steps: int) -> float:
-    mu_model = distance_modulus(z, params, omega_m, w0, wa, n_steps)
+def chi2_sn(
+    z: np.ndarray,
+    mu_obs: np.ndarray,
+    sigma_mu: np.ndarray,
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    sigma_sys: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> float:
+    mu_model = distance_modulus(z, params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     sigma = np.sqrt(sigma_mu * sigma_mu + sigma_sys * sigma_sys)
     resid = mu_obs - mu_model
     return float(np.sum((resid / sigma) ** 2))
 
 
-def chi2_bao(z: np.ndarray, dv_obs: np.ndarray, sigma_dv: np.ndarray, params: dict[str, float], omega_m: float, w0: float, wa: float, n_steps: int) -> float:
-    dv_model = dv_distance(z, params, omega_m, w0, wa, n_steps)
+def chi2_bao(
+    z: np.ndarray,
+    dv_obs: np.ndarray,
+    sigma_dv: np.ndarray,
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> float:
+    dv_model = dv_distance(z, params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     resid = dv_model - dv_obs
     return float(np.sum((resid / sigma_dv) ** 2))
 
 
-def chi2_cmb(params: dict[str, float], omega_m: float, w0: float, wa: float, n_steps: int) -> float:
-    R = shift_parameter(params, omega_m, w0, wa, n_steps)
+def chi2_cmb(
+    params: dict[str, float | str],
+    omega_m: float,
+    w0: float,
+    wa: float,
+    n_steps: int,
+    eos_model: str = "CPL",
+) -> float:
+    R = shift_parameter(params, omega_m, w0, wa, n_steps, eos_model=eos_model)
     return ((R - PLANCK_R) / PLANCK_R_SIGMA) ** 2
 
 
-def log_likelihood_cmb(params: dict[str, float], config_path: str | Path = "config/mcgt-global-config.ini") -> float:
+def log_likelihood_cmb(
+    params: dict[str, float | str],
+    config_path: str | Path = "config/mcgt-global-config.ini",
+    eos_model: str = "CPL",
+) -> float:
     """Gaussian log-likelihood from Planck shift-parameter constraint."""
     config = load_config(Path(config_path))
-    chi2 = chi2_cmb(config, config["omega_m"], config["w0"], config["wa"], 2500)
+    chi2 = chi2_cmb(config, config["omega_m"], config["w0"], config["wa"], 2500, eos_model=eos_model)
     return -0.5 * chi2
 
 
 def log_posterior(
-    params: dict[str, float],
+    params: dict[str, float | str],
     omega_m: float,
     w0: float,
     wa: float,
@@ -197,18 +297,21 @@ def log_posterior(
     bao_data: tuple[np.ndarray, np.ndarray, np.ndarray],
     sigma_sys: float,
     n_steps: int,
+    eos_model: str = "CPL",
 ) -> tuple[float, float, float, float]:
     omega_b = params["omega_b"]
+    eos_model = _normalize_eos_model(eos_model)
+    wa_eff = _effective_wa(wa, eos_model)
     if not (omega_b < omega_m < 0.6):
         return -math.inf, math.inf, math.inf, math.inf
     if not (-2.5 < w0 < 0.5):
         return -math.inf, math.inf, math.inf, math.inf
-    if not (-3.0 < wa < 3.0):
+    if eos_model != "wCDM" and not (-3.0 < wa_eff < 3.0):
         return -math.inf, math.inf, math.inf, math.inf
 
-    chi2_sn_val = chi2_sn(*sn_data, params, omega_m, w0, wa, sigma_sys, n_steps)
-    chi2_bao_val = chi2_bao(*bao_data, params, omega_m, w0, wa, n_steps)
-    chi2_cmb_val = chi2_cmb(params, omega_m, w0, wa, n_steps)
+    chi2_sn_val = chi2_sn(*sn_data, params, omega_m, w0, wa_eff, sigma_sys, n_steps, eos_model=eos_model)
+    chi2_bao_val = chi2_bao(*bao_data, params, omega_m, w0, wa_eff, n_steps, eos_model=eos_model)
+    chi2_cmb_val = chi2_cmb(params, omega_m, w0, wa_eff, n_steps, eos_model=eos_model)
 
     chi2_total = chi2_sn_val + chi2_bao_val + chi2_cmb_val
     return -0.5 * chi2_total, chi2_total, chi2_sn_val, chi2_bao_val

@@ -38,20 +38,20 @@
 % Header and Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small $\Psi$TMG v3.1.0 -- Simultaneous Resolution of Cosmological Tensions}
+\rhead{\small $\Psi$TMG v3.2.0 -- Simultaneous Resolution of Cosmological Tensions}
 \lhead{\small J.-P. Lalumi\`ere}
 \cfoot{\thepage}
 
 \title{\textbf{\Huge $\Psi$-Time Metric Gravity ($\Psi$TMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions}}
 \author{\textbf{Jean-Philip Lalumi\`ere} \\ Theoretical Cosmology Laboratory}
-\date{Version 3.1.0 -- February 2026}
+\date{Version 3.2.0 -- February 2026}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.1.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline substantially alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
+\noindent We introduce the Metric-Coupled Gravity Theory (\textbf{MCGT}) as a general geometric framework. We test its specific cosmological implementation, denoted $\Psi$TMG ($\Psi$-Time Metric Gravity), in which the rigid cosmological constant $\Lambda$ is replaced by a dynamic interaction parameterized by the CPL equation of state $(w_0, w_a)$. In this configuration, the model offers a mechanism to alleviate several tensions of the standard model: the Hubble divergence ($H_0$), the excess of early structural growth (JWST), and the lensing tension ($S_8$). This manuscript details the mathematical formalism, evaluates the numerical stability at $10^{-16}$, and presents a significant likelihood improvement of $\mathbf{\Delta\chi^2 = -151.6}$ over $\Lambda$CDM, interpreted as a statistical preference. We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathrm{CDM}}$; hence, negative values strictly indicate an improvement over the standard model. Crucially, our full v3.2.0 MCMC analysis yields marginalized medians of $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$ from the combined Pantheon+, BAO, CMB, and RSD dataset. This shows that the $\Psi$TMG baseline substantially alleviates both major cosmological tensions. The extracted dark energy parameters indicate a highly dynamic sector within the broader MCGT framework.
 \end{abstract}
 
 \tableofcontents
@@ -87,7 +87,7 @@ To map this scalar-tensor dynamic to observational constraints, the effective da
 \begin{equation}
     w(a) = w_0 + w_a (1 - a) \quad \text{where} \quad a = \frac{1}{1+z}
 \end{equation}
-The exact best-fit (MAP) values (\textbf{Best-Fit v3.1.0}) are:
+The exact best-fit (MAP) values (\textbf{Best-Fit v3.2.0}) are:
 $$ w_0 = -0.69, \quad w_a = -2.81 $$
 These exact coordinates represent the Maximum A Posteriori (MAP) reference point. The final inference results, however, are reported as marginalized medians with 68\% credible intervals, as detailed in Table 2 and Figure 15.
 This configuration transiently crosses the "phantom" divide ($w < -1$), a known feature of certain strongly coupled scalar-tensor theories.
@@ -178,7 +178,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
     \centering
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
     \caption{\textbf{Hubble residuals diagram (Pantheon+).}
-    The data show a mild redshift-dependent residual trend relative to the $\Lambda$CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    The data show a mild redshift-dependent residual trend relative to the $\Lambda$CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.2.0)}}
     \label{fig:residuals}
 \end{figure}
 
@@ -187,7 +187,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.2.0)}}
 \end{figure}
 
 \clearpage
@@ -333,7 +333,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
     The upper panel shows the spectra for $\Psi$TMG (blue) and $\Lambda$CDM (orange).
-    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. Note: The suppression shown at scales $k > 1 \, h/\mathrm{Mpc}$ represents a linear-theory extrapolation; definitive nonlinear validation requires N-body simulations. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. Note: The suppression shown at scales $k > 1 \, h/\mathrm{Mpc}$ represents a linear-theory extrapolation; definitive nonlinear validation requires N-body simulations. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.2.0)}}
     \label{fig:power_spectrum}
 \end{figure}
 
@@ -347,7 +347,7 @@ Posterior diagnostic against the Planck 2018 spectra. Note that the full Planck 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{12_fig_cmb_residuals.png}
-    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the $\Psi$TMG theoretical model and Planck 2018 data. Note that the full Planck power spectrum likelihood is not directly sampled during the MCMC inference, which relies on the compressed CMB distance prior. The TT/TE/EE residual spectra shown here serve as a posterior diagnostic and sanity check to confirm that the primordial acoustic structure remains undisturbed. The residuals remain consistent with cosmic variance and measurement noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.1.0)}}
+    \caption{\textbf{CMB temperature spectrum (residuals).} Difference between the $\Psi$TMG theoretical model and Planck 2018 data. Note that the full Planck power spectrum likelihood is not directly sampled during the MCMC inference, which relies on the compressed CMB distance prior. The TT/TE/EE residual spectra shown here serve as a posterior diagnostic and sanity check to confirm that the primordial acoustic structure remains undisturbed. The residuals remain consistent with cosmic variance and measurement noise. \textit{\footnotesize (Data: Planck 2018 TT,TE,EE. Script: pipeline/plots.py. Commit: v3.2.0)}}
 \end{figure}
 
 \clearpage

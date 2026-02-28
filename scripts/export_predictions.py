@@ -16,7 +16,7 @@ DEFAULT_CHAIN_NAME = "ptmg_chain"
 DEFAULT_OUTPUT = Path("output/ptmg_predictions_z0_to_z20.csv")
 DEFAULT_POINTS = 200
 
-# Fallback (v3.1.0-like) if chain is unavailable.
+# Fallback (v3.2.0-like) if chain is unavailable.
 FALLBACK_BESTFIT = {
     "omega_m": 0.243,
     "h_0": 72.97,

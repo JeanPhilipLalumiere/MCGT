@@ -208,7 +208,7 @@ def generate_figure(chains: dict[str, dict[str, object]], output_figure: Path) -
     ax.scatter(0.315, -1.0, marker="x", color="black", s=70, linewidths=1.8, label=r"$\Lambda$CDM")
     ax.set_xlabel(r"$\Omega_m$")
     ax.set_ylabel(r"$w_0$")
-    ax.set_title("EoS Robustness in the $(\\Omega_m, w_0)$ Plane")
+    ax.set_title('EoS Robustness in the $(\\Omega_m, w_0)$ Plane')
     ax.grid(alpha=0.18, linewidth=0.5)
     ax.legend(frameon=False, loc="best")
     fig.tight_layout()

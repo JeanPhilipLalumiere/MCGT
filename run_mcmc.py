@@ -11,7 +11,7 @@ from pathlib import Path
 import emcee
 import numpy as np
 
-MODEL_CHOICES = ("cpl", "wcdm")
+MODEL_CHOICES = ("cpl", "jbp", "wcdm")
 PARAM_NAMES_CPL = ("Omega_m", "H_0", "w_0", "w_a", "S_8")
 PARAM_NAMES_WCDM = ("Omega_m", "H_0", "w_0", "S_8")
 
@@ -77,18 +77,19 @@ def build_parser() -> argparse.ArgumentParser:
         type=str,
         choices=MODEL_CHOICES,
         default="cpl",
-        help="Cosmological model: 'cpl' (free w_a) or 'wcdm' (w_a fixed to 0).",
+        help="Cosmological EoS model: 'cpl', 'jbp' (free w_a) or 'wcdm' (w_a fixed to 0).",
     )
     return parser
 
 
 def get_model_spec(model: str) -> dict[str, object]:
     """Return parameterization details for selected model."""
-    if model == "cpl":
+    eos_model = normalize_model_name(model)
+    if eos_model in ("CPL", "JBP"):
         param_names = PARAM_NAMES_CPL
         theta_bestfit = THETA_BESTFIT_CPL
         init_sigma = INIT_SIGMA_CPL
-    elif model == "wcdm":
+    elif eos_model == "wCDM":
         param_names = PARAM_NAMES_WCDM
         theta_bestfit = THETA_BESTFIT_WCDM
         init_sigma = INIT_SIGMA_WCDM
@@ -102,6 +103,7 @@ def get_model_spec(model: str) -> dict[str, object]:
         "init_sigma": init_sigma,
         "prior_bounds": prior_bounds,
         "ndim": len(param_names),
+        "eos_model": eos_model,
     }
 
 
@@ -167,11 +169,23 @@ def _load_rsd_runtime() -> dict[str, object]:
     return _RSD_RUNTIME
 
 
+def normalize_model_name(model: str) -> str:
+    lowered = model.strip().lower()
+    if lowered == "cpl":
+        return "CPL"
+    if lowered == "jbp":
+        return "JBP"
+    if lowered == "wcdm":
+        return "wCDM"
+    raise ValueError(f"Unknown model '{model}'.")
+
+
 def _unpack_theta(theta: np.ndarray, model: str) -> tuple[float, float, float, float, float]:
     """Map theta to (Omega_m, H_0, w_0, w_a, S_8) according to model."""
-    if model == "cpl":
+    eos_model = normalize_model_name(model)
+    if eos_model in ("CPL", "JBP"):
         omega_m, h_0, w_0, w_a, s_8 = theta
-    elif model == "wcdm":
+    elif eos_model == "wCDM":
         omega_m, h_0, w_0, s_8 = theta
         w_a = 0.0
     else:  # pragma: no cover
@@ -179,9 +193,10 @@ def _unpack_theta(theta: np.ndarray, model: str) -> tuple[float, float, float, f
     return float(omega_m), float(h_0), float(w_0), float(w_a), float(s_8)
 
 
-def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str, float]:
+def evaluate_chi2_components(theta: np.ndarray, eos_model: str = "cpl") -> dict[str, float]:
     """Return chi2 contributions per probe and total for a given parameter vector."""
-    omega_m, h_0, w_0, w_a, s_8 = _unpack_theta(theta, model)
+    omega_m, h_0, w_0, w_a, s_8 = _unpack_theta(theta, eos_model)
+    eos_model = normalize_model_name(eos_model)
 
     runtime = _load_tri_probe_runtime()
     rsd_runtime = _load_rsd_runtime()
@@ -199,6 +214,7 @@ def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str,
             w_a,
             TRI_PROBE_SIGMA_SYS,
             TRI_PROBE_N_STEPS_INT,
+            eos_model,
         )
     )
     chi2_bao = float(
@@ -209,6 +225,7 @@ def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str,
             w_0,
             w_a,
             TRI_PROBE_N_STEPS_INT,
+            eos_model,
         )
     )
     chi2_cmb = float(
@@ -218,6 +235,7 @@ def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str,
             w_0,
             w_a,
             TRI_PROBE_N_STEPS_INT,
+            eos_model,
         )
     )
 
@@ -229,6 +247,7 @@ def evaluate_chi2_components(theta: np.ndarray, model: str = "cpl") -> dict[str,
             w_a,
             sigma_8_0,
             h_0=h_0,
+            eos_model=eos_model,
         )
     )
 
@@ -295,7 +314,7 @@ def _print_bestfit_report(
     param_names: tuple[str, ...],
     model: str,
 ) -> None:
-    chi2 = evaluate_chi2_components(theta, model=model)
+    chi2 = evaluate_chi2_components(theta, eos_model=model)
     counts = count_data_points()
     aic, bic = calculate_information_criteria(
         chi2_total=chi2["chi2_total"],
@@ -338,14 +357,15 @@ def log_prior(
     return 0.0
 
 
-def pipeline_loglike_from_theta(theta: np.ndarray, model: str = "cpl") -> float:
+def pipeline_loglike_from_theta(theta: np.ndarray, eos_model: str = "cpl") -> float:
     """
     Real ΨTMG tri-probe likelihood (SN+BAO+CMB) from chapter 09 pipeline.
 
     Source:
       scripts/09_dark_energy_cpl/09_mcmc_sampler.py::log_posterior
     """
-    omega_m, h_0, w_0, w_a, _s_8 = _unpack_theta(theta, model)
+    omega_m, h_0, w_0, w_a, _s_8 = _unpack_theta(theta, eos_model)
+    eos_model = normalize_model_name(eos_model)
 
     runtime = _load_tri_probe_runtime()
     params = dict(runtime["params_template"])
@@ -362,29 +382,30 @@ def pipeline_loglike_from_theta(theta: np.ndarray, model: str = "cpl") -> float:
         runtime["bao_data"],
         TRI_PROBE_SIGMA_SYS,
         TRI_PROBE_N_STEPS_INT,
+        eos_model,
     )
     if not np.isfinite(logp):
         return -math.inf
 
-    chi2_total_combine = evaluate_chi2_components(theta, model=model)["chi2_total"]
+    chi2_total_combine = evaluate_chi2_components(theta, eos_model=eos_model)["chi2_total"]
     return -0.5 * chi2_total_combine
 
 
-def log_likelihood(theta: np.ndarray, model: str = "cpl") -> float:
+def log_likelihood(theta: np.ndarray, eos_model: str = "cpl") -> float:
     """Log-likelihood wrapper."""
-    return pipeline_loglike_from_theta(theta, model=model)
+    return pipeline_loglike_from_theta(theta, eos_model=eos_model)
 
 
 def log_probability(
     theta: np.ndarray,
-    model: str,
+    eos_model: str,
     prior_bounds: dict[str, tuple[float, float]],
     param_names: tuple[str, ...],
 ) -> float:
     lp = log_prior(theta, prior_bounds, param_names)
     if not np.isfinite(lp):
         return -math.inf
-    ll = log_likelihood(theta, model=model)
+    ll = log_likelihood(theta, eos_model=eos_model)
     if not np.isfinite(ll):
         return -math.inf
     return lp + ll
@@ -446,6 +467,7 @@ def run_sampler(args: argparse.Namespace) -> None:
     init_sigma = model_spec["init_sigma"]
     prior_bounds = model_spec["prior_bounds"]
     n_dim = model_spec["ndim"]
+    eos_model = model_spec["eos_model"]
 
     n_steps = N_STEPS_TEST if args.quick_test else args.n_steps
     n_walkers = args.n_walkers
@@ -482,6 +504,7 @@ def run_sampler(args: argparse.Namespace) -> None:
         sampler.run_mcmc(p0, n_steps, progress=True)
 
     print("\nSampling termine.")
+    print(f"Modele EoS: {eos_model}")
     print(f"Walkers: {n_walkers} | Steps par walker: {n_steps}")
     print(f"Taux d'acceptation moyen: {np.mean(sampler.acceptance_fraction):.3f}")
 

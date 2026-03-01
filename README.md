@@ -35,6 +35,15 @@ BIC                      836.37
 
 *(Amélioration globale : $\Delta\chi^2$ = -151.6 | $\Delta$AIC = -145.6 | $\Delta$BIC = -129.2)*
 
+## Note Théorique: Micro-Physique TIDE
+Bien que la $\Psi$TMG soit actuellement formulée comme une théorie des champs effective (EFT), les tests menés en v3.2.1 suggèrent qu'un mécanisme de torsion inertielle (type TIDE) pourrait constituer l'origine microscopique du couplage métrique observé, bien que la paramétrisation actuelle nécessite une généralisation pour atteindre la précision statistique de la $\Psi$TMG.
+
+Benchmark de contrôle:
+* **$\Psi$TMG v3.2.0 (baseline CPL)** : $\Delta\chi^2 = -151.6$, $H_0 = 72.97$, $S_8 = 0.718$.
+* **TIDE v3.2.1 (archive de recherche)** : $\Delta\chi^2 \approx -55.6$, $H_0 \approx 74.11$, $S_8 \approx 0.740$.
+
+La baseline de production reste donc $\Psi$TMG v3.2.0, tandis que la branche `v3.2.1-tide-integration` est conservée comme archive théorique et méthodologique.
+
 ## Ruptures Scientifiques
 
 * **Tension de Hubble ($H_0$)** : Résolue par une réduction dynamique de l'horizon sonore ($r_s$) au découplage, sans détériorer le spectre CMB ($\chi^2_{CMB}$ = 0.04).

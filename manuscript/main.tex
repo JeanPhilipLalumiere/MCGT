@@ -379,6 +379,8 @@ Note: To ensure a direct baseline comparison within a standardized computational
 
 This cross-check is important because it isolates the geometric content of the theory from the detailed choice of $w(a)$. The 2D posteriors in Figure~\ref{fig:eos_robustness} show that the preferred region in the $(\Omega_m, w_0)$ plane remains compact and clearly separated from the $\Lambda$CDM point, even when the functional form of the equation of state is changed. The CPL baseline remains the best-performing realization of the three tested cases, but the persistence of large negative $\Delta\chi^2$ and $\Delta\mathrm{BIC}$ for both JBP and wCDM demonstrates that the cosmological gains of $\Psi$TMG are not tied to a single phenomenological parametrization of dark energy.
 
+Although $\Psi$TMG is currently formulated as an effective field theory (EFT), the dedicated v3.2.1 control tests suggest that an inertial-torsion mechanism of TIDE type could provide a viable microscopic origin for the observed metric coupling, even if the present TIDE parametrization still requires a broader generalization to reach the statistical precision of the $\Psi$TMG baseline.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.78\textwidth]{19_fig_eos_comparison.png}
@@ -394,6 +396,14 @@ This cross-check is important because it isolates the geometric content of the t
     \item \textbf{Perturbation analysis:} the current study is limited to the linear regime ($k \lesssim 1 h/\mathrm{Mpc}$). Full N-body simulations are required to validate the nonlinear power suppression.
     \item \textbf{Phenomenological nature:} the model is an effective field theory (EFT). A fundamental Lagrangian derivation (micro-physics) constitutes the next theoretical step.
 \end{itemize}
+
+\appendix
+\section{Technical Control Benchmark: $\Psi$TMG v3.2.0 vs TIDE v3.2.1}
+As a dedicated control experiment, we tested a micro-physical TIDE-inspired extension in the archived v3.2.1 branch while keeping the same Pantheon+ + BAO + CMB + RSD likelihood. The purpose of this benchmark was not to replace the baseline CPL realization, but to evaluate whether a viscoelastic or inertial-torsion interpretation could reproduce the same empirical gains.
+
+The outcome is clear: the baseline $\Psi$TMG v3.2.0 remains the statistically preferred production model. Relative to the optimized $\Lambda$CDM reference, the baseline CPL solution delivers $\Delta\chi^2 = -151.6$, together with $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$. The archived TIDE run reaches only $\Delta\chi^2 \approx -55.6$, with representative posterior medians $H_0 \approx 74.11\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 \approx 0.740$.
+
+This control benchmark therefore supports the following interpretation: the viscoelastic TIDE picture may offer a plausible microscopic motivation for the effective metric coupling encoded by $\Psi$TMG, but its present parametrization is not yet flexible enough to match the full statistical performance of the baseline CPL realization. For production analyses and all headline quantitative claims, the reference model retained in this manuscript remains $\Psi$TMG v3.2.0.
 
 \section{Conclusion}
 The Metric-Coupled Gravity Theory (MCGT) provides the theoretical geometric framework, while its specific cosmological implementation, denoted $\Psi$TMG, demonstrates data-level improvements on $H_0$, JWST, and $S_8$. Within the scope of the considered datasets and assumptions, $\Psi$TMG stands as a credible candidate for extending the standard model, subject to the discussed limitations and further validations.

@@ -125,6 +125,7 @@ assets/zz-figures/**/_attic_root_leaks/
 
 # MCMC raw chains
 *.h5
+results/v3.2.1_TIDE/
 
 # Keep publication-ready corner plots trackable
 !output/*.pdf

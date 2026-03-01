@@ -12,6 +12,8 @@ from pathlib import Path
 
 import numpy as np
 
+from physics.eos import tide_density_factor, tide_w_of_a
+
 C_KM_S = 299792.458
 PLANCK_R = 1.7502
 PLANCK_R_SIGMA = 0.0046
@@ -25,11 +27,13 @@ def _normalize_eos_model(eos_model: str) -> str:
         return "JBP"
     if model.lower() == "wcdm":
         return "wCDM"
-    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, or wCDM.")
+    if model.lower() == "tide":
+        return "TIDE"
+    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, wCDM, or TIDE.")
 
 
 def _effective_wa(wa: float, eos_model: str) -> float:
-    return 0.0 if _normalize_eos_model(eos_model) == "wCDM" else wa
+    return 0.0 if _normalize_eos_model(eos_model) in {"wCDM", "TIDE"} else wa
 
 
 def w_of_a(a: np.ndarray, w0: float, wa: float, eos_model: str = "CPL") -> np.ndarray:
@@ -39,6 +43,8 @@ def w_of_a(a: np.ndarray, w0: float, wa: float, eos_model: str = "CPL") -> np.nd
         return w0 + wa_eff * (1.0 - a)
     if model == "JBP":
         return w0 + wa_eff * a * (1.0 - a)
+    if model == "TIDE":
+        return tide_w_of_a(a, w0)
     return np.full_like(a, w0, dtype=float)
 
 
@@ -49,6 +55,8 @@ def de_density_factor(a: np.ndarray, w0: float, wa: float, eos_model: str = "CPL
         return a ** (-3.0 * (1.0 + w0 + wa_eff)) * np.exp(-3.0 * wa_eff * (1.0 - a))
     if model == "JBP":
         return a ** (-3.0 * (1.0 + w0)) * np.exp(1.5 * wa_eff * (a - 1.0) ** 2)
+    if model == "TIDE":
+        return tide_density_factor(a, w0)
     return a ** (-3.0 * (1.0 + w0))
 
 
@@ -304,9 +312,12 @@ def log_posterior(
     wa_eff = _effective_wa(wa, eos_model)
     if not (omega_b < omega_m < 0.6):
         return -math.inf, math.inf, math.inf, math.inf
-    if not (-2.5 < w0 < 0.5):
+    if eos_model == "TIDE":
+        if not (0.0 <= w0 <= 200.0):
+            return -math.inf, math.inf, math.inf, math.inf
+    elif not (-2.5 < w0 < 0.5):
         return -math.inf, math.inf, math.inf, math.inf
-    if eos_model != "wCDM" and not (-3.0 < wa_eff < 3.0):
+    if eos_model not in {"wCDM", "TIDE"} and not (-3.0 < wa_eff < 3.0):
         return -math.inf, math.inf, math.inf, math.inf
 
     chi2_sn_val = chi2_sn(*sn_data, params, omega_m, w0, wa_eff, sigma_sys, n_steps, eos_model=eos_model)

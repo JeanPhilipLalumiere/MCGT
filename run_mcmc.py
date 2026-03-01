@@ -10,10 +10,12 @@ from pathlib import Path
 
 import emcee
 import numpy as np
+import yaml
 
-MODEL_CHOICES = ("cpl", "jbp", "wcdm")
+MODEL_CHOICES = ("cpl", "jbp", "wcdm", "tide")
 PARAM_NAMES_CPL = ("Omega_m", "H_0", "w_0", "w_a", "S_8")
 PARAM_NAMES_WCDM = ("Omega_m", "H_0", "w_0", "S_8")
+PARAM_NAMES_TIDE = ("Omega_m", "H_0", "kappa", "S_8")
 
 # Sampling configuration
 N_WALKERS = 100
@@ -24,8 +26,10 @@ SEED = 42
 # Expected best-fit center for initialization
 THETA_BESTFIT_CPL = np.array([0.243, 72.97, -0.69, -2.81, 0.718], dtype=float)
 THETA_BESTFIT_WCDM = np.array([0.243, 72.97, -0.69, 0.718], dtype=float)
+THETA_BESTFIT_TIDE = np.array([0.243, 76.35, 40.0, 0.718], dtype=float)
 INIT_SIGMA_CPL = np.array([0.008, 0.25, 0.03, 0.20, 0.015], dtype=float)
 INIT_SIGMA_WCDM = np.array([0.008, 0.25, 0.03, 0.015], dtype=float)
+INIT_SIGMA_TIDE = np.array([0.008, 0.35, 8.0, 0.015], dtype=float)
 
 # Uniform prior bounds: (min, max)
 PRIOR_BOUNDS = {
@@ -34,7 +38,10 @@ PRIOR_BOUNDS = {
     "w_0": (-2.5, -0.3),
     "w_a": (-3.0, 3.0),
     "S_8": (0.60, 1.00),
+    "kappa": (0.0, 200.0),
 }
+PRIORS_PATH = Path("config/priors.yaml")
+RESULTS_ROOT = Path("results/v3.2.1_TIDE")
 
 TRI_PROBE_CONFIG = Path("config/mcgt-global-config.ini")
 TRI_PROBE_SIGMA_SYS = 0.1
@@ -63,7 +70,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("output/ptmg_chains.h5"),
+        default=None,
         help="Output chain file (.h5 preferred).",
     )
     parser.add_argument(
@@ -93,10 +100,14 @@ def get_model_spec(model: str) -> dict[str, object]:
         param_names = PARAM_NAMES_WCDM
         theta_bestfit = THETA_BESTFIT_WCDM
         init_sigma = INIT_SIGMA_WCDM
+    elif eos_model == "TIDE":
+        param_names = PARAM_NAMES_TIDE
+        theta_bestfit = THETA_BESTFIT_TIDE
+        init_sigma = INIT_SIGMA_TIDE
     else:  # pragma: no cover
         raise ValueError(f"Unknown model '{model}'.")
 
-    prior_bounds = {name: PRIOR_BOUNDS[name] for name in param_names}
+    prior_bounds = load_prior_bounds(eos_model, param_names)
     return {
         "param_names": param_names,
         "theta_bestfit": theta_bestfit,
@@ -105,6 +116,24 @@ def get_model_spec(model: str) -> dict[str, object]:
         "ndim": len(param_names),
         "eos_model": eos_model,
     }
+
+
+def load_prior_bounds(eos_model: str, param_names: tuple[str, ...]) -> dict[str, tuple[float, float]]:
+    bounds = {name: PRIOR_BOUNDS[name] for name in param_names}
+    if not PRIORS_PATH.exists():
+        return bounds
+
+    data = yaml.safe_load(PRIORS_PATH.read_text(encoding="utf-8")) or {}
+    models = data.get("models", {})
+    merged = dict(models.get("default", {}))
+    if eos_model == "TIDE":
+        merged.update(models.get("tide", {}))
+
+    for name in param_names:
+        if name in merged:
+            lo, hi = merged[name]
+            bounds[name] = (float(lo), float(hi))
+    return bounds
 
 
 def _load_tri_probe_runtime() -> dict[str, object]:
@@ -177,6 +206,8 @@ def normalize_model_name(model: str) -> str:
         return "JBP"
     if lowered == "wcdm":
         return "wCDM"
+    if lowered == "tide":
+        return "TIDE"
     raise ValueError(f"Unknown model '{model}'.")
 
 
@@ -188,9 +219,22 @@ def _unpack_theta(theta: np.ndarray, model: str) -> tuple[float, float, float, f
     elif eos_model == "wCDM":
         omega_m, h_0, w_0, s_8 = theta
         w_a = 0.0
+    elif eos_model == "TIDE":
+        omega_m, h_0, kappa, s_8 = theta
+        w_0 = kappa
+        w_a = 0.0
     else:  # pragma: no cover
         raise ValueError(f"Unknown model '{model}'.")
     return float(omega_m), float(h_0), float(w_0), float(w_a), float(s_8)
+
+
+def resolve_output_path(model: str, output: Path | None) -> Path:
+    if output is not None:
+        return output
+    eos_model = normalize_model_name(model)
+    if eos_model == "TIDE":
+        return RESULTS_ROOT / "tide_chains.h5"
+    return Path("output/ptmg_chains.h5")
 
 
 def evaluate_chi2_components(theta: np.ndarray, eos_model: str = "cpl") -> dict[str, float]:
@@ -483,7 +527,8 @@ def run_sampler(args: argparse.Namespace) -> None:
         param_names=param_names,
         prior_bounds=prior_bounds,
     )
-    backend = make_backend(args.output, n_walkers, args.chain_name, n_dim)
+    output_path = resolve_output_path(args.model, args.output)
+    backend = make_backend(output_path, n_walkers, args.chain_name, n_dim)
 
     sampler = emcee.EnsembleSampler(
         nwalkers=n_walkers,
@@ -509,10 +554,10 @@ def run_sampler(args: argparse.Namespace) -> None:
     print(f"Taux d'acceptation moyen: {np.mean(sampler.acceptance_fraction):.3f}")
 
     if isinstance(backend, emcee.backends.HDFBackend):
-        print(f"Chaines sauvegardees dans: {args.output}")
+        print(f"Chaines sauvegardees dans: {output_path}")
         print(f"Nom de la chaine HDF5: {args.chain_name}")
     else:
-        out_csv = save_csv_fallback(sampler, args.output, param_names)
+        out_csv = save_csv_fallback(sampler, output_path, param_names)
         print(f"Backend memoire utilise. Export CSV: {out_csv}")
 
     theta_median, burnin = summarize_bestfit_from_chain(sampler)

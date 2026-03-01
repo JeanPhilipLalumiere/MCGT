@@ -11,6 +11,8 @@ from pathlib import Path
 import numpy as np
 from scipy.integrate import solve_ivp
 
+from physics.eos import tide_density_factor, tide_w_of_a
+
 DEFAULT_DATA = Path("assets/zz-data/10_structure_growth/10_rsd_data.csv")
 DEFAULT_CONFIG = Path("config/mcgt-global-config.ini")
 
@@ -23,11 +25,13 @@ def _normalize_eos_model(eos_model: str) -> str:
         return "JBP"
     if model.lower() == "wcdm":
         return "wCDM"
-    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, or wCDM.")
+    if model.lower() == "tide":
+        return "TIDE"
+    raise ValueError(f"Unsupported eos_model={eos_model!r}. Expected CPL, JBP, wCDM, or TIDE.")
 
 
 def _effective_wa(w_a: float, eos_model: str) -> float:
-    return 0.0 if _normalize_eos_model(eos_model) == "wCDM" else w_a
+    return 0.0 if _normalize_eos_model(eos_model) in {"wCDM", "TIDE"} else w_a
 
 
 def w_of_a(
@@ -44,6 +48,9 @@ def w_of_a(
         return w_0 + w_a_eff * (1.0 - a_arr)
     if model == "JBP":
         return w_0 + w_a_eff * a_arr * (1.0 - a_arr)
+    if model == "TIDE":
+        values = tide_w_of_a(a_arr, w_0)
+        return values if np.ndim(a) else float(values)
     return np.full_like(a_arr, w_0, dtype=float)
 
 
@@ -61,6 +68,9 @@ def de_density_factor(
         return a_arr ** (-3.0 * (1.0 + w_0 + w_a_eff)) * np.exp(-3.0 * w_a_eff * (1.0 - a_arr))
     if model == "JBP":
         return a_arr ** (-3.0 * (1.0 + w_0)) * np.exp(1.5 * w_a_eff * (a_arr - 1.0) ** 2)
+    if model == "TIDE":
+        values = tide_density_factor(a_arr, w_0)
+        return values if np.ndim(a) else float(values)
     return a_arr ** (-3.0 * (1.0 + w_0))
 
 

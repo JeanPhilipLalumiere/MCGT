@@ -1,1 +1,1 @@
-# Chapitre 11 : Impact de la MCGT sur la formation des grandes structures et la tension $S_8$
+# Chapter 11: Impact of MCGT on Large-Scale Structure Formation and the $S_8$ Tension

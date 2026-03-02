@@ -1,1 +1,1 @@
-# Chapitre 12 : Synthèse Globale et Verdict de la MCGT
+# Chapter 12: Global Synthesis and the MCGT Verdict

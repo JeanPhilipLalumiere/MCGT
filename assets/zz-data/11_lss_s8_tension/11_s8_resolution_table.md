@@ -4,7 +4,7 @@ Reference LCDM value: `S8_ref = 0.83`.
 Target weak-lensing value used here: `S8_target = 0.77`.
 Chapter 10 conservative survival bound: `|q0*| <= 1e-06`.
 
-| q0* | DeltaD/D at a=1 [%] | Final S8 | Facteur de Violation |
+| q0* | DeltaD/D at a=1 [%] | Final S8 | Violation Factor |
 |---:|---:|---:|---:|
 | -3.000000e-03 | -10.157429 | 0.745693 | 3000.0 |
 | -2.900000e-03 | -9.840690 | 0.748322 | 2900.0 |

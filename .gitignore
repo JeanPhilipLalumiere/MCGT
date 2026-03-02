@@ -132,3 +132,4 @@ results/v3.2.1_TIDE/
 !output/*.png
 EOF
 MCGT_v2.5.4_Complete.zip
+env_ptmg/

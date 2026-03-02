@@ -194,8 +194,6 @@ def etape_2_samples_global(args, log: logging.Logger):
         str(args.config or DEFAULTS["config"]),
         "--n",
         str(args.n),
-        "--scheme",
-        "sobol",
         "--scramble",
         "on" if args.scramble else "off",
         "--seed",
@@ -264,18 +262,15 @@ def etape_4_jalons(args, log: logging.Logger, best_json: Path):
         str(args.ref_grid or DEFAULTS["ref_grid"]),
         "--samples",
         str(args.samples_csv or DEFAULTS["samples_csv"]),
-        "--best-json",
-        str(best_json),
         "--out",
         str(args.jalons_out or DEFAULTS["jalons_csv"]),
-        "--log-level",
-        args.log_level,
+	"--results",
+        str(args.results_csv or DEFAULTS["results_csv"]),
     ]
     run_cmd(cmd, log)
     out = Path(args.jalons_out or DEFAULTS["jalons_csv"])
     log.info("   ✓ Évaluation jalons écrite : %s", bref(out))
     return out
-
 
 def etape_5_agregat(
     args, log: logging.Logger, jalons_csv: Path | None, results_csv: Path
@@ -286,7 +281,7 @@ def etape_5_agregat(
             Path(args.results_agg_csv or DEFAULTS["results_agg_csv"]),
             Path(args.best_json or DEFAULTS["best_json"]),
         )
-    log.info("5) Agrégation, scoring multi-objectif & top-K final")
+    log.info("5) Agrégation simplifiée (Top-K)")
     cmd = [
         sys.executable,
         str(SCRIPTS["agg"]),
@@ -298,23 +293,13 @@ def etape_5_agregat(
         str(args.best_json or DEFAULTS["best_json"]),
         "--K",
         str(args.K),
-        "--lambda",
-        str(args.lmbda),
-        "--log-level",
-        args.log_level,
     ]
-    if (not args.skip_jalons) and jalons_csv is not None and jalons_csv.exists():
-        cmd += ["--jalons", str(jalons_csv)]
-    if args.overwrite:
-        cmd.append("--overwrite")
+    # On ne passe plus --lambda, --log-level ou --jalons car le script ne les accepte pas
     run_cmd(cmd, log)
     out_agg = Path(args.results_agg_csv or DEFAULTS["results_agg_csv"])
     best = Path(args.best_json or DEFAULTS["best_json"])
-    log.info(
-        "   ✓ Résultats agrégés : %s | Top-K final : %s", bref(out_agg), bref(best)
-    )
+    log.info("   ✓ Agrégation terminée.")
     return (out_agg, best)
-
 
 # ----------------------- Raffinement (option) ------------------------
 def _charger_topk(best_json: Path) -> list[dict]:
@@ -404,8 +389,6 @@ def etape_6_raffinement(
         str(cfg_refine),
         "--n",
         str(args.refine_n),
-        "--scheme",
-        "sobol",
         "--scramble",
         "on" if args.scramble else "off",
         "--seed",

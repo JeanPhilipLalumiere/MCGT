@@ -219,48 +219,50 @@ def _phi_ref_via_pyc(
     phi_on_grid = np.interp(f_Hz, f_src, phase_src).astype(np.float64)
     return phi_on_grid
 
-
 def _phi_ref_via_lalsim(
     f_Hz: np.ndarray, m1: float, m2: float, approximant: str = "IMRPhenomD"
 ) -> np.ndarray:
-    """Calcul via LALSimulation (API indicative ; peut nécessiter adaptation selon version)."""
+    """Calcul via LALSimulation (Interface moderne 20 arguments)."""
     if not _have_lal:
         raise RuntimeError("LALSuite/lalsimulation indisponible")
 
     f_Hz = np.asarray(f_Hz, dtype=np.float64)
-    if f_Hz.size < 2 or not np.all(np.diff(f_Hz) > 0):
-        raise ValueError("f_Hz doit être 1D strictement croissant (≥2 points).")
-
     try:
         m1_si = float(m1) * lal.MSUN_SI
         m2_si = float(m2) * lal.MSUN_SI
         approximant_map = {"IMRPhenomD": lalsim.IMRPhenomD}
         approx_enum = approximant_map.get(approximant, lalsim.IMRPhenomD)
 
-        # NB : Interface indicative — peut varier suivant la version.
-        hp_fd = lalsim.SimInspiralChooseFDWaveform(
-            m1_si,
-            m2_si,
-            0.0,
-            0.0,
-            0.0,  # spins
-            0.0,
-            1.0,
-            1.0,  # orientation/distance placeholders
-            f_Hz[0],
-            f_Hz[-1],
-            0.0,
-            approx_enum,
+        # Calcul du pas de fréquence (deltaF) requis par LAL
+        delta_f = float(np.min(np.diff(f_Hz))) if len(f_Hz) > 1 else 0.1
+
+        # APPEL CORRIGÉ : Ajout de l'excentricité (0.0) et des paramètres manquants
+        hp_fd, _ = lalsim.SimInspiralChooseFDWaveform(
+            m1_si, m2_si,           # Masses
+            0.0, 0.0, 0.0,          # Spins 1
+            0.0, 0.0, 0.0,          # Spins 2
+            1.0 * 1e6 * lal.PC_SI,  # Distance (1 Mpc)
+            0.0,                    # Inclinaison
+            0.0,                    # phiRef
+            0.0,                    # Longitude asc.
+            0.0,                    # EXCENTRICITÉ (Argument 13 !)
+            0.0,                    # Anomalie moyenne
+            delta_f,                # deltaF
+            f_Hz[0],                # f_min
+            f_Hz[-1],               # f_max
+            f_Hz[0],                # f_ref
+            None,                   # LALDict
+            approx_enum             # Approximant
         )
-        # Extraction (indicative) — adapter si nécessaire
-        f_src = np.arange(len(hp_fd.data), dtype=float)
-        data = np.asarray(hp_fd.data, dtype=np.complex128)
+
+        # Extraction de la phase et interpolation
+        data = np.asarray(hp_fd.data.data, dtype=np.complex128)
+        f_src = np.arange(len(data)) * hp_fd.deltaF + hp_fd.f0
         phase_src = np.unwrap(np.angle(data))
         phi_on_grid = np.interp(f_Hz, f_src, phase_src).astype(np.float64)
         return phi_on_grid
     except Exception as e:
         raise RuntimeError(f"REF_COMPUTE_FAIL (LALSuite) : {e}")
-
 
 # ------------------------- Interface publique ------------------------- #
 def compute_phi_ref(

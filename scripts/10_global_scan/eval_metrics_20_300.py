@@ -146,120 +146,79 @@ def metrics_from_absdphi(absdphi: np.ndarray) -> Dict[str, Any]:
 def evaluate_sample(
     row: pd.Series, f_hz: np.ndarray, window: Tuple[float, float]
 ) -> Dict[str, Any]:
-    """Évalue les métriques pour un sample (pandas Series). Retourne dict de sortie."""
+    """Évalue les métriques pour un sample. Aligne les phases à f_min."""
     t0 = time.time()
     result = {}
     sid = int(row["id"])
-    result.update(
-        {
-            "id": sid,
-            "m1": float(row["m1"]),
-            "m2": float(row["m2"]),
-            "q0star": float(row["q0star"]),
-            "alpha": float(row["alpha"]),
-            "phi0": float(row.get("phi0", 0.0)),
-            "tc": float(row.get("tc", 0.0)),
-            "dist": float(row.get("dist", 1000.0)),
-            "incl": float(row.get("incl", 0.0)),
-            "seed": int(row.get("seed", 0)),
-        }
-    )
+    result.update({
+        "id": sid,
+        "m1": float(row["m1"]),
+        "m2": float(row["m2"]),
+        "q0star": float(row["q0star"]),
+        "alpha": float(row["alpha"]),
+        "phi0": float(row.get("phi0", 0.0)),
+        "tc": float(row.get("tc", 0.0)),
+        "dist": float(row.get("dist", 1000.0)),
+        "incl": float(row.get("incl", 0.0)),
+    })
+    
     try:
-        # 1) calculer phi_ref via backend (peut lever)
+        # 1) Calculer phi_ref via backend
         if compute_phi_ref is None:
             raise RuntimeError(ERR_CODES["REF_MISSING"])
-        phi_ref = compute_phi_ref(f_hz, float(row["m1"]), float(row["m2"]))
-        if phi_ref.shape != f_hz.shape:
-            raise RuntimeError(ERR_CODES["GRID_MISMATCH"])
+        
+        phi_ref_raw = compute_phi_ref(f_hz, float(row["m1"]), float(row["m2"]))
+        
+        # --- FIX ALIGNEMENT : On force la référence à commencer à 0.0 ---
+        phi_ref = phi_ref_raw - phi_ref_raw[0]
 
-        # 2) construire theta et appeler forward
+        # 2) Calculer phi_mcgt
         if phi_mcgt is None:
             raise RuntimeError(ERR_CODES["FORWARD_MISSING"])
+        
         theta = {
-            "m1": float(row["m1"]),
-            "m2": float(row["m2"]),
-            "q0star": float(row["q0star"]),
-            "alpha": float(row["alpha"]),
-            "phi0": float(row.get("phi0", 0.0)),
-            "tc": float(row.get("tc", 0.0)),
-            "dist": float(row.get("dist", 1000.0)),
-            "incl": float(row.get("incl", 0.0)),
+            "m1": float(row["m1"]), "m2": float(row["m2"]),
+            "q0star": float(row["q0star"]), "alpha": float(row["alpha"]),
+            "phi0": float(row.get("phi0", 0.0)), "tc": float(row.get("tc", 0.0)),
         }
-        phi_m = phi_mcgt(f_hz, theta, model=row.get("model", "default"))
-        if phi_m.shape != f_hz.shape:
-            raise RuntimeError(ERR_CODES["GRID_MISMATCH"])
+        
+        phi_m_raw = phi_mcgt(f_hz, theta, model=row.get("model", "default"))
+            
+        # --- FIX ALIGNEMENT : On force le modèle à commencer à 0.0 ---
+        phi_m = phi_m_raw - phi_m_raw[0]
 
-        # 3) compute k on WINDOW
+        # 3) Calculer k (rebranching) et Δφ_principal
         k = compute_rebranch_k(phi_m, phi_ref, f_hz, window=window)
-
-        # 4) delta principal, abs and metrics
         dphi = delta_phi_principal(phi_m, phi_ref, k)
         absd = np.abs(dphi)
 
-        # metrics on window
+        # Métriques sur la fenêtre [20, 300] Hz
         mask = (f_hz >= window[0]) & (f_hz <= window[1]) & np.isfinite(absd)
-        absd_win = absd[mask]
-        if absd_win.size == 0:
-            raise ValueError("NAN_IN_WINDOW")
-        met = metrics_from_absdphi(absd_win)
+        met = metrics_from_absdphi(absd[mask])
 
-        # fill result
-        result.update(
-            {
-                "k": int(k),
-                "mean_20_300": met["mean"],
-                "p95_20_300": met["p95"],
-                "max_20_300": met["max"],
-                "n_20_300": int(met["n"]),
-                "status": "ok",
-                "error_code": "",
-                "wall_time_s": float(time.time() - t0),
-                "model": row.get("model", "default"),
-                # score = p95 par défaut (réécrit après si jalons pénalisés)
-                "score": float(met["p95"]),
-            }
-        )
+        result.update({
+            "k": int(k),
+            "mean_20_300": met["mean"],
+            "p95_20_300": met["p95"],
+            "max_20_300": met["max"],
+            "n_20_300": int(met["n"]),
+            "status": "ok",
+            "error_code": "",
+            "wall_time_s": float(time.time() - t0),
+            "model": row.get("model", "default"),
+            "score": float(met["p95"]),
+        })
         return result
 
-    except ValueError as ve:
-        msg = str(ve)
-        code = ERR_CODES.get(msg, ERR_CODES["UNKNOWN"])
-        result.update(
-            {
-                "status": "failed",
-                "error_code": code,
-                "wall_time_s": float(time.time() - t0),
-                "score": float("nan"),
-            }
-        )
-        logging.debug("Sample %s failed ValueError: %s", sid, msg)
+    except Exception as e:
+        # Gestion d'erreur pour ne pas arrêter le batch parallèle
+        result.update({
+            "status": "failed",
+            "error_code": str(e)[:20],
+            "wall_time_s": float(time.time() - t0),
+            "score": float("nan"),
+        })
         return result
-    except RuntimeError as re:
-        msg = str(re)
-        # si runtime vient d'un code interne string comme "REF_BACKEND_MISSING"
-        code = msg if msg in ERR_CODES.values() else ERR_CODES["UNKNOWN"]
-        result.update(
-            {
-                "status": "failed",
-                "error_code": code,
-                "wall_time_s": float(time.time() - t0),
-                "score": float("nan"),
-            }
-        )
-        logging.debug("Sample %s failed RuntimeError: %s", sid, msg)
-        return result
-    except Exception:
-        logging.exception("Erreur inattendue pour sample %s", sid)
-        result.update(
-            {
-                "status": "failed",
-                "error_code": ERR_CODES["UNKNOWN"],
-                "wall_time_s": float(time.time() - t0),
-                "score": float("nan"),
-            }
-        )
-        return result
-
 
 # ---------------------------------------------------------------------
 # Main

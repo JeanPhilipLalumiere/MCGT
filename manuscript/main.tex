@@ -93,7 +93,7 @@ To map this scalar-tensor dynamic to observational constraints, the effective da
 \end{equation}
 The exact best-fit (MAP) values (\textbf{Best-Fit v3.2.0}) are:
 $$ w_0 = -0.69, \quad w_a = -2.81 $$
-These exact coordinates represent the Maximum A Posteriori (MAP) reference point. The final inference results, however, are reported as marginalized medians with 68\% credible intervals, as detailed in Table 2 and Figure 15.
+These exact coordinates represent the Maximum A Posteriori (MAP) reference point. The final inference results, however, are reported as marginalized medians with 68\% credible intervals, as detailed in Table~\ref{tab:results} and Figure~\ref{fig:mcmc_corner}.
 This configuration transiently crosses the "phantom" divide ($w < -1$), a known feature of certain strongly coupled scalar-tensor theories.
 
 \subsection{Modified Expansion}
@@ -182,7 +182,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
     \centering
     \includegraphics[width=0.95\textwidth]{07_fig_02_residuals.png}
     \caption{\textbf{Hubble residuals diagram (Pantheon+).}
-    The data show a mild redshift-dependent residual trend relative to the $\Lambda$CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize (Data: Pantheon+. Script: pipeline/plots.py. Commit: v3.2.0)}}
+    The data show a mild redshift-dependent residual trend relative to the $\Lambda$CDM zero-residual baseline. The $\Psi$TMG dynamics (blue curve) follows the trend of observational data toward lower luminosity distances. \textit{\footnotesize Data: Pantheon+.}}
     \label{fig:residuals}
 \end{figure}
 
@@ -191,7 +191,7 @@ Comparison with the Pantheon+ catalog (1701 SNIa) highlights a consistent fit of
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{04_fig_hubble_parameter.png}
-    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize (Data: SH0ES, BOSS DR12. Script: pipeline/plots.py. Commit: v3.2.0)}}
+    \caption{\textbf{Hubble parameter $H(z)$.} Expansion comparison. The $\Psi$TMG curve (blue) reaches $H_0 \approx 73$ $\text{km s}^{-1}\,\text{Mpc}^{-1}$, in agreement with local data (SH0ES gray points), while $\Lambda$CDM (orange) remains lower ($\approx 67$). \textit{\footnotesize Data: SH0ES, BOSS DR12.}}
 \end{figure}
 
 \clearpage
@@ -371,7 +371,7 @@ To convert the $100\,000$-point global scan into publication-ready exclusion lim
 \clearpage
 
 % --- CHAPTER 11 ---
-\subsection*{Chapter 11: LSS Power Spectrum ($S_8$)}
+\subsection*{Chapter 11: LSS Power Spectrum \texorpdfstring{($S_8$)}{(S8)}}
 \textbf{Focus: Dark matter and lensing.}
 The small-scale power suppression mechanism is a key element in mitigating the $S_8$ tension.
 
@@ -380,7 +380,7 @@ The small-scale power suppression mechanism is a key element in mitigating the $
     \includegraphics[width=0.9\textwidth]{11_fig_01_power_comparison.png}
     \caption{\textbf{Matter power spectra comparison.}
     The upper panel shows the spectra for $\Psi$TMG (blue) and $\Lambda$CDM (orange).
-    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. Note: The suppression shown at scales $k > 1 \, h/\mathrm{Mpc}$ represents a linear-theory extrapolation; definitive nonlinear validation requires N-body simulations. \textit{\footnotesize (Data: Planck 2018 Lensing. Script: pipeline/plots.py. Commit: v3.2.0)}}
+    The lower panel (ratio) indicates a power suppression of about 10\% at small scales ($k > 1 h/\mathrm{Mpc}$), consistent with gravitational lensing constraints. Note: The suppression shown at scales $k > 1 \, h/\mathrm{Mpc}$ represents a linear-theory extrapolation; definitive nonlinear validation requires N-body simulations. \textit{\footnotesize Data: Planck 2018 Lensing.}}
     \label{fig:power_spectrum}
 \end{figure}
 
@@ -459,7 +459,7 @@ Although $\Psi$TMG is currently formulated as an effective field theory (EFT), t
 \end{itemize}
 
 \appendix
-\section{Technical Control Benchmark: $\Psi$TMG v3.2.0 vs TIDE v3.2.1}
+\section{\texorpdfstring{Technical Control Benchmark: $\Psi$TMG v3.2.0 vs TIDE v3.2.1}{Technical Control Benchmark: PsiTMG v3.2.0 vs TIDE v3.2.1}}
 As a dedicated control experiment, we tested a micro-physical TIDE-inspired extension in the archived v3.2.1 branch while keeping the same Pantheon+ + BAO + CMB + RSD likelihood. The purpose of this benchmark was not to replace the baseline CPL realization, but to evaluate whether a viscoelastic or inertial-torsion interpretation could reproduce the same empirical gains.
 
 The outcome is clear: the baseline $\Psi$TMG v3.2.0 remains the statistically preferred production model. Relative to the optimized $\Lambda$CDM reference, the baseline CPL solution delivers $\Delta\chi^2 = -151.6$, together with $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$. The archived TIDE run reaches only $\Delta\chi^2 \approx -55.6$, with representative posterior medians $H_0 \approx 74.11\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 \approx 0.740$.

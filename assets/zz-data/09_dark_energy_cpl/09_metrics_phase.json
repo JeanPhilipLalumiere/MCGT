@@ -1,51 +1,51 @@
 {
-  "ini": "config/gw_phase.ini",
+  "ini": "config/mcgt-global-config.ini",
   "params": {
     "m1": 30.0,
-    "m2": 25.0,
-    "q0star": 0.0,
-    "alpha": 0.0,
+    "m2": 30.0,
+    "q0star": 0.2,
+    "alpha": 1.0,
     "phi0": 0.0,
     "tc": 0.0,
-    "tol": 1e-06
+    "tol": 1e-08
   },
   "reference": {
     "csv": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv",
     "meta": "assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.meta.json",
-    "source_tag": "file_existing"
+    "source_tag": "lalsuite"
   },
   "grid_used": {
-    "fmin_Hz": 10.0,
-    "fmax_Hz": 2041.7379446695293,
+    "fmin_Hz": 20.000000000000004,
+    "fmax_Hz": 300.0,
     "dlog10": 0.01,
-    "n_points_used": 232
+    "n_points_used": 119
   },
   "metrics_window_Hz": [
     20.0,
     300.0
   ],
   "metrics_active": {
-    "mean_abs_20_300": 26.831599861688545,
-    "max_abs_20_300": 93.7503296126555,
-    "p95_abs_20_300": 81.29194862161798,
+    "mean_abs_20_300": 25.660331650956216,
+    "max_abs_20_300": 89.87936528985145,
+    "p95_abs_20_300": 79.17102200219766,
     "variant": "calibrated"
   },
   "metrics_raw": {
-    "mean_abs_20_300": 29.13754874877777,
-    "max_abs_20_300": 141.7454716684315,
-    "p95_abs_20_300": 110.38826055552936
+    "mean_abs_20_300": 54.67500631904722,
+    "max_abs_20_300": 161.8397111464746,
+    "p95_abs_20_300": 131.51282681653012
   },
   "metrics_cal": {
-    "mean_abs_20_300": 26.831599861688545,
-    "max_abs_20_300": 93.7503296126555,
-    "p95_abs_20_300": 81.29194862161798
+    "mean_abs_20_300": 25.660331650956216,
+    "max_abs_20_300": 89.87936528985145,
+    "p95_abs_20_300": 79.17102200219766
   },
   "calibration": {
     "enabled": true,
     "mode": "phi0,tc",
     "model_used": "phi0_tc",
-    "phi0_hat_rad": -58.94512065649389,
-    "tc_hat_s": 0.07323215807767205,
+    "phi0_hat_rad": -80.18382507562454,
+    "tc_hat_s": 0.06544036835587753,
     "initial_window_Hz": [
       20.0,
       300.0
@@ -57,8 +57,8 @@
     "weight": "1/f2",
     "auto_tightened": true,
     "tighten_threshold_p95_rad": 5.0,
-    "p95_check_before_rad": 164.41347534829,
-    "p95_check_after_rad": 81.29194862161798,
+    "p95_check_before_rad": 162.57042260733476,
+    "p95_check_after_rad": 79.17102200219766,
     "n_points": 92
   },
   "outputs": {
@@ -68,10 +68,10 @@
     "fisher_scan2D_csv": null
   },
   "repro": {
-    "git_hash": "9c243cef287d57af98025112b4fe96b6740d7909",
-    "python": "3.12.11",
+    "git_hash": "e08b8caad5e3d0b777206faebede9321a0496b7f",
+    "python": "3.10.12",
     "libs": {
-      "numpy": "2.3.5",
+      "numpy": "2.2.6",
       "pandas": "2.3.3"
     }
   }

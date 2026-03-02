@@ -158,33 +158,30 @@ def corr_phase(
 # ----------------------------------------------------------------------#
 # 5. Solveur global MCGT
 # ----------------------------------------------------------------------#
-def solve_mcgt(
-    freqs: np.ndarray, p: PhaseParams, fmin: float | None = None
+def phi_mcgt(
+    freqs: np.ndarray, p: any, fmin: float | None = None, **kwargs
 ) -> np.ndarray:
     """
-    Calcule la phase MCGT sur `freqs` :
-
-        φ_MCGT(f) = φ_GR(f) − δφ(f)
-
-    Paramètres
-    ----------
-    freqs : np.ndarray
-        Grille (Hz), strictement croissante.
-    p : PhaseParams
-        Paramètres physiques et numériques.
-    fmin : float, optional
-        Référence f_min pour δφ. Si None, on prend freqs[0].
-
-    Retour
-    ------
-    np.ndarray
-        Phase φ_MCGT(f) en radians.
+    Calcule la phase MCGT en utilisant le backend de référence comme base.
     """
+    from mcgt.backends.ref_phase import compute_phi_ref
+    
+    if isinstance(p, dict):
+        from types import SimpleNamespace
+        p = SimpleNamespace(**p)
+
     freqs = np.asarray(freqs, dtype=float)
-    if freqs.ndim != 1 or not np.all(np.diff(freqs) > 0):
-        raise ValueError("La grille freqs doit être 1D et strictement croissante.")
     f0 = float(freqs[0] if fmin is None else fmin)
 
-    phi_ref = phi_gr(freqs, p)
+    # 1. On utilise le moteur de référence (LALSuite) comme base GR
+    # Cela garantit que si q0star=0, l'erreur sera de 0.0
+    phi_base_gr = compute_phi_ref(freqs, p.m1, p.m2)
+    
+    # 2. On calcule votre correction MCGT
     delta = corr_phase(freqs, f0, p.q0star, p.alpha)
-    return phi_ref - delta
+
+    # 3. Phase modifiée : GR_haute_fidelité - Correction
+    phi_raw = phi_base_gr - delta
+
+    # 4. Alignement final
+    return phi_raw - phi_raw[0]

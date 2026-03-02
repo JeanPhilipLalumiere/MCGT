@@ -314,6 +314,49 @@ We take $n = 1718$ as the total dimensionality of the combined data vector enter
     \label{fig:contours}
 \end{figure}
 
+\subsection*{Global Constraints on Parameter Space}
+To convert the $100\,000$-point global scan into publication-ready exclusion limits, we partitioned the spectral-index range into ten bins between $\alpha=-0.9$ and $\alpha=0.9$ and retained, in each bin, the maximum absolute coupling $|q_0^*|$ that still satisfies the survival condition $p_{95} \leq 0.1\,\mathrm{rad}$. This procedure yields a direct exclusion envelope that can be quoted independently of the detailed Monte Carlo cloud.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Global exclusion limits extracted from the $100\,000$-point Chapter 10 scan. The survival fraction gives the percentage of points in each $\alpha$ bin that remain below the phase-dephasing threshold $p_{95} \leq 0.1\,\mathrm{rad}$.}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{cccc}
+        \toprule
+        $\alpha$ bin & Mean $\alpha$ & Constraint limit $|q_0^*|_{\max}$ & Survival fraction \\
+        \midrule
+        $\left[-0.90,-0.72\right)$ & $-0.8100$ & $1.0 \times 10^{-6}$ & $0.08\%$ \\
+        $\left[-0.72,-0.54\right)$ & $-0.6300$ & $4.0 \times 10^{-6}$ & $0.27\%$ \\
+        $\left[-0.54,-0.36\right)$ & $-0.4500$ & $9.0 \times 10^{-6}$ & $0.73\%$ \\
+        $\left[-0.36,-0.18\right)$ & $-0.2700$ & $2.6 \times 10^{-5}$ & $1.85\%$ \\
+        $\left[-0.18,0.00\right)$ & $-0.0900$ & $6.4 \times 10^{-5}$ & $4.36\%$ \\
+        $\left[0.00,0.18\right)$ & $0.0900$ & $1.45 \times 10^{-4}$ & $10.29\%$ \\
+        $\left[0.18,0.36\right)$ & $0.2700$ & $3.54 \times 10^{-4}$ & $24.13\%$ \\
+        $\left[0.36,0.54\right)$ & $0.4500$ & $8.05 \times 10^{-4}$ & $55.17\%$ \\
+        $\left[0.54,0.72\right)$ & $0.6300$ & $1.0 \times 10^{-3}$ & $97.46\%$ \\
+        $\left[0.72,0.90\right)$ & $0.8100$ & $1.0 \times 10^{-3}$ & $100.00\%$ \\
+        \midrule
+        \textbf{Global conservative bound} & \textbf{all $\alpha$} & \textbf{$|q_0^*| \leq 10^{-6}$} & \textbf{LIGO-safe} \\
+        \bottomrule
+    \end{tabular}
+    }
+    \label{tab:global_constraints}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.78\textwidth]{../assets/zz-figures/10_global_scan/10_survival_heatmap.png}
+    \caption{\textbf{Chapter 10 survival heatmap.} Global distribution of the $100\,000$ scan points in the $(q_0^*, \alpha)$ plane, colored by the phase-dephasing statistic $p_{95}$. The green region corresponds to surviving configurations with $p_{95} \leq 0.1\,\mathrm{rad}$, while the warm-color region marks excluded configurations above the LIGO consistency threshold.}
+    \label{fig:survival_heatmap}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.78\textwidth]{../assets/zz-figures/10_global_scan/10_exclusion_curve.png}
+    \caption{\textbf{Exclusion curve from the global scan.} For each $\alpha$ bin, the curve reports the largest surviving value of $|q_0^*|$ compatible with $p_{95} \leq 0.1\,\mathrm{rad}$. The horizontal dashed line highlights the most conservative constraint, $|q_0^*| \leq 10^{-6}$, which is the robust bound that remains valid across the full scanned range of $\alpha$.}
+    \label{fig:exclusion_curve}
+\end{figure}
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{../output/ptmg_corner_plot.pdf}

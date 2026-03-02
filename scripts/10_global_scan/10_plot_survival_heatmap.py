@@ -8,7 +8,7 @@ import os
 # Chemin vers tes données téléchargées
 DATA_PATH = os.path.expanduser("~/Downloads/MCGT_Final_Results/10_mc_results.csv")
 # Dossier de destination pour la figure
-OUTPUT_DIR = "assets/zz-figures/chapter10/"
+OUTPUT_DIR = "assets/zz-figures/10_global_scan/"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def generate_heatmap():

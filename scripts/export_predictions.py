@@ -334,13 +334,15 @@ def main() -> int:
     if args.branch != "k_lss_step":
         raise ValueError("Production export now supports only the k_lss_step cosmological branch.")
 
+    # Enforce the retained cosmological branch before any growth integration.
+    q0_active = -2.0e-3
     a_grid_solver, delta_model_raw, ddelta_model_raw, delta_gr_raw, ddelta_gr_raw = compute_k_lss_step_outputs(
             omega_m=params_ptmg["omega_m"],
             h_0=params_ptmg["h_0"],
             w_0=params_ptmg["w_0"],
             w_a=params_ptmg["w_a"],
             alpha=alpha,
-            q0star=args.q0star_max,
+            q0star=q0_active,
             eos_model=eos_model,
             growth_mod=growth_mod,
             k_growth_mod=k_growth_mod,
@@ -355,7 +357,7 @@ def main() -> int:
     )
     delta_vals = integrate_delta_from_f(z, f_vals, args.z_norm)
     delta_gr_vals = integrate_delta_from_f(z, f_gr_vals, args.z_norm)
-    active_q0star = float(args.q0star_max)
+    active_q0star = float(q0_active)
     branch_label = "k_lss_step"
 
     table = np.column_stack([z, h_ptmg, h_lcdm, f_vals, f_gr_vals, delta_vals, delta_gr_vals])
@@ -369,6 +371,7 @@ def main() -> int:
     f_boost_pct = 100.0 * np.mean((f_vals[high_z_mask] - f_gr_vals[high_z_mask]) / f_gr_vals[high_z_mask])
     z10_idx = int(np.argmin(np.abs(z - 10.0)))
     f_ratio_z10 = float(f_vals[z10_idx] / f_gr_vals[z10_idx])
+    z10_row = table[z10_idx]
 
     if args.comparison_output:
         args.comparison_output.parent.mkdir(parents=True, exist_ok=True)
@@ -410,6 +413,10 @@ def main() -> int:
     print(f"[info] common delta normalization anchor: z={args.z_norm:.1f}")
     print(f"[info] enforced branch mode: k->0 cosmological step branch")
     print(f"[info] f_ptmg/f_lcdm at z=10: {f_ratio_z10:.6f}")
+    print(
+        "[info] z~10 row: "
+        + ",".join(f"{float(x):.8f}" for x in z10_row)
+    )
     print(f"[info] mean delta boost for z>=10 relative to GR: {high_z_boost_pct:.6f}%")
     print(f"[info] mean f boost for z>=10 relative to GR: {f_boost_pct:.6f}%")
     print(

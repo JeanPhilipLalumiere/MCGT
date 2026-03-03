@@ -1,0 +1,32 @@
+{
+  "chapter06": {
+    "q0_lss": -0.002,
+    "s8_lss": 0.772525295418195,
+    "s8_gw": 0.8299699214302317,
+    "amplitude_renorm": 0.8460809703055483,
+    "mean_growth_boost_percent_z_gt_10": 9.047622353951375,
+    "growth_boost_percent_z_10": 9.618371438753043,
+    "growth_boost_percent_z_15": 10.104494188455094
+  },
+  "chapter07": {
+    "chi2_bao_hubble": 0.012060383509093121,
+    "lyman_alpha_z": 2.33,
+    "lyman_alpha_pull": -0.0016342539931351041,
+    "omega_m_pivot": 0.243,
+    "H0_pivot": 72.97,
+    "w0_pivot": -0.69,
+    "wa_pivot": -2.81
+  },
+  "chapter08": {
+    "z_rec": 1091.348492361144,
+    "rs_lcdm_Mpc": 145.5783266319159,
+    "rs_psitmg_Mpc": 136.16014538107598,
+    "delta_rs_Mpc": 9.418181250839922,
+    "dm_lcdm_Mpc": 14087.37852211136,
+    "dm_psitmg_raw_Mpc": 13854.138649957904,
+    "dm_anchor_target_Mpc": 13079.744993379058,
+    "theta100_raw": 0.9828120594237716,
+    "theta100_target": 1.041,
+    "geometry_anchor_factor": 0.9441038034810486
+  }
+}

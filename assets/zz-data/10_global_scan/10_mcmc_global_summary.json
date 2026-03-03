@@ -1,0 +1,25 @@
+{
+  "sampler": "Affine Invariant Ensemble Sampler (Goodman-Weare stretch move)",
+  "walkers": 100,
+  "steps_per_walker": 10000,
+  "burn_in_fraction": 0.2,
+  "post_burn_samples": 800000,
+  "diagnostics": {
+    "rhat_max": 1.0054742179109826,
+    "ess_min": 12395.091938191557,
+    "acceptance_mean": 0.530239,
+    "acceptance_min": 0.5175,
+    "acceptance_max": 0.5408
+  },
+  "best_fit": {
+    "H0": 72.97,
+    "omega_m": 0.243,
+    "w0": -0.69,
+    "wa": -2.81,
+    "S8": 0.718
+  },
+  "table_2_csv": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+  "table_2_md": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+  "figure_17": "assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+  "chain_csv_gz": "assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz"
+}

@@ -35,6 +35,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -320,6 +323,7 @@ def main() -> None:
     # Figure principale
     # ------------------------------------------------------------------
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig, ax = plt.subplots(figsize=(10, 10))
 
     # Échelle pour la couleur : clip haut pour éviter de brûler la colormap

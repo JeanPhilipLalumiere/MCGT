@@ -7,7 +7,7 @@ import sys
 
 
 def main() -> None:
-    # Racine = répertoire courant (tu exécutes depuis /home/jplal/MCGT)
+    # Racine = répertoire courant (à exécuter depuis la racine du dépôt)
     root = Path.cwd()
     triage_dir = root / "zz-logs"
 

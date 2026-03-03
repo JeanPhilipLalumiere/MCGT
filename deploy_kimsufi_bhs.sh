@@ -1,6 +1,6 @@
 #!/bin/bash
 # =================================================================
-# Deployment Script for PTMG v3.3.0 on Kimsufi (Beauharnois/BHS)
+# Deployment Script for PTMG v3.3.1 on Kimsufi (Beauharnois/BHS)
 # Target OS: Ubuntu 24.04 LTS
 # =================================================================
 
@@ -20,9 +20,9 @@ source env_ptmg/bin/activate
 pip install --upgrade pip
 pip install numpy scipy matplotlib emcee h5py pyyaml getdist pandas
 
-echo "--- Clonage et Compilation de PTMG v3.3.0 ---"
+echo "--- Clonage et Compilation de PTMG v3.3.1 ---"
 if [ ! -d "MCGT" ]; then
-    git clone --branch v3.3.0 https://github.com/JeanPhilipLalumiere/MCGT.git
+    git clone --branch v3.3.1 https://github.com/JeanPhilipLalumiere/MCGT.git
 fi
 cd MCGT
 
@@ -41,6 +41,6 @@ echo "--- Vérification finale ---"
 python3 -c "import numpy; import emcee; print('Pipeline PTMG prêt sur Kimsufi BHS.')"
 
 echo "-------------------------------------------------------"
-echo "Déploiement v3.3.0 terminé."
+echo "Déploiement v3.3.1 terminé."
 echo "Active l'environnement avec : source env_ptmg/bin/activate"
 echo "-------------------------------------------------------"

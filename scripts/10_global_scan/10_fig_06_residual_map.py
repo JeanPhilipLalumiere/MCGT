@@ -49,6 +49,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import colors
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -403,6 +406,7 @@ def main() -> None:
     # ------------------------------ figure & axes ---------------------------
     fig_w, fig_h = [float(s) for s in args.figsize.split(",")]
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig = plt.figure(figsize=(fig_w, fig_h), dpi=args.dpi)
 
     # Axes : carte principale, colorbar et inserts à droite

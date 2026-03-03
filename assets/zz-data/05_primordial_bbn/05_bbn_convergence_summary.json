@@ -1,0 +1,13 @@
+{
+  "reference_time_gyr": 1e-15,
+  "target_time_gyr_3min": 5.703855806525211e-15,
+  "dh_rel_error": 0.006516341808539732,
+  "yp_rel_error": 4.49483005921116e-16,
+  "dh_rel_error_3min": 0.006516341808539732,
+  "yp_rel_error_3min": 4.49483005921116e-16,
+  "dh_within_observation": true,
+  "yp_within_observation": true,
+  "dh_within_observation_3min": true,
+  "yp_within_observation_3min": true,
+  "gr_convergence_at_high_temperature": true
+}

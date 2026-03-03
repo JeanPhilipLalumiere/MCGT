@@ -1,0 +1,59 @@
+{
+  "package_name": "phase4_global_verdict_v3.3.1",
+  "generated_at_utc": "2026-03-03T20:38:07+00:00",
+  "publication_status": "local_package_only",
+  "publish_to_zenodo": false,
+  "authors": [
+    {
+      "name": "Jean-Philip Lalumi\u00e8re"
+    }
+  ],
+  "title": "PsiTMG v3.3.1 Phase 4 Global Verdict Package",
+  "description": "Local Zenodo-ready package for the PsiTMG v3.3.1 Chapter 09-10 outputs. This package stages the CPL dark-energy audit, affine-invariant global MCMC products, and the summary verdict JSON without publishing anything externally.",
+  "keywords": [
+    "cosmology",
+    "dark energy",
+    "CPL",
+    "MCMC",
+    "Pantheon+",
+    "BAO",
+    "CMB",
+    "RSD",
+    "PsiTMG"
+  ],
+  "version": "v3.3.1",
+  "chapters": [
+    "09_dark_energy_cpl",
+    "10_global_scan"
+  ],
+  "map_point": {
+    "w0": -0.69,
+    "wa": -2.81
+  },
+  "best_fit": {
+    "H0": 72.97,
+    "omega_m": 0.243,
+    "w0": -0.69,
+    "wa": -2.81,
+    "S8": 0.718
+  },
+  "sampler": "Affine Invariant Ensemble Sampler (Goodman-Weare stretch move)",
+  "walkers": 100,
+  "steps_per_walker": 10000,
+  "burn_in_fraction": 0.2,
+  "diagnostics": {
+    "rhat_max": 1.0054742179109826,
+    "ess_min": 12395.091938191557,
+    "acceptance_mean": 0.530239,
+    "acceptance_min": 0.5175,
+    "acceptance_max": 0.5408
+  },
+  "selection_criteria": {
+    "delta_chi2": -151.6,
+    "delta_aic": -147.6,
+    "delta_bic": -136.7021677949116,
+    "n_data": 1718
+  },
+  "files_staged": 8,
+  "total_size_bytes": 16995579
+}

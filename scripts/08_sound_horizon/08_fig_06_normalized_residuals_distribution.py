@@ -73,15 +73,15 @@ from scipy.stats import gaussian_kde, norm
 
 # --- pour importer cosmo.py depuis utils ---
 ROOT = Path(__file__).resolve().parents[2]
-UTILS = ROOT / "scripts" / "chapter08" / "utils"
+UTILS = ROOT / "scripts" / "08_sound_horizon" / "utils"
 sys.path.insert(0, str(UTILS))
 from cosmo import DV, distance_modulus  # noqa: E402  # noqa: E402
 
 
 def main():
     # Répertoires
-    DATA_DIR = ROOT / "assets/zz-data" / "chapter08"
-    FIG_DIR = ROOT / "assets/zz-figures" / "chapter08"
+    DATA_DIR = ROOT / "assets/zz-data" / "08_sound_horizon"
+    FIG_DIR = ROOT / "assets/zz-figures" / "08_sound_horizon"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Lecture des données

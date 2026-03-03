@@ -25,7 +25,40 @@ jobs:
       - name: Run pre-commit on repo
         continue-on-error: true
         run: pre-commit run --all-files
+      - name: Prepare reproducible manuscript artifacts for tests
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/phase4_global_verdict.py
+          python scripts/phase4_zenodo_package.py
+          python scripts/phase5_geometric_solution.py
+          python scripts/manuscript_artifact_manifest.py
+      - name: Run stability audit regression gate
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          pytest -q tests/test_stability_audit_regression.py tests/test_canonical_asset_paths.py tests/test_phase4_zenodo_package.py tests/test_phase5_geometric_solution.py
+      - name: Run Table/Data consistency gate
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/verify_table_consistency.py
       - name: Run pytest
         run: |
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
           pytest -q
+
+      - name: Regenerate Phase 2 observational log
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/phase2_observational_report.py
+
+      - name: Regenerate Phase 3 LSS and geometry report
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/phase3_lss_geometry_report.py
+
+      - name: Regenerate Phase 4 global verdict package
+        run: |
+          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/phase4_global_verdict.py
+          python scripts/phase4_zenodo_package.py
+          python scripts/phase5_geometric_solution.py
+          python scripts/manuscript_artifact_manifest.py

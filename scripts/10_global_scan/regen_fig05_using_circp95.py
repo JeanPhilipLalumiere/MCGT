@@ -16,8 +16,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from tools import common_io as ci
+from scripts._common.style import apply_manuscript_defaults
 
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+
+apply_manuscript_defaults()
 
 
 # ---------- utils ----------
@@ -103,6 +106,7 @@ def main():
 
     # --- figure ---
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig, ax = plt.subplots(figsize=(14, 6))
 
     # Histogramme (counts)

@@ -1,0 +1,17 @@
+{
+  "generated_at_utc": "2026-03-03T20:39:29+00:00",
+  "universal_coupling_failure": true,
+  "ligo_bound_q0star_abs": 1e-06,
+  "required_q0star_abs_for_s8_0p77_interpolated": 0.002092224,
+  "required_q0star_abs_for_s8_0p7725_branch": 0.002,
+  "conflict_factor_interpolated": 2092.2,
+  "conflict_factor_branch": 2000.0000000000002,
+  "screening_prototypes": {
+    "screened_bounded": 0.828478,
+    "chameleon": 0.829667,
+    "late_trigger": 0.813495,
+    "k_split": 0.772525,
+    "gw_split": 0.82997
+  },
+  "figure_19": "assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png"
+}

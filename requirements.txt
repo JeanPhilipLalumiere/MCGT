@@ -1,6 +1,9 @@
+camb==1.6.5
 corner==2.2.3
 emcee==3.1.6
 h5py==3.11.0
 matplotlib==3.9.0
 numpy==2.3.5
+pandas==2.3.3
+pytest==8.4.2
 scipy==1.16.3

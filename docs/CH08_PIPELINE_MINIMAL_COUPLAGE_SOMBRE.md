@@ -56,7 +56,7 @@ Les chemins sont supposés compatibles avec la hiérarchie standard MCGT.
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 bash tools/ch08_minimal_pipeline.sh
 ```
 

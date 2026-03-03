@@ -1,0 +1,22 @@
+CERTIFICATE OF INTEGRITY
+Version: v3.3.1 GOLD
+Generated (UTC): 2026-03-03T20:43:03+00:00
+
+This certificate binds the final manuscript and the validated MCMC chains
+to the local v3.3.1 GOLD artifact state through SHA-256 fingerprints.
+
+File: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
+SHA256: 8fb03abb28d9749d392a1031c07a47cbbdabc0fb4857b7419669fbbd8f49b553
+
+File: assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz
+SHA256: d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0
+
+File: output/ptmg_chains.h5
+SHA256: 36b42760fa3bf68fea380a11c00946dfda8bd22fa52621a7d0b047ac1ef1dd80
+
+Statement:
+The files listed above are the validated GOLD manuscript and chain artifacts
+used for the final thesis release. Any post-validation modification would
+change the hashes recorded in this certificate.
+
+Signed by: Jean-Philip Lalumière

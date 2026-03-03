@@ -47,7 +47,7 @@ Les chemins sont supposés respecter la hiérarchie standard du dépôt MCGT.
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 
 # 1) Générer les données de stabilité f(R)
 python scripts/03_stability_domain/generate_data_chapter03.py   --config config/gw_phase.ini   --npts 700

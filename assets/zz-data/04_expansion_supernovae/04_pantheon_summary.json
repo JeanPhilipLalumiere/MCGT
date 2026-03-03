@@ -1,0 +1,8 @@
+{
+  "n_snia": 1701,
+  "chi2_mcgt": 1212.9541950874905,
+  "chi2_lcdm": 2158.608709250521,
+  "delta_chi2_mcgt_minus_lcdm": -945.6545141630304,
+  "mean_delta_mu_vs_lcdm": -0.0800026968905877,
+  "fraction_lower_distance_than_lcdm": 1.0
+}

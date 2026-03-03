@@ -24,6 +24,9 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -210,6 +213,7 @@ def main():
 
     # --- Plot principal (même style que ton original) ---
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig, ax = plt.subplots(figsize=(14, 6))
 
     # IC 95% pour la moyenne (zone bleue)

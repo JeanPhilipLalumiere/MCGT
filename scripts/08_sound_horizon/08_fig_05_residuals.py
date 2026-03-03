@@ -73,8 +73,8 @@ import pandas as pd
 
 # --- Répertoires ---
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter08"
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter08"
+DATA_DIR = ROOT / "assets/zz-data" / "08_sound_horizon"
+FIG_DIR = ROOT / "assets/zz-figures" / "08_sound_horizon"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 

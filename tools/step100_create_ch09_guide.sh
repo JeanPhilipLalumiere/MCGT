@@ -13,7 +13,7 @@ if [ ! -d ".git" ] || [ ! -d "tools" ]; then
   echo "[ERREUR] Ce script doit être lancé depuis la racine de MCGT ou avec la racine en argument."
   echo "Exemples :"
   echo "  cd ~/MCGT && bash step100_create_ch09_guide.sh"
-  echo "  bash step100_create_ch09_guide.sh /home/jplal/MCGT"
+  echo "  bash step100_create_ch09_guide.sh /chemin/vers/MCGT"
   exit 1
 fi
 
@@ -65,7 +65,7 @@ les scripts de CH09.
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /chemin/vers/MCGT
 bash tools/smoke_ch09_fast.sh
 ```
 

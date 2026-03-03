@@ -68,8 +68,8 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # --- Répertoires et constantes ---
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter05"
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter05"
+DATA_DIR = ROOT / "assets/zz-data" / "05_primordial_bbn"
+FIG_DIR = ROOT / "assets/zz-figures" / "05_primordial_bbn"
 FIG_STEM = "05_fig_04_cost_surface"
 
 

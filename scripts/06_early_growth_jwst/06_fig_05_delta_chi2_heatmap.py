@@ -76,8 +76,8 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 LOGGER = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter06"
-DEFAULT_FIG_DIR = ROOT / "assets/zz-figures" / "chapter06"
+DATA_DIR = ROOT / "assets/zz-data" / "06_early_growth_jwst"
+DEFAULT_FIG_DIR = ROOT / "assets/zz-figures" / "06_early_growth_jwst"
 
 DATA_CSV = DATA_DIR / "06_cmb_chi2_scan2D.csv"
 JSON_PARAMS = DATA_DIR / "06_params_cmb.json"

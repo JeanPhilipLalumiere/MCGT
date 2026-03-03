@@ -18,6 +18,7 @@ import argparse
 import configparser
 import json
 import logging
+import math
 import sys
 from pathlib import Path
 
@@ -44,6 +45,7 @@ log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[2]
 Mpc_to_km = 3.0856775814913673e19  # km dans 1 Mpc
 sec_per_Gyr = 3.1536e16  # s dans 1 Gyr
+DATA_DIR = ROOT / "assets" / "zz-data" / "03_stability_domain"
 
 
 def load_cosmology_params(ini_path: Path) -> tuple[float, float, float]:
@@ -63,9 +65,25 @@ def load_cosmology_params(ini_path: Path) -> tuple[float, float, float]:
     return H0_to_per_Gyr(H0_km_s_Mpc), om0, ol0
 
 
-H0, Om0, Ol0 = load_cosmology_params(
-    ROOT / "configuration" / "mcgt-global-config.ini"
-)
+def load_fr_stability_params(ini_path: Path) -> dict[str, float]:
+    cfg = configparser.ConfigParser(
+        interpolation=None, inline_comment_prefixes=("#", ";")
+    )
+    if not cfg.read(ini_path, encoding="utf-8"):
+        raise FileNotFoundError(f"Cannot read config: {ini_path}")
+    fr = cfg["fr_stability"]
+    de = cfg["dark_energy"]
+    return {
+        "fr_target": fr.getfloat("fr_target", fallback=1.0),
+        "frr_scale": fr.getfloat("frr_scale", fallback=1.0e-6),
+        "ms2_target": fr.getfloat("ms2_over_r0_target", fallback=333333.0),
+        "w0": de.getfloat("w0"),
+        "wa": de.getfloat("wa"),
+    }
+
+
+H0, Om0, Ol0 = load_cosmology_params(ROOT / "config" / "mcgt-global-config.ini")
+FR_PARAMS = load_fr_stability_params(ROOT / "config" / "mcgt-global-config.ini")
 
 
 def T_of_z(z: float) -> float:
@@ -117,7 +135,7 @@ def check_log_spacing(g: np.ndarray, atol: float = 1e-12) -> bool:
 # 4. Jalons : copie si besoin
 # ----------------------------------------------------------------------
 def ensure_jalons(src: Path | None) -> Path:
-    dst = Path("assets/zz-data") / "chapter03" / "03_ricci_fR_milestones.csv"
+    dst = DATA_DIR / "03_ricci_fR_milestones.csv"
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.exists():
         return dst
@@ -214,15 +232,90 @@ def calculer_stabilite(jalons: pd.DataFrame, Rgrid: np.ndarray):
     return df, dom, frt
 
 
+def w_of_z(z: np.ndarray | float, w0: float, wa: float) -> np.ndarray:
+    z_arr = np.asarray(z, dtype=float)
+    return w0 + wa * z_arr / (1.0 + z_arr)
+
+
+def phantom_crossing_z(w0: float, wa: float) -> float | None:
+    if math.isclose(wa, 0.0, abs_tol=1.0e-15):
+        return None
+    x = (-1.0 - w0) / wa
+    if not (0.0 < x < 1.0):
+        return None
+    return float(x / (1.0 - x))
+
+
+def stabilise_potential(
+    df_raw: pd.DataFrame,
+    zgrid: np.ndarray,
+    ms2_target: float,
+    *,
+    w0: float,
+    wa: float,
+) -> tuple[pd.DataFrame, dict[str, float | bool | None]]:
+    z_interp = np.interp(
+        df_raw["R_over_R0"].to_numpy(dtype=float),
+        np.sort(df_raw["R_over_R0"].to_numpy(dtype=float)),
+        np.interp(
+            np.sort(df_raw["R_over_R0"].to_numpy(dtype=float)),
+            np.sort(df_raw["R_over_R0"].to_numpy(dtype=float)),
+            zgrid[np.argsort(df_raw["R_over_R0"].to_numpy(dtype=float))],
+        ),
+    )
+
+    df = df_raw.copy()
+    raw_neg = df_raw["m_s2_over_R0"] < 0.0
+    z_break = None
+    r_break = None
+    if raw_neg.any():
+        first_idx = int(np.flatnonzero(raw_neg.to_numpy())[0])
+        z_break = float(z_interp[first_idx])
+        r_break = float(df_raw.iloc[first_idx]["R_over_R0"])
+
+    z_phantom = phantom_crossing_z(w0, wa)
+
+    floor_fr = -1.0 + 1.0e-9
+    df["f_R"] = np.maximum(df["f_R"], floor_fr)
+
+    target_frr = df["f_R"] / (df["R_over_R0"] + 3.0 * ms2_target)
+    mask_unstable = df["m_s2_over_R0"] < 0.0
+    df.loc[mask_unstable, "f_RR"] = np.minimum(
+        df.loc[mask_unstable, "f_RR"],
+        target_frr.loc[mask_unstable],
+    )
+    df["m_s2_over_R0"] = (df["f_R"] - df["R_over_R0"] * df["f_RR"]) / (3.0 * df["f_RR"])
+
+    diagnostics = {
+        "raw_break_z": z_break,
+        "raw_break_R_over_R0": r_break,
+        "phantom_crossing_z": z_phantom,
+        "phantom_precedes_break": bool(
+            z_break is not None and z_phantom is not None and z_phantom < z_break
+        ),
+        "stabilized_negative_rows": int((df["m_s2_over_R0"] < 0.0).sum()),
+        "stabilization_applied": bool(mask_unstable.any()),
+    }
+    return df, diagnostics
+
+
 # ----------------------------------------------------------------------
 # 8. Exports CSV & métadonnées
 # ----------------------------------------------------------------------
-def exporter_csv(df: pd.DataFrame, dom: pd.DataFrame, frt: pd.DataFrame, dry: bool):
-    out = Path("assets/zz-data") / "chapter03"
+def exporter_csv(
+    df: pd.DataFrame,
+    df_raw: pd.DataFrame,
+    dom: pd.DataFrame,
+    frt: pd.DataFrame,
+    dry: bool,
+    diagnostics: dict[str, float | bool | None] | None = None,
+):
+    out = DATA_DIR
     out.mkdir(parents=True, exist_ok=True)
     if dry:
         log.info("--dry-run : je n’écris pas les CSV.")
         return
+    df_raw.to_csv(out / "03_fR_stability_raw.csv", index=False)
     df.to_csv(out / "03_fR_stability_data.csv", index=False)
     dom.to_csv(out / "03_fR_stability_domain.csv", index=False)
     frt.to_csv(out / "03_fR_stability_boundary.csv", index=False)
@@ -230,10 +323,13 @@ def exporter_csv(df: pd.DataFrame, dom: pd.DataFrame, frt: pd.DataFrame, dry: bo
         "n_points": int(df.shape[0]),
         "files": [
             "03_fR_stability_data.csv",
+            "03_fR_stability_raw.csv",
             "03_fR_stability_domain.csv",
             "03_fR_stability_boundary.csv",
         ],
     }
+    if diagnostics is not None:
+        meta["diagnostics"] = diagnostics
     (out / "03_fR_stability_meta.json").write_text(json.dumps(meta, indent=2))
     log.info("Données principales et métadonnées écrites.")
 
@@ -257,90 +353,39 @@ def exporter_jalons_inverses(
     Les jalons hors domaine d’interpolation **sont ignorés** afin
     d’éviter les z = 0 artificiels.
     """
-    out = Path("assets/zz-data") / "chapter03"
+    out = DATA_DIR
     out.mkdir(parents=True, exist_ok=True)
     if dry:
         log.info("--dry-run : pas d’export R↔z / R↔T")
         return
 
-    # ------------------------------------------------------------------
-    # 9-A  Interpolation R → z  (monotone PCHIP, sans extrapolation)
-    # ------------------------------------------------------------------
-    df_z = (
-        pd.DataFrame({"R_over_R0": df_R["R_over_R0"], "z": zgrid})
-        .drop_duplicates("R_over_R0")
-        .sort_values("R_over_R0")
+    traj = df_R.copy()
+    traj["z"] = np.asarray(zgrid, dtype=float)
+    traj["T_Gyr"] = np.asarray(Tgrid, dtype=float)
+    traj = traj.drop_duplicates("R_over_R0").sort_values("R_over_R0")
+
+    # Garantir des points explicites "aujourd'hui" et "très jeune Univers".
+    if not np.isclose(traj["z"].min(), 0.0, atol=1.0e-12):
+        today = traj.iloc[[0]].copy()
+        today["z"] = 0.0
+        traj = pd.concat([today, traj], ignore_index=True)
+    if float(traj["T_Gyr"].min()) > 1.0e-6:
+        early = traj.iloc[[-1]].copy()
+        early["T_Gyr"] = 1.0e-6
+        traj = pd.concat([traj, early], ignore_index=True)
+
+    traj = traj.sort_values(["T_Gyr", "R_over_R0"]).drop_duplicates(
+        subset=["T_Gyr", "R_over_R0"]
     )
 
-    p_z = PchipInterpolator(
-        np.log10(df_z["R_over_R0"]),
-        df_z["z"],
-        extrapolate=False,  # <- évite les z = 0 parasites
-    )
+    traj_z = traj.sort_values(["z", "R_over_R0"]).reset_index(drop=True)
+    traj_t = traj.sort_values(["T_Gyr", "R_over_R0"]).reset_index(drop=True)
 
-    jal_z = jalons.copy()
-    mask_in = (jal_z["R_over_R0"] >= df_z["R_over_R0"].min()) & (
-        jal_z["R_over_R0"] <= df_z["R_over_R0"].max()
-    )
-    jal_z.loc[mask_in, "z"] = p_z(np.log10(jal_z.loc[mask_in, "R_over_R0"]))
+    traj_z.to_csv(out / "03_ricci_fR_vs_z.csv", index=False)
+    log.info("→ 03_ricci_fR_vs_z.csv généré (%d points trajectoire)", len(traj_z))
 
-    # Ne garder **que** les jalons interpolables
-    jal_z = jal_z.dropna(subset=["z"]).sort_values("R_over_R0")
-
-    # ------------------------------------------------------------------
-    # 9-A  Interpolation R → z  (monotone, sans extrapolation)
-    # ------------------------------------------------------------------
-    df_zfull = pd.DataFrame({"R_over_R0": df_R["R_over_R0"], "z": zgrid}).query(
-        "z > 0"
-    )  # z strictement positifs
-
-    # on garde, pour chaque R, le z le plus grand (plus ancien)
-    df_zfull.sort_values(["R_over_R0", "z"], ascending=[True, False], inplace=True)
-    df_z = df_zfull.drop_duplicates("R_over_R0").sort_values("R_over_R0")
-
-    p_z = PchipInterpolator(np.log10(df_z["R_over_R0"]), df_z["z"], extrapolate=False)
-
-    jal_z = jalons.copy()
-    in_domain = jal_z["R_over_R0"].between(
-        df_z["R_over_R0"].min(), df_z["R_over_R0"].max()
-    )
-    jal_z.loc[in_domain, "z"] = p_z(np.log10(jal_z.loc[in_domain, "R_over_R0"]))
-
-    # on ne garde que les jalons réellement interpolés
-    jal_z = jal_z.dropna(subset=["z"]).sort_values("R_over_R0")
-
-    # garantir z croissant avec R
-    jal_z["z"] = jal_z["z"].cummax()
-
-    jal_z.to_csv(out / "03_ricci_fR_vs_z.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_z.csv généré (%d jalons)", len(jal_z))
-
-    # ------------------------------------------------------------------
-    # 9-B  Interpolation R → T  (log-log, toujours définie : extrapolate=True)
-    # ------------------------------------------------------------------
-    df_T = (
-        pd.DataFrame({"R_over_R0": df_R["R_over_R0"], "T_Gyr": Tgrid})
-        .drop_duplicates("R_over_R0")
-        .sort_values("R_over_R0")
-    )
-
-    p_T = PchipInterpolator(
-        np.log10(df_T["R_over_R0"]),
-        np.log10(df_T["T_Gyr"]),
-        extrapolate=True,  # extrapolation OK pour T
-    )
-
-    jal_T = jal_z.copy()  # même sous-ensemble que pour z
-    jal_T["T_Gyr"] = 10 ** p_T(np.log10(jal_T["R_over_R0"]))
-
-    # Assurer la décroissance de T (le passé ne doit pas dépasser le présent)
-    T_vals = jal_T["T_Gyr"].values
-    for i in range(1, len(T_vals)):
-        T_vals[i] = min(T_vals[i], T_vals[i - 1])
-    jal_T["T_Gyr"] = T_vals
-
-    jal_T.to_csv(out / "03_ricci_fR_vs_T.csv", index=False)
-    log.info("→ 03_ricci_fR_vs_T.csv généré (%d jalons)", len(jal_T))
+    traj_t.to_csv(out / "03_ricci_fR_vs_T.csv", index=False)
+    log.info("→ 03_ricci_fR_vs_T.csv généré (%d points trajectoire)", len(traj_t))
 
 
 # ----------------------------------------------------------------------
@@ -364,10 +409,27 @@ def main() -> None:
     )
 
     # 10.3 calcul de stabilité
-    df_R, domaine, frontiere = calculer_stabilite(jalons, Rgrid)
+    df_R_raw, _, _ = calculer_stabilite(jalons, Rgrid)
+    df_R, diagnostics = stabilise_potential(
+        df_R_raw,
+        zgrid,
+        FR_PARAMS["ms2_target"],
+        w0=FR_PARAMS["w0"],
+        wa=FR_PARAMS["wa"],
+    )
+    domaine = pd.DataFrame(
+        {
+            "beta": df_R["R_over_R0"],
+            "gamma_min": np.zeros(df_R.shape[0], dtype=float),
+            "gamma_max": df_R["m_s2_over_R0"].clip(upper=FR_PARAMS["ms2_target"]),
+        }
+    )
+    frontiere = domaine.query("gamma_min==gamma_max").rename(
+        columns={"gamma_max": "gamma_limit"}
+    )[["beta", "gamma_limit"]]
 
     # 10.4 exports principaux
-    exporter_csv(df_R, domaine, frontiere, args.dry_run)
+    exporter_csv(df_R, df_R_raw, domaine, frontiere, args.dry_run, diagnostics=diagnostics)
 
     # 10.5 exports inverses ricci↔z et ricci↔T
     exporter_jalons_inverses(df_R, jalons, zgrid, Tgrid, args.dry_run)

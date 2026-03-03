@@ -27,12 +27,14 @@ from scipy.interpolate import PchipInterpolator
 
 __all__ = [
     "PertParams",
+    "SentinelResult",
     "phi0_of_a",
     "dphi0_da",
     "H_of_a",
     "rho_phi_of_a",
     "p_phi_of_a",
     "compute_cs2",
+    "evaluate_sentinel",
     "compute_delta_phi",
     "_default_params",
 ]
@@ -75,6 +77,15 @@ class PertParams:
     alpha: float | None = None
     phi0: float | None = None
     decay: float | None = None
+
+
+@dataclass
+class SentinelResult:
+    accepted: bool
+    causality_ok: bool
+    rho_positive_ok: bool
+    linear_stability_ok: bool
+    reasons: list[str]
 
 
 # -----------------------------------------------------------------------------#
@@ -122,6 +133,15 @@ def p_phi_of_a(a: np.ndarray | float, p: PertParams) -> np.ndarray:
     return 0.5 * dφ_dt**2 - V
 
 
+def _raw_cs2_of_a(a_vals: np.ndarray, p: PertParams) -> np.ndarray:
+    """c_s²(a) non borné, utilisé par le Sentinel strict."""
+    dp_da = np.gradient(p_phi_of_a(a_vals, p), a_vals)
+    drho_da = np.gradient(rho_phi_of_a(a_vals, p), a_vals)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        raw = np.where(drho_da != 0.0, dp_da / drho_da, 0.0)
+    return PchipInterpolator(a_vals, raw, extrapolate=True)(a_vals)
+
+
 # -----------------------------------------------------------------------------#
 # 3)  c_s²(k,a)
 # -----------------------------------------------------------------------------#
@@ -145,11 +165,7 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
     K, _ = np.meshgrid(k_vals, a_vals, indexing="ij")
 
     # c_s²(a) ~ dp/da / dρ/da (pentes lissées)
-    dp_da = np.gradient(p_phi_of_a(a_vals, p), a_vals)
-    drho_da = np.gradient(rho_phi_of_a(a_vals, p), a_vals)
-    with np.errstate(divide="ignore", invalid="ignore"):
-        cs2_a = np.where(drho_da != 0.0, dp_da / drho_da, 0.0)
-    cs2_a = PchipInterpolator(a_vals, cs2_a, extrapolate=True)(a_vals)
+    cs2_a = _raw_cs2_of_a(a_vals, p)
 
     # Filtre gaussien en k + amplitude globale
     T = np.exp(-((K / p.k0) ** 2))
@@ -174,6 +190,64 @@ def compute_cs2(k_vals: np.ndarray, a_vals: np.ndarray, p: PertParams) -> np.nda
         cs2 = np.clip(cs2, 0.0, 1.0)
 
     return cs2
+
+
+def evaluate_sentinel(
+    k_vals: np.ndarray,
+    a_vals: np.ndarray,
+    p: PertParams,
+    *,
+    check_delta_phi: bool = False,
+    delta_phi_max_abs: float = 1.0,
+) -> SentinelResult:
+    """Filtre Sentinel strict: aucun clipping ni correction silencieuse.
+
+    Critères:
+    - causalité: c_s² brut fini et dans [0, 1] sur la grille;
+    - positivité: rho_phi(a) strictement positive et finie;
+    - stabilité linéaire: par défaut, vérifie seulement la régularité du secteur
+      scalaire; en option, résout aussi delta_phi et exige une amplitude bornée.
+    """
+    reasons: list[str] = []
+    k_vals = np.asarray(k_vals, dtype=float)
+    a_vals = np.asarray(a_vals, dtype=float)
+
+    rho = rho_phi_of_a(a_vals, p)
+    rho_positive_ok = bool(np.all(np.isfinite(rho)) and np.all(rho > 0.0))
+    if not rho_positive_ok:
+        reasons.append("rho_nonpositive_or_nonfinite")
+
+    raw_cs2_a = _raw_cs2_of_a(a_vals, p)
+    K, _ = np.meshgrid(k_vals, a_vals, indexing="ij")
+    raw_cs2 = np.exp(-((K / p.k0) ** 2)) * raw_cs2_a[np.newaxis, :] * p.cs2_param
+    causality_ok = bool(
+        np.all(np.isfinite(raw_cs2))
+        and np.all(raw_cs2 >= 0.0)
+        and np.all(raw_cs2 <= 1.0)
+    )
+    if not causality_ok:
+        reasons.append("cs2_out_of_bounds_or_nonfinite")
+
+    linear_stability_ok = True
+    if check_delta_phi:
+        try:
+            delta = compute_delta_phi(k_vals, a_vals, p)
+            linear_stability_ok = bool(
+                np.all(np.isfinite(delta)) and np.max(np.abs(delta)) <= delta_phi_max_abs
+            )
+        except Exception:
+            linear_stability_ok = False
+        if not linear_stability_ok:
+            reasons.append("delta_phi_unstable_or_nonfinite")
+
+    accepted = causality_ok and rho_positive_ok and linear_stability_ok
+    return SentinelResult(
+        accepted=accepted,
+        causality_ok=causality_ok,
+        rho_positive_ok=rho_positive_ok,
+        linear_stability_ok=linear_stability_ok,
+        reasons=reasons,
+    )
 
 
 def _kg_eq(a: float, y: np.ndarray, k: float, p: PertParams) -> np.ndarray:

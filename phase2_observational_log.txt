@@ -1,0 +1,26 @@
+PHASE 2 OBSERVATIONAL LOG
+Date: 2026-03-03
+
+CH04 - Pantheon+ Supernovae
+- Source catalog size: 1701 SNIa
+- Source residual table: assets/zz-data/04_expansion_supernovae/04_pantheon_residuals.csv
+- chi2(PsiTMG): 1212.95
+- chi2(LambdaCDM): 2158.61
+- delta chi2 (PsiTMG - LambdaCDM): -945.65
+- Mean mu(PsiTMG - LambdaCDM): -0.080003 mag
+- Fraction with lower luminosity distance than LambdaCDM: 1.0000
+- Interpretation: the PsiTMG fit remains competitive and trends systematically toward lower luminosity distances than the LambdaCDM zero-residual baseline.
+
+CH05 - Primordial Nucleosynthesis
+- Source summary: assets/zz-data/05_primordial_bbn/05_bbn_convergence_summary.json
+- GR convergence at high temperature: true
+- Reference epoch near 3 min: 5.703855806525211e-15 Gyr
+- D/H relative error at 3 min: 0.00651634
+- Y_p relative error at 3 min: 4.4948300592111601e-16
+- D/H within observational bounds: true
+- Y_p within observational bounds: true
+- Interpretation: the modified-gravity sector converges back to GR in the high-temperature regime and preserves the primordial D/H and He-4 abundances within observational uncertainties.
+
+CI Verification
+- Gate executed: pytest -q tests/test_stability_audit_regression.py tests/test_canonical_asset_paths.py
+- Expected result: PASS

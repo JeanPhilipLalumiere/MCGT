@@ -64,8 +64,8 @@ def tracer_fig03_yp_modele_contre_obs(
 ):
     # Racine du projet
     ROOT = Path.cwd()
-    DATA_DIR = ROOT / "assets/zz-data" / "chapter05"
-    FIG_DIR = ROOT / "assets/zz-figures" / "chapter05"
+    DATA_DIR = ROOT / "assets/zz-data" / "05_primordial_bbn"
+    FIG_DIR = ROOT / "assets/zz-figures" / "05_primordial_bbn"
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Lecture des données (ignorer les commentaires et espaces)

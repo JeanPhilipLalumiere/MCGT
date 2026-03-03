@@ -1,0 +1,26 @@
+PHASE 3 LSS / GEOMETRY REPORT
+Date: 2026-03-03
+
+CH06 - Early Structure Growth
+- Calibrated branch from Chapter 12: q0_lss = -0.002000
+- S8 target / reference: 0.772525 / 0.829970
+- Mean growth-rate boost for z > 10: 9.05 %
+- Growth-rate boost at z = 10: 9.62 %
+- Growth-rate boost at z = 15: 10.10 %
+- Outputs: assets/zz-data/06_early_growth_jwst/06_jwst_growth_boost.csv ; assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png
+
+CH07 - BAO Geometric Pivot
+- chi2 on internal BOSS/eBOSS pivot set: 0.01
+- Lyman-alpha anchor: z = 2.33, pull = -0.00 sigma
+- Pivot branch parameters: H0 = 72.97, Omega_m = 0.243, w0 = -0.69, wa = -2.81
+- Outputs: assets/zz-data/07_bao_geometry/07_bao_hubble_pivot.csv ; assets/zz-figures/07_bao_geometry/07_fig_10_bao_hubble_diagram.png
+
+CH08 - Acoustic Anchor
+- Recombination redshift: z* = 1091.348
+- r_s LCDM(z*): 145.578 Mpc
+- r_s PsiTMG(z*): 136.160 Mpc
+- Delta r_s(z*): 9.418 Mpc
+- Raw 100*theta*: 0.982812
+- Anchored 100*theta* target: 1.041000
+- Effective geometric anchor factor: 0.944104
+- Outputs: assets/zz-data/08_sound_horizon/08_sound_horizon_near_decoupling.csv ; assets/zz-figures/08_sound_horizon/08_fig_11_sound_horizon_near_decoupling.png

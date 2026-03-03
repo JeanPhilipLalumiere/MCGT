@@ -52,7 +52,7 @@ Les autres fichiers de données de CH02 (cf. §4.2) seront **recréés** ou mis 
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 
 # 1) Générer / rafraîchir toutes les données du chapitre 02
 python scripts/02_primordial_spectrum/generate_data_chapter02.py --all

@@ -1,20 +1,24 @@
 cff-version: 1.2.0
-message: "Si vous utilisez ce travail, veuillez le citer comme indiqué ci-dessous."
-version: 2.6.0
-title: "MCGT: Unified Cosmology"
-doi: 10.5281/zenodo.15186836
-date-released: "2025-12-31"
+message: "If you use this repository, please cite the software and thesis record below."
+title: "Ψ-Time Metric Gravity (ΨTMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions"
+version: "v3.3.1"
 type: software
 authors:
   - family-names: "Lalumière"
     given-names: "Jean-Philip"
     orcid: "https://orcid.org/0009-0006-0961-9004"
-license: MIT
-repository-code: "https://github.com/JeanPhilipLalumière/MCGT"
-keywords:
-  - cosmologie
-  - ondes gravitationnelles
-  - CMB
-  - f(R)
-  - reproduction scientifique
-url: https://doi.org/10.5281/zenodo.15186836
+repository-code: "https://github.com/JeanPhilipLalumiere/MCGT"
+url: "https://github.com/JeanPhilipLalumiere/MCGT"
+license: "MIT"
+date-released: "2026-03-03"
+preferred-citation:
+  type: thesis
+  authors:
+    - family-names: "Lalumière"
+      given-names: "Jean-Philip"
+      orcid: "https://orcid.org/0009-0006-0961-9004"
+  title: "Ψ-Time Metric Gravity (ΨTMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions"
+  version: "v3.3.1"
+  url: "https://github.com/JeanPhilipLalumiere/MCGT"
+  publisher: "GitHub"
+  year: 2026

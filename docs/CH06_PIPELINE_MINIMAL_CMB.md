@@ -58,7 +58,7 @@ déjà présents, soit générés par les étapes ci‑dessous :
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 
 # 1) Expansion MCGT → fichier H(z)/H0
 python scripts/06_early_growth_jwst/generate_pdot_plateau_vs_z.py

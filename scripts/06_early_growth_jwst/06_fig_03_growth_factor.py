@@ -32,8 +32,8 @@ plt.rcParams.update(
 # Paths & constantes
 # ---------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter06"
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter06"
+DATA_DIR = ROOT / "assets/zz-data" / "06_early_growth_jwst"
+FIG_DIR = ROOT / "assets/zz-figures" / "06_early_growth_jwst"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 DATA_CSV = DATA_DIR / "06_delta_rs_scan.csv"

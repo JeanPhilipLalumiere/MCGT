@@ -4,11 +4,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+from scripts._common.style import apply_manuscript_defaults
 
-plt.rcParams["text.usetex"] = False
-plt.rcParams["font.family"] = "serif"
-plt.rcParams["pdf.fonttype"] = 42
-plt.rcParams["ps.fonttype"] = 42
+apply_manuscript_defaults()
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript"
@@ -26,6 +24,7 @@ def _apply_style():
         "lines.linewidth": 1.8, "lines.markersize": 6,
         "axes.linewidth": 0.8, "grid.linewidth": 0.6,
     })
+    apply_manuscript_defaults()
 
 def make_concept_schema():
     fig, ax = plt.subplots(figsize=(7.2, 3.8))

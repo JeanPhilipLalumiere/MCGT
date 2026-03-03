@@ -13,11 +13,10 @@ from typing import Optional
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import shutil
+from scripts._common.style import apply_manuscript_defaults
 
-plt.rcParams["text.usetex"] = False
-plt.rcParams["font.family"] = "serif"
-plt.rcParams["pdf.fonttype"] = 42
-plt.rcParams["ps.fonttype"] = 42
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -27,7 +26,6 @@ plt.rcParams.update(
         "axes.labelpad": 10,
         "savefig.bbox": "tight",
         "savefig.pad_inches": 0.3,
-        "font.family": "serif",
     }
 )
 

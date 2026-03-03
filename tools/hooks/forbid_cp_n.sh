@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # source POSIX copy helper (safe_cp)
-. "$(dirname "$0")/lib_posix_cp.sh" 2>/dev/null || . "/home/jplal/MCGT/tools/lib_posix_cp.sh" 2>/dev/null
+HOOK_DIR="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
+TOOLS_DIR="$(CDPATH= cd -- "${HOOK_DIR}/.." && pwd)"
+. "${HOOK_DIR}/lib_posix_cp.sh" 2>/dev/null || . "${TOOLS_DIR}/lib_posix_cp.sh" 2>/dev/null
 
 set -euo pipefail
 status=0

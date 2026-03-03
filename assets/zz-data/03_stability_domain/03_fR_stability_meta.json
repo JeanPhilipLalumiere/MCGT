@@ -1,8 +1,17 @@
 {
-  "n_points": 716,
+  "n_points": 834,
   "files": [
     "03_fR_stability_data.csv",
+    "03_fR_stability_raw.csv",
     "03_fR_stability_domain.csv",
     "03_fR_stability_boundary.csv"
-  ]
+  ],
+  "diagnostics": {
+    "raw_break_z": 133.88516134291172,
+    "raw_break_R_over_R0": 738685.2615570612,
+    "phantom_crossing_z": 0.33760149906308556,
+    "phantom_precedes_break": true,
+    "stabilized_negative_rows": 0,
+    "stabilization_applied": true
+  }
 }

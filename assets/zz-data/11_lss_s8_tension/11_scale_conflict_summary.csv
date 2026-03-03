@@ -1,0 +1,6 @@
+scenario,q0star_abs,s8
+ligo_bound,1e-06,0.83
+required_universal_branch,0.002,0.7725252994595727
+required_universal_interpolated,0.002092224,0.77
+k_split_local_branch,1e-06,0.8299699231454493
+k_split_cosmological_branch,0.002,0.7725252994595727

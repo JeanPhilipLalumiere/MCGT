@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run ΨTMG MCMC with emcee and save chains for later corner-plot usage.
 
-Release: v3.3.0
+Release: v3.3.1
 """
 
 from __future__ import annotations

@@ -49,7 +49,7 @@ Les chemins sont supposés être ceux de la hiérarchie standard du dépôt MCGT
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 bash tools/ch07_minimal_pipeline.sh
 ```
 

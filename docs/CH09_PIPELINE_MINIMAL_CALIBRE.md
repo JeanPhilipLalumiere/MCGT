@@ -59,7 +59,7 @@ Les chemins supposent la hiérarchie standard du dépôt MCGT.
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 bash tools/smoke_ch09_fast.sh
 ```
 
@@ -89,7 +89,7 @@ Cette séquence est **testée sur ton dépôt** (logs du 2025-12-10) et ne dépe
 des chemins par défaut codés dans les scripts :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 
 # 1) Recalcul des métriques de phase (en utilisant la référence existante)
 python scripts/09_dark_energy_cpl/generate_data_chapter09.py

@@ -71,7 +71,9 @@ import numpy as np
 
 def load_params():
     root = Path(__file__).resolve().parents[3]
-    json_path = root / "assets/zz-data" / "chapter07" / "07_params_perturbations.json"
+    json_path = (
+        root / "assets/zz-data" / "07_bao_geometry" / "07_params_perturbations.json"
+    )
     params = json.loads(json_path.read_text(encoding="utf-8"))
     return params
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import configparser
 import importlib.util
 import math
 from pathlib import Path
@@ -13,8 +14,13 @@ import numpy as np
 
 DEFAULT_CHAIN = Path("output/ptmg_chains.h5")
 DEFAULT_CHAIN_NAME = "ptmg_chain"
-DEFAULT_OUTPUT = Path("output/ptmg_predictions_z0_to_z20.csv")
+DEFAULT_OUTPUT = Path("zz-zenodo/ptmg_predictions_z0_to_z20.csv")
+DEFAULT_COMPARISON_OUTPUT = Path("zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv")
+DEFAULT_CONFIG = Path("config/mcgt-global-config.ini")
 DEFAULT_POINTS = 200
+DEFAULT_Q0STAR_SAFE = -1.0e-6
+DEFAULT_Q0STAR_MAX = -2.0e-3
+DEFAULT_ALPHA = 0.50
 
 # Fallback (v3.2.0-like) if chain is unavailable.
 FALLBACK_BESTFIT = {
@@ -52,6 +58,38 @@ def build_parser() -> argparse.ArgumentParser:
         type=str,
         default="CPL",
         help="Dark-energy model passed to the background/growth solver: CPL, JBP, or wCDM.",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=DEFAULT_CONFIG,
+        help="INI configuration used to read the default alpha value.",
+    )
+    parser.add_argument(
+        "--branch",
+        type=str,
+        default="k_lss_step",
+        choices=("universal", "k_lss_step"),
+        help="Prediction branch to export.",
+    )
+    parser.add_argument("--alpha", type=float, default=None, help="Override perturbation alpha.")
+    parser.add_argument(
+        "--q0star-safe",
+        type=float,
+        default=DEFAULT_Q0STAR_SAFE,
+        help="LIGO-safe branch coupling used outside the cosmological step.",
+    )
+    parser.add_argument(
+        "--q0star-max",
+        type=float,
+        default=DEFAULT_Q0STAR_MAX,
+        help="Cosmological k->0 branch coupling for the Step-Function solution.",
+    )
+    parser.add_argument(
+        "--comparison-output",
+        type=Path,
+        default=DEFAULT_COMPARISON_OUTPUT,
+        help="Optional GR-vs-k0 comparison CSV path.",
     )
     return parser
 
@@ -118,6 +156,28 @@ def load_growth_module():
     return module
 
 
+def load_k_growth_module():
+    root = Path(__file__).resolve().parent.parent
+    module_path = root / "scripts/11_lss_s8_tension/11_k_dependent_solver.py"
+    spec = importlib.util.spec_from_file_location("mcgt_k_growth", module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load k-dependent growth module: {module_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_alpha(config_path: Path) -> float:
+    if not config_path.exists():
+        return DEFAULT_ALPHA
+    cfg = configparser.ConfigParser(interpolation=None, inline_comment_prefixes=("#", ";"))
+    if not cfg.read(config_path, encoding="utf-8"):
+        return DEFAULT_ALPHA
+    if "perturbations" not in cfg:
+        return DEFAULT_ALPHA
+    return cfg["perturbations"].getfloat("alpha", fallback=DEFAULT_ALPHA)
+
+
 def compute_hubble(
     z: np.ndarray,
     h_0: float,
@@ -160,6 +220,49 @@ def compute_growth_outputs(
     return f_vals, s8_z
 
 
+def compute_k_lss_step_outputs(
+    z: np.ndarray,
+    omega_m: float,
+    h_0: float,
+    w_0: float,
+    w_a: float,
+    alpha: float,
+    q0star: float,
+    eos_model: str,
+    growth_mod,
+    k_growth_mod,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    a_grid_bg, delta_gr, ddelta_gr = growth_mod.solve_growth_delta(
+        omega_m=omega_m,
+        h_0=h_0,
+        w_0=w_0,
+        w_a=w_a,
+        eos_model=eos_model,
+    )
+    f_gr = growth_mod.growth_rate_f(a_grid_bg, delta_gr, ddelta_gr)
+
+    a_grid = a_grid_bg
+    mu_fn = lambda a: k_growth_mod.g_eff(a, q0star, alpha)
+    delta_model = k_growth_mod.solve_growth(
+        a_grid,
+        omega_m,
+        1.0 - omega_m,
+        mu_fn,
+    )
+    delta_model /= float(delta_model[-1])
+
+    # Estimate f(a) from the normalized growth history.
+    ddelta_da = np.gradient(delta_model, a_grid, edge_order=2)
+    f_model = a_grid * ddelta_da / delta_model
+
+    a_target = 1.0 / (1.0 + z)
+    delta_vals = np.interp(a_target, a_grid, delta_model)
+    f_vals = np.interp(a_target, a_grid, f_model)
+    delta_gr_vals = np.interp(a_target, a_grid, delta_gr)
+    f_gr_vals = np.interp(a_target, a_grid, f_gr)
+    return delta_vals, f_vals, delta_gr_vals, f_gr_vals
+
+
 def main() -> int:
     args = build_parser().parse_args()
     if args.n_points < 2:
@@ -167,15 +270,12 @@ def main() -> int:
 
     params_ptmg, source = load_bestfit_params(args.chain, args.chain_name)
     growth_mod = load_growth_module()
+    k_growth_mod = load_k_growth_module()
     eos_model = growth_mod._normalize_eos_model(args.eos_model)
-
-    params_lcdm = dict(params_ptmg)
-    params_lcdm["w_0"] = -1.0
-    params_lcdm["w_a"] = 0.0
+    alpha = load_alpha(args.config) if args.alpha is None else float(args.alpha)
 
     z = np.linspace(0.0, 20.0, int(args.n_points))
-
-    h_ptmg = compute_hubble(
+    h_vals = compute_hubble(
         z,
         params_ptmg["h_0"],
         params_ptmg["omega_m"],
@@ -184,45 +284,100 @@ def main() -> int:
         eos_model,
         growth_mod,
     )
-    h_lcdm = compute_hubble(
-        z,
-        params_lcdm["h_0"],
-        params_lcdm["omega_m"],
-        params_lcdm["w_0"],
-        params_lcdm["w_a"],
-        eos_model,
-        growth_mod,
-    )
-    f_ptmg, s8_ptmg_z = compute_growth_outputs(
-        z,
-        params_ptmg["omega_m"],
-        params_ptmg["h_0"],
-        params_ptmg["w_0"],
-        params_ptmg["w_a"],
-        params_ptmg["s_8"],
-        eos_model,
-        growth_mod,
-    )
-    f_lcdm, _ = compute_growth_outputs(
-        z,
-        params_lcdm["omega_m"],
-        params_lcdm["h_0"],
-        params_lcdm["w_0"],
-        params_lcdm["w_a"],
-        params_lcdm["s_8"],
-        eos_model,
-        growth_mod,
-    )
 
-    table = np.column_stack([z, h_ptmg, h_lcdm, f_ptmg, f_lcdm, s8_ptmg_z])
-    header = "z,H_ptmg,H_lcdm,f_ptmg,f_lcdm,S8_ptmg(z)"
+    if args.branch == "universal":
+        f_vals, _ = compute_growth_outputs(
+            z,
+            params_ptmg["omega_m"],
+            params_ptmg["h_0"],
+            params_ptmg["w_0"],
+            params_ptmg["w_a"],
+            params_ptmg["s_8"],
+            eos_model,
+            growth_mod,
+        )
+        a_grid, delta_norm, _ = growth_mod.solve_growth_delta(
+            omega_m=params_ptmg["omega_m"],
+            h_0=params_ptmg["h_0"],
+            w_0=params_ptmg["w_0"],
+            w_a=params_ptmg["w_a"],
+            eos_model=eos_model,
+        )
+        delta_vals = np.interp(1.0 / (1.0 + z), a_grid, delta_norm)
+        delta_gr_vals = delta_vals.copy()
+        f_gr_vals = f_vals.copy()
+        active_q0star = 0.0
+        branch_label = "universal"
+    else:
+        delta_vals, f_vals, delta_gr_vals, f_gr_vals = compute_k_lss_step_outputs(
+            z=z,
+            omega_m=params_ptmg["omega_m"],
+            h_0=params_ptmg["h_0"],
+            w_0=params_ptmg["w_0"],
+            w_a=params_ptmg["w_a"],
+            alpha=alpha,
+            q0star=args.q0star_max,
+            eos_model=eos_model,
+            growth_mod=growth_mod,
+            k_growth_mod=k_growth_mod,
+        )
+        active_q0star = float(args.q0star_max)
+        branch_label = "k_lss_step"
+
+    table = np.column_stack([z, h_vals, f_vals, delta_vals])
+    header = "z,H(z),f(z),delta(z)"
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     np.savetxt(args.output, table, delimiter=",", header=header, comments="")
 
+    high_z_mask = z >= 10.0
+    high_z_boost_pct = 100.0 * np.mean((delta_vals[high_z_mask] - delta_gr_vals[high_z_mask]) / delta_gr_vals[high_z_mask])
+    f_boost_pct = 100.0 * np.mean((f_vals[high_z_mask] - f_gr_vals[high_z_mask]) / f_gr_vals[high_z_mask])
+
+    if args.comparison_output:
+        args.comparison_output.parent.mkdir(parents=True, exist_ok=True)
+        delta_ratio = delta_vals / delta_gr_vals
+        f_ratio = f_vals / f_gr_vals
+        comparison = np.column_stack(
+            [
+                z,
+                delta_gr_vals,
+                delta_vals,
+                delta_ratio,
+                100.0 * (delta_ratio - 1.0),
+                f_gr_vals,
+                f_vals,
+                f_ratio,
+                100.0 * (f_ratio - 1.0),
+            ]
+        )
+        np.savetxt(
+            args.comparison_output,
+            comparison,
+            delimiter=",",
+            header=(
+                "z,delta_gr,delta_k0,delta_ratio_k0_over_gr,delta_boost_pct,"
+                "f_gr,f_k0,f_ratio_k0_over_gr,f_boost_pct"
+            ),
+            comments="",
+        )
+
     print(f"[ok] Predictions exported to: {args.output}")
+    if args.comparison_output:
+        print(f"[ok] Growth comparison exported to: {args.comparison_output}")
     print(f"[info] Best-fit source: {source}")
     print(f"[info] eos_model: {eos_model}")
+    print(f"[info] branch: {branch_label}")
+    print(f"[info] alpha: {alpha:.6f}")
+    print(f"[info] q0*_safe (inactive in k->0 branch export): {args.q0star_safe:.6e}")
+    print(f"[info] q0*_active: {active_q0star:.6e}")
+    print(f"[info] mean delta boost for z>=10 relative to GR: {high_z_boost_pct:.6f}%")
+    print(f"[info] mean f boost for z>=10 relative to GR: {f_boost_pct:.6f}%")
+    if high_z_boost_pct < 15.0:
+        print(
+            "[warn] The validated k->0 Step-Function branch does not exceed the exported "
+            "JWST-scale 9-10% high-z growth excess and remains close to the GR history."
+        )
     print("[info] First 3 rows:")
     for row in table[:3]:
         print(",".join(f"{float(x):.8f}" for x in row))

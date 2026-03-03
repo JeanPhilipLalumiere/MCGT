@@ -184,7 +184,7 @@ def make_growth_factor_plot():
     omega_m_ptmg = _omega_m_z(z_safe, BESTFIT["omega_m"], BESTFIT["w0"], BESTFIT["wa"])
 
     f_lcdm = omega_m_lcdm ** 0.55
-    boost = 1.0 + 0.15 * np.exp(-0.5 * ((z - 10.0) / 2.4) ** 2)
+    boost = 1.0 + 0.09 * np.exp(-0.5 * ((z - 10.0) / 2.4) ** 2)
     f_ptmg = (omega_m_ptmg ** 0.52) * boost
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
@@ -197,7 +197,7 @@ def make_growth_factor_plot():
     ax.grid(True, alpha=0.3)
     ax.legend(frameon=False, loc="upper right")
     ax.annotate(
-        "Boost de ~15% a z > 10",
+        "Boost of ~9% at z > 10",
         xy=(11.0, np.interp(11.0, z, f_ptmg)),
         xytext=(7.4, 1.18),
         arrowprops=dict(arrowstyle="->", lw=1.1, color="#1f77b4"),

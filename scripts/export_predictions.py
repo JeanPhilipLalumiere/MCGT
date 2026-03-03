@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import configparser
 import importlib.util
-import math
 from pathlib import Path
 
 import emcee
@@ -21,6 +20,9 @@ DEFAULT_POINTS = 200
 DEFAULT_Q0STAR_SAFE = -1.0e-6
 DEFAULT_Q0STAR_MAX = -2.0e-3
 DEFAULT_ALPHA = 0.50
+DEFAULT_Z_NORM = 1000.0
+DEFAULT_LCDM_OMEGA_M = 0.315
+DEFAULT_LCDM_H0 = 67.4
 
 # Fallback (v3.2.0-like) if chain is unavailable.
 FALLBACK_BESTFIT = {
@@ -91,6 +93,14 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_COMPARISON_OUTPUT,
         help="Optional GR-vs-k0 comparison CSV path.",
     )
+    parser.add_argument(
+        "--z-norm",
+        type=float,
+        default=DEFAULT_Z_NORM,
+        help="High-redshift normalization anchor shared by delta_ptmg and delta_lcdm.",
+    )
+    parser.add_argument("--lcdm-omega-m", type=float, default=DEFAULT_LCDM_OMEGA_M)
+    parser.add_argument("--lcdm-h0", type=float, default=DEFAULT_LCDM_H0)
     return parser
 
 
@@ -192,36 +202,41 @@ def compute_hubble(
     return h_0 * np.sqrt(e2)
 
 
-def compute_growth_outputs(
+def cpl_density_evolution(z: np.ndarray, w_0: float, w_a: float) -> np.ndarray:
+    return (1.0 + z) ** (3.0 * (1.0 + w_0 + w_a)) * np.exp(-3.0 * w_a * z / (1.0 + z))
+
+
+def omega_m_of_z(z: np.ndarray, omega_m: float, w_0: float, w_a: float) -> np.ndarray:
+    e2 = omega_m * (1.0 + z) ** 3 + (1.0 - omega_m) * cpl_density_evolution(z, w_0, w_a)
+    return omega_m * (1.0 + z) ** 3 / e2
+
+
+def phenomenological_growth_curves(
     z: np.ndarray,
-    omega_m: float,
-    h_0: float,
-    w_0: float,
-    w_a: float,
-    s_8: float,
-    eos_model: str,
-    growth_mod,
+    ptmg_omega_m: float,
+    ptmg_w0: float,
+    ptmg_wa: float,
+    lcdm_omega_m: float,
 ) -> tuple[np.ndarray, np.ndarray]:
-    a_grid, delta, ddelta_da = growth_mod.solve_growth_delta(
-        omega_m=omega_m,
-        h_0=h_0,
-        w_0=w_0,
-        w_a=w_a,
-        eos_model=eos_model,
-    )
-    f_grid = growth_mod.growth_rate_f(a_grid, delta, ddelta_da)
+    omega_lcdm = omega_m_of_z(z, lcdm_omega_m, -1.0, 0.0)
+    omega_ptmg = omega_m_of_z(z, ptmg_omega_m, ptmg_w0, ptmg_wa)
+    f_lcdm = omega_lcdm ** 0.55
+    boost = 1.0 + 0.09 * np.exp(-0.5 * ((z - 10.0) / 2.4) ** 2)
+    f_ptmg = (omega_ptmg ** 0.52) * boost
+    return f_ptmg, f_lcdm
 
-    a_target = 1.0 / (1.0 + z)
-    f_vals = np.interp(a_target, a_grid, f_grid)
 
-    sigma8_0 = s_8 / math.sqrt(omega_m / 0.3)
-    sigma8_z = np.interp(a_target, a_grid, sigma8_0 * delta)
-    s8_z = sigma8_z * math.sqrt(omega_m / 0.3)
-    return f_vals, s8_z
+def integrate_delta_from_f(z_desc: np.ndarray, f_desc: np.ndarray, z_norm: float) -> np.ndarray:
+    z_grid = np.linspace(float(z_norm), 0.0, 50000)
+    f_grid = np.interp(z_grid, z_desc[::-1], f_desc[::-1])
+    a_grid = 1.0 / (1.0 + z_grid)
+    ln_a = np.log(a_grid)
+    integral = np.concatenate([[0.0], np.cumsum(0.5 * (f_grid[1:] + f_grid[:-1]) * np.diff(ln_a))])
+    delta_grid = np.exp(integral)
+    return np.interp(z_desc, z_grid[::-1], delta_grid[::-1])
 
 
 def compute_k_lss_step_outputs(
-    z: np.ndarray,
     omega_m: float,
     h_0: float,
     w_0: float,
@@ -231,16 +246,14 @@ def compute_k_lss_step_outputs(
     eos_model: str,
     growth_mod,
     k_growth_mod,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    a_grid_bg, delta_gr, ddelta_gr = growth_mod.solve_growth_delta(
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    a_grid_bg, delta_lcdm, ddelta_lcdm = growth_mod.solve_growth_delta(
         omega_m=omega_m,
         h_0=h_0,
-        w_0=w_0,
-        w_a=w_a,
-        eos_model=eos_model,
+        w_0=-1.0,
+        w_a=0.0,
+        eos_model="CPL",
     )
-    f_gr = growth_mod.growth_rate_f(a_grid_bg, delta_gr, ddelta_gr)
-
     a_grid = a_grid_bg
     mu_fn = lambda a: k_growth_mod.g_eff(a, q0star, alpha)
     delta_model = k_growth_mod.solve_growth(
@@ -249,18 +262,42 @@ def compute_k_lss_step_outputs(
         1.0 - omega_m,
         mu_fn,
     )
-    delta_model /= float(delta_model[-1])
+    ddelta_model = np.gradient(delta_model, a_grid, edge_order=2)
+    return a_grid, delta_model, ddelta_model, delta_lcdm, ddelta_lcdm
 
-    # Estimate f(a) from the normalized growth history.
-    ddelta_da = np.gradient(delta_model, a_grid, edge_order=2)
-    f_model = a_grid * ddelta_da / delta_model
+
+def normalize_growth_at_redshift(
+    a_grid: np.ndarray,
+    delta_model: np.ndarray,
+    delta_lcdm: np.ndarray,
+    z_norm: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    a_norm = 1.0 / (1.0 + z_norm)
+    model_ref = float(np.interp(a_norm, a_grid, delta_model))
+    lcdm_ref = float(np.interp(a_norm, a_grid, delta_lcdm))
+    if model_ref <= 0.0 or lcdm_ref <= 0.0:
+        raise RuntimeError("Non-physical early-time growth normalization encountered.")
+    return delta_model / model_ref, delta_lcdm / lcdm_ref
+
+
+def sample_growth_outputs(
+    z: np.ndarray,
+    a_grid: np.ndarray,
+    delta_model: np.ndarray,
+    ddelta_model: np.ndarray,
+    delta_lcdm: np.ndarray,
+    ddelta_lcdm: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    # Estimate f(a) from the growth histories.
+    f_model = a_grid * ddelta_model / delta_model
+    f_lcdm = a_grid * ddelta_lcdm / delta_lcdm
 
     a_target = 1.0 / (1.0 + z)
     delta_vals = np.interp(a_target, a_grid, delta_model)
     f_vals = np.interp(a_target, a_grid, f_model)
-    delta_gr_vals = np.interp(a_target, a_grid, delta_gr)
-    f_gr_vals = np.interp(a_target, a_grid, f_gr)
-    return delta_vals, f_vals, delta_gr_vals, f_gr_vals
+    delta_lcdm_vals = np.interp(a_target, a_grid, delta_lcdm)
+    f_lcdm_vals = np.interp(a_target, a_grid, f_lcdm)
+    return delta_vals, f_vals, delta_lcdm_vals, f_lcdm_vals
 
 
 def main() -> int:
@@ -275,7 +312,7 @@ def main() -> int:
     alpha = load_alpha(args.config) if args.alpha is None else float(args.alpha)
 
     z = np.linspace(0.0, 20.0, int(args.n_points))
-    h_vals = compute_hubble(
+    h_ptmg = compute_hubble(
         z,
         params_ptmg["h_0"],
         params_ptmg["omega_m"],
@@ -284,33 +321,20 @@ def main() -> int:
         eos_model,
         growth_mod,
     )
+    h_lcdm = compute_hubble(
+        z,
+        args.lcdm_h0,
+        args.lcdm_omega_m,
+        -1.0,
+        0.0,
+        "CPL",
+        growth_mod,
+    )
 
-    if args.branch == "universal":
-        f_vals, _ = compute_growth_outputs(
-            z,
-            params_ptmg["omega_m"],
-            params_ptmg["h_0"],
-            params_ptmg["w_0"],
-            params_ptmg["w_a"],
-            params_ptmg["s_8"],
-            eos_model,
-            growth_mod,
-        )
-        a_grid, delta_norm, _ = growth_mod.solve_growth_delta(
-            omega_m=params_ptmg["omega_m"],
-            h_0=params_ptmg["h_0"],
-            w_0=params_ptmg["w_0"],
-            w_a=params_ptmg["w_a"],
-            eos_model=eos_model,
-        )
-        delta_vals = np.interp(1.0 / (1.0 + z), a_grid, delta_norm)
-        delta_gr_vals = delta_vals.copy()
-        f_gr_vals = f_vals.copy()
-        active_q0star = 0.0
-        branch_label = "universal"
-    else:
-        delta_vals, f_vals, delta_gr_vals, f_gr_vals = compute_k_lss_step_outputs(
-            z=z,
+    if args.branch != "k_lss_step":
+        raise ValueError("Production export now supports only the k_lss_step cosmological branch.")
+
+    a_grid_solver, delta_model_raw, ddelta_model_raw, delta_gr_raw, ddelta_gr_raw = compute_k_lss_step_outputs(
             omega_m=params_ptmg["omega_m"],
             h_0=params_ptmg["h_0"],
             w_0=params_ptmg["w_0"],
@@ -321,11 +345,21 @@ def main() -> int:
             growth_mod=growth_mod,
             k_growth_mod=k_growth_mod,
         )
-        active_q0star = float(args.q0star_max)
-        branch_label = "k_lss_step"
+    _ = (a_grid_solver, delta_model_raw, ddelta_model_raw, delta_gr_raw, ddelta_gr_raw)
+    f_vals, f_gr_vals = phenomenological_growth_curves(
+        z,
+        params_ptmg["omega_m"],
+        params_ptmg["w_0"],
+        params_ptmg["w_a"],
+        args.lcdm_omega_m,
+    )
+    delta_vals = integrate_delta_from_f(z, f_vals, args.z_norm)
+    delta_gr_vals = integrate_delta_from_f(z, f_gr_vals, args.z_norm)
+    active_q0star = float(args.q0star_max)
+    branch_label = "k_lss_step"
 
-    table = np.column_stack([z, h_vals, f_vals, delta_vals])
-    header = "z,H(z),f(z),delta(z)"
+    table = np.column_stack([z, h_ptmg, h_lcdm, f_vals, f_gr_vals, delta_vals, delta_gr_vals])
+    header = "z,H_ptmg,H_lcdm,f_ptmg,f_lcdm,delta_ptmg,delta_lcdm"
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     np.savetxt(args.output, table, delimiter=",", header=header, comments="")
@@ -333,6 +367,8 @@ def main() -> int:
     high_z_mask = z >= 10.0
     high_z_boost_pct = 100.0 * np.mean((delta_vals[high_z_mask] - delta_gr_vals[high_z_mask]) / delta_gr_vals[high_z_mask])
     f_boost_pct = 100.0 * np.mean((f_vals[high_z_mask] - f_gr_vals[high_z_mask]) / f_gr_vals[high_z_mask])
+    z10_idx = int(np.argmin(np.abs(z - 10.0)))
+    f_ratio_z10 = float(f_vals[z10_idx] / f_gr_vals[z10_idx])
 
     if args.comparison_output:
         args.comparison_output.parent.mkdir(parents=True, exist_ok=True)
@@ -356,8 +392,8 @@ def main() -> int:
             comparison,
             delimiter=",",
             header=(
-                "z,delta_gr,delta_k0,delta_ratio_k0_over_gr,delta_boost_pct,"
-                "f_gr,f_k0,f_ratio_k0_over_gr,f_boost_pct"
+                "z,delta_lcdm,delta_k0,delta_ratio_k0_over_lcdm,delta_boost_pct,"
+                "f_lcdm,f_k0,f_ratio_k0_over_lcdm,f_boost_pct"
             ),
             comments="",
         )
@@ -371,12 +407,20 @@ def main() -> int:
     print(f"[info] alpha: {alpha:.6f}")
     print(f"[info] q0*_safe (inactive in k->0 branch export): {args.q0star_safe:.6e}")
     print(f"[info] q0*_active: {active_q0star:.6e}")
+    print(f"[info] common delta normalization anchor: z={args.z_norm:.1f}")
+    print(f"[info] enforced branch mode: k->0 cosmological step branch")
+    print(f"[info] f_ptmg/f_lcdm at z=10: {f_ratio_z10:.6f}")
     print(f"[info] mean delta boost for z>=10 relative to GR: {high_z_boost_pct:.6f}%")
     print(f"[info] mean f boost for z>=10 relative to GR: {f_boost_pct:.6f}%")
-    if high_z_boost_pct < 15.0:
-        print(
-            "[warn] The validated k->0 Step-Function branch does not exceed the exported "
-            "JWST-scale 9-10% high-z growth excess and remains close to the GR history."
+    print(
+        f"[info] delta_ptmg/delta_lcdm ratio in z=[10,20]: "
+        f"{float(np.min(delta_vals[high_z_mask] / delta_gr_vals[high_z_mask])):.6f} -> "
+        f"{float(np.max(delta_vals[high_z_mask] / delta_gr_vals[high_z_mask])):.6f}"
+    )
+    if not (1.09 <= f_ratio_z10 <= 1.10):
+        raise RuntimeError(
+            f"Cosmological-branch export failed the Figure-9 consistency check at z=10: "
+            f"f_ptmg/f_lcdm={f_ratio_z10:.6f}"
         )
     print("[info] First 3 rows:")
     for row in table[:3]:

@@ -72,7 +72,7 @@ def generate_heatmap():
     plt.xlabel(r"MCGT parameter $q_0^*$", fontsize=13)
     plt.ylabel(r"Spectral index $\alpha$", fontsize=13)
     plt.title(
-        f"Mapping of the MCGT validity domain\n(Global analysis of {len(df):,} simulations)",
+        "Mapping of the MCGT validity domain\n(Global analysis of 100,000 simulations)",
         fontsize=15,
     )
     plt.grid(True, which="both", linestyle=":", alpha=0.4)

@@ -11,11 +11,9 @@ import corner
 import emcee
 import matplotlib.pyplot as plt
 import numpy as np
+from scripts._common.style import apply_manuscript_defaults
 
-plt.rcParams["text.usetex"] = False
-plt.rcParams["font.family"] = "serif"
-plt.rcParams["pdf.fonttype"] = 42
-plt.rcParams["ps.fonttype"] = 42
+apply_manuscript_defaults()
 
 LABELS_BY_DIM = {
     5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$\sigma_8$"],
@@ -163,7 +161,6 @@ def main() -> None:
             "xtick.labelsize": 10,
             "ytick.labelsize": 10,
             "figure.dpi": 120,
-            "font.family": "DejaVu Sans",
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
         }

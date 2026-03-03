@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Chargement des données
-df = pd.read_csv('assets/zz-data/chapter10/10_mc_results.csv')
+df = pd.read_csv('assets/zz-data/10_global_scan/10_mc_results.csv')
 df_ok = df[df['status'] == 'ok'].copy()
 
 plt.figure(figsize=(10, 7))
@@ -18,5 +18,5 @@ plt.ylabel(r'$\alpha$')
 plt.title(f'Scan Global MCGT (n={len(df_ok)}) - Espace de survie')
 plt.grid(True, linestyle='--', alpha=0.5)
 
-plt.savefig('assets/zz-figures/chapter10/10_scatter_q0_alpha.png', dpi=150)
-print("Figure sauvegardée dans assets/zz-figures/chapter10/")
+plt.savefig('assets/zz-figures/10_global_scan/10_scatter_q0_alpha.png', dpi=150)
+print("Figure sauvegardée dans assets/zz-figures/10_global_scan/")

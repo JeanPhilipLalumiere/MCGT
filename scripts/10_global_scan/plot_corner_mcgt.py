@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Charger les 100k résultats
-df = pd.read_csv('assets/zz-data/chapter10/10_mc_results.csv')
+df = pd.read_csv('assets/zz-data/10_global_scan/10_mc_results.csv')
 df = df[df['status'] == 'ok']
 
 # On ne garde que les 10% meilleurs pour voir la structure de survie
@@ -20,5 +20,5 @@ ax.set_xlabel(r'$q_0^*$')
 ax.set_ylabel(r'$\alpha$')
 ax.set_title(f'Zone de survie MCGT (Top 10% de 100k points)\nDéphasage minimal : {df["p95_20_300"].min():.4f} rad')
 
-plt.savefig('assets/zz-figures/chapter10/10_mc_corner_zoom.png', dpi=200)
+plt.savefig('assets/zz-figures/10_global_scan/10_mc_corner_zoom.png', dpi=200)
 print(f"Graphique sauvegardé. Meilleur p95 trouvé : {df['p95_20_300'].min():.6f}")

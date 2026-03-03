@@ -1,0 +1,12 @@
+{
+  "kernel": "step",
+  "k_c_h_per_Mpc": 0.0001,
+  "q0star_lss": -0.002,
+  "q0star_gw": -1e-06,
+  "s8_lss": 0.7725252994595727,
+  "s8_gw": 0.8299699231454493,
+  "gw_transition_phase_shift_proxy": 0.0,
+  "gw_transition_phase_shift_pass": true,
+  "ligo_safe_match_exact": true,
+  "figure_21": "assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png"
+}

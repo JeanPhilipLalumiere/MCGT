@@ -5,7 +5,7 @@ REM Usage: Executez ce script depuis la racine du projet pour générer le spect
 REM ------------------------------------------------------------------------------
 
 REM 1) Générer l’expansion plateau (H(z)/H0)
-python scripts\chapter06\generate_pdot_plateau_z.py
+python scripts\06_early_growth_jwst\generate_pdot_plateau_vs_z.py
 
 REM 2) Lancer CAMB pour produire les spectres ΛCDM et MCGT
 camb 06-cmb-radiation\camb_plateau_exact.ini ^
@@ -14,14 +14,13 @@ camb 06-cmb-radiation\camb_plateau_exact.ini ^
 
 REM 3) Lancer le pipeline Python complet (données & JSON)
 REM    On passe maintenant --alpha et --q0star pour injecter la déformation MCGT
-python scripts\chapter06\generate_chapter06_data.py --export-derivative --alpha 0.10 --q0star -0.005
+python scripts\06_early_growth_jwst\generate_data_chapter06.py --export-derivative --alpha 0.10 --q0star -0.005
 
 REM 4) Générer les figures CMB
-python scripts\chapter06\plot_fig01_data_flow_cmb.py
-python scripts\chapter06\plot_fig02_cls_lcdm_vs_mcgt.py
-python scripts\chapter06\plot_fig03_delta_cls_rel.py
-python scripts\chapter06\plot_fig04_heatmap_delta_chi2.py
-python scripts\chapter06\plot_fig05_heatmap_delta_chi2.py
+python scripts\06_early_growth_jwst\06_fig_01_spectrum.py
+python scripts\06_early_growth_jwst\06_fig_02_growth_rate.py
+python scripts\06_early_growth_jwst\06_fig_03_growth_factor.py
+python scripts\06_early_growth_jwst\06_fig_05_delta_chi2_heatmap.py
 
 echo ------------------------------------------------------------------------------
 echo Pipeline CMB Chapter 6 termine.

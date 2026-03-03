@@ -9,7 +9,7 @@ from scipy.signal import savgol_filter
 
 # — Répertoires —
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter05"
+DATA_DIR = ROOT / "assets" / "zz-data" / "05_primordial_bbn"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # — Fichiers d’entrée et de sortie (noms harmonisés en anglais) —

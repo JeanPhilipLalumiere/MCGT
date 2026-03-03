@@ -32,6 +32,9 @@ import tempfile
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -396,6 +399,7 @@ def main() -> None:
 
     # Figure
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig, ax = plt.subplots(figsize=(8, 8))
 
     # hexbin en fond

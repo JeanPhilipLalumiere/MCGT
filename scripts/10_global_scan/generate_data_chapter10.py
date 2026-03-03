@@ -62,9 +62,9 @@ from datetime import datetime
 # ---------------------------------------------------------------------
 HERE = Path(__file__).resolve().parent  # .../scripts/10_global_scan
 ROOT = HERE.parent.parent  # racine du dépôt
-DDIR = ROOT / "assets/zz-data" / "chapter10"
-FDIR = ROOT / "assets/zz-figures" / "chapter10"
-REF_CH9 = ROOT / "assets/zz-data" / "chapter09"
+DDIR = ROOT / "assets" / "zz-data" / "10_global_scan"
+FDIR = ROOT / "assets" / "zz-figures" / "10_global_scan"
+REF_CH9 = ROOT / "assets" / "zz-data" / "09_dark_energy_cpl"
 CACHE_REF = DDIR / ".cache_ref"
 
 SCRIPTS = {

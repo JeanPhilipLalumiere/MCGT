@@ -27,8 +27,18 @@ plt.rcParams.update(
     }
 )
 ROOT = Path(__file__).resolve().parents[2]
-DATA_CSV = ROOT / "assets/zz-data" / "chapter04" / "04_dimensionless_invariants.csv"
-OUT_FIG = ROOT / "assets/zz-figures" / "chapter04" / "04_fig_04_relative_deviations.png"
+DATA_CSV = (
+    ROOT
+    / "assets/zz-data"
+    / "04_expansion_supernovae"
+    / "04_dimensionless_invariants.csv"
+)
+OUT_FIG = (
+    ROOT
+    / "assets/zz-figures"
+    / "04_expansion_supernovae"
+    / "04_fig_04_relative_deviations.png"
+)
 
 
 def _sha256(path: Path) -> str:

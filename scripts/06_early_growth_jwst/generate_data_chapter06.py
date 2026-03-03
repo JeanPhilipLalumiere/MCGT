@@ -38,15 +38,15 @@ Q0STAR = args.q0star
 ROOT = Path(__file__).resolve().parents[2]
 
 # Config and data directories (English names)
-CONF_DIR = ROOT / "configuration"
-DATA_DIR = ROOT / "assets/zz-data" / "chapter06"
+CONF_DIR = ROOT / "config"
+DATA_DIR = ROOT / "assets" / "zz-data" / "06_early_growth_jwst"
 INI_DIR = ROOT / "06-cmb"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---LOAD CHAPTER-2 SPECTRUM COEFFICIENTS---
 
-# Note: chapter02 path uses English folder name 'chapter02' and spec file
-SPEC2_FILE = ROOT / "assets/zz-data" / "chapter02" / "02_primordial_spectrum_spec.json"
+# Canonical Chapter 02 spectrum path
+SPEC2_FILE = ROOT / "assets" / "zz-data" / "02_primordial_spectrum" / "02_primordial_spectrum_spec.json"
 with open(SPEC2_FILE, encoding="utf-8") as f:
     spec2 = json.load(f)
 

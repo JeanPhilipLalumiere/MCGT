@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # 1. Chargement des données (100 000 points)
-data_path = 'assets/zz-data/chapter10/10_mc_results.csv'
+data_path = 'assets/zz-data/10_global_scan/10_mc_results.csv'
 df = pd.read_csv(data_path)
 df = df[df['status'] == 'ok']
 
@@ -30,7 +30,7 @@ plt.legend(loc='upper right')
 plt.grid(True, which="both", ls="-", alpha=0.2)
 
 # 6. Sauvegarde
-out_path = 'assets/zz-figures/chapter10/10_mc_sensitivity_v_shape.png'
+out_path = 'assets/zz-figures/10_global_scan/10_mc_sensitivity_v_shape.png'
 os.makedirs(os.path.dirname(out_path), exist_ok=True)
 plt.savefig(out_path, dpi=200, bbox_inches='tight')
 

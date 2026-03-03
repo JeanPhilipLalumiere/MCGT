@@ -16,3 +16,10 @@ try:
         sys.path.insert(0, str(root))
 except Exception:
     pass
+
+try:
+    from scripts._common.style import apply_manuscript_defaults
+
+    apply_manuscript_defaults()
+except Exception:
+    pass

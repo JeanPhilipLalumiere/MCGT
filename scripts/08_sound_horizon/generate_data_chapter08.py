@@ -17,7 +17,7 @@ from scipy.signal import savgol_filter
 
 # --- Permet d’importer cosmo.py depuis utils ---
 ROOT = Path(__file__).resolve().parents[2]
-UTILS = ROOT / "scripts" / "chapter08" / "utils"
+UTILS = ROOT / "scripts" / "08_sound_horizon" / "utils"
 sys.path.insert(0, str(UTILS))
 from cosmo import (
     DV,
@@ -130,8 +130,8 @@ def compute_chi2(mu_model, mu_obs, sigma_total):
 
 def main():
     # Prepare directories (translated names)
-    DATA_DIR = ROOT / "assets/zz-data" / "chapter08"
-    FIG_DIR = ROOT / "assets/zz-figures" / "chapter08"
+    DATA_DIR = ROOT / "assets" / "zz-data" / "08_sound_horizon"
+    FIG_DIR = ROOT / "assets" / "zz-figures" / "08_sound_horizon"
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 

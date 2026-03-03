@@ -22,7 +22,7 @@ y_interp = 10 ** interp(np.log10(z_fine))
 
 # 4. Préparation du dossier de sortie
 ROOT = Path(__file__).resolve().parents[2]
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter08"
+FIG_DIR = ROOT / "assets/zz-figures" / "08_sound_horizon"
 os.makedirs(FIG_DIR, exist_ok=True)
 out_png = FIG_DIR / "fig_00_toy_model_coupling.png"
 

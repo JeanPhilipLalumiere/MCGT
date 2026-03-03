@@ -42,7 +42,7 @@ aux notebooks dédiés.
 
 ## 2. Pré‑requis
 
-Depuis la **racine du dépôt** MCGT (par ex. `/home/jplal/MCGT`) :
+Depuis la **racine du dépôt** MCGT (par ex. `/path/to/MCGT`) :
 
 - Environnement Python MCGT activé (par ex. : `mcgt-dev`) ;
 - Dépendances installées (via l’environnement standard MCGT) :
@@ -60,7 +60,7 @@ Ces fichiers contiennent notamment :
 En pratique, vérifier :
 
 ```bash
-cd /home/jplal/MCGT  # adapter au besoin
+cd /path/to/MCGT
 ls assets/zz-data/05_primordial_bbn/05_bbn_milestones.csv
 ls assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv
 ```
@@ -72,7 +72,7 @@ ls assets/zz-data/05_primordial_bbn/05_bbn_invariants.csv
 Depuis la racine du dépôt, la commande canonique est :
 
 ```bash
-cd /home/jplal/MCGT  # adapter au besoin
+cd /path/to/MCGT
 bash step102_ch05_pipeline_minimal.sh
 ```
 

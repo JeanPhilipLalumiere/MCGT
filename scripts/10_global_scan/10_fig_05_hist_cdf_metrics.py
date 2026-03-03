@@ -27,6 +27,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -217,6 +220,7 @@ def main() -> None:
 
     # --- figure ---
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig, ax = plt.subplots(figsize=(14, 6))
 
     # Histogramme (counts)

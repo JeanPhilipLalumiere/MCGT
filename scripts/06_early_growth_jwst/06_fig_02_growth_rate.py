@@ -74,8 +74,8 @@ logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
 # Paths
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter06"
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter06"
+DATA_DIR = ROOT / "assets/zz-data" / "06_early_growth_jwst"
+FIG_DIR = ROOT / "assets/zz-figures" / "06_early_growth_jwst"
 DELTA_CLS_REL_CSV = DATA_DIR / "06_delta_cls_relative.csv"
 JSON_PARAMS = DATA_DIR / "06_params_cmb.json"
 OUT_PNG = FIG_DIR / "06_fig_02_growth_rate.png"

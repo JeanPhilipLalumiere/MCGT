@@ -247,9 +247,15 @@ def plot_invariant_i1(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     root = detect_project_root()
-    default_data = root / "assets/zz-data" / "chapter07" / "07_scalar_invariants.csv"
-    default_meta = root / "assets/zz-data" / "chapter07" / "07_meta_perturbations.json"
-    default_out = root / "assets/zz-figures" / "chapter07" / "07_fig_03_density.png"
+    default_data = (
+        root / "assets/zz-data" / "07_bao_geometry" / "07_scalar_invariants.csv"
+    )
+    default_meta = (
+        root / "assets/zz-data" / "07_bao_geometry" / "07_meta_perturbations.json"
+    )
+    default_out = (
+        root / "assets/zz-figures" / "07_bao_geometry" / "07_fig_03_density.png"
+    )
 
     p = argparse.ArgumentParser(
         description=(

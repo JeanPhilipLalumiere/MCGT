@@ -290,9 +290,15 @@ def plot_cs2_heatmap(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     racine = detect_project_root()
-    default_data = racine / "assets/zz-data" / "chapter07" / "07_cs2_matrix.csv.gz"
-    default_meta = racine / "assets/zz-data" / "chapter07" / "07_meta_perturbations.json"
-    default_out = racine / "assets/zz-figures" / "chapter07" / "07_fig_01_hubble.png"
+    default_data = (
+        racine / "assets/zz-data" / "07_bao_geometry" / "07_cs2_matrix.csv.gz"
+    )
+    default_meta = (
+        racine / "assets/zz-data" / "07_bao_geometry" / "07_meta_perturbations.json"
+    )
+    default_out = (
+        racine / "assets/zz-figures" / "07_bao_geometry" / "07_fig_01_hubble.png"
+    )
 
     p = argparse.ArgumentParser(
         description=(

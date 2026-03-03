@@ -83,8 +83,8 @@ from scipy.interpolate import PchipInterpolator
 
 # Répertoires
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets/zz-data" / "chapter05"
-FIG_DIR = ROOT / "assets/zz-figures" / "chapter05"
+DATA_DIR = ROOT / "assets/zz-data" / "05_primordial_bbn"
+FIG_DIR = ROOT / "assets/zz-figures" / "05_primordial_bbn"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 OUT_FIG = FIG_DIR / "05_fig_02_residuals.png"

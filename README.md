@@ -1,17 +1,19 @@
 # Ψ-Time Metric Gravity (ΨTMG): A Metric-Coupled Resolution to Cosmological Tensions
-### Version 3.3.0 — "The BHS & Microphysics Update"
+![v3.3.1 GOLD - Verified Stability](https://img.shields.io/badge/v3.3.1_GOLD-Verified_Stability-gold)
+### Version 3.3.1 — "GOLD"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-v3.3.0-blue)
+![Version](https://img.shields.io/badge/version-v3.3.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **Ψ-Time Metric Gravity** (Metric-Coupled Gravity Theory) is the underlying theoretical framework. **ΨTMG** is its parameterized cosmological realization, designed to address the major tensions of the standard $\Lambda$CDM model ($H_0$, $S_8$, JWST) through a purely geometric approach.
 
-## What's New in v3.3.0
-This release consolidates the v3.2.0 statistical baseline while adding the TIDE microphysical motivation and deployment infrastructure for Ubuntu 24.04 LTS environments.
+## What's New in v3.3.1
+This release seals the GOLD baseline of the theory: the universal-coupling branch has been replaced by the Step-Function Transition Law, separating the local LIGO-safe regime from the cosmological branch that resolves the late-time tensions. The result is a production model that is no longer "under tension" internally, but a stable cross-scale solution with validated theory, observations, and reproducibility gates.
 * **Model Selection:** Integration of information-criterion calculations (AIC/BIC), mathematically quantifying the benefit of the model dynamics.
 * **JWST Predictions:** Export of falsifiable theoretical curves for structure evolution from `$z=0$` to `$z=20$`.
 * **Peer-Review Ready:** Full reproducibility pipeline with pinned dependencies and one-command execution.
+* **Scale Reconciliation:** Explicit `k`-transition branch proving simultaneous `S_8 = 0.7725` and 100% LIGO compliance.
 * **Microphysics Note:** Archival of the TIDE exploration as a viscoelastic motivation for metric coupling, without replacing the production CPL baseline.
 * **BHS Deployment Support:** Addition of a Kimsufi/Beauharnois deployment script and a Sentinel performance check for rapid qualification of a fresh machine.
 
@@ -48,7 +50,7 @@ The production baseline therefore remains $\Psi$TMG v3.2.0, while the `v3.2.1-ti
 
 ## Infrastructure and Deployment
 
-Release `v3.3.0` introduces a minimal deployment infrastructure for Kimsufi BHS servers running Ubuntu 24.04 LTS.
+Release `v3.3.1` introduces a minimal deployment infrastructure for Kimsufi BHS servers running Ubuntu 24.04 LTS.
 
 * `deploy_kimsufi_bhs.sh`: one-click installation of system dependencies, Python environment setup, repository cloning, and optional CLASS compilation.
 * `check_bhs_performance.py`: quick Sentinel likelihood benchmark before a long MCMC run.
@@ -66,6 +68,10 @@ python check_bhs_performance.py
 * **Hubble tension ($H_0$):** Resolved through a dynamical reduction of the sound horizon ($r_s$) at decoupling, without degrading the CMB spectrum ($\chi^2_{CMB}$ = 0.04).
 * **JWST anomaly:** Explained through a geometric gravitational boost of linear-structure growth at high redshift ($z > 10$).
 * **$S_8$ tension:** Naturally damped by the dynamical evolution of the equation of state, reconciling expansion data with gravitational shear (weak lensing).
+
+## The 9% Growth Signature
+
+[Figure 9: Structure Growth Factor](assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png) shows the calibrated $\Psi$TMG branch developing a $\sim 9.05\%$ enhancement in the linear growth rate relative to $\Lambda$CDM for $z > 10$. This physically lifts the maturity of early halos without invoking exotic astrophysical tuning, providing a direct geometric explanation for the unexpectedly evolved galaxies reported by JWST.
 
 ## Repository Structure
 
@@ -87,3 +93,6 @@ chmod +x reproduce_paper_results.sh
 
 # Alternative: run a quick validation test
 ./reproduce_paper_results.sh test
+```
+
+For the repository-level cold-run audit and the table-versus-manuscript consistency checks, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md).

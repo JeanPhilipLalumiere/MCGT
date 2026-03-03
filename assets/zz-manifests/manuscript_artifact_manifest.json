@@ -1,0 +1,508 @@
+{
+  "generated_at_utc": "2026-03-03T20:43:03+00:00",
+  "scope": "manuscript_artifacts_phase2_to_phase5",
+  "author": "Jean-Philip Lalumi\u00e8re",
+  "phases": {
+    "phase2": {
+      "chi2_psitmg": 1212.95,
+      "chi2_lcdm": 2158.61,
+      "delta_chi2": -945.65,
+      "fraction_lower_luminosity_distance": 1.0,
+      "gr_convergence": true,
+      "dh_within_bounds": true,
+      "yp_within_bounds": true,
+      "source_log": "phase2_observational_log.txt"
+    },
+    "phase3": {
+      "chapter06": {
+        "q0_lss": -0.002,
+        "s8_lss": 0.772525295418195,
+        "s8_gw": 0.8299699214302317,
+        "amplitude_renorm": 0.8460809703055483,
+        "mean_growth_boost_percent_z_gt_10": 9.047622353951375,
+        "growth_boost_percent_z_10": 9.618371438753043,
+        "growth_boost_percent_z_15": 10.104494188455094
+      },
+      "chapter07": {
+        "chi2_bao_hubble": 0.012060383509093121,
+        "lyman_alpha_z": 2.33,
+        "lyman_alpha_pull": -0.0016342539931351041,
+        "omega_m_pivot": 0.243,
+        "H0_pivot": 72.97,
+        "w0_pivot": -0.69,
+        "wa_pivot": -2.81
+      },
+      "chapter08": {
+        "z_rec": 1091.348492361144,
+        "rs_lcdm_Mpc": 145.5783266319159,
+        "rs_psitmg_Mpc": 136.16014538107598,
+        "delta_rs_Mpc": 9.418181250839922,
+        "dm_lcdm_Mpc": 14087.37852211136,
+        "dm_psitmg_raw_Mpc": 13854.138649957904,
+        "dm_anchor_target_Mpc": 13079.744993379058,
+        "theta100_raw": 0.9828120594237716,
+        "theta100_target": 1.041,
+        "geometry_anchor_factor": 0.9441038034810486
+      }
+    },
+    "phase4": {
+      "chapter09": {
+        "model": "CPL",
+        "map": {
+          "w0": -0.69,
+          "wa": -2.81
+        },
+        "phantom_crossing_z": 0.12400000000000003,
+        "causality_proxy_cs2": 1.0,
+        "density_positive_on_0_2p5": true,
+        "figure_12": "assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
+        "figure_13": "assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png"
+      },
+      "chapter10": {
+        "sampler": "Affine Invariant Ensemble Sampler (Goodman-Weare stretch move)",
+        "walkers": 100,
+        "steps_per_walker": 10000,
+        "burn_in_fraction": 0.2,
+        "post_burn_samples": 800000,
+        "diagnostics": {
+          "rhat_max": 1.0054742179109826,
+          "ess_min": 12395.091938191557,
+          "acceptance_mean": 0.530239,
+          "acceptance_min": 0.5175,
+          "acceptance_max": 0.5408
+        },
+        "best_fit": {
+          "H0": 72.97,
+          "omega_m": 0.243,
+          "w0": -0.69,
+          "wa": -2.81,
+          "S8": 0.718
+        },
+        "table_2_csv": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+        "table_2_md": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+        "figure_17": "assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+        "chain_csv_gz": "assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz"
+      },
+      "selection_criteria": {
+        "n_data": 1718,
+        "delta_k": 2,
+        "delta_chi2": -151.6,
+        "delta_aic": -147.6,
+        "delta_bic": -136.7021677949116,
+        "chi2_best_total": 1006.99,
+        "chi2_lcdm_total": 1158.59,
+        "chi2_best_by_probe": {
+          "SN": 971.08,
+          "BAO": 21.87,
+          "CMB": 0.04,
+          "RSD": 13.999999999999968
+        },
+        "chi2_lcdm_by_probe": {
+          "SN": 1065.0720000000001,
+          "BAO": 38.546,
+          "CMB": 18.232,
+          "RSD": 36.73999999999997
+        }
+      },
+      "targets": {
+        "H0_target": 72.97,
+        "S8_target": 0.718,
+        "w0_target": -0.69,
+        "wa_target": -2.81
+      },
+      "integrity": {
+        "stability_audit_gate_expected": true
+      }
+    },
+    "phase5": {
+      "version": "v3.3.1",
+      "status": "GOLD",
+      "chapters": {
+        "chapter11": {
+          "generated_at_utc": "2026-03-03T20:39:29+00:00",
+          "universal_coupling_failure": true,
+          "ligo_bound_q0star_abs": 1e-06,
+          "required_q0star_abs_for_s8_0p77_interpolated": 0.002092224,
+          "required_q0star_abs_for_s8_0p7725_branch": 0.002,
+          "conflict_factor_interpolated": 2092.2,
+          "conflict_factor_branch": 2000.0000000000002,
+          "screening_prototypes": {
+            "screened_bounded": 0.828478,
+            "chameleon": 0.829667,
+            "late_trigger": 0.813495,
+            "k_split": 0.772525,
+            "gw_split": 0.82997
+          },
+          "figure_19": "assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png"
+        },
+        "chapter12": {
+          "kernel": "step",
+          "k_c_h_per_Mpc": 0.0001,
+          "q0star_lss": -0.002,
+          "q0star_gw": -1e-06,
+          "s8_lss": 0.7725252994595727,
+          "s8_gw": 0.8299699231454493,
+          "gw_transition_phase_shift_proxy": 0.0,
+          "gw_transition_phase_shift_pass": true,
+          "ligo_safe_match_exact": true,
+          "figure_21": "assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png"
+        }
+      },
+      "simultaneous_resolution": {
+        "H0_from_global_fit": 72.97,
+        "S8_cosmological_branch": 0.7725252994595727,
+        "S8_local_branch": 0.8299699231454493,
+        "resolved": true
+      },
+      "jwst_growth_boost_percent_z_gt_10": 9.047622353951375,
+      "ligo_compliance": {
+        "local_branch_q0star_abs": 1e-06,
+        "matches_safe_floor_exactly": true,
+        "transition_phase_shift_proxy": 0.0,
+        "compliance_fraction": 1.0
+      },
+      "artifacts": {
+        "figure_19": "assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png",
+        "figure_21": "assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png",
+        "chapter11_csv": "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.csv",
+        "chapter12_csv": "assets/zz-data/12_cmb_verdict/12_step_transition_law.csv",
+        "ptmg_predictions": "zz-zenodo/ptmg_predictions_z0_to_z20.csv",
+        "ptmg_growth_comparison": "zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv"
+      },
+      "integrity": {
+        "stability_audit_gate_expected": true
+      }
+    }
+  },
+  "phase4_local_package": {
+    "package_name": "phase4_global_verdict_v3.3.1",
+    "generated_at_utc": "2026-03-03T20:38:07+00:00",
+    "publication_status": "local_package_only",
+    "publish_to_zenodo": false,
+    "authors": [
+      {
+        "name": "Jean-Philip Lalumi\u00e8re"
+      }
+    ],
+    "title": "PsiTMG v3.3.1 Phase 4 Global Verdict Package",
+    "description": "Local Zenodo-ready package for the PsiTMG v3.3.1 Chapter 09-10 outputs. This package stages the CPL dark-energy audit, affine-invariant global MCMC products, and the summary verdict JSON without publishing anything externally.",
+    "keywords": [
+      "cosmology",
+      "dark energy",
+      "CPL",
+      "MCMC",
+      "Pantheon+",
+      "BAO",
+      "CMB",
+      "RSD",
+      "PsiTMG"
+    ],
+    "version": "v3.3.1",
+    "chapters": [
+      "09_dark_energy_cpl",
+      "10_global_scan"
+    ],
+    "map_point": {
+      "w0": -0.69,
+      "wa": -2.81
+    },
+    "best_fit": {
+      "H0": 72.97,
+      "omega_m": 0.243,
+      "w0": -0.69,
+      "wa": -2.81,
+      "S8": 0.718
+    },
+    "sampler": "Affine Invariant Ensemble Sampler (Goodman-Weare stretch move)",
+    "walkers": 100,
+    "steps_per_walker": 10000,
+    "burn_in_fraction": 0.2,
+    "diagnostics": {
+      "rhat_max": 1.0054742179109826,
+      "ess_min": 12395.091938191557,
+      "acceptance_mean": 0.530239,
+      "acceptance_min": 0.5175,
+      "acceptance_max": 0.5408
+    },
+    "selection_criteria": {
+      "delta_chi2": -151.6,
+      "delta_aic": -147.6,
+      "delta_bic": -136.7021677949116,
+      "n_data": 1718
+    },
+    "files_staged": 8,
+    "total_size_bytes": 16995579
+  },
+  "tracked_files": [
+    {
+      "path": "LICENSE",
+      "exists": true,
+      "size_bytes": 1079,
+      "sha256": "cd036fbc5fdc95153a47f81ef1ab5cf57edf8c7955ba92ae965a43fd2bd04126"
+    },
+    {
+      "path": "CITATION.cff",
+      "exists": true,
+      "size_bytes": 913,
+      "sha256": "74a5be8e04ec18a2a2667e08131cbe5b6e17493849317831f0eafab10b7d0b8c"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "exists": true,
+      "size_bytes": 2877,
+      "sha256": "fec23ba704fae042bb7bc720084dedc1c052c39e5f5576aecda3430dbe9f0877"
+    },
+    {
+      "path": "README.md",
+      "exists": true,
+      "size_bytes": 6028,
+      "sha256": "c838c72633f033cc8d7bce8d7fd665ba109dee15bcee8abf375dc9c2be964ed0"
+    },
+    {
+      "path": "REPRODUCIBILITY.md",
+      "exists": true,
+      "size_bytes": 2644,
+      "sha256": "b2f9f66ffed629c7df5dc6d4e0969687353ec0f3ab1f35f8f071c52681332a26"
+    },
+    {
+      "path": "CERTIFICATE_OF_INTEGRITY.txt",
+      "exists": true,
+      "size_bytes": 849,
+      "sha256": "e4f438e75db0024b3e4ee45f00e8be18f6b10e1f66e1e6958a386bab3019d311"
+    },
+    {
+      "path": "phase2_observational_log.txt",
+      "exists": true,
+      "size_bytes": 1280,
+      "sha256": "fb8902485bf75c691db9371b728bcd76e7932092fcae3f11d3fbb5d51ecd7024"
+    },
+    {
+      "path": "phase3_lss_geometry_report.txt",
+      "exists": true,
+      "size_bytes": 1212,
+      "sha256": "ee8a387e4f26080ee415cfc9a6956dfb484b6171b5179617dfe7a83f338a86da"
+    },
+    {
+      "path": "phase3_lss_geometry_report.json",
+      "exists": true,
+      "size_bytes": 980,
+      "sha256": "1acc9a2385e7bb37322775455a75e90990d7358df2f87983ade847964ad8774c"
+    },
+    {
+      "path": "phase4_global_verdict_report.json",
+      "exists": true,
+      "size_bytes": 1965,
+      "sha256": "f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361"
+    },
+    {
+      "path": "final_synthesis_v3.3.1_GOLD.json",
+      "exists": true,
+      "size_bytes": 2168,
+      "sha256": "748fd3503334ffa54c9bd39e9b2416f8fa23b459eda1e0a18d7913d5e26a1e6a"
+    },
+    {
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.png",
+      "exists": true,
+      "size_bytes": 438761,
+      "sha256": "06b6b737703a2f09de44383a7052942740b3716f03d783db550416843b79567a"
+    },
+    {
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.pdf",
+      "exists": true,
+      "size_bytes": 413875,
+      "sha256": "9135b418cc24d0e9e96e9115b83b3ce996df24eac52ebb459221be4e78bd5d48"
+    },
+    {
+      "path": "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.svg",
+      "exists": true,
+      "size_bytes": 814393,
+      "sha256": "0bfdcb07de2a0d4d0badf687e4356c3a4fe1835304094bbd7794e7e66970265b"
+    },
+    {
+      "path": "assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png",
+      "exists": true,
+      "size_bytes": 155105,
+      "sha256": "f546430d6c3d26b4180fac0ed836c32ab0ed21e9995d5e282c36b451658c6c34"
+    },
+    {
+      "path": "assets/zz-figures/07_bao_geometry/07_fig_10_bao_hubble_diagram.png",
+      "exists": true,
+      "size_bytes": 106504,
+      "sha256": "8d41f3e962c9582a7329cb9a19a68050bb2607f7c1c0e2fed5f44e49937c313c"
+    },
+    {
+      "path": "assets/zz-figures/08_sound_horizon/08_fig_11_sound_horizon_near_decoupling.png",
+      "exists": true,
+      "size_bytes": 150971,
+      "sha256": "8c6e0b38925d625815b0c7ae54407e459168250ede2fa371bc493e15e40f92d5"
+    },
+    {
+      "path": "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.csv",
+      "exists": true,
+      "size_bytes": 244,
+      "sha256": "f177c4da30be919d658399b00e73f9e05c25fa1a2e3649a16672eb6631d5dd6b"
+    },
+    {
+      "path": "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.json",
+      "exists": true,
+      "size_bytes": 591,
+      "sha256": "541f7f0e6e2973c0b44d21df11bacce333a00903b09482218f401069a911d035"
+    },
+    {
+      "path": "assets/zz-data/12_cmb_verdict/12_step_transition_law.csv",
+      "exists": true,
+      "size_bytes": 47479,
+      "sha256": "c0b9b8a425ab0e90467216e0f1c21cf8250a603d8d06ac6b2a409a7dc1204475"
+    },
+    {
+      "path": "assets/zz-data/12_cmb_verdict/12_step_transition_summary.json",
+      "exists": true,
+      "size_bytes": 366,
+      "sha256": "f94c6d0682da92479d0ec09442350dfa64ccdbe9bd84181914439b2c62d036ad"
+    },
+    {
+      "path": "assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png",
+      "exists": true,
+      "size_bytes": 31203,
+      "sha256": "bb0838afbfc899add00effc14d06c1ce1daa094305c538c6a502fbdcbc51f354"
+    },
+    {
+      "path": "assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png",
+      "exists": true,
+      "size_bytes": 60673,
+      "sha256": "a9b3d58d76f787fc51af63d05900c4e66786d23e1bc3ad6e24d247b47e4d7825"
+    },
+    {
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
+      "exists": true,
+      "size_bytes": 112897,
+      "sha256": "b6ce8b551e35b7e1ae78b14e1ab3f2cac20d9e68e7abd950e4dd89588506c76f"
+    },
+    {
+      "path": "assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
+      "exists": true,
+      "size_bytes": 171287,
+      "sha256": "3d9cf3d6ab8db492418516b6213a658a04ba93798f9a24a41dff85611f82aa00"
+    },
+    {
+      "path": "assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+      "exists": true,
+      "size_bytes": 365667,
+      "sha256": "8f6e98311c07ea0cdead1158459becab33feb4a40bcaa2874e8576f2a8d3cd98"
+    },
+    {
+      "path": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+      "exists": true,
+      "size_bytes": 387,
+      "sha256": "95beab91445bbb07dc943c73f03235d97f213e061cfe7126a4a7aaa8d08965ec"
+    },
+    {
+      "path": "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+      "exists": true,
+      "size_bytes": 383,
+      "sha256": "69b712936089cc4cc7af26ad7cd9e35348c5ad8d8247decb5199059024e5c0bc"
+    },
+    {
+      "path": "assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
+      "exists": true,
+      "size_bytes": 16342171,
+      "sha256": "d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0"
+    },
+    {
+      "path": "zz-zenodo/ptmg_predictions_z0_to_z20.csv",
+      "exists": true,
+      "size_bytes": 45072,
+      "sha256": "3c6ef19322faf59fcc2bf5495ac87dbf0af6b142fe1dafcac167ecb175ffde21"
+    },
+    {
+      "path": "zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv",
+      "exists": true,
+      "size_bytes": 45108,
+      "sha256": "7659341b007ae607e621f51c386a0a5705230de29a137ef0721256ab0bfeba54"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/README.txt",
+      "exists": true,
+      "size_bytes": 655,
+      "sha256": "e0998bf486b5ac9f609435b86ad67f1566d9620396ee5441bb7bb3ae3117ac75"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv",
+      "exists": true,
+      "size_bytes": 1672,
+      "sha256": "84793c73efb62fb01491a3f747e5a74f3bfc523d5737f39615ad67038132ca48"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json",
+      "exists": true,
+      "size_bytes": 1490,
+      "sha256": "79290c2e0f5a0e9b2fc512cfd18655142eeaef5d95f85e3ae8cc940a2918e832"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json",
+      "exists": true,
+      "size_bytes": 2257,
+      "sha256": "ba8bf3e84a02b785ccd6147f401a5dbfabea48d086c071d3c695c77d6b6b80ba"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt",
+      "exists": true,
+      "size_bytes": 1084,
+      "sha256": "fc43342cecce298f5ef4cfd5c47e501e84e2579355bafb50294ee9fbb8cb1313"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json",
+      "exists": true,
+      "size_bytes": 1965,
+      "sha256": "f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
+      "exists": true,
+      "size_bytes": 16342171,
+      "sha256": "d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
+      "exists": true,
+      "size_bytes": 822,
+      "sha256": "c4425f0ea0687c8f32a90b198b34878f174bf635c9b2bf205673b4052b9f47a3"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+      "exists": true,
+      "size_bytes": 387,
+      "sha256": "95beab91445bbb07dc943c73f03235d97f213e061cfe7126a4a7aaa8d08965ec"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+      "exists": true,
+      "size_bytes": 383,
+      "sha256": "69b712936089cc4cc7af26ad7cd9e35348c5ad8d8247decb5199059024e5c0bc"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
+      "exists": true,
+      "size_bytes": 112897,
+      "sha256": "b6ce8b551e35b7e1ae78b14e1ab3f2cac20d9e68e7abd950e4dd89588506c76f"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
+      "exists": true,
+      "size_bytes": 171287,
+      "sha256": "3d9cf3d6ab8db492418516b6213a658a04ba93798f9a24a41dff85611f82aa00"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+      "exists": true,
+      "size_bytes": 365667,
+      "sha256": "8f6e98311c07ea0cdead1158459becab33feb4a40bcaa2874e8576f2a8d3cd98"
+    },
+    {
+      "path": "zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz",
+      "exists": true,
+      "size_bytes": 16935232,
+      "sha256": "2e9bbcf2627a9034bfb3b70daab3ce9b1a75fa7df294d14ed62fca9ba5e2ad60"
+    }
+  ]
+}

@@ -181,7 +181,7 @@ def main() -> int:
     planck_theta100 = 1.041
     planck_R = 1.7502
 
-    out_dir = Path("assets/zz-data") / "chapter12"
+    out_dir = Path("assets/zz-data") / "12_cmb_verdict"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     summary: dict[str, float] = {

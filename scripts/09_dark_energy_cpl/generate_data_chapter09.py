@@ -220,7 +220,7 @@ def _try_lalsuite_phi_ref(
 def _try_external_script_for_ref(
     freqs: np.ndarray, logger: logging.Logger
 ) -> np.ndarray | None:
-    script = PROJECT_ROOT / "scripts" / "chapter09" / "extract_phenom_phase.py"
+    script = PROJECT_ROOT / "scripts" / "09_dark_energy_cpl" / "extract_phenom_phase.py"
     if not script.exists():
         logger.debug("Fallback script introuvable: %s", script)
         return None

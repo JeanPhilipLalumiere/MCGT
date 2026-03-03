@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV_DIR="${ROOT_DIR}/.repro-venv"
+
+cd "${ROOT_DIR}"
+
+echo "[info] Root: ${ROOT_DIR}"
+echo "[info] Recreating virtualenv at ${VENV_DIR}"
+rm -rf "${VENV_DIR}"
+python3 -m venv "${VENV_DIR}"
+
+# shellcheck disable=SC1091
+source "${VENV_DIR}/bin/activate"
+
+export MCGT_USE_TEX=0
+export MPLBACKEND=Agg
+export PYTHONUNBUFFERED=1
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install -e .
+
+echo "[info] Scanning code for hard-coded user paths"
+if rg -n \
+  --glob '*.py' \
+  --glob '*.sh' \
+  --glob '!check_reproducibility.sh' \
+  '/home/|/Users/|[A-Za-z]:\\\\Users\\\\' \
+  scripts mcgt tests .; then
+  echo "[fail] Hard-coded user path(s) detected"
+  exit 1
+fi
+
+run_phase() {
+  local label="$1"
+  shift
+  echo "[info] ${label}"
+  "$@"
+}
+
+run_phase "Phase 1 smoke" python scripts/stability_audit_ch01_ch03.py
+run_phase "Phase 2 smoke" python scripts/phase2_observational_report.py
+run_phase "Phase 3 smoke" python scripts/phase3_lss_geometry_report.py
+run_phase "Phase 4 smoke" python scripts/phase4_global_verdict.py
+run_phase "Phase 4 consistency" python scripts/verify_table_consistency.py
+run_phase "Phase 5 smoke" python scripts/phase5_geometric_solution.py
+
+echo "[pass] Cold-run reproducibility checks completed successfully."

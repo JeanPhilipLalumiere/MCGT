@@ -50,7 +50,7 @@ Les chemins sont supposés suivre la hiérarchie standard du dépôt MCGT.
 Depuis la racine du dépôt :
 
 ```bash
-cd /home/jplal/MCGT  # adapter si nécessaire
+cd /path/to/MCGT
 
 # 1) Générer toutes les données CH01
 python scripts/01_invariants_stability/generate_data_chapter01.py

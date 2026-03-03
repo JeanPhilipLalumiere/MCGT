@@ -32,6 +32,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.gridspec import GridSpec
+from scripts._common.style import apply_manuscript_defaults
+
+apply_manuscript_defaults()
 
 plt.rcParams.update(
     {
@@ -307,6 +310,7 @@ def plot_synthese(
     ymax_cov: Optional[float] = None,
 ) -> None:
     plt.style.use("classic")
+    apply_manuscript_defaults()
     fig = plt.figure(figsize=figsize, constrained_layout=False)
 
     # 2 rangées : (couverture, largeur) / (tableau)

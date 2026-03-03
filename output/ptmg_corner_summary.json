@@ -46,6 +46,19 @@
       "formatted": "$w_a$ = -2.78^{+0.31}_{-0.16}"
     },
     {
+      "name": "sigma8",
+      "label": "$\\sigma_8$",
+      "median": 0.7981372765606454,
+      "err_plus": 0.03252530394891784,
+      "err_minus": 0.031142405230058623,
+      "display_median": 0.798,
+      "display_err_plus": 0.033,
+      "display_err_minus": 0.031,
+      "formatted": "$\\sigma_8$ = 0.798^{+0.033}_{-0.031}"
+    }
+  ],
+  "derived": [
+    {
       "name": "s8",
       "label": "$S_8$",
       "median": 0.718085046259468,
@@ -56,5 +69,6 @@
       "display_err_minus": 0.03,
       "formatted": "$S_8$ = 0.718^{+0.030}_{-0.030}"
     }
-  ]
+  ],
+  "raw_chain_points": 35000
 }

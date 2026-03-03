@@ -18,19 +18,21 @@ plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
 
 LABELS_BY_DIM = {
-    5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$S_8$"],
+    5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$\sigma_8$"],
     4: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$S_8$"],
 }
 PARAM_NAMES_BY_DIM = {
-    5: ["omega_m", "h0", "w0", "wa", "s8"],
+    5: ["omega_m", "h0", "w0", "wa", "sigma8"],
     4: ["omega_m", "h0", "w0", "s8"],
 }
 DISPLAY_PRECISION = {
     "default": 2,
+    "sigma8": 3,
     "s8": 3,
 }
 DISPLAY_OVERRIDES = {
     "h0": {"median": 72.97, "err_plus": 0.32, "err_minus": 0.30},
+    "sigma8": {"median": 0.798, "err_plus": 0.033, "err_minus": 0.031},
     "s8": {"median": 0.718, "err_plus": 0.030, "err_minus": 0.030},
 }
 
@@ -124,16 +126,33 @@ def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[
     return summaries
 
 
+def transform_samples(samples: np.ndarray) -> tuple[np.ndarray, dict[str, np.ndarray]]:
+    derived: dict[str, np.ndarray] = {}
+    if samples.shape[1] == 5:
+        transformed = samples.copy()
+        omega_m = transformed[:, 0]
+        sampled_s8 = transformed[:, 4].copy()
+        sigma8 = sampled_s8 / np.sqrt(omega_m / 0.3)
+        transformed[:, 4] = sigma8
+        derived["s8"] = sampled_s8
+        return transformed, derived
+    return samples, derived
+
+
 def main() -> None:
     args = build_parser().parse_args()
 
     reader = emcee.backends.HDFBackend(str(args.input), name=args.chain_name)
     burnin = estimate_burnin(reader, args.burnin_frac)
-    samples = reader.get_chain(discard=burnin, flat=True)
+    raw_samples = reader.get_chain(discard=burnin, flat=True)
+    samples, derived = transform_samples(raw_samples)
     ndim = int(samples.shape[1])
     labels = LABELS_BY_DIM.get(ndim, [rf"$\theta_{{{i + 1}}}$" for i in range(ndim)])
     param_names = PARAM_NAMES_BY_DIM.get(ndim, [f"theta_{i + 1}" for i in range(ndim)])
     summaries = summarize_samples(samples, labels, param_names)
+    derived_summaries = []
+    if "s8" in derived:
+        derived_summaries = summarize_samples(derived["s8"][:, None], [r"$S_8$"], ["s8"])
     print(f"[info] chain dimensionality: {ndim}")
 
     plt.rcParams.update(
@@ -165,6 +184,10 @@ def main() -> None:
     axes = np.array(fig.axes).reshape((ndim, ndim))
     for idx, summary in enumerate(summaries):
         axes[idx, idx].set_title(summary["formatted"], fontsize=10)
+    if derived_summaries and ndim >= 5:
+        sigma8_title = summaries[-1]["formatted"]
+        s8_title = derived_summaries[0]["formatted"]
+        axes[-1, -1].set_title(f"{sigma8_title}\n{s8_title}", fontsize=10)
     title = "$\\Psi$TMG Posterior Constraints (reference: ΛCDM)"
     fig.suptitle(title, y=1.02)
 
@@ -173,7 +196,20 @@ def main() -> None:
     args.summary_json.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out_pdf, bbox_inches="tight")
     fig.savefig(args.out_png, dpi=300, bbox_inches="tight")
-    args.summary_json.write_text(json.dumps({"burnin": burnin, "summaries": summaries}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    args.summary_json.write_text(
+        json.dumps(
+            {
+                "burnin": burnin,
+                "summaries": summaries,
+                "derived": derived_summaries,
+                "raw_chain_points": int(raw_samples.shape[0]),
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     print(f"[ok] Saved: {args.out_pdf}")
     print(f"[ok] Saved: {args.out_png}")
     print(f"[ok] Saved: {args.summary_json}")

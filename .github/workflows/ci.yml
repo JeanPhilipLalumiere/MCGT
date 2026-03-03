@@ -87,7 +87,7 @@ jobs:
           python scripts/phase2_observational_report.py
 
       - name: Upload Phase 2 manuscript artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: phase2-observational-artifacts
           path: |
@@ -103,7 +103,7 @@ jobs:
           python scripts/phase3_lss_geometry_report.py
 
       - name: Upload Phase 3 manuscript artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: phase3-lss-geometry-artifacts
           path: |
@@ -126,7 +126,7 @@ jobs:
           python scripts/manuscript_artifact_manifest.py
 
       - name: Upload Phase 4 global verdict artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: phase4-global-verdict-artifacts
           path: |

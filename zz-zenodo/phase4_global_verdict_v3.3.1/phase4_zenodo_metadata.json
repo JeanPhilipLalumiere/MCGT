@@ -1,6 +1,6 @@
 {
   "package_name": "phase4_global_verdict_v3.3.1",
-  "generated_at_utc": "2026-03-04T03:41:55+00:00",
+  "generated_at_utc": "2026-03-04T03:50:35+00:00",
   "publication_status": "local_package_only",
   "publish_to_zenodo": false,
   "authors": [
@@ -55,5 +55,5 @@
     "n_data": 1718
   },
   "files_staged": 10,
-  "total_size_bytes": 17298826
+  "total_size_bytes": 17385797
 }

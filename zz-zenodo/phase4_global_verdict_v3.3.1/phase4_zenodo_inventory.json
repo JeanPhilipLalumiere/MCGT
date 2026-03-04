@@ -14,8 +14,8 @@
   {
     "source": "output/ptmg_corner_plot.pdf",
     "staged": "files/output/ptmg_corner_plot.pdf",
-    "size_bytes": 258175,
-    "sha256": "6896fff224394f0d948ea01db74708b2712cc65fc06fa7914b62fbc038fdcc6b"
+    "size_bytes": 345146,
+    "sha256": "80c6f50cdf49711aa63bdf02c907db3a477cee2f8c35f4409fc895252b8ff9d5"
   },
   {
     "source": "assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",

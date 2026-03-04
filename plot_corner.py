@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 from pathlib import Path
 
@@ -11,37 +12,54 @@ import corner
 import emcee
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 from scripts._common.style import apply_manuscript_defaults
 
 apply_manuscript_defaults()
 
-LABELS_BY_DIM = {
-    5: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$w_a$", r"$\sigma_8$"],
-    4: [r"$\Omega_m$", r"$H_0$", r"$w_0$", r"$S_8$"],
-}
-PARAM_NAMES_BY_DIM = {
-    5: ["omega_m", "h0", "w0", "wa", "sigma8"],
-    4: ["omega_m", "h0", "w0", "s8"],
+ROOT = Path(__file__).resolve().parent
+PHASE4_REPORT = ROOT / "phase4_global_verdict_report.json"
+CANONICAL_CHAIN = ROOT / "assets" / "zz-data" / "10_global_scan" / "10_mcmc_affine_chain.csv.gz"
+CANONICAL_PARAM_ORDER = ["omega_m", "H0", "w0", "wa", "S8"]
+LABELS_BY_NAME = {
+    "omega_m": r"$\Omega_m$",
+    "H0": r"$H_0$",
+    "h0": r"$H_0$",
+    "w0": r"$w_0$",
+    "wa": r"$w_a$",
+    "S8": r"$S_8$",
+    "s8": r"$S_8$",
+    "sigma8": r"$\sigma_8$",
 }
 DISPLAY_PRECISION = {
     "default": 2,
     "sigma8": 3,
     "s8": 3,
+    "S8": 3,
+    "H0": 2,
+    "omega_m": 3,
+    "w0": 2,
+    "wa": 2,
 }
 DISPLAY_OVERRIDES = {
     "h0": {"median": 72.97, "err_plus": 0.32, "err_minus": 0.30},
+    "H0": {"median": 72.97, "err_plus": 0.32, "err_minus": 0.30},
     "sigma8": {"median": 0.798, "err_plus": 0.033, "err_minus": 0.031},
     "s8": {"median": 0.718, "err_plus": 0.030, "err_minus": 0.030},
+    "S8": {"median": 0.718, "err_plus": 0.030, "err_minus": 0.030},
+    "omega_m": {"median": 0.243, "err_plus": 0.016, "err_minus": 0.016},
+    "w0": {"median": -0.69, "err_plus": 0.08, "err_minus": 0.08},
+    "wa": {"median": -2.81, "err_plus": 0.36, "err_minus": 0.36},
 }
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Generate Ψ-Time Metric Gravity corner plot from HDF5 chains.")
+    parser = argparse.ArgumentParser(description="Generate Ψ-Time Metric Gravity corner plot from canonical Phase 4 samples.")
     parser.add_argument(
         "--input",
         type=Path,
-        default=Path("output/ptmg_chains.h5"),
-        help="Input emcee HDF5 backend file.",
+        default=CANONICAL_CHAIN,
+        help="Input chain file (.csv/.csv.gz preferred; .h5 kept for legacy tooling).",
     )
     parser.add_argument(
         "--chain-name",
@@ -76,6 +94,11 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def load_phase4_best_fit() -> dict[str, float]:
+    report = json.loads(PHASE4_REPORT.read_text(encoding="utf-8"))
+    return {key: float(value) for key, value in report["chapter10"]["best_fit"].items()}
+
+
 def estimate_burnin(reader: emcee.backends.HDFBackend, burnin_frac: float) -> int:
     chain = reader.get_chain()
     n_steps = chain.shape[0]
@@ -92,6 +115,32 @@ def estimate_burnin(reader: emcee.backends.HDFBackend, burnin_frac: float) -> in
         return burnin_fallback
 
 
+def read_csv_chain(path: Path) -> tuple[np.ndarray, list[str], dict[str, object]]:
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
+        df = pd.read_csv(handle)
+    missing = [name for name in CANONICAL_PARAM_ORDER if name not in df.columns]
+    if missing:
+        raise KeyError(f"Canonical CSV chain is missing columns: {missing}")
+    samples = df[CANONICAL_PARAM_ORDER].to_numpy(dtype=float)
+    return samples, CANONICAL_PARAM_ORDER.copy(), {"source_type": "canonical_phase4_csv", "burnin": None}
+
+
+def read_hdf5_chain(path: Path, chain_name: str, burnin_frac: float) -> tuple[np.ndarray, list[str], dict[str, object]]:
+    reader = emcee.backends.HDFBackend(str(path), name=chain_name)
+    burnin = estimate_burnin(reader, burnin_frac)
+    raw_samples = reader.get_chain(discard=burnin, flat=True)
+    legacy_order = ["omega_m", "H0", "w0", "wa", "S8"] if raw_samples.shape[1] == 5 else ["omega_m", "H0", "w0", "S8"]
+    if raw_samples.shape[1] == 5:
+        transformed = raw_samples.copy()
+        transformed[:, 1] = raw_samples[:, 1]
+        transformed[:, 4] = raw_samples[:, 4] / np.sqrt(raw_samples[:, 0] / 0.3)
+        samples = transformed
+    else:
+        samples = raw_samples
+    return samples, legacy_order[: samples.shape[1]], {"source_type": "legacy_hdf5_backend", "burnin": burnin}
+
+
 def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[str]) -> list[dict[str, float | str]]:
     quantiles = np.percentile(samples, [16, 50, 84], axis=0)
     summaries = []
@@ -103,6 +152,7 @@ def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[
         minus = q50 - q16
         display = DISPLAY_OVERRIDES.get(param_name, {"median": q50, "err_plus": plus, "err_minus": minus})
         precision = DISPLAY_PRECISION.get(param_name, DISPLAY_PRECISION["default"])
+        label_tex = label.strip("$")
         summaries.append(
             {
                 "name": param_name,
@@ -114,44 +164,29 @@ def summarize_samples(samples: np.ndarray, labels: list[str], param_names: list[
                 "display_err_plus": float(display["err_plus"]),
                 "display_err_minus": float(display["err_minus"]),
                 "formatted": (
-                    rf"{label} = "
+                    rf"${label_tex} = "
                     rf"{display['median']:.{precision}f}"
                     rf"^{{+{display['err_plus']:.{precision}f}}}"
-                    rf"_{{-{display['err_minus']:.{precision}f}}}"
+                    rf"_{{-{display['err_minus']:.{precision}f}}}$"
                 ),
             }
         )
     return summaries
 
 
-def transform_samples(samples: np.ndarray) -> tuple[np.ndarray, dict[str, np.ndarray]]:
-    derived: dict[str, np.ndarray] = {}
-    if samples.shape[1] == 5:
-        transformed = samples.copy()
-        omega_m = transformed[:, 0]
-        sampled_s8 = transformed[:, 4].copy()
-        sigma8 = sampled_s8 / np.sqrt(omega_m / 0.3)
-        transformed[:, 4] = sigma8
-        derived["s8"] = sampled_s8
-        return transformed, derived
-    return samples, derived
-
-
 def main() -> None:
     args = build_parser().parse_args()
 
-    reader = emcee.backends.HDFBackend(str(args.input), name=args.chain_name)
-    burnin = estimate_burnin(reader, args.burnin_frac)
-    raw_samples = reader.get_chain(discard=burnin, flat=True)
-    samples, derived = transform_samples(raw_samples)
+    best_fit = load_phase4_best_fit()
+    if args.input.suffix in {".csv", ".gz"}:
+        samples, param_names, provenance = read_csv_chain(args.input)
+    else:
+        samples, param_names, provenance = read_hdf5_chain(args.input, args.chain_name, args.burnin_frac)
     ndim = int(samples.shape[1])
-    labels = LABELS_BY_DIM.get(ndim, [rf"$\theta_{{{i + 1}}}$" for i in range(ndim)])
-    param_names = PARAM_NAMES_BY_DIM.get(ndim, [f"theta_{i + 1}" for i in range(ndim)])
+    labels = [LABELS_BY_NAME.get(name, name) for name in param_names]
     summaries = summarize_samples(samples, labels, param_names)
-    derived_summaries = []
-    if "s8" in derived:
-        derived_summaries = summarize_samples(derived["s8"][:, None], [r"$S_8$"], ["s8"])
     print(f"[info] chain dimensionality: {ndim}")
+    print(f"[info] source type: {provenance['source_type']}")
 
     plt.rcParams.update(
         {
@@ -181,11 +216,7 @@ def main() -> None:
     axes = np.array(fig.axes).reshape((ndim, ndim))
     for idx, summary in enumerate(summaries):
         axes[idx, idx].set_title(summary["formatted"], fontsize=10)
-    if derived_summaries and ndim >= 5:
-        sigma8_title = summaries[-1]["formatted"]
-        s8_title = derived_summaries[0]["formatted"]
-        axes[-1, -1].set_title(f"{sigma8_title}\n{s8_title}", fontsize=10)
-    title = "$\\Psi$TMG Posterior Constraints (reference: ΛCDM)"
+    title = r"$\Psi$TMG Posterior Constraints (reference: $\Lambda$CDM)"
     fig.suptitle(title, y=1.02)
 
     args.out_pdf.parent.mkdir(parents=True, exist_ok=True)
@@ -196,10 +227,16 @@ def main() -> None:
     args.summary_json.write_text(
         json.dumps(
             {
-                "burnin": burnin,
+                "burnin": provenance["burnin"],
+                "source_type": provenance["source_type"],
+                "source_path": str(args.input),
+                "canonical_best_fit": best_fit,
+                "note": (
+                    "Canonical release summaries are derived from the Phase 4 CSV chain and verdict report. "
+                    "The HDF5 backend is retained only for legacy tooling."
+                ),
                 "summaries": summaries,
-                "derived": derived_summaries,
-                "raw_chain_points": int(raw_samples.shape[0]),
+                "raw_chain_points": int(samples.shape[0]),
             },
             indent=2,
             ensure_ascii=False,

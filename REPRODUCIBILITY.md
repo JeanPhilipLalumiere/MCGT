@@ -63,6 +63,21 @@ The validator cross-checks:
 
 This is intended to catch transcription drift between the numerical outputs, the manuscript tables, and the reported Phase 4 summary values.
 
+## Output Provenance
+
+The canonical Phase 4 posterior products are:
+
+- [10_mcmc_affine_chain.csv.gz](assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz)
+- [phase4_global_verdict_report.json](phase4_global_verdict_report.json)
+
+The synchronized presentation exports under `output/` are derived from those canonical files:
+
+- [ptmg_corner_plot.pdf](output/ptmg_corner_plot.pdf)
+- [ptmg_corner_summary.json](output/ptmg_corner_summary.json)
+- [ptmg_predictions_z0_to_z20.csv](output/ptmg_predictions_z0_to_z20.csv)
+
+[ptmg_chains.h5](output/ptmg_chains.h5) is retained only for legacy tooling compatibility. It is not the authoritative source for the published Phase 4 posterior summary.
+
 ## CI Gates
 
 The CI workflows now include dedicated reproducibility gates in:

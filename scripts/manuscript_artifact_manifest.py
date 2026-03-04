@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +36,14 @@ def safe_write_text(path: Path, text: str) -> None:
     if path.exists() and path.read_text(encoding="utf-8") == text:
         return
     path.write_text(text, encoding="utf-8")
+
+
+def git_head(short: bool = False) -> str:
+    cmd = ["git", "rev-parse"]
+    if short:
+        cmd.append("--short")
+    cmd.append("HEAD")
+    return subprocess.check_output(cmd, cwd=ROOT, text=True).strip()
 
 
 def parse_phase2_log(text: str) -> dict[str, object]:
@@ -152,6 +161,8 @@ def main() -> None:
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "release_version": RELEASE_VERSION,
+        "git_head_short": git_head(short=True),
+        "git_head_full": git_head(short=False),
         "scope": "manuscript_artifacts_phase1_to_phase5",
         "author": AUTHOR_NAME,
         "phases": {
@@ -171,6 +182,7 @@ def main() -> None:
         "# Manuscript Artifact Manifest",
         "",
         f"- Release version: {RELEASE_VERSION}",
+        f"- Git head (short): {manifest['git_head_short']}",
         f"- Author: {AUTHOR_NAME}",
         f"- Generated at (UTC): {manifest['generated_at_utc']}",
         "- Scope: phases 1, 2, 3, 4 and 5",

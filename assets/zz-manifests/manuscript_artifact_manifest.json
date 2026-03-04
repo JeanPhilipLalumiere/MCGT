@@ -1,6 +1,8 @@
 {
-  "generated_at_utc": "2026-03-04T01:35:24+00:00",
+  "generated_at_utc": "2026-03-04T02:13:42+00:00",
   "release_version": "v3.3.1",
+  "git_head_short": "a918db70",
+  "git_head_full": "a918db70328663c312a20c8ff1bab63fb0b97db9",
   "scope": "manuscript_artifacts_phase1_to_phase5",
   "author": "Jean-Philip Lalumi\u00e8re",
   "phases": {
@@ -128,7 +130,7 @@
       "status": "GOLD",
       "chapters": {
         "chapter11": {
-          "generated_at_utc": "2026-03-04T01:21:18+00:00",
+          "generated_at_utc": "2026-03-04T01:48:31+00:00",
           "universal_coupling_failure": true,
           "ligo_bound_q0star_abs": 1e-06,
           "required_q0star_abs_for_s8_0p77_interpolated": 0.002092224,
@@ -264,20 +266,20 @@
     {
       "path": "README.md",
       "exists": true,
-      "size_bytes": 3132,
-      "sha256": "d692cf9695e52d6fef957f75ae91e35a7359f4d7c91e964ae5326cb75d067974"
+      "size_bytes": 3156,
+      "sha256": "cc749fc8f2b7b2a2e281a66d49ef3d97f37b5f45bbed2856cc49d763c6ce12d6"
     },
     {
       "path": "REPRODUCIBILITY.md",
       "exists": true,
-      "size_bytes": 2644,
-      "sha256": "8d46db29cddad6165dd7802458be6295b3b2e94e458f88a51e9d94a5f8c8eb61"
+      "size_bytes": 3557,
+      "sha256": "8101a820509ab367470e0be996c868932d7bd287f7d9bb2732613402b7fa5f02"
     },
     {
       "path": "CERTIFICATE_OF_INTEGRITY.txt",
       "exists": true,
       "size_bytes": 3282,
-      "sha256": "d5bfdbc2b90957c6f850b112c8840a86cafc331d4eda835aaa9119e0b1c6236e"
+      "sha256": "e5ec204fc5734bbc9170c9ba2036e63518869294ed9e694bf622cf2be27ca0b8"
     },
     {
       "path": "stability_audit_log.txt",
@@ -313,7 +315,7 @@
       "path": "final_synthesis_v3.3.1_GOLD.json",
       "exists": true,
       "size_bytes": 2168,
-      "sha256": "5fc40d8b554785a38cfb039a3b7eb23b9c89e2b6a197b04b80c5983337a33e98"
+      "sha256": "18138575b0bae36300eec38a94c7ee90a9587036a83d98302162b1ceecbb627d"
     },
     {
       "path": "assets/zz-figures/stability_audit/figure_2_ch01_numerical_drift.png",
@@ -324,8 +326,8 @@
     {
       "path": "assets/zz-figures/stability_audit/figure_3_ch02_alpha_ns_mapping.png",
       "exists": true,
-      "size_bytes": 192414,
-      "sha256": "6b3d72205024079561f7208fdbeb96d20c83150e03f2f514b011da6c13f8320f"
+      "size_bytes": 192497,
+      "sha256": "4bac4dabb8359f8bcc4795a4b60b07ab005b3dd1a4e476728dd9c9d4edcdec1c"
     },
     {
       "path": "assets/zz-figures/stability_audit/figure_5_ch03_phase_stability.png",
@@ -391,7 +393,7 @@
       "path": "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.json",
       "exists": true,
       "size_bytes": 591,
-      "sha256": "c73699dec1ee2278b999b5c201e89ebdea71563a44d555eacfc9548656becd0d"
+      "sha256": "589608312162f99a0b8c23da77c32179436cbd691f896d34e59c0ba3b80af0a6"
     },
     {
       "path": "assets/zz-data/12_cmb_verdict/12_step_transition_law.csv",

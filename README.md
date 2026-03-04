@@ -1,6 +1,8 @@
 # Ψ-Time Metric Gravity (ΨTMG): A Metric-Coupled Resolution to Cosmological Tensions
 ![v3.3.1 GOLD - Verified Stability](https://img.shields.io/badge/v3.3.1_GOLD-Verified_Stability-gold)
 
+Jean-Philip Lalumière
+
 ### Version 3.3.1 — "GOLD"
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)

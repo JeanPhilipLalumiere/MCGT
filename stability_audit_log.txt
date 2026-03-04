@@ -2,7 +2,7 @@ PsiTMG v3.3.1 - Stability Audit and Invariants (Ch. 01-03)
 
 Execution status of scientific scripts
 - CH01 rerun: PASS
-  cmd: python scripts/01_invariants_stability/generate_data_chapter01.py --csv assets/zz-data/01_invariants_stability/01_timeline_milestones.csv
+  cmd: /home/jplal/miniforge3/envs/mcgt-dev/bin/python scripts/01_invariants_stability/generate_data_chapter01.py --csv assets/zz-data/01_invariants_stability/01_timeline_milestones.csv
   stdout tail: [CH01] Construction de la grille temporelle optimisée…
 [CH01] Interpolation PCHIP log-log sur la grille…
 [CH01] Calcul de la dérivée optimisée…
@@ -12,10 +12,10 @@ Execution status of scientific scripts
 [CH01] Calcul de l'invariant de Hubble modifié…
 [CH01] Données du chapitre 1 régénérées avec succès.
 - CH02 rerun: PASS
-  cmd: python scripts/02_primordial_spectrum/generate_data_chapter02.py
+  cmd: /home/jplal/miniforge3/envs/mcgt-dev/bin/python scripts/02_primordial_spectrum/generate_data_chapter02.py
   stderr tail: INFO: Pipeline Chap2 terminé.
 - CH03 rerun: PASS
-  cmd: python scripts/03_stability_domain/generate_data_chapter03.py --config config/gw_phase.ini --npts 700
+  cmd: /home/jplal/miniforge3/envs/mcgt-dev/bin/python scripts/03_stability_domain/generate_data_chapter03.py --config config/gw_phase.ini --npts 700
   stderr tail: [INFO] Grille R/R₀ unique prête : 834 points (1.000e+00 → 9.365e+13).
 [INFO] Données principales et métadonnées écrites.
 [INFO] → 03_ricci_fR_vs_z.csv généré (834 points trajectoire)
@@ -48,6 +48,8 @@ Execution status of scientific scripts
 - delta_phi validated subset: 128
 - delta_phi failures on validated subset: 0
 - Criterion 0% false positives: PASS
+- RuntimeWarning on out-of-bounds c_s² is expected at model boundaries and is treated as a documented non-fatal clipping path in the minimal pipeline.
+- Physical validation is performed with the strict Sentinel path; clipped c_s² values are never counted as a validation pass.
 
 3. Chapter 02 - primordial calibration
 - alpha domain explored in published chain: [-0.500, 0.500]

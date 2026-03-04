@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import math
 import subprocess
+import sys
 from dataclasses import replace
 from pathlib import Path
 
@@ -31,6 +32,8 @@ CH03_DIR = DATA / "03_stability_domain"
 
 
 def run_command(args: list[str]) -> dict[str, object]:
+    if args and args[0] == "python":
+        args = [sys.executable, *args[1:]]
     proc = subprocess.run(
         args,
         cwd=ROOT,
@@ -474,6 +477,8 @@ def write_log(
         f"- delta_phi validated subset: {sentinel['delta_phi_validated_samples']}",
         f"- delta_phi failures on validated subset: {sentinel['delta_phi_failures']}",
         f"- Criterion 0% false positives: {'PASS' if sentinel['strict_zero_false_positive'] else 'FAIL'}",
+        "- RuntimeWarning on out-of-bounds c_s² is expected at model boundaries and is treated as a documented non-fatal clipping path in the minimal pipeline.",
+        "- Physical validation is performed with the strict Sentinel path; clipped c_s² values are never counted as a validation pass.",
         "",
         "3. Chapter 02 - primordial calibration",
         f"- alpha domain explored in published chain: [{ch02['alpha_min']:.3f}, {ch02['alpha_max']:.3f}]",

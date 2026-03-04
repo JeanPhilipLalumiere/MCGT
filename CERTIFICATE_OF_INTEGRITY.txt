@@ -1,6 +1,6 @@
 CERTIFICATE OF INTEGRITY
 Version: v3.3.1 GOLD
-Generated (UTC): 2026-03-04T03:51:11+00:00
+Generated (UTC): 2026-03-04T04:06:20+00:00
 
 This certificate binds the final manuscript and every delivery artifact
 currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through
@@ -10,10 +10,10 @@ Delivery root: zz-zenodo
 Artifacts sealed: 21
 
 File: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
-SHA256: fc2a96fc783fdf0f58fde1fc1f6d527d38c136de740f453e7511730d4415ea36
+SHA256: 217f768fa5917073a0e42cac5e5c96e23a349cacd2de196af679ddb35c79384c
 
 File: output/ptmg_corner_plot.pdf
-SHA256: 80c6f50cdf49711aa63bdf02c907db3a477cee2f8c35f4409fc895252b8ff9d5
+SHA256: d0f97cd4b4e752f86e5b9aafbb0eb7e26dbdf37ab348fc16e42a82a310bc2552
 
 File: output/ptmg_predictions_z0_to_z20.csv
 SHA256: 8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c

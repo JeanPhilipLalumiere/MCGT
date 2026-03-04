@@ -281,9 +281,9 @@ We define $\Delta\chi^2 \equiv \chi^2_{\Psi\mathrm{TMG}} - \chi^2_{\Lambda\mathr
 \[
 \mathrm{AIC} = \chi^2 + 2k, \qquad \mathrm{BIC} = \chi^2 + k \ln n .
 \]
-Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -147.6$ and $\Delta \mathrm{BIC} = -136.7$. Both values indicate even stronger model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
-Here, $\chi^2_{\mathrm{CMB}}$ corresponds to the single-constraint residual on the acoustic scale distance prior, rather than the full Planck power spectrum likelihood.
-We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample (specifically: $N_{\mathrm{SN}} = 1701$ from Pantheon+, $N_{\mathrm{CMB}} = 1$ from the Planck distance prior, $N_{\mathrm{BAO}} = 6$, and $N_{\mathrm{RSD}} = 10$).
+Relative to $\Lambda$CDM, we obtain $\Delta \mathrm{AIC} = -147.6$ and $\Delta \mathrm{BIC} = -136.7$. Both values indicate even stronger model-selection support in favor of the $\Psi$TMG baseline, beyond a pure goodness-of-fit effect. The CMB distance-prior anchor remains tightly controlled with $\chi^2_{\mathrm{CMB}} = 0.04$.
+Here, $\chi^2_{\mathrm{CMB}}$ corresponds to the single-constraint residual on the compressed Planck acoustic-scale prior, rather than a full TT/TE/EE multipole likelihood.
+We take $n = 1718$ as the total dimensionality of the combined data vector entering the likelihood ($n = N_{\mathrm{SN}} + N_{\mathrm{CMB}} + N_{\mathrm{BAO}} + N_{\mathrm{RSD}}$), explicitly accounting for the full covariance of the Pantheon+ sample (specifically: $N_{\mathrm{SN}} = 1701$ from Pantheon+, $N_{\mathrm{CMB}} = 1$ from the Planck compressed prior, $N_{\mathrm{BAO}} = 6$, and $N_{\mathrm{RSD}} = 10$).
 The full posterior geometry and parameter degeneracies are shown in Figure~\ref{fig:mcmc_corner}.
 
 \begin{table}[htbp]
@@ -320,7 +320,7 @@ The full posterior geometry and parameter degeneracies are shown in Figure~\ref{
 \end{figure}
 
 \subsection*{Global Constraints on Parameter Space}
-To convert the $100\,000$-point global scan into publication-ready exclusion limits, we partitioned the spectral-index range into ten bins between $\alpha=-0.9$ and $\alpha=0.9$ and retained, in each bin, the maximum absolute coupling $|q_0^*|$ that still satisfies the survival condition $p_{95} \leq 0.1\,\mathrm{rad}$. This procedure yields a direct exclusion envelope that can be quoted independently of the detailed Monte Carlo cloud.
+To convert the $100\,000$-point global scan into publication-ready exclusion limits, we partitioned the spectral-index range into ten bins between $\alpha=-0.9$ and $\alpha=0.9$ and retained, in each bin, the maximum absolute coupling $|q_0^*|$ that still satisfies the survival condition $p_{95} \leq 0.1\,\mathrm{rad}$. In this chapter, $\alpha$ denotes the spectral index governing the scale-transition law of the $k$-dependent $\Psi$-metric coupling, following the scan convention adopted over the interval $[-0.9, 0.9]$; it is therefore distinct from the primordial scalar index $n_s$ introduced in Chapter~02. The statistic $p_{95}$ represents the 95th percentile of the accumulated gravitational-wave phase dephasing $\Delta\phi$ evaluated over the Monte Carlo ensemble, and serves here as the operational LIGO-consistency pivot. This procedure yields a direct exclusion envelope that can be quoted independently of the detailed Monte Carlo cloud.
 
 \begin{table}[htbp]
     \centering
@@ -467,7 +467,7 @@ Although $\Psi$TMG is currently formulated as an effective field theory (EFT), t
 
 \appendix
 \section{\texorpdfstring{Technical Control Benchmark: $\Psi$TMG v3.3.1 vs TIDE v3.3.1}{Technical Control Benchmark: PsiTMG v3.3.1 vs TIDE v3.3.1}}
-As a dedicated control experiment, we tested a micro-physical TIDE-inspired extension in the archived v3.3.1 branch while keeping the same Pantheon+ + BAO + CMB + RSD likelihood. The purpose of this benchmark was not to replace the baseline CPL realization, but to evaluate whether a viscoelastic or inertial-torsion interpretation could reproduce the same empirical gains.
+As a dedicated control experiment, we tested a micro-physical TIDE-inspired extension in the archived v3.3.1 branch while keeping the same Pantheon+ + BAO + Planck compressed prior + RSD likelihood. The purpose of this benchmark was not to replace the baseline CPL realization, but to evaluate whether a viscoelastic or inertial-torsion interpretation could reproduce the same empirical gains.
 
 The outcome is clear: the baseline $\Psi$TMG v3.3.1 remains the statistically preferred production model. Relative to the optimized $\Lambda$CDM reference, the baseline CPL solution delivers $\Delta\chi^2 = -151.6$, together with $H_0 = 72.97^{+0.32}_{-0.30}\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 = 0.718^{+0.030}_{-0.030}$. The archived TIDE run reaches only $\Delta\chi^2 \approx -55.6$, with representative posterior medians $H_0 \approx 74.11\,\text{km s}^{-1}\,\text{Mpc}^{-1}$ and $S_8 \approx 0.740$.
 

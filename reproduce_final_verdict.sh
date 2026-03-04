@@ -20,5 +20,7 @@ python scripts/verify_table_consistency.py
 
 test -f assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png
 test -f assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv
+test -f output/ptmg_predictions_z0_to_z20.csv
+test -f output/ptmg_corner_plot.pdf
 
-echo "[pass] Final verdict artifacts reproduced: Figure 09 and Table 2 are present."
+echo "[pass] Final verdict artifacts reproduced: Figure 09, Table 2, and synchronized /output artifacts are present."

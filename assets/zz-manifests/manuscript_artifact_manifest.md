@@ -1,9 +1,9 @@
 # Manuscript Artifact Manifest
 
 - Release version: v3.3.1
-- Git head (short): ec0b202e
+- Git head (short): 65222926
 - Author: Jean-Philip Lalumière
-- Generated at (UTC): 2026-03-04T03:06:35+00:00
+- Generated at (UTC): 2026-03-04T03:41:55+00:00
 - Scope: phases 1, 2, 3, 4 and 5
 - Reproducibility guide: REPRODUCIBILITY.md
 
@@ -29,6 +29,7 @@
 - CPL MAP: w0=-0.69, wa=-2.81
 - MCMC diagnostics: Rhat_max=1.005474, ESS_min=12395.09
 - Selection: delta_chi2=-151.6, delta_aic=-147.6, delta_bic=-136.702168
+- Output sync: output/ptmg_predictions_z0_to_z20.csv and output/ptmg_corner_plot.pdf
 
 ## Phase 5
 - Universal conflict factor: 2000.0
@@ -38,6 +39,6 @@
 
 ## Local Package
 - Package name: phase4_global_verdict_v3.3.1
-- Files staged: 8
+- Files staged: 10
 - Publish to Zenodo: false
 - Prediction export: zz-zenodo/ptmg_predictions_z0_to_z20.csv

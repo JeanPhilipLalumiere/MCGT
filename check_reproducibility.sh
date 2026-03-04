@@ -65,4 +65,7 @@ run_phase "Phase 4 smoke" python scripts/phase4_global_verdict.py
 run_phase "Phase 4 consistency" python scripts/verify_table_consistency.py
 run_phase "Phase 5 smoke" python scripts/phase5_geometric_solution.py
 
+test -f output/ptmg_predictions_z0_to_z20.csv
+test -f output/ptmg_corner_plot.pdf
+
 echo "[pass] Cold-run reproducibility checks completed successfully."

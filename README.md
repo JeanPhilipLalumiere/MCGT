@@ -34,6 +34,10 @@ The global MCMC scan (`Pantheon+`, BAO, CMB, RSD) yields:
 
 [Figure 9: Structure Growth Factor](assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png) shows the calibrated `ΨTMG` branch developing a `~9.05%` enhancement in the linear growth rate relative to `ΛCDM` for `z > 10`. This extra geometric pull accelerates early halo assembly enough to make the JWST population less anomalous without adding ad hoc astrophysical tuning. It is the direct observable signature of the low-`k` cosmological branch that remains active after the Step-Function Transition Law isolates the local LIGO-safe regime.
 
+## Latest Results
+
+The synchronized production export in `output/ptmg_predictions_z0_to_z20.csv` now records `f_ptmg/f_lcdm = 1.0900` at `z \approx 10`, matching the validated low-`k` cosmological branch used throughout the manuscript and release artifacts.
+
 ## Repository Structure
 
 - `manuscript/`: LaTeX source of the thesis.

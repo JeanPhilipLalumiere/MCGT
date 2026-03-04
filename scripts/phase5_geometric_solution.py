@@ -5,6 +5,7 @@ import configparser
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -54,6 +55,7 @@ FIG21 = ROOT / "assets" / "zz-figures" / "12_cmb_verdict" / "12_fig_21_perfect_k
 FINAL_GOLD_JSON = ROOT / "final_synthesis_v3.3.1_GOLD.json"
 PTMG_PREDICTIONS = ROOT / "zz-zenodo" / "ptmg_predictions_z0_to_z20.csv"
 PTMG_COMPARISON = ROOT / "zz-zenodo" / "ptmg_growth_comparison_GR_vs_k0.csv"
+OUTPUT_PREDICTIONS = ROOT / "output" / "ptmg_predictions_z0_to_z20.csv"
 
 Q0STAR_SAFE = -1.0e-6
 Q0STAR_LSS = -2.0e-3
@@ -79,6 +81,13 @@ def safe_write_text(path: Path, text: str) -> None:
     if path.exists() and path.read_text(encoding="utf-8") == text:
         return
     path.write_text(text, encoding="utf-8")
+
+
+def safe_copy_file(src: Path, dst: Path) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists() and src.read_bytes() == dst.read_bytes():
+        return
+    shutil.copy2(src, dst)
 
 
 def safe_write_csv(path: Path, df: pd.DataFrame) -> None:
@@ -397,6 +406,7 @@ def main() -> None:
         cwd=ROOT,
         check=True,
     )
+    safe_copy_file(PTMG_PREDICTIONS, OUTPUT_PREDICTIONS)
 
     gold = {
         "version": "v3.3.1",

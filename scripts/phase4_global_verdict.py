@@ -49,6 +49,9 @@ TABLE2_MD = DATA10_DIR / "10_table_02_marginalized_constraints.md"
 FIG12 = FIG09_DIR / "09_fig_12_equation_of_state_evolution.png"
 FIG13 = FIG09_DIR / "09_fig_13_cpl_constraints_contours.png"
 FIG17 = FIG10_DIR / "10_fig_17_5d_corner_plot.png"
+OUTPUT_DIR = ROOT / "output"
+OUTPUT_CORNER_PNG = OUTPUT_DIR / "ptmg_corner_plot.png"
+OUTPUT_CORNER_PDF = OUTPUT_DIR / "ptmg_corner_plot.pdf"
 PHASE4_REPORT = ROOT / "phase4_global_verdict_report.json"
 
 N_WALKERS = 100
@@ -525,6 +528,8 @@ def plot_fig17(samples: pd.DataFrame, best_row: pd.Series) -> None:
     fig.suptitle("Figure 17. 5D Corner Plot for the Global Affine-Invariant Scan", y=0.995)
     fig.subplots_adjust(wspace=0.05, hspace=0.05)
     safe_save_figure(FIG17, fig, dpi=220)
+    safe_save_figure(OUTPUT_CORNER_PNG, fig, dpi=220)
+    safe_save_figure(OUTPUT_CORNER_PDF, fig)
     plt.close(fig)
 
 

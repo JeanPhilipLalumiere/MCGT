@@ -6,6 +6,18 @@
     "sha256": "f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361"
   },
   {
+    "source": "output/ptmg_predictions_z0_to_z20.csv",
+    "staged": "files/output/ptmg_predictions_z0_to_z20.csv",
+    "size_bytes": 45072,
+    "sha256": "8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c"
+  },
+  {
+    "source": "output/ptmg_corner_plot.pdf",
+    "staged": "files/output/ptmg_corner_plot.pdf",
+    "size_bytes": 258175,
+    "sha256": "6896fff224394f0d948ea01db74708b2712cc65fc06fa7914b62fbc038fdcc6b"
+  },
+  {
     "source": "assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
     "staged": "files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
     "size_bytes": 16342171,

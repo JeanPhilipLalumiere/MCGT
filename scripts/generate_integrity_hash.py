@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ZENODO_ROOT = ROOT / "zz-zenodo"
 PRIMARY_TARGETS = [
     ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf",
+    ROOT / "output" / "ptmg_predictions_z0_to_z20.csv",
+    ROOT / "output" / "ptmg_corner_plot.pdf",
 ]
 OUTPUT = ROOT / "CERTIFICATE_OF_INTEGRITY.txt"
 SIGNATORY = "Jean-Philip Lalumière"

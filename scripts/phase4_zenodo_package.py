@@ -26,6 +26,8 @@ README_TXT = PACKAGE_DIR / "README.txt"
 
 REQUIRED_FILES = [
     Path("phase4_global_verdict_report.json"),
+    Path("output/ptmg_predictions_z0_to_z20.csv"),
+    Path("output/ptmg_corner_plot.pdf"),
     Path("assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz"),
     Path("assets/zz-data/10_global_scan/10_mcmc_global_summary.json"),
     Path("assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv"),
@@ -143,6 +145,7 @@ def write_readme(metadata: dict[str, object], inventory: list[dict[str, object]]
         "Contents:",
         "- CPL dark-energy figures (Figure 12 and Figure 13)",
         "- Global affine-invariant MCMC chain, summary, and Table 2",
+        "- Output-stage prediction CSV and corner plot synchronized with the validated build",
         "- Phase 4 verdict JSON report",
         "",
         "Key metrics:",

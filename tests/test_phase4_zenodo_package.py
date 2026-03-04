@@ -12,6 +12,8 @@ PACKAGE_TARBALL = ROOT / "zz-zenodo" / "phase4_global_verdict_v3.3.1.tar.gz"
 
 EXPECTED_STAGED = {
     "files/phase4_global_verdict_report.json",
+    "files/output/ptmg_predictions_z0_to_z20.csv",
+    "files/output/ptmg_corner_plot.pdf",
     "files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
     "files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
     "files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",

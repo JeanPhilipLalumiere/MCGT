@@ -1,22 +1,28 @@
 CERTIFICATE OF INTEGRITY
 Version: v3.3.1 GOLD
-Generated (UTC): 2026-03-04T03:06:36+00:00
+Generated (UTC): 2026-03-04T03:41:56+00:00
 
 This certificate binds the final manuscript and every delivery artifact
 currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through
 SHA-256 fingerprints.
 
 Delivery root: zz-zenodo
-Artifacts sealed: 17
+Artifacts sealed: 21
 
 File: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
 SHA256: 58ba0376fdadcd302cbfcd3afb9bc998a79c840335b1bfcaaa6be4ef6e91192a
 
+File: output/ptmg_corner_plot.pdf
+SHA256: 6896fff224394f0d948ea01db74708b2712cc65fc06fa7914b62fbc038fdcc6b
+
+File: output/ptmg_predictions_z0_to_z20.csv
+SHA256: 8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c
+
 File: zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz
-SHA256: 41ef5f0d0f7c36fdad846460a0fd8257156aa87f3a8a1efb0c57d2d1f329615b
+SHA256: 8bf87015ea189c2596a093b05a0371053169d05d49c7e6bb1d6b558eb921b2fa
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/README.txt
-SHA256: 35a18eacea9ea12f045fa05b8e0553ff14d90c7f9799efaf6f69fb6fdfd1769c
+SHA256: 16b16afe31f70ca8a6ee1717452e9fcab09dc1f023ff4d33dc49ab1e6e0d2813
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz
 SHA256: d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0
@@ -39,20 +45,26 @@ SHA256: 3d9cf3d6ab8db492418516b6213a658a04ba93798f9a24a41dff85611f82aa00
 File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png
 SHA256: 8f6e98311c07ea0cdead1158459becab33feb4a40bcaa2874e8576f2a8d3cd98
 
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/output/ptmg_corner_plot.pdf
+SHA256: 6896fff224394f0d948ea01db74708b2712cc65fc06fa7914b62fbc038fdcc6b
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/output/ptmg_predictions_z0_to_z20.csv
+SHA256: 8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c
+
 File: zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json
 SHA256: f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt
-SHA256: fc43342cecce298f5ef4cfd5c47e501e84e2579355bafb50294ee9fbb8cb1313
+SHA256: e55d964aa5344d2586f7cd83af6bf2a8eebda5388835d620d1d4c928a920e4fe
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv
-SHA256: 84793c73efb62fb01491a3f747e5a74f3bfc523d5737f39615ad67038132ca48
+SHA256: 9dae3be4534f083931e4b7ac4ea4c1ceffd01a2e21de453d4048472d13cb2601
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json
-SHA256: ba8bf3e84a02b785ccd6147f401a5dbfabea48d086c071d3c695c77d6b6b80ba
+SHA256: ebe8c7acda3979143ec52f205483612a18ab3a9dbbd4a879278d9c736166c8e1
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json
-SHA256: 2eab3dcd83425901a8ce5c0c30c3fc76499a316430f7b1db93980dcf0d42c9d1
+SHA256: 49adfd983bf0d2c160c18a62a3e4cd41aff20bdd02f5d85d68c8bcc86df44bb0
 
 File: zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv
 SHA256: 4393c3969e77d7593e4384ad73ae79a6749243d06ea7d8d5a1fc37d96ac40206

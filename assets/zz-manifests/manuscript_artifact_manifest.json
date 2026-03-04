@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-03-04T03:06:35+00:00",
+  "generated_at_utc": "2026-03-04T03:41:55+00:00",
   "release_version": "v3.3.1",
-  "git_head_short": "ec0b202e",
-  "git_head_full": "ec0b202eadadc1628d11856bb4792eab04fda1cb",
+  "git_head_short": "65222926",
+  "git_head_full": "652229265cd617ad4620cf2aa954b9f15380a941",
   "scope": "manuscript_artifacts_phase1_to_phase5",
   "author": "Jean-Philip Lalumi\u00e8re",
   "phases": {
@@ -130,7 +130,7 @@
       "status": "GOLD",
       "chapters": {
         "chapter11": {
-          "generated_at_utc": "2026-03-04T03:06:19+00:00",
+          "generated_at_utc": "2026-03-04T03:40:18+00:00",
           "universal_coupling_failure": true,
           "ligo_bound_q0star_abs": 1e-06,
           "required_q0star_abs_for_s8_0p77_interpolated": 0.002092224,
@@ -187,7 +187,7 @@
   },
   "phase4_local_package": {
     "package_name": "phase4_global_verdict_v3.3.1",
-    "generated_at_utc": "2026-03-04T02:59:25+00:00",
+    "generated_at_utc": "2026-03-04T03:41:25+00:00",
     "publication_status": "local_package_only",
     "publish_to_zenodo": false,
     "authors": [
@@ -241,8 +241,8 @@
       "delta_bic": -136.7021677949116,
       "n_data": 1718
     },
-    "files_staged": 8,
-    "total_size_bytes": 16995579
+    "files_staged": 10,
+    "total_size_bytes": 17298826
   },
   "tracked_files": [
     {
@@ -266,8 +266,8 @@
     {
       "path": "README.md",
       "exists": true,
-      "size_bytes": 3156,
-      "sha256": "cc749fc8f2b7b2a2e281a66d49ef3d97f37b5f45bbed2856cc49d763c6ce12d6"
+      "size_bytes": 3415,
+      "sha256": "48fc4c497e807e3d215d07980ace9ea93bb2c43ba70c459c71e5ae895c9cf3d0"
     },
     {
       "path": "REPRODUCIBILITY.md",
@@ -278,8 +278,8 @@
     {
       "path": "CERTIFICATE_OF_INTEGRITY.txt",
       "exists": true,
-      "size_bytes": 3282,
-      "sha256": "6eb0c478d31de14135b45e3344b4b8a5c5baefed5cc41c60ab337bbc475a3ee6"
+      "size_bytes": 3824,
+      "sha256": "64c8858dadb03d122e7876ce490f49a420166a121a11dc5b174a166d4ea29146"
     },
     {
       "path": "stability_audit_log.txt",
@@ -315,7 +315,7 @@
       "path": "final_synthesis_v3.3.1_GOLD.json",
       "exists": true,
       "size_bytes": 2168,
-      "sha256": "e92a347baeec9a7a0aa9cc5d082359d9e556371ca0f04ce4b8bde4161daa30c4"
+      "sha256": "b3353688efd594870f4a93754ad905f7f409dd48d827be0ab47c8e5fcaaa7a60"
     },
     {
       "path": "assets/zz-figures/stability_audit/figure_2_ch01_numerical_drift.png",
@@ -393,7 +393,7 @@
       "path": "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.json",
       "exists": true,
       "size_bytes": 591,
-      "sha256": "6d1963906bb56112eef596c3b5456252a958f27d71eba515048c45fce323ebad"
+      "sha256": "c9211844b8943c8ffa22f5334a457061b32f704bbf1086aa45a6c074bfcf528f"
     },
     {
       "path": "assets/zz-data/12_cmb_verdict/12_step_transition_law.csv",
@@ -456,6 +456,18 @@
       "sha256": "d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0"
     },
     {
+      "path": "output/ptmg_predictions_z0_to_z20.csv",
+      "exists": true,
+      "size_bytes": 45072,
+      "sha256": "8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c"
+    },
+    {
+      "path": "output/ptmg_corner_plot.pdf",
+      "exists": true,
+      "size_bytes": 258175,
+      "sha256": "6896fff224394f0d948ea01db74708b2712cc65fc06fa7914b62fbc038fdcc6b"
+    },
+    {
       "path": "zz-zenodo/ptmg_predictions_z0_to_z20.csv",
       "exists": true,
       "size_bytes": 45072,
@@ -470,32 +482,32 @@
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/README.txt",
       "exists": true,
-      "size_bytes": 655,
-      "sha256": "d47cdbfe6b32818af2b839dbb533d9fdd447635bc512fbdcbbd9e58ee4b77e86"
+      "size_bytes": 740,
+      "sha256": "ed30aef0100a135257bc93c5fc701de65e3f2816759c4cc63da5917f5cf1c185"
     },
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv",
       "exists": true,
-      "size_bytes": 1672,
-      "sha256": "84793c73efb62fb01491a3f747e5a74f3bfc523d5737f39615ad67038132ca48"
+      "size_bytes": 1961,
+      "sha256": "9dae3be4534f083931e4b7ac4ea4c1ceffd01a2e21de453d4048472d13cb2601"
     },
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json",
       "exists": true,
-      "size_bytes": 1490,
-      "sha256": "065d6520c37dcf1b3ee5e167a50547477daebc65ea152d8d9eea88eeb42a5cb9"
+      "size_bytes": 1491,
+      "sha256": "c210b6841b185f418747f79d7bdb744a009c54957a2e17bdc89f95baad3ef435"
     },
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json",
       "exists": true,
-      "size_bytes": 2257,
-      "sha256": "ba8bf3e84a02b785ccd6147f401a5dbfabea48d086c071d3c695c77d6b6b80ba"
+      "size_bytes": 2700,
+      "sha256": "ebe8c7acda3979143ec52f205483612a18ab3a9dbbd4a879278d9c736166c8e1"
     },
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt",
       "exists": true,
-      "size_bytes": 1084,
-      "sha256": "fc43342cecce298f5ef4cfd5c47e501e84e2579355bafb50294ee9fbb8cb1313"
+      "size_bytes": 1294,
+      "sha256": "e55d964aa5344d2586f7cd83af6bf2a8eebda5388835d620d1d4c928a920e4fe"
     },
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json",
@@ -548,8 +560,8 @@
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz",
       "exists": true,
-      "size_bytes": 16935231,
-      "sha256": "ae94d2686f92fb11f860ffcbb546b8b1ab70f983cec32ba61f1b5a1fe96e3505"
+      "size_bytes": 17207332,
+      "sha256": "633d7f0ee70124165056e8ceb137fe85cc22fbe9cd77e2c4cf9fb27d681df0e1"
     }
   ]
 }

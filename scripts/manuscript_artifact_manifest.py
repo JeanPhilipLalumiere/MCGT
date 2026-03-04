@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.json"
 OUT_MD = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.md"
 AUTHOR_NAME = "Jean-Philip Lalumière"
+RELEASE_VERSION = "v3.3.1"
 
 PHASE1_LOG = ROOT / "stability_audit_log.txt"
 PHASE2_LOG = ROOT / "phase2_observational_log.txt"
@@ -150,6 +151,7 @@ def main() -> None:
 
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "release_version": RELEASE_VERSION,
         "scope": "manuscript_artifacts_phase1_to_phase5",
         "author": AUTHOR_NAME,
         "phases": {
@@ -168,6 +170,7 @@ def main() -> None:
     md_lines = [
         "# Manuscript Artifact Manifest",
         "",
+        f"- Release version: {RELEASE_VERSION}",
         f"- Author: {AUTHOR_NAME}",
         f"- Generated at (UTC): {manifest['generated_at_utc']}",
         "- Scope: phases 1, 2, 3, 4 and 5",

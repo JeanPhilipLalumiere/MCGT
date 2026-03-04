@@ -47,3 +47,7 @@ chmod +x reproduce_paper_results.sh
 ```
 
 For the repository-level cold-run audit and the table-versus-manuscript consistency checks, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
+
+## Release Governance
+
+The archival release tag `v3.3.1-GOLD` is immutable. Force-push, tag deletion, or tag retargeting on this archival reference is forbidden once published.

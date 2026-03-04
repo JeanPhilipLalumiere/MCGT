@@ -2,7 +2,7 @@
 # generer_donnees_chapter3.py
 
 """
-Chapter 3 – Pipeline intégral (v3.2.0)
+Chapter 3 – Pipeline intégral (v3.3.1)
 --------------------------------------
 Stabilité de f(R) : génération des données numériques pour les figures
 et les tableaux du Chapter 3.

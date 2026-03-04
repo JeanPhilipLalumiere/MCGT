@@ -1,0 +1,24 @@
+GOLD STATUS ATTESTATION
+Version: v3.3.1 GOLD
+Author: Jean-Philip Lalumière
+
+Final repository health summary:
+
+- Pytest: PASS
+- Invariants audit (CH01-03): PASS
+- Table 2 consistency: PASS
+- Phase 2 observational gate: PASS
+- Phase 3 structure and geometry gate: PASS
+- Phase 4 MCMC verdict gate: PASS
+- Phase 5 scale-dependent solution gate: PASS
+
+Reference outputs:
+
+- Manuscript PDF: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
+- Table 2 CSV: assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv
+- Figure 09: assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png
+- GOLD prediction export: zz-zenodo/ptmg_predictions_z0_to_z20.csv
+- Integrity certificate: CERTIFICATE_OF_INTEGRITY.txt
+
+This attestation is intended to remain inside the local archival build as a human-readable witness
+of the final validated state at the time of sealing.

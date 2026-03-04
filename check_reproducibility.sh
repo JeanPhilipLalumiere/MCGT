@@ -3,13 +3,19 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${ROOT_DIR}/.repro-venv"
+TMP_DIR="${ROOT_DIR}/.repro-tmp"
+MPLCONFIG_DIR="${ROOT_DIR}/.repro-mplconfig"
 
 cd "${ROOT_DIR}"
 
 echo "[info] Root: ${ROOT_DIR}"
 echo "[info] Recreating virtualenv at ${VENV_DIR}"
 rm -rf "${VENV_DIR}"
-python3 -m venv "${VENV_DIR}"
+rm -rf "${TMP_DIR}"
+rm -rf "${MPLCONFIG_DIR}"
+mkdir -p "${TMP_DIR}"
+mkdir -p "${MPLCONFIG_DIR}"
+python3 -m venv --system-site-packages "${VENV_DIR}"
 
 # shellcheck disable=SC1091
 source "${VENV_DIR}/bin/activate"
@@ -17,10 +23,15 @@ source "${VENV_DIR}/bin/activate"
 export MCGT_USE_TEX=0
 export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
+export TMPDIR="${TMP_DIR}"
+export TMP="${TMP_DIR}"
+export TEMP="${TMP_DIR}"
+export MPLCONFIGDIR="${MPLCONFIG_DIR}"
+export XDG_CACHE_HOME="${MPLCONFIG_DIR}"
+export PYTHONPATH="${ROOT_DIR}:${PYTHONPATH:-}"
 
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pip install -e .
+echo "[info] Validating locked dependency set from requirements.lock"
+python -m pip install --no-index -r requirements.lock
 
 echo "[info] Scanning code for hard-coded user paths"
 if rg -n \
@@ -46,6 +57,7 @@ run_phase() {
   "$@"
 }
 
+run_phase "Final verdict reproduction" bash reproduce_final_verdict.sh
 run_phase "Phase 1 smoke" python scripts/stability_audit_ch01_ch03.py
 run_phase "Phase 2 smoke" python scripts/phase2_observational_report.py
 run_phase "Phase 3 smoke" python scripts/phase3_lss_geometry_report.py

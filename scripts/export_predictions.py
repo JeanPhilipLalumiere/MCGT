@@ -24,7 +24,7 @@ DEFAULT_Z_NORM = 1000.0
 DEFAULT_LCDM_OMEGA_M = 0.315
 DEFAULT_LCDM_H0 = 67.4
 
-# Fallback (v3.2.0-like) if chain is unavailable.
+# Fallback baseline if the chain is unavailable.
 FALLBACK_BESTFIT = {
     "omega_m": 0.243,
     "h_0": 72.97,

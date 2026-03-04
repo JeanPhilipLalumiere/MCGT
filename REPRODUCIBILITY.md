@@ -2,6 +2,8 @@
 
 This repository includes an explicit cold-run reproducibility path for the validated v3.3.1 GOLD workflow.
 
+The Python package identity of the project is now `psitmg`, as declared in [pyproject.toml](pyproject.toml). Infrastructure helpers that are not part of the scientific runtime have been moved under [infrastructure](infrastructure).
+
 ## Cold Run
 
 Use [check_reproducibility.sh](check_reproducibility.sh) from the project root:
@@ -13,10 +15,11 @@ bash check_reproducibility.sh
 The script performs these steps:
 
 - creates a fresh virtual environment in `.repro-venv`
-- upgrades `pip`
-- installs `requirements.txt`
-- installs the project in editable mode with `pip install -e .`
+- reuses the sealed local scientific stack through `--system-site-packages` so the run remains fully offline
+- verifies the installed package set against [requirements.lock](requirements.lock)
+- exposes the repository root through `PYTHONPATH` so the local `psitmg` source tree is imported directly without network access
 - scans the codebase for hard-coded user paths such as home-directory paths or user-specific Windows profile paths
+- runs [reproduce_final_verdict.sh](reproduce_final_verdict.sh), which regenerates Figure 09 and Table 2 from the validated pipelines
 - runs a light smoke execution for Phases 1 through 5
 - runs [verify_table_consistency.py](scripts/verify_table_consistency.py) as part of the Phase 4 checks
 
@@ -25,8 +28,13 @@ The script exports these environment variables during the cold run:
 - `MCGT_USE_TEX=0`
 - `MPLBACKEND=Agg`
 - `PYTHONUNBUFFERED=1`
+- `MPLCONFIGDIR=.repro-mplconfig`
+- `XDG_CACHE_HOME=.repro-mplconfig`
+- `PYTHONPATH=<project root>`
 
 `MCGT_USE_TEX=0` is intentional. It keeps the cold run focused on code and path reproducibility rather than on local TeX availability.
+
+`requirements.lock` is the authoritative offline dependency lock for this audit path. [requirements.txt](requirements.txt) remains the lighter human-facing dependency list, but the cold-run gate resolves exclusively against the lock.
 
 ## Typography
 

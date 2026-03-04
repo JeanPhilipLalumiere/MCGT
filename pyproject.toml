@@ -5,11 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 license-files = ["LICENSE", "LICENSE-data"]
 readme = "README.md"
-name = "tools"
-version = "2.6.0"
-description = "MCGT utilities"
+name = "psitmg"
+version = "3.3.1"
+description = "PsiTMG scientific pipelines and reproducibility toolkit"
 # DUPLICATE_DISABLED: readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
+authors = [
+  { name = "Jean-Philip Lalumière" },
+]
 dependencies = [
   "numpy>=2.0,<2.4",
   "matplotlib>=3.5.0",
@@ -35,6 +38,7 @@ include = ["mcgt*", "tools*"]
 [project.urls]
 Homepage = "https://github.com/JeanPhilipLalumiere/MCGT"
 Repository = "https://github.com/JeanPhilipLalumiere/MCGT"
+Issues = "https://github.com/JeanPhilipLalumiere/MCGT/issues"
 
 [tool.ruff]
 lint.ignore = ["E402", "E741", "F401", "F403", "F821", "F823", "F841"]

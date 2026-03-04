@@ -1,5 +1,6 @@
 {
-  "generated_at_utc": "2026-03-04T01:23:48+00:00",
+  "generated_at_utc": "2026-03-04T01:35:24+00:00",
+  "release_version": "v3.3.1",
   "scope": "manuscript_artifacts_phase1_to_phase5",
   "author": "Jean-Philip Lalumi\u00e8re",
   "phases": {
@@ -263,8 +264,8 @@
     {
       "path": "README.md",
       "exists": true,
-      "size_bytes": 6158,
-      "sha256": "2a0f3d9a4369db6d142dbaf2c571e10c2f59c8863a778f48226182d7ef1a3623"
+      "size_bytes": 3132,
+      "sha256": "d692cf9695e52d6fef957f75ae91e35a7359f4d7c91e964ae5326cb75d067974"
     },
     {
       "path": "REPRODUCIBILITY.md",
@@ -276,7 +277,7 @@
       "path": "CERTIFICATE_OF_INTEGRITY.txt",
       "exists": true,
       "size_bytes": 3282,
-      "sha256": "abe5851d6c1c9e763067bc9f8465b7f97184402a2ed9406714316ae3828740e6"
+      "sha256": "d5bfdbc2b90957c6f850b112c8840a86cafc331d4eda835aaa9119e0b1c6236e"
     },
     {
       "path": "stability_audit_log.txt",
@@ -545,8 +546,8 @@
     {
       "path": "zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz",
       "exists": true,
-      "size_bytes": 1839546,
-      "sha256": "56fca2bc149de47363885d0437adc04f2b2fa27b9ff8921edc921e0b0660e4c9"
+      "size_bytes": 16935229,
+      "sha256": "d19fe078bb75fc19cdabf67e3a2ae50a489723030659221a3fe58776a339be22"
     }
   ]
 }

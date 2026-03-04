@@ -133,3 +133,9 @@ results/v3.2.1_TIDE/
 EOF
 MCGT_v2.5.4_Complete.zip
 env_ptmg/
+.repro-venv/
+.repro-mplconfig/
+.repro-tmp/
+cold_run_success_v3.3.1.log
+ARCHIVE_PSITMG_V3.3.1_GOLD/
+PSITMG_V3.3.1_GOLD_FULL_BUILD.tar.gz

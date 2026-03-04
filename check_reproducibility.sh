@@ -26,9 +26,15 @@ echo "[info] Scanning code for hard-coded user paths"
 if rg -n \
   --glob '*.py' \
   --glob '*.sh' \
+  --glob '*.md' \
+  --glob '*.tex' \
+  --glob '*.yml' \
+  --glob '*.yaml' \
+  --glob '*.json' \
   --glob '!check_reproducibility.sh' \
+  --glob '!tests/test_no_hardcoded_user_paths.py' \
   '/home/|/Users/|[A-Za-z]:\\\\Users\\\\' \
-  scripts mcgt tests .; then
+  scripts mcgt tests tools docs .github README.md REPRODUCIBILITY.md manuscript assets/zz-manifests .; then
   echo "[fail] Hard-coded user path(s) detected"
   exit 1
 fi

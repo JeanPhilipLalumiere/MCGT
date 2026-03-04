@@ -9,7 +9,7 @@
 ### Scale Conflict Resolved
 - Chapter 11 quantifies the screening failure of universal coupling: the cosmological amplitude needed to reach `S_8 ≈ 0.77` is of order `10^-3`, while the local LIGO-safe bound is of order `10^-6`, producing a scale conflict of roughly `×2000`.
 - Chapter 12 replaces that failing branch with the Step-Function Transition Law centered near `k_c ≈ 10^-4 h Mpc^-1`. The local `k -> high` branch remains LIGO-safe, while the cosmological `k -> 0` branch stays active for structure growth.
-- This transition moves the model from a branch that could not reconcile local and cosmological scales to a `GOLD` solution that simultaneously preserves LIGO, restores the low-`S_8` branch, and keeps the observational gains of the global fit.
+- This transition is the decisive rupture that moves the theory from a model still "under tension" to a `Gold Standard` solution that reconciles local and cosmological scales, preserves LIGO, restores the low-`S_8` branch, and keeps the observational gains of the global fit.
 
 ### Validated GOLD Outcomes
 - Stability and invariant audits (Chapters 01-03) pass under the production definitions and gates.

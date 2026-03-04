@@ -6,6 +6,14 @@
     "03_fR_stability_domain.csv",
     "03_fR_stability_boundary.csv"
   ],
+  "hamiltonian": {
+    "proxy_definition": "-m_s2_over_R0 / (1 + f_R)",
+    "raw_min": -166666.5,
+    "raw_max": 30911074205109.47,
+    "corrected_min": -330070.85851239023,
+    "corrected_max": -1502.896510205051,
+    "corrected_all_negative": true
+  },
   "diagnostics": {
     "raw_break_z": 133.88516134291172,
     "raw_break_R_over_R0": 738685.2615570612,

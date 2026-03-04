@@ -34,8 +34,6 @@ from matplotlib.lines import Line2D
 from matplotlib.gridspec import GridSpec
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
-
 plt.rcParams.update(
     {
         "figure.autolayout": True,

@@ -41,7 +41,7 @@
     "pandas": "2.3.1"
   },
   "artifacts": {
-    "scan_csv": "/home/jplal/MCGT/assets/zz-data/chapitre9/09_scan_20250816T182747Z_-0.50_0.60_21x21.csv",
-    "checkpoint_csv": "/home/jplal/MCGT/assets/zz-data/chapitre9/09_scan_20250816T182747Z_-0.50_0.60_21x21_ckpt.csv"
+    "scan_csv": "assets/zz-data/09_dark_energy_cpl/09_scan_20250816T182747Z_-0.50_0.60_21x21.csv",
+    "checkpoint_csv": "assets/zz-data/09_dark_energy_cpl/09_scan_20250816T182747Z_-0.50_0.60_21x21_ckpt.csv"
   }
 }

@@ -34,8 +34,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
-
 plt.rcParams.update(
     {
         "figure.autolayout": True,

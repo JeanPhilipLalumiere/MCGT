@@ -230,4 +230,4 @@ dependencies:
       - xmltodict==1.0.2
       - yq==3.4.3
       - zz-tools==0.3.14
-prefix: /home/jplal/miniforge3/envs/mcgt-dev
+prefix: /path/to/miniforge3/envs/mcgt-dev

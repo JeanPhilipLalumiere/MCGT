@@ -1,22 +1,68 @@
 CERTIFICATE OF INTEGRITY
 Version: v3.3.1 GOLD
-Generated (UTC): 2026-03-03T20:43:03+00:00
+Generated (UTC): 2026-03-04T01:23:48+00:00
 
-This certificate binds the final manuscript and the validated MCMC chains
-to the local v3.3.1 GOLD artifact state through SHA-256 fingerprints.
+This certificate binds the final manuscript and every delivery artifact
+currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through
+SHA-256 fingerprints.
+
+Delivery root: zz-zenodo
+Artifacts sealed: 17
 
 File: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
-SHA256: 8fb03abb28d9749d392a1031c07a47cbbdabc0fb4857b7419669fbbd8f49b553
+SHA256: 69ee8d5d7a918e52f907d0b9ad68a87b1459c0b2f3916665a185b33a4c23e2c1
 
-File: assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz
+File: zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz
+SHA256: dfc81fff894b71390418d1e095acca09910354fa5aa0af74535c45822439ed85
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/README.txt
+SHA256: 6fed6cbe88f92fa3b5ebcce4aa3af708a88adb1e93f04f23d2d604c95734ea83
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz
 SHA256: d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0
 
-File: output/ptmg_chains.h5
-SHA256: 36b42760fa3bf68fea380a11c00946dfda8bd22fa52621a7d0b047ac1ef1dd80
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json
+SHA256: c4425f0ea0687c8f32a90b198b34878f174bf635c9b2bf205673b4052b9f47a3
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv
+SHA256: 95beab91445bbb07dc943c73f03235d97f213e061cfe7126a4a7aaa8d08965ec
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md
+SHA256: 69b712936089cc4cc7af26ad7cd9e35348c5ad8d8247decb5199059024e5c0bc
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png
+SHA256: b6ce8b551e35b7e1ae78b14e1ab3f2cac20d9e68e7abd950e4dd89588506c76f
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png
+SHA256: 3d9cf3d6ab8db492418516b6213a658a04ba93798f9a24a41dff85611f82aa00
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png
+SHA256: 8f6e98311c07ea0cdead1158459becab33feb4a40bcaa2874e8576f2a8d3cd98
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json
+SHA256: f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt
+SHA256: fc43342cecce298f5ef4cfd5c47e501e84e2579355bafb50294ee9fbb8cb1313
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv
+SHA256: 84793c73efb62fb01491a3f747e5a74f3bfc523d5737f39615ad67038132ca48
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json
+SHA256: ba8bf3e84a02b785ccd6147f401a5dbfabea48d086c071d3c695c77d6b6b80ba
+
+File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json
+SHA256: 885bdcb66bba1d7bd685910f71a7f4371d4a28cde856b707fdea714b6872db7d
+
+File: zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv
+SHA256: 4393c3969e77d7593e4384ad73ae79a6749243d06ea7d8d5a1fc37d96ac40206
+
+File: zz-zenodo/ptmg_predictions_z0_to_z20.csv
+SHA256: 8ca11fb677b48377feac58ec1a8b0454d3ec3d5cfccc4d22e909e6519b72769c
 
 Statement:
-The files listed above are the validated GOLD manuscript and chain artifacts
-used for the final thesis release. Any post-validation modification would
-change the hashes recorded in this certificate.
+The files listed above are the validated GOLD manuscript and delivery
+artifacts used for the final thesis release. Any post-validation
+modification would change the hashes recorded in this certificate.
 
 Signed by: Jean-Philip Lalumière

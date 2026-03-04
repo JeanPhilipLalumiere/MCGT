@@ -51,8 +51,6 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib import colors
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
-
 plt.rcParams.update(
     {
         "figure.figsize": (10, 6),

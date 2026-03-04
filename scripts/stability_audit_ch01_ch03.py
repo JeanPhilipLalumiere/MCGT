@@ -223,6 +223,11 @@ def audit_ch03() -> dict[str, object]:
         df["R_over_R0"].to_numpy(dtype=float),
         df["m_s2_over_R0"].to_numpy(dtype=float),
     )
+    traj["hamiltonian_energy_proxy"] = np.interp(
+        traj["R_over_R0"].to_numpy(dtype=float),
+        df["R_over_R0"].to_numpy(dtype=float),
+        df["hamiltonian_energy_proxy"].to_numpy(dtype=float),
+    )
 
     return {
         "grid_rows": int(len(df)),
@@ -235,6 +240,11 @@ def audit_ch03() -> dict[str, object]:
         "ms2_negative_rows_grid": int((df["m_s2_over_R0"] < 0.0).sum()),
         "ms2_min_traj": float(traj["m_s2_over_R0"].min()),
         "trajectory_ms2_all_positive": bool(np.all(traj["m_s2_over_R0"] > 0.0)),
+        "hamiltonian_energy_min_traj": float(traj["hamiltonian_energy_proxy"].min()),
+        "hamiltonian_energy_max_traj": float(traj["hamiltonian_energy_proxy"].max()),
+        "hamiltonian_energy_all_negative_traj": bool(
+            np.all(traj["hamiltonian_energy_proxy"] < 0.0)
+        ),
         "trajectory_t_min_gyr": float(traj["T_Gyr"].min()),
         "trajectory_t_max_gyr": float(traj["T_Gyr"].max()),
         "trajectory_z_min": float(traj_z["z"].min()),
@@ -409,8 +419,8 @@ def write_log(
             else "- CH03 still does not span an explicit trajectory from the early Universe to z = 0."
         ),
         (
-            "- CH03 still leaves the Hamiltonian-stable zone on the full trajectory because m_s^2/R0 becomes negative."
-            if ch03["ms2_min_traj"] <= 0.0
+            "- CH03 still leaves the Hamiltonian-stable zone on the full trajectory because the Hamiltonian proxy becomes non-negative."
+            if not ch03["hamiltonian_energy_all_negative_traj"]
             else "- CH03 remains in the Hamiltonian-stable zone on the exported trajectory."
         ),
         (
@@ -484,6 +494,9 @@ def write_log(
         f"- Grid minimum m_s^2 / R0: {ch03['ms2_min_grid']:.6e}",
         f"- Negative m_s^2 rows on grid: {ch03['ms2_negative_rows_grid']}",
         f"- Trajectory minimum m_s^2 / R0: {ch03['ms2_min_traj']:.6e}",
+        f"- Hamiltonian proxy minimum on trajectory: {ch03['hamiltonian_energy_min_traj']:.6e}",
+        f"- Hamiltonian proxy maximum on trajectory: {ch03['hamiltonian_energy_max_traj']:.6e}",
+        f"- Hamiltonian proxy strictly negative on trajectory: {'PASS' if ch03['hamiltonian_energy_all_negative_traj'] else 'FAIL'}",
         f"- Raw instability onset z (before stabilization): {ch03['raw_break_z'] if ch03['raw_break_z'] is not None else 'N/A'}",
         f"- Phantom crossing z from CPL background: {ch03['phantom_crossing_z'] if ch03['phantom_crossing_z'] is not None else 'N/A'}",
         f"- Phantom crossing precedes raw instability: {ch03['phantom_precedes_break']}",

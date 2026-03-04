@@ -1,9 +1,16 @@
 # Manuscript Artifact Manifest
 
 - Author: Jean-Philip Lalumière
-- Generated at (UTC): 2026-03-03T20:43:03+00:00
-- Scope: phases 2, 3, 4 and 5
+- Generated at (UTC): 2026-03-04T01:23:48+00:00
+- Scope: phases 1, 2, 3, 4 and 5
 - Reproducibility guide: REPRODUCIBILITY.md
+
+## Phase 1
+- Max modified-Friedmann invariant: 5.551115e-16
+- Hubble invariant gate: true
+- Strict Sentinel false positives: 0
+- Golden Match: true
+- Hamiltonian stability gate: true
 
 ## Phase 2
 - Pantheon+ chi2(PsiTMG): 1212.95

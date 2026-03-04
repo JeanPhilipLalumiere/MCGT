@@ -84,3 +84,5 @@ def test_ch03_trajectory_is_hamiltonian_stable_after_stabilization():
 
     assert (1.0 + df["f_R"]).min() > 0.0
     assert (df["m_s2_over_R0"] > 0.0).all()
+    assert "hamiltonian_energy_proxy" in df.columns
+    assert (df["hamiltonian_energy_proxy"] < 0.0).all()

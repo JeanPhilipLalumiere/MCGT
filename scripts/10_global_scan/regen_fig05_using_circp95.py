@@ -20,8 +20,6 @@ from scripts._common.style import apply_manuscript_defaults
 
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
-apply_manuscript_defaults()
-
 
 # ---------- utils ----------
 def detect_p95_column(df: pd.DataFrame) -> str:

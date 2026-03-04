@@ -29,8 +29,6 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
-
 plt.rcParams.update(
     {
         "figure.autolayout": True,

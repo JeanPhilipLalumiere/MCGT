@@ -60,8 +60,8 @@ def parse_args() -> argparse.Namespace:
 
 def _load_chapter07_params(root: Path) -> dict[str, float]:
     candidates = [
-        root / "assets/zz-data" / "chapter07" / "07_perturbations_params.json",
-        root / "assets/zz-data" / "chapter07" / "07_params_perturbations.json",
+        root / "assets/zz-data" / "07_bao_geometry" / "07_perturbations_params.json",
+        root / "assets/zz-data" / "07_bao_geometry" / "07_params_perturbations.json",
     ]
     for path in candidates:
         if path.exists():
@@ -304,7 +304,7 @@ def main() -> int:
     logging.info("Computing growth factor with CPL w0=%s, wa=%s", w0, wa)
     cpl = build_outputs(k_grid, params, args.k_pivot, args.growth_steps, w0, wa)
 
-    out_dir = Path("assets/zz-data") / "chapter11"
+    out_dir = Path("assets/zz-data") / "11_lss_s8_tension"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     np.savetxt(
@@ -364,7 +364,7 @@ def main() -> int:
         ax.legend(frameon=False)
         fig.tight_layout()
         fig.savefig(
-            Path("assets/zz-figures") / "chapter11" / "11_power_comparison.png", dpi=180
+            Path("assets/zz-figures") / "11_lss_s8_tension" / "11_power_comparison.png", dpi=180
         )
 
         logging.info(

@@ -1,7 +1,7 @@
 {
   "generated_at": "2025-10-04T16:17:42Z",
   "python_version": "3.12.11",
-  "root": "/home/jplal/MCGT",
+  "root": ".",
   "total_constants": 302,
   "issues": {
     "conflicts": []

@@ -82,7 +82,7 @@ _CANDIDATES = [
 _DATA_07 = next((c for c in _CANDIDATES if c.exists()), None)
 if _DATA_07 is None:
     pytest.skip(
-        "missing 07_phase_run.csv (07_bao_geometry); skipping data-dependent tests",
+        "missing 07_phase_run.csv (chapter07); skipping data-dependent tests",
         allow_module_level=True,
     )
 # ------------------------------------------------
@@ -99,7 +99,7 @@ RTOL = 1e-3
 # Project root is three levels up from this test file:
 ROOT = Path(__file__).resolve().parents[3]
 
-DATA_DIR = ROOT / "assets/zz-data" / "07_bao_geometry"
+DATA_DIR = ROOT / "assets/zz-data" / "chapter07"
 RAW_CSV = DATA_DIR / "07_phase_run.csv"
 REF_CSV = (
     Path(__file__).parent / "ref_phase_run.csv"

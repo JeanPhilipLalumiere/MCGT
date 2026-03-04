@@ -5,9 +5,12 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
+apply_manuscript_defaults(usetex=True)
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,6 +41,7 @@ STATS = {
 
 def _save_dual(fig, manuscript_name: str, output_stem: str) -> None:
     fig.savefig(OUT_DIR / manuscript_name)
+    fig.savefig(OUT_DIR / manuscript_name.replace(".png", ".pdf"))
     fig.savefig(OUTPUT_DIR / f"{output_stem}.png")
     fig.savefig(OUTPUT_DIR / f"{output_stem}.pdf")
 
@@ -65,7 +69,6 @@ def _apply_style():
             "grid.linewidth": 0.6,
         }
     )
-    apply_manuscript_defaults()
 
 
 def _cpl_evolution(z, w0, wa):

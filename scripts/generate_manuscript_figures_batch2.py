@@ -4,9 +4,12 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
+apply_manuscript_defaults(usetex=True)
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript"
@@ -24,7 +27,6 @@ def _apply_style():
         "lines.linewidth": 1.8, "lines.markersize": 6,
         "axes.linewidth": 0.8, "grid.linewidth": 0.6,
     })
-    apply_manuscript_defaults()
 
 def make_concept_schema():
     fig, ax = plt.subplots(figsize=(7.2, 3.8))
@@ -57,6 +59,7 @@ def make_concept_schema():
     
     fig.tight_layout()
     fig.savefig(OUT_DIR / "00_fig_concept_schema.png")
+    fig.savefig(OUT_DIR / "00_fig_concept_schema.pdf")
     plt.close(fig)
 
 def make_numerical_stability_plot():
@@ -88,6 +91,7 @@ def make_numerical_stability_plot():
     ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "01_fig_numerical_stability.png")
+    fig.savefig(OUT_DIR / "01_fig_numerical_stability.pdf")
     plt.close(fig)
 
 def make_sentinel_flowchart():
@@ -126,6 +130,7 @@ def make_sentinel_flowchart():
 
     fig.tight_layout()
     fig.savefig(OUT_DIR / "01_fig_sentinel_flowchart.png")
+    fig.savefig(OUT_DIR / "01_fig_sentinel_flowchart.pdf")
     plt.close(fig)
 
 def make_phase_space_plot():
@@ -177,6 +182,7 @@ def make_phase_space_plot():
     ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "03_fig_phase_space.png")
+    fig.savefig(OUT_DIR / "03_fig_phase_space.pdf")
     plt.close(fig)
 
 def main():

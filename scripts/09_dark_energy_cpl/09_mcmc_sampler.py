@@ -117,7 +117,7 @@ def load_config(path: Path) -> dict[str, float | str]:
 
 
 def load_sn_data(root: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    data = np.loadtxt(root / "assets/zz-data" / "chapter08" / "08_pantheon_data.csv", delimiter=",", skiprows=1)
+    data = np.loadtxt(root / "assets/zz-data" / "08_sound_horizon" / "08_pantheon_data.csv", delimiter=",", skiprows=1)
     z = data[:, 0]
     mu = data[:, 1]
     sigma = data[:, 2]
@@ -125,7 +125,7 @@ def load_sn_data(root: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
 
 def load_bao_data(root: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    data = np.loadtxt(root / "assets/zz-data" / "chapter08" / "08_bao_data.csv", delimiter=",", skiprows=1)
+    data = np.loadtxt(root / "assets/zz-data" / "08_sound_horizon" / "08_bao_data.csv", delimiter=",", skiprows=1)
     z = data[:, 0]
     dv = data[:, 1]
     sigma = data[:, 2]

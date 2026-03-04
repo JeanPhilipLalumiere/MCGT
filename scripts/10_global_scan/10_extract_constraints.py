@@ -121,6 +121,7 @@ def main() -> None:
     plt.rcParams.update(
         {
             "figure.dpi": 120,
+            "font.family": "DejaVu Serif",
             "axes.labelsize": 12,
             "axes.titlesize": 13,
         }

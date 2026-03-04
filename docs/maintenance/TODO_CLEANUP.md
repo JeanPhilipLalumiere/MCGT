@@ -589,7 +589,7 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 
 ```text
 === MCGT Step22 : health-check complet (diag + smoke) ===
-[INFO] Repo root : /home/jplal/MCGT
+[INFO] Repo root : /path/to/MCGT
 [INFO] Horodatage (UTC) : 20251130T172933Z
 ------------------------------------------------------------
 [STEP] Smoke CH09 (fast)
@@ -654,8 +654,8 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
 [STEP] Resync manifest CH09 (mcgt_step25_fix_manifest_ch09)
     -> python tools/mcgt_step25_fix_manifest_ch09.py
 === STEP25 : resync CH09 metrics & fig dans le manifest ===
-[INFO] Repo root      : /home/jplal/MCGT
-[INFO] Manifest path  : /home/jplal/MCGT/assets/zz-manifests/manifest_master.json
+[INFO] Repo root      : /path/to/MCGT
+[INFO] Manifest path  : /path/to/MCGT/assets/zz-manifests/manifest_master.json
 [INFO] assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json :
        size_bytes = 1839
        sha256     = eb1aa2bfff603ceb7c9d95ab9ea1de34e189fc7b60231422c67d48a99f683a7b
@@ -668,7 +668,7 @@ _Dernière exécution Step22 (health-check complet) – log : `step22_health_202
        mtime_iso  = 2025-11-30T17:29:37Z
        git_hash   = 64b805360b13ceb34522ce3c787f2c1ca3eb72aa
 [INFO] Blocs patchés pour assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png : 1
-[INFO] Manifest mis à jour : /home/jplal/MCGT/assets/zz-manifests/manifest_master.json
+[INFO] Manifest mis à jour : /path/to/MCGT/assets/zz-manifests/manifest_master.json
 [INFO] Total blocs patchés : 2
 [INFO] Commande terminée avec code 0
 ------------------------------------------------------------
@@ -681,7 +681,7 @@ OK: no problems detected.
 [STEP] Probe des versions (mcgt_probe_versions_v1)
     -> python tools/mcgt_probe_versions_v1.py
 === MCGT: probe versions v1 ===
-Root: /home/jplal/MCGT
+Root: /path/to/MCGT
 
 
 ### Manifestes (root)
@@ -701,17 +701,17 @@ release_zenodo_codeonly/v0.3.x                : name='tools', version='0.3.14'
 
 ### __init__ (__version__)
 --------------------------
-mcgt.__init__                                 : version='0.3.0' (/home/jplal/MCGT/mcgt/__init__.py)
-tools.__init__                             : version='0.3.14' (/home/jplal/MCGT/tools/__init__.py)
+mcgt.__init__                                 : version='0.3.0' (/path/to/MCGT/mcgt/__init__.py)
+tools.__init__                             : version='0.3.14' (/path/to/MCGT/tools/__init__.py)
 
 ### CITATION.cff
 ----------------
-root CITATION.cff                             : version='0.2.99' (/home/jplal/MCGT/CITATION.cff)
-release_zenodo_codeonly CITATION.cff          : version='0.2.99' (/home/jplal/MCGT/release_zenodo_codeonly/v0.3.x/CITATION.cff)
+root CITATION.cff                             : version='0.2.99' (/path/to/MCGT/CITATION.cff)
+release_zenodo_codeonly CITATION.cff          : version='0.2.99' (/path/to/MCGT/release_zenodo_codeonly/v0.3.x/CITATION.cff)
 
 [INFO] mcgt_probe_versions_v1 terminé.
 [INFO] Commande terminée avec code 0
 
 [INFO] Step22 terminé avec code 0.
-[INFO] Log complet : /home/jplal/MCGT/zz-logs/step22_health_20251130T172933Z.log
+[INFO] Log complet : /path/to/MCGT/zz-logs/step22_health_20251130T172933Z.log
 ```

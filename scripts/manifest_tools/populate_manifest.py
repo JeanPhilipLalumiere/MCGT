@@ -8,7 +8,7 @@ Fonctions principales:
  - option --search pour tenter de retrouver un fichier manquant par basename
  - option --sign {gpg,sha256} pour signer le manifeste ou ajouter checksum
 Usage:
-  python3 remplir_manifest.py assets/zz-manifests/manifest_publication.json --repo-root . --force --sign sha256
+  python3 remplir_manifest.py assets/zz-manifests/manifest_publication.json --repo-root /path/to/MCGT --force --sign sha256
 """
 
 from __future__ import annotations

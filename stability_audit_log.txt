@@ -9,7 +9,7 @@ Execution status of scientific scripts
 [CH01] Export des tables principales…
 [CH01] Calcul des écarts relatifs sur les jalons…
 [CH01] Calcul des invariants adimensionnels…
-[CH01] Calcul de l invariant de Hubble modifie…
+[CH01] Calcul de l'invariant de Hubble modifié…
 [CH01] Données du chapitre 1 régénérées avec succès.
 - CH02 rerun: PASS
   cmd: python scripts/02_primordial_spectrum/generate_data_chapter02.py
@@ -28,7 +28,7 @@ Execution status of scientific scripts
 - I1 first/last: 1.000000e+06 -> 1.000000e+00
 - Relative change in I1 between first and last grid point: -9.999990e-01
 - Hubble-invariant z range: [0.000000, 67760.000000]
-- max I_H on z in [0, 67760]: 0.000000e+00
+- max I_H on z in [0, 67760]: 5.551115e-16
 - Criterion max I_H < 1e-15: PASS
 - Delta H^2 / H^2 availability: AVAILABLE
   reason: Computed from the modified Friedmann equation using solve_ivp.
@@ -64,6 +64,9 @@ Execution status of scientific scripts
 - Grid minimum m_s^2 / R0: 2.679248e+03
 - Negative m_s^2 rows on grid: 0
 - Trajectory minimum m_s^2 / R0: 2.679248e+03
+- Hamiltonian proxy minimum on trajectory: -3.300709e+05
+- Hamiltonian proxy maximum on trajectory: -1.502897e+03
+- Hamiltonian proxy strictly negative on trajectory: PASS
 - Raw instability onset z (before stabilization): 133.88516134291172
 - Phantom crossing z from CPL background: 0.33760149906308556
 - Phantom crossing precedes raw instability: True

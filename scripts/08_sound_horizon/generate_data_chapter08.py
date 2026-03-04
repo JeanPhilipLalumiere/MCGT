@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # ruff: noqa: E402
 # ---------------------------------------------------------------
-# scripts/08_sound_horizon/generate_chapter08_data.py
+# scripts/08_sound_horizon/generate_data_chapter08.py
 # Pipeline de génération des données – Chapter 8 (Dark coupling)
 # Scan 1D et 2D χ² (axe param2 « phantom » pour la heatmap)
 # ---------------------------------------------------------------

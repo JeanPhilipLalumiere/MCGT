@@ -299,6 +299,13 @@ def stabilise_potential(
     return df, diagnostics
 
 
+def hamiltonian_energy_proxy(df: pd.DataFrame) -> np.ndarray:
+    # Proxy Hamiltonien signé : stabilité si énergie effective strictement négative.
+    return -df["m_s2_over_R0"].to_numpy(dtype=float) / (
+        1.0 + df["f_R"].to_numpy(dtype=float)
+    )
+
+
 # ----------------------------------------------------------------------
 # 8. Exports CSV & métadonnées
 # ----------------------------------------------------------------------
@@ -315,18 +322,33 @@ def exporter_csv(
     if dry:
         log.info("--dry-run : je n’écris pas les CSV.")
         return
-    df_raw.to_csv(out / "03_fR_stability_raw.csv", index=False)
-    df.to_csv(out / "03_fR_stability_data.csv", index=False)
+    df_raw_out = df_raw.copy()
+    df_out = df.copy()
+    df_raw_out["hamiltonian_energy_proxy"] = hamiltonian_energy_proxy(df_raw_out)
+    df_out["hamiltonian_energy_proxy"] = hamiltonian_energy_proxy(df_out)
+
+    df_raw_out.to_csv(out / "03_fR_stability_raw.csv", index=False)
+    df_out.to_csv(out / "03_fR_stability_data.csv", index=False)
     dom.to_csv(out / "03_fR_stability_domain.csv", index=False)
     frt.to_csv(out / "03_fR_stability_boundary.csv", index=False)
     meta = {
-        "n_points": int(df.shape[0]),
+        "n_points": int(df_out.shape[0]),
         "files": [
             "03_fR_stability_data.csv",
             "03_fR_stability_raw.csv",
             "03_fR_stability_domain.csv",
             "03_fR_stability_boundary.csv",
         ],
+        "hamiltonian": {
+            "proxy_definition": "-m_s2_over_R0 / (1 + f_R)",
+            "raw_min": float(df_raw_out["hamiltonian_energy_proxy"].min()),
+            "raw_max": float(df_raw_out["hamiltonian_energy_proxy"].max()),
+            "corrected_min": float(df_out["hamiltonian_energy_proxy"].min()),
+            "corrected_max": float(df_out["hamiltonian_energy_proxy"].max()),
+            "corrected_all_negative": bool(
+                np.all(df_out["hamiltonian_energy_proxy"].to_numpy(dtype=float) < 0.0)
+            ),
+        },
     }
     if diagnostics is not None:
         meta["diagnostics"] = diagnostics
@@ -362,6 +384,7 @@ def exporter_jalons_inverses(
     traj = df_R.copy()
     traj["z"] = np.asarray(zgrid, dtype=float)
     traj["T_Gyr"] = np.asarray(Tgrid, dtype=float)
+    traj["hamiltonian_energy_proxy"] = hamiltonian_energy_proxy(traj)
     traj = traj.drop_duplicates("R_over_R0").sort_values("R_over_R0")
 
     # Garantir des points explicites "aujourd'hui" et "très jeune Univers".

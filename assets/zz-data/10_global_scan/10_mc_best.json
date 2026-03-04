@@ -6,8 +6,8 @@
     "n_ok": 5000,
     "n_total": 5000,
     "pctl_method": "linear",
-    "source_jalons": "/home/jplal/MCGT/assets/zz-data/chapitre10/10_mc_jalons_eval.csv",
-    "source_results": "/home/jplal/MCGT/assets/zz-data/chapitre10/10_mc_results.csv",
+    "source_jalons": "assets/zz-data/10_global_scan/10_mc_jalons_eval.csv",
+    "source_results": "assets/zz-data/10_global_scan/10_mc_results.csv",
     "window": [
       20.0,
       300.0

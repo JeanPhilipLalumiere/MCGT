@@ -47,6 +47,8 @@ jobs:
         run: |
           set -euo pipefail
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/stability_audit_ch01_ch03.py
+          python scripts/03_stability_domain/03_fig_05_self_healing.py
           python scripts/phase4_global_verdict.py
           python scripts/phase4_zenodo_package.py
           python scripts/phase5_geometric_solution.py
@@ -83,6 +85,10 @@ jobs:
         run: |
           set -euo pipefail
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/04_expansion_supernovae/generate_data_chapter04_pantheon.py
+          python scripts/05_primordial_bbn/generate_data_chapter05.py
+          python scripts/05_primordial_bbn/validate_bbn_convergence.py
+          python scripts/05_primordial_bbn/05_fig_05_bbn_3min_summary.py
           python scripts/04_expansion_supernovae/04_fig_06_pantheon_residuals.py
           python scripts/phase2_observational_report.py
 
@@ -94,6 +100,11 @@ jobs:
             assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.png
             assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.pdf
             assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.svg
+            assets/zz-figures/05_primordial_bbn/05_fig_05_bbn_3min_summary.png
+            assets/zz-figures/05_primordial_bbn/05_fig_05_bbn_3min_summary.pdf
+            assets/zz-figures/03_stability_domain/03_fig_05_self_healing.png
+            assets/zz-data/04_expansion_supernovae/04_pantheon_summary.json
+            assets/zz-data/05_primordial_bbn/05_bbn_convergence_summary.json
             phase2_observational_log.txt
 
       - name: Regenerate Phase 3 LSS and geometry artifacts
@@ -144,8 +155,8 @@ jobs:
             assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png
             assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png
             phase4_global_verdict_report.json
-            final_synthesis_v3.3.0_GOLD.json
+            final_synthesis_v3.3.1_GOLD.json
             assets/zz-manifests/manuscript_artifact_manifest.json
             assets/zz-manifests/manuscript_artifact_manifest.md
-            zz-zenodo/phase4_global_verdict_v3.3.0
-            zz-zenodo/phase4_global_verdict_v3.3.0.tar.gz
+            zz-zenodo/phase4_global_verdict_v3.3.1
+            zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz

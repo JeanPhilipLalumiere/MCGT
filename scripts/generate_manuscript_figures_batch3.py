@@ -3,9 +3,12 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
+apply_manuscript_defaults(usetex=True)
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +25,7 @@ BESTFIT = {
 
 def _save_dual(fig, manuscript_name: str, output_stem: str) -> None:
     fig.savefig(OUT_DIR / manuscript_name)
+    fig.savefig(OUT_DIR / manuscript_name.replace(".png", ".pdf"))
     fig.savefig(OUTPUT_DIR / f"{output_stem}.png")
     fig.savefig(OUTPUT_DIR / f"{output_stem}.pdf")
 
@@ -49,7 +53,6 @@ def _apply_style():
             "grid.linewidth": 0.6,
         }
     )
-    apply_manuscript_defaults()
 
 
 def make_ns_calibration_plot():
@@ -81,6 +84,7 @@ def make_ns_calibration_plot():
     ax.legend(frameon=False, loc="lower right")
     fig.tight_layout()
     fig.savefig(OUT_DIR / "02_fig_ns_calibration.png")
+    fig.savefig(OUT_DIR / "02_fig_ns_calibration.pdf")
     plt.close(fig)
 
 

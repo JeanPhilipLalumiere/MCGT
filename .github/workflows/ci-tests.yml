@@ -28,6 +28,8 @@ jobs:
       - name: Prepare reproducible manuscript artifacts for tests
         run: |
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/stability_audit_ch01_ch03.py
+          python scripts/03_stability_domain/03_fig_05_self_healing.py
           python scripts/phase4_global_verdict.py
           python scripts/phase4_zenodo_package.py
           python scripts/phase5_geometric_solution.py
@@ -48,6 +50,10 @@ jobs:
       - name: Regenerate Phase 2 observational log
         run: |
           export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          python scripts/04_expansion_supernovae/generate_data_chapter04_pantheon.py
+          python scripts/05_primordial_bbn/generate_data_chapter05.py
+          python scripts/05_primordial_bbn/validate_bbn_convergence.py
+          python scripts/05_primordial_bbn/05_fig_05_bbn_3min_summary.py
           python scripts/phase2_observational_report.py
 
       - name: Regenerate Phase 3 LSS and geometry report

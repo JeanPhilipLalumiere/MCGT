@@ -3,7 +3,7 @@ PsiTMG v3.3.1 Phase 4 Global Verdict Package
 Author: Jean-Philip Lalumière
 Status: local package only; no Zenodo publication was performed.
 Version: v3.3.1
-Generated at (UTC): 2026-03-03T20:38:07+00:00
+Generated at (UTC): 2026-03-04T01:23:48+00:00
 
 Contents:
 - CPL dark-energy figures (Figure 12 and Figure 13)

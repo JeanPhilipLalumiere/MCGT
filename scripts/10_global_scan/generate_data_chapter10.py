@@ -14,23 +14,23 @@ Ce pipeline orchestre, dans le bon ordre et avec traçabilité :
   7) Résumé de run & sorties manifestes
 
 Ce qui est volontairement laissé à d’autres scripts (indépendants) :
-  - La production des figures 10-01…10-06 (scripts scripts/chapitre10/plot_*).
+  - La production des figures 10-01…10-06 (scripts scripts/10_global_scan/plot_*).
   - Des explorations très spécifiques (raffinement “boîte par boîte”, CMA-ES, etc.).
 
 Exemples d’exécution
 --------------------
 # Run global simple (comme validé)
-python scripts/chapitre10/generer_donnees_chapitre10.py \
+python scripts/10_global_scan/generate_data_chapter10.py \
   --n 5000 --batch 256 --n-workers 8 --K 50 --lambda 0.2 \
-  --ref-grid assets/zz-data/chapitre9/09_phases_imrphenom.csv \
-  --jalons   assets/zz-data/chapitre9/09_jalons_comparaison.csv \
+  --ref-grid assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+  --jalons   assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv \
   --log-level INFO
 
 # Même chose + raffinement global autour du top-K (ex. 10k points)
-python scripts/chapitre10/generer_donnees_chapitre10.py \
+python scripts/10_global_scan/generate_data_chapter10.py \
   --n 5000 --batch 256 --n-workers 8 --K 50 --lambda 0.2 \
-  --ref-grid assets/zz-data/chapitre9/09_phases_imrphenom.csv \
-  --jalons   assets/zz-data/chapitre9/09_jalons_comparaison.csv \
+  --ref-grid assets/zz-data/09_dark_energy_cpl/09_phases_imrphenom.csv \
+  --jalons   assets/zz-data/09_dark_energy_cpl/09_comparison_milestones.csv \
   --refine --refine-n 10000 --refine-shrink 3.0 \
   --log-level INFO
 
@@ -42,7 +42,7 @@ Notes
     • eval_metrics_principal_20_300.py
     • eval_jalons_fpeak.py
     • aggreger_runs_mc.py
-- Les fichiers sont produits dans assets/zz-data/chapitre10/ ; les journaux (logs) sont sur stdout/err.
+- Les fichiers sont produits dans assets/zz-data/10_global_scan/ ; les journaux (logs) sont sur stdout/err.
 """
 
 from __future__ import annotations
@@ -84,7 +84,7 @@ DEFAULTS = {
     "manifest": DDIR / "10_mc_run_manifest.json",
     "summary": DDIR / "10_pipeline_summary.json",
     "ref_grid": REF_CH9 / "09_phases_imrphenom.csv",
-    "jalons_ref": REF_CH9 / "09_jalons_comparaison.csv",
+    "jalons_ref": REF_CH9 / "09_comparison_milestones.csv",
 }
 
 

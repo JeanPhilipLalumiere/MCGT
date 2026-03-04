@@ -13,6 +13,7 @@ OUT_JSON = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.json
 OUT_MD = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.md"
 AUTHOR_NAME = "Jean-Philip Lalumière"
 
+PHASE1_LOG = ROOT / "stability_audit_log.txt"
 PHASE2_LOG = ROOT / "phase2_observational_log.txt"
 PHASE3_JSON = ROOT / "phase3_lss_geometry_report.json"
 PHASE4_JSON = ROOT / "phase4_global_verdict_report.json"
@@ -56,6 +57,25 @@ def parse_phase2_log(text: str) -> dict[str, object]:
     }
 
 
+def parse_phase1_log(text: str) -> dict[str, object]:
+    def grab(pattern: str) -> str:
+        match = re.search(pattern, text)
+        if not match:
+            raise ValueError(f"Pattern not found in phase1 log: {pattern}")
+        return match.group(1)
+
+    return {
+        "max_hubble_invariant": float(grab(r"max I_H on z in \[0, 67760\]: ([0-9.eE+\-]+)")),
+        "hubble_invariant_pass": grab(r"Criterion max I_H < 1e-15: (PASS|FAIL)") == "PASS",
+        "strict_sentinel_false_positives": int(grab(r"strict Sentinel false positives: ([0-9]+)")),
+        "golden_match_pass": grab(r"Golden Match criterion \(alpha ~ 0.50 -> n_s ~ 0.96\): (PASS|FAIL)")
+        == "PASS",
+        "hamiltonian_pass": grab(r"Hamiltonian proxy strictly negative on trajectory: (PASS|FAIL)")
+        == "PASS",
+        "source_log": str(PHASE1_LOG.relative_to(ROOT)),
+    }
+
+
 def collect_file_record(path_str: str) -> dict[str, object]:
     path = ROOT / path_str
     return {
@@ -67,6 +87,7 @@ def collect_file_record(path_str: str) -> dict[str, object]:
 
 
 def main() -> None:
+    phase1 = parse_phase1_log(PHASE1_LOG.read_text(encoding="utf-8"))
     phase2 = parse_phase2_log(PHASE2_LOG.read_text(encoding="utf-8"))
     phase3 = json.loads(PHASE3_JSON.read_text(encoding="utf-8"))
     phase4 = json.loads(PHASE4_JSON.read_text(encoding="utf-8"))
@@ -80,14 +101,20 @@ def main() -> None:
         "README.md",
         "REPRODUCIBILITY.md",
         "CERTIFICATE_OF_INTEGRITY.txt",
+        "stability_audit_log.txt",
         "phase2_observational_log.txt",
         "phase3_lss_geometry_report.txt",
         "phase3_lss_geometry_report.json",
         "phase4_global_verdict_report.json",
         "final_synthesis_v3.3.1_GOLD.json",
+        "assets/zz-figures/stability_audit/figure_2_ch01_numerical_drift.png",
+        "assets/zz-figures/stability_audit/figure_3_ch02_alpha_ns_mapping.png",
+        "assets/zz-figures/stability_audit/figure_5_ch03_phase_stability.png",
         "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.png",
         "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.pdf",
         "assets/zz-figures/04_expansion_supernovae/04_fig_06_pantheon_residuals.svg",
+        "assets/zz-figures/05_primordial_bbn/05_fig_05_bbn_3min_summary.png",
+        "assets/zz-figures/05_primordial_bbn/05_fig_05_bbn_3min_summary.pdf",
         "assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png",
         "assets/zz-figures/07_bao_geometry/07_fig_10_bao_hubble_diagram.png",
         "assets/zz-figures/08_sound_horizon/08_fig_11_sound_horizon_near_decoupling.png",
@@ -123,9 +150,10 @@ def main() -> None:
 
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-        "scope": "manuscript_artifacts_phase2_to_phase5",
+        "scope": "manuscript_artifacts_phase1_to_phase5",
         "author": AUTHOR_NAME,
         "phases": {
+            "phase1": phase1,
             "phase2": phase2,
             "phase3": phase3,
             "phase4": phase4,
@@ -142,8 +170,15 @@ def main() -> None:
         "",
         f"- Author: {AUTHOR_NAME}",
         f"- Generated at (UTC): {manifest['generated_at_utc']}",
-        "- Scope: phases 2, 3, 4 and 5",
+        "- Scope: phases 1, 2, 3, 4 and 5",
         "- Reproducibility guide: REPRODUCIBILITY.md",
+        "",
+        "## Phase 1",
+        f"- Max modified-Friedmann invariant: {phase1['max_hubble_invariant']:.6e}",
+        f"- Hubble invariant gate: {str(phase1['hubble_invariant_pass']).lower()}",
+        f"- Strict Sentinel false positives: {phase1['strict_sentinel_false_positives']}",
+        f"- Golden Match: {str(phase1['golden_match_pass']).lower()}",
+        f"- Hamiltonian stability gate: {str(phase1['hamiltonian_pass']).lower()}",
         "",
         "## Phase 2",
         f"- Pantheon+ chi2(PsiTMG): {phase2['chi2_psitmg']}",

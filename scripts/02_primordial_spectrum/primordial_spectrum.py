@@ -31,13 +31,11 @@ NS0 = 0.9649
 
 # --- coefficients MCGT (linéaires) ---
 C1 = 1.0
-C2 = -0.0098
-ALPHA_MIN = -0.5
-ALPHA_MAX = 0.5
+C2 = -0.04
 
 # --- chemins (projet supposé racine 2 niveaux au-dessus) ---
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets" / "zz-data" / "02_primordial_spectrum"
+DATA_DIR = ROOT / "assets/zz-data" / "02_primordial_spectrum"
 SPEC_FILE = DATA_DIR / "02_primordial_spectrum_spec.json"
 
 
@@ -52,14 +50,14 @@ def P_R(k: np.ndarray | float, alpha: float) -> np.ndarray:
 
     Args:
         k: scalaire ou tableau de nombres d'onde comobile (h·Mpc^-1)
-        alpha: paramètre MCGT (float), attendu dans [-0.5, 0.5]
+        alpha: paramètre MCGT (float), attendu dans [-0.1, 0.1]
 
     Returns:
         np.ndarray: valeurs de P_R(k)
     """
     alpha = float(alpha)
-    if not ALPHA_MIN <= alpha <= ALPHA_MAX:
-        raise ValueError(f"alpha={alpha} hors du domaine [{ALPHA_MIN}, {ALPHA_MAX}]")
+    if not -0.1 <= alpha <= 0.1:
+        raise ValueError(f"alpha={alpha} hors du domaine [-0.1, 0.1]")
 
     k_arr = np.asarray(k, dtype=float)
     As = A_S0 * (1 + C1 * alpha)

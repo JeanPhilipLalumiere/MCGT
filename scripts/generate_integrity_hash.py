@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a signed SHA-256 certificate for the final manuscript and MCMC chains."""
+"""Generate a signed SHA-256 certificate for the final delivery artifacts."""
 
 from __future__ import annotations
 
@@ -9,10 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGETS = [
+ZENODO_ROOT = ROOT / "zz-zenodo"
+PRIMARY_TARGETS = [
     ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf",
-    ROOT / "assets" / "zz-data" / "10_global_scan" / "10_mcmc_affine_chain.csv.gz",
-    ROOT / "output" / "ptmg_chains.h5",
 ]
 OUTPUT = ROOT / "CERTIFICATE_OF_INTEGRITY.txt"
 SIGNATORY = "Jean-Philip Lalumière"
@@ -26,18 +25,29 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def delivery_targets() -> list[Path]:
+    files = [path for path in ZENODO_ROOT.rglob("*") if path.is_file()]
+    primary = [path for path in PRIMARY_TARGETS if path.exists()]
+    return sorted(primary + files, key=lambda path: str(path.relative_to(ROOT)))
+
+
 def render_certificate() -> str:
     timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    targets = delivery_targets()
     lines = [
         "CERTIFICATE OF INTEGRITY",
         "Version: v3.3.1 GOLD",
         f"Generated (UTC): {timestamp}",
         "",
-        "This certificate binds the final manuscript and the validated MCMC chains",
-        "to the local v3.3.1 GOLD artifact state through SHA-256 fingerprints.",
+        "This certificate binds the final manuscript and every delivery artifact",
+        "currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through",
+        "SHA-256 fingerprints.",
+        "",
+        f"Delivery root: {ZENODO_ROOT.relative_to(ROOT)}",
+        f"Artifacts sealed: {len(targets)}",
         "",
     ]
-    for path in TARGETS:
+    for path in targets:
         rel = path.relative_to(ROOT)
         lines.extend(
             [
@@ -49,9 +59,9 @@ def render_certificate() -> str:
     lines.extend(
         [
             "Statement:",
-            "The files listed above are the validated GOLD manuscript and chain artifacts",
-            "used for the final thesis release. Any post-validation modification would",
-            "change the hashes recorded in this certificate.",
+            "The files listed above are the validated GOLD manuscript and delivery",
+            "artifacts used for the final thesis release. Any post-validation",
+            "modification would change the hashes recorded in this certificate.",
             "",
             f"Signed by: {SIGNATORY}",
         ]
@@ -60,10 +70,8 @@ def render_certificate() -> str:
 
 
 def main() -> None:
-    missing = [path for path in TARGETS if not path.exists()]
-    if missing:
-        missing_str = ", ".join(str(path.relative_to(ROOT)) for path in missing)
-        raise FileNotFoundError(f"Missing integrity target(s): {missing_str}")
+    if not ZENODO_ROOT.exists():
+        raise FileNotFoundError(f"Missing delivery root: {ZENODO_ROOT.relative_to(ROOT)}")
     OUTPUT.write_text(render_certificate(), encoding="utf-8")
     print(f"Wrote certificate -> {OUTPUT}")
 

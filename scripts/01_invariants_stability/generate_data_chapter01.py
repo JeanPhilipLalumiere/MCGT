@@ -15,8 +15,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import PchipInterpolator, interp1d
-from scipy.signal import savgol_filter
 from scipy.integrate import solve_ivp
+from scipy.signal import savgol_filter
 
 plt.rcParams.update(
     {
@@ -112,84 +112,84 @@ def _safe_savgol(y: np.ndarray, window: int, poly: int):
     return savgol_filter(y, window_length=window, polyorder=poly)
 
 
-def load_background_params(config_path: Path) -> dict[str, float]:
-    cfg = configparser.ConfigParser(
-        interpolation=None, inline_comment_prefixes=("#", ";")
-    )
-    if not cfg.read(config_path, encoding="utf-8"):
-        raise FileNotFoundError(f"Cannot read config: {config_path}")
+def load_background_params(config_path: Path):
+    cfg = configparser.ConfigParser()
+    cfg.read(config_path, encoding="utf-8")
 
-    cmb = cfg["cmb"]
-    de = cfg["dark_energy"]
-    rad = cfg["radiation"] if "radiation" in cfg else None
-
-    h0 = cmb.getfloat("H0")
-    ombh2 = cmb.getfloat("ombh2")
-    omch2 = cmb.getfloat("omch2")
+    h0 = cfg.getfloat("cmb", "H0")
     h = h0 / 100.0
-    omega_m = (ombh2 + omch2) / (h * h)
+    omega_b_h2 = cfg.getfloat("cmb", "ombh2")
+    omega_c_h2 = cfg.getfloat("cmb", "omch2")
+    tcmb = cfg.getfloat("radiation", "Tcmb_K")
+    neff = cfg.getfloat("radiation", "Neff")
+    w0 = cfg.getfloat("dark_energy", "w0")
+    wa = cfg.getfloat("dark_energy", "wa")
 
-    tcmb = 2.7255 if rad is None else rad.getfloat("Tcmb_K")
-    neff = 3.046 if rad is None else rad.getfloat("Neff")
+    omega_m = (omega_b_h2 + omega_c_h2) / (h * h)
     omega_gamma_h2 = 2.469e-5 * (tcmb / 2.7255) ** 4
-    omega_r_h2 = omega_gamma_h2 * (1.0 + 0.2271 * neff)
-    omega_r = omega_r_h2 / (h * h)
-    omega_tmg = 1.0 - omega_m - omega_r
+    omega_r = omega_gamma_h2 * (1.0 + 0.2271 * neff) / (h * h)
+    omega_psitmg = 1.0 - omega_m - omega_r
 
     return {
         "H0": h0,
-        "omega_m": omega_m,
-        "omega_r": omega_r,
-        "omega_tmg": omega_tmg,
-        "w0": de.getfloat("w0"),
-        "wa": de.getfloat("wa"),
+        "Omega_m": omega_m,
+        "Omega_r": omega_r,
+        "Omega_PsiTMG": omega_psitmg,
+        "w0": w0,
+        "wa": wa,
     }
 
 
-def w_of_z(z: np.ndarray | float, w0: float, wa: float) -> np.ndarray:
-    z_arr = np.asarray(z, dtype=float)
-    return w0 + wa * z_arr / (1.0 + z_arr)
+def cpl_w(z: np.ndarray, w0: float, wa: float):
+    return w0 + wa * z / (1.0 + z)
 
 
-def compute_hubble_invariant(params: dict[str, float]) -> pd.DataFrame:
-    z_max = 67760.0
-    z_grid = np.concatenate(([0.0], np.geomspace(1.0e-8, z_max, 2400)))
+def compute_hubble_invariant(base: Path, config_path: Path):
+    params = load_background_params(config_path)
+    z_grid = np.concatenate(([0.0], np.geomspace(1.0e-8, 6.7760e4, 4096)))
+    z_max = float(z_grid[-1])
 
-    def ode(z: float, y: np.ndarray) -> np.ndarray:
-        w = float(w_of_z(z, params["w0"], params["wa"]))
-        return np.array([3.0 * (1.0 + w) / (1.0 + z)], dtype=float)
+    def rhs(z, y):
+        wz = params["w0"] + params["wa"] * z / (1.0 + z)
+        return [3.0 * (1.0 + wz) * y[0] / (1.0 + z)]
 
     sol = solve_ivp(
-        ode,
-        t_span=(0.0, z_max),
-        y0=np.array([0.0], dtype=float),
+        rhs,
+        (0.0, z_max),
+        y0=[1.0],
         t_eval=z_grid,
         method="DOP853",
         atol=1.0e-18,
         rtol=1.0e-16,
     )
     if not sol.success:
-        raise RuntimeError(f"CH01 background solve_ivp failed: {sol.message}")
+        raise RuntimeError(f"Echec solve_ivp pour F(z,w): {sol.message}")
 
-    F_zw = np.exp(sol.y[0])
+    w_z = cpl_w(z_grid, params["w0"], params["wa"])
+    f_zw = sol.y[0]
     e2 = (
-        params["omega_r"] * (1.0 + z_grid) ** 4
-        + params["omega_m"] * (1.0 + z_grid) ** 3
-        + params["omega_tmg"] * F_zw
+        params["Omega_r"] * (1.0 + z_grid) ** 4
+        + params["Omega_m"] * (1.0 + z_grid) ** 3
+        + params["Omega_PsiTMG"] * f_zw
     )
-    h2 = params["H0"] ** 2 * e2
-    invariant = np.abs(h2 / (params["H0"] ** 2 * e2) - 1.0)
+    h_km_s_mpc = params["H0"] * np.sqrt(e2)
+    denominator = params["H0"] ** 2 * (
+        params["Omega_r"] * (1.0 + z_grid) ** 4
+        + params["Omega_m"] * (1.0 + z_grid) ** 3
+        + params["Omega_PsiTMG"] * f_zw
+    )
+    i_h = np.abs((h_km_s_mpc**2) / denominator - 1.0)
 
-    return pd.DataFrame(
+    pd.DataFrame(
         {
             "z": z_grid,
-            "w_z": w_of_z(z_grid, params["w0"], params["wa"]),
-            "F_zw": F_zw,
+            "w_z": w_z,
+            "F_zw": f_zw,
             "E2": e2,
-            "H_km_s_Mpc": np.sqrt(h2),
-            "I_H": invariant,
+            "H_km_s_Mpc": h_km_s_mpc,
+            "I_H": i_h,
         }
-    )
+    ).to_csv(base / "01_hubble_invariant.csv", index=False)
 
 
 def main():
@@ -201,7 +201,7 @@ def main():
     parser.add_argument(
         "--csv",
         type=Path,
-        default=repo_root / "assets" / "zz-data" / "01_invariants_stability" / "01_timeline_milestones.csv",
+        default=repo_root / "assets/zz-data" / "01_invariants_stability" / "01_timeline_milestones.csv",
         help="Fichier de jalons temporels (T, P_ref).",
     )
     parser.add_argument("--tmin", type=float, default=1e-6, help="T_min (Gyr)")
@@ -234,7 +234,7 @@ def main():
         "--config",
         type=Path,
         default=repo_root / "config" / "mcgt-global-config.ini",
-        help="Configuration centrale pour l invariant de Hubble.",
+        help="Configuration globale MCGT.",
     )
 
     args = parser.parse_args()
@@ -321,13 +321,8 @@ def main():
         base / "01_dimensionless_invariants.csv", index=False
     )
 
-    # ------------------------------------------------------------------
-    # 6) Invariant de Hubble de Friedmann modifiée
-    # ------------------------------------------------------------------
-    print("[CH01] Calcul de l invariant de Hubble modifie…")
-    background = load_background_params(args.config)
-    df_hubble = compute_hubble_invariant(background)
-    df_hubble.to_csv(base / "01_hubble_invariant.csv", index=False)
+    print("[CH01] Calcul de l'invariant de Hubble modifié…")
+    compute_hubble_invariant(base, args.config)
 
     print("[CH01] Données du chapitre 1 régénérées avec succès.")
 

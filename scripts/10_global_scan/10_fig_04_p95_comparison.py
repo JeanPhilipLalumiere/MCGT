@@ -37,8 +37,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 from scripts._common.style import apply_manuscript_defaults
 
-apply_manuscript_defaults()
-
 plt.rcParams.update(
     {
         "figure.autolayout": True,

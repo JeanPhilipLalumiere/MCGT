@@ -62,7 +62,8 @@ def main() -> None:
         (
             f"phantom crossing z = {z_phantom:.3f}\n"
             f"raw break z = {z_break:.3f}\n"
-            f"stabilized negative rows = {diag.get('stabilized_negative_rows')}"
+            f"stabilized negative rows = {diag.get('stabilized_negative_rows')}\n"
+            f"min corrected H_ham = {traj['hamiltonian_energy_proxy'].min():.3e}"
         ),
         transform=axes[1].transAxes,
         fontsize=10,

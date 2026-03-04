@@ -41,20 +41,8 @@ plt.rcParams.update(
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "assets" / "zz-data" / "02_primordial_spectrum"
-IMG_DIR = ROOT / "assets" / "zz-figures" / "02_primordial_spectrum"
-AS0 = 2.10e-9
-NS0 = 0.9649
-C1 = 1.0
-C2 = -0.0098
-ALPHA_MIN = -0.5
-ALPHA_MAX = 0.5
-ALPHA_STEPS = 41
-K_SAMPLING_POINTS = 100
-
 # Paramètres logistiques pré-calibrés depuis 02_optimal_parameters.json
-with (DATA_DIR / "02_optimal_parameters.json").open(encoding="utf-8") as f:
+with open("assets/zz-data/02_primordial_spectrum/02_optimal_parameters.json") as f:
     _params = json.load(f)
 
 _segments = _params["segments"]
@@ -68,7 +56,7 @@ Delta = _low["Delta"]
 Tp = _low["Tp"]
 
 # Grille temporelle T extraite du fichier P(T)
-_grid_PT = np.loadtxt(DATA_DIR / "02_P_vs_T_grid_data.dat")
+_grid_PT = np.loadtxt("assets/zz-data/02_primordial_spectrum/02_P_vs_T_grid_data.dat")
 T = _grid_PT[:, 0]
 
 
@@ -133,49 +121,11 @@ def parse_args():
     return parser.parse_args()
 
 
-def export_primordial_tables() -> None:
-    alpha_grid = np.linspace(ALPHA_MIN, ALPHA_MAX, ALPHA_STEPS)
-    as_vals = AS0 * (1.0 + C1 * alpha_grid)
-    ns_vals = NS0 + C2 * alpha_grid
-
-    df_as_ns = pd.DataFrame(
-        {
-            "alpha": np.round(alpha_grid, 6),
-            "A_s": as_vals,
-            "n_s": np.round(ns_vals, 6),
-        }
-    )
-    df_as_ns.to_csv(DATA_DIR / "02_As_ns_vs_alpha.csv", index=False)
-
-    k_grid = np.geomspace(1.0e-4, 1.0e2, K_SAMPLING_POINTS)
-    rows = []
-    for alpha, a_s, n_s in zip(alpha_grid, as_vals, ns_vals, strict=False):
-        spectrum = a_s * (k_grid ** (n_s - 1.0))
-        rows.extend(
-            {
-                "alpha": round(float(alpha), 6),
-                "k": float(k),
-                "P_R": float(p_r),
-            }
-            for k, p_r in zip(k_grid, spectrum, strict=False)
-        )
-    pd.DataFrame(rows).to_csv(DATA_DIR / "02_P_R_sampling.csv", index=False)
-
-    df_fg = pd.DataFrame(
-        [
-            {"fonc": "F", "ordre": 0, "coeff": 0.0},
-            {"fonc": "F", "ordre": 1, "coeff": C1},
-            {"fonc": "F", "ordre": 2, "coeff": 0.0},
-            {"fonc": "G", "ordre": 0, "coeff": 0.0},
-            {"fonc": "G", "ordre": 1, "coeff": C2},
-            {"fonc": "G", "ordre": 2, "coeff": 0.0},
-        ]
-    )
-    df_fg.to_csv(DATA_DIR / "02_FG_series.csv", index=False)
-
-
 # --- Section 3 : Pipeline principal ---
 def main(spectre=False):
+    ROOT = Path(__file__).resolve().parents[2]
+    DATA_DIR = ROOT / "assets/zz-data" / "02_primordial_spectrum"
+    IMG_DIR = ROOT / "assets/zz-figures" / "02_primordial_spectrum"
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     IMG_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -311,7 +261,6 @@ def main(spectre=False):
     with open(DATA_DIR / "02_optimal_parameters.json", "w", encoding="utf-8") as f:
         json.dump(json_out, f, ensure_ascii=False, indent=2)
 
-    export_primordial_tables()
     logging.info("Pipeline Chap2 terminé.")
 
     # --- Section 4 : Génération du spectre primordial (option --spectre) ---
@@ -343,7 +292,7 @@ def main(spectre=False):
         subprocess.run(
             [
                 "python3",
-                str(ROOT / "scripts" / "02_primordial_spectrum" / "plot_fig00_spectrum.py"),
+                str(ROOT / "scripts" / "02_primordial_spectrum" / "primordial_spectrum.py"),
             ],
             check=True,
         )

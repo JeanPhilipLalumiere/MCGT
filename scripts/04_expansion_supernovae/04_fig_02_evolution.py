@@ -23,9 +23,7 @@ plt.rcParams.update(
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_FILE = ROOT / "assets/zz-data" / "04_expansion_supernovae" / "04_P_vs_T.dat"
-FIG_PATH = (
-    ROOT / "assets/zz-figures" / "04_expansion_supernovae" / "04_fig_02_evolution.png"
-)
+FIG_PATH = ROOT / "assets/zz-figures" / "04_expansion_supernovae" / "04_fig_02_evolution.png"
 
 
 def _sha256(path: Path) -> str:

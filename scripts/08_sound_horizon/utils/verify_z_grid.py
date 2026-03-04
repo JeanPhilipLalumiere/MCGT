@@ -10,9 +10,7 @@ import numpy as np
 
 # 1. Chargement des méta-paramètres
 ROOT = Path(__file__).resolve().parents[2]
-PARAMS_FILE = (
-    ROOT / "assets/zz-data" / "08_sound_horizon" / "08_coupling_params.json"
-)
+PARAMS_FILE = ROOT / "assets/zz-data" / "08_sound_horizon" / "08_coupling_params.json"
 
 if not PARAMS_FILE.exists():
     print(f"❌ Fichier de paramètres introuvable : {PARAMS_FILE}")

@@ -1,9 +1,9 @@
 # Manuscript Artifact Manifest
 
 - Release version: v3.3.1
-- Git head (short): a918db70
+- Git head (short): ec0b202e
 - Author: Jean-Philip Lalumière
-- Generated at (UTC): 2026-03-04T02:13:42+00:00
+- Generated at (UTC): 2026-03-04T03:06:35+00:00
 - Scope: phases 1, 2, 3, 4 and 5
 - Reproducibility guide: REPRODUCIBILITY.md
 

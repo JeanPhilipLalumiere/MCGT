@@ -1,6 +1,6 @@
 CERTIFICATE OF INTEGRITY
 Version: v3.3.1 GOLD
-Generated (UTC): 2026-03-04T01:35:24+00:00
+Generated (UTC): 2026-03-04T03:06:36+00:00
 
 This certificate binds the final manuscript and every delivery artifact
 currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through
@@ -10,13 +10,13 @@ Delivery root: zz-zenodo
 Artifacts sealed: 17
 
 File: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
-SHA256: a82fb12726cf7038d2d632092a2a5010af8c3f8dacb5cb15b02183272431d586
+SHA256: 58ba0376fdadcd302cbfcd3afb9bc998a79c840335b1bfcaaa6be4ef6e91192a
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz
-SHA256: d19fe078bb75fc19cdabf67e3a2ae50a489723030659221a3fe58776a339be22
+SHA256: 41ef5f0d0f7c36fdad846460a0fd8257156aa87f3a8a1efb0c57d2d1f329615b
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/README.txt
-SHA256: 6fed6cbe88f92fa3b5ebcce4aa3af708a88adb1e93f04f23d2d604c95734ea83
+SHA256: 35a18eacea9ea12f045fa05b8e0553ff14d90c7f9799efaf6f69fb6fdfd1769c
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz
 SHA256: d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0
@@ -52,7 +52,7 @@ File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json
 SHA256: ba8bf3e84a02b785ccd6147f401a5dbfabea48d086c071d3c695c77d6b6b80ba
 
 File: zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json
-SHA256: 885bdcb66bba1d7bd685910f71a7f4371d4a28cde856b707fdea714b6872db7d
+SHA256: 2eab3dcd83425901a8ce5c0c30c3fc76499a316430f7b1db93980dcf0d42c9d1
 
 File: zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv
 SHA256: 4393c3969e77d7593e4384ad73ae79a6749243d06ea7d8d5a1fc37d96ac40206

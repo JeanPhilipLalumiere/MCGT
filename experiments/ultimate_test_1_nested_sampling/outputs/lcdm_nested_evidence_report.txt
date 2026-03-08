@@ -1,0 +1,14 @@
+LCDM Nested Sampling Evidence Report (SN+BAO+CMB)
+lnZ = -447.748538
+lnZ_err = +/- 1.991269
+niter = 51
+ncall_total = 149
+nlive = 80
+dlogz_stop = 5.0
+processes = 2
+
+Parameter priors:
+- H_0: [60.0, 80.0]
+- Omega_m: [0.1, 0.5]
+
+results_pickle = /home/jplal/MCGT/experiments/ultimate_test_1_nested_sampling/outputs/lcdm_nested_res.pkl

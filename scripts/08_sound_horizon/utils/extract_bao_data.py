@@ -4,17 +4,17 @@
 # Source   : https://raw.githubusercontent.com/SDSS-Science-Archive-Server/BOSS-LSS/
 #            master/lss/BAOtables/bao_distances_DR12v5.dat
 
-import os
+from pathlib import Path
 
 import pandas as pd
 
 # 1. Définition des chemins
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "../../../assets/zz-data/08_sound_horizon"))
-os.makedirs(DATA_DIR, exist_ok=True)
+SCRIPT_DIR = Path(__file__).resolve().parent
+DATA_DIR = SCRIPT_DIR.parents[2] / "assets" / "zz-data" / "08_sound_horizon"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-input_file = os.path.join(DATA_DIR, "bao_distances_DR12v5.dat")
-output_file = os.path.join(DATA_DIR, "08_bao_data.csv")
+input_file = DATA_DIR / "bao_distances_DR12v5.dat"
+output_file = DATA_DIR / "08_bao_data.csv"
 
 # 2. Lecture du fichier brut BAO
 df = pd.read_csv(input_file, delim_whitespace=True, comment="#")

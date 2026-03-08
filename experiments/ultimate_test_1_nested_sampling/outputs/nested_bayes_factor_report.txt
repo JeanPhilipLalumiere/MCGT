@@ -1,0 +1,10 @@
+Nested-Sampling Bayes Factor Report
+lnZ(PsiTMG) = -438.016080 +/- 1.991380
+lnZ(LCDM)   = -447.748538 +/- 1.991269
+Delta lnZ   = 9.732457 +/- 2.816158
+Bayes factor K = exp(Delta lnZ) = 1.685592e+04
+Favored model: PsiTMG
+Evidence strength (Jeffreys): strong
+
+PsiTMG source: experiments/ultimate_test_1_nested_sampling/outputs/psitmg_nested_res.pkl
+LCDM source: experiments/ultimate_test_1_nested_sampling/outputs/lcdm_nested_res.pkl

@@ -1,0 +1,16 @@
+PsiTMG Nested Sampling Evidence Report (SN+BAO+CMB)
+lnZ = -438.016080
+lnZ_err = +/- 1.991380
+niter = 51
+ncall_total = 151
+nlive = 80
+dlogz_stop = 5.0
+processes = 2
+
+Parameter priors:
+- Omega_m: [0.1, 0.5]
+- H_0: [60.0, 80.0]
+- w_0: [-2.5, -0.3]
+- w_a: [-3.0, 3.0]
+
+results_pickle = /home/jplal/MCGT/experiments/ultimate_test_1_nested_sampling/outputs/psitmg_nested_res.pkl

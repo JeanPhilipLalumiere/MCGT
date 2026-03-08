@@ -4,19 +4,17 @@
 # https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/
 #   main/Pantheon+_Data/4_DISTANCES_AND_COVAR/Pantheon+SH0ES.dat
 
-import os
+from pathlib import Path
 
 import pandas as pd
 
 # Chemins relatifs depuis ce script
-DATA_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../../assets/zz-data/08_sound_horizon")
-)
+DATA_DIR = Path(__file__).resolve().parents[2] / "assets" / "zz-data" / "08_sound_horizon"
 
 # Fichier brut Pantheon+SH0ES (sans caractères spéciaux dans le nom)
-input_file = os.path.join(DATA_DIR, "pantheon_plus_sh0es.dat")
+input_file = DATA_DIR / "pantheon_plus_sh0es.dat"
 # Fichier CSV de sortie
-output_file = os.path.join(DATA_DIR, "08_pantheon_data.csv")
+output_file = DATA_DIR / "08_pantheon_data.csv"
 
 # 1. Lecture du fichier brut
 df = pd.read_csv(input_file, delim_whitespace=True, comment="#")

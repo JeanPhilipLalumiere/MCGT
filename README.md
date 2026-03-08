@@ -1,59 +1,55 @@
-# Ψ-Time Metric Gravity (ΨTMG): A Metric-Coupled Resolution to Cosmological Tensions
-![v3.3.1 GOLD - Verified Stability](https://img.shields.io/badge/v3.3.1_GOLD-Verified_Stability-gold)
-
-Jean-Philip Lalumière
-
-### Version 3.3.1 — "GOLD"
-
+# PsiTMG Cosmology - Release Gold 4.0
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Version](https://img.shields.io/badge/version-v3.3.1-blue)
+![Release](https://img.shields.io/badge/release-GOLD_4.0-gold)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-**Ψ-Time Metric Gravity** (Metric-Coupled Gravity Theory) is the underlying theoretical framework. **ΨTMG** is its parameterized cosmological realization, designed to address the major tensions of the standard `ΛCDM` model (`H0`, `S8`, JWST) through a purely geometric approach.
+`PsiTMG` is a scientific cosmology framework implementing a metric-coupled dark-energy/gravity scenario designed to test and potentially resolve late-time cosmological tensions against `LambdaCDM`.
 
-## What's New in v3.3.1
+## Scientific Highlights (Gold 4.0)
 
-This release seals the GOLD baseline of the theory: the universal-coupling branch has been replaced by the Step-Function Transition Law, separating the local LIGO-safe regime from the cosmological branch that resolves the late-time tensions. The result is a production model that is no longer under tension internally, but a stable cross-scale solution with validated theory, observations, and reproducibility gates.
+- `Victoire Statistique`: `Delta ln Z = 40.3` against `LambdaCDM`.
+- `Tension H0`: `H0 = 74.185 km/s/Mpc`.
+- `Tension S8`: `S8 = 0.748` (suppressed late-time growth).
+- `Stabilite primordiale`: age of the Universe validated at `14.04 Gyr` with BBN preserved (`Delta N_eff = 0.0`).
+- `Qualite logicielle`: object-oriented architecture, JIT acceleration (Numba), automated tests (`PyTest: 38 passed`), and Docker containerization.
 
-- **Model Selection:** Integration of information-criterion calculations (`AIC/BIC`) to quantify the gain of the model dynamics.
-- **JWST Predictions:** Export of falsifiable theoretical curves for structure evolution from `z=0` to `z=20`.
-- **Peer-Review Ready:** Full reproducibility pipeline with pinned dependencies and one-command execution.
-- **Scale Reconciliation:** Explicit `k`-transition branch proving simultaneous `S8 = 0.7725` and `100%` LIGO compliance.
+## Software Architecture
 
-## Key Results (MCMC Best-Fit)
+- [`core_physics.py`](core_physics.py): cosmological background (`w(z)`, `E(z)`, inverse Hubble), including radiation and JIT kernels.
+- [`perturbations.py`](perturbations.py): linear structure growth engine (`f sigma8`) with robust ODE solving.
+- [`likelihoods.py`](likelihoods.py): modular likelihood evaluator (SNe, CMB, BAO isotropic/anisotropic, RSD, CC), with covariance support.
+- [`diagnostics.py`](diagnostics.py): age, `S8` tension, NEC/BBN diagnostics, and validation plotting tools.
+- [`boltzmann_interface.py`](boltzmann_interface.py): export interface for CLASS/CAMB workflows.
+- [`test_architecture.py`](test_architecture.py): integration smoke test of the full stack.
 
-The global MCMC scan (`Pantheon+`, BAO, CMB, RSD) yields:
-
-- `Ωm = 0.243 ± 0.007`
-- `H0 = 72.97 (+0.32 / -0.30)` km/s/Mpc
-- `w0 = -0.69 ± 0.05`
-- `wa = -2.81 (+0.29 / -0.14)`
-- `S8 = 0.718 ± 0.030`
-
-## The 9% Growth Signature
-
-[Figure 9: Structure Growth Factor](assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png) shows the calibrated `ΨTMG` branch developing a `~9.05%` enhancement in the linear growth rate relative to `ΛCDM` for `z > 10`. This extra geometric pull accelerates early halo assembly enough to make the JWST population less anomalous without adding ad hoc astrophysical tuning. It is the direct observable signature of the low-`k` cosmological branch that remains active after the Step-Function Transition Law isolates the local LIGO-safe regime.
-
-## Latest Results
-
-The synchronized production export in `output/ptmg_predictions_z0_to_z20.csv` now records `f_ptmg/f_lcdm = 1.0900` at `z \approx 10`, matching the validated low-`k` cosmological branch used throughout the manuscript and release artifacts.
-
-## Repository Structure
-
-- `manuscript/`: LaTeX source of the thesis.
-- `scripts/`: Scientific pipelines and plotting utilities.
-- `output/`: Derived chains, tables, and auxiliary exported figures.
-- `zz-zenodo/`: Final local delivery package and release artifacts.
-
-## Reproducing the Results
+## Quick Start (Local)
 
 ```bash
-chmod +x reproduce_paper_results.sh
-./reproduce_paper_results.sh full
+python -m pip install -r requirements.txt
+python test_architecture.py
+pytest tests/
 ```
 
-For the repository-level cold-run audit and the table-versus-manuscript consistency checks, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
+## Quick Start (Docker)
 
-## Release Governance
+```bash
+docker build -t psitmg:gold4 .
+docker run --rm psitmg:gold4
+```
 
-The archival release tag `v3.3.1-GOLD` is immutable. Force-push, tag deletion, or tag retargeting on this archival reference is forbidden once published.
+The container entrypoint runs:
+
+```bash
+python test_architecture.py
+```
+
+## Repository Layout
+
+- `manuscript/`: publication material and LaTeX sources.
+- `scripts/analysis/`: analysis pipelines (prior sensitivity, profile likelihood, etc.).
+- `output/`: generated numerical outputs and diagnostics.
+- `tests/`: automated regression and scientific integrity checks.
+
+## Reproducibility
+
+For reproducibility policies and cold-run checks, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md).

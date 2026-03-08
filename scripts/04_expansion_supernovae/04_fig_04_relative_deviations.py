@@ -73,9 +73,7 @@ def _load_csv(possible_paths: list[Path]) -> tuple[pd.DataFrame, Path]:
 
 
 def main() -> None:
-    df, used_path = _load_csv(
-        [DATA_CSV, Path("/mnt/data/04_dimensionless_invariants.csv")]
-    )
+    df, used_path = _load_csv([DATA_CSV])
     print(f"Chargé {used_path}")
 
     needed = {"T_Gyr", "I2", "I3"}

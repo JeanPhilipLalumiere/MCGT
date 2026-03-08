@@ -1,8 +1,8 @@
-PsiTMG v3.3.1 Phase 4 Global Verdict Package
+PsiTMG v4.0.0 Phase 4 Global Verdict Package
 
 Author: Jean-Philip Lalumière
 Status: local package only; no Zenodo publication was performed.
-Version: v3.3.1
+Version: v4.0.0
 Generated at (UTC): 2026-03-04T03:50:35+00:00
 
 Contents:

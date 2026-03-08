@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_phase5_gold_outputs_exist_and_match_targets():
-    gold = json.loads((ROOT / "final_synthesis_v3.3.1_GOLD.json").read_text(encoding="utf-8"))
+    gold = json.loads((ROOT / "final_synthesis_v4.0.0_GOLD.json").read_text(encoding="utf-8"))
 
     assert gold["status"] == "GOLD"
     assert abs(gold["chapters"]["chapter11"]["conflict_factor_branch"] - 2000.0) < 1.0e-12
@@ -31,7 +31,7 @@ def test_phase5_figures_and_manifest_entries_exist():
         "assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png",
         "assets/zz-data/11_lss_s8_tension/11_scale_conflict_summary.json",
         "assets/zz-data/12_cmb_verdict/12_step_transition_summary.json",
-        "final_synthesis_v3.3.1_GOLD.json",
+        "final_synthesis_v4.0.0_GOLD.json",
     ]
 
     for relpath in required_paths:

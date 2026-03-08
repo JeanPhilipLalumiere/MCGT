@@ -7,8 +7,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE_DIR = ROOT / "zz-zenodo" / "phase4_global_verdict_v3.3.1"
-PACKAGE_TARBALL = ROOT / "zz-zenodo" / "phase4_global_verdict_v3.3.1.tar.gz"
+PACKAGE_DIR = ROOT / "zz-zenodo" / "phase4_global_verdict_v4.0.0"
+PACKAGE_TARBALL = ROOT / "zz-zenodo" / "phase4_global_verdict_v4.0.0.tar.gz"
 
 EXPECTED_STAGED = {
     "files/phase4_global_verdict_report.json",
@@ -32,7 +32,7 @@ def test_phase4_package_contains_expected_payload_and_metadata():
 
     assert metadata["publication_status"] == "local_package_only"
     assert metadata["publish_to_zenodo"] is False
-    assert metadata["version"] == "v3.3.1"
+    assert metadata["version"] == "v4.0.0"
     assert metadata["authors"] == [{"name": "Jean-Philip Lalumière"}]
     assert metadata["files_staged"] == len(EXPECTED_STAGED)
     assert {row["staged"] for row in inventory} == EXPECTED_STAGED
@@ -60,7 +60,7 @@ def test_phase4_package_tarball_mirrors_directory_payload():
     assert PACKAGE_TARBALL.exists()
     with tarfile.open(PACKAGE_TARBALL, "r:gz") as archive:
         members = {
-            member.name.removeprefix("phase4_global_verdict_v3.3.1/")
+            member.name.removeprefix("phase4_global_verdict_v4.0.0/")
             for member in archive.getmembers()
             if member.isfile()
         }

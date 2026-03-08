@@ -1,5 +1,5 @@
 GOLD STATUS ATTESTATION
-Version: v3.3.1 GOLD
+Version: v4.0.0 GOLD
 Author: Jean-Philip Lalumière
 
 Final repository health summary:
@@ -14,7 +14,7 @@ Final repository health summary:
 
 Reference outputs:
 
-- Manuscript PDF: manuscript/Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf
+- Manuscript PDF: manuscript/Thesis_MCGT_Lalumiere_v4.0.0_GOLD.pdf
 - Table 2 CSV: assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv
 - Figure 09: assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png
 - GOLD prediction export: zz-zenodo/ptmg_predictions_z0_to_z20.csv

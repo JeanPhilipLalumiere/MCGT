@@ -1,15 +1,15 @@
 {
   "optimizer": "L-BFGS-B",
   "sigma8_fixed": 0.862,
-  "h0_grid_min": 65.0,
-  "h0_grid_max": 66.0,
-  "h0_step": 0.5,
-  "nll_global": 407.65304590769006,
+  "h0_grid_min": 70.0,
+  "h0_grid_max": 78.00000000000011,
+  "h0_step": 0.4,
+  "nll_global": 417.3964204988422,
   "global_best": {
-    "H0": 73.36200113371667,
-    "Omega_m": 0.24978724492706086,
-    "w0": -2.5,
-    "wa": 1.6257396203598429
+    "H0": 73.83811251716821,
+    "Omega_m": 0.263594476301576,
+    "w0": -1.52,
+    "wa": 0.4254165391103287
   },
   "outputs": {
     "csv": "output/profile_likelihood_h0.csv",

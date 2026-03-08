@@ -1,0 +1,6 @@
+FROM texlive/texlive:latest
+
+WORKDIR /work
+
+# Keep container image minimal: rely on bundled TeX Live in the base image.
+CMD ["bash"]

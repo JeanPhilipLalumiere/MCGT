@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-COMMIT_MSG="Release Gold 4.0: Refonte POO complète, intégration BBN/ISW, tests unitaires et résolution simultanée H0/S8"
+COMMIT_MSG="Release v4.0.0: Refonte POO complète, intégration BBN/ISW, tests unitaires et résolution simultanée H0/S8"
 TAG_NAME="v4.0.0"
 TAG_MSG="Version utilisée pour la soumission de l'article fondateur PsiTMG"
 

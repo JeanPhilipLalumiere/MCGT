@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the software and thesis record below."
 title: "Ψ-Time Metric Gravity (ΨTMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions"
-version: "v3.3.1"
+version: "v4.0.0"
 type: software
 authors:
   - family-names: "Lalumière"
@@ -10,7 +10,7 @@ authors:
 repository-code: "https://github.com/JeanPhilipLalumiere/MCGT"
 url: "https://github.com/JeanPhilipLalumiere/MCGT"
 license: "MIT"
-date-released: "2026-03-03"
+date-released: "2026-03-08"
 preferred-citation:
   type: thesis
   authors:
@@ -18,7 +18,7 @@ preferred-citation:
       given-names: "Jean-Philip"
       orcid: "https://orcid.org/0009-0006-0961-9004"
   title: "Ψ-Time Metric Gravity (ΨTMG): Strong Evidence for a Geometric Resolution to Cosmological Tensions"
-  version: "v3.3.1"
+  version: "v4.0.0"
   url: "https://github.com/JeanPhilipLalumiere/MCGT"
   publisher: "GitHub"
   year: 2026

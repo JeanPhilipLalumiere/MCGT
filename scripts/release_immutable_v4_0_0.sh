@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TAG="v3.3.1-GOLD"
-MESSAGE="Final Academic Version v3.3.1"
+TAG="v4.0.0-GOLD"
+MESSAGE="Final Academic Version v4.0.0"
 
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "[fail] not inside a git worktree" >&2

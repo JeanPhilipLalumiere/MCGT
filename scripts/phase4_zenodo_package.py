@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE_NAME = "phase4_global_verdict_v3.3.1"
+PACKAGE_NAME = "phase4_global_verdict_v4.0.0"
 PACKAGE_DIR = ROOT / "zz-zenodo" / PACKAGE_NAME
 PACKAGE_FILES_DIR = PACKAGE_DIR / "files"
 PACKAGE_TARBALL = ROOT / "zz-zenodo" / f"{PACKAGE_NAME}.tar.gz"
@@ -80,9 +80,9 @@ def build_metadata(report: dict, inventory: list[dict[str, object]]) -> dict[str
         "publication_status": "local_package_only",
         "publish_to_zenodo": False,
         "authors": [{"name": AUTHOR_NAME}],
-        "title": "PsiTMG v3.3.1 Phase 4 Global Verdict Package",
+        "title": "PsiTMG v4.0.0 Phase 4 Global Verdict Package",
         "description": (
-            "Local Zenodo-ready package for the PsiTMG v3.3.1 Chapter 09-10 outputs. "
+            "Local Zenodo-ready package for the PsiTMG v4.0.0 Chapter 09-10 outputs. "
             "This package stages the CPL dark-energy audit, affine-invariant global MCMC products, "
             "and the summary verdict JSON without publishing anything externally."
         ),
@@ -97,7 +97,7 @@ def build_metadata(report: dict, inventory: list[dict[str, object]]) -> dict[str
             "RSD",
             "PsiTMG",
         ],
-        "version": "v3.3.1",
+        "version": "v4.0.0",
         "chapters": ["09_dark_energy_cpl", "10_global_scan"],
         "map_point": chapter09["map"],
         "best_fit": chapter10["best_fit"],

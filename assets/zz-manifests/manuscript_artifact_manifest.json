@@ -1,6 +1,6 @@
 {
   "generated_at_utc": "2026-03-04T04:06:20+00:00",
-  "release_version": "v3.3.1",
+  "release_version": "v4.0.0",
   "git_head_short": "a3a3b53a",
   "git_head_full": "a3a3b53af688fca0cd29ca77995d5996d1f982ba",
   "scope": "manuscript_artifacts_phase1_to_phase5",
@@ -126,7 +126,7 @@
       }
     },
     "phase5": {
-      "version": "v3.3.1",
+      "version": "v4.0.0",
       "status": "GOLD",
       "chapters": {
         "chapter11": {
@@ -186,7 +186,7 @@
     }
   },
   "phase4_local_package": {
-    "package_name": "phase4_global_verdict_v3.3.1",
+    "package_name": "phase4_global_verdict_v4.0.0",
     "generated_at_utc": "2026-03-04T03:50:35+00:00",
     "publication_status": "local_package_only",
     "publish_to_zenodo": false,
@@ -195,8 +195,8 @@
         "name": "Jean-Philip Lalumi\u00e8re"
       }
     ],
-    "title": "PsiTMG v3.3.1 Phase 4 Global Verdict Package",
-    "description": "Local Zenodo-ready package for the PsiTMG v3.3.1 Chapter 09-10 outputs. This package stages the CPL dark-energy audit, affine-invariant global MCMC products, and the summary verdict JSON without publishing anything externally.",
+    "title": "PsiTMG v4.0.0 Phase 4 Global Verdict Package",
+    "description": "Local Zenodo-ready package for the PsiTMG v4.0.0 Chapter 09-10 outputs. This package stages the CPL dark-energy audit, affine-invariant global MCMC products, and the summary verdict JSON without publishing anything externally.",
     "keywords": [
       "cosmology",
       "dark energy",
@@ -208,7 +208,7 @@
       "RSD",
       "PsiTMG"
     ],
-    "version": "v3.3.1",
+    "version": "v4.0.0",
     "chapters": [
       "09_dark_energy_cpl",
       "10_global_scan"
@@ -312,7 +312,7 @@
       "sha256": "f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361"
     },
     {
-      "path": "final_synthesis_v3.3.1_GOLD.json",
+      "path": "final_synthesis_v4.0.0_GOLD.json",
       "exists": true,
       "size_bytes": 2168,
       "sha256": "4b077ca17b0a2b8d4289f18dea2e11ca7237354fea83228950ebf16915e8a1f2"
@@ -480,85 +480,85 @@
       "sha256": "4393c3969e77d7593e4384ad73ae79a6749243d06ea7d8d5a1fc37d96ac40206"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/README.txt",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/README.txt",
       "exists": true,
       "size_bytes": 740,
       "sha256": "5c9028aa8787d2e675a7e34765f538423e983e1e03486b7bd423d353a6ea5b2b"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_inventory.csv",
       "exists": true,
       "size_bytes": 1961,
       "sha256": "02b943fc743558f09969e0db160b98e831f40eacababadbc64e6dbd397e6cdd2"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_metadata.json",
       "exists": true,
       "size_bytes": 1491,
       "sha256": "d94e250e3c427146ddef8bb5fcc60e27538b0907d0ccc784b734f8df85a6b708"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_inventory.json",
       "exists": true,
       "size_bytes": 2700,
       "sha256": "74a90f65a66e9f624c4da404b8cde92dc2124c8b5c746db328dd76958c39e0f7"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_checksums.txt",
       "exists": true,
       "size_bytes": 1294,
       "sha256": "6229d4f42054c54e581b677560adf79c4738371ba1b4c56451441aa4205bf5b8"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/phase4_global_verdict_report.json",
       "exists": true,
       "size_bytes": 1965,
       "sha256": "f292a27bda82136f9e3586c5cf7a6708334b494be3e3f4958174b55035308361"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
       "exists": true,
       "size_bytes": 16342171,
       "sha256": "d470245aec2a12e8e4ef3af38be4ce11dd0e30b2cdfec4490c742d47435119f0"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
       "exists": true,
       "size_bytes": 822,
       "sha256": "c4425f0ea0687c8f32a90b198b34878f174bf635c9b2bf205673b4052b9f47a3"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
       "exists": true,
       "size_bytes": 387,
       "sha256": "95beab91445bbb07dc943c73f03235d97f213e061cfe7126a4a7aaa8d08965ec"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
       "exists": true,
       "size_bytes": 383,
       "sha256": "69b712936089cc4cc7af26ad7cd9e35348c5ad8d8247decb5199059024e5c0bc"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
       "exists": true,
       "size_bytes": 112897,
       "sha256": "b6ce8b551e35b7e1ae78b14e1ab3f2cac20d9e68e7abd950e4dd89588506c76f"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
       "exists": true,
       "size_bytes": 171287,
       "sha256": "3d9cf3d6ab8db492418516b6213a658a04ba93798f9a24a41dff85611f82aa00"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
       "exists": true,
       "size_bytes": 365667,
       "sha256": "8f6e98311c07ea0cdead1158459becab33feb4a40bcaa2874e8576f2a8d3cd98"
     },
     {
-      "path": "zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz",
+      "path": "zz-zenodo/phase4_global_verdict_v4.0.0.tar.gz",
       "exists": true,
       "size_bytes": 17273467,
       "sha256": "0b754d38c332c77eec0c16866dfb3931afa99bd16fb056eb4e9f4e37d115e84a"

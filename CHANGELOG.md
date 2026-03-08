@@ -1,6 +1,12 @@
 # Changelog
 
-## v3.3.1 GOLD (2026-03-03)
+## v4.0.0 (2026-03-08)
+
+- Preprint-ready manuscript finalized in `paper/` (`main.tex`, `references.bib`, `main.pdf`).
+- Finalized theoretical mechanism, robust prior validation, and optimized layout for physical review standards.
+- Release cleanup: LaTeX auxiliary artifacts removed from manuscript packaging.
+
+## v4.0.0 GOLD (2026-03-03)
 
 ### Rupture from v3.1 to v3.3
 - The repository is now standardized on the `ΨTMG` nomenclature. The earlier `ΨCDM` naming was retired because the validated model is no longer a minor phenomenological extension of `ΛCDM`; it is the metric-coupled `Ψ-Time Metric Gravity` realization used throughout the thesis and artifact pipeline.

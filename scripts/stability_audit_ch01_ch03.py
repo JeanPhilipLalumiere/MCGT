@@ -438,7 +438,7 @@ def write_log(
         ),
     ]
     lines = [
-        "PsiTMG v3.3.1 - Stability Audit and Invariants (Ch. 01-03)",
+        "PsiTMG v4.0.0 - Stability Audit and Invariants (Ch. 01-03)",
         "",
         "Execution status of scientific scripts",
         f"- CH01 rerun: {'PASS' if reruns['ch01']['returncode'] == 0 else 'FAIL'}",

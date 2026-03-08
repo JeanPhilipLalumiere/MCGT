@@ -1,6 +1,6 @@
 #!/bin/bash
 # =================================================================
-# Déploiement PTMG v3.3.1 - Laboratoire de Beauharnois (KS-5-B)
+# Déploiement PTMG v4.0.0 - Laboratoire de Beauharnois (KS-5-B)
 # Matériel : Intel Xeon (6c/12t) | RAM : 64 Go | OS : Ubuntu 22.04
 # =================================================================
 
@@ -23,13 +23,13 @@ source env_ptmg/bin/activate
 pip install --upgrade pip
 pip install numpy scipy matplotlib emcee h5py pyyaml getdist pandas
 
-echo "--- [4/5] Clonage sécurisé de PTMG v3.3.1 ---"
+echo "--- [4/5] Clonage sécurisé de PTMG v4.0.0 ---"
 # Utilisation de l'URL publique du dépôt; l'authentification se gère via SSH ou gh auth si nécessaire.
 git clone https://github.com/JeanPhilipLalumiere/MCGT.git
 
 cd MCGT
 # On s'assure d'être sur la bonne branche/tag si applicable
-git checkout v3.3.1 || echo "Note : Utilisation de la branche par défaut."
+git checkout v4.0.0 || echo "Note : Utilisation de la branche par défaut."
 
 # Compilation de CLASS (Moteur de Boltzmann)
 # On utilise -j12 pour exploiter les 12 threads du Xeon

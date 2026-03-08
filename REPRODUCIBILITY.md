@@ -1,6 +1,6 @@
 # Reproducibility
 
-This repository includes an explicit cold-run reproducibility path for the validated v3.3.1 GOLD workflow.
+This repository includes an explicit cold-run reproducibility path for the validated v4.0.0 workflow.
 
 The Python package identity of the project is now `psitmg`, as declared in [pyproject.toml](pyproject.toml). Infrastructure helpers that are not part of the scientific runtime have been moved under [infrastructure](infrastructure).
 

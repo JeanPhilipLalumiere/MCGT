@@ -1,4 +1,4 @@
-# Executive Summary — ΨTMG v3.3.1 GOLD
+# Executive Summary — ΨTMG v4.0.0 GOLD
 
 ## Top 3 Results
 
@@ -15,5 +15,5 @@
 
 - Figure 09: [assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png](assets/zz-figures/06_early_growth_jwst/06_fig_09_structure_growth_factor.png)
 - Table 2: [assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv](assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv)
-- Final synthesis: [final_synthesis_v3.3.1_GOLD.json](final_synthesis_v3.3.1_GOLD.json)
+- Final synthesis: [final_synthesis_v4.0.0_GOLD.json](final_synthesis_v4.0.0_GOLD.json)
 

@@ -52,7 +52,7 @@ CH12_STEP_CSV = ROOT / "assets" / "zz-data" / "12_cmb_verdict" / "12_step_transi
 CH12_STEP_JSON = ROOT / "assets" / "zz-data" / "12_cmb_verdict" / "12_step_transition_summary.json"
 FIG21 = ROOT / "assets" / "zz-figures" / "12_cmb_verdict" / "12_fig_21_perfect_k_transition_law.png"
 
-FINAL_GOLD_JSON = ROOT / "final_synthesis_v3.3.1_GOLD.json"
+FINAL_GOLD_JSON = ROOT / "final_synthesis_v4.0.0_GOLD.json"
 PTMG_PREDICTIONS = ROOT / "zz-zenodo" / "ptmg_predictions_z0_to_z20.csv"
 PTMG_COMPARISON = ROOT / "zz-zenodo" / "ptmg_growth_comparison_GR_vs_k0.csv"
 OUTPUT_PREDICTIONS = ROOT / "output" / "ptmg_predictions_z0_to_z20.csv"
@@ -409,7 +409,7 @@ def main() -> None:
     safe_copy_file(PTMG_PREDICTIONS, OUTPUT_PREDICTIONS)
 
     gold = {
-        "version": "v3.3.1",
+        "version": "v4.0.0",
         "status": "GOLD",
         "chapters": {
             "chapter11": ch11_summary,

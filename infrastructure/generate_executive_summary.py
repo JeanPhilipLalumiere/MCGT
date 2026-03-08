@@ -8,8 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PHASE3 = ROOT / "phase3_lss_geometry_report.json"
 PHASE4 = ROOT / "phase4_global_verdict_report.json"
-PHASE5 = ROOT / "final_synthesis_v3.3.1_GOLD.json"
-OUT = ROOT / "EXECUTIVE_SUMMARY_v3.3.1.md"
+PHASE5 = ROOT / "final_synthesis_v4.0.0_GOLD.json"
+OUT = ROOT / "EXECUTIVE_SUMMARY_v4.0.0.md"
 
 
 def load_json(path: Path) -> dict:
@@ -31,7 +31,7 @@ def main() -> None:
 
     text = "\n".join(
         [
-            "# Executive Summary — ΨTMG v3.3.1 GOLD",
+            "# Executive Summary — ΨTMG v4.0.0 GOLD",
             "",
             "## Top 3 Results",
             "",
@@ -48,7 +48,7 @@ def main() -> None:
             "",
             f"- Figure 09: [{fig9}]({fig9})",
             "- Table 2: [assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv](assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv)",
-            "- Final synthesis: [final_synthesis_v3.3.1_GOLD.json](final_synthesis_v3.3.1_GOLD.json)",
+            "- Final synthesis: [final_synthesis_v4.0.0_GOLD.json](final_synthesis_v4.0.0_GOLD.json)",
             "",
         ]
     )

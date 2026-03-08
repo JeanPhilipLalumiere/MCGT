@@ -13,14 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_JSON = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.json"
 OUT_MD = ROOT / "assets" / "zz-manifests" / "manuscript_artifact_manifest.md"
 AUTHOR_NAME = "Jean-Philip Lalumière"
-RELEASE_VERSION = "v3.3.1"
+RELEASE_VERSION = "v4.0.0"
 
 PHASE1_LOG = ROOT / "stability_audit_log.txt"
 PHASE2_LOG = ROOT / "phase2_observational_log.txt"
 PHASE3_JSON = ROOT / "phase3_lss_geometry_report.json"
 PHASE4_JSON = ROOT / "phase4_global_verdict_report.json"
-PHASE4_PACKAGE_JSON = ROOT / "zz-zenodo" / "phase4_global_verdict_v3.3.1" / "phase4_zenodo_metadata.json"
-FINAL_GOLD_JSON = ROOT / "final_synthesis_v3.3.1_GOLD.json"
+PHASE4_PACKAGE_JSON = ROOT / "zz-zenodo" / "phase4_global_verdict_v4.0.0" / "phase4_zenodo_metadata.json"
+FINAL_GOLD_JSON = ROOT / "final_synthesis_v4.0.0_GOLD.json"
 
 
 def sha256(path: Path) -> str:
@@ -116,7 +116,7 @@ def main() -> None:
         "phase3_lss_geometry_report.txt",
         "phase3_lss_geometry_report.json",
         "phase4_global_verdict_report.json",
-        "final_synthesis_v3.3.1_GOLD.json",
+        "final_synthesis_v4.0.0_GOLD.json",
         "assets/zz-figures/stability_audit/figure_2_ch01_numerical_drift.png",
         "assets/zz-figures/stability_audit/figure_3_ch02_alpha_ns_mapping.png",
         "assets/zz-figures/stability_audit/figure_5_ch03_phase_stability.png",
@@ -144,20 +144,20 @@ def main() -> None:
         "output/ptmg_corner_plot.pdf",
         "zz-zenodo/ptmg_predictions_z0_to_z20.csv",
         "zz-zenodo/ptmg_growth_comparison_GR_vs_k0.csv",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/README.txt",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.csv",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_metadata.json",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_inventory.json",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/phase4_zenodo_checksums.txt",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/phase4_global_verdict_report.json",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
-        "zz-zenodo/phase4_global_verdict_v3.3.1/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
-        "zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/README.txt",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_inventory.csv",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_metadata.json",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_inventory.json",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/phase4_zenodo_checksums.txt",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/phase4_global_verdict_report.json",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_mcmc_affine_chain.csv.gz",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_mcmc_global_summary.json",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/09_dark_energy_cpl/09_fig_12_equation_of_state_evolution.png",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/09_dark_energy_cpl/09_fig_13_cpl_constraints_contours.png",
+        "zz-zenodo/phase4_global_verdict_v4.0.0/files/assets/zz-figures/10_global_scan/10_fig_17_5d_corner_plot.png",
+        "zz-zenodo/phase4_global_verdict_v4.0.0.tar.gz",
     ]
 
     manifest = {

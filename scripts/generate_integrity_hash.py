@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ZENODO_ROOT = ROOT / "zz-zenodo"
 PRIMARY_TARGETS = [
-    ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v3.3.1_GOLD.pdf",
+    ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v4.0.0_GOLD.pdf",
     ROOT / "output" / "ptmg_predictions_z0_to_z20.csv",
     ROOT / "output" / "ptmg_corner_plot.pdf",
 ]
@@ -38,11 +38,11 @@ def render_certificate() -> str:
     targets = delivery_targets()
     lines = [
         "CERTIFICATE OF INTEGRITY",
-        "Version: v3.3.1 GOLD",
+        "Version: v4.0.0 GOLD",
         f"Generated (UTC): {timestamp}",
         "",
         "This certificate binds the final manuscript and every delivery artifact",
-        "currently staged under zz-zenodo/ to the local v3.3.1 GOLD state through",
+        "currently staged under zz-zenodo/ to the local v4.0.0 GOLD state through",
         "SHA-256 fingerprints.",
         "",
         f"Delivery root: {ZENODO_ROOT.relative_to(ROOT)}",

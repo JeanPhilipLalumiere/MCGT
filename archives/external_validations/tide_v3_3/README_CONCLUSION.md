@@ -16,4 +16,4 @@ Dans ce benchmark, la metrique `PsiTMG` conserve un avantage phenomenologique su
 
 ## Statut d'integrite
 
-Ce contenu est archive en coffre-fort documentaire et n'altere ni le coeur `PsiTMG`, ni les artefacts de la release `v3.3.1-GOLD.1`.
+Ce contenu est archive en coffre-fort documentaire et n'altere ni le coeur `PsiTMG`, ni les artefacts de la release `v4.0.0-GOLD.1`.

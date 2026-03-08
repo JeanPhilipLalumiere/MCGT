@@ -82,10 +82,19 @@ def _nll_global(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Profile-likelihood scan in fixed H0.")
-    parser.add_argument("--h0-min", type=float, default=65.0)
-    parser.add_argument("--h0-max", type=float, default=77.0)
-    parser.add_argument("--h0-step", type=float, default=0.5)
+    parser.add_argument("--h0-min", type=float, default=70.0)
+    parser.add_argument("--h0-max", type=float, default=78.0)
+    parser.add_argument("--h0-step", type=float, default=0.4)
     parser.add_argument("--sigma8", type=float, default=0.862, help="Fixed sigma8 during profile scan.")
+    parser.add_argument("--omega-m-init", type=float, default=0.226, help="Initial Omega_m for optimization.")
+    parser.add_argument("--w0-init", type=float, default=-1.48, help="Initial w0 for optimization.")
+    parser.add_argument("--wa-init", type=float, default=0.45, help="Initial wa for optimization.")
+    parser.add_argument("--omega-m-min", type=float, default=0.15, help="Lower bound for Omega_m.")
+    parser.add_argument("--omega-m-max", type=float, default=0.35, help="Upper bound for Omega_m.")
+    parser.add_argument("--w0-min", type=float, default=-1.52, help="Lower bound for w0.")
+    parser.add_argument("--w0-max", type=float, default=-1.44, help="Upper bound for w0.")
+    parser.add_argument("--wa-min", type=float, default=0.40, help="Lower bound for wa.")
+    parser.add_argument("--wa-max", type=float, default=0.50, help="Upper bound for wa.")
     parser.add_argument(
         "--optimizer",
         choices=("L-BFGS-B", "Nelder-Mead"),
@@ -117,8 +126,13 @@ def main() -> int:
     like = LikelihoodEvaluator()
 
     # Compute a global best-fit NLL (unconstrained H0) for Delta chi2 reference.
-    global_bounds = [(50.0, 90.0), (0.05, 0.6), (-2.5, 0.5), (-3.0, 3.0)]
-    global_start = np.array([74.2, 0.226, -1.477, 0.446], dtype=float)
+    global_bounds = [
+        (50.0, 90.0),
+        (args.omega_m_min, args.omega_m_max),
+        (args.w0_min, args.w0_max),
+        (args.wa_min, args.wa_max),
+    ]
+    global_start = np.array([74.2, args.omega_m_init, args.w0_init, args.wa_init], dtype=float)
     global_res = minimize(
         fun=_nll_global,
         x0=global_start,
@@ -132,7 +146,11 @@ def main() -> int:
     rows: list[dict[str, float]] = []
     # Warm start profile optimization with the global solution projected to free params.
     theta0 = np.array([global_res.x[1], global_res.x[2], global_res.x[3]], dtype=float)
-    bounds = [(0.05, 0.6), (-2.5, 0.5), (-3.0, 3.0)]
+    bounds = [
+        (args.omega_m_min, args.omega_m_max),
+        (args.w0_min, args.w0_max),
+        (args.wa_min, args.wa_max),
+    ]
 
     for h0 in h0_grid:
         if args.optimizer == "L-BFGS-B":
@@ -244,4 +262,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

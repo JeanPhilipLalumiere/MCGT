@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 license-files = ["LICENSE", "LICENSE-data"]
 readme = "README.md"
 name = "psitmg"
-version = "3.3.1"
+version = "4.0.0"
 description = "PsiTMG scientific pipelines and reproducibility toolkit"
 # DUPLICATE_DISABLED: readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"

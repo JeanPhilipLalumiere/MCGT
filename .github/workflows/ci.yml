@@ -147,8 +147,8 @@ jobs:
             assets/zz-figures/11_lss_s8_tension/11_fig_19_screening_failures.png
             assets/zz-figures/12_cmb_verdict/12_fig_21_perfect_k_transition_law.png
             phase4_global_verdict_report.json
-            final_synthesis_v3.3.1_GOLD.json
+            final_synthesis_v4.0.0_GOLD.json
             assets/zz-manifests/manuscript_artifact_manifest.json
             assets/zz-manifests/manuscript_artifact_manifest.md
-            zz-zenodo/phase4_global_verdict_v3.3.1
-            zz-zenodo/phase4_global_verdict_v3.3.1.tar.gz
+            zz-zenodo/phase4_global_verdict_v4.0.0
+            zz-zenodo/phase4_global_verdict_v4.0.0.tar.gz

@@ -1,1 +1,1 @@
-Local and remote v3.3.1-GOLD assets are synchronized and ready for manual GitHub release attachment.
+Local and remote v4.0.0-GOLD assets are synchronized and ready for manual GitHub release attachment.

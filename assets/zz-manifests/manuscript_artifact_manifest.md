@@ -1,6 +1,6 @@
 # Manuscript Artifact Manifest
 
-- Release version: v3.3.1
+- Release version: v4.0.0
 - Git head (short): a3a3b53a
 - Author: Jean-Philip Lalumière
 - Generated at (UTC): 2026-03-04T04:06:20+00:00
@@ -38,7 +38,7 @@
 - LIGO compliance fraction: 1.0
 
 ## Local Package
-- Package name: phase4_global_verdict_v3.3.1
+- Package name: phase4_global_verdict_v4.0.0
 - Files staged: 10
 - Publish to Zenodo: false
 - Prediction export: zz-zenodo/ptmg_predictions_z0_to_z20.csv

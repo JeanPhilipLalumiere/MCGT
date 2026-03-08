@@ -136,7 +136,9 @@ env_ptmg/
 .repro-venv/
 .repro-mplconfig/
 .repro-tmp/
-cold_run_success_v3.3.1.log
+cold_run_success_v4.0.0.log
 ARCHIVE_PSITMG_V3.3.1_GOLD/
 PSITMG_V3.3.1_GOLD_FULL_BUILD.tar.gz
 RELEASE_ASSETS/
+
+ARCHIVE_*/

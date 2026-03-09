@@ -13,6 +13,11 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      MCGT_USE_TEX: "0"
+      MPLBACKEND: Agg
+      MPLCONFIGDIR: .repro-mplconfig
+      XDG_CACHE_HOME: .repro-mplconfig
     steps:
       - uses: actions/checkout@v4
         with:

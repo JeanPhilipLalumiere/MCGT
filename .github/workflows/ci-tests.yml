@@ -12,6 +12,11 @@ concurrency:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    env:
+      MCGT_USE_TEX: "0"
+      MPLBACKEND: Agg
+      MPLCONFIGDIR: .repro-mplconfig
+      XDG_CACHE_HOME: .repro-mplconfig
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

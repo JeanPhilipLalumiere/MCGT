@@ -15,7 +15,6 @@ permissions:
   contents: write
   packages: write
   id-token: write
-  releases: write
 
 jobs:
   lint-and-budgets:

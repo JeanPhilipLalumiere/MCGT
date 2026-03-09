@@ -32,7 +32,7 @@ classifiers = [
 license = "MIT"
 
 [tool.setuptools.packages.find]
-where = [".", "src"]
+where = ["."]
 include = ["mcgt*", "tools*"]
 
 [project.urls]

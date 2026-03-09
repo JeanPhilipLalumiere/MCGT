@@ -38,7 +38,7 @@ jobs:
       - name: Prepare reproducible manuscript artifacts for tests
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/stability_audit_ch01_ch03.py
           python scripts/03_stability_domain/03_fig_05_self_healing.py
           python scripts/phase4_global_verdict.py
@@ -49,13 +49,13 @@ jobs:
       - name: Run stability audit regression gate
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           pytest -q tests/test_stability_audit_regression.py tests/test_canonical_asset_paths.py tests/test_phase4_zenodo_package.py tests/test_phase5_geometric_solution.py
 
       - name: Run Table/Data consistency gate
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/verify_table_consistency.py
 
       - name: Run cold-run reproducibility gate
@@ -66,7 +66,7 @@ jobs:
       - name: Run pytest (si des tests existent)
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           if ls tests 2>/dev/null 1>/dev/null || ls scripts/**/tests 2>/dev/null 1>/dev/null; then
             pytest -q
           else
@@ -76,7 +76,7 @@ jobs:
       - name: Regenerate Phase 2 manuscript artifacts
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/04_expansion_supernovae/generate_data_chapter04_pantheon.py
           python scripts/05_primordial_bbn/generate_data_chapter05.py
           python scripts/05_primordial_bbn/validate_bbn_convergence.py
@@ -102,7 +102,7 @@ jobs:
       - name: Regenerate Phase 3 LSS and geometry artifacts
         run: |
           set -euo pipefail
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/phase3_lss_geometry_report.py
 
       - name: Upload Phase 3 manuscript artifacts

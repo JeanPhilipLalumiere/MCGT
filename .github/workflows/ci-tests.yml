@@ -29,7 +29,7 @@ jobs:
         run: pre-commit run --all-files
       - name: Prepare reproducible manuscript artifacts for tests
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/stability_audit_ch01_ch03.py
           python scripts/03_stability_domain/03_fig_05_self_healing.py
           python scripts/phase4_global_verdict.py
@@ -38,20 +38,20 @@ jobs:
           python scripts/manuscript_artifact_manifest.py
       - name: Run stability audit regression gate
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           pytest -q tests/test_stability_audit_regression.py tests/test_canonical_asset_paths.py tests/test_phase4_zenodo_package.py tests/test_phase5_geometric_solution.py
       - name: Run Table/Data consistency gate
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/verify_table_consistency.py
       - name: Run pytest
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           pytest -q
 
       - name: Regenerate Phase 2 observational log
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/04_expansion_supernovae/generate_data_chapter04_pantheon.py
           python scripts/05_primordial_bbn/generate_data_chapter05.py
           python scripts/05_primordial_bbn/validate_bbn_convergence.py
@@ -60,7 +60,7 @@ jobs:
 
       - name: Regenerate Phase 3 LSS and geometry report
         run: |
-          export PYTHONPATH="${PYTHONPATH:-}:$(pwd)"
+          export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH:-}"
           python scripts/phase3_lss_geometry_report.py
 
       - name: Regenerate Phase 4 global verdict package

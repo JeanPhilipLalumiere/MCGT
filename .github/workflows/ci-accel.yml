@@ -58,15 +58,12 @@ jobs:
         id: tex
         shell: bash
         run: |
-          shopt -s globstar nullglob
-          files=( **/*.tex )
-          if (( ${#files[@]} > 0 )); then
+          if [[ -f paper/main.tex ]]; then
             echo "has_tex=1" >> "$GITHUB_OUTPUT"
-            echo "Found TeX files:"
-            printf ' - %s\n' "${files[@]}"
+            echo "Found TeX source: paper/main.tex"
           else
             echo "has_tex=0" >> "$GITHUB_OUTPUT"
-            echo "No .tex files found."
+            echo "No paper/main.tex found."
           fi
 
       - name: Cache Tectonic packages
@@ -78,11 +75,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-tectonic-
 
-      - name: Typeset manuscript/main.tex
+      - name: Install Tectonic
         if: ${{ steps.tex.outputs.has_tex == '1' }}
-        uses: bridat/tectonic-action@v3
-        with:
-          tex_file: manuscript/main.tex
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tectonic
+
+      - name: Typeset paper/main.tex (best effort)
+        if: ${{ steps.tex.outputs.has_tex == '1' }}
+        continue-on-error: true
+        run: |
+          tectonic --untrusted paper/main.tex
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

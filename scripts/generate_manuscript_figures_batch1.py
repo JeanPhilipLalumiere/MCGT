@@ -6,6 +6,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
+from scripts._common.release_v400 import (
+    DELTA_AIC_TOTAL,
+    DELTA_BIC_TOTAL,
+    DELTA_CHI2_TOTAL,
+    LCDM_OMEGA_M,
+    PLANCK18_H0,
+    PLANCK18_H0_ERR,
+    PTMG_H0,
+    PTMG_H0_ERR,
+    PTMG_OMEGA_M,
+    PTMG_S8,
+    PTMG_S8_ERR,
+    PTMG_W0,
+    PTMG_WA,
+    SH0ES_H0,
+    SH0ES_H0_ERR,
+)
 from scripts._common.style import apply_manuscript_defaults
 
 apply_manuscript_defaults(usetex=True)
@@ -18,24 +35,24 @@ OUT_DIR = ROOT / "manuscript"
 OUTPUT_DIR = ROOT / "output"
 
 BESTFIT = {
-    "omega_m": 0.243,
-    "h0": 72.97,
-    "h0_err_plus": 0.32,
-    "h0_err_minus": 0.30,
-    "w0": -0.69,
-    "w0_err": 0.05,
-    "wa": -2.81,
-    "wa_err_plus": 0.29,
-    "wa_err_minus": 0.14,
-    "s8": 0.718,
-    "s8_err": 0.030,
+    "omega_m": PTMG_OMEGA_M,
+    "h0": PTMG_H0,
+    "h0_err_plus": PTMG_H0_ERR,
+    "h0_err_minus": PTMG_H0_ERR,
+    "w0": PTMG_W0,
+    "w0_err": 0.045,
+    "wa": PTMG_WA,
+    "wa_err_plus": 0.038,
+    "wa_err_minus": 0.038,
+    "s8": PTMG_S8,
+    "s8_err": PTMG_S8_ERR,
 }
 STATS = {
     "n_total": 1718,
-    "delta_chi2": -151.6,
-    "delta_aic": -147.6,
-    "delta_bic": -136.7,
-    "chi2_cmb": 0.04,
+    "delta_chi2": DELTA_CHI2_TOTAL,
+    "delta_aic": DELTA_AIC_TOTAL,
+    "delta_bic": DELTA_BIC_TOTAL,
+    "chi2_cmb": 1.3,
 }
 
 
@@ -89,7 +106,7 @@ def _omega_m_z(z, omega_m, w0, wa):
 def make_hubble_parameter_plot():
     z = np.geomspace(0.01, 2.5, 240)
 
-    h_lcdm = _hubble_cpl(z, 67.4, 0.315, -1.0, 0.0)
+    h_lcdm = _hubble_cpl(z, PLANCK18_H0, LCDM_OMEGA_M, -1.0, 0.0)
     h_ptmg = _hubble_cpl(z, BESTFIT["h0"], BESTFIT["omega_m"], BESTFIT["w0"], BESTFIT["wa"])
 
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
@@ -165,7 +182,7 @@ def make_hubble_parameter_plot():
     ax_inset.text(
         0.01,
         77.4,
-        r"$H_0=72.97^{+0.32}_{-0.30}\ \mathrm{km\,s^{-1}\,Mpc^{-1}}$",
+        rf"$H_0={BESTFIT['h0']:.2f}\pm{PTMG_H0_ERR:.2f}\ \mathrm{{km\,s^{{-1}}\,Mpc^{{-1}}}}$",
         fontsize=8.5,
         va="top",
     )
@@ -182,7 +199,7 @@ def make_growth_factor_plot():
     z = np.linspace(0, 15, 300)
     z_safe = np.where(z == 0, 1e-3, z)
 
-    omega_m_lcdm = _omega_m_z(z_safe, 0.315, -1.0, 0.0)
+    omega_m_lcdm = _omega_m_z(z_safe, LCDM_OMEGA_M, -1.0, 0.0)
     omega_m_ptmg = _omega_m_z(z_safe, BESTFIT["omega_m"], BESTFIT["w0"], BESTFIT["wa"])
 
     f_lcdm = omega_m_lcdm ** 0.55
@@ -224,7 +241,7 @@ def make_eos_evolution_plot():
     ax.text(
         0.03,
         -2.35,
-        r"$w_0=-0.69\pm0.05,\;w_a=-2.81^{+0.29}_{-0.14}$",
+        rf"$w_0={BESTFIT['w0']:.3f}\pm{BESTFIT['w0_err']:.3f},\;w_a={BESTFIT['wa']:.3f}\pm{BESTFIT['wa_err_plus']:.3f}$",
         fontsize=10,
     )
     ax.set_xlabel("Redshift z")
@@ -240,8 +257,8 @@ def make_eos_evolution_plot():
 
 def make_tensions_summary_plot():
     labels = ["Planck (CMB)", "SH0ES (Local)", r"$\Psi$TMG (Prediction)"]
-    values = [67.4, 73.04, BESTFIT["h0"]]
-    errors = [0.5, 1.04, BESTFIT["h0_err_plus"]]
+    values = [PLANCK18_H0, SH0ES_H0, BESTFIT["h0"]]
+    errors = [PLANCK18_H0_ERR, SH0ES_H0_ERR, BESTFIT["h0_err_plus"]]
     colors = ["#2ca25f", "#d7301f", "#3182bd"]
 
     y_positions = np.arange(len(labels))[::-1]
@@ -276,9 +293,9 @@ def make_tensions_summary_plot():
         0.02,
         -0.30,
         (
-            r"$\Delta\chi^2=-151.6,\;\Delta AIC=-147.6,\;\Delta BIC=-136.7$"
+            rf"$\Delta\chi^2={STATS['delta_chi2']:.1f},\;\Delta AIC={STATS['delta_aic']:.1f},\;\Delta BIC={STATS['delta_bic']:.1f}$"
             "\n"
-            r"$n=1718,\;\chi^2_{\rm CMB}=0.04,\;S_8=0.718\pm0.030$"
+            rf"$n={STATS['n_total']},\;\chi^2_{{\rm CMB}}={STATS['chi2_cmb']:.1f},\;S_8={BESTFIT['s8']:.3f}\pm{BESTFIT['s8_err']:.3f}$"
         ),
         fontsize=8,
         va="top",

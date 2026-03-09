@@ -10,6 +10,7 @@ env_ptmg/
 .repro-venv/
 .repro-mplconfig/
 .repro-tmp/
+.mplconfig/
 __pycache__/
 *.pyc
 *.pyo
@@ -23,6 +24,9 @@ __pycache__/
 build/
 dist/
 *.egg-info/
+tools.egg-info/
+zz_tools.egg-info/
+zz-tools.egg-info/
 *.dist-info/
 
 # Temp/editor/OS
@@ -55,6 +59,8 @@ dist/
 
 # Local CI/diagnostics outputs
 .ci-out/
+.ci-cache/
+.ci-artifacts/
 zz-out/
 zz-logs/
 _tmp/
@@ -65,7 +71,9 @@ _archives_preclean/
 _attic_untracked/
 _autofix_sandbox/
 attic/
-tools/_attic_untracked/
+archives/cleanup_*/
+archives/tools_legacy_20260309/tools/_attic_untracked/
+assets/zz-data/10_global_scan/.cache_ref/
 assets/zz-manifests/_attic_untracked/
 assets/zz-manifests/_backups/
 

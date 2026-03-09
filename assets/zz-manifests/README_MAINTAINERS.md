@@ -2,7 +2,7 @@
 
 ## Vérifier et auditer
 ```bash
-./tools/audit_manifest_files.sh --all
+./archives/tools_legacy_20260309/tools/audit_manifest_files.sh --all
 python assets/zz-manifests/diag_consistency.py assets/zz-manifests/manifest_master.json \
   --report json --normalize-paths --apply-aliases --strip-internal --content-check --fail-on warnings
 pytest -q

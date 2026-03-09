@@ -11,4 +11,4 @@ Parameter priors:
 - H_0: [60.0, 80.0]
 - Omega_m: [0.1, 0.5]
 
-results_pickle = /home/jplal/MCGT/experiments/ultimate_test_1_nested_sampling/outputs/lcdm_nested_res.pkl
+results_pickle = experiments/ultimate_test_1_nested_sampling/outputs/lcdm_nested_res.pkl

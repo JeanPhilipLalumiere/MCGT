@@ -1636,7 +1636,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/phase1_2h_export_find_top_residuals.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase1_2h_export_find_top_residuals.sh",
       "role": "code",
       "size_bytes": 1776,
       "sha256": "ce5339f71299119beaf76107a1d2b176582b360a94e05af697bfa0b5165665f3",
@@ -1644,7 +1644,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/phase2_finish.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase2_finish.sh",
       "role": "code",
       "size_bytes": 2559,
       "sha256": "58087b5130ced54f14d700e5c7d38a5819bcad3a1504a64fe61556c4018025f4",
@@ -1652,7 +1652,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/phase3_bootstrap_package.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase3_bootstrap_package.sh",
       "role": "code",
       "size_bytes": 6806,
       "sha256": "48c3675749c21c43e237e63da9700b6158c63ca8a49312f18df971b7e3ba583f",
@@ -3012,7 +3012,7 @@
       "git_hash": "296593262b30af884ac291b475f40065a8e704b3"
     },
     {
-      "path": "scripts/manifesttools/populate_manifest.py",
+      "path": "scripts/manifestarchives/tools_legacy_20260309/tools/populate_manifest.py",
       "role": "code",
       "size_bytes": 9713,
       "sha256": "81cf7d1c098b6ba7d7ddd75a34369a594d03df6c61957ce7377ca38c0a6fc5d2",
@@ -3020,7 +3020,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "scripts/manifesttools/verify_manifest.py",
+      "path": "scripts/manifestarchives/tools_legacy_20260309/tools/verify_manifest.py",
       "role": "code",
       "size_bytes": 5741,
       "sha256": "d77fe8af021a7981ccc7810b72ea23bd3888fbac6f34bddd09f363967be2600b",
@@ -3052,7 +3052,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/json_audit_strict.py",
+      "path": "archives/tools_legacy_20260309/tools/json_audit_strict.py",
       "role": "code",
       "size_bytes": 689,
       "sha256": "dd7972ff1b6b23fa82a2e4de3bddaba9fedb129a62f1fc2364a6787108db29f3",
@@ -3060,7 +3060,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/manifest_check.py",
+      "path": "archives/tools_legacy_20260309/tools/manifest_check.py",
       "role": "code",
       "size_bytes": 820,
       "sha256": "37074d5b6fe8c5090a9bdb21edc717e6ac2cd53c39b0958c04cc45818d6602d0",
@@ -3068,7 +3068,7 @@
       "git_hash": "13c9daf9933f92aac868b9212b51a1c9f029b9c0"
     },
     {
-      "path": "tools/manifest_report.py",
+      "path": "archives/tools_legacy_20260309/tools/manifest_report.py",
       "role": "code",
       "size_bytes": 978,
       "sha256": "13d90742284d78b2f475ca3d2daa4fdbe1e2cb0247ae1b0dbc136266b5e2b7b2",

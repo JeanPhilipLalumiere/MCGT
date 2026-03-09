@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from matplotlib.patches import Patch
 import json
+from scripts._common.release_v400 import PTMG_OMEGA_M, PTMG_W0
 
 try:
     from scipy.stats import gaussian_kde
@@ -47,10 +48,10 @@ DEFAULT_PHYSICAL_BOUNDS = {
 }
 
 FORCED_BEST_FIT = {
-    "m1": 0.243,
-    "m2": -0.69,
-    "omega_m": 0.243,
-    "w0": -0.69,
+    "m1": PTMG_OMEGA_M,
+    "m2": PTMG_W0,
+    "omega_m": PTMG_OMEGA_M,
+    "w0": PTMG_W0,
 }
 
 

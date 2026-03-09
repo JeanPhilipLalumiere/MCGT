@@ -292,7 +292,7 @@ Après exécution du pipeline minimal, il est recommandé de lancer le diagnosti
 des manifests, comme pour CH07 et CH09 :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre les fichiers présents dans le dépôt et :

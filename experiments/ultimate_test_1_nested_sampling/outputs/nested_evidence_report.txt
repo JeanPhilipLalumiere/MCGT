@@ -13,4 +13,4 @@ Parameter priors:
 - w_0: [-2.5, -0.3]
 - w_a: [-3.0, 3.0]
 
-results_pickle = /home/jplal/MCGT/experiments/ultimate_test_1_nested_sampling/outputs/psitmg_nested_res.pkl
+results_pickle = experiments/ultimate_test_1_nested_sampling/outputs/psitmg_nested_res.pkl

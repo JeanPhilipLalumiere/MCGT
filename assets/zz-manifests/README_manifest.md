@@ -158,7 +158,7 @@ python3 assets/zz-manifests/add_to_manifest.py assets/zz-data/10_global_scan/10_
 ### Re-synchroniser la version publication à partir du master (outil dédié)
 
 ```bash
-python3 scripts/manifesttools/populate_manifest.py \
+python3 scripts/manifestarchives/tools_legacy_20260309/tools/populate_manifest.py \
   --master assets/zz-manifests/manifest_master.json \
   --publication assets/zz-manifests/manifest_publication.json \
   --policy include=tex_sources,chapter_guides,global_configs,key_scripts,mcgt_modules,representative_figures,meta_files \

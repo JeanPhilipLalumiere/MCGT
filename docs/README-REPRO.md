@@ -1,25 +1,10 @@
-# Reproduction minimale (MCGT v0.3.3)
+# Reproducibility Guide (normalized)
 
-> Deux commandes pour valider rapidement la publication (ch09 & ch10).
+Ce fichier remplace l'ancien guide court (`v0.3.3`) et redirige vers la version canonique.
 
-## 1) Chapter 09 — figure minimale (overlay phase)
-```bash
-python scripts/09_dark_energy_cpl/10_fig01_phase_overlay.py   --csv assets/zz-data/09_dark_energy_cpl/09_phases_mcgt.csv   --meta assets/zz-data/09_dark_energy_cpl/09_metrics_phase.json   --out assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png   --dpi 150
-```
-Sortie attendue : `assets/zz-figures/09_dark_energy_cpl/09_fig_01_phase_overlay.png`.
+- Guide principal: [`docs/reproducibility/README-REPRO.md`](reproducibility/README-REPRO.md)
+- Guide pre-publication: [`docs/reproducibility/README_prepub.md`](reproducibility/README_prepub.md)
 
-## 2) Chapter 10 — générateur officiel (CSV)
-```bash
-python scripts/10_global_scan/generate_data_chapter10.py   --config assets/zz-data/10_global_scan/10_mc_config.json   --out-results assets/zz-data/10_global_scan/10_mc_results.csv
-```
-Sortie attendue : `assets/zz-data/10_global_scan/10_mc_results.csv` (en-têtes : `sample_id,q,m1,m2,fpeak_hz,phi_at_fpeak_rad,p95_rad`).
+Archive de l'ancien document:
 
-**Raccourcis Make (si dispos)**
-- `make -f Makefile -f make/smoke.mk smoke-ch09`
-- `make -f Makefile -f make/smoke.mk smoke-ch10`
-
-### Astuce : exécution sans warning (ch09)
-Pour éviter le message de warning lors de la lecture du méta JSON, vous pouvez utiliser le wrapper :
-```bash
-bash scripts/09_dark_energy_cpl/run_fig01_nowarn.sh
-```
+- `archives/docs_legacy_20260309/README-REPRO_v0.3.3.md`

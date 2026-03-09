@@ -10,6 +10,15 @@ from pathlib import Path
 
 import emcee
 import numpy as np
+from scripts._common.release_v400 import (
+    LCDM_OMEGA_M,
+    PLANCK18_H0,
+    PTMG_H0,
+    PTMG_OMEGA_M,
+    PTMG_S8,
+    PTMG_W0,
+    PTMG_WA,
+)
 
 DEFAULT_CHAIN = Path("output/ptmg_chains.h5")
 DEFAULT_CHAIN_NAME = "ptmg_chain"
@@ -21,16 +30,16 @@ DEFAULT_Q0STAR_SAFE = -1.0e-6
 DEFAULT_Q0STAR_MAX = -2.0e-3
 DEFAULT_ALPHA = 0.50
 DEFAULT_Z_NORM = 1000.0
-DEFAULT_LCDM_OMEGA_M = 0.315
-DEFAULT_LCDM_H0 = 67.4
+DEFAULT_LCDM_OMEGA_M = LCDM_OMEGA_M
+DEFAULT_LCDM_H0 = PLANCK18_H0
 
 # Fallback baseline if the chain is unavailable.
 FALLBACK_BESTFIT = {
-    "omega_m": 0.243,
-    "h_0": 72.97,
-    "w_0": -0.69,
-    "w_a": -2.81,
-    "s_8": 0.718,
+    "omega_m": PTMG_OMEGA_M,
+    "h_0": PTMG_H0,
+    "w_0": PTMG_W0,
+    "w_a": PTMG_WA,
+    "s_8": PTMG_S8,
 }
 
 

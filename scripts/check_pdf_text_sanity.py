@@ -16,8 +16,9 @@ from pathlib import Path
 
 
 DEFAULT_NEEDLES = [
-    "72.97",
-    "0.718",
+    "74.18",
+    "0.748",
+    "40.3",
     "Planck compressed prior",
     "95th percentile",
     "phase dephasing",

@@ -255,7 +255,7 @@ Après exécution du pipeline minimal CH03, il est recommandé de lancer
 le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -323,7 +323,7 @@ et les autres chapitres (en particulier les chapitres 1, 2 et 6).
 
   - être effectuée dans une branche dédiée ;
   - être accompagnée d’une exécution propre du pipeline minimal (cf. §3–5) ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

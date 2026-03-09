@@ -38,6 +38,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts._common.style import apply_manuscript_defaults
+from scripts._common.release_v400 import PTMG_H0, PTMG_OMEGA_M, PTMG_W0, PTMG_WA
 
 CONFIG = ROOT / "config" / "mcgt-global-config.ini"
 CH12_S8_SCAN = ROOT / "assets" / "zz-data" / "12_cmb_verdict" / "12_k_law_refinement.csv"
@@ -357,10 +358,10 @@ def solve_ch07_bao_pivot() -> dict[str, float]:
         }
     )
 
-    omega_m = 0.243
-    h0 = 72.97
-    w0 = -0.69
-    wa = -2.81
+    omega_m = PTMG_OMEGA_M
+    h0 = PTMG_H0
+    w0 = PTMG_W0
+    wa = PTMG_WA
 
     z_model = np.linspace(0.2, 2.6, 600)
 

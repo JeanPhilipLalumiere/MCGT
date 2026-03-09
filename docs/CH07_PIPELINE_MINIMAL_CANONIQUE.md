@@ -16,7 +16,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH07 s’appuie sur un script shell canonique :
 
-- `tools/ch07_minimal_pipeline.sh`
+- `archives/tools_legacy_20260309/tools/ch07_minimal_pipeline.sh`
 
 qui orchestre les **dry‑runs**, un **run complet minimal** et la génération des
 figures, de façon cohérente avec le reste de MCGT.
@@ -50,7 +50,7 @@ Depuis la racine du dépôt :
 
 ```bash
 cd /path/to/MCGT
-bash tools/ch07_minimal_pipeline.sh
+bash archives/tools_legacy_20260309/tools/ch07_minimal_pipeline.sh
 ```
 
 Ce script exécute la séquence **canonique minimale** suivante :
@@ -288,11 +288,11 @@ En exécution complète, on considère également comme produits structurants :
 
 ## 7. Contrôle d’intégrité et manifests
 
-Après exécution de `tools/ch07_minimal_pipeline.sh`, il est recommandé de lancer
+Après exécution de `archives/tools_legacy_20260309/tools/ch07_minimal_pipeline.sh`, il est recommandé de lancer
 le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -364,8 +364,8 @@ Les détails complets sont documentés dans les scripts CH07, mais les grandes l
   (données ou figures) devrait idéalement :
 
   - être effectuée dans une branche dédiée ;
-  - être accompagnée d’une exécution propre du pipeline minimal (`tools/ch07_minimal_pipeline.sh`) ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+  - être accompagnée d’une exécution propre du pipeline minimal (`archives/tools_legacy_20260309/tools/ch07_minimal_pipeline.sh`) ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

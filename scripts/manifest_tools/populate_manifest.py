@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# scripts/manifesttools/remplir_manifest.py
+# scripts/manifestarchives/tools_legacy_20260309/tools/remplir_manifest.py
 """
 Remplir / mettre à jour un manifest JSON (mise à jour size_bytes, sha256, mtime_iso, git_hash).
 Fonctions principales:

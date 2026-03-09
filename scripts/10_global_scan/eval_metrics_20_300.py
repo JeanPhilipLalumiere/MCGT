@@ -32,7 +32,11 @@ from typing import Tuple, Dict, Any
 
 import numpy as np
 import pandas as pd
-from joblib import Parallel, delayed
+try:
+    from joblib import Parallel, delayed
+except Exception:
+    Parallel = None
+    delayed = None
 
 # Importer les backends locaux (doivent exister dans le dépôt)
 try:
@@ -314,14 +318,22 @@ def main(argv=None):
     work = []
     # joblib Parallel with chunksize automatic
     logging.info(
-        "Démarrage évaluation en parallèle : batch=%d n_workers=%d",
+        "Démarrage évaluation : batch=%d n_workers=%d",
         args.batch,
         args.n_workers,
     )
     try:
-        results = Parallel(n_jobs=args.n_workers, backend="loky")(
-            delayed(evaluate_sample)(row, f_hz, window) for _, row in samples.iterrows()
-        )
+        if Parallel is not None and args.n_workers > 1:
+            results = Parallel(n_jobs=args.n_workers, backend="loky")(
+                delayed(evaluate_sample)(row, f_hz, window)
+                for _, row in samples.iterrows()
+            )
+        else:
+            if Parallel is None:
+                logging.warning(
+                    "joblib indisponible: fallback en mode séquentiel (n_workers=1)."
+                )
+            results = [evaluate_sample(row, f_hz, window) for _, row in samples.iterrows()]
     except KeyboardInterrupt:
         logging.error("Interruption clavier reçue ; arrêt.")
         raise

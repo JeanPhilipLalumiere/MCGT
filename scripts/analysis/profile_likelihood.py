@@ -19,6 +19,7 @@ if str(ROOT) not in sys.path:
 from core_physics import PsiTMGCosmology
 from likelihoods import LikelihoodEvaluator
 from perturbations import StructureFormation
+from scripts._common.release_v400 import PLANCK18_H0, PLANCK18_H0_ERR, PTMG_SIGMA8
 
 
 def _nll_total(
@@ -82,10 +83,10 @@ def _nll_global(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Profile-likelihood scan in fixed H0.")
-    parser.add_argument("--h0-min", type=float, default=70.0)
+    parser.add_argument("--h0-min", type=float, default=66.0)
     parser.add_argument("--h0-max", type=float, default=78.0)
     parser.add_argument("--h0-step", type=float, default=0.4)
-    parser.add_argument("--sigma8", type=float, default=0.862, help="Fixed sigma8 during profile scan.")
+    parser.add_argument("--sigma8", type=float, default=PTMG_SIGMA8, help="Fixed sigma8 during profile scan.")
     parser.add_argument("--omega-m-init", type=float, default=0.226, help="Initial Omega_m for optimization.")
     parser.add_argument("--w0-init", type=float, default=-1.48, help="Initial w0 for optimization.")
     parser.add_argument("--wa-init", type=float, default=0.45, help="Initial wa for optimization.")
@@ -219,6 +220,25 @@ def main() -> int:
 
     fig, ax = plt.subplots(figsize=(8.2, 4.8))
     ax.plot(arr[:, 0], arr[:, 5], color="#1565c0", lw=2.2)
+    ax.axvspan(
+        PLANCK18_H0 - PLANCK18_H0_ERR,
+        PLANCK18_H0 + PLANCK18_H0_ERR,
+        color="gray",
+        alpha=0.12,
+        zorder=0,
+    )
+    ax.axvline(PLANCK18_H0, color="gray", lw=1.2, ls="--", alpha=0.95)
+    ax.text(
+        PLANCK18_H0 + 0.08,
+        0.94,
+        r"Planck18 ($\Lambda$CDM)",
+        transform=ax.get_xaxis_transform(),
+        rotation=90,
+        va="top",
+        ha="left",
+        fontsize=8.5,
+        color="gray",
+    )
     for y, lbl in [(1.0, "1σ"), (4.0, "2σ"), (9.0, "3σ")]:
         ax.axhline(y, color="gray", lw=1.2, ls="--", alpha=0.85, label=f"Δχ²={int(y)} ({lbl})")
     ax.set_xlabel(r"$H_0$ [km s$^{-1}$ Mpc$^{-1}$]")

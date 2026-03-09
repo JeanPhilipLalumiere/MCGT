@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# scripts/manifesttools/verify_manifest.py
+# scripts/manifestarchives/tools_legacy_20260309/tools/verify_manifest.py
 """
 Vérifier un manifest JSON :
 - recalcule sha256, taille, mtime (UTC)

@@ -1,8 +1,9 @@
-try:
-    from importlib.metadata import version, PackageNotFoundError
+"""Minimal public API for retained MCGT tooling utilities."""
 
-    __version__ = "0.3.14"
-except Exception:
-    __version__ = "0.3.14"
-# exports publics éventuels
-from .common_io import *  # si nécessaire pour ton API
+from __future__ import annotations
+
+__version__ = "4.0.0"
+
+from .common_io import ensure_fig02_cols, p95, pick
+
+__all__ = ["ensure_fig02_cols", "p95", "pick", "__version__"]

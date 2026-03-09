@@ -78,8 +78,8 @@ ci-fast:
 # END CI FAST TARGET
 
 # BEGIN PY DIST TARGETS
-.PHONY: dist clean-dist twine-check
-dist:
+.PHONY: py-dist clean-dist twine-check
+py-dist:
 	@python -m pip install -U build twine >/dev/null
 	@python -m build
 twine-check:
@@ -92,13 +92,13 @@ clean-dist:
 # BEGIN DOCS TARGETS
 .PHONY: docs-serve docs-build docs-clean
 docs-serve:
-	\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
-	\t@mkdocs serve -a 0.0.0.0:8000
+	@python -m pip install -U mkdocs mkdocs-material >/dev/null
+	@mkdocs serve -a 0.0.0.0:8000
 docs-build:
-	\t@python -m pip install -U mkdocs mkdocs-material >/dev/null
-	\t@mkdocs build --clean
+	@python -m pip install -U mkdocs mkdocs-material >/dev/null
+	@mkdocs build --clean
 docs-clean:
-	\t@rm -rf site || true
+	@rm -rf site || true
 # END DOCS TARGETS
 
 .PHONY: smoke-ch09
@@ -123,5 +123,4 @@ docs-clean:
 .PHONY: smoke-all
 # smoke-all: smoke-ch09 smoke-ch10
 # 
--include make/smoke.mk
 include make/smoke.mk

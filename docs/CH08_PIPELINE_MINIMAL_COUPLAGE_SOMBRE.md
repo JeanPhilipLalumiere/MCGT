@@ -16,7 +16,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH08 s’appuie sur un script shell canonique :
 
-- `tools/ch08_minimal_pipeline.sh`
+- `archives/tools_legacy_20260309/tools/ch08_minimal_pipeline.sh`
 
 qui orchestre, depuis la racine du dépôt :
 
@@ -57,7 +57,7 @@ Depuis la racine du dépôt :
 
 ```bash
 cd /path/to/MCGT
-bash tools/ch08_minimal_pipeline.sh
+bash archives/tools_legacy_20260309/tools/ch08_minimal_pipeline.sh
 ```
 
 Ce script exécute la séquence **canonique minimale** suivante :
@@ -89,7 +89,7 @@ Ce script exécute la séquence **canonique minimale** suivante :
 4. **Diagnostic des manifests**  
    Appel final à :
 
-   - `bash tools/run_diag_manifests.sh`
+   - `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh`
 
 En fin d’exécution réussie, on s’attend à un résumé du type :
 
@@ -322,11 +322,11 @@ En complément (analyse étendue) :
 
 ## 7. Contrôle d’intégrité et manifests
 
-Après exécution de `tools/ch08_minimal_pipeline.sh`, il est recommandé de lancer
+Après exécution de `archives/tools_legacy_20260309/tools/ch08_minimal_pipeline.sh`, il est recommandé de lancer
 le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -365,8 +365,8 @@ Objectifs pour le pipeline minimal :
 
   - être effectuée dans une branche dédiée ;
   - être accompagnée d’une exécution propre du pipeline minimal
-    (`tools/ch08_minimal_pipeline.sh`) ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+    (`archives/tools_legacy_20260309/tools/ch08_minimal_pipeline.sh`) ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

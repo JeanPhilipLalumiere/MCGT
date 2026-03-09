@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import gzip
 import hashlib
 import json
@@ -37,6 +38,20 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts._common.style import apply_manuscript_defaults
+from scripts._common.release_v400 import (
+    DELTA_AIC_TOTAL,
+    DELTA_BIC_TOTAL,
+    DELTA_CHI2_TOTAL,
+    LCDM_OMEGA_M,
+    LCDM_S8_REF,
+    PLANCK18_H0,
+    PTMG_H0,
+    PTMG_OMEGA_M,
+    PTMG_S8,
+    PTMG_S8_ERR,
+    PTMG_W0,
+    PTMG_WA,
+)
 
 FIG09_DIR = ROOT / "assets" / "zz-figures" / "09_dark_energy_cpl"
 FIG10_DIR = ROOT / "assets" / "zz-figures" / "10_global_scan"
@@ -79,30 +94,30 @@ BOUNDS = {
 }
 
 BESTFIT = {
-    "H0": 72.97,
-    "omega_m": 0.243,
-    "w0": -0.69,
-    "wa": -2.81,
-    "S8": 0.718,
+    "H0": PTMG_H0,
+    "omega_m": PTMG_OMEGA_M,
+    "w0": PTMG_W0,
+    "wa": PTMG_WA,
+    "S8": PTMG_S8,
 }
 BESTFIT_ERR = {
-    "H0": 0.31,
-    "omega_m": 0.010,
-    "w0": 0.05,
-    "wa": 0.22,
-    "S8": 0.030,
+    "H0": 0.82,
+    "omega_m": 0.012,
+    "w0": 0.045,
+    "wa": 0.038,
+    "S8": PTMG_S8_ERR,
 }
 LCDM_REF = {
-    "H0": 67.40,
-    "omega_m": 0.315,
+    "H0": PLANCK18_H0,
+    "omega_m": LCDM_OMEGA_M,
     "w0": -1.0,
     "wa": 0.0,
-    "S8": 0.830,
+    "S8": LCDM_S8_REF,
 }
 
-TARGET_DELTA_CHI2 = -151.6
-TARGET_DELTA_AIC = -147.6
-TARGET_DELTA_BIC = -136.7
+TARGET_DELTA_CHI2 = DELTA_CHI2_TOTAL
+TARGET_DELTA_AIC = DELTA_AIC_TOTAL
+TARGET_DELTA_BIC = DELTA_BIC_TOTAL
 
 CHI2_WEIGHTS = {
     "SN": 0.62,
@@ -534,6 +549,10 @@ def plot_fig17(samples: pd.DataFrame, best_row: pd.Series) -> None:
 
 
 def main() -> None:
+    argparse.ArgumentParser(
+        description="Generate phase-4 global verdict artifacts for release v4.0.0."
+    ).parse_args()
+
     FIG09_DIR.mkdir(parents=True, exist_ok=True)
     FIG10_DIR.mkdir(parents=True, exist_ok=True)
     DATA10_DIR.mkdir(parents=True, exist_ok=True)
@@ -630,10 +649,10 @@ def main() -> None:
             "chi2_lcdm_by_probe": chi2_lcdm_probes,
         },
         "targets": {
-            "H0_target": 72.97,
-            "S8_target": 0.718,
-            "w0_target": -0.69,
-            "wa_target": -2.81,
+            "H0_target": PTMG_H0,
+            "S8_target": PTMG_S8,
+            "w0_target": PTMG_W0,
+            "wa_target": PTMG_WA,
         },
         "integrity": {
             "stability_audit_gate_expected": True,

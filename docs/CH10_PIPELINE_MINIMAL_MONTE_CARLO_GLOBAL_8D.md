@@ -464,7 +464,7 @@ Une fois le pipeline minimal exécuté (données + figures), il est recommandé 
 lancer le diagnostic des manifests (comme pour les autres chapitres) :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie notamment :
@@ -506,7 +506,7 @@ affectant les résultats ou figures :
 
 - soit effectuée dans une branche Git dédiée ;
 - soit accompagnée d’une exécution propre du pipeline minimal (section 2) ;
-- passe `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+- passe `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
 - mette à jour `CHANGELOG.md` et, si nécessaire, les entrées CH10 dans les
   manifests (`manifest_master.json`, `manifest_publication.json`).
 

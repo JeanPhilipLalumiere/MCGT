@@ -4,6 +4,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._common.release_v400 import PTMG_H0, PTMG_OMEGA_M, PTMG_W0, PTMG_WA
 from scripts._common.style import apply_manuscript_defaults
 
 apply_manuscript_defaults(usetex=True)
@@ -16,10 +17,10 @@ OUT_DIR = ROOT / "manuscript"
 OUTPUT_DIR = ROOT / "output"
 
 BESTFIT = {
-    "omega_m": 0.243,
-    "h0": 72.97,
-    "w0": -0.69,
-    "wa": -2.81,
+    "omega_m": PTMG_OMEGA_M,
+    "h0": PTMG_H0,
+    "w0": PTMG_W0,
+    "wa": PTMG_WA,
 }
 
 

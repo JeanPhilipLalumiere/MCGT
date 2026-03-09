@@ -1,39 +1,19 @@
-\# Workflows CI/CD
+# Workflows CI/CD
 
+Ce dossier contient l'automatisation GitHub Actions utilisée pour la release v4.0.0.
 
+- `ci.yml` : installe les dépendances, met en cache `pip`, exécute `pytest`,
+  les validateurs de schémas et les vérifications de cohérence.
+- `release.yml` : à chaque tag `vX.Y.Z`, construit `sdist` + `wheel`
+  et attache les artefacts à la release GitHub.
 
-Ce dossier contient l’automatisation GitHub Actions :
+## Variables et secrets
 
+Aucun secret n'est requis par défaut pour la build locale des artefacts.
+Pour une publication externe (PyPI/Zenodo), ajouter les secrets nécessaires
+dans les paramètres GitHub du dépôt.
 
+## Conseils
 
-\- \*\*ci.yml\*\* : installe les dépendances, met en cache `pip`, exécute `pytest`,
-
-&nbsp; lance les validateurs de schémas (`assets/zz-schemas/validate\_\*`) et le diagnostic manifest
-
-&nbsp; (`assets/zz-manifests/diag\_consistency.py` en `--dry-run`).
-
-\- \*\*release.yml\*\* : à chaque tag `vX.Y.Z`, construit `sdist` + `wheel` et publie
-
-&nbsp; les artefacts dans la \_release\_ GitHub.
-
-
-
-\## Variables \& secrets
-
-
-
-Aucun secret requis par défaut. Pour publier ailleurs (PyPI, Zenodo), ajouter
-
-les credentials correspondants dans les \_secrets\_ du dépôt et étendre `release.yml`.
-
-
-
-\## Conseils
-
-
-
-\- Garder `requirements.txt` et `mcgt/pyproject.toml` synchronisés.
-
-\- Préparer des jeux de données \*\*réduits\*\* pour les tests (fixtures) afin d’éviter
-
-&nbsp; des temps de CI trop longs.
+- Garder `requirements.txt` et `pyproject.toml` synchronisés.
+- Utiliser des jeux de données réduits pour les tests CI afin de limiter le temps d'exécution.

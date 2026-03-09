@@ -35,6 +35,23 @@ def load_config(path: Path) -> Dict[str, Any]:
         return json.load(f)
 
 
+def _get_bounds(cfg: Dict[str, Any], name: str, default_min: float, default_max: float) -> tuple[float, float]:
+    """Support both legacy priors[min/max] and normalized bounds[name]=[min,max]."""
+    priors = cfg.get("priors", {})
+    p = priors.get(name)
+    if isinstance(p, dict):
+        lo = float(p.get("min", default_min))
+        hi = float(p.get("max", default_max))
+        return lo, hi
+
+    bounds = cfg.get("bounds", {})
+    b = bounds.get(name)
+    if isinstance(b, (list, tuple)) and len(b) == 2:
+        return float(b[0]), float(b[1])
+
+    return float(default_min), float(default_max)
+
+
 def _sobol_sample(n: int, dim: int, scramble: bool, seed: int) -> np.ndarray:
     try:
         from scipy.stats import qmc
@@ -57,7 +74,6 @@ def main() -> int:
     args = ap.parse_args()
 
     cfg = load_config(Path(args.config))
-    priors = cfg.get("priors", {})
     nuisance = cfg.get("nuisance", {})
     sobol_cfg = cfg.get("sobol", {})
     scramble = (
@@ -69,26 +85,31 @@ def main() -> int:
 
     n = int(args.n)
     # Dim order: m1, m2, q0star, alpha, phi0, tc, dist, incl
-    mins = [
-        priors.get("m1", {}).get("min", 5.0),
-        priors.get("m2", {}).get("min", 5.0),
-        priors.get("q0star", {}).get("min", -0.3),
-        priors.get("alpha", {}).get("min", -1.0),
-        nuisance.get("phi0", 0.0),
-        nuisance.get("tc", 0.0),
-        nuisance.get("dist", 1000.0),
-        nuisance.get("incl", 0.0),
-    ]
-    maxs = [
-        priors.get("m1", {}).get("max", 80.0),
-        priors.get("m2", {}).get("max", 80.0),
-        priors.get("q0star", {}).get("max", 0.3),
-        priors.get("alpha", {}).get("max", 1.0),
-        nuisance.get("phi0", 0.0),
-        nuisance.get("tc", 0.0),
-        nuisance.get("dist", 1000.0),
-        nuisance.get("incl", np.pi),
-    ]
+    m1_min, m1_max = _get_bounds(cfg, "m1", 5.0, 80.0)
+    m2_min, m2_max = _get_bounds(cfg, "m2", 5.0, 80.0)
+    q0_min, q0_max = _get_bounds(cfg, "q0star", -0.3, 0.3)
+    a_min, a_max = _get_bounds(cfg, "alpha", -1.0, 1.0)
+    phi0_min, phi0_max = _get_bounds(cfg, "phi0", 0.0, 0.0)
+    tc_min, tc_max = _get_bounds(cfg, "tc", 0.0, 0.0)
+    dist_min, dist_max = _get_bounds(cfg, "dist", 1000.0, 1000.0)
+    incl_min, incl_max = _get_bounds(cfg, "incl", 0.0, np.pi)
+
+    # Normalized nuisance format can pin parameters in fixed mode.
+    if isinstance(nuisance, dict) and nuisance.get("mode") == "fixed":
+        if nuisance.get("vary_phi0_tc") is False:
+            phi_fixed = float(nuisance.get("phi0_value", 0.0))
+            tc_fixed = float(nuisance.get("tc_value", 0.0))
+            phi0_min = phi0_max = phi_fixed
+            tc_min = tc_max = tc_fixed
+        if "dist_value" in nuisance:
+            dist_val = float(nuisance["dist_value"])
+            dist_min = dist_max = dist_val
+        if "incl_value" in nuisance:
+            incl_val = float(nuisance["incl_value"])
+            incl_min = incl_max = incl_val
+
+    mins = [m1_min, m2_min, q0_min, a_min, phi0_min, tc_min, dist_min, incl_min]
+    maxs = [m1_max, m2_max, q0_max, a_max, phi0_max, tc_max, dist_max, incl_max]
 
     base = _sobol_sample(n, dim=8, scramble=scramble, seed=seed)
     if args.sobol_offset:

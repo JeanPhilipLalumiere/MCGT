@@ -5,7 +5,7 @@
 3) Récupérer le DOI de la version (ex: `10.5281/zenodo.1234567`).
 4) Injecter ce DOI dans les fichiers :
    sh
-   python tools/backfill_zenodo_doi.py 10.5281/zenodo.1234567
+   python archives/tools_legacy_20260309/tools/backfill_zenodo_doi.py 10.5281/zenodo.1234567
    git add README.md CITATION.cff
    git commit -m "docs: backfill Zenodo DOI v0.3.0"
    git push

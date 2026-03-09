@@ -32,7 +32,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mcgt-dist
+          name: psitmg-dist
           path: dist/*
 
       - name: Create GitHub Release (if not exists) & attach assets

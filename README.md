@@ -36,7 +36,19 @@ cd paper
 ./compile.sh
 ```
 
-`paper/compile.sh` uses Docker (`Dockerfile.latex`), so Docker must be available locally.
+`paper/compile.sh` now supports:
+- pinned container image (default) with Docker **or** Podman,
+- optional local image build (`--local-image`),
+- controlled local fallback (`latexmk` / `pdflatex+bibtex` / `tectonic`) when no container runtime is usable.
+
+Examples:
+
+```bash
+cd paper
+./compile.sh --engine podman
+./compile.sh --local-image
+./compile.sh --local-only
+```
 
 ## Reproducibility Quick Check
 

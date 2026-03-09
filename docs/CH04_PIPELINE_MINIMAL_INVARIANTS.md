@@ -15,7 +15,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 
 Le pipeline minimal CH04 s’appuie sur un script shell canonique :
 
-- `tools/ch04_minimal_pipeline.sh`  *(à créer / maintenir dans la hiérarchie `tools/`)*
+- `archives/tools_legacy_20260309/tools/ch04_minimal_pipeline.sh`  *(à créer / maintenir dans la hiérarchie `tools/`)*
 
 qui orchestre le calcul des invariants et la génération des figures à partir des fichiers
 d’entrée déjà présents dans le dépôt.
@@ -54,7 +54,7 @@ Depuis la racine du dépôt :
 
 ```bash
 cd ~/MCGT  # adapter si nécessaire
-bash tools/ch04_minimal_pipeline.sh
+bash archives/tools_legacy_20260309/tools/ch04_minimal_pipeline.sh
 ```
 
 Ce script exécute la séquence **canonique minimale** suivante :
@@ -233,11 +233,11 @@ Ces fichiers devraient apparaître (et être à jour) dans les manifests du proj
 
 ## 7. Contrôle d’intégrité et manifests
 
-Après exécution de `tools/ch04_minimal_pipeline.sh`, il est recommandé de lancer
+Après exécution de `archives/tools_legacy_20260309/tools/ch04_minimal_pipeline.sh`, il est recommandé de lancer
 le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -300,8 +300,8 @@ sont :
 
   - être effectuée dans une branche dédiée ;
   - être accompagnée d’une exécution propre du pipeline minimal
-    (`bash tools/ch04_minimal_pipeline.sh`) ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+    (`bash archives/tools_legacy_20260309/tools/ch04_minimal_pipeline.sh`) ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

@@ -13,7 +13,7 @@ L’objectif est de fournir un **chemin court, reproductible et stable** pour :
 Ce pipeline repose sur :
 
 - un script shell canonique (quand il est présent/configuré) :  
-  `tools/smoke_ch09_fast.sh` ;
+  `archives/tools_legacy_20260309/tools/smoke_ch09_fast.sh` ;
 - et, en parallèle, une **séquence minimale manuelle** que tu as effectivement testée.
 
 ---
@@ -60,7 +60,7 @@ Depuis la racine du dépôt :
 
 ```bash
 cd /path/to/MCGT
-bash tools/smoke_ch09_fast.sh
+bash archives/tools_legacy_20260309/tools/smoke_ch09_fast.sh
 ```
 
 Ce script effectue automatiquement, de manière compacte, les opérations suivantes
@@ -223,7 +223,7 @@ Fichiers utilisés pour la fig. 02 et les diagnostics :
 ## 5. Pipeline détaillé – étape par étape
 
 Les détails exacts dépendent de l’implémentation courante de
-`tools/smoke_ch09_fast.sh`, mais le schéma minimal canonique est :
+`archives/tools_legacy_20260309/tools/smoke_ch09_fast.sh`, mais le schéma minimal canonique est :
 
 ### 5.1. (Optionnel) Régénérer la référence GR
 
@@ -384,7 +384,7 @@ Après exécution de la séquence minimale (§3.2) ou du smoke script, il est re
 de lancer le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -455,7 +455,7 @@ devrait maintenir des valeurs de `p95(|Δφ|)` dans une plage physiquement accep
   - être effectuée dans une branche dédiée ;
   - être accompagnée d’une exécution propre de la séquence minimale (§3.2) ou du
     smoke script ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

@@ -452,11 +452,27 @@ def etape_7_resume(
     import numpy as np
 
     log.info("7) Résumé & manifeste pipeline")
-    df = pd.read_csv(results_final_csv)
-    n_total = int(len(df))
-    n_ok = int((df["status"] == "ok").sum()) if "status" in df.columns else n_total
-    n_failed = n_total - n_ok
-    p95 = df["p95_20_300"].dropna().values if "p95_20_300" in df.columns else []
+    p95 = []
+    if Path(results_final_csv).exists():
+        df = pd.read_csv(results_final_csv)
+        n_total = int(len(df))
+        n_ok = int((df["status"] == "ok").sum()) if "status" in df.columns else n_total
+        n_failed = n_total - n_ok
+        p95 = df["p95_20_300"].dropna().values if "p95_20_300" in df.columns else []
+    else:
+        # Smoke/light modes can skip metrics/aggregate and therefore have no final results CSV.
+        samples_csv = Path(args.samples_csv or DEFAULTS["samples_csv"])
+        if samples_csv.exists():
+            n_total = int(len(pd.read_csv(samples_csv)))
+        else:
+            n_total = 0
+        n_ok = n_total
+        n_failed = 0
+        log.warning(
+            "Résultats finaux absents (%s) — résumé basé sur les échantillons (%s).",
+            bref(results_final_csv),
+            bref(samples_csv),
+        )
     resume = {
         "generated_at": datetime.now().astimezone().isoformat(),
         "inputs": {

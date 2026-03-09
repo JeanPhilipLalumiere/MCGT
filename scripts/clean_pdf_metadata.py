@@ -9,9 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE_PDF = ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v4.0.0_GOLD.pdf"
-DEFAULT_OUTPUT_PDF = ROOT / "manuscript" / "Thesis_MCGT_Lalumiere_v4.0.0_GOLD.pdf"
-DEFAULT_TITLE = "Ψ-Time Metric Gravity v4.0.0 GOLD"
+DEFAULT_SOURCE_PDF = ROOT / "paper" / "main.pdf"
+DEFAULT_OUTPUT_PDF = ROOT / "paper" / "main.pdf"
+DEFAULT_TITLE = "Psi-Time Metric Gravity v4.0.0"
 DEFAULT_AUTHOR = "Jean-Philip Lalumière"
 
 
@@ -50,7 +50,7 @@ def run_ghostscript(pdf: Path, output: Path, title: str, author: str) -> None:
                 f"/Title <{utf16be_hex(title)}>\n"
                 f"/Author <{utf16be_hex(author)}>\n"
                 f"/Subject <{utf16be_hex(title)}>\n"
-                f"/Creator <{utf16be_hex('MCGT v4.0.0 GOLD')}>\n"
+                f"/Creator <{utf16be_hex('PsiTMG v4.0.0')}>\n"
                 f"/Keywords <{utf16be_hex('PsiTMG, MCGT, cosmology, modified gravity')}>\n"
                 "/DOCINFO pdfmark\n"
             ),

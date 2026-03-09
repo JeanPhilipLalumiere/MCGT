@@ -280,7 +280,7 @@ Ces fichiers constituent la **référence** pour la relecture et la publication 
 Après exécution du pipeline minimal, il est recommandé de lancer le diagnostic des manifests :
 
 ```bash
-bash tools/run_diag_manifests.sh
+bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh
 ```
 
 Ce script vérifie la cohérence entre :
@@ -355,7 +355,7 @@ m calc}(T)\) construit sur la grille dense ;
 
   - être effectuée dans une branche dédiée ;
   - être accompagnée d’une exécution propre du pipeline minimal (commande §3) ;
-  - passer `bash tools/run_diag_manifests.sh` sans erreur bloquante ;
+  - passer `bash archives/tools_legacy_20260309/tools/run_diag_manifests.sh` sans erreur bloquante ;
   - mettre à jour `CHANGELOG.md` si les chiffres ou figures publiées changent.
 
 Fin du document.

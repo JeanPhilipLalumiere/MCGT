@@ -1447,11 +1447,11 @@
       "sha256": "c04b4bf485c2b5458a216e3945d82d5018b3f6911c56a00323ad64e80fe00cab"
     },
     {
-      "path": "scripts/manifest_tools/populate_manifest.py",
+      "path": "scripts/manifest_archives/tools_legacy_20260309/tools/populate_manifest.py",
       "sha256": "b17fec4a43cbfd3f59f58624f161ce55d0e015b6fa26a56a80bbf466e3ef9a8c"
     },
     {
-      "path": "scripts/manifest_tools/verify_manifest.py",
+      "path": "scripts/manifest_archives/tools_legacy_20260309/tools/verify_manifest.py",
       "sha256": "f36b1e47c12c8f764140a98a981be6fb0e6d6f2c575cc1f67d30d4a227b9d171"
     },
     {
@@ -1467,11 +1467,11 @@
       "sha256": "e15ffbb03ac14c1184c9c2566ea3745b3cd0a7eed90df86494911d26d8693cf7"
     },
     {
-      "path": "tools/CLEANUP_ASSETS_DELETE_DRYRUN.sh",
+      "path": "archives/tools_legacy_20260309/tools/CLEANUP_ASSETS_DELETE_DRYRUN.sh",
       "sha256": "662d5b8af293f1229765ebb2d5b3ef8eed4c9754eee9ae8d1c1e76954ff4ef2a"
     },
     {
-      "path": "tools/CLEANUP_ASSETS_DELETE_REAL.sh",
+      "path": "archives/tools_legacy_20260309/tools/CLEANUP_ASSETS_DELETE_REAL.sh",
       "sha256": "74bd7534ffc4042bc44c5ea92fc8b85bd2584a73eba79ff8be6b0bc68250ebab"
     },
     {
@@ -1479,87 +1479,87 @@
       "sha256": "ed5b2b8263ddf6c3b3718984cba4ad10fb549881381181139f5283dc8373b4a2"
     },
     {
-      "path": "tools/add_chapter_manifest_entries.py",
+      "path": "archives/tools_legacy_20260309/tools/add_chapter_manifest_entries.py",
       "sha256": "35efac499d9cf9751d4c49bebb31bf55ed1b7aac8a2959c9ea56305a2025ada4"
     },
     {
-      "path": "tools/apply_attic_round2_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/apply_attic_round2_guarded.sh",
       "sha256": "803f6742991cd64b7e01b4d38bd8fc544a48d64a507aa475e8df7242f8045b55"
     },
     {
-      "path": "tools/apply_chapter_decisions.py",
+      "path": "archives/tools_legacy_20260309/tools/apply_chapter_decisions.py",
       "sha256": "6cc02a0d363568a6429ca2f144605037d096309d20da0eb80e5fe7e7a7c57e32"
     },
     {
-      "path": "tools/apply_chapter_guides.py",
+      "path": "archives/tools_legacy_20260309/tools/apply_chapter_guides.py",
       "sha256": "87573464784a73ff89b237bce60096c8ccef4ea1b88e73e3d505f43062d035e8"
     },
     {
-      "path": "tools/apply_title_patch_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/apply_title_patch_minimal.sh",
       "sha256": "ec5527c476abfced798511c5a00e6b4dc6b1ee2243edef60d40c89a21688f477"
     },
     {
-      "path": "tools/archive_logs/ASSETS_EXTRA_ALL.tsv",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/ASSETS_EXTRA_ALL.tsv",
       "sha256": "37cbe5d88b81dada432296cc0377d577b4e789a4947e2a56559e38b5ac709bde"
     },
     {
-      "path": "tools/archive_logs/CHAPTER_ASSETS_FULL.tsv",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/CHAPTER_ASSETS_FULL.tsv",
       "sha256": "501effa1593c7a16a72a9da71df4d0b0b44cf06a977f0f3313dd06abef548290"
     },
     {
-      "path": "tools/archive_logs/CHAPTER_GUIDE_PAYLOAD.tsv",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/CHAPTER_GUIDE_PAYLOAD.tsv",
       "sha256": "12dda2e4cbdc79a1e46c784fe2fb613442df680f4f33f9b7c39812ee589527e1"
     },
     {
-      "path": "tools/archive_logs/CLEANUP_ASSETS_DELETE_CANDIDATES.tsv",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/CLEANUP_ASSETS_DELETE_CANDIDATES.tsv",
       "sha256": "b76b882c7c79dfc2d1a5b661749bf44d5b97327d11ae22a42425818d1b250fe1"
     },
     {
-      "path": "tools/archive_logs/gitignore_proposition_round2.txt",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/gitignore_proposition_round2.txt",
       "sha256": "ed1e98dd19eebe47690df3f6272e33583862112ed85e7b3da13f8a80dd4e0cf8"
     },
     {
-      "path": "tools/archive_logs/purge_plan_dryrun.txt",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/purge_plan_dryrun.txt",
       "sha256": "a874bac5fbc72ab7b0ad2b913293b9fd68e40c42f07e9b9a4000978dcda1f058"
     },
     {
-      "path": "tools/archive_logs/requirements-dev.lock.txt",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/requirements-dev.lock.txt",
       "sha256": "5bf4a5d7d67b07128b7b5722a532f273f2f45ef5d68ef34e9685b20b95d39a7d"
     },
     {
-      "path": "tools/archive_logs/requirements-dev.txt",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/requirements-dev.txt",
       "sha256": "8be92e3677808beaaa9715d6929801d6ebec0775648fae1fd973e20da041d2fd"
     },
     {
-      "path": "tools/archive_logs/requirements-prepub.txt",
+      "path": "archives/tools_legacy_20260309/tools/archive_logs/requirements-prepub.txt",
       "sha256": "7913a0121040161aa5cd1339f79c224ade8f9fb8197e8c29ae9b6d18340bfff9"
     },
     {
-      "path": "tools/audit_bak_and_types.sh",
+      "path": "archives/tools_legacy_20260309/tools/audit_bak_and_types.sh",
       "sha256": "38f3c7c7ac06496110af61031ac6c2579d1b439e3d422804856d477757954cbc"
     },
     {
-      "path": "tools/audit_title_variants_docs.sh",
+      "path": "archives/tools_legacy_20260309/tools/audit_title_variants_docs.sh",
       "sha256": "434e224e066a79560de99522e212c2e32f140a6be5802bd49886bcc930cd471b"
     },
     {
-      "path": "tools/build_fig02_input.py",
+      "path": "archives/tools_legacy_20260309/tools/build_fig02_input.py",
       "sha256": "b4a8391a34d052e74eb4ac796a3ad9fc36597bd9789455b02245de0147c41539"
     },
     {
-      "path": "tools/build_manifest_entries_from_todo.py",
+      "path": "archives/tools_legacy_20260309/tools/build_manifest_entries_from_todo.py",
       "sha256": "9267353c68ca54c44b8b9b098a2f89885db2c6d7dc7d8b5fe46cb4166eead5ed"
     },
     {
-      "path": "tools/canonicalize_fig02_natif.py",
+      "path": "archives/tools_legacy_20260309/tools/canonicalize_fig02_natif.py",
       "sha256": "5e2132bd3cf0f300bfe25fe1dddc1566e0cafa77b2f0da25745595292cbabe3e"
     },
     {
-      "path": "tools/ch06_bridge_2d_files.sh",
+      "path": "archives/tools_legacy_20260309/tools/ch06_bridge_2d_files.sh",
       "sha256": "61b0976a028225dd6e29910cb3317c5cfc4f918492b9f4a988f03eecfa94e841"
     },
     {
-      "path": "tools/chapter_migrate_pilot.sh",
+      "path": "archives/tools_legacy_20260309/tools/chapter_migrate_pilot.sh",
       "sha256": "266c100ef25b5b926997aa983a2ea5cfac4f5b038408b46f3558317fccd65596"
     },
     {
@@ -1567,95 +1567,95 @@
       "sha256": "002278a094f21636a6821bacc05a6ef14945ad21c2b4c60e49e0b500d279ac69"
     },
     {
-      "path": "tools/check_no_fallback.sh",
+      "path": "archives/tools_legacy_20260309/tools/check_no_fallback.sh",
       "sha256": "1226bedcd369371f8389a05b6aa877f3e8a1c1bfeb8073c142435deaf0e0979e"
     },
     {
-      "path": "tools/check_root_junk.sh",
+      "path": "archives/tools_legacy_20260309/tools/check_root_junk.sh",
       "sha256": "fbd18143382a406db978d2dbc2942b681de608fdf428c18edfba026e9fa95e36"
     },
     {
-      "path": "tools/ci-helpers/debug_and_fix_pypi_build_check.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/debug_and_fix_pypi_build_check.sh",
       "sha256": "7ff70454c6742b7b3a5a8a89aa829fd393ce6c30da568ba0e2a875d9e7c7d8b8"
     },
     {
-      "path": "tools/ci-helpers/finalize_pr26_after_rebase.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/finalize_pr26_after_rebase.sh",
       "sha256": "5718163e3cbb0f91cc1955972a4efd0ae847ef4be0a629b03d33f37dc75c734f"
     },
     {
-      "path": "tools/ci-helpers/fix_required_checks_and_dispatch.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/fix_required_checks_and_dispatch.sh",
       "sha256": "cafc03987e47e244bc253db27907be8a36afda30656784cf86e23d8a316c8995"
     },
     {
-      "path": "tools/ci-helpers/force_build_checks_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/force_build_checks_now.sh",
       "sha256": "cbad99aa640a3282282b595ff0431748b6050ab538fa6f012167bda5e061bbe0"
     },
     {
-      "path": "tools/ci-helpers/force_pypi_build_green.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/force_pypi_build_green.sh",
       "sha256": "e5eb53ba1531ba4be0268c0f7f109dc60bba5a96c4a049a7f42feaf93b7b880f"
     },
     {
-      "path": "tools/ci-helpers/merge_pr26_conversation_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/merge_pr26_conversation_guard.sh",
       "sha256": "a7cfcb6673bf60d9d0288cc5537795981e2c61f63db2e450c87f15e02b4c4011"
     },
     {
-      "path": "tools/ci-helpers/merge_pr_conversation_guard_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/merge_pr_conversation_guard_v2.sh",
       "sha256": "b07c7a93bda45171a4bb8c3e22e0b24b34f86364e1fa304019789b33254a4602"
     },
     {
-      "path": "tools/ci-helpers/merge_pr_conversation_guard_v3.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/merge_pr_conversation_guard_v3.sh",
       "sha256": "b35e4ed577200b9fe1039924735334ee0ee55be9b115671bb866d7b49475473a"
     },
     {
-      "path": "tools/ci-helpers/merge_pr_conversation_guard_v4.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/merge_pr_conversation_guard_v4.sh",
       "sha256": "b00294609141183d10426b80f61679ed019156281122819f84e81d25d24e528f"
     },
     {
-      "path": "tools/ci-helpers/merge_pr_v5.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/merge_pr_v5.sh",
       "sha256": "420fc2fe069e597e84ab439eb40af86d104ab406c9be35cc531393a52e2a90f7"
     },
     {
-      "path": "tools/ci-helpers/rebase_fix_and_merge_pr26.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci-helpers/rebase_fix_and_merge_pr26.sh",
       "sha256": "d50c423de3c88c7b5036855dedc521da6607ea7c6faaf22ebd7898193f62e6e2"
     },
     {
-      "path": "tools/ci/retry.sh",
+      "path": "archives/tools_legacy_20260309/tools/ci/retry.sh",
       "sha256": "e16af9bab6c4db972ac4c589fd4501e84c8ac355982d09d79e9b2175a0959174"
     },
     {
-      "path": "tools/clean_repo.sh",
+      "path": "archives/tools_legacy_20260309/tools/clean_repo.sh",
       "sha256": "19d2d8eaded65b30815d06beba23ac87655f71d8909e754b2cf03561be3105d0"
     },
     {
-      "path": "tools/cleanup_chapter01_manifest_gaps_block.py",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_chapter01_manifest_gaps_block.py",
       "sha256": "68ff781494b6823168c7b676c0fed6e516cf931d4bc4272cd6605baeeee243e2"
     },
     {
-      "path": "tools/cleanup_chapter02_manifest_gaps_block.py",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_chapter02_manifest_gaps_block.py",
       "sha256": "4ac312d8b61ac3d919f77ba8451b68a4c24bdb0c20ee05664b1c489cfe756bf1"
     },
     {
-      "path": "tools/cleanup_chapter03_manifest_gaps_block.py",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_chapter03_manifest_gaps_block.py",
       "sha256": "71948faad4ea11a5940c0c1f804dc04e28bcabd502117056384e752154ec374d"
     },
     {
-      "path": "tools/cleanup_chapter04_manifest_gaps_block.py",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_chapter04_manifest_gaps_block.py",
       "sha256": "31f7a7bd344e7e7e39fa7b042881caca447986a1b0e34117fd3540d91f64dea7"
     },
     {
-      "path": "tools/cleanup_manifest_master_ch01_attic.py",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_manifest_master_ch01_attic.py",
       "sha256": "532e70e9a79bb280224916c80d8bde966657d48470b9572a882a8730193ea7cd"
     },
     {
-      "path": "tools/cleanup_no_backups.sh",
+      "path": "archives/tools_legacy_20260309/tools/cleanup_no_backups.sh",
       "sha256": "8d139a0823fc099b3f00b45b268b1a0a665edfc02eaf58ab0fe89cd1ffd9c39d"
     },
     {
-      "path": "tools/codemod_meta_guard.py",
+      "path": "archives/tools_legacy_20260309/tools/codemod_meta_guard.py",
       "sha256": "93d0381f2854d43b89b51d65595e54c1373fea7b3074e7b31bdfe4515b60b403"
     },
     {
-      "path": "tools/codemod_tightlayout.py",
+      "path": "archives/tools_legacy_20260309/tools/codemod_tightlayout.py",
       "sha256": "833b4a80a17974770cf9367c9a3390f8fc0d69440fdeb9ce91b1668256dced7a"
     },
     {
@@ -1663,739 +1663,739 @@
       "sha256": "9f985040896244632f0cbad1df2e7827a3cf1eaa0705ac2decf7bf4dbb87cdda"
     },
     {
-      "path": "tools/dev/apply_postparse_epilogue_all.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/apply_postparse_epilogue_all.sh",
       "sha256": "4e5ef96ca622d3a4410fe3a3fbd24772db00cd2b578fa84f14b5b0b644ae27aa"
     },
     {
-      "path": "tools/dev/ensure_cli_parity.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/ensure_cli_parity.sh",
       "sha256": "f12dff6ce1ebf2fc947337e646077407fc895edcbe242f8a12dd87194d0201b7"
     },
     {
-      "path": "tools/dev/fix_style_hotspots.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/fix_style_hotspots.sh",
       "sha256": "370d93c510db011b10fbf7aa0b64ad59af5958ac3ebe8afe84ecf08b464fd0b0"
     },
     {
-      "path": "tools/dev/format_lint_smoke.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/format_lint_smoke.sh",
       "sha256": "e1f1b3ca9d3107e6439721e9ad31d59273f2b88ff073e4aff6f6a0fa25e1bd1c"
     },
     {
-      "path": "tools/dev/make_repo_style_baseline.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/make_repo_style_baseline.sh",
       "sha256": "62620440e1d91191d4c196b0eb51a01dec67eab6d102c6b0bda8850db670ffa0"
     },
     {
-      "path": "tools/dev/rebuild_argparse_safely.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/rebuild_argparse_safely.sh",
       "sha256": "3f930bb829ef0f61fccb6b1bbe44b35c56c54b42120c6598798f0bbab0aac157"
     },
     {
-      "path": "tools/dev/refactor_postparse_to_common.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/refactor_postparse_to_common.sh",
       "sha256": "3404f31019e4c31da5758d4c4429c382ed9218501a365cf9940847d176fc7255"
     },
     {
-      "path": "tools/dev/upgrade_postparse_v3_style.sh",
+      "path": "archives/tools_legacy_20260309/tools/dev/upgrade_postparse_v3_style.sh",
       "sha256": "eaa929b38e2d5fb90f002d64b5c79e81c2fc31a9e1793ef09ccf48bf799b61e2"
     },
     {
-      "path": "tools/diag_01_manifest_vs_fs.sh",
+      "path": "archives/tools_legacy_20260309/tools/diag_01_manifest_vs_fs.sh",
       "sha256": "a3738b180c8772257ec2c0760aa725451a509e6e4b2c4e5b249a47ca175494b0"
     },
     {
-      "path": "tools/diag_02_pipelines_vs_fs.sh",
+      "path": "archives/tools_legacy_20260309/tools/diag_02_pipelines_vs_fs.sh",
       "sha256": "da8a3d859fd05d2612f5bb392e6d6ccc613f0cb3e0ade6e3113e840c2f38e3e1"
     },
     {
-      "path": "tools/diag_ch03_generate_data_ini_usage.sh",
+      "path": "archives/tools_legacy_20260309/tools/diag_ch03_generate_data_ini_usage.sh",
       "sha256": "68f64fd94e8a960f50dd318b39f21ad5d038973e91ff2e5e61093304ab9d15db"
     },
     {
-      "path": "tools/diag_ch03_gw_phase_ini.sh",
+      "path": "archives/tools_legacy_20260309/tools/diag_ch03_gw_phase_ini.sh",
       "sha256": "2cf6ab93298f1b6226e0bd7af6e317f7a192249b8be296d52172a336eb0ca88d"
     },
     {
-      "path": "tools/diag_ch07_scalar_perturbations_compute_cs2.sh",
+      "path": "archives/tools_legacy_20260309/tools/diag_ch07_scalar_perturbations_compute_cs2.sh",
       "sha256": "907908df16ff1221f5694eb3cad7f45bf289bee6edc591c9ca3ffd3ffa1a5c6d"
     },
     {
-      "path": "tools/diag_fig02_input.py",
+      "path": "archives/tools_legacy_20260309/tools/diag_fig02_input.py",
       "sha256": "6f4f07280b79a0278dfd91f827477cb223fdb822a74d79418369d86d490ce351"
     },
     {
-      "path": "tools/diagnose_workflow_invalid.sh",
+      "path": "archives/tools_legacy_20260309/tools/diagnose_workflow_invalid.sh",
       "sha256": "19395cfe59355300796a7ad665f8a76dc6d1bb7c2dc01cced3f24c78aea85b6b"
     },
     {
-      "path": "tools/diagnose_workflow_invalid_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/diagnose_workflow_invalid_v2.sh",
       "sha256": "b79ff45b3741da6b0840f8ab0044121c3135888b635c369ad16d3729605603b1"
     },
     {
-      "path": "tools/enforce_protection_and_sanity_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/enforce_protection_and_sanity_now.sh",
       "sha256": "1d60d58f78ce8f5136fe64cead4a9c9dd9638b9c2e6c82d6a2cd951719d177af"
     },
     {
-      "path": "tools/enforce_protection_strict_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/enforce_protection_strict_now.sh",
       "sha256": "3c60a1234ebcd864725e5b22c139062428c64297e9d4644aff4e35327483a73b"
     },
     {
-      "path": "tools/enforce_required_checks_exact.sh",
+      "path": "archives/tools_legacy_20260309/tools/enforce_required_checks_exact.sh",
       "sha256": "c06c10e0d711b1453f5fac42104813835881917b4d566dfbef349b2865aff210"
     },
     {
-      "path": "tools/ensure_dispatch_and_run_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/ensure_dispatch_and_run_now.sh",
       "sha256": "12f078cb5c38e3e19d2fcf60a2c48584010292e1094ac651f15bee209421d43f"
     },
     {
-      "path": "tools/extract_01_tree.sh",
+      "path": "archives/tools_legacy_20260309/tools/extract_01_tree.sh",
       "sha256": "a65bf7a3ec923135092e2561235c1e0f1336324173edb261f1ed361333829332"
     },
     {
-      "path": "tools/extract_02_chapters_inventory.sh",
+      "path": "archives/tools_legacy_20260309/tools/extract_02_chapters_inventory.sh",
       "sha256": "7459e2b04d158238c30f85d8bc7969f33816b8b3f501bfd814d4f7dc9c8d81ba"
     },
     {
-      "path": "tools/extract_03_manifests_summary.sh",
+      "path": "archives/tools_legacy_20260309/tools/extract_03_manifests_summary.sh",
       "sha256": "58841c506641ebf972c2e65ceb8fec7d3459a8816818c4bc04ae38db29b25b87"
     },
     {
-      "path": "tools/figures_build_manifest_candidate.sh",
+      "path": "archives/tools_legacy_20260309/tools/figures_build_manifest_candidate.sh",
       "sha256": "15320f00ef49ab6a2e5b406ca334f98838d3951797fe74ec6b53512297384877"
     },
     {
-      "path": "tools/figures_decisions_set_todo_public.sh",
+      "path": "archives/tools_legacy_20260309/tools/figures_decisions_set_todo_public.sh",
       "sha256": "589f3f3a1d43c8d282c3055b2130ddd4e848cd8e85d0a75cd3429c2a70e4d8c3"
     },
     {
-      "path": "tools/figures_public_core_repro_autorenames_v1.sh",
+      "path": "archives/tools_legacy_20260309/tools/figures_public_core_repro_autorenames_v1.sh",
       "sha256": "d13980e32f74cf98ef032b7fbe035b68b4fb8ab3701fdc02557fc94c632ded6b"
     },
     {
-      "path": "tools/figures_public_core_repro_check_pngs_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/figures_public_core_repro_check_pngs_v2.sh",
       "sha256": "355030432465394aeaf32f063ce01c6cae0e885dafdb07c48d7066729773e88b"
     },
     {
-      "path": "tools/figures_public_core_repro_missing_candidates.sh",
+      "path": "archives/tools_legacy_20260309/tools/figures_public_core_repro_missing_candidates.sh",
       "sha256": "b3daeb370c12193b2997b39836868a9c953d9a5d1e0ac94100ee53a56b4dba98"
     },
     {
-      "path": "tools/finalize_pr32_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/finalize_pr32_now.sh",
       "sha256": "45a533f469f421858a41a11b8c4acaf13897fa4e326ffba1dfd021d4f160db6b"
     },
     {
-      "path": "tools/finish_maintenance_prs_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_maintenance_prs_guarded.sh",
       "sha256": "40273a4df38d2a0b3c1c0be211bde3445929ce783db9af4b8e379032e63f785e"
     },
     {
-      "path": "tools/finish_pr29_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_pr29_now.sh",
       "sha256": "a123064c0bae42d9c9844aab01f388091c9319a3ce8f86ccfb0a569627edd13a"
     },
     {
-      "path": "tools/finish_pr29_now_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_pr29_now_v2.sh",
       "sha256": "ffdb8f61276d29fd70e7d9d5314de62fb07a1eed65696d209f10d7da517a6fcf"
     },
     {
-      "path": "tools/finish_pr29_with_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_pr29_with_guard.sh",
       "sha256": "47b738517d99a939a25ec141e1bd67eef6d8a705ef7c0257c3248d7936d85d2f"
     },
     {
-      "path": "tools/finish_pr30_with_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_pr30_with_guard.sh",
       "sha256": "78cf88d236c2608b79aa6653ba0de60284d92ab611d451e78f0a590a9e90f6ec"
     },
     {
-      "path": "tools/finish_pr32_with_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/finish_pr32_with_guard.sh",
       "sha256": "7443c48cc9f731b5409f7da819201590c8b04fb07f98cc543048eade26d4d522"
     },
     {
-      "path": "tools/fix_and_merge_pr29_checks.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_and_merge_pr29_checks.sh",
       "sha256": "075cc671a5cb16d1774846f7ee793d7be3d7d85fa274827e07606e8365162b82"
     },
     {
-      "path": "tools/fix_and_merge_pr29_checks_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_and_merge_pr29_checks_v2.sh",
       "sha256": "8d3ccac9eaa4010f0df7c9517159c47a55196bddcb8096aca03021c0c1356014"
     },
     {
-      "path": "tools/fix_chapter_manifest01_files.py",
+      "path": "archives/tools_legacy_20260309/tools/fix_chapter_manifest01_files.py",
       "sha256": "d82badb0eade4d187d99fbe1f2f59caf42b3ad8c40b2819c0dfb410e5844cecb"
     },
     {
-      "path": "tools/fix_manifest_ch01_hashes.py",
+      "path": "archives/tools_legacy_20260309/tools/fix_manifest_ch01_hashes.py",
       "sha256": "2367d1f431a4bbeaa58d652a892885eedf78fcad41d2b202b8f29f8b27a3b8c8"
     },
     {
-      "path": "tools/fix_manifest_ch03_hashes.py",
+      "path": "archives/tools_legacy_20260309/tools/fix_manifest_ch03_hashes.py",
       "sha256": "ad6f55a8da528294437a6868330d20675f19695c4409169beb27e44ce8576ec1"
     },
     {
-      "path": "tools/fix_manifest_ch04_hashes.py",
+      "path": "archives/tools_legacy_20260309/tools/fix_manifest_ch04_hashes.py",
       "sha256": "1b3d1b5c98431bd4a85cc22f9a0066db3ea01d7b85298d5c2d29c64fd1b187ba"
     },
     {
-      "path": "tools/fix_packaging.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_packaging.sh",
       "sha256": "48952caaadaf5799868263730a67d7022b1e8413351ea295bdc109c6f73605c6"
     },
     {
-      "path": "tools/fix_pkg_metadata.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_pkg_metadata.sh",
       "sha256": "9c8b524376749c3e1feab1c4b9592237d09e843e03736df07af16d080500d225"
     },
     {
-      "path": "tools/fix_testonly_workflow_and_dispatch.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_testonly_workflow_and_dispatch.sh",
       "sha256": "cb23e0e2b525ff4ab57b2398877455aefb648f55486f8a6a0df85dd560b50fea"
     },
     {
-      "path": "tools/fix_twine_metadata.sh",
+      "path": "archives/tools_legacy_20260309/tools/fix_twine_metadata.sh",
       "sha256": "86922eba88d3b87d76b1d7c45f5773e481839a64ebc46236cf48bfb5432ce6d1"
     },
     {
-      "path": "tools/gate_ch09.sh",
+      "path": "archives/tools_legacy_20260309/tools/gate_ch09.sh",
       "sha256": "b9d59721ff082a977bfc6785a396617351655436c0c9c37a26376841ebb1f6ef"
     },
     {
-      "path": "tools/generate_chapter_decisions.py",
+      "path": "archives/tools_legacy_20260309/tools/generate_chapter_decisions.py",
       "sha256": "10f231bd7b99c466fe382a2d6e31a78e81a513e37409da30902cd76b8c459c1c"
     },
     {
-      "path": "tools/generate_chapter_overview.py",
+      "path": "archives/tools_legacy_20260309/tools/generate_chapter_overview.py",
       "sha256": "e19fae2b38196e53f69bfaf90abdce9fdc8cbe2ee3563cf375fdac517ec5fd33"
     },
     {
-      "path": "tools/generate_chapter_todo.py",
+      "path": "archives/tools_legacy_20260309/tools/generate_chapter_todo.py",
       "sha256": "af2408580c30eb980422385fb9025344379d35ec9531f0823654eb21305bc997"
     },
     {
-      "path": "tools/generate_manifest_from_repo.py",
+      "path": "archives/tools_legacy_20260309/tools/generate_manifest_from_repo.py",
       "sha256": "680060ace0781e95ab5e1a58415da39678b895d703f7932fbf6923c37fa39dc6"
     },
     {
-      "path": "tools/green_and_merge_pr29.sh",
+      "path": "archives/tools_legacy_20260309/tools/green_and_merge_pr29.sh",
       "sha256": "12c6aa426e60b26892d653867b874c54ab57cc789925aac943d79a0803678c24"
     },
     {
-      "path": "tools/homog_prepare.sh",
+      "path": "archives/tools_legacy_20260309/tools/homog_prepare.sh",
       "sha256": "5e64145eb80144d38005558df7fb821290665e6cb841be4773a65018f23b8ef4"
     },
     {
-      "path": "tools/hooks/forbid_cp_n.sh",
+      "path": "archives/tools_legacy_20260309/tools/hooks/forbid_cp_n.sh",
       "sha256": "a3b9418f2578622f6d9952c989a611dee5827c0027a508b4874468600ca6cd9d"
     },
     {
-      "path": "tools/hooks/forbid_psx_dup.sh",
+      "path": "archives/tools_legacy_20260309/tools/hooks/forbid_psx_dup.sh",
       "sha256": "21a4a08462b416d2d8d4256dcf32fdcfa814c2404a8b8b7356d122eb69856940"
     },
     {
-      "path": "tools/hotfix_fig02_indent.py",
+      "path": "archives/tools_legacy_20260309/tools/hotfix_fig02_indent.py",
       "sha256": "638c75f00065842c192cdf26206782f5c6fd835c63051c8745b47c5c4744d4b6"
     },
     {
-      "path": "tools/json_audit_strict.py",
+      "path": "archives/tools_legacy_20260309/tools/json_audit_strict.py",
       "sha256": "dd7972ff1b6b23fa82a2e4de3bddaba9fedb129a62f1fc2364a6787108db29f3"
     },
     {
-      "path": "tools/list_cli_like.sh",
+      "path": "archives/tools_legacy_20260309/tools/list_cli_like.sh",
       "sha256": "936da0479a3752233e13f7a2e4eb676c42ec28f59013bc952f7576c5b91a677c"
     },
     {
-      "path": "tools/local_run_ch09_e2e.sh",
+      "path": "archives/tools_legacy_20260309/tools/local_run_ch09_e2e.sh",
       "sha256": "ee0ec0c45b9de47bc76b4060bbc46d64f772f9c76c0c09110dd88fc702cf9c39"
     },
     {
-      "path": "tools/local_run_ch09_smoke.sh",
+      "path": "archives/tools_legacy_20260309/tools/local_run_ch09_smoke.sh",
       "sha256": "990d6b46ab71bdc11d5c1386e14cc38951852e7cc49ba44dc85a31591fbf1cc7"
     },
     {
-      "path": "tools/local_run_ch09_smoke_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/local_run_ch09_smoke_v2.sh",
       "sha256": "35ba59456103ac6e49b6b2bd22f32354c1b25fcd33321d27ef0507322e0e6971"
     },
     {
-      "path": "tools/local_run_ch09_smoke_v3.sh",
+      "path": "archives/tools_legacy_20260309/tools/local_run_ch09_smoke_v3.sh",
       "sha256": "00d9af370f08ac99f470688952470727369574eb02009d0daca31b17572bd89c"
     },
     {
-      "path": "tools/local_run_ch09_smoke_v4.sh",
+      "path": "archives/tools_legacy_20260309/tools/local_run_ch09_smoke_v4.sh",
       "sha256": "13c4b8a5897545c4ef88718be13071b9694edd6da18a48b82dbb7d7c40de5bcb"
     },
     {
-      "path": "tools/manifest_check.py",
+      "path": "archives/tools_legacy_20260309/tools/manifest_check.py",
       "sha256": "88fc44006a3c56c33be6d5f925441700a93ced556c7ffbeaf62791b65f0369b5"
     },
     {
-      "path": "tools/manifest_report.py",
+      "path": "archives/tools_legacy_20260309/tools/manifest_report.py",
       "sha256": "0596a24bcdcffc502884b40080b0979b0559772c8d5dacf57f56207df52f93c2"
     },
     {
-      "path": "tools/mcgt_bump_citation_version_v1.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_bump_citation_version_v1.py",
       "sha256": "2aad1423fd9184c1ced183c62b9c32277d8be3879f0419272ad3acad300ef21c"
     },
     {
-      "path": "tools/mcgt_bump_manifest_project.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_bump_manifest_project.py",
       "sha256": "fedeccfd56f247b09ed5848854a3c106ed1a7fc69f86a20c2cb5fd496e55d4f2"
     },
     {
-      "path": "tools/mcgt_bump_snapshot_manifest_project_v1.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_bump_snapshot_manifest_project_v1.py",
       "sha256": "633a2c1ded1a1b80a5fe27dde3ec7e22aca2cd2dd42f8e7d9a92e5fbdbdac623"
     },
     {
-      "path": "tools/mcgt_collect_gitleaks_run.sh",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_collect_gitleaks_run.sh",
       "sha256": "2294e32008660bd9974390660fb9c15c28d881df65fa89ca67f0f735e9590ea5"
     },
     {
-      "path": "tools/mcgt_collect_v4.sh",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_collect_v4.sh",
       "sha256": "d3df78ded757c2e051d11152b7dc65c4e0d856dbe7bb2245b8b99711596fe54d"
     },
     {
-      "path": "tools/mcgt_fix_find_in_probes.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_fix_find_in_probes.py",
       "sha256": "c29273bbcfc568b4fc58f3f7b12ebfb9a3cb4c3bce888071e858098f36b60d19"
     },
     {
-      "path": "tools/mcgt_fix_find_pkgmeta_v1.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_fix_find_pkgmeta_v1.py",
       "sha256": "892f59364d01b58771acdc578396149357da3c4e0cfc7b200b6edef14f574abd"
     },
     {
-      "path": "tools/mcgt_probe_versions_v1.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_probe_versions_v1.py",
       "sha256": "5fcd648444cfcbd4ac73fc15e290e6e2345916e88ecaf2ddacde02b85cdc4b8a"
     },
     {
-      "path": "tools/mcgt_rename_model_title_v1.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_rename_model_title_v1.py",
       "sha256": "c283ecbe34a744fb2e3df4bac2870dc7949ec0cd56c09ec471e4443563c7b44f"
     },
     {
-      "path": "tools/mcgt_step13_backstage_triage.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step13_backstage_triage.py",
       "sha256": "7d4788b8e2fa024ba743023e0e5cdb9a2e0b56c2ed0343e31ae575f724b4e39d"
     },
     {
-      "path": "tools/mcgt_step15_build_attic_plan.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step15_build_attic_plan.py",
       "sha256": "096f2ef37d5c70f9059518f1967b1eb96149d79d61c59ca84d4d6d1347d3a3be"
     },
     {
-      "path": "tools/mcgt_step16_append_backstage_stats_to_todo.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step16_append_backstage_stats_to_todo.py",
       "sha256": "4010754efb0bb4b25d3a1ac8c31cd25c5423146e13c7530829833667a3741677"
     },
     {
-      "path": "tools/mcgt_step17_fix_git_hash_ch09.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step17_fix_git_hash_ch09.py",
       "sha256": "c50234c6ce106910c8f45456b220d3b2fd0b8bba06bcd846b25c8aadd6db29c6"
     },
     {
-      "path": "tools/mcgt_step17_fix_git_hash_from_diag.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step17_fix_git_hash_from_diag.py",
       "sha256": "8bea2afaeae085bed449f3ef875bfad17c90672955c73f3a682fa80591f66e6c"
     },
     {
-      "path": "tools/mcgt_step1_cleanup_probe.sh",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step1_cleanup_probe.sh",
       "sha256": "4d3cde60c600aca3751121bd50419f2398bf9273de51ca875a0f9a713710380f"
     },
     {
-      "path": "tools/mcgt_step22_health_check.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step22_health_check.py",
       "sha256": "bf195b66fbec9db0bdcef50adfc4e2ee69ac35f0a3fce08512ab67024ee3a344"
     },
     {
-      "path": "tools/mcgt_step24_fix_manifest_gitignore.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step24_fix_manifest_gitignore.py",
       "sha256": "8d5dd6d46807a4a8a47f9398ef6daed7523f01a736f279ff8b9d08cdfa5a817b"
     },
     {
-      "path": "tools/mcgt_step25_fix_manifest_ch09.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step25_fix_manifest_ch09.py",
       "sha256": "f7de32a991d5291c5557a9b9adc3202b40c77d0a364e08f07b3c851a0dd20e7d"
     },
     {
-      "path": "tools/mcgt_step2_build_lists.sh",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step2_build_lists.sh",
       "sha256": "5455057dcaf2ee88e8008f50ca96cb472c4994e67597217e13f78afcbd85ad4e"
     },
     {
-      "path": "tools/mcgt_step33_append_health_snapshot_to_todo.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step33_append_health_snapshot_to_todo.py",
       "sha256": "f0884c027e83e7031600a54514828f792ea2faef0bac87fff3ef28e366eb2a26"
     },
     {
-      "path": "tools/mcgt_step40_apply_attic_plan.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step40_apply_attic_plan.py",
       "sha256": "46e3872c037ae623cfe66d9df521d396b2b9477f6c98a8c24ea65cce1b1b1a77"
     },
     {
-      "path": "tools/mcgt_step50_generate_zenodo_description.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step50_generate_zenodo_description.py",
       "sha256": "d73c8d282fb3e954a80ef82c165db9ceecd1bac5fcba185070968e4eaff5be9b"
     },
     {
-      "path": "tools/mcgt_step58_append_tag_to_zenodo_description.py",
+      "path": "archives/tools_legacy_20260309/tools/mcgt_step58_append_tag_to_zenodo_description.py",
       "sha256": "d6850ab90ff91df41d9ce30843deb2e612d96f963d74847a3d29b62487ee2d15"
     },
     {
-      "path": "tools/merge_ci_contract_pr29_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/merge_ci_contract_pr29_guarded.sh",
       "sha256": "93dfcb8aed65cd41634c5e2f5a088f22ced558e30b22d024512af3a2fe78fb0d"
     },
     {
-      "path": "tools/merge_pr27_guarded_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/merge_pr27_guarded_v2.sh",
       "sha256": "67cc701b3824b4dab28300746dde134613ab7045ad5185f2c7e179cfa7729fa2"
     },
     {
-      "path": "tools/merge_pr27_once_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/merge_pr27_once_guarded.sh",
       "sha256": "1ae58e78c0a5599f32f1ed3ca6bd96ef51f7bf9276cf9651efd11266996df7b9"
     },
     {
-      "path": "tools/merge_pr_fasttrack_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/merge_pr_fasttrack_guard.sh",
       "sha256": "9738367d8151bf3974e122dbfe8f729681336c5f92cc21e1b9154f6ad5af449f"
     },
     {
-      "path": "tools/normalize_phase_diff_csv.py",
+      "path": "archives/tools_legacy_20260309/tools/normalize_phase_diff_csv.py",
       "sha256": "05e417f326023c51eb1aa38d17832475742dc8e665d7e7589a111bd03cd3e735"
     },
     {
-      "path": "tools/normalize_sha256sum_paths.py",
+      "path": "archives/tools_legacy_20260309/tools/normalize_sha256sum_paths.py",
       "sha256": "90b5273c209ede947703668809cd79191b24495f91ee86068e158a9e8bf66f49"
     },
     {
-      "path": "tools/patch_01_fix_chapter_manifests.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_01_fix_chapter_manifests.sh",
       "sha256": "2e0449a52d9322cacb71b4e40a6905749283624d0f8e02f1fe4b92b471c87c4f"
     },
     {
-      "path": "tools/patch_02_fix_pipeline_docs.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_02_fix_pipeline_docs.sh",
       "sha256": "7b9e7f2470192c42b8b5871c702902ad0aa9e5299f68c92bd4a142a04313a25d"
     },
     {
-      "path": "tools/patch_ch02_add_np_import_early.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_add_np_import_early.sh",
       "sha256": "c13d70d96eaf21e686b66ed1fde9deaedbf17c7d4bf08a12dfd9678affc2603e"
     },
     {
-      "path": "tools/patch_ch02_define_T_from_grid.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_T_from_grid.sh",
       "sha256": "dba37ac42651dff961e629bf1d230efa8919f9926e548ae21575931c88e44036"
     },
     {
-      "path": "tools/patch_ch02_define_logistic_params.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_logistic_params.sh",
       "sha256": "4252da720a1b2bec54909f587df81209efbe6e4c63bd31fbbbfb4e2c23c6f8c9"
     },
     {
-      "path": "tools/patch_ch02_define_logistic_params_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_logistic_params_v2.sh",
       "sha256": "2953703c70db1865109539a7a270770454152d182a7571e09abcbcca207ac841"
     },
     {
-      "path": "tools/patch_ch02_define_logistic_params_v3.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_logistic_params_v3.sh",
       "sha256": "37463f76033329b98da1bfc0352561016a9be93fd8d645012d377e3b150d8aad"
     },
     {
-      "path": "tools/patch_ch02_define_logistic_params_v4.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_logistic_params_v4.sh",
       "sha256": "ca02495c205991dbc2d470de5b631cd68022452c11e91e0c34eb0472569043f1"
     },
     {
-      "path": "tools/patch_ch02_define_logistic_params_v5.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_define_logistic_params_v5.sh",
       "sha256": "f37d121dd0f4c6e1e58e8b1aef39e7641b2027b1c01ff9d0b75670010b77192e"
     },
     {
-      "path": "tools/patch_ch02_header_and_dotp_cleanup.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_header_and_dotp_cleanup.sh",
       "sha256": "90e5b1b9ae6febc3c1a45df5edc6b111cf6f7814aa23b2132efe8b1f9cb42bc1"
     },
     {
-      "path": "tools/patch_ch02_pipeline_add_missing_plots.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_pipeline_add_missing_plots.sh",
       "sha256": "42bb4f6611929142bcc56376ee2e2e1fd8be9830e51ce4234ab9893cde8ffbb7"
     },
     {
-      "path": "tools/patch_ch02_remove_orphan_except.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_remove_orphan_except.sh",
       "sha256": "6939c1fa874ad236229aadf808177564217605ba0df6b0398be3a60b1a0e7c1f"
     },
     {
-      "path": "tools/patch_ch02_remove_orphan_systemexit.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch02_remove_orphan_systemexit.sh",
       "sha256": "77e3f3eb3379240111caf3a89224fe71fd0c4bbfd37a81a35fbf8ea10e6af6df"
     },
     {
-      "path": "tools/patch_ch03_gw_phase_ini_path.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch03_gw_phase_ini_path.sh",
       "sha256": "9c69ddc3e8808252a2a18ee4b880c5cd0d6f9ec6436b4df2dc3af264e7cf17d2"
     },
     {
-      "path": "tools/patch_ch04_fix_logTr_monotonic.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch04_fix_logTr_monotonic.sh",
       "sha256": "decbec0e297caeb6abc4297c0a31239af14fae8229bb76dcbcd1da051f91721c"
     },
     {
-      "path": "tools/patch_ch06_fig03_output_name.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fig03_output_name.sh",
       "sha256": "d8afd928d852bf27309b00bda3b5d67d302fed877f39a05a1ed37889dc178f1e"
     },
     {
-      "path": "tools/patch_ch06_fig03_remove_orphan_except.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fig03_remove_orphan_except.sh",
       "sha256": "63cf1aa7cf196fe7e2909ca8125ec0bfd172e65e89c44fa7eab89fd6f79d421a"
     },
     {
-      "path": "tools/patch_ch06_fig03_replace_cli_from_fig02.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fig03_replace_cli_from_fig02.sh",
       "sha256": "7890571cf570d775fa3ace687e0727080261e2083c57f1cd16dec7d3de84dfd5"
     },
     {
-      "path": "tools/patch_ch06_fix_cli_args.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_cli_args.sh",
       "sha256": "61f09ef291c3cd9a7b9816b6f66c112b4cfc10773a8bb3445491d23ad06fcaff"
     },
     {
-      "path": "tools/patch_ch06_fix_fig03_delta_cli.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_fig03_delta_cli.sh",
       "sha256": "d3023dbb5f76135bfe4172607a27774226558575c201f1a2c276970d293d3229"
     },
     {
-      "path": "tools/patch_ch06_fix_fig03_try_block.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_fig03_try_block.sh",
       "sha256": "5708cb958f684ccbec5ba8c33bc2494f52c205343de5e2164da992a7b2cee0c1"
     },
     {
-      "path": "tools/patch_ch06_fix_generate_pdot_cli.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_generate_pdot_cli.sh",
       "sha256": "d39de7868e78f3473b4f64aad4440b3de31499414bef173a9a392448785e35fd"
     },
     {
-      "path": "tools/patch_ch06_fix_generate_pdot_try_block.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_generate_pdot_try_block.sh",
       "sha256": "1cbece4780d416e8fc27c6e4a8febfcada423f41b379deef20af32147733d43b"
     },
     {
-      "path": "tools/patch_ch06_fix_try_block.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_fix_try_block.sh",
       "sha256": "1c3cd2cdaabc2f6b9a71da0cdc9afdd1081a5dfd64ea478fb0ffcb6bb381164f"
     },
     {
-      "path": "tools/patch_ch06_generate_pdot_cleanup.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_generate_pdot_cleanup.sh",
       "sha256": "7ebf45d94f6d99f92f2ac76b2bd3ee198c9dc93ef3bd390659ee8bbe83f4791a"
     },
     {
-      "path": "tools/patch_ch06_use_primordial_spectrum_spec.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch06_use_primordial_spectrum_spec.sh",
       "sha256": "813a376278995c89a7a1264c2427fb18480dc62ced2bfc37ff910485064be5f4"
     },
     {
-      "path": "tools/patch_ch07_cs2_clip_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_cs2_clip_pipeline_minimal.sh",
       "sha256": "ee652382916378b0a4b7bab659e2bf0d24e393a3be32e0e53f441d3c37df856f"
     },
     {
-      "path": "tools/patch_ch07_cs2_clip_pipeline_minimal_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_cs2_clip_pipeline_minimal_v2.sh",
       "sha256": "45e543b31a4857427542fbf50279869c27d077952043af214fcc8b6c40757935"
     },
     {
-      "path": "tools/patch_ch07_cs2_from_backup_v3.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_cs2_from_backup_v3.sh",
       "sha256": "97e3d465e95116ea03f81f1a2e8d40887a49817649643b1cbfa49e15e65e526d"
     },
     {
-      "path": "tools/patch_ch07_force_replace_compute_cs2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_force_replace_compute_cs2.sh",
       "sha256": "31035c7d18bf26a2ea6fa98172dbfc73b77b1f800ec76aced72bad9aa0185026"
     },
     {
-      "path": "tools/patch_ch07_relax_cs2_bounds.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_relax_cs2_bounds.sh",
       "sha256": "65657d4daecc3144c58c0cb7aed5ae8607fdc591c92fd718f404d49cc6051571"
     },
     {
-      "path": "tools/patch_ch07_relax_cs2_bounds_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_relax_cs2_bounds_v2.sh",
       "sha256": "df013d3b3eccbcfe32a05f2c1c378347ccd4c7336114b60e631ca94a26c8c938"
     },
     {
-      "path": "tools/patch_ch07_restore_and_relax_cs2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_restore_and_relax_cs2.sh",
       "sha256": "23db84aa9f33d408641496e981c2ed0bf77cb0f8452c3888f24dd424e942eeac"
     },
     {
-      "path": "tools/patch_ch07_restore_compute_cs2_from_backup.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_restore_compute_cs2_from_backup.sh",
       "sha256": "c68f1fa69aae93f82ac3bc3f7d3f413547b3a6bcd4836df0c13d66884035817d"
     },
     {
-      "path": "tools/patch_ch07_restore_scalar_perturbations_from_backup.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch07_restore_scalar_perturbations_from_backup.sh",
       "sha256": "0ab88d3a14966244797cbe70d19b3894bb0c4cfd71db0cedf09b8079cb76fbc3"
     },
     {
-      "path": "tools/patch_ch08_fig04_figsize_tuple.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch08_fig04_figsize_tuple.sh",
       "sha256": "b7edd5e53d7143a4925c48b5fb3e503aae87bec475fae2bf7e9091fe708b3eb6"
     },
     {
-      "path": "tools/patch_ch09_add_phi_ref_to_phase_diff.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_add_phi_ref_to_phase_diff.sh",
       "sha256": "a9dc711a2311bfd6d5c92fd062e208e82150060e186fc5b14774249494f90afc"
     },
     {
-      "path": "tools/patch_ch09_defaults.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults.py",
       "sha256": "deb4b36001cffd42a9b93d36c88ed1c544dd03ac6865c1d952d2679030610508"
     },
     {
-      "path": "tools/patch_ch09_defaults_v10.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v10.py",
       "sha256": "3fc67e2a6462a037959690b89619baf8c70224b59cf0663a9f39c48785cb5cd2"
     },
     {
-      "path": "tools/patch_ch09_defaults_v11.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v11.py",
       "sha256": "8d97745f94bae5528af75067fec19a7af4a95b6bddeab9d7a12ce7276b64b056"
     },
     {
-      "path": "tools/patch_ch09_defaults_v2.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v2.py",
       "sha256": "d056f798b6eeefbada74899f7b87706e2776b4cef4472f76ce6f3b904444970b"
     },
     {
-      "path": "tools/patch_ch09_defaults_v3.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v3.py",
       "sha256": "1d50f9d3b90265205d012c7f9c481a094bda46a5249dc133e9ac532a6e5a5d6b"
     },
     {
-      "path": "tools/patch_ch09_defaults_v4.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v4.py",
       "sha256": "780b5c7271a3a2b599f4f5fb7cc0c7ccc041be05bdd70b126214b87afb4bb0de"
     },
     {
-      "path": "tools/patch_ch09_defaults_v5.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v5.py",
       "sha256": "c9ea0164675afbf0d589f1f7ce33af102149ac37e8f2ff3a342084e620ce1365"
     },
     {
-      "path": "tools/patch_ch09_defaults_v6.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v6.py",
       "sha256": "4b75cd3747f14dfcfc4299531bc9331033ec98bdb0aae3751bc79380d5e40111"
     },
     {
-      "path": "tools/patch_ch09_defaults_v7.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_defaults_v7.py",
       "sha256": "f79b059c58fbb0ab383cb0992014bd976479688427380dcbef4562899c006627"
     },
     {
-      "path": "tools/patch_ch09_fig01_meta.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig01_meta.py",
       "sha256": "729d00903470383ff701795acda6faed53798ec3256ede2e6d5886d5aa958153"
     },
     {
-      "path": "tools/patch_ch09_fig02_default_cli.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig02_default_cli.sh",
       "sha256": "44318aadf153ebc7ec5af26d3d0397cc03eaab69eda245438690a343a6774881"
     },
     {
-      "path": "tools/patch_ch09_fig02_future_at_top.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig02_future_at_top.sh",
       "sha256": "6da540fb1bf9c2c5e861868aeddf9fb9c3a31fdf5bd63260e152b332183f6427"
     },
     {
-      "path": "tools/patch_ch09_fig02_reorder_future_and_seed.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig02_reorder_future_and_seed.sh",
       "sha256": "f029bf69707eee8988ac9e039ff11e4f2796f2b817c4665caf27685a44d79fd5"
     },
     {
-      "path": "tools/patch_ch09_fig02_soft_skip_missing_phi_ref.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig02_soft_skip_missing_phi_ref.sh",
       "sha256": "b7b385c94501bdbceb1253cddf34ed72b4c00cd3023b3c8e3d1ddbd3d9c85264"
     },
     {
-      "path": "tools/patch_ch09_fig02_soft_skip_missing_phi_ref_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_fig02_soft_skip_missing_phi_ref_v2.sh",
       "sha256": "cdbf2531c4911f350a4f1573e7b5aa839a5148e524d2d94c72933c2af089e288"
     },
     {
-      "path": "tools/patch_ch09_header_v8.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_header_v8.py",
       "sha256": "a7d3c11e72008656315af1ccbcb881282e32adc543ff6fe9ff1945e27b00ed10"
     },
     {
-      "path": "tools/patch_ch09_header_v9.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch09_header_v9.py",
       "sha256": "df3c8641962c4e110dff12a45f336e951c1e6499cdefb92e2b39be5fde193c40"
     },
     {
-      "path": "tools/patch_ch10_fig03_convergence_p95_vs_n.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch10_fig03_convergence_p95_vs_n.sh",
       "sha256": "a23a9077d9b65159e327a13f2175d33781df2b16629bf9f9c4e151d2399a8fbc"
     },
     {
-      "path": "tools/patch_ch10_pipeline_fig03b.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_ch10_pipeline_fig03b.sh",
       "sha256": "0e600eeeab1c01d367e12e978f8e30289e6466b87b75365a48392e9e25f1f40a"
     },
     {
-      "path": "tools/patch_create_run_ch03_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/patch_create_run_ch03_pipeline_minimal.sh",
       "sha256": "1b0a57fdf70dcdff610ab15e177c08aebcd801ade9dc9ea080e88026018a5364"
     },
     {
-      "path": "tools/patch_fig02_fix_block.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_fig02_fix_block.py",
       "sha256": "47a4a401d50df44b2fec7321316c002a355c1a5f2f1f7e3d4b19b76c1d185214"
     },
     {
-      "path": "tools/patch_fig02_prune_legacy_raises.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_fig02_prune_legacy_raises.py",
       "sha256": "329f23ae424459f001889e8457e0facd56550de6b62a3e147afcefa64cc1786a"
     },
     {
-      "path": "tools/patch_fig02_tolerant.py",
+      "path": "archives/tools_legacy_20260309/tools/patch_fig02_tolerant.py",
       "sha256": "0cd6cc2b771a44050be3c42df1458500690cd9848c026b73ef8c98b7c38a3ce6"
     },
     {
-      "path": "tools/phase1_2h_export_find_top_residuals.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase1_2h_export_find_top_residuals.sh",
       "sha256": "8494d148393cb76332413843143c1c650ca4a200542abc76bb151bd436210c3b"
     },
     {
-      "path": "tools/phase2_finish.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase2_finish.sh",
       "sha256": "c2f703c626714260497c713e5c140b869f5991ab8f96447b1b9af11743f2b9f9"
     },
     {
-      "path": "tools/phase3_bootstrap_package.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase3_bootstrap_package.sh",
       "sha256": "48c3675749c21c43e237e63da9700b6158c63ca8a49312f18df971b7e3ba583f"
     },
     {
-      "path": "tools/phase4_validate.sh",
+      "path": "archives/tools_legacy_20260309/tools/phase4_validate.sh",
       "sha256": "ca5df69c0fa632986c69c4faaa5c70b9d91fba0d1082c89173962e5bf7e0ae18"
     },
     {
-      "path": "tools/post_merge_sanity_v1.sh",
+      "path": "archives/tools_legacy_20260309/tools/post_merge_sanity_v1.sh",
       "sha256": "389bcbc49e7270c6a679ed482458ebc41d7de32e0f5600e7397de83af8852b34"
     },
     {
-      "path": "tools/post_restore_sanity_main.sh",
+      "path": "archives/tools_legacy_20260309/tools/post_restore_sanity_main.sh",
       "sha256": "253906bf3d8755c83cdb2da163e9b9a21b4d0b6b91152a5295e9870316e617b0"
     },
     {
-      "path": "tools/prepare_chapter_decisions.py",
+      "path": "archives/tools_legacy_20260309/tools/prepare_chapter_decisions.py",
       "sha256": "5dba99bf43a804c667bec482fbf121b9a93baaba9de8e1d7b398cc0b3de718dd"
     },
     {
-      "path": "tools/propagate_title_docs_only.sh",
+      "path": "archives/tools_legacy_20260309/tools/propagate_title_docs_only.sh",
       "sha256": "c55c7ef7936c927d3ea02be0ff88a9c3cb09a50386039c517d87d15c00e49a61"
     },
     {
-      "path": "tools/propagate_title_docs_only_safe.sh",
+      "path": "archives/tools_legacy_20260309/tools/propagate_title_docs_only_safe.sh",
       "sha256": "bf1328c1db1eaba09e95bcdcb2a39a735203a911c3320028c7fe9dd5a4d216aa"
     },
     {
-      "path": "tools/propagate_title_docs_wide.sh",
+      "path": "archives/tools_legacy_20260309/tools/propagate_title_docs_wide.sh",
       "sha256": "b4d034520d2c9af20796e5cf2325a4cfef01b31d708d44b373f4c7cffb24ee4b"
     },
     {
-      "path": "tools/prune_manifest_paths.py",
+      "path": "archives/tools_legacy_20260309/tools/prune_manifest_paths.py",
       "sha256": "decb8d29e4a942b9f873808965bca484b4c1ded3db773e48fc1327d3962cda49"
     },
     {
-      "path": "tools/quarantine_root_junk.sh",
+      "path": "archives/tools_legacy_20260309/tools/quarantine_root_junk.sh",
       "sha256": "88403ea33484e5905dc63c5f612b474169628efcc327bfe9d966afb906f9a557"
     },
     {
-      "path": "tools/rebase_sentinels_common_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/rebase_sentinels_common_guarded.sh",
       "sha256": "a252ceac14a07a4aa8995b1bdfab8c1aa958f135c947f43b8594772ec1bc4953"
     },
     {
-      "path": "tools/reclean_restored_bak_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/reclean_restored_bak_guarded.sh",
       "sha256": "349454cdbccfb514360979d8f9e1f6449b950f0275fd484fa641ebb0e2b08614"
     },
     {
-      "path": "tools/rename_project_title_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/rename_project_title_guarded.sh",
       "sha256": "a263228b14dd4419f55f0e6251100737c94d7a4cad11c0cad337ae19f2cc0565"
     },
     {
-      "path": "tools/restore_bak_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/restore_bak_guarded.sh",
       "sha256": "546c0daa778640eab643d804075d10145146caac81ce196bd41ecd70eb40c9ca"
     },
     {
-      "path": "tools/restore_required_workflows_on_main.sh",
+      "path": "archives/tools_legacy_20260309/tools/restore_required_workflows_on_main.sh",
       "sha256": "3d6c33d111e943f4020a7bf1c8284c7067e59cee58ecdd5daeed2d30d7317d5f"
     },
     {
-      "path": "tools/round2_checkpoint_now.sh",
+      "path": "archives/tools_legacy_20260309/tools/round2_checkpoint_now.sh",
       "sha256": "95f03b4b198abe70970339300932870cc75e882007372be6809c26f0ffb7f10a"
     },
     {
-      "path": "tools/round2_checkpoint_robuste.sh",
+      "path": "archives/tools_legacy_20260309/tools/round2_checkpoint_robuste.sh",
       "sha256": "1ae1f191509bd0b1dc835a5aa9a57df6b29acdfec8ab4c8f211057e77f700d8e"
     },
     {
-      "path": "tools/round2_checkpoint_sanity.sh",
+      "path": "archives/tools_legacy_20260309/tools/round2_checkpoint_sanity.sh",
       "sha256": "7ed765216a7dd3365bfc08f1023c790e81a23ca47d40663bee2c4e97cefc5a21"
     },
     {
-      "path": "tools/run_ch02_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch02_pipeline_minimal.sh",
       "sha256": "e6e53ff19f1af001781670c39bb8fe6c2735f097aedbb2234716ad8a36508662"
     },
     {
-      "path": "tools/run_ch03_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch03_pipeline_minimal.sh",
       "sha256": "68f5c9df8fb6678ab0ad8208dbc54fd65b7b011f24e7ca60efa2118b7945198b"
     },
     {
-      "path": "tools/run_ch04_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch04_pipeline_minimal.sh",
       "sha256": "8466a6908c4ac3687bd401e709db6d0407a0aa344e0c216e0bf44ad8837a810b"
     },
     {
-      "path": "tools/run_ch05_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch05_pipeline_minimal.sh",
       "sha256": "b894c8753c5e5cbdbcff82a23726547c64f376f5806bd65ece402f5981db5f10"
     },
     {
-      "path": "tools/run_ch06_pipeline_figures_only.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch06_pipeline_figures_only.sh",
       "sha256": "1deeaeeb6ad1254e78bd3992c7e5f5e67694b91f9e08d2e854104647eacb14ab"
     },
     {
-      "path": "tools/run_ch06_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch06_pipeline_minimal.sh",
       "sha256": "f6c6e1d6be10234253763e19c76fcff8c8a3a6940e1ef5f9b28e50ca7e8ade5a"
     },
     {
-      "path": "tools/run_ch07_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch07_pipeline_minimal.sh",
       "sha256": "52c47f589f4358463d212064c12cffc9fc176337439b39f34475cdf05c6ede53"
     },
     {
-      "path": "tools/run_ch08_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch08_pipeline_minimal.sh",
       "sha256": "f5780d5964d3f4a57d21364ba399500953016e6b0e642873305bf24a8dc6d24e"
     },
     {
-      "path": "tools/run_ch09_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch09_pipeline_minimal.sh",
       "sha256": "d939c4e18de012752cb47cc1d4911ca2ea52d95a78528b2e000671e84cb01e4e"
     },
     {
-      "path": "tools/run_ch10_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_ch10_pipeline_minimal.sh",
       "sha256": "f73fede47816e68242a12222554cf6d07c1ab382d27915879e535a81fd6dc402"
     },
     {
-      "path": "tools/run_safe_attic.sh",
+      "path": "archives/tools_legacy_20260309/tools/run_safe_attic.sh",
       "sha256": "eb089adf2f2d29780ee9473f410ffd74f04c13ec1087b0d8d112667d9444418e"
     },
     {
@@ -2403,151 +2403,151 @@
       "sha256": "6968f5ebdd0f3b4267cd2835f781ef1a00a9439a57efaf2543f980ccc70d26cd"
     },
     {
-      "path": "tools/shims/bash",
+      "path": "archives/tools_legacy_20260309/tools/shims/bash",
       "sha256": "3cb5c89646ae0868ef3ba2a63fe043b47139dea6534c7d06e189b593b9eda320"
     },
     {
-      "path": "tools/shims/environment",
+      "path": "archives/tools_legacy_20260309/tools/shims/environment",
       "sha256": "e1ba4b67764b00626a66c9becac000f6e652f288ce51c9dbcd03d8a48b48c698"
     },
     {
-      "path": "tools/shims/sh",
+      "path": "archives/tools_legacy_20260309/tools/shims/sh",
       "sha256": "3cb5c89646ae0868ef3ba2a63fe043b47139dea6534c7d06e189b593b9eda320"
     },
     {
-      "path": "tools/show_chapter_manifests.sh",
+      "path": "archives/tools_legacy_20260309/tools/show_chapter_manifests.sh",
       "sha256": "bff3ff394e2f3249781d3f402e40fd2c5342fc167e97be93f50db915f2a6ae41"
     },
     {
-      "path": "tools/show_core_docs.sh",
+      "path": "archives/tools_legacy_20260309/tools/show_core_docs.sh",
       "sha256": "35e66cbd5ccac496435e87f0d3087025b15a3c0baa96b12e2b2093776bb7dcbb"
     },
     {
-      "path": "tools/smoke_all.sh",
+      "path": "archives/tools_legacy_20260309/tools/smoke_all.sh",
       "sha256": "eff8bceef8c8d024f1e4f9187f60510b7f0fea50aff91b91b3b11461b2e73fc8"
     },
     {
-      "path": "tools/smoke_all_skeleton.sh",
+      "path": "archives/tools_legacy_20260309/tools/smoke_all_skeleton.sh",
       "sha256": "1680a447bad8c797348660d7cfd3d3cc02c90bc3c509fef7ff361e1e8a429965"
     },
     {
-      "path": "tools/smoke_ch09_fast.sh",
+      "path": "archives/tools_legacy_20260309/tools/smoke_ch09_fast.sh",
       "sha256": "9d963891ae5cf3910f51373903f7edeb0b9d5aa7309cf18edace9ea77e50297a"
     },
     {
-      "path": "tools/sourcing_probe.bash",
+      "path": "archives/tools_legacy_20260309/tools/sourcing_probe.bash",
       "sha256": "18833416f2eaec7a9a71b9c49777165717a0218e617ecf92bc1865ac6130dca8"
     },
     {
-      "path": "tools/step100_create_ch09_guide.sh",
+      "path": "archives/tools_legacy_20260309/tools/step100_create_ch09_guide.sh",
       "sha256": "f2948ec5c280c6b1e90dcb5ed66c5bd9933eb14e7a1819449719a0abbdd0bce4"
     },
     {
-      "path": "tools/step101_scan_ch05_structure.sh",
+      "path": "archives/tools_legacy_20260309/tools/step101_scan_ch05_structure.sh",
       "sha256": "3ede6da35d1edd57fee2f3bc82710b7d320a7b07804597cfb510517382d9dcba"
     },
     {
-      "path": "tools/step102_ch05_pipeline_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/step102_ch05_pipeline_minimal.sh",
       "sha256": "999fe7ece1ee341e1e669c1bf05d5523d6066224143dca44201959c95297435c"
     },
     {
-      "path": "tools/step99_create_ch07_guide.sh",
+      "path": "archives/tools_legacy_20260309/tools/step99_create_ch07_guide.sh",
       "sha256": "ec9d3c0d3bf191c2ae075ec5046de81e7a8e9061ef220c097f94c459f962388f"
     },
     {
-      "path": "tools/stepA_guard_verify_and_exportignore.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepA_guard_verify_and_exportignore.sh",
       "sha256": "a8dd784e823d3b22240687953a60b75c6ffaf7412bc3b8b58c4daf521ee6aa82"
     },
     {
-      "path": "tools/stepB1_audit_divergent_tags.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepB1_audit_divergent_tags.sh",
       "sha256": "4b804db79590eaeeca523ebf1bcc4e09826bda951605833a22955b822bf21771"
     },
     {
-      "path": "tools/stepB2_sync_selected_tags.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepB2_sync_selected_tags.sh",
       "sha256": "05a613d86a10163b2afd45869338d249e28f973772dca95f463558d8067b2d9f"
     },
     {
-      "path": "tools/stepB3_open_ff_pr_minimal.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepB3_open_ff_pr_minimal.sh",
       "sha256": "41ff63e776c3658c76ba37b3ea7720f09a2e7a7c305c9cf7a9c335c313a026da"
     },
     {
-      "path": "tools/stepB_open_ff_pr_main_from_tag.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepB_open_ff_pr_main_from_tag.sh",
       "sha256": "1eaccbc4b2444553aab701265c84436524bd7cbb7dcc8845f420edf7a482fad9"
     },
     {
-      "path": "tools/stepC_merge_and_protect_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepC_merge_and_protect_guard.sh",
       "sha256": "27e749c817ad5204a1187220b4420d47c8a1e33fd664ac441a84c06356d54c59"
     },
     {
-      "path": "tools/stepD2_correct_protection_and_merge.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD2_correct_protection_and_merge.sh",
       "sha256": "f0270c5efe7b3beda406a76ed55281f71a77c23daf74a8af12d68797e85b12d7"
     },
     {
-      "path": "tools/stepD3_approve_or_temp_lower_review_and_merge.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD3_approve_or_temp_lower_review_and_merge.sh",
       "sha256": "ad18fe2cba2755664cf9186817ce9b975ce44ee97bb6e2b03534c74ce7d9267c"
     },
     {
-      "path": "tools/stepD4_restore_protection_strict.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD4_restore_protection_strict.sh",
       "sha256": "4ec89808b94df64cd90dda01413e5ba8b20a991fca43d3f199d3c23c47c0628f"
     },
     {
-      "path": "tools/stepD4_verify_branch_protection.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD4_verify_branch_protection.sh",
       "sha256": "188088fc445f550fccb668004b29813cb10e6399842c012ffee868944e965a95"
     },
     {
-      "path": "tools/stepD4b_fix_branch_protection_strict.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD4b_fix_branch_protection_strict.sh",
       "sha256": "619fbed6ef8b6a5a51d95d58a8d2d54c49f07ec2ef6038b9e86dc627a4766ff1"
     },
     {
-      "path": "tools/stepD4b_verify_protection.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD4b_verify_protection.sh",
       "sha256": "3151ac34c406461bc277538b433c7a2529323cfc8b7490c74937700cf0b31cdc"
     },
     {
-      "path": "tools/stepD_fix_branch_and_merge_ff.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepD_fix_branch_and_merge_ff.sh",
       "sha256": "6217fa4a5dda3c65dff5c26dcc4b04a3059c79991626edf4cf0894170f26cbc1"
     },
     {
-      "path": "tools/stepE_export_ignore_extend.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepE_export_ignore_extend.sh",
       "sha256": "5676539cab6ec19a4ad9f224941e72f4aff63ea6eea0cec77b2e94d392d6c6a5"
     },
     {
-      "path": "tools/stepR2_apply_purge.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepR2_apply_purge.sh",
       "sha256": "152739681fb8016037ad1f5c3ae75e71039ceebc73914b96008bb5155b74a1de"
     },
     {
-      "path": "tools/stepR2_build_and_preview.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepR2_build_and_preview.sh",
       "sha256": "d8071ae139227045189a1c5ec444e5e53f40b9d98140d513f3772ab7da6223c4"
     },
     {
-      "path": "tools/stepZ_publish_github_release_guard.sh",
+      "path": "archives/tools_legacy_20260309/tools/stepZ_publish_github_release_guard.sh",
       "sha256": "7febcf93c8a8676df5367da0fe6c87e4df229e4770b46b63e7cae16b520618a6"
     },
     {
-      "path": "tools/strip_try_before_df_guard.py",
+      "path": "archives/tools_legacy_20260309/tools/strip_try_before_df_guard.py",
       "sha256": "021c782988265d297a10d333e8a61e0b71c3c75095b7457b0c65dbe9ed2fa75a"
     },
     {
-      "path": "tools/sweep_help_and_smoke_guarded.sh",
+      "path": "archives/tools_legacy_20260309/tools/sweep_help_and_smoke_guarded.sh",
       "sha256": "c73ed7c2a255dfe0b16bd9c78a87e301996d3a0c9d210e5b5a2d031750576918"
     },
     {
-      "path": "tools/sweep_help_and_smoke_guarded_v2.sh",
+      "path": "archives/tools_legacy_20260309/tools/sweep_help_and_smoke_guarded_v2.sh",
       "sha256": "f0bdbd36bc52fc2b71f24c5e893162780ea395b1c9c479d491cd4023d4b00c69"
     },
     {
-      "path": "tools/title_consistency_docs_only.sh",
+      "path": "archives/tools_legacy_20260309/tools/title_consistency_docs_only.sh",
       "sha256": "0b8ba47f476377b98ae7b1a3a0da05f570bc64e164c585c8b13c2535154f8e01"
     },
     {
-      "path": "tools/title_consistency_docs_only_wide.sh",
+      "path": "archives/tools_legacy_20260309/tools/title_consistency_docs_only_wide.sh",
       "sha256": "a6255700f9ffec965a960134af5f5d50635384354dcb9c771cf377683b28f1c3"
     },
     {
-      "path": "tools/validate_ch09_artifacts.py",
+      "path": "archives/tools_legacy_20260309/tools/validate_ch09_artifacts.py",
       "sha256": "8dda94cc0692f73a8d3322fc488f2efa4a971289bf4754a487dca543e9b3d6a3"
     },
     {
-      "path": "tools/yaml_check.sh",
+      "path": "archives/tools_legacy_20260309/tools/yaml_check.sh",
       "sha256": "4b6c019e627fbcf30db6d70560f024e5263a453fa84d5457395afa9a1e67060f"
     }
   ]

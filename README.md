@@ -27,6 +27,16 @@ cd paper
 ./compile.sh
 ```
 
+`paper/compile.sh` builds with Docker (`Dockerfile.latex`), so Docker must be available locally.
+
+## Reproducibility Quick Check
+
+```bash
+export PYTHONPATH="$(pwd)/src:$(pwd):${PYTHONPATH}"
+python scripts/verify_table_consistency.py
+pytest -q tests/test_00_imports.py tests/test_phase4_zenodo_package.py
+```
+
 ## What's New in v4.0.0
 
 - **Theoretical foundation:** Clarified the purely geometric friction mechanism, with no propagating scalar modes and no ghost/Laplacian instability at the effective perturbative level.

@@ -13,6 +13,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 ROOT = Path(__file__).resolve().parents[2]
+FIGURES_DIR = ROOT / "paper" / "figures"
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -104,17 +105,17 @@ def main() -> int:
     parser.add_argument(
         "--out-csv",
         type=Path,
-        default=Path("output/profile_likelihood_h0.csv"),
+        default=ROOT / "output" / "profile_likelihood_h0.csv",
     )
     parser.add_argument(
         "--out-plot",
         type=Path,
-        default=Path("output/profile_likelihood_h0.png"),
+        default=FIGURES_DIR / "02_fig_likelihood.pdf",
     )
     parser.add_argument(
         "--out-json",
         type=Path,
-        default=Path("output/profile_likelihood_h0_summary.json"),
+        default=ROOT / "output" / "profile_likelihood_h0_summary.json",
     )
     args = parser.parse_args()
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import gzip
 import json
+import sys
 from pathlib import Path
 
 import corner
@@ -13,11 +14,16 @@ import emcee
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from scripts._common.style import apply_manuscript_defaults
 
 apply_manuscript_defaults()
 
-ROOT = Path(__file__).resolve().parent
+FIGURES_DIR = ROOT / "paper" / "figures"
 PHASE4_REPORT = ROOT / "phase4_global_verdict_report.json"
 CANONICAL_CHAIN = ROOT / "assets" / "zz-data" / "10_global_scan" / "10_mcmc_affine_chain.csv.gz"
 CANONICAL_PARAM_ORDER = ["omega_m", "H0", "w0", "wa", "S8"]
@@ -76,20 +82,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--out-pdf",
         type=Path,
-        default=Path("output/ptmg_corner_plot.pdf"),
+        default=FIGURES_DIR / "01_fig_corner.pdf",
         help="Output PDF path.",
     )
     parser.add_argument(
         "--out-png",
         type=Path,
-        default=Path("output/ptmg_corner_plot.png"),
+        default=ROOT / "output" / "ptmg_corner_plot.png",
         help="Output PNG path.",
     )
     parser.add_argument(
         "--summary-json",
         type=Path,
-        default=Path("output/ptmg_corner_summary.json"),
-        help="Output JSON summary for the marginalized median and 68% credible intervals.",
+        default=ROOT / "output" / "ptmg_corner_summary.json",
+        help="Output JSON summary for the marginalized median and 68%% credible intervals.",
     )
     return parser
 

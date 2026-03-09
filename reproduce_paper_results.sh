@@ -19,6 +19,7 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 
 mkdir -p output
+mkdir -p paper/figures
 
 if [[ "${MODE}" == "test" ]]; then
   echo "[step] Running quick validation MCMC (CPL model)..."
@@ -31,10 +32,10 @@ else
 fi
 
 echo "[step] Generating corner plot from produced chain..."
-python plot_corner.py \
+python paper/scripts_gen/gen_01_corner.py \
   --input output/ptmg_chains.h5 \
   --chain-name ptmg_chain \
-  --out-pdf output/ptmg_corner_plot.pdf \
+  --out-pdf paper/figures/01_fig_corner.pdf \
   --out-png output/ptmg_corner_plot.png
 
 echo "[step] Exporting ΨTMG predictions..."
@@ -47,5 +48,7 @@ echo "[step] Generating publication plotting batches..."
 python scripts/generate_manuscript_figures_batch1.py
 python scripts/generate_manuscript_figures_batch2.py
 python scripts/generate_manuscript_figures_batch3.py
+python paper/scripts_gen/gen_02_likelihood.py --out-plot paper/figures/02_fig_likelihood.pdf
+python paper/scripts_gen/gen_03_tensions_summary.py
 
 echo "[ok] Reproducibility pipeline completed in '${MODE}' mode."

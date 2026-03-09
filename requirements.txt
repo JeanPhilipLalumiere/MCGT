@@ -5,3 +5,14 @@ pandas>=2.0
 dynesty>=2.1
 numba>=0.58
 pytest>=8.0
+camb
+emcee
+filelock
+PyMuPDF
+importlib-metadata
+joblib
+lalsuite
+pycbc
+pypdf
+requests
+SciencePlots

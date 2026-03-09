@@ -7,21 +7,13 @@ import numpy as np
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 from scripts._common.release_v400 import (
-    DELTA_AIC_TOTAL,
-    DELTA_BIC_TOTAL,
-    DELTA_CHI2_TOTAL,
     LCDM_OMEGA_M,
     PLANCK18_H0,
-    PLANCK18_H0_ERR,
     PTMG_H0,
     PTMG_H0_ERR,
     PTMG_OMEGA_M,
-    PTMG_S8,
-    PTMG_S8_ERR,
     PTMG_W0,
     PTMG_WA,
-    SH0ES_H0,
-    SH0ES_H0_ERR,
 )
 from scripts._common.style import apply_manuscript_defaults
 
@@ -44,17 +36,7 @@ BESTFIT = {
     "wa": PTMG_WA,
     "wa_err_plus": 0.038,
     "wa_err_minus": 0.038,
-    "s8": PTMG_S8,
-    "s8_err": PTMG_S8_ERR,
 }
-STATS = {
-    "n_total": 1718,
-    "delta_chi2": DELTA_CHI2_TOTAL,
-    "delta_aic": DELTA_AIC_TOTAL,
-    "delta_bic": DELTA_BIC_TOTAL,
-    "chi2_cmb": 1.3,
-}
-
 
 def _save_dual(fig, manuscript_name: str, output_stem: str) -> None:
     fig.savefig(OUT_DIR / manuscript_name)
@@ -255,63 +237,6 @@ def make_eos_evolution_plot():
     plt.close(fig)
 
 
-def make_tensions_summary_plot():
-    labels = ["Planck (CMB)", "SH0ES (Local)", r"$\Psi$TMG (Prediction)"]
-    values = [PLANCK18_H0, SH0ES_H0, BESTFIT["h0"]]
-    errors = [PLANCK18_H0_ERR, SH0ES_H0_ERR, BESTFIT["h0_err_plus"]]
-    colors = ["#2ca25f", "#d7301f", "#3182bd"]
-
-    y_positions = np.arange(len(labels))[::-1]
-    fig, ax = plt.subplots(figsize=(6.4, 6.6))
-    for y, value, err, color, label in zip(y_positions, values, errors, colors, labels):
-        ax.errorbar(
-            value,
-            y,
-            xerr=err,
-            fmt="o",
-            ms=7,
-            color=color,
-            ecolor=color,
-            capsize=4,
-            label=label,
-        )
-        ax.text(
-            value + err + 0.5,
-            y,
-            f"{value:.2f} ± {err:.2f}" if err < 1 else f"{value:.2f} ± {err:.2f}",
-            va="center",
-            fontsize=9,
-            color=color,
-        )
-
-    ax.set_yticks(y_positions)
-    ax.set_yticklabels(labels)
-    ax.set_xlabel(r"$H_0$ [$\mathrm{km\,s^{-1}\,Mpc^{-1}}$]")
-    ax.set_xlim(64, 78.5)
-    ax.set_title("Tensions Summary")
-    ax.text(
-        0.02,
-        -0.30,
-        (
-            rf"$\Delta\chi^2={STATS['delta_chi2']:.1f},\;\Delta AIC={STATS['delta_aic']:.1f},\;\Delta BIC={STATS['delta_bic']:.1f}$"
-            "\n"
-            rf"$n={STATS['n_total']},\;\chi^2_{{\rm CMB}}={STATS['chi2_cmb']:.1f},\;S_8={BESTFIT['s8']:.3f}\pm{BESTFIT['s8_err']:.3f}$"
-        ),
-        fontsize=8,
-        va="top",
-        ha="left",
-        transform=ax.transAxes,
-        clip_on=False,
-    )
-    ax.grid(True, axis="x", alpha=0.3)
-    ax.legend(frameon=False, loc="upper right")
-    plt.subplots_adjust(bottom=0.42)
-    plt.savefig(OUT_DIR / "13_fig_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
-    plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.png", bbox_inches="tight", pad_inches=0.3, dpi=300)
-    plt.savefig(OUTPUT_DIR / "ptmg_tensions_summary.pdf", bbox_inches="tight", pad_inches=0.3, dpi=300)
-    plt.close(fig)
-
-
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -319,7 +244,6 @@ def main():
     make_hubble_parameter_plot()
     make_growth_factor_plot()
     make_eos_evolution_plot()
-    make_tensions_summary_plot()
 
 
 if __name__ == "__main__":

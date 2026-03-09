@@ -228,7 +228,7 @@ cp assets/zz-manifests/manifest_publication.json assets/zz-manifests/manifest_pu
 ```
 mkdir -p dist
 tar czf dist/MCGT_$(date +%Y%m%d)_release.tar.gz \
-  manuscript/main.tex convention.md requirements.txt environment.yml Makefile \
+  paper/main.tex convention.md requirements.txt environment.yml Makefile \
   configuration assets/zz-data assets/zz-figures scripts assets/zz-schemas assets/zz-manifests
 ```
 
@@ -253,7 +253,7 @@ Vérifications :
 
 ```
 MCGT/
-├─ manuscript/main.tex
+├─ paper/main.tex
 ├─ convention.md
 ├─ requirements.txt
 ├─ environment.yml

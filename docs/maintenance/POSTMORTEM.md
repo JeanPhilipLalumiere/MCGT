@@ -14,6 +14,6 @@
 - Procédure release automatisée (`scripts/release.sh`).
 
 ## Prévention
-- Toujours bumper **pyproject** + **mcgt/__init__.py** ensemble.
+- Toujours bumper **pyproject** + **src/mcgt/__init__.py** ensemble.
 - Commit puis tag sur **ce même commit**.
 - Linter YAML en pré-commit.

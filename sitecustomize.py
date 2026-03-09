@@ -14,6 +14,9 @@ try:
     )
     if root and str(root) not in sys.path:
         sys.path.insert(0, str(root))
+    src = root / "src"
+    if src.exists() and str(src) not in sys.path:
+        sys.path.insert(0, str(src))
 except Exception:
     pass
 

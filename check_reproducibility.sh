@@ -28,7 +28,7 @@ export TMP="${TMP_DIR}"
 export TEMP="${TMP_DIR}"
 export MPLCONFIGDIR="${MPLCONFIG_DIR}"
 export XDG_CACHE_HOME="${MPLCONFIG_DIR}"
-export PYTHONPATH="${ROOT_DIR}:${PYTHONPATH:-}"
+export PYTHONPATH="${ROOT_DIR}/src:${ROOT_DIR}:${PYTHONPATH:-}"
 
 echo "[info] Validating locked dependency set from requirements.lock"
 python -m pip install --no-index -r requirements.lock

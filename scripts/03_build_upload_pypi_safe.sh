@@ -25,7 +25,7 @@ info "Racine: $repo_root"
 VER="$(
 python - <<'PY' 2>/dev/null || true
 import re, pathlib
-p = pathlib.Path("mcgt/__init__.py")
+p = pathlib.Path("src/mcgt/__init__.py")
 try:
     s = p.read_text(encoding="utf-8")
     m = re.search(r"^__version__\s*=\s*['\"](.+?)['\"]", s, re.M)
@@ -34,7 +34,7 @@ except Exception:
     print("")
 PY
 )"
-[ -n "$VER" ] && info "Version détectée: $VER" || warn "Version introuvable dans mcgt/__init__.py"
+[ -n "$VER" ] && info "Version détectée: $VER" || warn "Version introuvable dans src/mcgt/__init__.py"
 
 PKG="$(
 python - <<'PY' 2>/dev/null || true

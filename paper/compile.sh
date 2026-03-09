@@ -11,13 +11,18 @@ if [[ ! -d figures ]]; then
   exit 1
 fi
 
-if [[ ! -f figures/corner_triple_nobel.png ]]; then
-  echo "Error: missing required image figures/corner_triple_nobel.png" >&2
+if [[ ! -f figures/01_fig_corner.pdf ]]; then
+  echo "Error: missing required image figures/01_fig_corner.pdf" >&2
   exit 1
 fi
 
-if [[ ! -f figures/profile_likelihood_h0.png ]]; then
-  echo "Error: missing required image figures/profile_likelihood_h0.png" >&2
+if [[ ! -f figures/02_fig_likelihood.pdf ]]; then
+  echo "Error: missing required image figures/02_fig_likelihood.pdf" >&2
+  exit 1
+fi
+
+if [[ ! -f figures/03_fig_tensions_summary.pdf ]]; then
+  echo "Error: missing required image figures/03_fig_tensions_summary.pdf" >&2
   exit 1
 fi
 

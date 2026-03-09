@@ -12,6 +12,14 @@ The manuscript is now **preprint-ready** and formatted to **APS / RevTeX** stand
 - Bibliography: [`paper/references.bib`](paper/references.bib)
 - Final PDF: [`paper/main.pdf`](paper/main.pdf)
 
+## Figures (v4.0.0)
+
+- Figure 1 (Corner): [`paper/figures/01_fig_corner.pdf`](paper/figures/01_fig_corner.pdf)
+- Figure 2 (Profile likelihood): [`paper/figures/02_fig_likelihood.pdf`](paper/figures/02_fig_likelihood.pdf)
+- Figure 3 (Tension summary): [`paper/figures/03_fig_tensions_summary.pdf`](paper/figures/03_fig_tensions_summary.pdf)
+
+Key reported values in the current preprint: $H_0 = 74.18 \pm 0.82$, $S_8 = 0.748 \pm 0.021$, and $\Delta \ln \mathcal{Z} = +40.3$.
+
 ## Build
 
 ```bash

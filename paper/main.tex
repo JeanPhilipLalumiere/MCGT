@@ -1,21 +1,22 @@
-\documentclass[twocolumn,secnumarabic,amssymb, nobibnotes, aps, prd]{revtex4-2}
+\documentclass[10pt,twocolumn,secnumarabic,amssymb, nobibnotes, aps, prd, floatfix]{revtex4-2}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{microtype}
 \usepackage{graphicx}
-\usepackage{float}
+\graphicspath{{figures/}}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage{afterpage}
 \usepackage{xcolor}
-\hypersetup{colorlinks=true, allcolors=black}
+\providecommand{\columnbreak}{\newpage}
+\providecommand{\texorpdfstring}[2]{#1}
 
 \begin{document}
 
 \title{\texorpdfstring{Simultaneous Resolution of the $H_0$ and $S_8$ Tensions via $\Psi$-Time Metric Gravity}{Simultaneous Resolution of the H0 and S8 Tensions via Psi-Time Metric Gravity}}
 \author{J. P. Lalumiere}
+\affiliation{Independent Researcher, QC, Canada}
 \date{\today}
 
 \begin{abstract}
@@ -81,6 +82,9 @@ where the prime ($'$) denotes $d/d\ln a$ \cite{Liddle2000Inflation}.
 In our framework, the transition to a phantom equation of state ($w < -1$) at late times significantly increases the Hubble expansion rate $E(a)$ and therefore boosts the effective friction term, $2 + d \ln E / d \ln a$, which tends to ``freeze'' the growth of sub-horizon structures. Unlike standard quintessence constructions, this extra damping is purely geometric: it is induced by the temporal deformation of the metric itself rather than by a new dynamical scalar-field sector. In particular, the low-energy effective temporal modification does not introduce additional propagating scalar modes; the absence of such degrees of freedom directly suppresses the usual ghost and Laplacian-instability channels that often challenge scalar-field dark-energy models. The mechanism therefore provides a stable effective route to reducing late-time clustering and lowering the predicted $S_8$ relative to $\Lambda$CDM.
 We emphasize that the absence of propagating scalar modes---and their associated ghost or Laplacian instabilities---is established here at the level of effective background and linear perturbations. A complete proof requires the derivation of the full fundamental action.
 
+\vfill\null
+\newpage
+
 \section{Observational Datasets and Numerical Methodology}
 \nopagebreak
 
@@ -88,23 +92,22 @@ We constrain the $\Psi$TMG parameter space using a joint likelihood analysis of 
 
 \subsection{Background and Growth Probes}
 
-\begin{minipage}{\columnwidth}
 \begin{itemize}
 \item \textbf{Type Ia Supernovae:} We utilize the Pantheon+ sample \cite{Brout2022PantheonPlus}, comprising 1701 light curves, to constrain the distance modulus and the late-time expansion history. The likelihood uses the full covariance matrix, $C_{\mathrm{sys+stat}}$, including both systematic and statistical uncertainties, and marginalizes over the intrinsic magnitude offset.
 \item \textbf{CMB Shift Parameter:} We include the Planck 2018 CMB shift parameter $R$, extracted from the final Planck 2018 chain \cite{Planck2020Cosmoparams} to minimize dependence on assumptions about the primordial sector, while preserving consistency with the high-redshift sound horizon and the distance to last scattering.
 \item \textbf{BAO/RSD (eBOSS DR16):} We incorporate BAO and RSD constraints from the eBOSS DR16 final sample \cite{Alam2021eBOSS}, including transverse distance ratios $D_M(z)/r_s$, expansion-rate ratios $D_H(z)/r_s$, and consensus $f\sigma_8$ measurements.
 \end{itemize}
-\end{minipage}
 
 \subsection{Statistical Inference}
 
 We employ Bayesian Nested Sampling via the \texttt{dynesty} library to perform model comparison and parameter estimation. The evidence $\mathcal{Z}$ is calculated to determine the statistical preference between $\Psi$TMG and the $\Lambda$CDM baseline. Our analysis incorporates full covariance matrices for SNe and BAO data to account for systematic and statistical uncertainties. We adopt flat priors on $\Omega_m$, $w_0$, and $w_a$ to ensure that the Bayesian evidence is not biased by strong theoretical preconceptions.
+We emphasize that the Bayesian evidence $\Delta \ln \mathcal{Z}$ used for model comparison intrinsically incorporates an Occam’s razor penalty, accounting for the additional parameter space volume introduced by the effective late-time deformation.
 
 \section{Results: Resolving the Cosmological Crisis}
 
 Our joint analysis yields a comprehensive solution to the current cosmological tensions. The primary results are summarized in Table~\ref{tab:best_fit_params}, representing the marginalized posterior means and 68\% credible intervals from our multi-probe Nested Sampling analysis \cite{Speagle2020Dynesty}. The numerical pipeline was accelerated with JIT-compiled likelihood kernels using Numba \cite{Numba2015}.
 
-\begin{table}[htbp]
+\begin{table}[t!]
 \caption{Marginalized best-fit parameters for $\Psi$TMG from the combined SNe + CMB + BAO + RSD analysis.}
 \label{tab:best_fit_params}
 \begin{ruledtabular}
@@ -124,7 +127,7 @@ $\Delta \ln \mathcal{Z}$ (vs $\Lambda$CDM) & $+40.3$ \\
 \end{ruledtabular}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[!t]
 \caption{Comparison of the best-fit $\chi^2$ values for each dataset between the $\Lambda$CDM baseline and the $\Psi$TMG model.}
 \label{tab:chi2_comparison}
 \begin{ruledtabular}
@@ -163,8 +166,8 @@ Finally, we verify the integrity of the model at high redshift. The effective eq
 
 The inferred cosmic age, $t_0 = 14.048$ Gyr, is fully compatible with age determinations from the oldest Galactic globular clusters and other chronometric tracers. This is an important consistency check for the late-time phantom regime: despite a higher local expansion rate, the model does not force an anomalously young universe and can even alleviate age-pressure effects encountered by some competing high-$H_0$ scenarios.
 
-\begin{table*}[htbp]
-\caption{Qualitative comparison of tension-resolution models.}
+\begin{table*}[!t]
+\caption{Qualitative comparison of tension-resolution models. Evaluation is assessed within the present effective framework.}
 \label{tab:model_comparison}
 \small
 \setlength{\tabcolsep}{8pt}
@@ -190,37 +193,37 @@ Our results suggest that $\Psi$-Time Metric Gravity ($\Psi$TMG) can simultaneous
 The Bayesian evidence, $\Delta \ln \mathcal{Z} > 40$, provides a compelling statistical preference despite the two-parameter extension and supports the internal consistency of this late-time scenario amid broader $\Lambda$CDM challenges \cite{Perivolaropoulos2022Challenges}. Unlike many early dark-energy alternatives, the framework keeps early-universe consistency intact, including BBN compatibility ($\Delta N_{\text{eff}} \approx 0$), while yielding a cosmic age of $14.048$ Gyr compatible with old stellar populations.
 
 \paragraph*{\textbf{Observable predictions.---}}
-The model is directly falsifiable through late-time observables. First, it predicts a specific ISW signature from the modified decay rate of gravitational potentials. Second, it implies measurable departures in CMB-lensing reconstruction amplitudes and redshift kernels. Third, high-precision growth measurements from Euclid and DESI should test the predicted low-redshift suppression of $f\sigma_8(z)$ relative to $\Lambda$CDM across multiple bins; this trend is the most discriminating near-term signature. Inconsistency in any of these channels would rule out the present $\Psi$TMG realization \cite{JWST2023CEERS}.
+The model is directly falsifiable through late-time observables. First, it predicts a specific ISW signature from the modified decay rate of gravitational potentials. Second, it implies measurable departures in CMB-lensing reconstruction amplitudes and redshift kernels. Third, high-precision growth measurements from Euclid and DESI should test the predicted low-redshift suppression of $f\sigma_8(z)$ relative to $\Lambda$CDM across multiple bins; this trend is the most discriminating near-term signature. Consequently, high-precision measurements of the scale-dependent growth rate $f\sigma_8(z)$ at low redshift will serve as the first decisive discriminator for this framework, allowing a clear separation from standard phantom energy scenarios. Inconsistency in any of these channels would rule out the present $\Psi$TMG realization \cite{JWST2023CEERS}.
 
 \paragraph*{\textbf{Limitations and Scope.---}}
 At present, $\Psi$TMG is formulated as an effective phenomenological description of late-time dynamics. A central next step is to derive the temporal metric deformation from a fundamental action, for example within scalar-tensor modified gravity or a generalized geometric framework such as Finsler-like constructions, and to verify stability and renormalization properties at the action level.
 
 In conclusion, our results suggest that a geometric late-time deformation can jointly alleviate both tensions while preserving early-universe consistency. What remains to be established is a first-principles Lagrangian origin for the effective metric sector and its full perturbative completion. Although $\Psi$TMG provides a compelling statistical preference over the current baseline, the final verdict will rely on forthcoming weak-lensing datasets (Euclid, Rubin) and on deriving a fundamental Lagrangian formulation for this geometric formalism.
 
+\vspace{-0.12cm}
 \begin{acknowledgments}
 The author thanks the computational support and rigorous testing provided by the MCGT experimental framework and Beauharnois-based clusters.
 \end{acknowledgments}
 \bibliographystyle{apsrev4-2}
-\enlargethispage{\baselineskip}
 \bibliography{references}
 
-\begin{figure*}[p]
-\vspace*{\fill}
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.9\textwidth]{figures/corner_triple_nobel.png}
+\includegraphics[width=0.86\textwidth]{figures/01_fig_corner.pdf}
 \caption{Marginalized 1D and 2D posterior distributions for the $\Psi$TMG baseline model. The convergence on $H_0 \approx 74.2$ demonstrates the reconciliation of disparate probes.}
 \label{fig:corner_plot}
-\vspace*{\fill}
 \end{figure*}
 
-\begin{figure*}[p]
-% TODO: FIX DATA
-\vspace*{\fill}
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.9\textwidth]{figures/profile_likelihood_h0.png}
-\caption{Profile likelihood of $H_0$ within the $\Psi$TMG model. The horizontal lines indicate the 1, 2, and 3$\sigma$ confidence levels.}
+% --- Bloc A : Profile Likelihood ---
+\includegraphics[width=0.74\textwidth]{figures/02_fig_likelihood.pdf}
+\caption{Frequentist profile likelihood for $H_0$ within the $\Psi$TMG framework. The blue curve represents the $\Delta\chi^2$ evolution, showing a decisive exclusion of the standard $\Lambda$CDM value (Planck18, gray dashed line) at more than $5\sigma$ confidence level. The inset provides a detailed view of the $\Psi$TMG minimum region, with horizontal dashed lines indicating the $1\sigma$, $2\sigma$, and $3\sigma$ confidence thresholds for precise parameter estimation.}
 \label{fig:profile_h0}
-\vspace*{\fill}
+\vspace{0.20cm}
+% --- Bloc B : Synthese des Tensions (Whisker Plot) ---
+\includegraphics[width=0.74\textwidth]{figures/03_fig_tensions_summary.pdf}
+\caption{Comprehensive tension synthesis for $H_0$ and $S_8$. The dual-panel plot highlights the $\Psi$TMG model's ability to simultaneously reconcile local and weak-lensing measurements with CMB constraints, supported by an evidence of $\Delta \ln \mathcal{Z} = +40.3$. Numerical values correspond to the $68\%$ confidence levels summarized in Table I.}
+\label{fig:tensions_summary}
 \end{figure*}
-
 \end{document}

@@ -18,7 +18,7 @@ import tomllib, pathlib, re, sys
 ver = sys.argv[1]
 pp = pathlib.Path("pyproject.toml").read_text("utf-8")
 pver = tomllib.loads(pp).get("project",{}).get("version")
-init_p = pathlib.Path("mcgt/__init__.py")
+init_p = pathlib.Path("src/mcgt/__init__.py")
 iver = "?"
 if init_p.exists():
     m = re.search(r'__version__\s*=\s*"([^"]+)"', init_p.read_text("utf-8"))
@@ -35,7 +35,7 @@ if [[ "$PVER" != "$VER" ]] || [[ "$IVER" != "$VER" ]]; then
   echo "❌ Versions désalignées (pyproject=${PVER}, __init__=${IVER}, cible=${VER})."
   echo "   Corrige d'abord:"
   echo "     sed -i -E 's/(^version\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/' pyproject.toml"
-  echo "     sed -i -E 's/^(__version__\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/' mcgt/__init__.py"
+  echo "     sed -i -E 's/^(__version__\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/' src/mcgt/__init__.py"
   exit 1
 fi
 

@@ -1,2 +1,0 @@
-.diag_last_failed.json
-.last_run_id

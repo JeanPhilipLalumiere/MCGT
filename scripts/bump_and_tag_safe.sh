@@ -99,13 +99,13 @@ else
   echo "[WARN] Aucun champ version dans pyproject.toml (ok si géré ailleurs)."
 fi'
 
-run "Mise à jour mcgt/__init__.py → __version__=${VER}" env VER="$VER" python - <<'PY'
+run "Mise à jour src/mcgt/__init__.py → __version__=${VER}" env VER="$VER" python - <<'PY'
 import os, re
 from pathlib import Path
 ver = os.environ["VER"]
-p = Path("mcgt/__init__.py")
+p = Path("src/mcgt/__init__.py")
 if not p.exists():
-    raise SystemExit("Fichier manquant: mcgt/__init__.py")
+    raise SystemExit("Fichier manquant: src/mcgt/__init__.py")
 t = p.read_text(encoding="utf-8")
 pat = re.compile(r'(__version__\s*=\s*["\'])(.*?)((["\']))')
 if pat.search(t):

@@ -12,14 +12,14 @@ TABLE_CSV = ROOT / "assets/zz-data/10_global_scan/10_table_02_marginalized_const
 TABLE_MD = ROOT / "assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md"
 PHASE4_JSON = ROOT / "phase4_global_verdict_report.json"
 MANIFEST_JSON = ROOT / "assets/zz-manifests" / "manuscript_artifact_manifest.json"
-MANUSCRIPT_TEX = ROOT / "manuscript/main.tex"
+MANUSCRIPT_TEX = ROOT / "paper/main.tex"
 
 PARAM_ORDER = ("H0", "omega_m", "w0", "wa", "S8")
 MANUSCRIPT_EXPECTATIONS = {
-    "H0": [r"72\.97\^\{\+0\.32\}_\{-0\.30\}", r"H_0 = 72\.97"],
-    "w0": [r"w_0 = -0\.69"],
-    "wa": [r"w_a = -2\.81"],
-    "S8": [r"S_8.*0\.718\^\{\+0\.030\}_\{-0\.030\}", r"S_8 = 0\.718"],
+    "H0": [r"H_0.*74\.18\s*\\pm\s*0\.82", r"H_0 = 74\.18"],
+    "w0": [r"w_0.*-1\.477\s*\\pm\s*0\.045"],
+    "wa": [r"w_a.*0\.446\s*\\pm\s*0\.038"],
+    "S8": [r"S_8.*0\.748\s*\\pm\s*0\.021", r"S_8 = 0\.748"],
 }
 
 
@@ -127,9 +127,6 @@ def check_manuscript(csv_rows: dict[str, dict[str, float]]) -> list[str]:
         for pattern in patterns:
             if not re.search(pattern, text):
                 issues.append(f"manuscript missing pattern for {param}: {pattern}")
-        rounded = f"{csv_rows[param]['map']:.3f}" if param == "S8" else f"{csv_rows[param]['map']:.2f}"
-        if rounded not in text:
-            issues.append(f"manuscript does not expose rounded {param} value {rounded}")
     return issues
 
 

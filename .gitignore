@@ -1,57 +1,31 @@
-cd "$(git rev-parse --show-toplevel)"
+# MCGT - clean ignore rules
 
-cat > .gitignore <<'EOF'
-# MCGT - .gitignore
-# Règles focalisées sur les artefacts générés / locaux (éviter d’attraper du contenu versionné).
-
-# -------------------------------------------------------------------
-# Python / environnements / caches
-# -------------------------------------------------------------------
+# Python env/caches
 .venv/
 .venv*/
 venv/
 venv*/
+env/
+env_ptmg/
+.repro-venv/
+.repro-mplconfig/
+.repro-tmp/
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
+*.pyd
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
 
-# -------------------------------------------------------------------
-# Build / packaging (générés)
-# -------------------------------------------------------------------
+# Build/packaging
 build/
 dist/
 *.egg-info/
 *.dist-info/
 
-# -------------------------------------------------------------------
-# Artefacts générés par le projet (locaux)
-# -------------------------------------------------------------------
-_tmp/
-_tmp-figs/
-_logs/
-_snapshots/
-_archives_preclean/
-_attic_untracked/
-_autofix_sandbox/
-
-# Sorties CI / diag
-.ci-out/
-.ci-logs/
-.ci-archive/
-
-# Sorties de runs (gros artefacts)
-zz-out/
-zz-logs/
-
-# Backups locaux
-backups/
-
-# -------------------------------------------------------------------
-# Fichiers temporaires / éditeurs / OS
-# -------------------------------------------------------------------
+# Temp/editor/OS
 *.log
 *.stderr
 *.stdout
@@ -70,75 +44,58 @@ backups/
 *~
 .DS_Store
 
-# -------------------------------------------------------------------
-# LaTeX (artefacts de compilation)
-# -------------------------------------------------------------------
+# LaTeX artifacts
 *.aux
 *.bbl
 *.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
 *.toc
 
-# -------------------------------------------------------------------
-# GitHub workflows: fichiers temporaires / backups seulement
-# -------------------------------------------------------------------
+# Local CI/diagnostics outputs
+.ci-out/
+zz-out/
+zz-logs/
+_tmp/
+_tmp-figs/
+_logs/
+_snapshots/
+_archives_preclean/
+_attic_untracked/
+_autofix_sandbox/
+attic/
+tools/_attic_untracked/
+assets/zz-manifests/_attic_untracked/
+assets/zz-manifests/_backups/
+
+# Local release/cache debris
+ARCHIVE_*/
+release_*.tar.gz
+release_zenodo_codeonly*/
+release_zenodo_codeonly_v*/
+legacy-tex/
+MCGT_v2.5.4_Complete.zip
+cold_run_success_v4.0.0.log
+PSITMG_V3.3.1_GOLD_FULL_BUILD.tar.gz
+ARCHIVE_PSITMG_V3.3.1_GOLD/
+
+# Workflow local disables/backups
 .github/workflows/*.tmp
 .github/workflows/*.bak*
 .github/workflows/*.before_*
 .github/workflows/*.disabled
 
-# -------------------------------------------------------------------
-# Sidecars / verrous générés (non versionnés)
-# -------------------------------------------------------------------
-*.sha256sum
-*.lock.json
+# Heavy local run outputs
+*.h5
+results/v3.2.1_TIDE/
 
-# Exceptions: on versionne ces sha256 malgré "*.sha256sum"
+# Keep intended tracked files
 !assets/zz-manifests/manifest_publication.sha256sum
 !assets/zz-manifests/manifest_data.sha256sum
 !assets/zz-manifests/manifest_figures.sha256sum
 !assets/zz-manifests/manifest_master.json.sha256sum
-
-# -------------------------------------------------------------------
-# Legacy / archives locales (si gardées localement)
-# -------------------------------------------------------------------
-legacy-tex/
-release_zenodo_codeonly*/
-release_zenodo_codeonly_v*/
-release_*.tar.gz
-
-# -------------------------------------------------------------------
-# Housekeeping / manifest refresh (locaux)
-# -------------------------------------------------------------------
-attic/
-assets/zz-manifests/_backups/
-
-# -------------------------------------------------------------------
-# Leaks locaux (ne pas versionner)
-# -------------------------------------------------------------------
-assets/zz-figures/**/_attic_root_leaks/
-
-# -------------------------------------------------------------------
-# Trackés volontairement (ne doivent pas être "ignorés")
-# -------------------------------------------------------------------
 !assets/zz-manifests/figures_index.csv
 !assets/zz-manifests/figures_per_chapter.md
-
-# MCMC raw chains
-*.h5
-results/v3.2.1_TIDE/
-
-# Keep publication-ready corner plots trackable
 !output/*.pdf
 !output/*.png
-EOF
-MCGT_v2.5.4_Complete.zip
-env_ptmg/
-.repro-venv/
-.repro-mplconfig/
-.repro-tmp/
-cold_run_success_v4.0.0.log
-ARCHIVE_PSITMG_V3.3.1_GOLD/
-PSITMG_V3.3.1_GOLD_FULL_BUILD.tar.gz
-RELEASE_ASSETS/
-
-ARCHIVE_*/

@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET_DIRS = (ROOT / "scripts", ROOT / "mcgt")
+TARGET_DIRS = (ROOT / "scripts", ROOT / "src" / "mcgt")
 TARGET_SUFFIXES = {".py", ".sh", ".bat"}
 FORBIDDEN_PATTERNS = {
     "legacy data path": re.compile(r"assets/zz-data/chapter\d{2}"),

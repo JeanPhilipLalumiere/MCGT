@@ -1,0 +1,19 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+mainNotes.bib
+
+# Local build capture
+build_output.log
+
+# Figure generation intermediates (keep publication-ready PDFs)
+figures/*.png
+figures/*_scan.csv
+figures/*_summary.json

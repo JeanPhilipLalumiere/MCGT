@@ -32,7 +32,7 @@ classifiers = [
 license = "MIT"
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = [".", "src"]
 include = ["mcgt*", "tools*"]
 
 [project.urls]
@@ -59,7 +59,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-pythonpath = ["."]
+pythonpath = [".", "src"]
 markers = [
   "slow: tests coûteux (désactivables via -m \"not slow\")",
   "schema: tests de validation de schémas",

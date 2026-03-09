@@ -183,7 +183,7 @@ python scripts/10_global_scan/plot\_fig07\_synthesis.py            --out assets/
    convention.md docs/reproducibility/README-REPRO.md RUNBOOK.md
 9. ARBORESCENCE MINIMALE ATTENDUE
    MCGT/
-   ├─ manuscript/main.tex
+   ├─ paper/main.tex
    ├─ convention.md
    ├─ docs/reproducibility/README-REPRO.md
    ├─ RUNBOOK.md

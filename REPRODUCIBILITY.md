@@ -30,7 +30,7 @@ The script exports these environment variables during the cold run:
 - `PYTHONUNBUFFERED=1`
 - `MPLCONFIGDIR=.repro-mplconfig`
 - `XDG_CACHE_HOME=.repro-mplconfig`
-- `PYTHONPATH=<project root>`
+- `PYTHONPATH=<project root>/src:<project root>`
 
 `MCGT_USE_TEX=0` is intentional. It keeps the cold run focused on code and path reproducibility rather than on local TeX availability.
 
@@ -59,7 +59,7 @@ The validator cross-checks:
 - [10_table_02_marginalized_constraints.csv](assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.csv)
 - [10_table_02_marginalized_constraints.md](assets/zz-data/10_global_scan/10_table_02_marginalized_constraints.md)
 - [phase4_global_verdict_report.json](phase4_global_verdict_report.json)
-- [main.tex](manuscript/main.tex)
+- [main.tex](paper/main.tex)
 
 This is intended to catch transcription drift between the numerical outputs, the manuscript tables, and the reported Phase 4 summary values.
 

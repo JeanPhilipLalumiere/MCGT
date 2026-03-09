@@ -16,7 +16,7 @@ command -v jq >/dev/null || { echo "jq manquant"; exit 2; }
 # 1) Bump version (pyproject + __init__)
 echo "==> Bump version"
 sed -i -E "s/(^version\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/" pyproject.toml || true
-sed -i -E "s/^(__version__\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/" mcgt/__init__.py
+sed -i -E "s/^(__version__\\s*=\\s*\")[0-9]+\\.[0-9]+\\.[0-9]+(\")/\\1${VER}\\2/" src/mcgt/__init__.py
 
 # 2) Build local rapide (sanity)
 echo "==> Build local (sanity)"
@@ -26,7 +26,7 @@ python -m build
 
 # 3) Commit + push
 echo "==> Commit + push"
-git add pyproject.toml mcgt/__init__.py
+git add pyproject.toml src/mcgt/__init__.py
 git commit -m "build: bump to ${VER} (match tag)" || true
 git push || true
 
@@ -79,7 +79,7 @@ VER="${VER}" ./phase4_validate.sh
 - Procédure release automatisée (`scripts/release.sh`).
 
 ## Prévention
-- Toujours bumper **pyproject** + **mcgt/__init__.py** ensemble.
+- Toujours bumper **pyproject** + **src/mcgt/__init__.py** ensemble.
 - Commit puis tag sur **ce même commit**.
 - Linter YAML en pré-commit.
 MD

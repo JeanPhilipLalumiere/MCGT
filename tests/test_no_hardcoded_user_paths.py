@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET_DIRS = (ROOT / "scripts", ROOT / "mcgt", ROOT / "tools")
+TARGET_DIRS = (ROOT / "scripts", ROOT / "src" / "mcgt", ROOT / "tools")
 TARGET_FILES = (ROOT / "README.md", ROOT / "REPRODUCIBILITY.md")
 TARGET_DOCS = tuple(ROOT.glob("docs/CH*_PIPELINE*.md"))
 TARGET_SUFFIXES = {".py", ".sh", ".bat", ".md"}

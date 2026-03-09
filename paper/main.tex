@@ -31,7 +31,7 @@ For over two decades, the $\Lambda$ Cold Dark Matter ($\Lambda$CDM) paradigm has
 
 The most prominent fracture is the "Hubble tension," a statistically significant discrepancy ($\sim 5\sigma$) between the expansion rate $H_0$ inferred from the early universe via the CMB assuming $\Lambda$CDM ($H_0 = 67.4 \pm 0.5 \text{ km s}^{-1} \text{Mpc}^{-1}$), and direct local measurements utilizing Cepheid-calibrated Type Ia Supernovae ($H_0 = 73.04 \pm 1.04 \text{ km s}^{-1} \text{Mpc}^{-1}$) \cite{Riess2022,Verde2019Tensions,Knox2020HubbleHunter}. Concurrently, a second anomaly has emerged: the $S_8$ tension. Weak lensing surveys such as the Dark Energy Survey (DES) and the Kilo-Degree Survey (KiDS) systematically observe a "smoother" universe, yielding a lower amplitude of matter clustering ($S_8 \approx 0.77$) than predicted by Planck CMB data ($S_8 = 0.834 \pm 0.016$) under $\Lambda$CDM.
 
-Attempts to resolve these anomalies often operate exclusively in either the early or late universe. However, these solutions typically suffer from persistent degeneracies: resolving the $H_0$ tension often exacerbates the $S_8$ discrepancy by driving up structure growth, while frequently failing strict Bayesian model comparison criteria against the baseline $\Lambda$CDM.
+Attempts to substantially alleviate these anomalies often operate exclusively in either the early or late universe. However, these solutions typically suffer from persistent degeneracies: substantially alleviating the $H_0$ tension often exacerbates the $S_8$ discrepancy by driving up structure growth, while frequently failing strict Bayesian model comparison criteria against the baseline $\Lambda$CDM.
 
 Representative early-time extensions, including Early Dark Energy (EDE), can reduce the inferred discrepancy in $H_0$ but commonly introduce residual tensions across combined probes \cite{Poulin2019EDE}.
 
@@ -82,8 +82,9 @@ where the prime ($'$) denotes $d/d\ln a$ \cite{Liddle2000Inflation}.
 In our framework, the transition to a phantom equation of state ($w < -1$) at late times significantly increases the Hubble expansion rate $E(a)$ and therefore boosts the effective friction term, $2 + d \ln E / d \ln a$, which tends to ``freeze'' the growth of sub-horizon structures. Unlike standard quintessence constructions, this extra damping is purely geometric: it is induced by the temporal deformation of the metric itself rather than by a new dynamical scalar-field sector. In particular, the low-energy effective temporal modification does not introduce additional propagating scalar modes; the absence of such degrees of freedom directly suppresses the usual ghost and Laplacian-instability channels that often challenge scalar-field dark-energy models. The mechanism therefore provides a stable effective route to reducing late-time clustering and lowering the predicted $S_8$ relative to $\Lambda$CDM.
 We emphasize that the absence of propagating scalar modes---and their associated ghost or Laplacian instabilities---is established here at the level of effective background and linear perturbations. A complete proof requires the derivation of the full fundamental action.
 
-\vfill\null
-\newpage
+\subsection*{Theoretical Robustness and Effective Dynamics}
+
+It is crucial to emphasize that $\Psi$TMG is currently formulated as an Effective Field Theory (EFT) at cosmological scales. The apparent crossing of the phantom divide ($w < -1$) observed in the effective equation of state is a direct macroscopic consequence of the scale-dependent geometric friction, rather than the introduction of a fundamental scalar field with negative kinetic energy. Consequently, the framework inherently avoids the theoretical instabilities and ghost degrees of freedom typically associated with phantom dark energy models, at least at the background and linear perturbation levels. A complete proof of stability at the fundamental action level remains an objective for future theoretical development. Furthermore, while the background dynamics exhibit similarities to the CPL parametrization ($w_0, w_a$), these parameters are not arbitrary phenomenological fits; they emerge dynamically from the underlying modification of the temporal metric.
 
 \section{Observational Datasets and Numerical Methodology}
 \nopagebreak
@@ -198,12 +199,48 @@ The model is directly falsifiable through late-time observables. First, it predi
 \paragraph*{\textbf{Limitations and Scope.---}}
 At present, $\Psi$TMG is formulated as an effective phenomenological description of late-time dynamics. A central next step is to derive the temporal metric deformation from a fundamental action, for example within scalar-tensor modified gravity or a generalized geometric framework such as Finsler-like constructions, and to verify stability and renormalization properties at the action level.
 
+While this work demonstrates a decisive statistical preference for the $\Psi$TMG framework, we acknowledge specific methodological limits that define the roadmap for future research. First, the present analysis incorporates Cosmic Microwave Background constraints via the compressed shift parameter, which accurately captures the global geometry and the position of the first acoustic peak. A complete evaluation utilizing the full TT/TE/EE likelihood spectra, requiring direct integration of the geometric friction mechanism into standard Boltzmann solvers (e.g., CLASS or CAMB), is reserved for subsequent analysis. Second, while the linear perturbation regime strongly suggests a natural resolution to the $S_8$ tension, fully assessing the impact of this geometric coupling deep within the nonlinear regime will necessitate comprehensive $N$-body simulations.
+
 In conclusion, our results suggest that a geometric late-time deformation can jointly alleviate both tensions while preserving early-universe consistency. What remains to be established is a first-principles Lagrangian origin for the effective metric sector and its full perturbative completion. Although $\Psi$TMG provides a compelling statistical preference over the current baseline, the final verdict will rely on forthcoming weak-lensing datasets (Euclid, Rubin) and on deriving a fundamental Lagrangian formulation for this geometric formalism.
 
 \vspace{-0.12cm}
 \begin{acknowledgments}
 The author thanks the computational support and rigorous testing provided by the MCGT experimental framework and Beauharnois-based clusters.
 \end{acknowledgments}
+
+\appendix
+\section{Nested Sampling Methodology and Prior Robustness}
+\label{app:nested_sampling}
+
+To rigorously quantify the statistical preference for the $\Psi$TMG framework over the standard $\Lambda$CDM baseline, we compute the Bayesian Evidence ($\mathcal{Z}$) using dynamic nested sampling. We employ the \texttt{dynesty} package \cite{Speagle2020Dynesty}, which is specifically optimized for estimating both posterior distributions and Bayesian evidence in high-dimensional parameter spaces.
+
+\subsection{Sampler Configuration}
+The sampling was configured with a multi-ellipsoid bounding strategy and a random walk sampling method. To ensure high accuracy in the evidence integral, we utilized 1000 initial live points and set a stringent convergence criterion of $\Delta \ln \mathcal{Z} < 0.01$. This rigorous configuration guarantees that the sampling effectively maps the posterior tails and avoids premature convergence. The numerical stability of the estimated evidence ($\ln \mathcal{Z}$) was verified, with statistical sampling uncertainties remaining well below the threshold of physical significance ($\delta \ln \mathcal{Z} \approx 0.1$).
+
+\subsection{Prior Distributions and Robustness}
+Bayesian evidence is intrinsically sensitive to the choice of prior volumes (the Occam's razor penalty). To prevent artificial inflation of the Bayes factor, we adopted wide, uninformative uniform priors ($\mathcal{U}$) for all primary cosmological and effective geometric parameters. The prior ranges are detailed in Table~\ref{tab:priors}.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Uniform prior ranges for the baseline and $\Psi$TMG parameters. These represent the primary cosmological and geometric free parameters driving the evidence scan; standard instrumental and nuisance parameters are marginalized over implicitly according to their respective dataset likelihoods.}
+\label{tab:priors}
+\begin{tabular}{lcc}
+\hline\hline
+Parameter & Symbol & Prior Range ($\mathcal{U}$) \\
+\hline
+Hubble Constant & $H_0$ & $[50, 90]$ \\
+Matter Density & $\Omega_m$ & $[0.1, 0.6]$ \\
+Supernova Calibration & $M_B$ & $[-19.6, -19.1]$ \\
+Effective EoS Today & $w_0$ & $[-2.5, -0.5]$ \\
+EoS Evolution & $w_a$ & $[-1.5, 1.5]$ \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+By employing these expansive prior bounds, we ensure that the reported decisive evidence ($\Delta \ln \mathcal{Z} = +40.3$) is driven purely by the framework's superior phenomenological alignment with the joint dataset (Pantheon+, BAO, CMB, RSD), rather than by artificially restricted or fine-tuned prior volumes.
+
 \bibliographystyle{apsrev4-2}
 \bibliography{references}
 

@@ -1,4 +1,4 @@
-FROM ghcr.io/xu-cheng/texlive-full:2023
+FROM texlive/texlive:latest
 
 WORKDIR /work
 

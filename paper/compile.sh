@@ -4,8 +4,8 @@ set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "$SCRIPT_DIR"
 
-# Pinned image for reproducibility.
-DEFAULT_IMAGE="ghcr.io/xu-cheng/texlive-full:2023"
+# Default image for containerized revtex4-2 builds.
+DEFAULT_IMAGE="texlive/texlive:latest"
 IMAGE="${LATEX_IMAGE:-$DEFAULT_IMAGE}"
 LOCAL_IMAGE_TAG="psitmg-latex:local"
 
@@ -21,7 +21,7 @@ Options:
   -h, --help       Show this help.
 
 Environment variables:
-  LATEX_IMAGE      Override remote pinned image (default: ghcr.io/xu-cheng/texlive-full:2023).
+  LATEX_IMAGE      Override remote image (default: texlive/texlive:latest).
 USAGE
 }
 
@@ -86,6 +86,15 @@ clean_aux() {
     -delete
 }
 
+ensure_pdf_writable() {
+  local pdf_path="$SCRIPT_DIR/main.pdf"
+  if [[ -e "$pdf_path" && ! -w "$pdf_path" ]]; then
+    echo "Error: $pdf_path exists but is not writable by $(id -un)." >&2
+    echo "Fix ownership/permissions or remove the file before recompiling." >&2
+    return 1
+  fi
+}
+
 detect_engine() {
   if [[ -n "$ENGINE" ]]; then
     echo "$ENGINE"
@@ -112,6 +121,8 @@ engine_usable() {
 
 compile_with_local_tools() {
   echo "[local] Trying local TeX toolchain..."
+
+  ensure_pdf_writable || return 1
 
   if command -v latexmk >/dev/null 2>&1 && command -v pdflatex >/dev/null 2>&1 && command -v bibtex >/dev/null 2>&1; then
     echo "[local] Using latexmk + pdflatex/bibtex"
@@ -145,15 +156,23 @@ compile_in_container() {
   local eng="$1"
   local image_ref="$IMAGE"
 
+  ensure_pdf_writable || return 1
+
   if [[ "$USE_LOCAL_IMAGE" -eq 1 ]]; then
     echo "[1/4] Building local LaTeX image via $eng..."
-    "$eng" build -f Dockerfile.latex -t "$LOCAL_IMAGE_TAG" .
+    if ! "$eng" build -f Dockerfile.latex -t "$LOCAL_IMAGE_TAG" .; then
+      echo "Error: failed to build local LaTeX image $LOCAL_IMAGE_TAG." >&2
+      return 1
+    fi
     image_ref="$LOCAL_IMAGE_TAG"
   else
     if ! "$eng" image inspect "$image_ref" >/dev/null 2>&1; then
       if [[ "$ALLOW_PULL" -eq 1 ]]; then
         echo "[1/4] Pulling pinned image $image_ref via $eng..."
-        "$eng" pull "$image_ref"
+        if ! "$eng" pull "$image_ref"; then
+          echo "Error: failed to pull LaTeX image $image_ref." >&2
+          return 1
+        fi
       else
         echo "Error: image not found locally and --no-pull was set: $image_ref" >&2
         return 1
@@ -164,12 +183,15 @@ compile_in_container() {
   fi
 
   echo "[2/4] Compiling manuscript inside container ($eng)..."
-  "$eng" run --rm \
+  if ! "$eng" run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$SCRIPT_DIR":/work \
     -w /work \
     "$image_ref" \
-    bash -lc "latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex || (pdflatex -interaction=nonstopmode -halt-on-error main.tex && bibtex main && pdflatex -interaction=nonstopmode -halt-on-error main.tex && pdflatex -interaction=nonstopmode -halt-on-error main.tex)"
+    bash -lc "latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex || (pdflatex -interaction=nonstopmode -halt-on-error main.tex && bibtex main && pdflatex -interaction=nonstopmode -halt-on-error main.tex && pdflatex -interaction=nonstopmode -halt-on-error main.tex)"; then
+    echo "Error: containerized LaTeX compilation failed." >&2
+    return 1
+  fi
 
   echo "[3/4] Cleaning LaTeX auxiliary files..."
   clean_aux

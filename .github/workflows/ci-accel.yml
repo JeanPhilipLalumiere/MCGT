@@ -77,15 +77,20 @@ jobs:
 
       - name: Install Tectonic
         if: ${{ steps.tex.outputs.has_tex == '1' }}
+        continue-on-error: true
         run: |
           sudo apt-get update
-          sudo apt-get install -y tectonic
+          sudo apt-get install -y tectonic || true
 
       - name: Typeset paper/main.tex (best effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}
         continue-on-error: true
         run: |
-          tectonic --untrusted paper/main.tex
+          if command -v tectonic >/dev/null 2>&1; then
+            tectonic --untrusted paper/main.tex
+          else
+            echo "tectonic not available on runner, skipping PDF typeset."
+          fi
 
       - name: Collecte PDF (best-effort)
         if: ${{ steps.tex.outputs.has_tex == '1' }}

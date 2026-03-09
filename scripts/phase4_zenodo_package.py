@@ -176,6 +176,15 @@ def build_tarball() -> None:
         archive.add(PACKAGE_DIR, arcname=PACKAGE_DIR.name)
 
 
+def remove_path(path: Path) -> None:
+    # `shutil.rmtree` fails on symlinks; CI/local runs may leave a symlinked package dir.
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+        return
+    if path.is_dir():
+        shutil.rmtree(path)
+
+
 def main() -> None:
     missing = [str(path) for path in REQUIRED_FILES if not (ROOT / path).exists()]
     if missing:
@@ -183,8 +192,8 @@ def main() -> None:
             "Missing Phase 4 outputs required for the local Zenodo package: " + ", ".join(missing)
         )
 
-    if PACKAGE_DIR.exists():
-        shutil.rmtree(PACKAGE_DIR)
+    if PACKAGE_DIR.exists() or PACKAGE_DIR.is_symlink():
+        remove_path(PACKAGE_DIR)
     PACKAGE_FILES_DIR.mkdir(parents=True, exist_ok=True)
     report = load_phase4_report()
     inventory = [stage_file(rel_path) for rel_path in REQUIRED_FILES]

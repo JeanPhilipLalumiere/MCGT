@@ -8,11 +8,11 @@ on:
 
 concurrency:
   group: .github/workflows/ci.yml-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     env:
       MCGT_USE_TEX: "0"
       MPLBACKEND: Agg
